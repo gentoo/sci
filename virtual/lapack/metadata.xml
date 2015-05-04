@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription lang="en">
+<herd>sci</herd>
+<longdescription lang="en">
   Gentoo virtual package for the Linear Algebra PACKAge
   FORTRAN 77 implementation. The version number corresponds to the
   version of the LAPACK reference implementation.
 </longdescription>
-<use>
-  <flag name="int64">Add eselect module for lapack libraries built with 64 bits
-  integer ABI</flag>
-</use>
 </pkgmetadata>

@@ -1,15 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1 git-2
 
-DESCRIPTION="Core functionality for performing astrophysics with Python"
-HOMEPAGE="http://astropy.org/"
+DESCRIPTION="Python routines and common tools needed for performing astronomy and astrophysics"
+HOMEPAGE="http://astropy.org/ http://github.com/astropy/astropy"
 SRC_URI=""
 EGIT_REPO_URI="git://github.com/${PN}/${PN}.git"
 
@@ -18,52 +18,30 @@ SLOT="0"
 KEYWORDS=""
 IUSE="doc test"
 
-RDEPEND="
-	dev-libs/expat:0=
-	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-astronomy/erfa:0=
-	sci-astronomy/wcslib:0=
-	>=sci-libs/cfitsio-3.350:0=
-	sys-libs/zlib:0="
+RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
-	dev-python/astropy-helpers[${PYTHON_USEDEP}]
-	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	virtual/pkgconfig
+	sys-devel/flex
 	doc? (
-		dev-python/matplotlib[${PYTHON_USEDEP}]
 		dev-python/sphinx[${PYTHON_USEDEP}]
 		media-gfx/graphviz
 	)
-	test? (
-		dev-libs/libxml2
-		dev-python/h5py[${PYTHON_USEDEP}]
-		dev-python/matplotlib[${PYTHON_USEDEP}]
-		dev-python/pytest[${PYTHON_USEDEP}]
-		sci-libs/scipy[${PYTHON_USEDEP}]
-	)"
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
 
 python_prepare_all() {
+	sed \
+		-e '/use_system_pytest/ s/False/True/' \
+		-i astropy/tests/helper.py || die
 	distutils-r1_python_prepare_all
-	sed -e '/import ah_bootstrap/d' -i setup.py || die "Removing ah_bootstrap failed"
-}
-
-python_compile() {
-	distutils-r1_python_compile --use-system-libraries
 }
 
 python_compile_all() {
-	if use doc; then
-		python_export_best
-		VARTEXFONTS="${T}"/fonts \
-			MPLCONFIGDIR="${BUILD_DIR}" \
-			PYTHONPATH="${BUILD_DIR}"/lib \
-			esetup.py build_sphinx
+	if use doc ; then
+		pushd docs &> /dev/null
+		PYTHONPATH="$(ls -d ${BUILD_DIR}/lib.*)" \
+			sphinx-build -b html -d _build/doctrees   . _build/html || die
+		popd &> /dev/null
 	fi
-}
-
-python_test() {
-	esetup.py test
 }
 
 python_install_all() {

@@ -1,155 +1,131 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.18-r1.ebuild,v 1.3 2014/03/27 18:51:54 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.02-r1.ebuild,v 1.3 2012/05/04 07:55:34 jdhore Exp $
 
-EAPI=5
+EAPI=4
+
+PYTHON_DEPEND="python? 2"
 
 if [[ ${PV} == "9999" ]] ; then
-	inherit git-r3
-	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
+	_SVN=subversion
+	ESVN_REPO_URI="http://root.cern.ch/svn/root/trunk"
+	SRC_URI=""
 	KEYWORDS=""
 else
 	SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-	S="${WORKDIR}/${PN}"
 fi
 
-PYTHON_COMPAT=( python2_{6,7} )
+inherit elisp-common eutils fdo-mime fortran-2 multilib python ${_SVN} toolchain-funcs user versionator
 
-inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 \
-	toolchain-funcs user versionator
+ROOFIT_DOC_PV=2.91-33
+TMVA_DOC_PV=4.03
+PATCH_PV=5.28.00b
+PATCH_PV2=5.32.00
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
-DOC_URI="ftp://root.cern.ch/${PN}/doc"
+SRC_URI="${SRC_URI}
+	doc? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuide.pdf
+		math? (
+			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
+			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )
+		htmldoc? (
+			http://root.cern.ch/drupal/sites/default/files/rootdrawing-logo.png
+			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/root-banner.png
+			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/info.png ) )"
 
-SLOT="0/$(get_version_component_range 1-3 ${PV})"
-LICENSE="LGPL-2.1 freedist MSttfEULA LGPL-3 libpng UoI-NCSA"
-IUSE="+X afs avahi doc emacs examples fits fftw geocad graphviz
-	http kerberos ldap +math minimal mpi mysql odbc +opengl openmp
-	oracle postgres	prefix pythia6 pythia8 python qt4 sqlite ssl
-	xinetd xml xrootd"
-
-# TODO: add support for: davix
-# TODO: ROOT-6 supports x32 ABI, but half of its dependencies doesn't
-# TODO: unbundle: cling, vdt
-
-REQUIRED_USE="
-	mpi? ( math !openmp )
-	opengl? ( X )
-	openmp? ( math !mpi )
-	python? ( ${PYTHON_REQUIRED_USE} )
-	qt4? ( X )
-"
+SLOT="0"
+LICENSE="LGPL-2.1"
+IUSE="+X afs avahi -c++0x doc emacs examples fits fftw geocad graphviz htmldoc
+	kerberos ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
+	pythia6 pythia8 python qt4 +reflex ruby ssl xinetd xml xrootd"
 
 CDEPEND="
-	app-arch/xz-utils:0=
+	app-arch/xz-utils
 	>=dev-lang/cfortran-4.4-r2
-	dev-libs/libpcre:3=
+	dev-libs/libpcre
 	media-fonts/dejavu
-	media-libs/freetype:2=
-	media-libs/giflib:0=
-	media-libs/libpng:0=
-	media-libs/tiff:0=
-	>=sys-devel/clang-3.4
-	sys-libs/zlib:0=
-	virtual/jpeg:0
+	media-libs/freetype
+	media-libs/giflib
+	media-libs/libpng:0
+	media-libs/tiff:0
+	sys-libs/zlib
+	virtual/jpeg
 	virtual/shadow
 	X? (
-		media-libs/ftgl:0=
-		media-libs/glew:0=
-		x11-libs/libX11:0=
-		x11-libs/libXext:0=
-		x11-libs/libXpm:0=
-		!minimal? (
-			opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps:0= )
-			qt4? (
-				dev-qt/qtgui:4=
-				dev-qt/qtopengl:4=
-				dev-qt/qt3support:4=
-				dev-qt/qtsvg:4=
-				dev-qt/qtwebkit:4=
-				dev-qt/qtxmlpatterns:4=
-			)
-			x11-libs/libXft:0=
+		media-libs/ftgl
+		media-libs/glew
+		x11-libs/libX11
+		x11-libs/libXext
+		x11-libs/libXpm
+		|| (
+			>=media-libs/libafterimage-1.20[gif,jpeg,png,tiff]
+			>=x11-wm/afterstep-2.2.11[gif,jpeg,png,tiff]
 		)
-	)
-	!minimal? (
-		afs? ( net-fs/openafs )
-		avahi? ( net-dns/avahi:0= )
-		emacs? ( virtual/emacs )
-		fits? ( sci-libs/cfitsio:0= )
-		fftw? ( sci-libs/fftw:3.0= )
-		geocad? ( sci-libs/opencascade:= )
-		graphviz? ( media-gfx/graphviz:0= )
-		http? ( dev-libs/fcgi:0= )
-		kerberos? ( virtual/krb5 )
-		ldap? ( net-nds/openldap:0= )
-		math? (
-			sci-libs/gsl:0=
-			sci-mathematics/unuran:0=
-			mpi? ( virtual/mpi )
+		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
+		qt4? (
+			dev-qt/qtgui:4
+			dev-qt/qtopengl:4
+			dev-qt/qt3support:4
+			dev-qt/qtsvg:4
+			dev-qt/qtwebkit:4
+			dev-qt/qtxmlpatterns:4 )
+		x11-libs/libXft
 		)
-		mysql? ( virtual/mysql )
-		odbc? ( || ( dev-db/libiodbc:0= dev-db/unixODBC:0= ) )
-		oracle? ( dev-db/oracle-instantclient-basic:0= )
-		postgres? ( dev-db/postgresql:= )
-		pythia6? ( sci-physics/pythia:6= )
-		pythia8? ( >=sci-physics/pythia-8.1.80:8= )
-		python? ( ${PYTHON_DEPS} )
-		sqlite? ( dev-db/sqlite:3= )
-		ssl? ( dev-libs/openssl:0= )
-		xml? ( dev-libs/libxml2:2= )
-		xrootd? ( >=net-libs/xrootd-3.3.5:0= )
-	)"
-
-# TODO: ruby is not yet ported to ROOT-6, reenable when (if?) ready
-#		ruby? (
-#			dev-lang/ruby
-#			dev-ruby/rubygems
-#		)
-#
-# TODO: root-6.00.01 crashes with system libafterimage
-#			|| (
-#				media-libs/libafterimage:0=[gif,jpeg,png,tiff]
-#				>=x11-wm/afterstep-2.2.11:0=[gif,jpeg,png,tiff]
-#			)
-#			--disable-builtin-afterimage
+	afs? ( net-fs/openafs )
+	avahi? ( net-dns/avahi )
+	emacs? ( virtual/emacs )
+	fits? ( sci-libs/cfitsio )
+	fftw? ( sci-libs/fftw:3.0 )
+	geocad? ( sci-libs/opencascade )
+	graphviz? ( media-gfx/graphviz )
+	kerberos? ( virtual/krb5 )
+	ldap? ( net-nds/openldap )
+	llvm? ( =sys-devel/clang-9999 =sys-devel/llvm-9999 )
+	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
+	mysql? ( virtual/mysql )
+	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
+	oracle? ( dev-db/oracle-instantclient-basic )
+	postgres? ( dev-db/postgresql-base )
+	pythia6? ( sci-physics/pythia:6 )
+	pythia8? ( sci-physics/pythia:8 )
+	ruby? (
+			dev-lang/ruby
+			dev-ruby/rubygems )
+	ssl? ( dev-libs/openssl )
+	xml? ( dev-libs/libxml2 )
+	xrootd? ( >=net-libs/xrootd-3.2.0 )"
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 
 RDEPEND="${CDEPEND}
+	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
-PDEPEND="doc? ( ~app-doc/root-docs-${PV}[http=,math=] )"
+PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
 
-# install stuff in ${P} and not ${PF} for easier tracking in root-docs
-DOC_DIR="/usr/share/doc/${P}"
+REQUIRED_USE="
+	!X? ( !opengl !qt4 )
+	mpi? ( math !openmp )
+	openmp? ( math !mpi )"
 
-die_compiler() {
-	die "Need one of the following C++11 capable compilers:"\
-		"    >=sys-devel/gcc[cxx]-4.8"\
-		"    >=sys-devel/clang-3.4"\
-		"    >=dev-lang/icc-13"
-}
+S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
-	use python && python-single-r1_pkg_setup
+	python_pkg_setup
 	echo
 	elog "There are extra options on packages not yet in Gentoo:"
-	elog "Afdsmgrd, AliEn, castor, Chirp, dCache, gfal, Globus, gLite,"
+	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
 	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
 	elog "For example, for SRP, you would set: "
-	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=${EROOT%/}/usr/$(get_libdir)\""
+	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=/usr/$(get_libdir)\""
 	echo
-
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
-
-	use minimal && return
 
 	if use math; then
 		if use openmp; then
@@ -163,64 +139,45 @@ pkg_setup() {
 			export USE_MPI=1 USE_PARALLEL_MINUIT2=1
 		fi
 	fi
-
-	# check for supported compilers
-	case $(tc-getCXX) in
-		*g++*)
-			if ! version_is_at_least "4.8" "$(gcc-version)"; then
-				eerror "You are using a g++ without C++11 capabilities"
-				die_compiler
-			fi
-		;;
-		*clang++*)
-			# >=clang-3.4 is already in DEPEND
-		;;
-		*icc*|*icpc*)
-			if ! version_is_at_least "13" "$(has_version dev-lang/icc)"; then
-				eerror "You are using an icc without C++11 capabilities"
-				die_compiler
-			fi
-		;;
-		*)
-			ewarn "You are using an unsupported compiler."
-			ewarn "Please report any issues upstream."
-		;;
-	esac
+	if use c++0x && [[ $(tc-getCXX) == *g++* ]] && \
+		! version_is_at_least "4.7" "$(gcc-version)"; then
+		eerror "You are using a g++ without C++0x capabilities"
+		die "Need an C++0x capable compiler"
+	fi
 }
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${PN}-5.28.00b-glibc212.patch \
-		"${FILESDIR}"/${PN}-5.32.00-afs.patch \
-		"${FILESDIR}"/${PN}-5.32.00-cfitsio.patch \
-		"${FILESDIR}"/${PN}-5.32.00-chklib64.patch \
-		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
-		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
-		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
-		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
-		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
-		"${FILESDIR}"/${PN}-6.00.01-geocad.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-prop-flags.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
+		"${FILESDIR}"/${PN}-9999-dotfont.patch \
+		"${FILESDIR}"/${PN}-9999-cling.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
-	#rm -r graf2d/asimage/src/libAfterImage || die
-	rm -r graf3d/ftgl/{inc,src} || die
-	rm -r graf2d/freetype/src || die
-	rm -r graf3d/glew/{inc,src} || die
-	rm -r core/pcre/src || die
-	rm -r math/unuran/src/unuran-*.tar.gz || die
-	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" -print0 | \
-		xargs -0 rm || die
-	rm -r core/lzma/src/*.tar.gz || die
+	rm -rf graf2d/asimage/src/libAfterImage || die
+	rm -rf graf3d/ftgl/{inc,src} || die
+	rm -rf graf2d/freetype/src || die
+	rm -rf graf3d/glew/{inc,src} || die
+	rm -rf core/pcre/src || die
+	rm -rf math/unuran/src/unuran-*.tar.gz || die
+	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" -print0 | xargs -0 rm -f || die
+	rm -rf core/lzma/src/*.tar.gz || die
 	rm graf3d/gl/{inc,src}/gl2ps.* || die
-	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' \
-		graf3d/gl/Module.mk || die
+	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk || die
 
 	# In Gentoo, libPythia6 is called libpythia6
+	# libungif is called libgif,
 	# iodbc is in /usr/include/iodbc
 	# pg_config.h is checked instead of libpq-fe.h
 	sed -i \
 		-e 's:libPythia6:libpythia6:g' \
+		-e 's:ungif:gif:g' \
 		-e 's:$ODBCINCDIR:$ODBCINCDIR /usr/include/iodbc:' \
 		-e 's:libpq-fe.h:pg_config.h:' \
 		configure || die "adjusting configure for Gentoo failed"
@@ -230,132 +187,123 @@ src_prepare() {
 		-e 's:/usr:${EPREFIX}/usr:g' \
 		configure || die "prefixify configure failed"
 
-	# CSS should use local images
-	sed -i -e 's,http://.*/images/,,' etc/html/ROOT.css || die "html sed failed"
+	# QTDIR only used for qt3 in gentoo, and configure looks for it.
+	unset QTDIR
+
+	# Make html docs self-consistent for offline work (based on Fedora spec)
+	if use htmldoc; then
+		epatch "${FILESDIR}"/${PN}-${PATCH_PV2}-htmldoc.patch
+		# make images local
+		sed 's!http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/!!' \
+			-i etc/html/ROOT.css || die "htmldoc sed failed"
+		sed 's!http://root.cern.ch/drupal/sites/all/themes/newsflash/images/!!' \
+			-i etc/html/ROOT.css || die "htmldoc sed failed"
+		sed 's!http://root.cern.ch/drupal/sites/default/files/!!' \
+			-i etc/html/header.html || die "htmldoc sed failed"
+
+		cp "${DISTDIR}"/{rootdrawing-logo.png,root-banner.png,info.png} etc/html ||
+			die "htmldoc preparation failed"
+	fi
 }
 
-# NB: ROOT uses bundled LLVM, because it is patched and API-incompatible with
-# system LLVM.
-# NB: As of 6.00.0.1 cmake is not ready as it can't fully replace configure,
-# e.g. for afs and geocad.
-
 src_configure() {
-	local -a myconf
-	# Some compilers need special care
-	case $(tc-getCXX) in
-		*clang++*)
-			myconf=(
-				--with-clang
-				--with-f77="$(tc-getFC)"
-			)
-		;;
-		*icc*|*icpc*)
-			# For icc we need to provide architecture manually
-			# and not to tamper with tc-get*
-			use x86 && myconf=( linuxicc )
-			use amd64 && myconf=( linuxx8664icc )
-		;;
-		*)	# gcc goes here too
-			myconf=(
-				--with-cc="$(tc-getCC)"
-				--with-cxx="$(tc-getCXX)"
-				--with-f77="$(tc-getFC)"
-				--with-ld="$(tc-getCXX)"
-			)
-		;;
-	esac
-
 	# the configure script is not the standard autotools
-	myconf+=(
-		--prefix="${EPREFIX}/usr"
-		--etcdir="${EPREFIX}/etc/root"
-		--libdir="${EPREFIX}/usr/$(get_libdir)/${PN}"
-		--docdir="${EPREFIX}${DOC_DIR}"
-		--tutdir="${EPREFIX}${DOC_DIR}/examples/tutorials"
-		--testdir="${EPREFIX}${DOC_DIR}/examples/tests"
-		--disable-werror
-		--nohowto
-	)
-
-	if use minimal; then
-		myconf+=( $(usex X --gminimal --minimal) )
-	else
-		myconf+=(
-			--with-afs-shared=yes
-			--with-sys-iconpath="${EPREFIX}/usr/share/pixmaps"
-			--disable-builtin-ftgl
-			--disable-builtin-freetype
-			--disable-builtin-glew
-			--disable-builtin-pcre
-			--disable-builtin-zlib
-			--disable-builtin-lzma
-			--enable-astiff
-			--enable-explicitlink
-			--enable-gdml
-			--enable-memstat
-			--enable-shadowpw
-			--enable-shared
-			--enable-soversion
-			--enable-table
-			--fail-on-missing
-			--cflags='${CFLAGS}'
-			--cxxflags='${CXXFLAGS}'
-			$(use_enable X x11)
-			$(use_enable X asimage)
-			$(use_enable X xft)
-			$(use_enable afs)
-			$(use_enable avahi bonjour)
-			$(use_enable fits fitsio)
-			$(use_enable fftw fftw3)
-			$(use_enable geocad)
-			$(use_enable graphviz gviz)
-			$(use_enable kerberos krb5)
-			$(use_enable ldap)
-			$(use_enable math genvector)
-			$(use_enable math gsl-shared)
-			$(use_enable math mathmore)
-			$(use_enable math minuit2)
-			$(use_enable math roofit)
-			$(use_enable math tmva)
-			$(use_enable math vc)
-			$(use_enable math vdt)
-			$(use_enable math unuran)
-			$(use_enable mysql)
-			$(usex mysql \
-				"--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
-			$(use_enable odbc)
-			$(use_enable opengl)
-			$(use_enable oracle)
-			$(use_enable postgres pgsql)
-			$(usex postgres \
-				"--with-pgsql-incdir=$(pg_config --includedir)" "")
-			$(use_enable prefix rpath)
-			$(use_enable pythia6)
-			$(use_enable pythia8)
-			$(use_enable python)
-			$(use_enable qt4 qt)
-			$(use_enable qt4 qtgsi)
-			$(use_enable sqlite)
-			$(use_enable ssl)
-			$(use_enable xml)
-			$(use_enable xrootd)
-			${EXTRA_ECONF}
-		)
-	fi
-
-	./configure ${myconf[@]} || die "configure failed"
+	./configure \
+		--prefix="${EPREFIX}"/usr \
+		--etcdir="${EPREFIX}"/etc/root \
+		--libdir="${EPREFIX}"/usr/$(get_libdir)/${PN} \
+		--docdir="${EPREFIX}"/usr/share/doc/${PF} \
+		--tutdir="${EPREFIX}"/usr/share/doc/${PF}/examples/tutorials \
+		--testdir="${EPREFIX}"/usr/share/doc/${PF}/examples/tests \
+		--with-cc=$(tc-getCC) \
+		--with-cxx=$(tc-getCXX) \
+		--with-f77=$(tc-getFC) \
+		--with-ld=$(tc-getCXX) \
+		--with-afs-shared=yes \
+		--with-llvm-config="${EPREFIX}"/usr/bin/llvm-config \
+		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
+		--disable-builtin-afterimage \
+		--disable-builtin-freetype \
+		--disable-builtin-ftgl \
+		--disable-builtin-glew \
+		--disable-builtin-pcre \
+		--disable-builtin-zlib \
+		--disable-builtin-lzma \
+		--enable-astiff \
+		--enable-explicitlink \
+		--enable-gdml \
+		--enable-memstat \
+		--enable-shadowpw \
+		--enable-shared	\
+		--enable-soversion \
+		--enable-table \
+		--fail-on-missing \
+		$(use_enable X x11) \
+		$(use_enable X asimage) \
+		$(use_enable X xft) \
+		$(use_enable afs) \
+		$(use_enable avahi bonjour) \
+		$(use_enable fits fitsio) \
+		$(use_enable fftw fftw3) \
+		$(use_enable graphviz gviz) \
+		$(use_enable kerberos krb5) \
+		$(use_enable ldap) \
+		$(use_enable llvm cling) \
+		$(use_enable math gsl-shared) \
+		$(use_enable math genvector) \
+		$(use_enable math mathmore) \
+		$(use_enable math minuit2) \
+		$(use_enable math roofit) \
+		$(use_enable math tmva) \
+		$(use_enable math unuran) \
+		$(use_enable mysql) \
+		$(use_enable odbc) \
+		$(use_enable opengl) \
+		$(use_enable postgres pgsql) \
+		$(use_enable prefix rpath) \
+		$(use_enable pythia6) \
+		$(use_enable pythia8) \
+		$(use_enable python) \
+		$(use_enable qt4 qt) \
+		$(use_enable qt4 qtgsi) \
+		$(use_enable reflex cintex) \
+		$(use_enable reflex) \
+		$(use_enable ruby) \
+		$(use_enable ssl) \
+		$(use_enable xml) \
+		$(use_enable xrootd) \
+		${EXTRA_ECONF} \
+		|| die "configure failed"
 }
 
 src_compile() {
-	emake \
-		OPT="${CXXFLAGS}" \
-		F77OPT="${FFLAGS}" \
-		ROOTSYS="${S}" \
-		LD_LIBRARY_PATH="${S}/lib"
-	use emacs && ! use minimal && elisp-compile build/misc/*.el
+	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}" ROOTSYS="${S}" LD_LIBRARY_PATH="${S}/lib"
+	if use emacs; then
+		elisp-compile build/misc/*.el || die "elisp-compile failed"
+	fi
+}
+
+doc_install() {
+	cd "${S}"
+	if use doc; then
+		einfo "Installing user's guides"
+		dodoc "${DISTDIR}"/ROOTUsersGuide.pdf
+		use math && dodoc \
+			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
+			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
+	fi
+
+	if use examples; then
+		# these should really be taken care of by the root make install
+		insinto /usr/share/doc/${PF}/examples/tutorials/tmva
+		doins -r tmva/test
+	else
+		rm -rf "${ED}"/usr/share/doc/${PF}/examples || die
+	fi
 }
 
 daemon_install() {
+	cd "${S}"
 	local daemons="rootd proofd"
 	dodir /var/spool/rootd
 	fowners rootd:rootd /var/spool/rootd
@@ -368,15 +316,16 @@ daemon_install() {
 	done
 	if use xinetd; then
 		insinto /etc/xinetd
-		doins "${S}"/etc/daemons/{rootd,proofd}.xinetd
+		doins etc/daemons/{rootd,proofd}.xinetd
 	fi
 }
 
 desktop_install() {
 	cd "${S}"
-	echo "Icon=root-system-bin" >> etc/root.desktop
-	domenu etc/root.desktop
-	doicon build/package/debian/root-system-bin.png
+	sed -e 's,@prefix@,/usr,' \
+		build/package/debian/root-system-bin.desktop.in > root.desktop
+	domenu root.desktop
+	doicon "${S}"/build/package/debian/root-system-bin.png
 
 	insinto /usr/share/icons/hicolor/48x48/mimetypes
 	doins build/package/debian/application-x-root.png
@@ -385,57 +334,47 @@ desktop_install() {
 	doicon build/package/debian/root-system-bin.xpm
 }
 
-cleanup_install() {
-	# Cleanup of files either already distributed or unused on Gentoo
-	pushd "${ED}" > /dev/null
-	rm usr/share/root/fonts/LICENSE || die
-	rm etc/root/proof/*.sample || die
-	rm -r etc/root/daemons || die
-	# these should be in PATH
-	mv etc/root/proof/utils/pq2/pq2* usr/bin/ || die
-	rm ${DOC_DIR#/}/{INSTALL,LICENSE} || die
-	use examples || rm -r ${DOC_DIR#/}/examples || die
-}
-
 src_install() {
 	emake DESTDIR="${D}" install
-	dodoc README.md
 
-	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root
-
-	if ! use minimal; then
-		use pythia8 && echo "PYTHIA8=${EPREFIX%/}/usr" >> 99root
-		if use python; then
-			echo "PYTHONPATH=${EPREFIX%/}/usr/$(get_libdir)/root" >> 99root
-			python_optimize "${D}/usr/$(get_libdir)/root"
-		fi
-		use emacs && elisp-install ${PN} build/misc/*.{el,elc}
-		if use examples; then
-			# these should really be taken care of by the root make install
-			insinto ${DOC_DIR}/examples/tutorials/tmva
-			doins -r tmva/test
-		fi
-	fi
+	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
+	use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
+	use python && echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
+	use ruby && echo "RUBYLIB=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
 	doenvd 99root
 
-	# The build system installs Emacs support unconditionally in the wrong
+	# The build system installs Emacs support unconditionally and in the wrong
 	# directory. Remove it and call elisp-install in case of USE=emacs.
-	rm -r "${ED}"/usr/share/emacs || die
+	rm -rf "${ED}"/usr/share/emacs
+	if use emacs; then
+		elisp-install ${PN} build/misc/*.{el,elc} || die "elisp-install failed"
+	fi
 
+	doc_install
 	daemon_install
 	desktop_install
-	cleanup_install
 
-	# do not copress files used by ROOT's CLI (.credit, .demo, .license)
-	docompress -x "${DOC_DIR}"/{CREDITS,LICENSE,examples/tutorials}
-	# needed for .license command to work
-	dosym "${ED}"usr/portage/licenses/LGPL-2.1 "${DOC_DIR}/LICENSE"
+	# Cleanup of files either already distributed or unused on Gentoo
+	rm "${ED}"usr/share/doc/${PF}/{INSTALL,LICENSE,COPYING.CINT} || die
+	rm "${ED}"usr/share/root/fonts/LICENSE || die
+	pushd "${ED}"usr/$(get_libdir)/root/cint/cint/lib > /dev/null
+	rm -f posix/mktypes dll_stl/setup \
+		G__* dll_stl/G__* dll_stl/rootcint_* posix/exten.o || die
+	rm -f "${ED}"usr/$(get_libdir)/root/cint/cint/include/makehpib || die
+	rm -f "${ED}"/etc/root/proof/*.sample || die
+	rm -rf "${ED}"/etc/root/daemons || die
+	popd > /dev/null
+	# these should be in PATH
+	mv "${ED}"etc/root/proof/utils/pq2/pq2* \
+		"${ED}"usr/bin/ || die
 }
 
 pkg_postinst() {
 	fdo-mime_desktop_database_update
+	use python && python_mod_optimize /usr/$(get_libdir)/root
 }
 
 pkg_postrm() {
 	fdo-mime_desktop_database_update
+	use python && python_mod_cleanup /usr/$(get_libdir)/root
 }

@@ -1,0 +1,117 @@
+From 8eb9c28b3ac9bcc05f00259301c9bd92e8451a55 Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Wed, 15 May 2013 09:18:19 -0400
+Subject: [PATCH 3/4] LU-3079 kernel: 3.9 hlist_for_each_entry uses 3 args
+
+In 3.9 hlist_for_each_entry use 3 args since commit
+
+commit b67bfe0d42cac56c512dd5da4b1b347a23f4b70a
+Author: Sasha Levin <sasha.levin@oracle.com>
+Date:   Wed Feb 27 17:06:00 2013 -0800
+
+    hlist: drop the node parameter from iterators
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
+Change-Id: I8f38d562607de21771b03575e37cc0498867a570
+---
+ libcfs/include/libcfs/list.h           | 10 ++++++++++
+ lustre/autoconf/lustre-core.m4         | 27 +++++++++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h |  5 +++++
+ 3 files changed, 42 insertions(+)
+
+diff --git a/libcfs/include/libcfs/list.h b/libcfs/include/libcfs/list.h
+index be06e74..b747804 100644
+--- a/libcfs/include/libcfs/list.h
++++ b/libcfs/include/libcfs/list.h
+@@ -91,14 +91,24 @@ typedef struct hlist_node cfs_hlist_node_t;
+ #define cfs_hlist_for_each(pos, head)      hlist_for_each(pos, head)
+ #define cfs_hlist_for_each_safe(pos, n, head) \
+         hlist_for_each_safe(pos, n, head)
++#ifdef HAVE_HLIST_FOR_EACH_3ARG
++#define cfs_hlist_for_each_entry(tpos, pos, head, member) \
++	pos = NULL; hlist_for_each_entry(tpos, head, member)
++#else
+ #define cfs_hlist_for_each_entry(tpos, pos, head, member) \
+         hlist_for_each_entry(tpos, pos, head, member)
++#endif
+ #define cfs_hlist_for_each_entry_continue(tpos, pos, member) \
+         hlist_for_each_entry_continue(tpos, pos, member)
+ #define cfs_hlist_for_each_entry_from(tpos, pos, member) \
+         hlist_for_each_entry_from(tpos, pos, member)
++#ifdef HAVE_HLIST_FOR_EACH_3ARG
++#define cfs_hlist_for_each_entry_safe(tpos, pos, n, head, member) \
++	pos = NULL; hlist_for_each_entry_safe(tpos, n, head, member)
++#else
+ #define cfs_hlist_for_each_entry_safe(tpos, pos, n, head, member) \
+         hlist_for_each_entry_safe(tpos, pos, n, head, member)
++#endif
+ 
+ #define CFS_HLIST_HEAD_INIT		   HLIST_HEAD_INIT
+ #define CFS_HLIST_HEAD(n)		   HLIST_HEAD(n)
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 9ac1194..2cb4edd 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1604,6 +1604,29 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.9 uses hlist_for_each_entry with 3 args
++# b67bfe0d42cac56c512dd5da4b1b347a23f4b70a
++#
++AC_DEFUN([LC_HAVE_HLIST_FOR_EACH_3ARG],
++[AC_MSG_CHECKING([if hlist_for_each_entry has 3 args])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/list.h>
++	#include <linux/fs.h>
++],[
++	struct inode *inode;
++	struct dentry *dentry;
++	hlist_for_each_entry(dentry, &inode->i_dentry, d_alias) {
++		continue;
++	}
++],[
++	AC_DEFINE(HAVE_HLIST_FOR_EACH_3ARG, 1, [3 args])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -1740,6 +1763,10 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+ 	 # 3.7
+  	 LC_HAVE_POSIXACL_USER_NS
++
++	 # 3.9
++	 LC_HAVE_HLIST_FOR_EACH_3ARG
++
+ 	 #
+ 	 if test x$enable_server = xyes ; then
+ 		AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index 4e29e69..efb3fd1 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -421,8 +421,13 @@ static inline int ll_quota_off(struct super_block *sb, int off, int remount)
+ #define ll_d_hlist_empty(list) hlist_empty(list)
+ #define ll_d_hlist_entry(ptr, type, name) hlist_entry(ptr.first, type, name)
+ #define ll_d_hlist_for_each(tmp, i_dentry) hlist_for_each(tmp, i_dentry)
++#ifdef HAVE_HLIST_FOR_EACH_3ARG
++#define ll_d_hlist_for_each_entry(dentry, p, i_dentry, alias) \
++	p = NULL; hlist_for_each_entry(dentry, i_dentry, alias)
++#else
+ #define ll_d_hlist_for_each_entry(dentry, p, i_dentry, alias) \
+         hlist_for_each_entry(dentry, p, i_dentry, alias)
++#endif
+ #else
+ #define ll_d_hlist_node list_head
+ #define ll_d_hlist_empty(list) list_empty(list)
+-- 
+1.8.2.1
+

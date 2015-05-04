@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-EAPI=5
 
 inherit autotools eutils flag-o-matic
 
@@ -30,38 +28,51 @@ DEPEND="${RDEPEND}"
 
 RESTRICT="mirror"
 
-src_prepare(){
-	rm -rf ./include/almost/boost src/lib/iostreams || die
+src_unpack(){
+	unpack ${A}
+
+	cd "${S}"
+
+	rm -rf ./include/almost/boost src/lib/iostreams
 #	rm -rf ./include/almost/boost ./include/almost/boost_1_30 #src/lib/iostreams
 
 	sed -e 's:boost boost_1_30::g' \
-		-i ./include/almost/Makefile.am || die
+		-i ./include/almost/Makefile.am
 
-	epatch \
-		"${FILESDIR}"/configure2.patch \
-		"${FILESDIR}"/Makefile.patch
+	epatch "${FILESDIR}"/configure2.patch
+	epatch "${FILESDIR}"/Makefile.patch
 
 	sed \
 		-e '/include\/almost\/boost/d' \
 		-e '/include\/almost\/tinyxml/d' \
-		-i configure.in || die
+		-i configure.in
 
 #	find include \
 #		-name "*.h" \
 #		-exec sed 's:boost_1_30:boost:g' -i '{}' \;
 
 	epatch "${FILESDIR}"/gcc-4.3.patch
-	eautoreconf
+	eautoreconf || die "Reconfiguration failed"
 }
 
 src_compile(){
-	emake CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" -j1
+
+	econf || die "configure failed"
+
+	emake CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" -j1 || \
+	die "make failed"
 
 }
 
+src_test() {
+	emake check || die "test failed"
+}
+
 src_install() {
-	default
+	emake DESTDIR="${D}" install || die "Install failed"
 
 	insinto /usr/include/${PN}
-	doins {almost,config}.h
+	doins {almost,config}.h || die "failed to install missing headers"
+
+	dodoc README NEWS TODO ChangeLog AUTHORS
 }

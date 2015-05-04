@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -78,9 +78,7 @@ src_install() {
 	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
 	# somehow for gap2caf, for example
 	cat >> "${T}"/99staden <<- EOF
-	STADENROOT="${EPREFIX}"/usr/share/staden
 	LDPATH="${EPREFIX}/usr/$(get_libdir)/staden"
 	EOF
-
 	doenvd "${T}"/99staden
 }

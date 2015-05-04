@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -57,7 +57,6 @@ src_configure(){
 	sed -i 's:-ltk_utils:-Wl,--enable-new-dtags -Wl,-rpath,/usr/lib/staden -ltk_utils -rpath-link:' src/Makefile || die
 	sed -i 's:-lgap:-Wl,--enable-new-dtags -Wl,-rpath,/usr/lib/staden -lgap:' src/Makefile || die
 	sed -i 's:-lseq_utils:-Wl,--enable-new-dtags -Wl,-rpath,/usr/lib/staden -lseq_utils:' src/Makefile || die
-	sed -i 's:-rpath-link::' src/Makefile || die
 }
 
 # TODO: the 2.0.2 archive lacks manpages compared to 2.0, FIXME

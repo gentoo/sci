@@ -1,9 +1,6 @@
 # ChangeLog for sci-libs/mpiblacs
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  25 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
-  mpiblacs-1.1-r1.ebuild: Move to EAPI=5 and clean ebuild
 
   12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> mpiblacs-1.1-r1.ebuild:
   sci-libs/mpiblacs: Shared library fixes and prefix love

@@ -3,8 +3,7 @@
 
 <pkgmetadata>
   <maintainer>
-    <email>jauhien@gentoo.org</email>
-    <name>Jauhien Piatlicki</name>
+    <email>piatlicki@gmail.com</email>
   </maintainer>
   <use>
     <flag name="mpi-compat">Enable interoperability with MPI</flag>

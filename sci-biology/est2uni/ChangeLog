@@ -1,16 +1,6 @@
 # ChangeLog for sci-biology/est2uni
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de> est2uni-0.27.ebuild:
-  Drop keywords (php:5.3 is hardmasked)
-
-  24 Sep 2014; Justin Lecher <jlec@gentoo.org> est2uni-0.27.ebuild:
-  Bump to EAPI=5
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> est2uni-9999.ebuild,
-  metadata.xml:
-  Switch from git-2 to git-r3
 
   22 May 2012; Justin Lecher <jlec@gentoo.org> est2uni-0.27.ebuild,
   est2uni-9999.ebuild:
@@ -39,3 +29,4 @@
   +files/9999-est_clustering.pm.patch, +files/9999-pipe_db.pm.patch,
   +est2uni-9999.ebuild:
   vim est2uni-9999.ebuild
+

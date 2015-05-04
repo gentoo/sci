@@ -1,0 +1,41 @@
+diff -Nur weightwatcher-1.8.10.orig/configure.ac weightwatcher-1.8.10/configure.ac
+--- weightwatcher-1.8.10.orig/configure.ac	2012-07-09 16:26:31.554196307 -0700
++++ weightwatcher-1.8.10/configure.ac	2012-07-09 16:27:30.044509170 -0700
+@@ -20,36 +20,15 @@
+ AC_SUBST(DATE3, "$date3")
+ 
+ # Include macros
+-sinclude(acx_prog_cc_optim.m4)
+ sinclude(acx_urbi_resolve_dir.m4)
+ 
+ # Display pakage and version number
+ AC_MSG_RESULT([*********** Configuring:  $PACKAGE $VERSION ($date) **********])
+ 
+-# Initialize the list of compilers to consider
+-cclist="cc gcc"
+-
+-# Backup and reset the input CFLAGS and LDFLAGS
+-mycflags="$CFLAGS"
+-CFLAGS=""
+-myldflags="$LDFLAGS"
+-LDFLAGS=""
+-
+-# Provide special option for the Linux Intel C compiler
+-AC_MSG_CHECKING([for Linux Intel C compiler mode])
+-AC_ARG_ENABLE(icc,
+-	[AC_HELP_STRING([--enable-icc],
+-	[Enable special mode for compilation with the Intel compiler \
+-(off by default)])],
+-        use_icc="yes"
+-        cclist="icc $cclist"
+-	AC_MSG_RESULT([yes]),
+-        use_icc="no"
+-	AC_MSG_RESULT([no]))
+ 
+ # Checks for programs.
+ # GCC is chosen last because it is likely to yield less optimized code
+-AC_PROG_CC([$cclist])
++AC_PROG_CC
+ # C Compiler: Check that it is ANSI C
+ AM_PROG_CC_STDC
+ # C Compiler: Check that it is POSIX-compliant

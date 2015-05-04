@@ -1,53 +1,6 @@
 # ChangeLog for sci-chemistry/pymol
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  16 Mar 2015; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  sci-chemistry/pymol: Move to virtual/pmw
-
-  14 Mar 2015; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  sci-chemistry/pymol: Fix for latest HEAD; fix SLOT operators
-
-  05 Nov 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
-  -files/pymol-9999-listing.patch, -files/pymol-9999-options.patch,
-  -files/pymol-9999-tk8.6.patch:
-  Drop obsolete patches
-
-  31 Oct 2014; Justin Lecher <jlec@gentoo.org> files/pymol-9999-tk8.6.patch:
-  Update patch to upstream suggestion
-
-  30 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
-  +files/pymol-9999-tk8.6.patch:
-  Make it really multi py ABI ready; use internal apbs plugin
-
-  27 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Add missing PYTHON_USEDEP
-
-  21 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Patch included upstream
-
-  20 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
-  +files/pymol-9999-listing.patch:
-  Fix broken plugin listing
-
-  20 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
-  +files/pymol-9999-options.patch:
-  Fix upstream buildsystem
-
-  17 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Import tree changes
-
-  01 May 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Drop unneeded dep
-
-  26 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Update HOMEPAGE
-
-  15 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Readd argparse fix; fix icon installation
-
-  15 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
-  Merge tree changes
 
   24 Jul 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Fx stupid argparse import
@@ -377,3 +330,4 @@
   +sci-chemistry/pymol/files/nosplash-gentoo.patch,
   +sci-chemistry/pymol/metadata.xml:
   Initial checkin of pymol to sci-overlay
+

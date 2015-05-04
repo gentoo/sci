@@ -2,22 +2,6 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  27 Nov 2013; Andrew Savchenko <bircoph@gmail.com> hpl-2.1.ebuild:
-  Fix build failure with MKL used for blas and lapack
-
-  Ebuild stripped -L$path and -l from pkg-config output for blas and
-  lapack. This works fine for atlas, gotoblas2, openblas, eigen or reference
-  implementations — for all those installing libraries directly to
-  /usr/lib/. But MKL is different and is installed to /opt/...
-  outside of gcc default library path. That's why build with MKL
-  failed and is fixed now. (I also checked that other implementations
-  build fine.)
-
-  I have no idea why -L$path and -l were stripped originally,
-  probably because they may contain coma symbols which will broke
-  original sed script. This is fixed by switching to another sed
-  delimiter sign.
-
 *hpl-2.1 (29 Jun 2013)
 
   29 Jun 2013; Andrew Savchenko <bircoph@gmail.com> +hpl-2.1.ebuild:

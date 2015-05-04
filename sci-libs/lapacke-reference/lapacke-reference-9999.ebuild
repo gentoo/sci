@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -45,10 +45,10 @@ src_prepare() {
 		-e '/LAPACK_LIBRARIES/s:lapacke:reflapacke:g' \
 		CMakeLists.txt || die
 	sed -i \
-		-e '/librar/s:(lapacke:(reflapacke:g' \
+		-e 's:(lapacke:(reflapacke:g' \
 		lapacke/CMakeLists.txt || die
 	sed -i \
-		-e '/librar/s:lapacke:reflapacke:g' \
+		-e 's:lapacke:reflapacke:g' \
 		lapacke/example/CMakeLists.txt || die
 	local tmgpc; use tmg && tmgpc=" -ltmglib"
 	sed -i \

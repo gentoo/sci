@@ -1,0 +1,618 @@
+Index: bin/eselect.in
+===================================================================
+--- bin/eselect.in	(revision 863)
++++ bin/eselect.in	(working copy)
+@@ -22,10 +22,15 @@
+ # Where are modules installed by default?
+ ESELECT_DEFAULT_MODULES_PATH="${ESELECT_DATA_PATH}/modules"
+ 
++# Where are auto-generated modules placed? (e.g. from alternatives-2.eclass)
++ESELECT_AUTO_GENERATED_MODULES_PATH="${ESELECT_DEFAULT_MODULES_PATH}/auto"
++
+ # Look in these places for modules
+-ESELECT_MODULES_PATH=( \
+-	"${HOME}/.eselect/modules" \
+-	"${ESELECT_DEFAULT_MODULES_PATH}" )
++ESELECT_MODULES_PATH=(
++	"${HOME}/.eselect/modules"
++	"${ESELECT_DEFAULT_MODULES_PATH}"
++	"${ESELECT_AUTO_GENERATED_MODULES_PATH}"
++)
+ 
+ # Look in this place for libraries
+ ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
+Index: bin/Makefile.am
+===================================================================
+--- bin/Makefile.am	(revision 863)
++++ bin/Makefile.am	(working copy)
+@@ -4,6 +4,7 @@
+ dosed = @SED@ -e 's,\@BASH\@,$(BASH),g' \
+ 	      -e 's,\@DATADIR\@,$(datadir),g' \
+ 	      -e 's,\@EPREFIX\@,$(EPREFIX),g' \
++	      -e 's,\@LIBEXECDIR\@,$(datadir),g' \
+ 	      -e 's,\@VERSION\@,$(VERSION),g'
+ 
+ % : %.in
+Index: libs/Makefile.am
+===================================================================
+--- libs/Makefile.am	(revision 863)
++++ libs/Makefile.am	(working copy)
+@@ -1,6 +1,7 @@
+ eselectlibsdir = $(datadir)/$(PACKAGE_NAME)/libs/
+ 
+ eselectlibs_DATA = \
++	alternatives.bash \
+ 	config.bash \
+ 	core.bash \
+ 	default.eselect \
+@@ -14,6 +15,7 @@
+ 	tests.bash
+ 
+ EXTRA_DIST = \
++	alternatives.bash.in \
+ 	config.bash.in \
+ 	core.bash.in \
+ 	default.eselect.in \
+@@ -30,7 +32,8 @@
+ 	-e 's,\@SED\@,@SED@,g' \
+ 	-e 's,\@PORTAGEQ\@,@PORTAGEQ@,g' \
+ 	-e 's,\@ENV_UPDATE\@,@ENV_UPDATE@,g' \
+-	-e 's,\@CANONICALISE\@,@CANONICALISE@,g'
++	-e 's,\@CANONICALISE\@,@CANONICALISE@,g' \
++	-e 's,\@sysconfdir\@,@sysconfdir@,g'
+ 
+ %.bash : %.bash.in
+ 	@$(dosed) $< > $@
+--- libs/alternatives.bash.in.orig	1970-01-01 01:00:00.000000000 +0100
++++ libs/alternatives.bash.in	2011-09-06 18:55:43.000000000 +0100
+@@ -0,0 +1,550 @@
++# Copyright 2008 Mike Kelly
++# Copyright 2009 David Leverton
++# Copyright 2010 Bo Ørsted Andresen
++# 2010: Adapted to eselect Sebastien Fabbro (who doesn't like copyrights)
++# Distributed under the terms of the GNU General Public License v2
++
++inherit config output path-manipulation
++
++ALTERNATIVESDIR_ROOTLESS="@sysconfdir@/env.d/alternatives"
++ALTERNATIVESDIR="${EROOT}${ALTERNATIVESDIR_ROOTLESS}"
++
++get_current_provider() {
++    local dieprefix="Could not determine current provider for ${ALTERNATIVE}"
++    if [[ -L ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current ]]; then
++        local provider=$(readlink "${ALTERNATIVESDIR}/${ALTERNATIVE}/_current" || die "${dieprefix}: readlink ${symlink} failed")
++        [[ ${provider} == */* ]] && die "${dieprefix}: malformed target for ${symlink}"
++
++        if [[ -L ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ||
++                    ( -e ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} && ! -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ) ]]; then
++            die "${dieprefix}: ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} is not a directory"
++        fi
++
++        echo "${provider}"
++
++    elif [[ -e ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current ]]; then
++        die "${dieprefix}: ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current is not a symlink"
++    fi
++}
++
++compare_importance() {
++    local IFS=.
++    local a=( ${1} ) b=( ${2} )
++    local -i i=0
++    while (( i<${#a[@]} && i<${#b[@]} )); do
++        if (( a[i]<b[i] )); then
++            return 0
++        elif (( a[i]>b[i] )); then
++            return 1
++        fi
++        i+=1
++    done
++    (( i<${#b[@]} ))
++}
++
++sort_providers() {
++    local begin=${1:-0}
++    local count=${2:-${#providers[@]}}
++    [[ ${count} -le 1 ]] && return 0
++    sort_providers ${begin} $((count/2))
++    sort_providers $((begin+count/2)) $((count-count/2))
++    local left=( "${providers[@]:begin:count/2}" )
++    local right=( "${providers[@]:begin+count/2:count-count/2}" )
++    local -i x i=0 j=0
++    for (( x=begin; x<begin+count; ++x )); do
++        if (( j>=${#right[@]} )) || { (( i<${#left[@]} )) && compare_importance "${left[i]%%:*}" "${right[j]%%:*}"; }; then
++            providers[x]=${left[i++]}
++        else
++            providers[x]=${right[j++]}
++        fi
++    done
++}
++
++get_providers() {
++    local p= importance providers=()
++    for p in "${ALTERNATIVESDIR}/${ALTERNATIVE}"/* ; do
++        [[ -d ${p} && ! -L ${p} ]] || continue
++        p=${p##*/}
++
++        importance=$(< "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance")
++        importance=${importance:-0}
++        [[ "${importance}" =~ ^[0123456789]+(\.[0123456789]+)*$ ]] || die "_importance (${importance}) for ${p} is not a dot-separated list of integers"
++
++        providers+=( "${importance}:${p}" )
++    done
++
++    sort_providers
++    for (( p=${#providers[@]}-1 ; p>=0 ; --p )); do
++        echo "${providers[p]#*:}"
++    done
++}
++
++### show action ###
++describe_show() {
++    echo "Show the current provider in use for ${ALTERNATIVE}"
++}
++
++do_show() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++    local current="$(get_current_provider)"
++    if [[ -z "${current}" ]] ; then
++        echo "(none)"
++        return 2
++    fi
++    echo "${current}"
++}
++
++options_show() {
++    :
++}
++
++### list action ###
++describe_list() {
++    echo "Lists all available providers for ${ALTERNATIVE}"
++}
++
++do_list() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++    local n cur= providers=( $(get_providers) )
++    write_list_start "Available providers for ${ALTERNATIVE}:"
++
++    cur="$(get_current_provider)"
++
++    if [[ -n "${providers[@]}" ]] ; then
++        for (( n = 0 ; n < ${#providers[@]} ; ++n )) ; do
++            [[ ${cur} ==  "${providers[${n}]}" ]] && \
++                providers[${n}]="${providers[${n}]} $(highlight '*')"
++        done
++        write_numbered_list "${providers[@]}"
++    else
++        write_kv_list_entry "(none found)" ""
++    fi
++}
++
++options_list() {
++    :
++}
++
++### files action ###
++describe_files() {
++    echo "Lists symlinks provided by the currently selected provider"
++}
++
++do_files() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++
++    local cur="$(get_current_provider)" p=
++    [[ -n "${cur}" ]] || die -q "No selected provider, hence no symlinks provided"
++    local dieprefix="Could not list symlinks provided for ${ALTERNATIVE}"
++
++    local errors symlink rootsymlink
++    while read -r -d '' symlink; do
++        rootsymlink="${EROOT}${symlink}"
++        rootsymlink=${rootsymlink//+(\/)/\/}
++        echo "${rootsymlink}"
++        if [[ -L ${rootsymlink} ]]; then
++            if [[ ! -e ${rootsymlink} ]]; then
++                write_error_msg "${rootsymlink} is dangling symlink"
++                errors=yes
++            fi
++        elif [[ -d ${rootsymlink} ]]; then
++            write_error_msg "${rootsymlink} is a directory"
++            errors=yes
++        elif [[ -e ${rootsymlink} ]]; then
++            write_error_msg "${rootsymlink} exists but is not a symlink"
++            errors=yes
++        else
++            write_error_msg "${rootsymlink} does not exist"
++            errors=yes
++        fi
++    done <"${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list"
++}
++
++options_files() {
++    :
++}
++
++### set action ###
++
++describe_set() {
++    echo "Sets a provider for ${ALTERNATIVE}"
++}
++
++describe_set_parameters() {
++    echo "[ --force ] <provider>"
++}
++
++describe_set_options() {
++    echo "--force : overwrite or remove existing non-symlink files (but not directories) if necessary"
++    echo "<provider> : the name of the provider to use or the index of the provider preceeded by a dash"
++}
++
++do_set() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++
++    local force provider providers
++    if [[ ${1} == --force ]]; then
++        force=yes
++        shift
++    fi
++
++    if [[ ${1} == -+([[:digit:]]) ]]; then
++        providers=( $(get_providers) )
++        (( ${1#-} <= ${#providers[@]} )) || die -q "The given provider with index (${1#-}) does not exist"
++        provider=${providers[${1#-}-1]}
++    else
++        provider="${1}"
++    fi
++    [[ -z "${provider}" ]] && die -q "Missing required parameter 'provider'"
++    local dieprefix="Could not set provider ${provider} for alternative ${ALTERNATIVE}"
++
++    if [[ ! -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ]] ; then
++        if is_number ${provider} ; then
++            providers=( $(get_providers) )
++            [[ -n ${providers[${1#-}-1]} ]] &&
++                die -q "The given provider (${provider}) does not exist, did you mean -${provider} (${providers[${1#-}-1]})?"
++        fi
++        die -q "The given provider (${provider}) does not exist"
++    fi
++
++    local symlink newsymlinks=() oldsymlinks=()
++
++    while read -r -d '' symlink; do
++        local nicesymlink=${symlink#.}
++        nicesymlink=${nicesymlink//+(\/)/\/}
++        [[ ${nicesymlink} == /* ]] || die "${dieprefix}: bad symlink ${symlink}?"
++        [[ ${nicesymlink} == */ ]] && die "${dieprefix}: bad symlink ${symlink}?"
++
++        newsymlinks+=( "${nicesymlink}" )
++    done < <(
++        cd "${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider}" || die "${dieprefix}: cd failed"
++        find . -type l -print0 | LC_ALL=C sort -r -u -z)
++    [[ ${#newsymlinks[@]} -gt 0 ]] || die "${dieprefix}: does not provide any symlinks?"
++
++    if [[ -f ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list ]]; then
++        while read -r -d '' symlink; do
++            local nicesymlink=${symlink//+(\/)/\/}
++            [[ ${nicesymlink} == /* ]] || die "${dieprefix}: old provider ${oldcur} provides bad symlink ${symlink}?"
++            [[ ${nicesymlink} == */ ]] && die "${dieprefix}: old provider ${oldcur} provides bad symlink ${symlink}?"
++
++            oldsymlinks+=( "${nicesymlink}" )
++        done < <(LC_ALL=C sort -r -u -z "${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list")
++        [[ ${#oldsymlinks[@]} -gt 0 ]] || die "${dieprefix}: old provider ${oldcur} does not provide any symlinks?"
++
++    elif [[ -L ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list || -e ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list ]]; then
++        die "${dieprefix}: ${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list is not a file"
++    fi
++
++    local pass errors=
++    for pass in check perform; do
++        local -i new_i=0 old_i=0
++        while [[ -n ${newsymlinks[new_i]} || -n ${oldsymlinks[old_i]} ]]; do
++
++            if ( LC_ALL=C; [[ ${newsymlinks[new_i]} < ${oldsymlinks[old_i]} ]] ); then
++                if [[ ${pass} == check ]]; then
++                    if [[ -L ${EROOT}${oldsymlinks[old_i]} ]]; then
++                        :
++                    elif [[ -d ${EROOT}${oldsymlinks[old_i]} ]]; then
++                        write_error_msg "Can't remove ${EROOT}${oldsymlinks[old_i]}: is a directory${force:+ which is a fatal error that cannot be ignored by --force}"
++                        errors=yes
++                    elif [[ -e ${EROOT}${oldsymlinks[old_i]} ]]; then
++                        if [[ -n ${force} ]]; then
++                            write_warning_msg "Removing ${EROOT}${oldsymlinks[old_i]} due to --force: is not a symlink"
++                        else
++                            write_error_msg "Refusing to remove ${EROOT}${oldsymlinks[old_i]}: is not a symlink (use --force to override)"
++                            errors=yes
++                        fi
++                    fi
++
++                elif [[ ${pass} == perform ]]; then
++                    rm -f "${ROOT}${oldsymlinks[old_i]}" || die "${dieprefix}: rm failed"
++                else
++                    die "${dieprefix}: unknown \${pass} ${pass}???"
++                fi
++
++                old_i+=1
++
++            else
++                local target=${ALTERNATIVESDIR_ROOTLESS#/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
++                while [[ -n ${dir} ]]; do
++                    target=../${target}
++                    dir=${dir%/*}
++                done
++
++                if [[ ${pass} == check ]]; then
++                    if [[ -L ${EROOT}${newsymlinks[new_i]} ]]; then
++                        :
++                    elif [[ -d ${EROOT}${newsymlinks[new_i]} ]]; then
++                        write_error_msg "Can't overwrite ${EROOT}${newsymlinks[new_i]}: is a directory${force:+ which is a fatal error that cannot be ignored by --force}"
++                        errors=yes
++                    elif [[ -e ${EROOT}${newsymlinks[new_i]} ]]; then
++                        if [[ -n ${force} ]]; then
++                            write_warning_msg "Overwriting ${EROOT}${newsymlinks[new_i]} due to --force: is not a symlink"
++                        else
++                            write_error_msg "Refusing to overwrite ${EROOT}${newsymlinks[new_i]}: is not a symlink (use --force to override)"
++                            errors=yes
++                        fi
++                    fi
++
++                elif [[ ${pass} == perform ]]; then
++                    mkdir -p "${EROOT}${newsymlinks[new_i]%/*}" || die "${dieprefix}: mkdir -p failed"
++                    ln -snf "${target#/}" "${EROOT}${newsymlinks[new_i]}" || die "${dieprefix}: ln -snf failed"
++                else
++                    die "${dieprefix}: unknown \${pass} ${pass}???"
++                fi
++
++                [[ ${newsymlinks[new_i]} == ${oldsymlinks[old_i]} ]] && old_i+=1
++                new_i+=1
++            fi
++        done
++
++        [[ -n ${errors} ]] && die "${dieprefix}: see previous errors"
++    done
++
++    local oldcur="$(get_current_provider)"
++    ln -snf "${provider}" "${ALTERNATIVESDIR}/${ALTERNATIVE}/_current" || die "${dieprefix}: ln -snf failed"
++
++    : >"${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list" || die "${dieprefix}: emptying/creating _current_list failed"
++    for symlink in "${newsymlinks[@]}"; do
++        echo -n -e "${symlink}\\0" >>"${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list" || die "${dieprefix}: appending ${symlink} to _current_list failed"
++    done
++    return 0
++}
++
++_options_parameters() {
++    [[ -n ${2} && ${2} != --descriptions ]] && die -q "Unrecognised option ${2}"
++    local describe_func=describe_${1#options_}_options descriptions=${2} opt options oldifs=$IFS
++    if is_function ${describe_func}; then
++        IFS=$'\n'
++        options=( $(${describe_func}) )
++        IFS=$oldifs
++        for opt in "${options[@]}"; do
++            [[ ${opt} == --* ]] || continue
++            if [[ -n ${descriptions} ]]; then
++                echo "${opt/ : /:}"
++            else
++                echo "${opt%% : *}"
++            fi
++        done
++    fi
++}
++
++options_set() {
++    _options_parameters $FUNCNAME "$@"
++    get_providers
++}
++
++### update action ###
++
++describe_update() {
++    echo "Set a default provider if no valid one currently exists"
++}
++
++describe_update_parameters() {
++    echo "[--ignore] <provider>"
++}
++
++describe_update_options() {
++    echo "--ignore : update to any valid provider EXCEPT the specified provider"
++    echo "<provider> : the name of the provider to use"
++}
++
++do_update() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++
++    local p cur=$(get_current_provider) providers=( $(get_providers) ) ignore
++    if [[ "--ignore" == ${1} ]] ; then
++        # Try everything except setting the provider to the given
++        # one. So, if it isn't the given one, we end up doing
++        # nothing. Bug #128
++        shift
++        ignore=${1}
++    fi
++
++    if [[ ${cur} == ${1} && -z ${ignore} ]]; then
++        # if current provider was just updated, reselect it since it could have changed
++        do_set "${cur}" && return 0
++    elif [[ -n ${cur} && ${cur} != ${ignore} ]] ; then
++        # verify existing provider's symlinks
++        local p= bad=0
++        while read -r -d '' p ; do
++            [[ -L "${EROOT}${p}" && -e "${EROOT}${p}" ]] || (( bad++ ))
++        done < "${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list"
++
++        [[ "${bad}" -eq 0 ]] && return 0
++        # fix existing provider if possible
++        has "${cur}" "${providers[@]}" && do_set "${cur}" && return 0
++    elif has "${1}" "${providers[@]}" && [[ -z ${ignore} ]] ; then
++        # switch to new provider if none was set before or it can't be fixed
++        do_set "${1}" && return 0
++    fi
++
++    # if no valid provider has been selected switch to first available, valid
++    # provider, sorted according to importance
++    for p in "${providers[@]}"; do
++        [[ ${ignore} != ${p} ]] && do_set "${p}" && return 0
++    done
++
++    # if a provider is set but no providers are available anymore cleanup
++    cur=$(get_current_provider)
++    if [[ -n ${cur} ]]; then
++        do_unset "${cur}" && return 2
++    fi
++    # if no provider is set and none are available that are not ignored, return 2 for cleanup
++    [[ -z ${providers[@]} || ${providers[@]} == ${ignore} ]] && return 2
++
++    # we tried everything to select a valid provider, but failed
++    return 1
++}
++
++options_update() {
++    _options_parameters $FUNCNAME "$@"
++    get_providers
++}
++
++### unset action ###
++
++describe_unset() {
++    echo "Unset any symlinks created for the current provider for ${ALTERNATIVE}."
++}
++
++describe_unset_parameters() {
++    echo "[ --force ]"
++}
++
++describe_unset_options() {
++    echo "--force : remove existing non-symlink files (but not directories) if necessary"
++}
++
++do_unset() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++
++    local force=
++    if [[ ${1} == --force ]]; then
++        force=yes
++        shift
++    fi
++
++    local cur="$(get_current_provider)" p=
++    [[ -n "${cur}" ]] || die -q "Nothing to unset"
++    local dieprefix="Could not unset provider for ${ALTERNATIVE}"
++
++    local one=false symlink pass errors=
++    for pass in check perform; do
++        while read -r -d '' symlink; do
++            one=true
++            if [[ ${pass} == check ]]; then
++                if [[ -L ${EROOT}${symlink} ]]; then
++                    :
++                elif [[ -d ${EROOT}${symlink} ]]; then
++                    write_error_msg "Can't remove ${EROOT}${symlink}: is a directory${force:+ which is a fatal error that cannot be ignored by --force}"
++                    errors=yes
++                elif [[ -e ${EROOT}${symlink} ]]; then
++                    if [[ -n ${force} ]]; then
++                        write_warning_msg "Removing ${EROOT}${symlink} due to --force: is not a symlink"
++                    else
++                        write_error_msg "Refusing to remove ${EROOT}${symlink}: is not a symlink (use --force to override)"
++                        errors=yes
++                    fi
++                fi
++
++            elif [[ ${pass} == perform ]]; then
++                rm -f "${EROOT}${symlink}" || die "${dieprefix}: rm failed"
++            else
++                die "${dieprefix}: unknown \${pass} ${pass}???"
++            fi
++        done <"${ALTERNATIVESDIR}/${ALTERNATIVE}/_current_list"
++
++        [[ -n ${errors} ]] && die "${dieprefix}: see previous errors"
++    done
++
++    ${one} || die "${dieprefix}: does not provide any symlinks?"
++
++    rm "${ALTERNATIVESDIR}/${ALTERNATIVE}"/{_current,_current_list} || die "${dieprefix}: rm failed"
++}
++
++options_unset() {
++    _options_parameters $FUNCNAME "$@"
++    get_current_provider
++}
++
++### script action ###
++
++describe_script() {
++    echo "Output an evalable script fragment to set PATH, LD_LIBRARY_PATH and MANPATH to use the specified provider"
++}
++
++describe_script_parameters() {
++    echo "[--sh | --csh] [<provider>]"
++}
++
++describe_script_options() {
++    echo "--sh : use Bourne shell syntax (default)"
++    echo "--csh : use C shell syntax"
++    echo "<provider> : the provider to use or the index of the provider preceeded by a dash (if not specified, use the system default)"
++}
++
++do_script() {
++    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++    local syntax=sh provider providers
++    if [[ ${1} == --sh ]]; then
++        shift
++    elif [[ ${1} == --csh ]]; then
++        syntax=csh
++        shift
++    fi
++
++    if [[ ${1} == -+([[:digit:]]) ]]; then
++        providers=( $(get_providers) )
++        (( ${1#-} <= ${#providers[@]} )) || die -q "The given provider with index (${1#-}) does not exist"
++        provider=${providers[${1#-}-1]}
++    else
++        provider="${1}"
++    fi
++    [[ -z "${provider}" ]] && die -q "Missing required parameter 'provider'"
++
++    if [[ ! -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ]] ; then
++        if is_number ${provider} ; then
++            providers=( $(get_providers) )
++            [[ -n ${providers[${1#-}-1]} ]] &&
++                die -q "The given provider (${provider}) does not exist, did you mean -${provider} (${providers[${1#-}-1]})?"
++        fi
++        die -q "The given provider (${provider}) does not exist"
++    fi
++
++    local variables=( PATH LD_LIBRARY_PATH MANPATH )
++    [[ -n ${!default_*} ]] && local ${!default_*}
++    local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${EROOT}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
++    local default_MANPATH=$(MANPATH= man -C"${EROOT}"/etc/man.conf -w)
++
++    local var IFS=:
++    for var in "${variables[@]}"; do
++        local defvar=default_${var} path paths=( )
++        for path in ${!var}; do
++            [[ ${path} == ${ALTERNATIVESDIR_ROOTLESS}/${ALTERNATIVE}/* ]] && continue
++            [[ -n ${provider} && -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider}/${path#/} ]] && paths+=( "${ALTERNATIVESDIR_ROOTLESS}/${ALTERNATIVE}/${provider}/${path#/}" )
++            paths+=( "${path}" )
++        done
++
++        [[ -n ${provider} ]] && for path in ${!defvar}; do
++            [[ -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider}/${path#/} ]] && paths+=( "${ALTERNATIVESDIR_ROOTLESS}/${ALTERNATIVE}/${provider}/${path#/}" )
++        done
++
++        local newval=${paths[*]}
++        if [[ ${newval} != ${!var} ]]; then
++            newval=${newval//\'/\'\\\'\'}
++            if [[ ${syntax} == sh ]]; then
++                echo "${var}='${newval}'; export ${var}"
++            else
++                echo "setenv ${var} '${newval}'"
++            fi
++        fi
++    done
++}
++
++options_script() {
++    _options_parameters $FUNCNAME "$@"
++    get_providers
++}
++
++# vim: set ft=eselect sw=4 sts=4 ts=4 et tw=80 :

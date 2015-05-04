@@ -1,12 +1,6 @@
 # ChangeLog for sci-chemistry/modelfree
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  30 Mar 2015; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
-  sci-chemistry/modelfree: Fix for new gcc slotting
-
-  13 Nov 2014; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
-  Drop all KEYWORDS due to broken revdeps
 
   07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
   Drop double prefix
@@ -38,3 +32,4 @@
 
   09 Feb 2012; Justin Lecher <jlec@gentoo.org> Manifest:
   Add this nasty binary package
+

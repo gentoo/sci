@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
-inherit eutils
+inherit base eutils
 
 DESCRIPTION="Chemical drawing tool"
 HOMEPAGE="http://www.autistici.org/interzona/index.php?mod=03_Bist/"

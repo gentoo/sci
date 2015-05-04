@@ -1,17 +1,6 @@
 # ChangeLog for sci-libs/atlas
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  02 Feb 2014; Reinis Danne <rei4dan@gmail.com> atlas-3.10.1-r1.ebuild,
-  atlas-3.10.1-r2.ebuild:
-  Fix cpu governor check.
-
-  14 Oct 2013; Justin Lecher <jlec@gentoo.org> atlas-3.10.1-r1.ebuild:
-  Fix type _cpufreq -> cpufreq
-
-  13 Oct 2013; Justin Lecher <jlec@gentoo.org> atlas-3.10.1-r1.ebuild,
-  metadata.xml:
-  Set cpu freq governor without sys-power/cpufrequtils, #487882
 
   22 May 2013; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.10.1.ebuild,
   metadata.xml:

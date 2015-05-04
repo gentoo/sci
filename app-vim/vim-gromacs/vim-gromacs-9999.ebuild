@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: Exp $
 
-EAPI=5
+EAPI=4
 
-inherit git-r3 vim-plugin
+inherit git-2 vim-plugin
 
 DESCRIPTION="vim plugin: Gromacs file syntax highlighting and some macros"
 HOMEPAGE="https://github.com/HubLot/vim-gromacs"
@@ -20,3 +20,9 @@ KEYWORDS=""
 IUSE=""
 
 VIM_PLUGIN_MESSAGES="filetype"
+
+pkg_preinst () {
+	# Remove git files
+	rm "${D}/usr/share/vim/vimfiles/.gitignore"
+	rm -r "${D}/usr/share/vim/vimfiles/.git"
+}

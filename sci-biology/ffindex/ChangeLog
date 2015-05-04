@@ -1,9 +1,0 @@
-# ChangeLog for sci-biology/ffindex
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*ffindex-0.9.9.3 (08 Jan 2015)
-
-  08 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  +ffindex-0.9.9.3.ebuild, +metadata.xml:
-  sci-biology/ffindex: new package, maybe fits better under some other herd?

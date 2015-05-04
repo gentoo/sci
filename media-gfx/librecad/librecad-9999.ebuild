@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit qt4-r2 eutils git-r3
+inherit qt4-r2 eutils git-2
 
 DESCRIPTION="Generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -32,8 +32,6 @@ src_prepare() {
 
 src_install() {
 	dobin unix/librecad
-	insinto /usr/share
-	doins -r unix/appdata
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r librecad/support/doc/*

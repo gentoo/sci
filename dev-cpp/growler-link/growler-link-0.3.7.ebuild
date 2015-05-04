@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
 inherit autotools-utils fortran-2
 
@@ -23,8 +23,7 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-gcc4.patch
-	"${FILESDIR}"/${PV}-gcc4.7.patch
-	)
+	"${FILESDIR}"/${PV}-gcc4.7.patch )
 
 src_configure() {
 	local myeconfargs=(

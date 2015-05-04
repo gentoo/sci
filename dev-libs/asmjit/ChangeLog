@@ -6,7 +6,7 @@
 
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> +asmjit-1.0_beta4.ebuild,
   -asmjit-1.0_beta_p2.ebuild, metadata.xml:
-  Version Bump, Fix license, bump EAPI
+  Version BUmp, Fix license, bump EAPI
 
 *asmjit-1.0_beta_p2 (12 Nov 2010)
 

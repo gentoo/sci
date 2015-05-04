@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/intel-sdp.eclass,v 1.18 2014/09/15 17:54:11 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/intel-sdp.eclass,v 1.13 2013/07/19 14:00:50 jlec Exp $
 
 # @ECLASS: intel-sdp.eclass
 # @MAINTAINER:
@@ -78,6 +78,7 @@
 : ${INTEL_X86:=i486}
 
 # @ECLASS-VARIABLE: INTEL_BIN_RPMS
+# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Functional name of rpm without any version/arch tag
 #
@@ -87,19 +88,9 @@
 # specify the full path
 #
 # e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli
-: ${INTEL_BIN_RPMS:=""}
-
-# @ECLASS-VARIABLE: INTEL_AMD64_RPMS
-# @DESCRIPTION:
-# AMD64 single arch rpms. Same syntax as INTEL_BIN_RPMS
-: ${INTEL_AMD64_RPMS:=""}
-
-# @ECLASS-VARIABLE: INTEL_X86_RPMS
-# @DESCRIPTION:
-# X86 single arch rpms. Same syntax as INTEL_BIN_RPMS
-: ${INTEL_X86_RPMS:=""}
 
 # @ECLASS-VARIABLE: INTEL_DAT_RPMS
+# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Functional name of rpm of common data which are arch free
 # without any version tag
@@ -110,7 +101,6 @@
 # specify the full path
 #
 # e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli-common
-: ${INTEL_DAT_RPMS:=""}
 
 # @ECLASS-VARIABLE: INTEL_SINGLE_ARCH
 # @DESCRIPTION:
@@ -128,12 +118,6 @@ _INTEL_PV1=$(get_version_component_range 1)
 _INTEL_PV2=$(get_version_component_range 2)
 _INTEL_PV3=$(get_version_component_range 3)
 _INTEL_PV4=$(get_version_component_range 4)
-_INTEL_PV=""
-[[ -n ${_INTEL_PV4} ]] && _INTEL_PV+="${_INTEL_PV4}-"
-[[ -n ${_INTEL_PV1} ]] && _INTEL_PV+="${_INTEL_PV1}"
-[[ -n ${_INTEL_PV2} ]] && _INTEL_PV+=".${_INTEL_PV2}"
-[[ -n ${_INTEL_PV3} ]] && _INTEL_PV+="-${_INTEL_PV3}"
-
 _INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${INTEL_DPN}"
 
 if [ ${INTEL_SINGLE_ARCH} == true ]; then
@@ -156,16 +140,14 @@ RESTRICT="mirror"
 RDEPEND=""
 DEPEND="app-arch/rpm2targz"
 
-_INTEL_SDP_YEAR=${INTEL_DPV}
-_INTEL_SDP_YEAR=${_INTEL_SDP_YEAR%_sp*}
-_INTEL_SDP_YEAR=${_INTEL_SDP_YEAR%_update*}
+_INTEL_SDP_YEAR=${INTEL_DPV%_update*}
+_INTEL_SDP_YEAR=${INTEL_DPV%_sp*}
 
 # @ECLASS-VARIABLE: INTEL_SDP_DIR
+# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Full rootless path to installation dir
-INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${_INTEL_SDP_YEAR:-${_INTEL_PV1}}"
-[[ -n ${_INTEL_PV3} ]] && INTEL_SDP_DIR+=".${_INTEL_PV3}"
-[[ -n ${_INTEL_PV4} ]] && INTEL_SDP_DIR+=".${_INTEL_PV4}"
+INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${_INTEL_SDP_YEAR:-${_INTEL_PV1}}.${_INTEL_PV3}.${_INTEL_PV4}"
 
 # @ECLASS-VARIABLE: INTEL_SDP_EDIR
 # @DEFAULT_UNSET
@@ -342,7 +324,7 @@ intel-sdp_pkg_pretend() {
 			die "Could not find license file"
 		fi
 	else
-		eqawarn "The ebuild doesn't check for presents of a proper intel license!"
+		eqawarn "The ebuild doesn't check for a license!"
 		eqawarn "This shouldn't be done unless there is a serious reason."
 	fi
 }
@@ -366,59 +348,26 @@ intel-sdp_pkg_setup() {
 	fi
 	INTEL_RPMS=()
 	INTEL_RPMS_FULL=()
-	if [[ $(declare -p INTEL_BIN_RPMS) = "declare -a "* ]] ; then
-		_INTEL_BIN_RPMS=( ${INTEL_BIN_RPMS[@]} )
-	else
-		read -r -d '' -a _INTEL_BIN_RPMS <<<"${INTEL_BIN_RPMS}"
-	fi
-	for p in "${_INTEL_BIN_RPMS[@]}"; do
+	for p in ${INTEL_BIN_RPMS}; do
 		for a in ${arch}; do
 			if [ ${p} == $(basename ${p}) ]; then
-				INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.${a}.rpm )
+				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
 			else
-				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.${a}.rpm )
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
 			fi
 		done
 	done
-	if use amd64; then
-		if [[ $(declare -p INTEL_AMD64_RPMS) = "declare -a "* ]] ; then
-			_INTEL_AMD64_RPMS=( ${INTEL_AMD64_RPMS[@]} )
+	for p in ${INTEL_DAT_RPMS}; do
+		if [ ${p} == $(basename ${p}) ]; then
+			INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm )
 		else
-			read -r -d '' -a _INTEL_AMD64_RPMS <<<"${INTEL_AMD64_RPMS}"
+			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm )
 		fi
-		for p in "${_INTEL_AMD64_RPMS[@]}"; do
-			if [ ${p} == $(basename ${p}) ]; then
-				INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.x86_64.rpm )
-			else
-				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.x86_64.rpm )
-			fi
+	done
 
-		done
-	fi
-	if [[ $(declare -p INTEL_X86_RPMS) = "declare -a "* ]] ; then
-		_INTEL_X86_RPMS=( ${INTEL_X86_RPMS[@]} )
-	else
-		read -r -d '' -a _INTEL_X86_RPMS <<<"${INTEL_X86_RPMS}"
-	fi
-	for p in "${_INTEL_X86_RPMS[@]}"; do
-		if [ ${p} == $(basename ${p}) ]; then
-			INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.${INTEL_X86}.rpm )
-		else
-			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.${INTEL_X86}.rpm )
-		fi
-	done
-	if [[ $(declare -p INTEL_DAT_RPMS) = "declare -a "* ]] ; then
-		_INTEL_DAT_RPMS=( ${INTEL_DAT_RPMS[@]} )
-	else
-		read -r -d '' -a _INTEL_DAT_RPMS <<<"${INTEL_DAT_RPMS}"
-	fi
-	for p in "${_INTEL_DAT_RPMS[@]}"; do
-		if [ ${p} == $(basename ${p}) ]; then
-			INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.noarch.rpm )
-		else
-			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.noarch.rpm )
-		fi
-	done
+	case "${EAPI:-0}" in
+		0|1|2|3) intel-sdp_pkg_pretend ;;
+	esac
 }
 
 # @FUNCTION: intel-sdp_src_unpack
@@ -428,12 +377,12 @@ intel-sdp_src_unpack() {
 	local l r subdir rb t list=() debug_list
 
 	for t in ${A}; do
-		for r in "${INTEL_RPMS[@]}"; do
+		for r in ${INTEL_RPMS[@]}; do
 			rpmdir=${t%%.*}/${INTEL_RPMS_DIR}
 			list+=( ${rpmdir}/${r} )
 		done
 
-		for r in "${INTEL_RPMS_FULL[@]}"; do
+		for r in ${INTEL_RPMS_FULL[@]}; do
 			list+=( ${t%%.*}/${r} )
 		done
 
@@ -490,8 +439,7 @@ intel-sdp_src_install() {
 	fi
 
 	if [[ -d "${INTEL_SDP_DIR}"/man ]]; then
-		nonfatal doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
-		nonfatal doman "${INTEL_SDP_DIR}"/man/man1/*
+		doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
 		if has linguas_ja ${IUSE} && use linguas_ja; then
 			doman -i18n=ja_JP "${INTEL_SDP_DIR}"/man/ja_JP/man1/*
 		fi
@@ -524,11 +472,6 @@ intel-sdp_pkg_postinst() {
 			"<:${r%-${_INTEL_PV4}*}-${_INTEL_PV4}:${r}:${INTEL_SDP_EDIR}:${l}:>"
 	done
 	_isdp_run-test
-
-	if [[ ${PN} = icc ]] && has_version ">=dev-util/ccache-3.1.9-r2" ; then
-		#add ccache links as icc might get installed after ccache
-		"${EROOT}"/usr/bin/ccache-config --install-links
-	fi
 }
 
 # @FUNCTION: intel-sdp_pkg_postrm
@@ -544,16 +487,11 @@ intel-sdp_pkg_postrm() {
 				${INTEL_SDP_DB}
 		done
 	fi
-
-	if [[ ${PN} = icc ]] && has_version ">=dev-util/ccache-3.1.9-r2" && [[ -z ${REPLACED_BY_VERSION} ]]; then
-		# --remove-links would remove all links, --install-links updates them
-		"${EROOT}"/usr/bin/ccache-config --install-links
-	fi
 }
 
-EXPORT_FUNCTIONS pkg_setup src_unpack src_install pkg_postinst pkg_postrm pkg_pretend
+EXPORT_FUNCTIONS pkg_setup src_unpack src_install pkg_postinst pkg_postrm
 case "${EAPI:-0}" in
-	0|1|2|3)die "EAPI=${EAPI} is not supported anymore" ;;
-	4|5) ;;
+	0|1|2|3) ;;
+	4|5) EXPORT_FUNCTIONS pkg_pretend ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac

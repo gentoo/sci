@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,12 +15,12 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="custom-cflags"
 
 RDEPEND="
 	dev-lang/perl
-	|| ( sci-biology/update-blastdb sci-biology/ncbi-tools++ )
+	sci-biology/ncbi-tools++
 	sci-biology/profphd
 	sci-biology/psipred
 	sci-biology/samtools

@@ -1,10 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
-
-inherit eutils toolchain-funcs
+inherit base toolchain-funcs
 
 DESCRIPTION="Intended to facilitate the transition from refmac5 refinement to shelxh or shelxl refinement"
 HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/mtz2hkl/mtz2hkl.php"
@@ -20,17 +18,18 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${PN}
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-gentoo.patch
-}
+PATCHES=(
+	"${FILESDIR}"/${PV}-gentoo.patch
+	)
 
 src_compile() {
 	emake \
 		CXX=$(tc-getCXX) \
 		CFLAGS="${CFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
+		LDFLAGS="${LDFLAGS}" || \
+		die "compilation failed"
 }
 
 src_install() {
-	dobin ${PN}
+	dobin ${PN} || die "installation of ${PN} failed"
 }

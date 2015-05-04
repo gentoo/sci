@@ -1,0 +1,28 @@
+# ChangeLog for sci-physics/LoopTools
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 Jan 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  LoopTools-2.8.ebuild:
+  sources mirrored on jlec's dev space, thanks to jlec
+
+*LoopTools-2.8 (12 Sep 2012)
+
+  12 Sep 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -LoopTools-2.7-r1.ebuild, -files/LoopTools-2.7-makefile.patch,
+  +LoopTools-2.8.ebuild, +files/LoopTools-2.8-makefile.patch:
+  version bump
+
+*LoopTools-2.7-r1 (28 Aug 2012)
+
+  28 Aug 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -LoopTools-2.7.ebuild, +LoopTools-2.7-r1.ebuild,
+  files/LoopTools-2.7-makefile.patch:
+  shared library generation and dependency on virtual/fortran added
+
+*LoopTools-2.7 (05 Jul 2012)
+
+  05 Jul 2012; Jauhien Piatlicki (jauhien) piatlicki@gmail.com
+  +LoopTools-2.7.ebuild, +files/LoopTools-2.7-makefile.patch, +metadata.xml:
+  Initial release, new ebuild for bug#424860
+

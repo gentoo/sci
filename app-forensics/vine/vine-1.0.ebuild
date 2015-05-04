@@ -1,6 +1,6 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/gmetadom/gmetadom-0.2.6.ebuild,v 1.9 2012/05/04 18:35:48 jdhore Exp $
 
 EAPI=5
 
@@ -12,7 +12,7 @@ SRC_URI="http://bitblaze.cs.berkeley.edu/release/${P}/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
@@ -21,6 +21,7 @@ DEPEND="
 	dev-ml/camlidl
 	>=dev-libs/gmetadom-0.2.6-r1[ocaml]
 	dev-ml/extlib
+	sys-devel/binutils
 	dev-ml/ocamlgraph"
 RDEPEND="${DEPEND}"
 

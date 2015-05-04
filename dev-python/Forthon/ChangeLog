@@ -2,13 +2,7 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*Forthon-0.8.13 (26 Nov 2013)
-
-  26 Nov 2013; Sébastien Fabbro <bicatali@gentoo.org> +Forthon-0.8.13.ebuild,
-  -Forthon-0.8.12.ebuild, -files/Forthon-0.8.11-fix_options_parser.patch,
-  metadata.xml:
-  dev-python/Forthon: Version bump, keyworded for prefix
-
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> Forthon-0.8.11.ebuild,
   metadata.xml:
   Correct license name
+

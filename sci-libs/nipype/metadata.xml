@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <maintainer>
-    <email>h.chr@mail.ru</email>
-    <name>Horea Christian</name>
-  </maintainer>
-  <longdescription lang="en">
+<herd>sci</herd>
+<maintainer>
+	<email>h.chr@mail.ru</email>
+	<name>Horea Christian</name>
+</maintainer>
+<longdescription lang="en">
 	Nipype, an open-source, community-developed initiative under the
 	umbrella of NiPy, is a Python project that provides a uniform interface
 	to existing neuroimaging software and facilitates interaction between

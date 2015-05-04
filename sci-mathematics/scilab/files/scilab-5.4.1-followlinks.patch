@@ -1,0 +1,12 @@
+diff -urN scilab-orig/m4/java.m4 scilab/m4/java.m4
+--- scilab-orig/m4/java.m4	2012-07-07 18:39:39.036716695 -0400
++++ scilab/m4/java.m4	2012-07-07 18:40:54.479721514 -0400
+@@ -846,7 +846,7 @@
+       for jar in "$jardir/$1.jar" "$jardir/lib$1.jar" "$jardir/lib$1-java.jar" "$jardir/$1*.jar"; do
+ 
+ # TODO check the behaviour when spaces
+-        jars_resolved=`ls $jar 2>/dev/null`
++        jars_resolved=$(realpath $(ls $jar 2>/dev/null) 2>/dev/null)
+         for jar_resolved in $jars_resolved; do # If several jars matches
+           if test -e "$jar_resolved"; then
+             export ac_java_classpath="$jar_resolved:$ac_java_classpath"

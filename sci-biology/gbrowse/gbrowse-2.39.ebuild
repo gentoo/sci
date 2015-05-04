@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
 inherit eutils perl-module webapp
 
@@ -36,8 +36,8 @@ S="${WORKDIR}/${MY_P}"
 # TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
 # how about mod_fcgi and dev-libs/fcgi and mod_scgi?
 DEPEND="
-	>=virtual/perl-Module-Build-0.380.0
-	>=dev-lang/perl-5.8.8:=
+	>=perl-core/Module-Build-0.380.0
+	>=dev-lang/perl-5.8.8
 	dev-perl/Capture-Tiny
 	>=sci-biology/bioperl-1.6.901
 	>=dev-perl/GD-2.07
@@ -67,8 +67,8 @@ RDEPEND="${DEPEND}
 	!minimal? (
 		dev-perl/File-NFSLock
 		dev-perl/FCGI
-		virtual/perl-Math-BigInt
-		virtual/perl-Math-BigInt-FastCalc
+		perl-core/Math-BigInt
+		perl-core/Math-BigInt-FastCalc
 		dev-perl/Math-BigInt-GMP
 		dev-perl/Digest-SHA1
 		dev-perl/Crypt-SSLeay

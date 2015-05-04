@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,9 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
 	>=dev-python/zsi-2.1_alpha1[${PYTHON_USEDEP}]
 	!=sci-chemistry/apbs-1.1.0"
 DEPEND="${RDEPEND}"
@@ -32,9 +30,12 @@ S="${WORKDIR}"/${MY_P}
 src_install() {
 	"${EPREFIX}"/usr/bin/wsdl2py  wsdl/opal.wsdl || die
 
-	python_moduleinto AppService
-	python_parallel_foreach_impl python_domodule AppService_*.py
-	python_parallel_foreach_impl python_optimize
+	installation() {
+		python_moduleinto AppService
+		python_domodule AppService_*.py
+		python_optimize "${ED}"/$(python_get_sitedir)
+	}
+	python_parallel_foreach_impl installation
 
 	dodoc README CHANGELOG etc/* *Client.py
 	dohtml docs/*

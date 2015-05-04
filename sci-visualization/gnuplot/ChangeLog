@@ -1,37 +1,6 @@
 # ChangeLog for sci-visualization/gnuplot
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*gnuplot-5.1.9999 (08 Nov 2014)
-
-  08 Nov 2014; Christoph Junghans <ottxor@gentoo.org> +gnuplot-5.1.9999.ebuild,
-  gnuplot-5.0.9999.ebuild:
-  added latest dev version
-
-  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> gnuplot-5.0.9999.ebuild:
-  libcerf patch got merged upstream
-
-  08 Sep 2014; Christoph Junghans <ottxor@gentoo.org> gnuplot-5.0.9999.ebuild,
-  metadata.xml:
-  sync with gx86
-
-  14 Jul 2014; Christoph Junghans <ottxor@gentoo.org> gnuplot-5.0.9999.ebuild:
-  added support for libcerf
-
-*gnuplot-5.0.9999 (13 Jul 2014)
-
-  13 Jul 2014; Christoph Junghans <ottxor@gentoo.org> +gnuplot-5.0.9999.ebuild,
-  -gnuplot-4.7.9999.ebuild:
-  version bump
-
-  22 Mar 2014; Ulrich Müller <ulm@gentoo.org> gnuplot-4.7.9999.ebuild:
-  Add libcaca USE flag, thanks to James Cloos <cloos@jhcloos.com>, bug 504354.
-  Remove thin-splines USE flag and configure option.
-
-  22 Mar 2014; Ulrich Müller <ulm@gentoo.org> gnuplot-4.6.9999.ebuild,
-  gnuplot-4.7.9999.ebuild:
-  Don't install Emacs support files as the they have been removed from the CVS
-  trunk, and the ones included with 4.6 are outdated, bug 504354.
 
   14 Jul 2013; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.7.9999.ebuild:
   build of info file broke again, drop it, will be shipped in the release anyhow

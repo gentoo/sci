@@ -1,0 +1,23 @@
+--- scilab-5.3.3.orig/configure.ac	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/configure.ac	2012-05-23 00:54:55.000000000 +0100
+@@ -196,16 +196,16 @@
+    if test -z "$F77"; then
+      AC_MSG_ERROR([You asked me to use gfortran but i haven't been able to find it])
+     fi
+-fi
+ 
+-if test "$with_intelcompilers" = yes; then
++
++elif test "$with_intelcompilers" = yes; then
+    AC_PROG_F77(ifc ifort)
+    if test -z "$F77"; then
+      AC_MSG_ERROR([You asked me to use ifc (intel fortran compiler) but i haven't been able to find it])
+     fi
+-fi
++else
++
+ 
+-if test -z "$F77"; then
+ ## No Frotran compiler specified... We rely on Autoconf to find the best
+    AC_PROG_F77
+ fi

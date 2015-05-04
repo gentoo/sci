@@ -1,15 +1,6 @@
 # ChangeLog for sci-chemistry/curvefit
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  30 Mar 2015; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
-  sci-chemistry/curvefit: Fix for new gcc slotting
-
-  13 Nov 2014; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
-  Drop all KEYWORDS due to broken revdeps
-
-  11 Aug 2014; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
-  Fix missing libs on prefix
 
   15 May 2013; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
   Add missing eclass inherit
@@ -35,3 +26,4 @@
   14 Sep 2012; Justin Lecher <jlec@gentoo.org> +curvefit-1.40.ebuild,
   +metadata.xml:
   New addition
+

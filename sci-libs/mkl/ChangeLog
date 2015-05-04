@@ -1,46 +1,6 @@
 # ChangeLog for sci-libs/mkl
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*mkl-11.2.2.164 (12 Feb 2015)
-
-  12 Feb 2015; Justin Lecher <jlec@gentoo.org> +mkl-11.2.2.164.ebuild:
-  sci-libs/mkl: Version Bump
-
-*mkl-11.2.1.133 (02 Dec 2014)
-
-  02 Dec 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.2.1.133.ebuild:
-  Version BUmp
-
-*mkl-11.2.0.090 (15 Sep 2014)
-
-  15 Sep 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.2.0.090.ebuild:
-  Version Bump
-
-*mkl-11.1.3.174 (02 Jun 2014)
-
-  02 Jun 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.1.3.174.ebuild:
-  Version Bump
-
-*mkl-11.1.2.144 (24 Mar 2014)
-
-  24 Mar 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.1.2.144.ebuild:
-  Version Bump
-
-*mkl-11.1.1.106 (21 Feb 2014)
-
-  21 Feb 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.1.1.106.ebuild:
-  Version Bump, #500386
-
-  08 Dec 2013; Justin Lecher <jlec@gentoo.org> -mkl-11.0.3.163.ebuild,
-  -mkl-11.0.5.192.ebuild, -mkl-11.1.0.080.ebuild, +mkl-11.1.0.080-r1.ebuild:
-  Fix linking problems with openmp support, #492802; thanks Andrew Savchenko
-  for the patch
-
-*mkl-11.1.0.080 (02 Oct 2013)
-
-  02 Oct 2013; Justin Lecher <jlec@gentoo.org> +mkl-11.1.0.080.ebuild:
-  Version Bump
 
 *mkl-11.0.5.192 (14 Jul 2013)
 
@@ -67,7 +27,7 @@
 
   10 Dec 2012; Justin Lecher <jlec@gentoo.org> +mkl-11.0.1.117.ebuild,
   metadata.xml:
-  Version Bump
+  Version BUmp
 
   27 Oct 2012; Justin Lecher <jlec@gentoo.org> mkl-11.0.0.079.ebuild,
   metadata.xml:

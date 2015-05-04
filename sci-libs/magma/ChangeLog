@@ -1,0 +1,42 @@
+# ChangeLog for sci-libs/magma
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  22 Feb 2013; Justin Lecher <jlec@gentoo.org> -magma-1.2.1.ebuild,
+  -files/magma-1.2.1-duplicate-symbols.patch, magma-1.3.0.ebuild, metadata.xml:
+  Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;
+  drop old
+
+  03 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org> magma-1.3.0.ebuild:
+  sci-libs/magma: Fixed URL, thanks James Cloos
+
+*magma-1.3.0 (28 Dec 2012)
+
+  28 Dec 2012; Olivier Huber <oli.huber@gmail.com> +magma-1.3.0.ebuild,
+  metadata.xml:
+  sci-libs/magma Bump
+
+  24 Nov 2012; Olivier Huber <oli.huber@gmail.com> magma-1.2.1.ebuild,
+  metadata.xml:
+  Fix shared lib creation, fix tests and remove the tesla useflag, since this
+  should be the common gpu target 
+
+  12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> magma-1.2.1.ebuild:
+  sci-libs/magma: Shared library fixes, prefix love and ebuild cleanup
+
+*magma-1.2.1 (03 Jul 2012)
+
+  03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/magma-1.2.1-duplicate-symbols.patch,
+  +files/magma-1.2.1-no-cuda-driver.patch, +magma-1.2.1.ebuild,
+  -files/magma-1.2.0-cblas-dotc.patch,
+  -files/magma-1.2.0-duplicate-symbols.patch, -magma-1.2.0.ebuild:
+  sci-libs/magma: Version bump. Updated patches
+
+*magma-1.2.0 (25 Jun 2012)
+
+  25 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/magma-1.2.0-cblas-dotc.patch,
+  +files/magma-1.2.0-duplicate-symbols.patch, +magma-1.2.0.ebuild,
+  +metadata.xml:
+  sci-libs/magma: Initial import

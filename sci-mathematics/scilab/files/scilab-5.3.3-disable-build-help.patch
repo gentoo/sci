@@ -1,0 +1,12 @@
+upstream http://bugzilla.scilab.org/show_bug.cgi?id=9268
+
+--- a/scilab/modules/scinotes/Makefile.am
++++ b/scilab/modules/scinotes/Makefile.am
+@@ -112,5 +112,7 @@ libsciscinotes_la_sci_gatewaydir = $(mydatadir)/sci_gateway
+ libsciscinotes_la_sci_gateway_DATA = sci_gateway/scinotes_gateway.xml
+ 
+ if GUI
++if BUILD_HELP
+     USEANT=1
+ endif
++endif

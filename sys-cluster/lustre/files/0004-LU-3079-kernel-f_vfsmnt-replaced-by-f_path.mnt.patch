@@ -1,0 +1,82 @@
+From 58a8bf674096caabc6edc0c598f16a0b04c05ebf Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Sun, 31 Mar 2013 20:13:21 +0400
+Subject: [PATCH 4/4] LU-3079 kernel: f_vfsmnt replaced by f_path.mnt
+
+In linux 3.9 f_vfsmnt was killed and replaced
+
+commit 182be684784334598eee1d90274e7f7aa0063616
+Author: Al Viro <viro@zeniv.linux.org.uk>
+Date:   Thu Jan 24 02:21:54 2013 -0500
+
+    kill f_vfsmnt
+
+    very few users left...
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+Change-Id: I02f595f0b7bbe804c9695d6da2106deb2d17e0ee
+---
+ lustre/autoconf/lustre-core.m4 | 23 +++++++++++++++++++++++
+ lustre/llite/dir.c             |  4 ++++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 2cb4edd..ba69c41 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1627,6 +1627,28 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.9 killed f_vfsmnt by
++# 182be684784334598eee1d90274e7f7aa0063616
++# replacement is f_path.mnt
++#
++AC_DEFUN([LC_HAVE_F_PATH_MNT],
++[AC_MSG_CHECKING([if struct file has f_path.mnt])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	struct file *fp = NULL;
++	struct path  path;
++
++	path.mnt = fp->f_path.mnt;
++],[
++	AC_DEFINE(HAVE_F_PATH_MNT,1,[yes])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -1766,6 +1788,7 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+ 	 # 3.9
+ 	 LC_HAVE_HLIST_FOR_EACH_3ARG
++	 LC_HAVE_F_PATH_MNT
+ 
+ 	 #
+ 	 if test x$enable_server = xyes ; then
+diff --git a/lustre/llite/dir.c b/lustre/llite/dir.c
+index dd7f7df..e625200 100644
+--- a/lustre/llite/dir.c
++++ b/lustre/llite/dir.c
+@@ -629,7 +629,11 @@ static int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
+         }
+ 	filp->f_version = inode->i_version;
+ #ifdef HAVE_TOUCH_ATIME_1ARG
++#ifdef HAVE_F_PATH_MNT
++	path.mnt = filp->f_path.mnt;
++#else
+ 	path.mnt = filp->f_vfsmnt;
++#endif
+ 	path.dentry = filp->f_dentry;
+ 	touch_atime(&path);
+ #else
+-- 
+1.8.2.1
+

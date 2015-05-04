@@ -5,7 +5,7 @@
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> +polygon-0612.ebuild,
   -polygon-0710.ebuild, +files/0612-db.patch, -files/0710-db.patch,
   metadata.xml:
-  Version Bump; fixed license
+  Version BUmp; fixed license
 
 *polygon-0710 (23 Oct 2009)
 

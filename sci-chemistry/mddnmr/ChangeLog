@@ -1,31 +1,11 @@
 # ChangeLog for sci-chemistry/mddnmr
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  17 Nov 2014; Justin Lecher <jlec@gentoo.org> mddnmr-2.4-r1.ebuild:
-  Drop all keywords
-
-  16 Sep 2014; Justin Lecher <jlec@gentoo.org> mddnmr-2.4-r1.ebuild:
-  Add back dropped ~amd64
-
-  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> mddnmr-2.4-r1.ebuild:
-  dropped ~amd64 as sci-chemistry/nmrpipe doesn't have ~amd64
-
-  21 Aug 2014; Justin Lecher <jlec@gentoo.org> mddnmr-2.4-r1.ebuild:
-  Version Bump
-
-  14 Aug 2014; Justin Lecher <jlec@gentoo.org> -mddnmr-2.4.ebuild,
-  +mddnmr-2.4-r1.ebuild:
-  Fix quoting of variables
-
-  14 Aug 2014; Justin Lecher <jlec@gentoo.org> -mddnmr-2.1.ebuild,
-  -mddnmr-2.2.ebuild, +mddnmr-2.4.ebuild, metadata.xml:
-  Version Bump; drop old
 
 *mddnmr-2.2 (29 Nov 2012)
 
   29 Nov 2012; Justin Lecher <jlec@gentoo.org> +mddnmr-2.2.ebuild:
-  Version Bump
+  Version BUmp
 
 *mddnmr-2.1 (28 Nov 2012)
 
@@ -44,3 +24,4 @@
   02 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net> +mddnmr-1.6.ebuild,
   +metadata.xml:
   Initial commit
+

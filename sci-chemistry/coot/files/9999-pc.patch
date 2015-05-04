@@ -313,7 +313,7 @@ index 399f453..3d2ff55 100755
  #	$(WITH_SCRIPT_CFLAGS) 
  
 diff --git a/configure.in b/configure.in
-index cc549a5..d56f856 100644
+index 5928c3c..9e235b5 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -108,14 +108,18 @@ esac
@@ -357,15 +357,15 @@ index cc549a5..d56f856 100644
 +		fi
 +	])
  
- AC_ARG_WITH(enhanced-ligand-tools, [ --with-enhanced-ligand-tools with optional complicated/experimental ligand-related dependencies ],
-  coot_enhanced_ligand_additions="true",
+ AC_ARG_WITH(enterprise-tools, [ --with-enterprise-tools with optional complicated/experimental ligand-related dependencies ],
+  coot_enterprise_additions="true",
 diff --git a/coords/Makefile.am b/coords/Makefile.am
-index 05fdf70..1e1c5d2 100644
+index 009841e..7687d56 100644
 --- a/coords/Makefile.am
 +++ b/coords/Makefile.am
 @@ -29,7 +29,7 @@ INCLUDES = \
  	-I$(top_srcdir) \
- 	$(ENHANCED_LIGAND_TOOLS_CFLAGS)      \
+ 	$(ENTERPRISE_TOOLS_CFLAGS)      \
  	$(RDKIT_CXXFLAGS) 		\
 -	$(CLIPPER_CXXFLAGS) $(MMDB_CXXFLAGS)
 +	$(CLIPPER_CFLAGS) $(MMDB_CFLAGS)
@@ -443,7 +443,7 @@ index 3a85b9e..1a11cdf 100644
  pkginclude_HEADERS = db-main.hh db-strands.hh
  pkgincludedir = $(includedir)/coot/db-main
 diff --git a/db-main/Makefile.simple b/db-main/Makefile.simple
-index cec561d..c207a43 100644
+index cec561d..31d35a0 100644
 --- a/db-main/Makefile.simple
 +++ b/db-main/Makefile.simple
 @@ -19,7 +19,7 @@ CLIPPER = $(HOME)/crystal
@@ -463,7 +463,7 @@ index cec561d..c207a43 100644
 +CLIPPER_CFLAGS = -I$(CLIPPER)/include -I$(MCCP4)/include 
  
 -INCLUDES = $(CLIPPER_CXXFLAGS) $(MCCP4_CFLAGS) $(MMDB_CXXFLAGS) -I../mini-mol
-+INCLUDES = $(CLIPPER_CFLAGS) $(MCCP4_CFLAGS) $(MMDB_CFLAGS) -I../mini-mol
++INCLUDES = $(CLIPPER_CFLAGS) $(MCCP4_CFLAGS) $(MMDB_CFLAGS) -I$(top_srcdir)/mini-mol
  
  CXXFLAGS = -g $(INCLUDES)
  LDFLAGS = -static -L../mini-mol -lcoot-mini-mol $(CLIPPER_LIBS) $(MMDB_LIBS) 
@@ -540,10 +540,10 @@ index cf81182..3a2af5c 100644
  libcoot_high_res_la_SOURCES = high-res.cc coot-atom-graph.cc residue-distortions.cc \
  	sequence-assignment.cc
 diff --git a/ideal/Makefile.am b/ideal/Makefile.am
-index e52c271..c5c8e6a 100644
+index be4dc3e..f4cc8eb 100644
 --- a/ideal/Makefile.am
 +++ b/ideal/Makefile.am
-@@ -33,11 +33,11 @@ pkgincludedir = $(includedir)/coot/ideal
+@@ -32,11 +32,11 @@ pkgincludedir = $(includedir)/coot/ideal
  
  INCLUDES = \
  	-I$(top_srcdir) \
@@ -584,7 +584,7 @@ index 3c32c3c..0abd514 100644
  	-I$(top_srcdir)/geometry
  
 diff --git a/lbg/Makefile.am b/lbg/Makefile.am
-index df74b90..7f54567 100644
+index 12d4ca6..5367e39 100644
 --- a/lbg/Makefile.am
 +++ b/lbg/Makefile.am
 @@ -6,7 +6,7 @@ INCLUDES = \
@@ -594,7 +594,7 @@ index df74b90..7f54567 100644
 -	$(CLIPPER_CXXFLAGS) $(CCP4SRS_CXXFLAGS) $(MMDB_CXXFLAGS) \
 +	$(CLIPPER_CFLAGS) $(CCP4SRS_CXXFLAGS) $(MMDB_CFLAGS) \
  	$(COOT_WINDOWS_CFLAGS) \
- 	$(ENHANCED_LIGAND_TOOLS_CFLAGS)      \
+ 	$(ENTERPRISE_TOOLS_CFLAGS)      \
  	$(RDKIT_CXXFLAGS) \
 diff --git a/lbg/Makefile.simple b/lbg/Makefile.simple
 index 48d091b..5b148b4 100644
@@ -624,7 +624,7 @@ index 48d091b..5b148b4 100644
  
  lbg:  lbg.o wmolecule.o lbg-callbacks.o lbg-search.o some-coot-utils.o residue-circles.o
 diff --git a/lidia-core/Makefile.am b/lidia-core/Makefile.am
-index 72b28ca..2a184b4 100644
+index 2fcb96b..201ceb0 100644
 --- a/lidia-core/Makefile.am
 +++ b/lidia-core/Makefile.am
 @@ -24,13 +24,13 @@ pkgincludedir = $(includedir)/coot/lidia-core
@@ -636,7 +636,7 @@ index 72b28ca..2a184b4 100644
  #
  INCLUDES = \
  	 -I$(top_srcdir) \
- 	$(ENHANCED_LIGAND_TOOLS_CFLAGS)      \
+ 	$(ENTERPRISE_TOOLS_CFLAGS)      \
  	$(RDKIT_CXXFLAGS) 		\
 -        $(CLIPPER_CXXFLAGS) $(MMDB_CXXFLAGS)
 +        $(CLIPPER_CFLAGS) $(MMDB_CFLAGS)
@@ -799,28 +799,35 @@ index de8ab65..4c1b418 100644
  
  ])
 diff --git a/macros/goo-canvas.m4 b/macros/goo-canvas.m4
-index e2494a5..89c908e 100644
+index 30fdcb9..3e4c0c6 100644
 --- a/macros/goo-canvas.m4
 +++ b/macros/goo-canvas.m4
-@@ -35,8 +35,7 @@ if test x$goocanvas_prefix != x; then
-   # SGI compiler CC (CXX=CC) needs -lm to link maths library, but 
+@@ -36,9 +36,9 @@ if test x$goocanvas_prefix != x; then
    # GCC c++ does not.
    #
--  GOOCANVAS_LDOPTS="-L$goocanvas_prefix/lib -lgoocanvas"
--
-+  GOOCANVAS_LIBS="-L$goocanvas_prefix/lib -lgoocanvas"
+   if test -e $goocanvas_prefix/lib/libgoocanvas.la ; then
+-    GOOCANVAS_LDOPTS="$goocanvas_prefix/lib/libgoocanvas.la"
++    GOOCANVAS_LIBS="$goocanvas_prefix/lib/libgoocanvas.la"
+   else
+-    GOOCANVAS_LDOPTS="-L$goocanvas_prefix/lib -lgoocanvas"
++    GOOCANVAS_LIBS="-L$goocanvas_prefix/lib -lgoocanvas"
+   fi
  else
    # the compiler looks in the "standard" places for GOOCANVAS. (or uses pkgconfig)
- 
-@@ -54,18 +53,16 @@ else
+@@ -57,19 +57,19 @@ else
      break;;
    esac
-   if test -z "${PKG_CONFIG}"; then
--     GOOCANVAS_LDOPTS="-lgoocanvas"
-+     GOOCANVAS_LIBS="-lgoocanvas"
+   if test -e /usr/lib/libgoocanvas.la ; then
+-    GOOCANVAS_LDOPTS="libgoocanvas.la"
++    GOOCANVAS_LIBS="libgoocanvas.la"
    else
--     GOOCANVAS_LDOPTS=`$PKG_CONFIG goocanvas --libs`
-+     GOOCANVAS_LIBS=`$PKG_CONFIG goocanvas --libs`
+     if test -z "${PKG_CONFIG}"; then
+-      GOOCANVAS_LDOPTS="-lgoocanvas"
++      GOOCANVAS_LIBS="-lgoocanvas"
+     else
+-      GOOCANVAS_LDOPTS=`$PKG_CONFIG goocanvas --libs`
++      GOOCANVAS_LIBS=`$PKG_CONFIG goocanvas --libs`
+     fi
    fi
  fi
  
@@ -829,23 +836,9 @@ index e2494a5..89c908e 100644
 -LIBS="$saved_LIBS $GOOCANVAS_LDOPTS $GTK_LIBS"
 +LIBS="$saved_LIBS $GOOCANVAS_LIBS $GTK_LIBS"
  CXXFLAGS="$saved_CXXFLAGS $GOOCANVAS_CFLAGS $GTK_CFLAGS"
--
--
- dnl # 20130929: why do I do this?  I don't remember.  Using libtool 
- dnl # in this way is not a good idea (configure makes libtool).
- dnl #
-@@ -85,18 +82,15 @@ dnl     # note that we use ./libtool (running in the build dir) because $LIBTOOL
- dnl     CXX="libtool --mode=link $CXX"
- dnl     break;;
- dnl esac
--
--
- AC_LANG_PUSH(C++)
- AC_TRY_LINK([#include "goocanvas.h"] ,[ GooCanvas *a;  ], have_goocanvas=yes, have_goocanvas=no)
- AC_LANG_POP
--
- AC_MSG_RESULT($have_goocanvas)
- 
+ #
+ # AC_TRY_LINK uses the c compiler (set by AC_LANG), so we will
+@@ -95,7 +95,7 @@ AC_MSG_RESULT($have_goocanvas)
  if test x$have_goocanvas = xyes; then
  
   GOOCANVAS_CFLAGS="$GOOCANVAS_CFLAGS"
@@ -855,15 +848,18 @@ index e2494a5..89c908e 100644
  ifelse([$1], , :, [$1])
  
 diff --git a/macros/mmdb-ssm.m4 b/macros/mmdb-ssm.m4
-index 25dc502..21646a5 100644
+index 25dc502..fcfde1d 100644
 --- a/macros/mmdb-ssm.m4
 +++ b/macros/mmdb-ssm.m4
-@@ -34,11 +34,11 @@ if test x$with_ssmlib_prefix != x; then
+@@ -31,14 +31,13 @@ AC_ARG_WITH(ssmlib-prefix,
+ AC_MSG_CHECKING([for ssm library])
  
+ if test x$with_ssmlib_prefix != x; then
+-
     if test -r "$with_ssmlib_prefix/include/ssm/ssm_superpose.h"; then
  
 -      MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB"
-+      MMDBSSM_CFLAGS="-DHAVE_SSMLIB"
++   MMDBSSM_CFLAGS="-DHAVE_SSMLIB"
        # AFAICS, ssm does not put its libs in $acl_libdirstem
        # MMDBSSM_LIBS="-L$with_ssmlib_prefix/$acl_libdirstem -lssm"
        MMDBSSM_LIBS="-L$with_ssmlib_prefix/lib -lssm"
@@ -872,12 +868,15 @@ index 25dc502..21646a5 100644
  
        # saved_LIBS="$LIBS"
        # saved_CPPFLAGS="$CPPFLAGS"
-@@ -50,11 +50,11 @@ if test x$with_ssmlib_prefix != x; then
+@@ -49,12 +48,13 @@ if test x$with_ssmlib_prefix != x; then
+ 
     else 
        AC_MSG_FAILURE([ --with-ssmlib-prefix specified but include files not found])
-    fi
+-   fi
 -   MMDBSSM_CXXFLAGS="$MMDBSSM_CXXFLAGS $ac_MMDBSSM_CXXFLAGS"
-+   MMDBSSM_CFLAGS="$MMDBSSM_CFLAGS $ac_MMDBSSM_CFLAGS"
++      fi
++
++  MMDBSSM_CFLAGS="$MMDBSSM_CFLAGS $ac_MMDBSSM_CFLAGS"
    
  else 
  
@@ -1016,7 +1015,7 @@ index 54872fe..bef7d0e 100644
  AM_CXXFLAGS = $(COOT_WINDOWS_CFLAGS)
  
 diff --git a/src/Makefile.am b/src/Makefile.am
-index af5276b..d0ab482 100644
+index fe9656f..384991b 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
 @@ -195,11 +195,11 @@ INCLUDES = \
@@ -1035,7 +1034,7 @@ index af5276b..d0ab482 100644
  	$(GLOB_CFLAGS)                 \
  	$(CURL_CFLAGS)                 
 diff --git a/surface/Makefile.am b/surface/Makefile.am
-index 3de5953..2461f58 100644
+index 8cb8432..d82e6ff 100644
 --- a/surface/Makefile.am
 +++ b/surface/Makefile.am
 @@ -1,5 +1,5 @@

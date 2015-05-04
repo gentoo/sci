@@ -1,10 +1,6 @@
 # ChangeLog for sci-geosciences/cdat-lite
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  04 Dec 2013; Justin Lecher <jlec@gentoo.org> cdat-lite-5.2.ebuild,
-  cdat-lite-6.0_rc2.ebuild, metadata.xml:
-  Bump to distutils-r1 eclass
 
 *cdat-lite-6.0_rc2 (16 Jul 2011)
 

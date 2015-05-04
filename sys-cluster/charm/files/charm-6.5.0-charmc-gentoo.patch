@@ -1,0 +1,25 @@
+--- src/scripts/charmc.old	2013-05-30 10:18:02.261819771 -0600
++++ src/scripts/charmc	2013-05-30 10:19:50.839661634 -0600
+@@ -361,19 +361,9 @@
+ 	PROG_EXT=".exe"
+ fi
+ 
+-CHARMLIB="$CHARMBIN/../lib"
+-CHARMINC="$CHARMBIN/../include"
+-CHARMLIBSO=
+-if test -d "$CHARMBIN/../lib_so" 
+-then
+-  CHARMLIBSO=`cd $CHARMBIN/../lib_so 2>/dev/null && pwd`
+-  #getting absolute path is harder than thought because of symbolic links and ..
+-  #ksh needs cd -P to resolve werid symbolic links, however -P is not portable
+-  #csh is ok too if it exists 
+-  test -z "$CHARMLIBSO" && CHARMLIBSO=`cd -P $CHARMBIN/../lib_so 2>/dev/null && pwd`
+-  test -z "$CHARMLIBSO" && CHARMLIBSO=`csh -c "cd $CHARMBIN/../lib_so >& /dev/null && pwd"`
+-  test -z "$CHARMLIBSO" && echo "$CHARMBIN/../lib_so: not found" && exit 1
+-fi
++CHARMLIB="/usr/gentoo-libdir"
++CHARMINC="/usr/include/gentoo-include"
++CHARMLIBSO="/usr/gentoo-libdir"
+ 
+ ##############################################################################
+ #

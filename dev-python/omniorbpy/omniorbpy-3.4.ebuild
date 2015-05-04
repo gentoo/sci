@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit autotools-utils eutils multilib python-r1
 
@@ -19,11 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="ssl"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-DEPEND="${PYTHON_DEPS}
+DEPEND="
 	>=net-misc/omniORB-4.1.3
-	ssl? ( dev-libs/openssl:0 )"
+	ssl? ( dev-libs/openssl )"
 RDEPEND=${DEPEND}
 
 S=${WORKDIR}/${MY_P}
@@ -58,10 +56,10 @@ src_compile() {
 src_install() {
 	python_foreach_impl autotools-utils_src_install
 
-	HTML_DOCS=( doc/omniORBpy )
-	DOCS=( doc/omniORBpy.p* doc/tex/* )
-	einstalldocs
+	dohtml -r doc/omniORBpy
+	dodoc doc/omniORBpy.p*
+	dodoc doc/tex/*
 
 	insinto /usr/share/doc/${PF}/
-	doins -r examples
+	doins -r examples || die
 }

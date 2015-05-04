@@ -1,0 +1,25 @@
+diff -Nur scilab-5.3.3.orig/configure.ac scilab-5.3.3/configure.ac
+--- scilab-5.3.3.orig/configure.ac	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/configure.ac	2012-05-14 19:27:21.000000000 +0100
+@@ -1514,7 +1514,7 @@
+    CFLAGS="$CFLAGS $MATIO_CFLAGS"
+    LIBS="$LIBS $MATIO_LIBS"
+ 
+-   AC_CHECK_HEADERS([matio.h matioConfig.h], [],
++   AC_CHECK_HEADERS([matio.h], [],
+      [AC_MSG_ERROR([Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS.])])
+    AC_CHECK_LIB([matio], [Mat_Open], [],
+      [AC_MSG_ERROR([Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS.])])
+diff -Nur scilab-5.3.3.orig/modules/core/includes/machine.h.in scilab-5.3.3/modules/core/includes/machine.h.in
+--- scilab-5.3.3.orig/modules/core/includes/machine.h.in	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/modules/core/includes/machine.h.in	2012-05-14 19:25:56.000000000 +0100
+@@ -176,9 +176,6 @@
+ /* Define to 1 if you have the <malloc.h> header file. */
+ #undef HAVE_MALLOC_H
+ 
+-/* Define to 1 if you have the <matioConfig.h> header file. */
+-#undef HAVE_MATIOCONFIG_H
+-
+ /* Define to 1 if you have the <matio.h> header file. */
+ #undef HAVE_MATIO_H
+ 

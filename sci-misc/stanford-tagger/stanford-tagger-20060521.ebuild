@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-EAPI=5
 
 JAVA_PKG_IUSE="doc source"
 inherit java-pkg-2
@@ -11,11 +9,13 @@ MY_PV=2006-05-21
 MY_P=postagger-${MY_PV}
 DESCRIPTION="Stanfords log linear POS taggers"
 HOMEPAGE="http://nlp.stanford.edu/software/tagger.shtml"
-SRC_URI="http://nlp.stanford.edu/software/${MY_P}.tar.gz"
 
+SRC_URI="http://nlp.stanford.edu/software/${MY_P}.tar.gz"
 LICENSE="GPL-2"
+
 SLOT="0"
 KEYWORDS="~x86"
+
 IUSE="${IUSE}"
 
 COMMON_DEP=""
@@ -26,15 +26,13 @@ RDEPEND=">=virtual/jre-1.5
 
 S="${WORKDIR}/${MY_P}"
 
-src_prepare() {
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
 	jar xf ${MY_P}-source.jar
-	rm -v ${MY_P}.jar || die
-	sed \
-		-e 's/import edu.stanford.nlp.ling.IndexedFeatureLabe/\/\/\0/g' \
-		-i edu/stanford/nlp/stats/Counters.java || die "sed failed"
-	sed \
-		-e 's/import edu.stanford.nlp.sequences.BeamBestSequenceFinder/\/\/\0/g' \
-		-i edu/stanford/nlp/tagger/maxent/TestSentence.java || die "sed failed"
+	rm -v ${MY_P}.jar
+	sed -i 's/import edu.stanford.nlp.ling.IndexedFeatureLabe/\/\/\0/g' edu/stanford/nlp/stats/Counters.java || die "sed failed"
+	sed -i 's/import edu.stanford.nlp.sequences.BeamBestSequenceFinder/\/\/\0/g' edu/stanford/nlp/tagger/maxent/TestSentence.java || die "sed failed"
 }
 
 src_compile() {
@@ -45,11 +43,17 @@ src_compile() {
 
 src_install() {
 	java-pkg_dojar ${PN}.jar
+	dodir /usr/share/${PN}
+	dodir /usr/share/${PN}/wsj3t0-18-bidirectional
 	insinto /usr/share/${PN}/wsj3t0-18-bidirectional
-	doins wsj3t0-18-bidirectional/*
-
+	for f in wsj3t0-18-bidirectional/* ; do
+		doins ${f}
+	done
+	dodir /usr/share/${PN}/wsj3t0-18-left3words
 	insinto /usr/share/${PN}/wsj3t0-18-left3words
-	doins wsj3t0-18-left3words/*
+	for f in wsj3t0-18-left3words/* ; do
+		doins ${f}
+	done
 	if use doc ; then
 		java-pkg_dojavadoc javadoc
 	fi

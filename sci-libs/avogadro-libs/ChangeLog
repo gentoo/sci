@@ -1,0 +1,18 @@
+# ChangeLog for sci-libs/avogadro-libs
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 Aug 2013; Justin Lecher <jlec@gentoo.org> avogadro-libs-0.6.0.ebuild,
+  +files/avogadro-libs-0.6.0-underlinking.patch, metadata.xml:
+  Fix underlinking reported by ercpe, allow monolithic plugin module
+
+  12 Aug 2013; Justin Lecher <jlec@gentoo.org> avogadro-libs-0.6.0.ebuild,
+  +files/avogadro-libs-0.6.0-underlinking.patch, metadata.xml:
+  Fix underlinking reported by ercpe, allow monolithic plugin module
+
+*avogadro-libs-0.6.0 (23 Jul 2013)
+
+  23 Jul 2013; Justin Lecher <jlec@gentoo.org> +avogadro-libs-0.6.0.ebuild,
+  +metadata.xml:
+  New addition written by me
+

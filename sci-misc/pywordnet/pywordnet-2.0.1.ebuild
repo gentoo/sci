@@ -1,12 +1,13 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="3"
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
 
-inherit distutils-r1
+inherit distutils
 
 DESCRIPTION="Python bindings for wordnet"
 HOMEPAGE="http://pywordnet.sourceforge.net/"
@@ -14,10 +15,10 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~x86"
 IUSE=""
 
 DEPEND=">=app-dicts/wordnet-2.0"
 RDEPEND="${DEPEND}"
 
-DOCS=( docs/. )
+DOCS=docs/*

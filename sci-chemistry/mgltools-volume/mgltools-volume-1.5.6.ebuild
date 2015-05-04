@@ -1,15 +1,17 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit distutils-r1 eutils
 
 MY_PN="Volume"
 MY_P="${MY_PN}-${PV/_rc3/}"
+
+PYTHON_MODNAME="${MY_PN}"
 
 DESCRIPTION="MGLTools Plugin -- Volume"
 HOMEPAGE="http://mgltools.scripps.edu"
@@ -29,8 +31,8 @@ S="${WORKDIR}"/${MY_P}
 DOCS=( Volume/RELNOTES Volume/README Volume/TODO )
 
 src_unpack() {
-	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
-	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
+	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
+	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
 }
 
 python_prepare_all() {

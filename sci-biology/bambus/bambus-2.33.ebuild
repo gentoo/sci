@@ -1,17 +1,15 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=3
 
 inherit eutils
 
 DESCRIPTION="Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle"
 HOMEPAGE="http://sourceforge.net/apps/mediawiki/amos/index.php?title=AMOS
-		http://sourceforge.net/projects/amos/files/bambus
 		http://www.tigr.org/software/bambus"
-SRC_URI="http://sourceforge.net/projects/amos/files/bambus/${PV}/${P}.tar.gz
-	http://mira-assembler.sourceforge.net/docs/scaffolding_MIRA_BAMBUS.pdf"
+SRC_URI="http://sourceforge.net/projects/amos/files/bambus/2.33/bambus-2.33.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"
@@ -28,32 +26,28 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 #	epatch "${FILESDIR}"/amos-2.0.8-gcc44.patch
-	sed -e 's:BASEDIR = /usr/local/packages/bambus:BASEDIR = /usr:' -i Makefile || die
-	sed -e 's:PERL = /usr/local/bin/perl:PERL = /usr/bin/perl:' -i Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i doc/Makefile || die
-	sed -e 's:make all;:make all || exit 255;:' -i src/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/IO/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/DotLib/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/grommit/Makefile || die
-	sed -e "s:^CC\t=:CC=$(tc-getCXX):" -i Makefile || die
-	sed -e "s:^CXX\t=:CXX=$(tc-getCXX):" -i Makefile || die
-	sed -e "s:^LD\t:LD=$(tc-getCXX):" -i Makefile || die
-	sed -e 's:^AR\t=:#AR=:' -i Makefile || die
-	sed -e 's:^export:#export:' -i Makefile || die
-	sed -e 's:-Wl::' -i src/grommit/Makefile || die
-	# sed -e 's:-L../TIGR_Foundation_CC/:-L../TIGR_Foundation_CC/:' -i src/grommit/Makefile || die
-	sed -e 's:make all:make all DESTDIR=$(DESTDIR):' -i Makefile || die
-	sed -e 's:make install:make install DESTDIR=$(DESTDIR):' -i Makefile || die
-	sed -e "s:# Main targets:LD=$(tc-getCXX):" -i src/grommit/Makefile || die
-	sed -e 's:^LDFLAGS =$(STATIC_$(OSTYPE)):LDFLAGS += $(STATIC_$(OSTYPE)):' -i src/grommit/Makefile || die
-	sed -e 's:CFLAGS = $(HEADERS) -g:CFLAGS += $(HEADERS) -fPIC:' -i src/grommit/Makefile || die
-	sed -e 's:^$ENV{PERLLIB}:$ENV{PERL5LIB}:' -i src/goBambus.pl || die
-	sed -e 's:^#!.*:#!/usr/bin/perl:' -i src/goBambus.pl || die
-	sed -e 's:^#!.*:#!/usr/bin/perl:' -i src/IO/*.pl || die
+	sed -i 's:BASEDIR = /usr/local/packages/bambus:BASEDIR = /usr:' Makefile || die
+	sed -i 's:PERL = /usr/local/bin/perl:PERL = /usr/bin/perl:' Makefile || die
+	sed -i 's:INSTDIR:DESTDIR:g' Makefile || die
+	sed -i 's:INSTDIR:DESTDIR:g' src/Makefile || die
+	sed -i 's:INSTDIR:DESTDIR:g' doc/Makefile || die
+	sed -i 's:INSTDIR:DESTDIR:g' src/IO/Makefile || die
+	sed -i 's:INSTDIR:DESTDIR:g' src/DotLib/Makefile || die
+	sed -i 's:INSTDIR:DESTDIR:g' src/grommit/Makefile || die
+	sed -i 's:^CC:#CC:' Makefile || die
+	sed -i 's:^CXX:#CXX:' Makefile || die
+	sed -i 's:^LD:#LD:' Makefile || die
+	sed -i 's:^AR:#AR:' Makefile || die
+	sed -i 's:^export:#export:' Makefile || die
+	sed -i 's:-Wl::' src/grommit/Makefile || die
+	sed -i 's:-L../TIGR_Foundation_CC/:-L../TIGR_Foundation_CC/ -shared -fPIC:' src/grommit/Makefile || die
+	sed -i 's:make all:make all DESTDIR=$(DESTDIR):' Makefile || die
+	sed -i 's:make install:make install DESTDIR=$(DESTDIR):' Makefile || die
+	sed -i 's:^LDFLAGS =$(STATIC_$(OSTYPE)):LDFLAGS += $(STATIC_$(OSTYPE)) -shared -fPIC:' src/grommit/Makefile || die
+	sed -i 's:CFLAGS = $(HEADERS) -g:CFLAGS += $(HEADERS):' src/grommit/Makefile || die
+	sed -i 's:^$ENV{PERLLIB}:$ENV{PERL5LIB}:' src/goBambus.pl || die
 	einfo "Argh, cannot delete src/TIGR_Foundation_CC/ because it has some extra files getopt.* not present"
-	einfo "in sci-biology/tigr-foundation-libs. It seems bambus-2.33/src/TIGR_Foundation_CC/ contains"
+	einfo "in sci-biology/tigr-foundation-libs. It sees bambus-2.33/src/TIGR_Foundation_CC/ contains"
 	einfo "the following 3 files getopt.cc   getopt.hh   getopt1.cc which were possibly copied"
 	einfo "over from some old GNU libc and maybe could be completely dropped?"
 	einfo "Affected would be:"
@@ -65,7 +59,7 @@ src_prepare() {
 	#sed -i 's:TIGR_Foundation_CC::' src/Makefile || die "Failed to zap last pointer to local copy of tigr-foundation-libs"
 	cd src/TIGR_Foundation_CC || die "Failed to cd src/TIGR_Foundation_CC/"
 	epatch "${FILESDIR}"/TigrFoundation-all-patches.patch || die
-	sed -e "s:/export/usr/local:${D}/usr:g" -i Makefile || die
+	sed -i "s:/export/usr/local:${D}/usr:g" Makefile || die
 }
 
 src_compile() {
@@ -105,7 +99,6 @@ src_install() {
 	rmdir "${D}"/usr/doc || die
 
 	dobin "${FILESDIR}"/goBambus.pl || die "Failed to install the alternative of goBambus.py written in perl"
-	dodoc "${DISTDIR}"/scaffolding_MIRA_BAMBUS.pdf
 }
 
 pkg_postinst(){

@@ -1,19 +1,6 @@
 # ChangeLog for sci-mathematics/acl2
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*acl2-7.0 (25 Mar 2015)
-
-  25 Mar 2015; zcj <ustcscgy@163.com> +acl2-7.0.ebuild, -acl2-6.3.ebuild,
-  -files/set-booksdir.patch, metadata.xml:
-  sci-mathematics/acl2: sci-mathematics/acl2 version bump, drop old
-
-  12 Nov 2014; Justin Lecher <jlec@gentoo.org> -acl2-4.2.ebuild,
-  -acl2-4.3.ebuild:
-  Drop old
-
-  09 Dec 2013; Justin Lecher <jlec@gentoo.org> acl2-6.3.ebuild, metadata.xml:
-  Add missing die
 
   15 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> +acl2-4.3.ebuild:
   Updated metadata
@@ -34,3 +21,4 @@
 
   12 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +acl2-4.2.ebuild +ChangeLog +metadata.xml :
   Initial import.  #49316
+

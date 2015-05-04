@@ -16,6 +16,9 @@
     <flag name="freetype">Undocumented USE</flag>
   </use>
   <use>
+    <flag name="ftds">Undocumented USE</flag>
+  </use>
+  <use>
     <flag name="mesa">Undocumented USE</flag>
   </use>
   <use>

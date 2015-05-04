@@ -1,33 +1,6 @@
 # ChangeLog for sci-libs/cblas-reference
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/cblas-reference/ChangeLog,v 1.33 2010/03/07 19:14:51 jlec Exp $
-
-*cblas-reference-20110218-r1 (13 Oct 2014)
-
-  13 Oct 2014; Mark Wright <gienah@gentoo.org>
-  +cblas-reference-20110218-r1.ebuild, metadata.xml:
-  multilib int64 multibuild cblas-reference. int64 fails tests with
-  blas-reference
-
-  02 Jul 2014; François Bissey <francois.bissey@canterbury.ac.nz>
-  cblas-reference-20110218.ebuild:
-  More fix for macos. We need to create the link for both linux and macos.
-
-  30 Jun 2014; François Bissey <francois.bissey@canterbury.ac.nz>
-  cblas-reference-20110218.ebuild:
-  Tweak src_install for OS X support. Added documentation in the ebuild itself.
-
-  13 Jan 2014; Christoph Junghans <ottxor@gentoo.org>
-  cblas-reference-20110218.ebuild:
-  fixed die mastery
-
-  25 Dec 2013; Justin Lecher <jlec@gentoo.org> cblas-reference-20110218.ebuild,
-  metadata.xml:
-  Fix Typo, #495202
-
-  07 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org>
-  cblas-reference-20110218.ebuild:
-  sci-libs/cblas-reference: Switched to EAPI5
 
   12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org>
   cblas-reference-20110218.ebuild:

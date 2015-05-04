@@ -1,15 +1,17 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit distutils-r1 eutils prefix
 
 MY_PN="opengltk"
 MY_P="${MY_PN}-${PV/_rc3/}"
+
+PYTHON_MODNAME="${MY_PN}"
 
 DESCRIPTION="MGLTools Plugin -- opengltk"
 HOMEPAGE="http://mgltools.scripps.edu"
@@ -21,10 +23,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-lang/tk:0
-	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-lang/tk
+	dev-python/numpy
 	dev-tcltk/tkdnd
-	dev-tcltk/togl:0
+	dev-tcltk/togl
 	media-libs/glew
 	virtual/opengl"
 DEPEND="${RDEPEND}
@@ -33,8 +35,8 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}"/${MY_P}
 
 src_unpack() {
-	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
-	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
+	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
+	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
 }
 
 python_prepare_all() {

@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 inherit eutils autotools
 
 DESCRIPTION="Extract catalogs of sources from astronomical FITS images"
@@ -14,8 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc threads"
 
-RDEPEND="
-	sci-libs/atlas[lapack]
+RDEPEND="sci-libs/atlas[lapack]
 	sci-libs/fftw:3.0"
 DEPEND="${RDEPEND}"
 

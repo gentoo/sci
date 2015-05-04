@@ -1,0 +1,42 @@
+--- scilab-5.3.3.orig/modules/history_manager/Makefile.am	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/modules/history_manager/Makefile.am	2012-05-23 20:17:50.000000000 +0100
+@@ -82,7 +82,7 @@
+ INCLUDE_FLAGS = $(libscihistory_manager_la_CFLAGS)
+ 
+ ## Libraries necessary
+-libscihistory_manager_la_LIBADD =  $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/modules/fileio/libscifileio.la
++libscihistory_manager_la_LIBADD =  $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/modules/fileio/libscifileio.la $(top_builddir)/modules/history_browser/libscihistory_browser-disable.la
+ modulename=history_manager
+ 
+ #### history_manager : Conf files ####
+--- scilab-5.3.3.orig/modules/commons/Makefile.am	2012-04-16 21:18:41.000000000 +0100
++++ scilab-5.3.3/modules/commons/Makefile.am	2012-05-24 19:06:11.000000000 +0100
+@@ -80,7 +80,7 @@
+ endif
+ 
+ libscicommons_la_LIBADD = $(top_builddir)/libs/MALLOC/libscimalloc.la \
+-$(top_builddir)/modules/output_stream/libscioutput_stream.la
++$(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/modules/core/libscicore.la
+ 
+ 
+ #### commons : gateway declaration ####
+--- scilab-5.3.3.orig/modules/Makefile.am	2012-04-16 21:18:41.000000000 +0100
++++ scilab-5.3.3/modules/Makefile.am	2012-05-24 18:41:25.000000000 +0100
+@@ -23,7 +23,6 @@
+ api_scilab \
+ dynamic_link \
+ fileio \
+-history_manager \
+ spreadsheet \
+ tclsci \
+ localization \
+@@ -88,7 +87,8 @@
+ parallel \
+ modules_manager \
+ ui_data \
+-history_browser
++history_browser \
++history_manager
+ 
+ #umfpack
+ 

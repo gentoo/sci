@@ -1,9 +1,0 @@
-# ChangeLog for sys-cluster/mpe2
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*mpe2-1.3.0 (29 Nov 2014)
-
-  29 Nov 2014; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
-  +mpe2-1.3.0.ebuild:
-  Add to overlay and bump version

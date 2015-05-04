@@ -1,12 +1,6 @@
 # ChangeLog for sci-biology/fastdnaml
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*fastdnaml-1.2.2_p10 (10 Nov 2014)
-
-  10 Nov 2014; Justin Lecher <jlec@gentoo.org> -fastdnaml-1.2.2.ebuild,
-  +fastdnaml-1.2.2_p10.ebuild, metadata.xml:
-  Bump EAPI; version Bump
 
   07 Jul 2008; weaver <weaver@gentoo.org> +metadata.xml,
   +fastdnaml-1.2.2.ebuild:

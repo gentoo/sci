@@ -1,10 +1,6 @@
 # ChangeLog for sci-geosciences/xtide
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  13 Nov 2014; Justin Lecher <jlec@gentoo.org> -xtide-2.12-r1.ebuild,
-  xtide-2.13.ebuild, metadata.xml:
-  Bump to EAPI=5; drop old
 
 *xtide-2.13 (16 Jun 2012)
 

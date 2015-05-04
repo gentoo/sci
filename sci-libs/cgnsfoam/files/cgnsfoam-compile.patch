@@ -1,0 +1,51 @@
+diff -urN cgnsfoam.orig/utilities/mesh/conversion/cgnsToFoam/Make/options cgnsfoam/utilities/mesh/conversion/cgnsToFoam/Make/options
+--- cgnsfoam.orig/utilities/mesh/conversion/cgnsToFoam/Make/options	2009-02-19 13:18:42.000000000 +0100
++++ cgnsfoam/utilities/mesh/conversion/cgnsToFoam/Make/options	2009-02-19 16:13:36.000000000 +0100
+@@ -17,8 +17,11 @@
+ // Eventually, those packages will get integrated to the main OpenFOAM version
+ // In the meantime, we hardcode those values, using relative paths to $PWD.
+ 
+-LIBCGNSOOHOME=$(PWD)/../../../../../src/libcgnsoo_3.0/platforms/$(WM_OPTIONS)
+-CGNSLIBHOME=$(PWD)/../../../../../src/cgnslib_2.5/platforms/$(WM_OPTIONS)
++//LIBCGNSOOHOME=$(PWD)/../../../../../src/libcgnsoo_3.0/platforms/$(WM_OPTIONS)
++//CGNSLIBHOME=$(PWD)/../../../../../src/cgnslib_2.5/platforms/$(WM_OPTIONS)
++
++LIBCGNSOOHOME=/usr
++CGNSLIBHOME=/usr
+ 
+ LINKEXE+=-Wl,-rpath=$(LIBCGNSOOHOME)/lib
+ 
+@@ -32,6 +35,6 @@
+ EXE_LIBS = \
+     -L$(WM_PROJECT_USER_DIR)/lib/$(WM_OPTIONS) -lOpenFOAM -lfiniteVolume\
+     -L$(LIBCGNSOOHOME)/lib -lcgnsoo3 \
+-    -L$(CGNSLIBHOME)/lib -lcgns_2.5 \
++    -L$(CGNSLIBHOME)/lib -lcgns \
+     -lmeshTools \
+     -ldynamicMesh
+diff -urN cgnsfoam.orig/utilities/postProcessing/dataConversion/foamToCGNS/Make/options cgnsfoam/utilities/postProcessing/dataConversion/foamToCGNS/Make/options
+--- cgnsfoam.orig/utilities/postProcessing/dataConversion/foamToCGNS/Make/options	2009-02-19 13:18:42.000000000 +0100
++++ cgnsfoam/utilities/postProcessing/dataConversion/foamToCGNS/Make/options	2009-02-19 16:13:33.000000000 +0100
+@@ -6,8 +6,11 @@
+ // Eventually, those packages will get integrated to the main OpenFOAM version
+ // In the meantime, we hardcode those values, using relative paths to $PWD.
+ 
+-LIBCGNSOOHOME=$(PWD)/../../../../../src/libcgnsoo_3.0/platforms/$(WM_OPTIONS)
+-CGNSLIBHOME=$(PWD)/../../../../../src/cgnslib_2.5/platforms/$(WM_OPTIONS)
++// LIBCGNSOOHOME=$(PWD)/../../../../../src/libcgnsoo_3.0/platforms/$(WM_OPTIONS)
++// CGNSLIBHOME=$(PWD)/../../../../../src/cgnslib_2.5/platforms/$(WM_OPTIONS)
++
++LIBCGNSOOHOME=/usr
++CGNSLIBHOME=/usr
+ 
+ LINKEXE+=-Wl,-rpath=$(LIBCGNSOOHOME)/lib
+ 
+@@ -25,7 +28,7 @@
+ EXE_LIBS = \
+     -lOpenFOAM \
+     -L$(LIBCGNSOOHOME)/lib -lcgnsoo3 \
+-    -L$(CGNSLIBHOME)/lib -lcgns_2.5 \
++    -L$(CGNSLIBHOME)/lib -lcgns \
+     -lincompressibleRASModels   \
+     -lincompressibleTransportModels \
+     -lfiniteVolume

@@ -6,7 +6,6 @@
   Alt-Ergo is an open source automatic theorem prover dedicated to program verification.
   It is an SMT solver based on CC(X): a congruence closure algorithm parameterized by an
   equational theory X. Alt-Ergo is based on a home-made SAT-solver and implements an
-  instantiation mechanism for quantified formulas. Its architecture is summarized by the
-  the following picture.
+  instantiation mechanism for quantified formulas.
 </longdescription>
 </pkgmetadata>

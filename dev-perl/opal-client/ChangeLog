@@ -1,14 +1,6 @@
 # ChangeLog for dev-perl/opal-client
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  01 Nov 2014; Justin Lecher <jlec@gentoo.org> opal-client-1.9.2.ebuild,
-  metadata.xml:
-  Bump to EAPI=5
-
-  01 Nov 2014; Justin Lecher <jlec@gentoo.org> opal-client-1.9.2.ebuild,
-  metadata.xml:
-  Bump to EAPI=5
 
   27 Jun 2010; Justin Lecher <jlec@gentoo.org> opal-client-1.9.2.ebuild:
   Python ABI fixes

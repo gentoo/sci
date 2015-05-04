@@ -1,7 +1,0 @@
-# ChangeLog for sci-biology/tgicl
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  24 Sep 2014; Justin Lecher <jlec@gentoo.org> tgicl-2.1.ebuild, metadata.xml:
-  Bump to EAPI=5
-

@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/chemkit
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*chemkit-0.1 (22 Jul 2013)
+
+  22 Jul 2013; Justin Lecher <jlec@gentoo.org> +chemkit-0.1.ebuild,
+  +metadata.xml:
+  New addition written by me
+

@@ -1,12 +1,7 @@
 # ChangeLog for sys-cluster/mvapich2
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  18 Feb 2015; Justin Lecher <jlec@gentoo.org> mvapich2-1.6-r1.ebuild:
-  sys-cluster/mvapich2: fix SLOT operators
-
-  15 Nov 2014; Christoph Junghans <ottxor@gentoo.org> mvapich2-1.6-r1.ebuild:
-  drop old deps
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> mvapich2-1.6-r1.ebuild:
   Add missing flag-o-matic.eclass
+

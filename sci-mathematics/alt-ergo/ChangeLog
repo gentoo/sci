@@ -1,23 +1,19 @@
 # ChangeLog for sci-mathematics/alt-ergo
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> alt-ergo-0.95.2.ebuild:
-  clean up
+*alt-ergo-0.95.1 (25 Aug 2013)
 
-  16 Jun 2014; Jauhien Piatlicki <jauhien@gentoo.org>
-  -alt-ergo-0.95.1.ebuild, +alt-ergo-0.95.2.ebuild:
-  version bump; fix bug #479994; move sources to my dev space
-
-  25 Aug 2013; Andrew Savchenko <bircoph@gmail.com>
-  -alt-ergo-0.95.ebuild, +alt-ergo-0.95.1.ebuild, metadata.xml:
+  25 Aug 2013; Andrew Savchenko <bircoph@gmail.com> -alt-ergo-0.95.ebuild,
+  +alt-ergo-0.95.1.ebuild, metadata.xml:
   Version bump for a bugfix release. Cleanup metadata.
   This also fixes bug 479994 (wrong manifest for alt-ergo-0.95).
 
-  03 Mar 2013; Justin Lecher <jlec@gentoo.org>
-  alt-ergo-0.95.ebuild, metadata.xml:
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> alt-ergo-0.95.ebuild,
+  metadata.xml:
   Move to EAPI=5; clean quoting and ebuild syntax and indention
 
-  14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  14 Jan 2013; J.-C. Demay <jcdemay@gmail.com>
   +alt-ergo-0.95.ebuild:
   initial commit
+

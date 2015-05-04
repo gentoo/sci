@@ -1,0 +1,59 @@
+--- a/src/Makefile.am   2013-07-25 23:49:48.949442972 +0200
++++ b/src/Makefile.am   2013-07-25 23:50:23.255540853 +0200
+@@ -49,17 +49,6 @@
+ endif
+ P4EST_CPPFLAGS =
+ 
+-# build static library
+-lib_LIBRARIES += src/libp4est.a
+-src_libp4est_a_SOURCES = \
+-        $(libp4est_installed_headers) \
+-        $(libp4est_internal_headers) \
+-        $(libp4est_compiled_sources)
+-src_libp4est_a_CPPFLAGS = $(AM_CPPFLAGS) $(P4EST_CPPFLAGS)
+-src_libp4est_a_DEPENDENCIES = @P4EST_DEPENDENCIES@
+-
+-# build shared library
+-if P4EST_ENABLE_SHARED
+ lib_LTLIBRARIES += src/libp4est.la
+ src_libp4est_la_SOURCES = \
+         $(libp4est_internal_headers) \
+@@ -67,9 +56,6 @@
+ src_libp4est_la_CPPFLAGS = $(AM_CPPFLAGS) $(P4EST_CPPFLAGS)
+ src_libp4est_la_DEPENDENCIES = @P4EST_DEPENDENCIES@
+ LDADD += @top_builddir@/src/libp4est.la @P4EST_SC_LDADD@
+-else
+-LDADD += @top_builddir@/src/libp4est.a @P4EST_SC_LDADD@
+-endif
+ 
+ nodist_include_HEADERS += $(libp4est_generated_headers)
+ include_HEADERS += $(libp4est_installed_headers)
+--- a/sc/src/Makefile.am  2013-07-25 23:54:46.330624131 +0200
++++ a/sc/src/Makefile.am  2013-07-25 23:55:12.516935722 +0200
+@@ -35,26 +35,12 @@
+         src/sc_builtin/zlib.h src/sc_builtin/zconf.h
+ LIBSC_CPPFLAGS =
+ 
+-# build static library
+-lib_LIBRARIES += src/libsc.a
+-src_libsc_a_SOURCES = \
+-        $(libsc_installed_headers) \
+-        $(libsc_internal_headers) \
+-        $(libsc_compiled_sources)
+-src_libsc_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBSC_CPPFLAGS)
+-
+-# build shared library
+-if SC_ENABLE_SHARED
+ lib_LTLIBRARIES += src/libsc.la
+ src_libsc_la_SOURCES = \
+         $(libsc_internal_headers) \
+         $(libsc_compiled_sources)
+ src_libsc_la_CPPFLAGS = $(AM_CPPFLAGS) $(LIBSC_CPPFLAGS)
+ LDADD += @top_builddir@/src/libsc.la
+-else
+-LDADD += @top_builddir@/src/libsc.a
+-endif
+-LDADD_STATIC += @top_builddir@/src/libsc.a
+ 
+ nodist_include_HEADERS += $(libsc_generated_headers)
+ include_HEADERS += $(libsc_installed_headers)

@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,7 +19,7 @@ RESTRICT="primaryuri"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debug examples fftw itkv3compat python review cpu_flags_x86_sse2 test"
+IUSE="debug examples fftw itkv3compat python review sse2 test"
 
 RDEPEND="
 	sci-libs/hdf5[cxx]
@@ -69,7 +69,7 @@ src_configure() {
 		$(cmake-utils_use_build test TESTING)
 		$(cmake-utils_use review ITK_USE_REVIEW)
 		$(cmake-utils_use itkv3compat ITKV3_COMPATIBILITY)
-		$(cmake-utils_use cpu_flags_x86_sse2 VNL_CONFIG_ENABLE_SSE2)
+		$(cmake-utils_use sse2 VNL_CONFIG_ENABLE_SSE2)
 	)
 	if use fftw; then
 		mycmakeargs+=(

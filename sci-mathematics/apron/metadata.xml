@@ -13,6 +13,6 @@
   conference.
 </longdescription>
 <use>
-  <flag name='ppl'>Add support for <pkg>dev-libs/ppl</pkg></flag>
+  <flag name="ppl">Enable optional interface to the Parma Polyhedra Library</flag>
 </use>
 </pkgmetadata>

@@ -4,7 +4,7 @@
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -clover-2010.02.19.ebuild,
   +clover-2011.10.24.ebuild, metadata.xml:
-  Version Bump; fixed license; respect LDFLAGS
+  Version BUmp; fixed license; respect LDFLAGS
 
 *clover-2010.02.19 (23 Aug 2010)
 

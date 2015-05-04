@@ -1,10 +1,6 @@
 # ChangeLog for sci-electronics/tnt
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> tnt-1.2.2.ebuild,
-  +files/tnt-1.2.2-autotools.patch, metadata.xml:
-  Punt base.eclass
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> tnt-1.2.2.ebuild:
   Streamlined fortran-2 eclass usage

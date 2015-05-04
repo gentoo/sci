@@ -30,34 +30,44 @@
 
 #--- END OF EXAMPLES ---
 
-# Christoph Junghans <ottxor@gentoo.org> (14 Nov 2014)
-# sci-misc/salome-* masked for removal in 30 days
-# not bumped since 2010, reintroduced back in science overlay
-# if properly maintained
-sci-misc/salome-component
-sci-misc/salome-geom
-sci-misc/salome-gui
-sci-misc/salome-kernel
-sci-misc/salome-med
-sci-misc/salome-meta
-sci-misc/salome-pycalculator
-sci-misc/salome-smesh
-sci-misc/salome-visu
-sci-misc/salome-yacs
-
-# Andreas K. Huettel <dilfridge@gentoo.org> (1 Nov 2014)
-# Lab::Instrument and Lab::Tools provided as separate packages
-# are way outdated. These are now supplied as parts of the package
-# Lab::Measurement (dev-perl/Lab-Measurement in the main portage
-# tree). Masked for removal.
-dev-perl/Lab-Instrument
-dev-perl/Lab-Tools
-
-# Jauhien Piatlicki <jauhien@gentoo.org> (13 Sep 2014)
-# dev-python/pythonocc-0.5 works only with sci-libs/opencascade-6.3
-# which is not available in the tree, see bug #522678
-# mask until bug is not fixed
-dev-python/pythonocc
+# Live ebuilds go here
+# keep this on top
+>=sci-libs/fftw-9999
+>=media-gfx/brlcad-9999
+>=dev-lang/path64-9999
+>=dev-lang/julia-9999
+>=dev-lang/ispc-9999
+>=app-benchmarks/btl-9999
+>=sci-chemistry/freeon-9999
+>=sci-astronomy/eye-9999
+>=sci-astronomy/missfits-9999
+>=sci-astronomy/psfex-9999
+>=sci-astronomy/scamp-9999
+>=sci-astronomy/sextractor-9999
+>=sci-astronomy/skymaker-9999
+>=sci-astronomy/stiff-9999
+>=sci-astronomy/stuff-9999
+>=sci-astronomy/swarp-9999
+>=sci-astronomy/weightwatcher-9999
+>=dev-lang/ispc-9999
+>=media-gfx/librecad-9999
+>=media-gfx/brlcad-9999
+>=dev-lang/path64-9999
+>=sys-cluster/nullmpi-9999
+>=sci-physics/espresso-9999
+>=sci-physics/espresso++-9999
+~sci-chemistry/gromacs-4.5.9999
+~sci-chemistry/gromacs-4.6.9999
+~sci-chemistry/gromacs-9999
+>=sci-libs/votca-tools-9999
+>=sci-chemistry/votca-csg-9999
+>=sci-chemistry/votca-csgapps-9999
+~sci-visualization/gnuplot-4.6.9999
+~sci-visualization/gnuplot-4.7.9999
+~sci-chemistry/burrow-owl-9999_pre15
+>=sci-chemistry/pymol-apbs-plugin-9999
+>=sci-chemistry/coot-9999
+>=sci-chemistry/pymol-9999
 
 # Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
 # bigdft moved from sci-libs to sci-physics
@@ -80,6 +90,29 @@ sci-biology/artemis-bin
 # incompatible API with previous versions of metis (4)
 # masked until reverse depedencies are fixed
 >=sci-libs/parmetis-4
+
+# Justin Lecher <jlec@gentoo.org> (20 Feb 2012)
+# They are broken in one or the other way
+# Need to be bumped to emboss-6.4.0
+sci-biology/emboss
+sci-biology/embassy
+sci-biology/embassy-cbstools
+sci-biology/embassy-domainatrix
+sci-biology/embassy-domalign
+sci-biology/embassy-domsearch
+sci-biology/embassy-emnu
+sci-biology/embassy-esim4
+sci-biology/embassy-hmmer
+sci-biology/embassy-iprscan
+sci-biology/embassy-memenew
+sci-biology/embassy-mira
+sci-biology/embassy-mse
+sci-biology/embassy-phylipnew
+sci-biology/embassy-signature
+sci-biology/embassy-structure
+sci-biology/embassy-topo
+sci-biology/embassy-vienna
+sci-biology/embassy-clustalomega
 
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # paraview dep is masked

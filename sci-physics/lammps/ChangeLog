@@ -1,0 +1,36 @@
+# ChangeLog for sci-physics/lammps
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lammps-20130830 (02 Sep 2013)
+
+  02 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130830.ebuild:
+  sci-physics/lammps: Version bump to 20130830.
+
+*lammps-20130816 (13 Aug 2013)
+
+  13 Aug 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130816.ebuild:
+  sci-physics/lammps-20130816: Version bump.
+
+*lammps-20130711 (16 Jul 2013)
+
+  16 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130711.ebuild:
+  Version bump to sci-physics/lammps-20130711
+
+  09 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130708.ebuild:
+  sci-physics/lammps: Fixed repoman warning.
+
+*lammps-20130708 (09 Jul 2013)
+
+  09 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130708.ebuild:
+  Added current version: sci-physics/lammps-20130708.  * Fixed bug in lammps to
+  gentoo version string conversion. In bash arithmetic   operations, a string
+  literal with a leading "0" is interpreted in base 8. * Added potentials, which
+  were not installed in previous versions. * Moved examples from
+  /usr/share/doc/${PF} to /usr/share/lammps-${PF}.
+
+*lammps-20130701 (03 Jul 2013)
+
+  03 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130701.ebuild,
+  +metadata.xml:
+  Version bump to 1-Jul-2013.

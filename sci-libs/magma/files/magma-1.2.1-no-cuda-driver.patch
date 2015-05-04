@@ -1,0 +1,38 @@
+--- magma-1.2.1.orig/testing/lin/Makefile	2012-07-03 11:59:28.875659669 -0700
++++ magma-1.2.1/testing/lin/Makefile	2012-07-03 12:01:05.546166252 -0700
+@@ -266,7 +266,7 @@
+ 	../matgen/$(TMGLIB) -o xlintsts \
+ 	../fortran.o \
+ 	$(LDOPTS) -L../../lib \
+-	-lcuda -lmagma -lmagmablas \
++	-lmagma -lmagmablas \
+ 	$(LIBDIR) $(LIB) 
+ 
+ xlintstc : $(ALINTST) $(CLINTST) $(SCLNTST) ../fortran.o
+@@ -274,7 +274,7 @@
+ 	../matgen/$(TMGLIB) -o xlintstc \
+ 	../fortran.o \
+ 	$(LDOPTS) -L../../lib \
+-	-lcuda -lmagma -lmagmablas \
++	-lmagma -lmagmablas \
+ 	$(LIBDIR) $(LIB) 
+  
+ xlintstd : $(ALINTST) $(DLINTST) $(DZLNTST) ../fortran.o
+@@ -282,7 +282,7 @@
+ 	../matgen/$(TMGLIB) -o xlintstd \
+ 	../fortran.o \
+ 	$(LDOPTS) -L../../lib \
+-	-lcuda -lmagma -lmagmablas \
++	-lmagma -lmagmablas \
+ 	$(LIBDIR) $(LIB) 
+  
+ xlintstz : $(ALINTST) $(ZLINTST) $(DZLNTST) ../fortran.o
+@@ -290,7 +290,7 @@
+ 	../matgen/$(TMGLIB) -o xlintstz \
+ 	../fortran.o \
+ 	$(LDOPTS) -L../../lib \
+-	-lcuda -lmagma -lmagmablas -lmagma \
++	-lmagma -lmagmablas -lmagma \
+ 	$(LIBDIR) $(LIB) 
+  
+ $(ALINTST): $(FRC)

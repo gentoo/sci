@@ -1,36 +1,6 @@
 # ChangeLog for sci-chemistry/nmrpipe
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  13 Nov 2014; Justin Lecher <jlec@gentoo.org>
-  nmrpipe-8.1.2013.218.23.09-r1.ebuild:
-  Drop all KEYWORDS due to broken revdeps
-
-  16 Sep 2014; Justin Lecher <jlec@gentoo.org>
-  nmrpipe-8.1.2013.218.23.09-r1.ebuild:
-  Add back dropped ~amd64
-
-  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
-  nmrpipe-8.1.2013.218.23.09-r1.ebuild:
-  dropped ~amd64 as no-multilib doesn't have abi_x86_32
-
-  04 Jul 2014; Justin Lecher <jlec@gentoo.org>
-  nmrpipe-8.1.2013.218.23.09-r1.ebuild:
-  Fix emul-linux deps for modern multilib
-
-  04 Jul 2014; Justin Lecher <jlec@gentoo.org>
-  nmrpipe-8.1.2013.218.23.09-r1.ebuild:
-  Fix emul-linux deps for modern multilib
-
-  28 Oct 2013; Justin Lecher <jlec@gentoo.org>
-  -nmrpipe-8.1.2013.218.23.09.ebuild, +nmrpipe-8.1.2013.218.23.09-r1.ebuild,
-  +files/extract.M:
-  Add IBS extract.M macro
-
-  25 Oct 2013; Justin Lecher <jlec@gentoo.org>
-  -nmrpipe-8.1.2013.218.23.09.ebuild, +nmrpipe-8.1.2013.218.23.09-r1.ebuild,
-  +files/extract.M:
-  Add IBS extract.M macro
 
   12 Aug 2013; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-7.9.2013.021.23.09-r3.ebuild, +nmrpipe-8.1.2013.218.23.09.ebuild,
@@ -73,7 +43,7 @@
   -files/nmrpipe-7.8.2012.295.14.58-lib.patch,
   +nmrpipe-7.9.2013.021.23.09.ebuild,
   +files/nmrpipe-7.9.2013.021.23.09-lib.patch:
-  Version Bump; drop fetch restriction as upstream provides and promotes direct
+  Version BUmp; drop fetch restriction as upstream provides and promotes direct
   access
 
 *nmrpipe-7.8.2012.295.14.58-r2 (14 Jan 2013)
@@ -87,7 +57,7 @@
 
   26 Nov 2012; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-7.8.2012.295.14.58.ebuild, +nmrpipe-7.8.2012.295.14.58-r1.ebuild:
-  Version Bump
+  Version BUmp
 
 *nmrpipe-7.8.2012.295.14.58 (28 Oct 2012)
 
@@ -230,7 +200,7 @@
   18 Jun 2011; Justin Lecher <jlec@gentoo.org>
   +files/5.91.2011.167.16.39-lib.patch, -files/5.91.2011.138.14.57-lib.patch,
   -nmrpipe-5.91.2011.138.14.57.ebuild, +nmrpipe-5.91.2011.167.16.39.ebuild:
-  Version Bump, added missing die
+  Version BUmp, added missing die
 
 *nmrpipe-5.91.2011.138.14.57 (20 May 2011)
 
@@ -244,7 +214,7 @@
   29 Apr 2011; Justin Lecher <jlec@gentoo.org>
   +files/5.8.2011.117.18.42-lib.patch, -files/5.8.2011.108.15.55-lib.patch,
   -nmrpipe-5.8.2011.108.15.55.ebuild, +nmrpipe-5.8.2011.117.18.42.ebuild:
-  Version Bump
+  Version BUmp
 
 *nmrpipe-5.8.2011.108.15.55 (28 Apr 2011)
 
@@ -379,7 +349,7 @@
 
   12 Jul 2010; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-5.0.2010.176.15.02.ebuild, +nmrpipe-5.0.2010.190.16.49.ebuild:
-  Version Bump
+  Version BUmp
 
 *nmrpipe-5.0.2010.176.15.02 (28 Jun 2010)
 

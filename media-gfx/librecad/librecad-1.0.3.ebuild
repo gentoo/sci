@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=3
 
-inherit eutils qt4-r2 vcs-snapshot
+inherit qt4-r2 eutils
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -19,19 +19,27 @@ RDEPEND="
 	dev-qt/qtgui[qt3support]
 	dev-qt/qthelp:4
 	dev-qt/qt3support:4
-	dev-cpp/muParser"
+	dev-cpp/muParser
+	"
 
 DEPEND="${RDEPEND}"
 
+src_unpack() {
+	unpack ${A}
+	mv * ${P}
+}
+
 src_prepare() {
-	sed -i -e "s:\\\$\+system(git describe --tags):1.0.3:" "${PN}.pro" || die
+sed -i -e "s:\\\$\+system(git describe --tags):1.0.3:" "${PN}.pro"
 }
 
 src_install() {
-	dobin unix/librecad
+	dobin unix/librecad || die
 	insinto /usr/share/"${PN}"
-	doins -r unix/resources/*
-	use doc && dohtml -r support/doc/*
+	doins -r unix/resources/* || die
+	if use doc ; then
+		dohtml -r support/doc/*
+	fi
 	doicon res/main/"${PN}".png
 	make_desktop_entry "${PN}" LibreCAD "${PN}.png" Graphics
 }

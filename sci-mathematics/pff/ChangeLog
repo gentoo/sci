@@ -1,26 +1,19 @@
 # ChangeLog for sci-mathematics/pff
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> pff-8.4.ebuild:
-  clean up
-
-  21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  pff-8.4.ebuild:
-  install fixes
-
-  Mar 2013; Justin Lecher <jlec@gentoo.org>
-  pff-8.4.ebuild, metadata.xml:
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> pff-8.4.ebuild, metadata.xml:
   Drop pcc and sparc keywords as deps are not keyworded; move to EAPI=5
 
-  14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  -pff-8.3.ebuild, +pff-8.4.ebuild:
+  14 Jan 2013; J.-C. Demay <jcdemay@gmail.com>
+  +pff-8.4.ebuild, -pff-8.3.ebuild:
   version bump
 
-  21 Dec 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  -pff-8.2.1.2.ebuild, +pff-8.3.ebuild:
+  21 Dec 2011; J.-C. Demay <jcdemay@gmail.com>
+  +pff-8.3.ebuild, -pff-8.2.1.2.ebuild:
   version bump
 
-  04 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
+

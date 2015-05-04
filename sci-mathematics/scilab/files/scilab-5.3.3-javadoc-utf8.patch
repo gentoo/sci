@@ -1,0 +1,25 @@
+From e42e4a78fa2e070bad79257f575d9a500547e809 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Cl=C3=A9ment=20DAVID?= <clement.david@scilab-enterprises.com>
+Date: Mon, 31 Oct 2011 14:31:27 +0100
+Subject: [PATCH 4/8] fix javadoc encoding
+
+---
+ Makefile.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 1e4d590..7b905ae 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -163,7 +163,7 @@ macros:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
+ # This is not done in the module itself because its needs also the "types"
+ # module
+ javadoc:
+-	$(JAVADOC) -noindex -nohelp -nonavbar -notree \
++	$(JAVADOC) -noindex -nohelp -nonavbar -notree -encoding "utf-8" \
+ 	-d $(top_builddir)/modules/javasci/javadoc \
+ 	-sourcepath $(top_srcdir)/modules/javasci/src/java:$(top_srcdir)/modules/types/src/java \
+ 	org.scilab.modules.javasci org.scilab.modules.types
+-- 
+1.7.7
+

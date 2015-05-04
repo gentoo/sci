@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
 DESCRIPTION="TrajNG - Trajectory compression library"
 HOMEPAGE="http://www.uppmax.uu.se/Members/daniels/trajng-trajectory-compression-library"
@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~amd64-linux ~x86-linux"
 IUSE="fortran mpi"
 
 DEPEND="
-	sci-libs/xdrfile
+	sci-chemistry/xdrfile
 	fortran? ( virtual/fortran )
 	mpi? ( virtual/mpi )
 "

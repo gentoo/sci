@@ -1,0 +1,21 @@
+--- CalculiX/ccx_2.1/src/Makefile.std	2009-08-28 09:59:31.000000000 +0200
++++ CalculiX/ccx_2.1/src/Makefile	2009-08-28 09:59:58.000000000 +0200
+@@ -18,7 +18,7 @@
+ OCCXC = $(SCCXC:.c=.o)
+ OCCXMAIN = $(SCCXMAIN:.c=.o)
+ 
+-LIBS = $(SPOOLESLIB) $(ARPACKLIB) $(BLAS) -lm -lc
++LIBS = $(SPOOLESLIB) $(ARPACKLIB) $(BLAS) $(LAPACK) -lm -lc
+ 
+ ccx_2.0: $(OCCXMAIN) ccx_2.0.a  $(LIBS)
+ 	./date.pl; $(CC) $(CFLAGS) -c ccx_2.0.c; $(FC) -Wall -O3 -o $@ $(OCCXMAIN) ccx_2.0.a  -lpthread  $(LIBS)
+--- CalculiX/ccx_2.1/src/Makefile.inc.orig	2009-08-28 10:00:06.000000000 +0200
++++ CalculiX/ccx_2.1/src/Makefile.inc	2009-08-28 10:00:33.000000000 +0200
+@@ -91,7 +91,6 @@
+ deuldlag.f \
+ dflux.f \
+ dfluxes.f \
+-dgesv.f \
+ diamtr.f \
+ distattach.f \
+ distributedcouplings.f \

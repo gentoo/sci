@@ -1,0 +1,95 @@
+From e4b7000ba2dde158a990130bcaee91256255c280 Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Mon, 18 Mar 2013 16:22:27 +0400
+Subject: [PATCH 1/4] LU-2982 build: make AC check for linux arch sandbox
+ friendly
+
+this commit makes AC check for linux kernel arch sandbox friendly
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+Change-Id: I173cd892bca5587519806cf6d300a5053dfb935f
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+---
+ config/lustre-build-linux.m4 | 66 ++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 58 insertions(+), 8 deletions(-)
+
+diff --git a/config/lustre-build-linux.m4 b/config/lustre-build-linux.m4
+index 95d20e2..de9df76 100644
+--- a/config/lustre-build-linux.m4
++++ b/config/lustre-build-linux.m4
+@@ -365,14 +365,64 @@ rm -f build/conftest.o build/conftest.mod.c build/conftest.mod.o build/conftest.
+ # Determine the kernel's idea of the current architecture
+ #
+ AC_DEFUN([LB_LINUX_ARCH],
+-         [AC_MSG_CHECKING([Linux kernel architecture])
+-          AS_IF([rm -f $PWD/build/arch
+-                 make -s --no-print-directory echoarch -f $PWD/build/Makefile \
+-                     LUSTRE_LINUX_CONFIG=$LINUX_CONFIG -C $LINUX $CROSS_VARS  \
+-                     ARCHFILE=$PWD/build/arch && LINUX_ARCH=`cat $PWD/build/arch`],
+-                [AC_MSG_RESULT([$LINUX_ARCH])],
+-                [AC_MSG_ERROR([Could not determine the kernel architecture.])])
+-          rm -f build/arch])
++[LINUXARCH=
++rm -f build/conftest.i
++AC_MSG_CHECKING([Linux kernel architecture])
++if test -s $LINUX_OBJ/include/$AUTOCONF_HDIR/compile.h ; then
++	LINUXARCHHEADER=$AUTOCONF_HDIR/compile.h
++else
++	LINUXARCHHEADER=linux/autoconf.h
++fi
++LB_LINUX_TRY_MAKE([
++#include <$LINUXARCHHEADER>
++
++#ifndef UTS_MACHINE
++
++ #ifdef CONFIG_X86
++  #ifdef CONFIG_X86_32
++   #define UTS_MACHINE i386
++  #endif
++  #ifdef CONFIG_X86_64
++   #define UTS_MACHINE x86_64
++  #endif
++ #endif
++
++ #ifdef CONFIG_IA64
++  #define UTS_MACHINE ia64
++ #endif
++
++ #ifdef CONFIG_PPC
++  #ifdef CONFIG_PPC32
++   #define UTS_MACHINE ppc
++  #endif
++  #ifdef CONFIG_PPC64
++   #define UTS_MACHINE ppc64
++  #endif
++ #endif
++
++#endif
++],[
++	char *LINUXARCH;
++	LINUXARCH=UTS_MACHINE;
++],[
++	$makerule LUSTRE_KERNEL_TEST=conftest.i
++],[
++	test -s build/conftest.i
++],[
++	# LINUXARCH="UTS_MACHINE"
++	eval $(grep "LINUXARCH=" build/conftest.i)
++],[
++	AC_MSG_RESULT([unknown])
++	AC_MSG_ERROR([Could not preprocess test program.  Consult config.log for details.])
++])
++	rm -f build/conftest.i
++	if test x$LINUXARCH = x ; then
++		AC_MSG_RESULT([unknown])
++		AC_MSG_ERROR([Could not determine Linux architecture from linux/version.h.])
++	fi
++AC_MSG_RESULT([$LINUXARCH])
++AC_SUBST(LINUXARCH)
++])
+ 
+ #
+ # LB_LINUX_TRY_COMPILE
+-- 
+1.8.2.1
+

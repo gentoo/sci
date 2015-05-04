@@ -1,15 +1,6 @@
 # ChangeLog for sci-libs/libfac
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  18 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
-  -libfac-3.1.0.ebuild:
-  Drop old; factory-3.1.0 is not in the overlay, so there is no need
-  for libfac-3.1.0.
-
-  10 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
-  libfac-3.1.1.ebuild, libfac-3.1.0.ebuild:
-  Move to EAPI=5; Clean ebuild
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> libfac-3.1.0.ebuild,
   libfac-3.1.1.ebuild, metadata.xml:

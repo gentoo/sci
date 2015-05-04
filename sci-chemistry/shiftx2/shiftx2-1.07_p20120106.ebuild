@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit java-pkg-2 java-pkg-simple prefix python-r1 versionator
 
@@ -21,12 +21,9 @@ LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-CDEPEND="dev-util/weka ${PYTHON_DEPS}"
+CDEPEND="dev-util/weka"
 
 RDEPEND="${CDEPEND}
-	${PYTHON_DEPS}
 	dev-lang/R
 	sci-biology/ncbi-tools
 	sci-chemistry/reduce

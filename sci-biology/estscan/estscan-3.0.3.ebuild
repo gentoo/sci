@@ -1,23 +1,23 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
 inherit eutils fortran-2 perl-module toolchain-funcs
 
 DESCRIPTION="Prediction of coding regions in DNA/RNA sequences"
-HOMEPAGE="http://sourceforge.net/projects/${PN}/"
+HOMEPAGE="http://sourceforge.net/projects/estscan/"
 SRC_URI="
-	http://downloads.sourceforge.net/${PN}/${P}.tar.gz
-	http://downloads.sourceforge.net/${PN}/At.smat.gz
-	http://downloads.sourceforge.net/${PN}/Dm.smat.gz
-	http://downloads.sourceforge.net/${PN}/Dr.smat.gz
-	http://downloads.sourceforge.net/${PN}/Hs.smat.gz
-	http://downloads.sourceforge.net/${PN}/Mm.smat.gz
-	http://downloads.sourceforge.net/${PN}/Rn.smat.gz
-	http://downloads.sourceforge.net/${PN}/user_guide_fev_07.pdf
-	http://downloads.sourceforge.net/${PN}/BTLib-0.19.tar.gz"
+	http://downloads.sourceforge.net/estscan/estscan-3.0.3.tar.gz
+	http://downloads.sourceforge.net/estscan/At.smat.gz
+	http://downloads.sourceforge.net/estscan/Dm.smat.gz
+	http://downloads.sourceforge.net/estscan/Dr.smat.gz
+	http://downloads.sourceforge.net/estscan/Hs.smat.gz
+	http://downloads.sourceforge.net/estscan/Mm.smat.gz
+	http://downloads.sourceforge.net/estscan/Rn.smat.gz
+	http://downloads.sourceforge.net/estscan/user_guide_fev_07.pdf
+	http://downloads.sourceforge.net/estscan/BTLib-0.19.tar.gz"
 
 SLOT="0"
 LICENSE="estscan"
@@ -25,9 +25,10 @@ KEYWORDS="~x86 ~amd64"
 IUSE="icc ifc"
 
 DEPEND="
-	dev-perl/BTLib
+	virtual/fortran
 	icc? ( dev-lang/icc )
-	ifc? ( dev-lang/ifc )"
+	ifc? ( dev-lang/ifc )
+	dev-perl/BTLib"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
@@ -39,8 +40,8 @@ src_prepare() {
 		-i "${P}"/Makefile || die "failed to edit Makefile"
 
 	# fix hard-coded paths
-	sed -e 's+/usr/molbio/share/ESTScan+/usr/share/ESTscan+' -i "${P}"/${PN}.c || die
-	sed -e 's+/usr/molbio/share/ESTScan+/usr/share/ESTscan+' -i "${P}"/${PN}.spec || die
+	sed -e 's+/usr/molbio/share/ESTScan+/usr/share/ESTscan+' -i "${P}"/estscan.c || die
+	sed -e 's+/usr/molbio/share/ESTScan+/usr/share/ESTscan+' -i "${P}"/estscan.spec || die
 
 	if ! use icc; then
 		sed \
@@ -88,27 +89,28 @@ src_compile() {
 }
 
 src_install() {
-	# FIXME: Some kind of documentation is in {P}/${PN}.spec
+	# FIXME: Some kind of documentation is in {P}/estscan.spec
 	cd ${P} || die "Failed to chdir to ${P}"
 	dobin \
-		build_model ${PN} evaluate_model extract_EST extract_UG_EST \
+		build_model estscan evaluate_model extract_EST extract_UG_EST \
 		extract_mRNA makesmat maskred prepare_data winsegshuffle
 	# the file build_model_utils.pl should go into some PERL site-packages dir
-	# see {P}/${PN}.spec
+	# see {P}/estscan.spec
 
 	# install the doc (but is not in ${WORKDIR} because src_unpack() failed on it as it has .pdf extension
-	insinto /usr/share/doc/${PN}
+	cd "${DISTDIR}" || die "Failed to chdir to ${DISTDIR}"
+	insinto /usr/share/doc/ESTscan
 	# grab the file directly from ../distdir/
 	doins "${DISTDIR}"/user_guide_fev_07.pdf
 
 	# install the default precomputed matrices
 	cd "${WORKDIR}" || die "Failed to chdir to ${WORKDIR}"
-	insinto /usr/share/${PN}
+	insinto /usr/share/ESTscan
 	doins *.smat
 
 	# install BTlib (in perl)
 	# dobin fetch indexer netfetch
-	insinto /usr/share/${PN}/
+	insinto /usr/share/ESTscan/
 	# install the config file which is packed inside the BTLib tarball while is not
 	# being installed by dev-perl/BTLib
 	doins "${WORKDIR}"/BTLib-0.19/fetch.conf
@@ -118,7 +120,7 @@ src_install() {
 	# myinst="DESTDIR=${D}"
 	# perl-module_src_install
 
-	einfo "Please edit /usr/share/${PN}/fetch.conf to fit your local database layout."
-	einfo "Also create your own scoring matrices and place them into /usr/share/${PN}/."
-	einfo "You may follow the hints from http://${PN}.sourceforge.net/"
+	einfo "Please edit /usr/share/ESTscan/fetch.conf to fit your local database layout."
+	einfo "Also create your own scoring matrices and place them into /usr/share/ESTscan/."
+	einfo "You may follow the hints from http://estscan.sourceforge.net/"
 }

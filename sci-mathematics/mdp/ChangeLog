@@ -2,10 +2,6 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  04 Dec 2013; Justin Lecher <jlec@gentoo.org> -mdp-3.2.ebuild,
-  +mdp-3.3.ebuild, mdp-9999.ebuild:
-  Version Bump; Bump to distutils-r1 eclass
-
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> mdp-9999.ebuild, metadata.xml:
   Clean wrong space and blank lines
 

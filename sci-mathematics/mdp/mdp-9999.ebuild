@@ -1,34 +1,29 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="3"
 
-PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
-
-inherit distutils-r1 git-r3
+inherit distutils git-2
 
 MY_P="${P/mdp/MDP}"
 MY_P="${MY_P/_rc/RC}"
 
 DESCRIPTION="Modular data processing framework for python"
 HOMEPAGE="http://mdp-toolkit.sourceforge.net/index.html"
-SRC_URI=""
 EGIT_REPO_URI="git://github.com/mdp-toolkit/mdp-toolkit.git"
-
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
-RDEPEND="|| (
-			>=dev-python/numpy-1.1[${PYTHON_USEDEP}]
-			>=sci-libs/scipy-0.5.2[${PYTHON_USEDEP}]
-			)"
+RDEPEND="|| ( >=dev-python/numpy-1.1 >=sci-libs/scipy-0.5.2 )"
 
-python_test() {
-	distutils_install_for_testing
-	cd "${BUILD_DIR}" || die
-	"${PYTHON}" -c "import mdp;mdp.test()" || die
+S="${WORKDIR}/${MY_P}"
+
+src_test() {
+	testing() {
+		PYTHONPATH="build-${PYTHON_ABI}/src" "$(PYTHON)" -c "import mdp;mdp.test()"
+	}
+	python_execute_function testing
 }

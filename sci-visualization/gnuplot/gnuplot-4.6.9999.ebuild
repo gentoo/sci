@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6.1-r1.ebuild,v 1.5 2013/03/07 20:35:32 ottxor Exp $
 
 EAPI=5
 
-inherit eutils flag-o-matic multilib readme.gentoo toolchain-funcs wxwidgets
+inherit elisp-common eutils flag-o-matic multilib readme.gentoo toolchain-funcs wxwidgets
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
@@ -24,15 +24,19 @@ else
 		mirror://gentoo/${PN}.info-4.6.2.tar.xz"
 fi
 
-LICENSE="gnuplot bitmap? ( free-noncomm )"
+LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS=""
-IUSE="aqua bitmap cairo doc examples +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X"
+IUSE="aqua bitmap cairo doc emacs examples +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X xemacs"
 
 RDEPEND="
 	cairo? (
 		x11-libs/cairo
 		x11-libs/pango )
+	emacs? ( virtual/emacs )
+	!emacs? ( xemacs? (
+		app-editors/xemacs
+		app-xemacs/xemacs-base ) )
 	gd? ( >=media-libs/gd-2.0.35-r3[png] )
 	ggi? ( media-libs/libggi )
 	latex? (
@@ -58,7 +62,14 @@ DEPEND="${RDEPEND}
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-latexextra
-		app-text/ghostscript-gpl )"
+		app-text/ghostscript-gpl )
+	!emacs? ( xemacs? ( app-xemacs/texinfo ) )"
+
+if [[ -z ${PV%%*9999} ]]; then
+	# The live ebuild always needs an Emacs for building of gnuplot.texi
+	DEPEND="${DEPEND}
+	|| ( virtual/emacs app-xemacs/texinfo )"
+fi
 
 S="${WORKDIR}/${MY_P}"
 
@@ -113,11 +124,34 @@ src_configure() {
 
 	tc-export CC CXX			#453174
 
+	local emacs lispdir
+	if use emacs; then
+		emacs=emacs
+		lispdir="${EPREFIX}${SITELISP}/${PN}"
+		use xemacs \
+			&& ewarn "USE flag \"xemacs\" ignored (superseded by \"emacs\")"
+	elif use xemacs; then
+		emacs=xemacs
+		lispdir="${EPREFIX}/usr/lib/xemacs/site-packages/${PN}"
+	else
+		emacs=no
+		lispdir=""
+		if [[ -z ${PV%%*9999} ]]; then
+			# Live ebuild needs an Emacs to build gnuplot.texi
+			if has_version virtual/emacs; then emacs=emacs
+			elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
+			# for emacs != no gnuplot will install lisp files in 
+			# ${lispdir}/ which will / for emtpy lispdir
+			lispdir="${T}"
+		fi
+	fi
+
 	econf \
 		--without-pdf \
 		--with-texdir="${TEXMF}/tex/latex/${PN}" \
 		--with-readline=$(usex readline gnu builtin) \
-		--without-lisp-files \
+		--with-lispdir="${lispdir}" \
+		--with$([[ -z ${lispdir} ]] && echo out)-lisp-files \
 		$(use_with bitmap bitmap-terminals) \
 		$(use_with cairo) \
 		$(use_with doc tutorial) \
@@ -133,7 +167,7 @@ src_configure() {
 		$(use_enable thin-splines) \
 		$(use_enable wxwidgets) \
 		DIST_CONTACT="http://bugs.gentoo.org/" \
-		EMACS=no
+		EMACS="${emacs}"
 }
 
 src_compile() {
@@ -144,18 +178,26 @@ src_compile() {
 	# In case of problems file a bug report at bugs.gentoo.org.
 	#addwrite /dev/svga:/dev/mouse:/dev/tts/0
 
-	emake all
+	emake all info
 
 	if use doc; then
 		# Avoid sandbox violation in epstopdf/ghostscript
 		addpredict /var/cache/fontconfig
 		emake -C docs pdf
 		emake -C tutorial pdf
+		use emacs || use xemacs && emake -C lisp pdf
 	fi
 }
 
 src_install () {
 	emake DESTDIR="${D}" install
+
+	if use emacs; then
+		# Gentoo Emacs site-lisp configuration
+		echo "(add-to-list 'load-path \"@SITELISP@\")" > ${E_SITEFILE}
+		sed '/^;; move/,+3 d' lisp/dotemacs >> ${E_SITEFILE} || die
+		elisp-site-file-install ${E_SITEFILE} || die
+	fi
 
 	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README*
 	newdoc term/PostScript/README README-ps
@@ -178,6 +220,12 @@ src_install () {
 		docinto psdoc
 		dodoc docs/psdoc/{*.doc,*.tex,*.ps,*.gpi,README}
 	fi
+
+	if use emacs || use xemacs; then
+		docinto emacs
+		dodoc lisp/ChangeLog lisp/README
+		use doc && dodoc lisp/gpelcard.pdf
+	fi
 }
 
 src_test() {
@@ -185,10 +233,12 @@ src_test() {
 }
 
 pkg_postinst() {
+	use emacs && elisp-site-regen
 	use latex && texmf-update
 	readme.gentoo_print_elog
 }
 
 pkg_postrm() {
+	use emacs && elisp-site-regen
 	use latex && texmf-update
 }

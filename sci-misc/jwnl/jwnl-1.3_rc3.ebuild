@@ -1,17 +1,13 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-EAPI=5
 
 inherit eutils java-pkg-2 java-utils-2 versionator
 
 MY_P=${PN}$(delete_all_version_separators)
-
 DESCRIPTION="Java interface to WordNet dictionary data"
 HOMEPAGE="http://jwordnet.sf.net"
-SRC_URI="
-	mirror://sourceforge/jwordnet/${MY_P}_src.zip
+SRC_URI="mirror://sourceforge/jwordnet/${MY_P}_src.zip
 	mirror://sourceforge/jwordnet/${MY_P}.zip"
 
 LICENSE="BSD"
@@ -27,7 +23,9 @@ RDEPEND=">=virtual/jre-1.4
 
 S="${WORKDIR}"
 
-src_prepare() {
+src_unpack() {
+	cd "${S}"
+	unpack ${A}
 	rm -v commons-logging.jar jwnl.jar || die
 }
 
@@ -41,6 +39,7 @@ src_compile() {
 
 src_install() {
 	java-pkg_dojar ${PN}.jar utilities.jar
+	dodir /usr/share/${PN}
 	insinto /usr/share/${PN}
 	doins create.sql database_properties.xml file_properties.xml \
 		jwnl_properties.dtd jwnl_properties.xsd map_properties.xml

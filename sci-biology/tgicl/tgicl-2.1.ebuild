@@ -1,9 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
-
+EAPI=3
 inherit perl-module
 
 DESCRIPTION="TIGR perl scripts for clustering large EST/mRNAs datasets and aceconv, mgblast and pvmsx binaries"
@@ -15,18 +14,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-	virtual/perl-Module-Build
-	sci-biology/cap3-bin
-	sci-biology/ncbi-tools
-	sci-biology/cdbfasta
-	sci-biology/clview
-	sci-biology/nrcl
-	sci-biology/psx
-	sci-biology/sclust
-	sci-biology/seqclean
-	sci-biology/tclust
-	sci-biology/zmsort"
+DEPEND="virtual/perl-Module-Build
+		sci-biology/cap3-bin
+		sci-biology/ncbi-tools
+		sci-biology/cdbfasta
+		sci-biology/clview
+		sci-biology/nrcl
+		sci-biology/psx
+		sci-biology/sclust
+		sci-biology/seqclean
+		sci-biology/tclust
+		sci-biology/zmsort"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/TGICL-2.1

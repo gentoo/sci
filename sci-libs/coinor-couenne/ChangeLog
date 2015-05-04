@@ -1,0 +1,15 @@
+# ChangeLog for sci-libs/coinor-couenne
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coinor-couenne-0.4.3 (29 Jan 2013)
+
+  29 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-couenne-0.4.3.ebuild, -coinor-couenne-0.4.2.ebuild:
+  sci-libs/coinor-couenne: Version bump
+
+*coinor-couenne-0.4.2 (19 Jul 2012)
+
+  19 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-couenne-0.4.2.ebuild, +metadata.xml:
+  sci-libs/coinor-couenne: Initial import

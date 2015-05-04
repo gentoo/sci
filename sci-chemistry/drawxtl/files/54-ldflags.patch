@@ -1,0 +1,11 @@
+--- source/DRAWxtl54/Makefile	2009-07-08 21:39:51.000000000 +0200
++++ source/DRAWxtl54/Makefile.new	2009-07-08 21:42:36.000000000 +0200
+@@ -217,7 +217,7 @@
+ $(TARGET) : .deps $(OBJFILES) 
+ 	echo Linking $@...
+ 	mkdir -p ../../exe
+-	$(CXX) $(CXXFLAGS) -o $@ $(OBJFILES) \
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJFILES) \
+ 		$(LINKFLTKGL) $(GLDLIBS) 
+ 	$(POSTLINK) $@
+ 

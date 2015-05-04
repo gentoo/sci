@@ -2,12 +2,6 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*lapacke-reference-3.5.0 (08 Dec 2013)
-
-  08 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org>
-  +lapacke-reference-3.5.0.ebuild, lapacke-reference-9999.ebuild:
-  sci-libs/lapacke-reference: Version bump
-
 *lapacke-reference-9999 (25 May 2013)
 
   25 May 2013; Sébastien Fabbro <bicatali@gentoo.org>

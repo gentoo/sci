@@ -1,0 +1,35 @@
+# ChangeLog for sci-geosciences/seawater
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*seawater-2.0.1 (07 Apr 2011)
+
+  07 Apr 2011; Tim Cera <tim@cerazone.net> -seawater-1.0.4.ebuild,
+  +seawater-2.0.1.ebuild:
+  Version bump.
+
+*seawater-1.0.4 (02 Sep 2010)
+
+  02 Sep 2010; Tim Cera <tim@cerazone.net> -seawater-1.0.3.ebuild,
+  +seawater-1.0.4.ebuild:
+  Version bump.
+
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> seawater-1.0.3.ebuild:
+  Python ABI fixes
+
+*seawater-1.0.3 (31 Jan 2010)
+
+  31 Jan 2010; Tim Cera <tim@cerazone.net> +seawater-1.0.3.ebuild,
+  -seawater-1.0.3.2.ebuild:
+  Upstream changed numbering convention that made it just right for gentoo. 
+  Deleted old ebuild.
+
+  28 Jan 2010; Tim Cera <tim@cerazone.net> seawater-1.0.3.2.ebuild:
+  Corrected license.
+
+*seawater-1.0.3.2 (28 Jan 2010)
+
+  28 Jan 2010; Tim Cera <tim@cerazone.net> +seawater-1.0.3.2.ebuild,
+  +metadata.xml:
+  Initial ebuild.
+

@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
-[ "$PV" == "9999" ] && _GIT=git-r3
+[ "$PV" == "9999" ] && _GIT=git-2
 
 inherit eutils ${_GIT} perl-module webapp
 
@@ -49,8 +49,7 @@ S="${WORKDIR}"/est2uni
 
 src_prepare(){
 	for f in "${FILESDIR}"/9999-*.pm.patch; do
-		cd perl || die
-		epatch $f
+		cd perl; epatch $f
 	done
 	cd ../php || die "Failed to chdir to ../php"
 	epatch "${FILESDIR}"/configuration.php.patch
@@ -61,19 +60,19 @@ src_compile(){
 }
 
 src_install(){
-	dodir /opt/est2uni
-	mv external_software/sputnik/sputnik "${ED}"/opt/est2uni || die
+	mkdir -p "${D}"/opt/est2uni
+	mv external_software/sputnik/sputnik "${D}"/opt/est2uni || die
 
 	chmod a+rx perl/*.pl perl/*.pm || die
-	mv perl/* "${ED}"/opt/est2uni || die
+	mv perl/* "${D}"/opt/est2uni || die
 
 	doenvd "${FILESDIR}"/99est2uni
 
-	dodir /usr/share/webapps/"${PN}"/"${PV}"/htdocs
-	cp -r php/* "${ED}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs || die
+	mkdir -p "${D}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs
+	cp -r php/* "${D}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs || die
 
-	dodir /opt/est2uni/test_data
-	mv test_data/* "${ED}"/opt/est2uni/test_data || die
+	mkdir -p "${D}"/opt/est2uni/test_data || die
+	mv test_data/* "${D}"/opt/est2uni/test_data || die
 	# mkdir -p "${D}"/usr/share/"${PN}" || die
 	# mv test_data "${D}"/usr/share/"${PN}" || die
 	perl-module_src_install || die

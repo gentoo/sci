@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,30 +6,22 @@ EAPI=5
 
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
-WANT_LIBTOOL="latest"
 
-if [[ $PV = *9999* ]]; then
-	KEYWORDS=""
-	EGIT_BRANCH="master"
-else
-	KEYWORDS="~amd64"
-	EGIT_TAG="${PV}"
-fi
-
-inherit git-r3 autotools linux-mod toolchain-funcs udev flag-o-matic
+inherit git-2 autotools linux-mod toolchain-funcs udev
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
-SRC_URI="https://raw.githubusercontent.com/gentoo-science/sci/master/patches/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
 EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
+SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
+KEYWORDS=""
 IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
 RDEPEND="
 	virtual/awk
-	readline? ( sys-libs/readline:0 )
+	readline? ( sys-libs/readline )
 	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
 		>=sys-kernel/spl-0.6.1
@@ -41,16 +33,13 @@ DEPEND="${RDEPEND}
 	virtual/linux-sources"
 
 PATCHES=(
-	"${FILESDIR}/0001-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
-	"${DISTDIR}/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0003-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
-	"${FILESDIR}/lustre-readline6.3_fix.patch"
+	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
+	"${FILESDIR}/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
+	"${FILESDIR}/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
 )
 
 pkg_setup() {
-	filter-mfpmath sse
-	filter-mfpmath i386
-	filter-flags -msse* -mavx* -mmmx -m3dnow
 	linux-mod_pkg_setup
 	ARCH="$(tc-arch-kernel)"
 	ABI="${KERNEL_ABI}"
@@ -64,7 +53,6 @@ src_prepare() {
 	for dir in $DIRS ; do
 		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
 	done
-	_elibtoolize -q
 	eaclocal -I config $ACLOCAL_FLAGS
 	eautoheader
 	eautomake
@@ -74,6 +62,19 @@ src_prepare() {
 	cd libsysio
 	eaclocal
 	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in lustre-iokit"
+	cd lustre-iokit
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in ldiskfs"
+	cd ldiskfs
+	eaclocal -I config
+	eautoheader
+	eautomake -W no-portability
 	eautoconf
 	cd ..
 }

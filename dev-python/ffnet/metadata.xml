@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription lang="en">
+	<herd>sci</herd>
+	<longdescription lang="en">
   ffnet is a fast and easy-to-use feed-forward neural
   network training solution for python.
 </longdescription>
-  <use>
-    <flag name="matplotlib">Use matplotlib for drawing</flag>
-  </use>
+	<use>
+		<flag name="matplotlib">Use matplotlib for drawing</flag>
+	</use>
 </pkgmetadata>

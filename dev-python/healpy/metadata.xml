@@ -7,7 +7,4 @@
   based on the standard numeric and visualisation tools for Python,
   Numpy and matplotlib.
 </longdescription>
-<upstream>
-  <remote-id type="pypi">healpy</remote-id>
-</upstream>
 </pkgmetadata>

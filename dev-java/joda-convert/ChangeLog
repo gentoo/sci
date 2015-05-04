@@ -1,0 +1,10 @@
+# ChangeLog for dev-java/joda-convert
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*joda-convert-1.2 (14 May 2012)
+
+  14 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +files/1.2-build.xml,
+  +joda-convert-1.2.ebuild, +metadata.xml:
+  dev-java/joda-convert: import from the java overlay
+

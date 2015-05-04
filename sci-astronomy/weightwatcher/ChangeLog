@@ -1,17 +1,6 @@
 # ChangeLog for sci-astronomy/weightwatcher
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*weightwatcher-1.12 (21 Mar 2014)
-
-  21 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org>
-  +weightwatcher-1.12.ebuild, -files/weightwatcher-1.8.10-configure.patch,
-  weightwatcher-9999.ebuild:
-  sci-astronomy/weightwatcher: Add new version linked to live one
-
-  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> -Manifest,
-  -weightwatcher-1.8.10.ebuild, weightwatcher-9999.ebuild:
-  sci-astronomy/weightwatcher: EAPI-5, autotools-utils
 
 *weightwatcher-9999 (09 Jul 2012)
 
@@ -30,3 +19,4 @@
 
   18 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
   Initial import
+

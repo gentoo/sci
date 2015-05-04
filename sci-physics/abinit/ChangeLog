@@ -1,59 +1,6 @@
 # ChangeLog for sci-physics/abinit
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*abinit-7.6.4-r1 (10 Dec 2014)
-*abinit-7.4.2-r1 (10 Dec 2014)
-
-  10 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz> -abinit-7.4.2.ebuild,
-  +abinit-7.4.2-r1.ebuild, -abinit-7.6.4.ebuild, +abinit-7.6.4-r1.ebuild,
-  +files/7.6.4-cuda_header.patch, +files/7.6.4-libxc_versions.patch:
-  Treated a small problem with CUDA in sci-physics/abinit, corrected its
-  dependency on sci-libs/libxs versions.
-
-  17 Sep 2014; Christoph Junghans <ottxor@gentoo.org> metadata.xml:
-  updated metadata.xml
-
-  10 Jul 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
-  +files/7.6.3-libabinit_options.patch:
-  Added forgotten patch file 7.6.3-libabinit_options.patch for sci-
-  physics/abinit
-
-*abinit-7.6.4 (27 Jun 2014)
-
-  27 Jun 2014; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-7.6.4.ebuild,
-  metadata.xml:
-  Version bumped to 7.6.4. ScaLAPACK support, and use of the MPI implementation
-  of sci-libs/fftw added. Minor attempts on enhancements and cleanup.
-
-  10 Oct 2013; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-7.4.2.ebuild,
-  +files/7.4.2-cuda_link_stdc++.patch:
-  Added a patch to link libstdc++ with the C++ CUDA objects.
-
-  03 Oct 2013; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-7.4.2.ebuild:
-  Call python_fix_shebang only conditionally, if USE test (does not work
-  without python-single-r1_pkg_setup, which is don only if USE test or
-  scripts).
-
-  26 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-7.4.2.ebuild:
-  sci-physics/abinit-7.4.2 finally made to actually build and install (tests
-  have to be configured for their Makefile to be where it is looked for during
-  the installation). Testing scripts, written for Python 2, made to run in an
-  environment with Python 3 selected as the main interpreter.
-
-  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> metadata.xml:
-  The metadata of sci-physics/abinit augmented by the description of the etsf_io
-  USE flag.
-
-*abinit-7.4.2 (19 Sep 2013)
-
-  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> -abinit-7.2.2.ebuild,
-  +abinit-7.4.2.ebuild, +files/7.4.2-levmar_diag_scaling.patch,
-  +files/7.4.2-syntax.patch, metadata.xml:
-  Updated to 7.4.2, the new way of testing adopted. Use of atompaw, bigdft,
-  libxc, and wannier90 made optional, driven by USE flags (atompaw, bigdft,
-  libxc, wannier). USE flag levmar for the new optional Levenberg-Marquardt
-  least-squares algorithm support added. Ebuild cleaned up a bit.
 
   20 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
   +files/6.12.3-gui-makefiles.tbz:
@@ -256,3 +203,4 @@
   An ebuild for abinit-6.4.2 using external dependencies as proper Gentoo
   packages. Based on bug 249493, still work in progress. With USE="smp"
   compiles, but crashes.
+

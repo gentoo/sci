@@ -1,9 +1,6 @@
 # ChangeLog for x11-libs/agg
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  11 Nov 2014; Justin Lecher <jlec@gentoo.org> agg-2.5-r3.ebuild, metadata.xml:
-  Fix broken deps
 
 *agg-2.5-r3 (07 Aug 2013)
 

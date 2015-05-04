@@ -1,9 +1,0 @@
-# ChangeLog for sci-biology/gfftools
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*gfftools-0.98d (12 Jan 2015)
-
-  12 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  +gfftools-0.98d.ebuild, +metadata.xml:
-  sci-biology/gfftools: new package

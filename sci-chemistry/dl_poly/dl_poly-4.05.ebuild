@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -31,10 +31,11 @@ src_prepare() {
 }
 
 src_compile() {
-	emake -j1 FC="mpif77 -c" FCFLAGS="${FFLAGS}" LD="mpif77 -o" LDFLAGS="${LDFLAGS}" EXE="${PN}" master
+	# -I/usr/$(get_libdir) is needed to find mpi.mod
+	emake -j1 FC="mpif77 -c" FCFLAGS="${FFLAGS} -I${EPREFIX}/usr/$(get_libdir)" LD="mpif77 -o" LDFLAGS="${LDFLAGS}" EXE="${PN}" master
 }
 
 src_install() {
-	newbin "${PN}" DLPOLY.Z
+	dobin "${PN}"
 	use doc && dodoc ../manual/USRMAN*.pdf
 }

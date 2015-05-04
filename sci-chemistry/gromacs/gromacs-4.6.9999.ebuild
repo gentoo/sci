@@ -1,11 +1,11 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-TEST_PV="4.6.6"
-MANUAL_PV="4.6.6"
+TEST_PV="4.6.2"
+MANUAL_PV="4.6.2"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
@@ -17,24 +17,21 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
-	inherit git-r3
+	inherit git-2
 	LIVE_DEPEND="doc? (
-		app-doc/doxygen
 		dev-texlive/texlive-latex
 		dev-texlive/texlive-latexextra
 		media-gfx/imagemagick
 		sys-apps/coreutils
 	)"
-	KEYWORDS=""
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> ${PN}-manual-${MANUAL_PV}.pdf )
-		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
+		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
 	LIVE_DEPEND=""
-	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 fi
 
-ACCE_IUSE="cpu_flags_x86_sse2 cpu_flags_x86_sse4_1 cpu_flags_x86_fma4 cpu_flags_x86_avx"
+ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -44,7 +41,8 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
+KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -58,16 +56,20 @@ CDEPEND="
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mkl? ( sci-libs/mkl )
-	mpi? ( virtual/mpi )"
+	mpi? ( virtual/mpi )
+	openmm? (
+		>=dev-util/nvidia-cuda-toolkit-4.2.9-r1
+		sci-libs/openmm[cuda,opencl]
+	)"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
-	${LIVE_DEPEND}
-	doc? ( app-doc/doxygen )"
+	${LIVE_DEPEND}"
 RDEPEND="${CDEPEND}"
 
 REQUIRED_USE="
 	|| ( single-precision double-precision )
 	cuda? ( single-precision )
+	openmm? ( single-precision )
 	mkl? ( !blas !fftw !lapack )"
 
 DOCS=( AUTHORS README )
@@ -83,18 +85,18 @@ src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		git-r3_src_unpack
+		git-2_src_unpack
 		if use doc; then
 			EGIT_REPO_URI="git://git.gromacs.org/manual.git" \
-			EGIT_BRANCH="release-4-6" EGIT_COMMIT="release-4-6" \
-			EGIT_CHECKOUT_DIR="${WORKDIR}/manual"\
-				git-r3_src_unpack
+			EGIT_BRANCH="release-4-6" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
+			EGIT_SOURCEDIR="${WORKDIR}/manual"\
+				git-2_src_unpack
 		fi
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
-			EGIT_BRANCH="release-4-6" EGIT_COMMIT="release-4-6" \
-			EGIT_CHECKOUT_DIR="${WORKDIR}/regressiontests"\
-				git-r3_src_unpack
+			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
+			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
+				git-2_src_unpack
 		fi
 	fi
 }
@@ -126,10 +128,10 @@ src_configure() {
 
 	#go from slowest to fastest acceleration
 	local acce="None"
-	use cpu_flags_x86_sse2 && acce="SSE2"
-	use cpu_flags_x86_sse4_1 && acce="SSE4.1"
-	use cpu_flags_x86_fma4 && acce="AVX_128_FMA"
-	use cpu_flags_x86_avx && acce="AVX_256"
+	use sse2 && acce="SSE2"
+	use sse4_1 && acce="SSE4.1"
+	use avx128fma && acce="AVX_128_FMA"
+	use avx256 && acce="AVX_256"
 
 	#to create man pages, build tree binaries are executed (bug #398437)
 	[[ ${CHOST} = *-darwin* ]] && \
@@ -186,6 +188,15 @@ src_configure() {
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		if [[ ${x} = float ]] && use openmm; then
+			einfo "Configuring for openmm build"
+			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
+				-DOpenMM_PLUGIN_DIR="${EPREFIX}/usr/$(get_libdir)/plugins"
+				-DGMX_BINARY_SUFFIX="_openmm" -DGMX_LIBS_SUFFIX="_openmm" )
+			BUILD_DIR="${WORKDIR}/${P}_openmm" \
+				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
+		fi
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
@@ -200,6 +211,11 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
+		if [[ ${x} = float ]] && use openmm; then
+			einfo "Compiling for openmm build"
+			BUILD_DIR="${WORKDIR}/${P}_openmm"\
+				cmake-utils_src_compile mdrun
+		fi
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
@@ -218,6 +234,10 @@ src_install() {
 	for x in ${GMX_DIRS}; do
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
+		if [[ ${x} = float ]] && use openmm; then
+			BUILD_DIR="${WORKDIR}/${P}_openmm" \
+				DESTDIR="${D}" cmake-utils_src_make install-mdrun
+		fi
 		#manual can only be build after gromacs was installed once in image
 		if use doc && [[ $PV = *9999*  && ! -d ${WORKDIR}/manual_build ]]; then
 			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )

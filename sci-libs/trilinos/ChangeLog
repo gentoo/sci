@@ -1,46 +1,6 @@
 # ChangeLog for sci-libs/trilinos
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*trilinos-11.12.1-r1 (13 Mar 2015)
-*trilinos-11.14.1-r1 (13 Mar 2015)
-
-  13 Mar 2015; Matthias Maier <tamiko@gentoo.org> +trilinos-11.12.1-r1.ebuild,
-  +trilinos-11.14.1-r1.ebuild, -trilinos-11.12.1.ebuild,
-  -trilinos-11.14.1.ebuild, files/trilinos-11.12.1-fix-install-paths.patch,
-  files/trilinos-11.14.1-fix-install-paths.patch:
-  sci-libs/trilinos: fix location of target config files
-
-*trilinos-11.14.1 (13 Mar 2015)
-
-  13 Mar 2015; Matthias Maier <tamiko@gentoo.org>
-  +files/trilinos-11.14.1-fix-install-paths.patch,
-  +files/trilinos-11.14.1-fix_install_paths_for_destdir.patch,
-  +trilinos-11.14.1.ebuild, metadata.xml:
-  sci-libs/trilinos: version bump, some preliminary metadata
-
-  19 Feb 2015; Christoph Junghans <ottxor@gentoo.org> trilinos-11.0.3.ebuild,
-  trilinos-11.10.2.ebuild, trilinos-11.12.1.ebuild, trilinos-11.4.2.ebuild:
-  BSD/LGPL-2.1 never implies a fetch restriction, updated Manifest
-
-*trilinos-11.12.1 (06 Dec 2014)
-
-  06 Dec 2014; Matthias Maier <tamiko@gentoo.org>
-  +files/trilinos-11.12.1-fix-install-paths.patch, +trilinos-11.12.1.ebuild:
-  version bump
-
-*trilinos-11.10.2 (21 Oct 2014)
-
-  21 Oct 2014; Matthias Maier <tamiko@gentoo.org> +trilinos-11.10.2.ebuild,
-  trilinos-11.4.2.ebuild:
-  version bump
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> trilinos-11.0.3.ebuild:
-  Don't use plain pkg-config
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> trilinos-11.4.2.ebuild,
-  metadata.xml:
-  Fix moced dep
 
 *trilinos-11.2.3 (19 Jun 2013)
 

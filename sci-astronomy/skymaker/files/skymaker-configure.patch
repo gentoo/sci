@@ -1,0 +1,40 @@
+--- configure.ac.orig	2009-03-25 18:16:52.000000000 +0000
++++ configure.ac	2009-03-25 18:17:35.000000000 +0000
+@@ -22,37 +22,18 @@
+ 
+ # Include macros
+ sinclude(acx_fftw.m4)
+-sinclude(acx_prog_cc_optim.m4)
+ sinclude(acx_pthread.m4)
+ 
+ # Display pakage and version number
+ AC_MSG_RESULT([*********** Configuring:  $PACKAGE $VERSION ($date) **********])
+ 
+-# Initialize the list of compilers to consider
+-cclist="cc gcc"
+-# Backup and reset the input CFLAGS
+-mycflags="$CFLAGS"
+-CFLAGS=""
+-
+-# Provide special option for the Linux Intel C compiler
+-AC_MSG_CHECKING([for Linux Intel C compiler mode])
+-AC_ARG_ENABLE(icc,
+-	[AS_HELP_STRING(--enable-icc,Enable special mode for compilation with the Intel compiler \
+-(off by default))],
+-        use_icc="yes"
+-        cclist="icc $cclist"
+-	AC_MSG_RESULT([yes]),
+-        use_icc="no"
+-	AC_MSG_RESULT([no]))
+ 
+ # Checks for programs.
+ # GCC is chosen last because it is likely to yield less optimized code
+ AC_LANG(C)
+-AC_PROG_CC([$cclist])
+ # C Compiler: Check that it is ANSI C and POSIX-compliant
+ AM_PROG_CC_STDC
+ AC_ISC_POSIX
+-ACX_PROG_CC_OPTIM
+ AC_DISABLE_STATIC
+ #AC_DISABLE_SHARED
+ AC_PROG_LIBTOOL

@@ -1,0 +1,11 @@
+--- Makefile.extras.orig	2013-07-02 22:35:31.150277524 -0400
++++ Makefile.extras	2013-07-02 22:35:56.993276767 -0400
+@@ -25,7 +25,7 @@
+ libopenlibm-extras.a: $(OBJS)  
+ 	$(AR) -rcs libopenlibm-extras.a $(OBJS)
+ libopenlibm-extras.$(SHLIB_EXT): $(OBJS)
+-	$(FC) -shared $(OBJS) $(LDFLAGS) -o libopenlibm-extras.$(SHLIB_EXT)
++	$(FC) -shared $(OBJS) $(LDFLAGS) -Wl,--soname=libopenlibm-extras.$(SHLIB_EXT) -o libopenlibm-extras.$(SHLIB_EXT)
+ 
+ distclean:
+ 	rm -f $(OBJS) *.a *.$(SHLIB_EXT)

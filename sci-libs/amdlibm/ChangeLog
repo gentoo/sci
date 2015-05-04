@@ -1,12 +1,6 @@
 # ChangeLog for sci-libs/amdlibm
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*amdlibm-3.1 (28 Apr 2014)
-
-  28 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> +amdlibm-3.1.ebuild,
-  -amdlibm-3.0.2.ebuild, metadata.xml:
-  sci-libs/amdlibm: Version bump
 
   03 Mar 2013; Sébastien Fabbro <bicatali@gentoo.org> amdlibm-3.0.2.ebuild:
   sci-libs/amdlibm: Updated download page and prefix'ed

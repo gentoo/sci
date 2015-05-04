@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI="4"
 
 inherit flag-o-matic fortran-2 mpi
 
@@ -16,11 +16,13 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug fortran large-cluster medium-cluster romio threads"
 
 RDEPEND="
-	sys-infiniband/libibverbs:=
-	sys-infiniband/libibumad:=
-	sys-infiniband/libibmad:=
-	sys-infiniband/librdmacm:=
-	"
+	|| (
+		(
+			sys-infiniband/libibverbs
+			sys-infiniband/libibumad
+			sys-infiniband/libibmad
+			sys-infiniband/librdmacm )
+		sys-infiniband/openib-userspace )"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/mvapich2-${PV/_/-}"
@@ -66,7 +68,7 @@ src_prepare() {
 	# Examples are always compiled with the default 'all' target.  This
 	# causes problems when we don't build support for everything, including
 	# threads, mpe2, etc.  So we're not going to build them.
-	sed -i 's:.*cd examples && ${MAKE} all.*::' Makefile.in || die
+	sed -i 's:.*cd examples && ${MAKE} all.*::' Makefile.in
 }
 
 src_configure() {
@@ -119,16 +121,16 @@ src_configure() {
 	sed -i \
 		-e 's/ ${exec_prefix}/ ${DESTDIR}${exec_prefix}/' \
 		-e 's/ ${libdir}/ ${DESTDIR}${libdir}/' \
-		${S/-beta2/}/Makefile.in || die
-	sed -i '/bindir/s/ ${bindir}/ ${DESTDIR}${bindir}/' ${S/-beta2/}/src/pm/mpd/Makefile.in || die
-	cd ${S/-beta2/} || die
+		${S/-beta2/}/Makefile.in
+	sed -i '/bindir/s/ ${bindir}/ ${DESTDIR}${bindir}/' ${S/-beta2/}/src/pm/mpd/Makefile.in
+	cd ${S/-beta2/}
 
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args)	${c}
 }
 
 src_install() {
-	emake  DESTDIR="${D}"
+	emake  DESTDIR="${D}"|| die
 	mpi_dodoc CHANGES_MPICH2 COPYRIGHT COPYRIGHT_MVAPICH2 LICENSE.TXT \
 		README* RELEASE_NOTES*
 	mpi_imp_add_eselect

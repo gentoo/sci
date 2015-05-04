@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,7 +10,7 @@ SRC_URI="http://upc.lbl.gov/download/release/${P}.tar.gz"
 LICENSE="BSD-4"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~x86"
 IUSE="mpi mpi-compat pshm +segment-fast segment-large +single +sptr-packed
 	sptr-struct sptr-symmetric threads +udp"
 

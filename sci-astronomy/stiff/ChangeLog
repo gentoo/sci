@@ -1,19 +1,6 @@
 # ChangeLog for sci-astronomy/stiff
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-astronomy/stiff/ChangeLog,v 1.7 2011/08/04 18:33:30 bicatali Exp $
-
-  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml, stiff-9999.ebuild:
-  sci-astronomy/stiff: fix SLOT operators
-
-*stiff-2.4.0 (21 Mar 2014)
-
-  21 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +stiff-2.4.0.ebuild,
-  stiff-9999.ebuild:
-  sci-astronomy/stiff: Add new version linked to live one
-
-  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
-  stiff-9999.ebuild:
-  sci-astronomy/stiff: EAPI-5, autotools-utils
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> stiff-9999.ebuild, metadata.xml:
   Move to EAPI=5 and autotools-utils
@@ -66,3 +53,4 @@
 
   19 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> +stiff-1.10.ebuild:
   Initial import.
+

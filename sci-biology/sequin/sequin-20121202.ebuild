@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-biology/clustalw/clustalw-2.0.12.ebuild,v 1.1 2009/10/18 21:14:11 weaver Exp $
 
 EAPI=5
 

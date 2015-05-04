@@ -2,12 +2,6 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*pyqtgraph-0.9.8 (25 Nov 2013)
-
-  25 Nov 2013; Guillaume Poulin <poulin.guillaume@gmail.com>
-  +pyqtgraph-0.9.8.ebuild, -pyqtgraph-0.9.7.ebuild:
-  Update PyQtGraph to 0.9.8. Support of python 3.3
-
   07 Sep 2013; Guillaume Poulin <poulin.guillaume@gmail.com>
   pyqtgraph-0.9.7.ebuild:
   remove untested keywords

@@ -1,46 +1,45 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.1.0.ebuild,v 1.5 2012/05/06 23:08:00 ottxor Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
-CMAKE_MAKEFILE_GENERATOR="ninja"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit cmake-utils python-single-r1
 
 DESCRIPTION="extensible, flexible, fast and parallel simulation software for soft matter research"
 HOMEPAGE="https://www.espresso-pp.de"
 
-MY_PN="${PN//+/p}"
 if [[ ${PV} = 9999 ]]; then
-	EGIT_REPO_URI="git://github.com/${MY_PN}/${MY_PN}.git http://github.com/${MY_PN}/${MY_PN}.git"
-	inherit git-r3
-	KEYWORDS=
+	EHG_REPO_URI="https://hg.berlios.de/repos/espressopp"
+	EHG_REVISION="default"
+	inherit mercurial
 else
-	#SRC_URI="https://espressopp.mpip-mainz.mpg.de/Download/${PN//+/p}-${PV}.tgz"
-	SRC_URI="https://github.com/${MY_PN}/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+	SRC_URI="https://espressopp.mpip-mainz.mpg.de/Download/${PN//+/p}-${PV}.tgz"
+	S="${WORKDIR}/${PN//+/p}-${PV}"
 fi
 
-LICENSE="GPL-3"
+CMAKE_REMOVE_MODULES_LIST="FindBoost"
+
+EHP_OPTS="--config hostfingerprints.hg.berlios.de=f4:79:d2:17:f8:0c:9b:c2:6e:65:60:2a:49:0e:09:79:85:6d:4b:e3"
+EHG_CLONE_CMD="hg clone ${EHG_QUIET_CMD_OPT} ${EHP_OPTS} --pull --noupdate"
+EHG_PULL_CMD="hg pull ${EHG_QUIET_CMD_OPT} ${EHP_OPTS}"
+LICENSE="GPL-3 !system-boost? ( Boost-1.0 )"
 SLOT="0"
-IUSE="test"
+KEYWORDS=""
+IUSE="-system-boost"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
 	virtual/mpi
-	dev-libs/boost:=[python,mpi,${PYTHON_USEDEP}]
-	sci-libs/fftw:3.0
-	dev-python/mpi4py"
+	system-boost? ( dev-libs/boost[python,mpi,${PYTHON_USEDEP}] )"
 DEPEND="${RDEPEND}"
 
+DOCS=( AUTHORS NEWS README )
+
 src_configure() {
-	local mycmakeargs=(
-		-DEXTERNAL_BOOST=ON
-		-DEXTERNAL_MPI4PY=ON
-		-DWITH_RC_FILES=OFF
-	)
+	mycmakeargs=( $(cmake-utils_use system-boost EXTERNAL_BOOST) )
 	cmake-utils_src_configure
 }

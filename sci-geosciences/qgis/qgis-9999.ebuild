@@ -1,13 +1,13 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="2"
 
-PYTHON_COMPAT=( python{2_6,2_7} )
-PYTHON_REQ_USE="sqlite"
+PYTHON_USE_WITH="sqlite"
+PYTHON_DEPEND="python? 2"
 
-inherit cmake-utils gnome2-utils multilib python-single-r1 subversion eutils
+inherit cmake-utils python subversion eutils
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
@@ -19,10 +19,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="examples gps grass gsl postgres python sqlite"
 
-REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
-
-RDEPEND="
-	>=sci-libs/gdal-1.6.1[geos,postgres?,python?,sqlite?]
+RDEPEND=">=sci-libs/gdal-1.6.1[geos,postgres?,python?,sqlite?]
 	dev-qt/qtcore:4[qt3support]
 	dev-qt/qtgui:4
 	dev-qt/qtsvg:4
@@ -42,10 +39,7 @@ RDEPEND="
 			>=dev-db/postgresql-server-8.4
 		)
 	)
-	python? (
-		${PYTHON_DEPS}
-		dev-python/PyQt4[sql,svg,${PYTHON_USEDEP}]
-		dev-python/sip[${PYTHON_USEDEP}] )
+	python? ( dev-python/PyQt4[sql,svg] )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
@@ -53,7 +47,8 @@ DEPEND="${RDEPEND}
 	sys-devel/flex"
 
 pkg_setup() {
-	python-single-r1_pkg_setup
+	python_set_active_version 2
+	python_pkg_setup
 }
 
 src_configure() {
@@ -71,34 +66,24 @@ src_configure() {
 		$(cmake-utils_use_with gps QWT)
 		$(cmake-utils_use_with gsl)
 		$(cmake-utils_use_with python BINDINGS)
-		$(cmake-utils_use python BINDINGS_GLOBAL_INSTALL)
-		$(cmake-utils_use_with spatialite SPATIALITE)
-		$(cmake-utils_use_enable test TESTS)
-		$(usex grass "-DGRASS_PREFIX=/usr/" "")
+		$(cmake-utils_use_with sqlite SPATIALITE)
 	)
+	use grass && mycmakeargs+=( "-DGRASS_PREFIX=/usr/" )
 
 	cmake-utils_src_configure
 }
 
 src_install() {
 	cmake-utils_src_install
-	dodoc BUGS ChangeLog CODING README
+	dodoc AUTHORS BUGS ChangeLog README SPONSORS CONTRIBUTORS || die
 
-	newicon -s 128 images/icons/qgis-icon.png qgis.png
+	newicon images/icons/qgis-icon.png qgis.png || die
 	make_desktop_entry qgis "Quantum GIS " qgis
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins -r "${WORKDIR}"/qgis_sample_data/*
+		doins -r "${WORKDIR}"/qgis_sample_data/* || die "Unable to install examples"
 	fi
-	python_fix_shebang "${D}"/usr/share/qgis/grass/scripts
-	python_optimize "${D}"/usr/share/qgis/python/plugins \
-		"${D}"/$(python_get_sitedir)/qgis \
-		"${D}"/usr/share/qgis/grass/scripts
-}
-
-pkg_preinst() {
-	gnome2_icon_savelist
 }
 
 pkg_postinst() {
@@ -107,9 +92,4 @@ pkg_postinst() {
 		elog "you should install:"
 		elog "   dev-db/postgis"
 	fi
-	gnome2_icon_cache_update
-}
-
-pkg_postrm() {
-	gnome2_icon_cache_update
 }

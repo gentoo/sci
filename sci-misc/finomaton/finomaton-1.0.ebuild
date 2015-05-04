@@ -1,8 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-EAPI=5
 
 # N.B. this is from CTAN
 
@@ -26,7 +24,10 @@ src_install() {
 	dobin finomaton.tcl
 	dodoc ChangeLog TODO README
 	if use examples ; then
+		dodir /usr/share/${PN}
 		insinto /usr/share/${PN}
-		doins -r examples
+		for f in examples ; do
+			doins ${f}
+		done
 	fi
 }

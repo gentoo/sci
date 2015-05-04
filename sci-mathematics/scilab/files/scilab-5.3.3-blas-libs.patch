@@ -1,0 +1,12 @@
+ upstream http://bugzilla.scilab.org/show_bug.cgi?id=9824
+
+--- scilab-5.3.2-orig/m4/libsmath.m4	2011-09-19 14:08:11.167292730 -0400
++++ scilab-5.3.2/m4/libsmath.m4	2011-09-19 14:08:26.477292283 -0400
+@@ -37,7 +37,6 @@
+ AC_PREREQ(2.50)
+ AC_REQUIRE([AC_F77_LIBRARY_LDFLAGS])
+ acx_blas_ok=no
+-BLAS_LIBS=
+ acx_blas_save_LIBS="$LIBS"
+ 
+ AC_ARG_WITH(blas-library,

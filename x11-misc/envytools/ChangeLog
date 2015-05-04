@@ -1,12 +1,6 @@
 # ChangeLog for x11-misc/envytools
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  16 Apr 2014; Wilhelm Erasmus <webmaster@wilhelm.co.za> envytools-9999.ebuild:
-  x11-misc/envytools: Updated github url, Resolves gentoo-science/sci#103
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> envytools-9999.ebuild:
-  Switch from git-2 to git-r3
 
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> envytools-9999.ebuild,
   metadata.xml:

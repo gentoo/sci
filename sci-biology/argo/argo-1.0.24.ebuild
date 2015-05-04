@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-biology/consed/consed-19-r2.ebuild,v 1.2 2010/10/10 21:20:04 ulm Exp $
 
-EAPI=5
+EAPI=3
 
 inherit java-pkg-2 java-ant-2 java-utils-2 toolchain-funcs
 
@@ -15,10 +15,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+RDEPEND=">=virtual/jre-1.5"
 DEPEND="
-	>=virtual/jdk-1.5:*
+	>=virtual/jdk-1.5
 	dev-java/ant-core"
-RDEPEND=">=virtual/jre-1.5:*"
 
 S="${WORKDIR}"/workspace-2008-03-11
 

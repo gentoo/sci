@@ -1,30 +1,28 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="3"
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_DEPEND="2"
 
-inherit eutils python-single-r1
+inherit eutils python
 
 DESCRIPTION="Qt front-end for Computer Algebra System mainly maxima"
 HOMEPAGE="http://kayali.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
+
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-DEPEND="${PYTHON_DEPS}"
-RDEPEND="${DEPEND}
-	sci-mathematics/maxima
-	>=dev-python/PyQt4-4.1[${PYTHON_USEDEP}]
+DEPEND=""
+RDEPEND="sci-mathematics/maxima
+	>=dev-python/PyQt4-4.1
 	media-gfx/imagemagick
-	>=dev-python/reportlab-2.0[${PYTHON_USEDEP}]
+	>=dev-python/reportlab-2.0
 	>=sci-visualization/gnuplot-4.0"
 
 # is a GUI, testing done simply by launching application
@@ -34,7 +32,7 @@ RESTRICT="test"
 S=${WORKDIR}/${PN}
 
 pkg_setup() {
-	python-single-r1_pkg_setup
+	python_set_active_version 2
 }
 
 src_compile() {
@@ -42,22 +40,19 @@ src_compile() {
 }
 
 src_install() {
-	local INSTALL_DIR="${EPREFIX}"/usr/share/${PN}
-
+	INSTALL_DIR="${EPREFIX}"/usr/share/${PN}
 	cat >> "${T}"/kayali <<- EOF
 	#!${EPREFIX}/bin/sh
 	cd ${INSTALL_DIR}
-	exec ${EPYTHON} -OOt kayali.py $@
+	exec $(PYTHON) -OOt kayali.py $@
 	EOF
-
-	dobin "${T}"/kayali
+	dobin "${T}"/kayali || die
 	insinto ${INSTALL_DIR}
-	doins *.py *.txt *.in* maximab.bat maxima.g
-	doins -r engines icons pdf qt4gui *uic
-
-	python_optimize ${INSTALL_DIR}
-
+	doins *.py *.txt *.in* maximab.bat maxima.g || die
+	doins -r engines icons pdf qt4gui *uic || die
 	make_desktop_entry kayali kayali kayali.svg
-	use doc && dohtml html/*
-	dodoc README
+	if use doc; then
+		dohtml html/* || die
+	fi
+	dodoc README || die
 }

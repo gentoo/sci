@@ -1,0 +1,98 @@
+fix random failures, triggered by gentoo qa scripts: missing declarations (headers), assigning NULL to int or double
+
+diff -Nur scilab-5.3.3.orig/modules/api_scilab/src/cpp/api_double.cpp scilab-5.3.3/modules/api_scilab/src/cpp/api_double.cpp
+--- scilab-5.3.3.orig/modules/api_scilab/src/cpp/api_double.cpp	2012-04-16 21:18:42.000000000 +0100
++++ scilab-5.3.3/modules/api_scilab/src/cpp/api_double.cpp	2012-05-23 23:26:09.000000000 +0100
+@@ -481,7 +481,7 @@
+ /*--------------------------------------------------------------------------*/
+ int createScalarDouble(void* _pvCtx, int _iVar, double _dblReal)
+ {
+-    return createCommonScalarDouble(_pvCtx, _iVar, 0, _dblReal, NULL);
++    return createCommonScalarDouble(_pvCtx, _iVar, 0, _dblReal, 0);
+ }
+ /*--------------------------------------------------------------------------*/
+ int createScalarComplexDouble(void* _pvCtx, int _iVar, double _dblReal, double _dblImg)
+diff -Nur scilab-5.3.3.orig/modules/api_scilab/src/cpp/api_list.cpp scilab-5.3.3/modules/api_scilab/src/cpp/api_list.cpp
+--- scilab-5.3.3.orig/modules/api_scilab/src/cpp/api_list.cpp	2012-04-16 21:18:42.000000000 +0100
++++ scilab-5.3.3/modules/api_scilab/src/cpp/api_list.cpp	2012-05-23 23:23:22.000000000 +0100
+@@ -1133,7 +1133,7 @@
+ 	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
+ 	int* piAddr				= NULL;
+ 	int* piRoot				= NULL;
+-	int iNbItem				= NULL;
++	int iNbItem				= 0;
+ 
+ 	if(_piParent == NULL)
+ 	{
+@@ -1329,7 +1329,7 @@
+ 	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
+ 	int* piAddr				= NULL;
+ 	int* piRoot				= NULL;
+-	int iNbItem				= NULL;
++	int iNbItem				= 0;
+ 	int* piBool				= NULL;
+ 
+ 
+@@ -1577,7 +1577,7 @@
+ 	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
+ 	int* piAddr				= NULL;
+ 	int* piRoot				= NULL;
+-	int iNbItem				= NULL;
++	int iNbItem				= 0;
+ 
+ 	if(_piParent == NULL)
+ 	{
+diff -Nur scilab-5.3.3.orig/modules/core/src/c/csignal.c scilab-5.3.3/modules/core/src/c/csignal.c
+--- scilab-5.3.3.orig/modules/core/src/c/csignal.c	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/modules/core/src/c/csignal.c	2012-05-23 23:18:19.000000000 +0100
+@@ -11,6 +11,7 @@
+  *
+  */
+ #include <stdio.h>
++#include <string.h>
+ #include "banier.h"
+ #include "csignal.h"
+ #include "sigbas.h"
+diff -Nur scilab-5.3.3.orig/modules/functions/src/c/getmacroslist.c scilab-5.3.3/modules/functions/src/c/getmacroslist.c
+--- scilab-5.3.3.orig/modules/functions/src/c/getmacroslist.c	2012-04-16 21:18:41.000000000 +0100
++++ scilab-5.3.3/modules/functions/src/c/getmacroslist.c	2012-05-23 23:18:38.000000000 +0100
+@@ -11,6 +11,7 @@
+  *
+  */
+ #include <stdlib.h>
++#include <string.h>
+ #include "api_scilab.h"
+ #include "sci_types.h"
+ #include "getmacroslist.h"
+diff -Nur scilab-5.3.3.orig/modules/localization/src/c/charEncoding.c scilab-5.3.3/modules/localization/src/c/charEncoding.c
+--- scilab-5.3.3.orig/modules/localization/src/c/charEncoding.c	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/modules/localization/src/c/charEncoding.c	2012-05-23 23:16:17.000000000 +0100
+@@ -16,6 +16,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <locale.h>
++#include <wctype.h>
+ #include "charEncoding.h"
+ #include "MALLOC.h"
+ /*--------------------------------------------------------------------------*/
+diff -Nur scilab-5.3.3.orig/modules/matio/src/c/CreateCharVariable.c scilab-5.3.3/modules/matio/src/c/CreateCharVariable.c
+--- scilab-5.3.3.orig/modules/matio/src/c/CreateCharVariable.c	2012-04-16 21:18:43.000000000 +0100
++++ scilab-5.3.3/modules/matio/src/c/CreateCharVariable.c	2012-05-23 23:19:36.000000000 +0100
+@@ -11,6 +11,7 @@
+  *
+  */
+ 
++#include <string.h>
+ #include "api_scilab.h"
+ #include "CreateMatlabVariable.h"
+ #include "freeArrayOfString.h"
+--- scilab-5.3.3.orig/modules/graphics/src/c/getHandleProperty/set_log_flags_property.c	2012-04-16 21:18:41.000000000 +0100
++++ scilab-5.3.3/modules/graphics/src/c/getHandleProperty/set_log_flags_property.c	2012-05-24 20:54:16.000000000 +0100
+@@ -18,6 +18,7 @@
+ /*        a handle                                                        */
+ /*------------------------------------------------------------------------*/
+ #include <string.h>
++#define _GNU_SOURCE
+ #include <math.h>
+ #include "setHandleProperty.h"
+ #include "SetProperty.h"

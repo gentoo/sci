@@ -1,15 +1,12 @@
-#Gentoo Science Overlay
+Gentoo Science Overlay
+======================
 
 An overlay for Gentoo, geared towards scientific packages.
 
-Homepage: [Science Project page](https://wiki.gentoo.org/wiki/Project:Science/Overlay)
+Please fork! We will merge!
 
+Ask for help in #gentoo-science in irc freenode.
 
-Please fork! We will merge! See [this](https://github.com/gentoo-science/sci/blob/master/CONTRIBUTING.md) document for more instructions.
+Report issues on the github site:
 
-Ask for help on irc in #gentoo-science @ freenode.
-
-Report bugs on the [github issues site](https://github.com/gentoo-science/sci/issues)
-
-
-[![Build Status](https://travis-ci.org/gentoo-science/sci.svg?branch=master)](https://travis-ci.org/gentoo-science/sci)
+https://github.com/gentoo-science/sci/issues

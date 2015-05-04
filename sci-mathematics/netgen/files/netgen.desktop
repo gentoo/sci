@@ -1,8 +1,9 @@
 [Desktop Entry]
+Encoding=UTF-8
 Name=Netgen
 Comment=3D modeling, Mesh generation.
 Exec=/usr/bin/netgen
 Icon=netgen
-Terminal=false
+Terminal=0
 Type=Application
-Categories=Graphics;
+Categories=Graphics;Application;

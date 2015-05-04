@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
 
 if [[ $PV = *9999* ]]; then
-	scm_eclass=git-r3
+	scm_eclass=git-2
 	EGIT_REPO_URI="
 		git://github.com/orbeckst/${PN}.git
 		https://github.com/orbeckst/${PN}.git"
@@ -30,9 +30,9 @@ SLOT="0"
 IUSE=""
 
 DEPEND="
-	>=dev-python/matplotlib-0.91.3[${PYTHON_USEDEP}]
-	>=dev-python/RecSQL-0.3[${PYTHON_USEDEP}]
-	>=sci-libs/scipy-0.9[${PYTHON_USEDEP}]
+		>=dev-python/matplotlib-0.91.3[${PYTHON_USEDEP}]
+		>=dev-python/RecSQL-0.3[${PYTHON_USEDEP}]
+		>=sci-libs/scipy-0.9[${PYTHON_USEDEP}]
 		"
 RDEPEND="${DEPEND}"
 

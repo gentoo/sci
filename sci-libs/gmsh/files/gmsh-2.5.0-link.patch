@@ -1,0 +1,16 @@
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5549d6a..48a106d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -879,7 +879,7 @@ elseif(HAVE_QT)
+ else(HAVE_FLTK)
+   add_executable(gmsh Common/Main.cpp ${GMSH_SRC})
+ endif(HAVE_FLTK)
+-target_link_libraries(gmsh ${LINK_LIBRARIES})
++target_link_libraries(gmsh ${LINK_LIBRARIES} -ldl)
+ 
+ # increase stack to 16Mb on Windows to avoid overflows in recursive
+ # tet classification for large 3D Delaunay grids

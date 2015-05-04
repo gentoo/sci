@@ -1,11 +1,6 @@
 # ChangeLog for sci-biology/dawg
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  10 Nov 2014; Justin Lecher <jlec@gentoo.org> -dawg-1.1.1.ebuild,
-  +dawg-1.1.2.ebuild, -files/dawg-1.1.1-gcc43.patch,
-  +files/dawg-1.1.2-gcc43.patch:
-  Bump EAPI; version Bump
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Fixed herd entry in metadata.xml

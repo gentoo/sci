@@ -1,9 +1,6 @@
 # ChangeLog for sci-chemistry/votca-csgapps
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  01 Sep 2014; Christoph Junghans <ottxor@gentoo.org> votca-csgapps-9999.ebuild:
-  sync with gx86
 
   31 Dec 2012; Christoph Junghans <ottxor@gentoo.org> votca-csgapps-9999.ebuild:
   update EHG_REPO_URI

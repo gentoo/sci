@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF="true"
 
-inherit autotools-utils git-r3 virtualx
+inherit autotools-utils git-2
 
 DESCRIPTION="Visualize multidimensional nuclear magnetic resonance (NMR) spectra"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
@@ -38,7 +38,7 @@ PATCHES=(
 	)
 
 src_unpack() {
-	git-r3_src_unpack
+	git-2_src_unpack
 	use examples && unpack ${A}
 }
 
@@ -50,12 +50,11 @@ src_configure() {
 }
 
 src_test () {
-	VIRTUALX_COMMAND="autotools-utils_src_compile -C test-suite check"
-	virtualmake
+	autotools-utils_src_compile -C test-suite check
 }
 
 src_install() {
-	use doc && HTML_DOCS=( "${AUTOTOOLS_BUILD_DIR}/doc/api/html/." )
+	use doc && HTML_DOCS=("${AUTOTOOLS_BUILD_DIR}/doc/api/html/")
 	autotools-utils_src_install
 
 	use examples && \

@@ -1,21 +1,6 @@
 # ChangeLog for sci-misc/openfst
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*openfst-1.4.1 (28 Feb 2015)
-
-  28 Feb 2015; Pavel Denisov <pavel.a.denisov@gmail.com> +openfst-1.4.1.ebuild,
-  +files/kaldi-openfst-1.4.1.patch:
-  Version bump.
-
-  12 Nov 2014; Justin Lecher <jlec@gentoo.org> -openfst-1.2.7.ebuild:
-  Drop old
-
-*openfst-1.3.4 (21 Nov 2013)
-
-  21 Nov 2013; Pavel Denisov <pavel.a.denisov@gmail.com> +files/kaldi.patch,
-  +openfst-1.3.4.ebuild, -openfst-1.3.2.ebuild:
-  sci-misc/openfst: version bump, patch from Kaldi
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> openfst-1.2.7.ebuild,
   openfst-1.3.2.ebuild, metadata.xml:

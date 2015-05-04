@@ -1,0 +1,16 @@
+# ChangeLog for sci-chemistry/direx
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*direx-0.2 (08 May 2009)
+
+  08 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> direx-0.2.ebuild:
+  renamed ebuild
+  unmasked
+
+*direx-0.2-r92 (07 May 2009)
+
+  07 May 2009; Alexey Shvetsov <alexxy@gentoo.org> +direx-0.2-r92.ebuild,
+  -direx-0.2_r92.ebuild:
+  rename ebuild
+

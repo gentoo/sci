@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit eutils flag-o-matic
 
 DESCRIPTION="Modeling and Exchange of Data library"
 HOMEPAGE="http://www.code-aster.org/outils/med/"
-SRC_URI="http://dev.gentoo.org/~jauhien/distfiles/med-fichier_${PV}.orig.tar.gz"
+SRC_URI="http://lyre.mit.edu/~powell/salome/med-fichier_${PV}.orig.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"

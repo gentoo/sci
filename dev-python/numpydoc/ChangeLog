@@ -1,0 +1,31 @@
+# ChangeLog for dev-python/numpydoc
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
+  numpydoc-0.4.ebuild:
+  dev-python/numpydoc: Keyword for prefix
+
+  14 Jun 2013; Justin Lecher <jlec@gentoo.org> numpydoc-0.4.ebuild,
+  metadata.xml:
+  Bump to EAPI=5 and distutils-r1.eclass
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> numpydoc-0.4.ebuild,
+  metadata.xml:
+  'http://pypi.python.org/packages/source' found in thirdpartymirrors
+
+  03 Nov 2010; Kacper Kowalik <xarthisius@gentoo.org> numpydoc-0.4.ebuild:
+  Add ~x86, restrict python-3.*. Thanks to W. Trevor King <wking@drexel.edu>
+  for the report.
+
+*numpydoc-0.4 (02 Oct 2010)
+
+  02 Oct 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  -numpydoc-0.3.1.ebuild, +numpydoc-0.4.ebuild:
+  Bump
+
+*numpydoc-0.3.1 (19 Jul 2010)
+
+  19 Jul 2010; Kacper Kowalik <xarthisius@gentoo.org>
+  +numpydoc-0.3.1.ebuild, +metadata.xml:
+  Initial import

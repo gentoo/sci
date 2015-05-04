@@ -1,27 +1,6 @@
 # ChangeLog for sci-mathematics/petsc
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*petsc-3.5.3 (13 Mar 2015)
-
-  13 Mar 2015; Matthias Maier <tamiko@gentoo.org>
-  +files/petsc-3.5.3-disable-rpath.patch, +petsc-3.5.3.ebuild:
-  version bump
-
-  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> petsc-3.4.2.ebuild:
-  remove whitespace
-
-  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> petsc-3.4.2.ebuild,
-  petsc-3.5.1.ebuild:
-  fix INCLUDE dirs in petscvariables
-
-  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> petsc-3.4.2.ebuild,
-  petsc-3.5.1.ebuild:
-  make configure work on systems with default python3 interpreter
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> -petsc-3.3_p5.ebuild,
-  petsc-3.4.2.ebuild, metadata.xml:
-  Punt base.eclass
 
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Drop unused local USE-description: 'metis'
@@ -138,3 +117,4 @@
   13 Sep 2010; Thomas Kahle <tom111@gmx.de> +petsc-3.1_p4.ebuild,
   +files/fix-configure-pic.patch, +files/fix-mpiuni.patch, +metadata.xml:
   New package. Ebuild by J. M. Gottfried. Corresponding bug is 53386.
+

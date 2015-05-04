@@ -1,10 +1,6 @@
 # ChangeLog for sci-biology/codonw
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  10 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
-  condow-1.4.4-r1.ebuild:
-  Move to EAPI=5.
 
 *codonw-1.4.4-r1 (08 Nov 2010)
 

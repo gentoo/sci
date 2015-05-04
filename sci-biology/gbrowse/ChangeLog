@@ -1,14 +1,6 @@
 # ChangeLog for sci-biology/gbrowse
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
-
-  13 Nov 2014; Justin Lecher <jlec@gentoo.org> gbrowse-2.39.ebuild,
-  gbrowse-2.45.ebuild, gbrowse-2.48.ebuild:
-  Use perl virtuals instead of core
-
-  24 Sep 2014; Justin Lecher <jlec@gentoo.org> gbrowse-2.39.ebuild,
-  gbrowse-2.45.ebuild, gbrowse-2.48.ebuild, metadata.xml:
-  Bump to EAPI=5
 
   22 May 2012; Justin Lecher <jlec@gentoo.org> gbrowse-2.39.ebuild,
   gbrowse-2.45.ebuild, gbrowse-2.48.ebuild:

@@ -1,0 +1,11 @@
+--- scilab-5.3.3.orig//etc/jvm_options.xml	2011-05-25 23:20:12.145833420 -0400
++++ scilab-5.3.3/etc/jvm_options.xml	2011-05-25 23:20:58.760833451 -0400
+@@ -22,7 +22,7 @@
+   <!-- ENABLE Just In Time java compiler -->
+   <option value="-Djava.compiler=JIT"/>
+   <!-- Set Java Heap space to 256mb -->
+-  <option value="-Xmx256m"/>
++  <option value="-Xmx512m"/>
+   <option value="-Dapple.laf.useScreenMenuBar=true" os="macosx"/>
+   <!-- DISABLE Just In Time java compiler -->
+   <!--

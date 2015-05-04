@@ -3,7 +3,7 @@
 <pkgmetadata>
 <herd>sci-physics</herd>
 <maintainer>
-  <email>jauhien@gentoo.org</email>
+  <email>piatlicki@gmail.com</email>
 </maintainer>
 <longdescription>
   Herwig++ is a completely new event generator, written in C++.
@@ -13,8 +13,6 @@
   ordered parton evolution and the cluster hadronization model).
 </longdescription>
 <use>
-  <flag name='c++0x'>Build Herwig++ using the C++11 standard.
-  Experimental feature, not for production use.</flag>
   <flag name='fastjet'>Adds support for <pkg>sci-physics/fastjet</pkg></flag>
 </use>
 </pkgmetadata>

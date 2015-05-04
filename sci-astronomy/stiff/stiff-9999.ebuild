@@ -1,11 +1,11 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-astronomy/stiff/stiff-2.1.3.ebuild,v 1.1 2011/04/10 14:45:35 bicatali Exp $
 
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	inherit subversion
+	_SVN=subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -14,10 +14,9 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-#AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=1
+AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils
+inherit ${_SVN} autotools-utils
 
 DESCRIPTION="Converts astronomical FITS images to the TIFF format"
 HOMEPAGE="http://astromatic.iap.fr/software/stiff"
@@ -27,9 +26,9 @@ SLOT="0"
 IUSE="doc threads"
 
 RDEPEND="
-	media-libs/tiff:0=
-	virtual/jpeg:0
-	sys-libs/zlib:0="
+	media-libs/tiff
+	virtual/jpeg
+	sys-libs/zlib"
 DEPEND="${RDEPEND}"
 
 src_configure() {

@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,11 +12,11 @@ QA_PREBUILT="${ACML_INST_DIR}/*/lib/*"
 MYP=${PN}-$(replace_all_version_separators -)
 
 DESCRIPTION="AMD Core Math Library for amd64 CPUs"
-HOMEPAGE="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-downloads-resources/"
+HOMEPAGE="http://developer.amd.com/tools/cpu-development/amd-core-math-library-acml/"
 
 # here we go for the url mess
 FCOMP64=""
-URI="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-downloads-resources/"
+URI="http://developer.amd.com/tools/cpu-development/amd-core-math-library-acml/acml-downloads-resources/"
 for fcomp in gfortran ifort open64 pgi; do
 	FCOMP64="${FCOMP64} ${fcomp}? ( ${URI}/${MYP}-${fcomp}-64bit.tgz
 			int64? ( ${URI}/${MYP}-${fcomp}-64bit-int64.tgz ) )"
@@ -30,7 +30,7 @@ SRC_URI="
 LICENSE="ACML"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~amd64-linux"
-IUSE="doc examples cpu_flags_x86_fma4 gfortran ifort int64 open64 openmp pgi static-libs test"
+IUSE="doc examples fma gfortran ifort int64 open64 openmp pgi static-libs test"
 RESTRICT="fetch strip mirror"
 
 DEPEND=""
@@ -42,7 +42,7 @@ src_unpack() {
 	unpack ${A}
 	unpack ./contents-acml-*.tgz
 	use openmp || rm -rf *_mp*
-	use cpu_flags_x86_fma4 || rm -rf *_fma*
+	use fma || rm -rf *_fma*
 }
 
 src_test() {
@@ -99,7 +99,7 @@ src_install() {
 		use ${fdir} && opts=${fdir}
 	done
 	opts+="64"
-	use cpu_flags_x86_fma4 && opts+="_fma4"
+	use fma && opts+="_fma4"
 	use openmp && opts+="_mp"
 	use int64 && opts+="_int64"
 	dosym $(ls -1d */lib | grep ${opts}) /${ACML_INST_DIR}/${libdir}

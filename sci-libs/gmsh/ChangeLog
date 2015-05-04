@@ -1,22 +1,6 @@
 # ChangeLog for sci-libs/gmsh
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> -gmsh-2.5.0-r2.ebuild,
-  -gmsh-9999.ebuild, -files/gmsh-2.5.0-libpng-1.5.patch,
-  -files/gmsh-2.5.0-link.patch:
-  remove old and live versions
-
-  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> gmsh-2.8.5.ebuild:
-  fix sci-mathematics/petsc dependency
-
-*gmsh-2.5.0-r2 (30 Aug 2014)
-*gmsh-2.8.5 (30 Aug 2014)
-
-  30 Aug 2014; Rongcui Dong <carldong76@gmail.com> +gmsh-2.5.0-r2.ebuild,
-  +gmsh-2.8.5.ebuild, -gmsh-2.5.0-r1.ebuild, -gmsh-2.5.0.ebuild,
-  gmsh-9999.ebuild:
-  sci-libs/gmsh: Updated sci-libs/gmsh to 2.8.5 and EAPI to 5
 
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0.ebuild, metadata.xml:
   Add missing dep on virtual/pkgconfig
@@ -119,3 +103,4 @@
   26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de> +gmsh-2.2.3.ebuild,
   +files/gmsh-2.2.3-metis.patch, +files/gmsh-2.2.3.patch, +metadata.xml:
   Ebuild for gmsh as reported in bug 195980.
+

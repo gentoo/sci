@@ -1,12 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
-AUTOTOOLS_AUTORECONF=true
-
-inherit autotools-utils fortran-2 toolchain-funcs
+inherit autotools base eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="MoM 2.5 D stripline simulator"
 HOMEPAGE="http://mmtl.sourceforge.net/"
@@ -21,43 +19,45 @@ RDEPEND="
 	dev-lang/tcl
 	dev-tcltk/tcllib
 	dev-tcltk/itcl
-	dev-tcltk/bwidget"
+	dev-tcltk/bwidget
+	virtual/fortran"
 DEPEND="${RDEPEND}
 	dev-texlive/texlive-latex
 	dev-tex/latex2html
 	media-gfx/imagemagick"
 
-PATCHES=( "${FILESDIR}/${P}"-{calc,bem-nmmtl,namespaces,f77,tkcon,docs,gui,autotools}.patch )
+PATCHES=( "${FILESDIR}/${P}"-{calc,bem-nmmtl,namespaces,f77,tkcon,docs,gui}.patch )
 
 src_prepare() {
-	#adjust new document location in gui
-	sed -i "s/package_name/${PF}/" gui/splash.tcl || die
-	sed -i "s/package_name/${PF}/" gui/gui_help.tcl || die
+	base_src_prepare
 
-	autotools-utils_src_prepare
+	#adjust new document location in gui
+	sed -i "s/package_name/${PF}/" gui/splash.tcl
+	sed -i "s/package_name/${PF}/" gui/gui_help.tcl
+
+	eautoreconf
 }
 
-AUTOTOOLS_IN_SOURCE_BUILD=1
-
 src_install () {
-	# tcl cannot handle the archives created by dodoc
-	if use doc; then
-		DOCS=( doc/*.pdf doc/*.png )
-		HTML_DOCS=( doc/user-guide/* )
-	fi
+	default
 
-	autotools-utils_src_install
+	# tcl cannot handle the archives created by dodoc
+	dohtml COPYING || die
+	if use doc; then
+				dodoc doc/*.pdf doc/*.png
+				dohtml doc/user-guide/*
+	fi
 
 	# Install icon
 	convert gui/logo.gif gui/tnt.png
 	docinto "examples"
 	dodoc examples/*
-	doicon gui/tnt.png
+	newicon gui/tnt.png tnt.png
 	make_desktop_entry ${PN} "tnt" ${PN}
 }
 
 pkg_postinst() {
-	elog "Warning: the sources are not under development anymore."
-	elog "We made it compile, but users should check if the results make sense."
-	elog "Examples are in the /usr/share/doc/tnt-1.2.2 folder."
+		elog "Warning: the sources are not under development anymore."
+		elog "We made it compile, but users should check if the results make sense."
+		elog "Examples are in the /usr/share/doc/tnt-1.2.2 folder."
 }

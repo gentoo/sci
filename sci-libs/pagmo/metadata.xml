@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-astronomy</herd>
-  <use>
-    <flag name="kepler">Automatically generated description for kepler</flag>
-    <flag name="nlopt">Automatically generated description for nlopt</flag>
-  </use>
+<herd>sci-astronomy</herd>
+<use>
+  <flag name="kepler">Automatically generated description for kepler</flag>
+  <flag name="nlopt">Automatically generated description for nlopt</flag>
+</use>
 </pkgmetadata>

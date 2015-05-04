@@ -1,33 +1,6 @@
 # ChangeLog for dev-util/smartgit
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  14 Feb 2015; Luca Molari <lmolr@gentoo.org> metadata.xml,
-  smartgit-6.5.6.ebuild:
-  projects/sci: dev-util/smartgit: git mercurial optfeatures
-
-  13 Feb 2015; Luca Molari (LMolr) <molari.luca@gmail.com>
-  smartgit-6.5.6.ebuild:
-  projects/sci: dev-util/smartgit: set SWT_GTK3 env var
-
-  13 Feb 2015; Luca Molari (LMolr) <molari.luca@gmail.com> metadata.xml,
-  smartgit-6.5.6.ebuild:
-  projects/sci: dev-util/smartgit: git mercurial USE flags
-
-*smartgit-6.5.6 (13 Feb 2015)
-
-  13 Feb 2015; Luca Molari <molari.luca@gmail.com> +smartgit-6.5.6.ebuild,
-  -smartgit-6.0.6.ebuild:
-  projects/sci: dev-util/smartgit: Version Bump (6.0.6 -> 6.5.6)
-
-  28 Sep 2014; Justin Lecher <jlec@gentoo.org> smartgit-6.0.6.ebuild:
-  Enhance description; fix local variable
-
-*smartgit-6.0.6 (28 Sep 2014)
-
-  28 Sep 2014; Justin Lecher <jlec@gentoo.org> -smartgit-1.0.2.ebuild,
-  +smartgit-6.0.6.ebuild, metadata.xml:
-  Version BUmp
 
   25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Removed no-herd from herd tag in metadata.xml
@@ -100,3 +73,4 @@
   28 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +smartgit-0_alpha1_rc3.ebuild, +metadata.xml:
   Adopted from smartsvn ebuild in sunrise
+

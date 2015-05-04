@@ -1,18 +1,6 @@
 # ChangeLog for sci-astronomy/psfex
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*psfex-3.17.0 (21 Mar 2014)
-
-  21 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +psfex-3.17.0.ebuild,
-  psfex-9999.ebuild:
-  sci-astronomy/psfex: Add new version linked to live one
-
-*psfex-3.9.1 (27 Feb 2014)
-
-  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +psfex-3.9.1.ebuild,
-  -psfex-3.9.1-r1.ebuild, metadata.xml, psfex-9999.ebuild:
-  sci-astronomy/psfex: EAPI-5, autotools-utils, fixed plplot flag
 
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> psfex-9999.ebuild, metadata.xml:
   Drop KEYWORDS of live ebuilds

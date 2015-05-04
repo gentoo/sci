@@ -1,12 +1,6 @@
 # ChangeLog for sci-libs/cgnslib
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*cgnslib-3.2.1 (29 Dec 2013)
-
-  29 Dec 2013; Justin Lecher <jlec@gentoo.org> +cgnslib-3.2.1.ebuild,
-  +files/cgnslib-3.2.1-cmake.patch, metadata.xml:
-  Version Bump
 
   22 May 2012; Justin Lecher <jlec@gentoo.org> cgnslib-2.5.4.ebuild,
   metadata.xml:

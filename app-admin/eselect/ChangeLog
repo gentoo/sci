@@ -1,48 +1,6 @@
 # ChangeLog for app-admin/eselect
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/ChangeLog,v 1.179 2011/01/22 21:38:52 ulm Exp $
-
-  02 Apr 2015; Justin Lecher <jlec@gentoo.org> -eselect-1.3.7-r100.ebuild,
-  -eselect-1.3.8-r100.ebuild, -eselect-1.4-r100.ebuild,
-  -eselect-1.4.1-r100.ebuild, -eselect-1.4.2-r100.ebuild,
-  -eselect-1.4.3-r100.ebuild, -files/eselect-1.3.8-alternatives.patch,
-  -files/eselect-alternatives.patch:
-  app-admin/eselect: Drop old
-
-*eselect-1.4.4-r100 (26 Jan 2015)
-
-  26 Jan 2015; Justin Lecher <jlec@gentoo.org> +eselect-1.4.4-r100.ebuild:
-  Version Bump
-
-*eselect-1.4.3-r100 (15 Sep 2014)
-
-  15 Sep 2014; Justin Lecher <jlec@gentoo.org> +eselect-1.4.3-r100.ebuild:
-  Bump to latest release
-
-  26 May 2014; Justin Lecher <jlec@gentoo.org> eselect-1.4.2-r100.ebuild:
-  Fix patch name
-
-*eselect-1.4.2-r100 (26 May 2014)
-
-  26 May 2014; Justin Lecher <jlec@gentoo.org> +eselect-1.4.2-r100.ebuild,
-  +files/eselect-1.4.2-alternatives.patch:
-  Version Bump
-
-*eselect-1.4.1-r100 (15 Feb 2014)
-
-  15 Feb 2014; Justin Lecher <jlec@gentoo.org> +eselect-1.4.1-r100.ebuild,
-  eselect-9999.ebuild:
-  Bump to follow tree package
-
-*eselect-9999 (21 Jan 2014)
-
-  21 Jan 2014; Sébastien Fabbro <bicatali@gentoo.org> +eselect-9999.ebuild:
-  app-admin/eselect: Added eselect alternatives branch live
-
-*eselect-1.4-r100 (08 Dec 2013)
-
-  08 Dec 2013; Justin Lecher <jlec@gentoo.org> +eselect-1.4-r100.ebuild:
-  Version Bump
 
   12 Sep 2013; Sébastien Fabbro <bicatali@gentoo.org> eselect-1.3.7-r100.ebuild,
   eselect-1.3.8-r100.ebuild:
@@ -91,7 +49,7 @@
 
   15 Sep 2012; Justin Lecher <jlec@gentoo.org> +eselect-1.3.2-r1.ebuild,
   +files/eselect-1.3.2-eroot.patch:
-  Version Bump
+  Version BUmp
 
   04 Jun 2012; Justin Lecher <jlec@gentoo.org> eselect-1.3.1-r1.ebuild,
   metadata.xml:

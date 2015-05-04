@@ -1,10 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
-
-inherit eutils flag-o-matic toolchain-funcs versionator
+inherit versionator
 
 MY_PV=$(replace_all_version_separators '_')
 
@@ -14,22 +12,21 @@ SRC_URI="http://proda.stanford.edu/proda_${MY_PV}.tar.gz"
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="debug "
-KEYWORDS="~amd64 ~x86"
+IUSE=""
+KEYWORDS="~x86"
 
-S="${WORKDIR}"/${PN}
+DEPEND=""
+RDEPEND=""
 
-PATCHES=(
-	"${FILESDIR}"/${P}-newgcc.patch
-	"${FILESDIR}"/${P}-buildsystem.patch
-	)
+S="${WORKDIR}/${PN}"
 
-src_prepare() {
-	epatch ${PATCHES[@]}
-	use debug || append-flags -DNDEBUG
-	tc-export CXX
+src_unpack() {
+	unpack ${A}
+	sed -i -e 's/^\(CXXFLAGS =\)/#\1/' \
+		-e 's/#CXXFLAGS = \(-O3.*$(OTHERFLAGS) -funroll-loops\)/CXXFLAGS := ${CXXFLAGS} \1/' \
+		"${S}/Makefile" || die "sed failed"
 }
 
 src_install() {
-	dobin ${PN}
+	dobin proda
 }

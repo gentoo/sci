@@ -1,0 +1,21 @@
+# ChangeLog for sci-chemistry/xdrfile
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*xdrfile-1.1.1 (30 Dec 2012)
+
+  30 Dec 2012; Christoph Junghans <ottxor@gentoo.org> +xdrfile-1.1.1.ebuild,
+  -xdrfile-1.1.ebuild:
+  version bump
+
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> xdrfile-1.1.ebuild:
+  [sci-chemistry/xdrfile] Add keywords
+
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> xdrfile-1.1.ebuild:
+  [sci-chemistry/xdrfile] actualy allow optional fortran
+
+*xdrfile-1.1 (09 Oct 2012)
+
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> +metadata.xml,
+  +xdrfile-1.1.ebuild:
+  [sci-chemistry/xdrfile] Add to repo

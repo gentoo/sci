@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=1
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_DEPEND="2"
 
-inherit eutils java-pkg-opt-2 python-single-r1
+inherit eutils python
 
 DESCRIPTION="A network server for robot control"
 HOMEPAGE="http://playerstage.sourceforge.net/index.php?src=player"
@@ -34,38 +34,30 @@ IUSE="ieee1394 imagemagick sphinx2 test v4l wifi
 	boost gnome gtk openssl festival
 	opengl glut gsl java python doc"
 
-REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
-
 RDEPEND="
 	virtual/jpeg
-	boost? ( dev-libs/boost )
-	festival? ( app-accessibility/festival )
-	gtk? ( x11-libs/gtk+:2 )
+	opengl? ( virtual/opengl )
 	glut? ( media-libs/freeglut )
-	gnome? ( >=gnome-base/libgnomecanvas-2.0 )
+	openssl? ( dev-libs/openssl )
+	imagemagick? ( media-gfx/imagemagick )
 	gsl? ( sci-libs/gsl )
 	ieee1394? ( sys-libs/libraw1394 media-libs/libdc1394 )
-	imagemagick? ( media-gfx/imagemagick )
 	java? ( virtual/jdk )
-	opengl? ( virtual/opengl )
-	openssl? ( dev-libs/openssl )
-	python? ( ${PYTHON_DEPS} )
-	sphinx2? ( app-accessibility/sphinx2 )"
+	gtk? ( x11-libs/gtk+:2 )
+	gnome? ( >=gnome-base/libgnomecanvas-2.0 )
+	boost? ( dev-libs/boost )
+	sphinx2? ( app-accessibility/sphinx2 )
+	festival? ( app-accessibility/festival )"
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen )
+	python? ( dev-lang/swig )
 	java? ( dev-lang/swig )
-	python? ( dev-lang/swig )"
+	doc? ( app-doc/doxygen )"
 
 pkg_setup () {
-	use python && python-single-r1_pkg_setup
-	use java && java-pkg-opt-2_pkg_setup
+	python_set_active_version 2
 }
 
-src_prepare() {
-	use java && java-pkg-opt-2_src_prepare
-}
-
-src_configure() {
+src_compile() {
 	local drivers driver nodep_drivers
 
 	nodep_drivers="acoustics acts amcl amtecpowercube
@@ -104,24 +96,25 @@ src_configure() {
 		$(use_enable test tests) \
 		--with-playercc \
 		${drivers}
-}
 
-src_compile() {
 	# Parallel make will fail
-	emake -j1
+	emake -j1 || die "emake failed"
 
 	if use doc; then
-		cd doc || die
-		emake doc
+		pushd doc > /dev/null
+		emake doc || die "emake doc failed"
+		popd > /dev/null
 	fi
 }
 
 src_install() {
-	default
+	emake DESTDIR="${D}" install || die "emake install failed"
 
 	if use doc; then
-		cd doc || die
-		emake DESTDIR="${D}" doc-install
+		cd doc
+		emake DESTDIR="${D}" doc-install || die "emake doc-install failed"
+		cd ..
 	fi
 
+	dodoc AUTHORS ChangeLog NEWS README TODO || die
 }

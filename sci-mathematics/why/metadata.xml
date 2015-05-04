@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
+<herd>sci-mathematics</herd>
 <longdescription>
   Why is a software verification platform. It contains a general-purpose
   verification condition generator (VCG) which is used as a back-end
@@ -10,13 +10,10 @@
   programs and Caduceus, a tool for the verification of C programs.
 </longdescription>
 <use>
-  <flag name='apron'>Use <pkg>sci-mathematics/apron</pkg> library for
-  abstract interpretation</flag>
-  <flag name='coq'>Add <pkg>sci-mathematics/coq</pkg> support</flag>
-  <flag name='float'>Add <pkg>sci-mathematics/flocq</pkg> support</flag>
-  <flag name='gappa'>Add <pkg>sci-mathematics/gappalib-coq</pkg> support</flag>
-  <flag name='frama-c'>Add <pkg>sci-mathematics/frama-c</pkg> support</flag>
-  <flag name='pff'>Add <pkg>sci-mathematics/pff</pkg> support</flag>
-  <flag name='why3'>Add <pkg>sci-mathematics/why3</pkg> support</flag>
-</use>
+  <flag name="apron">Support for <pkg>sci-mathematics/apron</pkg></flag>
+  <flag name="coq">Support for <pkg>sci-mathematics/coq</pkg></flag>
+  <flag name="gappa">Support for <pkg>sci-mathematics/gappa</pkg></flag>
+  <flag name="jessie">Support for <pkg>sci-mathematics/frama-c</pkg></flag>
+  <flag name="pff">Support for <pkg>sci-mathematics/pff</pkg></flag>
+  </use>
 </pkgmetadata>

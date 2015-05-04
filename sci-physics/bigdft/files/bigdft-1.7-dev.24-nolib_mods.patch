@@ -1,0 +1,25 @@
+diff -Naurp bigdft-1.7-dev.24.orig/src/Makefile.am bigdft-1.7-dev.24/src/Makefile.am
+--- bigdft-1.7-dev.24.orig/src/Makefile.am	2013-03-12 12:56:53.000000000 +0000
++++ bigdft-1.7-dev.24/src/Makefile.am	2013-04-10 09:29:31.073319847 +0000
+@@ -56,6 +56,9 @@ bigdft_library_rpath =
+ endif
+ if BUILD_LIB_BIGDFT
+ lib_bigdft = libbigdft.a libdft_common.a
++else
++lib_bigdft =
++endif
+ PS_SOURCES = PSolver/Build_Kernel.f90 \
+ 	PSolver/xcenergy.f90 \
+ 	PSolver/3Dgradient.f90 \
+@@ -64,11 +67,6 @@ PS_SOURCES = PSolver/Build_Kernel.f90 \
+ 	PSolver/wofz.f90 \
+ 	lib/fft/fft3d.f90
+ PS_MODULES = PSolver/Poisson_Solver.f90
+-else
+-lib_bigdft =
+-PS_SOURCES =
+-PS_MODULES =
+-endif
+ if BUILD_BINARIES
+ binaries_sources = bigdft memguess splsad NEB frequencies MDanalysis $(minima_hopping_sources) bart abscalc BigDFT2Wannier WaCo NEB_images
+ local_binaries = test_forces

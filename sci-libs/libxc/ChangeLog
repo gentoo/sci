@@ -1,35 +1,6 @@
 # ChangeLog for sci-libs/libxc
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*libxc-2.2.1 (10 Dec 2014)
-*libxc-2.1.1 (10 Dec 2014)
-
-  10 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
-  -libxc-1.2.0-r1.ebuild, -libxc-2.0.1.ebuild, -libxc-2.0.2.ebuild,
-  -libxc-2.0.3.ebuild, -libxc-2.1.0.ebuild, +libxc-2.1.1.ebuild,
-  -libxc-2.2.0.ebuild, +libxc-2.2.1.ebuild, -libxc-9999.ebuild:
-  Version bumps to sci-libs/libxc-2.1.1 and 2.2.1, cleanup.
-
-  27 Jun 2014; Honza Macháček <Hloupy.Honza@centrum.cz> libxc-2.0.3.ebuild:
-  sci-libs/libxc-2.0.3.ebuild adjusted to export the C preprocessor name in the
-  FCCPP variable that the build system looks for
-
-*libxc-2.2.0 (15 Apr 2014)
-*libxc-2.1.0 (15 Apr 2014)
-*libxc-2.0.3 (15 Apr 2014)
-
-  15 Apr 2014; Honza Macháček <Hloupy.Honza@centrum.cz> +libxc-2.0.3.ebuild,
-  +libxc-2.1.0.ebuild, +libxc-2.2.0.ebuild:
-  Version bump to 2.0.3. Versions 2.1.0 and 2.2.0 added; they have a new
-  testsuite and pass it but compatibility with dependent packages not tested
-  yet, especially for 2.2.0 that separates fortran bindings.
-
-*libxc-2.0.2 (05 Nov 2013)
-
-  05 Nov 2013; Justin Lecher <jlec@gentoo.org> libxc-2.0.1.ebuild,
-  +libxc-2.0.2.ebuild, metadata.xml:
-  Version Bump; fix compilation problem with gcc-4.8, #488470
 
 *libxc-2.0.1 (17 Jun 2013)
 *libxc-1.2.0-r1 (17 Jun 2013)

@@ -1,10 +1,6 @@
 # ChangeLog for dev-java/vecmath
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  03 Nov 2014; Justin Lecher <jlec@gentoo.org> vecmath-1.5.1.ebuild,
-  metadata.xml:
-  Bump to EAPI=5
 
   10 Nov 2009; Vlastimil Babka <caster@gentoo.org> -vecmath-1.5.0.ebuild:
   Remove old.

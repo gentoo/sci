@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-chemistry</herd>
-  <maintainer>
-    <email>maintainer-wanted@gentoo.org</email>
-  </maintainer>
-  <longdescription>
+<herd>sci-chemistry</herd>
+<maintainer><email>maintainer-wanted@gentoo.org</email></maintainer>
+<longdescription>
 Bist stands for bidimensional structures (in italian it sounds like "beast" in english ) and is a chemical drawing tool. It is focused on organic chemistry but it may be useful also for chemists or teacher as well.
 Bist support many of the formalism used to describe molecoles structures like single bond, double bond, stereospecific bond, charges, resonance arrows, lone pairs etc...
 It can export both postscript and png formats.

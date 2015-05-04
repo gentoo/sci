@@ -1,17 +1,6 @@
 # ChangeLog for sci-astronomy/missfits
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*missfits-2.8.0 (21 Mar 2014)
-
-  21 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +missfits-2.8.0.ebuild,
-  missfits-9999.ebuild:
-  sci-astronomy/missfits: Add new version linked to live one
-
-  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> -Manifest,
-  -files/missfits-2.4.0-configure.patch, -missfits-2.4.0.ebuild,
-  missfits-9999.ebuild:
-  sci-astronomy/missfits: EAPI-5, autotools-utils
 
 *missfits-9999 (09 Jul 2012)
 
@@ -32,3 +21,4 @@
   18 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> +missfits-2.4.0.ebuild,
   +files/missfits-2.4.0-configure.patch, +metadata.xml:
   Initial import
+

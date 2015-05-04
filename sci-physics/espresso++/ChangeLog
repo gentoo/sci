@@ -1,40 +1,6 @@
 # ChangeLog for sci-physics/espresso++
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-  20 Mar 2015; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  added test feature
-
-  01 Mar 2015; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  move live version to git
-
-  13 Nov 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  sync with gx86
-
-  13 Nov 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  deps on boost:=
-
-  25 Aug 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  sync with gx86
-
-  02 Jul 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  use ninja
-
-  21 Jun 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  added missing deps (bug #514084)
-
-  19 May 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  upstream repo moved
-
-  16 Feb 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  live ebuild update
-
-  07 Feb 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild,
-  metadata.xml:
-  live ebuild update
-
-  09 Oct 2013; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
-  sync with gx86
 
   02 Aug 2013; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
   added hostfingerprint

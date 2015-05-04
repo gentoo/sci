@@ -3,7 +3,6 @@
 <pkgmetadata>
   <herd>sci-physics</herd>
   <use>
-    <flag name="cuda">Enable cuda support</flag>
     <flag name="examples">Installs the examples</flag>
     <flag name="packages">Installs extra subpackages</flag>
   </use>

@@ -1,18 +1,6 @@
 # ChangeLog for sci-biology/mosaik
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-
-*mosaik-2.2.3 (15 Jan 2015)
-
-  15 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  +mosaik-2.2.3.ebuild, -mosaik-2.1.33.ebuild:
-   version bump, masking a crappy package until at least the Makefile's
-  propagate an error code back to upstream caller, https://code.google.com/p
-  /mosaik-aligner/issues/detail?id=135
-
-  07 Jan 2014; Justin Lecher <jlec@gentoo.org> mosaik-2.1.33.ebuild,
-  mosaik-9999.ebuild, metadata.xml:
-  Readd ebuild
 
   01 Jun 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   mosaik-1.1.0021.ebuild:
@@ -41,3 +29,4 @@
   Fastq.cpp:224, Fastq.cpp:226, Fasta.cpp:258, Fasta.cpp:260, Fasta.cpp:266,
   Fasta.cpp:268, but the package itself installs and executes at least
   mosaik-1.1.0021.ebuild
+

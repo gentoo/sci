@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=4
 
 if [[ ${PV} == "9999" ]] ; then
-	inherit subversion
+	_SVN=subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -14,10 +14,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-#AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=1
-
-inherit autotools-utils
+inherit ${_SVN} autotools
 
 DESCRIPTION="Combine weight maps and polygon for astronomical images weighting"
 HOMEPAGE="http://www.astromatic.net/software/weightwatcher/"
@@ -29,7 +26,11 @@ IUSE="doc"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
+src_prepare() {
+	eautoreconf
+}
+
 src_install () {
-	autotools-utils_src_install
+	default
 	use doc && dodoc doc/*
 }
