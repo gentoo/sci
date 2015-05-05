@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 May 2015; AstroFloyd <AstroFloyd@gmail.com>
+  -files/libsufr-0.3.0-multilib.patch:
+  Removed obsolete files/ directory
+
 *libsufr-0.6.3 (05 May 2015)
 *libsufr-0.6.2 (05 May 2015)
 
