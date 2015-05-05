@@ -24,8 +24,11 @@ RDEPEND="${DEPEND}
 	sci-biology/infernal
 	sci-biology/exonerate
 	sci-biology/barrnap"
-# >=hmmer-3.1
+# sci-biology/minced
+# >=sci-biolohy/hmmer-3.1
 # Aragorn
-# RNAmmer
-# SignalP >= 4.0
+# >=RNAmmer-1.2
+# >=HMMmmer-2.0 (that is not sci-biology/hmmer)
+# SignalP >= 3.0
 # sequin
+# tbl2asn >= 23.0 from wget --mirror -nH -nd ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/linux64.tbl2asn.gz
