@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 May 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/clblas-2.2-client_CMakeLists.patch,
+  +files/clblas-2.2-library_tools_tune_CMakeLists.patch,
+  -files/clblas-client_CMakeLists.patch,
+  -files/clblas-library_tools_tune_CMakeLists.patch, clblas-9999.ebuild:
+  Adjust patchset
+
   23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
   +files/clblas-client_CMakeLists.patch, clblas-9999.ebuild:
   Fix client installation
