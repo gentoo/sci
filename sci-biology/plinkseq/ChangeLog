@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/plinkseq
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*plinkseq-0.10 (10 May 2015)
+
+  10 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +plinkseq-0.10.ebuild:
+  sci-biology/plinkseq: new package
