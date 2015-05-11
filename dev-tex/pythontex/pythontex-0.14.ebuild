@@ -30,16 +30,14 @@ TEXMF=/usr/share/texmf-site
 
 src_compile() {
 	cd ${PN} || die
-	ebegin "Compiling ${PN}"
-	rm ${PN}.sty || die
-	latex ${PN}.ins extra || die
-	eend
+	latex-package_src_compile
 }
 
 src_install() {
 	dodoc ${PN}/README "${S}"/*rst ${PN}_quickstart/*
 
 	cd ${PN} || die
+	latex-package_src_install
 
 	installation() {
 		if python_is_python3; then
@@ -52,6 +50,4 @@ src_install() {
 		python_optimize
 	}
 	python_foreach_impl installation
-
-	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
 }
