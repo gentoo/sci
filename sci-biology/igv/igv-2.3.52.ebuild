@@ -52,7 +52,7 @@ DEPEND=">=virtual/jdk-1.7
 RDEPEND=">=virtual/jre-1.7
 	${COMMON_DEPS}"
 
-S="${WORKDIR}/IGV-${PV}"
+S="${WORKDIR}/igv-${PV}"
 
 EANT_BUILD_TARGET="all"
 JAVA_ANT_REWRITE_CLASSPATH="true"
