@@ -1,0 +1,17 @@
+# ChangeLog for sci-biology/samtools
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*samtools-1.0-r2 (11 May 2015)
+*samtools-1.1-r1 (11 May 2015)
+*samtools-1.2-r1 (11 May 2015)
+
+  11 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/samtools-1.0-buildsystem.patch, +files/samtools-1.0-rmdup.patch,
+  +files/samtools-1.1-buildsystem.patch, +files/samtools-1.1-rmdup.patch,
+  +files/samtools-1.2-buildsystem.patch, +files/samtools-1.2-rmdup.patch,
+  +metadata.xml, +samtools-1.0-r2.ebuild, +samtools-1.1-r1.ebuild,
+  +samtools-1.2-r1.ebuild:
+  sci-biology/samtools: fix core dump on 'samtools rmdup' by adding
+  bam_get_library() from an upstream patch from
+  https://github.com/samtools/samtools/issues/138
