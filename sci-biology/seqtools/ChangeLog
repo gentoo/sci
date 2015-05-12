@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*seqtools-4.34.5 (12 May 2015)
+
+  12 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +seqtools-4.34.5.ebuild, -seqtools-4.34.1.ebuild:
+  sci-biology/seqtools: upstream fixed dependency issues so that MAKEOPTS=-j5
+  works; version bump
+
 *seqtools-4.34.1 (09 May 2015)
 
   09 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,

@@ -20,7 +20,3 @@ DEPEND="
 	dev-libs/glib:2
 	x11-libs/gtk+:2"
 RDEPEND="${DEPEND}"
-
-src_compile(){
-	emake -j1
-}
