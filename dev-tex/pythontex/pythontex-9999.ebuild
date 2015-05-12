@@ -43,16 +43,16 @@ src_install() {
 	cd ${PN} || die
 
 	installation() {
-	if python_is_python3; then
+		if python_is_python3; then
 			python_domodule {de,}${PN}3.py
-	else
+		else
 			python_domodule {de,}${PN}2.py
-	fi
+		fi
 		python_domodule ${PN}_{engines,utils}.py
 		python_doscript {de,}${PN}.py syncpdb.py
 		python_optimize
 	}
 	python_foreach_impl installation
 
-	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
+	latex-package_src_doinstall dtx ins sty
 }

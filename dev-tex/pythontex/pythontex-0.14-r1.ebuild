@@ -53,5 +53,5 @@ src_install() {
 	}
 	python_foreach_impl installation
 
-	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
+	latex-package_src_doinstall dtx ins sty
 }

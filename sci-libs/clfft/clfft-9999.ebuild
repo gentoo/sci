@@ -11,10 +11,13 @@ MY_PN="clFFT"
 DESCRIPTION="A software library containing FFT functions written in OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clFFT"
 
-if [ ${PV} == "9999" ] ; then
+if [ ${PV} == "9999" ] || [ ${PV} == "0.9999" ]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
 	S="${WORKDIR}/${P}/src"
+	if [ ${PV} == "9999" ]; then
+		EGIT_BRANCH="develop"
+	fi
 else
 	SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64"
@@ -39,10 +42,13 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-PATCHES=(
-	"${FILESDIR}"/clfft-client_CMakeLists.patch
-	"${FILESDIR}"/clfft-scripts_perf_CMakeLists.patch
-)
+# Patches are only needed for the recent master and releases <= 2.4
+if [ ${PV} != "9999" ]; then
+	PATCHES=(
+		"${FILESDIR}"/clfft-client_CMakeLists.patch
+		"${FILESDIR}"/clfft-scripts_perf_CMakeLists.patch
+	)
+fi
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
