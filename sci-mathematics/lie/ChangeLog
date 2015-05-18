@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/lie
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 May 2015; François Bissey <francois.bissey@canterbury.ac.nz>
+  lie-2.2.2.ebuild:
+  Update upstream homepage and source location. Migrate to EAPI 5.
 
   22 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz> lie-2.2.2.ebuild:
   Keyword lie ~amd64
@@ -26,4 +30,3 @@
 
   03 Apr 2009; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
   Initial import for the science overlay.
-
