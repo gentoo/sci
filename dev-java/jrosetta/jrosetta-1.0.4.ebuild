@@ -8,7 +8,9 @@ inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Provides a common base for graphical component to build a graphical console."
 HOMEPAGE="http://dev.artenum.com/projects/jrosetta"
-SRC_URI="http://maven.artenum.com/content/groups/public/com/artenum/${PN}/${PV}/${P}-sources.jar"
+#currently down
+#SRC_URI="http://maven.artenum.com/content/groups/public/com/artenum/${PN}/${PV}/${P}-sources.jar"
+SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/jrosetta/${P}-sources.jar"
 
 LICENSE="GPL-2"
 SLOT="0"
