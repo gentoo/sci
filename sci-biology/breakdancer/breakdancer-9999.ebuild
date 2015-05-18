@@ -4,6 +4,8 @@
 
 EAPI=5
 
+inherit cmake-utils
+
 [ "$PV" == "9999" ] && inherit git-r3
 
 PERL_EXPORT_PHASE_FUNCTIONS=no
@@ -29,12 +31,3 @@ DEPEND="dev-lang/perl
 	dev-perl/Statistics-Descriptive
 	sci-biology/samtools"
 RDEPEND="${DEPEND}"
-
-# cd breakdancer
-# mkdir build
-# cd build
-# cmake .. -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=/usr/local
-#       ...
-#       -- Build files have been written to: .../breakdancer/build
-# make
-# make install
