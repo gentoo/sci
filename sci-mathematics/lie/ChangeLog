@@ -4,6 +4,10 @@
 
   18 May 2015; François Bissey <francois.bissey@canterbury.ac.nz>
   lie-2.2.2.ebuild:
+  Cosmetic fixes requested by jlec
+
+  18 May 2015; François Bissey <francois.bissey@canterbury.ac.nz>
+  lie-2.2.2.ebuild:
   Update upstream homepage and source location. Migrate to EAPI 5.
 
   22 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz> lie-2.2.2.ebuild:

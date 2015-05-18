@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs
 
 DESCRIPTION="A Computer algebra package for Lie group computations"
 HOMEPAGE="http://www-math.univ-poitiers.fr/~maavl/LiE/"
-SRC_URI="http://wwwmathlabo.univ-poitiers.fr/~maavl/LiE/conLiE.tar.gz"
+SRC_URI="http://wwwmathlabo.univ-poitiers.fr/~maavl/LiE/conLiE.tar.gz -> ${P}.tar.gz"
 #### Remove the following line when moving this ebuild to the main tree!
 RESTRICT="mirror"
 
@@ -27,8 +27,8 @@ RDEPEND="sys-libs/readline:=
 S="${WORKDIR}/LiE"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-make.patch
-	epatch "${FILESDIR}"/parrallelmake-${P}.patch
+	epatch "${FILESDIR}"/${P}-make.patch \
+		"${FILESDIR}"/parrallelmake-${P}.patch
 }
 
 src_compile() {
