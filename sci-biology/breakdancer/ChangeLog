@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  breakdancer-9999.ebuild:
+  sci-biology/breakdancer: update homepage
+
 *breakdancer-9999 (18 May 2015)
 
   18 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

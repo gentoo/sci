@@ -10,7 +10,7 @@ PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Genome-wide detection of structural variants from next generation paired-end sequencing reads"
-HOMEPAGE="http://breakdancer.sourceforge.net"
+HOMEPAGE="http://gmt.genome.wustl.edu/packages/breakdancer"
 if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/genome/breakdancer.git"
 	KEYWORDS=""
