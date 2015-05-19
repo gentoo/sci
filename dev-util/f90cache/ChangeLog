@@ -1,6 +1,11 @@
 # ChangeLog for dev-util/f90cache
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*f90cache-0.95 (19 May 2015)
+
+  19 May 2015; Marius Brehler <marbre@linux.sungazer.de> +f90cache-0.95.ebuild:
+  Version bump
 
 *f90cache-0.94 (24 Dec 2012)
 
