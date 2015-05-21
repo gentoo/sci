@@ -15,9 +15,4 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
-src_prepare() {
-	epatch "${FILESDIR}/${P}-no-boost-static.patch"
-}
+PATCHES=( "${FILESDIR}"/${P}-no-boost-static.patch )

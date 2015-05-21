@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 May 2015; Michael Schubert <mschu.dev@gmail.com> salmon-0.3.2.ebuild,
+  salmon-9999.ebuild:
+  sci-biology/salmon: streamline ebuild
+
 *salmon-0.3.2 (21 May 2015)
 *salmon-9999 (21 May 2015)
 
