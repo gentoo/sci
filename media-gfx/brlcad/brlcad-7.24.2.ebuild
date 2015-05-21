@@ -25,8 +25,8 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex
 	media-libs/libpng:0
-	<dev-lang/tcl-8.6:0
-	<dev-lang/tk-8.6:0
+	<dev-lang/tcl-8.6:0/8.5
+	<dev-lang/tk-8.6:0/8.5
 	dev-tcltk/tktable
 	sys-libs/zlib
 	sys-libs/libtermcap-compat
