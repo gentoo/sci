@@ -1,4 +1,5 @@
-diff -ru CalculiX.orig/ccx_2.8p2/src/Makefile CalculiX/ccx_2.8p2/src/Makefile
+Fix Makefile to make it use custom CFLAGS and system libraries.
+
 --- CalculiX.orig/ccx_2.8p2/src/Makefile	2015-05-21 11:04:58.125111330 +0300
 +++ CalculiX/ccx_2.8p2/src/Makefile	2015-05-21 11:08:26.848130631 +0300
 @@ -1,9 +1,9 @@
