@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/kallisto
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kallisto-0.42.1 (21 May 2015)
+*kallisto-9999 (21 May 2015)
+
+  21 May 2015; Michael Schubert <mschu.dev@gmail.com> +kallisto-0.42.1.ebuild,
+  +kallisto-9999.ebuild, +metadata.xml:
+  sci-biology/kallisto: add kallisto
