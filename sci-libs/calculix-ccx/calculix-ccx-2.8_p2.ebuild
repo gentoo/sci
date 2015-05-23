@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs flag-o-matic
+inherit eutils toolchain-funcs flag-o-matic fortran-2
 
 MY_P=ccx_${PV/_/}
 
