@@ -57,7 +57,7 @@ src_install() {
 
 	# band aid for prefix
 	if use prefix; then
-		cd "${ED}"/usr/share/eselect/libs
+		cd "${ED}"/usr/share/eselect/libs || die
 		sed -i "s:ALTERNATIVESDIR_ROOTLESS=\"${EPREFIX}:ALTERNATIVESDIR_ROOTLESS=\":" alternatives.bash || die
 	fi
 }

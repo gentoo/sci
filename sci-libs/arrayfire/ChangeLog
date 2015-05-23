@@ -1,6 +1,15 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 May 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/FindBoostCompute.cmake,
+  +files/arrayfire-3.0_beta-FindBoostCompute.patch,
+  +files/arrayfire-3.0_beta-FindCBLAS.patch,
+  +files/arrayfire-3.0_beta-opencl_CMakeLists.patch,
+  +files/arrayfire-9999-FindCBLAS.patch, -files/FindBoostCompute.patch,
+  -files/FindCBLAS.patch, -files/opencl_CMakeLists.patch, arrayfire-9999.ebuild:
+  Split up ebuilds to fix 9999
+
   24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
   -files/arrayfire-0.9999-build_gtest.patch:
   Drop patch, fixed upstream

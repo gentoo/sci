@@ -1,0 +1,14 @@
+Adjust build flags. Proted from 1.1.6.
+
+Patch by Marius Brehler.
+--- Makefile
++++ Makefile
+@@ -6,7 +6,7 @@ AR=ar
+ INSTALL=install
+ 
+ # compiler settings
+-cflags = -O2 -std=c99 -pedantic -Wall -fpic -DUTF8PROC_EXPORTS $(CFLAGS)
++cflags = -std=c99 -pedantic -fpic -DUTF8PROC_EXPORTS $(CFLAGS)
+ cc = $(CC) $(cflags)
+ 
+ # shared-library version MAJOR.MINOR.PATCH ... this may be *different*

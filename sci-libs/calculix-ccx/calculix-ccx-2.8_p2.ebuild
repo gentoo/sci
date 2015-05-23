@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils toolchain-funcs flag-o-matic
 
-MY_P=ccx_${PV}
+MY_P=ccx_${PV/_/}
 
 DESCRIPTION="A Free Software Three-Dimensional Structural Finite Element Program"
 HOMEPAGE="http://www.calculix.de/"
@@ -31,9 +31,8 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/CalculiX/${MY_P}/src
 
-src_prepare() {
-	epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cc_flags_spooles_arpack.patch
-	epatch "${FILESDIR}"/01_${MY_P}_lapack.patch
+src_prepare (){
+	epatch "${FILESDIR}/01_${MY_P}_Makefile_custom_cc_flags_spooles_arpack.patch"
 }
 
 src_configure() {
@@ -60,7 +59,7 @@ src_install () {
 
 	if use doc; then
 		cd "${S}/../doc" || die
-		ps2pdf ${MY_P}.ps ${MY_P}.pdf
+		ps2pdf ${MY_P}.ps ${MY_P}.pdf || die "ps2pdf failed"
 		dodoc ${MY_P}.pdf
 	fi
 

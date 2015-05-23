@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit autotools eutils
 
@@ -27,14 +27,14 @@ src_prepare() {
 }
 
 src_compile() {
-	emake || die 'emake failed'
+	default
 	if use doc ; then
-		cd ../../doc/src
+		cd ../../doc/src || die
 		doxygen || die 'doxygen failed'
 	fi
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed!"
+	default
 	use doc && dohtml -r ../../doc/html/*
 }
