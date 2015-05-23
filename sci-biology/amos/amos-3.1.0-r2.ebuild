@@ -17,16 +17,18 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="qt4"
+IUSE="mpi qt4"
 
 DEPEND="
+	mpi? ( virtual/mpi )
 	dev-libs/boost
-	qt4? ( dev-qt/qtcore:4 )"
+	qt4? ( dev-qt/qtcore:4[qt3support] )
+	sci-biology/blat
+	sci-biology/jellyfish"
 RDEPEND="${DEPEND}
 	dev-lang/perl
 	dev-perl/DBI
 	dev-perl/Statistics-Descriptive
-	sci-biology/blat
 	sci-biology/mummer"
 
 MAKEOPTS+=" -j1"
@@ -36,19 +38,6 @@ src_prepare() {
 		"${FILESDIR}"/${P}-gcc-4.7.patch \
 		"${FILESDIR}"/${P}-goBambus2.py-indent-and-cleanup.patch
 }
-
-# amos-3.1.0-r2/work/amos-3.1.0/src/Bambus/Untangler/DotLib.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/Bambus/Untangler/AsmLib.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/FASTAreader.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/AmosFoundation.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/Foundation.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/AmosLib.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/FASTArecord.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/ParseFasta.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/xfig.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/FASTAwriter.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/FASTAgrammar.pm
-# amos-3.1.0-r2/work/amos-3.1.0/src/PerlModules/FASTAiterator.pm
 
 #  --with-jellyfish        location of Jellyfish headers
 
@@ -64,4 +53,7 @@ src_install() {
 	doins "${D}"/usr/lib64/TIGR/*.pm
 	# move also /usr/lib64/AMOS/AMOS.py to /usr/bin
 	mv "${D}"/usr/lib64/AMOS/*.py "${D}"/usr/bin || die
+	# zap the mis-placed files ('make install' is at fault)
+	rm -f "${D}"/usr/lib64/AMOS/*.pm
+	rm -rf "${D}"/usr/lib64/TIGR
 }
