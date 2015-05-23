@@ -1,5 +1,9 @@
---- CMakeLists.txt.orig	2015-05-19 23:39:27.969165466 +0100
-+++ CMakeLists.txt	2015-05-19 23:39:40.154150194 +0100
+Do not force static and multithreaded boost libs, use what is available
+
+Patch by Michael Schubert
+
+--- CMakeLists.txt
++++ CMakeLists.txt
 @@ -162,13 +162,6 @@ if ( DEFINED CUSTOM_BOOST_PATH )
      set (CMAKE_LIBRARY_PATH ${CUSTOM_BOOST_PATH}/lib ${CMAKE_LIBRARY_PATH})
  endif ( DEFINED CUSTOM_BOOST_PATH )
