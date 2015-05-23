@@ -1,0 +1,52 @@
+Use pkg-config to find cblas.
+
+Patch by Marius Brehler.
+
+--- CMakeModules/FindCBLAS.cmake	2015-05-23 17:12:41.000000000 +0200
++++ CMakeModules/FindCBLAS.cmake.new	2015-05-23 17:13:51.000000000 +0200
+@@ -1,3 +1,9 @@
++#
++# Version modified for Gentoo Linux
++# If a valid PkgConfig configuration for cblas is found, this overrides and cancels
++# all further checks.
++#
++
+ # Using FindCBLAS.cmake from the following repo
+ # https://github.com/clementfarabet/THC/blob/master/COPYRIGHT.txt
+ 
+@@ -21,6 +27,29 @@ SET(CBLAS_INCLUDE_DIR CACHE STRING
+ SET(CBLAS_INCLUDE_FILE CACHE STRING
+   "CBLAS header name")
+ 
++
++#
++# first, try PkgConfig
++#
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(PC_CBLAS cblas)
++if(PC_CBLAS_FOUND)
++  foreach(PC_LIB ${PC_CBLAS_LIBRARIES})
++    find_library(${PC_LIB}_LIBRARY NAMES ${PC_LIB} HINTS ${PC_CBLAS_LIBRARY_DIRS} )
++    if (NOT ${PC_LIB}_LIBRARY)
++      message(FATAL_ERROR "Something is wrong in your pkg-config file - lib ${PC_LIB} not found in ${PC_CBLAS_LIBRARY_DIRS}")
++    endif (NOT ${PC_LIB}_LIBRARY)
++    list(APPEND CBLAS_LIBRARIES ${${PC_LIB}_LIBRARY}) 
++  endforeach(PC_LIB)
++  find_package_handle_standard_args(CBLAS DEFAULT_MSG CBLAS_LIBRARIES)
++  mark_as_advanced(CBLAS_LIBRARIES)
++else(PC_CBLAS_FOUND)
++message(STATUS "No PkgConfig configuration for CBLAS found; starting more extensive search.")
++
++
++
++
++
+ SET(INTEL_MKL_ROOT_DIR CACHE STRING
+   "Root directory of the Intel MKL")
+ 
+@@ -277,3 +306,5 @@ IF(NOT CBLAS_FIND_QUIETLY)
+     MESSAGE(STATUS "CBLAS library not found.")
+   ENDIF()
+ ENDIF(NOT CBLAS_FIND_QUIETLY)
++
++endif(PC_CBLAS_FOUND)
