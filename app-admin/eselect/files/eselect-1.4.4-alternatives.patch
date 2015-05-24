@@ -226,10 +226,10 @@ index 027ef73..a5fe373 100644
  	@$(dosed) $< > $@
 diff --git a/libs/alternatives-common.bash.in b/libs/alternatives-common.bash.in
 new file mode 100644
-index 0000000..99de48e
+index 0000000..64d74df
 --- /dev/null
 +++ b/libs/alternatives-common.bash.in
-@@ -0,0 +1,372 @@
+@@ -0,0 +1,488 @@
 +# Copyright 2015 Gentoo Foundation
 +# Copyright 2008 Mike Kelly
 +# Copyright 2009, 2013 David Leverton
@@ -238,7 +238,7 @@ index 0000000..99de48e
 +
 +inherit config output path-manipulation
 +
-+ALTERNATIVESDIR_ROOTLESS="@sysconfdir@/env.d/alternatives"
++: "${ALTERNATIVESDIR_ROOTLESS:=@sysconfdir@/env.d/alternatives}"
 +ALTERNATIVESDIR="${EROOT%/}${ALTERNATIVESDIR_ROOTLESS}"
 +
 +get_current_provider() {
@@ -298,7 +298,8 @@ index 0000000..99de48e
 +		[[ -d ${p} && ! -L ${p} ]] || continue
 +		p=${p##*/}
 +
-+		importance=$(< "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance")
++		[[ -e "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance" ]] &&
++			importance=$(< "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance")
 +		importance=${importance:-0}
 +		[[ "${importance}" =~ ^[0123456789]+(\.[0123456789]+)*$ ]] || die "_importance (${importance}) for ${p} is not a dot-separated list of integers"
 +
@@ -466,6 +467,117 @@ index 0000000..99de48e
 +	return 0
 +}
 +
++### add action ###
++alternatives_describe_add() {
++	echo "Add provider to selected alternative"
++}
++
++alternatives_describe_add_parameters() {
++	echo "<provider> <importance> <source> <target> [<source> <target> [...]]"
++}
++
++alternatives_describe_add_options() {
++	echo "<provider> : the name of the alternative provider"
++	echo "<importance> : interger value, representing the importance of the provider"
++	echo "<source> : source of the symlink"
++	echo "<target> : destination for the symlink"
++}
++
++alternatives_do_add() {
++	[[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++
++	(( $# >= 4 )) && (( ($#-2)%2 == 0)) || \
++		die "exactly 3+N*2 arguments where N>=1 required"
++	local provider=${1}
++	local importance=${2}
++	shift 2
++	local index src target ret=0
++	local provider_dir="${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider}"
++
++	# Creating base dir
++	if [[ ! -e "${provider_dir}" ]]; then
++		mkdir -p "${provider_dir}" || die "Failed to create ${provider_dir}"
++	elif [[ ! -d "${provider_dir}" ]]; then
++		die "${provider_dir} exists but is a file"
++	else
++		die "${provider_dir} already present. You need ot remove it before adding it again"
++	fi
++
++	# Make sure importance is a signed integer
++	if [[ -n ${importance} ]] && ! [[ ${importance} =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
++		die "Invalid importance (${importance}) detected"
++	else
++		# Setting importance
++		echo ${importance} > "${provider_dir}/_importance"
++	fi
++
++	# Process source-target pairs
++	while (( $# >= 2 )); do
++		src=${1//+(\/)/\/}; target=${2//+(\/)/\/}
++		if [[ ${src} != /* ]]; then
++			die "Source path must be absolute, but got ${src}"
++		else
++			local reltarget= dir=${provider_dir}${src%/*}
++			while [[ -n ${dir} ]]; do
++				reltarget+=../
++				dir=${dir%/*}
++			done
++
++			reltarget=${reltarget%/}
++			[[ ${target} == /* ]] || reltarget+=${src%/*}/
++			reltarget+=${target}
++			mkdir -p "${provider_dir}${src%/*}" || die "Failed to create ${provider_dir}${src%/*}"
++			ln -sf "${reltarget}" "${provider_dir}${src}" || die "Failed to create symlink"
++			# The -e test will fail if existing symlink points to non-existing target,
++			# so check for -L also.
++			# Say ${ED}/sbin/init exists and links to /bin/systemd (which doesn't exist yet).
++#			if [[ -e ${ED}${src} || -L ${ED}${src} ]]; then
++#				local fulltarget=${target}
++#				[[ ${fulltarget} != /* ]] && fulltarget=${src%/*}/${fulltarget}
++#				if [[ -e ${ED}${fulltarget} || -L ${ED}${fulltarget} ]]; then
++#					die "${src} defined as provider for ${fulltarget}, but both already exist in \${ED}"
++#				else
++#					mv "${ED}${src}" "${ED}${fulltarget}" || die
++#				fi
++#			fi
++		fi
++		shift 2
++	done
++}
++
++alternatives_options_add() {
++	_options_parameters ${FUNCNAME#alternatives_} "$@"
++}
++
++### remove action ###
++
++alternatives_describe_remove() {
++	echo "Remove a provider for selected alternative"
++}
++
++alternatives_describe_remove_parameters() {
++	echo "<provider>"
++}
++
++alternatives_describe_remove_options() {
++	echo "<provider> : the name of the alternative provider to be removed"
++}
++
++alternatives_do_remove() {
++	[[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
++
++	if [[ -d "${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider}" ]]; then
++		rm -r "${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider}" || \
++			die "Failed to remove '${provider}' for '${ALTERNATIVE}'"
++	else
++		einfo "'${provider}' is not a provider for '${ALTERNATIVE}'"
++	fi
++}
++
++alternatives_options_remove() {
++	_options_parameters ${FUNCNAME#alternatives_} "$@"
++}
++
 +### update action ###
 +
 +# available in both "eselect alternatives" and individual modules
@@ -502,6 +614,10 @@ index 0000000..99de48e
 +	[[ -n ${best} && -n ${1} && -z ${ignore} ]] && die -q "Cannot specify both --best and a provider"
 +
 +	if [[ -n ${best} ]] ; then
++		# set best provider
++		: # fall through to "switch to first available" loop below
++	elif [[ $# == "0" ]] && [[ -z ${cur} ]]; then
++		# if nothing is specified
 +		: # fall through to "switch to first available" loop below
 +	elif [[ ${cur} == ${1} && -z ${ignore} ]]; then
 +		# if current provider was just updated, reselect it since it could have changed
@@ -541,13 +657,13 @@ index 0000000..99de48e
 +
 +alternatives_options_update() {
 +	_options_parameters ${FUNCNAME#alternatives_} "$@"
-+    if [[ -n ${ALTERNATIVE} ]]; then
-+	get_providers
-+    else
-+        for alt in ${ALTERNATIVESDIR_ROOTLESS}/_*/*/_importance; do
-+            echo ${alt} | cut -d/ -f5
-+        done | sort -u
-+    fi
++	if [[ -n ${ALTERNATIVE} ]]; then
++		get_providers
++	else
++		for alt in ${ALTERNATIVESDIR_ROOTLESS}/_*/*/_importance; do
++			echo ${alt} | cut -d/ -f5
++		done | sort -u
++	fi
 +}
 +
 +### unset action stub ###
@@ -604,10 +720,10 @@ index 0000000..99de48e
 +# vim: set ft=eselect sw=4 sts=4 ts=4 et tw=80 :
 diff --git a/libs/alternatives.bash.in b/libs/alternatives.bash.in
 new file mode 100644
-index 0000000..c2512e1
+index 0000000..1b5a2b0
 --- /dev/null
 +++ b/libs/alternatives.bash.in
-@@ -0,0 +1,249 @@
+@@ -0,0 +1,293 @@
 +# Copyright 2015 Gentoo Foundation
 +# Copyright 2008 Mike Kelly
 +# Copyright 2009, 2013 David Leverton
@@ -726,6 +842,50 @@ index 0000000..c2512e1
 +	get_providers
 +}
 +
++### add action ###
++
++describe_add() {
++	alternatives_describe_add
++}
++
++describe_add_parameters() {
++	alternatives_describe_add_parameters
++}
++
++describe_add_options() {
++	alternatives_describe_add_options
++}
++
++do_add() {
++	alternatives_do_add
++
++	# make sure we have something selected
++	eselect ${provider} show > /dev/null || eselect ${provider} update --best
++}
++
++### remove action ###
++
++describe_remove() {
++	alternatives_describe_remove
++}
++
++describe_remove_parameters() {
++	alternatives_describe_remove_parameters
++}
++
++describe_remove_options() {
++	alternatives_describe_remove_options
++}
++
++do_remove() {
++	alternatives_do_remove
++
++#	if no provider is present, remove whole Alternative
++	if ! eselect ${provider} update --best > /dev/null; then
++		eselect alternatives remove ${ALTERNATIVE}
++	fi
++}
++
 +### update action ###
 +
 +# all functions implemented in alternatives-common.bash as defined for
@@ -803,7 +963,7 @@ index 0000000..c2512e1
 +
 +	local idx=${!}
 +	if [[ ${idx} == +(-|+|[[:digit:]]) ]]; then
-+	idx=${1#+(-|+)}
++		idx=${1#+(-|+)}
 +		providers=( $(get_providers) )
 +		(( ${idx} <= ${#providers[@]} )) || die -q "The given provider with index (${idx}) does not exist"
 +		provider=${providers[${idx}-1]}
@@ -871,10 +1031,10 @@ index 73960c4..4da6465 100644
  	env.eselect \
 diff --git a/modules/alternatives.eselect b/modules/alternatives.eselect
 new file mode 100644
-index 0000000..b1c219f
+index 0000000..912bb3d
 --- /dev/null
 +++ b/modules/alternatives.eselect
-@@ -0,0 +1,50 @@
+@@ -0,0 +1,165 @@
 +# Copyright 2015 Gentoo Foundation
 +# Copyright 2008 Mike Kelly
 +# Copyright 2009, 2013 David Leverton
@@ -896,10 +1056,10 @@ index 0000000..b1c219f
 +	ENDOFTEXT
 +}
 +
-+### update action ###
-+
 +# all functions implemented in alternatives-common.bash as defined for
 +# both "eselect alternatives" and individual modules
++
++### update action ###
 +
 +describe_update() {
 +	alternatives_describe_update
@@ -925,6 +1085,121 @@ index 0000000..b1c219f
 +	alternatives_options_update
 +}
 +
++### create action ###
++
++describe_create() {
++	echo "Create a new alternative"
++}
++
++describe_create_parameters() {
++	echo "<alternative>"
++}
++
++describe_create_options() {
++	echo "<alternative> : the name of the alternative to create"
++}
++
++do_create() {
++	[[ $# == 1 ]] || die "Need exactly one alternative name"
++
++	local auto_dir="${ESELECT_AUTO_GENERATED_MODULES_PATH}"
++	local auto_file="${auto_dir}/${1}.eselect"
++
++	if [[ ! -e "${auto_file}" ]]; then
++		if [[ ! -e "${auto_dir}" ]]; then
++			mkdir -p "${auto_dir}" || die "Failed to create ${auto_dir}"
++		elif [[ ! -d "${auto_dir}" ]]; then
++			die "${auto_dir} exists but is a file"
++		fi
++		cat >> ${auto_file} <<- ENDOFTEXT
++			DESCRIPTION="${DESCRIPTION} for ${1}"
++			VERSION="${VERSION}"
++			MAINTAINER="${MAINTAINER}"
++			ESELECT_MODULE_GROUP="Alternatives"
++
++			ALTERNATIVE="${1}"
++
++			inherit alternatives
++		ENDOFTEXT
++	fi
++}
++
++### delete action ###
++
++describe_delete() {
++	echo "Delete an existing alternative"
++}
++
++describe_delete_parameters() {
++	echo "<alternative>"
++}
++
++describe_delete_options() {
++	echo "<alternative> : the name of the alternative to delete"
++}
++
++do_delete() {
++	[[ $# == 1 ]] || die "Need exactly one alternative name"
++
++	local auto_dir="${ESELECT_AUTO_GENERATED_MODULES_PATH}"
++	local auto_file="${auto_dir}/${1}.eselect"
++
++	if [[ -e "${auto_file}" ]]; then
++		rm "${auto_file}" || die "Failed to remove alternative: ${1}"
++	fi
++}
++
++### add action ###
++
++describe_add() {
++	alternatives_describe_add
++}
++
++describe_add_parameters() {
++	echo "<alternative> $(alternatives_describe_add_parameters)"
++}
++
++describe_add_options() {
++	echo "<alternative> : the name of the alternative to add a provider for"
++	alternatives_describe_add_options
++}
++
++do_add() {
++	local ALTERNATIVE=$1
++	shift
++	[[ -z "${ALTERNATIVE}" ]] && die -q "Missing required parameter 'alternative'"
++	alternatives_do_add "$@"
++}
++
++options_add() {
++	alternatives_options_add
++}
++
++### remove action ###
++
++describe_remove() {
++	alternatives_describe_remove
++}
++
++describe_remove_parameters() {
++	echo "<alternative> $(alternatives_describe_remove_parameters)"
++}
++
++describe_remove_options() {
++	echo "<alternative> : the name of the alternative to remove a provider from"
++	alternatives_describe_remove_options
++}
++
++do_remove() {
++	local ALTERNATIVE=$1
++	shift
++	[[ -z "${ALTERNATIVE}" ]] && die -q "Missing required parameter 'alternative'"
++	alternatives_do_remove "$@"
++}
++
++options_remove() {
++	alternatives_options_remove
++}
 diff --git a/modules/modules.eselect b/modules/modules.eselect
 index 038f630..eb73e16 100644
 --- a/modules/modules.eselect

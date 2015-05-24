@@ -21,17 +21,17 @@
 # sure you explicitly run alternatives-2_pkg_{postinst,prerm} where appropriate.
 
 case "${EAPI:-0}" in
-	0|1|2|3)
+	0|1|2|3|4)
 		die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}"
 		;;
-	4|5)
+	5)
 		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
 		;;
 esac
 
-DEPEND=">=app-admin/eselect-1.4.4-r100"
+DEPEND=">=app-admin/eselect-1.4.4-r102"
 RDEPEND="${DEPEND}
 	!app-admin/eselect-blas
 	!app-admin/eselect-cblas
@@ -56,87 +56,12 @@ ALTERNATIVES_DIR="/etc/env.d/alternatives"
 alternatives_for() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	(( $# >= 5 )) && (( ($#-3)%2 == 0)) || \
-		die "${FUNCNAME} requires exactly 3+N*2 arguments where N>=1"
-	local alternative=${1} provider=${2} importance=${3} index src target ret=0
-	shift 3
+	dodir /etc/env.d/alternatives
 
-	# Make sure importance is a signed integer
-	if [[ -n ${importance} ]] && ! [[ ${importance} =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
-		eerror "Invalid importance (${importance}) detected"
-		((ret++))
-	fi
+	ALTERNATIVESDIR_ROOTLESS="${ED}/etc/env.d/alternatives" \
+		eselect alternatives add ${@} || die
 
-	# Create alternative provider subdirectories under ALTERNATIVES_DIR if needed
-	[[ -d "${ED}${ALTERNATIVES_DIR}/${alternative}/${provider}" ]] || \
-		dodir "${ALTERNATIVES_DIR}/${alternative}/${provider}"
-
-	# Keep track of provided alternatives for use in pkg_{postinst,prerm}.
-	# Keep a mapping between importance and provided alternatives
-	# and make sure the former is set to only one value.
-	if ! has "${alternative}:${provider}" "${ALTERNATIVES_PROVIDED[@]}"; then
-		# Add new provider and set its importance
-		index=${#ALTERNATIVES_PROVIDED[@]}
-		ALTERNATIVES_PROVIDED+=( "${alternative}:${provider}" )
-		ALTERNATIVES_IMPORTANCE[index]=${importance}
-		[[ -n ${importance} ]] && \
-			echo "${importance}" > "${ED}${ALTERNATIVES_DIR}/${alternative}/${provider}/_importance"
-	else
-		# Set importance for existing provider
-		for ((index=0;index<${#ALTERNATIVES_PROVIDED[@]};index++)); do
-			if [[ ${alternative}:${provider} == ${ALTERNATIVES_PROVIDED[index]} ]]; then
-				if [[ -n ${ALTERNATIVES_IMPORTANCE[index]} ]]; then
-					if [[ -n ${importance} && ${ALTERNATIVES_IMPORTANCE[index]} != ${importance} ]]; then
-						eerror "Differing importance (${ALTERNATIVES_IMPORTANCE[index]} != ${importance}) detected"
-						((ret++))
-					fi
-				else
-					ALTERNATIVES_IMPORTANCE[index]=${importance}
-					[[ -n ${importance} ]] && \
-						echo "${importance}" > "${ED}${ALTERNATIVES_DIR}/${alternative}/${provider}/_importance"
-				fi
-			fi
-		done
-	fi
-
-	# Process source-target pairs
-	while (( $# >= 2 )); do
-		src=${1//+(\/)/\/}; target=${2//+(\/)/\/}
-		if [[ ${src} != /* ]]; then
-			eerror "Source path must be absolute, but got ${src}"
-			((ret++))
-
-		else
-			local reltarget= dir=${ALTERNATIVES_DIR}/${alternative}/${provider}${src%/*}
-			while [[ -n ${dir} ]]; do
-				reltarget+=../
-				dir=${dir%/*}
-			done
-
-			reltarget=${reltarget%/}
-			[[ ${target} == /* ]] || reltarget+=${src%/*}/
-			reltarget+=${target}
-			dodir "${ALTERNATIVES_DIR}/${alternative}/${provider}${src%/*}"
-			dosym "${reltarget}" "${ALTERNATIVES_DIR}/${alternative}/${provider}${src}"
-
-			# The -e test will fail if existing symlink points to non-existing target,
-			# so check for -L also.
-			# Say ${ED}/sbin/init exists and links to /bin/systemd (which doesn't exist yet).
-			if [[ -e ${ED}${src} || -L ${ED}${src} ]]; then
-				local fulltarget=${target}
-				[[ ${fulltarget} != /* ]] && fulltarget=${src%/*}/${fulltarget}
-				if [[ -e ${ED}${fulltarget} || -L ${ED}${fulltarget} ]]; then
-					die "${src} defined as provider for ${fulltarget}, but both already exist in \${ED}"
-				else
-					mv "${ED}${src}" "${ED}${fulltarget}" || die
-				fi
-			fi
-		fi
-		shift 2
-	done
-
-	# Stop if there were any errors
-	[[ ${ret} -eq 0 ]] || die "Errors detected for ${provider}, provided for ${alternative}"
+	ALTERNATIVES_CREATED+=( ${1} )
 }
 
 # @FUNCTION: cleanup_old_alternatives_module
@@ -151,7 +76,7 @@ cleanup_old_alternatives_module() {
 	if [[ -f "${old_module}" && $(grep 'ALTERNATIVE=' "${old_module}" | cut -d '=' -f 2) == "${alt}" ]]; then
 		local version="$(grep 'VERSION=' "${old_module}" | grep -o '[0-9.]\+')"
 		if [[ "${version}" == "0.1" || "${version}" == "20080924" ]]; then
-			echo "rm ${old_module}"
+			einfo "rm ${old_module}"
 			rm "${old_module}" || eerror "rm ${old_module} failed"
 		fi
 	fi
@@ -168,30 +93,12 @@ cleanup_old_alternatives_module() {
 alternatives-2_pkg_postinst() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	local a alt provider module_version="20150521"
-	local EAUTO="${EROOT%/}/usr/share/eselect/modules/auto"
+	local alt
 
-	for a in "${ALTERNATIVES_PROVIDED[@]}"; do
-		alt="${a%:*}"
-		provider="${a#*:}"
-		if [[ ! -f "${EAUTO}/${alt}.eselect" \
-			|| "$(grep '^VERSION=' "${EAUTO}/${alt}.eselect" | grep -o '[0-9]\+')" \
-				-ne "${module_version}" ]]; then
-			if [[ ! -d ${EAUTO} ]]; then
-				install -d "${EAUTO}" || eerror "Could not create eselect modules dir"
-			fi
-			einfo "Creating alternatives eselect module for ${alt}"
-			cat > "${EAUTO}/${alt}.eselect" <<- EOF
-				# This module was automatically generated by alternatives-2.eclass
-				DESCRIPTION="Alternatives for ${alt}"
-				VERSION="${module_version}"
-				MAINTAINER="eselect@gentoo.org"
-				ESELECT_MODULE_GROUP="Alternatives"
-
-				ALTERNATIVE="${alt}"
-
-				inherit alternatives
-			EOF
+	for alt in ${ALTERNATIVES_CREATED[@]}; do
+		if ! eselect ${alt} show > /dev/null; then
+			einfo "Creating Alternative for ${alt}"
+			eselect alternatives create ${alt}
 		fi
 
 		# Set alternative provider if there is no valid provider selected
@@ -211,25 +118,20 @@ alternatives-2_pkg_postinst() {
 alternatives-2_pkg_prerm() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	local a alt provider ignore ret
-	local EAUTO="${EROOT%/}/usr/share/eselect/modules/auto"
+	local alt ret
 
 	# If we are uninstalling, update alternatives to valid provider
 	[[ -n ${REPLACED_BY_VERSION} ]] || ignore="--ignore"
-	for a in "${ALTERNATIVES_PROVIDED[@]}"; do
-		alt="${a%:*}"
-		provider="${a#*:}"
+
+	for alt in ${ALTERNATIVES_CREATED[@]}; do
 		eselect "${alt}" update ${ignore} "${provider}"
-		ret=$?
-		[[ -n ${REPLACED_BY_VERSION} ]] || \
-			einfo "Removing ${provider} alternative module for ${alt}, current is $(eselect ${alt} show)"
+
 		case ${ret} in
 			0) : ;;
 			2)
 				# This was last provider for the alternative, remove eselect module
 				einfo "Cleaning up unused alternatives module for ${alt}"
-				rm "${EAUTO}/${alt}.eselect" || \
-					eerror "rm ${EAUTO}/${alt}.eselect failed"
+				eselect alternatives delete "${alt}" || eerror "Failed to remove ${alt}"
 				;;
 			*)
 				eerror "eselect ${alt} update ${provider} returned ${ret}"
