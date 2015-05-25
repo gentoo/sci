@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/glimmer/ChangeLog,v 1.10 2013/03/11 15:17:43 jlec Exp $
 
+  25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  glimmer-3.02b.ebuild:
+  added dependency on sci-biology/elph as in Fedora; also stole from Fedora few
+  more sed(1) tricks to remove yet missed hardcoded paths
+
 *glimmer-3.02b (25 May 2015)
 
   25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

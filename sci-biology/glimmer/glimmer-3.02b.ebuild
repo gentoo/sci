@@ -19,8 +19,7 @@ KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
 RDEPEND="app-shells/tcsh
-	!app-crypt/pkcrack
-	!media-libs/libextractor"
+	sci-biology/elph"
 
 #S="${WORKDIR}/${PN}${PV}"
 S="${WORKDIR}/${PN}3.02"
@@ -32,6 +31,11 @@ src_prepare() {
 	sed -i 's/$(MAKE) $(TGT)/$(MAKE) $(TGT) || exit 1/' src/c_make.gen || die
 	# GCC 4.3 include fix
 	sed -i 's/include  <string>/include  <string.h>/' src/Common/delcher.hh || die
+	#
+	sed -i "s+/fs/szgenefinding/Glimmer3/bin+%${D}/bin/glimmer3+" scripts/g3-* || die
+	sed -i "s+/fs/szgenefinding/Glimmer3/scripts+%${D}/share/glimmer/scripts+" scripts/g3-* || die
+	sed -i "s+/nfshomes/adelcher/bin/elph+%${D}/bin/elph+" scripts/g3-* || die
+	sed -i "s/@ if/if/" src/c_make.gen || die
 	# avoid file collision on /usr/bin/extract #247394
 	epatch "${FILESDIR}/${P}-jobserver-fix.patch"
 	epatch "${FILESDIR}/${P}-ldflags.patch"
