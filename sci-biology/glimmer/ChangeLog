@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/glimmer/ChangeLog,v 1.10 2013/03/11 15:17:43 jlec Exp $
 
+*glimmer-3.02b (25 May 2015)
+
+  25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/glimmer-3.02b-jobserver-fix.patch, +files/glimmer-3.02b-ldflags.patch,
+  +files/glimmer-3.02b-rename_extract.patch, +glimmer-3.02b.ebuild,
+  -files/glimmer-3.02-glibc210.patch, -files/glimmer-3.02-jobserver-fix.patch,
+  -files/glimmer-3.02-ldflags.patch, -files/glimmer-3.02-rename_extract.patch,
+  -glimmer-3.02-r3.ebuild:
+  version bump to 3.02b which has the glimmer-3.02-glibc210.patch applied
+
   25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   files/glimmer-3.02-rename_extract.patch:
   updated patch with a fixed target name glimmer_extract

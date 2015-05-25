@@ -10,7 +10,7 @@ MY_PV=${PV//./}
 
 DESCRIPTION="An HMM-based microbial gene finding system from TIGR"
 HOMEPAGE="http://ccb.jhu.edu/software/glimmer"
-SRC_URI="http://www.cbcb.umd.edu/software/${PN}/${PN}${MY_PV}.tar.gz"
+SRC_URI="http://ccb.jhu.edu/software/${PN}/${PN}${MY_PV}.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"
@@ -22,7 +22,8 @@ RDEPEND="app-shells/tcsh
 	!app-crypt/pkcrack
 	!media-libs/libextractor"
 
-S="${WORKDIR}/${PN}${PV}"
+#S="${WORKDIR}/${PN}${PV}"
+S="${WORKDIR}/${PN}3.02"
 
 src_prepare() {
 	sed -i -e 's|\(set awkpath =\).*|\1 /usr/share/'${PN}'/scripts|' \
@@ -32,7 +33,6 @@ src_prepare() {
 	# GCC 4.3 include fix
 	sed -i 's/include  <string>/include  <string.h>/' src/Common/delcher.hh || die
 	# avoid file collision on /usr/bin/extract #247394
-	epatch "${FILESDIR}/${P}-glibc210.patch"
 	epatch "${FILESDIR}/${P}-jobserver-fix.patch"
 	epatch "${FILESDIR}/${P}-ldflags.patch"
 	epatch "${FILESDIR}/${P}-rename_extract.patch"
