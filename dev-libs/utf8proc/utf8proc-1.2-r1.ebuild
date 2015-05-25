@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils
+inherit eutils toolchain-funcs
 
 DESCRIPTION="library for processing UTF-8 encoded Unicode strings"
 HOMEPAGE="http://www.public-software-group.org/utf8proc"
@@ -20,12 +20,17 @@ src_prepare() {
 }
 
 src_compile() {
-	emake libutf8proc.so
-	use static-libs & emake libutf8proc.a
+	emake \
+		libutf8proc.so \
+		$(usex static-libs libutf8proc.a "") \
+		CC=$(tc-getCC) \
+		AR=$(tc-getAR)
+#		CFLAGS="${CFLAGS}"
+#		LDFLAGS="${LDFLAGS} -Wl,--soname,lib${PN}.${PV}"
 }
 
 src_install() {
 	doheader utf8proc.h
-	dolib.so libutf8proc.so
+	dolib.so libutf8proc.so*
 	use static-libs && dolib.a libutf8proc.a
 }
