@@ -183,3 +183,14 @@ diff -r -u glimmer3.02.old/src/Util/extract.cc glimmer3.02/src/Util/extract.cc
         "\n"
         "Read fasta-format <sequence-file> and extract from it the\n"
         "subsequences specified by <coords>.  By default, <coords>\n"
+--- glimmer3.02.old/src/Util/Makefile	2015-05-25 22:43:12.760341653 +0200
++++ glimmer-3.02-r3/work/glimmer3.02/src/Util/Makefile	2015-05-25 23:13:34.230372010 +0200
+@@ -21,7 +21,7 @@
+ 
+ entropy-score:  entropy-score.o libGLMcommon.a
+ 
+-extract:  extract.o libGLMcommon.a
++glimmer_extract:  extract.o libGLMcommon.a
+ 
+ multi-extract:  multi-extract.o libGLMcommon.a
+ 

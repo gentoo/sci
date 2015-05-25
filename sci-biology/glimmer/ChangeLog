@@ -3,6 +3,10 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/glimmer/ChangeLog,v 1.10 2013/03/11 15:17:43 jlec Exp $
 
   25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  files/glimmer-3.02-rename_extract.patch:
+  updated patch with a fixed target name glimmer_extract
+
+  25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   glimmer-3.02-r3.ebuild:
   EAPI bump
 
