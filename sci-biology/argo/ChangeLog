@@ -2,5 +2,8 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> argo-1.0.24.ebuild:
+  sci-biology/argo: ebuild cleanup
+
   13 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> argo-1.0.24.ebuild:
   fix java depencies syntax
