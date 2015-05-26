@@ -9,10 +9,10 @@ inherit java-utils-2 toolchain-funcs
 DESCRIPTION="Visualization and manually annotating whole genomes"
 HOMEPAGE="http://www.broadinstitute.org/annotation/argo2
 	http://www.broadinstitute.org/annotation/argo"
-SRC_URI="http://www.broadinstitute.org/annotation/argo/argo.jar"
+SRC_URI="http://www.broadinstitute.org/annotation/argo2/releases/argo2.jar"
 #
-# Release Number: 1.0.31
-# Release Date:   2010-02-05
+# Release Number: 3
+# Release Date:   2010-06-23
 
 LICENSE="LGPL-3"
 SLOT="0"
@@ -26,6 +26,6 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"
 
 src_install() {
-	java-pkg_newjar "${DISTDIR}"/argo.jar argo.jar
+	java-pkg_newjar "${DISTDIR}"/argo2.jar argo2.jar
 	java-pkg_dolauncher
 }
