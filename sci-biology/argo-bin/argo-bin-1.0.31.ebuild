@@ -17,12 +17,11 @@ SRC_URI="http://www.broadinstitute.org/annotation/argo/argo.jar"
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="java"
+IUSE=""
 
 DEPEND="!sci-biology/argo"
 RDEPEND="${DEPEND}
-		java? ( >=virtual/jre-1.5:* )"
-
+		>=virtual/jre-1.5:*"
 S="${WORKDIR}"
 
 src_install() {
