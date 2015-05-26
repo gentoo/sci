@@ -4,6 +4,12 @@
 
   26 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   scaffold_builder-20131122.ebuild:
+  sci-biology/scaffold_builder: set proper LICENSE to the one mentioned in the
+  http://www.scfbm.org/content/pdf/1751-0473-8-23.pdf article and also in the
+  COPYING.txt file in the distribution .zip file
+
+  26 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  scaffold_builder-20131122.ebuild:
   sci-biology/scaffold_builder: noted RDEPEND, added second HOMEPAGE
 
 *scaffold_builder-20131122 (30 Jan 2015)

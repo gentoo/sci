@@ -14,7 +14,7 @@ SRC_URI="http://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2.1.
 	http://downloads.sourceforge.net/project/scaffold-b/Manual_v2.1.pdf"
 
 #http://www.scfbm.org/content/8/1/23
-LICENSE="CC-BY-2.0"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
