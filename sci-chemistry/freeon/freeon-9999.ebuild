@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
-PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
 inherit autotools-utils fortran-2 git-r3 python-any-r1
 
@@ -14,6 +14,7 @@ DESCRIPTION="An experimental suite of programs for linear scaling quantum chemis
 HOMEPAGE="http://www.freeon.org"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
+EGIT_BRANCH="master"
 
 LICENSE="GPL-3"
 SLOT="live"

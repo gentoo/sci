@@ -1,10 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit perl-module
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit perl-module eutils
 
 DESCRIPTION="Optimise three primary parameter options (K, -exp_cov, -cov_cutoff) for Velvet sequence assembler."
 HOMEPAGE="http://www.vicbioinformatics.com/software.velvetoptimiser.shtml"
@@ -23,7 +24,8 @@ RDEPEND="${DEPEND}
 
 src_install(){
 	dobin VelvetOptimiser.pl
-	insinto ${VENDOR_LIB}/${PN}
+	perl_set_version
+	insinto ${VENDOR_LIB}/VelvetOpt
 	doins VelvetOpt/*.pm
-	dodoc README INSTALL CHANGELOG || die
+	dodoc README INSTALL CHANGELOG
 }

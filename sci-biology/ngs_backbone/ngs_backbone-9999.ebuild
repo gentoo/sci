@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
 
@@ -26,21 +26,21 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	sci-biology/biopython
-	sci-biology/samtools
+	sci-biology/biopython[${PYTHON_USEDEP}]
+	sci-biology/samtools[${PYTHON_USEDEP}]
 	sci-biology/picard
 	sci-biology/mira
 	sci-biology/bwa
 	sci-biology/gatk
-	sci-biology/pysam
+	sci-biology/pysam[${PYTHON_USEDEP}]
 	sci-biology/estscan
 	sci-biology/ncbi-tools
 	sci-biology/lucy
 	sci-biology/gmap
 	sci-biology/emboss
-	dev-python/matplotlib
-	dev-python/psubprocess
-	dev-python/configobj"
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/psubprocess[${PYTHON_USEDEP}]
+	dev-python/configobj[${PYTHON_USEDEP}]"
 	# ( blast2GO || b2g4pipe )
 	# sci-biology/sputnik
 	# sci-biology/gsnap

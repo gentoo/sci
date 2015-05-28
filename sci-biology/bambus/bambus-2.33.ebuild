@@ -4,7 +4,8 @@
 
 EAPI=5
 
-inherit eutils
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle"
 HOMEPAGE="http://sourceforge.net/apps/mediawiki/amos/index.php?title=AMOS
@@ -106,6 +107,7 @@ src_install() {
 
 	dobin "${FILESDIR}"/goBambus.pl || die "Failed to install the alternative of goBambus.py written in perl"
 	dodoc "${DISTDIR}"/scaffolding_MIRA_BAMBUS.pdf
+	rm -rf "${D}"/usr/lib
 }
 
 pkg_postinst(){

@@ -1,8 +1,0 @@
-# ChangeLog for sci-visualization/labplot
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  06 Jan 2014; Justin Lecher <jlec@gentoo.org> labplot-9999.ebuild,
-  metadata.xml:
-  Bump EAPI
-

@@ -1,0 +1,32 @@
+Fix Makefile to make it use custom CFLAGS and system libraries.
+
+--- CalculiX.orig/ccx_2.8p2/src/Makefile	2015-05-21 11:04:58.125111330 +0300
++++ CalculiX/ccx_2.8p2/src/Makefile	2015-05-21 11:08:26.848130631 +0300
+@@ -1,9 +1,9 @@
+ 
+-CFLAGS = -Wall -O3  -I ../../../SPOOLES.2.2 -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE
+-FFLAGS = -Wall -O3 -fopenmp
++CFLAGS := -Wall -O3 -DARCH="Linux" -DMATRIXSTORAGE $(CFLAGS)
++FFLAGS := -Wall -O3 $(FFLAGS)
+ 
+-CC=cc
+-FC=gfortran
++#CC=cc
++#FC=gfortran
+ 
+ .c.o :
+ 	$(CC) $(CFLAGS) -c $<
+@@ -18,12 +18,7 @@
+ OCCXC = $(SCCXC:.c=.o)
+ OCCXMAIN = $(SCCXMAIN:.c=.o)
+ 
+-DIR=../../../SPOOLES.2.2
+-
+-LIBS = \
+-       $(DIR)/spooles.a \
+-	../../../ARPACK/libarpack_INTEL.a \
+-       -lpthread -lm -lc
++LIBS = $(ARPACKLIB) $(LAPACK) -lm -lc -lspooles -lpthread
+ 
+ ccx_2.8p2: $(OCCXMAIN) ccx_2.8p2.a  $(LIBS)
+ 	./date.pl; $(CC) $(CFLAGS) -c ccx_2.8p2.c; $(FC) -fopenmp -Wall -O3 -o $@ $(OCCXMAIN) ccx_2.8p2.a $(LIBS)

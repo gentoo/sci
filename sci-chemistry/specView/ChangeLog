@@ -5,12 +5,12 @@
 *specView-1.0.4 (25 Apr 2014)
 
   25 Apr 2014; Justin Lecher <jlec@gentoo.org> +specView-1.0.4.ebuild:
-  Version BUmp
+  Version Bump
 
 *specView-1.0.3_p2 (26 Mar 2014)
 
   26 Mar 2014; Justin Lecher <jlec@gentoo.org> +specView-1.0.3_p2.ebuild:
-  Version BUmp
+  Version Bump
 
   08 Jan 2014; Justin Lecher <jlec@gentoo.org> specView-1.0.3.ebuild:
   Fix double prefix

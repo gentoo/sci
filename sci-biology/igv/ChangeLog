@@ -2,6 +2,18 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*igv-2.3.52 (11 May 2015)
+
+  11 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/2.3.52-remove-oracle.jdbc.patch, +igv-2.3.52.ebuild, igv-2.3.47.ebuild:
+  sci-biology/igv: added upstream patch, version bump
+
+*igv-2.3.47 (29 Apr 2015)
+
+  29 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +igv-2.3.47.ebuild,
+  -igv-2.3.44.ebuild:
+  sci-biology/igv: version bump
+
   21 Mar 2015; Johann Schmitz <ercpe@gentoo.org> igv-2.3.44.ebuild:
   Fixed upstream bug https://github.com/broadinstitute/IGV/issues/114 as
   requested by Martin Mokrejŝ (note: i've excluded the test code by passing

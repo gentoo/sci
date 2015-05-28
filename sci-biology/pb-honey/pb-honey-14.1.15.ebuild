@@ -18,7 +18,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	sci-biology/samtools
+	sci-biology/samtools[${PYTHON_USEDEP}]
 	sci-biology/blasr
 	sci-biology/pysam[${PYTHON_USEDEP}]
 	dev-python/h5py[${PYTHON_USEDEP}]

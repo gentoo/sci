@@ -1,6 +1,9 @@
 # ChangeLog for dev-libs/libunzip
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> libunzip-5.52.ebuild:
+  Bump to EAPI=5
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> libunzip-5.52.ebuild:
   Sort inherit and/or USE
@@ -17,4 +20,3 @@
   +files/libunzip-5.52-no-exec-stack.patch, +metadata.xml,
   +libunzip-5.52.ebuild:
   Initial checkin to sci
-

@@ -1,0 +1,17 @@
+# ChangeLog for sci-biology/abyss
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*abyss-1.3.3-r1 (23 May 2015)
+*abyss-1.3.4-r1 (23 May 2015)
+*abyss-1.3.6-r1 (23 May 2015)
+
+  23 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +abyss-1.3.3-r1.ebuild, +abyss-1.3.4-r1.ebuild, +abyss-1.3.6-r1.ebuild,
+  +files/abyss-1.3.3-ac_prog_ar.patch, +files/abyss-1.3.3-gcc-4.7.patch,
+  +files/abyss-1.3.3-samtoafg.patch, +files/abyss-1.3.4-gcc-4.7.patch,
+  +files/abyss-1.3.4-samtoafg.patch, +files/abyss-1.3.6-ac_prog_ar.patch,
+  +files/abyss-1.3.6-gcc-4.7.patch, +files/abyss-1.3.6-samtoafg.patch,
+  +metadata.xml:
+  sci-biology/amos: bring in upstream patch to cope with secondary alignments
+  from 'bwa mem -M'

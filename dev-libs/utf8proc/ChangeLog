@@ -1,6 +1,12 @@
 # ChangeLog for dev-libs/utf8proc
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*utf8proc-1.2 (21 May 2015)
+
+  21 May 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/utf8proc-1.2-buildflags.patch, +utf8proc-1.2.ebuild:
+  Version bump
 
   02 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
   utf8proc-1.1.6.ebuild:

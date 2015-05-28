@@ -6,7 +6,7 @@
 
   15 May 2014; Justin Lecher <jlec@gentoo.org> khmer-0.8.ebuild,
   +khmer-1.0.1.ebuild:
-  Version BUmp
+  Version Bump
 
   28 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> khmer-9999.ebuild:
   sci-biology/khmer: upstream dropped the bundled zlib/bzip2 use if it is

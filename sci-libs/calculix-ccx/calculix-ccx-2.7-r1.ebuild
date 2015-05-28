@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -59,7 +59,7 @@ src_install () {
 	dosym ${MY_P} /usr/bin/ccx
 
 	if use doc; then
-		cd "${S}/../doc"
+		cd "${S}/../doc" || die
 		ps2pdf ${MY_P}.ps ${MY_P}.pdf
 		dodoc ${MY_P}.pdf
 	fi

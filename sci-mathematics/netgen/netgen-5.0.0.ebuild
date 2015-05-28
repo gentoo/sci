@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 inherit autotools eutils flag-o-matic multilib versionator
 
@@ -24,7 +24,7 @@ DEPEND="dev-tcltk/tix
 	opencascade? ( sci-libs/opencascade )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg )
-	mpi? ( virtual/mpi ) "
+	mpi? ( virtual/mpi ( || ( sci-libs/parmetis sci-libs/metis ) ) ) "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
@@ -46,11 +46,12 @@ src_configure() {
 		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
 		append-ldflags -L$CASROOT/lin/$(get_libdir)
 	fi
-
-	use mpi && myconf="${myconf} --enable-parallel"
+	if use mpi; then
+		myconf="${myconf} --enable-parallel"
+		append-cppflags -I/usr/include/metis
+	fi
 	use ffmpeg && myconf="${myconf} --enable-ffmpeg"
 	use jpeg && myconf="${myconf} --enable-jpeglib"
-
 	append-cppflags -I/usr/include/togl-1.7
 
 	econf \
@@ -71,12 +72,12 @@ src_install() {
 	echo -e "NETGENDIR=${NETGENDIR} \nLDPATH=/usr/$(get_libdir)/Togl1.7" > ./99netgen
 	doenvd 99netgen
 
-	emake DESTDIR="${D}" install || die "make install failed"
-	mv "${D}"/usr/bin/{*.tcl,*.ocf} "${D}${NETGENDIR}"
+	emake DESTDIR="${D}" install
+	mv "${D}"/usr/bin/{*.tcl,*.ocf} "${D}${NETGENDIR}" || die
 
 	# Install icon and .desktop for menu entry
-	doicon "${FILESDIR}"/${PN}.png || die "doicon failed"
-	domenu "${FILESDIR}"/${PN}.desktop || die "domenu failed"
+	doicon "${FILESDIR}"/${PN}.png
+	domenu "${FILESDIR}"/${PN}.desktop
 }
 
 pkg_postinst() {

@@ -4,7 +4,7 @@
 
   09 Apr 2014; Justin Lecher <jlec@gentoo.org> -pulp-1.5.3.ebuild,
   +pulp-1.5.6.ebuild:
-  Version BUmp; fix distutils-r1 eclass usage
+  Version Bump; fix distutils-r1 eclass usage
 
 *pulp-1.5.3 (14 Jan 2013)
 

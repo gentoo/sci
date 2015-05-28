@@ -13,13 +13,6 @@ HOMEPAGE="http://www.arrayfire.com/"
 EGIT_REPO_URI="https://github.com/${PN}/${PN}.git git://github.com/${PN}/${PN}.git"
 SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS=""
-if [[ ${PV} == "0.9999" ]] ; then
-	# the remote HEAD points to devel, but we want to pull the master instead
-	EGIT_BRANCH="master"
-elif [[ ${PV} == "3.0_beta" ]] ; then
-	EGIT_COMMIT="v3.0beta"
-	KEYWORDS="~amd64"
-fi
 
 LICENSE="BSD"
 SLOT="0"
@@ -34,6 +27,7 @@ RDEPEND="
 	cpu? (
 		virtual/blas
 		virtual/cblas
+		virtual/lapacke
 		sci-libs/fftw:3.0
 	)
 	opencl? (
@@ -48,9 +42,7 @@ BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
 
 PATCHES=(
-	"${FILESDIR}"/FindCBLAS.patch
-	"${FILESDIR}"/FindBoostCompute.patch
-	"${FILESDIR}"/opencl_CMakeLists.patch
+	"${FILESDIR}"/${P}-FindCBLAS.patch
 )
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
@@ -74,6 +66,9 @@ src_unpack() {
 		unpack ${A}
 		mv "${BUILD_DIR}"/third_party/src/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
 	fi
+
+	rm "${S}"/CMakeModules/build_boost_compute.cmake || die
+	cp "${FILESDIR}"/FindBoostCompute.cmake "${S}"/CMakeModules/ || die
 }
 
 src_configure() {

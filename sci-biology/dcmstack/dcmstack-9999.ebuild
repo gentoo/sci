@@ -22,4 +22,3 @@ DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="sci-libs/nibabel[${PYTHON_USEDEP}]
 	>=sci-libs/pydicom-0.9.7[${PYTHON_USEDEP}]"
-

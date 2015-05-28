@@ -1,6 +1,15 @@
 # ChangeLog for sci-libs/iml
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*iml-1.0.4 (03 Apr 2015)
+
+  03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/iml-1.0.4-use-any-cblas-implementation.patch, +iml-1.0.4.ebuild:
+  Version bump
+
+  03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> iml-1.0.3-r2.ebuild:
+  Bump to EAPI=5
 
 *iml-1.0.3-r2 (13 Sep 2012)
 
@@ -18,4 +27,3 @@
   +files/iml-1.0.3-cblas.patch, +files/fix-undefined-symbol.patch,
   +metadata.xml:
   Initial import
-

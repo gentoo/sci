@@ -2,6 +2,30 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 May 2015; Justin Lecher <jlec@gentoo.org> jellyfish-1.1.11.ebuild,
+  jellyfish-2.1.3.ebuild, jellyfish-2.1.4.ebuild:
+  sci-biology/jellyfish: Correct license from HalfLICENSE to BSD as they are
+  identical
+
+  30 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  jellyfish-1.1.11.ebuild:
+  sci-biology/jellyfish: added a note
+
+  30 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  jellyfish-1.1.11.ebuild:
+  sci-biology/jellyfish: fixed homepage for the old version
+
+*jellyfish-1.1.11 (30 Apr 2015)
+
+  30 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +jellyfish-1.1.11.ebuild, jellyfish-2.1.3.ebuild, jellyfish-2.1.4.ebuild:
+  sci-biology/jellyfish: added older version, added HalfLICENSE to all ebuilds
+
+  30 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  jellyfish-2.1.3.ebuild, jellyfish-2.1.4.ebuild:
+  sci-biology/jellyfish: added missing DEPEND on virtual/pkgconfig so that the
+  jellyfish-2.0.pc gets installed properly
+
   31 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   jellyfish-2.1.3.ebuild:
   sci-biology/jellyfish: fix /usr/lib64/pkgconfig/jellyfish-2.0.pc

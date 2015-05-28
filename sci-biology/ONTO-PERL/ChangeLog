@@ -4,7 +4,7 @@
 
   24 Sep 2014; Justin Lecher <jlec@gentoo.org> -ONTO-PERL-1.31.ebuild,
   +ONTO-PERL-1.41.ebuild, metadata.xml:
-  Version BUmp; Bump to EAPI=5
+  Version Bump; Bump to EAPI=5
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> ONTO-PERL-1.31.ebuild:
   Cleaned ebuild, 'http://search.cpan.org/CPAN' found in thirdpartymirrors

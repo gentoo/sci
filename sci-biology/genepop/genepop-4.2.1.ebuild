@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,9 +14,6 @@ LICENSE="CeCILL-2"
 SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
-
-DEPEND="app-arch/unzip"
-RDEPEND=""
 
 S="${WORKDIR}"
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,14 +10,15 @@ inherit flag-o-matic eutils perl-module webapp
 
 DESCRIPTION="Analyze Restriction enzyme data, draw gen. maps, population genomics (RAD-seq Illumina sequencing)"
 HOMEPAGE="http://creskolab.uoregon.edu/stacks"
-SRC_URI="http://creskolab.uoregon.edu/stacks/source/stacks-1.16.tar.gz"
+SRC_URI="http://creskolab.uoregon.edu/stacks/source/${P}.tar.gz"
 
 LICENSE="GPL-3"
 # SLOT="0" # webapp ebuilds do not set SLOT
 KEYWORDS=""
 IUSE=""
 
-DEPEND="sys-cluster/openmpi
+# sys-cluster/openmpi
+DEPEND="
 	dev-cpp/sparsehash
 	sci-biology/samtools
 	sci-biology/bamtools"

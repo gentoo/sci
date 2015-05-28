@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/augustus/augustus-2.5.5.ebuild,v 1.3 2013/01/31 18:42:11 ago Exp $
+# $Header: $
 
 EAPI=5
 
@@ -18,12 +18,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
-DEPEND="
+RDEPEND="
 	sci-libs/gsl
 	dev-libs/boost
-	sys-libs/zlib
+	sys-libs/zlib"
+DEPEND="${RDEPEND}
 	sys-devel/flex"
-RDEPEND="${DEPEND}"
 
 src_prepare() {
 	# TODO: do we need anything from the 2.5.5 patch?

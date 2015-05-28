@@ -2,13 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  23 Feb 2015;  <chymera@gentoo.org> ugene-1.15.1.ebuild:
-  reverted to original ebuild by stharward
+*ugene-1.16.1 (09 May 2015)
 
-*ugene-1.15.1 (23 Feb 2015)
-
-  23 Feb 2015;  <chymera@gentoo.org> +ugene-1.15.1.ebuild, -ugene-1.13.3.ebuild:
-  NEu ugene ebuild, credits to stharward, junghans, jlec, etc
+  09 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +ugene-1.16.1.ebuild:
+  sci-biology/ugene: version bump
 
   01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
   ugene-1.13.3.ebuild.ebuild:

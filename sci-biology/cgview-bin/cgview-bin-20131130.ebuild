@@ -6,6 +6,9 @@ EAPI=5
 
 inherit java-pkg-2
 
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit perl-module eutils toolchain-funcs
+
 DESCRIPTION="CGView Comparison Tool to compare genome sequences graphically (aka CCT)"
 HOMEPAGE="http://stothard.afns.ualberta.ca/downloads/CCT"
 SRC_URI="http://www.ualberta.ca/~stothard/downloads/cgview_comparison_tool.zip"
@@ -34,11 +37,16 @@ src_test(){
 }
 
 src_install() {
-	echo 'CCT_HOME='${EPREFIX}'/usr/share/cgview_comparison_tool' > "${S}/99cgview"
+	insinto /usr/share/${PN}/scripts
+	chmod a+x scripts/* # BUG: this does not work
+	doins scripts/*
+	echo 'CCT_HOME='${EPREFIX}'/usr/share/cgview' > "${S}/99cgview"
 	echo 'PATH="$PATH":"'${CCT_HOME}'/scripts"' >> "${S}/99cgview"
 	doenvd "${S}/99cgview"
-	#export PATH="$PATH":"${CCT_HOME}/scripts":/path/to/blast-2.2.25/bin
-	#export PERL5LIB="${CCT_HOME}"/lib/bioperl-1.2.3:"${CCT_HOME}"/lib/perl_modules:"$PERL5LIB"
-
-	dobin bin/cgview.jar
+	perl_set_version
+	insinto ${VENDOR_LIB}/cgview
+	doins lib/perl_modules/Util/*.pm
+	#
+	# Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/batik/svggen/SVGGraphics2DIOException
+	java-pkg_dojar bin/cgview.jar
 }

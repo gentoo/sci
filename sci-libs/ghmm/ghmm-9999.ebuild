@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit autotools-utils distutils-r1 subversion
 

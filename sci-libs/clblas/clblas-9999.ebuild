@@ -43,8 +43,6 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}"/clblas-client_CMakeLists.patch
-	"${FILESDIR}"/clblas-library_tools_tune_CMakeLists.patch
 	"${FILESDIR}"/clblas-samples_CMakeLists.patch
 	"${FILESDIR}"/clblas-scripts_perf_CMakeLists.patch
 )

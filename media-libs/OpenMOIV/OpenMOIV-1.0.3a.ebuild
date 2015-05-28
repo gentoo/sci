@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
 inherit cmake-utils
 
@@ -14,11 +14,7 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
-IUSE=""
-
-RDEPEND="
-		media-libs/coin
-		"
+RDEPEND="media-libs/coin"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}.src.${PV/a//}"
@@ -35,8 +31,8 @@ src_configure() {
 
 src_install() {
 	insinto "/usr/$(get_libdir)"
-	doins "${CMAKE_BUILD_DIR}/libChemKit2.so" || die "doins for libChemKit2 failed"
+	doins "${CMAKE_BUILD_DIR}/libChemKit2.so"
 
 	insinto "/usr/include"
-	doins -r "${S}/include/ChemKit2" || die "include install failed"
+	doins -r "${S}/include/ChemKit2"
 }

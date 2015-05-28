@@ -1,0 +1,54 @@
+# ChangeLog for sci-biology/transdecoder
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild:
+  sci-biology/transdecoder: more ebuild cleanup
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild:
+  sci-biology/transdecoder: ebuild cleanup
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  -transdecoder-20140704.ebuild, transdecoder-2.0.1.ebuild:
+  sci-biology/transdecoder: drop old
+
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild, transdecoder-20140704.ebuild:
+  sci-biology/transdecoder: fixed installation of perl-related files
+
+  19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild:
+  dropped hmmer dependency altogether, added pkg_postinst() with
+  usage/dependency info
+
+*transdecoder-2.0.1 (19 Mar 2015)
+
+  19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +transdecoder-2.0.1.ebuild, transdecoder-20140704.ebuild:
+  removing KEYWORDS until the perl files are installed to some other place. At
+  the moment I get: 'perl-module.eclass: Suspicious environment values found.
+  PERL5LIB="/usr/lib64/perl5/vendor_perl/5.18.2/TransDecoder"'
+
+  15 Feb 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-20140704.ebuild:
+  drop hmmer-3 dependency, it is an optional dependency only
+
+  10 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-20140704.ebuild:
+  install *.pm into PERL5LIB/TransDecoder and pass that via env.d
+
+  09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/TransDecoder.patch, +files/pfam_runner.pl.patch,
+  transdecoder-20140704.ebuild:
+  sci-biology/transdecoder: added patches so that we use PATH to loclate
+  binaries and not in a local subdirectory named 'util', drop sys-
+  cluster/openmpi requirement, it does not link against it all all, this is a
+  bunch of perl and shell scripts
+
+*transdecoder-20140704 (08 Jan 2015)
+
+  08 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +transdecoder-20140704.ebuild:
+  sci-biology/transdecoder: new package
