@@ -7,7 +7,8 @@ EAPI=5
 inherit cmake-utils
 
 DESCRIPTION="Medical Imaging file format and Toolbox"
-HOMEPAGE="http://packages.bic.mni.mcgill.ca/tgz/${P}.tar.gz"
+HOMEPAGE="http://en.wikibooks.org/wiki/MINC"
+SRC_URI="http://packages.bic.mni.mcgill.ca/tgz/${P}.tar.gz"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
