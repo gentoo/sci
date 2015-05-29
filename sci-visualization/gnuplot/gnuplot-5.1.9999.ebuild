@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -28,7 +28,7 @@ fi
 
 LICENSE="gnuplot bitmap? ( free-noncomm )"
 SLOT="0"
-IUSE="aqua bitmap cairo doc examples +gd ggi latex libcaca libcerf lua qt4 readline svga wxwidgets X"
+IUSE="aqua bitmap cairo compat doc examples +gd ggi latex libcaca libcerf lua qt4 readline svga wxwidgets X"
 
 RDEPEND="
 	cairo? (
@@ -42,11 +42,11 @@ RDEPEND="
 			dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
 	libcaca? ( media-libs/libcaca )
-	lua? ( dev-lang/lua )
+	lua? ( dev-lang/lua:0 )
 	qt4? ( >=dev-qt/qtcore-4.5:4
 		>=dev-qt/qtgui-4.5:4
 		>=dev-qt/qtsvg-4.5:4 )
-	readline? ( sys-libs/readline )
+	readline? ( sys-libs/readline:0 )
 	libcerf? ( sci-libs/libcerf )
 	svga? ( media-libs/svgalib )
 	wxwidgets? (
@@ -121,6 +121,7 @@ src_configure() {
 		--with-readline=$(usex readline gnu builtin) \
 		$(use_with bitmap bitmap-terminals) \
 		$(use_with cairo) \
+		$(use_enable compat backwards-compatibility) \
 		$(use_with doc tutorial) \
 		$(use_with gd) \
 		"$(use_with ggi ggi "${EPREFIX}/usr/$(get_libdir)")" \

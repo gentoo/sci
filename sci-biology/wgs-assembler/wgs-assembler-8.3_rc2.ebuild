@@ -2,18 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/wgs-assembler/wgs-assembler-7.0-r1.ebuild,v 1.3 2012/11/13 19:19:00 nativemad Exp $
 
-EAPI=4
+EAPI=5
 
 PYTHON_DEPEND=2
 
 inherit eutils python toolchain-funcs
 
-MY_PV="8.3rc1"
+MY_PV="${PV/_}" # convert from _rc2 to rc2
 
 DESCRIPTION="De novo whole-genome shotgun DNA sequence assembler also known as Celera Assembler and CABOG"
 HOMEPAGE="http://sourceforge.net/projects/wgs-assembler/"
-#SRC_URI="mirror://sourceforge/${PN}/wgs-${PV}.tar.bz2"
-SRC_URI="http://sourceforge.net/projects/wgs-assembler/files/wgs-assembler/wgs-8.3/wgs-8.3rc1.tar.bz2"
+SRC_URI="http://sourceforge.net/projects/wgs-assembler/files/wgs-assembler/wgs-8.3/wgs-${MY_PV}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -62,20 +61,20 @@ src_install() {
 	sed -i '/sub getBinDirectoryShellCode ()/ a return "bin=/usr/bin\n";' ${MY_S}/bin/runCA* || die
 	sed -i '1 a use lib "/usr/share/'${PN}'/lib";' $(find $MY_S -name '*.p*') || die
 
-	dobin kmer/${MY_S}/bin/*
-	insinto /usr/$(get_libdir)/${PN}
-	use static-libs && doins kmer/${MY_S}/lib/*
+	dobin kmer/"${MY_S}"/bin/*
+	insinto /usr/$(get_libdir)/"${PN}"
+	use static-libs && doins kmer/"${MY_S}"/lib/*
 
-	insinto /usr/include/${PN}
-	doins kmer/${MY_S}/include/*
+	insinto /usr/include/"${PN}"
+	doins kmer/"${MY_S}"/include/*
 
 	insinto /usr/share/${PN}/lib
-	doins -r ${MY_S}/bin/TIGR
-	rm -rf ${MY_S}/bin/TIGR || die
-	dobin ${MY_S}/bin/*
+	doins -r "${MY_S}"/bin/TIGR
+	rm -rf "${MY_S}"/bin/TIGR || die
+	dobin "${MY_S}"/bin/*
 	use static-libs && dolib.a ${MY_S}/lib/*
 	dodoc README
 
 	# avoid file collision
-	rm -f ${D}/usr/bin/jellyfish
+	rm -f "${D}"/usr/bin/jellyfish
 }

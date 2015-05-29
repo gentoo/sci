@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/augustus/ChangeLog,v 1.19 2013/03/11 14:37:00 jlec Exp $
 
+*augustus-3.1 (25 May 2015)
+
+  25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +augustus-3.1.ebuild, -augustus-3.0.3.ebuild:
+  sci-biology/augustus: version bump
+
   16 Apr 2015; Justin Lecher <jlec@gentoo.org> augustus-3.0.3.ebuild:
   sci-biology/augustus: Switch RDEPEND - DEPEND
 
