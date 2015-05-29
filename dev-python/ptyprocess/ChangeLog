@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/ptyprocess
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ptyprocess-0.5 (29 May 2015)
+*ptyprocess-9999 (29 May 2015)
+
+  29 May 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +ptyprocess-0.5.ebuild, +ptyprocess-9999.ebuild:
+  Initial ebuild
