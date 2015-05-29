@@ -16,7 +16,6 @@ LICENSE="BSD"
 
 DEPEND="sys-devel/flex
 	sys-devel/autoconf
-	sys-devel/gcc[cxx]
 	sys-libs/zlib
 	dev-perl/Text-Format"
 

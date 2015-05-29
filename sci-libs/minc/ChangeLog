@@ -2,8 +2,8 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  28 May 2015;  <chymera@gentoo.org> minc-2.2.00.ebuild:
-  new manifest
+  29 May 2015;  <chymera@gentoo.org> minc-2.2.00.ebuild:
+  removed allegedlyunneded dep sys-devel/gcc[cxx]
 
 *minc-2.2.00 (28 May 2015)
 
