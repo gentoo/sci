@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*codonw-1.4.4-r2 (30 May 2015)
+
+  30 May 2015; Justin Lecher <jlec@gentoo.org> +codonw-1.4.4-r2.ebuild,
+  -codonw-1.4.4-r1.ebuild, metadata.xml:
+  sci-biology/codonw: Workaround file collision by appending PN to every
+  command, bug #344713, bug #550388
+
   10 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
   condow-1.4.4-r1.ebuild:
   Move to EAPI=5.
@@ -14,4 +21,3 @@
 
   28 Feb 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   New package sci-biology/codonw, ebuild written by me
-
