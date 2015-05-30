@@ -23,10 +23,18 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
+IUSE="test"
 
 RDEPEND="
 	>=dev-python/numpy-1.8.0[${PYTHON_USEDEP}]
 	>=sci-libs/fftw-3.3.3
 	>=dev-python/cython-0.19.1[${PYTHON_USEDEP}]
 	"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
+	"
+
+python_test() {
+	distutils_install_for_testing
+	esetup.py test || die
+}
