@@ -11,7 +11,7 @@ inherit distutils-r1 git-r3
 DESCRIPTION="Run a subprocess in a pseudo terminal"
 HOMEPAGE="https://github.com/pexpect/ptyprocess"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/pexpect/${PN}.git git://github.com/pexpect/${MY_PN}.git"
+EGIT_REPO_URI="https://github.com/pexpect/${PN}.git git://github.com/pexpect/${PN}.git"
 
 LICENSE="ISC"
 SLOT="0"
