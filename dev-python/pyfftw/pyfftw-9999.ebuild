@@ -30,11 +30,12 @@ RDEPEND="
 	>=sci-libs/fftw-3.3.3
 	>=dev-python/cython-0.19.1[${PYTHON_USEDEP}]
 	"
-DEPEND="${RDEPEND}
-	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
-	"
+DEPEND="${RDEPEND}"
 
 python_test() {
 	distutils_install_for_testing
+	cd "${TEST_DIR}"/lib || die
+	cp "${S}"/setup.py "${TEST_DIR}"/lib/ || die
+	cp -r "${S}"/test "${TEST_DIR}"/lib/ || die
 	esetup.py test || die
 }
