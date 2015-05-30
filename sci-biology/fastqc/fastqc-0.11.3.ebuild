@@ -18,6 +18,7 @@ IUSE=""
 DEPEND="sci-biology/picard
 	>=virtual/jre-1.5:*"
 RDEPEND="${DEPEND}
+	dev-lang/perl
 	>=virtual/jdk-1.5:*
 	dev-java/ant-core"
 
@@ -27,11 +28,16 @@ src_prepare(){
 	cp "${FILESDIR}"/build.xml . || die
 }
 
+src_compile(){
+	ant build || die # TODO: this does not work somehow
+}
+
 src_install(){
 	dobin fastqc run_fastqc.bat
 	dodoc README.txt RELEASE_NOTES.txt
 
 	# TODO: need to compile java in uk/ac/babraham/FastQC/
 	# and decide whether jbzip2-0.9.jar is a standard java lib or not
-	# ignore the sam-1.32.jar, that is likely library already in sci-biology/picard
+	# ignore the sam-1.103.jar, that is likely library already in sci-biology/picard
+	# cisd-jhdf5.jar
 }
