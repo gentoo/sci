@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*matc-8.0 (31 May 2015)
+
+  31 May 2015; Marius Brehler <marbre@linux.sungazer.de> +matc-8.0.ebuild:
+  Version bump
+
   31 May 2015; Marius Brehler <marbre@linux.sungazer.de> matc-9999.ebuild:
   Source moved from sf.net to github; Fix LICENSE
 
