@@ -6,19 +6,17 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils git-r3
-
-ELMER_ROOT="elmerfem"
-MY_PN=${PN/elmer-/}
+inherit autotools-utils
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - math C library"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
-SRC_URI="doc? ( http://www.nic.funet.fi/pub/sci/physics/elmer/doc/MATCManual.pdf )"
-EGIT_REPO_URI="https://github.com/ElmerCSC/elmerfem.git git://github.com/ElmerCSC/elmerfem.git"
+SRC_URI="
+	https://github.com/ElmerCSC/elmerfem/archive/release-${PV}.tar.gz -> ${P}.tar.gz
+	doc? ( http://www.nic.funet.fi/pub/sci/physics/elmer/doc/MATCManual.pdf )"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc debug static-libs"
 
 RDEPEND="
@@ -26,9 +24,9 @@ RDEPEND="
 	sys-libs/readline:0"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${P}/${PN}"
+S="${WORKDIR}/elmerfem-release-${PV}/${PN}"
 
-#PATCHES=( "${FILESDIR}"/${PN}-6.0_p4651-shared.patch )
+#PATCHES=( "${FILESDIR}"/${P}-shared.patch )
 
 src_configure() {
 	local myeconfargs=(
