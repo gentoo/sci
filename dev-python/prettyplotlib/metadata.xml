@@ -9,4 +9,7 @@
     Python matplotlib-enhancer library which painlessly creates
     beautiful default matplotlib plots. 
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">prettyplotlib</remote-id>
+  </upstream>
 </pkgmetadata>

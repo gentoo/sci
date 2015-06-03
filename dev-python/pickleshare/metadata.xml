@@ -11,4 +11,7 @@
     files. Hence the "database" is a directory where all files are
     governed by PickleShare.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">pickleshare</remote-id>
+  </upstream>
 </pkgmetadata>

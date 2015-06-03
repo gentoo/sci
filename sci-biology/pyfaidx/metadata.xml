@@ -6,4 +6,7 @@
     <email>mschu.dev@gmail.com</email>
     <name>Michael Schubert</name>
   </maintainer>
+  <upstream>
+    <remote-id type="pypi">pyfaidx</remote-id>
+  </upstream>
 </pkgmetadata>

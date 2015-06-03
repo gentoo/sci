@@ -12,4 +12,7 @@
     colors of all 165 colorbrewer2.org color maps. The color map data
     ships with brewer2mpl so no internet connection is required.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">brewer2mpl</remote-id>
+  </upstream>
 </pkgmetadata>

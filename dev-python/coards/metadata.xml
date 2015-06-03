@@ -9,4 +9,7 @@
 		This module converts between a given COARDS time specification and a Python 
 		datetime object, which is much more useful.
 	</longdescription>
+  <upstream>
+    <remote-id type="pypi">coards</remote-id>
+  </upstream>
 </pkgmetadata>

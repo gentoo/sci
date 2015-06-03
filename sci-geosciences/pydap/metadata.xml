@@ -9,4 +9,7 @@
   <longdescription lang="en">
 Pydap is a pure Python library implementing the Data Access Protocol.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">Pydap</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -10,4 +10,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_handlers_cdms allows Pydap server to serve GRADS formatted files.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.handlers.cdms</remote-id>
+  </upstream>
 </pkgmetadata>

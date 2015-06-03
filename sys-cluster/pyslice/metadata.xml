@@ -5,4 +5,7 @@
   <longdescription>
 Templating system for parametric modeling.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pyslice</remote-id>
+  </upstream>
 </pkgmetadata>

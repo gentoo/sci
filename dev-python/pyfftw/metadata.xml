@@ -10,4 +10,7 @@
     A pythonic wrapper around FFTW, the FFT library, presenting a
     unified interface for all the supported transforms.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">pyFFTW</remote-id>
+  </upstream>
 </pkgmetadata>

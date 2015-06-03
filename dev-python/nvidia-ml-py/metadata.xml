@@ -10,4 +10,7 @@
     Provides a Python interface to GPU management and monitoring
     functions. This is a wrapper around the NVML library.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">nvidia-ml-py</remote-id>
+  </upstream>
 </pkgmetadata>
