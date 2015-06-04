@@ -11,7 +11,6 @@ HOMEPAGE="http://afni.nimh.nih.gov/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/afniHQ/AFNI"
 
-
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
@@ -26,7 +25,8 @@ RDEPEND="x11-libs/motif[-static-libs]
 	media-libs/qhull
 	sys-devel/llvm
 	media-video/mpeg-tools
-	media-libs/libjpeg-turbo"
+	media-libs/libjpeg-turbo
+	x11-libs/libXft "
 
 # x11-libs/motif[static-libs] breaks the build.
 # See upstream discussion
