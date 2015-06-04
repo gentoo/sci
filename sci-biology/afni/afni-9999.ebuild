@@ -9,7 +9,7 @@ inherit multilib pax-utils git-r3 toolchain-funcs
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/afniHQ/AFNI"
+EGIT_REPO_URI="https://github.com/AFNI/AFNI"
 
 LICENSE="GPL-3+"
 SLOT="0"
