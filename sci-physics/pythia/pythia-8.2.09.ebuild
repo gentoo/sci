@@ -44,10 +44,14 @@ src_prepare() {
 		-e "s:-O2:${CXXFLAGS}:g" \
 		-e "s:Cint:Core:g" \
 		configure || die
-	# fix root builds
+	# we use lhapdf6 instead of lhapdf5
 	sed -i \
-		-e "s:root-config:root-config --cflags:g" \
-		examples/Makefile || die
+		-e "s:LHAPDF5:LHAPDF6:g" \
+		-e "s:\.LHgrid::g" \
+		-e "s:\.LHpdf::g" \
+		examples/*.{cc,cmnd} || die
+	# ask cflags from root
+	sed -i "s:root-config:root-config --cflags:g" examples/Makefile || die
 #	if ! use static-libs; then
 #		sed -i \
 #			-e '/targets.*=$(LIBDIR.*\.a$/d' \
@@ -87,20 +91,35 @@ src_configure() {
 src_test() {
 	cd examples || die
 
-	local tests="$(echo main{{01..33},37,38,{51..54},61,62,73,80})" t
-	use hepmc && tests+=" $(echo main{{41..43},{85..89}})"
+	local tests="$(echo main{{01..32},37,38,51,52,54,61,62,73,80})" t
+	use hepmc && tests+=" $(echo main{41,42,85,86})"
+	use hepmc && use lhapdf && tests+=" $(echo main{43,{87..89}})"
+	use lhapdf && tests+=" $(echo main{51..54})"
 	use fastjet && tests+=" $(echo main{71,72})"
-	use fastjet && use hepmc && tests+=" $(echo main{81..84})"
-	use root && tests+=" $(echo main{91,92})"
+	use fastjet && use hepmc && use lhapdf && tests+=" $(echo main{81..84})"
+	use root && tests+=" main91"
+	# Disabled tests:
+	# 33	needs PowHEG
+	# 46	needs ProMC
+	# 48	needs EvtGen
+	# 92	generated ROOT dictionary is badly broken
+
+	# some tests need arguments
+	local -a args
+	args[16]="main16.cmnd"
+	args[42]="main42.cmnd hepmcout42.dat"
+	args[43]="main43.cmnd hepmcout43.dat"
 
 	# use emake for parallel instead of long runmains
 	emake ${tests}
 	for t in ${tests}; do
+		einfo "Running test ${t}..."
 		LD_LIBRARY_PATH="${S}/$(get_libdir):${LD_LIBRARY_PATH}" \
-			bin/${t}.exe > ${t}.out || die "test ${t} failed"
+		PYTHIA8DATA="../share/Pythia8/xmldoc/" \
+			./"${t}" ${args[t]} > "${t}.out" || die "test ${t} failed"
 	done
 	emake clean
-	rm main*out || die
+	rm main*.out *.dat || die
 }
 
 src_install() {
