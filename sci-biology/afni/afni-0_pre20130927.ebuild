@@ -25,7 +25,8 @@ RDEPEND="x11-libs/motif[-static-libs]
 	sys-devel/llvm
 	media-video/mpeg-tools
 	media-libs/libjpeg-turbo
-	x11-libs/libXft "
+	x11-libs/libXft
+	x11-libs/libXi"
 
 # x11-libs/motif[static-libs] breaks the build.
 # See upstream discussion
