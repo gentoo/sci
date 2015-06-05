@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/clfft: Add github to remote-id in metadata.xml
+
 *clfft-0.9999 (11 May 2015)
 
   11 May 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-0.9999.ebuild,
