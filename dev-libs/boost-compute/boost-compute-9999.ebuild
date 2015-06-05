@@ -26,3 +26,7 @@ RDEPEND="
 	virtual/opencl
 "
 DEPEND="${RDEPEND}"
+
+PATCHES=(
+	"${FILESDIR}/${PN}"-0.4-CMakeLists.patch
+)
