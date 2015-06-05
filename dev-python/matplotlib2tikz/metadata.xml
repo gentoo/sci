@@ -6,4 +6,7 @@
     <email>marbre@linux.sungazer.de</email>
     <name>Marius Brehler</name>
   </maintainer>
+  <upstream>
+    <remote-id type="github">nschloe/matplotlib2tikz</remote-id>
+  </upstream>
 </pkgmetadata>
