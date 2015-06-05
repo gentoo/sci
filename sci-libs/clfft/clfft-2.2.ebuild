@@ -1,1 +1,1 @@
-clfft-9999.ebuild
+clfft-2.4.ebuild
