@@ -1,6 +1,9 @@
 # ChangeLog for x11-misc/envytools
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  x11-misc/envytools: Add github to remote-id in metadata.xml
 
   16 Apr 2014; Wilhelm Erasmus <webmaster@wilhelm.co.za> envytools-9999.ebuild:
   x11-misc/envytools: Updated github url, Resolves gentoo-science/sci#103
