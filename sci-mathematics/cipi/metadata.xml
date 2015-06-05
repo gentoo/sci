@@ -10,4 +10,7 @@
 cipi is a threaded implementation of iterative proportional fitting. It is used to compute
 information projections iteratively.
 </longdescription>
+  <upstream>
+    <remote-id type="github">tom111/cipi</remote-id>
+  </upstream>
 </pkgmetadata>
