@@ -10,5 +10,6 @@
   </longdescription>
   <upstream>
     <remote-id type="pypi">simplepam</remote-id>
+    <remote-id type="github">leonnnn/python3-simplepam</remote-id>
   </upstream>
 </pkgmetadata>
