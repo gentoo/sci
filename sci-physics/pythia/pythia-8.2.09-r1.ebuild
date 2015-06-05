@@ -25,8 +25,8 @@ SRC_URI="http://home.thep.lu.se/~torbjorn/${PN}${MV}/${MY_P}.tgz
 
 SLOT="8"
 LICENSE="GPL-2"
-KEYWORDS=""
-IUSE="doc examples gzip +hepmc fastjet lhapdf root test"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="doc examples gzip +hepmc fastjet lhapdf root static-libs test"
 
 RDEPEND="
 	fastjet? ( >=sci-physics/fastjet-3 )
@@ -62,6 +62,9 @@ src_prepare() {
 		-e "s:-O2:${CXXFLAGS}:g" \
 		-e "s:Cint:Core:g" \
 		configure || die
+	sed -i 's:$(CXX) $^ -o $@ $(CXX_COMMON) $(CXX_SHARED):$(CXX) $(LDFLAGS) $^ -o $@ $(CXX_COMMON) $(CXX_SHARED):g' \
+		Makefile || die
+	sed -i 's:$(CXX):$(CXX) $(LDFLAGS):' examples/Makefile || die
 	# we use lhapdf6 instead of lhapdf5
 	# some PDFs changed, use something similar
 	sed -i \
@@ -79,18 +82,16 @@ src_prepare() {
 		-e "s:nlo_as_0119_qed:nlo_as_0119_qed_mc:g" \
 		-e "s:xmldoc:share/Pythia8/xmldoc:g" \
 		examples/main54.cc || die
-
 	# ask cflags from root
 	sed -i "s:root-config:root-config --cflags:g" examples/Makefile || die
-#	if ! use static-libs; then
-#		sed -i \
-#			-e '/targets.*=$(LIBDIR.*\.a$/d' \
-#			-e 's/+=\(.*libpythia8\.\)/=\1/' \
-#			Makefile || die
-#		sed -i \
-#			-e 's:\.a:\.so:g' \
-#			examples/Makefile || die
-#	fi
+	if ! use static-libs; then
+		sed -i \
+			-e '/TARGETS=$(LOCAL_LIB)\/libpythia8\.a/d' \
+			-e 's:libpythia8\.a$:libpythia8\.so$:g' \
+			Makefile || die
+		sed -i 's:libpythia8\.a:libpythia8\.so:g' \
+			examples/Makefile || die
+	fi
 
 	epatch "${FILESDIR}/${PN}8209-run-tests.patch"
 	epatch "${FILESDIR}/${PN}8209-root-noninteractive.patch"

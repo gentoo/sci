@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/pythia/ChangeLog,v 1.62 2015/05/27 14:06:39 bircoph Exp $
 
+*pythia-8.2.09-r1 (05 Jun 2015)
+
+  05 Jun 2015; Andrew Savchenko <bircoph@gentoo.org> -pythia-8.2.09.ebuild,
+  +pythia-8.2.09-r1.ebuild:
+  Fix LDFLAGS support, re-enable static-libs.
+
   05 Jun 2015; Andrew Savchenko <bircoph@gentoo.org> pythia-8.2.09.ebuild,
   +files/pythia8209-root-noninteractive.patch,
   +files/pythia8209-run-tests.patch:
