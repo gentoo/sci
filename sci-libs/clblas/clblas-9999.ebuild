@@ -6,22 +6,14 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit cmake-utils python-single-r1
+inherit cmake-utils git-r3 python-single-r1
 
 MY_PN="clBLAS"
 
 DESCRIPTION="A software library containing BLAS routines for OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clBLAS"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
-	S="${WORKDIR}/${P}/src"
-else
-	SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
-	S="${WORKDIR}/${MY_PN}-${PV}/src"
-fi
+EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
+S="${WORKDIR}/${P}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
