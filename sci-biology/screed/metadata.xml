@@ -4,5 +4,6 @@
   <herd>sci-biology</herd>
   <upstream>
     <remote-id type="pypi">screed</remote-id>
+    <remote-id type="github">ged-lab/screed</remote-id>
   </upstream>
 </pkgmetadata>
