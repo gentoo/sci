@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/sga: Add github to remote-id in metadata.xml
+
   09 Feb 2015; Marius Brehler <marbre@linux.sungazer.de> sga-9999.ebuild:
   Switch from git-2 to git-r3; Cleanup; Add missing die
 
@@ -10,4 +13,3 @@
   24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +sga-9999.ebuild,
   +metadata.xml:
   new package; forces its own optimization flags but works fine
-
