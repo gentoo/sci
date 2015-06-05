@@ -9,5 +9,6 @@
 	</longdescription>
   <upstream>
     <remote-id type="pypi">imageutils</remote-id>
+    <remote-id type="github">astropy/imageutils</remote-id>
   </upstream>
 </pkgmetadata>

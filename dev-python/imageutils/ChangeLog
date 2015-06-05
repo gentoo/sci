@@ -1,6 +1,9 @@
 # ChangeLog for dev-python/imageutils
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-python/imageutils: Add github to remote-id in metadata.xml
 
 *imageutils-9999 (08 Aug 2014)
 
