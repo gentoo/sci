@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,13 +23,13 @@ IUSE="examples fortran java lua perl python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
-	java? ( >=virtual/jre-1.4 )
-	lua? ( dev-lang/lua )
+	java? ( >=virtual/jre-1.4:* )
+	lua? ( dev-lang/lua:0 )
 	perl? ( dev-lang/perl )
 	python? ( ${PYTHON_DEPS} )"
 
 DEPEND="${RDEPEND}
-	java? ( >=virtual/jdk-1.4 )"
+	java? ( >=virtual/jdk-1.4:* )"
 
 S="${WORKDIR}/${PN}-${P}"
 
