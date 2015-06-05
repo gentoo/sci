@@ -1,10 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  31 May 2015; Marius Brehler <marbre@linux.sungazer.de>
-  arrayfire-3.0_beta.ebuild:
-  Fetch tarball instead of getting src from git
-
   23 May 2015; Marius Brehler <marbre@linux.sungazer.de>
   +files/FindBoostCompute.cmake,
   +files/arrayfire-3.0_beta-FindBoostCompute.patch,

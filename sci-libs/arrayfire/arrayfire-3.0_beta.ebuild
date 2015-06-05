@@ -4,15 +4,16 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils git-r3
 
 GTEST_PV="1.7.0"
 
 DESCRIPTION="A general purpose GPU library."
 HOMEPAGE="http://www.arrayfire.com/"
-SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV//_/}.tar.gz -> ${P}.tar.gz
-    test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
+EGIT_REPO_URI="https://github.com/${PN}/${PN}.git git://github.com/${PN}/${PN}.git"
+SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS="~amd64"
+EGIT_COMMIT="v3.0beta"
 
 LICENSE="BSD"
 SLOT="0"
@@ -37,7 +38,6 @@ RDEPEND="
 	)"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${P//_/}"
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
 
@@ -60,7 +60,7 @@ pkg_pretend() {
 }
 
 src_unpack() {
-	default
+	git-r3_src_unpack
 
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
