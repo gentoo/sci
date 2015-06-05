@@ -8,5 +8,6 @@
   </maintainer>
   <upstream>
     <remote-id type="pypi">khmer</remote-id>
+    <remote-id type="github">ged-lab/khmer</remote-id>
   </upstream>
 </pkgmetadata>
