@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-python/ptyprocess: Add github to remote-id in metadata.xml
+
   30 May 2015; Justin Lecher <jlec@gentoo.org> -Manifest,
   -ptyprocess-0.5.ebuild, ptyprocess-9999.ebuild:
   dev-python/ptyprocess: Add missing test funcion and drop ebuild which was
