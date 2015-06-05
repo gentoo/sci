@@ -35,4 +35,7 @@
   </longdescription>
   <use>
   </use>
+  <upstream>
+    <remote-id type="github">tschoonj/xraylib</remote-id>
+  </upstream>
 </pkgmetadata>
