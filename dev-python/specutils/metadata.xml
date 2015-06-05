@@ -9,5 +9,6 @@
 	</longdescription>
   <upstream>
     <remote-id type="pypi">specutils</remote-id>
+    <remote-id type="github">astropy/specutils</remote-id>
   </upstream>
 </pkgmetadata>
