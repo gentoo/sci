@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit cmake-utils
+PYTHON_COMPAT=( python2_7 )
+
+inherit cmake-utils python-single-r1
 
 MY_PN="clBLAS"
 
@@ -30,7 +32,7 @@ RDEPEND="
 	virtual/opencl
 	|| ( >=dev-util/amdapp-2.9 dev-util/intel-ocl-sdk )
 	dev-libs/boost
-	performance? ( dev-lang/python )
+	performance? ( ${PYTHON_DEPS} )
 	"
 DEPEND="${RDEPEND}"
 #	test? (
