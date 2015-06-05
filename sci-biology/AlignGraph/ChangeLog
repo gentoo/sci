@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/AlignGraph: Add github to remote-id in metadata.xml
+
 *AlignGraph-9999 (25 May 2015)
 
   25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
