@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/InterMine: Add github to remote-id in metadata.xml
+
   10 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
   InterMine-0.98.ebuild:
   Fix license, homepage and move from git-2 to git-r3
@@ -11,4 +14,3 @@
   07 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +InterMine-0.98.ebuild, +metadata.xml:
   initial ebuild
-
