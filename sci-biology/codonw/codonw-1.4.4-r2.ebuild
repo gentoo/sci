@@ -20,7 +20,8 @@ KEYWORDS="~amd64 ~x86"
 S=${WORKDIR}/codonW
 
 src_prepare() {
-	sed -e 's/$(CC) -c/& -DBSD/' \
+	sed \
+		-e 's/$(CC) -c/& -DBSD/' \
 		-e 's/$(CFLAGS)  $(objects)/$(CFLAGS) $(LDFLAGS) $(objects)/' \
 		-i Makefile || die
 }
@@ -30,10 +31,11 @@ src_compile() {
 }
 
 src_install() {
-	dobin codonw
+	local i
+	dobin ${PN}
 	# woohoo watch out for collisions
 	for i in rscu cu aau raau tidy reader cutab cutot transl bases base3s dinuc cai fop gc3s gc cbi enc; do
-		dosym codonw /usr/bin/${i}
+		dosym codonw /usr/bin/${i}-${PN}
 	done
 	dodoc *.txt
 }
