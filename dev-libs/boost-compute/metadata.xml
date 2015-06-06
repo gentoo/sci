@@ -13,6 +13,6 @@
     and memory buffers.
   </longdescription>
   <upstream>
-    <remote-id type="github">kylelutz/compute</remote-id>
+    <remote-id type="github">boostorg/compute</remote-id>
   </upstream>
 </pkgmetadata>
