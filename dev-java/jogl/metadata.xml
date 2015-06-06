@@ -9,4 +9,7 @@ to provide hardware-supported 3D graphics to applications written in Java.
   <use>
     <flag name="cg">Enable NVidia Cg binding.</flag>
   </use>
+  <upstream>
+    <remote-id type="github">sgothel/jogl</remote-id>
+  </upstream>
 </pkgmetadata>
