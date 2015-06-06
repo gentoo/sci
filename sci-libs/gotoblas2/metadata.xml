@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   The GotoBLAS codes are one of the fastest implementations
   of the Basic Linear Algebra Subroutines(BLAS).
   To achieve performance it starts by observing that for current
@@ -11,9 +11,9 @@
   is also taken into consideration, it is the minimization of such TLB
   misses that drives the approach.
 </longdescription>
-<use>
-  <flag name='int64'>Build the 64 bits integer library</flag>
-  <flag name='incblas'>Build the CBLAS interface</flag>
-  <flag name='dynamic'>Build dynamic architecture detection at run time (for multi targets)</flag>
-</use>
+  <use>
+    <flag name="int64">Build the 64 bits integer library</flag>
+    <flag name="incblas">Build the CBLAS interface</flag>
+    <flag name="dynamic">Build dynamic architecture detection at run time (for multi targets)</flag>
+  </use>
 </pkgmetadata>

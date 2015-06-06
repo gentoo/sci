@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-python/astropy-helpers: Add github to remote-id in metadata.xml
+
   16 Apr 2015; Justin Lecher <jlec@gentoo.org> -Manifest,
   -astropy-helpers-0.4.1.ebuild:
   dev-python/astropy-helpers: In CVS

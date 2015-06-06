@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/exonerate-gff3: Add github to remote-id in metadata.xml
+
 *exonerate-gff3-9999 (02 Apr 2015)
 
   02 Apr 2015; Justin Lecher <jlec@gentoo.org> +exonerate-gff3-9999.ebuild,

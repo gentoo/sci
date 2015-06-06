@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/gotoblas2
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Jun 2015; Justin Lecher <jlec@gentoo.org> gotoblas2-1.13.ebuild,
+  metadata.xml:
+  sci-libs/gotoblas2: Bump EAPI
 
   15 Mar 2012; François Bissey <francois.bissey@canterbury.ac.nz>
   gotoblas2-1.13.ebuild, files/gotoblas2-1.13-sharedlibs.patch:
@@ -40,4 +44,3 @@
   +gotoblas2-1.13.ebuild, +files/gotoblas2-1.13-dynamic.patch,
   +files/gotoblas2-1.13-sharedlibs.patch, +metadata.xml:
   Initial import
-

@@ -8,7 +8,7 @@ inherit perl-module eutils
 
 DESCRIPTION="RNA-Seq Unified Mapper (digital normalization)"
 HOMEPAGE="https://github.com/itmat/rum/wiki"
-SRC_URI="https://github.com/itmat/rum/archive/v2.0.5_05.tar.gz"
+SRC_URI="https://github.com/itmat/rum/archive/v2.0.5_05.tar.gz -> ${P}.tar.gz"
 
 # stable
 #EGIT_REPO_URI="https://github.com/PGFI/rum/tags"
@@ -21,9 +21,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-lang/perl
-		dev-perl/Log-Log4perl
-		perl-core/autodie"
+DEPEND="
+	dev-perl/Log-Log4perl
+	virtual/perl-autodie"
 RDEPEND="${DEPEND}
 	sci-biology/seqclean
 	sci-biology/blat
@@ -33,8 +33,6 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}/${PN}-2.0.5_05"
 
 src_install(){
-	emake install
-	rm "${D}"/usr/lib64/perl5/vendor_perl/*/RUM/bowtie
-	rm "${D}"/usr/lib64/perl5/vendor_perl/*/RUM/blat
-	rm "${D}"/usr/lib64/perl5/vendor_perl/*/RUM/mdust
+	default
+	rm "${ED}"/usr/lib64/perl5/vendor_perl/*/RUM/{bowtie,blat,mdust} ]] die
 }

@@ -10,4 +10,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_handlers_sql allows Pydap server to serve data from SQL databases.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.handlers.sql</remote-id>
+  </upstream>
 </pkgmetadata>

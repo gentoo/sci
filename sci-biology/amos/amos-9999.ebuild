@@ -23,7 +23,8 @@ IUSE="mpi qt4"
 DEPEND="
 	mpi? ( virtual/mpi )
 	dev-libs/boost
-	qt4? ( dev-qt/qtcore:4[qt3support] )
+	qt4? ( dev-qt/qtcore:4[qt3support]
+		dev-qt/qt3support:4 )
 	sci-biology/blat
 	sci-biology/jellyfish"
 RDEPEND="${DEPEND}

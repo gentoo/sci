@@ -8,4 +8,8 @@
     authenticate function that allows the caller to authenticate a
     given username / password against the PAM system.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">simplepam</remote-id>
+    <remote-id type="github">leonnnn/python3-simplepam</remote-id>
+  </upstream>
 </pkgmetadata>

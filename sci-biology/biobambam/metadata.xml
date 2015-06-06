@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-biology</herd>
-<longdescription lang="en">
+  <herd>sci-biology</herd>
+  <longdescription lang="en">
 This package contains some tools for processing BAM files including
 
 bamcollate2: reads BAM and writes BAM reordered such that alignment or collated by query name
@@ -12,4 +12,7 @@ bamrecompress: reads BAM and writes BAM with a defined compression setting. This
 bamsort: reads BAM and writes BAM resorted by coordinates or query name
 bamtofastq: reads BAM and writes FastQ; output can be collated or uncollated by query name
 </longdescription>
+  <upstream>
+    <remote-id type="github">gt1/biobambam</remote-id>
+  </upstream>
 </pkgmetadata>

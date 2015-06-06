@@ -11,4 +11,7 @@
 	pydap_responses_xls allows Pydap server to deliver an Excel file of the
 	data.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.responses.xls</remote-id>
+  </upstream>
 </pkgmetadata>

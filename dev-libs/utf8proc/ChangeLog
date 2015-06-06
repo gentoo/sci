@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*utf8proc-1.2-r1 (25 May 2015)
+
+  25 May 2015; Justin Lecher <jlec@gentoo.org> +utf8proc-1.2-r1.ebuild,
+  -utf8proc-1.2.ebuild, files/utf8proc-1.2-buildflags.patch, metadata.xml:
+  dev-libs/utf8proc: Fix build process, https://github.com/gentoo-
+  science/sci/issues/427
+
 *utf8proc-1.2 (21 May 2015)
 
   21 May 2015; Marius Brehler <marbre@linux.sungazer.de>

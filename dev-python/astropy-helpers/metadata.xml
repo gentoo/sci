@@ -6,4 +6,8 @@
 		astropy-helpers is a collection of build tools used by astropy
 		that may be used by other projects.
 	</longdescription>
+  <upstream>
+    <remote-id type="pypi">astropy-helpers</remote-id>
+    <remote-id type="github">astropy/astropy-helpers</remote-id>
+  </upstream>
 </pkgmetadata>

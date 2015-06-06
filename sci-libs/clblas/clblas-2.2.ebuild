@@ -4,22 +4,17 @@
 
 EAPI=5
 
-inherit cmake-utils
+PYTHON_COMPAT=( python2_7 )
+
+inherit cmake-utils python-single-r1
 
 MY_PN="clBLAS"
 
 DESCRIPTION="A software library containing BLAS routines for OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clBLAS"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
-	S="${WORKDIR}/${P}/src"
-else
-	SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
-	S="${WORKDIR}/${MY_PN}-${PV}/src"
-fi
+SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+KEYWORDS="~amd64"
+S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -30,7 +25,7 @@ RDEPEND="
 	virtual/opencl
 	|| ( >=dev-util/amdapp-2.9 dev-util/intel-ocl-sdk )
 	dev-libs/boost
-	performance? ( dev-lang/python )
+	performance? ( ${PYTHON_DEPS} )
 	"
 DEPEND="${RDEPEND}"
 #	test? (

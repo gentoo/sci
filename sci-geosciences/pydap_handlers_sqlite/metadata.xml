@@ -10,4 +10,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_handlers_sqlite allows Pydap server to serve data from SQLite files.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.handlers.sqlite</remote-id>
+  </upstream>
 </pkgmetadata>

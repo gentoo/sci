@@ -1,6 +1,14 @@
 # ChangeLog for sci-visualization/gnuplot
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 May 2015; Christoph Junghans <ottxor@gentoo.org> -gnuplot-4.6.9999.ebuild,
+  metadata.xml:
+  remove old
+
+  25 May 2015; Christoph Junghans <ottxor@gentoo.org> gnuplot-5.0.9999.ebuild,
+  gnuplot-5.1.9999.ebuild, metadata.xml:
+  added compat use flag (bug #550370)
 
 *gnuplot-5.1.9999 (08 Nov 2014)
 

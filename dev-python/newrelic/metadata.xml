@@ -6,4 +6,7 @@
     Python agent for the New Relic web application performance
     monitoring service.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">newrelic</remote-id>
+  </upstream>
 </pkgmetadata>

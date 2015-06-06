@@ -1,6 +1,14 @@
 # ChangeLog for sci-libs/matc
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*matc-8.0 (31 May 2015)
+
+  31 May 2015; Marius Brehler <marbre@linux.sungazer.de> +matc-8.0.ebuild:
+  Version bump
+
+  31 May 2015; Marius Brehler <marbre@linux.sungazer.de> matc-9999.ebuild:
+  Source moved from sf.net to github; Fix LICENSE
 
   03 Dec 2013; Justin Lecher <jlec@gentoo.org> -matc-5.4.1.ebuild,
   +matc-6.0_p4651.ebuild, matc-9999.ebuild, -files/matc-5.4.1-shared.patch,
@@ -14,4 +22,3 @@
   +metadata.xml:
   Bump EAPI; fix license; fix DESCRIPTION; drop keywords from live ebuild; use
   correct phase functions; simplify configure; build shared libraries
-

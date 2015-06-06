@@ -22,4 +22,7 @@
       Link to the standalone Rmathlib for statistical routines
     </flag>
   </use>
+  <upstream>
+    <remote-id type="github">maaskola/discrover</remote-id>
+  </upstream>
 </pkgmetadata>

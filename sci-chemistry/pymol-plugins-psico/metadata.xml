@@ -5,4 +5,7 @@
   <maintainer>
     <email>jlec@gentoo.org</email>
   </maintainer>
+  <upstream>
+    <remote-id type="github">speleo3/pymol-psico</remote-id>
+  </upstream>
 </pkgmetadata>

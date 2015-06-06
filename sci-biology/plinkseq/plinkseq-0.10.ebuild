@@ -27,5 +27,7 @@ src_prepare(){
 
 src_install(){
 	cd build/execs || die
+	# TODO: avoid file collision with sci-biology/fsl
+	# https://bitbucket.org/statgen/plinkseq/issue/9/rename-mm-filename-to-plinkseq_mm
 	dobin gcol browser pseq behead mm smp tab2vcf mongoose pdas
 }
