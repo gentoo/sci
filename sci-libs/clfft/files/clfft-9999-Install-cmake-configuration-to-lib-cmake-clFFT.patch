@@ -1,0 +1,25 @@
+From 6a3ba77529987d5906ba6f734bc2fa66a9155a1c Mon Sep 17 00:00:00 2001
+From: Marius Brehler <marbre@linux.sungazer.de>
+Date: Fri, 5 Jun 2015 14:59:29 +0200
+Subject: [PATCH] Install cmake configuration to lib/cmake/clFFT
+
+---
+ src/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index ad15e4a..73200fa 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -290,7 +290,7 @@ endif()
+ if(WIN32)
+   set(destdir CMake)
+ else()
+-  set(destdir share/clFFT)
++  set(destdir lib${SUFFIX_LIB}/cmake/clFFT)
+ endif()
+ string(REGEX REPLACE "[^/]+" ".." reldir "${destdir}")
+ configure_file(
+-- 
+2.0.5
+

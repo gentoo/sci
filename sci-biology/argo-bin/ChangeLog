@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  argo-bin-1.0.31.ebuild, argo-bin-2.0.3.ebuild:
+  sci-biology/argo-bin: remove IUSE
+
+*argo-bin-2.0.3 (26 May 2015)
+
+  26 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +argo-bin-2.0.3.ebuild, argo-bin-1.0.31.ebuild:
+  sci-biology/argo-bin: ebuild cleanup; version bump
+
   25 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   argo-bin-1.0.31.ebuild:
   sci-biology/argo-bin: redefine S variable so we can chdir to a WORKDIR (not

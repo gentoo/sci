@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci-astronomy</herd>
-	<longdescription lang="en">
+  <herd>sci-astronomy</herd>
+  <longdescription lang="en">
 		imageutils is a collection of image processing utilities that are generally
 		useful to astronomers. These will likely become part of the core AstroPy
 		package before the 1.0 release.
 	</longdescription>
+  <upstream>
+    <remote-id type="pypi">imageutils</remote-id>
+    <remote-id type="github">astropy/imageutils</remote-id>
+  </upstream>
 </pkgmetadata>

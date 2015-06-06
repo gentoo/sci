@@ -9,4 +9,7 @@
   <use>
     <flag name="utils">Unknown</flag>
   </use>
+  <upstream>
+    <remote-id type="github">hotdogee/exonerate-gff3</remote-id>
+  </upstream>
 </pkgmetadata>

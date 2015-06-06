@@ -7,4 +7,7 @@
       Build a command line clRNG client program.
     </flag>
   </use>
+  <upstream>
+    <remote-id type="github">clMathLibraries/clRNG</remote-id>
+  </upstream>
 </pkgmetadata>

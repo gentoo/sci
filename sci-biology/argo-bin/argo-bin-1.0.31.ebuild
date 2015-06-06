@@ -2,24 +2,26 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit java-utils-2 toolchain-funcs
 
 DESCRIPTION="Visualization and manually annotating whole genomes"
-HOMEPAGE="http://www.broadinstitute.org/annotation/argo/"
+HOMEPAGE="http://www.broadinstitute.org/annotation/argo2
+	http://www.broadinstitute.org/annotation/argo"
 SRC_URI="http://www.broadinstitute.org/annotation/argo/argo.jar"
-#SRC_URI="http://www.broadinstitute.org/annotation/argo/src/workspace-2008-03-11.tgz"
+#
+# Release Number: 1.0.31
+# Release Date:   2010-02-05
 
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="java"
+IUSE=""
 
-DEPEND=""
+DEPEND="!sci-biology/argo"
 RDEPEND="${DEPEND}
-		java? ( >=virtual/jre-1.4 )"
-
+		>=virtual/jre-1.5:*"
 S="${WORKDIR}"
 
 src_install() {

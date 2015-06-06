@@ -10,4 +10,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_handlers_netcdf allows Pydap server to serve NetCDF formatted files.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.handlers.netcdf</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*newrelic-2.50.0.39 (31 May 2015)
+
+  31 May 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +newrelic-2.50.0.39.ebuild:
+  Version bump
+
 *newrelic-2.44.0.36 (03 Mar 2015)
 
   03 Mar 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,

@@ -6,4 +6,7 @@
     <email>mmokrejs@fold.natur.cuni.cz</email>
     <name>Martin Mokrejs</name>
   </maintainer>
+  <upstream>
+    <remote-id type="github">vsbuffalo/scythe</remote-id>
+  </upstream>
 </pkgmetadata>

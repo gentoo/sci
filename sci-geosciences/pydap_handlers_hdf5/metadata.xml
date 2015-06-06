@@ -10,4 +10,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_handlers_hdf5 allows Pydap server to serve hdf5 formatted files.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.handlers.hdf5</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/cipi
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-mathematics/cipi: Add github to remote-id in metadata.xml
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> cipi-1.0.ebuild, metadata.xml:
   Use tarball instead of git pull
@@ -15,4 +18,3 @@
 
   20 Jul 2010; Thomas Kahle <tom111@gmx.de> +cipi-1.0.ebuild, +metadata.xml:
   initial upload for bug 329169
-

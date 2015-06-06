@@ -11,4 +11,7 @@
 	pydap_responses_kml allows Pydap server to use Google Earth to visualize
 	data.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.responses.kml</remote-id>
+  </upstream>
 </pkgmetadata>

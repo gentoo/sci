@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-biology</herd>
-<longdescription lang="en">
+  <herd>sci-biology</herd>
+  <longdescription lang="en">
 libmaus is a collection of data structures and algorithms. It contains
 
 I/O classes (single byte and UTF-8)
@@ -11,4 +11,7 @@ I/O classes (single byte and UTF-8)
 	BAM sequence alignment files input/output (simple and collating)
 	and many lower level support classes.
 </longdescription>
+  <upstream>
+    <remote-id type="github">gt1/libmaus</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/bamtools
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/bamtools: Add github to remote-id in metadata.xml
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> bamtools-9999.ebuild,
   metadata.xml:
@@ -25,4 +28,3 @@
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> bamtools-9999.ebuild:
   Moved from 'git' to 'git-2'
-

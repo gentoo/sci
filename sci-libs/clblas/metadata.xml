@@ -20,4 +20,7 @@
       Copy performance scripts that can measure and graph performance.
     </flag>
   </use>
+  <upstream>
+    <remote-id type="github">clMathLibraries/clBLAS</remote-id>
+  </upstream>
 </pkgmetadata>

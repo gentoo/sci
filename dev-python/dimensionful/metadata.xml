@@ -5,4 +5,7 @@
     <email>xarthisius@gentoo.org</email>
     <name>Kacper Kowalik</name>
   </maintainer>
+  <upstream>
+    <remote-id type="github">caseywstark/dimensionful</remote-id>
+  </upstream>
 </pkgmetadata>

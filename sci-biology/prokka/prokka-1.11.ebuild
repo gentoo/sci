@@ -19,7 +19,7 @@ RDEPEND="${DEPEND}
 	sys-process/parallel
 	sci-biology/bioperl
 	sci-biology/prodigal
-	sci-biology/ncbi-tools++
+	sci-biology/ncbi-tools++ || ( sci-biology/ncbi-blast+ )
 	sci-biology/hmmer
 	sci-biology/infernal
 	sci-biology/exonerate

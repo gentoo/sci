@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/freebayes: Add github to remote-id in metadata.xml
+
   13 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   freebayes-9999.ebuild:
   install also the vcftools binaries although it should be a separate package

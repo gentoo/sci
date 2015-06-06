@@ -6,8 +6,7 @@ EAPI=5
 
 DESCRIPTION="Perl wrapper around Cutadapt and FastQC to adapter and quality trimming"
 HOMEPAGE="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore"
-SRC_URI="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/trim_galore_v"${PV}".zip"
-
+SRC_URI="http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/trim_galore_v${PV}.zip"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
@@ -20,7 +19,7 @@ RDEPEND="
 	sci-biology/fastqc
 	${DEPEND}"
 
-S="${WORKDIR}"/trim_galore_zip
+S="${WORKDIR}"
 
 src_install(){
 	dobin trim_galore

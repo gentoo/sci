@@ -11,4 +11,7 @@
 	pydap_responses_wms allows Pydap server to deliver maps via Web Mapping
 	Service protocol.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.responses.wms</remote-id>
+  </upstream>
 </pkgmetadata>

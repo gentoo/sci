@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*fastqc-0.11.3 (30 May 2015)
+
+  30 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +fastqc-0.11.3.ebuild, -fastqc-0.11.2.ebuild:
+  sci-biology/fastqc: version bump, added perl dependency, Apache ant-building
+  does not work still
+
   05 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +files/build.xml,
   fastqc-0.11.2.ebuild:
   added build.xml exported by author from Eclipse IDE (it doesn't work under ant
