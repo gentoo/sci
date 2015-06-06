@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,19 +8,19 @@ WANT_AUTOMAKE=1.11
 
 inherit autotools-utils toolchain-funcs eutils multilib
 
-DESCRIPTION="The SC Library provides support for parallel scientific applications."
+DESCRIPTION="Support for parallel scientific applications"
 HOMEPAGE="http://www.p4est.org/"
 SRC_URI="https://github.com/cburstedde/libsc/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug examples mpi romio static-libs"
+
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-	dev-lang/lua
+	dev-lang/lua:*
 	sys-apps/util-linux
 	virtual/blas
 	virtual/lapack
@@ -55,8 +55,7 @@ src_configure() {
 src_install() {
 	autotools-utils_src_install
 
-	if use examples
-	then
+	if use examples; then
 		docinto examples
 		dodoc -r example/*
 		docompress -x /usr/share/doc/${PF}/examples

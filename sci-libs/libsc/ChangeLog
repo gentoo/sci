@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> libsc-1.0.ebuild:
+  sci-libs/libsc: Add SLOT operators
+
   06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-libs/libsc: Add github to remote-id in metadata.xml
 
