@@ -12,5 +12,6 @@
   </longdescription>
   <upstream>
     <remote-id type="google-code">bedtools</remote-id>
+    <remote-id type="github">arq5x/bedtools2</remote-id>
   </upstream>
 </pkgmetadata>
