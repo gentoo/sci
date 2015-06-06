@@ -21,4 +21,7 @@
   used as an Envisage plug-in which allows it to be embedded in other
   Envisage based applications natively.
 </longdescription>
+  <upstream>
+    <remote-id type="github">enthought/mayavi</remote-id>
+  </upstream>
 </pkgmetadata>
