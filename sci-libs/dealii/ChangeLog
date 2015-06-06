@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/dealii: Add github to remote-id in metadata.xml
+
 *dealii-8.2.1-r1 (28 Mar 2015)
 
   28 Mar 2015; Matthias Maier <tamiko@gentoo.org> +dealii-8.2.1-r1.ebuild,
