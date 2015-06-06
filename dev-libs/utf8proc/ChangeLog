@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-libs/utf8proc: Add github to remote-id in metadata.xml
+
 *utf8proc-1.2-r1 (25 May 2015)
 
   25 May 2015; Justin Lecher <jlec@gentoo.org> +utf8proc-1.2-r1.ebuild,
