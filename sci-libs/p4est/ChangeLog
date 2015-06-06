@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> p4est-1.0.ebuild:
+  sci-libs/p4est: Add SLOT operators
+
   06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-libs/p4est: Add github to remote-id in metadata.xml
 
