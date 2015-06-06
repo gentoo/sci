@@ -13,4 +13,7 @@ This support library is primarily used by the p4est library.
 	<use>
 		<flag name="romio">Build with support for the ROMIO MPI-IO component</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">cburstedde/libsc</remote-id>
+	</upstream>
 </pkgmetadata>
