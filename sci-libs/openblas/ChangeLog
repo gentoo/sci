@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> openblas-0.2.11.ebuild,
+  openblas-0.2.8.ebuild, openblas-9999.ebuild:
+  sci-libs/openblas: Add missing eclass
+
   06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-libs/openblas: Add github to remote-id in metadata.xml
 
