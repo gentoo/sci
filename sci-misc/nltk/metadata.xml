@@ -8,4 +8,7 @@
 NLTK is collection of natural language tools written in python language. It
 also contains huge corpora.
 </longdescription>
+  <upstream>
+    <remote-id type="github">nltk/nltk</remote-id>
+  </upstream>
 </pkgmetadata>
