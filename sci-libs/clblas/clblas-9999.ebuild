@@ -39,6 +39,7 @@ RESTRICT="test"
 PATCHES=(
 	"${FILESDIR}"/clblas-samples_CMakeLists.patch
 	"${FILESDIR}"/clblas-scripts_perf_CMakeLists.patch
+	"${FILESDIR}"/clblas-2.4-Install-cmake-configuration-to-lib-cmake-clBLAS.patch
 )
 
 pkg_pretend() {
