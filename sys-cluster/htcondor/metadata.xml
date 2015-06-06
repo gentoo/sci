@@ -26,4 +26,7 @@
     <flag name="minimal">Don't support standard universe jobs</flag>
     <flag name="X">Enable the HTCondor Keyboard Daemon to monitor logged in X users for activity</flag>
   </use>
+  <upstream>
+    <remote-id type="github">htcondor/htcondor</remote-id>
+  </upstream>
 </pkgmetadata>
