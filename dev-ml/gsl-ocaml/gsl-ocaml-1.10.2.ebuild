@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 OASIS_BUILD_DOCS=1
 OASIS_BUILD_TESTS=1
@@ -21,7 +21,7 @@ IUSE="examples test"
 DEPEND=">=sci-libs/gsl-1.10"
 RDEPEND="${DEPEND}"
 
-DOCS=( "CHANGES.txt" "README.md" "NOTES.md" "TODO.md" )
+DOCS=( CHANGES.txt README.md NOTES.md TODO.md )
 
 src_prepare() {
 	oasis_configure_opts="$(use_enable examples)"
