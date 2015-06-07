@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang='en'>
+  <herd>sci</herd>
+  <longdescription lang="en">
 GSL interface for OCaml
 </longdescription>
+  <upstream>
+    <remote-id type="bitbucket">mmottl/gsl-ocaml</remote-id>
+  </upstream>
 </pkgmetadata>
