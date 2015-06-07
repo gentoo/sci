@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,7 +23,7 @@ IUSE=""
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]"
+	sci-libs/nibabel[${PYTHON_USEDEP}]"
 RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]

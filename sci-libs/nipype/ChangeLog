@@ -1,8 +1,10 @@
 # ChangeLog for sci-libs/nipype
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jun 2015; Horea Christian <h.chr@mail.ru> nipype-9999.ebuild:
+  no longer depending on outdated version
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> nipype-9999.ebuild,
   metadata.xml:
   Switch from git-2 to git-r3
-
