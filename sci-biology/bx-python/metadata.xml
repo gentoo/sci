@@ -8,5 +8,6 @@
   </maintainer>
   <upstream>
     <remote-id type="pypi">bx-python</remote-id>
+    <remote-id type="bitbucket">james_taylor/bx-python</remote-id>
   </upstream>
 </pkgmetadata>
