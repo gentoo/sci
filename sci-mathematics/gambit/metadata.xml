@@ -11,4 +11,7 @@
   Enable gui support using wxWidgets. 
   </flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">gambit</remote-id>
+  </upstream>
 </pkgmetadata>
