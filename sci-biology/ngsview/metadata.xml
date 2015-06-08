@@ -6,4 +6,7 @@
     <email>mmokrejs@fold.natur.cuni.cz</email>
     <name>Martin Mokrejs</name>
   </maintainer>
+  <upstream>
+    <remote-id type="sourceforge">projects</remote-id>
+  </upstream>
 </pkgmetadata>
