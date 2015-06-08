@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="Access a cacophony of neuro-imaging file formats"
 HOMEPAGE="http://nipy.org/nibabel/"
-SRC_URI="https://github.com/nipy/nibabel/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/nipy/nibabel/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
 
