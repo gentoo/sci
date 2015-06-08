@@ -8,4 +8,7 @@ used as an advanced replacement for KDE KCalc. It is essentially a
 front end GUI forMaxima (and is easily extended to other CAS
 back-ends) and Gnuplot.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">kayali</remote-id>
+  </upstream>
 </pkgmetadata>
