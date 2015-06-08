@@ -11,4 +11,7 @@ Yorick is a language for scientific computing and rapid prototyping, similar to
 matlab. It can easily call C functions and libraries, has multidimensional arrays
 and built-in plot functions.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">yorick</remote-id>
+  </upstream>
 </pkgmetadata>
