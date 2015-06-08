@@ -8,4 +8,7 @@
     <flag name="openssl">Automatically generated description for openssl</flag>
     <flag name="festival">Automatically generated description for festival</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">playerstage</remote-id>
+  </upstream>
 </pkgmetadata>
