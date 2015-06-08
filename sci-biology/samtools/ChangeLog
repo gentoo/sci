@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/samtools: Updating remote-id in metadata.xml
+
 *samtools-1.0-r2 (11 May 2015)
 *samtools-1.1-r1 (11 May 2015)
 *samtools-1.2-r1 (11 May 2015)
