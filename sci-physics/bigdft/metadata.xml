@@ -27,4 +27,7 @@ BigDFT is a DFT massively parallel electronic structure code (GPL license) using
       Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
     </flag>
   </use>
+  <upstream>
+    <remote-id type="launchpad">bigdft</remote-id>
+  </upstream>
 </pkgmetadata>
