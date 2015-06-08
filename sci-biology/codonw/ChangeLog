@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/codonw: Updating remote-id in metadata.xml
+
 *codonw-1.4.4-r2 (30 May 2015)
 
   30 May 2015; Justin Lecher <jlec@gentoo.org> +codonw-1.4.4-r2.ebuild,
