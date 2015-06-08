@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/itk: Updating remote-id in metadata.xml
+
   01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
   itk-4.4.2.ebuild, itk-4.4.2-r1.ebuild, itk-4.5.1.ebuild:
   Convert sse2 to cpu_flags_x86_sse2
