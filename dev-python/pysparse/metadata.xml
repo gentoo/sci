@@ -13,4 +13,7 @@
   standard sparse and dense matrix libraries (UMFPACK/AMD, SuperLU,
   BLAS/LAPACK) for maximum performance and robustness.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">pysparse</remote-id>
+  </upstream>
 </pkgmetadata>
