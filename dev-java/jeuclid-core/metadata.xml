@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   JEuclid is a complete MathML rendering solution, consisting of:
  * A MathViewer application
  * Command line converters from MathML to other formats
@@ -12,4 +12,7 @@
   This package contains the basic JEuclid rendering and document
   handling classes.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">jeuclid</remote-id>
+  </upstream>
 </pkgmetadata>
