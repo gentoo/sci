@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/libsufr: Updating remote-id in metadata.xml
+
 *libsufr-0.6.4 (09 May 2015)
 
   09 May 2015; AstroFloyd <AstroFloyd@gmail.com> -libsufr-0.6.2.ebuild,
@@ -53,4 +56,3 @@
   +files/libsufr-0.3.0-multilib.patch, +metadata.xml:
   Initial import, ebuild written by AstroFloyd <AstroFloyd@gmail.com>,
   edited by me
-
