@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,13 +15,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 -*"
 IUSE=""
 
-src_install() {
-	if use amd64; then
-		cd "${WORKDIR}"/avbin-linux-x86-64-${PV} || die
-	elif use x86; then
-		cd "${WORKDIR}"/avbin-linux-x86-32-${PV} || die
-	fi
+if use amd64; then
+	S="${WORKDIR}"/avbin-linux-x86-64-${PV}
+elif use x86; then
+	S="${WORKDIR}"/avbin-linux-x86-32-${PV}
+fi
 
+src_install() {
 	ln -s libavbin.so.${PV} libavbin.so || die
 	dolib libavbin.so*
 }
