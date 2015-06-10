@@ -16,6 +16,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="sci-biology/picard
+	sci-libs/jhdf5
 	>=virtual/jre-1.5:*"
 RDEPEND="${DEPEND}
 	dev-lang/perl
@@ -29,7 +30,7 @@ src_prepare(){
 }
 
 src_compile(){
-	ant build || die # TODO: this does not work somehow
+	ant || die
 }
 
 src_install(){
@@ -38,6 +39,6 @@ src_install(){
 
 	# TODO: need to compile java in uk/ac/babraham/FastQC/
 	# and decide whether jbzip2-0.9.jar is a standard java lib or not
-	# ignore the sam-1.103.jar, that is likely library already in sci-biology/picard
-	# cisd-jhdf5.jar
+	# ignore the sam-1.103.jar and rely on /usr/share/picard/lib/sam.jar from sci-biology/picard
+	# cisd-jhdf5.jar should be provided by sci-libs/jhdf5
 }
