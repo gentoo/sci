@@ -15,12 +15,12 @@ LICENSE="BSD"
 
 DEPEND="sys-devel/flex
 	sys-devel/autoconf
+	sci-libs/netcdf
 	sys-libs/zlib
 	dev-perl/Text-Format
-	dev-util/byacc"
-
-RDEPEND="sci-libs/hdf5
-	sci-libs/netcdf
-	media-libs/netpbm
+	dev-util/byacc
 	x11-libs/libXmu
 	x11-libs/libXi"
+
+RDEPEND="sci-libs/hdf5
+	media-libs/netpbm"
