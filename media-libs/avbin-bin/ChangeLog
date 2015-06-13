@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Jun 2015; Alexander Presnyakov <flagist0@gmail.com> avbin-bin-7.ebuild:
+  neuro/sci: media-libs/avbin-bin build fixed -- moved source directory
+  determination to pkg_setup
+
   09 Jun 2015; Alexander Presnyakov <flagist0@gmail.com> avbin-bin-7.ebuild:
   neuro/sci: media-libs/avbin-bin build fixed -- package S (source directory)
   depends on architecture

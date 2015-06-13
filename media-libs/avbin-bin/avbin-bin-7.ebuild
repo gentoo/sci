@@ -15,12 +15,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 -*"
 IUSE=""
 
-if use amd64; then
-	S="${WORKDIR}"/avbin-linux-x86-64-${PV}
-elif use x86; then
-	S="${WORKDIR}"/avbin-linux-x86-32-${PV}
-fi
-
+pkg_setup(){
+	if use amd64; then
+		S="${WORKDIR}"/avbin-linux-x86-64-${PV}
+	elif use x86; then
+		S="${WORKDIR}"/avbin-linux-x86-32-${PV}
+	fi
+}
 src_install() {
 	ln -s libavbin.so.${PV} libavbin.so || die
 	dolib libavbin.so*
