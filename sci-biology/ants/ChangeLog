@@ -3,6 +3,9 @@
 # $Header: $
 
   13 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
+  corrected link
+
+  13 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
   using cmake eclass
 
 *ants-9999 (10 Mar 2015)
