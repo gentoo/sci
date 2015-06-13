@@ -9,7 +9,7 @@ inherit cmake-utils git-r3
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="http://stnava.github.io/ANTs/"
 SRC_URI=""
-EGIT_REPO_URI="https://bpaste.net/show/02535651bb27"
+EGIT_REPO_URI="git://github.com/stnava/ANTs.git"
 
 SLOT="0"
 LICENSE="BSD"
