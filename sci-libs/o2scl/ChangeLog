@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/o2scl
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/o2scl: Updating remote-id in metadata.xml
 
 *o2scl-0.915 (02 Jun 2014)
 

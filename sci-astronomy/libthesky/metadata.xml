@@ -6,4 +6,7 @@
     <email>AstroFloyd@gmail.com</email>
     <name>AstroFloyd</name>
   </maintainer>
+  <upstream>
+    <remote-id type="sourceforge">libthesky</remote-id>
+  </upstream>
 </pkgmetadata>

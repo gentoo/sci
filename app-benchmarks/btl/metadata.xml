@@ -8,4 +8,7 @@
     <description>Bench Template Library</description>
   </maintainer>
   <longdescription>This package contains a modified copy of the BTL.</longdescription>
+  <upstream>
+    <remote-id type="bitbucket">spiros/btl</remote-id>
+  </upstream>
 </pkgmetadata>

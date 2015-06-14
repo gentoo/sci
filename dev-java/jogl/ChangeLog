@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-java/jogl: Add github to remote-id in metadata.xml
+
   03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
   -files/disable-applet.diff, -files/jogl-2.2.4-notests.patch,
   jogl-2.2.4.ebuild:

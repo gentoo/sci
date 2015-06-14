@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer>
-    <email>pavel.a.denisov@gmail.com</email>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer>
+		<email>pavel.a.denisov@gmail.com</email>
+	</maintainer>
+	<longdescription lang="en">
 	The IRST Language Modeling Toolkit features algorithms
 	and data structures suitable to estimate, store, and access very large LMs.
 	The software has been integrated into a popular open source Statistical Machine
 	Translation decoder called Moses, and is compatible with language models created
 	with other tools, such as the SRILM Tooolkit.
   </longdescription>
+	<upstream>
+		<remote-id type="sourceforge">irstlm</remote-id>
+	</upstream>
 </pkgmetadata>

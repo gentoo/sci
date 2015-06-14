@@ -31,4 +31,7 @@ and extra output. If you want to get meaningful backtraces see
 		<flag name="tbb">Add threading support with the help of the tbb library (<pkg>dev-cpp/tbb</pkg>)</flag>
 		<flag name="trilinos">Add support for trilinos (<pkg>sci-libs/trilinos</pkg>)</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">dealii/dealii</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   LAPACK++ (Linear Algebra PACKage in C++) is a software library for
   numerical linear algebra that solves systems of linear equations and
   eigenvalue problems on high performance computer architectures.
@@ -14,4 +14,7 @@
   matrices, symmetric positive definite systems, and solving linear
   least-square systems. 
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">lapackpp</remote-id>
+  </upstream>
 </pkgmetadata>

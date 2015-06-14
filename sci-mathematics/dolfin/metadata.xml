@@ -12,4 +12,7 @@ DOLFIN is the C++/Python interface of FEniCS, providing a consistent PSE (Proble
     <flag name="scotch">Adds support for graph partitioning with <pkg>sci-libs/scotch</pkg></flag>
     <flag name="umfpack">Adds support for sparse solving with <pkg>sci-libs/umfpack</pkg></flag>
   </use>
+  <upstream>
+    <remote-id type="launchpad">dolfin</remote-id>
+  </upstream>
 </pkgmetadata>

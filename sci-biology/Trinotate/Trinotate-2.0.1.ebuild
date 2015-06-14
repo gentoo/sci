@@ -35,8 +35,8 @@ RDEPEND="${DEPEND}
 # $HMMSEARCH_BINARY = "/path/to/hmmsearch2";
 
 src_install(){
-    perl_set_version
-    dobin Trinotate
+	perl_set_version
+	dobin Trinotate
 	insinto /usr/share/"${PN}"
 	doins -r admin java sample_data util TrinotateWeb
 	insinto ${VENDOR_LIB}/${PN}

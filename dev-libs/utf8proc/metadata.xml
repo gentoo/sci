@@ -11,4 +11,7 @@
   (U+2212) and “Hyphen-Minus” (U+002D, ASCII Minus) all into the ASCII
   minus sign, to make them equal for comparisons.
 </longdescription>
+  <upstream>
+    <remote-id type="github">JuliaLang/utf8proc</remote-id>
+  </upstream>
 </pkgmetadata>

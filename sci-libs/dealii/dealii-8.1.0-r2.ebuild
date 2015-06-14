@@ -46,7 +46,7 @@ RDEPEND="dev-libs/boost
 	mumps? ( sci-libs/mumps[mpi] )
 	netcdf? ( sci-libs/netcdf-cxx:0 )
 	p4est? ( sci-libs/p4est[mpi] )
-	parameter_gui? ( dev-qt/qtgui )
+	parameter_gui? ( dev-qt/qtgui:4 )
 	petsc? ( sci-mathematics/petsc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
