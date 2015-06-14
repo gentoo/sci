@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
+  trying to make install
+
 *ants-9999 (13 Jun 2015)
 
   13 Jun 2015; Chymera <chymera@gentoo.org> +ants-9999.ebuild, +metadata.xml:
