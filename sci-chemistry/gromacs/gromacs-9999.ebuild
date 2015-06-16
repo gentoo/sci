@@ -247,13 +247,6 @@ src_install() {
 	rm -f "${ED}"usr/bin/gmx-completion*
 	rm -f "${ED}"usr/bin/g_options*
 	rm -f "${ED}"usr/bin/GMXRC*
-	rm -f "${ED}"usr/lib*/libtng*.a
-
-	#workaround for libtng
-	if [[ $(get_libdir) != lib ]]; then
-		mv "${ED}"usr/lib/libtng* "${ED}usr/$(get_libdir)" || die
-		rmdir "${ED}"usr/lib || die
-	fi
 
 	readme.gentoo_create_doc
 }

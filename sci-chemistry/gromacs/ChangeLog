@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jun 2015; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild:
+  Drop unneeded hack
+
   08 Mar 2015; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild,
   metadata.xml:
   removed openmm build
