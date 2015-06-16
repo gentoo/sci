@@ -1,0 +1,20 @@
+Install samples to /usr/share/clBLAS/samples.
+
+Patch by Marius Brehler.
+--- samples/CMakeLists.txt
++++ samples/CMakeLists.txt
+@@ -274,7 +274,7 @@ install( TARGETS example_sgemm example_s
+          example_snrm2 example_sasum example_isamax
+ 
+          version
+-        RUNTIME DESTINATION bin${SUFFIX_BIN}
++        RUNTIME DESTINATION share/clBLAS/samples
+         LIBRARY DESTINATION lib${SUFFIX_LIB}
+         ARCHIVE DESTINATION lib${SUFFIX_LIB}/import
+         )
+@@ -333,4 +333,4 @@ install(FILES
+             ${PROJECT_BINARY_DIR}/samples/CMakeLists.txt
+ 
+         DESTINATION
+-		    samples )
++		    share/clBLAS/samples/src )

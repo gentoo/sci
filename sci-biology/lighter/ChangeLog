@@ -1,0 +1,13 @@
+# ChangeLog for sci-biology/lighter
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/lighter: Add github to remote-id in metadata.xml
+
+*lighter-9999 (01 May 2015)
+
+  01 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +lighter-9999.ebuild, +metadata.xml:
+  sci-libs/lighter: new package; contains IUSE=threads but ... does the Makefile
+  need a tweak for -lpthreads ? ;-). Go ahead and fix this.

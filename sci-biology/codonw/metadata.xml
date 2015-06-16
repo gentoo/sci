@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>weaver@gentoo.org</email>
-		<name>Andrey Kislyuk</name>
-	</maintainer>
-	<herd>sci-biology</herd>
+  <maintainer>
+    <email>weaver@gentoo.org</email>
+    <name>Andrey Kislyuk</name>
+  </maintainer>
+  <herd>sci-biology</herd>
+  <upstream>
+    <remote-id type="sourceforge">codonw</remote-id>
+  </upstream>
 </pkgmetadata>

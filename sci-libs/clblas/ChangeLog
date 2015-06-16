@@ -1,0 +1,51 @@
+# ChangeLog for sci-libs/clblas
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*clblas-2.4-r1 (06 Jun 2015)
+
+  06 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.4-r1.ebuild,
+  +files/clblas-2.4-Install-cmake-configuration-to-lib-cmake-clBLAS.patch,
+  -clblas-2.4.ebuild, clblas-9999.ebuild:
+  sci-libs/clblas: Fix installation of cmake configuration
+
+  06 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> -clblas-2.2.ebuild,
+  -files/clblas-2.2-client_CMakeLists.patch,
+  -files/clblas-2.2-library_tools_tune_CMakeLists.patch:
+  sci-libs/clblas: Drop old
+
+  05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> clblas-2.2.ebuild,
+  clblas-2.4.ebuild, clblas-9999.ebuild:
+  sci-libs/clblas: Cleanup ebuilds
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> clblas-2.2.ebuild,
+  clblas-9999.ebuild:
+  sci-libs/clblas: Move to python-single-r1.eclass
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/clblas: Add github to remote-id in metadata.xml
+
+*clblas-2.4 (09 May 2015)
+
+  09 May 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.4.ebuild:
+  Version bump
+
+  09 May 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/clblas-2.2-client_CMakeLists.patch,
+  +files/clblas-2.2-library_tools_tune_CMakeLists.patch,
+  -files/clblas-client_CMakeLists.patch,
+  -files/clblas-library_tools_tune_CMakeLists.patch, clblas-9999.ebuild:
+  Adjust patchset
+
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/clblas-client_CMakeLists.patch, clblas-9999.ebuild:
+  Fix client installation
+
+*clblas-2.2 (23 Mar 2015)
+*clblas-9999 (23 Mar 2015)
+
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.2.ebuild,
+  +clblas-9999.ebuild, +files/clblas-library_tools_tune_CMakeLists.patch,
+  +files/clblas-samples_CMakeLists.patch,
+  +files/clblas-scripts_perf_CMakeLists.patch, +metadata.xml:
+  New package

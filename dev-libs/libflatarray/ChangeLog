@@ -1,7 +1,10 @@
 # ChangeLog for dev-libs/libflatarray
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Apr 2015; Justin Lecher <jlec@gentoo.org> -Manifest,
+  -libflatarray-0.1.1.ebuild:
+  dev-libs/libflatarray: In CVS
 
   22 Mar 2014; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Add missing Manifest
-

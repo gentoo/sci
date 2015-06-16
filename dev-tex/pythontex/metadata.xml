@@ -5,4 +5,7 @@
   <use>
     <flag name="highlighting">PLEASE FIX MY DESCRIPTION</flag>
   </use>
+  <upstream>
+    <remote-id type="github">gpoore/pythontex</remote-id>
+  </upstream>
 </pkgmetadata>

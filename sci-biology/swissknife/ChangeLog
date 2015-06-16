@@ -1,8 +1,11 @@
 # ChangeLog for sci-biology/swissknife
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  15 Jun 2015; Justin Lecher <jlec@gentoo.org> swissknife-1.70.ebuild:
+  sci-biology/swissknife: Fix dependency problems due to recent mask of perl-
+  core packages
 
   24 Sep 2014; Justin Lecher <jlec@gentoo.org> -swissknife-1.67.ebuild,
   +swissknife-1.70.ebuild, metadata.xml:
-  Version BUmp; Bump to EAPI=5
-
+  Version Bump; Bump to EAPI=5

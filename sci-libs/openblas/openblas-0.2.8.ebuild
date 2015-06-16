@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit eutils toolchain-funcs alternatives-2 multilib fortran-2
+inherit eutils multilib toolchain-funcs alternatives-2 multilib fortran-2
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"

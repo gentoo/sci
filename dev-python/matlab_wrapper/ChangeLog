@@ -1,6 +1,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-python/matlab_wrapper: Add github to remote-id in metadata.xml
+
 *matlab_wrapper-9999 (20 Jan 2015)
 *matlab_wrapper-0.9.6 (20 Jan 2015)
 

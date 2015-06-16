@@ -13,4 +13,8 @@
     shell. MATLAB session is started in the background and appears
     as a regular Python module.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">matlab_wrapper</remote-id>
+    <remote-id type="github">mrkrd/matlab_wrapper</remote-id>
+  </upstream>
 </pkgmetadata>

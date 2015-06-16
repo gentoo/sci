@@ -1,0 +1,82 @@
+diff -Naurp abinit-7.10.4.orig/Makefile.am abinit-7.10.4/Makefile.am
+--- abinit-7.10.4.orig/Makefile.am	2015-03-12 06:28:38.000000000 +0100
++++ abinit-7.10.4/Makefile.am	2015-04-07 12:14:39.816276230 +0200
+@@ -2878,7 +2878,9 @@ libabinit.a:
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/11_qespresso_ext/lib11_qespresso_ext.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/12_hide_mpi/lib12_hide_mpi.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/14_hidewrite/lib14_hidewrite.a
++if DO_BUILD_15_GPU_TOOLBOX
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/15_gpu_toolbox/lib15_gpu_toolbox.a
++endif
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/16_hideleave/lib16_hideleave.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/18_timing/lib18_timing.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/21_psiesta_noabirule/lib21_psiesta_noabirule.a
+@@ -2898,7 +2900,9 @@ libabinit.a:
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/49_gw_toolbox_oop/lib49_gw_toolbox_oop.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/51_manage_mpi/lib51_manage_mpi.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/52_fft_mpi_noabirule/lib52_fft_mpi_noabirule.a
++if DO_BUILD_52_MANAGE_CUDA
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/52_manage_cuda/lib52_manage_cuda.a
++endif
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/53_ffts/lib53_ffts.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/53_spacepar/lib53_spacepar.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/54_abiutil/lib54_abiutil.a
+@@ -2917,15 +2921,19 @@ libabinit.a:
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/62_wvl_wfs/lib62_wvl_wfs.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/63_bader/lib63_bader.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/64_atompaw/lib64_atompaw.a
++if DO_BUILD_65_LOTF_BASE
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_lotf_base/lib65_lotf_base.a
++endif
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_nonlocal/lib65_nonlocal.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_psp/lib65_psp.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/66_fock/lib66_fock.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/66_paw/lib66_paw.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/66_wfs/lib66_wfs.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/67_common/lib67_common.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_dmft/lib68_dmft.a
++if DO_BUILD_68_LOTF
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_lotf/lib68_lotf.a
++endif
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_recursion/lib68_recursion.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_rsprc/lib68_rsprc.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/69_wfdesc/lib69_wfdesc.a
+diff -Naurp abinit-7.10.4.orig/Makefile.in abinit-7.10.4/Makefile.in
+--- abinit-7.10.4.orig/Makefile.in	2015-03-12 06:28:51.000000000 +0100
++++ abinit-7.10.4/Makefile.in	2015-04-07 12:14:39.816276230 +0200
+@@ -3803,7 +3803,7 @@ libabinit.a:
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/11_qespresso_ext/lib11_qespresso_ext.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/12_hide_mpi/lib12_hide_mpi.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/14_hidewrite/lib14_hidewrite.a
+-	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/15_gpu_toolbox/lib15_gpu_toolbox.a
++@DO_BUILD_15_GPU_TOOLBOX_TRUE@	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/15_gpu_toolbox/lib15_gpu_toolbox.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/16_hideleave/lib16_hideleave.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/18_timing/lib18_timing.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/21_psiesta_noabirule/lib21_psiesta_noabirule.a
+@@ -3823,7 +3823,7 @@ libabinit.a:
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/49_gw_toolbox_oop/lib49_gw_toolbox_oop.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/51_manage_mpi/lib51_manage_mpi.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/52_fft_mpi_noabirule/lib52_fft_mpi_noabirule.a
+-	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/52_manage_cuda/lib52_manage_cuda.a
++@DO_BUILD_52_MANAGE_CUDA_TRUE@	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/52_manage_cuda/lib52_manage_cuda.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/53_ffts/lib53_ffts.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/53_spacepar/lib53_spacepar.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/54_abiutil/lib54_abiutil.a
+@@ -3842,15 +3842,15 @@ libabinit.a:
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/62_wvl_wfs/lib62_wvl_wfs.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/63_bader/lib63_bader.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/64_atompaw/lib64_atompaw.a
+-	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_lotf_base/lib65_lotf_base.a
++@DO_BUILD_65_LOTF_BASE_TRUE@	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_lotf_base/lib65_lotf_base.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_nonlocal/lib65_nonlocal.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/65_psp/lib65_psp.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/66_fock/lib66_fock.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/66_paw/lib66_paw.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/66_wfs/lib66_wfs.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/67_common/lib67_common.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_dmft/lib68_dmft.a
+-	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_lotf/lib68_lotf.a
++@DO_BUILD_68_LOTF_TRUE@	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_lotf/lib68_lotf.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_recursion/lib68_recursion.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/68_rsprc/lib68_rsprc.a
+ 	cd $(libabinit_tmpdir) && $(AR) xv $(abs_top_builddir)/src/69_wfdesc/lib69_wfdesc.a

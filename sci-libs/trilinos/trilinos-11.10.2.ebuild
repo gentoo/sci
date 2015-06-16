@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit cmake-utils toolchain-funcs multilib toolchain-funcs
 
 DESCRIPTION="Scientific library collection for large scale problems"
 HOMEPAGE="http://trilinos.sandia.gov/"
-SRC_URI="${P}-Source.tar.bz2"
+SRC_URI="http://trilinos.org/oldsite/download/files/${P}-Source.tar.gz"
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
@@ -23,7 +23,7 @@ IUSE="
 "
 
 # TODO: fix export cmake function for tests
-RESTRICT="test fetch"
+RESTRICT="test"
 
 RDEPEND="
 	virtual/blas

@@ -1,0 +1,22 @@
+# ChangeLog for sci-biology/pysam
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  04 May 2015; Marius Brehler <marbre@linux.sungazer.de> pysam-0.7.5.ebuild:
+  Fix deps
+
+  04 May 2015; Marius Brehler <marbre@linux.sungazer.de> pysam-0.6-r2.ebuild:
+  Drop keywords due to broken deps
+
+  02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  pysam-0.6-r2.ebuild, pysam-0.7.5.ebuild:
+  added PYTHON_USEDEP
+
+*pysam-0.6-r2 (30 Apr 2015)
+*pysam-0.7.5 (30 Apr 2015)
+
+  30 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +pysam-0.6-r2.ebuild, +pysam-0.7.5.ebuild:
+  sci-biology/pysam: version bump; noted samtools dependencies as mentioned in
+  download page accessible from https://code.google.com/p/pysam/downloads/list ;
+  also added PYTHON_COMPAT for python3

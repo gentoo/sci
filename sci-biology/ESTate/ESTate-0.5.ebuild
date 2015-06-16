@@ -28,6 +28,11 @@ src_prepare(){
 		-i src/Makefile || die
 }
 
+# Detected file collision(s) versus sci-biology/hmmer-2.3.2-r2:
+#  * sci-biology/ESTate-0.5:0::science
+#  *      /usr/bin/revcomp
+#  *      /usr/bin/translate
+
 src_install(){
 	dobin bin/*
 	doman doc/man/man1/*.1 doc/man/man7/*.7

@@ -12,6 +12,7 @@
 		platform support</flag>
     <flag name="romio">Build the ROMIO MPI-IO component</flag>
     <flag name="mpi-threads">Enable MPI_THREAD_MULTIPLE</flag>
+	<flag name='numa'>Enable numactl to allow binding processes to CPUs</flag>
     <flag name="vt">Enable bundled VampirTrace support</flag>
   </use>
 </pkgmetadata>

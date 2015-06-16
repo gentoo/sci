@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/ngs_backbone
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ngs_backbone-9999.ebuild:
+  added PYTHON_USEDEP
 
   12 Sep 2014; Christoph Junghans <ottxor@gentoo.org> ngs_backbone-9999.ebuild:
   drop ~x86 as deps are missing

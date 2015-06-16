@@ -12,7 +12,7 @@ SRC_URI="http://www.vicbioinformatics.com/"${P}".tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 # contains bundled binaries of hmmer-3.1 (dev version)

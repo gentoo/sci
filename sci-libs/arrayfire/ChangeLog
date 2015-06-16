@@ -1,6 +1,46 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 May 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/FindBoostCompute.cmake,
+  +files/arrayfire-3.0_beta-FindBoostCompute.patch,
+  +files/arrayfire-3.0_beta-FindCBLAS.patch,
+  +files/arrayfire-3.0_beta-opencl_CMakeLists.patch,
+  +files/arrayfire-9999-FindCBLAS.patch, -files/FindBoostCompute.patch,
+  -files/FindCBLAS.patch, -files/opencl_CMakeLists.patch, arrayfire-9999.ebuild:
+  Split up ebuilds to fix 9999
+
+  24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/arrayfire-0.9999-build_gtest.patch:
+  Drop patch, fixed upstream
+
+  24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/FindBoostCompute.patch, +files/opencl_CMakeLists.patch,
+  arrayfire-9999.ebuild, metadata.xml:
+  Enable OpenCL backend
+
+*arrayfire-3.0_beta (23 Mar 2015)
+
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.0_beta.ebuild, arrayfire-9999.ebuild:
+  Add 3.0_beta
+
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/arrayfire-0.9999-CMakeLists_examples.patch,
+  -files/arrayfire-9999-CMakeLists_examples.patch, arrayfire-9999.ebuild:
+  Drop patches, fix ebuild
+
+  08 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/arrayfire-0.9999-CMakeLists_examples.patch,
+  +files/arrayfire-0.9999-build_gtest.patch,
+  +files/arrayfire-9999-CMakeLists_examples.patch,
+  -files/CMakeLists_examples.patch, -files/build_gtest.patch,
+  arrayfire-9999.ebuild:
+  Update patches
+
+  19 Feb 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild:
+  Fix SLOT operators
+
 *arrayfire-0.9999 (12 Jan 2015)
 
   12 jan 2015; Marius Brehler <marbre@linux.sungazer.de>

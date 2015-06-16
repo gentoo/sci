@@ -1,6 +1,12 @@
 # ChangeLog for sci-chemistry/pymol
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Mar 2015; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  sci-chemistry/pymol: Move to virtual/pmw
+
+  14 Mar 2015; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  sci-chemistry/pymol: Fix for latest HEAD; fix SLOT operators
 
   05 Nov 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
   -files/pymol-9999-listing.patch, -files/pymol-9999-options.patch,
@@ -371,4 +377,3 @@
   +sci-chemistry/pymol/files/nosplash-gentoo.patch,
   +sci-chemistry/pymol/metadata.xml:
   Initial checkin of pymol to sci-overlay
-

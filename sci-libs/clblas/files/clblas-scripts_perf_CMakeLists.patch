@@ -1,0 +1,11 @@
+Install Python scripts to /usr/share/clBLAS and not to /usr/bin.
+
+Patch by Marius Brehler.
+--- scripts/perf/CMakeLists.txt
++++ scripts/perf/CMakeLists.txt
+@@ -21,4 +21,4 @@ set(GRAPHING_SCRIPTS 	measurePerformance
+ 						performanceUtility.py
+ 						)
+ 
+-install( FILES ${GRAPHING_SCRIPTS} DESTINATION bin${SUFFIX_BIN} )
++install( FILES ${GRAPHING_SCRIPTS} DESTINATION share/clBLAS )

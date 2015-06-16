@@ -1,0 +1,15 @@
+# ChangeLog for sci-biology/gffutils
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/gffutils: Add github to remote-id in metadata.xml
+
+  13 Apr 2015; Justin Lecher <jlec@gentoo.org> gffutils-0.8.3.ebuild:
+  sci-biology/gffutils: Streamline ebuild
+
+*gffutils-0.8.3 (12 Apr 2015)
+
+  12 Apr 2015; Michael Schubert <mschu.dev@gmail.com> +gffutils-0.8.3.ebuild,
+  +metadata.xml:
+  sci-biology/gffutils: add gffutils

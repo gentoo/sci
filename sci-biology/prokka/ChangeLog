@@ -1,0 +1,15 @@
+# ChangeLog for sci-biology/prokka
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> prokka-1.11.ebuild:
+  sci-biology/prokka: require either of ncbi-tools++ or ncbi-blast+
+
+  05 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> prokka-1.11.ebuild:
+  sci-biology/prokka: more DEPs recorded
+
+*prokka-1.11 (05 May 2015)
+
+  05 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +prokka-1.11.ebuild:
+  sci-biology/prokka: new package

@@ -1,6 +1,9 @@
 # ChangeLog for sci-astronomy/chealpix
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-astronomy/chealpix: Updating remote-id in metadata.xml
 
 *chealpix-3.11.2 (03 Feb 2014)
 

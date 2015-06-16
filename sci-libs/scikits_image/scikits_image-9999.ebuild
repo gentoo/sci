@@ -6,7 +6,7 @@ EAPI=5
 
 # pyamg missing py3 support
 #PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 git-r3
 

@@ -1,6 +1,21 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de>
+  boost-compute-9999.ebuild, metadata.xml:
+  dev-libs/boost-compute: Update HOMEPAGE, SRC_URI and github remote-id: project
+  was transfered on from kylelutz to boostorg
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-libs/boost-compute: Add github to remote-id in metadata.xml
+
+*boost-compute-0.4-r1 (05 Jun 2015)
+
+  05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +boost-compute-0.4-r1.ebuild, +files/boost-compute-0.4-CMakeLists.patch,
+  -boost-compute-0.4.ebuild, boost-compute-9999.ebuild:
+  Fix BoostComputeConfig.cmake location
+
 *boost-compute-9999 (01 Feb 2015)
 *boost-compute-0.4 (01 Feb 2015)
 

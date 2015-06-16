@@ -1,6 +1,9 @@
 # ChangeLog for sci-physics/espresso
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Mar 2015; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild:
+  update git location
 
   26 Dec 2014; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild:
   fixed homepage and deps

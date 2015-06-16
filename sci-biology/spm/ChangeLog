@@ -1,0 +1,29 @@
+# ChangeLog for sci-biology/spm
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  11 Mar 2015; Horea Christian <h.chr@mail.ru> spm-12.ebuild:
+  installing into octave M subdirectory
+
+  10 Mar 2015; Horea Christian <h.chr@mail.ru> spm-12.ebuild:
+  installing ALL the things
+
+  04 Mar 2015; Horea Christian <h.chr@mail.ru> spm-12.ebuild:
+  typo
+
+  04 Mar 2015; Horea Christian <h.chr@mail.ru> spm-12.ebuild:
+  fixed doins path
+
+*spm-12 (04 Mar 2015)
+
+  04 Mar 2015; Horea Christian <h.chr@mail.ru> +spm-12.ebuild,
+  spm-8.ebuild:
+  removed slots, added new version
+
+  17 Feb 2015; Horea Christian <h.chr@mail.ru> -spm-8.ebuild.orig,
+  spm-8.ebuild:
+  added quotation marks, removed ori file
+
+  17 Feb 2015; Horea Christian <h.chr@mail.ru> +metadata.xml,
+  +spm-8.ebuild.orig, spm-8.ebuild:
+  added metadata

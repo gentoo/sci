@@ -1,6 +1,14 @@
 # ChangeLog for sci-physics/abinit
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*abinit-7.10.4 (22 Apr 2015)
+
+  22 Apr 2015; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +abinit-7.10.4.ebuild, +files/7.10.4-libabinit_options.patch,
+  +files/7.10.4-syntax.patch:
+  Version bump to sci-physics/abinit-7.10.4, dependency for USE=bigdft changed
+  in the new version from sci-libs/bigdft-abi to <sci-physics/bigdft-1.7.5
 
 *abinit-7.6.4-r1 (10 Dec 2014)
 *abinit-7.4.2-r1 (10 Dec 2014)

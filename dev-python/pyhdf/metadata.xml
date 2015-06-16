@@ -9,4 +9,7 @@
   <use>
     <flag name="szip">Allow to use <pkg>sci-libs/szip</pkg> for SZIP compression method in SDsetcompress()</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">pysclint</remote-id>
+  </upstream>
 </pkgmetadata>

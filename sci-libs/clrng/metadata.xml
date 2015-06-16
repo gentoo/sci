@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <use>
+    <flag name="client">
+      Build a command line clRNG client program.
+    </flag>
+  </use>
+  <upstream>
+    <remote-id type="github">clMathLibraries/clRNG</remote-id>
+  </upstream>
+</pkgmetadata>

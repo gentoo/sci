@@ -6,7 +6,10 @@
     <email>mmokrejs@fold.natur.cuni.cz</email>
     <name>Martin Mokrejs</name>
   </maintainer>
-<use>
-  <flag name='jemalloc'>Use <pkg>dev-libs/jemalloc</pkg></flag>
-</use>
+  <use>
+    <flag name="jemalloc">Use <pkg>dev-libs/jemalloc</pkg></flag>
+  </use>
+  <upstream>
+    <remote-id type="github">jts/sga</remote-id>
+  </upstream>
 </pkgmetadata>

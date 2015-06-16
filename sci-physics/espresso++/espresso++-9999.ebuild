@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,20 +12,20 @@ inherit cmake-utils python-single-r1
 DESCRIPTION="extensible, flexible, fast and parallel simulation software for soft matter research"
 HOMEPAGE="https://www.espresso-pp.de"
 
+MY_PN="${PN//+/p}"
 if [[ ${PV} = 9999 ]]; then
-	EHG_REPO_URI="https://bitbucket.org/${PN//+/p}/${PN//+/p}"
-	inherit mercurial
+	EGIT_REPO_URI="git://github.com/${MY_PN}/${MY_PN}.git http://github.com/${MY_PN}/${MY_PN}.git"
+	inherit git-r3
 	KEYWORDS=
 else
-	inherit vcs-snapshot
 	#SRC_URI="https://espressopp.mpip-mainz.mpg.de/Download/${PN//+/p}-${PV}.tgz"
-	SRC_URI="https://bitbucket.org/${PN//+/p}/${PN//+/p}/get/v${PV}.tar.bz2 -> ${P}.tar.bz2"
+	SRC_URI="https://github.com/${MY_PN}/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
 fi
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
+IUSE="test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 

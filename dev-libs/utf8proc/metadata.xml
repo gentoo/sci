@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription>
+  <herd>sci</herd>
+  <longdescription>
   utf8proc is a library for processing UTF-8 encoded Unicode
   strings. Some features are Unicode normalization, stripping of
   default ignorable characters, case folding and detection of grapheme
@@ -11,4 +11,7 @@
   (U+2212) and “Hyphen-Minus” (U+002D, ASCII Minus) all into the ASCII
   minus sign, to make them equal for comparisons.
 </longdescription>
+  <upstream>
+    <remote-id type="github">JuliaLang/utf8proc</remote-id>
+  </upstream>
 </pkgmetadata>

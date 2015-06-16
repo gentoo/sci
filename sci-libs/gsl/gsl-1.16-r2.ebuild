@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -53,8 +53,12 @@ multilib_src_install() {
 	insinto /usr/$(get_libdir)/pkgconfig
 	doins ${libname}.pc
 
+	GSL_ALTERNATIVES+=( /usr/$(get_libdir)/pkgconfig/cblas.pc ${libname}.pc )
+}
+
+multilib_src_install_all() {
 	# Don't add gsl as a cblas alternative if using cblas-external
 	use cblas-external || alternatives_for cblas gsl 0 \
-		/usr/$(get_libdir)/pkgconfig/cblas.pc ${libname}.pc \
+		${GSL_ALTERNATIVES[@]} \
 		/usr/include/cblas.h gsl/gsl_cblas.h
 }

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,13 +12,13 @@ SRC_URI="https://github.com/douradopalmares/${PN}/archive/${PV}.tar.gz -> ${P}.t
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~amd64-linux"
+KEYWORDS=""
 IUSE="examples R"
 
 DEPEND="
 	=sci-chemistry/gromacs-4.6*:=
 	sci-libs/gsl
-	sys-libs/db[cxx]
+	sys-libs/db:=[cxx]
 	virtual/blas
 	virtual/lapack
 	sci-libs/arpack

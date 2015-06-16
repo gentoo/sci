@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 DESCRIPTION="Prediction of transmembrane helices in proteins"
 HOMEPAGE="http://www.cbs.dtu.dk/services/TMHMM/"
@@ -10,11 +10,7 @@ SRC_URI="${P}.Linux.tar.gz"
 
 LICENSE="tmhmm"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
-
-DEPEND=""
-RDEPEND=""
 
 RESTRICT="fetch"
 
@@ -32,9 +28,9 @@ src_prepare() {
 
 src_install() {
 	exeinto /opt/${PN}/bin
-	doexe bin/* || die
+	doexe bin/*
 	insinto /opt/${PN}/lib
-	doins lib/* || die
+	doins lib/*
 	dosym /opt/${PN}/bin/tmhmm /usr/bin/tmhmm
 	dodoc README TMHMM2.0.html
 }

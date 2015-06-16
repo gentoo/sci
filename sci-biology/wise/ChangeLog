@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/wise
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*wise-2.4.1 (09 May 2015)
+
+  09 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +wise-2.4.1.ebuild:
+  sci-biology/wise: version bump, new HOMEPAGE, SRC_URI, does not compile, the
+  former patches need to be updated as well

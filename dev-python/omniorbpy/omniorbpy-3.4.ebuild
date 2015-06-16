@@ -22,8 +22,8 @@ IUSE="ssl"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
-	>=net-misc/omniORB-4.1.3
-	ssl? ( dev-libs/openssl:0 )"
+	>=net-misc/omniORB-4.1.3[${PYTHON_USEDEP}]
+	ssl? ( dev-libs/openssl:0= )"
 RDEPEND=${DEPEND}
 
 S=${WORKDIR}/${MY_P}

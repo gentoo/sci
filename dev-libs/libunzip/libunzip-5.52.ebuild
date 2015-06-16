@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 inherit eutils flag-o-matic toolchain-funcs
 
@@ -41,14 +41,14 @@ src_prepare() {
 
 src_compile() {
 	append-lfs-flags #104315
-	emake -f unix/Makefile linux_shlib || die "emake failed"
+	emake -f unix/Makefile linux_shlib
 }
 
 src_install() {
-	dolib.so ${PN}.so.0.4 || die
-	dolib.so ${PN}.so.0 || die
-	dolib.so ${PN}.so || die
-	dolib.a ${PN}.a || die
+	dolib.so ${PN}.so.0.4
+	dolib.so ${PN}.so.0
+	dolib.so ${PN}.so
+	dolib.a ${PN}.a
 	insinto /usr/include
-	doins unzip.h || die
+	doins unzip.h
 }

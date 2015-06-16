@@ -1,0 +1,15 @@
+# ChangeLog for sci-biology/rum
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> rum-2.0.5.5.ebuild:
+  sci-biology/rum: Use perl virtuals, add missing die; use PN for tarball
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-biology/rum: Add github to remote-id in metadata.xml
+
+*rum-2.0.5.5 (18 Apr 2015)
+
+  18 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +rum-2.0.5.5.ebuild:
+  sci-biology/rum: new package

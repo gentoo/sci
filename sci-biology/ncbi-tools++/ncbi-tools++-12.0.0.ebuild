@@ -14,6 +14,7 @@ MY_PV="12_0_0"
 MY_P="ncbi_cxx--${MY_PV}"
 #ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
 
+# for example sci-biology/ncbi-tools++-12.0.0 contains blastn-2.2.28+
 DESCRIPTION="NCBI C++ Toolkit, including NCBI BLAST+"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=toolkit"
 SRC_URI="
@@ -31,7 +32,7 @@ IUSE="
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
@@ -119,6 +120,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-configure.patch
 		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
 		"${FILESDIR}"/${P}-fix-install.patch
+		"${FILESDIR}"/${P}-bdb6.patch
 		)
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch

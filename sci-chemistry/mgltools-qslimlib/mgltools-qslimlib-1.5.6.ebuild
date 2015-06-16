@@ -1,17 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 eutils
 
 MY_PN="QSlimLib"
 MY_P="${MY_PN}-${PV/_rc3/}"
-
-PYTHON_MODNAME="${MY_PN}"
 
 DESCRIPTION="MGLTools Plugin -- QSlimLib"
 HOMEPAGE="http://mgltools.scripps.edu"
@@ -22,15 +20,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-python/numpy"
+RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
 S="${WORKDIR}"/${MY_P}
 
 src_unpack() {
-	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
-	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
+	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
+	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
 }
 
 python_prepare_all() {

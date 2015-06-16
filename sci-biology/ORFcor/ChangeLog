@@ -1,0 +1,13 @@
+# ChangeLog for sci-biology/ORFcor
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ORFcor-20130507.ebuild:
+  sci-biology/ORFcor: more cleanup
+
+*ORFcor-20130507 (09 Mar 2015)
+
+  09 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +ORFcor-20130507.ebuild, +metadata.xml:
+  new package, working ebuild

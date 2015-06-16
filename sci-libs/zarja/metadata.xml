@@ -7,4 +7,7 @@
   simulations on graphs. Its functionality was proved in Classical or
   Quantum mechanical models.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">zarja</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription lang="en">
+	<herd>sci</herd>
+	<longdescription lang="en">
 		The FInite element Automatic Tabulator FIAT supports generation of
 		arbitrary order instances of the Lagrange elements on lines, triangles,
 		and tetrahedra. It is also capable of generating arbitrary order
@@ -12,4 +12,7 @@
 		supported on triangles and tetrahedra. Upcoming versions will also
 		support Hermite and nonconforming elements.
 	</longdescription>
+	<upstream>
+		<remote-id type="bitbucket">fenics-project/fiat</remote-id>
+	</upstream>
 </pkgmetadata>

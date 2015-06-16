@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription lang='en'>
+  <herd>sci-mathematics</herd>
+  <longdescription lang="en">
   This (set of) program(s) will help you solve a certain kind of puzzle.
   Namely puzzles that are made out of square or dice shaped units, spheres or
   prisms with an equilateral triangle as base and where the pieces are also
   aligned along those grids in the solutions.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">burrtools</remote-id>
+  </upstream>
 </pkgmetadata>

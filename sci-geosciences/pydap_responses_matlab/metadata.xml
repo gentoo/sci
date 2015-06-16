@@ -10,4 +10,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_responses_matlab allows Pydap server to deliver data to Matlab.
 </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydap.responses.matlab</remote-id>
+  </upstream>
 </pkgmetadata>

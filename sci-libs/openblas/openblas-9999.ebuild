@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
 EBASE_PROFNAME="openblas"
-inherit alternatives-2 eutils fortran-2 multibuild multilib-build toolchain-funcs fortran-int64
+inherit alternatives-2 eutils multilib fortran-2 multibuild multilib-build toolchain-funcs fortran-int64
 
 SRC_URI+="http://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
 if [[ ${PV} == "9999" ]] ; then
@@ -48,7 +48,7 @@ get_openblas_flags() {
 	if use threads; then
 		openblas_flags+=" USE_THREAD=1 USE_OPENMP=0"
 	elif use openmp; then
-		openblas_flags+=" USE_THREAD=0 USE_OPENMP=1"
+		openblas_flags+=" USE_OPENMP=1"
 	fi
 	local profname=$(fortran-int64_get_profname)
 	local libname="${profname//-/_}"

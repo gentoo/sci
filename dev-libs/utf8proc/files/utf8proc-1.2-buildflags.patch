@@ -1,0 +1,40 @@
+ Makefile | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index aba2453..5fab07d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,8 +6,8 @@ AR=ar
+ INSTALL=install
+ 
+ # compiler settings
+-cflags = -O2 -std=c99 -pedantic -Wall -fpic -DUTF8PROC_EXPORTS $(CFLAGS)
+-cc = $(CC) $(cflags)
++CFLAGS ?= -O2
++CFLAGS += -std=c99 -pedantic -Wall -fpic -DUTF8PROC_EXPORTS
+ 
+ # shared-library version MAJOR.MINOR.PATCH ... this may be *different*
+ # from the utf8proc version number because it indicates ABI compatibility,
+@@ -54,18 +54,19 @@ data/utf8proc_data.c.new: libutf8proc.$(SHLIB_EXT) data/data_generator.rb data/c
+ 	$(MAKE) -C data utf8proc_data.c.new
+ 
+ utf8proc.o: utf8proc.h utf8proc.c utf8proc_data.c
+-	$(cc) -c -o utf8proc.o utf8proc.c
++	$(CC) $(CFLAGS) -c -o utf8proc.o utf8proc.c
+ 
+ libutf8proc.a: utf8proc.o
+ 	rm -f libutf8proc.a
+ 	$(AR) rs libutf8proc.a utf8proc.o
+ 
+ libutf8proc.so.$(MAJOR).$(MINOR).$(PATCH): utf8proc.o
+-	$(cc) -shared -o $@ -Wl,-soname -Wl,libutf8proc.so.$(MAJOR) utf8proc.o
++	$(CC) $(LDFLAGS) -shared -o $@ -Wl,-soname -Wl,libutf8proc.so.$(MAJOR) utf8proc.o
+ 	chmod a-x $@
+ 
+ libutf8proc.so: libutf8proc.so.$(MAJOR).$(MINOR).$(PATCH)
+ 	ln -f -s libutf8proc.so.$(MAJOR).$(MINOR).$(PATCH) $@
++	ln -f -s libutf8proc.so.$(MAJOR).$(MINOR).$(PATCH) $@.$(MAJOR)
+ 
+ libutf8proc.$(MAJOR).dylib: utf8proc.o
+ 	$(cc) -dynamiclib -o $@ $^ -install_name $(libdir)/$@ -Wl,-compatibility_version -Wl,$(MAJOR) -Wl,-current_version -Wl,$(MAJOR).$(MINOR).$(PATCH)

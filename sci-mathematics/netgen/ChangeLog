@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/netgen
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-mathematics/netgen: Updating remote-id in metadata.xml
+
+  26 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> netgen-5.0.0.ebuild:
+  Bump to EAPI=5; Update Manifest (Bug #407)
 
   14 Mar 2011; Justin Lecher <jlec@gentoo.org> netgen-4.9.13.ebuild:
   Moved media-libs/jpeg -> virtual/jpeg
@@ -52,4 +58,3 @@
   Initial import. See bug #155424 for anything relating the building process.
   Ebuild from Daniel Tourde <daniel.tourde@caelae.se> and Oliver Borm
   <oli.borm@web.de>.
-

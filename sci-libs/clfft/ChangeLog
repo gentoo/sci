@@ -2,6 +2,35 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*clfft-2.4-r1 (05 Jun 2015)
+
+  05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.4-r1.ebuild,
+  +files/clfft-2.4-fix-cmake-config-install.patch,
+  +files/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch,
+  -clfft-2.2.ebuild, -clfft-2.4.ebuild, clfft-0.9999.ebuild, clfft-9999.ebuild:
+  sci-libs/clfft: Drop old; Install cmake configuration
+
+  05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> clfft-0.9999.ebuild,
+  clfft-2.4.ebuild, clfft-9999.ebuild:
+  sci-libs/clfft: Cleanup ebuilds
+
+  05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/clfft: Add github to remote-id in metadata.xml
+
+*clfft-0.9999 (11 May 2015)
+
+  11 May 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-0.9999.ebuild,
+  clfft-9999.ebuild:
+  clfft-9999 points to develop branch
+
+  04 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
+  files/clfft-client_CMakeLists.patch,
+  files/clfft-scripts_perf_CMakeLists.patch:
+  Replace patches by upstream patches
+
+  19 Feb 2015; Marius Brehler <marbre@linux.sungazer.de> clfft-9999.ebuild:
+  Fix SLOT operators
+
 *clfft-2.4 (18 Feb 2015)
 
   18 Feb 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.4.ebuild:

@@ -7,4 +7,7 @@
 		routines designed to accelerate application development, debugging,
 		multi-threading and optimization on x86-class processor platforms.
 	</longdescription>
+	<upstream>
+		<remote-id type="sourceforge">framewave</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -2,6 +2,42 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmpi-1.8.5 (12 May 2015)
+
+  12 May 2015; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.5.ebuild:
+  bump
+
+*openmpi-1.8.4-r4 (20 Apr 2015)
+
+  20 Apr 2015; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.4-r4.ebuild:
+  sync with upstream
+
+*openmpi-1.8.4-r99 (20 Apr 2015)
+
+  20 Apr 2015; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.4-r99.ebuild,
+  -openmpi-1.8.4-r3.ebuild:
+  drop keywords from non-empi version  Every other version of the various MPI's
+  supports empi so it was unexpected to have that dropped.  However this version
+  is still useful for porting/testing.
+
+  22 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
+  drop some useless slots
+
+  21 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
+  fixed USE=-fortran install
+
+  20 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
+  enabled multilib cuda
+
+  20 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
+  added fortran hack for bug #540508
+
+*openmpi-1.8.4-r3 (19 Feb 2015)
+
+  19 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +openmpi-1.8.4-r3.ebuild,
+  -openmpi-1.8.4-r2.ebuild, metadata.xml:
+  added changes from openmpi-1.8.4-r2::gentoo
+
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml,
   openmpi-1.6.5.ebuild, openmpi-1.7.3.ebuild, openmpi-1.8.1.ebuild,
   openmpi-1.8.3.ebuild, openmpi-1.8.4-r2.ebuild:

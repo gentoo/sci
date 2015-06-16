@@ -1,6 +1,13 @@
 # ChangeLog for sci-libs/libxc
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libxc-2.2.2 (22 Apr 2015)
+*libxc-2.1.2 (22 Apr 2015)
+
+  22 Apr 2015; Honza Macháček <Hloupy.Honza@centrum.cz> -libxc-2.1.1.ebuild,
+  +libxc-2.1.2.ebuild, -libxc-2.2.1.ebuild, +libxc-2.2.2.ebuild:
+  Version bump to sci-libs/libxc-2.1.2 and 2.2.2 pair
 
 *libxc-2.2.1 (10 Dec 2014)
 *libxc-2.1.1 (10 Dec 2014)

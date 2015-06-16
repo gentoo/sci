@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="EST assembly and annotation pipeline for chado/gbrowse2 display"
 HOMEPAGE="http://code.google.com/p/est2assembly/"
-SRC_URI="http://est2assembly.googlecode.com/files/est2assembly_1.08.tar.gz"
+SRC_URI="http://est2assembly.googlecode.com/files/est2assembly_${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -24,3 +24,5 @@ DEPEND="
 	sci-biology/emboss
 	sci-biology/bioperl"
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}"/"${PN}"

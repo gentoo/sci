@@ -12,4 +12,7 @@
     and provides access to compute devices, contexts, command queues
     and memory buffers.
   </longdescription>
+  <upstream>
+    <remote-id type="github">boostorg/compute</remote-id>
+  </upstream>
 </pkgmetadata>

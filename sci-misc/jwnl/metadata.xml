@@ -8,4 +8,7 @@
   Java based programming interface for accessing wordnet style dictionary
   data.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">jwordnet</remote-id>
+  </upstream>
 </pkgmetadata>

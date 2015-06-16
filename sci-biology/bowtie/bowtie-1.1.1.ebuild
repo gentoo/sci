@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="An ultrafast memory-efficient short read aligner"
+DESCRIPTION="Short read (below 50nt) aligner requiring end-to-end match, no gaps"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/"
 SRC_URI="mirror://sourceforge/bowtie-bio/${P}-src.zip"
 

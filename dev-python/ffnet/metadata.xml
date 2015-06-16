@@ -9,4 +9,7 @@
   <use>
     <flag name="matplotlib">Use matplotlib for drawing</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">ffnet</remote-id>
+  </upstream>
 </pkgmetadata>

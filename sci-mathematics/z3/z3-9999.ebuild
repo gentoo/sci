@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,14 +15,14 @@ EGIT_REPO_URI="https://git01.codeplex.com/z3"
 EGIT_MIN_CLONE_TYPE=single
 
 SLOT="0"
-LICENSE="MSR-LA"
+LICENSE="MIT"
 KEYWORDS=""
 IUSE="gmp"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
-	gmp? ( dev-libs/gmp )"
+	gmp? ( dev-libs/gmp:0 )"
 # A new curl is needed because codeplex has a bug and early version of libcurl
 # will cause a failed git clone.
 DEPEND="${RDEPEND}

@@ -13,4 +13,7 @@
   <use>
     <flag name="generic">Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">math-atlas</remote-id>
+  </upstream>
 </pkgmetadata>

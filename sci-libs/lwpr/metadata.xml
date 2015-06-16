@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
+  <herd>sci-mathematics</herd>
+  <longdescription>
   Locally Weighted Projection Regression (LWPR) is a recent algorithm
   that achieves nonlinear function approximation in high dimensional spaces
   with redundant and irrelevant input dimensions. At its core, it uses
@@ -11,7 +11,10 @@
   weighted variant of Partial Least Squares (PLS) is employed for
   doing the dimensionality reduction.
 </longdescription>
-<use>
-  <flag name='octave'>Add <pkg>sci-mathematics/octave</pkg> support</flag>
-</use>
+  <use>
+    <flag name="octave">Add <pkg>sci-mathematics/octave</pkg> support</flag>
+  </use>
+  <upstream>
+    <remote-id type="sourceforge">lwpr</remote-id>
+  </upstream>
 </pkgmetadata>

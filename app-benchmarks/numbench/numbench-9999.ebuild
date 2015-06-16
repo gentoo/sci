@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit git-r3 distutils-r1
 
@@ -20,9 +20,9 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND="
-	!app-admin/eselect-blas
-	!app-admin/eselect-cblas
-	!app-admin/eselect-lapack
+	!app-eselect/eselect-blas
+	!app-eselect/eselect-cblas
+	!app-eselect/eselect-lapack
 	>=dev-python/matplotlib-1.0.0
 	>=app-admin/eselect-1.3.2-r100"
 

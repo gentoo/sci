@@ -1,0 +1,12 @@
+diff -Naurp abinit-7.10.4.orig/src/98_main/mrgscr.F90 abinit-7.10.4/src/98_main/mrgscr.F90
+--- abinit-7.10.4.orig/src/98_main/mrgscr.F90	2015-03-12 06:24:36.000000000 +0100
++++ abinit-7.10.4/src/98_main/mrgscr.F90	2015-04-07 13:00:01.166355853 +0200
+@@ -2312,7 +2312,7 @@ program mrgscr
+ 
+ !!OMP *** OPENMP SECTION *** Added by MS
+ !$OMP PARALLEL SHARED(Hscr_file,epsm1,nfreqre,epsm1_pole, &
+-!$OMP                 is_scr,npoles,std_out,iqibz,one) &
++!$OMP                 is_scr,npoles,std_out,iqibz) &
+ !$OMP          PRIVATE(ig1,ig2,refval,imfval,phase)
+ !!OMP write(std_out,'(a,i0)') ' Entering openmp loop. Number of threads: ',omp_get_num_threads()
+              ABI_MALLOC(refval,(Hscr_file(1)%nomega))

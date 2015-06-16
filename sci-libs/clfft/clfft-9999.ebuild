@@ -4,29 +4,22 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils git-r3
 
 MY_PN="clFFT"
 
 DESCRIPTION="A software library containing FFT functions written in OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clFFT"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
-	S="${WORKDIR}/${P}/src"
-else
-	SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
-	S="${WORKDIR}/${MY_PN}-${PV}/src"
-fi
+EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
+EGIT_BRANCH="develop"
+S="${WORKDIR}/${P}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 IUSE="test"
 
 RDEPEND="
-	>=sys-devel/gcc-4.6
+	>=sys-devel/gcc-4.6:*
 	virtual/opencl
 	dev-libs/boost"
 DEPEND="${RDEPEND}"
@@ -40,8 +33,7 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}"/clfft-client_CMakeLists.patch
-	"${FILESDIR}"/clfft-scripts_perf_CMakeLists.patch
+	"${FILESDIR}"/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch
 )
 
 pkg_pretend() {

@@ -1,6 +1,19 @@
 # ChangeLog for sci-chemistry/mgltools-mglutil
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mgltools-mglutil-1.5.6-r1 (25 Mar 2015)
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org>
+  +files/mgltools-mglutil-1.5.6-tcltk86.patch,
+  +mgltools-mglutil-1.5.6-r1.ebuild, -mgltools-mglutil-1.5.6.ebuild:
+  sci-chemistry/mgltools-mglutil: Add backport for tcltk8.6
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-mglutil-1.5.6.ebuild:
+  sci-chemistry/mgltools-mglutil: Add missing die
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-mglutil-1.5.6.ebuild:
+  sci-chemistry/mgltools-mglutil: Drop PYTHON_MODNAME and support for python2_6
 
   10 Jun 2013; Justin Lecher <jlec@gentoo.org>
   -mgltools-mglutil-1.5.4-r1.ebuild, mgltools-mglutil-1.5.6.ebuild:
@@ -50,4 +63,3 @@
   17 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +mgltools-mglutil-1.5.4.ebuild, +metadata.xml:
   Initial setup
-

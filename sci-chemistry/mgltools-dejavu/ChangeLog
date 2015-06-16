@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/mgltools-dejavu
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-dejavu-1.5.6-r1.ebuild:
+  sci-chemistry/mgltools-dejavu: Add missing die
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> -mgltools-dejavu-1.5.6.ebuild,
+  mgltools-dejavu-1.5.6-r1.ebuild:
+  sci-chemistry/mgltools-dejavu: Drop PYTHON_MODNAME and support for python2_6
 
 *mgltools-dejavu-1.5.6-r1 (11 Nov 2014)
 
@@ -56,4 +63,3 @@
   18 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +mgltools-dejavu-1.5.4.ebuild, +metadata.xml:
   Initial checkin
-

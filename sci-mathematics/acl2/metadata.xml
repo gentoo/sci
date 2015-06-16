@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-mathematics</herd>
-  <maintainer>
-    <email>dongxuli2011@gmail.com</email>
-    <name>Dongxu Li</name>
-    <description>ACL2 industrial strength theorem prover</description>
-  </maintainer>
-  <longdescription>
-ACL2 is both a programming language in which you can model computer systems and 
-a tool to help you prove properties of those models. ACL2 is part of the 
-Boyer-Moore family of provers, for which its authors have received the 2005 ACM 
+	<herd>sci-mathematics</herd>
+	<maintainer>
+		<email>dongxuli2011@gmail.com</email>
+		<name>Dongxu Li</name>
+		<description>Industrial strength theorem prover</description>
+	</maintainer>
+	<longdescription>
+ACL2 is both a programming language in which you can model computer systems and
+a tool to help you prove properties of those models. ACL2 is part of the
+Boyer-Moore family of provers, for which its authors have received the 2005 ACM
 Software System Award.
-</longdescription>
-  <use>
-    <flag name="books">
+  </longdescription>
+	<use>
+		<flag name="books">
 	build community books, the canonical collection of open-source libraries
-</flag>
-  </use>
-  <use>
-    <flag name="html"> Install HTML documentation</flag>
-  </use>
-  <use>
-    <flag name="workshops"> 
-	build community books from ACL2 community workshops
-</flag>
-  </use>
+    </flag>
+	</use>
+	<upstream>
+		<remote-id type="github">acl2-devel/acl2-devel</remote-id>
+	</upstream>
 </pkgmetadata>

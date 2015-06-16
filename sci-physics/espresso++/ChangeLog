@@ -1,6 +1,15 @@
 # ChangeLog for sci-physics/espresso++
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-physics/espresso++: Add github to remote-id in metadata.xml
+
+  20 Mar 2015; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  added test feature
+
+  01 Mar 2015; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  move live version to git
 
   13 Nov 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
   sync with gx86

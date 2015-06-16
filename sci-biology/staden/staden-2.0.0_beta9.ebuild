@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -28,7 +28,7 @@ IUSE="curl debug fortran png tcl tk X zlib"
 #
 DEPEND="
 	app-arch/xz-utils
-	dev-lang/tk
+	dev-lang/tk:*
 	dev-tcltk/tklib
 	media-libs/libpng:0
 	sci-biology/samtools

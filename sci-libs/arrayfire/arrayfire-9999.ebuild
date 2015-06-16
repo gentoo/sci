@@ -13,17 +13,13 @@ HOMEPAGE="http://www.arrayfire.com/"
 EGIT_REPO_URI="https://github.com/${PN}/${PN}.git git://github.com/${PN}/${PN}.git"
 SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS=""
-if [[ ${PV} == "0.9999" ]] ; then
-	# the remote HEAD points to devel, but we want to pull the master instead
-	EGIT_BRANCH="master"
-fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="+examples +cpu cuda test"
+IUSE="+examples +cpu cuda opencl test"
 
 RDEPEND="
-	>=sys-devel/gcc-4.7.3-r1
+	>=sys-devel/gcc-4.7:*
 	cuda? (
 		>=dev-util/nvidia-cuda-toolkit-6.0
 		dev-libs/boost
@@ -31,7 +27,14 @@ RDEPEND="
 	cpu? (
 		virtual/blas
 		virtual/cblas
+		virtual/lapacke
 		sci-libs/fftw:3.0
+	)
+	opencl? (
+		dev-libs/boost
+		dev-libs/boost-compute
+		sci-libs/clblas
+		sci-libs/clfft
 	)"
 DEPEND="${RDEPEND}"
 
@@ -39,9 +42,7 @@ BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
 
 PATCHES=(
-	"${FILESDIR}"/FindCBLAS.patch
-	"${FILESDIR}"/CMakeLists_examples.patch
-	"${FILESDIR}"/build_gtest.patch
+	"${FILESDIR}"/${P}-FindCBLAS.patch
 )
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
@@ -65,6 +66,9 @@ src_unpack() {
 		unpack ${A}
 		mv "${BUILD_DIR}"/third_party/src/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
 	fi
+
+	rm "${S}"/CMakeModules/build_boost_compute.cmake || die
+	cp "${FILESDIR}"/FindBoostCompute.cmake "${S}"/CMakeModules/ || die
 }
 
 src_configure() {
@@ -77,7 +81,7 @@ src_configure() {
 	local mycmakeargs=(
 	   $(cmake-utils_use_build cpu CPU)
 	   $(cmake-utils_use_build cuda CUDA)
-	   -DBUILD_OPENCL=OFF
+	   $(cmake-utils_use_build opencl OPENCL)
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
 	)

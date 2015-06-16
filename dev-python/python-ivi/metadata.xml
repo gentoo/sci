@@ -12,4 +12,7 @@
     use Python VXI-11, Python USBTMC, PyVISA, pySerial and linux-gpib to
     connect to instruments.
   </longdescription>
+  <upstream>
+    <remote-id type="github">python-ivi/python-ivi</remote-id>
+  </upstream>
 </pkgmetadata>

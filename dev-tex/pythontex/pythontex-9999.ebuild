@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_2,3_3} )
+PYTHON_COMPAT=( python2_7 python3_{3,4} )
 
-inherit latex-package python-single-r1 git-r3
+inherit latex-package python-r1 git-r3
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
@@ -21,46 +21,38 @@ IUSE="highlighting"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
-	app-text/texlive"
+	dev-texlive/texlive-latex"
 RDEPEND="${DEPEND}
 	dev-texlive/texlive-xetex
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
-src_prepare() {
-	S="${WORKDIR}/${P}/${PN}"
-	cd "${S}" || die
-	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
-}
+TEXMF=/usr/share/texmf-site
 
 src_compile() {
+	cd ${PN} || die
 	ebegin "Compiling ${PN}"
-	latex ${PN}.ins extra > "${T}"/build-latex.log  || die "Building style from ${PN}.ins failed"
+	rm ${PN}.sty || die
+	latex ${PN}.ins extra || die
 	eend
 }
 
 src_install() {
-	python_optimize .
-	if python_is_python3; then
-		#python_scriptinto /usr/share/texmf-site/scripts/${PN}/
-		python_newscript pythontex3.py pythontex.py
-		python_newscript depythontex3.py depythontex.py
-	else
-		python_newscript pythontex2.py pythontex.py
-		python_doscript pythontex_2to3.py
-		python_newscript depythontex2.py depythontex.py
-	fi
+	dodoc ${PN}/README "${S}"/*rst ${PN}_quickstart/*
 
-	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
+	cd ${PN} || die
 
-	insinto /usr/share/texmf-site/tex/latex/pythontex/
-	doins "${S}"/pythontex.sty
+	installation() {
+		if python_is_python3; then
+			python_domodule {de,}${PN}3.py
+		else
+			python_domodule {de,}${PN}2.py
+		fi
+		python_domodule ${PN}_{engines,utils}.py
+		python_doscript {de,}${PN}.py syncpdb.py
+		python_optimize
+	}
+	python_foreach_impl installation
 
-	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins
-
-	latex-package_src_install
-
-	dodoc README
-	mktexlsr || die
+	latex-package_src_doinstall dtx ins sty
 }

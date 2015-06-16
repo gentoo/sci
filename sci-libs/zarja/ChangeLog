@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/zarja
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/zarja: Updating remote-id in metadata.xml
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> zarja-1.1.1.ebuild,
   metadata.xml:
@@ -12,4 +15,3 @@
   16 Apr 2009; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
   +zarja-1.1.1.ebuild:
   Initial import to science overlay - bug #254832 - Thanks Hynek Lavička
-

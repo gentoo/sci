@@ -20,4 +20,7 @@ Elk is an all-electron full-potential linearised augmented-plane wave (FP-LAPW) 
    Install python scripts.
   </flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">elk</remote-id>
+  </upstream>
 </pkgmetadata>

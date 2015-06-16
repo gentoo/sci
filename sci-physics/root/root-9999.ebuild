@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.18-r1.ebuild,v 1.3 2014/03/27 18:51:54 bicatali Exp $
+# $Header: $
 
 EAPI=5
 
@@ -14,7 +14,7 @@ else
 	S="${WORKDIR}/${PN}"
 fi
 
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 \
 	toolchain-funcs user versionator

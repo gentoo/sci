@@ -25,13 +25,13 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE=""
+IUSE="test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 #    Ruby terminal-table ?
 
-DEPEND="
+CDEPEND="${PYTHON_DEPS}
 	>=dev-lang/perl-5.8
 	dev-perl/libwww-perl
 	dev-perl/Bit-Vector
@@ -51,13 +51,15 @@ DEPEND="
 	virtual/perl-DB_File
 	virtual/perl-Time-HiRes"
 
+DEPEND="${CDEPEND}"
+
 ruby_add_bdepend "dev-ruby/RubyInline"
 ruby_add_rdepend "dev-ruby/gnuplot dev-ruby/narray"
 
 # sci-biology/vmatch # http://www.vmatch.de/ # fecth restrict
 # sci-biology/usearch-bin # http://www.drive5.com/usearch/ # fecth restrict
 
-RDEPEND="${DEPEND}
+RDEPEND="${CDEPEND}
 	sci-biology/ncbi-tools
 	sci-biology/muscle
 	sci-biology/mummer
