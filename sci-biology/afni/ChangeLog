@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jun 2015; Horea Christian <h.chr@mail.ru> afni-9999.ebuild:
+  switching to neurodebian cmake build
+
   04 Jun 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   added new dep  x11-libs/libXi
