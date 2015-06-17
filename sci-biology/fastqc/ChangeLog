@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Jun 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  fastqc-0.11.3.ebuild:
+  more comments on the external dependencies
+
+  10 Jun 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  fastqc-0.11.3.ebuild:
+  add dependency on jhdf5; more ebuild cleanup
+
 *fastqc-0.11.3 (30 May 2015)
 
   30 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

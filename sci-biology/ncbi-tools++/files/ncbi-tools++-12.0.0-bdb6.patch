@@ -1,0 +1,114 @@
+Index: include/db/bdb/bdb_file.hpp
+===================================================================
+--- include/db/bdb/bdb_file.hpp	(revision 470126)
++++ include/db/bdb/bdb_file.hpp	(working copy)
+@@ -660,6 +660,9 @@
+     void x_ConstructKeyBuf();
+     void x_ConstructDataBuf();
+ 
++    static int x_CompareShim(DB* db, const DBT* dbt1, const DBT* dbt2,
++                             size_t* locp);
++
+ private:
+     auto_ptr<CBDB_BufferManager>   m_KeyBuf;
+     auto_ptr<CBDB_BufferManager>   m_DataBuf;
+Index: src/db/bdb/bdb_blob.cpp
+===================================================================
+--- src/db/bdb/bdb_blob.cpp	(revision 470126)
++++ src/db/bdb/bdb_blob.cpp	(working copy)
+@@ -583,12 +583,31 @@
+     return m_DBT_Data->size;
+ }
+ 
++#if DB_VERSION_MAJOR >= 6
++extern "C" {
++    typedef int (*BDB_CompareFunction_V6)(DB*, const DBT*, const DBT*,
++                                          size_t*);
++    int BDB_Uint4Compare_V6(DB* db, const DBT* dbt1, const DBT* dbt2, size_t*)
++        { return BDB_Uint4Compare(db, dbt1, dbt2); }
++    int BDB_ByteSwap_Uint4Compare_V6(DB* db, const DBT* dbt1, const DBT* dbt2,
++                                    size_t*)
++        { return BDB_ByteSwap_Uint4Compare(db, dbt1, dbt2); }
++}
++#endif
++
+ void CBDB_LobFile::SetCmp(DB*)
+ {
++#if DB_VERSION_MAJOR >= 6
++    BDB_CompareFunction_V6 func = BDB_Uint4Compare_V6;
++    if (IsByteSwapped()) {
++        func = BDB_ByteSwap_Uint4Compare_V6;
++    }
++#else
+     BDB_CompareFunction func = BDB_Uint4Compare;
+     if (IsByteSwapped()) {
+         func = BDB_ByteSwap_Uint4Compare;
+     }
++#endif
+ 
+     _ASSERT(func);
+     int ret = m_DB->set_bt_compare(m_DB, func);
+Index: src/db/bdb/bdb_file.cpp
+===================================================================
+--- src/db/bdb/bdb_file.cpp	(revision 470126)
++++ src/db/bdb/bdb_file.cpp	(working copy)
+@@ -1535,12 +1535,27 @@
+ }
+ 
+ 
++#if DB_VERSION_MAJOR >= 6
++int CBDB_File::x_CompareShim(DB* db, const DBT* dbt1, const DBT* dbt2, size_t*)
++{
++    const CBDB_BufferManager* key_buf
++        = static_cast<const CBDB_BufferManager*>(db->app_private);
++    _ASSERT(key_buf);
++    return (key_buf->GetCompareFunction())(db, dbt1, dbt2);
++}
++#endif
++
++
+ void CBDB_File::SetCmp(DB* db)
+ {
+     _ASSERT(m_DB_Type == eBtree);
++#if DB_VERSION_MAJOR >= 6
++    int ret = db->set_bt_compare(db, x_CompareShim);
++#else
+     BDB_CompareFunction func = m_KeyBuf->GetCompareFunction();
+     _ASSERT(func);
+     int ret = db->set_bt_compare(db, func);
++#endif
+     BDB_CHECK(ret, 0);
+ 
+     if (m_PrefixCompress) {
+@@ -2056,12 +2071,31 @@
+     BindKey("id", &IdKey);
+ }
+ 
++#if DB_VERSION_MAJOR >= 6
++extern "C" {
++    typedef int (*BDB_CompareFunction_V6)(DB*, const DBT*, const DBT*,
++                                          size_t*);
++    int BDB_Int4Compare_V6(DB* db, const DBT* dbt1, const DBT* dbt2, size_t*)
++        { return BDB_Int4Compare(db, dbt1, dbt2); }
++    int BDB_ByteSwap_Int4Compare_V6(DB* db, const DBT* dbt1, const DBT* dbt2,
++                                    size_t*)
++        { return BDB_ByteSwap_Int4Compare(db, dbt1, dbt2); }
++}
++#endif
++
+ void CBDB_IdFile::SetCmp(DB* /* db */)
+ {
++#if DB_VERSION_MAJOR >= 6
++    BDB_CompareFunction_V6 func = BDB_Int4Compare_V6;
++    if (IsByteSwapped()) {
++        func = BDB_ByteSwap_Int4Compare_V6;
++    }
++#else
+     BDB_CompareFunction func = BDB_Int4Compare;
+     if (IsByteSwapped()) {
+         func = BDB_ByteSwap_Int4Compare;
+     }
++#endif
+ 
+     _ASSERT(func);
+     int ret = m_DB->set_bt_compare(m_DB, func);

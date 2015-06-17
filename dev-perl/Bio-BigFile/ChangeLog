@@ -1,6 +1,11 @@
 # ChangeLog for dev-perl/Bio-BigFile
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  15 Jun 2015; Justin Lecher <jlec@gentoo.org> Bio-BigFile-1.07.ebuild,
+  metadata.xml:
+  dev-perl/Bio-BigFile: Fix dependency problems due to recent mask of perl-core
+  packages
 
   18 Sep 2013; Justin Lecher <jlec@gentoo.org> -Bio-BigFile-1.06.ebuild,
   +Bio-BigFile-1.07.ebuild, metadata.xml:
@@ -12,4 +17,3 @@
   09 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   Bio-BigFile-1.06.ebuild:
   initial ebuild, see bug #402835
-

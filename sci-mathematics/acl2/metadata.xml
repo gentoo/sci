@@ -19,6 +19,6 @@ Software System Award.
     </flag>
 	</use>
 	<upstream>
-		<remote-id type="github">acl2/acl2</remote-id>
+		<remote-id type="github">acl2-devel/acl2-devel</remote-id>
 	</upstream>
 </pkgmetadata>

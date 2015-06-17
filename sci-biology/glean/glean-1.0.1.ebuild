@@ -22,7 +22,7 @@ RDEPEND="${DEPEND}
 	virtual/perl-Storable
 	virtual/perl-Getopt-Long
 	virtual/perl-Data-Dumper
-	virtual/perl-Module-Pluggable
+	dev-perl/Module-Pluggable
 	dev-perl/Algorithm-Diff
 	sci-biology/bioperl
 	graphviz? ( dev-perl/GraphViz )"

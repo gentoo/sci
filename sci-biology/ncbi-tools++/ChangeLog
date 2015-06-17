@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jun 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/ncbi-tools++-12.0.0-bdb6.patch, ncbi-tools++-12.0.0.ebuild:
+  sci-biology/ncbi-tools++: added upstream patch to compile against sys-
+  libs/db-6.0.30
+
   17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-12.0.0.ebuild:
   sci-biology/ncbi-tools++: re-added KEYWORDS

@@ -16,6 +16,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="sci-biology/picard
+	sci-libs/jhdf5
 	>=virtual/jre-1.5:*"
 RDEPEND="${DEPEND}
 	dev-lang/perl
@@ -29,15 +30,26 @@ src_prepare(){
 }
 
 src_compile(){
-	ant build || die # TODO: this does not work somehow
+	ant || die
 }
 
 src_install(){
 	dobin fastqc run_fastqc.bat
 	dodoc README.txt RELEASE_NOTES.txt
 
-	# TODO: need to compile java in uk/ac/babraham/FastQC/
-	# and decide whether jbzip2-0.9.jar is a standard java lib or not
-	# ignore the sam-1.103.jar, that is likely library already in sci-biology/picard
-	# cisd-jhdf5.jar
+	# There is no fastqc.jar.  The output from the compilation is the set of
+	# .class files (a jar file is just a zip file full of .class files).  All
+	# you need to copy out is the contents of the bin subdirectory, the rest of
+	# the download you can discard.
+	# 
+	# jbzip2-0.9.jar comes from https://code.google.com/p/jbzip2
+	#
+	# ignore the sam-1.103.jar and rely on /usr/share/picard/lib/sam.jar from sci-biology/picard
+	# The sam-1.103.jar library comes from
+	# http://sourceforge.net/projects/picard/files/sam-jdk/.  Note that there is
+	# a newer version of this codebase at https://github.com/samtools/htsjdk but
+	# that FastQC is NOT yet compatible with the updated API (this will probably
+	# happen in a future release).  This library is needed to read SAM/BAM
+	# format files.
+	# cisd-jhdf5.jar should be provided by sci-libs/jhdf5
 }
