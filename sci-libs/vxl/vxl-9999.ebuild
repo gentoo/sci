@@ -15,5 +15,3 @@ LICENSE="BSD"
 SLOT="0"
 IUSE=""
 KEYWORDS=""
-
-
