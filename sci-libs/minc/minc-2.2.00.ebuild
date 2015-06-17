@@ -14,14 +14,17 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 LICENSE="BSD"
 
+COMMON_DEP="x11-libs/libXmu
+	x11-libs/libXi"
+
 DEPEND="sys-devel/flex
 	sys-devel/autoconf
-	sys-libs/zlib
-	dev-perl/Text-Format"
-
-RDEPEND="dev-util/byacc
-	sci-libs/hdf5
 	sci-libs/netcdf
+	sys-libs/zlib
+	dev-perl/Text-Format
+	dev-util/byacc
+	${COMMON_DEP}"
+
+RDEPEND="sci-libs/hdf5
 	media-libs/netpbm
-	x11-libs/libXmu
-	x11-libs/libXi"
+	${COMMON_DEP}"
