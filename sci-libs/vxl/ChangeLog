@@ -5,10 +5,10 @@
   17 Jun 2015; Horea Christian <h.chr@mail.ru> vxl-9999.ebuild:
   fixed trailing whitepace
 
-  25 May 2015;  <chymera@gentoo.org> vxl-9999.ebuild:
+  25 May 2015; Horea Christian <h.chr@mail.ru> vxl-9999.ebuild:
   dropped emty dep, sorted eclasses
 
 *vxl-9999 (25 May 2015)
 
-  25 May 2015;  <chymera@gentoo.org> +metadata.xml, +vxl-9999.ebuild:
+  25 May 2015; Horea Christian <h.chr@mail.ru> +metadata.xml, +vxl-9999.ebuild:
   new ebuild
