@@ -36,7 +36,7 @@ RDEPEND="x11-libs/motif[-static-libs]
 DEPEND="${RDEPEND}
 	app-shells/tcsh"
 
-S=${WORKDIR}/${P}/src
+S=${WORKDIR}/${P}
 
 
 src_prepare() {
