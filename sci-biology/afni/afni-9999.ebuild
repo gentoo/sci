@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils multilib pax-utils git-r3 toolchain-funcs
+inherit cmake-utils eutils multilib pax-utils git-r3 toolchain-funcs
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
