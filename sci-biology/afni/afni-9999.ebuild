@@ -40,6 +40,6 @@ S=${WORKDIR}/${P}
 
 
 src_prepare() {
-	PATCH_SOURCE="${S}/debian/patches/cmake_*" \
+	EPATCH_SOURCE="${S}/debian/patches/cmake_*" \
         EPATCH_FORCE="yes" epatch
 }
