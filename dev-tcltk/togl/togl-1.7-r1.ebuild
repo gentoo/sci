@@ -15,7 +15,8 @@ SLOT="1.7"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug +threads"
 
-RDEPEND="dev-lang/tk
+RDEPEND="
+	dev-lang/tk:0
 	virtual/opengl"
 DEPEND="${RDEPEND}"
 
@@ -32,7 +33,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	rm "${D}"/usr/include/* || die
 	insinto /usr/include/${PN}-${SLOT}
 	doins togl*.h

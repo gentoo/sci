@@ -8,4 +8,7 @@
   <use>
     <flag name="gui">Build the Java base graphical interface</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">conceptual</remote-id>
+  </upstream>
 </pkgmetadata>

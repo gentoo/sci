@@ -20,4 +20,7 @@
     <flag name="paraview">Enable the Visualisation and Analysis Toolkit ExtensionS (VATES)</flag>
     <flag name="tcmalloc">Use thread-caching malloc</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">mantid</remote-id>
+  </upstream>
 </pkgmetadata>

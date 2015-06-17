@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <longdescription lang="en">
+	<longdescription lang="en">
 		Open Source API for FSTs, a set of command line tools, and clones of
 		traditional FST-based linguistic morphology tools.
 	</longdescription>
-  <use>
-    <flag name="openfst">
+	<use>
+		<flag name="openfst">
 			Add optional support for openfst backend library
 			(<pkg>sci-misc/openfst</pkg>)
 		</flag>
-    <flag name="foma">
+		<flag name="foma">
 			Add optional support for foma backend library
 			(<pkg>sci-misc/foma</pkg>)</flag>
-    <flag name="sfst">
+		<flag name="sfst">
 			Add optional support for sfst backend library
 			(<pkg>sci-misc/sfst</pkg>)
 		</flag>
-    <flag name="glib">
+		<flag name="glib">
 			Parse UTF-8 and collate unicode using glib instead of
 			homebrewn methods
 		</flag>
-    <flag name="xml">
+		<flag name="xml">
 			Include parsers for grammars and formats that require XML support
 		</flag>
-  </use>
+	</use>
+	<upstream>
+		<remote-id type="sourceforge">hfst</remote-id>
+	</upstream>
 </pkgmetadata>

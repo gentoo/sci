@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/avogadro2
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-chemistry/avogadro2: Updating remote-id in metadata.xml
 
   16 Jan 2014; Justin Lecher <jlec@gentoo.org> avogadro2-0.7.2.ebuild:
   fix USE deps; don't install license file
@@ -10,4 +13,3 @@
   16 Jan 2014; Justin Lecher <jlec@gentoo.org> +avogadro2-0.7.2.ebuild,
   +metadata.xml:
   New package, written by me
-

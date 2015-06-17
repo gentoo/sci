@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer>
-  <email>witold.pilat@gmail.com</email>
-</maintainer>
-<longdescription>
+  <maintainer>
+    <email>witold.pilat@gmail.com</email>
+  </maintainer>
+  <longdescription>
   Pynomo is a program to create (pdf) nomographs
   (nomograms) using Python interpreter. A nomograph (nomogram) is a
   graphical solution to an equation.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">pynomo</remote-id>
+  </upstream>
 </pkgmetadata>

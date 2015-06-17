@@ -1,6 +1,9 @@
 # ChangeLog for sci-electronics/tnt
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-electronics/tnt: Updating remote-id in metadata.xml
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> tnt-1.2.2.ebuild,
   +files/tnt-1.2.2-autotools.patch, metadata.xml:

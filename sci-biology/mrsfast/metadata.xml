@@ -6,4 +6,7 @@
     <name>Andrey Kislyuk</name>
   </maintainer>
   <herd>sci-biology</herd>
+  <upstream>
+    <remote-id type="sourceforge">mrsfast</remote-id>
+  </upstream>
 </pkgmetadata>

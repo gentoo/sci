@@ -4,12 +4,12 @@
 
 EAPI=5
 
-inherit latex-package git-r3
+inherit cmake-utils git-r3
 
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="http://stnava.github.io/ANTs/"
 SRC_URI=""
-EGIT_REPO_URI="https://bpaste.net/show/02535651bb27"
+EGIT_REPO_URI="git://github.com/stnava/ANTs.git"
 
 SLOT="0"
 LICENSE="BSD"
@@ -18,10 +18,9 @@ KEYWORDS=""
 DEPEND="sci-libs/itk"
 RDEPEND="${DEPEND}"
 
-src_compile() {
+src_install() {
 	pwd
 	ls
-	ccmake ANTs
-	emake -j4
+	cd "${P}_build/ANTS-build"
+	emake DESTDIR="${D}" install
 }
-

@@ -1,6 +1,9 @@
 # ChangeLog for sci-misc/hfst
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-misc/hfst: Updating remote-id in metadata.xml
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> hfst-3.0.2.ebuild,
   hfst-3.3.12.ebuild, metadata.xml:
@@ -28,4 +31,3 @@
 
   17 Nov 2009; <flammie@gentoo.org> +hfst-2.2.ebuild, +metadata.xml:
   Initial ebuild for HFST
-

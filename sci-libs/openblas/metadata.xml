@@ -10,4 +10,7 @@
     <flag name="int64">Build the 64 bits integer library</flag>
     <flag name="dynamic">Build dynamic architecture detection at run time (for multi targets)</flag>
   </use>
+  <upstream>
+    <remote-id type="github">xianyi/OpenBLAS</remote-id>
+  </upstream>
 </pkgmetadata>

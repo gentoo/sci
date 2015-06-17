@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,7 +24,7 @@ REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
 	>=sci-libs/libsc-1.0[mpi,romio]
-	dev-lang/lua
+	dev-lang/lua:*
 	sys-apps/util-linux
 	virtual/blas
 	virtual/lapack

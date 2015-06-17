@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-lang/terra: Add github to remote-id in metadata.xml
+
 *terra-2015.03.12 (24 Apr 2015)
 
   24 Apr 2015; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,

@@ -8,4 +8,7 @@
   <use>
     <flag name="rpc">Enable RPC server</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">avogadro</remote-id>
+  </upstream>
 </pkgmetadata>

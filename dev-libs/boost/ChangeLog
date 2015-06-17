@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  dev-libs/boost: Updating remote-id in metadata.xml
+
   02 Apr 2015; Justin Lecher <jlec@gentoo.org> boost-1.56.0-r2.ebuild,
   metadata.xml:
   dev-libs/boost: Move to new CAT

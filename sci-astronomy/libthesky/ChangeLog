@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-astronomy/libthesky: Updating remote-id in metadata.xml
+
   09 May 2015; AstroFloyd <AstroFloyd@gmail.com> +libthesky-0.3.2.ebuild,
   +metadata.xml:
   Moved ebuild to Science overlay
@@ -52,4 +55,3 @@
 
   26 Aug 2013; AstroFloyd <AstroFloyd@gmail.com> +libthesky-0.0.1.ebuild,
   +metadata.xml:
-

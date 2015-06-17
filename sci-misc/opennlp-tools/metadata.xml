@@ -11,4 +11,7 @@
   <use>
     <flag name="models">Automatically generated description for models</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">opennlp</remote-id>
+  </upstream>
 </pkgmetadata>

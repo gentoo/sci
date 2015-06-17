@@ -8,4 +8,7 @@
   Implementation of statistical classification using
   maximum entropy models in opennlp framework.
 </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">maxent</remote-id>
+  </upstream>
 </pkgmetadata>

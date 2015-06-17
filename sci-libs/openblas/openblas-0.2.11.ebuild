@@ -5,7 +5,7 @@
 EAPI=5
 
 EBASE_PROFNAME="openblas"
-inherit alternatives-2 eutils fortran-2 multibuild multilib-build toolchain-funcs fortran-int64
+inherit alternatives-2 eutils multilib fortran-2 multibuild multilib-build toolchain-funcs fortran-int64
 
 SRC_URI+="http://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
 if [[ ${PV} == "9999" ]] ; then
