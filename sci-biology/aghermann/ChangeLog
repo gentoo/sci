@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Jun 2015; Andrei Zavada <johnhommer@gmail.com> aghermann-1.0.5.ebuild:
+  New upstream version.
+
   10 Apr 2015; Andrei Zavada <johnhommer@gmail.com> aghermann-1.0.4.ebuild:
   New upstream version.
 
