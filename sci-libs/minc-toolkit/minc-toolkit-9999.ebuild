@@ -15,3 +15,16 @@ LICENSE="BSD"
 SLOT="0"
 IUSE=""
 KEYWORDS=""
+
+COMMON_DEP="x11-libs/libXmu
+	x11-libs/libXi"
+
+DEPEND="dev-lang/perl
+	media-libs/freeglut
+	sys-devel/bison
+	sys-devel/flex
+	${COMMON_DEP}"
+
+RDEPEND="sci-libs/hdf5
+	media-libs/netcdf
+	${COMMON_DEP}"
