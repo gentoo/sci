@@ -6,6 +6,9 @@
   unbundled more packages
 
   18 Jun 2015; Horea Christian <h.chr@mail.ru> minc-toolkit-9999.ebuild:
+  unbundled more packages
+
+  18 Jun 2015; Horea Christian <h.chr@mail.ru> minc-toolkit-9999.ebuild:
   using system cdf5
 
   18 Jun 2015; Horea Christian <h.chr@mail.ru> minc-toolkit-9999.ebuild:

@@ -16,7 +16,10 @@ SLOT="0"
 IUSE=""
 KEYWORDS=""
 
-COMMON_DEP="sci-libs/hdf5
+COMMON_DEP="dev-libs/libpcre
+	sci-libs/gsl
+	sci-libs/hdf5
+	sci-libs/itk
 	media-libs/freeglut
 	x11-libs/libXmu
 	x11-libs/libXi"
@@ -32,8 +35,11 @@ RDEPEND="sci-libs/netcdf
 
 src_configure() {
 	local mycmakeargs=(
+		-DUSE_SYSTEM_GSL=1
 		-DUSE_SYSTEM_HDF5=1
+		-DUSE_SYSTEM_ITK=1
 		-DUSE_SYSTEM_NETCDF=1
+		-DUSE_SYSTEM_PCRE=1
 		-DUSE_SYSTEM_ZLIB=1
 		)
 	cmake-utils_src_configure
