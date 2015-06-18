@@ -7,4 +7,7 @@
   MINC-based packages that historically have been developed somewhat 
   independently.
 </longdescription>
+<use>
+  <flag name="itk">Emerge sci-libs/itk to complement the package</flag>
+</use>
 </pkgmetadata>
