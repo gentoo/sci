@@ -28,3 +28,8 @@ DEPEND="dev-lang/perl
 RDEPEND="sci-libs/hdf5
 	sci-libs/netcdf
 	${COMMON_DEP}"
+
+src_configure() {
+	local mycmakeargs=( -DUSE_SYSTEM_HDF5=1 )
+	cmake-utils_src_configure
+}
