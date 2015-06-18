@@ -16,20 +16,25 @@ SLOT="0"
 IUSE=""
 KEYWORDS=""
 
-COMMON_DEP="media-libs/freeglut
+COMMON_DEP="sci-libs/hdf5
+	media-libs/freeglut
 	x11-libs/libXmu
 	x11-libs/libXi"
 
 DEPEND="dev-lang/perl
+	sys-libs/zlib
 	sys-devel/bison
 	sys-devel/flex
 	${COMMON_DEP}"
 
-RDEPEND="sci-libs/hdf5
-	sci-libs/netcdf
+RDEPEND="sci-libs/netcdf
 	${COMMON_DEP}"
 
 src_configure() {
-	local mycmakeargs=( -DUSE_SYSTEM_HDF5=1 )
+	local mycmakeargs=(
+		-DUSE_SYSTEM_HDF5=1
+		-DUSE_SYSTEM_NETCDF=1
+		-DUSE_SYSTEM_ZLIB=1
+		)
 	cmake-utils_src_configure
 }
