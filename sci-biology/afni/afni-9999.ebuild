@@ -40,10 +40,9 @@ S=${WORKDIR}/${P}
 PATCH_DIR="debian/patches"
 
 src_prepare() {
-	cd "${S}/${PATCH_DIR}"
 	while read PATCH_FILE; do
 		if  [[ $PATCH_FILE == cmake* ]] ; then
   			epatch "${S}/${PATCH_DIR}/${PATCH_FILE}"
 		fi
-	done <series
+	done <"${S}/${PATCH_DIR}/series"
 }
