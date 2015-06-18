@@ -13,13 +13,14 @@ EGIT_REPO_URI="git://github.com/BIC-MNI/minc-toolkit.git"
 
 LICENSE="BSD"
 SLOT="0"
-IUSE=""
+IUSE="itk"
 KEYWORDS=""
 
 COMMON_DEP="dev-libs/libpcre
+	sci-libs/fftw
 	sci-libs/gsl
 	sci-libs/hdf5
-	sci-libs/itk
+	itk? ( sci-libs/itk )
 	media-libs/freeglut
 	x11-libs/libXmu
 	x11-libs/libXi"
@@ -35,9 +36,9 @@ RDEPEND="sci-libs/netcdf
 
 src_configure() {
 	local mycmakeargs=(
+		-DUSE_SYSTEM_FFTW3F=1
 		-DUSE_SYSTEM_GSL=1
 		-DUSE_SYSTEM_HDF5=1
-		-DUSE_SYSTEM_ITK=1
 		-DUSE_SYSTEM_NETCDF=1
 		-DUSE_SYSTEM_PCRE=1
 		-DUSE_SYSTEM_ZLIB=1
