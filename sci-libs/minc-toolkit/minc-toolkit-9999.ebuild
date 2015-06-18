@@ -26,5 +26,5 @@ DEPEND="dev-lang/perl
 	${COMMON_DEP}"
 
 RDEPEND="sci-libs/hdf5
-	media-libs/netcdf
+	sci-libs/netcdf
 	${COMMON_DEP}"
