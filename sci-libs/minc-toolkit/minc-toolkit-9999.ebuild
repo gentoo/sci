@@ -16,11 +16,11 @@ SLOT="0"
 IUSE=""
 KEYWORDS=""
 
-COMMON_DEP="x11-libs/libXmu
+COMMON_DEP="media-libs/freeglut
+	x11-libs/libXmu
 	x11-libs/libXi"
 
 DEPEND="dev-lang/perl
-	media-libs/freeglut
 	sys-devel/bison
 	sys-devel/flex
 	${COMMON_DEP}"
