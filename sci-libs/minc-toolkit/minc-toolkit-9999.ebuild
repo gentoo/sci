@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+#DUS Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -36,6 +36,7 @@ RDEPEND="sci-libs/netcdf
 
 src_configure() {
 	local mycmakeargs=(
+		cmake-utils_use_use itk SYSTEM_ITK
 		-DUSE_SYSTEM_FFTW3F=1
 		-DUSE_SYSTEM_GSL=1
 		-DUSE_SYSTEM_HDF5=1
