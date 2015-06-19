@@ -8,6 +8,6 @@
   independently.
 </longdescription>
 <use>
-  <flag name="itk">Emerge sci-libs/itk to complement the package</flag>
+  <flag name="itk">Build ITK-based tools</flag>
 </use>
 </pkgmetadata>
