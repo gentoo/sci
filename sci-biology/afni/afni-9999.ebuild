@@ -23,7 +23,8 @@ RDEPEND="dev-libs/expat
 	media-video/mpeg-tools
 	sci-libs/gsl
 	sys-devel/llvm
-	x11-libs/libGLw	
+	virtual/jpeg
+	x11-libs/libGLw
 	x11-libs/libXft
 	x11-libs/libXi
 	x11-libs/libXpm
