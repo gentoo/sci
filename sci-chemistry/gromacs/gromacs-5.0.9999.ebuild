@@ -252,6 +252,11 @@ src_install() {
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_install
 	done
+
+	if use tng; then
+		insinto /usr/include/tng
+		doins src/external/tng_io/include/tng/*h
+	fi
 	# drop unneeded stuff
 	rm "${ED}"usr/bin/GMXRC* || die
 	#concatenate all gmx-completion*, starting with gmx-completion.bash (fct defs)
