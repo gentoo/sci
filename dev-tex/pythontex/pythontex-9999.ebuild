@@ -23,8 +23,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 DEPEND="${PYTHON_DEPS}
 	dev-texlive/texlive-latex"
 RDEPEND="${DEPEND}
-	dev-texlive/texlive-xetex
-	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
+	dev-texlive/texlive-latex
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
 TEXMF=/usr/share/texmf-site
