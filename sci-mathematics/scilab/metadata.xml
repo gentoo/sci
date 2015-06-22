@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription lang="en">
+  <herd>sci-mathematics</herd>
+  <longdescription lang="en">
   Scilab is a matrix-based scientific software package. Scilab contains
   hundreds of built-in mathematical functions, rich data structures
   (including polynomials, rationals,linear systems, lists, etc...) and
   comes with a number of specific toolboxes for control, signal
   processing, ...
 </longdescription>
-<use>
-  <flag name='gui'>Build the Java base graphical interface</flag>
-  <flag name="umfpack">Adds support for sparse solving
+  <use>
+    <flag name="gui">Build the Java base graphical interface</flag>
+    <flag name="umfpack">Adds support for sparse solving
   with <pkg>sci-libs/umfpack</pkg></flag>
-  <flag name='matio'>Enable support for MATLAB file through <pkg>sci-libs/matio</pkg></flag>
-  <flag name='xcos'>Enable building hybrid dynamic systems modeler and
+    <flag name="matio">Enable support for MATLAB file through <pkg>sci-libs/matio</pkg></flag>
+    <flag name="xcos">Enable building hybrid dynamic systems modeler and
   simulator Xcos</flag>
-  <flag name='emf'>Add suport for exporting to emf files</flag>
-</use>
+    <flag name="emf">Add suport for exporting to emf files</flag>
+  </use>
 </pkgmetadata>

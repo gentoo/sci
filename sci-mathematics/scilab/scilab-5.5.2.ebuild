@@ -75,7 +75,7 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.5
-		doc? ( dev-java/batik:1.7
+		doc? ( dev-java/batik:1.8
 			   app-text/docbook-xsl-stylesheets
 			   dev-java/xml-commons-external:1.4
 			   dev-java/saxon:9 )
