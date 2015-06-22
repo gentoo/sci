@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/phenix-bin
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 Jun 2015; Justin Lecher <jlec@gentoo.org> -phenix-bin-1.8.2.1309.ebuild,
+  -phenix-bin-1.8.4.1496.ebuild:
+  sci-chemistry/phenix-bin: Drop old
 
   14 Nov 2014; Justin Lecher <jlec@gentoo.org> phenix-bin-1.9.1692.ebuild:
   Fix dep SLOT of sys-libs/db
@@ -68,4 +72,3 @@
   20 Sep 2012; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.8.1069.ebuild,
   +metadata.xml:
   New Addition
-
