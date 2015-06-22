@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 COMMON_DEPEND="dev-java/ant-core
-	dev-java/batik:1.7
+	dev-java/batik:1.8=
 	dev-java/commons-logging
 	dev-java/jcip-annotations
 	dev-java/xml-commons-external:1.3
