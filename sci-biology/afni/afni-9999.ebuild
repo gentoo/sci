@@ -17,7 +17,6 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND="dev-libs/expat
-	media-libs/libjpeg-turbo
 	media-libs/netpbm
 	media-libs/qhull
 	media-video/mpeg-tools
