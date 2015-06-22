@@ -4,6 +4,14 @@
 
   22 Jun 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
+  not depending on libjpeg-turbo
+
+  22 Jun 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  depending on virtual/jpeg
+
+  22 Jun 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
   sorted dep list
 
   18 Jun 2015; Chymera <chymera@gentoo.org> afni-9999.ebuild:
