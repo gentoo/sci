@@ -43,6 +43,7 @@ src_configure() {
 		-DUSE_SYSTEM_NETCDF=1
 		-DUSE_SYSTEM_PCRE=1
 		-DUSE_SYSTEM_ZLIB=1
+		-DMT_BUILD_ITK_TOOL=$(usex itk 1 0)
 		)
 	cmake-utils_src_configure
 }
