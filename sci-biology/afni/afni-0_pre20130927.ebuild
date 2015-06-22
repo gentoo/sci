@@ -15,18 +15,18 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-RDEPEND="x11-libs/motif[-static-libs]
-	sci-libs/gsl
-	dev-libs/expat
-	x11-libs/libXpm
-	media-libs/netpbm
-	x11-libs/libGLw
-	media-libs/qhull
-	sys-devel/llvm
-	media-video/mpeg-tools
+RDEPEND="dev-libs/expat
 	media-libs/libjpeg-turbo
+	media-libs/netpbm
+	media-libs/qhull
+	media-video/mpeg-tools
+	sci-libs/gsl
+	sys-devel/llvm
+	x11-libs/libGLw	
 	x11-libs/libXft
-	x11-libs/libXi"
+	x11-libs/libXi
+	x11-libs/libXpm
+	x11-libs/motif[-static-libs]"
 
 # x11-libs/motif[static-libs] breaks the build.
 # See upstream discussion

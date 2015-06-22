@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jun 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  sorted dep list
+
   18 Jun 2015; Chymera <chymera@gentoo.org> afni-9999.ebuild:
   better path handling
 
@@ -34,116 +38,116 @@
   afni-9999.ebuild:
   added new dep x11-libs/libXft
 
-  13 Apr 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  13 Apr 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   removed blank line
 
-  08 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  08 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   reorganized dependencies, added unadded deps to 9999
 
-  07 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild:
+  07 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild:
   removed double dependency entry
 
-  05 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  05 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   solving binary conflicts
 
-  03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  03 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   added deps
 
-  03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  03 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   hackin INSTALLDIR to substitute for LIBDIR
 
-  03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  03 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   setting LIBDIR and compiling without target directory
 
-  03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild:
+  03 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild:
   typo
 
-  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  02 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   using $(getlib_dir) correctly
 
-  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  02 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   installing in /usr/lib
 
-  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  02 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   using ED instead of D (prefix support)
 
-  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  02 Apr 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   installing afni binaries under /usr/bin
 
-  31 Mar 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  31 Mar 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   removed commented lines from earlier ebuild versions
 
-  25 Mar 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild:
+  25 Mar 2015;  <h.chr@mail.ru> afni-0_pre20130927.ebuild:
   updated nonlive ebuild
 
-  25 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  25 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   referencing rdepend
 
-  25 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  25 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   unindented accolades
 
-  24 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  24 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   no longer making afni bin, compiling everything with -j1
 
-  24 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  24 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   fixed weird SUMA/SUMA_Makefile logic
 
-  19 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  19 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   depend on  x11-libs/libGLw
 
-  19 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  19 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   Ebuild remake by grknight, now honoring cflags and other gentoo settings
 
-  18 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  18 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   removed echo andblank line
 
-  18 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  18 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   no longer including Makefile.INCLUDE
 
-  17 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  17 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   doexe from prog_list.txt
 
-  16 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  16 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   Now istalling exes specified in src/prog_list.txt
 
-  11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  11 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   reverted to insinto, dealing with run permissions separately
 
-  11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  11 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   finished git-uri rewrite
 
-  11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  11 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   installing directly from github
 
-  10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   no recursive doexe
 
-  10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   installing everyting as exe
 
-  10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   adding run permissions
 
-  10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   added path to environment variable, corrected spelling and whitespace
 
-  05 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  05 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   added dep
 
-  04 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  04 Mar 2015;  <h.chr@mail.ru> afni-9999.ebuild:
   added dep and removed keyword for live ebuild
 
 *afni-9999 (04 Mar 2015)
 
-  04 Mar 2015;  <chymera@gentoo.org> +afni-9999.ebuild, +metadata.xml:
+  04 Mar 2015;  <h.chr@mail.ru> +afni-9999.ebuild, +metadata.xml:
   Added live ebuild and metadata
