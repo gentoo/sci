@@ -19,8 +19,6 @@ DEPEND="sci-libs/itk"
 RDEPEND="${DEPEND}"
 
 src_install() {
-	pwd
-	ls
-	cd "${P}_build/ANTS-build"
+	cd "${WORKDIR}/${P}_build/ANTS-build"
 	emake DESTDIR="${D}" install
 }
