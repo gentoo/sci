@@ -2,6 +2,19 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jun 2015; Justin Lecher <jlec@gentoo.org>
+  -files/scilab-5.5.0-accessviolation.patch,
+  -files/scilab-5.5.0-fix-random-runtime-failure.patch,
+  -files/scilab-5.5.0-followlinks.patch, -files/scilab-5.5.0-gluegen.patch,
+  -files/scilab-5.5.0-java-heap.patch, -files/scilab-5.5.0-jdk1.8.patch,
+  -files/scilab-5.5.0-nogui.patch, -files/scilab-5.5.1-accessviolation.patch,
+  -files/scilab-5.5.1-fix-random-runtime-failure.patch,
+  -files/scilab-5.5.1-followlinks.patch, -files/scilab-5.5.1-gluegen.patch,
+  -files/scilab-5.5.1-java-heap.patch, -files/scilab-5.5.1-missinglib.patch,
+  -files/scilab-5.5.1-nogui.patch, -scilab-5.5.0.ebuild, -scilab-5.5.1.ebuild,
+  metadata.xml, scilab-5.5.2.ebuild:
+  sci-mathematics/scilab: Fix SLOT version of batik
+
 *scilab-5.5.2 (03 Apr 2015)
 
   03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
