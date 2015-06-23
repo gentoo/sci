@@ -3,6 +3,12 @@
 # $Header: $
 
   22 Jun 2015; Horea Christian <h.chr@mail.ru> ants-9999.ebuild:
+  installing script dir
+
+  22 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
+  added die call for build dir
+
+  22 Jun 2015; Horea Christian <h.chr@mail.ru> ants-9999.ebuild:
   making install in the correct? directory
 
   14 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
