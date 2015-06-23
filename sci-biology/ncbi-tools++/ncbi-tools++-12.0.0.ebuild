@@ -39,6 +39,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="
 	!sci-biology/sra_sdk
+	app-arch/cpio
 	berkdb? ( sys-libs/db:4.3[cxx] )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
