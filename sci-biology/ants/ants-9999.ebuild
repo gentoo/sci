@@ -21,4 +21,6 @@ RDEPEND="${DEPEND}"
 src_install() {
 	cd "${WORKDIR}/${P}_build/ANTS-build" || die "build dir not found"
 	emake DESTDIR="${D}" install
+	cd "${WORKDIR}/${P}_build/Scripts" || die "scripts dir not found"
+	emake DESTDIR="${D}" install
 }
