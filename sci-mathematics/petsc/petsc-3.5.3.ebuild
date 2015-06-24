@@ -74,6 +74,13 @@ src_prepare() {
 }
 
 src_configure() {
+	# bug 548498
+	# PETSc runs mpi processes during configure that result in a sandbox
+	# violation by trying to open /proc/mtrr rw. This is not easy to
+	# mitigate because it happens in libpciaccess.so called by libhwloc.so,
+	# which is used by libmpi.so.
+	addpredict /proc/mtrr
+
 	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
 	petsc_enable() {
 		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -69,11 +69,21 @@ MAKEOPTS="${MAKEOPTS} -j1"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P%_*}-disable-rpath.patch
+	epatch \
+		"${FILESDIR}"/${P%_*}-disable-rpath.patch \
+		"${FILESDIR}"/${P%_*}-fix_sandbox_violation.patch
+
 	sed -i -e 's%/usr/bin/env python%/usr/bin/env python2%' configure || die
 }
 
 src_configure() {
+	# bug 548498
+	# PETSc runs mpi processes during configure that result in a sandbox
+	# violation by trying to open /proc/mtrr rw. This is not easy to
+	# mitigate because it happens in libpciaccess.so called by libhwloc.so,
+	# which is used by libmpi.so.
+	addpredict /proc/mtrr
+
 	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
 	petsc_enable() {
 		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"
@@ -192,18 +202,18 @@ src_install() {
 	doins ${PETSC_ARCH}/include/*
 	if use fortran; then
 		insinto /usr/include/${PN}/finclude
-		doins -r include/finclude/*
+		doins -r include/${PN}/finclude/*
 	fi
 	if ! use mpi ; then
 		insinto /usr/include/${PN}/mpiuni
 		doins include/mpiuni/*.h
 	fi
 	insinto /usr/include/${PN}/conf
-	doins conf/{variables,rules,test}
+	doins lib/${PN}/conf/{variables,rules,test}
 	insinto /usr/include/${PN}/${PETSC_ARCH}/conf
-	doins ${PETSC_ARCH}/conf/{petscrules,petscvariables,RDict.db}
-	insinto /usr/include/${PN}/petsc-private
-	doins include/petsc-private/*.h
+	doins ${PETSC_ARCH}/lib/${PN}/conf/{petscrules,petscvariables,RDict.db}
+	insinto /usr/include/${PN}/private
+	doins include/${PN}/private/*.h
 
 	# fix configuration files: replace "${S}" by installed location
 	sed -i \
