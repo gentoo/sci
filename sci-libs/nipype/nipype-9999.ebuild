@@ -28,6 +28,7 @@ DEPEND="
 	spm? ( sci-biology/spm )
 	afni? ( sci-biology/afni )"
 RDEPEND="
+	dev-lang/python[sqlite]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
