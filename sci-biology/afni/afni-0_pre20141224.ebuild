@@ -37,7 +37,6 @@ RDEPEND="dev-libs/expat
 DEPEND="${RDEPEND}
 	app-shells/tcsh"
 
-S=${WORKDIR}/${P}
 PATCH_DIR="debian/patches"
 
 src_prepare() {
