@@ -3,6 +3,9 @@
 # $Header: $
 
   06 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
+  reverted tag name, inherited eclass
+
+  06 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
   new tag name
 
   06 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:

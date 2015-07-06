@@ -4,13 +4,13 @@
 
 EAPI=5
 
-inherit multilib pax-utils toolchain-funcs
+inherit git-r3 multilib pax-utils toolchain-funcs
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/neurodebian/afni"
-EGIT_COMMIT="debian/0.20141224_dfsg.1-1 (75f52fc45d518c381d8bc7ad941d26d1772de6a2)"
+EGIT_COMMIT="debian/0.20141224_dfsg.1-1"
 
 LICENSE="GPL-3+"
 SLOT="0"
