@@ -2,6 +2,18 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Jun 2015; Matthias Maier <tamiko@gentoo.org> petsc-3.5.3.ebuild,
+  petsc-3.6.0.ebuild:
+  sci-mathematics/petsc: Avoid a sandbox violation, bug #548498
+
+*petsc-3.6.0 (23 Jun 2015)
+
+  23 Jun 2015; Matthias Maier <tamiko@gentoo.org>
+  +files/petsc-3.6.0-disable-rpath.patch,
+  +files/petsc-3.6.0-fix_sandbox_violation.patch, +petsc-3.6.0.ebuild,
+  -files/petsc-3.5.1-disable-rpath.patch, -petsc-3.5.1.ebuild:
+  version bump
+
 *petsc-3.5.3 (13 Mar 2015)
 
   13 Mar 2015; Matthias Maier <tamiko@gentoo.org>

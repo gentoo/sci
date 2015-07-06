@@ -1,6 +1,7 @@
---- config/BuildSystem/config/setCompilers.py	2013-10-08 19:45:00.581513389 +0200
-+++ config/BuildSystem/config/setCompilers.py	2013-05-13 23:35:20.000000000 +0200
-@@ -1303,12 +1303,7 @@
+diff --git a/config/BuildSystem/config/setCompilers.py b/config/BuildSystem/config/setCompilers.py
+--- a/config/BuildSystem/config/setCompilers.py
++++ b/config/BuildSystem/config/setCompilers.py
+@@ -1326,12 +1326,7 @@ class Configure(config.base.Configure):
      for language in languages:
        flag = '-L'
        self.pushLanguage(language)
@@ -8,7 +9,7 @@
 -      if not Configure.isDarwin():
 -        testFlags = ['-Wl,-rpath,', '-R','-rpath ' , '-Wl,-R,']
 -      else:
--        testFlags = []
+-        testFlags = ['-Wl,-rpath,']
 -      # test '-R' before '-Wl,-rpath' for SUN compilers [as cc on linux accepts -Wl,-rpath, but  f90 & CC do not.
 +      testFlags = []
        if self.isSun(self.framework.getCompiler()):
