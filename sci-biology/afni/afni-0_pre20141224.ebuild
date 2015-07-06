@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-r3
+inherit git-r3 cmake-utils
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"

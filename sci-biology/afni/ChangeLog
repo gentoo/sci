@@ -3,6 +3,9 @@
 # $Header: $
 
   06 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
+  using cmake eclass
+
+  06 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
   removed redundant (?) eclasses
 
   06 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
