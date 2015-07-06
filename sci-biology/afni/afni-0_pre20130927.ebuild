@@ -12,7 +12,7 @@ SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tgz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 RDEPEND="dev-libs/expat
