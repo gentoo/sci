@@ -25,6 +25,7 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]"
 RDEPEND="
+	dev-lang/python[sqlite]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
