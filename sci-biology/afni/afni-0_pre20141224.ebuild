@@ -42,7 +42,7 @@ PATCH_DIR="debian/patches"
 src_prepare() {
         while read PATCH_FILE; do
                 if  [[ $PATCH_FILE == cmake* ]] ; then
-                        epatch "${S}/${PATCH_DIR}/${PATCH_FILE}"
+                        epatch -p1 "${S}/${PATCH_DIR}/${PATCH_FILE}"
                 fi
         done <"${S}/${PATCH_DIR}/series"
 }
