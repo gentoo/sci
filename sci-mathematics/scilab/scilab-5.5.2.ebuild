@@ -49,7 +49,7 @@ CDEPEND="dev-libs/libpcre
 		dev-java/commons-io:1
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
-		dev-java/fop:0
+		dev-java/fop:2
 		=dev-java/gluegen-2.2.4:2.2
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
@@ -59,7 +59,7 @@ CDEPEND="dev-libs/libpcre
 		=dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
-		dev-java/xmlgraphics-commons:1.5
+		dev-java/xmlgraphics-commons:2
 		virtual/opengl
 		xcos? ( dev-java/jgraphx:2.5 )
 		)
