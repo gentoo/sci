@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jul 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jeuclid-core-3.1.9-r1.ebuild:
+  dev-java/jeuclid-core: Fix dependencies
+
   22 Jun 2015; Justin Lecher <jlec@gentoo.org> -jeuclid-core-3.1.8.ebuild,
   jeuclid-core-3.1.9-r1.ebuild:
   dev-java/jeuclid-core: Fix SLOT version of batik
