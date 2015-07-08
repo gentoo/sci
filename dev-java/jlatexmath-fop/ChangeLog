@@ -1,6 +1,10 @@
 # ChangeLog for dev-java/jlatexmath-fop
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jul 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jlatexmath-fop-1.0.3.ebuild:
+  dev-java/jlatexmath-fop: Blind fixing dependencies
 
   05 May 2014; Quentin Minster <quentin@minster.io> files/version.xml:
   dev-java/jlatexmath-fop-1.0.3: fix wrong version number in version.xml
