@@ -7,8 +7,8 @@
     <name>Marius Brehler</name>
   </maintainer>
   <longdescription>
-    Pure python library for libconfig syntax. IO works via strings only.
-    Thus, include directives are not supported.
+    Pure python library for libconfig syntax.
+    IO works via strings, and include directives.
 
     Scalar types are pythons basic types str, int, long, float, bool.
     The libconfig types Array, List, Group are implemented as ConfArray,

@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jul 2015; Marius Brehler <marbre@linux.sungazer.de> metadata.xml:
+  dev-python/pylibconfig2: Update long description
+
 *pylibconfig2-0.2.3 (08 Jul 2015)
 *pylibconfig2-9999 (08 Jul 2015)
 
