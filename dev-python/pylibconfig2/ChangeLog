@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/pylibconfig2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pylibconfig2-0.2.3 (08 Jul 2015)
+*pylibconfig2-9999 (08 Jul 2015)
+
+  08 Jul 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +pylibconfig2-0.2.3.ebuild, +pylibconfig2-9999.ebuild:
+  dev-python/pylibconfig2: New ebuilds written by me

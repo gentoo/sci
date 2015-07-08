@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    Pure python library for libconfig syntax. IO works via strings only.
+    Thus, include directives are not supported.
+
+    Scalar types are pythons basic types str, int, long, float, bool.
+    The libconfig types Array, List, Group are implemented as ConfArray,
+    ConfList, ConfGroup, respectively. A config is setup from a string
+    only, and represented as a string automatically.
+  </longdescription>
+</pkgmetadata>
