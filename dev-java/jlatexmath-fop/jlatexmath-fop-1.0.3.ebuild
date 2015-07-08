@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,7 +14,7 @@ SRC_URI="http://forge.scilab.org/upload/jlatexmath/files/${PN}-src-${PV}.zip"
 
 LICENSE="GPL-2"
 SLOT="1"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 CDEPEND="dev-java/jlatexmath:1
