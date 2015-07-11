@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
+  trying to see if I can skip building nifti
+
   10 Jul 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
   added debian cmake flags
 
