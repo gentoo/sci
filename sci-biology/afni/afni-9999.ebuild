@@ -36,7 +36,7 @@ RDEPEND="dev-libs/expat
 DEPEND="${RDEPEND}
 	app-shells/tcsh"
 
-S=${WORKDIR}/${P}
+S="${WORKDIR}/${P}/src"
 BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
 
