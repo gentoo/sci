@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils git-2
+inherit bash-completion-r1 eutils git-2
 
 DESCRIPTION="A free and open TL866XX programmer"
 HOMEPAGE="https://github.com/vdudouyt/minipro"
@@ -25,4 +25,6 @@ src_install() {
 	insinto /lib/udev/rules.d
 	doins udev/rules.d/80-minipro.rules
 	doman man/minipro.1
+	dobashcomp bash_completion.d/minipro
+	bashcomp_alias minipro minipro-query-db
 }
