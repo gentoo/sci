@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> metadata.xml:
+  Add sqlite3 flag description.
+
   23 Jun 2015; Horea Christian <h.chr@mail.ru> ncbi-tools++-12.0.0.ebuild:
   added dep needed at build-time
 
