@@ -9,9 +9,9 @@ PYTHON_COMPAT=( python2_7 )
 inherit cmake-utils git-r3 python-single-r1
 
 DESCRIPTION="Parallelization engine for optimization problems"
-HOMEPAGE="http://pagmo.sourceforge.net/"
+HOMEPAGE="https://github.com/esa/pagmo"
 SRC_URI=""
-EGIT_REPO_URI="git://pagmo.git.sourceforge.net/gitroot/pagmo/pagmo"
+EGIT_REPO_URI="https://github.com/esa/pagmo.git"
 
 LICENSE="GPL-3"
 SLOT="0"
