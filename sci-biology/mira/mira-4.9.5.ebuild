@@ -42,7 +42,8 @@ src_prepare() {
 	find -name 'configure*' -or -name 'Makefile*' | xargs sed -i 's/flex++/flex -+/' || die
 	epatch \
 		"${FILESDIR}"/${PN}-3.4.0.2-boost-1.50.patch \
-		"${FILESDIR}"/${P}-cout.patch
+		"${FILESDIR}"/${P}-cout.patch \
+		"${FILESDIR}"/${P}-fix-miramer-symlink-error.patch
 
 	sed \
 		-e "s:-O[23]::g" \
@@ -71,6 +72,19 @@ src_install() {
 
 	dobin "${WORKDIR}"/3rdparty/{sff_extract,qual2ball,*.pl}
 	dodoc "${WORKDIR}"/3rdparty/{README.txt,midi_screen.fasta}
+
+	# if sci-biology/staden is installed, ideally use configprotect?
+	if [ -e "${ED}"/usr/share/staden/etc/GTAGDB ]; then
+		if [ `grep -c HAF "${ED}"/usr/share/staden/etc/GTAGDB` -eq 0 ]; then
+			cat "${ED}"/usr/share/staden/etc/GTAGDB "${S}"/src/support/GTAGDB > "${WORKDIR}"/GTAGDB || die
+			insinto /usr/share/staden/etc/
+			doins "${WORKDIR}"/GTAGDB
+		fi
+	fi
+	if [ -e "/etc/consedrc/" ]; then
+		insinto /etc/consedrc
+		doins "${S}"/src/support/consedtaglib.txt
+	fi
 }
 
 pkg_postinst() {
