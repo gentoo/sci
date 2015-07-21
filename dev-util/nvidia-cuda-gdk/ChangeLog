@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nvidia-cuda-gdk-352.07 (21 Jul 2015)
+
+  21 Jul 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +nvidia-cuda-gdk-352.07.ebuild, metadata.xml:
+  dev-util/nvidia-cuda-gdk: Version bump
+
 *nvidia-cuda-gdk-346.46 (19 Mar 2015)
 
   19 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>

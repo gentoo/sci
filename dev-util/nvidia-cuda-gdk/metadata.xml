@@ -18,5 +18,8 @@
     <flag name="nvml">
 			Install the NVIDIA Managment Library.
 		</flag>
+    <flag name="nvvs">
+      Install the NVIDIA Validation Suite.
+    </flag>
   </use>
 </pkgmetadata>
