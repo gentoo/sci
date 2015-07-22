@@ -19,7 +19,7 @@ IUSE=""
 
 CDEPEND="dev-java/jlatexmath:1
 	dev-java/xmlgraphics-commons:2
-	>=dev-java/fop-2.0:2"
+	>=dev-java/fop-2.0-r1:0"
 DEPEND=">=virtual/jdk-1.5
 	${CDEPEND}"
 RDEPEND=">=virtual/jre-1.5
