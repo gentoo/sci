@@ -983,8 +983,8 @@ index 0000000..1b5a2b0
 +
 +	local variables=( PATH LD_LIBRARY_PATH MANPATH )
 +	[[ -n ${!default_*} ]] && local ${!default_*}
-+	local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${ROOT%/}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
-+	local default_MANPATH=$(MANPATH= man -C"${ROOT%/}"/etc/man.conf -w)
++	local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${EROOT%/}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
++	local default_MANPATH=$(MANPATH= man -C"${EROOT%/}"/etc/man.conf -w)
 +
 +	local var IFS=:
 +	for var in "${variables[@]}"; do
