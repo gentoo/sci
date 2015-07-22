@@ -15,4 +15,7 @@
     ConfList, ConfGroup, respectively. A config is setup from a string
     only, and represented as a string automatically.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">pylibconfig2</remote-id>
+  </upstream>
 </pkgmetadata>
