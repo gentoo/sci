@@ -1,0 +1,22 @@
+--- mira-4.9.5/src/progs/Makefile.in.ori	2015-07-21 00:55:09.860884698 +0200
++++ mira-4.9.5/src/progs/Makefile.in	2015-07-21 00:55:29.660884750 +0200
+@@ -717,7 +717,7 @@
+ 	rm -f mirabait$(EXEEXT) && \
+ 	$(LN_S) mira$(EXEEXT) mirabait$(EXEEXT) &&\
+ 	rm -f miraconvert$(EXEEXT) && \
+-	$(LN_S) mira$(EXEEXT) miraconvert$(EXEEXT) \
++	$(LN_S) mira$(EXEEXT) miraconvert$(EXEEXT) && \
+ 	rm -f miramer$(EXEEXT) && \
+ 	$(LN_S) mira$(EXEEXT) miramer$(EXEEXT)
+ 
+--- mira-4.9.5/src/progs/Makefile.am.ori	2015-07-21 01:30:09.580890184 +0200
++++ mira-4.9.5/src/progs/Makefile.am	2015-07-21 01:30:24.590890223 +0200
+@@ -51,7 +51,7 @@
+ 	rm -f mirabait$(EXEEXT) && \
+ 	$(LN_S) mira$(EXEEXT) mirabait$(EXEEXT) &&\
+ 	rm -f miraconvert$(EXEEXT) && \
+-	$(LN_S) mira$(EXEEXT) miraconvert$(EXEEXT) \
++	$(LN_S) mira$(EXEEXT) miraconvert$(EXEEXT) && \
+ 	rm -f miramer$(EXEEXT) && \
+ 	$(LN_S) mira$(EXEEXT) miramer$(EXEEXT)
+ 

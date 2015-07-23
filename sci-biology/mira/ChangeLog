@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/mira/ChangeLog,v 1.31 2015/04/07 14:33:30 jlec Exp $
 
+  21 Jul 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/mira-4.9.5-fix-miramer-symlink-error.patch, mira-4.9.5.ebuild:
+  sci-biology/mira-4.9.5: fix missing AND in Makefile; install config files for
+  staden and consed viewers/editors (maybe use config protect?)
+
   08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-biology/mira: Updating remote-id in metadata.xml
 
