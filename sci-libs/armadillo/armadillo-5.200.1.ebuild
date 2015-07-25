@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-libs/armadillo/armadillo-4.650.4.ebuild,v 1.1 2015/04/03 12:32:07 jlec Exp $
+# $Header: $
 
 EAPI=5
 
@@ -13,7 +13,7 @@ HOMEPAGE="http://arma.sourceforge.net/"
 SRC_URI="mirror://sourceforge/arma/${P}.tar.gz"
 
 LICENSE="MPL-2.0"
-SLOT="0/4"
+SLOT="0/5"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="arpack atlas blas debug doc examples hdf5 lapack mkl tbb test"
 REQUIRED_USE="test? ( lapack )"
