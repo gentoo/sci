@@ -29,6 +29,10 @@
     Use matrix allocation from the Threads Building Blocks
     <pkg>dev-cpp/tbb</pkg>
   </flag>
+    <flag name="superlu">
+    Use SuperLU for sparse linear equation solving
+    <pkg>sci-libs/superlu</pkg>
+  </flag>
   </use>
   <upstream>
     <remote-id type="sourceforge">arma</remote-id>
