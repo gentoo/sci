@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-libs/armadillo/armadillo-4.650.4.ebuild,v 1.1 2015/04/03 12:32:07 jlec Exp $
+# $Header: $
 
 EAPI=5
 
@@ -13,9 +13,9 @@ HOMEPAGE="http://arma.sourceforge.net/"
 SRC_URI="mirror://sourceforge/arma/${P}.tar.gz"
 
 LICENSE="MPL-2.0"
-SLOT="0/4"
+SLOT="0/5"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="arpack atlas blas debug doc examples hdf5 lapack mkl tbb test"
+IUSE="arpack atlas blas debug doc examples hdf5 lapack mkl superlu tbb test"
 REQUIRED_USE="test? ( lapack )"
 
 RDEPEND="
@@ -23,7 +23,9 @@ RDEPEND="
 	arpack? ( sci-libs/arpack )
 	atlas? ( sci-libs/atlas[lapack] )
 	blas? ( virtual/blas )
-	lapack? ( virtual/lapack )"
+	lapack? ( virtual/lapack )
+	superlu? ( sci-libs/superlu )
+"
 DEPEND="${RDEPEND}
 	arpack? ( virtual/pkgconfig )
 	atlas? ( virtual/pkgconfig )
@@ -87,6 +89,13 @@ src_configure() {
 			-DLAPACK_LIBRARIES="$($(tc-getPKG_CONFIG) --libs lapack)"
 		)
 	fi
+	if use superlu; then
+		mycmakeargs+=(
+			-DSuperLU_FOUND=ON
+			-DSuperLU_LIBRARIES="$($(tc-getPKG_CONFIG) --libs superlu)"
+		)
+	fi
+
 	cmake-utils_src_configure
 }
 
