@@ -1,0 +1,26 @@
+# ChangeLog for sci-biology/ants
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  06 Jul 2015; Horea Christian <h.chr@mail.ru> ants-9999.ebuild:
+  corrected scripts path
+
+  23 Jun 2015; Horea Christian <h.chr@mail.ru> ants-9999.ebuild:
+  installing scripts manually (and from the correct path)
+
+  22 Jun 2015; Horea Christian <h.chr@mail.ru> ants-9999.ebuild:
+  installing script dir
+
+  22 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
+  added die call for build dir
+
+  22 Jun 2015; Horea Christian <h.chr@mail.ru> ants-9999.ebuild:
+  making install in the correct? directory
+
+  14 Jun 2015; Chymera <chymera@gentoo.org> ants-9999.ebuild:
+  trying to make install
+
+*ants-9999 (13 Jun 2015)
+
+  13 Jun 2015; Chymera <chymera@gentoo.org> +ants-9999.ebuild, +metadata.xml:
+  new ebuild
