@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jul 2015;  <chymera@gentoo.org> ants-9999.ebuild:
+  specifying lib dir adequaltely for multilib setups
+
 *ants-9999 (26 Jul 2015)
 
   26 Jul 2015;  <chymera@gentoo.org> +ants-9999.ebuild, +metadata.xml:
