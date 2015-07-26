@@ -2,6 +2,21 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  18 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.32.ebuild,
+  -files/root-5.32.00-dotfont.patch, -files/root-5.34.05-nobyte-compile.patch,
+  -files/root-5.34.26-ldflags.patch, metadata.xml:
+
+  18 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> root-5.34.32.ebuild:
+  Do not use usex for postgres to avoid pg_config unconditional sourcing. See
+  bug 555246.
+
+*root-5.34.32 (17 Jul 2015)
+
+  17 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> +root-5.34.32.ebuild,
+  +files/root-5.32.00-dotfont.patch, +files/root-5.34.05-nobyte-compile.patch,
+  +files/root-5.34.26-ldflags.patch:
+  Version bump. Added for testing.
+
   12 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> -root-6.02.05-r2.ebuild,
   -files/root-6.00.01-prop-flags.patch, -files/root-6.02.05-dictpch.patch,
   -files/root-6.02.05-xrootd4.patch:

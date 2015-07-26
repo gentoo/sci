@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-physics</herd>
+<maintainer>
+  <email>bircoph@gentoo.org</email>
+  <name>Andrew Savchenko</name>
+</maintainer>
+<longdescription lang="en">
+  Advanced Simulation Library (ASL) is a free and open source
+  multiphysics simulation software package. Its computational
+  engine is based, among others, on the Lattice Boltzmann Methods
+  and is written in OpenCL which enable extraordinarily efficient
+  deployment on a variety of massively parallel architectures,
+  ranging from inexpensive FPGAs, DSPs and GPUs up to heterogeneous
+  clusters and supercomputers. The engine is hidden entirely behind
+  C++ classes, so that no OpenCL knowledge is required from
+  application programmers. ASL can be utilized to model various
+  coupled physical and chemical phenomena and employed in a
+  multitude of fields: computational fluid dynamics, virtual
+  sensing, industrial process data validation and reconciliation,
+  image-guided surgery, computer-aided engineering,
+  high-performance scientific computing, etc.
+</longdescription>
+<use>
+  <flag name="matio">Matlab support with <pkg>sci-libs/matio</pkg></flag>
+</use>
+<upstream>
+  <remote-id type="github">AvtechScientific/ASL</remote-id>
+</upstream>
+</pkgmetadata>

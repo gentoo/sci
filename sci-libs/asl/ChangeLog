@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/asl
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*asl-0.1.4 (25 Jul 2015)
+
+  25 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> +asl-0.1.4.ebuild,
+  +metadata.xml:
+  Initial commit.

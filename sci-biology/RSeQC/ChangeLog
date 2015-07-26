@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/RSeQC
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*RSeQC-2.6.1 (24 Jun 2015)
+
+  24 Jun 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +RSeQC-2.6.1.ebuild,
+  +metadata.xml:
+  sci-biology/RSeQC: new package

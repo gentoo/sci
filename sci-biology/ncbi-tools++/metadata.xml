@@ -25,6 +25,9 @@
     <flag name="sablotron">Undocumented USE</flag>
   </use>
   <use>
+    <flag name="sqlite3">Add support for <pkg>dev-db/sqlite:3</pkg></flag>
+  </use>
+  <use>
     <flag name="xerces">Undocumented USE</flag>
   </use>
   <use>

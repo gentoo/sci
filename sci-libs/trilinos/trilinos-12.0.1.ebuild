@@ -16,10 +16,9 @@ LICENSE="BSD LGPL-2.1"
 SLOT="0"
 
 IUSE="
-	adolc arprec boost clp cppunit cuda eigen glpk gtest
-	hdf5 hwloc hypre metis mkl mumps netcdf petsc qd qt4
-	scalapack scotch sparse superlu taucs tbb test threads
-	tvmet yaml zlib
+	adolc arprec boost clp cppunit cuda eigen glpk gtest hdf5 hwloc hypre
+	matio metis mkl mumps netcdf petsc qd qt4 scalapack scotch sparse
+	superlu taucs tbb test threads tvmet yaml zlib
 "
 
 # TODO: fix export cmake function for tests
@@ -39,6 +38,7 @@ RDEPEND="
 	hdf5? ( sci-libs/hdf5[mpi] )
 	hypre? ( sci-libs/hypre )
 	hwloc? ( sys-apps/hwloc )
+	matio? ( sci-libs/matio )
 	mkl? ( sci-libs/mkl )
 	metis? ( || ( sci-libs/parmetis sci-libs/metis ) )
 	mumps? ( sci-libs/mumps )
@@ -82,15 +82,19 @@ trilinos_enable() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-fix-install-paths.patch
+	epatch "${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch
+	epatch "${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch
 }
 
 src_configure() {
 
+	# temporarily disable SEACAS and pyTrilinos compilation
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}"
 		-DTrilinos_ENABLE_ALL_PACKAGES=ON
+		-DTrilinos_ENABLE_SEACAS=OFF
+		-DTrilinos_ENABLE_PyTrilinos=OFF
 		-DTrilinos_INSTALL_INCLUDE_DIR="${EPREFIX}/usr/include/trilinos"
 		-DTrilinos_INSTALL_LIB_DIR="${EPREFIX}/usr/$(get_libdir)/trilinos"
 		-DTrilinos_INSTALL_CONFIG_DIR="${EPREFIX}/usr/$(get_libdir)/cmake"
@@ -114,6 +118,7 @@ src_configure() {
 		$(trilinos_enable hdf5)
 		$(trilinos_enable hwloc)
 		$(trilinos_enable hypre)
+		$(trilinos_enable matio)
 		$(trilinos_enable metis)
 		$(trilinos_enable mkl)
 		$(trilinos_enable mkl PARDISO_MKL)

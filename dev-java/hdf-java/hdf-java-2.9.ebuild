@@ -10,7 +10,7 @@ inherit autotools eutils fdo-mime java-pkg-2
 
 DESCRIPTION="Java interface to the HDF5 library"
 HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/index.html"
-SRC_URI="http://www.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/hdf-java-2.9/src/${P}-src.tar"
+SRC_URI="https://www.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/${P}/src/${P}-src.tar"
 
 LICENSE="NCSA-HDF"
 SLOT="0"

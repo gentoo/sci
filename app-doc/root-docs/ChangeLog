@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/ChangeLog,v 1.42 2014/03/28 18:48:01 bicatali Exp $
 
+  18 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> -root-docs-5.34.32.ebuild,
+  -files/root-docs-6.00.01-fillpatterns.patch:
+  5.34.32 is moved to the main tree now
+
+*root-docs-5.34.32 (17 Jul 2015)
+
+  17 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> +root-docs-5.34.32.ebuild,
+  +files/root-docs-6.00.01-fillpatterns.patch:
+  Version bump. Added for testing.
+
   12 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> -root-docs-6.02.05.ebuild:
   6.02.05 is in the portage tree now
 

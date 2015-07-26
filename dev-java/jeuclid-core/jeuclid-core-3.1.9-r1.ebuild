@@ -20,7 +20,7 @@ COMMON_DEPEND="dev-java/ant-core
 	dev-java/commons-logging
 	dev-java/jcip-annotations
 	dev-java/xml-commons-external:1.3
-	dev-java/xmlgraphics-commons:1.5"
+	dev-java/xmlgraphics-commons:2"
 
 RDEPEND=">=virtual/jre-1.5
 	${COMMON_DEPEND}"

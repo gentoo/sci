@@ -4,16 +4,16 @@
 
 EAPI="5"
 
-inherit eutils flag-o-matic subversion
+inherit eutils flag-o-matic
 
 DESCRIPTION="A toolkit for speech recognition"
 HOMEPAGE="http://kaldi.sourceforge.net/"
-ESVN_REPO_URI="https://svn.code.sf.net/p/kaldi/code/trunk/src@4927"
+SRC_URI="http://gentoo.akreal.net/distfiles/${P}.tar.xz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 IUSE="doc test threads"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 RDEPEND="
 	media-libs/speex

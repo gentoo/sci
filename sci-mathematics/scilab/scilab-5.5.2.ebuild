@@ -59,7 +59,7 @@ CDEPEND="dev-libs/libpcre
 		=dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
-		dev-java/xmlgraphics-commons:1.5
+		dev-java/xmlgraphics-commons:2
 		virtual/opengl
 		xcos? ( dev-java/jgraphx:2.5 )
 		)

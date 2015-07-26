@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jul 2015; Marius Brehler <marbre@linux.sungazer.de> scilab-5.5.2.ebuild:
+  sci-mathematics/scilab: Fix deps
+
+  08 Jul 2015; Marius Brehler <marbre@linux.sungazer.de> scilab-5.5.2.ebuild:
+  sci-mathematics/scilab: Blind fixing dependencies
+
   22 Jun 2015; Justin Lecher <jlec@gentoo.org>
   -files/scilab-5.5.0-accessviolation.patch,
   -files/scilab-5.5.0-fix-random-runtime-failure.patch,

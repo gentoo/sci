@@ -34,8 +34,8 @@ HOMEPAGE="http://www.open-mpi.org"
 SRC_URI="http://www.open-mpi.org/software/ompi/v$(get_version_component_range 1-2)/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux"
-IUSE="cma cuda +cxx elibc_FreeBSD fortran heterogeneous ipv6 mpi-threads romio threads vt
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux"
+IUSE="cma cuda +cxx elibc_FreeBSD fortran heterogeneous ipv6 mpi-threads numa romio threads vt
 	${IUSE_OPENMPI_FABRICS} ${IUSE_OPENMPI_RM} ${IUSE_OPENMPI_OFED_FEATURES}"
 
 REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
@@ -55,10 +55,11 @@ MPI_UNCLASSED_DEP_STR="
 	)"
 
 RDEPEND="
-	cuda? ( dev-util/nvidia-cuda-toolkit )
 	dev-libs/libevent
-	>=sys-apps/hwloc-1.7.2
+	dev-libs/libltdl:0
+	>=sys-apps/hwloc-1.9.1[numa?]
 	sys-libs/zlib
+	cuda? ( dev-util/nvidia-cuda-toolkit )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
 	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
@@ -104,22 +105,13 @@ src_configure() {
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
 		--with-hwloc="${EPREFIX}/usr"
+		--with-libltdl="${EPREFIX}/usr"
 		)
 
-	if use mpi-threads; then
-		myconf+=(--enable-mpi-threads
-			--enable-opal-multi-threads)
-	fi
-
 	if use fortran; then
-		if [[ $(tc-getFC) =~ g77 ]]; then
-			myconf+=(--disable-mpi-f90)
-		elif [[ $(tc-getFC) =~ if ]]; then
-			# Enabled here as gfortran compile times are huge with this enabled.
-			myconf+=(--with-mpi-f90-size=medium)
-		fi
+		myconf+=(--enable-mpi-fortran=all)
 	else
-		myconf+=(--disable-mpi-f90 --disable-mpi-f77)
+		myconf+=(--enable-mpi-fortran=no)
 	fi
 
 	! use vt && myconf+=(--enable-contrib-no-build=vt)
@@ -131,6 +123,7 @@ src_configure() {
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
 		$(use_enable ipv6) \
+		$(use_enable mpi-threads mpi-thread-multiple) \
 		$(use_with openmpi_fabrics_ofed verbs "${EPREFIX}"/usr) \
 		$(use_with openmpi_fabrics_knem knem "${EPREFIX}"/usr) \
 		$(use_with openmpi_fabrics_open-mx mx "${EPREFIX}"/usr) \

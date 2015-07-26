@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,8 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 CDEPEND="dev-java/jlatexmath:1
-	dev-java/xmlgraphics-commons:1.5
-	>=dev-java/fop-0.9.5:0"
+	dev-java/xmlgraphics-commons:2
+	>=dev-java/fop-2.0-r1:0"
 DEPEND=">=virtual/jdk-1.5
 	${CDEPEND}"
 RDEPEND=">=virtual/jre-1.5
@@ -33,7 +33,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-fixpaths.patch"
 	cp "${FILESDIR}/version.xml" "${S}" || die
 	echo "fop.jar=$(java-pkg_getjar fop fop.jar)
-xmlgraphics-commons.jar=$(java-pkg_getjar xmlgraphics-commons-1.5 xmlgraphics-commons.jar)
+xmlgraphics-commons.jar=$(java-pkg_getjar xmlgraphics-commons-2.0 xmlgraphics-commons.jar)
 jlatexmath.jar=$(java-pkg_getjar jlatexmath-1 jlatexmath.jar)" \
 		 >>fop.properties || die
 }
