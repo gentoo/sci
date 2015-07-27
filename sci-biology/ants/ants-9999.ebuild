@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils git-r3
+inherit cmake-utils git-r3 multilib
 
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="http://stnava.github.io/ANTs/"
