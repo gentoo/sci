@@ -11,7 +11,7 @@ inherit cmake-utils git-r3 python-single-r1
 DESCRIPTION="Parallelization engine for optimization problems"
 HOMEPAGE="https://github.com/esa/pagmo"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/esa/${PN}.git git://git@github.com:esa/${PN}.git"
+EGIT_REPO_URI="https://github.com/esa/${PN}.git git://github.com/esa/${PN}.git"
 
 LICENSE="GPL-3"
 SLOT="0"
