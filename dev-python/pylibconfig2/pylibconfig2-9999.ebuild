@@ -9,7 +9,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="Pure python library for libconfig syntax"
 HOMEPAGE="https://github.com/heinzK1X/pylibconfig2"
-EGIT_REPO_URI="https://github.com/heinzK1X/${PN}.git git://git@github.com:heinzK1X/${PN}.git"
+EGIT_REPO_URI="https://github.com/heinzK1X/${PN}.git git://github.com/heinzK1X/${PN}.git"
 KEYWORDS=""
 
 LICENSE="BSD"
