@@ -6,4 +6,7 @@
     <flag name="kepler">Automatically generated description for kepler</flag>
     <flag name="nlopt">Automatically generated description for nlopt</flag>
   </use>
+  <upstream>
+    <remote-id type="github">esa/pagmo</remote-id>
+  </upstream>
 </pkgmetadata>
