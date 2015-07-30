@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jul 2015; Bryan Gardiner <bog@khumba.net> scilab-5.5.2.ebuild:
+  Fix the conditions under which batik is a dependency: it's required for the
+  GUI to do graphic export at runtime as well as to build documentation.
+
   25 Jul 2015; Bryan Gardiner <bog@khumba.net> scilab-5.5.2.ebuild,
   +files/scilab-5.5.2-batik-1.8.patch, +files/scilab-5.5.2-fop-2.0.patch,
   +files/scilab-5.5.2-xmlgraphics-common-2.0.patch:
