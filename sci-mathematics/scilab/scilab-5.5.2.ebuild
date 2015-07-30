@@ -46,6 +46,7 @@ CDEPEND="dev-libs/libpcre
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
+		>=dev-java/batik-1.8-r2:1.8
 		dev-java/commons-io:1
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
@@ -75,8 +76,7 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.6
-		doc? ( >=dev-java/batik-1.8-r2:1.8
-			   app-text/docbook-xsl-stylesheets
+		doc? ( app-text/docbook-xsl-stylesheets
 			   dev-java/xml-commons-external:1.4
 			   dev-java/saxon:9 )
 		xcos? ( dev-lang/ocaml )
