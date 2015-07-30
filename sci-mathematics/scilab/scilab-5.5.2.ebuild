@@ -46,10 +46,11 @@ CDEPEND="dev-libs/libpcre
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
+		>=dev-java/batik-1.8-r2:1.8
 		dev-java/commons-io:1
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
-		dev-java/fop:0
+		>=dev-java/fop-2.0:0
 		=dev-java/gluegen-2.2.4:2.2
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
@@ -74,9 +75,8 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	debug? ( dev-util/lcov )
 	gui? (
-		>=virtual/jdk-1.5
-		doc? ( dev-java/batik:1.8
-			   app-text/docbook-xsl-stylesheets
+		>=virtual/jdk-1.6
+		doc? ( app-text/docbook-xsl-stylesheets
 			   dev-java/xml-commons-external:1.4
 			   dev-java/saxon:9 )
 		xcos? ( dev-lang/ocaml )
@@ -122,9 +122,12 @@ src_prepare() {
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
 		"${FILESDIR}/${P}-accessviolation.patch" \
-		"${FILESDIR}/${P}-missinglib.patch"
+		"${FILESDIR}/${P}-missinglib.patch" \
+		"${FILESDIR}/${P}-batik-1.8.patch" \
+		"${FILESDIR}/${P}-fop-2.0.patch" \
+		"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch"
 
-	# works for me on x86, but users are having                                
+	# works for me on x86, but users are having
 	# trouble without see #282 on github
 	append-ldflags $(no-as-needed)
 
@@ -156,7 +159,7 @@ src_prepare() {
 		java-pkg_jar-from jlatexmath-1,flexdock,skinlf
 		java-pkg_jar-from jgoodies-looks-2.6,jrosetta
 		java-pkg_jar-from avalon-framework-4.2,jeuclid-core
-		java-pkg_jar-from xmlgraphics-commons-1.5,commons-io-1
+		java-pkg_jar-from xmlgraphics-commons-2,commons-io-1
 		java-pkg_jar-from jogl-2.2 jogl-all.jar jogl2.jar
 		java-pkg_jar-from gluegen-2.2 gluegen-rt.jar gluegen2-rt.jar
 		java-pkg_jar-from fop fop.jar
@@ -164,7 +167,7 @@ src_prepare() {
 		java-pkg_jar-from jlatexmath-fop-1
 		use xcos &&	java-pkg_jar-from jgraphx-2.5
 		if use doc; then
-			java-pkg_jar-from --build-only batik-1.7 batik-all.jar
+			java-pkg_jar-from --build-only batik-1.8 batik-all.jar
 			java-pkg_jar-from --build-only saxon-9 saxon.jar saxon9he.jar
 			java-pkg_jar-from --build-only xml-commons-external-1.4 xml-apis-ext.jar
 		fi
