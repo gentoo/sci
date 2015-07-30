@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jul 2015; Bryan Gardiner <bog@khumba.net> scilab-5.5.2.ebuild,
+  +files/scilab-5.5.2-batik-1.8.patch, +files/scilab-5.5.2-fop-2.0.patch,
+  +files/scilab-5.5.2-xmlgraphics-common-2.0.patch:
+  Patch Scilab to build with new versions of Java dependencies.
+
   22 Jul 2015; Marius Brehler <marbre@linux.sungazer.de> scilab-5.5.2.ebuild:
   sci-mathematics/scilab: Fix deps
 
