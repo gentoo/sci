@@ -18,8 +18,10 @@ IUSE=""
 
 RDEPEND="
 	app-shells/ksh
-	>=x11-libs/libX11-1.6.2[abi_x86_32(-)]
-	>=x11-libs/libXext-1.3.2[abi_x86_32(-)]"
+	!prefix? (
+		>=x11-libs/libX11-1.6.2[abi_x86_32(-)]
+		>=x11-libs/libXext-1.3.2[abi_x86_32(-)]
+	)"
 DEPEND=""
 
 S="${WORKDIR}/UNIO_10"
