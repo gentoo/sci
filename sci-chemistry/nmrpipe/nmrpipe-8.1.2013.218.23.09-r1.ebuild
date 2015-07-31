@@ -47,7 +47,7 @@ RDEPEND="${DEPEND}
 	sys-libs/ncurses
 	x11-apps/xset
 	|| ( x11-libs/xview x11-libs/xview-bin )
-	>=x11-libs/libX11-1.6.2[abi_x86_32(-)]
+	!prefix? ( >=x11-libs/libX11-1.6.2[abi_x86_32(-)] )
 	prefix? ( dev-util/patchelf )"
 
 S="${WORKDIR}"
