@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Aug 2015; Justin Lecher <jlec@gentoo.org> phenix-bin-1.9.1692.ebuild:
+  sci-chemistry/phenix-bin: Fix for latest linux kernel
+
   22 Jun 2015; Justin Lecher <jlec@gentoo.org> -phenix-bin-1.8.2.1309.ebuild,
   -phenix-bin-1.8.4.1496.ebuild:
   sci-chemistry/phenix-bin: Drop old
