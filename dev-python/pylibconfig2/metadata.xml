@@ -17,5 +17,6 @@
   </longdescription>
   <upstream>
     <remote-id type="pypi">pylibconfig2</remote-id>
+    <remote-id type="github">heinzK1X/pylibconfig2</remote-id>
   </upstream>
 </pkgmetadata>

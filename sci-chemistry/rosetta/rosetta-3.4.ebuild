@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -63,7 +63,8 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-valgrind.patch \
 		"${FILESDIR}"/${P}-boinc.patch \
 		"${FILESDIR}"/${P}-boost.patch \
-		"${FILESDIR}"/${P}-gcc4.78.patch
+		"${FILESDIR}"/${P}-boost157.patch \
+		"${FILESDIR}"/${P}-gcc4.789.patch
 
 	eprefixify tools/build/*
 
