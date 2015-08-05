@@ -90,7 +90,7 @@ src_prepare() {
 }
 
 src_compile() {
-	./install --prefix="${S}/foo" || die
+	LD_LIBRARY_PATH="${EPREFIX}/usr/$(get_libdir)" ./install --prefix="${S}/foo" || die
 }
 
 src_install() {
