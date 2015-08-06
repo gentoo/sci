@@ -6,7 +6,7 @@ EAPI=5
 
 FORTRAN_NEEDED=fortran
 
-inherit cuda eutils flag-o-matic fortran-2 multilib mpi toolchain-funcs versionator
+inherit cuda eutils flag-o-matic fortran-2 java-pkg-opt-2 multilib mpi toolchain-funcs versionator
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -35,7 +35,7 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v$(get_version_component_range 1-
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux"
-IUSE="cma cuda +cxx elibc_FreeBSD fortran heterogeneous ipv6 mpi-threads numa romio threads vt
+IUSE="cma cuda +cxx elibc_FreeBSD fortran heterogeneous ipv6 java mpi-threads numa romio threads vt
 	${IUSE_OPENMPI_FABRICS} ${IUSE_OPENMPI_RM} ${IUSE_OPENMPI_OFED_FEATURES}"
 
 REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
@@ -61,6 +61,7 @@ RDEPEND="
 	sys-libs/zlib
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
+	java? ( >=virtual/jre-1.6 )
 	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
 	openmpi_fabrics_open-mx? ( sys-cluster/open-mx )
@@ -69,10 +70,12 @@ RDEPEND="
 	openmpi_rm_slurm? ( sys-cluster/slurm )
 	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm:* )
 	$(mpi_imp_deplist)"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	java? ( >=virtual/jdk-1.6 )"
 
 pkg_setup() {
 	fortran-2_pkg_setup
+	java-pkg-opt-2_pkg_setup
 	MPI_ESELECT_FILE="eselect.mpi.openmpi"
 
 	if use mpi-threads; then
@@ -114,6 +117,13 @@ src_configure() {
 		myconf+=(--enable-mpi-fortran=no)
 	fi
 
+	if use java; then
+		# We must always build with the right -source and -target
+		# flags. Passing flags to javac isn't explicitly supported here
+		# but we can cheat by overriding the configure test for javac.
+		export ac_cv_path_JAVAC="$(java-pkg_get-javac) $(java-pkg_javac-args)"
+	fi
+
 	! use vt && myconf+=(--enable-contrib-no-build=vt)
 
 	econf $(mpi_econf_args) "${myconf[@]}" \
@@ -123,6 +133,8 @@ src_configure() {
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
 		$(use_enable ipv6) \
+		$(use_enable java) \
+		$(use_enable java mpi-java) \
 		$(use_enable mpi-threads mpi-thread-multiple) \
 		$(use_with openmpi_fabrics_ofed verbs "${EPREFIX}"/usr) \
 		$(use_with openmpi_fabrics_knem knem "${EPREFIX}"/usr) \
@@ -149,6 +161,14 @@ src_install () {
 
 	# Remove la files, no static libs are installed and we have pkg-config
 	find "${ED}"/$(mpi_root)/usr/$(get_libdir)/ -type f -name '*.la' -delete
+
+	if use java; then
+		local mpi_jar="${ED}"/$(mpi_root)/usr/$(get_libdir)/mpi.jar
+		java-pkg_dojar "${mpi_jar}"
+		# We don't want to install the jar file twice
+		# so let's clean after ourselves.
+		rm "${mpi_jar}" || die
+	fi
 
 	mpi_dodoc README AUTHORS NEWS VERSION || die
 	mpi_imp_add_eselect

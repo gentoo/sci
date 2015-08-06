@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmpi-1.8.8-r1 (06 Aug 2015)
+
+  06 Aug 2015; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.8-r1.ebuild,
+  -openmpi-1.8.7.ebuild:
+  sys-cluster/openmpi:  bump 1.8.8 and sync with gx86 (java support)
+
   16 Jul 2015; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.8.1.ebuild,
   -openmpi-1.8.3.ebuild, -openmpi-1.8.4-r4.ebuild, -openmpi-1.8.5.ebuild,
   -openmpi-1.8.6.ebuild:
