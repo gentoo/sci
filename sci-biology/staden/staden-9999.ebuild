@@ -27,7 +27,7 @@ IUSE="curl debug fortran png tcl tk X zlib"
 #
 DEPEND="
 	app-arch/xz-utils
-	dev-lang/tk:*
+	dev-lang/tk:0=
 	dev-tcltk/tklib
 	media-libs/libpng:0
 	sci-biology/samtools
