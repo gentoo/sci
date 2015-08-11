@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Aug 2015; Andrew Savchenko <bircoph@gentoo.org> -asl-0.1.4.ebuild:
+  Remove old.
+
 *asl-0.1.5 (10 Aug 2015)
 
   10 Aug 2015; Andrew Savchenko <bircoph@gentoo.org> +asl-0.1.5.ebuild:
