@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/nbconvert
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*nbconvert-4.0.0 (12 Aug 2015)
+*nbconvert-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +nbconvert-4.0.0.ebuild, +nbconvert-9999.ebuild:
+  dev-python/nbconvert: Initial ebuild
