@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/jupyter_client
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*jupyter_client-4.0.0 (12 Aug 2015)
+*jupyter_client-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_client-4.0.0.ebuild, +jupyter_client-9999.ebuild, +metadata.xml:
+  dev-python/jupyter_client: Initial ebuild
