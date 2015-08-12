@@ -23,9 +23,8 @@ SLOT="0"
 IUSE="test"
 
 RDEPEND="
-	dev-python/traitlets[${PYTHON_USEDEP}]
-	dev-python/jupyter_client[${PYTHON_USEDEP}]
-	"
+	dev-python/traitlets[${PYTHON_USEDEP}]"
+	#dev-python/jupyter_client[${PYTHON_USEDEP}]
 	#>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
 DEPEND="test? ( dev-python/nose[${PYTHON_USEDEP}] )"
 
