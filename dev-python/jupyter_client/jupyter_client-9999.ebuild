@@ -28,7 +28,10 @@ RDEPEND="
 	>=dev-python/pyzmq-14.4.0[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/mock[${PYTHON_USEDEP}]
+	)
 	"
 
 python_test() {
