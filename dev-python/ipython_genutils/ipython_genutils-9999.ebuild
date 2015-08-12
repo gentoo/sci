@@ -7,16 +7,14 @@ PYTHON_COMPAT=( python2_7 python{3_3,3_4} )
 
 inherit distutils-r1
 
-MY_PN="ipython_genutils"
-
 DESCRIPTION="Vestigial utilities from IPython"
 HOMEPAGE="https://github.com/ipython/ipython_genutils"
 
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/ipython/${MY_PN}.git git://github.com/ipython/${PN}.git"
+	EGIT_REPO_URI="https://github.com/ipython/${PN}.git git://github.com/ipython/${PN}.git"
 else
-	SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_PN}-${PV}.tar.gz"
+	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 	KEYWORDS="~amd64"
 fi
 
