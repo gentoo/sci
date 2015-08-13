@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/ipyparallel
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ipyparallel-4.0.0 (13 Aug 2015)
+*ipyparallel-9999 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipyparallel-4.0.0.ebuild, +ipyparallel-9999.ebuild, +metadata.xml:
+  dev-python/ipyparallel: Initial ebuild
