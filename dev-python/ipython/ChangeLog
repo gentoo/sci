@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/ipython
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ipython-4.0.0 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/2.1.0-substitute-files.patch, +ipython-4.0.0.ebuild, +metadata.xml:
+  dev-python/ipython: Version bumped ebuild; Imported from tree
