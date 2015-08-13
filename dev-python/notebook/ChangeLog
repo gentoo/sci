@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/notebook
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*notebook-4.0.1 (13 Aug 2015)
+*notebook-9999 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +notebook-4.0.1.ebuild, +notebook-9999.ebuild:
+  dev-python/notebook: Initial ebuild
