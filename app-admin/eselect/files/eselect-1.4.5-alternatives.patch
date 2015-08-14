@@ -1,27 +1,52 @@
+ bin/Makefile.am                  |   1 +
+ bin/eselect.in                   | 150 +++++++++++-
+ libs/Makefile.am                 |   7 +-
+ libs/alternatives-common.bash.in | 509 +++++++++++++++++++++++++++++++++++++++
+ libs/alternatives.bash.in        | 316 ++++++++++++++++++++++++
+ modules/Makefile.am              |   1 +
+ modules/alternatives.eselect     | 178 ++++++++++++++
+ modules/modules.eselect          | 288 ++++++++++++++--------
+ 8 files changed, 1342 insertions(+), 108 deletions(-)
+
+diff --git a/bin/Makefile.am b/bin/Makefile.am
+index 20902c1..ad08867 100644
+--- a/bin/Makefile.am
++++ b/bin/Makefile.am
+@@ -4,6 +4,7 @@ EXTRA_DIST = eselect.in
+ dosed = @SED@ -e 's%\@BASH\@%$(BASH)%g' \
+ 	      -e 's%\@DATADIR\@%$(datadir)%g' \
+ 	      -e 's%\@EPREFIX\@%$(EPREFIX)%g' \
++	      -e 's%\@LIBEXECDIR\@%$(datadir)%g' \
+ 	      -e 's%\@VERSION\@%$(VERSION)$(EXTRAVERSION)%g'
+ 
+ % : %.in
 diff --git a/bin/eselect.in b/bin/eselect.in
-index 934a10a..7c1c14b 100755
+index 934a10a..5242ed3 100755
 --- a/bin/eselect.in
 +++ b/bin/eselect.in
-@@ -22,10 +22,15 @@ ESELECT_DATA_PATH="@DATADIR@/eselect"
+@@ -22,10 +22,18 @@ ESELECT_DATA_PATH="@DATADIR@/eselect"
  # Where are modules installed by default?
  ESELECT_DEFAULT_MODULES_PATH="${ESELECT_DATA_PATH}/modules"
  
 +# Where are auto-generated modules placed? (e.g. from alternatives-2.eclass)
 +ESELECT_AUTO_GENERATED_MODULES_PATH="${ESELECT_DEFAULT_MODULES_PATH}/auto"
 +
++# Where the users store their modules
++ESELECT_USER_MODULES_PATH="${ROOT}${HOME}/.eselect/modules"
++
  # Look in these places for modules
 -ESELECT_MODULES_PATH=( \
 -	"${HOME}/.eselect/modules" \
 -	"${ESELECT_DEFAULT_MODULES_PATH}" )
 +ESELECT_MODULES_PATH=(
-+	"${HOME}/.eselect/modules"
++	"${ESELECT_USER_MODULES_PATH}}"
 +	"${ESELECT_DEFAULT_MODULES_PATH}"
 +	"${ESELECT_AUTO_GENERATED_MODULES_PATH}"
 +)
  
  # Look in this place for libraries
  ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
-@@ -64,12 +69,27 @@ fi
+@@ -64,12 +72,27 @@ fi
  # Load core functions
  source "${ESELECT_CORE_PATH}/core.bash" || exit 255
  # Load necessary functions for the main script
@@ -50,7 +75,7 @@ index 934a10a..7c1c14b 100755
  # es_do_usage
  # Display eselect usage
  es_do_usage() {
-@@ -81,14 +101,10 @@ es_do_usage() {
+@@ -81,14 +104,10 @@ es_do_usage() {
  es_do_help() {
  	es_do_usage
  	echo
@@ -67,7 +92,7 @@ index 934a10a..7c1c14b 100755
  }
  
  # es_do_version
-@@ -100,6 +116,114 @@ es_do_version() {
+@@ -100,6 +119,114 @@ es_do_version() {
  	echo "Distributed under the terms of the GNU GPL version 2 or later."
  }
  
@@ -182,7 +207,7 @@ index 934a10a..7c1c14b 100755
  ### main code ###
  
  # figure out what the action is. we need to know whether we're
-@@ -141,6 +265,9 @@ while [[ ${1##--} != "$1" ]]; do
+@@ -141,6 +268,9 @@ while [[ ${1##--} != "$1" ]]; do
  				*) die -q "Invalid argument for ${1%%=*} option" ;;
  			esac
  			;;
@@ -226,17 +251,30 @@ index 027ef73..a5fe373 100644
  	@$(dosed) $< > $@
 diff --git a/libs/alternatives-common.bash.in b/libs/alternatives-common.bash.in
 new file mode 100644
-index 0000000..64d74df
+index 0000000..024d41e
 --- /dev/null
 +++ b/libs/alternatives-common.bash.in
-@@ -0,0 +1,488 @@
-+# Copyright 2015 Gentoo Foundation
-+# Copyright 2008 Mike Kelly
-+# Copyright 2009, 2013 David Leverton
-+# Copyright 2010 Bo Ørsted Andresen
-+# Distributed under the terms of the GNU General Public License v2
+@@ -0,0 +1,509 @@
++# Copyright (c) 2005-2015 Gentoo Foundation
++# Copyright (c) 2008 Mike Kelly
++# Copyright (c) 2009-2013 David Leverton
++# Copyright (c) 2009-2014 Bo Ørsted Andresen
++#
++# This file is part of the 'eselect' tools framework.
++#
++# eselect is free software: you can redistribute it and/or modify it under the
++# terms of the GNU General Public License as published by the Free Software
++# Foundation, either version 2 of the License, or (at your option) any later
++# version.
++#
++# eselect is distributed in the hope that it will be useful, but WITHOUT ANY
++# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
++# A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License along with
++# eselect.  If not, see <http://www.gnu.org/licenses/>.
 +
-+inherit config output path-manipulation
++inherit config output path-manipulation tests
 +
 +: "${ALTERNATIVESDIR_ROOTLESS:=@sysconfdir@/env.d/alternatives}"
 +ALTERNATIVESDIR="${EROOT%/}${ALTERNATIVESDIR_ROOTLESS}"
@@ -298,7 +336,7 @@ index 0000000..64d74df
 +		[[ -d ${p} && ! -L ${p} ]] || continue
 +		p=${p##*/}
 +
-+		[[ -e "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance" ]] &&
++		[[ -e "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance" ]] && \
 +			importance=$(< "${ALTERNATIVESDIR}/${ALTERNATIVE}/${p}/_importance")
 +		importance=${importance:-0}
 +		[[ "${importance}" =~ ^[0123456789]+(\.[0123456789]+)*$ ]] || die "_importance (${importance}) for ${p} is not a dot-separated list of integers"
@@ -310,6 +348,14 @@ index 0000000..64d74df
 +	for (( p=${#providers[@]}-1 ; p>=0 ; --p )); do
 +		echo "${providers[p]#*:}"
 +	done
++}
++
++has_provider() {
++	local provider=${1} item providers=( $(get_providers) )
++	for item in  ${providers[@]}; do
++		[[ ${item} == ${provider} ]] && return 0
++	done
++	return 1
 +}
 +
 +_options_parameters() {
@@ -720,15 +766,28 @@ index 0000000..64d74df
 +# vim: set ft=eselect sw=4 sts=4 ts=4 et tw=80 :
 diff --git a/libs/alternatives.bash.in b/libs/alternatives.bash.in
 new file mode 100644
-index 0000000..1b5a2b0
+index 0000000..cf4fa36
 --- /dev/null
 +++ b/libs/alternatives.bash.in
-@@ -0,0 +1,293 @@
-+# Copyright 2015 Gentoo Foundation
-+# Copyright 2008 Mike Kelly
-+# Copyright 2009, 2013 David Leverton
-+# Copyright 2010 Bo Ørsted Andresen
-+# Distributed under the terms of the GNU General Public License v2
+@@ -0,0 +1,316 @@
++# Copyright (c) 2005-2015 Gentoo Foundation
++# Copyright (c) 2008 Mike Kelly
++# Copyright (c) 2009-2013 David Leverton
++# Copyright (c) 2009-2014 Bo Ørsted Andresen
++#
++# This file is part of the 'eselect' tools framework.
++#
++# eselect is free software: you can redistribute it and/or modify it under the
++# terms of the GNU General Public License as published by the Free Software
++# Foundation, either version 2 of the License, or (at your option) any later
++# version.
++#
++# eselect is distributed in the hope that it will be useful, but WITHOUT ANY
++# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
++# A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License along with
++# eselect.  If not, see <http://www.gnu.org/licenses/>.
 +
 +inherit alternatives-common
 +
@@ -878,12 +937,22 @@ index 0000000..1b5a2b0
 +}
 +
 +do_remove() {
++	local ret
 +	alternatives_do_remove
 +
-+#	if no provider is present, remove whole Alternative
-+	if ! eselect ${provider} update --best > /dev/null; then
-+		eselect alternatives remove ${ALTERNATIVE}
-+	fi
++#	if no provider is present, remove whole alternative
++	eselect ${provider} update --best > /dev/null; ret=$?
++	case ret in
++		0)
++			# All good
++			:;;
++		2)
++			# No provider present anymore
++			eselect alternatives remove ${ALTERNATIVE};;
++		*)
++			write_error_msg "Failed to remove ${ALTERNATIVE}"
++			errors=yes
++	esac
 +}
 +
 +### update action ###
@@ -1018,7 +1087,7 @@ index 0000000..1b5a2b0
 +
 +# vim: set ft=eselect sw=4 sts=4 ts=4 et tw=80 :
 diff --git a/modules/Makefile.am b/modules/Makefile.am
-index 73960c4..4da6465 100644
+index 75ebe02..92127b6 100644
 --- a/modules/Makefile.am
 +++ b/modules/Makefile.am
 @@ -1,6 +1,7 @@
@@ -1026,20 +1095,33 @@ index 73960c4..4da6465 100644
  
  modules_DATA = \
 +	alternatives.eselect \
- 	binutils.eselect \
  	editor.eselect \
  	env.eselect \
+ 	kernel.eselect \
 diff --git a/modules/alternatives.eselect b/modules/alternatives.eselect
 new file mode 100644
-index 0000000..912bb3d
+index 0000000..840b9c5
 --- /dev/null
 +++ b/modules/alternatives.eselect
-@@ -0,0 +1,165 @@
-+# Copyright 2015 Gentoo Foundation
-+# Copyright 2008 Mike Kelly
-+# Copyright 2009, 2013 David Leverton
-+# Copyright 2010 Bo Ørsted Andresen
-+# Distributed under the terms of the GNU General Public License v2
+@@ -0,0 +1,178 @@
++# Copyright (c) 2005-2015 Gentoo Foundation
++# Copyright (c) 2008 Mike Kelly
++# Copyright (c) 2009-2013 David Leverton
++# Copyright (c) 2009-2014 Bo Ørsted Andresen
++#
++# This file is part of the 'eselect' tools framework.
++#
++# eselect is free software: you can redistribute it and/or modify it under the
++# terms of the GNU General Public License as published by the Free Software
++# Foundation, either version 2 of the License, or (at your option) any later
++# version.
++#
++# eselect is distributed in the hope that it will be useful, but WITHOUT ANY
++# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
++# A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License along with
++# eselect.  If not, see <http://www.gnu.org/licenses/>.
 +
 +inherit alternatives-common
 +
@@ -1201,7 +1283,7 @@ index 0000000..912bb3d
 +	alternatives_options_remove
 +}
 diff --git a/modules/modules.eselect b/modules/modules.eselect
-index 038f630..eb73e16 100644
+index 038f630..78dcbab 100644
 --- a/modules/modules.eselect
 +++ b/modules/modules.eselect
 @@ -2,7 +2,7 @@
@@ -1357,7 +1439,7 @@ index 038f630..eb73e16 100644
  }
  
  ### has action
-@@ -75,56 +112,89 @@ describe_has() {
+@@ -75,56 +112,113 @@ describe_has() {
  }
  
  describe_has_parameters() {
@@ -1425,7 +1507,12 @@ index 038f630..eb73e16 100644
 -# }
 +
 +describe_add() {
-+    echo "Install a module file to \$HOME/.eselect/modules/, or ${ESELECT_DEFAULT_MODULES_PATH//\/\///}/ when run as root"
++    echo "Install a module file"
++}
++
++describe_add_options() {
++    echo "--default : install as global module (default if root)"
++    echo "--user : install as user's module"
 +}
 +
 +describe_add_parameters() {
@@ -1433,28 +1520,33 @@ index 038f630..eb73e16 100644
 +}
 +
 +do_add() {
-+
-+    local local_path="${ROOT}${HOME}/.eselect/modules/" module_file
-+    local force_default=0
-+
-+    if [[ $1 = "--force-default-location" ]] ; then
-+        force_default=1
-+        shift
-+    fi
++    local module_file module_path
++    case $1 in
++	--default)
++	    module_path="${ESELECT_DEFAULT_MODULES_PATH}"
++	    shift
++	    ;;
++	--user)
++	    module_path="${ESELECT_USER_MODULES_PATH}"
++	    mkdir -p "${module_path}" || die -q "Failed to create directory ${module_path}"
++	    shift
++	    ;;
++	*) : ;;
++    esac
 +    module_file=$1
 +
-+    [[ -z ${module_file} ]] && die -q "Required option (module file) missing"
++    [[ -z ${module_file} ]] && die -q "Required module file missing"
 +
-+    # TODO: Don't install the module "somewhere", depending on write access.
-+    # Add an option to control if it goes to the user's or to the system dir.
-+    if ! cp "${module_file}" "${ESELECT_DEFAULT_MODULES_PATH}" &> /dev/null ; then
-+        [[ ${force_default} == 1 ]] \
-+            && die -q "Failed to install module file to default modules path"
-+
-+        mkdir -p "${local_path}" \
-+            || die -q "Failed to create module install directory"
-+        cp "${module_file}" "${local_path}" \
-+                       || die -q "Failed to install module file"
++    if [[ -n ${module_path} ]]; then
++	cp "${module_file}" "${module_path}" &> /dev/null || \
++	    die -q "Failed to install module file to ${module_path}"
++    else
++	if ! cp "${module_file}" "${ESELECT_DEFAULT_MODULES_PATH}" &> /dev/null ; then
++	    mkdir -p "${ESELECT_USER_MODULES_PATH}" \
++		|| die -q "Failed to create directory ${ESELECT_USER_MODULES_PATH}"
++	    cp "${module_file}" "${ESELECT_USER_MODULES_PATH}" \
++		|| die -q "Failed to install module file ${module_file}"
++	fi
 +    fi
 +}
 +
@@ -1462,8 +1554,12 @@ index 038f630..eb73e16 100644
 +
 +describe_remove() {
 +    echo "Remove the given module name"
-+    echo "By default, it will remove from \$HOME/.eselect/modules/, unless running as "
-+    echo "root. Then, remove from ${ESELECT_DATA_PATH}/modules/."
++}
++
++describe_remove_options() {
++    echo "--default : remove global module (default if root)"
++    echo "--alternatives : remove generated alternatives module"
++    echo "--user : remove user module"
 +}
 +
 +describe_remove_parameters() {
@@ -1471,26 +1567,36 @@ index 038f630..eb73e16 100644
 +}
 +
 +do_remove() {
-+    local local_path="${ROOT}${HOME}/.eselect/modules/" module_name
-+    local force_default=0
-+
-+    if [[ $1 = "--force-default-location" ]] ; then
-+        force_default=1
-+        shift
-+    fi
++    local module_name module_path ret
++    case $1 in
++	--alternatives)
++	    module_path="${ESELECT_GENERATED_MODULES_PATH}"
++	    shift
++	    ;;
++	--default)
++	    module_path="${ESELECT_DEFAULT_MODULES_PATH}"
++	    shift
++	    ;;
++	--user)
++	    module_path="${ESELECT_USER_MODULES_PATH}"
++	    shift
++			;;
++	*) : ;;
++    esac
 +    module_name=$1
 +
-+    [[ -z ${module_name} ]] && die -q "Required option (module name) missing"
++    [[ -z ${module_name} ]] && die -q "Required module name missing"
 +
-+    # TODO: Don't install the module "somewhere", depending on write access.
-+    # Add an option to control if it goes to the user's or to the system dir.
-+    if ! rm "${ESELECT_DEFAULT_MODULES_PATH}"/${module_name}.eselect &> /dev/null ; then
-+        [[ ${force_default} == 1 ]] \
-+            && die -q "Failed to remove module ${module_name} from default modules path"
-+
-+        rm "${module_file}" "${local_path}"/${module_name}.eselect \
-+            || die -q "Failed to remove module ${module_name}"
-+       fi
++    if [[ -n ${module_path} ]]; then
++	rm "${module_path}/${module_name}.eselect" &> /dev/null
++	ret=$?
++    else
++	for module_path in "${ESELECT_MODULES_PATH[@]}" ; do
++	    rm "${module_path}/${module_name}.eselect" &> /dev/null
++	    ret=$?
++	done
++    fi
++    [[ ${ret} != 0 ]] && die -q "Failed to remove module ${module_name}"
 +}
 +
 +# vim: set ft=eselect sw=4 sts=4 ts=4 et tw=80 :
