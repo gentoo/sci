@@ -2,6 +2,19 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*asl-9999 (11 Aug 2015)
+
+  11 Aug 2015; Andrew Savchenko <bircoph@gentoo.org> +asl-9999.ebuild:
+  Add live ebuild. Unify life and release ebuilds.
+
+  11 Aug 2015; Andrew Savchenko <bircoph@gentoo.org> -asl-0.1.4.ebuild:
+  Remove old.
+
+*asl-0.1.5 (10 Aug 2015)
+
+  10 Aug 2015; Andrew Savchenko <bircoph@gentoo.org> +asl-0.1.5.ebuild:
+  Version bump, examples are now installed natively.
+
 *asl-0.1.4 (25 Jul 2015)
 
   25 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> +asl-0.1.4.ebuild,

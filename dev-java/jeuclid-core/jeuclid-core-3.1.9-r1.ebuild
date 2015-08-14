@@ -40,9 +40,9 @@ src_prepare() {
 
 	# add dependencies into the lib dir
 	java-pkg_jar-from ant-core ant.jar
-	java-pkg_jar-from batik-1.7 batik-all.jar
+	java-pkg_jar-from batik-1.8 batik-all.jar
 	java-pkg_jar-from commons-logging,jcip-annotations,xml-commons-external-1.3
-	java-pkg_jar-from xml-commons-external-1.3,xmlgraphics-commons-1.5
+	java-pkg_jar-from xml-commons-external-1.3,xmlgraphics-commons-2
 }
 
 src_install() {
