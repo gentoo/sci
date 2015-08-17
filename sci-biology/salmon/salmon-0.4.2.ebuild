@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: $
 
 EAPI=5
 
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-PATCHES=( "${FILESDIR}"/${P}-no-boost-static.patch )
+PATCHES=( "${FILESDIR}"/${PN}-0.3.2-no-boost-static.patch )
 
 DEPEND="dev-libs/boost
 		dev-libs/jemalloc"

@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*salmon-0.4.2 (16 Aug 2015)
+
+  16 Aug 2015; Michael Schubert <mschu.dev@gmail.com> +salmon-0.4.2.ebuild,
+  salmon-0.3.2.ebuild, salmon-9999.ebuild:
+  sci-biology/salmon: fix deps & version bump to 0.4.2
+
   05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-biology/salmon: Add github to remote-id in metadata.xml
 
