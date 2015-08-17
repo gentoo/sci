@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/tigr-closure
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   10 Jan 2015; Justin Lecher <jlec@gentoo.org> tigr-closure-20080106.ebuild:
   Some QA, add license

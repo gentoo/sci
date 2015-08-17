@@ -1,6 +1,6 @@
 # ChangeLog for sci-physics/root
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
+# $Id$
 
   18 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.32.ebuild,
   -files/root-5.32.00-dotfont.patch, -files/root-5.34.05-nobyte-compile.patch,

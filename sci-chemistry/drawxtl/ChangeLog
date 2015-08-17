@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/drawxtl
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> -drawxtl-44.ebuild,
   +drawxtl-45.ebuild, -drawxtl-54.ebuild, +drawxtl-55.ebuild,

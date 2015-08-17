@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/tigr-foundation-libs
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org>
   tigr-foundation-libs-2.0-r1.ebuild:

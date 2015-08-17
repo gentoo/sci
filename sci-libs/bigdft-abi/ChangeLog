@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/bigdft-abi
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   12 Nov 2014; Justin Lecher <jlec@gentoo.org> bigdft-abi-1.0.4-r3.ebuild:
   Move large patch; drop unnecessary quotes

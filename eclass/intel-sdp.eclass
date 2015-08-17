@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/intel-sdp.eclass,v 1.18 2014/09/15 17:54:11 jlec Exp $
+# $Id$
 
 # @ECLASS: intel-sdp.eclass
 # @MAINTAINER:

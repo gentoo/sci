@@ -1,6 +1,6 @@
 # ChangeLog for sci-visualization/vtkPOFFReader
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   14 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de>
   vtkPOFFReader-300.ebuild:

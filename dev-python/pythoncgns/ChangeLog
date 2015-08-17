@@ -1,6 +1,6 @@
 # ChangeLog for dev-python/pythoncgns
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> pythoncgns-2009.10.30.ebuild,
   metadata.xml:

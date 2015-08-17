@@ -1,5 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   23 May 2015; Marius Brehler <marbre@linux.sungazer.de>
   +files/FindBoostCompute.cmake,

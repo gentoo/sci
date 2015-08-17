@@ -1,6 +1,6 @@
 # ChangeLog for sys-cluster/modules
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   25 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> +files/modules.new.sh.in,
   modules-3.2.9c-r1.ebuild, modules-3.2.9c.ebuild:

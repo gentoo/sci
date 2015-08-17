@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/genepop
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   29 Mar 2015; Justin Lecher <jlec@gentoo.org> genepop-4.2.1.ebuild:
   sci-biology/genepop: Drop unnecessary *DEPEND

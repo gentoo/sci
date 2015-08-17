@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/skewer-bin
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   18 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   skewer-bin-0.1.104.ebuild:

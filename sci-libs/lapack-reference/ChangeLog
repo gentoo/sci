@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/lapack-reference
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
+# $Id$
 
   14 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
   Thanks to kiwifb for reviewing and the fix: change ROOT to EROOT to support

@@ -1,6 +1,6 @@
 # ChangeLog for dev-perl/Lab-Instrument
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   01 Nov 2014; Justin Lecher <jlec@gentoo.org> Lab-Instrument-2.01.ebuild,
   metadata.xml:

@@ -1,6 +1,6 @@
 # ChangeLog for dev-lang/ispc
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   dev-lang/ispc: Add github to remote-id in metadata.xml

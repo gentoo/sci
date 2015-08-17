@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/vague-bin
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> vague-bin-1.0.5.ebuild:
   sci-biology/vague-bin: fix SLOT operators

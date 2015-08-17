@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/aribas
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> aribas-1.63.ebuild:
   RDEPEND is not explicitly assigned -> fixed

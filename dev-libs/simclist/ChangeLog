@@ -1,6 +1,6 @@
 # ChangeLog for dev-libs/simclist
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   17 Mar 2012; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -simclist-1.5.ebuild, +simclist-1.6.ebuild:

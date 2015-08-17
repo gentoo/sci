@@ -1,6 +1,6 @@
 # ChangeLog for sci-astronomy/scamp
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-astronomy/scamp/ChangeLog,v 1.7 2011/08/04 18:32:22 bicatali Exp $
+# $Id$
 
   27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
   scamp-1.7.0-r2.ebuild, scamp-9999.ebuild:

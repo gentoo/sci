@@ -1,5 +1,5 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> med-2.3.6.ebuild:
   move sources to my devspace, as upstream mirror does not provide them

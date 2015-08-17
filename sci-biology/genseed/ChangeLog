@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/genseed
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   genseed-1.0.22.ebuild:

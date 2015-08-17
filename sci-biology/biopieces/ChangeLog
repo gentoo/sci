@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/biopieces
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   08 Mar 2015; Justin Lecher <jlec@gentoo.org> biopieces-9999.ebuild:
   Fix missing test in IUSE and missing dep in python

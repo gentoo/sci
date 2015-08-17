@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/sff_dump
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> sff_dump-1.04.ebuild:
   Some ebuild cleaning

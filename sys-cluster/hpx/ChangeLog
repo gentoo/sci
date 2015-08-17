@@ -1,6 +1,6 @@
 # ChangeLog for sys-cluster/hpx
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   24 Dec 2014; Christoph Junghans <ottxor@gentoo.org> -Manifest,
   -hpx-0.9.7.ebuild, -hpx-0.9.8.ebuild:
