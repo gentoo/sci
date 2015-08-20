@@ -17,3 +17,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 PATCHES=( "${FILESDIR}"/${PN}-0.3.2-no-boost-static.patch )
+
+DEPEND="dev-libs/boost
+		dev-libs/jemalloc"
+RDEPEND="${DEPEND}"
