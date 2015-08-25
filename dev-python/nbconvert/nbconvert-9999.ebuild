@@ -32,7 +32,12 @@ RDEPEND="
 	dev-python/pygments[${PYTHON_USEDEP}]
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/ipykernel[${PYTHON_USEDEP}]
+	)
+	"
 
 python_test() {
 	distutils_install_for_testing
