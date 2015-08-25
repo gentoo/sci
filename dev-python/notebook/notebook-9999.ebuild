@@ -20,11 +20,12 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="test"
+IUSE="doc test"
 CDEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="${CDEPEND}
 	dev-python/jinja[${PYTHON_USEDEP}]
+	>=dev-python/terminado-0.3.3[${PYTHON_USEDEP}]
 	>=www-servers/tornado-4.0[${PYTHON_USEDEP}]
 	dev-python/ipython_genutils[${PYTHON_USEDEP}]
 	dev-python/traitlets[${PYTHON_USEDEP}]
@@ -38,6 +39,9 @@ DEPEND="${RDEPEND}
 	test? (
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
+	)
+	doc? (
+		>=dev-python/sphinx-1.1[${PYTHON_USEDEP}]
 	)
 	"
 
