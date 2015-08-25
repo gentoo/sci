@@ -28,7 +28,12 @@ RDEPEND="
 	>=dev-python/pyzmq-14.4.0[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
 	"
-DEPEND="test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+DEPEND="
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/requests[${PYTHON_USEDEP}]
+	)
+	"
 
 python_test() {
 	iptest --coverage xml ipyparallel.tests || die
