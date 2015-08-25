@@ -16,10 +16,10 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc examples matplotlib mongodb notebook nbconvert octave qt4 +smp test wxwidgets"
+IUSE="doc examples matplotlib mongodb notebook nbconvert qt4 +smp test wxwidgets"
 
 REQUIRED_USE="
-	test? ( doc matplotlib mongodb notebook nbconvert octave qt4 wxwidgets )
+	test? ( doc matplotlib mongodb notebook nbconvert qt4 wxwidgets )
 	doc? ( mongodb )"
 
 CDEPEND="
@@ -32,7 +32,6 @@ CDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )
 	mongodb? ( <dev-python/pymongo-3[${PYTHON_USEDEP}] )
-	octave? ( dev-python/oct2py[${PYTHON_USEDEP}] )
 	smp? ( dev-python/ipyparallel[${PYTHON_USEDEP}] )
 	wxwidgets? ( dev-python/ipywidgets[${PYTHON_USEDEP}] )"
 
