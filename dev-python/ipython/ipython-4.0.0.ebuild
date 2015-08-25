@@ -36,18 +36,10 @@ CDEPEND="
 	smp? ( dev-python/ipyparallel[${PYTHON_USEDEP}] )
 	wxwidgets? ( dev-python/ipywidgets[${PYTHON_USEDEP}] )"
 
-# qtconsole will be provided by https://github.com/jupyter/qtconsole in near future
 RDEPEND="${CDEPEND}
 	notebook? ( dev-python/notebook[${PYTHON_USEDEP}] )
 	nbconvert? ( dev-python/nbconvert[${PYTHON_USEDEP}] )
-	qt4? (
-		|| (
-			dev-python/PyQt4[${PYTHON_USEDEP},svg]
-			dev-python/PyQt5[${PYTHON_USEDEP},svg]
-			dev-python/pyside[${PYTHON_USEDEP},svg]
-		)
-		dev-python/pygments[${PYTHON_USEDEP}]
-		>=dev-python/pyzmq-13[${PYTHON_USEDEP}] )"
+	qt4? ( dev-python/qtconsole )"
 DEPEND="${CDEPEND}
 	test? (
 		app-text/dvipng
