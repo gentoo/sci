@@ -1,6 +1,6 @@
 # ChangeLog for dev-python/GOGrapher
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Jun 2013; Justin Lecher <jlec@gentoo.org> GOGrapher-9999.ebuild:
   Bump to EAPI=5 and distutils-r1.eclass

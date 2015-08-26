@@ -1,6 +1,6 @@
 # Copyright 2010-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 # Based in part upon 'alternatives.exlib' from Exherbo, which is:
 # Copyright 2008, 2009 Bo Ørsted Andresen

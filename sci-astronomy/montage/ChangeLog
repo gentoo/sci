@@ -1,6 +1,6 @@
 # ChangeLog for sci-astronomy/montage
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   17 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org>
   +files/montage-3.3-gcc48.patch, montage-3.3.ebuild:

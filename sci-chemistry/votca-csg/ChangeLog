@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/votca-csg
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   12 Feb 2015; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild:
   added support of hdf5, clean up

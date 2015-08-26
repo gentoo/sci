@@ -1,6 +1,6 @@
 # ChangeLog for dev-perl/go-perl
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> go-perl-0.13.ebuild,
   metadata.xml:

@@ -1,6 +1,6 @@
 # ChangeLog for sci-misc/salome-kernel
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   10 Feb 2012; Alexey Shvetsov <alexxy@gentoo.org> salome-kernel-5.1.3.ebuild,
   salome-kernel-5.1.4.ebuild:

@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/chimera-bin
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   15 Sep 2014; Justin Lecher <jlec@gentoo.org> -chimera-bin-1.6.2.ebuild,
   -chimera-bin-1.8.ebuild, -chimera-bin-1.8.1.ebuild, chimera-bin-1.9.ebuild:

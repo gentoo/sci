@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/ambertools
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ChangeLog,v 1.2 2011/08/02 14:42:37 alexxy Exp $
+# $Id$
 
   11 Nov 2014; Justin Lecher <jlec@gentoo.org> -ambertools-1.5-r4.ebuild,
   -ambertools-12.ebuild, +ambertools-12_p38.ebuild,

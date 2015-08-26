@@ -1,6 +1,6 @@
 # ChangeLog for net-misc/bbscp
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   10 Nov 2014; Justin Lecher <jlec@gentoo.org> -bbscp-1.0.4.ebuild,
   +bbscp-1.0.6.ebuild, metadata.xml:

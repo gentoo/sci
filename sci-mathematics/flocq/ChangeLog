@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/flocq
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> flocq-2.3.0.ebuild:
   readded die on remake

@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/scilab
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   29 Jul 2015; Bryan Gardiner <bog@khumba.net> scilab-5.5.2.ebuild:
   Fix the conditions under which batik is a dependency: it's required for the

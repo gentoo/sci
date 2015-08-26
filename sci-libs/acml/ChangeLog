@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/acml
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de> acml-6.1.0.31.ebuild:
   Fix #543740 (drop fma4)

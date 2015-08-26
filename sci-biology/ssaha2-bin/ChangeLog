@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/ssaha2-bin
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -ssaha2-bin-2.5.3.ebuild,
   +ssaha2-bin-2.5.5.ebuild, metadata.xml:

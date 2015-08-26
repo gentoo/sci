@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/pymol-plugins-ezviz
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/sci-chemistry/pymol-plugins-ezviz/ChangeLog,v 1.2 2010/04/08 18:47:57 jlec dead $
+# $Id$
 
   15 Oct 2013; Justin Lecher <jlec@gentoo.org>
   pymol-plugins-ezviz-1.0.2005-r1.ebuild:

@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/mreps
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   10 Nov 2014; Justin Lecher <jlec@gentoo.org> mreps-2.5.ebuild, metadata.xml:
   Bump to EAPI=5; respect CC

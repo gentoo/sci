@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/nipype
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   27 Jul 2015;  <chymera@gentoo.org> nipype-9999.ebuild:
   setting USE requirement before inherit

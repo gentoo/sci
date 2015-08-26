@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -50,15 +50,13 @@ src_install() {
 
 	# needed by news module
 	keepdir /var/lib/gentoo/news
-	if ! use prefix; then
+	if use prefix; then
+		sed -i \
+			"s:ALTERNATIVESDIR_ROOTLESS=\"${EPREFIX}:ALTERNATIVESDIR_ROOTLESS=\":" \
+			"${ED}"/usr/share/eselect/libs/alternatives-common.bash || die
+	else
 		fowners root:portage /var/lib/gentoo/news
 		fperms g+w /var/lib/gentoo/news
-	fi
-
-	# band aid for prefix
-	if use prefix; then
-		cd "${ED}"/usr/share/eselect/libs || die
-		sed -i "s:ALTERNATIVESDIR_ROOTLESS=\"${EPREFIX}:ALTERNATIVESDIR_ROOTLESS=\":" alternatives.bash || die
 	fi
 }
 

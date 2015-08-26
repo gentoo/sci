@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/pmx
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Mar 2014; Justin Lecher <jlec@gentoo.org> pmx-9999.ebuild:
   Adopt to recent changes in git-r3.eclass

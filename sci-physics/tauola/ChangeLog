@@ -1,6 +1,6 @@
 # ChangeLog for sci-physics/tauola
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> tauola-1.1.5.ebuild,
   +files/tauola-1.1.5-doc.patch:

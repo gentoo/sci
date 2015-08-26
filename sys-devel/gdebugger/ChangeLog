@@ -1,6 +1,6 @@
 # ChangeLog for sys-devel/gdebugger
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   07 Jun 2012; Justin Lecher <jlec@gentoo.org> Manifest:
   Fix Manifest

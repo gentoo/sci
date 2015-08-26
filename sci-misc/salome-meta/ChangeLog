@@ -1,5 +1,5 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 21 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   Initial import.
   +salome-meta-3.2.6.ebuild

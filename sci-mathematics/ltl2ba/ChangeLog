@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/ltl2ba
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   ltl2ba-1.1.ebuild, +metadata.xml:

@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/modglue
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   19 Sep 2013; François Bissey <francois.bissey@canterbury.ac.nz>
   +files/modglue-1.19-Makefiles.patch, -files/modglue-1.16-lib64.patch,

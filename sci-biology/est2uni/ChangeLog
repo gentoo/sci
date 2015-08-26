@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/est2uni
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de> est2uni-0.27.ebuild:
   Drop keywords (php:5.3 is hardmasked)

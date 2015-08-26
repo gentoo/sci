@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/abacas
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   31 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> abacas-1.3.1.ebuild:
   sci-biology/abacas: clarify description

@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/rosetta
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   03 Aug 2015; Justin Lecher <jlec@gentoo.org>
   +files/rosetta-3.4-boost157.patch, +files/rosetta-3.4-gcc4.789.patch,

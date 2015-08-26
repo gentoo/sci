@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/tablet
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> -tablet-1.13.12.17.ebuild,
   tablet-9999.ebuild:
