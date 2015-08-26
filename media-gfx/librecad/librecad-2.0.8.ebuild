@@ -4,16 +4,15 @@
 
 EAPI=5
 
-inherit eutils git-r3 qmake-utils
+inherit eutils qmake-utils
 
 DESCRIPTION="Generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
+SRC_URI="https://github.com/LibreCAD/LibreCAD/archive/${PV/_/}.zip -> ${P}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="3d debug doc tools qt4 +qt5"
 REQUIRED_USE="|| ( qt4 qt5 )"
 
@@ -56,13 +55,11 @@ src_configure() {
 src_install() {
 	dobin unix/librecad
 	use tools && dobin unix/ttf2lff
-	insinto /usr/share
-	doins -r unix/appdata
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r librecad/support/doc/*
 	insinto /usr/share/appdata
 	doins unix/appdata/librecad.appdata.xml
-	doicon librecad/res/main/${PN}.png
+	doicon librecad/res/main/"${PN}".png
 	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }

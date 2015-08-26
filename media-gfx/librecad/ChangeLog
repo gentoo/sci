@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  26 Aug 2015; Dongxu Li <dongxuli2011@gmail.com>
+  +librecad-2.0.8.ebuild librecad-9999.ebuild:
+  version bump: 2.0.8, qt5 support
+
   05 Apr 2015; Dongxu Li <dongxuli2011@gmail.com>
   librecad-2.0.7.ebuild librecad-9999.ebuild:
   fixed doc and appdata installation
