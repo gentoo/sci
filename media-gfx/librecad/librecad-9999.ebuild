@@ -38,7 +38,7 @@ DEPEND="
 	media-libs/freetype"
 
 RDEPEND="${DEPEND}"
-S="${WORKDIR}/LibreCAD-${PV}"
+S="${WORKDIR}/librecad-${PV}"
 
 src_prepare() {
 	# currently RS_VECTOR3D causes an internal compiler error on GCC-4.8
