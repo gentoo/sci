@@ -22,7 +22,12 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="test"
 
-DEPEND="test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+DEPEND="
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
+	)
+	"
 
 python_test() {
 	nosetests --with-coverage --cover-package=ipython_genutils ipython_genutils || die
