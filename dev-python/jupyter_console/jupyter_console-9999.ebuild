@@ -30,6 +30,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	test? (
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
 	)
 	"
 
