@@ -27,7 +27,12 @@ RDEPEND="
 	dev-python/ipykernel[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep 'dev-python/wxpython:*[${PYTHON_USEDEP}]' python2_7)
 	"
-DEPEND="test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+DEPEND="${RDEPEND}
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
+	)
+	"
 
 python_test() {
 	nosetests --with-coverage --cover-package=ipywidgets ipywidgets || die
