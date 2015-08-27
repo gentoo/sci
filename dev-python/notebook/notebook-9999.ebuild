@@ -39,6 +39,7 @@ DEPEND="${RDEPEND}
 	test? (
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
 	)
 	doc? (
 		>=dev-python/sphinx-1.1[${PYTHON_USEDEP}]
