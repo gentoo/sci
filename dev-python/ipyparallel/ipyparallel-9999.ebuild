@@ -28,10 +28,11 @@ RDEPEND="
 	>=dev-python/pyzmq-14.4.0[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
 	"
-DEPEND="
+DEPEND="${RDEPEND}
 	test? (
 		dev-python/nose[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
 	)
 	"
 
