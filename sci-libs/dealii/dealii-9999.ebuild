@@ -32,8 +32,8 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
 	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 c++11 +debug doc +examples
-	hdf5 +lapack mesh_converter metis mpi muparser opencascade
-	netcdf p4est parameter_gui petsc +sparse static-libs +tbb trilinos
+	hdf5 +lapack metis mpi muparser opencascade netcdf p4est parameter_gui
+	petsc +sparse static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -87,7 +87,6 @@ src_configure() {
 		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
 		$(cmake-utils_use hdf5 DEAL_II_WITH_HDF5)
 		$(cmake-utils_use lapack DEAL_II_WITH_LAPACK)
-		$(cmake-utils_use mesh_converter DEAL_II_COMPONENT_MESH_CONVERTER)
 		$(cmake-utils_use metis DEAL_II_WITH_METIS)
 		$(cmake-utils_use mpi DEAL_II_WITH_MPI)
 		$(cmake-utils_use muparser DEAL_II_WITH_MUPARSER)

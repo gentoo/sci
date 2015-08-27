@@ -84,6 +84,7 @@ src_configure() {
 	   $(cmake-utils_use_build opencl OPENCL)
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
+	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
 	)
 	cmake-utils_src_configure
 }

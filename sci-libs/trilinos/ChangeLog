@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*trilinos-12.2.1 (27 Aug 2015)
+
+  27 Aug 2015; Matthias Maier <tamiko@gentoo.org> +trilinos-12.2.1.ebuild:
+  sci-libs/trilinos: version bump to 12.2.1
+
 *trilinos-12.0.1 (13 Jul 2015)
 
   13 Jul 2015; Matthias Maier <tamiko@gentoo.org>

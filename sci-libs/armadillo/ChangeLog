@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*armadillo-5.400.2 (26 Aug 2015)
+
+  26 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +armadillo-5.400.2.ebuild:
+  sci-libs/armadillo: Version bump
+
   25 Jul 2015; Marius Brehler <marbre@linux.sungazer.de>
   -armadillo-5.200.1.ebuild, -armadillo-5.200.2.ebuild:
   sci-libs/armadillo: Drop old
