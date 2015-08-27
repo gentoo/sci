@@ -31,7 +31,6 @@ DEPEND="${RDEPEND}
 			dev-python/mock[${PYTHON_USEDEP}] )
 	"
 
-
 python_test() {
 	distutils_install_for_testing
 	cd "${TEST_DIR}"/lib || die
