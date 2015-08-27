@@ -30,7 +30,10 @@ RDEPEND="
 	dev-python/jupyter_core[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
+	)
 	"
 
 python_test() {
