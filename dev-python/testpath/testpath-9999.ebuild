@@ -22,4 +22,5 @@ LICENSE="BSD"
 SLOT="0"
 
 PATCHES=(
-	"${FILESDIR}/${P}"-setup.py.patch)
+	"${FILESDIR}/${P}"-setup.py.patch
+	)
