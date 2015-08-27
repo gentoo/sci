@@ -26,7 +26,12 @@ RDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]"
 	#dev-python/jupyter_client[${PYTHON_USEDEP}]
 	#>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
-DEPEND="test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+DEPEND="${RDEPEND}
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
+	)
+	"
 
 python_test() {
 	nosetests --with-coverage --cover-package ipykernel ipykernel || die

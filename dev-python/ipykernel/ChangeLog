@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> ipykernel-9999.ebuild:
+  dev-python/ipykernel: Fix deps
+
 *ipykernel-4.0.3 (12 Aug 2015)
 *ipykernel-9999 (12 Aug 2015)
 
