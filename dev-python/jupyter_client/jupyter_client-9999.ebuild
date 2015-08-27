@@ -30,6 +30,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	test? (
 		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
 		dev-python/mock[${PYTHON_USEDEP}]
 		dev-python/ipykernel[${PYTHON_USEDEP}]
 	)

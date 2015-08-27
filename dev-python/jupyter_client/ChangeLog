@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_client-9999.ebuild:
+  dev-python/jupyter_client: Fix deps
+
   25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
   jupyter_client-9999.ebuild:
   dev-python/jupyter_client: Add missing dep: ipykernel (required for testing)
