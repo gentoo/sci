@@ -82,8 +82,9 @@ trilinos_enable() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch
-	epatch "${FILESDIR}"/${PN}-12.0.1-fix_install_paths_for_destdir.patch
+	epatch "${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch \
+		"${FILESDIR}"/${PN}-12.0.1-fix_install_paths_for_destdir.patch \
+		"${FILESDIR}"/${P}-compilation_fixes.patch
 }
 
 src_configure() {
