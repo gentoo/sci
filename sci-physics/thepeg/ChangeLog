@@ -1,6 +1,10 @@
 # ChangeLog for sci-physics/thepeg
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  30 Aug 2015; Jauhien Piatlicki <jauhien@gentoo.org> -thepeg-1.9.2.ebuild,
+  metadata.xml:
+  remove version imported to the tree
 
 *thepeg-1.9.2 (31 Aug 2014)
 
