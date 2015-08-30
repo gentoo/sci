@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  30 Aug 2015; Jauhien Piatlicki <jauhien@gentoo.org> -looptools-2.8.ebuild,
+  -looptools-2.12.ebuild:
+  remove versions imported to the tree
+
 *looptools-2.12 (07 Jun 2015)
 
   07 Jun 2015; Jauhien Piatlicki <jauhien@gentoo.org> +looptools-2.12.ebuild:
