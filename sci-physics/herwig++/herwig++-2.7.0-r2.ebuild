@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -17,15 +17,15 @@ SRC_URI="http://www.hepforge.org/archive/herwig/${MYP}.tar.bz2"
 
 LICENSE="GPL-2"
 
-SLOT="0/15"
+SLOT="0/14"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="c++0x fastjet static-libs"
+IUSE="c++11 fastjet static-libs"
 
 RDEPEND="
 	dev-libs/boost:0=
 	sci-libs/gsl:0=
 	<=sci-physics/looptools-2.8:0=
-	>=sci-physics/thepeg-1.9.2:0=
+	>=sci-physics/thepeg-1.9.1:0=
 	fastjet? ( sci-physics/fastjet:0= )"
 DEPEND="${RDEPEND}
 	virtual/fortran"
@@ -45,7 +45,7 @@ src_configure() {
 	local myeconfargs=(
 		--with-boost="${EPREFIX}"/usr
 		--with-thepeg="${EPREFIX}"/usr
-		$(use_enable c++0x stdcxx11)
+		$(use_enable c++11 stdcxx11)
 		$(use_with fastjet fastjet "${EPREFIX}"/usr)
 	)
 	autotools-utils_src_configure
