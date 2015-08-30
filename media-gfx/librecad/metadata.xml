@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
   <maintainer>
-    <email>dongxuli2011@gmail.com</email>
-    <name>Dongxu Li</name>
-    <description>Package maintainer and upstream developer</description>
+    <email>slis@gentoo.org</email>
   </maintainer>
-  <longdescription>
-  LibreCAD is a 2D CAD drawing tool based on the community edition of QCad
-  (www.qcad.org). LibreCAD has been re-structured and ported to qt4 and 
-  works natively cross platform.
-</longdescription>
   <use>
-    <flag name="3d">Use 3D vectors</flag>
-    <flag name="tools">Build additional tool programs</flag>
+    <flag name="3d">Require all 2D coordinates stored as 3D</flag>
+    <flag name="tools">Build additional tool programs: tff2lff</flag>
   </use>
+  <upstream>
+    <remote-id type="github">LibreCAD/LibreCAD</remote-id>
+  </upstream>
 </pkgmetadata>
