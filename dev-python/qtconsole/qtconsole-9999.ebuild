@@ -23,7 +23,6 @@ SLOT="0"
 IUSE="test"
 
 RDEPEND="
-	dev-python/ipython[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
 	dev-python/jupyter_client[${PYTHON_USEDEP}]
 	"
@@ -39,6 +38,7 @@ DEPEND="${RDEPEND}
 	dev-python/pygments[${PYTHON_USEDEP}]
 	>=dev-python/pyzmq-13[${PYTHON_USEDEP}]
 	"
+PDEPEND="dev-python/ipython[${PYTHON_USEDEP}]"
 
 python_test() {
 	nosetests --with-coverage --cover-package qtconsole qtconsole || die
