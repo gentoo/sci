@@ -1,0 +1,11 @@
+# ChangeLog for net-libs/configurable-http-proxy
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*configurable-http-proxy-0.3.0 (01 Sep 2015)
+*configurable-http-proxy-9999 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +configurable-http-proxy-0.3.0.ebuild, +configurable-http-proxy-9999.ebuild,
+  +metadata.xml:
+  net-libs/configurable-http-proxy: New ebuild for jupyterhub
