@@ -38,7 +38,7 @@ RDEPEND="
 	virtual/lapack
 	afterimage? ( media-libs/libafterimage )
 	boost? ( dev-libs/boost )
-	fftw? ( sci-libs/fftw[mpi?] )
+	fftw? ( sci-libs/fftw:3.0[mpi?] )
 	hdf5? ( sci-libs/hdf5[mpi?] )
 	hypre? ( >=sci-libs/hypre-2.8.0b[mpi?] )
 	mpi? ( virtual/mpi[cxx?,fortran?] )
