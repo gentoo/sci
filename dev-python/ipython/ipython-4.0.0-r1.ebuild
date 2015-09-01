@@ -36,7 +36,10 @@ CDEPEND="
 	wxwidgets? ( dev-python/ipywidgets[${PYTHON_USEDEP}] )"
 
 RDEPEND="${CDEPEND}
-	notebook? ( dev-python/notebook[${PYTHON_USEDEP}] )
+	notebook? (
+		dev-python/notebook[${PYTHON_USEDEP}]
+		dev-python/ipywidgets[${PYTHON_USEDEP}]
+	)
 	nbconvert? ( dev-python/nbconvert[${PYTHON_USEDEP}] )
 	qt4? ( dev-python/qtconsole )"
 DEPEND="${CDEPEND}
