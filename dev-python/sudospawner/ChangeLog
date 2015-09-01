@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/sudospawner
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*sudospawner-9999 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +sudospawner-9999.ebuild:
+  dev-python/sudospawner: New ebuild to start jupyterhub as non-root

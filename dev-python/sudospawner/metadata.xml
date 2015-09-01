@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <longdescription>
+    Enables JupyterHub to run without being root, by spawning an
+    intermediate process via sudo, which takes actions on behalf of the
+    user. The sudospawner mediator can only do signal processes via
+    os.kill and spawn single-user servers. The only thing the Hub user
+    needs sudo access for is launching the sudospawner script itself.
+  </longdescription>
+</pkgmetadata>
