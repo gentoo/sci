@@ -1,6 +1,6 @@
 # ChangeLog for dev-python/jupyter_client
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
   jupyter_client-9999.ebuild:

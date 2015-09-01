@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE guide SYSTEM "/dtd/guide.dtd">
-<!-- $Header: /var/cvsroot/gentoo/xml/htdocs/proj/en/science/blas-lapack.xml,v 1.3 2007/12/27 19:35:25 bicatali Exp $ -->
+# $Id$
 
 <guide link="/proj/en/science/blas-lapack.xml">
 <title>Using multiple versions of BLAS and LAPACK with Gentoo/Linux</title>
