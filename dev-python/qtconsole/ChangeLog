@@ -1,0 +1,13 @@
+# ChangeLog for dev-python/qtconsole
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> qtconsole-9999.ebuild:
+  dev-python/qtconsole: Take over DEPEND from ipython
+
+*qtconsole-4.0.1 (25 Aug 2015)
+*qtconsole-9999 (25 Aug 2015)
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +qtconsole-4.0.1.ebuild, +qtconsole-9999.ebuild:
+  dev-python/qtconsole: Initial ebuild
