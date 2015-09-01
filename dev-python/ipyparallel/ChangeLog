@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ipyparallel-4.0.0-r1 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipyparallel-4.0.0-r1.ebuild, -ipyparallel-4.0.0.ebuild,
+  ipyparallel-9999.ebuild:
+  dev-python/ipyparallel: Fix #473
+
   27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
   ipyparallel-9999.ebuild:
   dev-python/ipyparallel: Fix deps
