@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/jupyterhub
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*jupyterhub-0.2.0 (01 Sep 2015)
+*jupyterhub-9999 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyterhub-0.2.0.ebuild, +jupyterhub-9999.ebuild, +metadata.xml:
+  dev-python/jupyterhub: Initial ebuild written by me
