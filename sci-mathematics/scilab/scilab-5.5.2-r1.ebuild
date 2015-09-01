@@ -10,7 +10,7 @@ JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
-	fortran-2 java-pkg-opt-2 toolchain-funcs virtualx
+	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
@@ -230,6 +230,7 @@ src_configure() {
 src_compile() {
 	addpredict /proc/mtrr
 	emake
+	pax-mark m .libs/scilab-bin
 	use doc && emake doc
 }
 
