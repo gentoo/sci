@@ -20,14 +20,34 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="test"
+IUSE="doc test"
 
 RDEPEND="
 	dev-python/decorator[${PYTHON_USEDEP}]
 	dev-python/ipython_genutils[${PYTHON_USEDEP}]
 	"
-DEPEND="test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+DEPEND="
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+
+python_prepare_all() {
+	# Prevent un-needed download during build
+	if use doc; then
+		sed -e "/^    'sphinx.ext.intersphinx',/d" -i docs/source/conf.py || die
+	fi
+
+	distutils-r1_python_prepare_all
+}
+
+python_compile_all() {
+	use doc && emake -C docs html
+}
 
 python_test() {
 	nosetests --with-coverage --cover-package traitlets traitlets || die
+}
+
+python_install_all() {
+	use doc && HTML_DOCS=( docs/build/html/. )
+	distutils-r1_python_install_all
 }
