@@ -3,6 +3,9 @@
 # $Id$
 
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_console-9999.ebuild:
+  dev-python/jupyter_console: Add doc use flag
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_console-9999.ebuild:
   dev-python/jupyter_console: Fix testing deps
 
 *jupyter_console-4.0.1 (01 Sep 2015)

@@ -20,7 +20,7 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="test"
+IUSE="doc test"
 
 RDEPEND="
 	dev-python/ipython[${PYTHON_USEDEP}]
@@ -28,6 +28,7 @@ RDEPEND="
 	dev-python/jupyter_client[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	test? (
 		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
 		dev-python/pexpect[${PYTHON_USEDEP}]
@@ -36,6 +37,24 @@ DEPEND="${RDEPEND}
 	)
 	"
 
+python_prepare_all() {
+	# Prevent un-needed download during build
+	if use doc; then
+		sed -e "/^    'sphinx.ext.intersphinx',/d" -i docs/conf.py || die
+	fi
+
+	distutils-r1_python_prepare_all
+}
+
+python_compile_all() {
+	use doc && emake -C docs html
+}
+
 python_test() {
 	nosetests --with-coverage --cover-package=jupyter_console jupyter_console || die
+}
+
+python_install_all() {
+	use doc && HTML_DOCS=( docs/_build/html/. )
+	distutils-r1_python_install_all
 }
