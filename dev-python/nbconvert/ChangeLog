@@ -3,6 +3,9 @@
 # $Id$
 
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Add note about pandoc
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> nbconvert-9999.ebuild:
   dev-python/nbconvert: Add doc use flag
 
   27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:

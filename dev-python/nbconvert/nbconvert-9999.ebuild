@@ -64,3 +64,11 @@ python_install_all() {
 	use doc && HTML_DOCS=( docs/build/html/. )
 	distutils-r1_python_install_all
 }
+
+pkg_postinst() {
+	if ! has_version app-text/pandoc ; then
+		einfo "Pandoc is required for converting to formats other than Python,"
+		einfo "HTML, and Markdown. If you need this functionality, install"
+		einfo "app-text/pandoc."
+	fi
+}
