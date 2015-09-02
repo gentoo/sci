@@ -51,6 +51,7 @@ DEPEND="${CDEPEND}
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/sphinx[${PYTHON_USEDEP}]
 		>=www-servers/tornado-4.0[${PYTHON_USEDEP}]
+		dev-python/testpath[${PYTHON_USEDEP}]
 	)
 	doc? (
 		dev-python/cython[${PYTHON_USEDEP}]
