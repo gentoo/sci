@@ -28,8 +28,9 @@ RDEPEND="
 	#>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
 DEPEND="${RDEPEND}
 	test? (
-		dev-python/nose[${PYTHON_USEDEP}]
 		dev-python/coverage[${PYTHON_USEDEP}]
+		>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
+		dev-python/nose[${PYTHON_USEDEP}]
 	)
 	"
 
