@@ -21,9 +21,7 @@ fi
 LICENSE="BSD"
 SLOT="0"
 IUSE="doc test"
-CDEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]"
-RDEPEND="${CDEPEND}
+RDEPEND="
 	dev-libs/mathjax
 	dev-python/jinja[${PYTHON_USEDEP}]
 	>=dev-python/terminado-0.3.3[${PYTHON_USEDEP}]
@@ -37,6 +35,7 @@ RDEPEND="${CDEPEND}
 	dev-python/ipykernel[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
+	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? (
 		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
