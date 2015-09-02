@@ -28,7 +28,6 @@ CDEPEND="
 	dev-python/pexpect[${PYTHON_USEDEP}]
 	dev-python/pickleshare[${PYTHON_USEDEP}]
 	dev-python/pyparsing[${PYTHON_USEDEP}]
-	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/simplegeneric[${PYTHON_USEDEP}]
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )
@@ -43,6 +42,7 @@ RDEPEND="${CDEPEND}
 	nbconvert? ( dev-python/nbconvert[${PYTHON_USEDEP}] )
 	qt4? ( dev-python/qtconsole )"
 DEPEND="${CDEPEND}
+	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? (
 		app-text/dvipng
 		dev-python/jinja[${PYTHON_USEDEP}]
