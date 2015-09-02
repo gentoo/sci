@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_client-9999.ebuild:
+  dev-python/jupyter_client: Fix testing deps
+
   27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
   jupyter_client-9999.ebuild:
   dev-python/jupyter_client: Fix deps
