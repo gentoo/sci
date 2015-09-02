@@ -20,7 +20,8 @@ IUSE="doc examples matplotlib mongodb notebook nbconvert qt4 +smp test wxwidgets
 
 REQUIRED_USE="
 	test? ( doc matplotlib mongodb notebook nbconvert qt4 wxwidgets )
-	doc? ( mongodb )"
+	doc? ( mongodb )
+	notebook? ( wxwidgets )"
 
 CDEPEND="
 	dev-python/decorator[${PYTHON_USEDEP}]
@@ -38,7 +39,6 @@ CDEPEND="
 RDEPEND="${CDEPEND}
 	notebook? (
 		dev-python/notebook[${PYTHON_USEDEP}]
-		dev-python/ipywidgets[${PYTHON_USEDEP}]
 	)
 	nbconvert? ( dev-python/nbconvert[${PYTHON_USEDEP}] )
 	qt4? ( dev-python/qtconsole )"
