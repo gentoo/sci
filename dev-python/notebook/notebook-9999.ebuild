@@ -46,6 +46,13 @@ DEPEND="${RDEPEND}
 	)
 	"
 
+python_prepare_all() {
+	sed \
+		-e "/import setup/s:$:\nimport setuptools:g" \
+		-i setup.py || die
+	distutils-r1_python_prepare_all
+}
+
 python_test() {
 	nosetests --with-coverage --cover-package=notebook notebook || die
 }
