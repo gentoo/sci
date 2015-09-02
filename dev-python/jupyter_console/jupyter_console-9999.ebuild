@@ -29,6 +29,8 @@ RDEPEND="
 	"
 DEPEND="${RDEPEND}
 	test? (
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
+		dev-python/pexpect[${PYTHON_USEDEP}]
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
 		dev-python/coverage[${PYTHON_USEDEP}]
 	)
