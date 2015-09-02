@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython-4.0.0-r1.ebuild:
+  dev-python/ipython: Move setuptools from CDEPEND to DEPEND
+
+  02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython-4.0.0-r1.ebuild:
+  dev-python/ipython: Re-Fix #474; notebook use flag requires use wxwidgets
+
   01 Sep 2015; Sean Vig <sean.v.775@gmail.com>
   dev-python/ipython: remove mathjax references
 
