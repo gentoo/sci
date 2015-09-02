@@ -5,6 +5,9 @@
   01 Sep 2015; Sean Vig <sean.v.775@gmail.com>
   dev-python/ipython: remove mathjax references
 
+  01 Sep 2015; Sean Vig <sean.v.775@gmail.com>
+  dev-python/ipython: remove mathjax references
+
 *ipython-4.0.0-r1 (01 Sep 2015)
 
   01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>

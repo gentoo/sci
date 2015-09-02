@@ -10,6 +10,9 @@
   01 Sep 2015; Sean Vig <sean.v.775@gmail.com> notebook-9999.ebuild:
   dev-python/notebook: Use system mathjax
 
+  01 Sep 2015; Sean Vig <sean.v.775@gmail.com> notebook-9999.ebuild:
+  dev-python/notebook: Use system mathjax
+
 *notebook-4.0.4 (01 Sep 2015)
 
   01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +notebook-4.0.4.ebuild,
