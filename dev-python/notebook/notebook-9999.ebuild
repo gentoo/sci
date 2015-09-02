@@ -24,6 +24,7 @@ IUSE="doc test"
 CDEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="${CDEPEND}
+	dev-libs/mathjax
 	dev-python/jinja[${PYTHON_USEDEP}]
 	>=dev-python/terminado-0.3.3[${PYTHON_USEDEP}]
 	>=www-servers/tornado-4.0[${PYTHON_USEDEP}]
@@ -37,6 +38,7 @@ RDEPEND="${CDEPEND}
 	"
 DEPEND="${RDEPEND}
 	test? (
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/coverage[${PYTHON_USEDEP}]
@@ -50,9 +52,19 @@ python_prepare_all() {
 	sed \
 		-e "/import setup/s:$:\nimport setuptools:g" \
 		-i setup.py || die
+
+	# disable bundled mathjax
+	sed -i 's/^.*MathJax.*$//' bower.json || die
+	sed -i 's/mj(/#mj(/' setupbase.py || die
 	distutils-r1_python_prepare_all
 }
 
 python_test() {
 	nosetests --with-coverage --cover-package=notebook notebook || die
+}
+
+python_install() {
+	distutils-r1_python_install
+
+	ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
 }

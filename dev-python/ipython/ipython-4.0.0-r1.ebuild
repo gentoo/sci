@@ -102,8 +102,6 @@ python_test() {
 
 python_install() {
 	distutils-r1_python_install
-	use notebook && \
-		ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/IPython/html/static/mathjax"
 
 	# Create ipythonX.Y symlinks.
 	# TODO:
