@@ -18,6 +18,7 @@ if [ ${PV} == "9999" ] ; then
 else
 	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 	KEYWORDS="~amd64"
+	PATCHES=( "${FILESDIR}"/${P}-pandoc-highlighting.patch )
 fi
 
 LICENSE="BSD"

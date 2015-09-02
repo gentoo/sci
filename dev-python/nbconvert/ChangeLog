@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com>
+  +files/nbconvert-4.0.0-pandoc-highlighting.patch nbconvert-9999.ebuild:
+  dev-python/nbconvert: Use upstream patch for new pandoc versions
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> nbconvert-9999.ebuild:
   dev-python/nbconvert: Add note about pandoc
 
