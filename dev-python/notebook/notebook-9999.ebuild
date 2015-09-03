@@ -47,12 +47,6 @@ DEPEND="${RDEPEND}
 	)
 	"
 
-pkg_preinst() {
-	# remove old mathjax folder if present
-	[[ -d "${ROOT}$(python_get_sitedir)/notebook/static/components/MathJax" ]] \
-		&& rm -rf "${ROOT}$(python_get_sitedir)/notebook/static/components/MathJax"
-}
-
 python_prepare_all() {
 	sed \
 		-e "/import setup/s:$:\nimport setuptools:g" \
@@ -72,4 +66,9 @@ python_install() {
 	distutils-r1_python_install
 
 	ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
+}
+
+pkg_preinst() {
+	# remove old mathjax folder if present
+	rm -rf "${ROOT}"/usr/lib*/python*/notebook/static/components/MathJax
 }
