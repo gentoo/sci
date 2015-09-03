@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*jupyter_core-4.0.4-r1 (03 Sep 2015)
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/jupyter_core-4.0.4-add-test-files.patch, +jupyter_core-4.0.4-r1.ebuild,
+  -jupyter_core-4.0.4.ebuild:
+  dev-python/jupyter_core: Fix tests (issue #479)
+
 *jupyter_core-4.0.4 (01 Sep 2015)
 
   01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
