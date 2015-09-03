@@ -1,0 +1,50 @@
+Patch to fix testing. Fixes
+https://github.com/gentoo-science/sci/issues/479
+
+Upstream issue:
+https://github.com/jupyter/jupyter_core/issues/50
+
+From 38b01f31f4793f4ccd427f0dee095bcb2a99b3c9 Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Tue, 1 Sep 2015 09:28:17 +0200
+Subject: [PATCH] add test files to package data
+
+---
+ setup.py | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index 0653dbd..f155663 100644
+--- a/setup.py
++++ b/setup.py
+@@ -31,6 +31,19 @@ version_ns = {}
+ with open(pjoin(here, 'jupyter_core', 'version.py')) as f:
+     exec(f.read(), {}, version_ns)
+ 
++def find_package_data():
++    """Find package data (testing support files)"""
++    package_data = {}
++    package_data['jupyter_core.tests'] = test_files = []
++    test_dir = pjoin('jupyter_core', 'tests')
++    prefix_len = len(test_dir) + len(os.sep)
++    for parent, dirs, files in os.walk(test_dir):
++        if files:
++            test_files.append(pjoin(parent[prefix_len:], '*.*'))
++    
++    return package_data
++
++package_data = find_package_data()
+ 
+ setup_args = dict(
+     name                = 'jupyter_core',
+@@ -38,6 +51,7 @@ setup_args = dict(
+     packages            = ['jupyter_core',
+                            'jupyter_core.utils',
+                            'jupyter_core.tests'],
++    package_data        = package_data,
+     scripts             = glob(pjoin('scripts', '*')),
+     description         = "Jupyter core package. A base package on which Jupyter projects rely.",
+     long_description    = """There is no reason to install this package on its own.""",
+-- 
+2.4.6
+

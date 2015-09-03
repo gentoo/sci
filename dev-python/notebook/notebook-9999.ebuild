@@ -67,3 +67,8 @@ python_install() {
 
 	ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
 }
+
+pkg_preinst() {
+	# remove old mathjax folder if present
+	rm -rf "${EROOT}"/usr/lib*/python*/site-packages/notebook/static/components/MathJax
+}

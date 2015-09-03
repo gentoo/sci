@@ -2,6 +2,18 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Re-Fix #478
+
+*notebook-4.0.4-r1 (03 Sep 2015)
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +notebook-4.0.4-r1.ebuild, -notebook-4.0.4.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: Implement pkg_preinst(); Fixes #478
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> -notebook-4.0.1.ebuild:
+  dev-python/notebook: Drop old
+
   02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
   dev-python/notebook: Move setuptools from CDEPEND to DEPEND
 
