@@ -26,9 +26,11 @@ RDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
-	test? ( dev-python/pytest[${PYTHON_USEDEP}]
-			dev-python/pytest-cov[${PYTHON_USEDEP}]
-			dev-python/mock[${PYTHON_USEDEP}] )
+	test? (
+		dev-python/pytest[${PYTHON_USEDEP}]
+		dev-python/pytest-cov[${PYTHON_USEDEP}]
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
+	)
 	"
 
 python_test() {
