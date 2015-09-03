@@ -47,6 +47,12 @@ DEPEND="${RDEPEND}
 	)
 	"
 
+pkg_preinst() {
+	# remove old mathjax folder if present
+	[[ -d "${ROOT}$(python_get_sitedir)/notebook/static/components/MathJax" ]] \
+		&& rm -rf "${ROOT}$(python_get_sitedir)/notebook/static/components/MathJax"
+}
+
 python_prepare_all() {
 	sed \
 		-e "/import setup/s:$:\nimport setuptools:g" \
