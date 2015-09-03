@@ -20,19 +20,40 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="test"
+IUSE="doc test"
 
 RDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
-	test? ( dev-python/pytest[${PYTHON_USEDEP}]
-			dev-python/pytest-cov[${PYTHON_USEDEP}]
-			dev-python/mock[${PYTHON_USEDEP}] )
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	test? (
+		dev-python/pytest[${PYTHON_USEDEP}]
+		dev-python/pytest-cov[${PYTHON_USEDEP}]
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
+	)
 	"
+
+python_prepare_all() {
+	# Prevent un-needed download during build
+	if use doc; then
+		sed -e "/^    'sphinx.ext.intersphinx',/d" -i docs/conf.py || die
+	fi
+
+	distutils-r1_python_prepare_all
+}
+
+python_compile_all() {
+	use doc && emake -C docs html
+}
 
 python_test() {
 	distutils_install_for_testing
 	cd "${TEST_DIR}"/lib || die
 	py.test jupyter_core || die
+}
+
+python_install_all() {
+	use doc && HTML_DOCS=( docs/_build/html/. )
+	distutils-r1_python_install_all
 }

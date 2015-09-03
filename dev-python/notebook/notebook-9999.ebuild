@@ -55,7 +55,17 @@ python_prepare_all() {
 	# disable bundled mathjax
 	sed -i 's/^.*MathJax.*$//' bower.json || die
 	sed -i 's/mj(/#mj(/' setupbase.py || die
+
+	# Prevent un-needed download during build
+	if use doc; then
+		sed -e "/^    'sphinx.ext.intersphinx',/d" -i docs/source/conf.py || die
+	fi
+
 	distutils-r1_python_prepare_all
+}
+
+python_compile_all() {
+	use doc && emake -C docs html
 }
 
 python_test() {
@@ -66,6 +76,11 @@ python_install() {
 	distutils-r1_python_install
 
 	ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
+}
+
+python_install_all() {
+	use doc && HTML_DOCS=( docs/build/html/. )
+	distutils-r1_python_install_all
 }
 
 pkg_preinst() {

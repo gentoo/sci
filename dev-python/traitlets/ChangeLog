@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com>:
+  dev-python/traitlets: Add doc use flag
+
 *traitlets-4.0.0 (12 Aug 2015)
 *traitlets-9999 (12 Aug 2015)
 
