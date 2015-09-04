@@ -31,3 +31,7 @@ before_script:
 script:
     - ./../spinner.sh "python ../portage-${PORTAGE_VER}/bin/repoman full -d"
 # You can append own scripts after this line
+
+notifications:
+    irc: "chat.freenode.net#gentoo-science"
+
