@@ -18,7 +18,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=">=virtual/jdk-1.7"
+DEPEND=">=virtual/jdk-1.7:*"
 RDEPEND="${DEPEND}
-	>=virtual/jdk-1.7
 	sci-biology/conform-gt"
