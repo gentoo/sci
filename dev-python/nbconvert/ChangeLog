@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*nbconvert-4.0.0-r1 (05 Sep 2015)
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/nbconvert-4.0.0-docs-Makefile.patch, +nbconvert-4.0.0-r1.ebuild,
+  -nbconvert-4.0.0.ebuild, nbconvert-9999.ebuild:
+  dev-python/nbconvert: Patch docs/Makefile, add pandoc dependency. Fixes bug
+  #559594.
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com>
   +files/nbconvert-4.0.0-pandoc-highlighting.patch nbconvert-9999.ebuild:
   dev-python/nbconvert: Use upstream patch for new pandoc versions
