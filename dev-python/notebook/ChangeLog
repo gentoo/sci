@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Add deps for doc, fixes bug #559594
+
 *notebook-4.0.4-r2 (05 Sep 2015)
 
   05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
