@@ -3,6 +3,9 @@
 # $Id$
 
   05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Add deps for doc, fixes bug #559594
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
   dev-python/nbconvert: Readd accidentialy dropped python2_7
 
 *nbconvert-4.0.0-r1 (05 Sep 2015)

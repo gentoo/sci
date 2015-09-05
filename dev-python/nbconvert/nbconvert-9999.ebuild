@@ -36,6 +36,8 @@ RDEPEND="
 	"
 DEPEND="${RDEPEND}
 	doc? (
+		dev-python/ipython[${PYTHON_USEDEP}]
+		dev-python/jupyter_client[${PYTHON_USEDEP}]
 		dev-python/sphinx[${PYTHON_USEDEP}]
 		app-text/pandoc
 	)
