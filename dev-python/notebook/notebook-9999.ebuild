@@ -43,6 +43,7 @@ DEPEND="${RDEPEND}
 		dev-python/coverage[${PYTHON_USEDEP}]
 	)
 	doc? (
+        app-text/pandoc
 		>=dev-python/sphinx-1.1[${PYTHON_USEDEP}]
 	)
 	"

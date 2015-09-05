@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*notebook-4.0.4-r2 (05 Sep 2015)
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +notebook-4.0.4-r2.ebuild, -notebook-4.0.4-r1.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: pandoc required for use doc, partially fixes bug #559594
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> notebook-9999.ebuild:
   dev-python/notebook: Enable building docs
 
