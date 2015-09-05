@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*qtconsole-4.0.1-r1 (05 Sep 2015)
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +qtconsole-4.0.1-r1.ebuild, -qtconsole-4.0.1.ebuild, qtconsole-9999.ebuild:
+  dev-python/qtconsole: Add deps for doc, fixes bug #559594
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> qtconsole-9999.ebuild:
   dev-python/qtconsole: Add doc use flag
 

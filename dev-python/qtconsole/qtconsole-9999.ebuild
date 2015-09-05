@@ -27,7 +27,10 @@ RDEPEND="
 	dev-python/jupyter_client[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	doc? (
+		dev-python/ipython[${PYTHON_USEDEP}]
+		dev-python/sphinx[${PYTHON_USEDEP}]
+	)
 	test? (
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
 	)
