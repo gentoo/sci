@@ -1,12 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: $
 
 EAPI=5
 
 inherit eutils
 
-DESCRIPTION="A Modular, Open-Source whole genome assembler with defaults for short reads"
+DESCRIPTION="Whole genome assembler with defaults for short reads"
 HOMEPAGE="http://amos.sourceforge.net/"
 SRC_URI="http://sourceforge.net/projects/amos/files/short_read_assembly/${PV}/AMOS-short.tgz"
 
