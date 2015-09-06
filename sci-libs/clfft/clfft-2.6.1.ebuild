@@ -1,18 +1,18 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: $
 
 EAPI=5
 
-inherit cmake-utils git-r3
+inherit cmake-utils
 
 MY_PN="clFFT"
 
 DESCRIPTION="A software library containing FFT functions written in OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clFFT"
-EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
-EGIT_BRANCH="develop"
-S="${WORKDIR}/${P}/src"
+SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+KEYWORDS="~amd64"
+S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -33,6 +33,7 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
+	"${FILESDIR}/${P}"-Install-cmake-configuration-to-lib-cmake-clFFT.patch
 	"${FILESDIR}/${P}"-Install-examples-to-share-clFFT-examples.patch
 )
 
