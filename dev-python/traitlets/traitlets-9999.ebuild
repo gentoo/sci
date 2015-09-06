@@ -27,8 +27,14 @@ RDEPEND="
 	dev-python/ipython_genutils[${PYTHON_USEDEP}]
 	"
 DEPEND="
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )"
+	doc? (
+		dev-python/ipython_genutils[${PYTHON_USEDEP}]
+		dev-python/sphinx[${PYTHON_USEDEP}]
+	)
+	test? (
+		dev-python/nose[${PYTHON_USEDEP}]
+		dev-python/coverage[${PYTHON_USEDEP}]
+	)"
 
 python_prepare_all() {
 	# Prevent un-needed download during build
