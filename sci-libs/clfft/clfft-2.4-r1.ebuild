@@ -33,9 +33,9 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}"/clfft-client_CMakeLists.patch
-	"${FILESDIR}"/clfft-scripts_perf_CMakeLists.patch
-	"${FILESDIR}"/clfft-2.4-fix-cmake-config-install.patch
+	"${FILESDIR}/${P}"-client_CMakeLists.patch
+	"${FILESDIR}/${P}"-scripts_perf_CMakeLists.patch
+	"${FILESDIR}/${P}"-fix-cmake-config-install.patch
 )
 
 pkg_pretend() {

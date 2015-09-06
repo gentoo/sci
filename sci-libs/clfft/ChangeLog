@@ -2,6 +2,15 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/clfft-2.4-client_CMakeLists.patch,
+  +files/clfft-2.4-scripts_perf_CMakeLists.patch,
+  -files/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch,
+  -files/clfft-client_CMakeLists.patch,
+  -files/clfft-scripts_perf_CMakeLists.patch, clfft-0.9999.ebuild,
+  clfft-2.4-r1.ebuild, clfft-9999.ebuild:
+  sci-libs/clfft: Revise patches
+
 *clfft-2.4-r1 (05 Jun 2015)
 
   05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.4-r1.ebuild,
