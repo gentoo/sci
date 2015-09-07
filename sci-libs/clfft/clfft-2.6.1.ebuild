@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: $
 
 EAPI=5
 
@@ -33,9 +33,8 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}/${P}"-client_CMakeLists.patch
-	"${FILESDIR}/${P}"-scripts_perf_CMakeLists.patch
-	"${FILESDIR}/${P}"-fix-cmake-config-install.patch
+	"${FILESDIR}/${P}"-Install-cmake-configuration-to-lib-cmake-clFFT.patch
+	"${FILESDIR}/${P}"-Install-examples-to-share-clFFT-examples.patch
 )
 
 pkg_pretend() {

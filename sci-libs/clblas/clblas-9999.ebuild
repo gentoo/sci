@@ -36,12 +36,6 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-PATCHES=(
-	"${FILESDIR}"/clblas-samples_CMakeLists.patch
-	"${FILESDIR}"/clblas-scripts_perf_CMakeLists.patch
-	"${FILESDIR}"/clblas-2.4-Install-cmake-configuration-to-lib-cmake-clBLAS.patch
-)
-
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		if [[ $(gcc-major-version) -lt 4 ]] || ( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 6 ]] ) ; then

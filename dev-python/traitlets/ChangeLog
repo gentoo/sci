@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> traitlets-9999.ebuild:
+  dev-python/traitlets: Add missing deps
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com>:
   dev-python/traitlets: Add doc use flag
 

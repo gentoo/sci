@@ -1,0 +1,29 @@
+Patch to fix location of examples:
+https://github.com/clMathLibraries/clFFT/pull/108
+
+From 8e34e31465231460d1bda73e34584bc7d4862be1 Mon Sep 17 00:00:00 2001
+From: Marius Brehler <marbre@linux.sungazer.de>
+Date: Sun, 6 Sep 2015 12:01:55 +0200
+Subject: [PATCH] Install examples to share/clFFT/examples
+
+---
+ src/examples/CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/examples/CMakeLists.txt b/src/examples/CMakeLists.txt
+index f93f0fb..0073a34 100644
+--- a/src/examples/CMakeLists.txt
++++ b/src/examples/CMakeLists.txt
+@@ -47,7 +47,7 @@ FOREACH(FILE ${FILES})
+         OUTPUT_NAME ${EXAMPLE}
+         RUNTIME_OUTPUT_DIRECTORY ${DIR_NAME})
+ 
+-    INSTALL(FILES ${FILE} DESTINATION "share/clFFT")
++    INSTALL(FILES ${FILE} DESTINATION "share/clFFT/examples")
+     INSTALL(TARGETS ${EXAMPLE_NAME}
+-        RUNTIME DESTINATION "bin${SUFFIX_BIN}/examples")
++        RUNTIME DESTINATION "share/clFFT/examples")
+ ENDFOREACH()
+-- 
+2.4.6
+

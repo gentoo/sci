@@ -33,7 +33,7 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}"/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch
+	"${FILESDIR}/${P}"-Install-examples-to-share-clFFT-examples.patch
 )
 
 pkg_pretend() {
