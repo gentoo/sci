@@ -22,7 +22,7 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="doc test"
 RDEPEND="
-	dev-libs/mathjax
+	>=dev-libs/mathjax-2.4
 	dev-python/jinja[${PYTHON_USEDEP}]
 	>=dev-python/terminado-0.3.3[${PYTHON_USEDEP}]
 	>=www-servers/tornado-4.0[${PYTHON_USEDEP}]
