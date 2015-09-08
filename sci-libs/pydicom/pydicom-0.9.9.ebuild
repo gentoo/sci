@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="A pure python package for parsing DICOM files"
 HOMEPAGE="http://www.pydicom.org/"
-SRC_URI="https://pypi.python.org/packages/source/p/${PN}/${P}.tar.gz"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

@@ -20,7 +20,41 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
+IUSE="doc test"
+
+DEPEND="
+	test? (
+		dev-python/pathlib[${PYTHON_USEDEP}]
+		dev-python/pytest[${PYTHON_USEDEP}]
+	)
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	"
 
 PATCHES=(
 	"${FILESDIR}/${P}"-setup.py.patch
 	)
+
+python_prepare_all() {
+	# Prevent un-needed download during build
+	if use doc; then
+		sed -e "/^    'sphinx.ext.intersphinx',/d" -i doc/conf.py || die
+	fi
+
+distutils-r1_python_prepare_all
+}
+
+python_compile_all() {
+	use doc && emake -C doc html
+}
+
+python_install_all() {
+	use doc && HTML_DOCS=( doc/_build/html/. )
+	distutils-r1_python_install_all
+	}
+
+python_test() {
+	distutils_install_for_testing
+	cd "${TEST_DIR}"/lib || die
+	cp -r "${S}"/tests "${TEST_DIR}"/lib/ || die
+	py.test || die
+}

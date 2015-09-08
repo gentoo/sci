@@ -29,8 +29,6 @@ DEPEND="dev-libs/boost"
 #   samtools_0.1.18 sort
 #   samtools_0.1.18 merge -f -h -u -Q --sam-header
 RDEPEND="${DEPEND}
-	>=sci-biology/samtools-0.1.17[${PYTHON_USEDEP}]
-	<=sci-biology/samtools-0.1.19[${PYTHON_USEDEP}]
 	>=sci-biology/bowtie-0.12.9 || ( >=sci-biology/bowtie-2.0.5 <=sci-biology/bowtie-2.2.3 )"
 
 # PATCHES=( "${FILESDIR}"/${P}-flags.patch )
