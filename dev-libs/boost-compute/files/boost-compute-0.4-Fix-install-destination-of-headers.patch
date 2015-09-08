@@ -1,0 +1,22 @@
+From 3df0527cad686a4e9a3cd84ead97702cf8964da3 Mon Sep 17 00:00:00 2001
+From: Marius Brehler <marius.brehler@tu-dortmund.de>
+Date: Tue, 8 Sep 2015 10:35:56 +0200
+Subject: [PATCH] Fix install destination of headers
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3695681..56b47b6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -109,4 +109,4 @@ install(
+ )
+ 
+ # install header files
+-install(DIRECTORY include/boost DESTINATION include/compute)
++install(DIRECTORY include/boost DESTINATION include)
+-- 
+2.4.6
+

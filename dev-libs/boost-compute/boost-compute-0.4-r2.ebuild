@@ -4,19 +4,22 @@
 
 EAPI=5
 
-inherit eutils cmake-utils git-r3
+inherit eutils cmake-utils
 
 DESCRIPTION="A header-only C++ Computing Library for OpenCL"
 HOMEPAGE="https://github.com/boostorg/compute"
-EGIT_REPO_URI="https://github.com/boostorg/compute.git git://github.com/boostorg/compute.git"
-KEYWORDS=""
+SRC_URI="https://github.com/boostorg/compute/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+KEYWORDS="~amd64"
+S="${WORKDIR}/compute-${PV}"
 
 LICENSE="Boost-1.0"
 SLOT="0"
 
 PATCHES=(
-	"${FILESDIR}/${PN}"-0.4-Fix-install-destination-of-headers.patch
+	"${FILESDIR}/${P}"-Fix-install-destination-of-headers.patch
+	"${FILESDIR}/${P}"-CMakeLists.patch
 )
+
 
 RDEPEND="
 	dev-libs/boost
