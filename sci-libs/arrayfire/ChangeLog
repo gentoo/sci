@@ -2,6 +2,11 @@
 # $Id$
 
   08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/arrayfire-9999-Try-PkgConf-first-to-find-LAPACKE.patch,
+  arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Fix issue #463
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   -arrayfire-0.9999.ebuild:
   sci-libs/arrayfire: Drop 0.9999, because releases are available
 

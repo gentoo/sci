@@ -20,6 +20,7 @@ IUSE="+examples +cpu cuda opencl test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
+	media-libs/freeimage
 	cuda? (
 		>=dev-util/nvidia-cuda-toolkit-6.0
 		dev-libs/boost
@@ -31,6 +32,9 @@ RDEPEND="
 		sci-libs/fftw:3.0
 	)
 	opencl? (
+		virtual/blas
+		virtual/cblas
+		virtual/lapacke
 		dev-libs/boost
 		dev-libs/boost-compute
 		sci-libs/clblas
@@ -43,6 +47,7 @@ CMAKE_BUILD_TYPE=Release
 
 PATCHES=(
 	"${FILESDIR}"/${P}-FindCBLAS.patch
+	"${FILESDIR}"/${P}-Try-PkgConf-first-to-find-LAPACKE.patch
 )
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
@@ -66,9 +71,6 @@ src_unpack() {
 		unpack ${A}
 		mv "${BUILD_DIR}"/third_party/src/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
 	fi
-
-	rm "${S}"/CMakeModules/build_boost_compute.cmake || die
-	cp "${FILESDIR}"/FindBoostCompute.cmake "${S}"/CMakeModules/ || die
 }
 
 src_configure() {
@@ -85,6 +87,9 @@ src_configure() {
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
 	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
+	   -DUSE_SYSTEM_CLBLAS=ON
+	   -DUSE_SYSTEM_CLFFT=ON
+	   -DBUILD_GRAPHICS=OFF 
 	)
 	cmake-utils_src_configure
 }
