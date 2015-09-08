@@ -14,10 +14,6 @@ KEYWORDS=""
 LICENSE="Boost-1.0"
 SLOT="0"
 
-PATCHES=(
-	"${FILESDIR}/${PN}"-0.4-Fix-install-destination-of-headers.patch
-)
-
 RDEPEND="
 	dev-libs/boost
 	virtual/opencl

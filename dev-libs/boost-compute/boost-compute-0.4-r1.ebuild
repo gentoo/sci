@@ -16,7 +16,6 @@ LICENSE="Boost-1.0"
 SLOT="0"
 
 PATCHES=(
-	"${FILESDIR}/${P}"-Fix-install-destination-of-headers.patch
 	"${FILESDIR}/${P}"-CMakeLists.patch
 )
 

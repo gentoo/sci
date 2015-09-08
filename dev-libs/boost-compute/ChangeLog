@@ -1,6 +1,15 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*boost-compute-0.4-r1 (08 Sep 2015)
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +boost-compute-0.4-r1.ebuild, -boost-compute-0.4-r2.ebuild,
+  -files/boost-compute-0.4-Fix-install-destination-of-headers.patch,
+  boost-compute-9999.ebuild:
+  dev-libs/boost-compute: Drop 0.4-r2, bring back 0.4-r1; Drop patch to change
+  install destination
+
 *boost-compute-0.4-r2 (08 Sep 2015)
 
   08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
