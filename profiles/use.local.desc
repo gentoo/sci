@@ -98,7 +98,6 @@ sci-biology/ncbi-tools++:xalan - Undocumented USE
 sci-biology/ncbi-tools++:xerces - Undocumented USE
 sci-biology/ncbi-tools++:xslt - Undocumented USE
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
-sci-biology/tophat:bam - Compile support for the BAM format
 sci-chemistry/avogadro2:rpc - Enable RPC server
 sci-chemistry/ball:cuda - Include cuda support
 sci-chemistry/ball:sql - Include SQL database support
