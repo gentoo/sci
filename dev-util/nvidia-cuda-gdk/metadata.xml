@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    The GPU Deployment Kit (previously known as the Tesla Deployment
+    Kit) is a set of tools provided for the NVIDIA Tesla™, GRID™ and
+    Quadro™ GPUs.
+  </longdescription>
+  <use>
+    <flag name="healthmon">
+			Install nvidia-healthmon.
+		</flag>
+    <flag name="nvml">
+			Install the NVIDIA Managment Library.
+		</flag>
+    <flag name="nvvs">
+      Install the NVIDIA Validation Suite.
+    </flag>
+  </use>
+</pkgmetadata>

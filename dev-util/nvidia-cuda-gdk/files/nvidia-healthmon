@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while getopts ":c" opt
+do
+	case $opt in
+		c) exec /opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon "$@";;
+		*) exec /opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon -c /etc/nvidia-healthmon/nvidia-healthmon.conf "$@";;
+	esac
+done
