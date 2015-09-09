@@ -559,7 +559,7 @@ index 0000000..024d41e
 +
 +	# Process source-target pairs
 +	while (( $# >= 2 )); do
-+		src=${1//+(\/)/\/}; target=${2//+(\/)/\/}
++		src="${EROOT%/}"${1//+(\/)/\/}; target=${2//+(\/)/\/}
 +		if [[ ${src} != /* ]]; then
 +			die "Source path must be absolute, but got ${src}"
 +		else
@@ -1052,7 +1052,7 @@ index 0000000..cf4fa36
 +
 +	local variables=( PATH LD_LIBRARY_PATH MANPATH )
 +	[[ -n ${!default_*} ]] && local ${!default_*}
-+	local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${EROOT%/}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
++	local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${%/}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
 +	local default_MANPATH=$(MANPATH= man -C"${EROOT%/}"/etc/man.conf -w)
 +
 +	local var IFS=:
