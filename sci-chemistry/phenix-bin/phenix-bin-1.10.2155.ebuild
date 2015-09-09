@@ -70,7 +70,7 @@ RESTRICT="fetch"
 
 QA_PREBUILT="opt/phenix-${MY_PV}/.*"
 
-S="${WORKDIR}"/${MY_P}-intel-linux-2.6-x86_64-centos6/
+S="${WORKDIR}"/${MY_P}-intel-linux-2.6-x86_64-centos6
 
 pkg_nofetch() {
 	elog "Please visit"
@@ -94,6 +94,7 @@ src_compile() {
 }
 
 src_install() {
+	find "${S}/foo" -type f -name "*.pyc" -delete || die
 	sed \
 		-e "s:${S}/foo:${EPREFIX}/opt:g" \
 		-i \
@@ -103,7 +104,6 @@ src_install() {
 			foo/phenix-${MY_PV}/base/etc/{gtk*,pango}/* \
 			foo/phenix-${MY_PV}/phenix_env* \
 			|| die
-
 	dodir /opt
 	mv "${S}/foo/phenix-${MY_PV}" "${ED}/opt/" || die
 
