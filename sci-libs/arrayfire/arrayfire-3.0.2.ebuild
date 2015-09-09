@@ -4,17 +4,15 @@
 
 EAPI=5
 
-inherit cmake-utils git-r3
+inherit cmake-utils
 
 GTEST_PV="1.7.0"
 
 DESCRIPTION="A general purpose GPU library."
 HOMEPAGE="http://www.arrayfire.com/"
-EGIT_REPO_URI="https://github.com/${PN}/${PN}.git git://github.com/${PN}/${PN}.git"
-SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
-KEYWORDS=""
-# the remote HEAD points to devel, but we want to pull the master instead
-EGIT_BRANCH="master"
+SRC_URI="http://arrayfire.com/arrayfire_source/${PN}-full-${PV}.tar.bz2 -> ${P}.tar.bz2
+test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
+KEYWORDS="~amd64"
 
 LICENSE="BSD"
 SLOT="0"
@@ -22,6 +20,7 @@ IUSE="+examples +cpu cuda opencl test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
+	media-libs/freeimage
 	cuda? (
 		>=dev-util/nvidia-cuda-toolkit-6.0
 		dev-libs/boost
@@ -29,23 +28,27 @@ RDEPEND="
 	cpu? (
 		virtual/blas
 		virtual/cblas
+		virtual/lapacke
 		sci-libs/fftw:3.0
 	)
 	opencl? (
+		virtual/blas
+		virtual/cblas
+		virtual/lapacke
 		dev-libs/boost
 		dev-libs/boost-compute
-		sci-libs/clblas
-		sci-libs/clfft
+		>=sci-libs/clblas-2.4
+		>=sci-libs/clfft-2.6.1
 	)"
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/${PN}"
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.0_beta-FindCBLAS.patch
-	"${FILESDIR}"/${PN}-3.0_beta-FindBoostCompute.patch
-	"${FILESDIR}"/${PN}-3.0_beta-opencl_CMakeLists.patch
+	"${FILESDIR}/${PN}"-9999-FindCBLAS.patch
+	"${FILESDIR}/${PN}"-9999-Try-PkgConf-first-to-find-LAPACKE.patch
 )
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
@@ -61,13 +64,11 @@ pkg_pretend() {
 }
 
 src_unpack() {
-	git-r3_src_unpack
+	default
 
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
-		cd "${BUILD_DIR}"/third_party/src/ || die
-		unpack ${A}
-		mv "${BUILD_DIR}"/third_party/src/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
+		mv "${WORKDIR}"/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
 	fi
 }
 
@@ -84,6 +85,10 @@ src_configure() {
 	   $(cmake-utils_use_build opencl OPENCL)
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
+	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
+	   -DUSE_SYSTEM_CLBLAS=ON
+	   -DUSE_SYSTEM_CLFFT=ON
+	   -DBUILD_GRAPHICS=OFF
 	)
 	cmake-utils_src_configure
 }
