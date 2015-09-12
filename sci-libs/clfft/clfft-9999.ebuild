@@ -32,10 +32,6 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-PATCHES=(
-	"${FILESDIR}/${P}"-Install-examples-to-share-clFFT-examples.patch
-)
-
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		if [[ $(gcc-major-version) -lt 4 ]] || ( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 6 ]] ) ; then

@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/clfft-9999-Install-examples-to-share-clFFT-examples.patch,
+  clfft-9999.ebuild:
+  sci-libs/clfft: Patch merged upstream
+
 *clfft-2.6.1 (06 Sep 2015)
 
   06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.6.1.ebuild,
