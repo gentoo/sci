@@ -24,21 +24,17 @@ RDEPEND="
 	boost? ( dev-libs/boost )
 	python? ( dev-python/numpy[${PYTHON_USEDEP}] )"
 DEPEND="${RDEPEND}
-	openmp? ( sys-cluster/openmpi )
 	python? (
 		dev-python/cython[${PYTHON_USEDEP}]
 		dev-python/setuptools[${PYTHON_USEDEP}] )"
 
-
 CMAKE_BUILD_TYPE=Release
 
 pkg_pretend() {
-	if [[ ${MERGE_TYPE} != binary ]]; then
-		if use openmp; then
-			if [[ $(tc-getCC) == *gcc ]] && ! tc-has-openmp; then
-				ewarn "OpenMP is not available in your current selected gcc"
-				die "need openmp capable gcc"
-			fi
+	if use openmp && [[ ${MERGE_TYPE} != binary ]]; then
+		if [[ $(tc-getCC) == *gcc ]] && ! tc-has-openmp; then
+			ewarn "OpenMP is not available in your current selected gcc"
+			die "need openmp capable gcc"
 		fi
 	fi
 }
