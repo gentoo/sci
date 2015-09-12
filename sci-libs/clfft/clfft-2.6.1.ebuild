@@ -16,7 +16,7 @@ S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="test"
+IUSE="+client examples test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.6:*
@@ -47,7 +47,9 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
-	   $(cmake-utils_use_build test TEST)
+		$(cmake-utils_use_build client CLIENT)
+		$(cmake-utils_use_build examples EXAMPLES)
+		$(cmake-utils_use_build test TEST)
 	)
 	cmake-utils_src_configure
 }

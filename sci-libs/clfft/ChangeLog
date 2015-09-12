@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> clfft-2.6.1.ebuild,
+  clfft-9999.ebuild, metadata.xml:
+  sci-libs/clfft: Add client and examples use flag
+
   12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   -files/clfft-9999-Install-examples-to-share-clFFT-examples.patch,
   clfft-9999.ebuild:
