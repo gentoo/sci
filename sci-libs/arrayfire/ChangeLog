@@ -1,6 +1,27 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*arrayfire-3.1.0 (09 Sep 2015)
+
+  09 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.0.ebuild:
+  sci-libs/arrayfire: Version bump - Add 3.1.0 release
+
+*arrayfire-3.0.2 (08 Sep 2015)
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.0.2.ebuild, arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Add arrayfire-3.0.2; Minor improvments
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/arrayfire-9999-Try-PkgConf-first-to-find-LAPACKE.patch,
+  arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Fix issue #463
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -arrayfire-0.9999.ebuild:
+  sci-libs/arrayfire: Drop 0.9999, because releases are available
+
   22 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild:
   sci-libs/arrayfire: Partitial fix for bug #463: Use system boost-compute
 

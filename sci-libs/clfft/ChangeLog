@@ -2,6 +2,33 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> clfft-2.6.1.ebuild,
+  clfft-9999.ebuild, metadata.xml:
+  sci-libs/clfft: Add client and examples use flag
+
+  12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/clfft-9999-Install-examples-to-share-clFFT-examples.patch,
+  clfft-9999.ebuild:
+  sci-libs/clfft: Patch merged upstream
+
+*clfft-2.6.1 (06 Sep 2015)
+
+  06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.6.1.ebuild,
+  +files/clfft-2.6.1-Install-cmake-configuration-to-lib-cmake-clFFT.patch,
+  +files/clfft-2.6.1-Install-examples-to-share-clFFT-examples.patch,
+  +files/clfft-9999-Install-examples-to-share-clFFT-examples.patch,
+  clfft-9999.ebuild:
+  sci-libs/clfft: Version bump; Add patch for 9999
+
+  06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/clfft-2.4-client_CMakeLists.patch,
+  +files/clfft-2.4-scripts_perf_CMakeLists.patch,
+  -files/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch,
+  -files/clfft-client_CMakeLists.patch,
+  -files/clfft-scripts_perf_CMakeLists.patch, clfft-0.9999.ebuild,
+  clfft-2.4-r1.ebuild, clfft-9999.ebuild:
+  sci-libs/clfft: Revise patches
+
 *clfft-2.4-r1 (05 Jun 2015)
 
   05 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.4-r1.ebuild,

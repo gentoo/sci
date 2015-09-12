@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  27 Aug 2015; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild:
+  sci-libs/dealii: update live ebuild
+
   02 Aug 2015; Matthias Maier <tamiko@gentoo.org> -dealii-8.2.0.ebuild:
   sci-libs/dealii - drop superseded version
 

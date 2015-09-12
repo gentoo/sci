@@ -2,6 +2,19 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*clblas-2.6 (12 Sep 2015)
+
+  12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.6.ebuild:
+  sci-libs/clblas: Version bump
+
+  06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/clblas-2.4-samples_CMakeLists.patch,
+  +files/clblas-2.4-scripts_perf_CMakeLists.patch,
+  -files/clblas-samples_CMakeLists.patch,
+  -files/clblas-scripts_perf_CMakeLists.patch, clblas-2.4-r1.ebuild,
+  clblas-9999.ebuild:
+  sci-libs/clblas: Revise patches
+
 *clblas-2.4-r1 (06 Jun 2015)
 
   06 Jun 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.4-r1.ebuild,

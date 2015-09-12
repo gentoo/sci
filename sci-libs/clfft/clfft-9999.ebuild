@@ -16,7 +16,7 @@ S="${WORKDIR}/${P}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="test"
+IUSE="+client examples test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.6:*
@@ -32,10 +32,6 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-PATCHES=(
-	"${FILESDIR}"/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch
-)
-
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		if [[ $(gcc-major-version) -lt 4 ]] || ( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 6 ]] ) ; then
@@ -46,7 +42,9 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
-	   $(cmake-utils_use_build test TEST)
+        $(cmake-utils_use_build client CLIENT)
+        $(cmake-utils_use_build examples EXAMPLES)
+        $(cmake-utils_use_build test TEST)
 	)
 	cmake-utils_src_configure
 }

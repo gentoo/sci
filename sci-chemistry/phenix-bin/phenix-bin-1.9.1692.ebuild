@@ -41,7 +41,10 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/libpng:1.2
 	sys-libs/db:4.7
 	sys-libs/gdbm
-	sys-libs/ncurses[tinfo]
+	|| (
+		sys-libs/ncurses:0/5[tinfo]
+		sys-libs/ncurses:5/5[tinfo]
+	)
 	sys-libs/readline
 	virtual/glu
 	x11-libs/cairo
