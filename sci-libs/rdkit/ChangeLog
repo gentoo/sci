@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/rdkit
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*rdkit-2015.03.1 (12 Sep 2015)
+*rdkit-9999 (12 Sep 2015)
+
+  12 Sep 2015; Michael Schubert <mschu.dev@gmail.com> +metadata.xml,
+  +rdkit-2015.03.1.ebuild, +rdkit-9999.ebuild:
+  sci-libs/rdkit: initial commit
