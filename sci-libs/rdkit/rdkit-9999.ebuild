@@ -32,15 +32,9 @@ src_configure() {
 		-DCMAKE_INSTALL_PREFIX:PATH="${EPREFIX}"/usr
 		-DRDK_INSTALL_INTREE=0
 		-DRDK_BUILD_CPP_TESTS=OFF
+		$(cmake-utils_use static-libs RDK_INSTALL_STATIC_LIBS)
+		$(cmake-utils_use python RDK_BUILD_PYTHON_WRAPPERS)
 	)
-
-	if ! use static-libs; then
-		mycmakeargs+=( -DRDK_INSTALL_STATIC_LIBS=OFF )
-	fi
-
-	if ! use python; then
-		mycmakeargs+=( -DRDK_BUILD_PYTHON_WRAPPERS=OFF )
-	fi
 
 	cmake-utils_src_configure
 }
