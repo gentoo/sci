@@ -40,7 +40,7 @@ src_configure() {
 	fi
 
 	if ! use python; then
-		mycmakeargs+=( RDK_BUILD_PYTHON_WRAPPERS= )
+		mycmakeargs+=( -DRDK_BUILD_PYTHON_WRAPPERS=OFF )
 	fi
 
 	cmake-utils_src_configure
