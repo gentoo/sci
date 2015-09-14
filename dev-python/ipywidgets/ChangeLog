@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  15 Sep 2015; suhr <null@null> ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Remove wxwidgets dependency
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipywidgets-9999.ebuild:
   dev-python/ipywidgets: Fix testing deps
 

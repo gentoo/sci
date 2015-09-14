@@ -25,7 +25,6 @@ IUSE="test"
 RDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
-	$(python_gen_cond_dep 'dev-python/wxpython:*[${PYTHON_USEDEP}]' python2_7)
 	"
 DEPEND="${RDEPEND}
 	test? (

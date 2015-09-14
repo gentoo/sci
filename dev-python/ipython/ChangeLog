@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  16 Sep 2015; suhr <null@null>
+  ipython-4.0.0-r2.ebuild:
+  dev-python/ipython: separate wxwidgets dependency from ipywidgets
+
   02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   ipython-4.0.0-r1.ebuild:
   dev-python/ipython: Fix #480; add testpath to dependencies
