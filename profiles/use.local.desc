@@ -54,11 +54,6 @@ dev-util/amdapp:examples - Build the OpenCL example programs
 dev-util/nvidia-cuda-gdk:healthmon - Install nvidia-healthmon.
 dev-util/nvidia-cuda-gdk:nvml - Install the NVIDIA Managment Library.
 dev-util/nvidia-cuda-gdk:nvvs - Install the NVIDIA Validation Suite.
-dev-util/nvidia-cuda-sdk:cuda - Build CUDA binaries.
-dev-util/nvidia-cuda-sdk:opencl - Build OpenCL binaries.
-dev-util/nvidia-cuda-toolkit:debugger - Installs the CUDA debugger.
-dev-util/nvidia-cuda-toolkit:eclipse - Install the dev-util/eclipse-sdk plugins
-dev-util/nvidia-cuda-toolkit:profiler - Installs the NVIDIA CUDA visual profiler.
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
 media-gfx/librecad:3d - Require all 2D coordinates stored as 3D
 media-gfx/librecad:tools - Build additional tool programs: tff2lff
@@ -169,6 +164,7 @@ sci-libs/cblas-reference:int64 - Build the 64 bits integer library
 sci-libs/clblas:client - Build a command line clBLAS client program.
 sci-libs/clblas:ktest - A command line tool for testing single clBLAS kernel.
 sci-libs/clblas:performance - Copy performance scripts that can measure and graph performance.
+sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
 sci-libs/dealii:arpack - Adds support for ARPACK (sci-libs/arpack)
 sci-libs/dealii:c++11 - Compile the library with -std=c++11
