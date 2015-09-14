@@ -1,6 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*arrayfire-3.1.1 (14 Sep 2015)
+
+  14 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.1.ebuild:
+  sci-libs/arrayfire: Version bump
+
 *arrayfire-3.1.0 (09 Sep 2015)
 
   09 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
