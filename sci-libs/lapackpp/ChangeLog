@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  15 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> lapackpp-2.5.4.ebuild:
+  sci-libs/lapackpp: Move to EAPI=5
+
   08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-libs/lapackpp: Updating remote-id in metadata.xml
 
