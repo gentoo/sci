@@ -137,7 +137,7 @@ src_test() {
 	export COOT_PIXMAPS_DIR="${S}/pixmaps/"
 	export COOT_DATA_DIR="${S}/"
 	export COOT_PYTHON_DIR="${S}/python/"
-	export PYTHONPATH="${COOT_PYTHON_DIR}:${PYTHONPATH}"
+	export PYTHONPATH="${COOT_PYTHON_DIR}:${S}/src:${PYTHONPATH}"
 	export PYTHONHOME="${EPREFIX}"/usr/
 	export CCP4_SCR="${T}"/coot_test/
 	export CLIBD_MON="${EPREFIX}/usr/share/data/monomers/"
