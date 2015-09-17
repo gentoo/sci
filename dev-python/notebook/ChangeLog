@@ -2,6 +2,17 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*notebook-4.0.4-r3 (17 Sep 2015)
+
+  17 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/notebook-4.0.4-Don-t-redirect-from-edit-to-files.patch,
+  +files/notebook-4.0.4-only-redirect-to-editor-for-text-documents.patch,
+  +files/notebook-4.0.4-set-mime-type-on-files.patch,
+  +files/notebook-4.0.4-set-model-mimetype-even-when-content-False.patch,
+  +notebook-4.0.4-r3.ebuild, -notebook-4.0.4-r2.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: Security fixes  http://seclists.org/oss-sec/2015/q3/558
+  https://bugs.gentoo.org/show_bug.cgi?id=560708
+
   07 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
   dev-python/notebook: Fix deps, >=mathjax-2.4 required
 
