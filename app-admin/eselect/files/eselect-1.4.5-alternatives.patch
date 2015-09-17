@@ -1052,7 +1052,7 @@ index 0000000..cf4fa36
 +
 +	local variables=( PATH LD_LIBRARY_PATH MANPATH )
 +	[[ -n ${!default_*} ]] && local ${!default_*}
-+	local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${%/}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
++	local default_LD_LIBRARY_PATH=$(grep '^[^#]' "${EROOT%/}"/etc/ld.so.conf | tr '\n' ':')/lib:/usr/lib
 +	local default_MANPATH=$(MANPATH= man -C"${EROOT%/}"/etc/man.conf -w)
 +
 +	local var IFS=:
