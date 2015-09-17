@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils multilib
 
 GTEST_PV="1.7.0"
 
@@ -16,13 +16,13 @@ KEYWORDS="~amd64"
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="+examples +cpu cuda opencl test"
+IUSE="+examples +cpu cuda opencl test graphics"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
 	media-libs/freeimage
 	cuda? (
-		>=dev-util/nvidia-cuda-toolkit-7.5
+		>=dev-util/nvidia-cuda-toolkit-7.5.18-r1
 		dev-libs/boost
 	)
 	cpu? (
@@ -39,6 +39,11 @@ RDEPEND="
 		dev-libs/boost-compute
 		>=sci-libs/clblas-2.4
 		>=sci-libs/clfft-2.6.1
+	)
+	graphics? (
+		media-libs/glew
+		>=media-libs/glfw-3.1.1
+		>=sci-visualization/forge-3.1
 	)"
 DEPEND="${RDEPEND}"
 
@@ -61,6 +66,8 @@ pkg_pretend() {
 src_unpack() {
 	default
 
+	find "${WORKDIR}" -name "*_nonfree*" -delete || die
+
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
 		mv "${WORKDIR}"/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
@@ -80,10 +87,13 @@ src_configure() {
 	   $(cmake-utils_use_build opencl OPENCL)
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
+	   $(cmake-utils_use_build graphics GRAPHICS)
+	   -DBUILD_NONFREE=OFF
 	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
 	   -DUSE_SYSTEM_CLBLAS=ON
 	   -DUSE_SYSTEM_CLFFT=ON
-	   -DBUILD_GRAPHICS=OFF
+	   -DUSE_SYSTEM_FORGE=ON
+	   -DAF_INSTALL_CMAKE_DIR=/usr/${get_libdir}/cmake/ArrayFire
 	)
 	cmake-utils_src_configure
 }

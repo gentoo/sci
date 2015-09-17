@@ -1,6 +1,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*arrayfire-3.1.1-r1 (17 Sep 2015)
+
+  17 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.1-r1.ebuild, -arrayfire-3.1.1.ebuild, arrayfire-9999.ebuild,
+  metadata.xml:
+  sci-libs/arrayfire: Add graphics use flag; Minor fixes
+
   14 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   -files/arrayfire-9999-FindCBLAS.patch,
   -files/arrayfire-9999-Try-PkgConf-first-to-find-LAPACKE.patch,
