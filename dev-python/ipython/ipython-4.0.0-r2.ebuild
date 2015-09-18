@@ -31,7 +31,6 @@ CDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )
 	mongodb? ( <dev-python/pymongo-3[${PYTHON_USEDEP}] )
-	smp? ( dev-python/ipyparallel[${PYTHON_USEDEP}] )
 	wxwidgets? ( $(python_gen_cond_dep 'dev-python/wxpython:*[${PYTHON_USEDEP}]' python2_7) )"
 
 RDEPEND="${CDEPEND}
@@ -64,6 +63,9 @@ DEPEND="${CDEPEND}
 		>=dev-python/sphinx-1.1[${PYTHON_USEDEP}]
 		>=www-servers/tornado-4.0[${PYTHON_USEDEP}]
 	)"
+
+PDEPEND="
+	smp? ( dev-python/ipyparallel[${PYTHON_USEDEP}] )"
 
 PATCHES=(
 	"${FILESDIR}"/2.1.0-substitute-files.patch
