@@ -1,6 +1,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  18 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -arrayfire-3.0.2.ebuild, -arrayfire-3.0_beta.ebuild, -arrayfire-3.1.0.ebuild,
+  -files/arrayfire-3.0_beta-FindBoostCompute.patch,
+  -files/arrayfire-3.0_beta-FindCBLAS.patch,
+  -files/arrayfire-3.0_beta-opencl_CMakeLists.patch:
+  sci-libs/arrayfire: Drop old
+
 *arrayfire-3.1.1-r1 (17 Sep 2015)
 
   17 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
