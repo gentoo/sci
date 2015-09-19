@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*jupyter_core-4.0.6 (19 Sep 2015)
+
+  19 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_core-4.0.6.ebuild:
+  dev-python/jupyter_core: Version bump
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_core-9999.ebuild:
   dev-python/jupyter_core: Add doc use flag
 
