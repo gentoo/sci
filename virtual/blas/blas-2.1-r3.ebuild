@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit multilib
+inherit multilib-build
 
 DESCRIPTION="Virtual for FORTRAN 77 BLAS implementation"
 HOMEPAGE=""
@@ -18,15 +18,15 @@ IUSE="doc int64"
 RDEPEND="
 	int64? (
 		|| (
-			>=sci-libs/openblas-0.2.11[int64]
-			>=sci-libs/blas-reference-20131116-r1[int64]
+			sci-libs/blas-reference[int64,${MULTILIB_USEDEP}]
+			>=sci-libs/openblas-0.2.11[int64,${MULTILIB_USEDEP}]
 		)
 	)
 	|| (
-		>=sci-libs/blas-reference-20131116-r1[int64?]
+		sci-libs/blas-reference[int64?,${MULTILIB_USEDEP}]
+		>=sci-libs/openblas-0.2.11[int64?,${MULTILIB_USEDEP}]
 		>=dev-cpp/eigen-3.1.4
 		sci-libs/atlas[fortran]
-		>=sci-libs/openblas-0.2.11[int64?]
 		>=sci-libs/acml-4.4
 		sci-libs/gotoblas2
 		>=sci-libs/mkl-10.3
@@ -40,5 +40,6 @@ pkg_pretend() {
 		ewarn "Please delete"
 		ewarn "${EROOT%/}/usr/$(get_libdir)/lib${PN}.so"
 		ewarn "to avoid problems with new ${PN} structure"
+		die "Old lib${PN} detected"
 	fi
 }

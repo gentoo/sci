@@ -4,8 +4,10 @@
 
 EAPI=5
 
-EBASE_PROFNAME="xblas"
-inherit eutils flag-o-matic fortran-2 fortran-int64 multibuild multilib multilib-build toolchain-funcs versionator
+NUMERIC_MODULE_NAME="xblas"
+FORTRAN_NEEDED=fortran
+
+inherit flag-o-matic fortran-2 numeric-int64-multibuild toolchain-funcs versionator
 
 DESCRIPTION="Extra Precise Basic Linear Algebra Subroutines"
 HOMEPAGE="http://www.netlib.org/xblas"
@@ -14,9 +16,9 @@ SRC_URI="${HOMEPAGE}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc fortran int64 static-libs"
+IUSE="doc fortran static-libs"
 
-RDEPEND="fortran? ( virtual/fortran )"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	sys-devel/m4"
 
@@ -38,8 +40,8 @@ static_to_shared() {
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
 		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
-		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
 }
 
@@ -48,23 +50,20 @@ pkg_setup() {
 }
 
 src_prepare() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	multibuild_copy_sources
+	numeric-int64-multibuild_copy_sources
 }
 
 src_configure() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	my_configure() {
-		export FCFLAGS="${FCFLAGS} $(get_abi_CFLAGS) $(fortran-int64_get_fortran_int64_abi_fflags)"
+	xblas_configure() {
+		export FCFLAGS="${FCFLAGS} $(get_abi_CFLAGS) $(numeric-int64_get_fortran_int64_abi_fflags)"
 		econf $(use_enable fortran)
 	}
-	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_configure
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir xblas_configure
 }
 
 src_compile() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	my_src_compile() {
-		local profname=$(fortran-int64_get_profname)
+	xblas_src_compile() {
+		local profname=$(numeric-int64_get_module_name)
 		local libname="${profname//-/_}"
 		# default target builds and runs tests - split
 		# build first static libs because of fPIC afterwards
@@ -81,42 +80,31 @@ src_compile() {
 		emake lib XBLASLIB=lib${libname}.a
 		static_to_shared lib${libname}.a
 	}
-	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_compile
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir xblas_src_compile
 }
 
 src_test() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	my_src_test () {
-		emake tests
-	}
-	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_test
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir emake tests
 }
 
 src_install() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	my_src_install() {
-		local profname=$(fortran-int64_get_profname)
+	xblas_src_install() {
+		local profname=$(numeric-int64_get_module_name)
 		local libname="${profname//-/_}"
-		dolib.so lib${libname}$(get_libname)*
-		use static-libs && newlib.a lib${libname}_nonpic.a lib${libname}.a
-		dodoc README README.devel
-		use doc && dodoc doc/report.ps
+		if numeric-int64_is_static_build; then
+			use static-libs && newlib.a lib${libname}_nonpic.a lib${libname}.a
+		else
+			dolib.so lib${libname}$(get_libname)*
 
-		# pkg-config file for our multliple numeric stuff
-		cat > ${profname}.pc <<-EOF
-			prefix=${EPREFIX}/usr
-			libdir=\${prefix}/$(get_libdir)
-			includedir=\${prefix}/include/${PN}
-			Name: ${profname}
-			Description: ${DESCRIPTION}
-			Version: ${PV}
-			URL: ${HOMEPAGE}
-			Libs: -L\${libdir} -l${libname}
-			Cflags: -I\${includedir}
-			Fflags=$(fortran-int64_get_fortran_int64_abi_fflags)
-		EOF
-		insinto /usr/$(get_libdir)/pkgconfig
-		doins ${profname}.pc
+			create_pkgconfig \
+				--name  ${profname} \
+				--libs "-L\${libdir} -l${libname}" \
+				--cflags "-I\${includedir} $(numeric-int64_get_fortran_int64_abi_fflags)" \
+				${profname}
+		fi
 	}
-	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_install
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir xblas_src_install
+
+	dodoc README README.devel
+	use doc && dodoc doc/report.ps
 }

@@ -10,22 +10,43 @@
 # Various functions which make the maintenance  numerical algebra packages
 # easier.
 
+case ${EAPI:-0} in
+	0|1|2|3|4|5) ;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac
+
+if [[ ! ${_NUMERIC_ECLASS} ]]; then
+
 inherit multilib
+
+# @VARIABLE: NUMERIC_MODULE_NAME
+# @DESCRIPTION:
+# The base pkg-config module name of the package being built.
+# NUMERIC_MODULE_NAME is used by the numeric-int64_get_module_name to
+# determine the pkg-config module name based on whether the package
+# has dynamic, threads or openmp USE flags and if so, if the user has
+# turned them or, and if the current multibuild is a int64 build or not.
+#
+# @CODE
+# NUMERIC_MODULE_NAME="openblas"
+# inherit ... numeric-int64-multibuild
+# @CODE
+: ${NUMERIC_MODULE_NAME:=blas}
 
 # @FUNCTION: create_pkgconfig
 # @USAGE: [ additional arguments ]
 # @DESCRIPTION:
-# Creates and installs .pc file. The function should only be executed in
+# Creates and installs pkg-config file. The function should only be executed in
 # src_install(). For further information about optional arguments please consult
 # http://people.freedesktop.org/~dbn/pkg-config-guide.html
 #
 # @CODE
 # Optional arguments are:
 #
-#   -p | --prefix       Offset for current package   (${EPREFIX}/usr)
-#   -e | --exec-prefix  Offset for current package   (${prefix})
-#   -L | --libdir       Libdir to use                (${prefix}/$(get_libdir))
-#   -I | --includedir   Includedir to use                  (${prefix}/include)
+#   -p | --prefix       Offset for current package               (${EPREFIX}/usr)
+#   -e | --exec-prefix  Offset for current package               (${prefix})
+#   -L | --libdir       Libdir to use                            (${prefix}/$(get_libdir))
+#   -I | --includedir   Includedir to use                        (${prefix}/include)
 #   -n | --name         A human-readable name                    (PN}
 #   -d | --description  A brief description                      (DESCRIPTION)
 #   -V | --version      Version of the package                   (PV)
@@ -38,6 +59,7 @@ inherit multilib
 #   --libs-private      Like --libs, but not exposed             (unset)
 # @CODE
 create_pkgconfig() {
+	debug-print-function ${FUNCNAME} "${@}"
 	local pcfilename pcrequires pcrequirespriv pcconflicts pclibs pclibspriv pccflags
 	local pcprefix="${EPREFIX}/usr"
 	local pcexecprefix="${pcprefix}"
@@ -112,3 +134,6 @@ create_pkgconfig() {
 	insinto /usr/$(get_libdir)/pkgconfig
 	doins "${T}"/${pcfilename}.pc
 }
+
+_NUMERIC_ECLASS=1
+fi

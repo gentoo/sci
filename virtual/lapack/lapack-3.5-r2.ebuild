@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit multilib
+inherit multilib-build
 
 DESCRIPTION="Virtual for Linear Algebra Package FORTRAN 77 implementation"
 HOMEPAGE=""
@@ -17,10 +17,10 @@ IUSE="doc int64"
 
 RDEPEND="
 	|| (
-		>=sci-libs/lapack-reference-${PV}[int64?]
+		>=sci-libs/lapack-reference-${PV}[int64?,${MULTILIB_USEDEP}]
 		>=sci-libs/atlas-3.10.1[lapack]
 	)
-	int64? ( >=sci-libs/lapack-reference-${PV}[int64] )
+	int64? ( >=sci-libs/lapack-reference-${PV}[int64,${MULTILIB_USEDEP}] )
 	doc? ( >=app-doc/lapack-docs-3.3 )"
 DEPEND=""
 

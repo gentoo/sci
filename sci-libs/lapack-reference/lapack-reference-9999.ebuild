@@ -1,49 +1,45 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
-EBASE_PROFNAME="reflapack"
-ESTATIC_MULTIBUILD=1
-inherit fortran-2 cmake-utils multibuild alternatives-2 multilib-build toolchain-funcs fortran-int64
 
-if [[ ${PV} == "9999" ]] ; then
-	# The master ESVN_REPO_URI is difficult to access, the git mirror is easier
-	# ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/lapack/trunk"
-	# MY_PN=lapack
-	# inherit subversion
-	EGIT_REPO_URI="https://github.com/nschloe/lapack.git"
-	MY_PN=lapack-reference
-	MYP=${MY_PN}-${PV}
-	inherit git-r3
-	KEYWORDS=""
-else
-	MY_PN=lapack
-	MYP=${MY_PN}-${PV}
-	SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-fi
+PYTHON_COMPAT=( python2_7 )
+
+NUMERIC_MODULE_NAME="reflapack"
+
+inherit alternatives-2 cmake-utils fortran-2 git-r3 numeric-int64-multibuild python-any-r1
+
+# The master ESVN_REPO_URI is difficult to access, the git mirror is easier
+# ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/lapack/trunk"
+# MY_PN=lapack
+# inherit subversion
+
+MY_PN=lapack-reference
+MYP=${MY_PN}-${PV}
 
 DESCRIPTION="Reference implementation of LAPACK"
 HOMEPAGE="http://www.netlib.org/lapack/"
+EGIT_REPO_URI="https://github.com/nschloe/lapack.git"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS=""
+IUSE="static-libs test xblas"
 
-IUSE="int64 static-libs test xblas"
+REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
-	>=virtual/blas-2.1-r3[int64?]
+	>=virtual/blas-2.1-r3[int64?,${MULTILIB_USEDEP}]
 	xblas? ( sci-libs/xblas[fortran,int64?] )"
 DEPEND="${RDEPEND}
-	virtual/pkgconfig"
-PDEPEND="
-	>=virtual/lapack-3.5-r2[int64?]"
+	virtual/pkgconfig
+	test? ( ${PYTHON_DEPS} )"
 
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
-	fortran-int64_ensure_blas
+	numeric-int64_ensure_blas_int_support
 
 	# rename library to avoid collision with other lapack implementations
 	# ${PROFNAME}, ${LIBNAME} and ${BLAS_REQUIRES} are not defined here, they
@@ -73,12 +69,11 @@ src_prepare() {
 }
 
 src_configure() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	my_src_configure() {
-		local profname=$(fortran-int64_get_profname)
+	lapack_configure() {
+		local profname=$(numeric-int64_get_module_name)
 		local libname="${profname//-/_}"
-		local blas_profname=$(fortran-int64_get_blas_profname)
-		local xblas_profname=$(fortran-int64_get_xblas_profname)
+		local blas_profname=$(numeric-int64_get_blas_alternative)
+		local xblas_profname=$(numeric-int64_get_xblas_alternative)
 		local xblas_libname="${xblas_profname//-/_}"
 		local blas_requires="${blas_profname}"
 		use xblas && \
@@ -93,12 +88,12 @@ src_configure() {
 			$(cmake-utils_use_use xblas XBLAS)
 			-DCMAKE_C_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CFLAGS}"
 			-DCMAKE_CXX_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CXXFLAGS}"
-			-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) $(fortran-int64_get_fortran_int64_abi_fflags) ${FCFLAGS}"
-			-DLAPACK_PKGCONFIG_FFLAGS="$(fortran-int64_get_fortran_int64_abi_fflags)"
+			-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) $(numeric-int64_get_fortran_int64_abi_fflags) ${FCFLAGS}"
+			-DLAPACK_PKGCONFIG_FFLAGS="$(numeric-int64_get_fortran_int64_abi_fflags)"
 		)
 		use xblas && \
 			mycmakeargs+=( -DXBLAS_LIBRARY:FILEPATH="${EROOT}usr/$(get_libdir)/lib${xblas_libname}.so" )
-		if $(fortran-int64_is_static_build); then
+		if $(numeric-int64_is_static_build); then
 			mycmakeargs+=(
 				-DBUILD_SHARED_LIBS=OFF
 				-DBUILD_STATIC_LIBS=ON
@@ -111,29 +106,18 @@ src_configure() {
 		fi
 		cmake-utils_src_configure
 	}
-	multibuild_foreach_variant fortran-int64_multilib_multibuild_wrapper my_src_configure
+	numeric-int64-multibuild_foreach_all_abi_variants lapack_configure
 }
 
 src_compile() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	multibuild_foreach_variant fortran-int64_multilib_multibuild_wrapper cmake-utils_src_compile
+	numeric-int64-multibuild_foreach_all_abi_variants cmake-utils_src_compile
 }
 
 src_test() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	multibuild_foreach_variant fortran-int64_multilib_multibuild_wrapper cmake-utils_src_test
+	numeric-int64-multibuild_foreach_all_abi_variants cmake-utils_src_test
 }
 
 src_install() {
-	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
-	my_src_install()  {
-		cmake-utils_src_install
-		if ! $(fortran-int64_is_static_build); then
-			local profname=$(fortran-int64_get_profname)
-			local provider=$(fortran-int64_get_lapack_provider)
-			alternatives_for ${provider} $(fortran-int64_get_profname "reference") 0 \
-				/usr/$(get_libdir)/pkgconfig/${provider}.pc ${profname}.pc
-		fi
-	}
-	multibuild_foreach_variant fortran-int64_multilib_multibuild_wrapper my_src_install
+	numeric-int64-multibuild_foreach_all_abi_variants cmake-utils_src_install
+	numeric-int64-multibuild_install_alternative lapack reference
 }

@@ -8,18 +8,18 @@ PYTHON_COMPAT=( python2_7 )
 
 NUMERIC_MODULE_NAME="refblas"
 
-inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 toolchain-funcs subversion
+inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 toolchain-funcs
 
 LPN=lapack
 LPV=3.5.0
 
 DESCRIPTION="Reference implementation of BLAS"
 HOMEPAGE="http://www.netlib.org/lapack/"
-ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/${LPN}/trunk"
+SRC_URI="http://www.netlib.org/${LPN}/${LPN}-${LPV}.tgz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
@@ -28,7 +28,6 @@ RDEPEND=""
 DEPEND="${RDEPEND}
 	test? ( ${PYTHON_DEPS} )
 	virtual/pkgconfig"
-PDEPEND=">=virtual/blas-2.1-r3[int64?]"
 
 S="${WORKDIR}/${LPN}-${LPV}"
 

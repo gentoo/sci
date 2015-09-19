@@ -102,7 +102,7 @@ alternatives-2_pkg_postinst() {
 		fi
 
 		# Set alternative provider if there is no valid provider selected
-		eselect "${alt}" update "${provider}"
+		eselect alternatives update "${alt}"
 
 		cleanup_old_alternatives_module ${alt}
 	done
@@ -122,9 +122,10 @@ alternatives-2_pkg_prerm() {
 
 	# If we are uninstalling, update alternatives to valid provider
 	[[ -n ${REPLACED_BY_VERSION} ]] || ignore="--ignore"
-
+set -x
 	for alt in ${ALTERNATIVES_CREATED[@]}; do
-		eselect "${alt}" update ${ignore} "${provider}"
+		eselect alternatives update "${alt}"
+		ret=$?
 
 		case ${ret} in
 			0) : ;;
@@ -134,10 +135,11 @@ alternatives-2_pkg_prerm() {
 				eselect alternatives delete "${alt}" || eerror "Failed to remove ${alt}"
 				;;
 			*)
-				eerror "eselect ${alt} update ${provider} returned ${ret}"
+				eerror "eselect alternatives update returned \"${ret}\""
 				;;
 		esac
 	done
+set +x
 }
 
 EXPORT_FUNCTIONS pkg_postinst pkg_prerm

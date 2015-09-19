@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs alternatives-2 multilib
+NUMERIC_MODULE_NAME=goto2
+
+inherit eutils numeric-int64-multibuild fortran-2 multilib toolchain-funcs
 
 MYPN="GotoBLAS2"
 MYP="${MYPN}-${PV}_bsd"
@@ -17,11 +19,9 @@ SRC_URI="http://dev.gentoo.org/~bicatali/${MYP}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~x86-macos ~ppc-macos ~x64-macos"
+IUSE="+incblas +openmp static-libs threads"
 
-IUSE="+incblas int64 dynamic openmp static-libs threads"
-
-RDEPEND="virtual/fortran"
-DEPEND="${RDEPEND}"
+REQUIRED_USE="|| ( openmp threads )"
 
 S="${WORKDIR}/${MYPN}"
 
@@ -29,11 +29,9 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-{dynamic,sharedlibs,fcheck,aliasing}.patch
 	# respect LDFLAGS
 	sed -i -e '/^LDFLAGS\s*=/d' Makefile.* || die
-	if ! use dynamic; then
-		sed -i \
-			-e "/^COMMON_OPT/s/-O2/${CFLAGS}/" \
-			Makefile.rule || die
-	fi
+	sed -i \
+		-e "/^COMMON_OPT/s/-O2/${CFLAGS}/" \
+		Makefile.rule || die
 	# fix executable stacks
 	local i
 	for i in $(find . -name \*.S); do
@@ -43,80 +41,89 @@ src_prepare() {
 			#endif
 		EOF
 	done
+	numeric-int64-multibuild_copy_sources
 }
 
 src_configure() {
-	local use_openmp=$(use openmp && echo 1)
-	use threads && use openmp && use_openmp="" && \
-		einfo "openmp and threads enabled: using threads"
-	sed -i \
-		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
-		-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC):" \
-		-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC):" \
-		-e "s:^#\s*\(USE_THREAD\)\s*=.*:\1=$(use threads && echo 1 || echo 0):" \
-		-e "s:^#\s*\(USE_OPENMP\)\s*=.*:\1=${use_openmp}:" \
-		-e "s:^#\s*\(DYNAMIC_ARCH\)\s*=.*:\1=$(use dynamic && echo 1):" \
-		-e "s:^#\s*\(INTERFACE64\)\s*=.*:\1=$(use int64 && echo 1):" \
-		-e "s:^#\s*\(NO_CBLAS\)\s*=.*:\1=$(use incblas || echo 1):" \
-		Makefile.rule || die
+	myconfigure() {
+		sed \
+			-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
+			-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC):" \
+			-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC):" \
+			-e "s:^#\s*\(USE_THREAD\)\s*=.*:\1=$(usex threads 1 0):" \
+			-e "s:^#\s*\(USE_OPENMP\)\s*=.*:\1=$(usex openmp 1 ""):" \
+			-e "s:^#\s*\(DYNAMIC_ARCH\)\s*=.*:\1=1:" \
+			-e "s:^#\s*\(INTERFACE64\)\s*=.*:\1=$(numeric-int64_is_int64_build && echo 1 || echo ""):" \
+			-e "s:^#\s*\(NO_CBLAS\)\s*=.*:\1=$(usex incblas 1 ""):" \
+			-i Makefile.rule || die
+		if numeric-int64_is_int64_build; then
+			sed \
+				-e 's:libgoto2:libgoto2_int64:g' \
+				-i Makefile* || die
+		fi
+	}
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir myconfigure
 }
 
 src_compile() {
-	mkdir solibs
-	emake libs shared && mv *$(get_libname) solibs/
-	use static-libs && emake clean && emake libs NEED_PIC=
+	mycompile() {
+		if numeric-int64_is_static_build; then
+			use static-libs && emake clean && emake libs NEED_PIC=
+		else
+			mkdir solibs || die
+			emake libs shared && mv *$(get_libname) solibs/ || die
+		fi
+	}
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir mycompile
 }
 
 src_test() {
-	emake tests
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir emake tests
 }
 
 src_install() {
-	local profname=${PN} threads
-	use int64 && profname=${profname}-int64
-	if use threads; then
-		threads="-pthread"
-		profname=${profname}-threads
-	elif use openmp; then
-		profname=${profname}-openmp
-	fi
+	myinstall() {
+		local profname=$(numeric-int64_get_module_name)
+		local libname=libgoto2
+		local libs="-L\${libdir} -lm"
+		if numeric-int64_is_int64_build; then
+			libs+=" -lgoto2_int64"
+		else
+			libs+=" -lgoto2"
+		fi
+		use threads && libs+=" -pthread"
 
-	dolib.so solibs/lib*$(get_libname)
-	use static-libs && dolib.a lib*.a
+		numeric-int64_is_static_build && libname=libgoto2_int64
 
-	# create pkg-config file and associated eselect file
-	cat <<-EOF > ${profname}.pc
-		prefix=${EPREFIX}/usr
-		libdir=\${prefix}/$(get_libdir)
-		includedir=\${prefix}/include
-		Name: ${MYPN}
-		Description: ${DESCRIPTION}
-		Version: ${PV}
-		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -lgoto2 -lm ${threads}
-	EOF
+		if numeric-int64_is_static_build; then
+			dolib.a lib*.a
+		else
+			dolib.so solibs/lib*$(get_libname)
 
-	alternatives_for blas ${profname} 0 \
-		"/usr/$(get_libdir)/pkgconfig/blas.pc" "${profname}.pc"
+			create_pkgconfig \
+				--name "${MYPN}" \
+				--libs "${libs}" \
+				--cflags "-I\${includedir}/${PN}" \
+				${profname}
+		fi
 
-	if use incblas; then
-		insinto /usr/include/${PN}
-		doins cblas.h
-		echo >> ${profname}.pc "Cflags: -I\${includedir}/${PN}"
-		alternatives_for cblas ${profname} 0 \
-			"/usr/$(get_libdir)/pkgconfig/cblas.pc" "${profname}.pc" \
-			"/usr/include/cblas.h" "${PN}/cblas.h"
-	fi
+		if use incblas; then
+			insinto /usr/include/${PN}
+			doins cblas.h
+		fi
+	}
+	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir myinstall
 
-	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${profname}.pc
+	numeric-int64-multibuild_install_alternative blas ${NUMERIC_MODULE_NAME} /usr/include/cblas.h ${PN}/cblas.h
+
 	dodoc 01Readme.txt 03FAQ.txt 05LargePage 06WeirdPerformance
 
 	if [[ ${CHOST} == *-darwin* ]] ; then
-		cd "${ED}"/usr/$(get_libdir)
+		cd "${ED}"/usr/$(get_libdir) || die
+		local d
 		for d in *.dylib ; do
 			ebegin "correcting install_name of ${d}"
-			install_name_tool -id "${EPREFIX}/usr/$(get_libdir)/${d}" "${d}"
+			install_name_tool -id "${EPREFIX}/usr/$(get_libdir)/${d}" "${d}" || die
 			eend $?
 		done
 	fi
