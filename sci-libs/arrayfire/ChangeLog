@@ -1,6 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*arrayfire-3.1.1-r2 (20 Sep 2015)
+
+  20 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.1-r2.ebuild, -arrayfire-3.1.1-r1.ebuild, metadata.xml:
+  sci-libs/arrayfire: Add nonfree use flag
+
   18 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   -arrayfire-3.0.2.ebuild, -arrayfire-3.0_beta.ebuild, -arrayfire-3.1.0.ebuild,
   -files/arrayfire-3.0_beta-FindBoostCompute.patch,

@@ -23,6 +23,9 @@
     <flag name="opencl">
       Build OpenCL backend.
     </flag>
+    <flag name="nonfree">
+      Build ArrayFire nonfree algorithms.
+    </flag>
     <flag name="graphics">
       Build with Forge graphics.
     </flag>
