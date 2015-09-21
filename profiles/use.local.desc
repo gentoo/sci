@@ -151,6 +151,7 @@ sci-libs/armadillo:tbb - Use matrix allocation from the Threads Building Blocks 
 sci-libs/arrayfire:cpu - Build CPU backend.
 sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:graphics - Build with Forge graphics.
+sci-libs/arrayfire:nonfree - Build ArrayFire nonfree algorithms.
 sci-libs/arrayfire:opencl - Build OpenCL backend.
 sci-libs/asl:matio - Matlab support with sci-libs/matio
 sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
