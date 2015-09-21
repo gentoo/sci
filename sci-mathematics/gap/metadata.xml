@@ -16,5 +16,7 @@
   representations, rings, vector spaces, algebras, combinatorial
   structures, and more.
 </longdescription>
-  <use><flag name="xtom">Automatically generated description for xtom</flag></use>
+  <use>
+    <flag name="xtom">Automatically generated description for xtom</flag>
+  </use>
 </pkgmetadata>
