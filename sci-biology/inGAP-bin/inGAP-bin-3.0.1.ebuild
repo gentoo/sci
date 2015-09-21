@@ -20,7 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=virtual/jre-1.7"
+DEPEND=">=virtual/jre-1.7:*"
 RDEPEND="${DEPEND}
 	dev-java/jfreechart
 	dev-java/swing-layout
