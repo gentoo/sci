@@ -1,22 +1,19 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=2
+EAPI=5
 
 inherit eutils
 
 DESCRIPTION="Mesh Quality Improvement Toolkit"
 HOMEPAGE="http://www.cs.sandia.gov/optimization/knupp/Mesquite.html"
-SRC_URI="http://software.sandia.gov/~jakraft/${P}.tar.gz"
+SRC_URI="https://software.sandia.gov/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
 
 src_configure() {
 	econf \
@@ -27,12 +24,10 @@ src_configure() {
 	--without-cppunit           \
 	--enable-trap-fpe           \
 	--disable-function-timers
-
-	## make sure the Mesquite_all_headers.hpp is generated
-	# with new configure flags!
-	emake mostlyclean-generic || die "emake mostlyclean-generic failed!"
 }
 
-src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed!"
+src_compile() {
+	## make sure the Mesquite_all_headers.hpp is generated
+	# with new configure flags!
+	emake mostlyclean-generic
 }
