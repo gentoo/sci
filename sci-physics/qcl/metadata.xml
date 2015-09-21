@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-physics</herd>
-<maintainer>
-<email>A.G.Grozin@inp.nsk.su</email>
-<name>Andrey Grozin</name>
-</maintainer>
+	<herd>sci-physics</herd>
+	<maintainer>
+		<email>A.G.Grozin@inp.nsk.su</email>
+		<name>Andrey Grozin</name>
+	</maintainer>
 </pkgmetadata>
