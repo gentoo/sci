@@ -7,8 +7,8 @@ EAPI=5
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Converts CCP4 mtz-files containing anomalous data to Scalepack format"
-HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/mtz2sca"
-SRC_URI="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/${PN}/binaries/${PV}/${PN}_v${PV}.tar.gz"
+HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/research/programs/conv/mtz2x/mtz2sca/"
+SRC_URI="http://shelx.uni-ac.gwdg.de/~tg/research/programs/conv/mtz2x/${PN}/binaries/${PV}/${PN}_v${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
