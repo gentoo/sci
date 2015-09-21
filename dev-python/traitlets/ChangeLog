@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> traitlets-9999.ebuild:
+  dev-python/traitlets: Add ~x86 to KEYWORDS
+
   06 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> traitlets-9999.ebuild:
   dev-python/traitlets: Add missing deps
 
