@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<pkgmetadata>
-  <herd>sci</herd>
-  <use>
-    <flag name="metis">Add support for metis</flag>
-    <flag name="scotch">Add support for scotch</flag>
-  </use>
-</pkgmetadata>
