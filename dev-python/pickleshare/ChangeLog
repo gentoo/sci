@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  pickleshare-9999.ebuild:
+  dev-python/pickleshare: Add ~x86 to KEYWORDS
+
   05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   dev-python/pickleshare: Add github to remote-id in metadata.xml
 
