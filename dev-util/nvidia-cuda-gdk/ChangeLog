@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  nvidia-cuda-gdk-352.39.ebuild:
+  dev-util/nvidia-cuda-gdk: Add dependency on drivers for nvvs use flag
+
 *nvidia-cuda-gdk-352.39 (12 Sep 2015)
 
   12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>

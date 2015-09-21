@@ -24,6 +24,10 @@ RDEPEND="
 	>=dev-util/nvidia-cuda-toolkit-7.5
 	media-libs/freeglut
 	examples? ( >=x11-drivers/nvidia-drivers-352.39[uvm] )
+	nvvs? (
+		>=x11-drivers/nvidia-drivers-352.39[uvm]
+		<x11-drivers/nvidia-drivers-355.00[uvm]
+	)
 	"
 DEPEND="${RDEPEND}"
 

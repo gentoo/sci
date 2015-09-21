@@ -14,9 +14,10 @@ SRC_URI="http://arrayfire.com/arrayfire_source/${PN}-full-${PV}.tar.bz2 -> ${P}.
 test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS="~amd64"
 
-LICENSE="BSD"
+LICENSE="BSD
+	nonfree? ( OpenSIFT )"
 SLOT="0"
-IUSE="+examples +cpu cuda opencl test graphics"
+IUSE="+examples +cpu cuda nonfree opencl test graphics"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
@@ -66,7 +67,9 @@ pkg_pretend() {
 src_unpack() {
 	default
 
-	find "${WORKDIR}" -name "*_nonfree*" -delete || die
+	if ! use nonfree; then
+		find "${WORKDIR}" -name "*_nonfree*" -delete || die
+	fi
 
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
@@ -88,7 +91,7 @@ src_configure() {
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
 	   $(cmake-utils_use_build graphics GRAPHICS)
-	   -DBUILD_NONFREE=OFF
+	   $(cmake-utils_use_build nonfree NONFREE)
 	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
 	   -DUSE_SYSTEM_CLBLAS=ON
 	   -DUSE_SYSTEM_CLFFT=ON
