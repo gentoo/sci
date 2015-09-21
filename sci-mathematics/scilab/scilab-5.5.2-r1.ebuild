@@ -30,19 +30,22 @@ for l in ${LINGUAS}; do
 	IUSE="${IUSE} linguas_${l}"
 done
 
-CDEPEND="dev-libs/libpcre
+CDEPEND="
+	dev-libs/libpcre
 	dev-libs/libxml2:2
 	sci-libs/hdf5[mpi=]
 	>=sci-libs/arpack-3
 	sys-devel/gettext
-	sys-libs/ncurses
-	sys-libs/readline:0
+	sys-libs/ncurses:0=
+	sys-libs/readline:0=
 	virtual/lapack
-	emf? (  dev-java/freehep-graphicsio
-			dev-java/freehep-graphicsio-emf
-			dev-java/freehep-graphics2d
-			dev-java/freehep-io
-			dev-java/freehep-util )
+	emf? (
+		dev-java/freehep-graphicsio
+		dev-java/freehep-graphicsio-emf
+		dev-java/freehep-graphics2d
+		dev-java/freehep-io
+		dev-java/freehep-util
+	)
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
@@ -65,7 +68,7 @@ CDEPEND="dev-libs/libpcre
 		xcos? ( dev-java/jgraphx:2.5 )
 		)
 	matio? ( >=sci-libs/matio-1.5 )
-	tk? ( dev-lang/tk:0 )
+	tk? ( dev-lang/tk:0= )
 	umfpack? ( sci-libs/umfpack )"
 
 RDEPEND="${CDEPEND}
