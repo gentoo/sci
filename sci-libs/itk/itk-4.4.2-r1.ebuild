@@ -25,17 +25,19 @@ IUSE="debug doc examples fftw itkv3compat python review cpu_flags_x86_sse2 test 
 
 RDEPEND="
 	sci-libs/hdf5[cxx]
-	virtual/jpeg
-	media-libs/libpng
-	media-libs/tiff:0
+	virtual/jpeg:0=
+	media-libs/libpng:0=
+	media-libs/tiff:0=
 	sys-libs/zlib
 	fftw? ( sci-libs/fftw:3.0 )
 	vtkglue? ( sci-libs/vtk )
 "
 DEPEND="${RDEPEND}
-	python? ( ${PYTHON_DEPS}
-			  >=dev-lang/swig-2.0
-			  >=dev-cpp/gccxml-0.9.0_pre20120309 )
+	python? (
+		${PYTHON_DEPS}
+		>=dev-lang/swig-2.0:0
+		>=dev-cpp/gccxml-0.9.0_pre20120309
+	)
 	doc? ( app-doc/doxygen )
 "
 
