@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -22,10 +22,10 @@ IUSE="${IUSE}"
 
 COMMON_DEP="
 	dev-java/java-getopt
-	dev-java/trove"
-DEPEND=">=virtual/jdk-1.4
+	dev-java/trove:0"
+DEPEND=">=virtual/jdk-1.4:*
 	${COMMON_DEP}"
-RDEPEND=">=virtual/jre-1.4
+RDEPEND=">=virtual/jre-1.4:*
 	${COMMON_DEP}"
 
 EANT_BUILD_TARGET="compile package"
