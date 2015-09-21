@@ -31,7 +31,6 @@ RDEPEND="
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]"
 
-
 python_test() {
 	nosetests -v || die
 }
