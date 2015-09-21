@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,14 +8,13 @@ inherit cmake-utils
 
 MY_PN="clFFT"
 
-DESCRIPTION="A software library containing FFT functions written in OpenCL"
+DESCRIPTION="Library containing FFT functions written in OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clFFT"
 SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64"
-S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
+KEYWORDS="~amd64"
 IUSE="+client examples test"
 
 RDEPEND="
@@ -31,6 +30,8 @@ DEPEND="${RDEPEND}"
 # The tests only get compiled to an executable named Test, which is not recogniozed by cmake.
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
+
+S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 PATCHES=(
 	"${FILESDIR}/${P}"-Install-cmake-configuration-to-lib-cmake-clFFT.patch
