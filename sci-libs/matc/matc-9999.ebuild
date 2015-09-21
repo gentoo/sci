@@ -22,8 +22,8 @@ KEYWORDS=""
 IUSE="doc debug static-libs"
 
 RDEPEND="
-	sys-libs/ncurses
-	sys-libs/readline:0"
+	sys-libs/ncurses:0=
+	sys-libs/readline:0="
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${P}/${PN}"
@@ -32,7 +32,6 @@ S="${WORKDIR}/${P}/${PN}"
 
 src_configure() {
 	local myeconfargs=(
-		--enable-shared
 		$(use_with debug)
 	)
 	autotools-utils_src_configure
