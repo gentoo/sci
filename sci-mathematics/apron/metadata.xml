@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
+  <herd>sci-mathematics</herd>
+  <longdescription>
   The APRON library is dedicated to the static analysis of the numerical
   variables of a program by Abstract Interpretation. The aim of such an
   analysis is to infer invariants about these variables. The APRON library
@@ -12,7 +12,4 @@
   domain, as shown by the poster on the right (presented at the SAS 2007
   conference.
 </longdescription>
-<use>
-  <flag name='ppl'>Add support for <pkg>dev-libs/ppl</pkg></flag>
-</use>
 </pkgmetadata>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
+  <herd>sci-mathematics</herd>
+  <longdescription>
   Gappa is a tool intended to help verifying and formally proving
   properties on numerical programs dealing with floating-point or
   fixed-point arithmetic. It has been used to write robust floating-point

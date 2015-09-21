@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -32,7 +32,7 @@ RDEPEND="
 	gps? (
 		dev-libs/expat
 		sci-geosciences/gpsbabel
-		x11-libs/qwt
+		x11-libs/qwt:6=
 	)
 	grass? ( >=sci-geosciences/grass-6.4.0_rc6[postgres?,python?,sqlite?] )
 	gsl? ( sci-libs/gsl )
