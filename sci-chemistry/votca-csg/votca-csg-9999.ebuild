@@ -28,11 +28,12 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 
-RDEPEND="=sci-libs/votca-tools-${PV}
+RDEPEND="
+	=sci-libs/votca-tools-${PV}
 	gromacs? ( sci-chemistry/gromacs:= )
 	hdf5? ( sci-libs/hdf5[cxx] )
 	dev-lang/perl
-	app-shells/bash"
+	app-shells/bash:*"
 
 DEPEND="${RDEPEND}
 	doc? (
