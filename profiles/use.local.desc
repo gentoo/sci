@@ -148,9 +148,10 @@ sci-libs/armadillo:atlas - Link with sci-libs/atlas libraries for cblas and clap
 sci-libs/armadillo:mkl - Use matrix allocation from the Intel MKL sci-libs/mkl
 sci-libs/armadillo:superlu - Use SuperLU for sparse linear equation solving sci-libs/superlu
 sci-libs/armadillo:tbb - Use matrix allocation from the Threads Building Blocks dev-cpp/tbb
-sci-libs/arrayfire:cpu - Enable CPU Build.
-sci-libs/arrayfire:cuda - Enable CUDA Build.
-sci-libs/arrayfire:opencl - Enable OpenCL Build.
+sci-libs/arrayfire:cpu - Build CPU backend.
+sci-libs/arrayfire:cuda - Build CUDA backend.
+sci-libs/arrayfire:graphics - Build with Forge graphics.
+sci-libs/arrayfire:opencl - Build OpenCL backend.
 sci-libs/asl:matio - Matlab support with sci-libs/matio
 sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
 sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA
