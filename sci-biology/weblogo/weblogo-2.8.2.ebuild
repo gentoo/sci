@@ -1,13 +1,13 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module
+inherit eutils perl-module
 
-DESCRIPTION="seqlogo: generate consensus sequence logo figures"
+DESCRIPTION="generate consensus sequence logo figures"
 HOMEPAGE="http://weblogo.berkeley.edu/"
 SRC_URI="http://weblogo.berkeley.edu/release/weblogo.2.8.2.tar.gz"
 
@@ -31,5 +31,7 @@ src_install(){
 	doins -r img
 	insinto ${VENDOR_LIB}
 	doins *.pm
-	dodoc examples.html Crooks-2004-GR-WebLogo.pdf
+	HTML_DOCS=( examples.html )
+	DOCS=( Crooks-2004-GR-WebLogo.pdf )
+	einstalldocs
 }
