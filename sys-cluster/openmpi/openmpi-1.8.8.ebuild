@@ -61,7 +61,7 @@ RDEPEND="
 	sys-libs/zlib
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
-	java? ( >=virtual/jre-1.6 )
+	java? ( >=virtual/jre-1.6:* )
 	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
 	openmpi_fabrics_open-mx? ( sys-cluster/open-mx )
