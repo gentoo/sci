@@ -16,7 +16,7 @@ if [ ${PV} == "9999" ] ; then
 	EGIT_REPO_URI="https://github.com/${PN}/${PN}.git git://github.com/${PN}/${PN}.git"
 else
 	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~x86"
 	# test_pickleshare.py is not included in the pickleshare-0.5 source
 	# we fetched from pipy
 	RESTRICT="test"
