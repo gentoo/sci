@@ -9,5 +9,6 @@
   </longdescription>
   <upstream>
     <remote-id type="pypi">traitlets</remote-id>
+    <remote-id type="github">ipython/traitlets</remote-id>
   </upstream>
 </pkgmetadata>

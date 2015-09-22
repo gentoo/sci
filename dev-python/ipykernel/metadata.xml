@@ -5,4 +5,7 @@
   <longdescription>
     This package provides the IPython kernel for Jupyter.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">ipykernel</remote-id>
+  </upstream>
 </pkgmetadata>

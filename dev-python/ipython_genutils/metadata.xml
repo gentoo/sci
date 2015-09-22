@@ -10,5 +10,6 @@
   </longdescription>
   <upstream>
     <remote-id type="pypi">ipython_genutils</remote-id>
+    <remote-id type="github">ipython/ipython_genutils</remote-id>
   </upstream>
 </pkgmetadata>

@@ -6,4 +6,7 @@
   	Interactive Parallel Computing with IPython.
     ipyparallel is the new home of IPython.parallel.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">ipyparallel</remote-id>
+  </upstream>
 </pkgmetadata>

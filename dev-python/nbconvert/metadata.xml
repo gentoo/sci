@@ -6,4 +6,7 @@
     Jupyter NBConvert converts Jupyter notebooks to various other
     formats via Jinja templates.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">nbconvert</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -8,4 +8,7 @@
     kernels. It also provides the jupyter kernelspec entrypoint for
     installing kernelspecs for use with Jupyter frontends.
   </longdescription>
+  <upstream>
+    <remote-id type="pypi">jupyter_client</remote-id>
+  </upstream>
 </pkgmetadata>

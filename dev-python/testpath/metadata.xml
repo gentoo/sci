@@ -8,4 +8,7 @@
     filesystem, and tools for mocking system commands and recording
     calls to those.
   </longdescription>
+  <upstream>
+    <remote-id type="github">jupyter/testpath</remote-id>
+  </upstream>
 </pkgmetadata>
