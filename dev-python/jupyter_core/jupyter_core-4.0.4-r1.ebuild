@@ -9,16 +9,10 @@ inherit distutils-r1
 
 DESCRIPTION="Core common functionality of Jupyter projects"
 HOMEPAGE="http://jupyter.org"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/jupyter/${PN}.git git://github.com/jupyter/${PN}.git"
-else
-	SRC_URI="
+SRC_URI="
 	mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz
 	https://raw.githubusercontent.com/gentoo-science/sci/master/patches/${P}-tests-dotipython.patch"
-	KEYWORDS="~amd64"
-fi
+KEYWORDS="~amd64"
 
 LICENSE="BSD"
 SLOT="0"
