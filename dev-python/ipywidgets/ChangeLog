@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Add ~x86 to KEYWORDS, fixes #561032
+
   15 Sep 2015; suhr <null@null> ipywidgets-9999.ebuild:
   dev-python/ipywidgets: Remove wxwidgets dependency
 
