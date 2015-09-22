@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  03 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipywidgets-4.0.3,
+  ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Add javascript tests
+
   22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   ipywidgets-4.0.3.ebuild:
   dev-python/ipywidgets: Add ~x86 to KEYWORDS
