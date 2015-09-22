@@ -36,12 +36,7 @@ RDEPEND="
 	)
 	grass? ( >=sci-geosciences/grass-6.4.0_rc6[postgres?,python?,sqlite?] )
 	gsl? ( sci-libs/gsl )
-	postgres? (
-		|| (
-			>=dev-db/postgresql-base-8.4
-			>=dev-db/postgresql-server-8.4
-		)
-	)
+	postgres? ( dev-db/postgresql:* )
 	python? (
 		${PYTHON_DEPS}
 		dev-python/PyQt4[sql,svg,${PYTHON_USEDEP}]
