@@ -43,10 +43,6 @@ DEPEND="${RDEPEND}
 	"
 
 python_prepare_all() {
-	sed \
-		-e "/import setup/s:$:\nimport setuptools:g" \
-		-i setup.py || die
-
 	# disable bundled mathjax
 	sed -i 's/^.*MathJax.*$//' bower.json || die
 	sed -i 's/mj(/#mj(/' setupbase.py || die
