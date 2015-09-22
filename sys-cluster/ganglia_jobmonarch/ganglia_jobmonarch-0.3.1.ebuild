@@ -10,7 +10,7 @@ inherit eutils webapp depend.php python-r1
 
 DESCRIPTION="Ganglia addons for Torque"
 HOMEPAGE="https://oss.trac.surfsara.nl/jobmonarch/"
-SRC_URI="http://ftp.surfsara.nl/pub/outgoing/${PN}/${PV}/${P}.tar.bz2"
+SRC_URI="http://ftp.surfsara.nl/pub/outgoing/jobmonarch/${PV}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
