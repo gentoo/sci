@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -25,14 +25,15 @@ LICENSE="Apache-2.0"
 SLOT="0"
 IUSE="doc +fftw +gsl sqlite"
 
-RDEPEND="fftw? ( sci-libs/fftw:3.0 )
-	dev-libs/expat
-	gsl? ( sci-libs/gsl )
+RDEPEND="
 	dev-libs/boost:=
+	dev-libs/expat
+	fftw? ( sci-libs/fftw:3.0 )
+	gsl? ( sci-libs/gsl )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
-	doc? ( || ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot]	) )
+	doc? ( >=app-doc/doxygen-1.7.6.1[dot] )
 	>=app-text/txt2tags-2.5
 	virtual/pkgconfig"
 
