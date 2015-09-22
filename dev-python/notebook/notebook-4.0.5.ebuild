@@ -5,11 +5,12 @@
 EAPI=5
 PYTHON_COMPAT=( python2_7 python{3_3,3_4} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 DESCRIPTION="Jupyter Interactive Notebook"
 HOMEPAGE="http://jupyter.org"
-EGIT_REPO_URI="https://github.com/jupyter/${PN}.git git://github.com/jupyter/${PN}.git"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+KEYWORDS="~amd64 ~x86"
 
 LICENSE="BSD"
 SLOT="0"
