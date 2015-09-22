@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipyparallel-4.0.2.ebuild:
+  dev-python/ipyparallel: Add ~x86 to KEYWORDS, fixes #561032
+
   02 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipyparallel-9999.ebuild:
   dev-python/ipyparallel: Add doc use flag
 
