@@ -32,12 +32,6 @@ dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
 dev-lang/pgi:acml - Install AMD's core math library.
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
-dev-libs/boost:context - Build and install the Boost.Context library and all other Boostlibraries that depends on it
-dev-libs/boost:debug - Build and install only the debug version of the Boost libraries. Only enable this flag if you're developing against boost.
-dev-libs/boost:doc - Install the full API documentation documentation. This takes over 200MB of extra disk space.
-dev-libs/boost:nls - Build libboost_locale. This library requires compatible C library interfaces, which might not be provided by uClibc or other embedded libraries.
-dev-libs/boost:threads - Build multi-thread-compatible libraries instead of single-threaded only.
-dev-libs/boost:tools - Build and install the boost tools (bcp, quickbook, inspect, wave)
 dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
@@ -270,12 +264,10 @@ sci-libs/trilinos:superlu - Add support for superlu (sci-libs/superlu)
 sci-libs/trilinos:taucs - Add support for taucs (sci-libs/taucs)
 sci-libs/trilinos:tbb - Add support for threading building blocks library (dev-cpp/tbb)
 sci-libs/trilinos:tvmet - Add support for tvmet (dev-libs/tvmet)
-sci-libs/trilinos:umfpack - Add support for umfpack (sci-libs/umfpack)
 sci-libs/trilinos:yaml - Add support for yaml (dev-cpp-yaml)
 sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/Macaulay2:optimization - Disable to build with -O0 for debugging.
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
-sci-mathematics/apron:ppl - Add support for dev-libs/ppl
 sci-mathematics/dolfin:cgal - Adds support for geometric algorithms with sci-mathematics/cgal
 sci-mathematics/dolfin:cholmod - Adds support for sparse Cholesky factorization with sci-libs/cholmod
 sci-mathematics/dolfin:parmetis - Adds support for parallel graph partitioning with sci-libs/parmetis
@@ -321,9 +313,6 @@ sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-mi
 sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
 sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
 sci-misc/opennlp-tools:models - Automatically generated description for models
-sci-misc/salome-kernel:numpy - Enable support for dev-python/numpy
-sci-misc/salome-med:metis - Add support for metis
-sci-misc/salome-med:scotch - Add support for scotch
 sci-physics/abinit:atompaw - Enable support for atompaw, a Projector Augmented Waves atomic data generator
 sci-physics/abinit:bigdft - Enable support for BigDFT, DFT package using wavelet basis set
 sci-physics/abinit:cuda - Enable support for nVidia CUDA
@@ -370,10 +359,6 @@ sci-physics/root:pythia8 - Build the interface for sci-physics/pythia version 8.
 sci-physics/root:xrootd - Build the interface for net-libs/xrootd
 sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:tau-spinner - Compile with TauSpinner library
-sci-physics/thepeg:fastjet - Adds support for sci-physics/fastjet
-sci-physics/thepeg:hepmc - Adds support for High Energy Physics Monte Carlo Generators sci-physics/hepmc
-sci-physics/thepeg:lhapdf - Adds support for sci-physics/lhapdf
-sci-physics/thepeg:rivet - Adds support for sci-physics/rivet
 sci-physics/vgm:geant4 - Enable interaction with Geant4(sci-physics/geant:4)
 sci-physics/vgm:root - Enable interactions with ROOT (sci-physics/root)
 sci-physics/yoda:root - Adds support for sci-physics/root
