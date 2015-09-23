@@ -18,12 +18,9 @@ SRC_URI="${SRC_COM}/Singular-3-1-1-2.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="debug"
+IUSE=""
 
 S=${WORKDIR}/Singular-3-1-1/omalloc
-
-# Until tarballs are mirrored:
-RESTRICT="mirror"
 
 pkg_setup() {
 	tc-export CC CXX
@@ -39,11 +36,5 @@ src_configure() {
 }
 
 src_test () {
-	if use debug; then
-		emake check
-	fi
-}
-
-src_install () {
-	emake DESTDIR="${D}" install
+	emake check
 }
