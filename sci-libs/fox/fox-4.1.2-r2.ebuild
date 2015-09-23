@@ -46,7 +46,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake -j1 || die "make failed"
+	emake -j1
 }
 
 src_test() {
@@ -60,7 +60,7 @@ src_install() {
 		-e's%\$libdir/lib\([^ ]\+\)\.a\>%-l\1%g' \
 		-e's%\(echo\( -I"$moddir"\)\?\) \$LIBS%\1 -L"$libdir" $LIBS%' \
 		FoX-config
-	emake -j1 DESTDIR="${D}" install || die "make install failed"
+	emake -j1 DESTDIR="${D}" install
 	dodoc README.FoX.txt || die "dodoc failed"
 	if use doc; then
 		dodoc Changelog

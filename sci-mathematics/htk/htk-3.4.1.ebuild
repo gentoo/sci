@@ -50,7 +50,7 @@ src_configure() {
 
 src_compile() {
 	if use hlmtools || use hdecode; then
-		emake -j1 || die "Cannot compile"
+		emake -j1
 	else
 		emake
 	fi

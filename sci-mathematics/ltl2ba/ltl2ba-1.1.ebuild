@@ -21,7 +21,7 @@ src_compile() {
 		-e "s/CC=gcc/#CC=gcc/g" \
 		-e "s/CFLAGS= -O3 -ansi -DNXT/CFLAGS+= -ansi -DNXT/g"
 
-	emake || die "emake failed"
+	emake
 }
 
 src_install() {

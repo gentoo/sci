@@ -92,9 +92,9 @@ src_compile() {
 
 src_test() {
 	cmake-utils_src_test
-	emake check || die "emake check failed"
+	emake check
 	if use benchmarks; then
-		emake benchmark || die "emake benchmark failed"
+		emake benchmark
 	fi
 }
 
