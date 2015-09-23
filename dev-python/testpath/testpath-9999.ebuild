@@ -5,18 +5,11 @@
 EAPI=5
 PYTHON_COMPAT=( python2_7 python{3_3,3_4} )
 
-inherit distutils-r1
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Test utilities for code working with files and commands"
 HOMEPAGE="http://jupyter.org"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/jupyter/${PN}.git git://github.com/jupyter/${PN}.git"
-else
-	SRC_URI="https://github.com/jupyter/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-fi
+EGIT_REPO_URI="https://github.com/jupyter/${PN}.git git://github.com/jupyter/${PN}.git"
 
 LICENSE="BSD"
 SLOT="0"
@@ -31,7 +24,7 @@ DEPEND="
 	"
 
 PATCHES=(
-	"${FILESDIR}/${P}"-setup.py.patch
+	"${FILESDIR}/${PN}"-0.2-setup.py.patch
 	)
 
 python_prepare_all() {

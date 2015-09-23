@@ -31,9 +31,12 @@ DEPEND="${RDEPEND}
 		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
 		dev-python/nose[${PYTHON_USEDEP}]
 		dev-python/coverage[${PYTHON_USEDEP}]
+		www-client/casperjs
 	)
 	"
 
 python_test() {
 	nosetests --with-coverage --cover-package=ipywidgets ipywidgets || die
+
+	"${PYTHON}" -m ipywidgets.jstest || die
 }
