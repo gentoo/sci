@@ -4,12 +4,16 @@
 
 EAPI=5
 
-S="${WORKDIR}"
+PYTHON_COMPAT=( python2_7 )
+
+inherit python-r1
 
 DESCRIPTION="Combine FASTA contigs from a de novo assembly into scaffolds using a reference assembly"
-HOMEPAGE="http://sourceforge.net/projects/scaffold-b
+HOMEPAGE="
+	http://sourceforge.net/projects/scaffold-b
 	http://edwards.sdsu.edu/scaffold_builder"
-SRC_URI="http://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2.1.zip
+SRC_URI="
+	http://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2.1.zip
 	http://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2_help.doc
 	http://downloads.sourceforge.net/project/scaffold-b/Manual_v2.1.pdf"
 
@@ -19,17 +23,19 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}
-	sci-biology/mummer
-	dev-lang/python"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="${PYTHON_DEPS}
+	sci-biology/mummer"
+DEPEND="${RDEPEND}"
+
+S="${WORKDIR}"
 
 src_install(){
 	echo "#! /usr/bin/env python" > scaffold_builder.pyy || die
 	cat scaffold_builder.py >> scaffold_builder.pyy || die
 	mv scaffold_builder.pyy scaffold_builder.py || die
-	dobin scaffold_builder.py
+	python_foreach_impl python_doscript scaffold_builder.py
 	dodoc "${DISTDIR}"/scaffold_builder_v2_help.doc
-	cp -p "${DISTDIR}"/Manual_v2.1.pdf scaffold_builder.pdf || die
-	dodoc scaffold_builder.pdf
+	newdoc "${DISTDIR}"/Manual_v2.1.pdf scaffold_builder.pdf
 }
