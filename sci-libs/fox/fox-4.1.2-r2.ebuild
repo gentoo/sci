@@ -64,6 +64,6 @@ src_install() {
 	dodoc README.FoX.txt
 	if use doc; then
 		dodoc Changelog
-		dohtml -r DoX/ || die "installing the HTML docs failed"
+		dohtml -r DoX/
 	fi
 }
