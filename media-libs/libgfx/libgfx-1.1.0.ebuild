@@ -21,7 +21,7 @@ src_prepare() {
 
 src_compile() {
 	cd src || die
-	emake
+	default
 }
 
 src_install() {
