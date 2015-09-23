@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -37,12 +37,12 @@ src_prepare() {
 }
 
 src_compile() {
-	emake
+	default
 	use doc && emake html
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	newbashcomp misc/${PN}.bashcomp ${PN}
 	dodoc AUTHORS ChangeLog NEWS README TODO doc/*.txt
 	use doc && dohtml *.html doc/*
