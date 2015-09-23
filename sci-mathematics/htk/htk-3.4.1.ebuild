@@ -51,6 +51,6 @@ src_compile() {
 	if use hlmtools || use hdecode; then
 		emake -j1
 	else
-		emake
+		default
 	fi
 }

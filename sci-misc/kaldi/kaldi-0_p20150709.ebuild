@@ -47,7 +47,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake
+	default
 	use doc && doxygen
 }
 

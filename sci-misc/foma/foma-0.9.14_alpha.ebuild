@@ -33,7 +33,7 @@ src_prepare() {
 }
 
 src_compile() {
-	emake
+	default
 	emake libfoma
 }
 

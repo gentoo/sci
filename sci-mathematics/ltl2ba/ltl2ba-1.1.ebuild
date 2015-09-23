@@ -21,7 +21,7 @@ src_compile() {
 		-e "s/CC=gcc/#CC=gcc/g" \
 		-e "s/CFLAGS= -O3 -ansi -DNXT/CFLAGS+= -ansi -DNXT/g"
 
-	emake
+	default
 }
 
 src_install() {

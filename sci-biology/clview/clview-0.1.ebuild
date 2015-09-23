@@ -100,7 +100,7 @@ src_prepare() {
 
 src_compile(){
 	cd "${S}"/clview || die
-	emake
+	default
 }
 
 src_install() {

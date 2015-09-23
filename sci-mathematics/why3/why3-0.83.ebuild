@@ -40,7 +40,7 @@ src_configure() {
 src_compile() {
 	MAKEOPTS+=" -j1"
 
-	emake
+	default
 	if use doc; then
 		emake doc/manual.pdf
 	fi

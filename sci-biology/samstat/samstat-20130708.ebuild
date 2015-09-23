@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}"/"${PN}"/src
 
 src_compile(){
-	emake
+	default
 }
 
 src_install(){

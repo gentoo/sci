@@ -55,7 +55,7 @@ src_compile(){
 	emake OUTDIR="${WORKDIR}"/objdir out
 	emake dynamic
 	emake release
-	emake
+	default
 }
 
 src_install(){

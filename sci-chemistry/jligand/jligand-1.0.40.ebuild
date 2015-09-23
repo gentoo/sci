@@ -24,7 +24,7 @@ S="${WORKDIR}"/${MY_PN}.${PV}
 
 src_compile() {
 	sed 's:makefile::g' -i Makefile || die
-	emake
+	default
 }
 
 src_install() {

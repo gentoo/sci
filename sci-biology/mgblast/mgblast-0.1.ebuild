@@ -37,7 +37,7 @@ src_prepare(){
 
 src_compile(){
 	cd "${S}"/mgblast || die
-	emake
+	default
 }
 
 src_install(){

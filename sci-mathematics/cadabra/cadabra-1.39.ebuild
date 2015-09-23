@@ -51,7 +51,7 @@ src_compile() {
 
 	if use doc; then
 		cd "${S}/doc" || die
-		emake
+		default
 		cd doxygen/latex || die
 		emake pdf
 	fi
