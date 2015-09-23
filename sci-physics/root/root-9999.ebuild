@@ -398,7 +398,7 @@ cleanup_install() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	dodoc README.md
 
 	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root
