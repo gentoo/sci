@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-
-<herd>sci-physics</herd>
-<maintainer>
-  <email>piatlicki@gmail.com</email>
-</maintainer>
-
-<longdescription>
+  <herd>sci-physics</herd>
+  <maintainer>
+    <email>piatlicki@gmail.com</email>
+  </maintainer>
+  <longdescription>
   A universal tool for comparisons of Monte Carlo predictions in High Energy Physics
 </longdescription>
-<use>
-  <flag name="hepmc">Compile <pkg>sci-physics/hepmc</pkg> interface</flag>
-</use>
+  <use>
+    <flag name="hepmc">Compile <pkg>sci-physics/hepmc</pkg> interface</flag>
+  </use>
 </pkgmetadata>
