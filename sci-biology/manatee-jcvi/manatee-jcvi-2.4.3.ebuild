@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="genome annotation tool: view, modify, and store annotation for prokaryotic and eukaryotic genomes."
+DESCRIPTION="genome annotation tool: view, modify, and store annotation for prokaryotic and eukaryotic genomes"
 HOMEPAGE="http://manatee.sourceforge.net/jcvi/downloads.shtml"
 SRC_URI="http://downloads.sourceforge.net/project/manatee/manatee/manatee-2.4.3/manatee-2.4.3.tgz"
 

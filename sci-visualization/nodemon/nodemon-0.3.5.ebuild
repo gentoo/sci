@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-DESCRIPTION="Distributed visualization tool for monitoring system resource utilization."
+DESCRIPTION="Distributed visualization tool for monitoring system resource utilization"
 HOMEPAGE="http://nodemon.sourceforge.net/"
 SRC_URI="http://downloads.sourceforge.net/nodemon/nodemon-${PV}.tar.gz"
 

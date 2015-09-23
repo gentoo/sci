@@ -11,7 +11,7 @@ inherit distutils-r1
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
 
-DESCRIPTION="Aggregated NetCDF handler for Pydap Data Access Protocol server."
+DESCRIPTION="Aggregated NetCDF handler for Pydap Data Access Protocol server"
 HOMEPAGE="http://pydap.org/"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 

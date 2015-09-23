@@ -8,7 +8,7 @@ inherit cmake-utils multilib
 
 GTEST_PV="1.7.0"
 
-DESCRIPTION="A general purpose GPU library."
+DESCRIPTION="A general purpose GPU library"
 HOMEPAGE="http://www.arrayfire.com/"
 SRC_URI="http://arrayfire.com/arrayfire_source/${PN}-full-${PV}.tar.bz2 -> ${P}.tar.bz2
 test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"

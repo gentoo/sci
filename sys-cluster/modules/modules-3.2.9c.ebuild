@@ -6,7 +6,7 @@ EAPI=5
 
 inherit autotools-utils
 
-DESCRIPTION="Dynamic modification of a user's environment via modulefiles."
+DESCRIPTION="Dynamic modification of a user's environment via modulefiles"
 HOMEPAGE="http://modules.sourceforge.net/"
 SRC_URI="http://sourceforge.net/projects/modules/files/Modules/${P%[a-z]}/${P}.tar.bz2/download -> ${P}.tar.bz2"
 

@@ -8,7 +8,7 @@ inherit java-pkg-2 java-ant-2
 
 [ "$PV" == "9999" ] && inherit subversion
 
-DESCRIPTION="Apollo genome editor is Java-based application for browsing and annotation of genomic sequences."
+DESCRIPTION="Apollo genome editor is Java-based application for browsing and annotation of genomic sequences"
 HOMEPAGE="http://gmod.org/wiki/Apollo"
 if [ "$PV" == "9999" ]; then
 	#SRC_URI="http://gmod.svn.sourceforge.net/viewvc/gmod/apollo/?view=tar" # Apollo_unix.sh

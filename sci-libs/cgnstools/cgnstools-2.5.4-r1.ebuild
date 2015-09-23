@@ -8,7 +8,7 @@ inherit eutils multilib versionator
 
 MY_P="${PN}-$(replace_all_version_separators '-')"
 
-DESCRIPTION="The CFD General Notation System (CGNS) tools."
+DESCRIPTION="The CFD General Notation System (CGNS) tools"
 HOMEPAGE="http://www.cgns.org/"
 SRC_URI="mirror://sourceforge/cgns/${MY_P}.tar.gz"
 
