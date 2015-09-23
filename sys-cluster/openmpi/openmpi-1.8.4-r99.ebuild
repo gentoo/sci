@@ -155,7 +155,7 @@ multilib_src_configure() {
 }
 
 multilib_src_install() {
-	emake DESTDIR="${D}" install
+	default
 
 	# Remove la files, no static libs are installed and we have pkg-config
 	find "${ED}"/usr/$(get_libdir)/ -type f -name '*.la' -delete

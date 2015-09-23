@@ -142,7 +142,7 @@ src_configure() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install
+	default
 	# From USE=vt see #359917
 	rm "${ED}"/$(mpi_root)/usr/share/libtool &> /dev/null
 	# Avoid collisions with libevent
