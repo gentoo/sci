@@ -80,7 +80,7 @@ src_install(){
 
 	# install the main libs and the ncbi/vdb-copy.kfg file
 	insinto /usr/lib/ncbi
-	doins "${OBJDIR}"/lib/ncbi/* || die
+	doins "${OBJDIR}"/lib/ncbi/*
 
 	# zap the subdirectory so that copying below does not fail
 	rm -rf "${OBJDIR}"/lib/ncbi || die
