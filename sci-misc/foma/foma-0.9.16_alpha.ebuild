@@ -41,7 +41,6 @@ src_install() {
 	# since install target doesn't have DESTDIR
 	dobin foma flookup cgflookup
 	dolib.so libfoma.so.${PV/_alpha/}
-	insinto /usr/include
-	doins foma.h fomalib.h fomalibconf.h
+	doheader foma.h fomalib.h fomalibconf.h
 	dodoc README README.symbols
 }
