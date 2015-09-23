@@ -351,7 +351,7 @@ src_install() {
 	#autotools-utils_src_install() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	emake DESTDIR="${D}" install
+	default
 
 	use libabinit && dolib libabinit.a
 
