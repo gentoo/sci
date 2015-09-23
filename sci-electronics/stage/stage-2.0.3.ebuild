@@ -37,7 +37,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake
+	default
 
 	if use doc; then
 		pushd docsrc
@@ -49,7 +49,7 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 
 	if use doc; then
 		pushd docsrc
