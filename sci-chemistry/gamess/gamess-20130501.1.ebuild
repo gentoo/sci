@@ -1,19 +1,19 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI=5
 
 inherit eutils fortran-2 flag-o-matic pax-utils toolchain-funcs
 
 DESCRIPTION="A powerful quantum chemistry package"
-LICENSE="gamess"
 HOMEPAGE="http://www.msg.chem.iastate.edu/GAMESS/GAMESS.html"
 SRC_URI="
-		${P}.tar.gz
-		qmmm-tinker? ( tinker.tar.Z )"
+	${P}.tar.gz
+	qmmm-tinker? ( tinker.tar.Z )"
 
 SLOT="0"
+LICENSE="gamess"
 # NOTE: PLEASE do not stabilize gamess. It does not make sense
 # since the tarball has fetch restrictions and upstream only
 # provides the latest version. In other words: As soon as a
