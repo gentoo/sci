@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,7 +13,7 @@ SRC_URI="http://wannier.org/code/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="doc examples perl test"
+IUSE="doc examples perl static-libs test"
 
 RDEPEND="
 	virtual/blas
@@ -45,7 +45,7 @@ src_compile() {
 
 src_test() {
 	einfo "Compare the 'Standard' and 'Current' outputs of this test."
-	pushd tests
+	cd tests
 	emake test
 	cat wantest.log
 }
@@ -53,9 +53,8 @@ src_test() {
 src_install() {
 	dobin wannier90.x
 	use perl && dobin utility/kmesh.pl
-	dolib.a libwannier.a
-	insinto /usr/include
-	doins src/obj/*.mod
+	use static-libs && dolib.a libwannier.a
+	doheader src/obj/*.mod
 	if use examples; then
 		insinto /usr/share/${PN}
 		doins -r examples
