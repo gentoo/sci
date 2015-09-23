@@ -4,6 +4,8 @@
 
 EAPI=5
 
+inherit scons-utils
+
 MY_P="FRAMEWAVE_${PV}_SRC"
 
 DESCRIPTION="A collection of popular image and signal processing routines"
@@ -31,7 +33,7 @@ src_compile() {
 	local bits="32"
 	use amd64 && bits="64"
 
-	scons \
+	escons \
 		CCFLAGS="${CFLAGS}" bitness="${bits}" variant="release" \
 		libtype="shared" ${MAKEOPTS}|| die "make failed"
 }
@@ -42,6 +44,5 @@ src_install() {
 
 	dolib.so Framewave/build/bin/release_shared_${bits}/*.so*
 
-	insinto /usr/include
-	doins Framewave/build/include/*
+	doheader Framewave/build/include/*
 }
