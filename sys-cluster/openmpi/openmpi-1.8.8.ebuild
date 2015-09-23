@@ -170,7 +170,7 @@ src_install () {
 		rm "${mpi_jar}" || die
 	fi
 
-	mpi_dodoc README AUTHORS NEWS VERSION || die
+	mpi_dodoc README AUTHORS NEWS VERSION
 	mpi_imp_add_eselect
 }
 

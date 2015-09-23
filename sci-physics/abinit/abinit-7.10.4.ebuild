@@ -365,7 +365,7 @@ src_install() {
 
 	# XXX: support installing them from builddir as well!!!
 	if [[ ${DOCS} ]]; then
-		dodoc "${DOCS[@]}" || die "dodoc failed"
+		dodoc "${DOCS[@]}"
 	else
 		local f
 		# same list as in PMS

@@ -61,7 +61,7 @@ src_install() {
 		-e's%\(echo\( -I"$moddir"\)\?\) \$LIBS%\1 -L"$libdir" $LIBS%' \
 		FoX-config
 	emake -j1 DESTDIR="${D}" install
-	dodoc README.FoX.txt || die "dodoc failed"
+	dodoc README.FoX.txt
 	if use doc; then
 		dodoc Changelog
 		dohtml -r DoX/ || die "installing the HTML docs failed"

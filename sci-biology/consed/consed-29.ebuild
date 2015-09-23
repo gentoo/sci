@@ -84,7 +84,7 @@ src_install() {
 	sed \
 		-e 's#/wt1/gordon/genome#/usr/bin#' \
 		-i "${ED}"/usr/bin/fastq2Phrap.perl || die
-	dodoc README.txt *_announcement.txt || die
+	dodoc README.txt *_announcement.txt
 }
 
 pkg_postinst() {

@@ -265,7 +265,7 @@ src_install() {
 	fi
 
 	# the docs
-	dodoc *.DOC qmnuc/*.DOC || die "Failed installing docs"
+	dodoc *.DOC qmnuc/*.DOC
 
 	# install ericftm
 	insinto /usr/share/${PN}
@@ -285,7 +285,7 @@ src_install() {
 
 	# install tinker params in case of qmmm
 	if use qmmm-tinker ; then
-			dodoc tinker/simomm.doc || die "Failed installing docs"
+			dodoc tinker/simomm.doc
 			insinto /usr/share/${PN}
 			doins -r tinker/params51 || die "Failed to install Tinker params"
 	fi

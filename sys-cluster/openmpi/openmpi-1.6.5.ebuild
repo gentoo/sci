@@ -150,7 +150,7 @@ src_install () {
 	emake DESTDIR="${D}" install
 	# From USE=vt see #359917
 	rm "${ED}"/$(mpi_root)/usr/share/libtool &> /dev/null
-	mpi_dodoc README AUTHORS NEWS VERSION || die
+	mpi_dodoc README AUTHORS NEWS VERSION
 	mpi_imp_add_eselect
 }
 
