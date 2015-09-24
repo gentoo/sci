@@ -19,3 +19,10 @@ RDEPEND="
 	>=dev-python/metakernel-0.11.0[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}"
+
+python_install_all() {
+	insinto /usr/share/jupyter/kernels/${PN}
+	doins "${FILESDIR}"/kernel.json
+
+	distutils-r1_python_install_all
+}
