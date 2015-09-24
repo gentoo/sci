@@ -9,12 +9,12 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 inherit cmake-utils eutils multilib
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://downloads.votca.googlecode.com/hg/${P}_pristine.tar.gz"
+	SRC_URI="https://github.com/${PN/-//}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+	S="${WORKDIR}/${P#votca-}"
 else
-	SRC_URI=""
-	inherit mercurial
-	EHG_REPO_URI="https://code.google.com/p/votca.tools/"
+	inherit git-r3
+	EGIT_REPO_URI="git://github.com/${PN/-//}.git https://github.com/${PN/-//}.git"
 	KEYWORDS=""
 fi
 
