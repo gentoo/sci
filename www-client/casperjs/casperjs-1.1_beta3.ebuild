@@ -34,8 +34,9 @@ src_install() {
 	doins bin/bootstrap.js
 	doins bin/usage.txt
 
-	dobin bin/casperjs
-	dosym /usr/bin/casperjs ../share/${P}/bin/casperjs
+	exeinto /usr/share/${P}/bin
+	doexe bin/casperjs
+	dosym ../share/${P}/bin/casperjs /usr/bin/casperjs
 
 	dodoc CHANGELOG.md CONTRIBUTORS.md README.md
 }
