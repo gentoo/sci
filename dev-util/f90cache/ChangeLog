@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*f90cache-0.96 (25 Sep 2015)
+
+  25 Sep 2015; Christoph Junghans <ottxor@gentoo.org> +f90cache-0.96.ebuild:
+  dev-util/f90cache: version bump (fixes #497 gh)
+
 *f90cache-0.95 (19 May 2015)
 
   19 May 2015; Marius Brehler <marbre@linux.sungazer.de> +f90cache-0.95.ebuild:
