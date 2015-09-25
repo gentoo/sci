@@ -232,7 +232,7 @@ src_configure() {
 
 src_compile() {
 	addpredict /proc/mtrr
-	emake
+	default
 	pax-mark m .libs/scilab-bin
 	use doc && emake doc
 }

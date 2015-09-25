@@ -56,7 +56,7 @@ src_unpack() {
 src_compile() {
 	use examples || return
 	cd "${S}"/nvml/example || die
-	emake
+	default
 }
 
 src_install() {

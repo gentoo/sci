@@ -68,7 +68,7 @@ src_compile() {
 
 	if use qt4; then
 		cd src/NMRdynGUI || die
-		emake
+		default
 	fi
 }
 

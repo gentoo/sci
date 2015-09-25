@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<maintainer>
-  <email>tomka@gentoo.org</email>
-</maintainer>
-<longdescription>
+  <herd>sci-mathematics</herd>
+  <maintainer>
+    <email>tomka@gentoo.org</email>
+  </maintainer>
+  <longdescription>
 KANT is a computer algebra system for sophisticated computations in algebraic
 number fields that has been developed under the project leadership of
 Prof. Dr. M. E. Pohst at Technische Universität Berlin.

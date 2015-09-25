@@ -116,7 +116,7 @@ src_install() {
 		Requires: blas
 	EOF
 	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${PN}.pc || die
+	doins ${PN}.pc
 	alternatives_for blacs ${PN} 0 \
 		/usr/$(get_libdir)/pkgconfig/blacs.pc ${PN}.pc
 	popd > /dev/null

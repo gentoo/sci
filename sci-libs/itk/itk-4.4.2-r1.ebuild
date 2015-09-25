@@ -129,7 +129,7 @@ src_install() {
 		rm -f *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
 		insinto "/usr/share/doc/${PF}/api-docs"
-		doins -r ./* || die "Failed to install docs"
+		doins -r ./*
 	fi
 
 	doenvd "${T}"/40${PN}

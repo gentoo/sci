@@ -1,0 +1,12 @@
+# ChangeLog for www-client/casperjs
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  24 Sep 2015; Sean Vig <sean.v.775@gmail.com> casperjs-1.1_beta3.ebuild:
+  www-client/casjerjs: Fix installation of casperjs executable
+
+*casperjs-1.1_beta3 (02 Sep 2015)
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> +casperjs-1.1_beta3.ebuild,
+  +metadata.xml:
+  www-client/casperjs: Initial ebuild

@@ -57,7 +57,7 @@ src_install() {
 			Fps_Icons || die
 	fi
 
-	dodir "${BASEDIR}" || die
+	dodir "${BASEDIR}"
 	# make symlinks
 	for i in * ; do
 		[[ -x $i && ! -d $i ]] && dosym "../fullprof/${i}" /opt/bin/"${i##*/}"

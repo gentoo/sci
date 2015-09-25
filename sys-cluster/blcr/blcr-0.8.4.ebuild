@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -41,13 +41,13 @@ pkg_setup() {
 src_install() {
 	dodoc README NEWS
 	cd "${S}"/util || die
-	emake DESTDIR="${D}" install
+	default
 	cd "${S}"/libcr || die
-	emake DESTDIR="${D}" install
+	default
 	cd "${S}"/man || die
-	emake DESTDIR="${D}" install
+	default
 	cd "${S}"/include || die
-	emake DESTDIR="${D}" install
+	default
 	linux-mod_src_install
 }
 

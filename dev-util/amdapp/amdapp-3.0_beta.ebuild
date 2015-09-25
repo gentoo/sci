@@ -67,7 +67,7 @@ src_prepare() {
 
 src_compile() {
 	MAKEOPTS+=" -j1"
-	use examples && cd samples/opencl && emake
+	use examples && cd samples/opencl && default
 }
 
 src_install() {

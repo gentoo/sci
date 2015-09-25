@@ -147,13 +147,9 @@ src_configure() {
 src_compile() {
 	emake julia-release
 	pax-mark m $(file usr/bin/julia* | awk -F : '/ELF/ {print $1}')
-	emake
+	default
 	use doc && emake -C doc html
 	use emacs && elisp-compile contrib/julia-mode.el
-}
-
-src_test() {
-	emake test
 }
 
 src_install() {

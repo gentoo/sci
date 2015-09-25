@@ -6,7 +6,7 @@ EAPI="5"
 
 inherit eutils
 
-DESCRIPTION="Finite State Transducer tools by Google et al."
+DESCRIPTION="Finite State Transducer tools by Google et al"
 HOMEPAGE="http://www.openfst.org"
 SRC_URI="http://www.openfst.org/twiki/pub/FST/FstDownload/${P}.tar.gz"
 

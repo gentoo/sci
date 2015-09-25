@@ -11,7 +11,7 @@ inherit eutils java-pkg-2 java-ant-2
 MY_PN="maxent"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="Maximum entropy model implementation for opennlp."
+DESCRIPTION="Maximum entropy model implementation for opennlp"
 HOMEPAGE="http://maxent.sf.net/"
 SRC_URI="mirror://sourceforge/maxent/${MY_P}.tgz"
 

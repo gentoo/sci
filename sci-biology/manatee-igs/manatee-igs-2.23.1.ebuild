@@ -61,7 +61,7 @@ src_prepare(){
 #}
 #
 #src_compile(){
-#	emake || die
+#	default
 #}
 
 src_install(){

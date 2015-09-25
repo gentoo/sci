@@ -6,7 +6,7 @@ EAPI=5
 
 inherit cmake-utils
 
-DESCRIPTION="Object-oriented 3D toolkit that facilitates the rendering and interaction of chemical systems."
+DESCRIPTION="Object-oriented 3D toolkit that facilitates the rendering and interaction of chemical systems"
 HOMEPAGE="http://www.tecn.upf.es/openMOIV/"
 SRC_URI="http://www.tecn.upf.es/openMOIV/download/1.0.3/${PN}.src.${PV}.tar.bz2"
 

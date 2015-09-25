@@ -28,7 +28,7 @@ src_compile() {
 }
 
 src_test() {
-	emake
+	default
 }
 
 src_install() {

@@ -5,18 +5,11 @@
 EAPI=5
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
-inherit distutils-r1
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Line-by-line profiling for Python"
 HOMEPAGE="https://github.com/rkern/line_profiler"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/rkern/${PN}.git git://github.com/rkern/${PN}.git"
-else
-	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64"
-fi
+EGIT_REPO_URI="https://github.com/rkern/${PN}.git git://github.com/rkern/${PN}.git"
 
 LICENSE="BSD"
 SLOT="0"

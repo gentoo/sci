@@ -37,19 +37,19 @@ src_configure(){
 
 src_compile(){
 	cd jellyfish || die
-	emake
+	default
 
 	cd ../CA/kmer || die
-	emake
+	default
 
 	cd ../../CA/src || die
-	emake
+	default
 
 	cd ../SuperReads || die
-	emake
+	default
 
 	cd ../quorum || die
-	emake
+	default
 }
 
 src_install(){
