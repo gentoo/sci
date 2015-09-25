@@ -1,0 +1,1 @@
+{"argv": ["/usr/bin/python", "-m", "metakernel_python", "-f", "{connection_file}"], "display_name": "MetaKernel Python", "language": "python", "name": "metakernel_python"}
