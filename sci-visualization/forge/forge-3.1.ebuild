@@ -20,7 +20,7 @@ RDEPEND="
 	>=media-libs/glfw-3.1.1
 	media-libs/freetype:2
 	media-libs/fontconfig:1.0
-	media-libs/glm
+	>=media-libs/glm-0.9.7.1
 	virtual/opengl
 	"
 DEPEND="${RDEPEND}"

@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> forge-3.1.ebuild:
+  sci-visualization/forge: Set version of glm required
+
 *forge-3.1.2 (27 Sep 2015)
 
   27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +forge-3.1.2.ebuild:
