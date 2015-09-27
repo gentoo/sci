@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/bambino
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> bambino-1.02.ebuild,
   bambino-1.06.ebuild:

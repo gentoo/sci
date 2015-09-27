@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/coot
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   30 Jun 2014; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild,
   +files/coot-9999-sandbox-icons.patch:

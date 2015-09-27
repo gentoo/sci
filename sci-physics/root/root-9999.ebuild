@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -398,7 +398,7 @@ cleanup_install() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	dodoc README.md
 
 	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root

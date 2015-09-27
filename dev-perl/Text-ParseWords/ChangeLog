@@ -1,6 +1,6 @@
 # ChangeLog for dev-perl/Text-ParseWords
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> Text-ParseWords-3.27.ebuild,
   metadata.xml:

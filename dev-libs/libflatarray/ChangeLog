@@ -1,6 +1,6 @@
 # ChangeLog for dev-libs/libflatarray
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   16 Apr 2015; Justin Lecher <jlec@gentoo.org> -Manifest,
   -libflatarray-0.1.1.ebuild:

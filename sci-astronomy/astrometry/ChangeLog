@@ -1,6 +1,6 @@
 # ChangeLog for sci-astronomy/astrometry
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> astrometry-0.43.ebuild,
   metadata.xml:

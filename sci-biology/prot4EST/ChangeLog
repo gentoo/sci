@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/prot4EST
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Nov 2014; Justin Lecher <jlec@gentoo.org> prot4EST-3.1b.ebuild:
   Use perl virtuals instead of core

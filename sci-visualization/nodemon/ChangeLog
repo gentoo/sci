@@ -1,6 +1,6 @@
 # ChangeLog for sci-visualization/nodemon
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   07 Mar 2011; Justin Lecher <jlec@gentoo.org> nodemon-0.3.5.ebuild:
   Correct Slots for gtk 3 introduction to tree

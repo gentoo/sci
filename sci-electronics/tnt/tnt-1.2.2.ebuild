@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="doc"
 
 RDEPEND="
-	dev-lang/tcl
+	dev-lang/tcl:0=
 	dev-tcltk/tcllib
 	dev-tcltk/itcl
 	dev-tcltk/bwidget"

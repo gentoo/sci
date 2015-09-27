@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -9,11 +9,12 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 inherit cmake-utils
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://downloads.votca.googlecode.com/hg/${PF}.tar.gz"
+	SRC_URI="https://github.com/${PN/-//}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+	S="${WORKDIR}/${P#votca-}"
 else
-	inherit mercurial
-	EHG_REPO_URI="https://code.google.com/p/votca.csgapps/"
+	inherit git-r3
+	EGIT_REPO_URI="git://github.com/${PN/-//}.git https://github.com/${PN/-//}.git"
 	KEYWORDS=""
 fi
 

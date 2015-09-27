@@ -1,6 +1,6 @@
 # ChangeLog for dev-python/inference
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Jun 2013; Justin Lecher <jlec@gentoo.org> inference-0.4.ebuild,
   metadata.xml:

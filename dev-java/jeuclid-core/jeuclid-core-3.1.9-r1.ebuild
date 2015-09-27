@@ -1,12 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 JAVA_PKG_IUSE="source"
 inherit eutils java-pkg-2 java-ant-2
 
-DESCRIPTION="Core module of MathML rendering solution."
+DESCRIPTION="Core module of MathML rendering solution"
 HOMEPAGE="http://jeuclid.sourceforge.net/"
 SRC_URI="mirror://sourceforge/jeuclid/jeuclid-parent-${PV}-src.zip"
 
@@ -40,9 +40,9 @@ src_prepare() {
 
 	# add dependencies into the lib dir
 	java-pkg_jar-from ant-core ant.jar
-	java-pkg_jar-from batik-1.7 batik-all.jar
+	java-pkg_jar-from batik-1.8 batik-all.jar
 	java-pkg_jar-from commons-logging,jcip-annotations,xml-commons-external-1.3
-	java-pkg_jar-from xml-commons-external-1.3,xmlgraphics-commons-1.5
+	java-pkg_jar-from xml-commons-external-1.3,xmlgraphics-commons-2
 }
 
 src_install() {

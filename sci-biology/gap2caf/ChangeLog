@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/gap2caf
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Jul 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   gap2caf-2.1.0.ebuild:

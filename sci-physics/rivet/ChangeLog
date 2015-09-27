@@ -1,6 +1,14 @@
 # ChangeLog for sci-physics/rivet
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  30 Aug 2015; Jauhien Piatlicki <jauhien@gentoo.org> -rivet-2.3.0.ebuild:
+  remove version imported to the tree
+
+*rivet-2.3.0 (15 Aug 2015)
+
+  15 Aug 2015; Jauhien Piatlicki <jauhien@gentoo.org> +rivet-2.3.0.ebuild:
+  version bump
 
 *rivet-2.1.2 (05 Sep 2014)
 

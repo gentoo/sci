@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 inherit elisp-common versionator
 
@@ -16,8 +16,8 @@ PV2=${PV1}p${PV2}
 DESCRIPTION="System for computational discrete algebra"
 HOMEPAGE="http://www.gap-system.org/"
 SRC_URI="
-	ftp://ftp.gap-system.org/pub/gap/gap4/tar.bz2/${PN}${PV2}.tar.bz2
-	xtom? ( ftp://ftp.gap-system.org/pub/gap/gap4/tar.bz2/xtom${XTOM_VERSION}.tar.bz2 )"
+	ftp://ftp.gap-system.org/pub/gap/gap44/tar.bz2/${PN}${PV2}.tar.bz2
+	xtom? ( ftp://ftp.gap-system.org/pub/gap/gap44/tar.bz2/xtom${XTOM_VERSION}.tar.bz2 )"
 
 SLOT="0"
 IUSE="emacs vim-syntax xtom"
@@ -32,11 +32,11 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}"/${PN}${PV1}
 
 src_compile() {
-	emake CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" compile || die "emake failed"
+	emake CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" compile
 }
 
 src_test() {
-	emake teststandard || die "test failed"
+	emake teststandard
 }
 
 src_install() {
@@ -50,9 +50,8 @@ src_install() {
 		-e "s|@target@-@CC@|/usr/libexec/${PN}|" \
 		-e "s|@EXEEXT@||" \
 		-e 's|$GAP_DIR/bin/||' \
-		gap.shi > gap
-	exeinto /usr/bin
-	doexe gap
+		gap.shi > gap || doe
+	dobin gap
 
 	if use emacs ; then
 		elisp-site-file-install etc/emacs/gap-mode.el

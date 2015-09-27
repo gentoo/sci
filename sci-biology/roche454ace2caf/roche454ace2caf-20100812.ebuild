@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 DESCRIPTION="Convert from ace to gap4 (of staden v1.x), not needed to convert ace for gap5 of staden v2"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
@@ -15,12 +15,12 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-		sci-biology/align_to_scf
-		sci-biology/sff_dump
-		sci-biology/caftools
-		sci-biology/staden
-		dev-lang/perl
-		app-shells/ksh"
+	sci-biology/align_to_scf
+	sci-biology/sff_dump
+	sci-biology/caftools
+	sci-biology/staden
+	dev-lang/perl
+	app-shells/ksh"
 
 S="${WORKDIR}"/roche2gap
 

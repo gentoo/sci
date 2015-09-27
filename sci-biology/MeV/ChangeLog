@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/MeV
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,
   MeV-4.8.1.ebuild:

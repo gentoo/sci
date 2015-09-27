@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -19,7 +19,7 @@ KEYWORDS=""
 IUSE="doc java openmp perl python ruby test wxwidgets"
 
 RDEPEND="
-	dev-cpp/eigen
+	dev-cpp/eigen:3
 	dev-libs/libxml2:2
 	!sci-chemistry/babel
 	sci-libs/inchi

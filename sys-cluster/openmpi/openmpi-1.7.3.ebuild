@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -142,12 +142,12 @@ src_configure() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install
+	default
 	# From USE=vt see #359917
 	rm "${ED}"/$(mpi_root)/usr/share/libtool &> /dev/null
 	# Avoid collisions with libevent
 	rm -rf "${ED}"/$(mpi_root)/usr/include/event2 &> /dev/null
-	mpi_dodoc README AUTHORS NEWS VERSION || die
+	mpi_dodoc README AUTHORS NEWS VERSION
 	mpi_imp_add_eselect
 }
 

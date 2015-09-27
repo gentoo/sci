@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    ArrayFire is a high performance library for parallel computing
+	wih an easy-to-use API. This package project Python bindings
+	for the ArrayFire library.
+  </longdescription>
+  <upstream>
+    <remote-id type="github">arrayfire/arrayfire-python</remote-id>
+    <remote-id type="pypi">arrayfire</remote-id>
+  </upstream>
+</pkgmetadata>

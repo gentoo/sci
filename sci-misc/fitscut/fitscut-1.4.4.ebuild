@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -20,8 +20,8 @@ IUSE=""
 RDEPEND="
 	>=sci-libs/cfitsio-3:0=
 	sci-astronomy/wcstools:0=
-	media-libs/libpng
-	virtual/jpeg"
+	media-libs/libpng:0=
+	virtual/jpeg:0="
 DEPEND="${RDEPEND}"
 
 src_prepare() {

@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
@@ -21,7 +21,7 @@ src_compile() {
 		-e "s/CC=gcc/#CC=gcc/g" \
 		-e "s/CFLAGS= -O3 -ansi -DNXT/CFLAGS+= -ansi -DNXT/g"
 
-	emake || die "emake failed"
+	default
 }
 
 src_install() {

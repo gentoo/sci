@@ -1,0 +1,18 @@
+# ChangeLog for dev-python/ipython_genutils
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython_genutils-9999.ebuild:
+  dev-python/ipython_genutils: Add ~x86 to KEYWORDS
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython_genutils-9999.ebuild:
+  dev-python/ipython_genutils: Fix deps
+
+*ipython_genutils-0.1.0 (12 Aug 2015)
+*ipython_genutils-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipython_genutils-0.1.0.ebuild, +ipython_genutils-9999.ebuild, +metadata.xml:
+  dev-python/ipython_genutils: Initial ebuild

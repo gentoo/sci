@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -30,14 +30,16 @@ RDEPEND="
 	sci-libs/dcmtk:0=
 	sci-libs/hdf5:0=[cxx]
 	sys-libs/zlib:0=
-	virtual/jpeg
+	virtual/jpeg:0=
 	fftw? ( sci-libs/fftw:3.0= )
 	vtkglue? ( sci-libs/vtk:0=[python?] )
 "
 DEPEND="${RDEPEND}
-	python? ( ${PYTHON_DEPS}
-			  >=dev-lang/swig-2.0
-			  >=dev-cpp/gccxml-0.9.0_pre20120309 )
+	python? (
+		${PYTHON_DEPS}
+		>=dev-lang/swig-2.0:0
+		>=dev-cpp/gccxml-0.9.0_pre20120309
+	)
 	doc? ( app-doc/doxygen )
 "
 

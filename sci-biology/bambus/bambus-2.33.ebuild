@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,10 +8,12 @@ PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle"
-HOMEPAGE="http://sourceforge.net/apps/mediawiki/amos/index.php?title=AMOS
-		http://sourceforge.net/projects/amos/files/bambus
-		http://www.tigr.org/software/bambus"
-SRC_URI="http://sourceforge.net/projects/amos/files/bambus/${PV}/${P}.tar.gz
+HOMEPAGE="
+	http://sourceforge.net/apps/mediawiki/amos/index.php?title=AMOS
+	http://sourceforge.net/projects/amos/files/bambus
+	http://www.tigr.org/software/bambus"
+SRC_URI="
+	http://sourceforge.net/projects/amos/files/bambus/${PV}/${P}.tar.gz
 	http://mira-assembler.sourceforge.net/docs/scaffolding_MIRA_BAMBUS.pdf"
 
 LICENSE="Artistic"
@@ -19,25 +21,25 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="sci-biology/tigr-foundation-libs"
-RDEPEND="${DEPEND}
-		dev-lang/perl
-		dev-lang/python
-		dev-perl/XML-Parser
-		dev-perl/Config-IniFiles
-		dev-perl/GraphViz"
+RDEPEND="
+	sci-biology/tigr-foundation-libs
+	dev-lang/perl
+	dev-perl/XML-Parser
+	dev-perl/Config-IniFiles
+	dev-perl/GraphViz"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 #	epatch "${FILESDIR}"/amos-2.0.8-gcc44.patch
 	sed -e 's:BASEDIR = /usr/local/packages/bambus:BASEDIR = /usr:' -i Makefile || die
 	sed -e 's:PERL = /usr/local/bin/perl:PERL = /usr/bin/perl:' -i Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i doc/Makefile || die
+	sed \
+		-e 's:INSTDIR:DESTDIR:g' \
+			-i Makefile src/Makefile doc/Makefile || die
 	sed -e 's:make all;:make all || exit 255;:' -i src/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/IO/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/DotLib/Makefile || die
-	sed -e 's:INSTDIR:DESTDIR:g' -i src/grommit/Makefile || die
+	sed \
+		-e 's:INSTDIR:DESTDIR:g' \
+		-i src/IO/Makefile src/DotLib/Makefile src/grommit/Makefile || die
 	sed -e "s:^CC\t=:CC=$(tc-getCXX):" -i Makefile || die
 	sed -e "s:^CXX\t=:CXX=$(tc-getCXX):" -i Makefile || die
 	sed -e "s:^LD\t:LD=$(tc-getCXX):" -i Makefile || die
@@ -70,7 +72,7 @@ src_prepare() {
 }
 
 src_compile() {
-	emake DESTDIR="${D}/usr" || die "emake failed"
+	emake DESTDIR="${D}/usr"
 
 	# TODO:
 	#ld  -L../TIGR_Foundation_CC/ -shared -fPIC -o grommit grommit.o -L. -lgraph -lTigrFoundation
@@ -87,7 +89,7 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}/usr" install || die "emake install failed"
+	emake DESTDIR="${D}/usr" install
 	# cvs HEAD of amos now contains even more updated files: /usr/bin/printScaff /usr/bin/untangle /usr/lib/TIGR/AsmLib.pm
 	for f in FASTArecord.pm FASTAreader.pm Foundation.pm FASTAgrammar.pm AsmLib.pm; do rm "${D}"/usr/lib/TIGR/$f; done || die
 	for f in printScaff untangle; do rm "${D}"/usr/bin/$f; done || die
@@ -96,18 +98,18 @@ src_install() {
 	# link against the libTigrFoundation.a provided by sci-biology/tigr-foundation-libs package
 	for f in CategoryInformation.hh MessageLevel.hh ConfigFile.hh LogCategory.hh \
 			ConfigSection.hh TIGR_Foundation.hh OptionResult.hh Exceptions.hh \
-			LogMsg.hh Options.hh Logger.hh FileSystem.hh; do \
-				rm "${D}"/usr/include/$f; \
-	done || die
-	rm "${D}"/usr/lib/libTigrFoundation.a || die
+			LogMsg.hh Options.hh Logger.hh FileSystem.hh; do
+				rm "${ED}"/usr/include/$f || die
+	done
+	rm "${ED}"/usr/lib/libTigrFoundation.a || die
 
-	mkdir -p "${D}"/usr/share/doc/"${P}" || die
-	mv "${D}"/usr/doc/* "${D}"/usr/share/doc/"${P}" || die
-	rmdir "${D}"/usr/doc || die
+	dodir /usr/share/doc/${P}
+	mv "${ED}"/usr/doc/* "${ED}"/usr/share/doc/${PF} || die
+	rmdir "${ED}"/usr/doc || die
 
-	dobin "${FILESDIR}"/goBambus.pl || die "Failed to install the alternative of goBambus.py written in perl"
+	dobin "${FILESDIR}"/goBambus.pl
 	dodoc "${DISTDIR}"/scaffolding_MIRA_BAMBUS.pdf
-	rm -rf "${D}"/usr/lib
+	rm -rf "${ED}"/usr/lib || die
 }
 
 pkg_postinst(){

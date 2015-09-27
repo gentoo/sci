@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="A diff program that ignores small numeric differences"
 HOMEPAGE="http://www.math.utah.edu/~beebe/software/ndiff/"
@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-DEPEND="dev-libs/gmp"
+DEPEND="dev-libs/gmp:0="
 RDEPEND="${DEPEND}"
 
 # Rename the files from ndiff to numdiff, since /usr/bin/ndiff used to be

@@ -1,14 +1,14 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="The crystallographic computing system"
-HOMEPAGE="http://www-xray.fzu.cz/jana/jana.html"
-SRC_URI="ftp://ftp.fzu.cz/pub/cryst/beta2000/${PN}.tar.gz"
+HOMEPAGE="http://jana.fzu.cz/"
+SRC_URI="http://www-xray.fzu.cz/jana/download/final2000/${PN}.tar.gz"
 
 LICENSE="freedist"
 SLOT="0"

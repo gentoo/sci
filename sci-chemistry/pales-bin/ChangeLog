@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/pales-bin
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   17 Jul 2014; Justin Lecher <jlec@gentoo.org> pales-bin-0_pre140717.ebuild:
   Drop -bin suffix from executable

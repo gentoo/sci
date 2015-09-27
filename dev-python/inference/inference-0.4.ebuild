@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -10,7 +10,7 @@ inherit distutils-r1 flag-o-matic fortran-2
 
 DESCRIPTION="Collection of Python modules for statistical inference"
 HOMEPAGE="http://inference.astro.cornell.edu/"
-SRC_URI="${HOMEPAGE}/${P}.tar.gz"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tar.xz"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
@@ -23,6 +23,8 @@ RDEPEND="${DEPEND}
 
 # buggy tests
 RESTRICT="test"
+
+S="${WORKDIR}"/${P}/package
 
 pkg_setup() {
 	fortran-2_pkg_setup
@@ -41,7 +43,7 @@ python_compile() {
 }
 
 python_test() {
-	nosetests --verbose --verbosity=3
+	nosetests --verbose --verbosity=3 || die
 }
 
 python_install() {

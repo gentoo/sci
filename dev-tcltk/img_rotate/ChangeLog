@@ -1,6 +1,6 @@
 # ChangeLog for dev-tcltk/img_rotate
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Jun 2013; Justin Lecher <jlec@gentoo.org> img_rotate-1.1.ebuild,
   metadata.xml:

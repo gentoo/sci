@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 DESCRIPTION="Symbolic and algebraic computations system"
 HOMEPAGE="http://www.open-axiom.org/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+SRC_URI="mirror://sourceforge/project/${PN}/${PV}/${P}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"

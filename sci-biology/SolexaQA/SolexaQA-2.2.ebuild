@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
-DESCRIPTION="Analyze and trim single-end and paired-end reads, show quality statistics in figures"
+DESCRIPTION="Analyze and trim single-end and paired-end reads, show quality statistics"
 HOMEPAGE="http://sourceforge.net/projects/clview"
 SRC_URI="http://sourceforge.net/projects/solexaqa/files/src/SolexaQA_v.2.2.zip"
 
@@ -13,8 +13,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="dev-lang/perl
-		dev-lang/R"
+DEPEND="
+	dev-lang/perl
+	dev-lang/R"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/"${PN}"_v."${PV}"

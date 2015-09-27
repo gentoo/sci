@@ -14,8 +14,8 @@
   around defining functions, and overloading them for different combinations
   of argument types (which can also be user-defined).
 </longdescription>
-<use>
-  <flag name="int64">Build with 64 bits integer blas and lapack (needs
+  <use>
+    <flag name="int64">Build with 64 bits integer blas and lapack (needs
   <pkg>sci-libs/openblas</pkg> and <pkg>sci-libs/lapack-reference</pkg>)</flag>
-</use>
+  </use>
 </pkgmetadata>

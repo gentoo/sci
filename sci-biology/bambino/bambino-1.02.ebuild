@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -27,8 +27,8 @@ RDEPEND="${DEPEND}
 
 src_install(){
 	insinto "${DESTDIR}"/usr/share/"${PN}"/lib
-	doins "${DISTDIR}"/bambino_core_"${PV}".jar || die
-	doins "${DISTDIR}"/bambino_bundle_"${PV}".jar || die
+	doins "${DISTDIR}"/bambino_core_"${PV}".jar
+	doins "${DISTDIR}"/bambino_bundle_"${PV}".jar
 
 	einfo "bambino can be run using 'java -jar /usr/share/bambino/lib/bambino_bundle_1.02.jar'"
 	einfo "  or 'java -jar /usr/share/bambino/lib/bambino_core_1.02.jar'"

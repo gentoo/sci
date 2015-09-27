@@ -1,6 +1,6 @@
 # ChangeLog for sci-astronomy/zpeg
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   25 Oct 2012; Justin Lecher <jlec@gentoo.org> zpeg-5.23.ebuild, metadata.xml:
   Drop unnessecarry virtual/fortran dep

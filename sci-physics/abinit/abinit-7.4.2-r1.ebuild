@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -307,7 +307,7 @@ src_install() {
 	#autotools-utils_src_install() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	emake DESTDIR="${D}" install
+	default
 
 	use libabinit && dolib libabinit.a
 

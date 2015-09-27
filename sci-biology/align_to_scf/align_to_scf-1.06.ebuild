@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 inherit eutils
 
-DESCRIPTION="Provide data to staden to view trace information at a given position missing from Roche .ace files"
+DESCRIPTION="View trace information at a given position missing from Roche .ace files"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
 SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/align_to_scf-1.06.tgz"
 
@@ -14,9 +14,6 @@ LICENSE="FLI-Jena"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
 
 src_prepare(){
 	sed -i "s:^CC :CC=$(tc-getCC) #:" Makefile || die "sed failed"
@@ -26,6 +23,6 @@ src_prepare(){
 }
 
 src_install(){
-	dobin align_to_scf || die
-	dodoc "${FILESDIR}"/README || die
+	dobin align_to_scf
+	dodoc "${FILESDIR}"/README
 }

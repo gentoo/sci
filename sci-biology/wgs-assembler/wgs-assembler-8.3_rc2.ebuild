@@ -1,18 +1,18 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/wgs-assembler/wgs-assembler-7.0-r1.ebuild,v 1.3 2012/11/13 19:19:00 nativemad Exp $
+# $Id$
 
 EAPI=5
 
-PYTHON_DEPEND=2
+PYTHON_COMPAT=( python2_7 )
 
-inherit eutils python toolchain-funcs
+inherit eutils python-single-r1 toolchain-funcs
 
 MY_PV="${PV/_}" # convert from _rc2 to rc2
 
-DESCRIPTION="De novo whole-genome shotgun DNA sequence assembler also known as Celera Assembler and CABOG"
+DESCRIPTION="De novo whole-genome shotgun DNA sequence assembler (Celera Assembler and CABOG)"
 HOMEPAGE="http://sourceforge.net/projects/wgs-assembler/"
-SRC_URI="http://sourceforge.net/projects/wgs-assembler/files/wgs-assembler/wgs-8.3/wgs-${MY_PV}.tar.bz2"
+SRC_URI="http://sourceforge.net/projects/${PN}/files/${PN}/wgs-8.3/wgs-${MY_PV}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -28,11 +28,6 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}/wgs-${MY_PV}"
 
-pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
-}
-
 src_prepare() {
 	# epatch \
 	# 	"${FILESDIR}"/${P}-build.patch
@@ -40,7 +35,7 @@ src_prepare() {
 }
 
 src_configure() {
-	cd "${S}/kmer"
+	cd "${S}/kmer" || die
 	./configure.sh || die
 }
 
@@ -76,5 +71,5 @@ src_install() {
 	dodoc README
 
 	# avoid file collision
-	rm -f "${D}"/usr/bin/jellyfish
+	rm -f "${D}"/usr/bin/jellyfish || die
 }

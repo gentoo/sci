@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="Library for static analysis of the numerical variables of a program by Abstract Interpretation"
+DESCRIPTION="Static analysis of the numerical variables of a program by Abstract Interpretation"
 HOMEPAGE="http://apron.cri.ensmp.fr/library/"
 SRC_URI="http://apron.cri.ensmp.fr/library/${P}.tgz"
 
@@ -15,24 +15,30 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc ocaml"
 
-RDEPEND="ocaml? ( >=dev-lang/ocaml-3.09
-				dev-ml/camlidl
-				dev-ml/mlgmpidl )
-		dev-libs/gmp
-		dev-libs/mpfr"
+RDEPEND="
+	ocaml? (
+		>=dev-lang/ocaml-3.09
+		dev-ml/camlidl
+		dev-ml/mlgmpidl
+	)
+		dev-libs/gmp:0=
+		dev-libs/mpfr:0="
 DEPEND="${RDEPEND}
-		doc? ( app-text/texlive
-				app-text/ghostscript-gpl )"
+	doc? (
+		app-text/texlive
+		app-text/ghostscript-gpl
+	)"
 
 src_prepare() {
-	mv Makefile.config.model Makefile.config
+	mv Makefile.config.model Makefile.config || die
 
 	#fix compile process
 	sed -i Makefile.config \
 		-e "s/FLAGS = \\\/FLAGS += \\\/g" \
 		-e "s/-O3 -DNDEBUG/-DNDEBUG/g" \
 		-e "s/APRON_PREFIX =.*/APRON_PREFIX = \$(DESTDIR)\/usr/g" \
-		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g"
+		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g" \
+		|| die
 
 	#fix doc building process
 	sed -i Makefile -e "s/; make html/; make/g"
@@ -51,12 +57,11 @@ src_prepare() {
 }
 
 src_compile() {
-	emake -j1 || die "emake failed"
+	emake -j1
 }
 
 src_install(){
-	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc AUTHORS Changes README
+	default
 
 	if use doc; then
 		dodoc apron/apron.pdf

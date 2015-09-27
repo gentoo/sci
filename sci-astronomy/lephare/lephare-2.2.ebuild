@@ -1,8 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
+
 inherit eutils check-reqs fortran-2 versionator
 
 MYP=${PN}_dev_v$(replace_version_separator 2 '')
@@ -16,9 +17,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
-RDEPEND=""
-DEPEND="${RDEPEND}"
-
 S="${WORKDIR}/${PN}_dev/source"
 
 CHECKREQS_DISK_BUILD="400M"
@@ -26,14 +24,14 @@ CHECKREQS_DISK_BUILD="400M"
 src_prepare() {
 	export LEPHAREDIR="${WORKDIR}/${PN}_dev" LEPHAREWORK="${WORKDIR}"
 	# clean up mac left over crap
-	find . -name ._\* -delete
+	find . -name ._\* -delete || die
 	# respect user flags and compiler
 	sed -i -e '/^FC/d' -e '/^FFLAGS/d' Makefile || die
 }
 
 src_test() {
 	# from pdf manual
-	cd ${LEPHAREDIR}/test
+	cd ${LEPHAREDIR}/test || die
 	${LEPHAREDIR}/source/sedtolib -t S -c ../config/zphot.para || die
 	${LEPHAREDIR}/source/sedtolib -t Q -c ../config/zphot.para || die
 	${LEPHAREDIR}/source/sedtolib -t G -c ../config/zphot.para || die
@@ -57,7 +55,7 @@ src_install() {
 		mag_zform
 	dodoc README_TECH
 	insinto /usr/share/${PN}
-	cd ..
+	cd .. || die
 	doins -r {ext,filt,config,opa,sed,simul,test,tools,vega}
 	echo "LEPHAREDIR=${EPREFIX}/usr/share/${PN}" > 99lephare
 	doenvd 99lephare

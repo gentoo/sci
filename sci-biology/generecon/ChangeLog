@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/generecon
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   17 Jun 2010; Justin Lecher <jlec@gentoo.org> +files/1.2.1-flags.patch,
   generecon-1.2.1-r1.ebuild, +files/1.2.1-gcc4.patch:

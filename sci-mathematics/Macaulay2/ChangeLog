@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/Macaulay2
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   26 Jun 2014; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   add flint dependency

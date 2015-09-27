@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/k3match
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Dec 2013; Justin Lecher <jlec@gentoo.org> k3match-1.1.ebuild,
   metadata.xml:

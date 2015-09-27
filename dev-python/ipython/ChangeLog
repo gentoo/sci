@@ -1,0 +1,50 @@
+# ChangeLog for dev-python/ipython
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython-4.0.0-r2.ebuild:
+  dev-python/ipython: Add ~x86 to KEYWORDS, fixes #561032
+
+  17 Sep 2015; François Bissey <francois.bissey@canterbury.ac.nz>
+  ipython-4.0.0-r2.ebuild:
+  dev-python/ipython: Solve circular dependency between ipython and ipyparallel
+  when smp is enabled.
+
+  16 Sep 2015; suhr <null@null>
+  ipython-4.0.0-r2.ebuild:
+  dev-python/ipython: separate wxwidgets dependency from ipywidgets
+
+  02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython-4.0.0-r1.ebuild:
+  dev-python/ipython: Fix #480; add testpath to dependencies
+
+  02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython-4.0.0-r1.ebuild:
+  dev-python/ipython: Move setuptools from CDEPEND to DEPEND
+
+  02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipython-4.0.0-r1.ebuild:
+  dev-python/ipython: Re-Fix #474; notebook use flag requires use wxwidgets
+
+  01 Sep 2015; Sean Vig <sean.v.775@gmail.com>
+  dev-python/ipython: remove mathjax references
+
+*ipython-4.0.0-r1 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipython-4.0.0-r1.ebuild, -ipython-4.0.0.ebuild:
+  dev-python/ipython: Fix #474
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> ipython-4.0.0.ebuild,
+  metadata.xml:
+  dev-python/ipython: Drop octave useflag
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> ipython-4.0.0.ebuild:
+  dev-python/ipython: Provide qt4 console via dev-python/qtconsole
+
+*ipython-4.0.0 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/2.1.0-substitute-files.patch, +ipython-4.0.0.ebuild, +metadata.xml:
+  dev-python/ipython: Version bumped ebuild; Imported from tree

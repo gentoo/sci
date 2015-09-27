@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
@@ -29,7 +29,8 @@ DEPEND="${CDEPEND}
 	doc? (
 		app-doc/doxygen
 		dev-texlive/texlive-latexextra
-		|| ( app-text/texlive-core dev-tex/pdftex ) )
+		app-text/texlive-core
+		)
 	test? ( sys-process/time )"
 RDEPEND="${CDEPEND}
 	virtual/latex-base
@@ -49,9 +50,9 @@ src_compile() {
 	default
 
 	if use doc; then
-		cd "${S}/doc"
-		emake
-		cd doxygen/latex
+		cd "${S}/doc" || die
+		default
+		cd doxygen/latex || die
 		emake pdf
 	fi
 }
@@ -64,7 +65,7 @@ src_install() {
 	dodoc AUTHORS ChangeLog INSTALL
 
 	if use doc;	then
-		cd "${S}/doc/doxygen"
+		cd "${S}/doc/doxygen" || die
 		dohtml html/*
 		dodoc latex/*.pdf
 	fi

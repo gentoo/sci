@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/manatee-igs
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   15 Jun 2015; Justin Lecher <jlec@gentoo.org> manatee-igs-2.23.1.ebuild:
   sci-biology/manatee-igs: Fix dependency problems due to recent mask of perl-

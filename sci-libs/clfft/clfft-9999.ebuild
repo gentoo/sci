@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,15 +8,18 @@ inherit cmake-utils git-r3
 
 MY_PN="clFFT"
 
-DESCRIPTION="A software library containing FFT functions written in OpenCL"
+DESCRIPTION="Library containing FFT functions written in OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clFFT"
-EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
+EGIT_REPO_URI="
+	https://github.com/clMathLibraries/${MY_PN}.git
+	git://github.com/clMathLibraries/${MY_PN}.git
+	"
 EGIT_BRANCH="develop"
-S="${WORKDIR}/${P}/src"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="test"
+KEYWORDS=""
+IUSE="+client examples test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.6:*
@@ -32,9 +35,7 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-PATCHES=(
-	"${FILESDIR}"/clfft-9999-Install-cmake-configuration-to-lib-cmake-clFFT.patch
-)
+S="${WORKDIR}/${P}/src"
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
@@ -46,7 +47,9 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
-	   $(cmake-utils_use_build test TEST)
+		$(cmake-utils_use_build client CLIENT)
+		$(cmake-utils_use_build examples EXAMPLES)
+		$(cmake-utils_use_build test TEST)
 	)
 	cmake-utils_src_configure
 }

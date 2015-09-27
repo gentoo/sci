@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI="2"
+EAPI=5
 
 MY_PV="3.0"
 MY_PN=${PN}-${MY_PV}
@@ -17,7 +17,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="sci-libs/cgnslib"
-
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${MY_PN}-${PV}
@@ -25,8 +24,4 @@ S=${WORKDIR}/${MY_PN}-${PV}
 src_configure() {
 	chmod +x configure
 	econf --with-CGNSLIBHOME="/usr"
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
 }

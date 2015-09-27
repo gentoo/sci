@@ -1,6 +1,6 @@
 # ChangeLog for app-benchmarks/numbench
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   02 Apr 2015; Justin Lecher <jlec@gentoo.org> numbench-0.2.ebuild,
   numbench-9999.ebuild:

@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 inherit autotools-utils
 
-DESCRIPTION="Dynamic modification of a user's environment via modulefiles."
+DESCRIPTION="Dynamic modification of a user's environment via modulefiles"
 HOMEPAGE="http://modules.sourceforge.net/"
 SRC_URI="http://sourceforge.net/projects/modules/files/Modules/${P%[a-z]}/${P}.tar.bz2/download -> ${P}.tar.bz2"
 
@@ -16,7 +16,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="X"
 
 DEPEND="
-	dev-lang/tcl
+	dev-lang/tcl:0=
 	dev-tcltk/tclx
 	X? ( x11-libs/libX11 )
 	"

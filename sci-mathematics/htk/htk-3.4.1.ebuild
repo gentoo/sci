@@ -1,40 +1,38 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI="4"
+EAPI=5
 
 inherit eutils
 
 DESCRIPTION="Toolkit for building and manipulating hidden Markov models"
 HOMEPAGE="http://htk.eng.cam.ac.uk/"
-SRC_URI="http://htk.eng.cam.ac.uk/ftp/software/HTK-3.4.1.tar.gz -> HTK-3.4.1.tar.gz
-	hdecode? ( http://htk.eng.cam.ac.uk/ftp/software/hdecode/HDecode-3.4.1.tar.gz
-		-> HDecode-3.4.1.tar.gz )"
+SRC_URI="
+	http://htk.eng.cam.ac.uk/ftp/software/HTK-3.4.1.tar.gz -> HTK-3.4.1.tar.gz
+	hdecode? (
+		http://htk.eng.cam.ac.uk/ftp/software/hdecode/HDecode-3.4.1.tar.gz -> HDecode-3.4.1.tar.gz
+	)"
 HDECODE_HOME="http://htk.eng.cam.ac.uk/extensions/index.shtml"
 
-LICENSE="HTKCambridge
-	hdecode? ( HDecodeCambridge )"
+LICENSE="HTKCambridge hdecode? ( HDecodeCambridge )"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="-hlmtools -hslab -htkbook -hdecode"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 RESTRICT="fetch"
 
-S=""${WORKDIR}/${PN}""
+S="${WORKDIR}/${PN}"
 
 pkg_nofetch() {
-	einfo "Please download"
-	einfo "  - HTK-3.4.1.tar.gz"
-	einfo "from ${HOMEPAGE}"
+	elog "Please download"
+	elog "  - HTK-3.4.1.tar.gz"
+	elog "from ${HOMEPAGE}"
 	if use hdecode; then
-		einfo "  - HDecode-3.4.1.tar.gz"
-		einfo "from ${HDECODE_HOME}"
+		elog "  - HDecode-3.4.1.tar.gz"
+		elog "from ${HDECODE_HOME}"
 	fi
-	einfo "and place them in ${DISTDIR}"
+	elog "and place them in ${DISTDIR}"
 }
 
 src_prepare() {
@@ -42,7 +40,8 @@ src_prepare() {
 }
 
 src_configure() {
-	econf $(use_enable hlmtools) \
+	econf \
+		$(use_enable hlmtools) \
 		$(use_enable hslab) \
 		$(use_enable htkbook) \
 		$(use_enable hdecode)
@@ -50,12 +49,8 @@ src_configure() {
 
 src_compile() {
 	if use hlmtools || use hdecode; then
-		emake -j1 || die "Cannot compile"
+		emake -j1
 	else
-		emake
+		default
 	fi
-}
-
-src_install() {
-	emake DESTDIR="${D}" install
 }

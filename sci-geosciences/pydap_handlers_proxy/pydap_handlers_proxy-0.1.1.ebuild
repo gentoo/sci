@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -11,7 +11,7 @@ inherit distutils-r1
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
 
-DESCRIPTION="Proxy handler for Pydap server that can serve data from other web sites."
+DESCRIPTION="Proxy handler for Pydap server that can serve data from other web sites"
 HOMEPAGE="http://pydap.org/handlers.html#cdms"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 

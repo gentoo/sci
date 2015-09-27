@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -41,7 +41,10 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/libpng:1.2
 	sys-libs/db:4.7
 	sys-libs/gdbm
-	sys-libs/ncurses[tinfo]
+	|| (
+		sys-libs/ncurses:0/5[tinfo]
+		sys-libs/ncurses:5/5[tinfo]
+	)
 	sys-libs/readline
 	virtual/glu
 	x11-libs/cairo
@@ -90,7 +93,7 @@ src_prepare() {
 }
 
 src_compile() {
-	./install --prefix="${S}/foo" || die
+	LD_LIBRARY_PATH="${EPREFIX}/usr/$(get_libdir)" ./install --prefix="${S}/foo" || die
 }
 
 src_install() {

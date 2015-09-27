@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
 inherit eutils flag-o-matic multilib
 
-DESCRIPTION="Finite State Transducer tools by Google et al."
+DESCRIPTION="Finite State Transducer tools by Google et al"
 HOMEPAGE="http://www.openfst.org"
 SRC_URI="http://www.openfst.org/twiki/pub/FST/FstDownload/${P}.tar.gz"
 

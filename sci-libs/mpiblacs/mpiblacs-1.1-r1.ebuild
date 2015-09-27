@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 inherit eutils toolchain-funcs versionator alternatives-2 multilib
@@ -116,7 +116,7 @@ src_install() {
 		Requires: blas
 	EOF
 	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${PN}.pc || die
+	doins ${PN}.pc
 	alternatives_for blacs ${PN} 0 \
 		/usr/$(get_libdir)/pkgconfig/blacs.pc ${PN}.pc
 	popd > /dev/null

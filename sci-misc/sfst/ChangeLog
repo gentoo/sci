@@ -1,6 +1,6 @@
 # ChangeLog for sci-misc/sfst
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> sfst-1.4.2.ebuild,
   sfst-1.4.6g.ebuild, metadata.xml:

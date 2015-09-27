@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -147,13 +147,9 @@ src_configure() {
 src_compile() {
 	emake julia-release
 	pax-mark m $(file usr/bin/julia* | awk -F : '/ELF/ {print $1}')
-	emake
+	default
 	use doc && emake -C doc html
 	use emacs && elisp-compile contrib/julia-mode.el
-}
-
-src_test() {
-	emake test
 }
 
 src_install() {

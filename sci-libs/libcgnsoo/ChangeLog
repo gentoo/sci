@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/libcgnsoo
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  15 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> libcgnsoo-1728.ebuild:
+  sci-libs/libcgnsoo: Move to EAPI=5
 
 *libcgnsoo-1728 (10 Jan 2011)
 
@@ -10,4 +13,3 @@
 
   03 Aug 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Initial import to science overlay
-

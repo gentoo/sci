@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/autoeditor
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> autoeditor-1.20.ebuild:
   Shorten Summary

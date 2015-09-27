@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -15,14 +15,15 @@ SRC_URI="mirror://gentoo/${MY_PN}${PV/.}.tar.gz"
 LICENSE="Info-ZIP"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="static-libs"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-no-exec-stack.patch
-	epatch "${FILESDIR}"/${P}-CVE-2008-0888.patch #213761
-	epatch "${FILESDIR}"/${P}-Makefile.patch
+	epatch \
+		"${FILESDIR}"/${P}-no-exec-stack.patch \
+		"${FILESDIR}"/${P}-CVE-2008-0888.patch \
+		"${FILESDIR}"/${P}-Makefile.patch
 	sed -i \
 		-e 's:-O3:$(CFLAGS) $(CPPFLAGS):' \
 		-e 's:-O :$(CFLAGS) $(CPPFLAGS) :' \
@@ -45,10 +46,7 @@ src_compile() {
 }
 
 src_install() {
-	dolib.so ${PN}.so.0.4
-	dolib.so ${PN}.so.0
-	dolib.so ${PN}.so
-	dolib.a ${PN}.a
-	insinto /usr/include
-	doins unzip.h
+	dolib.so ${PN}.so*
+	use static-libs && dolib.a ${PN}.a
+	doheader unzip.h
 }

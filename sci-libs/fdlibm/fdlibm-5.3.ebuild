@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit toolchain-funcs flag-o-matic versionator multilib
 
@@ -14,9 +14,6 @@ LICENSE="freedist"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs"
-
-RDEPEND=""
-DEPEND="${RDEPEND}"
 
 static_to_shared() {
 	local libstatic=${1}; shift
@@ -36,27 +33,26 @@ static_to_shared() {
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
 		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
-		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
 }
 
 src_compile() {
 	append-cflags -D_IEEE_LIBM
 	emake CFLAGS="${CFLAGS} -fPIC" CC=$(tc-getCC)
-	mv libm.a lib${PN}.a
+	mv libm.a lib${PN}.a || die
 	static_to_shared lib${PN}.a
 	if use static-libs; then
-		rm -f *.o
+		rm -f *.o || die
 		emake CFLAGS="${CFLAGS}" CC=$(tc-getCC)
-		mv libm.a lib${PN}.a
+		mv libm.a lib${PN}.a || die
 	fi
 }
 
 src_install() {
 	dolib.so lib${PN}$(get_libname)*
 	use static-libs && dolib.a lib${PN}.a
-	insinto /usr/include
-	doins fdlibm.h
+	doheader fdlibm.h
 	dodoc readme
 }

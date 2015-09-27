@@ -1,9 +1,0 @@
-# ChangeLog for dev-util/nvidia-cuda-toolkit
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*nvidia-cuda-toolkit-7.5.7 (08 Jul 2015)
-
-  08 Jul 2015; Marius Brehler <marbre@linux.sungazer.de> +files/cuda-config.in,
-  +metadata.xml, +nvidia-cuda-toolkit-7.5.7.ebuild:
-  dev-util/nvidia-cuda-toolkit: Add CUDA 7.5 release candidate

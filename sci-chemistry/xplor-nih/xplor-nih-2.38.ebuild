@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -25,6 +25,10 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}
 	dev-lang/tcl:8.5
 	dev-lang/tk:8.5
+	|| (
+		sys-libs/ncurses:0/5
+		sys-libs/ncurses:5/5
+	)
 "
 DEPEND="${RDEPEND}"
 

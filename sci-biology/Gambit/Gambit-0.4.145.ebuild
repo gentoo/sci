@@ -1,14 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
-inherit qt4-r2
+inherit qmake-utils
 
-DESCRIPTION="Display genomic alignments from BAM files with annotations from BED, GFF, GFF3, VCF formats"
+DESCRIPTION="Genomic alignments from BAM files with annotations from BED, GFF, GFF3, VCF formats"
 HOMEPAGE="http://code.google.com/p/gambit-viewer/"
-SRC_URI="http://gambit-viewer.googlecode.com/files/Gambit_v0.4.145_src.tar.gz
+SRC_URI="
+	http://gambit-viewer.googlecode.com/files/Gambit_v0.4.145_src.tar.gz
 	http://gambit-viewer.googlecode.com/files/GambitDocumentation_v0.4.145.pdf"
 
 LICENSE="GPL-2"
@@ -16,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-qt/qtcore:4
+DEPEND="
+	dev-qt/qtcore:4
 	dev-qt/qtgui:4"
 RDEPEND="${DEPEND}
 	sci-biology/samtools"
@@ -24,12 +26,12 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"/Gambit
 
 src_configure() {
-	lupdate ${PN}.pro || die
-	lrelease ${PN}.pro || die
-	eqmake4 ${PN}.pro || die
+	$(qt4_get_bindir)/lupdate ${PN}.pro || die
+	$(qt4_get_bindir)/lrelease ${PN}.pro || die
+	eqmake4 ${PN}.pro
 }
 
 src_install() {
-	dobin ${PN} || die
+	dobin ${PN}
 	dodoc "${DISTDIR}"/GambitDocumentation_v0.4.145.pdf
 }

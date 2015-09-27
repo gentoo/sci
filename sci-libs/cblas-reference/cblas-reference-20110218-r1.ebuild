@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -106,7 +106,7 @@ src_test() {
 		local profname=$(fortran-int64_get_profname)
 		local libname="${profname//-/_}"
 		cd testing || die
-		emake
+		default
 		emake run
 	}
 	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_test

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<maintainer>
-<email>tom111@gmx.de</email>
-<name>Thomas Kahle</name>
-</maintainer>
-<longdescription lang="en">
+	<herd>sci</herd>
+	<maintainer>
+		<email>tom111@gmx.de</email>
+		<name>Thomas Kahle</name>
+	</maintainer>
+	<longdescription lang="en">
 omalloc is the memory management of Singular
 </longdescription>
 </pkgmetadata>

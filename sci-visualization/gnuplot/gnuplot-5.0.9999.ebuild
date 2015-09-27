@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -154,7 +154,7 @@ src_compile() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install
+	default
 
 	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README*
 	newdoc term/PostScript/README README-ps

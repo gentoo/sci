@@ -1,0 +1,64 @@
+Upstream patch to fix
+"Maliciously crafted text files in IPython/Jupyter editor".
+
+http://seclists.org/oss-sec/2015/q3/558
+https://bugs.gentoo.org/show_bug.cgi?id=560708
+
+
+From f64aa490e3574ee2c2b504d0e0b39641c709a34f Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Mon, 20 Jul 2015 12:10:25 -0700
+Subject: [PATCH 2/4] set model mimetype, even when content=False
+
+---
+ notebook/services/contents/filemanager.py | 12 +++++++-----
+ notebook/services/contents/handlers.py    |  3 ---
+ 2 files changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/notebook/services/contents/filemanager.py b/notebook/services/contents/filemanager.py
+index ff8ac7d..637ff52 100644
+--- a/notebook/services/contents/filemanager.py
++++ b/notebook/services/contents/filemanager.py
+@@ -278,18 +278,20 @@ class FileContentsManager(FileManagerMixin, ContentsManager):
+         model['type'] = 'file'
+ 
+         os_path = self._get_os_path(path)
++        model['mimetype'] = mimetypes.guess_type(os_path)[0]
+ 
+         if content:
+             content, format = self._read_file(os_path, format)
+-            default_mime = {
+-                'text': 'text/plain',
+-                'base64': 'application/octet-stream'
+-            }[format]
++            if model['mimetype'] is None:
++                default_mime = {
++                    'text': 'text/plain',
++                    'base64': 'application/octet-stream'
++                }[format]
++                model['mimetype'] = default_mime
+ 
+             model.update(
+                 content=content,
+                 format=format,
+-                mimetype=mimetypes.guess_type(os_path)[0] or default_mime,
+             )
+ 
+         return model
+diff --git a/notebook/services/contents/handlers.py b/notebook/services/contents/handlers.py
+index 2a0a4cc..521aae5 100644
+--- a/notebook/services/contents/handlers.py
++++ b/notebook/services/contents/handlers.py
+@@ -55,9 +55,6 @@ def validate_model(model, expect_content):
+         )
+ 
+     maybe_none_keys = ['content', 'format']
+-    if model['type'] == 'file':
+-        # mimetype should be populated only for file models
+-        maybe_none_keys.append('mimetype')
+     if expect_content:
+         errors = [key for key in maybe_none_keys if model[key] is None]
+         if errors:
+-- 
+2.4.6
+

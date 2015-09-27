@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 inherit cmake-utils eutils java-pkg-2 flag-o-matic
@@ -95,7 +95,7 @@ src_test() {
 	cmake-utils_src_test
 	#emake check || die "emake check failed"
 	if use benchmarks; then
-		emake benchmark || die "emake benchmark failed"
+		emake benchmark
 	fi
 }
 

@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit elisp-common eutils
 
@@ -21,12 +21,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="emacs vim-syntax"
 
-RDEPEND="sys-libs/readline"
+RDEPEND="
+	sys-libs/readline:0=
+	emacs? ( virtual/emacs )"
 DEPEND="${RDEPEND}
 	sys-devel/bison
-	sys-devel/flex
-	sys-apps/sed
-	emacs? ( virtual/emacs )"
+	sys-devel/flex"
 
 S="${WORKDIR}/${MY_PN}"
 
@@ -42,29 +42,29 @@ src_prepare() {
 		-e 's/ldconfig/true/' \
 		-e 's/$(INSTALL_LIBS)/$(INSTALL_DIR) $(DESTDIR)$(PREFIX)\/lib\n\t\0/' \
 		-i "${S}"/src/Makefile || die "sed failed"
-	cd "${S}"
+	cd "${S}" || die
 	if use emacs ; then
-		cp "${DISTDIR}/sfst.el" "${S}"
+		cp "${DISTDIR}/sfst.el" "${S}" || die
 	fi
 	if use vim-syntax ; then
-		mv "${WORKDIR}"/INSTALL "${S}"/INSTALL-vim-syntax
-		mv "${WORKDIR}"/sfst.vim "${S}"/
+		mv "${WORKDIR}"/INSTALL "${S}"/INSTALL-vim-syntax || die
+		mv "${WORKDIR}"/sfst.vim "${S}"/ || die
 	fi
 }
 
 src_compile() {
 	emake -C "${S}/src"
 	if use emacs ; then
-		cd "${S}"
+		cd "${S}" || die
 		elisp-compile *.el || die "could not compile elisp"
 	fi
 }
 
 src_install() {
-	cd "${S}/src"
+	cd "${S}/src" || die
 	# destdir works but prefix fails
 	emake DESTDIR="${D}" install maninstall libinstall
-	cd "${S}"
+	cd "${S}" || die
 	dodoc README
 	insinto /usr/share/doc/${PF}/
 	doins doc/SFST-Manual.pdf doc/SFST-Tutorial.pdf
@@ -78,6 +78,6 @@ src_install() {
 		dodoc INSTALL-vim-syntax
 	fi
 	if use emacs ; then
-		elisp-install ${PN} *.el *.elc || die "could not install elisp"
+		elisp-install ${PN} *.el *.elc
 	fi
 }

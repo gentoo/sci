@@ -1,6 +1,11 @@
 # ChangeLog for sci-biology/tophat
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/tophat/ChangeLog,v 1.14 2015/04/07 14:35:24 jlec Exp $
+# $Id$
+
+*tophat-2.1.0 (14 Aug 2015)
+
+  14 Aug 2015; Michael Schubert <mschu.dev@gmail.com> +tophat-2.1.0.ebuild:
+  sci-biology/tophat: tophat-2.1.0 version bump
 
   02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tophat-2.0.12.ebuild, tophat-2.0.13.ebuild, tophat-2.0.14.ebuild:

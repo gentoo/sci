@@ -9,5 +9,5 @@
     support</flag>
     <flag name="qwt"> Enables <pkg>x11-libs/qwt</pkg> support</flag>
     <flag name="vtk"> Enables <pkg>sci-libs/vtk</pkg> support</flag>
-    </use>
+  </use>
 </pkgmetadata>

@@ -1,6 +1,6 @@
 # ChangeLog for sci-geosciences/pydap_responses_kml
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Dec 2013; Justin Lecher <jlec@gentoo.org>
   -pydap_responses_kml-0.4.5.ebuild, +pydap_responses_kml-0.4.6.ebuild,

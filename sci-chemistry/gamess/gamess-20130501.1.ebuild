@@ -1,19 +1,19 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI="5"
+EAPI=5
 
 inherit eutils fortran-2 flag-o-matic pax-utils toolchain-funcs
 
 DESCRIPTION="A powerful quantum chemistry package"
-LICENSE="gamess"
 HOMEPAGE="http://www.msg.chem.iastate.edu/GAMESS/GAMESS.html"
 SRC_URI="
-		${P}.tar.gz
-		qmmm-tinker? ( tinker.tar.Z )"
+	${P}.tar.gz
+	qmmm-tinker? ( tinker.tar.Z )"
 
 SLOT="0"
+LICENSE="gamess"
 # NOTE: PLEASE do not stabilize gamess. It does not make sense
 # since the tarball has fetch restrictions and upstream only
 # provides the latest version. In other words: As soon as a
@@ -265,29 +265,29 @@ src_install() {
 	fi
 
 	# the docs
-	dodoc *.DOC qmnuc/*.DOC || die "Failed installing docs"
+	dodoc *.DOC qmnuc/*.DOC
 
 	# install ericftm
 	insinto /usr/share/${PN}
-	doins auxdata/ericfmt.dat || die "Failed installing ericfmt.dat"
+	doins auxdata/ericfmt.dat
 
 	# install mcpdata
 	insinto /usr/share/${PN}/MCP
-	doins auxdata/MCP/* || die "Failed installing MCP"
+	doins auxdata/MCP/*
 
 	# install BASES
 	insinto /usr/share/${PN}/BASES
-	doins auxdata/BASES/* || die "Failed installing BASES"
+	doins auxdata/BASES/*
 
 	# install QUANPOL
 	insinto /usr/share/${PN}/QUANPOL
-	doins auxdata/QUANPOL/* || die "Failed installing QUANPOL"
+	doins auxdata/QUANPOL/*
 
 	# install tinker params in case of qmmm
 	if use qmmm-tinker ; then
-			dodoc tinker/simomm.doc || die "Failed installing docs"
+			dodoc tinker/simomm.doc
 			insinto /usr/share/${PN}
-			doins -r tinker/params51 || die "Failed to install Tinker params"
+			doins -r tinker/params51
 	fi
 
 	# install the tests the user should run, and
@@ -295,9 +295,9 @@ src_install() {
 	# so the user is ready to run the tests
 	insinto /usr/share/${PN}/tests
 	insopts -m0644
-	doins -r tests/* || die "Failed installing tests"
+	doins -r tests/*
 	insopts -m0744
-	doins runall || die "Failed installing tests"
+	doins runall
 	#doins tools/checktst/checktst tools/checktst/chkabs || \
 	#	die "Failed to install main test checker"
 	#doins tools/checktst/exam* || \
@@ -305,7 +305,7 @@ src_install() {
 
 	insinto /usr/share/${PN}/neotests
 	insopts -m0644
-	doins -r qmnuc/neotests/* || die "Failed to install NEO tests"
+	doins -r qmnuc/neotests/*
 }
 
 pkg_postinst() {

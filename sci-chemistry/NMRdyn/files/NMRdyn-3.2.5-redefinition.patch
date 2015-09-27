@@ -1,0 +1,19 @@
+ src/NMRdynGUI/src/BatchWizard.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/NMRdynGUI/src/BatchWizard.cpp b/src/NMRdynGUI/src/BatchWizard.cpp
+index 653d8e6..e4a8c73 100755
+--- a/src/NMRdynGUI/src/BatchWizard.cpp
++++ b/src/NMRdynGUI/src/BatchWizard.cpp
+@@ -159,9 +159,9 @@ bool
+ BatchInputPage::isComplete ()
+ {
+    int n = workBook->count ();
+-   for (int i = 0; i < n; i++)
++   for (int k = 0; k < n; k++)
+    {
+-     WorkSheet *worksheet = workBook->getWorkSheet (i);
++     WorkSheet *worksheet = workBook->getWorkSheet (k);
+      int nRows = worksheet->rowCount();
+      int nCols = worksheet->columnCount();
+      int i, j;

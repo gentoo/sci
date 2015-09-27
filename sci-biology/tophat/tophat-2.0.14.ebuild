@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/tophat/tophat-2.0.9.ebuild,v 1.1 2014/03/06 09:46:50 jlec Exp $
+# $Id$
 
 EAPI=5
 
@@ -29,8 +29,6 @@ DEPEND="dev-libs/boost"
 #   samtools_0.1.18 sort
 #   samtools_0.1.18 merge -f -h -u -Q --sam-header
 RDEPEND="${DEPEND}
-	>=sci-biology/samtools-0.1.17[${PYTHON_USEDEP}]
-	<=sci-biology/samtools-0.1.19[${PYTHON_USEDEP}]
 	>=sci-biology/bowtie-0.12.9 || ( >=sci-biology/bowtie-2.0.5 <=sci-biology/bowtie-2.2.3 )"
 
 # see https://aur.archlinux.org/packages/tophat/ about linking issues

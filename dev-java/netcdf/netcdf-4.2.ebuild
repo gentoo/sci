@@ -1,8 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
+
 JAVA_PKG_IUSE="doc examples source test"
 inherit eutils java-pkg-2 java-ant-2
 
@@ -15,14 +16,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-CDEPEND="dev-java/commons-codec
+CDEPEND="
+	dev-java/commons-codec
 	dev-java/commons-httpclient
 	dev-java/commons-logging
-	dev-java/ehcache
+	dev-java/ehcache:*
 	dev-java/jcommon
-	dev-java/jdom
+	dev-java/jdom:*
 	dev-java/jfreechart
-	dev-java/jgoodies-forms
+	dev-java/jgoodies-forms:*
 	dev-java/joda-time
 	dev-java/log4j
 	dev-java/slf4j-api
@@ -35,7 +37,8 @@ DEPEND="${CDEPEND}
 	>=virtual/jdk-1.5
 	test? (
 		dev-java/ant-junit4
-		dev-java/hamcrest-core )"
+		dev-java/hamcrest-core
+	)"
 
 # There is a from-source maven package in java-overlay, but it hasn't
 # been merged into the Portage trunk yet.

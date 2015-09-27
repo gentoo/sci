@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -57,7 +57,7 @@ src_install() {
 			Fps_Icons || die
 	fi
 
-	dodir "${BASEDIR}" || die
+	dodir "${BASEDIR}"
 	# make symlinks
 	for i in * ; do
 		[[ -x $i && ! -d $i ]] && dosym "../fullprof/${i}" /opt/bin/"${i##*/}"

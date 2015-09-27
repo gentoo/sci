@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -38,12 +38,12 @@ RDEPEND="
 		dev-python/cython[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
 	)
-	dev-lang/tcl
+	dev-lang/tcl:0=
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 )
 	fftw? ( sci-libs/fftw:3.0 )
 	mpi? ( virtual/mpi )
 	packages? ( dev-tcltk/tcllib )
-	tk? ( >=dev-lang/tk-8.4.18-r1 )
+	tk? ( >=dev-lang/tk-8.4.18-r1:0= )
 	X? ( x11-libs/libX11 )"
 
 DEPEND="${RDEPEND}

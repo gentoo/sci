@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 inherit eutils
 
@@ -15,7 +15,7 @@ SRC_URI="
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
 
 DEPEND="
 	>=sci-libs/io_lib-1.8.11
@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}"/autoEditor-1.20
 
 src_prepare(){
-	epatch "${FILESDIR}"/Makefile.patch || die
+	epatch "${FILESDIR}"/Makefile.patch
 	rm -rf TigrFoundation-2.0 || die "Failed to drop TigrFoundation-2.0/"
 }
 
@@ -36,6 +36,6 @@ src_prepare(){
 #  * getConsQV.c:1051: warning: implicit declaration of function 'memset'
 
 src_test(){
-	make sample > sample.out || die
+	emake sample > sample.out
 	diff -u -w "${FILESDIR}"/sample_expected.out sample.out || die
 }

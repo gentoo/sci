@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/Atlas2
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> Atlas2-1.4.3.ebuild:
   sci-biology/Atlas2: Fix ruby deps

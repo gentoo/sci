@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/openlibm
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   14 Jan 2014;  <xhochy@gentoo.org> -files/openlibm-extras-soname.patch,
   -files/openlibm-soname.patch, openlibm-9999.ebuild:

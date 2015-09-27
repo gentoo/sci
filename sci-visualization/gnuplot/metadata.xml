@@ -16,11 +16,11 @@
   three-dimensional plots in many different formats. It is designed
   primarily for the visual display of scientific data.
 </longdescription>
-<use>
-	<flag name="compat">Enable backwards compatibility with version 4 syntax</flag>
+  <use>
+    <flag name="compat">Enable backwards compatibility with version 4 syntax</flag>
     <flag name="gd">Add support for <pkg>media-libs/gd</pkg>.
     Needed for GIF, JPEG, and PNG image output.</flag>
-<flag name="libcerf">Enable special functions from <pkg>sci-libs/libcerf</pkg></flag>
+    <flag name="libcerf">Enable special functions from <pkg>sci-libs/libcerf</pkg></flag>
     <flag name="bitmap">Enable dot-matrix printers and pbm terminal</flag>
   </use>
   <upstream>

@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI="4"
+EAPI=5
 
 inherit eutils multilib
 
@@ -23,12 +23,11 @@ RDEPEND="
 	x11-libs/gtk+:2
 	dev-libs/glib:2
 	x11-libs/pango
-	media-libs/libpng
+	media-libs/libpng:0=
 	virtual/opengl"
 DEPEND="${RDEPEND}
 	abinit? ( sci-physics/abinit sci-libs/etsf_io )
 	blas? ( virtual/blas )
-	sys-apps/sed
 	netcdf? ( sci-libs/netcdf )
 	openbabel? ( sci-chemistry/openbabel )
 	doc?  ( >=dev-util/gtk-doc-1.4-r1 )"
@@ -47,7 +46,7 @@ src_prepare() {
 
 src_configure() {
 	if use doc ; then
-		gtkdocize
+		gtkdocize || die
 	fi
 	local MY_CONF="--without-etsf-io"
 	use abinit && MY_CONF="--with-etsf-io=/usr --with-etsf-io-include=/usr/lib/finclude --with-etsf-io-libdir=/usr/$(get_libdir)"
@@ -63,10 +62,6 @@ src_configure() {
 
 src_compile() {
 	HOME="${S}" emake
-}
-
-src_install() {
-	emake DESTDIR="${D}" install
 }
 
 pkg_postinst() {

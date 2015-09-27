@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/samtools/samtools-1.1.ebuild,v 1.1 2015/01/06 12:57:48 jlec Exp $
+# $Id$
 
 EAPI=5
 
@@ -20,7 +20,7 @@ IUSE="examples"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 CDEPEND="
-	sys-libs/ncurses
+	sys-libs/ncurses:0=
 	~sci-libs/htslib-${PV}"
 
 RDEPEND="${CDEPEND}
@@ -34,15 +34,15 @@ src_prepare() {
 
 	sed -i 's~/software/bin/python~/usr/bin/env python~' "${S}"/misc/varfilter.py || die
 
-	epatch "${FILESDIR}"/${P}-buildsystem.patch
-	epatch "${FILESDIR}"/${P}-rmdup.patch
+	epatch \
+		"${FILESDIR}"/${P}-buildsystem.patch \
+		"${FILESDIR}"/${P}-rmdup.patch
 
 	tc-export CC AR
 
 	sed \
 		-e '/htslib.mk/d' \
 		-i Makefile || die
-
 }
 
 src_compile() {

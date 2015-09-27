@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/redcat
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Nov 2014; Justin Lecher <jlec@gentoo.org> redcat-3.ebuild:
   Use java eclasses correctly
