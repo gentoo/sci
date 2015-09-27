@@ -10,8 +10,7 @@ MY_PV=$(get_major_version)
 
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
-SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/eldorado/${PN}${MY_PV}.zip"
-
+SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/eldorado/${PN}${MY_PV}.zip -> ${P}"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -21,7 +20,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 "
 
-S="${WORKDIR}/${PN}${MY_PV}/src"
+S="${WORKDIR}/${PN}${PV}/src"
 
 src_prepare() {
 	emake distclean PLATFORM=octave
