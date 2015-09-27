@@ -195,7 +195,6 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.32.00-cfitsio.patch \
 		"${FILESDIR}"/${PN}-5.32.00-chklib64.patch \
 		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
-		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
@@ -309,6 +308,7 @@ src_configure() {
 			$(use_enable fftw fftw3)
 			$(use_enable geocad)
 			$(use_enable graphviz gviz)
+			$(use_enable http)
 			$(use_enable kerberos krb5)
 			$(use_enable ldap)
 			$(use_enable math genvector)
