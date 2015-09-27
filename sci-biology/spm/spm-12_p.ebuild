@@ -4,9 +4,13 @@
 
 EAPI=5
 
+inherit versionator
+
+MY_PV=$(get_major_version)
+
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
-SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/eldorado/${PN}${PV}.zip"
+SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/eldorado/${PN}${MY_PV}.zip"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -17,7 +21,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 "
 
-S="${WORKDIR}/${PN}${PV}/src"
+S="${WORKDIR}/${PN}${MY_PV}/src"
 
 src_prepare() {
 	emake distclean PLATFORM=octave
