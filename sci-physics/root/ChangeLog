@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  27 Sep 2015; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  -files/root-6.00.01-geocad.patch, root-9999.ebuild:
+  sci-physics/root:  Remove geocad-patch, is now upstream.
+
   27 Sep 2015; Oliver Freyermuth <o.freyermuth@googlemail.com> root-9999.ebuild:
   sci-physics/root: Drop desktop-patch (upstreamed), 
   add http-useflag enabling THttpServer.
