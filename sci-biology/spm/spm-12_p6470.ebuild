@@ -10,7 +10,7 @@ MY_PV=$(get_major_version)
 
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
-SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/eldorado/${PN}${MY_PV}.zip -> ${P}"
+SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/eldorado/${PN}${MY_PV}.zip -> ${P}.zip"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64"
