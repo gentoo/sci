@@ -27,6 +27,7 @@ RDEPEND="
 	dev-python/decorator[${PYTHON_USEDEP}]
 	>=dev-python/pyzmq-14.4.0[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
+    !<dev-python/ipython-4.0.0[smp]
 	>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
 	dev-python/jupyter_client[${PYTHON_USEDEP}]
 	"

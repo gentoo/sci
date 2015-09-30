@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="Python based program for visualization of data from Freesurfer"
 HOMEPAGE="http://pysurfer.github.com"
-SRC_URI="https://github.com/nipy/PySurfer/archive/${PV}.zip"
+SRC_URI="https://github.com/nipy/PySurfer/archive/${PV}.zip -> ${P}.zip"
 
 LICENSE="BSD"
 SLOT="0"

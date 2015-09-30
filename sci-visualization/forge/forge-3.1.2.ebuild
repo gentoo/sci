@@ -27,8 +27,6 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}-af${PV}"
 
-PATCHES=( "${FILESDIR}/${P}"-find-glm.patch )
-
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		if [[ $(gcc-major-version) -lt 4 ]] || ( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 7 ]] ) ; then
