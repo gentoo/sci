@@ -1,8 +1,10 @@
 # ChangeLog for sci-biology/pysurfer
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  30 Sep 2015; Horea Christian <h.chr@mail.ru> pysurfer-0.4.ebuild:
+  new manifest and archive name for sci-biology/pysurfer
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pysurfer-0.4.ebuild,
   pysurfer-9999.ebuild, +metadata.xml:
   Switch from git-2 to git-r3
-
