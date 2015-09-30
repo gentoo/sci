@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
@@ -9,4 +9,7 @@
 	<longdescription lang="en">
 		Spglib is a C library for finding and handling crystal symmetries.
 	</longdescription>
+	<upstream>
+		<remote-id type="sourceforge">spglib</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci-chemistry</herd>
@@ -17,4 +17,7 @@
     <flag name="ruby">Install Ruby bindings.</flag>
     <flag name="wxwidgets">Build Open Babel GUI.</flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">openbabel</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer>
@@ -9,4 +9,7 @@
     in C++ and licensed under the Apache License v2.0.
     Kaldi is intended for use by speech recognition researchers.
   </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">kaldi</remote-id>
+  </upstream>
 </pkgmetadata>
