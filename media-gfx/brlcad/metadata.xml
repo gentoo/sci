@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
@@ -25,10 +25,13 @@
   geometric editing, and also an implementation of Weiler's n-Manifold
   Geometry (NMG) data structures for surface-based solid models and
   photon mapping.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="benchmarks">
     Run benchmarks during test phase (need test option enabled)
-  </flag>
+    </flag>
   </use>
+  <upstream>
+    <remote-id type="sourceforge">brlcad</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>cluster</herd>
@@ -12,5 +12,8 @@
   typically instruct the module command to alter or set shell
   environment variables such as PATH, MANPATH, etc. as well as define
   aliases over a variety of shells.
-</longdescription>
+  </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">modules</remote-id>
+  </upstream>
 </pkgmetadata>
