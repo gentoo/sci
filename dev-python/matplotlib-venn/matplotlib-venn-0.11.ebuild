@@ -1,6 +1,6 @@
-
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Id$
 
 EAPI="5"
 
@@ -15,9 +15,15 @@ SRC_URI="'mirror://pypi/m/${PN}/${P}.zip"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="test"
 
 RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"
-DEPEND=""
+DEPEND="test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
+
+python_test() {
+	nosetests -v || die
+}
+
