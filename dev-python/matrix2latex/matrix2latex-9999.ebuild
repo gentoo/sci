@@ -18,4 +18,3 @@ IUSE=""
 
 RDEPEND="app-text/texlive"
 DEPEND=""
-
