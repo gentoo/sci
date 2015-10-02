@@ -3,6 +3,9 @@
 # $Header: $
 
   02 Oct 2015; Horea Christian <h.chr@mail.ru> minc-toolkit-9999.ebuild:
+  corrected opyright lines sci-libs/minc-toolkit:
+
+  02 Oct 2015; Horea Christian <h.chr@mail.ru> minc-toolkit-9999.ebuild:
   added dependency slot for fftw sci-libs/minc-toolkit:
 
   22 Jun 2015; Horea Christian <h.chr@mail.ru> minc-toolkit-9999.ebuild:
