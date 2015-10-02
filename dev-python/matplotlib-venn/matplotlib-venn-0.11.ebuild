@@ -24,6 +24,8 @@ RDEPEND="
 DEPEND="test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
 
 python_test() {
-	nosetests -v || die
+	distutils_install_for_testing
+	cd "${TEST_DIR}"/lib || die
+	pytest -v || die "Tests fail with ${EPYTHON}"
 }
 
