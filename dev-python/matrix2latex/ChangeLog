@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Oct 2015;  <chymera@gentoo.org> matrix2latex-0.1.ebuild,
+  matrix2latex-9999.ebuild:
+  reformatted licensedev-python/matrix2latex:
+
   02 Oct 2015;  <chymera@gentoo.org> matrix2latex-9999.ebuild:
   removed keyword for live ebuilddev-python/matrix2latex:
 
