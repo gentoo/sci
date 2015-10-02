@@ -3,6 +3,9 @@
 # $Id$
 
   02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  modified test phase dev-python/matplotlib-venn:
+
+  02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
   implemented install phase dev-python/matplotlib-venn:
 
   02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
