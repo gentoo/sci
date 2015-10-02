@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Oct 2015;  <chymera@gentoo.org> matrix2latex-0.1.ebuild:
+  quoted/unquoted variables dev-python/matrix2latex:
+
   02 Oct 2015;  <chymera@gentoo.org> matrix2latex-9999.ebuild:
   removed useless blank line dev-python/matrix2latex:
 

@@ -21,11 +21,11 @@ RDEPEND="app-text/texlive"
 DEPEND=""
 
 src_unpack() {
-	if [ "${A}" != "" ]; then
+	if [ ${A} != "" ]; then
 		unpack ${A}
 	fi
 	S="${WORKDIR}/${PN}Python"
-	cd ${S}
+	cd "${S}"
 }
 
 src_install() {
