@@ -36,7 +36,7 @@ RDEPEND="sci-libs/netcdf
 
 src_configure() {
 	local mycmakeargs=(
-		cmake-utils_use_use itk SYSTEM_ITK
+		$(cmake-utils_use_use itk SYSTEM_ITK)
 		-DUSE_SYSTEM_FFTW3F=1
 		-DUSE_SYSTEM_GSL=1
 		-DUSE_SYSTEM_HDF5=1
