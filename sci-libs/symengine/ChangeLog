@@ -1,0 +1,14 @@
+# ChangeLog for sci-libs/symengine
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  03 Oct 2015; Michael Schubert <mschu.dev@gmail.com> symengine-0.1.0.ebuild,
+  symengine-9999.ebuild:
+  sci-libs/symengine: use either openmp or threads
+
+*symengine-0.1.0 (24 Aug 2015)
+*symengine-9999 (24 Aug 2015)
+
+  24 Aug 2015; Michael Schubert <mschu.dev@gmail.com> +metadata.xml,
+  +symengine-0.1.0.ebuild, +symengine-9999.ebuild:
+  sci-libs/symengine: add sympy-symengine
