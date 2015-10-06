@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
 inherit distutils-r1 git-r3 multilib
 
-DESCRIPTION="A tool to create LaTeX tables from python lists and arrays."
+DESCRIPTION="A tool to create LaTeX tables from python lists and arrays"
 HOMEPAGE="https://code.google.com/p/matrix2latex/"
 EGIT_REPO_URI="https://github.com/TheChymera/matrix2latex"
 
