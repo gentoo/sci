@@ -17,7 +17,7 @@ KEYWORDS=""
 LICENSE="BSD
 	nonfree? ( OpenSIFT )"
 SLOT="0"
-IUSE="+examples +cpu cuda nonfree opencl test graphics"
+IUSE="+examples +cpu cuda nonfree opencl test unified graphics"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
@@ -93,6 +93,7 @@ src_configure() {
 	   $(cmake-utils_use_build test TEST)
 	   $(cmake-utils_use_build graphics GRAPHICS)
 	   $(cmake-utils_use_build nonfree NONFREE)
+	   $(cmake-utils_use_build unified UNIFIED)
 	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
 	   -DUSE_SYSTEM_CLBLAS=ON
 	   -DUSE_SYSTEM_CLFFT=ON

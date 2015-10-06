@@ -29,5 +29,8 @@
     <flag name="graphics">
       Build with Forge graphics.
     </flag>
+    <flag name="unified">
+      Build Backend-Independent API.
+    </flag>
   </use>
 </pkgmetadata>

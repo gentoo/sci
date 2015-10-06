@@ -1,6 +1,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  06 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild,
+  metadata.xml:
+  sci-libs/arrayfire: Add unified use flag
+
   06 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild:
   sci-libs/arrayfire: Add nonfree use flag
 
