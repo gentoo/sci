@@ -10,7 +10,7 @@ inherit python-single-r1
 
 DESCRIPTION="A tool to create LaTeX tables from python lists and arrays"
 HOMEPAGE="https://code.google.com/p/matrix2latex/"
-SRC_URI="https://matrix2latex.googlecode.com/files/"${PN}"Python2011-12-15.tar.gz"
+SRC_URI="https://matrix2latex.googlecode.com/files/${PN}Python2011-12-15.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
