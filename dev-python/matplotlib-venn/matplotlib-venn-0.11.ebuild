@@ -15,7 +15,7 @@ SRC_URI="mirror://pypi/m/${PN}/${P}.zip"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="test"
+IUSE=""
 
 RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
