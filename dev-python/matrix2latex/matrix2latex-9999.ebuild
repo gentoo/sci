@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/TheChymera/matrix2latex"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND=""
