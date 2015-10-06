@@ -31,4 +31,3 @@ python_test() {
 	cd "${TEST_DIR}"/lib || die
 	py.test -v || die "Tests fail with ${EPYTHON}"
 }
-
