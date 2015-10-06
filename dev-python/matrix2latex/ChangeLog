@@ -3,6 +3,9 @@
 # $Id$
 
   06 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-9999.ebuild:
+  dev-python/matrix2latex: removed keyword for live package
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-9999.ebuild:
   dev-python/matrix2latex: removed blank line
 
   06 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-1.0.0.ebuild,
