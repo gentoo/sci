@@ -26,6 +26,6 @@ DEPEND="test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
 python_test() {
 	distutils_install_for_testing
 	cd "${TEST_DIR}"/lib || die
-	pytest -v || die "Tests fail with ${EPYTHON}"
+	py.test -v || die "Tests fail with ${EPYTHON}"
 }
 
