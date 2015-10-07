@@ -28,9 +28,5 @@ DEPEND="test? (
 	)"
 
 python_test() {
-	distutils_install_for_testing
-	cd "${TEST_DIR}"/lib || die
-	cp "${S}"/setup.py "${TEST_DIR}"/lib/ || die
-	cp -r "${S}"/tests "${TEST_DIR}"/lib/ || die
 	py.test || die "Tests fail with ${EPYTHON}"
 }
