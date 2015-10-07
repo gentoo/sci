@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*nbformat-4.0.1 (06 Oct 2015)
+
+  06 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> +nbformat-4.0.1.ebuild:
+  dev-python/nbformat: Version bump
+
   21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> nbformat-9999.ebuild:
   dev-python/nbformat: Add ~x86 to KEYWORDS
 
