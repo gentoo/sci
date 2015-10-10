@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*bowtie-1.1.2 (10 Oct 2015)
+
+  10 Oct 2015; Ted Tanberry <ted.tanberry@gmail.com> +bowtie-1.1.2.ebuild,
+  +files/bowtie-1.1.2-tbb-tinythread-missing.patch, metadata.xml:
+  sci-biology/bowtie: Version bump to 1.1.2, support dev-cpp/tbb with
+  USE flag.
+
   08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-biology/bowtie: Updating remote-id in metadata.xml
 
