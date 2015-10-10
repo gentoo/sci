@@ -17,11 +17,11 @@ HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
 #	binval.com
 #	install.com"
 SRC_URI="
-	http://spin.niddk.nih.gov/NMRPipe/install/download/install.com
-	http://spin.niddk.nih.gov/NMRPipe/install/download/binval.com
-	http://spin.niddk.nih.gov/NMRPipe/install/download/NMRPipeX.tZ
-	http://spin.niddk.nih.gov/NMRPipe/install/download/talos.tZ
-	http://spin.niddk.nih.gov/NMRPipe/install/download/dyn.tZ
+	http://spin.niddk.nih.gov/NMRPipe/install/download/install.com -> install-${PV}.com
+	http://spin.niddk.nih.gov/NMRPipe/install/download/binval.com -> binval-${PV}.com
+	http://spin.niddk.nih.gov/NMRPipe/install/download/NMRPipeX.tZ -> NMRPipeX-${PV}.tZ
+	http://spin.niddk.nih.gov/NMRPipe/install/download/talos.tZ -> talos-${PV}.tZ
+	http://spin.niddk.nih.gov/NMRPipe/install/download/dyn.tZ -> dyn-${PV}.tZ
 	"
 
 SLOT="0"
@@ -59,12 +59,7 @@ NMRBASE="/opt/${PN}"
 ENMRBASE="${EPREFIX}/${NMRBASE}"
 
 QA_PREBUILT="
-	opt/nmrpipe/nmrbin.linux9/lib/.*
-	opt/nmrpipe/nmrbin.linux9/.*
-	opt/nmrpipe/talos/bin/.*
-	opt/nmrpipe/talosplus/bin/.*
-	opt/nmrpipe/promega/.*
-	opt/nmrpipe/spartaplus/.*
+	opt/.*
 	"
 
 pkg_nofetch() {
@@ -83,13 +78,14 @@ pkg_nofetch() {
 src_unpack() {
 	# The installation script will unpack the package. We just provide symlinks
 	# to the archive files, ...
-	for i in NMRPipeX.tZ talos.tZ dyn.tZ; do
-		ln -sf "${DISTDIR}"/${i} || die
+	for i in NMRPipeX-${PV}.tZ talos-${PV}.tZ dyn-${PV}.tZ; do
+		ln -sf "${DISTDIR}"/${i} ${i/-${PV}/} || die
 	done
 	# ... copy the installation scripts ...
-	cp -L "${DISTDIR}"/{binval.com,install.com} .
+	cp -L "${DISTDIR}"/install-${PV}.com install.com || die
+	cp -L "${DISTDIR}"/binval-${PV}.com binval.com || die
 	# ... and make the installation scripts executable.
-	chmod +x binval.com install.com
+	chmod +x *.com || die
 	# Unset DISPLAY to avoid the interactive graphical test.
 	# This just unpacks the stuff
 #	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
@@ -145,10 +141,9 @@ src_prepare() {
 		-e "s: /bin: ${EPREFIX}/bin:g" \
 		-e "s: /usr/bin: ${EPREFIX}/usr/bin:g" \
 		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
-		-i $(find "${S}" \( -name *.tcl -o -name *.com -o -name *.ksh \) ) \
+		-i $(find "${S}" \( -name "*.tcl" -o -name "*.com" -o -name "*.ksh" \)) \
 			{com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* \
 			nmrbin.linux9/{nmrDraw,xNotify} || die
-
 	eend
 
 	if use prefix; then
