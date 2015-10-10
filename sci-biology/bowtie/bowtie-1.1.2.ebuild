@@ -32,12 +32,6 @@ src_prepare() {
 }
 
 src_compile() {
-	if use tbb ; then
-		TBB="1"
-	else
-		TBB="0"
-	fi
-
 	emake \
 		CC="$(tc-getCC)" \
 		CPP="$(tc-getCXX)" \
@@ -45,7 +39,7 @@ src_compile() {
 		CXXFLAGS="" \
 		EXTRA_FLAGS="${LDFLAGS}" \
 		RELEASE_FLAGS="${CXXFLAGS}" \
-		WITH_TBB="${TBB}"
+		WITH_TBB="$(usex tbb 1 0)"
 }
 
 src_install() {
