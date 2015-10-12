@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*jupyter_console-4.0.3 (11 Oct 2015)
+
+  11 Oct 2015; Sean Vig <sean.v.775@gmail.com> +jupyter_console-4.0.3.ebuild,
+  -jupyter_console-4.0.2.ebuild:
+  dev-python/jupyter_console: Version bump to 4.0.3
+
   22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   jupyter_console-9999.ebuild:
   dev-python/jupyter_console: Add ~x86 to KEYWORDS, fixes #561032
