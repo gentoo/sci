@@ -147,6 +147,7 @@ sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:graphics - Build with Forge graphics.
 sci-libs/arrayfire:nonfree - Build ArrayFire nonfree algorithms.
 sci-libs/arrayfire:opencl - Build OpenCL backend.
+sci-libs/arrayfire:unified - Build Backend-Independent API.
 sci-libs/asl:matio - Matlab support with sci-libs/matio
 sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
 sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA
@@ -238,6 +239,7 @@ sci-libs/parmetis:int64 - Build the 64 bits integer library (needed for > 2^31 v
 sci-libs/pastix:int64 - Build the 64 bits integer library
 sci-libs/pastix:starpu - Build and link with dev-libs/starpu
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
+sci-libs/symengine:boost - Add support for boost (dev-libs/boost)
 sci-libs/trilinos:adolc - Add support for adolc (sci-libs/adolc)
 sci-libs/trilinos:arprec - Add support for arprec (sci-libs/arprec)
 sci-libs/trilinos:boost - Add support for boost (dev-libs/boost)
