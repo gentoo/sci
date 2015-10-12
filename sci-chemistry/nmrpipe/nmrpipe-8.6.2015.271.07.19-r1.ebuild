@@ -100,7 +100,7 @@ src_prepare() {
 
 	ebegin "Cleaning installation"
 	for i in ${A} ; do
-		rm -f ${i} || die "Failed to remove archive symlinks."
+		rm -f ${i/-${PV}/} || die "Failed to remove archive symlinks."
 	done
 
 	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
