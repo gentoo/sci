@@ -10,15 +10,8 @@ inherit distutils-r1
 
 DESCRIPTION="Python script for converting matplotlib figures into native Pgfplots (TikZ) figures"
 HOMEPAGE="https://github.com/nschloe/matplotlib2tikz"
-
-if [ ${PV} = "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/nschloe/${PN}.git git://github.com/nschloe/${PN}.git"
-	KEYWORDS=""
-else
-	SRC_URI="https://github.com/nschloe/matplotlib2tikz/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
-fi
+SRC_URI="https://github.com/nschloe/matplotlib2tikz/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+KEYWORDS="~amd64"
 
 LICENSE="LGPL-3"
 SLOT="0"
