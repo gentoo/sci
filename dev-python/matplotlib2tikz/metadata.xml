@@ -8,5 +8,6 @@
   </maintainer>
   <upstream>
     <remote-id type="github">nschloe/matplotlib2tikz</remote-id>
+    <remote-id type="pypi">matplotlib2tikz</remote-id>
   </upstream>
 </pkgmetadata>
