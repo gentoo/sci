@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/nschloe/matplotlib2tikz"
 EGIT_REPO_URI="https://github.com/nschloe/${PN}.git git://github.com/nschloe/${PN}.git"
 KEYWORDS=""
 
-LICENSE="LGPL-3"
+LICENSE="MIT"
 SLOT="0"
 IUSE=""
 

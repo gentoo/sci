@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/nschloe/matplotlib2tikz"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 KEYWORDS="~amd64"
 
-LICENSE="LGPL-3"
+LICENSE="MIT"
 SLOT="0"
 IUSE=""
 

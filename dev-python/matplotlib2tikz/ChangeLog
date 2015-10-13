@@ -3,6 +3,10 @@
 # $Id$
 
   13 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  matplotlib2tikz-0.2.0.ebuild, matplotlib2tikz-9999.ebuild:
+  dev-python/matplotlib2tikz: License switched to MIT
+
+  13 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
   matplotlib2tikz-0.1.0.ebuild, matplotlib2tikz-9999.ebuild:
   dev-python/matplotlib2tikz: Cleanup ebuilds
 
