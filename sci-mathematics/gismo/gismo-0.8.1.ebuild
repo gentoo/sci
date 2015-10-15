@@ -17,9 +17,12 @@ IUSE="doc examples"
 
 # Unbundling in progress, 
 # preparing local changes to get upstream
+DEPEND="
+	doc? ( >=app-doc/doxygen-1.8 )"
 
 src_prepare() {
 	epatch "${FILESDIR}/examples-CMakeLists.patch"
+	epatch "${FILESDIR}/doc-install.patch"
 }
 
 src_configure() {
@@ -31,6 +34,9 @@ src_configure() {
 
 src_compile() {
 	cmake-utils_src_compile
-	cd "${S}_build" || die "could not find cmake build folder"
-	emake doc
+	if use doc ; then
+		# explicitly call optional target doc
+		cd "${S}_build" || die "could not find cmake build folder"
+		emake doc
+	fi
 }
