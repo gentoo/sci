@@ -1,0 +1,7 @@
+# ChangeLog for dev-python/snakemake
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  16 Oct 2015; Michael Schubert <mschu.dev@gmail.com> +metadata.xml,
+  +snakemake-3.4.2.ebuild:
+  dev-python/snakemake-3.4.2: new ebuild
