@@ -1,0 +1,46 @@
+--- examples/CMakeLists.txt	2015-08-08 12:39:45.000000000 +0200
++++ examples/CMakeLists.txt	2015-10-14 16:19:16.387637011 +0200
+@@ -1,7 +1,8 @@
+ ### CMakeLists.txt ---
+ ## 
+ ## Author: Angelos Mantzaflaris 
+-## Copyright (C) 2012 - RICAM-Linz.
++## Author: Harald Weiner
++## Copyright (C) 2012-2015 - RICAM-Linz.
+ ######################################################################
+ 
+ cmake_minimum_required(VERSION 2.8.8)
+@@ -11,7 +12,12 @@
+ cmake_policy(SET CMP0048 OLD)
+ endif()
+ 
+-project(gismo-examples)
++project(examples)
++
++# Add a grouping target that builds all tests this is equivalent to
++# running "make" inside the tests build folder
++add_custom_target(${PROJECT_NAME})
++set_property(TARGET ${PROJECT_NAME} PROPERTY LABELS "${PROJECT_NAME};gismo")
+ 
+ #find_package(gismo REQUIRED)
+ #include_directories( ${GISMO_INCLUDE_DIRS})
+@@ -24,6 +30,19 @@
+ 
+ foreach(file ${FILES})
+     add_gismo_executable(${file})
++    get_filename_component(tarname ${file} NAME_WE) # name without extension
++    set_property(TEST ${tarname} PROPERTY LABELS "${PROJECT_NAME};gismo")
++    add_dependencies(${PROJECT_NAME} ${tarname})
++    # install the example executables to <CMAKE_INSTALL_PREFIX>/bin/
++	# message("install_bin_dir='${INSTALL_BIN_DIR}'")
++	# message("targets add='${tarname}'")
++    install(TARGETS ${tarname} 
++		DESTINATION "${INSTALL_BIN_DIR}/"
++		PERMISSIONS
++			OWNER_READ OWNER_WRITE OWNER_EXECUTE
++			GROUP_READ GROUP_WRITE GROUP_EXECUTE
++			WORLD_READ WORLD_EXECUTE
++	)
+ endforeach(file ${FILES})
+ 
+ list(LENGTH FILES len)
