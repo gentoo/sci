@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
@@ -8,7 +8,7 @@
   focuses on the simple mathematical needs of applications: games and other
   OpenGL apps, spreadsheets and other office apps, etc. Eigen is dedicated to
   providing optimal speed with GCC.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="adolc">
     Enable automatic differentiation using <pkg>sci-libs/adolc</pkg>
@@ -25,4 +25,7 @@
     Enable use for extra sparse matrix with <pkg>sci-libs/umfpack</pkg>, <pkg>sci-libs/cholmod</pkg>, <pkg>sci-libs/superlu</pkg> and <pkg>dev-cpp/sparsehash</pkg>
   </flag>
   </use>
+  <upstream>
+    <remote-id type="bitbucket">eigen/eigen</remote-id>
+  </upstream>
 </pkgmetadata>

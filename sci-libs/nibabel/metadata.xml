@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
@@ -12,8 +12,11 @@
 	NIfTI1, MINC, MGH and ECAT as well as PAR/REC. It can read and write Freesurfer
 	geometry, and read Freesurfer morphometry and annotation files. There is some
 	very limited support for DICOM. NiBabel is the successor of PyNIfTI.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="dicom">Adds limited read support for the DICOM imaging format.</flag>
   </use>
+  <upstream>
+    <remote-id type="github">nipy/nibabel</remote-id>
+  </upstream>
 </pkgmetadata>

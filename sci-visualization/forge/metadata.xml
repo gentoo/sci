@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
@@ -13,4 +13,7 @@
     uses OpenGL &gt;=3.3 forward compatible contexts, so please make sure
     you have capable hardware before trying it out.
   </longdescription>
+  <upstream>
+    <remote-id type="github">arrayfire/forge</remote-id>
+  </upstream>
 </pkgmetadata>

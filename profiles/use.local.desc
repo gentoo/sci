@@ -58,6 +58,7 @@ sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plot
 sci-astronomy/scamp:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
 sci-astronomy/sextractor:modelfit - Enable profile model fitting, needs sci-libs/atlas and sci-libs/fftw
 sci-astronomy/zpeg:gdl - Install GDL/IDL plotting routines
+sci-biology/bowtie:tbb - Enables building bowtie with the Intel Threading Building Blocks from dev-cpp/tbb. This flag is recommended.
 sci-biology/discrover:cairo - Use Cairo for sequence logo plotting capabilities
 sci-biology/discrover:dreme - Enable usage of DREME from the MEME package for seeding
 sci-biology/discrover:lto - Compile with link-time optimization (LTO)
