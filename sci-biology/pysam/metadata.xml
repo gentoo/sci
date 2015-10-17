@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci-biology</herd>
   <upstream>
     <remote-id type="google-code">pysam</remote-id>
+    <remote-id type="github">pysam-developers/pysam</remote-id>
   </upstream>
 </pkgmetadata>
