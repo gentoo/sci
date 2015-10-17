@@ -21,4 +21,4 @@ RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"
-DEPEND=""
+DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
