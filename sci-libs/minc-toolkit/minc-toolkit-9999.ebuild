@@ -1,6 +1,6 @@
-#DUS Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
@@ -17,7 +17,7 @@ IUSE="itk"
 KEYWORDS=""
 
 COMMON_DEP="dev-libs/libpcre
-	sci-libs/fftw
+	sci-libs/fftw:3.0
 	sci-libs/gsl
 	sci-libs/hdf5
 	itk? ( sci-libs/itk )
