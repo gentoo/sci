@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,7 +8,7 @@ inherit eutils multilib versionator
 
 MY_P="${PN}-$(replace_all_version_separators '-')"
 
-DESCRIPTION="The CFD General Notation System (CGNS) tools."
+DESCRIPTION="The CFD General Notation System (CGNS) tools"
 HOMEPAGE="http://www.cgns.org/"
 SRC_URI="mirror://sourceforge/cgns/${MY_P}.tar.gz"
 
@@ -17,20 +17,25 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="hdf5 tcl tk X"
 
-DEPEND="hdf5? ( sci-libs/cgnslib[hdf5] )
+DEPEND="
+	hdf5? ( sci-libs/cgnslib[hdf5] )
 	!hdf5? ( sci-libs/cgnslib[-hdf5] )
-	tcl? ( dev-lang/tcl )
-	tk? ( dev-lang/tk )"
+	tcl? ( dev-lang/tcl:0= )
+	tk? ( dev-lang/tk:0= )"
 
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${PN}
 
+PATCHES=(
+	"${FILESDIR}"/${P}.patch
+	"${FILESDIR}"/${P}_cgns_to_vtk2D.patch
+	"${FILESDIR}"/${P}_gcc4.4.patch
+	"${FILESDIR}"/${P}_tcltk.patch
+)
+
 src_prepare() {
-	epatch "${FILESDIR}"/${P}.patch
-	epatch "${FILESDIR}"/${P}_cgns_to_vtk2D.patch
-	epatch "${FILESDIR}"/${P}_gcc4.4.patch
-	epatch "${FILESDIR}"/${P}_tcltk.patch
+	epatch "${PATCHES[@]}"
 }
 
 src_configure() {

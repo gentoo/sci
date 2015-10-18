@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -33,7 +33,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-fixpaths.patch"
 	cp "${FILESDIR}/version.xml" "${S}" || die
 	echo "fop.jar=$(java-pkg_getjar fop fop.jar)
-xmlgraphics-commons.jar=$(java-pkg_getjar xmlgraphics-commons-2.0 xmlgraphics-commons.jar)
+xmlgraphics-commons.jar=$(java-pkg_getjar xmlgraphics-commons-2 xmlgraphics-commons.jar)
 jlatexmath.jar=$(java-pkg_getjar jlatexmath-1 jlatexmath.jar)" \
 		 >>fop.properties || die
 }

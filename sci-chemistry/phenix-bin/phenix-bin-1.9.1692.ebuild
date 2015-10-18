@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 WX_GTK_VER=2.8
 
-inherit python-single-r1 versionator wxwidgets
+inherit multilib python-single-r1 versionator wxwidgets
 
 MY_PV="$(replace_version_separator 2 -)"
 MY_P="phenix-installer-${MY_PV}"
@@ -41,7 +41,10 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/libpng:1.2
 	sys-libs/db:4.7
 	sys-libs/gdbm
-	sys-libs/ncurses[tinfo]
+	|| (
+		sys-libs/ncurses:0/5[tinfo]
+		sys-libs/ncurses:5/5[tinfo]
+	)
 	sys-libs/readline
 	virtual/glu
 	x11-libs/cairo
@@ -82,7 +85,15 @@ pkg_nofetch() {
 }
 
 src_prepare() {
-	./install --prefix="${S}/foo"
+	cat > "${S}/bin/machine_type" <<-EOF
+	#!${EPREFIX}/bin/sh
+	echo intel-linux-2.6-x86_64
+	exit 0
+	EOF
+}
+
+src_compile() {
+	LD_LIBRARY_PATH="${EPREFIX}/usr/$(get_libdir)" ./install --prefix="${S}/foo" || die
 }
 
 src_install() {
@@ -99,13 +110,13 @@ src_install() {
 			|| die
 
 	dodir /opt
-	mv "${S}/foo/phenix-${MY_PV}" "${ED}/opt/"
+	mv "${S}/foo/phenix-${MY_PV}" "${ED}/opt/" || die
 
 	cat >> phenix <<- EOF
 	#!${EPREFIX}/bin/bash
 
 	source "${EPREFIX}/opt/phenix-${MY_PV}/phenix_env.sh"
-	export LD_LIBRARY_PATH="${EPREFIX}"/usr/$(get_libdir)
+	export LD_LIBRARY_PATH="${EPREFIX}/usr/$(get_libdir)"
 	exec phenix
 	EOF
 	dobin phenix

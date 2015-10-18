@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/gmsh
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> -gmsh-2.5.0-r2.ebuild,
   -gmsh-9999.ebuild, -files/gmsh-2.5.0-libpng-1.5.patch,

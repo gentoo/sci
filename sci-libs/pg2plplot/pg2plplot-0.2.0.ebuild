@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit cmake-utils fortran-2
 
@@ -15,14 +15,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X png postscript static-libs"
 
-DEPEND="virtual/fortran
-		sci-libs/plplot[fortran]"
+DEPEND="sci-libs/plplot[fortran]"
 
 # If USE="png" or "postscript", ensure PLplot has USE="cairo":
 RDEPEND="${DEPEND}
-		 sci-libs/plplot[fortran,X?]
-		 png? ( sci-libs/plplot[cairo] )
-		 postscript? ( sci-libs/plplot[cairo] )"
+	 sci-libs/plplot[fortran,X?]
+	 png? ( sci-libs/plplot[cairo] )
+	 postscript? ( sci-libs/plplot[cairo] )"
 
 src_configure() {
 	local mycmakeargs=(

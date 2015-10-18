@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -20,8 +20,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc debug static-libs"
 
 RDEPEND="
-	sys-libs/ncurses
-	sys-libs/readline:0"
+	sys-libs/ncurses:0=
+	sys-libs/readline:0="
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/elmerfem-release-${PV}/${PN}"
@@ -30,7 +30,6 @@ S="${WORKDIR}/elmerfem-release-${PV}/${PN}"
 
 src_configure() {
 	local myeconfargs=(
-		--enable-shared
 		$(use_with debug)
 	)
 	autotools-utils_src_configure

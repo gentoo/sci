@@ -1,6 +1,6 @@
 # ChangeLog for sci-misc/finomaton
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   12 Nov 2014; Justin Lecher <jlec@gentoo.org> finomaton-1.0.ebuild,
   metadata.xml:

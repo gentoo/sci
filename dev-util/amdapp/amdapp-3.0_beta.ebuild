@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -67,7 +67,7 @@ src_prepare() {
 
 src_compile() {
 	MAKEOPTS+=" -j1"
-	use examples && cd samples/opencl && emake
+	use examples && cd samples/opencl && default
 }
 
 src_install() {

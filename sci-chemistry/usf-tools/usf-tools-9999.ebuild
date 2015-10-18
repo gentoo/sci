@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 AUTOTOOLS_AUTORECONF=y
 
@@ -22,8 +22,8 @@ KEYWORDS=""
 IUSE="static-libs"
 
 RDEPEND="
-	sci-libs/ccp4-libs
-	sci-libs/mmdb"
+	sci-libs/libccp4
+	sci-libs/mmdb:0"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/usf_export

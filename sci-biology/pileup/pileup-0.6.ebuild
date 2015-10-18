@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -37,12 +37,12 @@ src_prepare(){
 
 src_compile(){
 	cd ssaha_pileup/ssaha_pileup || die "Cannot cd to "${S}"ssaha_pileup/ssaha_pileup"
-	emake || die "emake failed"
+	default
 
 	for d in get_seqreads ssaha_split ssaha_parseSNP search_read; do
 		cd "${S}"/ssaha_pileup/other_codes/$d  || die "Cannot cd to "${S}"ssaha_pileup/other_codes/"$d
 		make clean
-		emake || die "emake failed"
+		default
 	done
 }
 

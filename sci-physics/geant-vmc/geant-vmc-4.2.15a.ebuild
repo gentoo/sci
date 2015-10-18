@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -34,7 +34,7 @@ src_compile() {
 	source $(ls -1 "${EROOT}"usr/share/Geant4-*/geant4make/geant4make.sh) || die
 	for d in ${dirs}; do
 		pushd ${d} > /dev/null || die
-		emake
+		default
 		if use doc; then
 			doxygen || die
 		fi
@@ -44,7 +44,7 @@ src_compile() {
 
 src_test() {
 	cd examples || die
-	emake
+	default
 	./run_suite.sh || die
 }
 

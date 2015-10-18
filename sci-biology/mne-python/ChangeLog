@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/mne-python
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> mne-python-0.7.ebuild,
   mne-python-9999.ebuild, +metadata.xml:

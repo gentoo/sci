@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/cnrun
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   19 Feb 2015; Andrei Zavada <johnhommer@gmail.com> cnrun-2.0.2.ebuild:
   sci-biology/cnrun: initial ebuild, repoman clean

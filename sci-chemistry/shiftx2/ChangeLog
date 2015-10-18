@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/shiftx2
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   19 Mar 2014; Justin Lecher <jlec@gentoo.org> shiftx2-1.07_p20120106.ebuild:
   Drop python2.6 support

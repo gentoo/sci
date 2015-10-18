@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -195,11 +195,9 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.32.00-cfitsio.patch \
 		"${FILESDIR}"/${PN}-5.32.00-chklib64.patch \
 		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
-		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
-		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
-		"${FILESDIR}"/${PN}-6.00.01-geocad.patch
+		"${FILESDIR}"/${PN}-6.00.01-llvm.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -309,6 +307,7 @@ src_configure() {
 			$(use_enable fftw fftw3)
 			$(use_enable geocad)
 			$(use_enable graphviz gviz)
+			$(use_enable http)
 			$(use_enable kerberos krb5)
 			$(use_enable ldap)
 			$(use_enable math genvector)
@@ -398,7 +397,7 @@ cleanup_install() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	dodoc README.md
 
 	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root

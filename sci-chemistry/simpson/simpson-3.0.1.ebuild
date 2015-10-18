@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit eutils prefix toolchain-funcs
 
@@ -21,7 +21,7 @@ RDEPEND="
 	virtual/cblas
 	virtual/lapack
 	gtk? ( x11-libs/gtk+:1 )
-	tk? ( dev-lang/tk )"
+	tk? ( dev-lang/tk:0= )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -30,8 +30,9 @@ S="${WORKDIR}"/${PN}-source-${PV}
 src_prepare() {
 	tc-export PKG_CONFIG
 	edos2unix Makefile
-	epatch "${FILESDIR}"/${PV}-gentoo.patch
-	epatch "${FILESDIR}"/${PV}-type.patch
+	epatch \
+		"${FILESDIR}"/${PV}-gentoo.patch \
+		"${FILESDIR}"/${PV}-type.patch
 	eprefixify Makefile
 }
 

@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/mtz2sca
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  16 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> mtz2sca-0.3.ebuild:
+  sci-chemistry/mtz2sca: Fix deps
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> mtz2sca-0.3.ebuild,
   metadata.xml:
@@ -19,4 +22,3 @@
   Initial add
   Thanks to jlec for writting this ebuild
   pending bug is 278048
-

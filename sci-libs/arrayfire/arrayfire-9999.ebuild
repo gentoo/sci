@@ -1,27 +1,29 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
-inherit cmake-utils git-r3
+inherit cmake-utils git-r3 multilib
 
 GTEST_PV="1.7.0"
 
-DESCRIPTION="A general purpose GPU library."
+DESCRIPTION="A general purpose GPU library"
 HOMEPAGE="http://www.arrayfire.com/"
 EGIT_REPO_URI="https://github.com/${PN}/${PN}.git git://github.com/${PN}/${PN}.git"
 SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS=""
 
-LICENSE="BSD"
+LICENSE="BSD
+	nonfree? ( OpenSIFT )"
 SLOT="0"
-IUSE="+examples +cpu cuda opencl test"
+IUSE="+examples +cpu cuda nonfree opencl test unified graphics"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
+	media-libs/freeimage
 	cuda? (
-		>=dev-util/nvidia-cuda-toolkit-6.0
+		>=dev-util/nvidia-cuda-toolkit-7.5.18-r1
 		dev-libs/boost
 	)
 	cpu? (
@@ -31,19 +33,23 @@ RDEPEND="
 		sci-libs/fftw:3.0
 	)
 	opencl? (
+		virtual/blas
+		virtual/cblas
+		virtual/lapacke
 		dev-libs/boost
 		dev-libs/boost-compute
-		sci-libs/clblas
-		sci-libs/clfft
+		>=sci-libs/clblas-2.4
+		>=sci-libs/clfft-2.6.1
+	)
+	graphics? (
+		media-libs/glew
+		>=media-libs/glfw-3.1.1
+		>=sci-visualization/forge-3.1
 	)"
 DEPEND="${RDEPEND}"
 
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
-
-PATCHES=(
-	"${FILESDIR}"/${P}-FindCBLAS.patch
-)
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
@@ -60,15 +66,16 @@ pkg_pretend() {
 src_unpack() {
 	git-r3_src_unpack
 
+	if ! use nonfree; then
+		find "${WORKDIR}" -name "*_nonfree*" -delete || die
+	fi
+
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
 		cd "${BUILD_DIR}"/third_party/src/ || die
 		unpack ${A}
 		mv "${BUILD_DIR}"/third_party/src/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
 	fi
-
-	rm "${S}"/CMakeModules/build_boost_compute.cmake || die
-	cp "${FILESDIR}"/FindBoostCompute.cmake "${S}"/CMakeModules/ || die
 }
 
 src_configure() {
@@ -84,6 +91,14 @@ src_configure() {
 	   $(cmake-utils_use_build opencl OPENCL)
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
+	   $(cmake-utils_use_build graphics GRAPHICS)
+	   $(cmake-utils_use_build nonfree NONFREE)
+	   $(cmake-utils_use_build unified UNIFIED)
+	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
+	   -DUSE_SYSTEM_CLBLAS=ON
+	   -DUSE_SYSTEM_CLFFT=ON
+	   -DUSE_SYSTEM_FORGE=ON
+	   -DAF_INSTALL_CMAKE_DIR=/usr/${get_libdir}/cmake/ArrayFire
 	)
 	cmake-utils_src_configure
 }

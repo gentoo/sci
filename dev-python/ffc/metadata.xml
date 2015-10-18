@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<herd>sci</herd>
@@ -9,8 +9,9 @@
 		combine generality with efficiency; the form can be given in
 		mathematical notation and the generated code is as efficient as
 		hand-optimized code.
-   </longdescription>
+	</longdescription>
 	<upstream>
 		<remote-id type="bitbucket">fenics-project/ffc</remote-id>
+		<remote-id type="launchpad">ffc</remote-id>
 	</upstream>
 </pkgmetadata>

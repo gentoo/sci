@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/msms
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   30 Jun 2013; Justin Lecher <jlec@gentoo.org> -msms-1.5.4-r1.ebuild,
   -msms-1.5.6_rc2.ebuild, +msms-1.5.6.ebuild, metadata.xml:

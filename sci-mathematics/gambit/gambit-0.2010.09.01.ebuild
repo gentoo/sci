@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -10,9 +10,7 @@ inherit wxwidgets
 
 DESCRIPTION="Gambit: Software Tools for Game Theory"
 HOMEPAGE="http://www.gambit-project.org/doc/index.html"
-SRC_URI="mirror://sourceforge/gambit/${P}.tar.gz"
-	#http://econweb.tamu.edu/gambit/doc/${PN}-manual-${PV}.pdf
-	#http://econweb.tamu.edu/gambit/doc/${PN}-manual-${PV}.tar.gz
+SRC_URI="mirror://sourceforge/project/${PN}/${PN}-stable/${PV}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"

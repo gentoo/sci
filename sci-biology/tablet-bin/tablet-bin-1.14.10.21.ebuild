@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit java-pkg-2 python-r1
 
-DESCRIPTION="Viewer of next generation sequence assemblies and alignments."
+DESCRIPTION="Viewer of next generation sequence assemblies and alignments"
 HOMEPAGE="http://ics.hutton.ac.uk/tablet/"
 SRC_URI="
 	x86? ( http://bioinf.hutton.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )

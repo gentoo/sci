@@ -1,0 +1,39 @@
+# ChangeLog for dev-python/jupyter_core
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_core-9999.ebuild:
+  dev-python/jupyter_core: Add ~x86 to KEYWORDS
+
+*jupyter_core-4.0.6 (19 Sep 2015)
+
+  19 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_core-4.0.6.ebuild:
+  dev-python/jupyter_core: Version bump
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_core-9999.ebuild:
+  dev-python/jupyter_core: Add doc use flag
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_core-9999.ebuild:
+  dev-python/jupyter_core: Fix testing deps
+
+*jupyter_core-4.0.4-r1 (03 Sep 2015)
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/jupyter_core-4.0.4-add-test-files.patch, +jupyter_core-4.0.4-r1.ebuild,
+  -jupyter_core-4.0.4.ebuild:
+  dev-python/jupyter_core: Fix tests (issue #479)
+
+*jupyter_core-4.0.4 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_core-4.0.4.ebuild, -jupyter_core-4.0.2.ebuild:
+  dev-python/jupyter_core: Version bump; Remove old
+
+*jupyter_core-4.0.2 (12 Aug 2015)
+*jupyter_core-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_core-4.0.2.ebuild, +jupyter_core-9999.ebuild, +metadata.xml:
+  dev-python/jupyter_core: Initial ebuild

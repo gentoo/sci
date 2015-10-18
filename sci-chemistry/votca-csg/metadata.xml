@@ -7,7 +7,7 @@
 		<name>Christoph Junghans</name>
 	</maintainer>
 	<use>
-		<flag name='gromacs'>Add support for gromacs file formats through <pkg>sci-chemistry/gromacs</pkg></flag>
-		<flag name='extras'>Pull in extra applications from <pkg>sci-chemistry/votca-csg-apps</pkg></flag>
+		<flag name="gromacs">Add support for gromacs file formats through <pkg>sci-chemistry/gromacs</pkg></flag>
+		<flag name="extras">Pull in extra applications from <pkg>sci-chemistry/votca-csg-apps</pkg></flag>
 	</use>
 </pkgmetadata>

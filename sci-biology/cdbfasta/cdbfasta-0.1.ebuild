@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
-DESCRIPTION="A FASTA record indexing/retrievieng utility, a part of TIGR Gene Indices project tools"
+DESCRIPTION="FASTA record indexing/retrievieng utility, a part of TIGR Gene Indices project tools"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software"
 SRC_URI="ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/cdbfasta/cdbfasta.tar.gz"
 
@@ -13,23 +13,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 S=${WORKDIR}/${PN}
 
-src_unpack() {
-	unpack cdbfasta.tar.gz
-}
-
-src_compile() {
-	sed -i 's/CFLAGS[ ]*=/CFLAGS :=/; s/-D_REENTRANT/-D_REENTRANT \${CFLAGS}/; s/CFLAGS[ ]*:=[ ]*-O2$//' "${S}"/Makefile || die "Failed to patch Makefile"
+src_prepare() {
+	sed \
+		-e 's/CFLAGS[ ]*=/CFLAGS :=/; s/-D_REENTRANT/-D_REENTRANT \${CFLAGS}/; s/CFLAGS[ ]*:=[ ]*-O2$//' \
+		-i "${S}"/Makefile || die "Failed to patch Makefile"
 	sed -i 's/-march=i686//' "${S}"/Makefile || die
 	sed -i 's/-O2 //' "${S}"/Makefile || die
-	emake || die "emake failed"
 }
 
 src_install() {
-	dobin {cdbfasta,cdbyank} || die "Failed to install binaries"
-	newdoc README README.${PN} || die
+	dobin {cdbfasta,cdbyank}
+	newdoc README README.${PN}
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci-biology</herd>
@@ -11,5 +11,8 @@ AMOS is collection of tools and class interfaces for the assembly of DNA
 sequencing reads. The package includes a robust infrastructure, modular assembly
 pipelines, and tools for overlapping, consensus generation, contigging, and 
 assembly manipulation
-</longdescription>
+  </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">amos</remote-id>
+  </upstream>
 </pkgmetadata>

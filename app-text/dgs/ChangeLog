@@ -1,6 +1,6 @@
 # ChangeLog for app-text/dgs
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/dgs/ChangeLog,v 1.30 2008/03/18 13:24:47 flameeyes Exp $
+# $Id$
 
   01 Nov 2014; Justin Lecher <jlec@gentoo.org> dgs-0.5.10-r2.ebuild,
   metadata.xml:

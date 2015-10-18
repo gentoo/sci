@@ -7,7 +7,7 @@
 		<name>Pedro Batista</name>
 	</maintainer>
 	<longdescription>The Hidden Markov Model Toolkit (HTK) is a portable toolkit for building and manipulating hidden Markov models</longdescription>
-		<use>
+	<use>
 		<flag name="hlmtools">Install the tools for manipulation of language models</flag>
 		<flag name="hdecode">Install HDecode, a large vocabulary word recogniser</flag>
 		<flag name="htkbook">Build the HTK documentation (HTK Book)</flag>

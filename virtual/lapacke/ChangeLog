@@ -1,6 +1,6 @@
 # ChangeLog for virtual/lapacke
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   12 Nov 2014; Justin Lecher <jlec@gentoo.org> lapacke-1.0.ebuild,
   lapacke-3.5.ebuild, metadata.xml:

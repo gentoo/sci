@@ -1,6 +1,6 @@
 # ChangeLog for sci-astronomy/zebra
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> zebra-1.01.ebuild, metadata.xml:
   Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config

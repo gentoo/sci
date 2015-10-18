@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/inGAP-bin
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  07 Aug 2015; Justin Lecher <jlec@gentoo.org> inGAP-bin-3.0.1.ebuild:
+  sci-biology/inGAP-bin: Fix CAT move and many more things
 
 *inGAP-bin-3.0.1 (23 Mar 2014)
 

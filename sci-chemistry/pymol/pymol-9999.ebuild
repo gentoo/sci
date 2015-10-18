@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -24,7 +24,7 @@ DEPEND="
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	media-libs/freeglut
 	media-libs/freetype:2
-	media-libs/glew
+	media-libs/glew:0=
 	media-libs/libpng:0=
 	media-video/mpeg-tools
 	sys-libs/zlib

@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/mira
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/mira/ChangeLog,v 1.31 2015/04/07 14:33:30 jlec Exp $
+# $Id$
 
   21 Jul 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +files/mira-4.9.5-fix-miramer-symlink-error.patch, mira-4.9.5.ebuild:

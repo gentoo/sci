@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/gotoblas2
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Jun 2015; Justin Lecher <jlec@gentoo.org> gotoblas2-1.13.ebuild,
   metadata.xml:

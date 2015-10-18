@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
@@ -8,4 +8,7 @@
     <description>Google Summer of Code 2011 student</description>
   </maintainer>
   <longdescription>This package contains a set of scripts developed during the Google Summer of Code 2011 project. It aims to benchmark numerical libraries, and more precisely implementations of the standard BLAS, CBLAS, LAPACK, PBLAS, ScaLAPACK and the library FFTW.</longdescription>
+  <upstream>
+    <remote-id type="github">andyspiros/numbench</remote-id>
+  </upstream>
 </pkgmetadata>

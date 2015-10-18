@@ -1,0 +1,16 @@
+ src/protocols/moves/StructureRestrictor.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/protocols/moves/StructureRestrictor.cc b/src/protocols/moves/StructureRestrictor.cc
+index 1e1f1d4..da69796 100644
+--- a/src/protocols/moves/StructureRestrictor.cc
++++ b/src/protocols/moves/StructureRestrictor.cc
+@@ -40,7 +40,7 @@
+ 
+ using namespace std;
+ using namespace boost;
+-using namespace core;
++using namespace boost::core;
+   using namespace pose;
+   using namespace protocols::jd2;
+ 

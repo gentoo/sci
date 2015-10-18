@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 inherit eutils
 
@@ -21,10 +21,10 @@ IUSE=""
 S="${WORKDIR}"/autoEditor-1.20/TigrFoundation-2.0
 
 src_prepare(){
-	epatch "${FILESDIR}"/TigrFoundation-all-patches.patch || die "Failed to patch TigrFoundation-2.0/ sources"
+	epatch "${FILESDIR}"/TigrFoundation-all-patches.patch
 	sed -i "s:/export/usr/local:${D}/usr:g" Makefile || die
 }
 
 src_install(){
-	emake install DESTDIR="${D}/usr" || die
+	emake install DESTDIR="${D}/usr"
 }

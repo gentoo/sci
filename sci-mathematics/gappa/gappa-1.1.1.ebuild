@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI="5"
 
-DESCRIPTION="A tool to help verifying and proving properties on floating-point or fixed-point arithmetic"
+DESCRIPTION="Verifying and proving properties on floating-point or fixed-point arithmetic"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
 SRC_URI="http://gforge.inria.fr/frs/download.php/33486/${P}.tar.gz"
 
@@ -13,11 +13,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-RDEPEND="dev-libs/gmp
-		dev-libs/mpfr
-		dev-libs/boost"
+RDEPEND="
+	dev-libs/gmp:0=
+	dev-libs/mpfr:0=
+	dev-libs/boost"
 DEPEND="${RDEPEND}
-		doc? ( app-doc/doxygen )"
+	doc? ( app-doc/doxygen )"
 
 src_prepare() {
 	sed -i Remakefile.in \
@@ -33,7 +34,7 @@ src_compile() {
 }
 
 src_install() {
-	DESTDIR="${D}" ./remake install || die "emake install failed"
+	DESTDIR="${D}" ./remake install
 	dodoc NEWS README AUTHORS ChangeLog
 	use doc && dohtml -A png -r doc/html/*
 }

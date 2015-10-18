@@ -1,0 +1,28 @@
+# ChangeLog for dev-python/matrix2latex
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  07 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-1.0.0.ebuild,
+  matrix2latex-9999.ebuild:
+  dev-python/matrix2latex: removed empty depend list
+
+  07 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-1.0.0.ebuild,
+  matrix2latex-9999.ebuild:
+  dev-python/matrix2latex: removed deprecated python compatibility
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-9999.ebuild:
+  dev-python/matrix2latex: removed keyword for live package
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-9999.ebuild:
+  dev-python/matrix2latex: removed blank line
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matrix2latex-1.0.0.ebuild,
+  matrix2latex-9999.ebuild:
+  dev-python/matrix2latex: corrected header license
+
+*matrix2latex-1.0.0 (06 Oct 2015)
+*matrix2latex-9999 (06 Oct 2015)
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> +matrix2latex-1.0.0.ebuild,
+  +matrix2latex-9999.ebuild, +metadata.xml:
+  dev-python/matrix2latex: new ebuild

@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -44,11 +44,11 @@ src_compile() {
 	mkdir exe || die "mkdir failed"
 	cd source/${MY_P} || die
 	emake clean
-	emake
+	default
 
 	if use fltk; then
 		cd "${S}"/source/DRAWshell${PV} || die
-		emake
+		default
 	fi
 }
 

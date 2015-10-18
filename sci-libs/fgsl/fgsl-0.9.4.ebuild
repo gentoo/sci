@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -55,9 +55,7 @@ src_install() {
 	ln -s lib${PN}.so.0.0.0 lib${PN}.so.0 || die
 	ln -s lib${PN}.so.0.0.0 lib${PN}.so || die
 	dolib.so lib${PN}.so*
-	insinto /usr/include
-	doins ${PN}.mod
-	if use static-libs ; then
+	doheader ${PN}.mod
+	use static-libs && \
 		newlib.a lib${PN}_$(tc-getFC).a lib${PN}.a
-	fi
 }

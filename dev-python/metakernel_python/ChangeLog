@@ -1,0 +1,15 @@
+# ChangeLog for dev-python/metakernel_python
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*metakernel_python-0.11.3-r1 (24 Sep 2015)
+
+  24 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +files/kernel.json,
+  +metakernel_python-0.11.3-r1.ebuild, -metakernel_python-0.11.3.ebuild:
+  dev-python/metakernel_python: Install missing kernel spec
+
+*metakernel_python-0.11.3 (24 Sep 2015)
+
+  24 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +metakernel_python-0.11.3.ebuild:
+  dev-python/metakernel_python: New package, ebuild written by me

@@ -1,0 +1,6 @@
+# ChangeLog for sci-electronics/minipro
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  29 Jul 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-electronics/minipro: Updating remote-id in metadata.xml

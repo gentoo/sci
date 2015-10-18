@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit eutils toolchain-funcs versionator
 
@@ -22,7 +22,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 DEPEND=""
-RDEPEND="virtual/libstdc++
+RDEPEND="
+	virtual/libstdc++
 	dev-libs/atk
 	dev-libs/glib:2
 	media-libs/fontconfig

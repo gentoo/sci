@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/mdp
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Dec 2013; Justin Lecher <jlec@gentoo.org> -mdp-3.2.ebuild,
   +mdp-3.3.ebuild, mdp-9999.ebuild:

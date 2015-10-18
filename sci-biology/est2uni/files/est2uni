@@ -1,3 +1,0 @@
-EST2UNI_PERL=/opt/est2uni
-PERL5LIB=$PERL5LIB:/opt/est2uni
-PATH=$PATH:/opt/est2uni

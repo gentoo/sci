@@ -1,6 +1,6 @@
 # ChangeLog for sci-physics/genfit
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   03 Apr 2014; Sebastien Fabbro <fabbros@gentoo.org> genfit-9999.ebuild,
   metadata.xml:

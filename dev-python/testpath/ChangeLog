@@ -1,0 +1,17 @@
+# ChangeLog for dev-python/testpath
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> testpath-9999.ebuild:
+  dev-python/testpath: Add ~x86 to KEYWORDS
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> testpath-9999.ebuild:
+  dev-python/testpath: Add test and doc use flag
+
+*testpath-0.2 (12 Aug 2015)
+*testpath-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/testpath-0.2-setup.py.patch, +metadata.xml, +testpath-0.2.ebuild,
+  +testpath-9999.ebuild:
+  dev-python/testpath: Initial ebuild

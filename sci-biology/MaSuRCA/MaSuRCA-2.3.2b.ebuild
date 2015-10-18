@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -37,19 +37,19 @@ src_configure(){
 
 src_compile(){
 	cd jellyfish || die
-	emake
+	default
 
 	cd ../CA/kmer || die
-	emake
+	default
 
 	cd ../../CA/src || die
-	emake
+	default
 
 	cd ../SuperReads || die
-	emake
+	default
 
 	cd ../quorum || die
-	emake
+	default
 }
 
 src_install(){

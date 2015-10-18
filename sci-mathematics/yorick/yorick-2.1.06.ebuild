@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -36,7 +36,7 @@ src_configure() {
 src_compile() {
 	# makefiles are not robust. (not interested in fixing)
 	emake prefix=/usr ysite Y_HOME=/usr/$(get_libdir)/yorick
-	emake config || die
+	emake config
 	emake -j1
 }
 

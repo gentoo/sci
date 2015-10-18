@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
 
-DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities"
+DESCRIPTION="A three-dimensional finite element mesh generator"
 HOMEPAGE="http://www.geuz.org/gmsh/"
 SRC_URI="http://www.geuz.org/gmsh/src/${P}-source.tgz"
 
@@ -22,11 +22,11 @@ RDEPEND="
 	X? ( x11-libs/fltk:1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
-	jpeg? ( virtual/jpeg )
-	lua? ( dev-lang/lua )
+	jpeg? ( virtual/jpeg:0= )
+	lua? ( dev-lang/lua:0 )
 	med? ( >=sci-libs/med-2.3.4 )
-	opencascade? ( sci-libs/opencascade )
-	png? ( media-libs/libpng )
+	opencascade? ( sci-libs/opencascade:* )
+	png? ( media-libs/libpng:0= )
 	petsc? ( <=sci-mathematics/petsc-3.4.2 )
 	zlib? ( sys-libs/zlib )
 	mpi? ( virtual/mpi[cxx] )
@@ -70,8 +70,7 @@ src_configure() {
 		$(cmake-utils_use_enable petsc PETSC)"
 # 		$(cmake-utils_use_enable tetgen TETGEN_NEW)
 
-	cmake-utils_src_configure ${mycmakeargs} \
-		|| die "cmake configuration failed"
+	cmake-utils_src_configure ${mycmakeargs}
 }
 
 src_install() {
@@ -79,14 +78,14 @@ src_install() {
 
 	# TODO: tutorials get installed twice ATM
 	if use doc ; then
-		cd "${CMAKE_BUILD_DIR}"
-		emake pdf || die "failed to build documentation"
-		cd "${S}"
+		cd "${CMAKE_BUILD_DIR}" || die
+		emake pdf
+		cd "${S}" || die
 		dodoc doc/texinfo/gmsh.pdf
 	fi
 
 	if use examples ; then
 		insinto /usr/share/doc/${PF}
-		doins -r demos tutorial || die "failed to install examples"
+		doins -r demos tutorial
 	fi
 }

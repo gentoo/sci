@@ -1,8 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
+
+inherit toolchain-funcs
 
 DESCRIPTION="parallel multi-FASTA file processing tool from TIGR Gene Indices project tools"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
@@ -13,24 +15,16 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 S=${WORKDIR}
 
-src_unpack(){
-	mkdir ${PN} || die
-	cd ${PN} || die "Failed to chdir"
-	unpack ${PN}.tar.gz || die
-}
-
 src_compile() {
-	cd ${PN} || die
-	emake || die "emake failed in "${S}"/${PN}"
+	emake \
+		CC="$(tc-getCC)" \
+		CFLAGS="${CFLAGS}" \
+		LDFLAGS="${LDFLAGS}"
 }
 
 src_install() {
-	cd ${PN} || die
-	dobin ${PN} || die "Failed to install ${PN} binary"
+	dobin ${PN}
 	newdoc README README.${PN}
 }

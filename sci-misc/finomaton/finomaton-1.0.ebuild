@@ -1,26 +1,28 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 # N.B. this is from CTAN
 
 DESCRIPTION="Simple tcl/tk script to draw finite state automata"
-HOMEPAGE="http://stud4.tuwien.ac.at/~e0225855/finomaton/finomaton.html"
-SRC_URI="http://stud4.tuwien.ac.at/~e0225855/finomaton/${P}.tar.gz"
+HOMEPAGE="https://www.ctan.org/pkg/finomaton"
+SRC_URI="http://mirrors.ctan.org/graphics/finomaton.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 # script only
 DEPEND=""
 # tex for metapost
 RDEPEND="
-	dev-lang/tk
+	dev-lang/tk:0
 	dev-texlive/texlive-metapost"
+
+S="${WORKDIR}"/${PN}
 
 src_install() {
 	dobin finomaton.tcl

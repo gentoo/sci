@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -15,7 +15,7 @@ LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples"
 
-RDEPEND=">=virtual/jre-1.5"
+RDEPEND=">=virtual/jre-1.5:*"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/MICS

@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 MY_P=${P/_alpha/alpha}
 
@@ -17,7 +17,7 @@ IUSE=""
 
 RDEPEND="
 	sys-libs/libtermcap-compat
-	sys-libs/readline"
+	sys-libs/readline:0="
 DEPEND="${RDEPEND}
 	>=sys-devel/bison-2.3
 	>=sys-devel/flex-2.5.35"
@@ -33,7 +33,7 @@ src_prepare() {
 }
 
 src_compile() {
-	emake
+	default
 	emake libfoma
 }
 

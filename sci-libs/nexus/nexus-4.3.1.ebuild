@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -18,17 +18,19 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="cbf doc fortran guile java python swig tcl xml"
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 RDEPEND="
 	sci-libs/hdf5
 	python?	( ${PYTHON_DEPS} )
-	xml?	( dev-libs/mxml )
-	cbf?	( sci-libs/cbflib )
-	guile?	( dev-scheme/guile )
+	xml? ( dev-libs/mxml )
+	cbf? ( sci-libs/cbflib )
+	guile? ( dev-scheme/guile:12 )
 " # N.B. the website says it depends on HDF4 too, but I find it builds fine without it
 
 DEPEND="${RDEPEND}
-	doc?	( app-doc/doxygen dev-tex/xcolor )
-	swig?	( dev-lang/swig )
+	doc? ( app-doc/doxygen dev-tex/xcolor )
+	swig? ( dev-lang/swig:0 )
 "
 
 pkg_setup() {
@@ -43,7 +45,8 @@ src_configure() {
 	# http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
 	use fortran && append-fflags -fPIC
 
-	econf	$(use_with doc doxygen) \
+	econf \
+		$(use_with doc doxygen) \
 		$(use_with fortran f90) \
 		$(use_with swig) \
 		$(use_with xml) \

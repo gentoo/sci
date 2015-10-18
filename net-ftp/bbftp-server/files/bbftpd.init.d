@@ -1,7 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 # Based on opensm script from openfabrics.org,
 #  Copyright (c) 2006 Mellanox Technologies. All rights reserved.

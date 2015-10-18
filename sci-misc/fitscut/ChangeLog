@@ -1,6 +1,6 @@
 # ChangeLog for sci-misc/fitscut
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   27 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> fitscut-1.4.4.ebuild,
   metadata.xml:

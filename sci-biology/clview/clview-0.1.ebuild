@@ -1,14 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
 DESCRIPTION="clview is an assembly .ace file viewer from TIGR Gene Indices project tools"
 HOMEPAGE="http://sourceforge.net/projects/clview"
-SRC_URI="http://sourceforge.net/projects/clview/files/source%20code/clview_src.tar.gz
-		ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/clview/clview_src.tar.gz
-		ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/clview/clview_linux_i386.tar.gz"
+SRC_URI="
+	http://sourceforge.net/projects/clview/files/source%20code/clview_src.tar.gz
+	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/clview/clview_src.tar.gz
+	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/clview/clview_linux_i386.tar.gz"
 
 # the ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/tgi_cpp_library.tar.gz
 # contain maybe an older but definitely larger set of .cpp files compared to clview/gcl/
@@ -68,6 +69,7 @@ DEPEND="=x11-libs/fox-1.6*"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}
+
 src_unpack() {
 	unpack clview_src.tar.gz
 }
@@ -98,10 +100,10 @@ src_prepare() {
 
 src_compile(){
 	cd "${S}"/clview || die
-	emake || die
+	default
 }
 
 src_install() {
 	# install at least the binaries for clview when we cannot compile it
-	dobin clview/clview || die "Failed to install clview binary"
+	dobin clview/clview
 }

@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI="3"
+EAPI=5
 
 inherit autotools eutils
 
@@ -17,19 +17,16 @@ IUSE=""
 
 RDEPEND="
 	dev-libs/popt
-	dev-scheme/guile
+	dev-scheme/guile:12
 	sci-libs/gsl"
 DEPEND="${DEPEND}"
 
 src_prepare() {
 	sed 's|#PF#|'${PF}'|g' "${FILESDIR}"/${PN}-docfiles.patch > ${PN}-docfiles.patch
 
-	epatch ${PN}-docfiles.patch
-	epatch "${FILESDIR}"/${PV}-gcc4.patch
-	epatch "${FILESDIR}"/${PV}-flags.patch
+	epatch \
+		${PN}-docfiles.patch \
+		"${FILESDIR}"/${PV}-gcc4.patch \
+		"${FILESDIR}"/${PV}-flags.patch
 	eautoreconf
-}
-
-src_install() {
-	emake DESTDIR="${D}" install  || die "make install failed"
 }

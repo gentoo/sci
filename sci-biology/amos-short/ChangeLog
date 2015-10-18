@@ -1,8 +1,0 @@
-# ChangeLog for sci-biology/amos-short
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
-  amos-short-0.9.3.ebuild:
-  Bump to EAPI=5, but drop KEYWORDS as SRC is
-  unavailable

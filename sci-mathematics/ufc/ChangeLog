@@ -1,6 +1,6 @@
 # ChangeLog for sci-mathematics/ufc
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   07 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   sci-mathematics/ufc: Add bitbucket to remote-id in metadata.xml

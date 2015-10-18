@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -37,8 +37,8 @@ IUSE="ieee1394 imagemagick sphinx2 test v4l wifi
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
-	virtual/jpeg
-	boost? ( dev-libs/boost )
+	virtual/jpeg:0
+	boost? ( dev-libs/boost:= )
 	festival? ( app-accessibility/festival )
 	gtk? ( x11-libs/gtk+:2 )
 	glut? ( media-libs/freeglut )
@@ -46,15 +46,15 @@ RDEPEND="
 	gsl? ( sci-libs/gsl )
 	ieee1394? ( sys-libs/libraw1394 media-libs/libdc1394 )
 	imagemagick? ( media-gfx/imagemagick )
-	java? ( virtual/jdk )
+	java? ( virtual/jdk:* )
 	opengl? ( virtual/opengl )
-	openssl? ( dev-libs/openssl )
+	openssl? ( dev-libs/openssl:0= )
 	python? ( ${PYTHON_DEPS} )
 	sphinx2? ( app-accessibility/sphinx2 )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
-	java? ( dev-lang/swig )
-	python? ( dev-lang/swig )"
+	java? ( dev-lang/swig:0 )
+	python? ( dev-lang/swig:0 )"
 
 pkg_setup () {
 	use python && python-single-r1_pkg_setup

@@ -1,6 +1,25 @@
 # ChangeLog for dev-python/matplotlib2tikz
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
+
+  13 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  matplotlib2tikz-0.2.0.ebuild, matplotlib2tikz-9999.ebuild:
+  dev-python/matplotlib2tikz: License switched to MIT
+
+  13 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  matplotlib2tikz-0.1.0.ebuild, matplotlib2tikz-9999.ebuild:
+  dev-python/matplotlib2tikz: Cleanup ebuilds
+
+*matplotlib2tikz-0.2.0 (13 Oct 2015)
+
+  13 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/matplotlib2tikz-0.2.0-setup.py.patch, +matplotlib2tikz-0.2.0.ebuild,
+  metadata.xml:
+  dev-python/matplotlib2tikz: Version bump
+
+  30 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  matplotlib2tikz-0.1.0.ebuild:
+  dev-python/matplotlib2tikz: Drop python3 (only supported in 9999)
 
   05 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
   dev-python/matplotlib2tikz: Add github to remote-id in metadata.xml

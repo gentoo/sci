@@ -1,0 +1,39 @@
+# ChangeLog for dev-python/ipyparallel
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*ipyparallel-4.0.2-r1 (27 Sep 2015)
+
+  27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipyparallel-4.0.2-r1.ebuild, -ipyparallel-4.0.2.ebuild,
+  ipyparallel-9999.ebuild:
+  dev-python/ipyparallel: Re-Fix Issue #473; Fixes Bug #561324
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipyparallel-4.0.2.ebuild:
+  dev-python/ipyparallel: Add ~x86 to KEYWORDS, fixes #561032
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipyparallel-9999.ebuild:
+  dev-python/ipyparallel: Add doc use flag
+
+*ipyparallel-4.0.0-r1 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipyparallel-4.0.0-r1.ebuild, -ipyparallel-4.0.0.ebuild,
+  ipyparallel-9999.ebuild:
+  dev-python/ipyparallel: Fix #473
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipyparallel-9999.ebuild:
+  dev-python/ipyparallel: Fix deps
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipyparallel-9999.ebuild:
+  dev-python/ipyparallel: Add missing dep
+
+*ipyparallel-4.0.0 (13 Aug 2015)
+*ipyparallel-9999 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipyparallel-4.0.0.ebuild, +ipyparallel-9999.ebuild, +metadata.xml:
+  dev-python/ipyparallel: Initial ebuild

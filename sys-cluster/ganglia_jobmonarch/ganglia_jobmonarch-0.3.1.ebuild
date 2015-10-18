@@ -1,26 +1,30 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI="4"
+EAPI=5
 
+PYTHON_COMPAT=( python2_7 )
 WEBAPP_OPTIONAL="yes"
-inherit eutils webapp depend.php
+inherit eutils webapp depend.php python-r1
 
 DESCRIPTION="Ganglia addons for Torque"
-HOMEPAGE="https://subtrac.sara.nl/oss/jobmonarch/"
-SRC_URI="ftp://ftp.sara.nl/pub/outgoing/jobmonarch/latest/${P}.tar.bz2"
+HOMEPAGE="https://oss.trac.surfsara.nl/jobmonarch/"
+SRC_URI="http://ftp.surfsara.nl/pub/outgoing/jobmonarch/${PV}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="vhosts"
+
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 WEBAPP_MANUAL_SLOT="yes"
 
 GANGLIA="ganglia"
 JOBMONARCH="ganglia_jobmonarch"
 
-DEPEND="
+DEPEND="${PYTHON_DEPS}
 	sys-cluster/ganglia
 	dev-lang/php[gd,xml,ctype]
 	media-libs/gd
@@ -46,21 +50,20 @@ src_install() {
 
 	dodir /var/lib/jobarchive
 
-	insopts -m0755
-	insinto /sbin
-	doins "${S}/jobmond/jobmond.py"
-	doins "${S}/jobarchived/jobarchived.py"
-	doins "${S}/jobarchived/pipe_jobarchived.py"
-	doins "${FILESDIR}/job_monarch_link.sh"
+	python_scriptinto /usr/sbin
+	python_foreach_impl python_doscript \
+		"${S}/jobmond/jobmond.py" \
+		"${S}/jobarchived/jobarchived.py" \
+		"${S}/jobarchived/pipe_jobarchived.py" \
+		"${FILESDIR}/job_monarch_link.sh"
 
 	newinitd "${FILESDIR}/jobmond.initd" jobmond
 	newinitd "${FILESDIR}/jobarchived.initd" jobarchived
 
-	cd "${S}/web/templates/job_monarch/"
-	rm images/*
-	rmdir images
+	cd "${S}/web/templates/job_monarch/" || die
+	rm -r images || die
 
-	cd "${S}"
+	cd "${S}" || die
 	webapp_src_preinst
 	insinto "${MY_HTDOCSDIR}"
 	doins -r web/*

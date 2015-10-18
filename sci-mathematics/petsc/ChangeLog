@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/petsc
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> petsc-3.5.3.ebuild,
+  petsc-3.6.0.ebuild:
+  sci-mathematics/petsc: Add subslot for fftw dependency
 
   23 Jun 2015; Matthias Maier <tamiko@gentoo.org> petsc-3.5.3.ebuild,
   petsc-3.6.0.ebuild:

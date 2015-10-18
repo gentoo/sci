@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit eutils flag-o-matic toolchain-funcs
 
@@ -11,7 +11,8 @@ RELEASE="${PN}-v${PV}-${RELDATE}"
 
 DESCRIPTION="Additional cd-hit itools: read-linker, cd-hit-lap and cd-hit-dup"
 HOMEPAGE="http://weizhong-lab.ucsd.edu/cd-hit/"
-SRC_URI="http://cdhit.googlecode.com/files/${RELEASE}.tgz
+SRC_URI="
+	http://cdhit.googlecode.com/files/${RELEASE}.tgz
 	http://weizhong-lab.ucsd.edu/cd-hit/wiki/doku.php?id=cd-hit-auxtools-manual -> cd-hit-auxtools-manual.html"
 
 SLOT="0"
@@ -34,11 +35,10 @@ src_prepare() {
 src_compile() {
 	local myconf=
 	use openmp && myconf="openmp=yes"
-	make ${myconf} || die "If compilation failed try gcc-4.6.4 or older, newer versions are too picky about quality of the source code"
+	emake ${myconf}
 }
 
 src_install() {
-	dodir /usr/bin
 	dobin read-linker cd-hit-lap cd-hit-dup
 	use doc && dodoc "${DISTDIR}"/cd-hit-auxtools-manual.html
 }

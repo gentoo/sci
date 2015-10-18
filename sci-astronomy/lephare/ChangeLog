@@ -1,6 +1,6 @@
 # ChangeLog for sci-astronomy/lephare
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   04 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org>
   -files/lephare-2.2-read-int.patch, lephare-2.2.ebuild:

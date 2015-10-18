@@ -1,6 +1,11 @@
 # ChangeLog for sci-astronomy/casapy-bin
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*casapy-bin-4.4.0 (10 Aug 2015)
+
+  10 Aug 2015; Joseph Jon Booker <joe@neoturbine.net> +casapy-bin-4.4.0.ebuild:
+  sci-astronomy/casapy-bin: version bump casapy-bin to 4.4.0
 
 *casapy-bin-4.2.2.30986_p1 (09 Sep 2014)
 

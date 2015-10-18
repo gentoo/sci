@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/dssp2pdb
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   11 Jan 2015; Justin Lecher <jlec@gentoo.org> dssp2pdb-0.03.ebuild:
   Fix S

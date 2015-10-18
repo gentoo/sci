@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -25,6 +25,6 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex"
 
-DOCS=( README )
+DOCS=( README.rst )
 
 PATCHES=( "${FILESDIR}"/${PN}-bison.patch )

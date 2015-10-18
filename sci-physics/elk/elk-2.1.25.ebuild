@@ -1,10 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
-inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs
+PYTHON_COMPAT=( python2_7 )
+
+inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs python-single-r1
 
 DESCRIPTION="All-electron full-potential linearised augmented-plane wave (FP-LAPW)"
 HOMEPAGE="http://elk.sourceforge.net/"
@@ -15,13 +17,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="-debug lapack libxc mpi openmp perl python test"
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 RDEPEND="
 	lapack? (
 		virtual/blas
 		virtual/lapack )
 	libxc? ( >=sci-libs/libxc-1.2.0-r1[fortran] )
 	perl? ( dev-lang/perl )
-	python? ( dev-lang/python )
+	python? ( ${PYTHON_DEPS} )
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"

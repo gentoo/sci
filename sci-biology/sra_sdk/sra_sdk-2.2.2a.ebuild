@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit eutils
 
@@ -19,10 +19,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static"
 
-DEPEND="app-shells/bash
+DEPEND="
+	app-shells/bash:*
 	sys-libs/zlib
 	app-arch/bzip2
-	dev-libs/libxml2"
+	dev-libs/libxml2:2="
 RDEPEND="${DEPEND}"
 
 # upstream says:
@@ -51,10 +52,10 @@ src_compile(){
 	# preserve the libs written directly into $DESTDIR by ar/ld/gcc
 	#mkdir -p "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib
 	#mv "${D}"/usr/lib64/* "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib/
-	make OUTDIR="${WORKDIR}"/objdir out || die
-	make dynamic || die
-	make release || die
-	emake || die
+	emake OUTDIR="${WORKDIR}"/objdir out
+	emake dynamic
+	emake release
+	default
 }
 
 src_install(){
@@ -68,10 +69,7 @@ src_install(){
 	elif use x86; then
 		builddir="i386"
 	fi
-	mkdir "${D}"/usr
-	mkdir "${D}"/usr/bin
-	mkdir -p "${D}"/usr/lib/ncbi
-	mkdir -p "${D}"/usr/ncbi/schema
+	dodir /usr/bin /usr/lib/ncbi /usr/ncbi/schema
 
 	OBJDIR="${WORKDIR}"/objdir/linux/gcc/dyn/"${builddir}"/rel
 
@@ -85,7 +83,7 @@ src_install(){
 	doins "${OBJDIR}"/lib/ncbi/*
 
 	# zap the subdirectory so that copying below does not fail
-	rm -rf "${OBJDIR}"/lib/ncbi
+	rm -rf "${OBJDIR}"/lib/ncbi || die
 
 	# BUG: neither the dolib nor cp --preserve=all work
 	#insinto /usr/lib64
@@ -94,9 +92,10 @@ src_install(){
 	for f in "${OBJDIR}"/lib/*; do cp --preserve=all "$f" "${D}"/usr/lib64/ || die "$f copying failed" ; done
 
 	insinto /usr/ncbi/schema
-	doins "${W}"/interfaces/align/*.vschema
-	doins "${W}"/interfaces/sra/*.vschema
-	doins "${W}"/interfaces/vdb/*.vschema
-	doins "${W}"/interfaces/ncbi/*.vschema
-	doins "${W}"/interfaces/insdc/*.vschema
+	doins \
+		"${W}"/interfaces/align/*.vschema \
+		"${W}"/interfaces/sra/*.vschema \
+		"${W}"/interfaces/vdb/*.vschema \
+		"${W}"/interfaces/ncbi/*.vschema \
+		"${W}"/interfaces/insdc/*.vschema
 }

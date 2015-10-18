@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/mlpack
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   16 Dec 2014; Christoph Junghans <ottxor@gentoo.org> mlpack-1.0.8.ebuild:
   fixed deps (bug #532752)

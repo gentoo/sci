@@ -1,6 +1,6 @@
 # ChangeLog for sci-misc/elmer-meta
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> elmer-meta-6.0_p4651.ebuild,
   elmer-meta-9999.ebuild:

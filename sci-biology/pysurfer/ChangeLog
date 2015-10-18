@@ -1,8 +1,24 @@
 # ChangeLog for sci-biology/pysurfer
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  13 Oct 2015; Horea Christian <h.chr@mail.ru> files/0.6-headless_build.patch:
+  sci-biology/pysurfer: removed deprecated patch section
+
+  12 Oct 2015; Horea Christian <h.chr@mail.ru> files/0.6-headless_build.patch:
+  sci-biology/pysurfer: updated patch
+
+  30 Sep 2015; Horea Christian <h.chr@mail.ru> +files/0.6-headless_build.patch:
+  added correspondng patch for =sci-biology/pysurfer-0.6
+
+*pysurfer-0.6 (30 Sep 2015)
+
+  30 Sep 2015; Horea Christian <h.chr@mail.ru> +pysurfer-0.6.ebuild:
+  sci-biology/pysurfer: version bump
+
+  30 Sep 2015; Horea Christian <h.chr@mail.ru> pysurfer-0.4.ebuild:
+  new manifest and archive name for sci-biology/pysurfer
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pysurfer-0.4.ebuild,
   pysurfer-9999.ebuild, +metadata.xml:
   Switch from git-2 to git-r3
-

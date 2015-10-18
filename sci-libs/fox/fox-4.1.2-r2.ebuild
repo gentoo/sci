@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -46,7 +46,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake -j1 || die "make failed"
+	emake -j1
 }
 
 src_test() {
@@ -60,10 +60,10 @@ src_install() {
 		-e's%\$libdir/lib\([^ ]\+\)\.a\>%-l\1%g' \
 		-e's%\(echo\( -I"$moddir"\)\?\) \$LIBS%\1 -L"$libdir" $LIBS%' \
 		FoX-config
-	emake -j1 DESTDIR="${D}" install || die "make install failed"
-	dodoc README.FoX.txt || die "dodoc failed"
+	emake -j1 DESTDIR="${D}" install
+	dodoc README.FoX.txt
 	if use doc; then
 		dodoc Changelog
-		dohtml -r DoX/ || die "installing the HTML docs failed"
+		dohtml -r DoX/
 	fi
 }

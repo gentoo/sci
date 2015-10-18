@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="Clustering software for microarray analysis"
 HOMEPAGE="http://bonsai.ims.u-tokyo.ac.jp/~mdehoon/software/cluster/software.htm#ctv"
@@ -13,9 +13,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X"
 
-DEPEND="X? ( x11-libs/motif )"
+DEPEND="X? ( x11-libs/motif:0= )"
 RDEPEND="
-	X? ( x11-misc/xdg-utils app-text/mupdf )"
+	X? (
+		x11-misc/xdg-utils
+		app-text/mupdf
+	)"
 
 RESTRICT="fetch"
 
@@ -42,7 +45,7 @@ src_configure() {
 src_install() {
 	default
 
-	mv "${ED}"/usr/bin/cluster{,3}
+	mv "${ED}"/usr/bin/cluster{,3} || die
 
 	insinto /usr/share/doc/${P}/examples
 	doins example/example.c example/README

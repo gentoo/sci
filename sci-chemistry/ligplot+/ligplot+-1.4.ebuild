@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit java-pkg-2
 
@@ -15,7 +15,7 @@ LICENSE="ligplot+"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-RDEPEND="virtual/jre"
+RDEPEND="virtual/jre:*"
 DEPEND=""
 
 RESTRICT="fetch"
@@ -25,10 +25,10 @@ S="${WORKDIR}"/LigPlus
 QA_PREBUILT="opt/${PN}/.*"
 
 pkg_nofetch() {
-	einfo "Please visit"
-	einfo "http://www.ebi.ac.uk/thornton-srv/software/LigPlus/applicence.html"
-	einfo "download ${A}"
-	einfo "and save in ${DISTDIR}"
+	elog "Please visit"
+	elog "http://www.ebi.ac.uk/thornton-srv/software/LigPlus/applicence.html"
+	elog "download ${A}"
+	elog "and save in ${DISTDIR}"
 }
 
 src_prepare() {

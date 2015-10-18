@@ -1,6 +1,6 @@
 # ChangeLog for app-portage/g-octave
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> g-octave-9999.ebuild:
   Switch from git-2 to git-r3

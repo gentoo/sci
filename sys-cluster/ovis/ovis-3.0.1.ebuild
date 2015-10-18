@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=4
+EAPI=5
 
 inherit cmake-utils eutils
 
@@ -20,9 +20,9 @@ RDEPEND="
 	>=dev-libs/boost-1.44
 	dev-libs/libevent
 	>=dev-libs/qjson-0.7.1
-	sys-libs/readline
-	>=dev-qt/qthelp-4.7.4[compat]
-	>=dev-qt/qtgui-4.7.4
+	sys-libs/readline:0=
+	>=dev-qt/qthelp-4.7.4:4=[compat]
+	>=dev-qt/qtgui-4.7.4:4=
 	avahi? ( >=net-dns/avahi-0.6.27 )"
 DEPEND="${RDEPEND}
 	avahi? ( >=net-dns/avahi-0.6.27 )"

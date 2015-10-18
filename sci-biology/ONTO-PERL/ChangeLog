@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/ONTO-PERL
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   24 Sep 2014; Justin Lecher <jlec@gentoo.org> -ONTO-PERL-1.31.ebuild,
   +ONTO-PERL-1.41.ebuild, metadata.xml:

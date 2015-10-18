@@ -1,6 +1,11 @@
 # ChangeLog for sci-physics/herwig++
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  30 Aug 2015; Jauhien Piatlicki <jauhien@gentoo.org> herwig++-2.7.0-r1.ebuild,
+  -herwig++-2.7.1.ebuild, metadata.xml:
+  remove version imported to the tree, rename c++0x USE to c++11 for
+  consistency
 
 *herwig++-2.7.1 (31 Aug 2014)
 

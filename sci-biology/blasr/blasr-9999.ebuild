@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -26,5 +26,5 @@ S="${WORKDIR}/blasr-${MY_HASH}"
 
 src_install() {
 	dodir /usr/bin
-	emake install ASSEMBLY_HOME="${ED}/usr" || die
+	emake install ASSEMBLY_HOME="${ED}/usr"
 }

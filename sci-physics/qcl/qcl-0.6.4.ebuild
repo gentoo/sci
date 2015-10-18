@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -8,18 +8,23 @@ inherit eutils
 
 DESCRIPTION="Quantum Computation Language with an emulator of a quantum computer"
 HOMEPAGE="http://tph.tuwien.ac.at/~oemer/qcl.html"
+SRC_URI="
+	http://tph.tuwien.ac.at/~oemer/tgz/${P}.tgz
+	doc? (
+		http://tph.tuwien.ac.at/~oemer/doc/structquprog.pdf
+		http://tph.tuwien.ac.at/~oemer/doc/qcldoc.pdf
+		http://tph.tuwien.ac.at/~oemer/doc/quprog.pdf
+	)"
+
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-SRC_URI="http://tph.tuwien.ac.at/~oemer/tgz/${P}.tgz
-	doc? ( http://tph.tuwien.ac.at/~oemer/doc/structquprog.pdf
-		http://tph.tuwien.ac.at/~oemer/doc/qcldoc.pdf
-		http://tph.tuwien.ac.at/~oemer/doc/quprog.pdf )"
-DEPEND="media-libs/plotutils
-	sys-libs/ncurses
-	sys-libs/readline"
+DEPEND="
+	media-libs/plotutils
+	sys-libs/ncurses:0=
+	sys-libs/readline:0="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
@@ -36,7 +41,5 @@ src_install() {
 		QCLDIR="${D}/usr/share/${PN}" \
 		QCLBIN="${D}/usr/bin" install
 	dodoc README CHANGES
-	if use doc; then
-		dodoc {structquprog,qcldoc,quprog}.pdf
-	fi
+	use doc && dodoc {structquprog,qcldoc,quprog}.pdf
 }

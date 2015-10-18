@@ -1,10 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=3
+EAPI=5
 
-inherit wxwidgets
+PYTHON_COMPAT=( python2_7 )
+
+inherit python-single-r1 wxwidgets
 
 DESCRIPTION="View and analyze genome sequences"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/projects/gbench/"
@@ -16,40 +18,45 @@ KEYWORDS=""
 #KEYWORDS="~amd64 ~x86"
 IUSE="xml ssl sybase-ct zlib lzo pcre gnutls freetds mysql berkdb python opengl glut icu expat sqlite hdf5 jpeg png tiff gif xpm sybase threads fltk cgi"
 
-DEPEND="sys-fs/fuse
-		app-arch/bzip2
-		dev-libs/lzo
-		pcre? ( dev-libs/libpcre )
-		net-libs/gnutls
-		ssl? ( dev-libs/openssl )
-		sybase-ct? ( dev-db/freetds )
-		mysql? ( virtual/mysql )
-		sys-libs/db
-		dev-lang/python
-		dev-libs/boost
-		virtual/opengl
-		virtual/glut
-		media-libs/glew
-		x11-libs/wxGTK
-		dev-libs/icu
-		dev-libs/expat
-		app-text/sablotron
-		xml? ( dev-libs/libxml2 )
-		dev-libs/libxslt
-		sqlite? ( dev-db/sqlite:3 )
-		sci-libs/hdf5
-		media-libs/tiff
-		media-libs/giflib
-		xpm?  ( x11-libs/libXpm
-				virtual/jpeg
-				media-libs/libpng sys-libs/zlib )
-		media-libs/freetype
-		x11-libs/fltk
-		dev-libs/xerces-c
-		dev-libs/xalan-c
-		dev-cpp/muParser
-		dev-util/cppunit"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="${DEPEND}"
+RDEPEND="${PYTHON_DEPS}
+	app-arch/bzip2
+	app-text/sablotron
+	dev-cpp/muParser
+	dev-libs/boost:=
+	dev-libs/expat
+	dev-libs/icu
+	dev-libs/libxslt
+	dev-libs/lzo
+	dev-libs/xalan-c
+	dev-libs/xerces-c
+	dev-util/cppunit
+	media-libs/freetype
+	media-libs/giflib
+	media-libs/glew
+	media-libs/tiff:0=
+	net-libs/gnutls
+	sci-libs/hdf5
+	sys-fs/fuse
+	sys-libs/db:*
+	virtual/glut
+	virtual/opengl
+	x11-libs/fltk
+	x11-libs/wxGTK:*
+	mysql? ( virtual/mysql )
+	pcre? ( dev-libs/libpcre )
+	sqlite? ( dev-db/sqlite:3= )
+	ssl? ( dev-libs/openssl:0= )
+	sybase-ct? ( dev-db/freetds )
+	xml? ( dev-libs/libxml2:2= )
+	xpm? (
+		x11-libs/libXpm
+		virtual/jpeg:0=
+		media-libs/libpng:0=
+		sys-libs/zlib
+	)
+"
+DEPEND="${RDEPEND}"
 
 # ensure in src_compile no --mandir=/usr/share/man is passed to configure, use the ebuild logic from ncbi-tools++

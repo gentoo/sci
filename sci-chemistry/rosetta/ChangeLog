@@ -1,6 +1,11 @@
 # ChangeLog for sci-chemistry/rosetta
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  03 Aug 2015; Justin Lecher <jlec@gentoo.org>
+  +files/rosetta-3.4-boost157.patch, +files/rosetta-3.4-gcc4.789.patch,
+  metadata.xml, rosetta-3.4.ebuild:
+  sci-chemistry/rosetta: Add patch for boost-1.57 and add support for gcc-4.9
 
   11 Jun 2013; Justin Lecher <jlec@gentoo.org> rosetta-3.4.ebuild:
   Fix: Ebuild calls die in a subshell
@@ -58,4 +63,3 @@
   Thanks to Hugo Mildenberger for intial ebuild 
   BOINC support is broken because current version of libboinc_zip.a sucks (TEXTREL, not
      compiled w/ fPIC)
-

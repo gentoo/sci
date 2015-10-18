@@ -1,0 +1,93 @@
+# ChangeLog for dev-python/notebook
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*notebook-4.0.6 (16 Oct 2015)
+
+  16 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> +notebook-4.0.6.ebuild,
+  -notebook-4.0.5.ebuild:
+  dev-python/notebook: Version bump to 4.0.6, drop 4.0.5
+
+  02 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-4.0.5.ebuild:
+  dev-python/notebook: Fix SRC_URI
+
+  03 Sep 2015; Sean Vig <sean.v.775@gmail.com> notebook-4.0.5.ebuild,
+  notebook-9999.ebuild:
+  dev-python/notebook: Add javascript tests
+
+*notebook-4.0.5 (22 Sep 2015)
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +notebook-4.0.5.ebuild:
+  dev-python/notebook: Version bump
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  notebook-4.0.4-r3.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: Add ~x86 to KEYWORDS, fixes #561032
+
+*notebook-4.0.4-r3 (17 Sep 2015)
+
+  17 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/notebook-4.0.4-Don-t-redirect-from-edit-to-files.patch,
+  +files/notebook-4.0.4-only-redirect-to-editor-for-text-documents.patch,
+  +files/notebook-4.0.4-set-mime-type-on-files.patch,
+  +files/notebook-4.0.4-set-model-mimetype-even-when-content-False.patch,
+  +notebook-4.0.4-r3.ebuild, -notebook-4.0.4-r2.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: Security fixes  http://seclists.org/oss-sec/2015/q3/558
+  https://bugs.gentoo.org/show_bug.cgi?id=560708
+
+  07 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Fix deps, >=mathjax-2.4 required
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Add deps for doc, fixes bug #559594
+
+*notebook-4.0.4-r2 (05 Sep 2015)
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +notebook-4.0.4-r2.ebuild, -notebook-4.0.4-r1.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: pandoc required for use doc, partially fixes bug #559594
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> notebook-9999.ebuild:
+  dev-python/notebook: Enable building docs
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Re-Fix #478
+
+*notebook-4.0.4-r1 (03 Sep 2015)
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +notebook-4.0.4-r1.ebuild, -notebook-4.0.4.ebuild, notebook-9999.ebuild:
+  dev-python/notebook: Implement pkg_preinst(); Fixes #478
+
+  03 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> -notebook-4.0.1.ebuild:
+  dev-python/notebook: Drop old
+
+  02 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Move setuptools from CDEPEND to DEPEND
+
+*notebook-4.0.1 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +notebook-4.0.1.ebuild:
+  dev-python/notebook: Bring back 4.0.1
+
+  01 Sep 2015; Sean Vig <sean.v.775@gmail.com> notebook-9999.ebuild:
+  dev-python/notebook: Use system mathjax
+
+*notebook-4.0.4 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +notebook-4.0.4.ebuild,
+  -notebook-4.0.1.ebuild:
+  dev-python/notebook: Version bump; Remove old
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Fix deps
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> notebook-9999.ebuild:
+  dev-python/notebook: Enable doc useflag
+
+*notebook-4.0.1 (13 Aug 2015)
+*notebook-9999 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +notebook-4.0.1.ebuild, +notebook-9999.ebuild:
+  dev-python/notebook: Initial ebuild

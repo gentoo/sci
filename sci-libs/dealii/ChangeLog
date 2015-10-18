@@ -1,6 +1,17 @@
 # ChangeLog for sci-libs/dealii
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
+
+  27 Aug 2015; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild:
+  sci-libs/dealii: update live ebuild
+
+  02 Aug 2015; Matthias Maier <tamiko@gentoo.org> -dealii-8.2.0.ebuild:
+  sci-libs/dealii - drop superseded version
+
+*dealii-8.3.0 (02 Aug 2015)
+
+  02 Aug 2015; Matthias Maier <tamiko@gentoo.org> +dealii-8.3.0.ebuild:
+  version bump
 
   03 Jul 2015; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild:
   sci-libs/dealii - change the recorded version and soversion in the live build

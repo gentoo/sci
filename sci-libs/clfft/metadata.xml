@@ -14,6 +14,11 @@
     clFFT is part of the clMath sofware library, which is the
     successor of APPML.
   </longdescription>
+  <use>
+    <flag name="client">
+      Build a command line clFFT client program.
+    </flag>
+  </use>
   <upstream>
     <remote-id type="github">clMathLibraries/clFFT</remote-id>
   </upstream>

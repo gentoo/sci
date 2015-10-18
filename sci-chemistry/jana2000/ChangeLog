@@ -1,6 +1,6 @@
 # ChangeLog for sci-chemistry/jana2000
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   23 Jun 2011; Justin Lecher <jlec@gentoo.org> jana2000-20071218.ebuild:
   Streamlined fortran-2 eclass usage

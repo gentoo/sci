@@ -1,6 +1,6 @@
 # ChangeLog for sci-biology/primerD
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   13 Feb 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   primerD-1.0.0.ebuild:

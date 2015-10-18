@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -14,12 +14,12 @@ SRC_URI="http://www.wishartlab.com/download/${MY_PN}.zip -> ${P}.zip"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="
 	dev-java/cos
-	>=virtual/jre-1.6"
+	>=virtual/jre-1.6:*"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_PN}

@@ -1,6 +1,6 @@
 # ChangeLog for sci-libs/fgsl
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Id$
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> fgsl-0.9.3.ebuild,
   fgsl-0.9.4.ebuild, metadata.xml:

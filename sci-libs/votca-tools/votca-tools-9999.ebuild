@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -9,12 +9,12 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 inherit cmake-utils eutils multilib
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://downloads.votca.googlecode.com/hg/${P}_pristine.tar.gz"
+	SRC_URI="https://github.com/${PN/-//}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+	S="${WORKDIR}/${P#votca-}"
 else
-	SRC_URI=""
-	inherit mercurial
-	EHG_REPO_URI="https://code.google.com/p/votca.tools/"
+	inherit git-r3
+	EGIT_REPO_URI="git://github.com/${PN/-//}.git https://github.com/${PN/-//}.git"
 	KEYWORDS=""
 fi
 
@@ -25,14 +25,15 @@ LICENSE="Apache-2.0"
 SLOT="0"
 IUSE="doc +fftw +gsl sqlite"
 
-RDEPEND="fftw? ( sci-libs/fftw:3.0 )
-	dev-libs/expat
-	gsl? ( sci-libs/gsl )
+RDEPEND="
 	dev-libs/boost:=
+	dev-libs/expat
+	fftw? ( sci-libs/fftw:3.0 )
+	gsl? ( sci-libs/gsl )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
-	doc? ( || ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot]	) )
+	doc? ( >=app-doc/doxygen-1.7.6.1[dot] )
 	>=app-text/txt2tags-2.5
 	virtual/pkgconfig"
 

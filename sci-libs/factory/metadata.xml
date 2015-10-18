@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<maintainer>
-<email>tom111@gmx.de</email>
-<name>Thomas Kahle</name>
-</maintainer>
-<longdescription lang="en">
+	<herd>sci</herd>
+	<maintainer>
+		<email>tom111@gmx.de</email>
+		<name>Thomas Kahle</name>
+	</maintainer>
+	<longdescription lang="en">
 factory is a template library to handle recursive polynomial data
 </longdescription>
-<use>
-	<flag name="singular">Enable support for <pkg>sci-mathematics/singular</pkg></flag>
-</use>
+	<use>
+		<flag name="singular">Enable support for <pkg>sci-mathematics/singular</pkg></flag>
+	</use>
 </pkgmetadata>

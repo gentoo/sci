@@ -1,21 +1,21 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Intended to facilitate the transition from refmac5 refinement to shelxh or shelxl refinement"
-HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/mtz2hkl/mtz2hkl.php"
-SRC_URI="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/${PN}/downloads/${PV}/${PN}_v${PV}.tar.gz"
+HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/research/programs/conv/mtz2x/mtz2hkl/"
+SRC_URI="http://shelx.uni-ac.gwdg.de/~tg/research/programs/conv/mtz2x/${PN}/downloads/${PV}/${PN}_v${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sci-libs/ccp4-libs"
+RDEPEND="sci-libs/libccp4"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${PN}

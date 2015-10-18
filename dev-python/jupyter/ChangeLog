@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/jupyter
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*jupyter-1.0.0 (02 Sep 2015)
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> +jupyter-1.0.0.ebuild,
+  +metadata.xml:
+  dev-python/jupyter: Initial commit

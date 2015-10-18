@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -10,7 +10,7 @@ inherit cmake-utils eutils python-single-r1
 
 DESCRIPTION="C++/Python interface of FEniCS"
 HOMEPAGE="https://launchpad.net/dolfin/"
-SRC_URI="http://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz"
+SRC_URI="https://launchpad.net/${PN}/0.x/${PV}/+download/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
