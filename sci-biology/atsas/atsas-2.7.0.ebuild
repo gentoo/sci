@@ -29,7 +29,7 @@ RDEPEND="
 "
 DEPEND="dev-util/patchelf"
 
-RESTRICT="fetch"
+RESTRICT="fetch strip"
 
 S="${WORKDIR}"/${P^^}-1
 
@@ -52,7 +52,7 @@ src_install() {
 	doexe bin/*
 
 	insinto /opt/${PN}
-	doins lib/*/atsas/{libedf.so*,libqtsoap.so*,libqwt*.so*,libsaxs*.so*}
+	doins lib/*/atsas/{libqwt*.so*,libsaxsdocument*.so*}
 
 	python_foreach_impl python_domodule lib/*/atsas/python*/dist-packages/*
 
