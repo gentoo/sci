@@ -3,6 +3,14 @@
 # $Id$
 
   19 Oct 2015; Horea Christian <h.chr@mail.ru> nilearn-9999.ebuild:
+  dev-python/nilearn: plot use flag in live ebuild as well
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> metadata.xml,
+  nilearn-0.1.4.1.ebuild:
+  dev-python/nilearn: added plot use flag, added MY_PV, removed deprecated
+  dependency version
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> nilearn-9999.ebuild:
   dev-python/nilearn: dropped empty IUSE, added PYTHON_USEDEP
 
   19 Oct 2015; Horea Christian <h.chr@mail.ru> nilearn-0.1.4.1.ebuild:
