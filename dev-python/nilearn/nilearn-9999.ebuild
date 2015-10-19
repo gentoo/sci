@@ -16,13 +16,12 @@ EGIT_REPO_URI="git://github.com/nilearn/nilearn"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/scikits_learn
+	sci-libs/scikits_learn[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.1.0[${PYTHON_USEDEP}]"
