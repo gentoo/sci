@@ -3,7 +3,8 @@
 # $Id$
 
 EAPI=5
-PYTHON_COMPAT=( python2_7 python{3_3,3_4} )
+
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
 inherit distutils-r1 git-r3
 
@@ -17,8 +18,8 @@ IUSE="doc test"
 
 DEPEND="
 	test? (
-		dev-python/pathlib[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
+		virtual/python-pathlib[${PYTHON_USEDEP}]
 	)
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	"
