@@ -1,0 +1,55 @@
+# ChangeLog for dev-python/matplotlib-venn
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  18 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-9999.ebuild:
+  dev-python/matplotlib-venn: added build-time dep
+
+  17 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  dev-python/matplotlib-venn: added uild-time dep
+
+  07 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-9999.ebuild:
+  dev-python/matplotlib-venn: no longer installing for test phase
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  dev-python/matplotlib-venn: removed test IUSE
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-9999.ebuild:
+  dev-python/matplotlib-venn: removed keywords from live ebuild
+
+*matplotlib-venn-9999 (06 Oct 2015)
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> +matplotlib-venn-9999.ebuild,
+  matplotlib-venn-0.11.ebuild:
+  dev-python/matplotlib-venn: removed test phase (upstream archive does not
+  provide test scripts)
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  dev-python/matplotlib-venn: removed useless blank line
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  dev-python/matplotlib-venn:
+
+  06 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  dev-python/matplotlib-venn: updated python test script
+
+  02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  modified test phase dev-python/matplotlib-venn:
+
+  02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  implemented install phase dev-python/matplotlib-venn:
+
+  02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  fixed license dev-python/matplotlib-venn:
+
+  02 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  added test use fag dev-python/matplotlib-venn:
+
+  01 Oct 2015; Horea Christian <h.chr@mail.ru> matplotlib-venn-0.11.ebuild:
+  added keyword dev-python/matplotlib-venn:
+
+*matplotlib-venn-0.11 (01 Oct 2015)
+
+  01 Oct 2015; Horea Christian <h.chr@mail.ru> +matplotlib-venn-0.11.ebuild,
+  +metadata.xml:
+  new ebuild dev-python/matplotlib-venn:
