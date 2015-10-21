@@ -3,23 +3,18 @@
 # $Id$
 
 EAPI=5
-PYTHON_COMPAT=( python2_7 python{3_3,3_4} )
+
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
 inherit distutils-r1
 
 DESCRIPTION="Interactive Parallel Computing with IPython"
 HOMEPAGE="http://ipython.org/"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/ipython/${PN}.git git://github.com/ipython/${PN}.git"
-else
-	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-fi
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
@@ -27,7 +22,7 @@ RDEPEND="
 	dev-python/decorator[${PYTHON_USEDEP}]
 	>=dev-python/pyzmq-14.4.0[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
-    !<dev-python/ipython-4.0.0[smp]
+	!<dev-python/ipython-4.0.0[smp]
 	>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
 	dev-python/jupyter_client[${PYTHON_USEDEP}]
 	"
