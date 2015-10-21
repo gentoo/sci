@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*ipywidgets-4.1.0 (21 Oct 2015)
+
+  21 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipywidgets-4.1.0.ebuild:
+  dev-python/ipywidgets: Version bump to 4.1.0
+
   03 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipywidgets-4.0.3,
   ipywidgets-9999.ebuild:
   dev-python/ipywidgets: Add javascript tests
