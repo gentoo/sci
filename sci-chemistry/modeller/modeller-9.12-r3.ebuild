@@ -27,7 +27,6 @@ INPATH="${EPREFIX}"/opt/modeller${ver}
 
 QA_PREBUILT="/opt/*"
 
-DISTUTILS_NO_PARALLEL_BUILD=true
 
 pkg_setup() {
 	case ${ARCH} in
