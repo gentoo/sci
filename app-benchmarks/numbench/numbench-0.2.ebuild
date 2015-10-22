@@ -29,7 +29,7 @@ RDEPEND="
 python_install_all() {
 	distutils-r1_python_install_all
 
-	python_parallel_foreach_impl python_newscript exec.py numbench
+	python_foreach_impl python_newscript exec.py numbench
 
 	insinto /usr/share/numbench/samples
 	doins samples/*.xml

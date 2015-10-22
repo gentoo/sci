@@ -33,8 +33,8 @@ src_install() {
 	"${EPREFIX}"/usr/bin/wsdl2py  wsdl/opal.wsdl || die
 
 	python_moduleinto AppService
-	python_parallel_foreach_impl python_domodule AppService_*.py
-	python_parallel_foreach_impl python_optimize
+	python_foreach_impl python_domodule AppService_*.py
+	python_foreach_impl python_optimize
 
 	dodoc README CHANGELOG etc/* *Client.py
 	dohtml docs/*

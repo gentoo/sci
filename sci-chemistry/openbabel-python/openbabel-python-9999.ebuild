@@ -63,7 +63,7 @@ src_configure() {
 }
 
 src_compile() {
-	python_parallel_foreach_impl cmake-utils_src_make bindings_python
+	python_foreach_impl cmake-utils_src_make bindings_python
 }
 
 src_test() {
