@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -20,7 +20,7 @@ IUSE=""
 RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	virtual/pyfits[${PYTHON_USEDEP}]
+	dev-python/pyfits[${PYTHON_USEDEP}]
 	sci-astronomy/healpix_cxx
 	sci-libs/cfitsio"
 DEPEND="${RDEPEND}
