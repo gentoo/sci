@@ -1,0 +1,25 @@
+ modules/resmf/hydropho_cal.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules/resmf/hydropho_cal.c b/modules/resmf/hydropho_cal.c
+index 1fde394..a889d08 100755
+--- a/modules/resmf/hydropho_cal.c
++++ b/modules/resmf/hydropho_cal.c
+@@ -184,7 +184,7 @@ float hydroscore(Hydroscale *scale, char residue){
+ }
+ 
+ /* function for copying string */
+-char * strndup (const char *s, size_t n)
++char * new_strndup (const char *s, size_t n)
+ {
+   char *result;
+   size_t len = strlen (s);
+@@ -206,7 +206,7 @@ char* substring(const char* str, size_t begin, size_t len)
+ {
+   if (str == 0 || strlen(str) == 0 || strlen(str) < begin || strlen(str) < (begin+len))
+     return 0;
+-  return (char *) strndup(str + begin, len);
++  return (char *) new_strndup(str + begin, len);
+ }
+ 
+ /* calculate the average value from begin to end in the given array */

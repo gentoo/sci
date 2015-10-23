@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -41,7 +41,9 @@ QA_PREBUILT="/opt/.*"
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-java.patch \
-		"${FILESDIR}"/${P}-system.patch
+		"${FILESDIR}"/${P}-system.patch \
+		"${FILESDIR}"/${P}-internal-name.patch \
+		"${FILESDIR}"/${P}-format-security.patch
 
 	rm "${S}"/src/FeatureRanges.java || die
 
