@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/symengine
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*symengine-9999 (25 Oct 2015)
+
+  25 Oct 2015; Michael Schubert <mschu.dev@gmail.com> +metadata.xml,
+  +symengine-9999.ebuild:
+  sci-libs/symengine: split out bindings to dev-python/symengine
