@@ -43,7 +43,7 @@ DEPEND="
 	dev-perl/JSON-Any
 	sci-biology/bioperl"
 RDEPEND="${DEPEND}
-	>=dev-db/mysql-5.0
+	>=virtual/mysql-5:*
 	>=www-servers/apache-2.2"
 
 S="${WORKDIR}"/manatee-"${PV}"_linux
