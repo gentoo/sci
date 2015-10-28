@@ -25,9 +25,15 @@ RDEPEND="${DEPEND}"
 DEST="/usr/share/"
 TEST="${WORKDIR}/test/"
 
+prepare_file() {
+	cp "${FILESDIR}/${1}" "${S}/" || die "could not copy '${1}'"
+	sed -i "s/\${PV}/${PV}/g" "${S}/${1}" || \
+		die "could not adjust path for '${1}'"
+}
+
 src_prepare() {
-	cp "${FILESDIR}/emscripten.config" "${S}/" || die "could not copy .config file"
-	cp "${FILESDIR}/99emscripten" "${S}/" || die "could not copy 99emscripten file"
+	prepare_file "99emscripten"
+	prepare_file "emscripten.config"
 }
 
 src_test() {
