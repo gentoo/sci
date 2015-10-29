@@ -1,1 +1,1 @@
-EM_CONFIG=/usr/share/emscripten-1.34.11/emscripten.config
+EM_CONFIG=/usr/share/emscripten-${PV}/emscripten.config
