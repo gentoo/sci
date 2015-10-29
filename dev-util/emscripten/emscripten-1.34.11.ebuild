@@ -18,7 +18,7 @@ LICENSE="UoI-NCSA"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
-	=dev-util/emscripten-fastcomp-${PV}
+	~dev-util/emscripten-fastcomp-${PV}
 	net-libs/nodejs"
 RDEPEND="${DEPEND}"
 
