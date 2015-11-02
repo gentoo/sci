@@ -24,7 +24,7 @@ priority=8888
 Afterwards, simply run `emerge --sync`, and Portage should seamlessly make all our ebuilds available.
 Many of our packages are available as live (`*-9999`) ebuilds, and also need manual unmasking in `/etc/portage/package.accept_keywords` before they can be emerged.
 
----
+		---
 Please fork! We will merge! See [this](https://github.com/gentoo-science/sci/blob/master/CONTRIBUTING.md) document for more instructions.
 
 Project lead by Horea Christian, please direct all email correspondence to h.chr@mail.ru.
