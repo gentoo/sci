@@ -1,0 +1,1 @@
+EM_CONFIG=/usr/share/emscripten-${PV}/emscripten.config

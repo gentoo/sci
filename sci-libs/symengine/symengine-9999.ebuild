@@ -4,9 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
-
-inherit git-r3 cmake-utils python-single-r1
+inherit git-r3 cmake-utils
 
 DESCRIPTION="Fast symbolic manipulation library, written in C++"
 HOMEPAGE="https://github.com/sympy/symengine"
@@ -16,19 +14,13 @@ EGIT_REPO_URI="https://github.com/sympy/symengine.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="boost openmp python threads"
-REQUIRED_USE="
-	python? ( ${PYTHON_REQUIRED_USE} )
-	?? ( openmp threads )"
+IUSE="boost openmp threads"
+REQUIRED_USE="?? ( openmp threads )"
 
 RDEPEND="
 	dev-libs/jemalloc
-	boost? ( dev-libs/boost )
-	python? ( dev-python/numpy[${PYTHON_USEDEP}] )"
-DEPEND="${RDEPEND}
-	python? (
-		dev-python/cython[${PYTHON_USEDEP}]
-		dev-python/setuptools[${PYTHON_USEDEP}] )"
+	boost? ( dev-libs/boost )"
+DEPEND="${RDEPEND}"
 
 CMAKE_BUILD_TYPE=Release
 
@@ -46,7 +38,6 @@ src_configure() {
 		-DCMAKE_INSTALL_PREFIX:PATH="${EPREFIX}"/usr
 		$(cmake-utils_use_with boost)
 		$(cmake-utils_use_with openmp)
-		$(cmake-utils_use_with python)
 	)
 
 	if use threads; then

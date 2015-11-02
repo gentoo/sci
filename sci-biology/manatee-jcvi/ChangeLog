@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/manatee-jcvi
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  27 Oct 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  manatee-jcvi-2.4.3.ebuild:
+  sci-biology/manatee-jcvi: depend virtual/mysql
 
   13 Nov 2014; Justin Lecher <jlec@gentoo.org> manatee-jcvi-2.4.3.ebuild,
   metadata.xml:

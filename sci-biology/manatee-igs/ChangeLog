@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  27 Oct 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  manatee-igs-2.23.1.ebuild:
+  sci-biology/manatee-igs: depend on virtual/mysql
+
   15 Jun 2015; Justin Lecher <jlec@gentoo.org> manatee-igs-2.23.1.ebuild:
   sci-biology/manatee-igs: Fix dependency problems due to recent mask of perl-
   core packages

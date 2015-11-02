@@ -25,7 +25,8 @@ RDEPEND="
 DEPEND="test? (
 		${RDEPEND}
 		dev-python/pytest[${PYTHON_USEDEP}]
-	)"
+	)
+	dev-python/setuptools[${PYTHON_USEDEP}]"
 
 python_test() {
 	py.test || die "Tests fail with ${EPYTHON}"

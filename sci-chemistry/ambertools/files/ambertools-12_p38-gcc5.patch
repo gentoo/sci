@@ -1,0 +1,28 @@
+ AmberTools/src/configure2 | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+index 913c50d..1232f6a 100755
+--- a/AmberTools/src/configure2
++++ b/AmberTools/src/configure2
+@@ -703,12 +703,14 @@ gnu)
+     # if gcc <= 4.2, fftw3 is not compiled and pbsa fft solver and rism
+     #   are disabled
+     if [ "$rism" != 'no' -o -n "$pbsaflag" ]; then
+-        if ( [ $gnu_majorversion -ge 4 ] && [ $gnu_minorversion -le 2 ] ) \
+-            || [ $gnu_majorversion -le 3 ]; then
+-            echo "ERROR: RISM and PBSA FFT solver require version 4.3 or higher of the GNU compiler."
+-            echo "       Please re-run configure with the '-nofftw3' flag to use this compiler:"
+-            echo "            `mod_command_args '-rism' '-nofftw3'`"
+-            exit 1
++        if  [ $gnu_majorversion -lt 5 ]; then
++            if ( [ $gnu_majorversion -ge 4 ] && [ $gnu_minorversion -le 2 ] ) \
++                || [ $gnu_majorversion -le 3 ]; then
++                echo "ERROR: RISM and PBSA FFT solver require version 4.3 or higher of the GNU compiler."
++                echo "       Please re-run configure with the '-nofftw3' flag to use this compiler:"
++                echo "            `mod_command_args '-rism' '-nofftw3'`"
++                exit 1
++            fi
+         fi
+     fi
+ 

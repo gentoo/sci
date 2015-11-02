@@ -25,7 +25,7 @@ RDEPEND="
 	sci-libs/cfitsio
 	sci-libs/gsl
 	sys-libs/zlib
-	virtual/pyfits[${PYTHON_USEDEP}]
+	dev-python/pyfits[${PYTHON_USEDEP}]
 	extra? (
 		media-libs/libpng:0
 		media-libs/netpbm

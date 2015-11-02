@@ -17,10 +17,6 @@ LICENSE="MIT"
 SLOT="0"
 IUSE=""
 
-PATCHES=(
-	"${FILESDIR}/${P}"-setup.py.patch
-)
-
 RDEPEND="dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-texlive/texlive-pictures"
 DEPEND="${RDEPEND}"

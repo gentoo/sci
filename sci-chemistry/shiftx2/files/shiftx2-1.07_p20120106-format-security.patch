@@ -1,0 +1,16 @@
+ modules/resmf/libc/misc.lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules/resmf/libc/misc.lib.c b/modules/resmf/libc/misc.lib.c
+index 0ef12a4..1e22424 100755
+--- a/modules/resmf/libc/misc.lib.c
++++ b/modules/resmf/libc/misc.lib.c
+@@ -71,7 +71,7 @@ void show_msg(msg)
+ char	*msg;
+ {
+ 
+-	fprintf(stdout, msg);
++	fprintf(stdout, "%s", msg);
+ 
+ }	/* show_msg */
+ 

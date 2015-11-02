@@ -54,7 +54,7 @@ src_test() {
 src_install() {
 	dobin ${PN}
 	python_moduleinto ${PN}
-	python_parallel_foreach_impl python_domodule *.py
-	python_parallel_foreach_impl python_optimize
+	python_foreach_impl python_domodule *.py
+	python_foreach_impl python_optimize
 	dodoc README
 }
