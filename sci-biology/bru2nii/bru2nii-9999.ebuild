@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/neurolabusc/Bru2Nii"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/neurolabusc/Bru2Nii.git"
 
-LICENSE="Artistic"
+LICENSE="|| ( Artistic GPL-1+ )"
 SLOT="0"
 IUSE="gui"
 
@@ -20,6 +20,13 @@ DEPEND="dev-lang/fpc
 	gui? ( dev-lang/lazarus )"
 
 src_compile() {
-	fpc Bru2.lpr
-	lazbuild -B Bru2Nii.lpr
+	fpc -Tlinux Bru2.lpr
+	lazbuild -B --lazarusdir="/usr/share/lazarus/" Bru2Nii.lpr
+	ls .
+}
+
+src_install() {
+	dobin Bru2 || die "dobin failed"
+	dobin Bru2Nii || die "dobin failed"
+	dodoc README.md
 }
