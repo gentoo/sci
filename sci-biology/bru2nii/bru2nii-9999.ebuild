@@ -21,12 +21,12 @@ DEPEND="dev-lang/fpc
 
 src_compile() {
 	fpc -Tlinux Bru2.lpr
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" Bru2Nii.lpr
-	ls .
+	use gui && lazbuild -B --lazarusdir="/usr/share/lazarus/" Bru2Nii.lpr
 }
 
 src_install() {
 	dobin Bru2 || die "dobin failed"
-	dobin Bru2Nii || die "dobin failed"
+	use gui && dobin Bru2Nii || die "dobin failed"
 	dodoc README.md
 }
+
