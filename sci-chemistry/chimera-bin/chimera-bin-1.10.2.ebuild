@@ -33,6 +33,7 @@ RDEPEND="
 	media-libs/tiff
 	media-libs/tiff:3
 	sci-libs/hdf5
+	sci-libs/xdrfile
 	sys-devel/gcc[openmp,fortran]
 	virtual/jpeg
 	virtual/glu
