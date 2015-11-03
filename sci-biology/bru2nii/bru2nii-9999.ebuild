@@ -22,7 +22,6 @@ DEPEND="dev-lang/fpc
 src_compile() {
 	fpc -Tlinux Bru2.lpr
 	lazbuild -B --lazarusdir="/usr/share/lazarus/" Bru2Nii.lpr
-	ls .
 }
 
 src_install() {
