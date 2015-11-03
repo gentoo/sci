@@ -125,7 +125,7 @@ multilib_src_configure() {
 			--enable-opal-multi-threads)
 	fi
 
-	if multilib_is_native_abi && use fortran; then
+	if use fortran; then
 		myconf+=(--enable-mpi-fortran=all)
 	else
 		myconf+=(--enable-mpi-fortran=no)
