@@ -3,6 +3,9 @@
 # $Id$
 
   03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii:
+
+  03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
   sci-biology/bru2nii: corrected die calls
 
   03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
