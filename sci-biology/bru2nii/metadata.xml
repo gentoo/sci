@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <longdescription lang="en">
+    This is a simple tool for converting Bruker ParaVision MRI data to
+    the NIfTI file format. It includes both a drag-and-drop graphical
+    interface (Bru2Nii) as well as a command line tool (Bru2). 
+  </longdescription>
+  <upstream>
+    <remote-id type="github">neurolabusc/Bru2Nii</remote-id>
+  </upstream>
+  <use>
+    <flag name="gui">Build graphical user interface</flag>
+  </use>
+</pkgmetadata>
+
