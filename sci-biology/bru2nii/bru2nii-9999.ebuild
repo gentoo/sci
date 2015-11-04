@@ -21,7 +21,9 @@ DEPEND="dev-lang/fpc
 
 src_compile() {
 	fpc -Tlinux Bru2.lpr || die
-	use gui && (lazbuild -B --lazarusdir="/usr/share/lazarus/" Bru2Nii.lpr || die)
+	if [[ -f gui ]] ; then
+		lazbuild -B --lazarusdir="/usr/share/lazarus/" Bru2Nii.lpr || die
+	fi
 }
 
 src_install() {
