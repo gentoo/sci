@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  05 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  pylibconfig2-0.2.4.ebuild, pylibconfig2-9999.ebuild:
+  dev-python/pylibconfig2: Add python3.5 support
+
 *pylibconfig2-0.2.4 (16 Jul 2015)
 
   16 Jul 2015; Marius Brehler <marbre@linux.sungazer.de>
