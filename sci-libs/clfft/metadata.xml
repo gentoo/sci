@@ -15,6 +15,9 @@
     successor of APPML.
   </longdescription>
   <use>
+    <flag name="callback_client">
+      Build a command line clFFT client program that tests callback functionality.
+    </flag>
     <flag name="client">
       Build a command line clFFT client program.
     </flag>

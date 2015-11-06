@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  06 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> clfft-9999.ebuild,
+  metadata.xml:
+  sci-libs/clfft: Add callback_client use flag
+
   06 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
   -files/clfft-2.4-client_CMakeLists.patch,
   -files/clfft-2.4-fix-cmake-config-install.patch,

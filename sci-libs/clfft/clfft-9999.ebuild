@@ -19,7 +19,7 @@ EGIT_BRANCH="develop"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS=""
-IUSE="+client examples test"
+IUSE="callback_client +client examples test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.6:*
@@ -47,6 +47,7 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
+		$(cmake-utils_use_build callback_client CALLBACK_CLIENT)
 		$(cmake-utils_use_build client CLIENT)
 		$(cmake-utils_use_build examples EXAMPLES)
 		$(cmake-utils_use_build test TEST)
