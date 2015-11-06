@@ -1,0 +1,27 @@
+# ChangeLog for sci-biology/bru2nii
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  05 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii: Updated USE conditional logic again
+
+  04 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii: updated conditional die implemntation
+
+  03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii:
+
+  03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii: corrected die calls
+
+  03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii: added use-flag conditioning
+
+  03 Nov 2015; Horea Christian <h.chr@mail.ru> bru2nii-9999.ebuild:
+  sci-biology/bru2nii: removed testing snippet
+
+*bru2nii-9999 (03 Nov 2015)
+
+  03 Nov 2015; Horea Christian <h.chr@mail.ru> +bru2nii-9999.ebuild,
+  +metadata.xml:
+  sci-biology/bru2nii: new ebuild
