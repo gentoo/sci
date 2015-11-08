@@ -1,0 +1,48 @@
+*** makefiles/default_rules.mk.orig	2015-10-28 22:11:07.903182744 -0400
+--- makefiles/default_rules.mk	2015-10-29 20:43:41.081851545 -0400
+***************
+*** 14,20 ****
+          LIBFILE = lib$(LIBNAME).so
+          #LDLIBS  += -l$(LIBNAME)
+        endif
+!       LDFLAGS += -Wl,-rpath=$(shell readlink -f $(KALDILIBDIR)) -L.
+        LDFLAGS += $(foreach dep,$(ADDLIBS), -L$(dir $(dep)) )
+        XDEPENDS = $(foreach dep,$(ADDLIBS), $(dir $(dep))/lib$(notdir $(basename $(dep))).so )
+      else  # Platform not supported
+--- 14,20 ----
+          LIBFILE = lib$(LIBNAME).so
+          #LDLIBS  += -l$(LIBNAME)
+        endif
+!       LDFLAGS += -L.
+        LDFLAGS += $(foreach dep,$(ADDLIBS), -L$(dir $(dep)) )
+        XDEPENDS = $(foreach dep,$(ADDLIBS), $(dir $(dep))/lib$(notdir $(basename $(dep))).so )
+      else  # Platform not supported
+***************
+*** 75,81 ****
+  	@{ result=0;			\
+  	for x in $(TESTFILES); do	\
+  	  printf "Running $$x ...";	\
+! 	  ./$$x >$$x.testlog 2>&1;	\
+  	  if [ $$? -ne 0 ]; then	\
+  	    echo "... FAIL $$x";	\
+  	    result=1;			\
+--- 75,81 ----
+  	@{ result=0;			\
+  	for x in $(TESTFILES); do	\
+  	  printf "Running $$x ...";	\
+! 	  LD_LIBRARY_PATH=$(KALDILIBDIR):${LD_LIBRARY_PATH} ./$$x >$$x.testlog 2>&1;	\
+  	  if [ $$? -ne 0 ]; then	\
+  	    echo "... FAIL $$x";	\
+  	    result=1;			\
+***************
+*** 99,101 ****
+--- 99,107 ----
+  # removing automatic making of "depend" as it's quite slow.
+  #.depend.mk: depend
+  -include .depend.mk
++ 
++ print-binfiles:
++ 	@echo $(addprefix $(shell pwd)/, $(BINFILES))
++ 
++ print-libfiles:
++ 	@echo $(addsuffix .so, $(addprefix $(shell pwd)/lib, $(LIBNAME)))
