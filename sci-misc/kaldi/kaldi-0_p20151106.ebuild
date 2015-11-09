@@ -12,7 +12,7 @@ SRC_URI="http://gentoo.akreal.net/distfiles/${P}.tar.xz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="doc test threads atlas cuda"
+IUSE="doc test threads -atlas cuda"
 KEYWORDS="~amd64"
 
 RDEPEND="
