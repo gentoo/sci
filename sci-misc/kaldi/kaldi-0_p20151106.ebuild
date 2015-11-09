@@ -30,7 +30,7 @@ REQUIRED_USE="!atlas? ( !threads )"
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
-RESTRICT="cuda? ( userpriv )"
+RESTRICT="test? ( cuda? ( userpriv ) )"
 
 src_prepare() {
 	epatch \
