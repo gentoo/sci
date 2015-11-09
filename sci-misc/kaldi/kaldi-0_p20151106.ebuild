@@ -87,5 +87,5 @@ src_test() {
 src_install() {
 	dolib.so $(make print-libfiles)
 	dobin $(make print-binfiles)
-	use doc && dohtml -r html/*
+	use doc && dodoc -r html
 }
