@@ -58,6 +58,7 @@ sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plot
 sci-astronomy/scamp:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
 sci-astronomy/sextractor:modelfit - Enable profile model fitting, needs sci-libs/atlas and sci-libs/fftw
 sci-astronomy/zpeg:gdl - Install GDL/IDL plotting routines
+sci-biology/bru2nii:gui - Build graphical user interface
 sci-biology/discrover:cairo - Use Cairo for sequence logo plotting capabilities
 sci-biology/discrover:dreme - Enable usage of DREME from the MEME package for seeding
 sci-biology/discrover:lto - Compile with link-time optimization (LTO)
@@ -161,6 +162,7 @@ sci-libs/cblas-reference:int64 - Build the 64 bits integer library
 sci-libs/clblas:client - Build a command line clBLAS client program.
 sci-libs/clblas:ktest - A command line tool for testing single clBLAS kernel.
 sci-libs/clblas:performance - Copy performance scripts that can measure and graph performance.
+sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
 sci-libs/dealii:arpack - Adds support for ARPACK (sci-libs/arpack)
@@ -239,6 +241,7 @@ sci-libs/parmetis:int64 - Build the 64 bits integer library (needed for > 2^31 v
 sci-libs/pastix:int64 - Build the 64 bits integer library
 sci-libs/pastix:starpu - Build and link with dev-libs/starpu
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
+sci-libs/scikits_image:pyamg - Enable support for algebraic solvers via dev-python/pyamg
 sci-libs/symengine:boost - Add support for boost (dev-libs/boost)
 sci-libs/trilinos:adolc - Add support for adolc (sci-libs/adolc)
 sci-libs/trilinos:arprec - Add support for arprec (sci-libs/arprec)
