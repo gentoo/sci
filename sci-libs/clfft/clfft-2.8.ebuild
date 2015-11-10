@@ -4,21 +4,17 @@
 
 EAPI=5
 
-inherit cmake-utils git-r3
+inherit cmake-utils
 
 MY_PN="clFFT"
 
 DESCRIPTION="Library containing FFT functions written in OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clFFT"
-EGIT_REPO_URI="
-	https://github.com/clMathLibraries/${MY_PN}.git
-	git://github.com/clMathLibraries/${MY_PN}.git
-	"
-EGIT_BRANCH="develop"
+SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="callback_client +client examples test"
 
 RDEPEND="
@@ -35,7 +31,7 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-S="${WORKDIR}/${P}/src"
+S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
@@ -53,4 +49,13 @@ src_configure() {
 		$(cmake-utils_use_build test TEST)
 	)
 	cmake-utils_src_configure
+}
+
+# Upstream fixed already adjusted their CMakeLists.txt. Thus, the (callback) client
+# is installed by cmake again with the next release.
+src_install() {
+	cmake-utils_src_install
+
+	use callback_client && dobin "${BUILD_DIR}/staging/clFFT-callback-client-2.8.0" 
+	use client && dobin "${BUILD_DIR}/staging/clFFT-client-2.8.0" 
 }

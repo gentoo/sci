@@ -9,7 +9,9 @@
   algorithms and applications.
 </longdescription>
   <use>
-    <flag name="freeimage">Enable support for image i/o via <pkg>media-libs/freeimage</pkg></flag>
+    <flag name="freeimage">Enable support for image i/o via
+  <pkg>media-libs/freeimage</pkg></flag>
+    <flag name="pyamg">Enable support for algebraic solvers via <pkg>dev-python/pyamg</pkg></flag>
   </use>
   <upstream>
     <remote-id type="pypi">scikit-image</remote-id>
