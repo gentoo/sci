@@ -17,7 +17,7 @@ SRC_URI="https://github.com/nipy/nipype/archive/0.11.0.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
