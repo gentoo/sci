@@ -18,5 +18,5 @@ KEYWORDS="~amd64"
 IUSE=""
 
 python_test() {
-	python setup.py test
+	esetup.py test
 }
