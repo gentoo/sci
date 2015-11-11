@@ -22,6 +22,7 @@ KEYWORDS=""
 IUSE="fsl spm afni"
 
 DEPEND="
+	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]

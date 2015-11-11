@@ -21,7 +21,7 @@ DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="${DEPEND}
-	virtual/python-imaging[${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[lapack,${PYTHON_USEDEP}]
