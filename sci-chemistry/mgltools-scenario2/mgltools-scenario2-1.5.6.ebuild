@@ -22,7 +22,7 @@ IUSE=""
 
 RDEPEND="
 	dev-python/simpy[${PYTHON_USEDEP}]
-	virtual/pmw[${PYTHON_USEDEP}]
+	virtual/python-pmw[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
 	dev-lang/swig"

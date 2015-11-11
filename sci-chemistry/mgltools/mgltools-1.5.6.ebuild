@@ -37,7 +37,7 @@ RDEPEND="${PLUG_DEP}
 	dev-python/simpy[${PYTHON_USEDEP}]
 	sci-libs/msms
 	virtual/python-imaging[tk,${PYTHON_USEDEP}]
-	virtual/pmw[${PYTHON_USEDEP}]
+	virtual/python-pmw[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}"
 
