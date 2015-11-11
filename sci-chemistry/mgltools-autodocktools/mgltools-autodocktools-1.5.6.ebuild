@@ -34,7 +34,7 @@ RDEPEND="
 	sci-chemistry/mgltools-pyglf[${PYTHON_USEDEP}]
 	sci-chemistry/mgltools-support[${PYTHON_USEDEP}]
 	sci-chemistry/mgltools-viewer-framework[${PYTHON_USEDEP}]
-	virtual/python-imaging[tk,${PYTHON_USEDEP}]
+	dev-python/pillow[tk,${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}
 	dev-lang/swig"
