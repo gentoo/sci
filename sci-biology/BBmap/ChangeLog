@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  12 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> BBmap-34.56.ebuild:
+  sci-biology/BBmap: provided bug #542700 is resolved we can use mpi.jar from
+  openmpi package
+
   09 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> BBmap-34.56.ebuild:
   new package, needs openmpi with java support to provide mpi.jar, see bug
   #542700

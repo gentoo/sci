@@ -15,7 +15,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-# needs USE=java, see bug #542700
 DEPEND="
 	sys-cluster/openmpi[java]
 	>=virtual/jdk-1.7:*
@@ -25,10 +24,12 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}"/bbmap
 
-#src_prepare(){
-#	# fix the line in build.xml to point to mpi.jar location
-#	# <property name="mpijar" location="/tmp/mpi.jar" ></property>
-#}
+src_prepare(){
+	# fix the line in build.xml to point to mpi.jar location
+	# <property name="mpijar" location="/tmp/mpi.jar" ></property>
+	# see bug #542700
+	sed -e 's#/usr/common/usg/hpc/openmpi/gnu4.6/sge/1.8.1/ib_2.1-1.0.0/lib/mpi.jar#/usr/share/openmpi/lib/mpi.jar#' -i build.xml
+}
 
 src_compile(){
 	ant dist || die
