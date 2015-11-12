@@ -12,7 +12,7 @@ SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_"${PV}".tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
@@ -29,6 +29,7 @@ src_prepare(){
 	# <property name="mpijar" location="/tmp/mpi.jar" ></property>
 	# see bug #542700
 	sed -e 's#/usr/common/usg/hpc/openmpi/gnu4.6/sge/1.8.1/ib_2.1-1.0.0/lib/mpi.jar#/usr/share/openmpi/lib/mpi.jar#' -i build.xml
+	sed -e 's#compiler="${jcompiler}" ##' -i build.xml
 }
 
 src_compile(){
