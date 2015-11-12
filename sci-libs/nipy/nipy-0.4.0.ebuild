@@ -17,13 +17,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	dev-python/numpy[${PYTHON_USEDEP}]"
-RDEPEND="${DEPEND}
-	sci-libs/scipy[${PYTHON_USEDEP}]
-	dev-python/sympy[${PYTHON_USEDEP}]
-	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]"
+RDEPEND="
+    sci-libs/scipy[${PYTHON_USEDEP}]
+    dev-python/sympy[${PYTHON_USEDEP}]
+    >=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
+    dev-python/numpy[${PYTHON_USEDEP}]"
+DEPEND="${RDEPEND}
+    dev-python/setuptools[${PYTHON_USEDEP}]"
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
