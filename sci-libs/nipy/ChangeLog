@@ -4,6 +4,10 @@
 
   12 Nov 2015; Horea Christian <h.chr@mail.ru> nipy-0.3.0.ebuild,
   nipy-0.4.0.ebuild:
+  sci-libs/nipy: removed leading spaces
+
+  12 Nov 2015; Horea Christian <h.chr@mail.ru> nipy-0.3.0.ebuild,
+  nipy-0.4.0.ebuild:
   sci-libs/nipy: updated dependency list
 
 *nipy-0.4.0 (11 Nov 2015)
