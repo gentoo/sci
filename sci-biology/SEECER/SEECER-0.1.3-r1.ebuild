@@ -30,6 +30,6 @@ src_prepare(){
 }
 
 src_install(){
-	dobin bin/seecer bin/random_sub_N bin/replace_ids bin/run_jellyfish.sh
+	dobin bin/seecer bin/random_sub_N bin/replace_ids bin/run_jellyfish.sh bin/run_seecer.sh
 	dodoc README "${DISTDIR}"/"${PN}"-manual.pdf
 }
