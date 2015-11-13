@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="tk"
 
-inherit distutils-r1 fdo-mime flag-o-matic subversion versionator
+inherit distutils-r1 eutils fdo-mime flag-o-matic subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system"
 HOMEPAGE="http://www.pymol.org/"
@@ -17,7 +17,7 @@ ESVN_REPO_URI="svn://svn.code.sf.net/p/pymol/code/trunk/pymol"
 LICENSE="PSF-2.2"
 SLOT="0"
 KEYWORDS=""
-IUSE="apbs web"
+IUSE="web"
 
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -29,11 +29,7 @@ DEPEND="
 	media-video/mpeg-tools
 	sys-libs/zlib
 	virtual/python-pmw[${PYTHON_USEDEP}]
-	apbs? (
-		sci-chemistry/apbs[${PYTHON_USEDEP}]
-		sci-chemistry/pdb2pqr[${PYTHON_USEDEP}]
-		!sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]
-	)
+	!sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]
 	web? ( !dev-python/webpy[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 
@@ -109,6 +105,7 @@ python_install_all() {
 pkg_postinst() {
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
+	optfeature "Electrostatic calculations" sci-chemistry/apbs sci-chemistry/pdb2pqr
 }
 
 pkg_postrm() {
