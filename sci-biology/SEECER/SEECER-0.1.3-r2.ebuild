@@ -18,11 +18,12 @@ KEYWORDS="~amd64"
 IUSE=""
 
 # although has bundled jellyfish-1.1.11 copy it just calls the executable during runtime
+# seems jellyfish-2 does not accept same commandline arguments
 DEPEND="
 	sci-libs/gsl
 	sci-biology/seqan"
 RDEPEND="${DEPEND}
-	sci-biology/jellyfish"
+	=sci-biology/jellyfish-1.1.11"
 
 S="${S}"/SEECER
 
