@@ -4,6 +4,8 @@
 
 EAPI=5
 
+inherit eutils
+
 DESCRIPTION="SEquencing Error Corrector for RNA-Seq reads"
 HOMEPAGE="http://sb.cs.cmu.edu/seecer/"
 SRC_URI="
@@ -27,6 +29,7 @@ S="${S}"/SEECER
 src_prepare(){
 	# http://seecer-rna-read-error-correction-mailing-list.21961.x6.nabble.com/Segmentation-fault-in-step-4-td41.html
 	cp -p "${FILESDIR}"/replace_ids.cc "${S}"/src/ || die
+	epatch "${FILESDIR}"/remove-hardcoded-paths.patch
 }
 
 src_install(){
