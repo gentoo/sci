@@ -29,3 +29,7 @@ RDEPEND="
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
 S="${WORKDIR}/${PN}-${MY_PV}"
+
+src_test() {
+	emake test-code
+}
