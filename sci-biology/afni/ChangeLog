@@ -2,6 +2,19 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Nov 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20130927.ebuild,
+  afni-0_pre20141224.ebuild, afni-9999.ebuild:
+  sci-biology/afni: added jpeg slot
+
+  15 Nov 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
+  sci-biology/afni: fixed header and leading spaces
+
+  15 Nov 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
+  sci-biology/afni:
+
+  15 Nov 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141224.ebuild:
+  sci-biology/afni: added more cmake flags
+
   14 Jul 2015; Horea Christian <h.chr@mail.ru> afni-9999.ebuild:
   no longer using CMake
 

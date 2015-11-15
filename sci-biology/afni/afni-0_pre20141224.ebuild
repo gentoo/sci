@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -23,7 +23,7 @@ RDEPEND="dev-libs/expat
 	media-video/mpeg-tools
 	sci-libs/gsl
 	sys-devel/llvm
-	virtual/jpeg
+	virtual/jpeg:0
 	x11-libs/libGLw
 	x11-libs/libXft
 	x11-libs/libXi
@@ -40,11 +40,11 @@ DEPEND="${RDEPEND}
 PATCH_DIR="debian/patches"
 
 src_prepare() {
-        while read PATCH_FILE; do
-                if  [[ $PATCH_FILE == cmake* ]] ; then
-                        epatch -p1 "${S}/${PATCH_DIR}/${PATCH_FILE}"
-                fi
-        done <"${S}/${PATCH_DIR}/series"
+	while read PATCH_FILE; do
+		if  [[ $PATCH_FILE == cmake* ]] ; then
+			epatch -p1 "${S}/${PATCH_DIR}/${PATCH_FILE}"
+		fi
+	done <"${S}/${PATCH_DIR}/series"
 }
 
 src_configure() {
@@ -71,7 +71,8 @@ src_configure() {
 		-DAFNI_INSTALL_POEMS_DIR:STRING=/share/afni/poems
 		-DAFNI_INSTALL_HTML_DIR:STRING=/share/afni/html
 		-DAFNI_INSTALL_ATLAS_DIR:STRING=/share/afni/atlases
+		-DBUILD_SHARED_LIBS:BOOL=ON
+		-DAFNI_BUILD_CORELIBS_ONLY:BOOL=OFF
 		)
 	cmake-utils_src_configure
 }
-
