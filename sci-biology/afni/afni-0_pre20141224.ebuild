@@ -71,6 +71,8 @@ src_configure() {
 		-DAFNI_INSTALL_POEMS_DIR:STRING=/share/afni/poems
 		-DAFNI_INSTALL_HTML_DIR:STRING=/share/afni/html
 		-DAFNI_INSTALL_ATLAS_DIR:STRING=/share/afni/atlases
+		-DBUILD_SHARED_LIBS:BOOL=ON
+		-DAFNI_BUILD_CORELIBS_ONLY:BOOL=OFF
 		)
 	cmake-utils_src_configure
 }
