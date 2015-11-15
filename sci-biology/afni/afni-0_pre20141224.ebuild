@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
@@ -40,11 +40,11 @@ DEPEND="${RDEPEND}
 PATCH_DIR="debian/patches"
 
 src_prepare() {
-        while read PATCH_FILE; do
-                if  [[ $PATCH_FILE == cmake* ]] ; then
-                        epatch -p1 "${S}/${PATCH_DIR}/${PATCH_FILE}"
-                fi
-        done <"${S}/${PATCH_DIR}/series"
+	while read PATCH_FILE; do
+		if  [[ $PATCH_FILE == cmake* ]] ; then
+			epatch -p1 "${S}/${PATCH_DIR}/${PATCH_FILE}"
+		fi
+	done <"${S}/${PATCH_DIR}/series"
 }
 
 src_configure() {
