@@ -8,13 +8,18 @@ inherit eutils
 
 DESCRIPTION="SEquencing Error Corrector for RNA-Seq reads"
 HOMEPAGE="http://sb.cs.cmu.edu/seecer/"
-SRC_URI="
+if [ "$PV" == "9999" ]; then
+	EGIT_REPO_URI="https://github.com/haisonle/SEECER.git"
+	KEYWORDS=""
+else
+	SRC_URI="
 	http://sb.cs.cmu.edu/seecer/downloads/"${P}".tar.gz
 	http://sb.cs.cmu.edu/seecer/downloads/manual.pdf -> "${PN}"-manual.pdf"
+	KEYWORDS="~amd64"
+fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE=""
 
 # although has bundled jellyfish-1.1.11 copy it just calls the executable during runtime
@@ -36,4 +41,8 @@ src_prepare(){
 src_install(){
 	dobin bin/seecer bin/random_sub_N bin/replace_ids bin/run_jellyfish.sh bin/run_seecer.sh
 	dodoc README "${DISTDIR}"/"${PN}"-manual.pdf
+}
+
+pkg_postinst(){
+	einfo "Note that the default kmer size 17 is terribly suboptimal, use k=31 instead"
 }
