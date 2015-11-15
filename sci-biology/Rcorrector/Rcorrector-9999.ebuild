@@ -30,3 +30,7 @@ src_prepare(){
 src_install(){
 	dobin rcorrector run_rcorrector.pl
 }
+
+pkg_postinst(){
+	einfo "Note that the default kmer size 23 is suboptimal, use k=31 instead"
+}
