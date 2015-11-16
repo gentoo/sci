@@ -31,7 +31,7 @@ SLOT="0"
 RDEPEND="
 	=sci-libs/votca-tools-${PV}
 	gromacs? ( sci-chemistry/gromacs:= )
-	hdf5? ( sci-libs/hdf5[cxx] )
+	hdf5? ( sci-libs/hdf5 )
 	dev-lang/perl
 	app-shells/bash:*"
 
