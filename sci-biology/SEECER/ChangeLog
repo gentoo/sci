@@ -2,6 +2,23 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  15 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  SEECER-0.1.3-r2.ebuild:
+  sci-biology/SEECER: add einfo() message that default kmer size 17 is
+  suboptimal
+
+  13 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  SEECER-0.1.3-r2.ebuild, files/remove-hardcoded-paths.patch:
+  sci-biology/SEECER: patch crappy shellscripts to at leats die on error;
+  require jellyfish-1.1.11
+
+*SEECER-0.1.3-r2 (13 Nov 2015)
+
+  13 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +SEECER-0.1.3-r2.ebuild, +files/remove-hardcoded-paths.patch,
+  -SEECER-0.1.3-r1.ebuild:
+  sci-biology/SEECER: remove hardcoded paths
+
   12 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   SEECER-0.1.3-r1.ebuild:
   sci-biology/SEECER: install also the main program wrapper

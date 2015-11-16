@@ -10,7 +10,8 @@ MY_PV=$(replace_all_version_separators '_')
 
 DESCRIPTION="Multivariate statistical analysis of codon and amino acid usage"
 HOMEPAGE="http://codonw.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/CodonWSourceCode_${MY_PV}.tar.gz"
+SRC_URI="mirror://sourceforge/${PN}/CodonWSourceCode_${MY_PV}.tar.gz
+		http://codonw.sourceforge.net/JohnPedenThesisPressOpt_water.pdf"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -37,5 +38,5 @@ src_install() {
 	for i in rscu cu aau raau tidy reader cutab cutot transl bases base3s dinuc cai fop gc3s gc cbi enc; do
 		dosym codonw /usr/bin/${i}-${PN}
 	done
-	dodoc *.txt
+	dodoc *.txt "${DISTDIR}"/JohnPedenThesisPressOpt_water.pdf
 }
