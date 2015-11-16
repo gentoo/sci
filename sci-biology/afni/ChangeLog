@@ -3,6 +3,9 @@
 # $Header: $
 
   16 Nov 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141212.ebuild:
+  sci-biology/afni: corrected tag
+
+  16 Nov 2015; Horea Christian <h.chr@mail.ru> afni-0_pre20141212.ebuild:
   sci-biology/afni: removed leading spaces
 
 *afni-0_pre20141212 (16 Nov 2015)
