@@ -119,7 +119,6 @@ sci-chemistry/openbabel:perl - Install Perl bindings.
 sci-chemistry/openbabel:python - Install Python bindings and PyBel.
 sci-chemistry/openbabel:ruby - Install Ruby bindings.
 sci-chemistry/openbabel:wxwidgets - Build Open Babel GUI.
-sci-chemistry/pymol:apbs - Pymol supprt for sci-chemistry/apbs
 sci-chemistry/pymol:web - Install Pymodule needed for web app support
 sci-chemistry/rosetta:boinc - compile rosetta as a rosetta@home client
 sci-chemistry/rosetta:boost - compile rosetta with boost supported code
