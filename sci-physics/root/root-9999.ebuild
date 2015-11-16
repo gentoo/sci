@@ -196,7 +196,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.32.00-chklib64.patch \
 		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
-		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
+		"${FILESDIR}"/${PN}-6.06.00-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch
 
 	# make sure we use system libs and headers
@@ -210,7 +210,7 @@ src_prepare() {
 	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" -print0 | \
 		xargs -0 rm || die
 	rm -r core/lzma/src/*.tar.gz || die
-	rm graf3d/gl/{inc,src}/gl2ps.* || die
+	rm graf3d/gl/src/gl2ps.* || die
 	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' \
 		graf3d/gl/Module.mk || die
 
@@ -397,6 +397,7 @@ cleanup_install() {
 }
 
 src_install() {
+	DOCS=($(find README/* -maxdepth 1 -type f))
 	default
 	dodoc README.md
 

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-chemistry</herd>
+  <herd>sci-biology</herd>
   <maintainer>
-    <email>jlec@gentoo.org</email>
+    <email>mmokrejs@fold.natur.cuni.cz</email>
+    <name>Martin Mokrejs</name>
   </maintainer>
-  <use>
-    <flag name="web">Install Pymodule needed for web app support</flag>
-  </use>
 </pkgmetadata>
