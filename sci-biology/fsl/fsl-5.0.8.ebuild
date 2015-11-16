@@ -130,3 +130,11 @@ src_install() {
 	doenvd "${FILESDIR}"/99fsl
 	rm "${ED}"/usr/bin/cluster || die
 }
+
+pkg_postinst() {
+	echo
+	einfo "Please run the following commands if you"
+	einfo "intend to use fsl from an existing shell:"
+	einfo "env-update && source /etc/porfile"
+	echo
+}
