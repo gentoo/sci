@@ -48,11 +48,6 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 S="${WORKDIR}/${MYP}"
 
 PATCHES=(
-	"${FILESDIR}"/0001-BUG-Wrap-TransformFileReader-TransformFileWriter.patch
-	"${FILESDIR}"/0002-COMP-Fixed-itkQuasiNewtonOptimizerv4-wrapping-warnin.patch
-	"${FILESDIR}"/0003-COMP-Fixed-itkGradientDescentOptimizerv4-wrapping-wa.patch
-	"${FILESDIR}"/0004-COMP-Warp-OptimizerParameterScalesEstimatorTemplate.patch
-	"${FILESDIR}"/0005-make-gdcm-helper-library-static.patch
 	"${FILESDIR}"/nrrdio-linking.patch
 )
 
