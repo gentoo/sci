@@ -28,7 +28,7 @@ S="${WORKDIR}"/all/"${PN}"_v"${PV}"
 
 src_compile(){
 	cd SOLiD-SNP-caller || die
-	emake
+	default
 
 	cd ../vcfPrinter
 	# TODO: install the *.rb files

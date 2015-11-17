@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -57,6 +57,8 @@ QA_PREBUILT="opt/.*"
 pkg_nofetch() {
 	elog "Please visit"
 	elog "http://www.cgl.ucsf.edu/chimera/download.html"
+	elog "or"
+	elog "http://www.cgl.ucsf.edu/chimera/olddownload.html"
 	elog "and download ${A} into ${DISTDIR}"
 }
 

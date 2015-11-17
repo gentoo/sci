@@ -32,7 +32,7 @@ src_prepare() {
 }
 
 src_compile() {
-	emake clean && emake
+	emake clean && default
 }
 
 src_install() {

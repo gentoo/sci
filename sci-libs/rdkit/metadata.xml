@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-chemistry</herd>
+  <maintainer>
+    <email>mschu.dev@gmail.com</email>
+    <name>Michael Schubert</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">rdkit/rdkit</remote-id>
+  </upstream>
+</pkgmetadata>

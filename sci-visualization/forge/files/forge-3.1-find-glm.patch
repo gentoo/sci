@@ -1,0 +1,32 @@
+From 25f7da5af693288f56897f772fbb6f89ab710197 Mon Sep 17 00:00:00 2001
+From: Marius Brehler <marius.brehler@tu-dortmund.de>
+Date: Wed, 16 Sep 2015 17:37:56 +0200
+Subject: [PATCH] find_package GLM or glm (>=glm-0.9.7.0). Fixes #49.
+
+---
+ src/CMakeLists.txt | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 5681e32..87cb3b0 100755
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -1,7 +1,14 @@
+ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+ 
+ IF(USE_SYSTEM_GLM)
+-    FIND_PACKAGE(GLM REQUIRED)
++    # Prior to GLM 0.9.7.0, the package is found by the FindGLM.cmake module.
++    # This was removed with GLM 0.9.7.0, instead a glm-config.cmake configuration
++    # file is provided. Therefore, both FIND_PACKAGE calls are necessary.
++    FIND_PACKAGE(GLM QUIET)
++    FIND_PACKAGE(glm QUIET)
++    IF(NOT glm_FOUND AND NOT GLM_FOUND)
++        MESSAGE(FATAL_ERROR "GLM Not Found")
++    ENDIF()
+ ELSE(USE_SYSTEM_GLM)
+     INCLUDE("${CMAKE_MODULE_PATH}/build_glm.cmake")
+ ENDIF(USE_SYSTEM_GLM)
+-- 
+2.4.6
+

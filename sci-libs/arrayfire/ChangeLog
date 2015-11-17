@@ -1,6 +1,78 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*arrayfire-3.1.3 (02 Nov 2015)
+
+  02 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.3.ebuild:
+  sci-libs/arrayfire: Version bump
+
+  06 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild,
+  metadata.xml:
+  sci-libs/arrayfire: Add unified use flag
+
+  06 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Add nonfree use flag
+
+*arrayfire-3.1.2 (27 Sep 2015)
+
+  27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.2.ebuild:
+  sci-libs/arrayfire: Version bump
+
+*arrayfire-3.1.1-r2 (20 Sep 2015)
+
+  20 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.1-r2.ebuild, -arrayfire-3.1.1-r1.ebuild, metadata.xml:
+  sci-libs/arrayfire: Add nonfree use flag
+
+  18 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -arrayfire-3.0.2.ebuild, -arrayfire-3.0_beta.ebuild, -arrayfire-3.1.0.ebuild,
+  -files/arrayfire-3.0_beta-FindBoostCompute.patch,
+  -files/arrayfire-3.0_beta-FindCBLAS.patch,
+  -files/arrayfire-3.0_beta-opencl_CMakeLists.patch:
+  sci-libs/arrayfire: Drop old
+
+*arrayfire-3.1.1-r1 (17 Sep 2015)
+
+  17 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.1-r1.ebuild, -arrayfire-3.1.1.ebuild, arrayfire-9999.ebuild,
+  metadata.xml:
+  sci-libs/arrayfire: Add graphics use flag; Minor fixes
+
+  14 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/arrayfire-9999-FindCBLAS.patch,
+  -files/arrayfire-9999-Try-PkgConf-first-to-find-LAPACKE.patch,
+  arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Remove patches (merged upstream)
+
+*arrayfire-3.1.1 (14 Sep 2015)
+
+  14 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.1.ebuild:
+  sci-libs/arrayfire: Version bump
+
+*arrayfire-3.1.0 (09 Sep 2015)
+
+  09 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.0.ebuild:
+  sci-libs/arrayfire: Version bump - Add 3.1.0 release
+
+*arrayfire-3.0.2 (08 Sep 2015)
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.0.2.ebuild, arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Add arrayfire-3.0.2; Minor improvments
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/arrayfire-9999-Try-PkgConf-first-to-find-LAPACKE.patch,
+  arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Fix issue #463
+
+  08 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -arrayfire-0.9999.ebuild:
+  sci-libs/arrayfire: Drop 0.9999, because releases are available
+
   22 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> arrayfire-9999.ebuild:
   sci-libs/arrayfire: Partitial fix for bug #463: Use system boost-compute
 

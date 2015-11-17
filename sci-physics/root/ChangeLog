@@ -2,6 +2,20 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  15 Nov 2015; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  +files/root-6.06.00-nobyte-compile.patch,
+  -files/root-6.00.01-nobyte-compile.patch, root-9999.ebuild:
+  sci-physics/root: Update to upstream changes. New nobyte-compile patch, paths
+  for gl2ps changed,  DOCS files changed.
+
+  27 Sep 2015; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  -files/root-6.00.01-geocad.patch, root-9999.ebuild:
+  sci-physics/root:  Remove geocad-patch, is now upstream.
+
+  27 Sep 2015; Oliver Freyermuth <o.freyermuth@googlemail.com> root-9999.ebuild:
+  sci-physics/root: Drop desktop-patch (upstreamed), 
+  add http-useflag enabling THttpServer.
+
   18 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.32.ebuild,
   -files/root-5.32.00-dotfont.patch, -files/root-5.34.05-nobyte-compile.patch,
   -files/root-5.34.26-ldflags.patch, metadata.xml:

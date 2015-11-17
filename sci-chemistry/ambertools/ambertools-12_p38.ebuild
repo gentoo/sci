@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-inherit eutils fortran-2 multilib toolchain-funcs
+inherit eutils fortran-2 multilib multiprocessing toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -54,6 +54,8 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
+		"${FILESDIR}"/${P}-gcc5.patch \
+		"${FILESDIR}"/${P}-format-security.patch \
 		"${FILESDIR}"/${PN}-12-gentoo.patch \
 		"${WORKDIR}"/bugfixes/bugfix.{14..38}
 	cd "${S}"/AmberTools/src || die
@@ -69,9 +71,7 @@ src_prepare() {
 		reduce \
 		ucpp-1.3 \
 		|| die
-}
 
-src_configure() {
 	cd "${S}"/AmberTools/src || die
 	sed \
 		-e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
@@ -94,6 +94,9 @@ src_configure() {
 		-e "s:arsecond_:arscnd_:g" \
 		-i sff/time.c sff/sff.h sff/sff.c || die
 
+}
+
+src_configure() {
 	local myconf="--no-updates"
 
 	use X || myconf="${myconf} -noX11"
@@ -114,10 +117,7 @@ src_configure() {
 }
 
 src_test() {
-	# Get the number of physical cores
-	local ncpus=$(grep "^core id" /proc/cpuinfo | sort -u | wc -l)
-	# Limit number of OpenMP threads
-	use openmp && export OMP_NUM_THREADS=$((1+${ncpus}/2))
+	use openmp && export OMP_NUM_THREADS=$(makeopts_jobs)
 
 	emake test
 }

@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-DESCRIPTION="genome annotation tool: view, modify, and store annotation for prokaryotic and eukaryotic genomes."
+DESCRIPTION="genome annotation tool: view, modify, and store annotation for prokaryotic and eukaryotic genomes"
 HOMEPAGE="http://manatee.sourceforge.net/jcvi/downloads.shtml"
 SRC_URI="http://downloads.sourceforge.net/project/manatee/manatee/manatee-2.4.3/manatee-2.4.3.tgz"
 
@@ -39,7 +39,7 @@ DEPEND=">=dev-libs/expat-1.95.8
 		#dev-perl/GD-Graph
 		#dev-perl/Date-Manip
 RDEPEND="${DEPEND}
-		>=dev-db/mysql-5.0
+		>=virtual/mysql-5:*
 		>=www-servers/apache-2.2"
 
 S="${WORKDIR}"/manatee-"${PV}"
@@ -49,5 +49,5 @@ src_configure(){
 }
 
 src_compile(){
-	emake
+	default
 }

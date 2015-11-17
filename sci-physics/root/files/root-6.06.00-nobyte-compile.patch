@@ -1,0 +1,39 @@
+diff --git a/bindings/pyroot/Module.mk b/bindings/pyroot/Module.mk
+index 8c2782d..f41e0aa 100644
+--- a/bindings/pyroot/Module.mk
++++ b/bindings/pyroot/Module.mk
+@@ -65,10 +65,6 @@ $(LPATH)/ROOTaaS/%: $(MODDIR)/ROOTaaS/%
+ 	@[ -d $(dir $@) ] || mkdir -p $(dir $@)
+ 	cp -R $< $@
+ endif
+-ROOTPYC      := $(ROOTPY:.py=.pyc)
+-ROOTPYO      := $(ROOTPY:.py=.pyo)
+-ROOTAASC     := $(ROOTAAS:.py=.pyc)
+-ROOTAASO     := $(ROOTAAS:.py=.pyo)
+ 
+ # used in the main Makefile
+ ALLHDRS      += $(patsubst $(MODDIRI)/%.h,include/%.h,$(PYROOTH))
+@@ -87,12 +83,9 @@ INCLUDEFILES += $(PYROOTDEP)
+ include/%.h:    $(PYROOTDIRI)/%.h
+ 		cp $< $@
+ 
+-%.pyc: %.py;    python -c 'import py_compile; py_compile.compile( "$<" )'
+-%.pyo: %.py;    python -O -c 'import py_compile; py_compile.compile( "$<" )'
+-
+-$(PYROOTLIB):   $(PYROOTO) $(PYROOTDO) $(ROOTPY) $(ROOTPYC) $(ROOTPYO) \
++$(PYROOTLIB):   $(PYROOTO) $(PYROOTDO) $(ROOTPY) \
+                 $(ROOTLIBSDEP) $(PYTHONLIBDEP) \
+-                $(ROOTAAS) $(ROOTAASC) $(ROOTAASO)
++                $(ROOTAAS)
+ 
+ 		@$(MAKELIB) $(PLATFORM) $(LD) "$(LDFLAGS)" \
+ 		  "$(SOFLAGS)" libPyROOT.$(SOEXT) $@ \
+@@ -138,7 +131,7 @@ clean::         clean-$(MODNAME)
+ 
+ distclean-$(MODNAME): clean-$(MODNAME)
+ 		@rm -f $(PYROOTDEP) $(PYROOTDS) $(PYROOTDH) $(PYROOTLIB) \
+-		   $(ROOTPY) $(ROOTPYC) $(ROOTPYO) $(PYROOTMAP) \
++		   $(ROOTPY) $(PYROOTMAP) \
+ 		   $(PYROOTPYD) $(PYTHON64DEP) $(PYTHON64)
+ 		@rm -rf $(LPATH)/ROOTaaS bin/ROOTaaS
+ 

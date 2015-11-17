@@ -15,13 +15,22 @@
   </longdescription>
   <use>
     <flag name="cpu">
-      Enable CPU Build.
+      Build CPU backend.
     </flag>
     <flag name="cuda">
-      Enable CUDA Build.
+      Build CUDA backend.
     </flag>
     <flag name="opencl">
-      Enable OpenCL Build.
+      Build OpenCL backend.
+    </flag>
+    <flag name="nonfree">
+      Build ArrayFire nonfree algorithms.
+    </flag>
+    <flag name="graphics">
+      Build with Forge graphics.
+    </flag>
+    <flag name="unified">
+      Build Backend-Independent API.
     </flag>
   </use>
 </pkgmetadata>

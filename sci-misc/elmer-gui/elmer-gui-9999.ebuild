@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -34,8 +34,8 @@ DEPEND="
 		)
 	matc? ( ~sci-libs/matc-${PV} )
 	vtk? ( >=sci-libs/vtk-5.0.0[qt4,python?] )
-	opencascade? ( >=sci-libs/opencascade-6.3 )
-	python? ( dev-python/pythonqt )
+	opencascade? ( >=sci-libs/opencascade-6.3:* )
+	python? ( dev-python/pythonqt[${PYTHON_USEDEP}] )
 	qwt? ( x11-libs/qwt:5 )
 	>=dev-qt/qtcore-4.3:4
 	>=dev-qt/qtopengl-4.3:4

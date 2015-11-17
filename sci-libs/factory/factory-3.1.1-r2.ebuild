@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
 IUSE="singular static-libs"
 
-DEPEND="dev-libs/gmp
+DEPEND="
+	dev-libs/gmp:0=
 	>=dev-libs/ntl-5.4.1"
 RDEPEND="${DEPEND}"
 

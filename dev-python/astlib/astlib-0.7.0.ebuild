@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -25,14 +25,12 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	virtual/pyfits[${PYTHON_USEDEP}]"
+	dev-python/astropy[${PYTHON_USEDEP}]"
 
 S="${WORKDIR}/${MYP}"
 
 python_install_all() {
-	use doc && dohtml docs/${MYPN}/*
-	if use examples; then
-		insinto /usr/share/doc/${PF}
-		doins -r examples
-	fi
+	use doc && HTML_DOCS=( docs/${MYPN}/. )
+	use examples && EXAMPLES=( examples/. )
+	distutils-r1_python_install_all
 }

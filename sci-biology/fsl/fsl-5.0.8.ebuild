@@ -8,32 +8,34 @@ inherit eutils toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
-SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
+SRC_URI="https://dev.gentoo.org/~jlec/distfiles/${P}-sources.tar.gz"
 
 LICENSE="FSL BSD-2 newmat"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-COMMON_DEPEND="media-libs/glu
-	media-libs/libpng
-	media-libs/gd
-	sys-libs/zlib
+COMMON_DEPEND="
 	dev-libs/boost
 	media-gfx/graphviz
+	media-libs/gd
+	media-libs/glu
+	media-libs/libpng:0=
+	sys-libs/zlib
 	"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
-	dev-lang/tcl
-	dev-lang/tk
+	dev-lang/tcl:0=
+	dev-lang/tk:0=
 	"
 
 S=${WORKDIR}/${PN}
 
 src_prepare(){
-	epatch "${FILESDIR}/${PN}"-5.0.8-setup.patch
-	epatch "${FILESDIR}/${PN}"-5.0.8-headers.patch
-	epatch "${FILESDIR}/${PN}"-5.0.8-fsldir_redux.patch
+	epatch \
+		"${FILESDIR}/${PN}"-5.0.8-setup.patch \
+		"${FILESDIR}/${PN}"-5.0.8-headers.patch \
+		"${FILESDIR}/${PN}"-5.0.8-fsldir_redux.patch
 
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
@@ -102,15 +104,15 @@ src_compile() {
 src_install() {
 	sed -i "s:\${FSLDIR}/tcl:/usr/libexec/fsl:g" \
 		$(grep -lI "\${FSLDIR}/tcl" bin/*) \
-		$(grep -l "\${FSLDIR}/tcl"  tcl/*)
+		$(grep -l "\${FSLDIR}/tcl"  tcl/*) || die
 	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
-		$(grep -l "\$FSLDIR/tcl" tcl/*)
+		$(grep -l "\$FSLDIR/tcl" tcl/*) || die
 
-	exeinto /usr/bin
-	doexe bin/*
+	dobin bin/*
 
 	insinto /usr/share/${PN}
-	doins -r doc data refdoc
+	doins -r data
+	dodoc -r doc/. refdoc
 
 	insinto /usr/libexec/fsl
 	doins -r tcl/*
@@ -126,5 +128,13 @@ src_install() {
 	#fi
 
 	doenvd "${FILESDIR}"/99fsl
-	rm "${D}"/usr/bin/cluster
+	rm "${ED}"/usr/bin/cluster || die
+}
+
+pkg_postinst() {
+	echo
+	einfo "Please run the following commands if you"
+	einfo "intend to use fsl from an existing shell:"
+	einfo "env-update && source /etc/porfile"
+	echo
 }

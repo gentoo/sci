@@ -1,0 +1,17 @@
+--- bbmap/current/jgi/UnicodeToAscii.java.ori	2015-11-12 20:24:13.704471341 +0100
++++ bbmap/current/jgi/UnicodeToAscii.java	2015-11-12 20:27:12.564474322 +0100
+@@ -20,14 +20,6 @@
+ public class UnicodeToAscii {
+ 	
+ 	public static void main(String[] args){
+-//		try {
+-//			System.err.println("AêñüC");
+-//			System.err.println(new String("AêñüC".getBytes("UTF8"), "UTF8"));
+-//		} catch (Exception e) {
+-//			// TODO Auto-generated catch block
+-//			e.printStackTrace();
+-//		}
+-//		assert(false);
+ 		
+ 		Timer t=new Timer();
+ 		t.start();

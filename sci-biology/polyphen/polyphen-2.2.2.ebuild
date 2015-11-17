@@ -13,9 +13,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 # 3.7GB
 # ftp://genetics.bwh.harvard.edu/pph2/bundled/polyphen-2.2.2-databases-2011_12.tar.bz2
 
@@ -24,4 +21,3 @@ RDEPEND="${DEPEND}"
 
 # 895MB
 # ftp://genetics.bwh.harvard.edu/pph2/bundled/polyphen-2.2.2-alignments-multiz-2009_10.tar.bz2
-

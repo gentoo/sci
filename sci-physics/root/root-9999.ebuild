@@ -195,11 +195,9 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.32.00-cfitsio.patch \
 		"${FILESDIR}"/${PN}-5.32.00-chklib64.patch \
 		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
-		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
-		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
-		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
-		"${FILESDIR}"/${PN}-6.00.01-geocad.patch
+		"${FILESDIR}"/${PN}-6.06.00-nobyte-compile.patch \
+		"${FILESDIR}"/${PN}-6.00.01-llvm.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -212,7 +210,7 @@ src_prepare() {
 	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" -print0 | \
 		xargs -0 rm || die
 	rm -r core/lzma/src/*.tar.gz || die
-	rm graf3d/gl/{inc,src}/gl2ps.* || die
+	rm graf3d/gl/src/gl2ps.* || die
 	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' \
 		graf3d/gl/Module.mk || die
 
@@ -309,6 +307,7 @@ src_configure() {
 			$(use_enable fftw fftw3)
 			$(use_enable geocad)
 			$(use_enable graphviz gviz)
+			$(use_enable http)
 			$(use_enable kerberos krb5)
 			$(use_enable ldap)
 			$(use_enable math genvector)
@@ -398,7 +397,8 @@ cleanup_install() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	DOCS=($(find README/* -maxdepth 1 -type f))
+	default
 	dodoc README.md
 
 	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root

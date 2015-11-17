@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/nbviewer
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*nbviewer-9999 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +nbviewer-9999.ebuild:
+  dev-python/nbviewer: Rename jupyter-nbviewer to nbviewer

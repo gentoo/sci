@@ -154,7 +154,7 @@ src_compile() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install
+	default
 
 	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README*
 	newdoc term/PostScript/README README-ps

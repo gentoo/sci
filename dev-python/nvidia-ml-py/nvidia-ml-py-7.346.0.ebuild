@@ -15,5 +15,5 @@ KEYWORDS="~amd64"
 LICENSE="BSD"
 SLOT="0"
 
-RDEPEND="=dev-util/nvidia-cuda-gdk-340.29[nvml]"
+RDEPEND="=dev-util/nvidia-cuda-gdk-346.46[nvml]"
 DEPEND="${RDEPEND}"

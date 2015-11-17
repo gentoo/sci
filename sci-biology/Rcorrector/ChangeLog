@@ -1,0 +1,18 @@
+# ChangeLog for sci-biology/Rcorrector
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  15 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  Rcorrector-9999.ebuild:
+  sci-biology/Rcorrector: add einfo() message that default kmer size 23 is
+  suboptimal
+
+  15 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  Rcorrector-9999.ebuild:
+  sci-biology/Rcorrector: respect CXXFLAGS
+
+*Rcorrector-9999 (13 Nov 2015)
+
+  13 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +Rcorrector-9999.ebuild, +metadata.xml:
+  sci-biology/Rcorrector: new package

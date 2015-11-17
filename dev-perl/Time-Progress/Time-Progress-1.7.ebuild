@@ -8,7 +8,7 @@ MODULE_AUTHOR="CADE"
 
 inherit perl-module
 
-DESCRIPTION="Elapsed and estimated finish time reporting."
+DESCRIPTION="Elapsed and estimated finish time reporting"
 
 LICENSE="|| ( Artistic GPL-1 GPL-2 GPL-3 )"
 SLOT="0"

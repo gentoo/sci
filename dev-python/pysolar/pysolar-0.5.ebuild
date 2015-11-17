@@ -21,7 +21,7 @@ IUSE="doc"
 
 DEPEND="doc? ( dev-python/numpydoc )"
 RDEPEND="
-	virtual/python-imaging[${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pygtk:2[${PYTHON_USEDEP}]

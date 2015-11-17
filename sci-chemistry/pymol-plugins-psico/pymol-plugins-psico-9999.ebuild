@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -21,7 +21,6 @@ IUSE="minimal"
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-biology/biopython[${PYTHON_USEDEP}]
-	sci-libs/mmtk[${PYTHON_USEDEP}]
 	!minimal? (
 		media-libs/qhull
 		media-video/mplayer
@@ -33,3 +32,7 @@ RDEPEND="
 		sci-chemistry/tm-align
 		sci-mathematics/diagrtb
 	)"
+
+pkg_post_inst() {
+	optfeature sci-libs/mmtk "Normal modes via mmtk"
+}

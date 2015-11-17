@@ -1,0 +1,15 @@
+Patch to fix location of examples:
+https://github.com/clMathLibraries/clFFT/pull/108
+
+Backported for 2.6.1 by Marius Brehler.
+--- src/examples/CMakeLists.txt
++++ src/examples/CMakeLists.txt
+@@ -47,6 +47,7 @@ FOREACH(FILE ${FILES})
+         OUTPUT_NAME ${EXAMPLE}
+         RUNTIME_OUTPUT_DIRECTORY ${DIR_NAME})
+ 
++    INSTALL(FILES ${FILE} DESTINATION "share/clFFT/examples")
+     INSTALL(TARGETS ${EXAMPLE_NAME}
+-        RUNTIME DESTINATION "bin${SUFFIX_BIN}/examples")
++        RUNTIME DESTINATION "share/clFFT/examples")
+ ENDFOREACH()

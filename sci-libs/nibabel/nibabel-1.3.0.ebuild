@@ -24,7 +24,7 @@ RDEPEND="
 	dev-python/nose[${PYTHON_USEDEP}]
 	dicom? (
 		sci-libs/pydicom[${PYTHON_USEDEP}]
-		virtual/python-imaging[${PYTHON_USEDEP}]
+		dev-python/pillow[${PYTHON_USEDEP}]
 		)
 	"
 

@@ -38,12 +38,12 @@ src_prepare() {
 }
 
 src_compile() {
-	emake
+	default
 	use doc && emake html
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	newbashcomp misc/${PN}.bashcomp ${PN}
 	dodoc AUTHORS ChangeLog NEWS README TODO doc/*.txt
 	use doc && dohtml *.html doc/*

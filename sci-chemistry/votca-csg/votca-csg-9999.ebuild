@@ -11,14 +11,14 @@ inherit bash-completion-r1 cmake-utils multilib
 IUSE="doc examples extras +gromacs hdf5"
 PDEPEND="extras? ( =sci-chemistry/${PN}apps-${PV} )"
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://downloads.votca.googlecode.com/hg/${P}.tar.gz
-		doc? ( http://downloads.votca.googlecode.com/hg/${PN}-manual-${PV}.pdf )
-		examples? (	http://downloads.votca.googlecode.com/hg/${PN}-tutorials-${PV}.tar.gz )"
+	SRC_URI="https://github.com/${PN/-//}/archive/v${PV}.tar.gz -> ${P}.tar.gz
+		doc? ( https://github.com/${PN/-//}-manual/releases/download/v1.3_rc1/${PN}-manual-${PV}.pdf )
+		examples? (	https://github.com/${PN/-//}-tutorials/archive/v${PV}.tar.gz -> ${PN}-tutorials-${PV}.tar.gz )"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+	S="${WORKDIR}/${P#votca-}"
 else
-	SRC_URI=""
-	inherit mercurial
-	EHG_REPO_URI="https://code.google.com/p/votca.csg/"
+	inherit git-r3
+	EGIT_REPO_URI="git://github.com/${PN/-//}.git https://github.com/${PN/-//}.git"
 	KEYWORDS=""
 fi
 
@@ -28,11 +28,12 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 
-RDEPEND="=sci-libs/votca-tools-${PV}
+RDEPEND="
+	=sci-libs/votca-tools-${PV}
 	gromacs? ( sci-chemistry/gromacs:= )
-	hdf5? ( sci-libs/hdf5[cxx] )
+	hdf5? ( sci-libs/hdf5 )
 	dev-lang/perl
-	app-shells/bash"
+	app-shells/bash:*"
 
 DEPEND="${RDEPEND}
 	doc? (
@@ -44,21 +45,25 @@ DEPEND="${RDEPEND}
 	>=app-text/txt2tags-2.5
 	virtual/pkgconfig"
 
-DOCS=( README NOTICE )
+DOCS=( README.md NOTICE CHANGELOG.md )
 
 src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		mercurial_src_unpack
-		use doc && mercurial_fetch \
-			https://code.google.com/p/votca.csg-manual/ \
-			votca.csg-manual \
-			"${WORKDIR}/${PN}-manual"
-		use examples && mercurial_fetch \
-			https://code.google.com/p/votca.csg-tutorials/ \
-			votca.csg-tutorials \
-			"${WORKDIR}/${PN}-tutorials"
+		git-r3_src_unpack
+		if use doc; then
+			EGIT_REPO_URI="git://github.com/${PN/-//}-manual.git https://github.com/${PN/-//}-manual.git"
+			EGIT_BRANCH="master"
+			EGIT_CHECKOUT_DIR="${WORKDIR}/${PN}-manual"\
+				git-r3_src_unpack
+		fi
+		if use examples; then
+			EGIT_REPO_URI="git://github.com/${PN/-//}-tutorials.git https://github.com/${PN/-//}-tutorials.git"
+			EGIT_BRANCH="master"
+			EGIT_CHECKOUT_DIR="${WORKDIR}/${PN#votca-}-tutorials"\
+				git-r3_src_unpack
+		fi
 	fi
 }
 
@@ -95,7 +100,8 @@ src_install() {
 	if use examples; then
 		insinto "/usr/share/doc/${PF}/tutorials"
 		docompress -x "/usr/share/doc/${PF}/tutorials"
-		doins -r "${WORKDIR}/${PN}"-tutorials*/*
+		rm -rf "${WORKDIR}/${PN#votca-}"-tutorials*/CMake*
+		doins -r "${WORKDIR}/${PN#votca-}"-tutorials*/*
 	fi
 }
 

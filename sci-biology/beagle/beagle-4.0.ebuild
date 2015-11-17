@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Genotype calling, genotype phasing, imputation of ungenotyped markers, identity-by-descent segment detection"
+DESCRIPTION="Genotype calling/phasing, imputation of ungenotyped markers, identity-by-descent segment detection"
 HOMEPAGE="http://faculty.washington.edu/browning/beagle/beagle.html"
 SRC_URI="http://faculty.washington.edu/browning/beagle/beagle.r1399.src.zip
 	http://faculty.washington.edu/browning/beagle/beagle.03Mar15.pdf
@@ -18,7 +18,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=">=virtual/jdk-1.7"
+DEPEND=">=virtual/jdk-1.7:*"
 RDEPEND="${DEPEND}
-	>=virtual/jdk-1.7
 	sci-biology/conform-gt"

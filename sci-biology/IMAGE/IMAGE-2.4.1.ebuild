@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-DESCRIPTION="Iterative Mapping and Assembly for Gap Elimination"
+DESCRIPTION="Iterative Mapping and Assembly for Gap Elimination using paired-end Illumina"
 HOMEPAGE="https://sourceforge.net/apps/mediawiki/image2"
 SRC_URI="http://sourceforge.net/projects/image2/files/IMAGE_version2.4.1_64bit.zip"
 

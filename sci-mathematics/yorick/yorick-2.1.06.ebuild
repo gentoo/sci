@@ -36,7 +36,7 @@ src_configure() {
 src_compile() {
 	# makefiles are not robust. (not interested in fixing)
 	emake prefix=/usr ysite Y_HOME=/usr/$(get_libdir)/yorick
-	emake config || die
+	emake config
 	emake -j1
 }
 

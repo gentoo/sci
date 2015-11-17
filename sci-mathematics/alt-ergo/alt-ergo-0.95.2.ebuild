@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -15,11 +15,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+ocamlopt gtk"
 
-DEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.8.2[gtk?,ocamlopt?]
-		dev-ml/zarith
-		gtk? ( >=x11-libs/gtksourceview-2.8
-				>=dev-ml/lablgtk-2.14[sourceview,ocamlopt?] )"
+DEPEND="
+	>=dev-lang/ocaml-3.12.1[ocamlopt?]
+	>=dev-ml/ocamlgraph-1.8.2[gtk?,ocamlopt?]
+	dev-ml/zarith
+	gtk? (
+		>=x11-libs/gtksourceview-2.8:2.0
+		>=dev-ml/lablgtk-2.14[sourceview,ocamlopt?]
+	)"
 RDEPEND="${DEPEND}"
 
 src_prepare(){
@@ -29,12 +32,12 @@ src_prepare(){
 		-i "${S}"/Makefile.in || die
 }
 src_compile(){
-	emake
+	default
 	use gtk && emake gui
 }
 
 src_install(){
-	emake install DESTDIR="${D}"
+	default
 	use gtk && emake install-gui DESTDIR="${D}"
 	dodoc README.md CHANGES
 }

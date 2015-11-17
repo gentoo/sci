@@ -10,7 +10,7 @@ MODULE_SECTION="Log-Cabin"
 
 inherit perl-module
 
-DESCRIPTION="Partial implementation of Log::Log4perl with reduced disk IO."
+DESCRIPTION="Partial implementation of Log::Log4perl with reduced disk IO"
 
 LICENSE="|| ( Artistic GPL-1 GPL-2 GPL-3 )"
 SLOT="0"

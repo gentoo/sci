@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    A prototype of the OpenGL interop library that can be used with
+    ArrayFire. The goal of Forge is to provide high performance OpenGL
+    visualizations for C/C++ applications that use CUDA/OpenCL. Forge
+    uses OpenGL &gt;=3.3 forward compatible contexts, so please make sure
+    you have capable hardware before trying it out.
+  </longdescription>
+  <upstream>
+    <remote-id type="github">arrayfire/forge</remote-id>
+  </upstream>
+</pkgmetadata>

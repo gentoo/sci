@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=4
+EAPI=5
 
 inherit eutils
 
@@ -10,7 +10,8 @@ MY_P="${PN}404"
 
 DESCRIPTION="Tandem Repeats Finder"
 HOMEPAGE="http://tandem.bu.edu/trf/trf.html"
-SRC_URI="http://tandem.bu.edu/trf/downloads/${MY_P}.linux
+SRC_URI="
+	http://tandem.bu.edu/trf/downloads/${MY_P}.linux
 	http://tandem.bu.edu/trf/trf.unix.help.html
 	http://tandem.bu.edu/trf/trf.definitions.html
 	http://tandem.bu.edu/trf/trf.whatnew.html"
@@ -37,7 +38,8 @@ src_install() {
 	#	doexe trf400.linuxgtk.exe || die
 	#	make_desktop_entry /opt/${PN}/trf400.linuxgtk.exe "Tandem Repeats Finder" || die
 	#fi
-	dodoc "${DISTDIR}/"trf.unix.help.html
-	dodoc "${DISTDIR}/"trf.definitions.html
-	dodoc "${DISTDIR}/"trf.whatnew.html
+	dodoc \
+		"${DISTDIR}/"trf.unix.help.html \
+		"${DISTDIR}/"trf.definitions.html \
+		"${DISTDIR}/"trf.whatnew.html
 }

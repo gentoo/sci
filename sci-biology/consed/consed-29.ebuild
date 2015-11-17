@@ -54,7 +54,7 @@ src_prepare() {
 
 src_compile() {
 	einfo "consed does not compile with sys-devel/gcc-4.6:* or newer (but 4.4.7 works)"
-	emake
+	default
 	emake -C misc/mktrace
 	emake -C misc/phd2fasta
 	(cd misc/454; $(tc-getCC) ${CFLAGS} ${LDFLAGS} sff2scf.c -o sff2scf) || die
@@ -84,7 +84,7 @@ src_install() {
 	sed \
 		-e 's#/wt1/gordon/genome#/usr/bin#' \
 		-i "${ED}"/usr/bin/fastq2Phrap.perl || die
-	dodoc README.txt *_announcement.txt || die
+	dodoc README.txt *_announcement.txt
 }
 
 pkg_postinst() {

@@ -51,6 +51,6 @@ src_install() {
 		python_domodule *.gif
 	}
 	python_foreach_impl installation
-	python_parallel_foreach_impl python_optimize
+	python_foreach_impl python_optimize
 	dodoc readme.txt
 }

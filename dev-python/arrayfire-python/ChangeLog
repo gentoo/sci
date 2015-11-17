@@ -1,0 +1,21 @@
+# ChangeLog for dev-python/arrayfire-python
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*arrayfire-python-3.1.20151111 (12 Nov 2015)
+
+  12 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-python-3.1.20151111.ebuild:
+  dev-python/arrayfire-python: Version bump
+
+  06 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  arrayfire-python-3.0.20150914.ebuild, arrayfire-python-9999.ebuild:
+  dev-python/arrayfire-python: Add python3.5 support
+
+*arrayfire-python-3.0.20150914 (16 Sep 2015)
+*arrayfire-python-9999 (16 Sep 2015)
+
+  16 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-python-3.0.20150914.ebuild, +arrayfire-python-9999.ebuild,
+  +metadata.xml:
+  dev-python/arrayfire-python: New package, ebuild wirtten by me

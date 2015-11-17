@@ -81,7 +81,7 @@ src_compile() {
 
 src_test() {
 	cd testing || die
-	emake
+	default
 	emake run
 }
 

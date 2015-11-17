@@ -6,7 +6,7 @@
 		<email>mmokrejs@fold.natur.cuni.cz</email>
 		<name>Martin Mokrejs</name>
 	</maintainer>
-    <longdescription>AutoEditor is a program that can automatically correct discrepancies in a
+	<longdescription>AutoEditor is a program that can automatically correct discrepancies in a
         multiple alignment by reanalyzing the chromatograms of the discrepant bases.
         The input to AutoEditor is the multiple alignment in contig form, the sequence
         and quality values in FASTA format, and the base call positions in

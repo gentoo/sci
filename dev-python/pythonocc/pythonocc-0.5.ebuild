@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE=""
 
-RDEPEND="sci-libs/opencascade"
+RDEPEND="sci-libs/opencascade:*"
 DEPEND="${RDEPEND}
 	dev-lang/swig:0"
 

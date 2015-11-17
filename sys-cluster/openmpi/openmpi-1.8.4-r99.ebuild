@@ -65,13 +65,13 @@ RDEPEND="
 	>=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}]
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1 )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
-	openmpi_fabrics_ofed? ( sys-infiniband/ofed )
+	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
 	openmpi_fabrics_open-mx? ( sys-cluster/open-mx )
-	openmpi_fabrics_psm? ( sys-infiniband/infinipath-psm )
+	openmpi_fabrics_psm? ( sys-infiniband/infinipath-psm:* )
 	openmpi_rm_pbs? ( sys-cluster/torque )
 	openmpi_rm_slurm? ( sys-cluster/slurm )
-	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm )
+	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm:* )
 	"
 DEPEND="${RDEPEND}"
 
@@ -125,7 +125,7 @@ multilib_src_configure() {
 			--enable-opal-multi-threads)
 	fi
 
-	if multilib_is_native_abi && use fortran; then
+	if use fortran; then
 		myconf+=(--enable-mpi-fortran=all)
 	else
 		myconf+=(--enable-mpi-fortran=no)
@@ -155,7 +155,7 @@ multilib_src_configure() {
 }
 
 multilib_src_install() {
-	emake DESTDIR="${D}" install
+	default
 
 	# Remove la files, no static libs are installed and we have pkg-config
 	find "${ED}"/usr/$(get_libdir)/ -type f -name '*.la' -delete
@@ -182,7 +182,7 @@ multilib_src_install_all() {
 	# Avoid collisions with libevent
 	rm -rf "${ED}"/usr/include/event2 &> /dev/null
 
-	dodoc README AUTHORS NEWS VERSION || die
+	dodoc README AUTHORS NEWS VERSION
 }
 
 multilib_src_test() {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci-mathematics</herd>
@@ -12,6 +12,9 @@
 	(PCA), Independent Component Analysis (ICA), Slow Feature Analysis (SFA),
 	Independent Slow Feature Analysis (ISFA), Growing Neural Gas (GNG), Factor
 	Analysis, Fisher Discriminant Analysis (FDA), Gaussian Classifiers, and
-	Restricted Boltzmann Machines. 
-</longdescription>
+	Restricted Boltzmann Machines.
+  </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">mdp-toolkit</remote-id>
+  </upstream>
 </pkgmetadata>

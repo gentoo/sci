@@ -1,0 +1,43 @@
+# ChangeLog for dev-python/nbconvert
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Add ~x86 to KEYWORDS, fixes #561032
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Add deps for doc, fixes bug #559594
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Readd accidentialy dropped python2_7
+
+*nbconvert-4.0.0-r1 (05 Sep 2015)
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/nbconvert-4.0.0-docs-Makefile.patch, +nbconvert-4.0.0-r1.ebuild,
+  -nbconvert-4.0.0.ebuild, nbconvert-9999.ebuild:
+  dev-python/nbconvert: Patch docs/Makefile, add pandoc dependency. Fixes bug
+  #559594.
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com>
+  +files/nbconvert-4.0.0-pandoc-highlighting.patch nbconvert-9999.ebuild:
+  dev-python/nbconvert: Use upstream patch for new pandoc versions
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Add note about pandoc
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Add doc use flag
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Fix deps
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> nbconvert-9999.ebuild:
+  dev-python/nbconvert: Fix deps for testing
+
+*nbconvert-4.0.0 (12 Aug 2015)
+*nbconvert-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +nbconvert-4.0.0.ebuild, +nbconvert-9999.ebuild:
+  dev-python/nbconvert: Initial ebuild

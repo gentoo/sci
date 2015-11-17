@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
@@ -17,5 +17,8 @@
 	the learning curve necessary to use different packages. Nipype is
 	creating a collaborative platform for neuroimaging software development
 	in a high-level language and addressing limitations of existing pipeline systems.
-</longdescription>
+  </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">nipy</remote-id>
+  </upstream>
 </pkgmetadata>

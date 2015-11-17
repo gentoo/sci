@@ -44,11 +44,11 @@ src_compile() {
 	mkdir exe || die "mkdir failed"
 	cd source/${MY_P} || die
 	emake clean
-	emake
+	default
 
 	if use fltk; then
 		cd "${S}"/source/DRAWshell${PV} || die
-		emake
+		default
 	fi
 }
 

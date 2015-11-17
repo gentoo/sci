@@ -26,5 +26,5 @@ S="${WORKDIR}/blasr-${MY_HASH}"
 
 src_install() {
 	dodir /usr/bin
-	emake install ASSEMBLY_HOME="${ED}/usr" || die
+	emake install ASSEMBLY_HOME="${ED}/usr"
 }

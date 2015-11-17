@@ -12,24 +12,24 @@ DESCRIPTION="NETGEN is an automatic 3d tetrahedral mesh generator"
 HOMEPAGE="http://www.hpfem.jku.at/netgen/"
 SRC_URI="mirror://sourceforge/project/${MY_PN}/${MY_PN}/${MY_PV}/${P}.tar.gz"
 
+SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE="-ffmpeg jpeg -mpi opencascade"
-SLOT="0"
 
-DEPEND="dev-tcltk/tix
+DEPEND="
+	dev-tcltk/tix
 	dev-tcltk/togl:1.7
 	virtual/opengl
 	x11-libs/libXmu
-	opencascade? ( sci-libs/opencascade )
+	opencascade? ( sci-libs/opencascade:* )
 	ffmpeg? ( media-video/ffmpeg )
-	jpeg? ( virtual/jpeg )
+	jpeg? ( virtual/jpeg:0= )
 	mpi? ( virtual/mpi ( || ( sci-libs/parmetis sci-libs/metis ) ) ) "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
-src_prepare()
-{
+src_prepare() {
 	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
 	epatch "${FILESDIR}/${PN}-5.x-compile-against-occ-6.5.x.patch"
 	epatch "${FILESDIR}/${PN}-5.x-missing-define.patch"
@@ -72,7 +72,7 @@ src_install() {
 	echo -e "NETGENDIR=${NETGENDIR} \nLDPATH=/usr/$(get_libdir)/Togl1.7" > ./99netgen
 	doenvd 99netgen
 
-	emake DESTDIR="${D}" install
+	default
 	mv "${D}"/usr/bin/{*.tcl,*.ocf} "${D}${NETGENDIR}" || die
 
 	# Install icon and .desktop for menu entry

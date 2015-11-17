@@ -7,7 +7,7 @@ EAPI=5
 PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils
 
-DESCRIPTION="Optimise three primary parameter options (K, -exp_cov, -cov_cutoff) for Velvet sequence assembler."
+DESCRIPTION="Optimise three primary parameter options (K, -exp_cov, -cov_cutoff) for Velvet sequence assembler"
 HOMEPAGE="http://www.vicbioinformatics.com/software.velvetoptimiser.shtml"
 SRC_URI="http://www.vicbioinformatics.com/"${P}".tar.gz"
 

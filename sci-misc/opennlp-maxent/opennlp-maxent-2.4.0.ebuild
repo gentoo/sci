@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,7 +11,7 @@ inherit eutils java-pkg-2 java-ant-2
 MY_PN="maxent"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="Maximum entropy model implementation for opennlp."
+DESCRIPTION="Maximum entropy model implementation for opennlp"
 HOMEPAGE="http://maxent.sf.net/"
 SRC_URI="mirror://sourceforge/maxent/${MY_P}.tgz"
 
@@ -22,10 +22,10 @@ IUSE="${IUSE}"
 
 COMMON_DEP="
 	dev-java/java-getopt
-	dev-java/trove"
-DEPEND=">=virtual/jdk-1.4
+	dev-java/trove:0"
+DEPEND=">=virtual/jdk-1.4:*
 	${COMMON_DEP}"
-RDEPEND=">=virtual/jre-1.4
+RDEPEND=">=virtual/jre-1.4:*
 	${COMMON_DEP}"
 
 EANT_BUILD_TARGET="compile package"

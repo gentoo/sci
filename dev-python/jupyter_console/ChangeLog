@@ -1,0 +1,46 @@
+# ChangeLog for dev-python/jupyter_console
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*jupyter_console-4.0.3 (11 Oct 2015)
+
+  11 Oct 2015; Sean Vig <sean.v.775@gmail.com> +jupyter_console-4.0.3.ebuild,
+  -jupyter_console-4.0.2.ebuild:
+  dev-python/jupyter_console: Version bump to 4.0.3
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_console-9999.ebuild:
+  dev-python/jupyter_console: Add ~x86 to KEYWORDS, fixes #561032
+
+*jupyter_console-4.0.2 (07 Sep 2015)
+
+  07 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_console-4.0.2.ebuild, -jupyter_console-4.0.1.ebuild:
+  dev-python/jupyter_console: Version bump; Drop old
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_console-9999.ebuild:
+  dev-python/jupyter_console: Add doc use flag
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_console-9999.ebuild:
+  dev-python/jupyter_console: Fix testing deps
+
+*jupyter_console-4.0.1 (01 Sep 2015)
+
+  01 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_console-4.0.1.ebuild, -jupyter_console-4.0.0.ebuild:
+  dev-python/jupyter_console: Version bump; Drop old
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_console-9999.ebuild:
+  dev-python/jupyter_console: Fix deps
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_console-9999.ebuild:
+  dev-python/jupyter_console: Drop MY_PN, add python_test
+
+*jupyter_console-4.0.0 (12 Aug 2015)
+*jupyter_console-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_console-4.0.0.ebuild, +jupyter_console-9999.ebuild, +metadata.xml:
+  dev-python/jupyter_console: Initial ebuild

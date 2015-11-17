@@ -1,0 +1,100 @@
+ AmberTools/src/mdgx/ChargeFit.c  | 4 ++--
+ AmberTools/src/nab/cgen.c        | 2 +-
+ AmberTools/src/nab/traceback.c   | 2 +-
+ AmberTools/src/ptraj/cluster.c   | 2 +-
+ AmberTools/src/ptraj/interface.c | 6 +++---
+ AmberTools/src/semantics/parse.c | 2 +-
+ 6 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/AmberTools/src/mdgx/ChargeFit.c b/AmberTools/src/mdgx/ChargeFit.c
+index fccf5d0..fe4afac 100644
+--- a/AmberTools/src/mdgx/ChargeFit.c
++++ b/AmberTools/src/mdgx/ChargeFit.c
+@@ -77,9 +77,9 @@ static void AssignGridTopologies(fset *myfit, prmtop *tp)
+   }
+   for (i = 0; i < myfit->ngrd; i++) {
+     if (myfit->tpname.map[i][0] == '\0') {
+-      sprintf(myfit->tpname.map[i], tp->source);
++      sprintf(myfit->tpname.map[i], "%s", tp->source);
+       if (myfit->eprule.map[i][0] == '\0' && tp->eprulesource[0] != '\0') {
+-	sprintf(myfit->eprule.map[i], tp->eprulesource);
++	sprintf(myfit->eprule.map[i], "%s", tp->eprulesource);
+       }
+     }
+   }
+diff --git a/AmberTools/src/nab/cgen.c b/AmberTools/src/nab/cgen.c
+index 6254d44..e206879 100644
+--- a/AmberTools/src/nab/cgen.c
++++ b/AmberTools/src/nab/cgen.c
+@@ -1642,7 +1642,7 @@ static	char	*CG_gentype( char *csp, NODE_T *npt )
+ 		strcpy( csp, tname );
+ 		csp += strlen( csp );
+ 	}else
+-		fprintf( cg_cfp, tname );
++		fprintf( cg_cfp, "%s", tname );
+ 	needspace = TRUE;
+ 	return( csp );
+ }
+diff --git a/AmberTools/src/nab/traceback.c b/AmberTools/src/nab/traceback.c
+index f916474..e376552 100644
+--- a/AmberTools/src/nab/traceback.c
++++ b/AmberTools/src/nab/traceback.c
+@@ -6,7 +6,7 @@
+ int	rt_errormsg( int fatal, char msg[] )
+ {
+ 
+-	fprintf( stderr, msg );
++	fprintf( stderr, "%s", msg );
+ 	if( fatal )
+ 		exit( 1 );
+ 	return(0);
+diff --git a/AmberTools/src/ptraj/cluster.c b/AmberTools/src/ptraj/cluster.c
+index 2cb60f0..5e0f33d 100644
+--- a/AmberTools/src/ptraj/cluster.c
++++ b/AmberTools/src/ptraj/cluster.c
+@@ -1240,7 +1240,7 @@ void ClusteringMergeNames(PtrajClustering* This, ClusterNode* MergeNodeA, Cluste
+   {
+     return;
+   }
+-  sprintf(Temp, ClusterB->Name);
++  sprintf(Temp, "%s", ClusterB->Name);
+   sprintf(ClusterB->Name, "(%s,%s)", ClusterA->Name, Temp);
+ 
+ }
+diff --git a/AmberTools/src/ptraj/interface.c b/AmberTools/src/ptraj/interface.c
+index 4087fa7..1ee4273 100644
+--- a/AmberTools/src/ptraj/interface.c
++++ b/AmberTools/src/ptraj/interface.c
+@@ -97,8 +97,8 @@ interface(interfaceMode mode, char *filename)
+ 
+     tokenlist = (Token *) &rdparmTokenlist;
+ 
+-    fprintf(stdout, rdparm_header);
+-    fprintf(stdout, rdparm_prompt);
++    fprintf(stdout, "%s", rdparm_header);
++    fprintf(stdout, "%s", rdparm_prompt);
+     while (1) {
+ 
+       fflush(stdout);
+@@ -112,7 +112,7 @@ interface(interfaceMode mode, char *filename)
+ 
+       }
+     
+-      fprintf(stdout, rdparm_prompt);
++      fprintf(stdout, "%s", rdparm_prompt);
+     }
+   }
+ }
+diff --git a/AmberTools/src/semantics/parse.c b/AmberTools/src/semantics/parse.c
+index 55c724c..68f23da 100644
+--- a/AmberTools/src/semantics/parse.c
++++ b/AmberTools/src/semantics/parse.c
+@@ -2039,7 +2039,7 @@ int	n_tab;
+ DEF_T	tab[];	
+ {
+ 
+-	fprintf( fp, oval );
++	fprintf( fp, "%s", oval );
+ 		
+ }
+ 

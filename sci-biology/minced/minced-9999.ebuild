@@ -19,7 +19,7 @@ DEPEND=">=virtual/jdk-1.7"
 RDEPEND=">=virtual/jre-1.7"
 
 src_compile(){
-	emake
+	default
 }
 
 src_install(){

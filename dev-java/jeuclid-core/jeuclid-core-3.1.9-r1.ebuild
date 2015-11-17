@@ -6,7 +6,7 @@ EAPI=5
 JAVA_PKG_IUSE="source"
 inherit eutils java-pkg-2 java-ant-2
 
-DESCRIPTION="Core module of MathML rendering solution."
+DESCRIPTION="Core module of MathML rendering solution"
 HOMEPAGE="http://jeuclid.sourceforge.net/"
 SRC_URI="mirror://sourceforge/jeuclid/jeuclid-parent-${PV}-src.zip"
 

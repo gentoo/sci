@@ -352,7 +352,7 @@ src_install() {
 	#autotools-utils_src_install() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	emake DESTDIR="${D}" install
+	default
 
 	use libabinit && dolib libabinit.a
 
@@ -366,7 +366,7 @@ src_install() {
 
 	# XXX: support installing them from builddir as well!!!
 	if [[ ${DOCS} ]]; then
-		dodoc "${DOCS[@]}" || die "dodoc failed"
+		dodoc "${DOCS[@]}"
 	else
 		local f
 		# same list as in PMS

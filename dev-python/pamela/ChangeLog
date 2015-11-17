@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/pamela
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*pamela-0.2.1 (06 Nov 2015)
+*pamela-9999 (06 Nov 2015)
+
+  06 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +pamela-0.2.1.ebuild, +pamela-9999.ebuild:
+  dev-python/pamela: Add new package needed for JupyterHub, ebuild written by me

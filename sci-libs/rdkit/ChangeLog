@@ -1,0 +1,18 @@
+# ChangeLog for sci-libs/rdkit
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  13 Sep 2015; Michael Schubert <mschu.dev@gmail.com> rdkit-2015.03.1.ebuild,
+  rdkit-9999.ebuild:
+  sci-libs/rdkit: simplify USE checks
+
+  13 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> rdkit-2015.03.1.ebuild,
+  rdkit-9999.ebuild:
+  sci-libs/rdkit: Fix cmake args
+
+*rdkit-2015.03.1 (12 Sep 2015)
+*rdkit-9999 (12 Sep 2015)
+
+  12 Sep 2015; Michael Schubert <mschu.dev@gmail.com> +metadata.xml,
+  +rdkit-2015.03.1.ebuild, +rdkit-9999.ebuild:
+  sci-libs/rdkit: initial commit

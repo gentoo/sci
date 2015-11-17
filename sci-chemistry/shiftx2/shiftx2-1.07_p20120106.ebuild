@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -41,7 +41,9 @@ QA_PREBUILT="/opt/.*"
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-java.patch \
-		"${FILESDIR}"/${P}-system.patch
+		"${FILESDIR}"/${P}-system.patch \
+		"${FILESDIR}"/${P}-internal-name.patch \
+		"${FILESDIR}"/${P}-format-security.patch
 
 	rm "${S}"/src/FeatureRanges.java || die
 
@@ -98,11 +100,11 @@ src_install() {
 
 	local instdir="/opt/${PN}"
 	dodoc README 1UBQ.pdb
-	python_parallel_foreach_impl python_newscript ${PN}.py ${PN}
+	python_foreach_impl python_newscript ${PN}.py ${PN}
 	mv shiftx2_util.py shiftx2util.py || die
 	python_moduleinto ${PN}
 	touch __init__.py
-	python_parallel_foreach_impl python_domodule natsorted.py shiftx2util.py __init__.py
+	python_foreach_impl python_domodule natsorted.py shiftx2util.py __init__.py
 
 	# other modules
 	dobin \
@@ -111,12 +113,12 @@ src_install() {
 		"${S}"/modules/effects/caleffect
 
 	# script
-	python_parallel_foreach_impl python_doscript "${S}"/script/*py
+	python_foreach_impl python_doscript "${S}"/script/*py
 	exeinto ${instdir}/script
 	doexe "${S}"/script/*.r
 
 	# shifty3
-	python_parallel_foreach_impl python_newscript "${S}"/shifty3/*py shifty3
+	python_foreach_impl python_newscript "${S}"/shifty3/*py shifty3
 	exeinto ${instdir}/shifty3
 	doexe "${S}"/shifty3/xalign_x
 	dosym ../${PN}/shifty3/xalign_x /opt/bin/xalign_x
@@ -124,6 +126,6 @@ src_install() {
 	insinto ${instdir}/shifty3
 	doins -r "${S}"/shifty3/{blastdb,refdb,xalign.parms,wt.rbo}
 
-	python_parallel_foreach_impl python_doscript "${S}"/shifty3/utils/*py
+	python_foreach_impl python_doscript "${S}"/shifty3/utils/*py
 	dobin "${S}"/shifty3/utils/create_blastdb.sh
 }

@@ -1,0 +1,31 @@
+# ChangeLog for dev-python/qtconsole
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*qtconsole-4.1.0 (16 Oct 2015)
+
+  16 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +qtconsole-4.1.0.ebuild:
+  dev-python/qtconsole: Version bump to 4.1.0
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> qtconsole-9999.ebuild:
+  dev-python/qtconsole: Add ~x86 to KEYWORDS, fixes #561032
+
+*qtconsole-4.0.1-r1 (05 Sep 2015)
+
+  05 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +qtconsole-4.0.1-r1.ebuild, -qtconsole-4.0.1.ebuild, qtconsole-9999.ebuild:
+  dev-python/qtconsole: Add deps for doc, fixes bug #559594
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> qtconsole-9999.ebuild:
+  dev-python/qtconsole: Add doc use flag
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> qtconsole-9999.ebuild:
+  dev-python/qtconsole: Take over DEPEND from ipython
+
+*qtconsole-4.0.1 (25 Aug 2015)
+*qtconsole-9999 (25 Aug 2015)
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +qtconsole-4.0.1.ebuild, +qtconsole-9999.ebuild:
+  dev-python/qtconsole: Initial ebuild

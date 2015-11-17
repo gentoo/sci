@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~ppc64"
 IUSE=""
 
-RDEPEND=">=dev-libs/gmp-4.1-r1"
+RDEPEND=">=dev-libs/gmp-4.1-r1:0="
 DEPEND="${RDEPEND}"
 
 src_configure(){

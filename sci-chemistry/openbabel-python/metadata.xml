@@ -9,4 +9,7 @@
     solid-state materials, biochemistry, or related areas. This package enables
     to access Open Babel library from Python programs.
   </longdescription>
+  <upstream>
+    <remote-id type="sourceforge">openbabel</remote-id>
+  </upstream>
 </pkgmetadata>

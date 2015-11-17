@@ -22,6 +22,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
+	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]"
@@ -30,7 +31,6 @@ RDEPEND="
 	dev-python/traits[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]"
-
 
 python_test() {
 	nosetests -v || die

@@ -1,0 +1,19 @@
+# ChangeLog for sci-visualization/forge
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> forge-3.1.ebuild:
+  sci-visualization/forge: Set version of glm required
+
+*forge-3.1.2 (27 Sep 2015)
+
+  27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +forge-3.1.2.ebuild:
+  sci-visualization/forge: Version bump
+
+*forge-3.1 (17 Sep 2015)
+*forge-9999 (17 Sep 2015)
+
+  17 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +files/forge-3.1-find-glm.patch, +forge-3.1.ebuild, +forge-9999.ebuild,
+  +metadata.xml:
+  sci-visualization/forge: New package, ebuild written by me

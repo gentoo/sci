@@ -25,6 +25,6 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex"
 
-DOCS=( README )
+DOCS=( README.rst )
 
 PATCHES=( "${FILESDIR}"/${PN}-bison.patch )

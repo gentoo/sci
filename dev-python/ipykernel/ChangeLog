@@ -1,0 +1,27 @@
+# ChangeLog for dev-python/ipykernel
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*ipykernel-4.1.1 (21 Oct 2015)
+
+  21 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipykernel-4.1.1.ebuild, -ipykernel-4.1.0.ebuild:
+  dev-python/ipykernel: Version bump to 4.1.1, drop 4.1.0
+
+*ipykernel-4.1.0 (11 Oct 2015)
+
+  11 Oct 2015; Sean Vig <sean.v.775@gmail.com> +ipykernel-4.1.0.ebuild:
+  dev-python/ipykernel: Version bump to 4.1.0
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> ipykernel-9999.ebuild:
+  dev-python/ipykernel: Add ~x86 to KEYWORDS, fixes #561032
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> ipykernel-9999.ebuild:
+  dev-python/ipykernel: Fix deps
+
+*ipykernel-4.0.3 (12 Aug 2015)
+*ipykernel-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipykernel-4.0.3.ebuild, +ipykernel-9999.ebuild, +metadata.xml:
+  dev-python/ipykernel: Initial ebuild

@@ -17,4 +17,7 @@
     <flag name="qt4">Pulls in PyQt4. Program works on command line interface
     without it but for GUI the library is required.</flag>
   </use>
+  <upstream>
+    <remote-id type="bitbucket">mikko_laine/mosstack</remote-id>
+  </upstream>
 </pkgmetadata>

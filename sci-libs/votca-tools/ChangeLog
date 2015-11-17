@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/votca-tools
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  24 Sep 2015; Christoph Junghans <ottxor@gentoo.org> votca-tools-9999.ebuild:
+  sci-libs/votca-tools: sync with gx86
 
   13 Nov 2014; Christoph Junghans <ottxor@gentoo.org> votca-tools-9999.ebuild:
   deps on boost:=

@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-RDEPEND="sci-libs/opencascade"
+RDEPEND="sci-libs/opencascade:*"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 

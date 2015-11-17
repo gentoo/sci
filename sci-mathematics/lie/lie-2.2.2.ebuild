@@ -14,20 +14,22 @@ RESTRICT="mirror"
 
 LICENSE="LGPL-2.1"
 ##### See http://packages.debian.org/changelogs/pool/main/l/lie/lie_2.2.2+dfsg-1/lie.copyright
-
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
-DEPEND="sys-devel/bison
-	sys-libs/readline:=
-	sys-libs/ncurses"
+
+DEPEND="
+	sys-devel/bison
+	sys-libs/readline:0=
+	sys-libs/ncurses:0="
 RDEPEND="sys-libs/readline:=
 	sys-libs/ncurses"
 
 S="${WORKDIR}/LiE"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-make.patch \
+	epatch \
+		"${FILESDIR}"/${P}-make.patch \
 		"${FILESDIR}"/parrallelmake-${P}.patch
 }
 
@@ -36,9 +38,8 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${ED}" install
+	default
 	use doc && dodoc "${S}"/manual/*
-	dodoc README
 }
 
 pkg_postinst() {

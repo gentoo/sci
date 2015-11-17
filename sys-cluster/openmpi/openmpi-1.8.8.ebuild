@@ -61,7 +61,7 @@ RDEPEND="
 	sys-libs/zlib
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
-	java? ( >=virtual/jre-1.6 )
+	java? ( >=virtual/jre-1.6:* )
 	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
 	openmpi_fabrics_open-mx? ( sys-cluster/open-mx )
@@ -151,7 +151,7 @@ src_configure() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install
+	default
 
 	# From USE=vt see #359917
 	rm "${ED}"/$(mpi_root)/usr/share/libtool &> /dev/null
@@ -170,7 +170,7 @@ src_install () {
 		rm "${mpi_jar}" || die
 	fi
 
-	mpi_dodoc README AUTHORS NEWS VERSION || die
+	mpi_dodoc README AUTHORS NEWS VERSION
 	mpi_imp_add_eselect
 }
 

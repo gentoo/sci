@@ -1,0 +1,36 @@
+# ChangeLog for dev-python/ipywidgets
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*ipywidgets-4.1.0 (21 Oct 2015)
+
+  21 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipywidgets-4.1.0.ebuild:
+  dev-python/ipywidgets: Version bump to 4.1.0
+
+  03 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipywidgets-4.0.3,
+  ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Add javascript tests
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  ipywidgets-4.0.3.ebuild:
+  dev-python/ipywidgets: Add ~x86 to KEYWORDS
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Add ~x86 to KEYWORDS, fixes #561032
+
+  15 Sep 2015; suhr <null@null> ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Remove wxwidgets dependency
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Fix testing deps
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de> ipywidgets-9999.ebuild:
+  dev-python/ipywidgets: Fix deps
+
+*ipywidgets-4.0.2 (13 Aug 2015)
+*ipywidgets-9999 (13 Aug 2015)
+
+  13 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipywidgets-4.0.2.ebuild, +ipywidgets-9999.ebuild, +metadata.xml:
+  dev-python/ipywidgets: Initial ebuild

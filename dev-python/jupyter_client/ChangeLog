@@ -1,0 +1,30 @@
+# ChangeLog for dev-python/jupyter_client
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*jupyter_client-4.1.1 (11 Oct 2015)
+
+  11 Oct 2015; Sean Vig <sean.v.775@gmail.com> +jupyter_client-4.1.1.ebuild:
+  dev-python/jupyter_client: Version bump to 4.1.1
+
+  22 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_client-9999.ebuild:
+  dev-python/jupyter_client: Add ~x86 to KEYWORDS, fixes #561032
+
+  02 Sep 2015; Sean Vig <sean.v.775@gmail.com> jupyter_client-9999.ebuild:
+  dev-python/jupyter_client: Fix testing deps
+
+  27 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_client-9999.ebuild:
+  dev-python/jupyter_client: Fix deps
+
+  25 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jupyter_client-9999.ebuild:
+  dev-python/jupyter_client: Add missing dep: ipykernel (required for testing)
+
+*jupyter_client-4.0.0 (12 Aug 2015)
+*jupyter_client-9999 (12 Aug 2015)
+
+  12 Aug 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +jupyter_client-4.0.0.ebuild, +jupyter_client-9999.ebuild, +metadata.xml:
+  dev-python/jupyter_client: Initial ebuild
