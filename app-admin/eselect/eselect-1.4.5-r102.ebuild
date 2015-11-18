@@ -50,11 +50,7 @@ src_install() {
 
 	# needed by news module
 	keepdir /var/lib/gentoo/news
-	if use prefix; then
-		sed -i \
-			"s:ALTERNATIVESDIR_ROOTLESS=\"${EPREFIX}:ALTERNATIVESDIR_ROOTLESS=\":" \
-			"${ED}"/usr/share/eselect/libs/alternatives-common.bash || die
-	else
+	if ! use prefix; then
 		fowners root:portage /var/lib/gentoo/news
 		fperms g+w /var/lib/gentoo/news
 	fi
