@@ -30,7 +30,10 @@ src_compile(){
 src_install(){
 	dodoc README
 	cd src || die
-	dobin ffindex_apply ffindex_unpack ffindex_modify ffindex_get ffindex_from_fasta ffindex_build ffindex_apply_mpi
+	dobin ffindex_apply ffindex_unpack ffindex_modify ffindex_get ffindex_from_fasta ffindex_build
+	if use mpi; then
+		dobin ffindex_apply_mpi
+	fi
 
 	#  * QA Notice: The following files contain writable and executable sections
 	#  *  Files with such sections will not work properly (or at all!) on some
