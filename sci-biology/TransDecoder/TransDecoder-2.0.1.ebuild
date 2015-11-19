@@ -70,9 +70,9 @@ src_install(){
 	insinto ${VENDOR_LIB}/${PN}
 	doins PerlLib/*.pm
 	dodoc Release.Notes
-	einfo "Fetch on your own:"
-	einfo "wget --mirror -nH -nd http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin"
-	einfo "hmmpress Pfam-AB.hmm.bin"
+	einfo "Fetch on your own Pfam-A.hmm (Pfam-AB.hmm is discontinued since 05/2015):"
+	einfo "wget --mirror -nH -nd ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz"
+	einfo "hmmpress Pfam-A.hmm.bin"
 }
 
 pkg_postinst(){

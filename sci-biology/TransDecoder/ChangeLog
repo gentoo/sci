@@ -4,6 +4,10 @@
 
   19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   TransDecoder-2.0.1.ebuild:
+  sci-biology/TransDecoder: note that Pfam-AB was discontinued
+
+  19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  TransDecoder-2.0.1.ebuild:
   sci-biology/TransDecoder: update homepage
 
   19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
