@@ -5,9 +5,9 @@
 EAPI=5
 
 DESCRIPTION="Simple index/database for huge amounts of small files"
-HOMEPAGE="http://pubshare.genzentrum.lmu.de/scientific_computing/software/ffindex"
+HOMEPAGE="http://www.splashground.de/~andy/programs/FFindex"
 #SRC_URI="http://downloads.sourceforge.net/project/transdecoder/TransDecoder_r20140704.tar.gz"
-SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/TransDecoder.tar.gz -> TransDecoder-2.0.1.tar.gz"
+SRC_URI="http://www.splashground.de/~andy/programs/FFindex/${P}.tar.gz"
 
 LICENSE="CC-BY-3.0"
 SLOT="0"
@@ -17,7 +17,7 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/ffindex-0.9.9.3
+#S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/ffindex-0.9.9.3
 
 src_compile(){
 	emake HAVE_MPI=1
