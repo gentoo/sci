@@ -16,12 +16,13 @@ SRC_URI="mirror://pypi/n/${PN}/${PN}-${MY_PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+plot"
+IUSE="+plot test"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scikits_learn[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
