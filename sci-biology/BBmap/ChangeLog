@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*BBmap-35.68 (19 Nov 2015)
+
+  19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +BBmap-35.68.ebuild,
+  -BBmap-35.66.ebuild:
+  sci-biology/BBmap: version bump
+
 *BBmap-34.97 (15 Nov 2015)
 
   15 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +BBmap-34.97.ebuild,
