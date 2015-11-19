@@ -14,9 +14,6 @@
     <remote-id type="github">kaldi-asr/kaldi</remote-id>
   </upstream>
   <use>
-    <flag name="atlas">
-      Use <pkg>sci-libs/atlas</pkg> for math library.
-    </flag>
     <flag name="cuda">
       Build with CUDA support.
     </flag>

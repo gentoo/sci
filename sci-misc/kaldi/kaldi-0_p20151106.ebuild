@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils flag-o-matic
+inherit eutils toolchain-funcs flag-o-matic
 
 DESCRIPTION="A toolkit for speech recognition"
 HOMEPAGE="http://kaldi-asr.org/"
@@ -12,21 +12,18 @@ SRC_URI="http://gentoo.akreal.net/distfiles/${P}.tar.xz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="doc test threads -atlas cuda"
+IUSE="doc test cuda"
 KEYWORDS="~amd64"
 
 RDEPEND="
 	media-libs/speex
+	virtual/cblas
 	virtual/lapack
 	virtual/lapacke
 	>=sci-misc/openfst-1.4.1
-	atlas? ( sci-libs/atlas[threads=] )
-	!atlas? ( sci-libs/openblas[-openmp,-threads] sci-libs/lapack-reference )
 	cuda? ( dev-util/nvidia-cuda-toolkit )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
-
-REQUIRED_USE="!atlas? ( !threads )"
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
@@ -34,40 +31,71 @@ RESTRICT="test? ( cuda? ( userpriv ) )"
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/configure.patch \
 		"${FILESDIR}"/Makefile.patch \
 		"${FILESDIR}"/default_rules.mk.a7d9824.patch
 }
 
 src_configure() {
-	if use atlas; then
-		myconf+=( --atlas-root="${EPREFIX}/usr/include/atlas" )
-		if use threads; then
-			myconf+=( --threaded-atlas=yes )
-		fi
+	append-cxxflags \
+		-DKALDI_DOUBLEPRECISION=0 \
+		-DHAVE_POSIX_MEMALIGN \
+		-DHAVE_EXECINFO_H=1 \
+		-DHAVE_CXXABI_H \
+		-DHAVE_SPEEX \
+		-DHAVE_OPENFST_GE_10400 \
+		-std=c++0x \
+		-Wall \
+		-I.. \
+		-pthread \
+		-Wno-sign-compare \
+		-Wno-unused-local-typedefs \
+		-Winit-self \
+		-rdynamic \
+		-fPIC \
+		$($(tc-getPKG_CONFIG) --cflags cblas) \
+		$($(tc-getPKG_CONFIG) --cflags lapack)
+
+	append-libs \
+		-lspeex \
+		-lfst \
+		-lm \
+		-lpthread \
+		-ldl \
+		$($(tc-getPKG_CONFIG) --libs cblas) \
+		$($(tc-getPKG_CONFIG) --libs lapack)
+
+	local cblas_provider=$(eselect cblas show)
+
+	if [[ ${cblas_provider} =~ "atlas" ]]; then
+		append-cxxflags -DHAVE_ATLAS
+	elif [[ ${cblas_provider} =~ "mkl" ]]; then
+		append-cxxflags -DHAVE_MKL
+	elif [[ ${cblas_provider} =~ "openblas" ]]; then
+		append-cxxflags -DHAVE_OPENBLAS $($(tc-getPKG_CONFIG) --cflags lapacke)
 	else
-		myconf+=( --openblas-root="${EPREFIX}/usr" )
-		append-cxxflags "-I${EPREFIX}/usr/include/openblas"
-		append-libs -lreflapack
+		die "Build with ${cblas_provider} CBLAS is not supported"
 	fi
 
-	# Upstream's configure script is "hand-generated" and not autotools compatible,
-	# for this reason econf can not be used
-	./configure \
-		--shared \
-		--fst-root="${EPREFIX}/usr" \
-		$(use cuda && echo "--use-cuda=yes --cudatk-dir=${EPREFIX}/opt/cuda" \
-			|| echo --use-cuda=no) \
-		"${myconf[@]}" || die "failed to run configure"
-
 	use test || append-cxxflags -DNDEBUG
-	append-libs -lspeex
 
-	sed -i \
-		-e "s:-g # -O0 -DKALDI_PARANOID:-DHAVE_SPEEX ${CXXFLAGS} :" \
-		-e "s:-lm -lpthread -ldl:-lm -lpthread -ldl ${LIBS} ${LDFLAGS}:" \
-		-e "s:CUDA_FLAGS = -g:CUDA_FLAGS = -O2:" \
-		kaldi.mk || die "sed unix/kaldi.mk failed"
+	cat <<-EOF > kaldi.mk
+		KALDI_FLAVOR := dynamic
+		KALDILIBDIR := "${S}"/lib
+		CC = $(tc-getCXX)
+		RANLIB = $(tc-getRANLIB)
+		LDLIBS = ${LIBS}
+	EOF
+
+	if use cuda; then
+		cat <<-EOF >> kaldi.mk
+			CUDA = true
+			CUDATKDIR = "${EPREFIX}"/opt/cuda
+		EOF
+		cat makefiles/linux_x86_64_cuda.mk >> kaldi.mk
+		sed -i \
+			-e "s:CUDA_FLAGS = -g:CUDA_FLAGS = -O2:" \
+			kaldi.mk || die "sed unix/kaldi.mk failed"
+	fi
 }
 
 src_compile() {
