@@ -21,6 +21,8 @@ DEPEND="
 	gsl? ( >=sci-libs/gsl-1.12 )"
 RDEPEND="${DEPEND}"
 
+S="${WORKDIR}"/"${PN}"-"${MY_PV}"
+
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-fix_tests.patch \
