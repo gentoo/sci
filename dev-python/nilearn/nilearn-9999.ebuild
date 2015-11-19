@@ -19,10 +19,10 @@ KEYWORDS=""
 IUSE="+plot test"
 
 DEPEND="
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scikits_learn[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
@@ -30,7 +30,5 @@ RDEPEND="
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
 src_test() {
-        emake test-code
+	emake test-code
 }
-
-

@@ -4,6 +4,10 @@
 
   19 Nov 2015;  <chymera@gentoo.org> nilearn-0.1.4.1.ebuild,
   nilearn-9999.ebuild:
+  dev-python/nilearn: moved deps to DEPEND
+
+  19 Nov 2015;  <chymera@gentoo.org> nilearn-0.1.4.1.ebuild,
+  nilearn-9999.ebuild:
   dev-python/nilearn: added test flag and test dependency
 
   14 Nov 2015; Horea Christian <h.chr@mail.ru> nilearn-0.1.4.1.ebuild:

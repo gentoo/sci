@@ -19,10 +19,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+plot test"
 
 DEPEND="
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scikits_learn[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
