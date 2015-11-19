@@ -4,6 +4,10 @@
 
   19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ffindex-0.9.9.6.ebuild:
+  sci-biology/ffindex: add DEPEND on virtual/mpi
+
+  19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ffindex-0.9.9.6.ebuild:
   sci-biology/ffindex: add optional USE=mpi
 
 *ffindex-0.9.9.6 (19 Nov 2015)

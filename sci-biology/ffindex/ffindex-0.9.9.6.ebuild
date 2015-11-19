@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="mpi"
 
-DEPEND=""
+DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
 
 #S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/ffindex-0.9.9.3
