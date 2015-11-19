@@ -10,7 +10,7 @@ PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Extract ORF/CDS regions from FASTA sequences"
-HOMEPAGE="http://sourceforge.net/projects/transdecoder/"
+HOMEPAGE="http://transdecoder.github.io"
 if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/TransDecoder/TransDecoder.git"
 	KEYWORDS=""
