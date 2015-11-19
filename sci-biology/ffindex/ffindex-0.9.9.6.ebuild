@@ -12,7 +12,7 @@ SRC_URI="http://www.splashground.de/~andy/programs/FFindex/${P}.tar.gz"
 LICENSE="CC-BY-3.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="mpi"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -20,7 +20,11 @@ RDEPEND="${DEPEND}"
 #S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/ffindex-0.9.9.3
 
 src_compile(){
-	emake HAVE_MPI=1
+	if use mpi; then
+		emake HAVE_MPI=1
+	else
+		emake
+	fi
 }
 
 src_install(){
