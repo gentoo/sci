@@ -29,6 +29,14 @@ DEPEND="${RDEPEND}
 # user is (usually) not in the video group
 RESTRICT="test? ( cuda? ( userpriv ) )"
 
+pkg_pretend() {
+	local cblas_provider=$(eselect cblas show)
+
+	if [[ ! ${cblas_provider} =~ (atlas|mkl|openblas) ]]; then
+		die "Build with '${cblas_provider}' CBLAS is not supported"
+	fi
+}
+
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/Makefile.patch \
@@ -66,14 +74,12 @@ src_configure() {
 
 	local cblas_provider=$(eselect cblas show)
 
-	if [[ ${cblas_provider} =~ "atlas" ]]; then
+	if [[ ${cblas_provider} =~ atlas ]]; then
 		append-cxxflags -DHAVE_ATLAS
-	elif [[ ${cblas_provider} =~ "mkl" ]]; then
+	elif [[ ${cblas_provider} =~ mkl ]]; then
 		append-cxxflags -DHAVE_MKL
-	elif [[ ${cblas_provider} =~ "openblas" ]]; then
+	elif [[ ${cblas_provider} =~ openblas ]]; then
 		append-cxxflags -DHAVE_OPENBLAS $($(tc-getPKG_CONFIG) --cflags lapacke)
-	else
-		die "Build with ${cblas_provider} CBLAS is not supported"
 	fi
 
 	use test || append-cxxflags -DNDEBUG
