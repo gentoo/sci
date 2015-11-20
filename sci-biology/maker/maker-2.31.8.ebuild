@@ -19,10 +19,10 @@ SLOT="0"
 KEYWORDS=""
 IUSE="mpi"
 
-# http://search.cpan.org/~rgarcia/Perl-Unsafe-Signals-0.02/
-# http://search.cpan.org/~rybskej/forks-0.36/lib/forks.pm
+# http://search.cpan.org/~rgarcia/Perl-Unsafe-Signals-0.02/           # bug #566358
+# http://search.cpan.org/~rybskej/forks-0.36/lib/forks.pm             # bug #566360
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks/shared.pm
-# http://search.cpan.org/~dconway/IO-Prompt-0.997002/lib/IO/Prompt.pm
+# http://search.cpan.org/~dconway/IO-Prompt-0.997002/lib/IO/Prompt.pm # bug #566362
 DEPEND="
 	mpi? ( sys-cluster/mpich2 )
 	dev-perl/DBI

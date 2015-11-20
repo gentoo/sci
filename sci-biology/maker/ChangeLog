@@ -3,6 +3,9 @@
 # $Id$
 
   20 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
+  sci-biology/maker: document opened Gentoo bugzilla tickets
+
+  20 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
   sci-biology/maker: depend on mpich2 when USE=mpi, add back hard DEPENDency on
   repeatmasker because install process does not continue without it, document
   additional perl modules not available in portage
