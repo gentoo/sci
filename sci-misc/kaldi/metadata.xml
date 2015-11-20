@@ -3,6 +3,7 @@
 <pkgmetadata>
   <maintainer>
     <email>pavel.a.denisov@gmail.com</email>
+    <name>Pavel Denisov</name>
   </maintainer>
   <longdescription lang="en">
     Kaldi is a toolkit for speech recognition written
@@ -10,6 +11,11 @@
     Kaldi is intended for use by speech recognition researchers.
   </longdescription>
   <upstream>
-    <remote-id type="sourceforge">kaldi</remote-id>
+    <remote-id type="github">kaldi-asr/kaldi</remote-id>
   </upstream>
+  <use>
+    <flag name="cuda">
+      Build with CUDA support.
+    </flag>
+  </use>
 </pkgmetadata>

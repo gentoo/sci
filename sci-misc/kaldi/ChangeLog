@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*kaldi-0_p20151106 (08 Nov 2015)
+
+  08 Nov 2015; Pavel Denisov <pavel.a.denisov@gmail.com>
+  +files/default_rules.mk.a7d9824.patch, +kaldi-0_p20151106.ebuild,
+  metadata.xml:
+  sci-misc/kaldi: Version bump, switch to OpenBLAS math library by default, add
+  CUDA support
+
 *kaldi-0_p20150709 (18 Jul 2015)
 
   18 Jul 2015; Pavel Denisov <pavel.a.denisov@gmail.com>
