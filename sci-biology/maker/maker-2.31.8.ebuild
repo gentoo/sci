@@ -17,13 +17,14 @@ RESTRICT="fetch"
 LICENSE="|| ( GPL-2 Artistic-2 )"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="mpi"
 
 # http://search.cpan.org/~rgarcia/Perl-Unsafe-Signals-0.02/
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks.pm
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks/shared.pm
 # http://search.cpan.org/~dconway/IO-Prompt-0.997002/lib/IO/Prompt.pm
-DEPEND="virtual/mpi
+DEPEND="
+	mpi? ( virtual/mpi )
 	dev-perl/DBI
 	dev-perl/DBD-SQLite
 	dev-perl/File-Which
@@ -36,7 +37,6 @@ DEPEND="virtual/mpi
 	>=sci-biology/bioperl-1.6
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
 	sci-biology/snap
-	sci-biology/repeatmasker
 	sci-biology/exonerate
 	sci-biology/augustus"
 RDEPEND="${DEPEND}"
@@ -46,9 +46,16 @@ S="${WORKDIR}"/maker/src
 pkg_nofetch() {
 	einfo "Please visit ${HOMEPAGE} and obtain the file"
 	einfo "maker-"${PV}".tgz and place it into ${DISTDIR}"
+	einfo "It is also advisable to install sci-biology/repeatmasker"
+	einfo "and in turn register for sci-biology/repeatmasker-libraries"
 }
 
 src_compile(){
 	perl Build.PL || die
 	./Build install || die
+}
+
+pkg_postinst(){
+	einfo "It is also advisable to install sci-biology/repeatmasker"
+	einfo "and in turn register for sci-biology/repeatmasker-libraries"
 }

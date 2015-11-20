@@ -1,6 +1,10 @@
-# ChangeLog for sci-biology/MAKER
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-biology/maker
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  20 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
+  sci-biology/maker: respect USE=mpi, remove hard DEPENDency on repeatmasker-
+  libraries which are fetch restricted
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> MAKER-9999.ebuild:
   added license
