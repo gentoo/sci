@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils toolchain-funcs flag-o-matic
+inherit eutils toolchain-funcs cuda flag-o-matic
 
 DESCRIPTION="A toolkit for speech recognition"
 HOMEPAGE="http://kaldi-asr.org/"
@@ -99,7 +99,7 @@ src_configure() {
 		EOF
 		cat makefiles/linux_x86_64_cuda.mk >> kaldi.mk
 		sed -i \
-			-e "s:CUDA_FLAGS = -g:CUDA_FLAGS = -O2:" \
+			-e "s:CUDA_FLAGS = -g:CUDA_FLAGS = ${NVCCFLAGS}:" \
 			kaldi.mk || die "sed unix/kaldi.mk failed"
 	fi
 }
