@@ -67,6 +67,7 @@ sci-biology/discrover:rmathlib - Link to the standalone Rmathlib for statistical
 sci-biology/estscan:icc - Undocumented USE
 sci-biology/estscan:ifc - Undocumented USE
 sci-biology/exonerate-gff3:utils - Unknown
+sci-biology/hmmer:pvm - Add support for parallel virtual machine (sys-cluster/pvm)
 sci-biology/ncbi-blast+:boost - Undocumented USE
 sci-biology/ncbi-blast+:cppunit - Undocumented USE
 sci-biology/ncbi-blast+:freetype - Undocumented USE
@@ -316,6 +317,7 @@ sci-misc/hfst:glib - Parse UTF-8 and collate unicode using glib instead of homeb
 sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-misc/openfst)
 sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
 sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
+sci-misc/kaldi:cuda - Build with CUDA support.
 sci-physics/abinit:atompaw - Enable support for atompaw, a Projector Augmented Waves atomic data generator
 sci-physics/abinit:bigdft - Enable support for BigDFT, DFT package using wavelet basis set
 sci-physics/abinit:cuda - Enable support for nVidia CUDA
