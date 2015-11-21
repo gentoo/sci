@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  21 Nov 2015; Christoph Junghans <ottxor@gentoo.org> -openmpi-1.8.4-r99.ebuild:
+  sys-cluster/openmpi: bye bye multilib version
+
   03 Nov 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r99.ebuild:
   sys-cluster/openmpi: multilib now works with fortran (bug #540392)
 
