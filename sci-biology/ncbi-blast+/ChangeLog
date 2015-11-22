@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*ncbi-blast+-2.2.31 (22 Nov 2015)
+
+  22 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/ncbi-blast+-2.2.30__fix_lib_deps.patch, +ncbi-blast+-2.2.31.ebuild,
+  -files/fix_lib_deps.patch, ncbi-blast+-2.2.30.ebuild:
+  sci-biology/ncbi-blast+-2.2.31: version bump, seems that some parts of the
+  ncbi-blast+-2.2.30__fix_lib_deps.patch could/should be re-used
+
   17 Jul 2015; Andrew Savchenko <bircoph@gentoo.org> metadata.xml:
   Add sqlite3 flag description.
 

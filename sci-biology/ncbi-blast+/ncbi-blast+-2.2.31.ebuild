@@ -125,7 +125,10 @@ src_prepare() {
 ##	epatch ${PATCHES[@]}
 
 	# use a Debian patch from http://anonscm.debian.org/viewvc/debian-med/trunk/packages/ncbi-blast%2B/trunk/debian/patches/fix_lib_deps?revision=18535&view=markup
-	epatch "${FILESDIR}"/"${P}"__fix_lib_deps.patch
+	# the patches for 2.2.30+ do not apply to 2.2.31, mostly DLL_LIB is gone but somewhere
+	# it is still present, plus in a few places was something else patched
+	# staying without any patches for now and lets see is it works on Gentoo
+	# epatch "${FILESDIR}"/fix_lib_deps.patch
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 
