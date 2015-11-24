@@ -19,10 +19,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="mpi"
 
-# http://search.cpan.org/~rgarcia/Perl-Unsafe-Signals-0.02/           # bug #566358
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks.pm             # bug #566360
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks/shared.pm
-# http://search.cpan.org/~dconway/IO-Prompt-0.997002/lib/IO/Prompt.pm # bug #566362
 DEPEND="
 	mpi? ( sys-cluster/mpich2 )
 	dev-perl/DBI
@@ -34,6 +32,8 @@ DEPEND="
 	dev-perl/libwww-perl
 	dev-perl/DBD-Pg
 	dev-perl/Want
+	dev-perl/IO-Prompt
+	dev-perl/Perl-Unsafe-Signals
 	virtual/perl-Module-Build
 	>=sci-biology/bioperl-1.6
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
@@ -88,9 +88,9 @@ pkg_nofetch() {
 	einfo "Please visit ${HOMEPAGE} and obtain the file"
 	einfo "maker-"${PV}".tgz and place it into ${DISTDIR}"
 	einfo "You must also install sci-biology/repeatmasker otherwise"
-	einfo "MAKER install will stop."
+	einfo "MAKER install process will stop."
 	einfo "That in turn requires you to register at http://www.girinst.org/server/RepBase"
-	einfo "to obtain for sci-biology/repeatmasker-libraries"
+	einfo "to obtain sci-biology/repeatmasker-libraries data file"
 }
 
 src_compile(){
