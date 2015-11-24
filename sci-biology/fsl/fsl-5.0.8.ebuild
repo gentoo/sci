@@ -135,6 +135,6 @@ pkg_postinst() {
 	echo
 	einfo "Please run the following commands if you"
 	einfo "intend to use fsl from an existing shell:"
-	einfo "env-update && source /etc/porfile"
+	einfo "env-update && source /etc/profile"
 	echo
 }
