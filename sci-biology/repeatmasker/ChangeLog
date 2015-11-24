@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  24 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  repeatmasker-4.0.1-r1.ebuild:
+  sci-biology/repeatmasker: improve einfo message
+
 *repeatmasker-4.0.1-r1 (24 Nov 2015)
 
   24 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
