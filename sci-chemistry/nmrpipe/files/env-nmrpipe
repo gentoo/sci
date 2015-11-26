@@ -1,8 +1,8 @@
 # Platform
 NMRCHECK="ALL"
 
-BINTYPE="linux9"
-NMRBINTYPE="linux9"
+BINTYPE="@BINTYPE@"
+NMRBINTYPE="@BINTYPE@"
 PATH="/opt/nmrpipe/com:/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl:/opt/nmrpipe/talosplus/com:/opt/nmrpipe/dynamo/com"
 
 # NMRPipe
@@ -40,3 +40,7 @@ PDBH_TAB="/opt/nmrpipe/pdb/resolution.tab"
 TCLPATH="/opt/nmrpipe/com"
 
 PROMEGA_DIR="/opt/nmrpipe/promega"
+
+NMR_PLUGIN_FN="/opt/nmrpipe/smile/NMR_PLUGIN_FN"
+NMR_PLUGIN_EXE="/opt/nmrpipe/smile/NMR_PLUGIN_EXE"
+NMR_PLUGIN_INFO="/opt/nmrpipe/smile/NMR_PLUGIN_INFO"

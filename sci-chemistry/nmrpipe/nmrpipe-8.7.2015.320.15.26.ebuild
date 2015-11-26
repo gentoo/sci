@@ -20,6 +20,7 @@ SRC_URI="
 	http://spin.niddk.nih.gov/NMRPipe/install/download/install.com -> install-${PV}.com
 	http://spin.niddk.nih.gov/NMRPipe/install/download/binval.com -> binval-${PV}.com
 	http://spin.niddk.nih.gov/NMRPipe/install/download/NMRPipeX.tZ -> NMRPipeX-${PV}.tZ
+	http://spin.niddk.nih.gov/NMRPipe/install/download/plugin.smile.tZ -> plugin.smile-${PV}.tZ
 	http://spin.niddk.nih.gov/NMRPipe/install/download/talos.tZ -> talos-${PV}.tZ
 	http://spin.niddk.nih.gov/NMRPipe/install/download/dyn.tZ -> dyn-${PV}.tZ
 	"
@@ -33,7 +34,6 @@ LICENSE="nmrpipe"
 KEYWORDS=""
 IUSE=""
 
-#RESTRICT="fetch strip"
 RESTRICT="strip"
 
 DEPEND="app-shells/tcsh"
@@ -53,76 +53,61 @@ RDEPEND="${DEPEND}
 	!prefix? ( >=x11-libs/libX11-1.6.2[abi_x86_32(-)] )
 	prefix? ( dev-util/patchelf )"
 
-S="${WORKDIR}"
+S="${WORKDIR}/NMR"
 
 NMRBASE="/opt/${PN}"
 ENMRBASE="${EPREFIX}/${NMRBASE}"
 
-QA_PREBUILT="
-	opt/.*
-	"
-
-pkg_nofetch() {
-	einfo "Please visit:"
-	einfo "\t${HOMEPAGE}"
-	einfo
-	einfo "Contact the author, then download the following files:"
-	for i in ${A}; do
-		einfo "\t${i}"
-	done
-	einfo
-	einfo "Place the downloaded files in your distfiles directory:"
-	einfo "\t${DISTDIR}"
-}
+QA_PREBUILT="opt/.*"
 
 src_unpack() {
 	# The installation script will unpack the package. We just provide symlinks
 	# to the archive files, ...
-	for i in NMRPipeX-${PV}.tZ talos-${PV}.tZ dyn-${PV}.tZ; do
+	for i in NMRPipeX-${PV}.tZ plugin.smile-${PV}.tZ talos-${PV}.tZ dyn-${PV}.tZ; do
 		ln -sf "${DISTDIR}"/${i} ${i/-${PV}/} || die
 	done
+	mkdir "${S}" && cd "${S}" || die
 	# ... copy the installation scripts ...
 	cp -L "${DISTDIR}"/install-${PV}.com install.com || die
 	cp -L "${DISTDIR}"/binval-${PV}.com binval.com || die
 	# ... and make the installation scripts executable.
 	chmod +x *.com || die
-	# Unset DISPLAY to avoid the interactive graphical test.
-	# This just unpacks the stuff
-#	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
-	VIRTUALX_COMMAND="csh ./install.com +type linux9 +dest ${S}/NMR +nopost" virtualmake
+	VIRTUALX_COMMAND="csh"
+	virtualmake \
+		./install.com \
+		+type $(usex x86 linux9 linux212_64) \
+		+src "${WORKDIR}" \
+		+dest "${S}" \
+		+nopost +nocshrc
 }
 
 src_prepare() {
-	local bin
+	local bin i
 	epatch "${FILESDIR}"/${P}-lib.patch
 
-	mv nmrbin.linux9/nmr{W,w}ish || die
+	mv nmrbin.$(usex x86 linux9 linux212_64)/nmr{W,w}ish || die
 
 	ebegin "Cleaning installation"
-	for i in ${A} ; do
-		rm -f ${i/-${PV}/} || die "Failed to remove archive symlinks."
-	done
 
 	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
-#	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-	rm -rf nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
+	rm -rf nmrbin.linux*/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+		nmrbin.{linux,mac} nmruser format \
+		$(usex x86 nmrbin.linux212_64 nmrbin.linux9) \
 		|| die "Failed to remove unnecessary libraries."
 	# As long as xview is not fixed for amd64 we do this
-	rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*} || die
+	rm nmrbin.linux*/lib/{libxview.so*,libolgx.so*} || die
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
-	rm -f com/nmrInit.linux9.com || die "Failed to remove broken init script."
+	rm -f com/nmrInit.linux*.com || die "Failed to remove broken init script."
 	# Remove installation log files.
-	rm -f README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
+	rm -f README_NMRPIPE_USERS *.log install.com binval.com || die "Failed to remove installation log."
 	# Remove unused binaries
 	rm -f {talos*,spartaplus,promega}/bin/*{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Some scripts are on the wrong place
 	cp -f nmrtxt/*.com com/
-	rm -f {acme,com}/{nmrproc,fid}.com || die
-
+	rm -f {acme,com}/{nmrproc,fid,install}.com || die
 	eend
 
 	ebegin "Fixing paths in scripts"
@@ -143,7 +128,7 @@ src_prepare() {
 		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
 		-i $(find "${S}" \( -name "*.tcl" -o -name "*.com" -o -name "*.ksh" \)) \
 			{com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* \
-			nmrbin.linux9/{nmrDraw,xNotify} || die
+			nmrbin.linux*/{nmrDraw,xNotify} || die
 	eend
 
 	if use prefix; then
@@ -155,7 +140,7 @@ src_prepare() {
 			-i com/* || die
 
 		ebegin "Setting RPATH in binaries"
-		for bin in $(find nmrbin.linux9/ -type f -maxdepth 1); do
+		for bin in $(find nmrbin.linux*/ -type f -maxdepth 1); do
 			patchelf --set-rpath "${EPREFIX}/usr/lib/" ${bin}
 		done
 		eend $?
@@ -187,20 +172,21 @@ src_install() {
 
 	sed \
 		-e "s:/opt/nmrpipe:${EPREFIX}/opt/nmrpipe:g" \
-		"${FILESDIR}"/env-${PN}-new \
-		> env-${PN}-new || die
-	newenvd env-${PN}-new 40${PN}
+		-e "s:@BINTYPE@:$(usex x86 linux9 linux212_64):g" \
+		"${FILESDIR}"/env-${PN} \
+		> "${T}"/env-${PN} || die
+	newenvd "${T}"/env-${PN} 40${PN}
 
 	insinto ${NMRBASE}
 	doins -r *
 
-	dosym nmrbin.linux9 ${NMRBASE}/bin
+	dosym nmrbin.linux* ${NMRBASE}/bin
 
 	ebegin "Fixing permissions"
-	chmod 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/,promega/bin/}* || die
+	chmod 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux*/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/,promega/bin/}* || die
 	eend
 
-	exeinto ${NMRBASE}/nmrbin.linux9
+	exeinto ${NMRBASE}/nmrbin.$(usex x86 linux9 linux212_64)
 	doexe "${T}"/nmrWish
 
 	insinto ${NMRBASE}/nmrtxt
