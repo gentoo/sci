@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*metakernel-0.11.5 (27 Nov 2015)
+
+  27 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +metakernel-0.11.5.ebuild, -metakernel-0.11.0.ebuild,
+  -metakernel-0.11.2.ebuild:
+  dev-python/metakernel: Version bump; drop old
+
 *metakernel-0.11.3 (05 Nov 2015)
 
   05 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
