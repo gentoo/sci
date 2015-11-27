@@ -20,12 +20,12 @@ IUSE="doc test"
 
 RDEPEND="
 	dev-python/ipykernel[${PYTHON_USEDEP}]
-	dev-python/jupyter_client[${PYTHON_USEDEP}]
+	>=dev-python/jupyter_client-4.1.1[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
 	doc? (
-		dev-python/ipython[${PYTHON_USEDEP}]
-		dev-python/sphinx[${PYTHON_USEDEP}]
+		>=dev-python/ipython-4.0.0-r2[${PYTHON_USEDEP}]
+		>=dev-python/sphinx-1.3.1-r1[${PYTHON_USEDEP}]
 	)
 	test? (
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
