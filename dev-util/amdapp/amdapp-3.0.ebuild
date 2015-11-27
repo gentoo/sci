@@ -6,10 +6,10 @@ EAPI=5
 
 inherit multilib unpacker versionator
 
-MY_V="$(get_version_component_range 1).$(get_version_component_range 2)-0.113.50-Beta"
+MY_V="$(get_version_component_range 1).$(get_version_component_range 2).130.135-GA"
 
-X86_AT="AMD-APP-SDK-v${MY_V}-linux32-1.tar.bz2"
-AMD64_AT="AMD-APP-SDK-v${MY_V}-linux64.tar.bz2"
+X86_AT="AMD-APP-SDKInstaller-v${MY_V}-linux32.tar.bz2"
+AMD64_AT="AMD-APP-SDKInstaller-v${MY_V}-linux64.tar.bz2"
 
 MY_P_AMD64="AMD-APP-SDK-v${MY_V}-linux64.sh"
 MY_P_AMD32="AMD-APP-SDK-v${MY_V}-linux32.sh"
