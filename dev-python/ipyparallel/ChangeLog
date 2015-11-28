@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> -Manifest,
+  -ipyparallel-4.0.0-r1.ebuild, -ipyparallel-4.0.2-r1.ebuild,
+  -ipyparallel-4.1.0.ebuild:
+  dev-python/ipyparallel: Moved to tree
+
 *ipyparallel-4.0.2-r1 (27 Sep 2015)
 
   27 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
