@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -ipywidgets-4.0.2-r1.ebuild, -ipywidgets-4.0.3.ebuild,
+  -ipywidgets-4.1.0.ebuild:
+  dev-python/ipywidgets: Drop old
+
 *ipywidgets-4.1.0 (21 Oct 2015)
 
   21 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>
