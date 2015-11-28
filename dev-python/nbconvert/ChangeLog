@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/nbconvert-4.0.0-pandoc-highlighting.patch:
+  dev-python/nbconvert: Drop old patch
+
   28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> -Manifest,
   -nbconvert-4.0.0-r1.ebuild, -nbconvert-4.1.0.ebuild:
   dev-python/nbconvert: Moved to tree
