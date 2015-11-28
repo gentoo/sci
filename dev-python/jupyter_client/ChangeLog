@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> -Manifest,
+  -jupyter_client-4.0.0.ebuild, -jupyter_client-4.1.1.ebuild:
+  dev-python/jupyter_client: Moved to tree; Drop old
+
 *jupyter_client-4.1.1 (11 Oct 2015)
 
   11 Oct 2015; Sean Vig <sean.v.775@gmail.com> +jupyter_client-4.1.1.ebuild:
