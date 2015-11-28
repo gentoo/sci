@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/notebook-4.0.4-Don-t-redirect-from-edit-to-files.patch,
+  -files/notebook-4.0.4-only-redirect-to-editor-for-text-documents.patch,
+  -files/notebook-4.0.4-set-mime-type-on-files.patch,
+  -files/notebook-4.0.4-set-model-mimetype-even-when-content-False.patch,
+  -notebook-4.0.4-r3.ebuild:
+  dev-python/notebook: Drop old
+
 *notebook-4.0.6 (16 Oct 2015)
 
   16 Oct 2015; Marius Brehler <marbre@linux.sungazer.de> +notebook-4.0.6.ebuild,
