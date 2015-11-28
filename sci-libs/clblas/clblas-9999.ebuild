@@ -12,18 +12,19 @@ MY_PN="clBLAS"
 
 DESCRIPTION="A software library containing BLAS routines for OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clBLAS"
-EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
-S="${WORKDIR}/${P}/src"
+EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git"
 
 LICENSE="Apache-2.0"
 SLOT="0"
+KEYWORDS=""
 IUSE="+client examples +ktest performance test"
 
+REQUIRED_USE="performance? ( ${PYTHON_REQUIRED_USE} )"
+
 RDEPEND="
-	>=sys-devel/gcc-4.6:*
+	dev-libs/boost
 	virtual/opencl
 	|| ( >=dev-util/amdapp-2.9 dev-util/intel-ocl-sdk )
-	dev-libs/boost
 	performance? ( ${PYTHON_DEPS} )
 	"
 DEPEND="${RDEPEND}"
@@ -35,6 +36,8 @@ DEPEND="${RDEPEND}"
 # The tests only get compiled to an executable named Test, which is not recogniozed by cmake.
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
+
+S="${WORKDIR}/${P}/src"
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
