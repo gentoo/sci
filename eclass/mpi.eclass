@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,7 +7,7 @@ inherit multilib
 # @ECLASS: mpi.eclass
 # @MAINTAINER:
 #	Justin Bronder <jsbronder@gentoo.org>
-# @BLURB:  Common functions for mpi-pkg.eclass and mpi-imp.eclass
+# @BLURB: Common functions for mpi-pkg.eclass and mpi-imp.eclass
 
 # History:
 #	2009-06-26 (jsbronder):  Add ability to require common use flags.
@@ -20,8 +20,15 @@ inherit multilib
 # Private Variables #
 #####################
 
+# @ECLASS-VARIABLE: __MPI_ALL_IMPLEMENTATION_PNS
+# @INTERNAL
+# @DESCRIPTION:
 # All known mpi implementations
 __MPI_ALL_IMPLEMENTATION_PNS="mpich mpich2 openmpi lam-mpi openib-mvapich2"
+
+# @ECLASS-VARIABLE: __MPI_ALL_CLASSABLE_PNS
+# @INTERNAL
+# @DESCRIPTION:
 # All mpi implentations that can be classed.
 __MPI_ALL_CLASSABLE_PNS="mpich openmpi mpich2 lam-mpi"
 
@@ -32,26 +39,25 @@ __MPI_ALL_CLASSABLE_PNS="mpich openmpi mpich2 lam-mpi"
 ###################################################################
 
 # @ECLASS-VARIABLE: MPI_UNCLASSED_DEP_STR
-# @DESCRIPTION: String inserted into the deplist when not using a classed
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# String inserted into the deplist when not using a classed
 # install.
 
 # @FUNCTION: mpi_classed
-# @USAGE:
 # @RETURN: True if this build is classed.
 mpi_classed() {
 	[[ ${CATEGORY} == mpi-* ]]
 }
 
 # @FUNCTION: mpi_class
-# @USAGE:
-# @RETURN:  The name of the current class, or nothing if unclassed.
+# @RETURN: The name of the current class, or nothing if unclassed.
 mpi_class() {
 	mpi_classed && echo "${CATEGORY}"
 }
 
 # @FUNCTION: mpi_root
-# @USAGE:
-# @RETURN:  The root path that packages should start installing to.  In the end,
+# @RETURN: The root path that packages should start installing to.  In the end,
 # the majority of a package will will install to ${ROOT}$(mpi_root).
 mpi_root() {
 	if mpi_classed; then
@@ -62,8 +68,8 @@ mpi_root() {
 }
 
 # @FUNCTION: mpi_econf_args
-# @USAGE:
-# @DESCRIPTION:  If classed, returns a list of arguments for econf that sets the
+# @DESCRIPTION:
+# If classed, returns a list of arguments for econf that sets the
 # default install locations correctly.  Should be first in the list of arguments
 # to econf so that any unsuitable options can be overwritten.
 mpi_econf_args() {
@@ -82,10 +88,12 @@ mpi_econf_args() {
 }
 
 # @FUNCTION: _mpi_do
-# @USAGE: $1 - Standard ebuild command to replicate.
-# @DESCRIPTION: Large wrapping class for all of the {do,new}* commands that need
+# @USAGE: <Standard ebuild command to replicate>
+# @DESCRIPTION:
+# Large wrapping class for all of the {do,new}* commands that need
 # to respect the new root to install to.  Works with unclassed builds as well.
 # Currently supports:
+#
 # @CODE
 # dobin    newbin    dodoc     newdoc
 # doexe    newexe    dohtml    dolib
@@ -94,7 +102,6 @@ mpi_econf_args() {
 # doinfo   dodir     dohard    doins
 # dosym
 # @CODE
-
 _mpi_do() {
 	local rc prefix d
 	local cmd=${1}
@@ -195,7 +202,8 @@ mpi_dosym()     { _mpi_do "dosym"        $*; }
 ###########################################
 
 # @FUNCTION: mpi_imp_deplist
-# @USAGE:
+# @DESCRIPTION:
+# To be written
 # @RETURNS: Returns a deplist that handles the blocking between mpi
 # implementations, and any blockers as specified in MPI_UNCLASSED_DEP_STR
 mpi_imp_deplist() {
@@ -215,6 +223,9 @@ mpi_imp_deplist() {
 	echo "${ver}"
 }
 
+# @FUNCTION: mpi_imp_add_eselect
+# @DESCRIPTION:
+# To be written
 mpi_imp_add_eselect() {
 	mpi_classed || return 0
 	local c=$(mpi_class)
@@ -235,33 +246,39 @@ mpi_imp_add_eselect() {
 ########################################
 
 # @ECLASS-VARIABLE: MPI_PKG_NEED_IMPS
-# @DESCRIPTION: List of package names (${PN}) that this package is compatible
+# @DESCRIPTION:
+# List of package names (${PN}) that this package is compatible
 # with.  Default is the list of all mpi implementations
 MPI_PKG_NEED_IMPS="${MPI_PKG_NEED_IMPS:-${__MPI_ALL_CLASSABLE_PNS}}"
 
 
 # @ECLASS-VARIABLE: MPI_PKG_USE_CXX
-# @DESCRIPTION: Require a mpi implementation with c++ enabled.
+# @DESCRIPTION:
+# Require a mpi implementation with c++ enabled.
 # This feature requires EAPI 2 style use dependencies
 MPI_PKG_USE_CXX="${MPI_PKG_USE_CXX:-0}"
 
 # @ECLASS-VARIABLE: MPI_PKG_USE_FC
-# @DESCRIPTION: Require a mpi implementation with fortran enabled.
+# @DESCRIPTION:
+# Require a mpi implementation with fortran enabled.
 # This feature requires EAPI 2 style use dependencies
 MPI_PKG_USE_FC="${MPI_PKG_USE_FC:-0}"
 
 # @ECLASS-VARIABLE: MPI_PKG_USE_ROMIO
-# @DESCRIPTION: Require a mpi implementation with romio enabled.
+# @DESCRIPTION:
+# Require a mpi implementation with romio enabled.
 # This feature requires EAPI 2 style use dependencies
 MPI_PKG_USE_ROMIO="${MPI_PKG_USE_ROMIO:-0}"
 
 # @ECLASS-VARIABLE: MPI_PKG_USE_THREADS
-# @DESCRIPTION: Require a mpi implementation with threads enabled.
+# @DESCRIPTION:
+# Require a mpi implementation with threads enabled.
 # This feature requires EAPI 2 style use dependencies
 MPI_PKG_USE_THREADS="${MPI_PKG_USE_THREADS:-0}"
 
 # @ECLASS-VARIABLE: MPI_PKG_USE_DEPS
-# @DESCRIPTION: Set the use deps for the virtual mpi package
+# @DESCRIPTION:
+# Set the use deps for the virtual mpi package
 # directly.  For instance, if set to 'fortran=,threads?' then a dep on
 # virtual/mpi[fortran=,threads?] will be added.
 # This feature requires EAPI 2 style use dependencies
@@ -269,7 +286,8 @@ MPI_PKG_USE_DEPS="${MPI_PKG_USE_DEPS}"
 
 
 # @FUNCTION: mpi_pkg_deplist
-# @USAGE:
+# @DESCRIPTION:
+# To be written
 # @RETURN: Returns a deplist comprised of valid implementations and any blockers
 # depending on if this package is building with mpi class support.
 mpi_pkg_deplist() {
@@ -325,8 +343,10 @@ mpi_pkg_deplist() {
 }
 
 # @FUNCTION: mpi_pkg_base_imp
-# @USAGE:
-# @DESCRIPTION: Returns the ${PN} of the package providing mpi support.   Works
+# @DESCRIPTION:
+# To be written
+# @RETURNS:
+# Returns the ${PN} of the package providing mpi support.   Works
 # even when using an unclassed mpi build.
 mpi_pkg_base_imp() {
 	if mpi_classed; then
@@ -342,35 +362,37 @@ mpi_pkg_base_imp() {
 }
 
 # @FUNCTION: mpi_pkg_cc
-# @USAGE:
-# @DESCRIPTION:  Returns the full path to the mpi C compiler.  Trys to find one
+# @DESCRIPTION:
+#  Returns the full path to the mpi C compiler.  Trys to find one
 # even if this build is unclassed.  If return is empty, user should assume the
 # implementation does not support this compiler
-# @FUNCTION: mpi_pkg_cxx
-# @USAGE:
-# @DESCRIPTION:  Returns the full path to the mpi C++ compiler.  Trys to find one
-# even if this build is unclassed.  If return is empty, user should assume the
-# implementation does not support this compiler
-# @FUNCTION: mpi_pkg_fc
-# @USAGE:
-# @DESCRIPTION:  Returns the full path to the mpi f90 compiler.  Trys to find one
-# even if this build is unclassed.  If return is empty, user should assume the
-# implementation does not support this compiler
-# @FUNCTION: mpi_pkg_f77
-# @USAGE:
-# @DESCRIPTION:  Returns the full path to the mpi f77 compiler.  Trys to find one
-# even if this build is unclassed.  If return is empty, user should assume the
-# implementation does not support this compiler
-
 mpi_pkg_cc()  { _mpi_pkg_compiler "MPI_CC"  "cc";      }
+
+# @FUNCTION: mpi_pkg_cxx
+# @DESCRIPTION:
+# Returns the full path to the mpi C++ compiler.  Trys to find one
+# even if this build is unclassed.  If return is empty, user should assume the
+# implementation does not support this compiler
 mpi_pkg_cxx() { _mpi_pkg_compiler "MPI_CXX" "cxx c++"; }
-mpi_pkg_f77() { _mpi_pkg_compiler "MPI_F77" "f77";     }
+
+# @FUNCTION: mpi_pkg_fc
+# @DESCRIPTION:
+# Returns the full path to the mpi f90 compiler.  Trys to find one
+# even if this build is unclassed.  If return is empty, user should assume the
+# implementation does not support this compiler
 mpi_pkg_fc()  { _mpi_pkg_compiler "MPI_FC"  "f90 fc";  }
+
+# @FUNCTION: mpi_pkg_f77
+# @DESCRIPTION:
+# Returns the full path to the mpi f77 compiler.  Trys to find one
+# even if this build is unclassed.  If return is empty, user should assume the
+# implementation does not support this compiler
+mpi_pkg_f77() { _mpi_pkg_compiler "MPI_F77" "f77";     }
 
 
 # @FUNCTION:  mpi_pkg_set_ld_library_path
-# @USAGE:
-# @DESCRIPTION:  Adds the correct path(s) to the end of LD_LIBRARY_PATH.  Does
+# @DESCRIPTION:
+# Adds the correct path(s) to the end of LD_LIBRARY_PATH.  Does
 # nothing if the build is unclassed.
 mpi_pkg_set_ld_library_path() {
 	if mpi_classed; then
@@ -378,6 +400,8 @@ mpi_pkg_set_ld_library_path() {
 	fi
 }
 
+# @FUNCTION: _mpi_pkg_compiler
+# @DESCRIPTION:
 # If classed, we can ask eselect-mpi.  Otherwise we'll look for some common
 # executable names in ${ROOT}usr/bin.
 _mpi_pkg_compiler() {
@@ -397,8 +421,8 @@ _mpi_pkg_compiler() {
 }
 
 # @FUNCTION: mpi_pkg_set_env
-# @USAGE:
-# @DESCRIPTION:  Exports 'some influential environment variables'.  CC, CXX, F77, FC
+# @DESCRIPTION:
+# Exports 'some influential environment variables'.  CC, CXX, F77, FC
 mpi_pkg_set_env() {
 	if mpi_classed; then
 		_mpi_oCC=$CC
@@ -417,8 +441,8 @@ mpi_pkg_set_env() {
 }
 
 # @FUNCTION: mpi_pkg_restore_env
-# @USAGE:
-# @DESCRIPTION:  Attempts to undo the damage done by mpi_pkg_set_env
+# @DESCRIPTION:
+# Attempts to undo the damage done by mpi_pkg_set_env
 mpi_pkg_restore_env() {
 	if mpi_classed; then
 		export CC=$_mpi_oCC
@@ -433,8 +457,8 @@ mpi_pkg_restore_env() {
 
 
 # @FUNCTION: _get_eselect_var
-# @USAGE: $1 - Variable to get from the class definition
-# @RETURN:  If classed, and given a valid variable, the contents; empty
+# @USAGE: <Variable to get from the class definition>
+# @RETURN: If classed, and given a valid variable, the contents; empty
 # otherwise.
 _get_eselect_var() {
 	if mpi_classed && [ -n "${1}" ]; then
