@@ -7,7 +7,7 @@
 # Copyright 2008, 2009 Mike Kelly
 # Copyright 2009 David Leverton
 
-# @ECLASS: alternatives-2
+# @ECLASS: alternatives-2.eclass
 # @MAINTAINER:
 # Gentoo Science Project <sci@gentoo.org>
 # @BLURB: Manage alternative implementations.
