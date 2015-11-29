@@ -13,6 +13,8 @@
 #		Use virtual/$class to get imp dep in mpi_pkg_deplist.
 #	2008-11-20 (jsbronder):  Initial rewrite from old mpi.eclass
 
+if [[ ! ${_MPI_ECLASS} ]]; then
+
 case ${EAPI:-0} in
 	2|3|4|5)
 		inherit multilib
@@ -469,3 +471,6 @@ _get_eselect_var() {
 		echo "$(eselect mpi printvar $(mpi_class) ${1} 2>/dev/null)"
 	fi
 }
+
+_MPI_ECLASS=1
+fi
