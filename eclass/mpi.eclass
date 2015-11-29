@@ -2,8 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-inherit multilib
-
 # @ECLASS: mpi.eclass
 # @MAINTAINER:
 #	Justin Bronder <jsbronder@gentoo.org>
@@ -15,6 +13,12 @@ inherit multilib
 #		Use virtual/$class to get imp dep in mpi_pkg_deplist.
 #	2008-11-20 (jsbronder):  Initial rewrite from old mpi.eclass
 
+case ${EAPI:-0} in
+	2|3|4|5)
+		inherit multilib
+		;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac
 
 #####################
 # Private Variables #
