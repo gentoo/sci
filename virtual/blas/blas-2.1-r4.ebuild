@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -16,12 +16,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc int64"
 
 RDEPEND="
-	int64? (
-		|| (
-			sci-libs/blas-reference[int64,${MULTILIB_USEDEP}]
-			>=sci-libs/openblas-0.2.11[int64,${MULTILIB_USEDEP}]
-		)
-	)
+	!app-eselect/eselect-blas
 	|| (
 		sci-libs/blas-reference[int64?,${MULTILIB_USEDEP}]
 		>=sci-libs/openblas-0.2.11[int64?,${MULTILIB_USEDEP}]
@@ -31,7 +26,14 @@ RDEPEND="
 		sci-libs/gotoblas2
 		>=sci-libs/mkl-10.3
 	)
-	doc? ( >=app-doc/blas-docs-3.2 )"
+	doc? ( >=app-doc/blas-docs-3.2 )
+	int64? (
+		|| (
+			sci-libs/blas-reference[int64,${MULTILIB_USEDEP}]
+			>=sci-libs/openblas-0.2.11[int64,${MULTILIB_USEDEP}]
+		)
+	)
+"
 DEPEND=""
 
 pkg_pretend() {
