@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit multilib-build
+inherit multilib-build multilib
 
 DESCRIPTION="Virtual for Linear Algebra Package FORTRAN 77 implementation"
 HOMEPAGE=""
