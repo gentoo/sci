@@ -11,14 +11,14 @@ NUMERIC_MODULE_NAME="refblas"
 inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 toolchain-funcs subversion
 
 LPN=lapack
-LPV=3.5.0
+LPV=3.6.0
 
 DESCRIPTION="Reference implementation of BLAS"
 HOMEPAGE="http://www.netlib.org/lapack/"
 ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/${LPN}/trunk"
 
 LICENSE="BSD"
-SLOT="0"
+SLOT="0/${LPV}"
 KEYWORDS=""
 IUSE="static-libs test"
 
@@ -28,7 +28,6 @@ RDEPEND=""
 DEPEND="${RDEPEND}
 	test? ( ${PYTHON_DEPS} )
 	virtual/pkgconfig"
-PDEPEND=">=virtual/blas-2.1-r3[int64?]"
 
 S="${WORKDIR}/${LPN}-${LPV}"
 
@@ -39,6 +38,7 @@ src_prepare() {
 	# variables with -DPROFNAME etc in src_configure
 	sed -i \
 		-e 's:\([^xc]\)blas:\1${LIBNAME}:g' \
+		-e '/PROPERTIES/s:blas:${LIBNAME}:g' \
 		CMakeLists.txt \
 		BLAS/SRC/CMakeLists.txt || die
 	sed -i \
