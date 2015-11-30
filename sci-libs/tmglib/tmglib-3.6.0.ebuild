@@ -17,14 +17,15 @@ SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="static-libs"
+IUSE="static-libs test"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
 	virtual/blas
 	virtual/lapack"
 DEPEND="${RDEPEND}
+	test? ( ${PYTHON_DEPS} )
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
