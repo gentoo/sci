@@ -68,7 +68,7 @@ src_configure() {
 
 	lapack_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" lapack_configure \
+		BUILD_DIR="${WORKDIR}/${PN}_static" lapack_configure \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
 }
 
@@ -76,11 +76,11 @@ src_compile() {
 	use test && cmake-utils_src_compile -C TESTING/MATGEN
 	cmake-utils_src_compile -C lapacke
 	use static-libs \
-		&& CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_compile -C lapacke
+		&& BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_compile -C lapacke
 }
 
 src_test() {
-	pushd "${CMAKE_BUILD_DIR}/lapacke" > /dev/null || die
+	pushd "${BUILD_DIR}/lapacke" > /dev/null || die
 	local ctestargs
 	[[ -n ${TEST_VERBOSE} ]] && ctestargs="--extra-verbose --output-on-failure"
 	ctest ${ctestargs} || die
@@ -90,7 +90,7 @@ src_test() {
 src_install() {
 	cmake-utils_src_install -C lapacke
 	use static-libs \
-		&& CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_install -C lapacke
+		&& BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_install -C lapacke
 	alternatives_for lapacke reference 0 \
 		/usr/$(get_libdir)/pkgconfig/lapacke.pc reflapacke.pc
 }

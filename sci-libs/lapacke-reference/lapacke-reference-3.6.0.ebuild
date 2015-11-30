@@ -6,17 +6,17 @@ EAPI=5
 
 FORTRAN_NEEDED=test
 
-inherit alternatives-2 cmake-utils eutils fortran-2 subversion toolchain-funcs
+inherit alternatives-2 cmake-utils eutils fortran-2 toolchain-funcs
 
 MYP=lapack-${PV}
 
 DESCRIPTION="C Interface to LAPACK"
 HOMEPAGE="http://www.netlib.org/lapack/"
-ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/lapack/trunk"
+SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test tmg xblas"
 
 RDEPEND="
@@ -80,7 +80,7 @@ src_compile() {
 }
 
 src_test() {
-	pushd "${BUILD_DIR}/lapacke" > /dev/null || die
+	pushd "${BUILD_DIR}/LAPACKE" > /dev/null || die
 	local ctestargs
 	[[ -n ${TEST_VERBOSE} ]] && ctestargs="--extra-verbose --output-on-failure"
 	ctest ${ctestargs} || die
