@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*clblas-2.6-r1 (30 Nov 2015)
+
+  30 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.6-r1.ebuild,
+  -clblas-2.6.ebuild, clblas-9999.ebuild:
+  sci-libs/clblas: Build against CL-1.2, closes issue #543
+
 *clblas-2.6 (12 Sep 2015)
 
   12 Sep 2015; Marius Brehler <marbre@linux.sungazer.de> +clblas-2.6.ebuild:

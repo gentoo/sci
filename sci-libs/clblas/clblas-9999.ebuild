@@ -45,6 +45,16 @@ pkg_pretend() {
 			die "Compilation with gcc older than 4.6 is not supported."
 		fi
 	fi
+
+	if [ ! -d "/usr/local/include/CL" ]; then
+		eerror "As a temporary workaround for Bug #521734, a symlink pointing to"
+		eerror "OpenCL headers >= 1.2 is needed. A symlink pointing to the CL-1.2"
+		eerror "headers, provided by the eselect-opencl package, can be created with"
+		eerror ""
+		eerror "  ln -s /usr/lib64/OpenCL/global/include/CL-1.2/ /usr/local/include/CL"
+		eerror ""
+		die "/usr/local/include/CL not found"
+	fi
 }
 
 src_configure() {
@@ -54,6 +64,7 @@ src_configure() {
 		$(cmake-utils_use_build ktest KTEST)
 		$(cmake-utils_use_build performance PERFORMANCE)
 		$(cmake-utils_use_build test TEST)
+		-DOPENCL_ROOT="/usr/local/include"
 	)
 	cmake-utils_src_configure
 }
