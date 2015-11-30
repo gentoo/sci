@@ -6,7 +6,7 @@ EAPI=5
 
 NUMERIC_MODULE_NAME="openblas"
 
-inherit alternatives-2 git-r3 numeric numeric-int64-multibuild
+inherit alternatives-2 eutils git-r3 multilib numeric numeric-int64-multibuild
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
