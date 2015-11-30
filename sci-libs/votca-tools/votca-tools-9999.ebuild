@@ -53,7 +53,7 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 	if use doc; then
-		cd "${CMAKE_BUILD_DIR}"
+		cd "${BUILD_DIR}"
 		cmake-utils_src_make html
 		dohtml -r share/doc/html/*
 	fi

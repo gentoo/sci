@@ -46,18 +46,18 @@ src_compile() {
 }
 
 src_test() {
-	mkdir "${CMAKE_BUILD_DIR}/$(get_libdir)/Chemistry"
+	mkdir "${BUILD_DIR}/$(get_libdir)/Chemistry"
 	cp \
 		"${CMAKE_USE_DIR}/scripts/perl/OpenBabel.pm" \
-		"${CMAKE_BUILD_DIR}/$(get_libdir)/Chemistry/"
+		"${BUILD_DIR}/$(get_libdir)/Chemistry/"
 	for i in "${CMAKE_USE_DIR}"/scripts/perl/t/*
 	do
 		einfo "Running test: ${i}"
-		perl -I"${CMAKE_BUILD_DIR}/$(get_libdir)" "${i}" || die
+		perl -I"${BUILD_DIR}/$(get_libdir)" "${i}" || die
 	done
 }
 
 src_install() {
-	cd "${CMAKE_BUILD_DIR}"
+	cd "${BUILD_DIR}"
 	cmake -DCOMPONENT=bindings_perl -P cmake_install.cmake
 }

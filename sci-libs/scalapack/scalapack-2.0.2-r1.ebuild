@@ -46,20 +46,20 @@ src_configure() {
 
 	scalapack_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" scalapack_configure \
+		BUILD_DIR="${WORKDIR}/${PN}_static" scalapack_configure \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
 }
 
 src_compile() {
 	cmake-utils_src_compile
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_compile
+		BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_compile
 }
 
 src_install() {
 	cmake-utils_src_install
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_install
+		BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_install
 
 	insinto /usr/include/blacs
 	doins BLACS/SRC/*.h

@@ -49,18 +49,18 @@ src_configure() {
 
 	tmg_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" tmg_configure \
+		BUILD_DIR="${WORKDIR}/${PN}_static" tmg_configure \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
 }
 
 src_compile() {
 	cmake-utils_src_compile -C TESTING/MATGEN
-	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
+	use static-libs && BUILD_DIR="${WORKDIR}/${PN}_static" \
 		cmake-utils_src_compile -C TESTING/MATGEN
 }
 
 src_install() {
 	cmake-utils_src_install -C TESTING/MATGEN
-	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
+	use static-libs && BUILD_DIR="${WORKDIR}/${PN}_static" \
 			cmake-utils_src_install -C TESTING/MATGEN
 }

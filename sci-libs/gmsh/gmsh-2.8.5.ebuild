@@ -78,7 +78,7 @@ src_install() {
 
 	# TODO: tutorials get installed twice ATM
 	if use doc ; then
-		cd "${CMAKE_BUILD_DIR}" || die
+		cd "${BUILD_DIR}" || die
 		emake pdf
 		cd "${S}" || die
 		dodoc doc/texinfo/gmsh.pdf
