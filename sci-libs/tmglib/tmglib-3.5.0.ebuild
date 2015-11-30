@@ -1,10 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-inherit cmake-utils fortran-2
+PYTHON_COMPAT=( python2_7 )
+
+inherit cmake-utils fortran-2 python-any-r1
 
 MYP=lapack-${PV}
 
@@ -17,7 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs"
 
-RDEPEND="
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="${PYTHON_DEPS}
 	virtual/blas
 	virtual/lapack"
 DEPEND="${RDEPEND}

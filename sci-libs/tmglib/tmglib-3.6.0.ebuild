@@ -4,9 +4,11 @@
 
 EAPI=5
 
-inherit cmake-utils fortran-2
+PYTHON_COMPAT=( python2_7 )
 
-MYP=lapack-3.4.2
+inherit cmake-utils fortran-2 python-any-r1
+
+MYP=lapack-${PV}
 
 DESCRIPTION="Test Matrix Generator library for LAPACK"
 HOMEPAGE="http://www.netlib.org/lapack/"
@@ -17,7 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs"
 
-RDEPEND="
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="${PYTHON_DEPS}
 	virtual/blas
 	virtual/lapack"
 DEPEND="${RDEPEND}
@@ -56,6 +60,6 @@ src_compile() {
 
 src_install() {
 	cmake-utils_src_install -C TESTING/MATGEN
-	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
-			cmake-utils_src_install -C TESTING/MATGEN
+	use static-libs \
+		&& CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_install -C TESTING/MATGEN
 }
