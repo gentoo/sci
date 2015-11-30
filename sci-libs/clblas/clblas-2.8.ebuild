@@ -6,17 +6,17 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit cmake-utils git-r3 python-single-r1
+inherit cmake-utils python-single-r1
 
 MY_PN="clBLAS"
 
 DESCRIPTION="A software library containing BLAS routines for OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clBLAS"
-EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git"
+SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="+client examples +ktest performance test"
 
 REQUIRED_USE="performance? ( ${PYTHON_REQUIRED_USE} )"
@@ -37,7 +37,7 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
-S="${WORKDIR}/${P}/src"
+S="${WORKDIR}/${MY_PN}-${PV}/src"
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
