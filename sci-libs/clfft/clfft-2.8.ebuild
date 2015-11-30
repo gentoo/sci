@@ -56,6 +56,6 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
-	use callback_client && dobin "${BUILD_DIR}/staging/clFFT-callback-client-2.8.0" 
-	use client && dobin "${BUILD_DIR}/staging/clFFT-client-2.8.0" 
+	use callback_client && dobin "${BUILD_DIR}/staging/clFFT-callback-client-2.8.0"
+	use client && dobin "${BUILD_DIR}/staging/clFFT-client-2.8.0"
 }
