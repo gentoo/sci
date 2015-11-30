@@ -23,7 +23,7 @@ HOMEPAGE="http://www.netlib.org/lapack/"
 EGIT_REPO_URI="https://github.com/nschloe/lapack.git"
 
 LICENSE="BSD"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS=""
 IUSE="static-libs test xblas"
 

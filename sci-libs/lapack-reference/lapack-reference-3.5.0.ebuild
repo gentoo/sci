@@ -18,7 +18,7 @@ HOMEPAGE="http://www.netlib.org/lapack/"
 SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 
 LICENSE="BSD"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test xblas"
 
