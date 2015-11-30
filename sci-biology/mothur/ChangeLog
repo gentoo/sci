@@ -1,0 +1,12 @@
+# ChangeLog for sci-biology/mothur
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*mothur-1.36.1 (30 Nov 2015)
+
+  30 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/mothur-1.36.1-makefile.patch, +metadata.xml, +mothur-1.36.1.ebuild:
+  sci-biology/mothur: version bump; update makefile patch, the other patch from
+  1.27 series seems not necessary anymore; added few more IUSE values but the
+  makefile could ideally respect them before forcing boost and zlib libraries
+  into LIBS
