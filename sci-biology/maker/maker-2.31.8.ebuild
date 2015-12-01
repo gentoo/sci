@@ -31,6 +31,7 @@ DEPEND="
 	dev-perl/IO-All
 	dev-perl/libwww-perl
 	dev-perl/DBD-Pg
+	dev-perl/Module-Build
 	dev-perl/Want
 	dev-perl/IO-Prompt
 	dev-perl/Perl-Unsafe-Signals
