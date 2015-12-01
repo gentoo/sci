@@ -20,7 +20,7 @@ SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 LICENSE="BSD"
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="static-libs test xblas"
+IUSE="+deprecated static-libs test xblas"
 
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -82,6 +82,7 @@ src_configure() {
 			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs ${blas_profname})"
 			$(cmake-utils_use_build test TESTING)
 			$(cmake-utils_use_use xblas XBLAS)
+			$(cmake-utils_use_build deprecated DEPRECATED)
 			-DCMAKE_C_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CFLAGS}"
 			-DCMAKE_CXX_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CXXFLAGS}"
 			-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) $(numeric-int64_get_fortran_int64_abi_fflags) ${FCFLAGS}"
