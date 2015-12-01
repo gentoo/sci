@@ -23,7 +23,7 @@ RDEPEND="
 		>=dev-cpp/eigen-3.1.4
 		sci-libs/atlas[fortran]
 		>=sci-libs/acml-4.4
-		sci-libs/gotoblas2
+		sci-libs/gotoblas2[int64?,${MULTILIB_USEDEP}]
 		>=sci-libs/mkl-10.3
 	)
 	doc? ( >=app-doc/blas-docs-3.2 )
@@ -31,6 +31,7 @@ RDEPEND="
 		|| (
 			sci-libs/blas-reference[int64,${MULTILIB_USEDEP}]
 			>=sci-libs/openblas-0.2.11[int64,${MULTILIB_USEDEP}]
+			sci-libs/gotoblas2[int64?,${MULTILIB_USEDEP}]
 		)
 	)
 "

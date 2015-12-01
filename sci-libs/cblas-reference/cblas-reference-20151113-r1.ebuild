@@ -57,6 +57,7 @@ src_prepare() {
 		CBLAS/testing/CMakeLists.txt || die
 	sed -i \
 		-e 's:BINARY_DIR}/cblas:BINARY_DIR}/${PROFNAME}:' \
+		-e '/CBLAS_INCLUDE/s:include ):include/${PROFNAME} ):g' \
 		CBLAS/CMakeLists.txt || die
 }
 
@@ -116,6 +117,6 @@ src_test() {
 
 src_install() {
 	numeric-int64-multibuild_foreach_all_abi_variants cmake-utils_src_install -C CBLAS
-	numeric-int64-multibuild_install_alternative cblas reference /usr/include/cblas.h cblas/cblas.h
+	numeric-int64-multibuild_install_alternative cblas reference /usr/include/cblas.h refcblas/cblas.h
 	multilib_install_wrappers
 }

@@ -194,7 +194,6 @@ sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-libs/gmsh:petsc - Enable sci-mathematics/petsc support
 sci-libs/gmsh:taucs - Enable sci-libs/taucs support
 sci-libs/gmsh:tetgen - Enable 3D delauny triangulation using tetgen lib
-sci-libs/gotoblas2:dynamic - Build dynamic architecture detection at run time (for multi targets)
 sci-libs/gotoblas2:incblas - Build the CBLAS interface
 sci-libs/gotoblas2:int64 - Build the 64 bits integer library
 sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/cblas) instead of shipped internal version

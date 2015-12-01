@@ -114,7 +114,8 @@ src_install() {
 	}
 	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir myinstall
 
-	numeric-int64-multibuild_install_alternative blas ${NUMERIC_MODULE_NAME} /usr/include/cblas.h ${PN}/cblas.h
+	numeric-int64-multibuild_install_alternative blas ${NUMERIC_MODULE_NAME}
+	numeric-int64-multibuild_install_alternative cblas ${NUMERIC_MODULE_NAME} /usr/include/cblas.h ${PN}/cblas.h
 
 	dodoc 01Readme.txt 03FAQ.txt 05LargePage 06WeirdPerformance
 
