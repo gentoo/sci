@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/scbi_plot
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*scbi_plot-0.0.7 (02 Dec 2015)
+
+  02 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +scbi_plot-0.0.7.ebuild:
+  sci-biology/scbi_plot: new package
