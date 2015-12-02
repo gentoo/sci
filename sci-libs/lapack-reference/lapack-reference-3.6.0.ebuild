@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 NUMERIC_MODULE_NAME="reflapack"
 
-inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1
+inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 eutils
 
 MY_PN=lapack
 MYP=${MY_PN}-${PV}
@@ -32,9 +32,14 @@ DEPEND="${RDEPEND}
 	test? ( ${PYTHON_DEPS} )"
 
 S="${WORKDIR}/${MYP}"
+PATCHES=( "${FILESDIR}/lapack-fix-build-system.patch" )
 
 src_prepare() {
 	numeric-int64_ensure_blas_int_support
+
+	# the lapack(e)/(c)blas build system is somewhat broken
+	# with respect to its pkg-config files.
+	epatch "${PATCHES[@]}"
 
 	# rename library to avoid collision with other lapack implementations
 	# ${PROFNAME}, ${LIBNAME} and ${BLAS_REQUIRES} are not defined here, they
@@ -50,9 +55,9 @@ src_prepare() {
 		-e '/PROPERTIES/s:lapack:${LIBNAME}:g' \
 		SRC/CMakeLists.txt || die
 	sed -i \
-		-e '/Name: /s:lapack:${PROFNAME}:' \
-		-e 's:-llapack:-l${LIBNAME}:g' \
-		-e '/Requires: /s:blas:${BLAS_REQUIRES}\nFflags=${LAPACK_PKGCONFIG_FFLAGS}:' \
+		-e '/Name: /s:lapack:@PROFNAME@:' \
+		-e 's:-llapack:-l@LIBNAME@:g' \
+		-e '/Requires: /s:blas:@BLAS_REQUIRES@\nFflags\: ${LAPACK_PKGCONFIG_FFLAGS}:' \
 		lapack.pc.in || die
 	# some string does not get passed properly
 	sed -i \
