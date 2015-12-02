@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 NUMERIC_MODULE_NAME="refblas"
 
-inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 toolchain-funcs
+inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 toolchain-funcs eutils
 
 LPN=lapack
 LPV=3.6.0
@@ -30,8 +30,13 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${LPN}-${LPV}"
+PATCHES=( "${FILESDIR}/lapack-fix-build-system.patch" )
 
 src_prepare() {
+	# the lapack(e)/(c)blas build system is somewhat broken
+	# with respect to its pkg-config files.
+	epatch "${PATCHES[@]}"
+
 	# rename library to avoid collision with other blas implementations
 	# ${LIBNAME} and ${PROFNAME} are not defined here, they are in single
 	# quotes in the following seds.  They are later set by defining cmake
@@ -42,8 +47,8 @@ src_prepare() {
 		CMakeLists.txt \
 		BLAS/SRC/CMakeLists.txt || die
 	sed -i \
-		-e '/Name: /s:blas:${PROFNAME}:' \
-		-e 's:-lblas:-l${LIBNAME}:g' \
+		-e '/Name: /s:blas:@PROFNAME@:' \
+		-e 's:-lblas:-l@LIBNAME@:g' \
 		 BLAS/blas.pc.in || die
 	sed -i \
 		-e 's:blas):${LIBNAME}):' \
