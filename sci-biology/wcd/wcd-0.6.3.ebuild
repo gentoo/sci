@@ -12,6 +12,8 @@ DESCRIPTION="EST sequence clustering by either of: d2 function, edit distance, c
 HOMEPAGE="http://code.google.com/p/wcdest/"
 SRC_URI="http://wcdest.googlecode.com/files/wcd-express-${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}"/wcd-express-"${PV}"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
