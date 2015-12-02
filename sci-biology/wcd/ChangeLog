@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  02 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> wcd-0.6.3.ebuild:
+  sci-biology/wcd: also install some documentation, albeit probably old
+
   02 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +files/wcd-0.6.3-impl-decl.patch, +files/wcd-0.6.3-ldflags.patch,
   -files/wcd-0.6.0-impl-decl.patch, -files/wcd-0.6.0-ldflags.patch:
