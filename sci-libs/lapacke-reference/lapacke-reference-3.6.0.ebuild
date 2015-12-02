@@ -28,8 +28,13 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
+PATCHES=( "${FILESDIR}/lapack-fix-build-system.patch" )
 
 src_prepare() {
+	# the lapack(e)/(c)blas build system is somewhat broken
+	# with respect to its pkg-config files.
+	epatch "${PATCHES[@]}"
+
 	# rename libraries to avoid collision with other lapacke
 	sed -i \
 		-e 's:BINARY_DIR}/lapacke.pc:BINARY_DIR}/reflapacke.pc:' \
