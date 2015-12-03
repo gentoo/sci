@@ -122,7 +122,6 @@ alternatives-2_pkg_prerm() {
 
 	# If we are uninstalling, update alternatives to valid provider
 	[[ -n ${REPLACED_BY_VERSION} ]] || ignore="--ignore"
-set -x
 	for alt in ${ALTERNATIVES_CREATED[@]}; do
 		eselect alternatives update "${alt}"
 		ret=$?
@@ -139,7 +138,6 @@ set -x
 				;;
 		esac
 	done
-set +x
 }
 
 EXPORT_FUNCTIONS pkg_postinst pkg_prerm
