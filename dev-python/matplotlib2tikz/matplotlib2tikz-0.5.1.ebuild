@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 python3_{3,4} )
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
 inherit distutils-r1
 
@@ -18,6 +18,7 @@ SLOT="0"
 IUSE=""
 
 RDEPEND="dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-texlive/texlive-pictures"
 DEPEND="${RDEPEND}"
 	#test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
