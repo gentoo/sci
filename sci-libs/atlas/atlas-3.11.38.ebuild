@@ -6,9 +6,9 @@ EAPI=5
 
 FORTRAN_NEEDED=fortran
 
-inherit alternatives-2 eutils fortran-2 multilib toolchain-funcs versionator
+inherit alternatives-2 eutils fortran-2 multilib numeric toolchain-funcs versionator
 
-LAPACKP=lapack-3.5.0.tgz
+LAPACKP=lapack-3.6.0.tgz
 
 DESCRIPTION="Automatically Tuned Linear Algebra Software"
 HOMEPAGE="http://math-atlas.sourceforge.net/"
@@ -18,7 +18,7 @@ SRC_URI="mirror://sourceforge/math-atlas/${PN}${PV}.tar.bz2
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc fortran generic lapack static-libs threads"
+IUSE="doc fortran generic ifko lapack static-libs threads"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"
@@ -35,11 +35,9 @@ pkg_setup() {
 			fi
 		fi
 	done
+	[[ -e /sys/devices/system/cpu/intel_pstate ]] \
+		&& die "Intel P-State driver detected. Please reboot with 'intel_pstate=disable' in your cmdline"
 	use fortran && fortran-2_pkg_setup
-}
-
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-3.10.0-x32-support.patch
 }
 
 src_configure() {
@@ -107,8 +105,9 @@ src_configure() {
 		use generic && use amd64 && myconf+=( "-V 384 -A 24")
 
 		local confdir="${S}_${1}"; shift
+		myconf+=( $(usex ifko "--use-ifko" "") )
 		myconf+=( $@ )
-		mkdir "${confdir}" && cd "${confdir}"
+		mkdir "${confdir}" && cd "${confdir}" || die
 		# for debugging
 		echo ${myconf[@]} > myconf.out
 		"${S}"/configure ${myconf[@]} || die "configure in ${confdir} failed"
@@ -120,13 +119,13 @@ src_configure() {
 
 src_compile() {
 	atlas_compile() {
-		pushd "${S}_${1}" > /dev/null
+		pushd "${S}_${1}" > /dev/null || die
 		# atlas does its own parallel builds
 		emake -j1 build
-		cd lib
+		cd lib || die
 		emake libclapack.a
 		[[ -e libptcblas.a ]] && emake libptclapack.a
-		popd > /dev/null
+		popd > /dev/null || die
 	}
 
 	atlas_compile shared
@@ -134,7 +133,7 @@ src_compile() {
 }
 
 src_test() {
-	cd "${S}_shared"
+	cd "${S}_shared" || die
 	emake -j1 check time
 }
 
@@ -150,9 +149,8 @@ atlas_install_libs() {
 		-Wl,--whole-archive ${libname}.a -Wl,--no-whole-archive \
 		"$@" -o ${soname} || die "Creating ${soname} failed"
 	dolib.so ${soname}
-	ln -s ${soname} ${soname%.*}
 	dosym ${soname} /usr/$(get_libdir)/${soname%.*}
-	popd > /dev/null
+	popd > /dev/null || die
 	use static-libs && dolib.a "${S}_static"/lib/${libname}.a
 }
 
@@ -161,31 +159,28 @@ atlas_install_libs() {
 atlas_install_pc() {
 	local libname=${1} ; shift
 	local pcname=${1} ; shift
-	cat <<-EOF > ${pcname}.pc
-		prefix=${EPREFIX}/usr
-		libdir=\${prefix}/$(get_libdir)
-		includedir=\${prefix}/include
-		Name: ${pcname}
-		Description: ${PN} ${pcname}
-		Version: ${PV}
-		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -l${libname} $@
-		Libs.private: -L\${libdir} -latlas -lm ${PTLIBS}
-		Cflags: -I\${includedir}/${PN}
-		${PCREQ}
-	EOF
-	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${pcname}.pc
+	local extra=()
+	[[ ${PCREQ} ]] && extra+=( --requires "${PCREQ}" )
+	create_pkgconfig \
+		--name "${pcname}" \
+		--description "${PN} ${pcname}" \
+		--libs "-L\${libdir} -l${libname} $@" \
+		--libs-private "-L\${libdir} -latlas -lm ${PTLIBS}" \
+		--cflags "-I\${includedir}/${PN}" \
+		"${extra[@]}" \
+		${pcname}
 }
 
 src_install() {
-	cd "${S}_shared/lib"
+	cd "${S}_shared/lib" || die
 	# rename to avoid collision with other packages
 	local l
 	for l in {,c}{blas,lapack}; do
 		if [[ -e lib${l}.a ]]; then
-			mv lib{,atl}${l}.a
-			use static-libs && mv "${S}"_static/lib/lib{,atl}${l}.a
+			mv lib{,atl}${l}.a || die
+			if use static-libs; then
+				mv "${S}"_static/lib/lib{,atl}${l}.a || die
+			fi
 		fi
 	done
 
@@ -211,7 +206,7 @@ src_install() {
 	fi
 
 	if use lapack; then
-		PCREQ="Requires: cblas"
+		PCREQ="cblas"
 		# clapack
 		atlas_install_libs libatlclapack.a -lm -L. -latlas -latlcblas
 		atlas_install_pc atlclapack atlas-clapack
@@ -241,7 +236,7 @@ src_install() {
 		fi
 
 		if use lapack; then
-			PCREQ="Requires: blas cblas"
+			PCREQ="blas cblas"
 			# lapack
 			atlas_install_libs libatllapack.a \
 				-lm -L. -latlas -latlcblas -lf77blas
@@ -259,11 +254,11 @@ src_install() {
 		fi
 	fi
 
-	cd "${S}"
+	cd "${S}" || die
 	insinto /usr/include/${PN}
 	doins include/*.h
 
-	cd "${S}/doc"
+	cd "${S}/doc" || die
 	dodoc INDEX.txt AtlasCredits.txt ChangeLog
 	use doc && dodoc atlas*pdf cblas.pdf cblasqref.pdf
 	use doc && use fortran && dodoc f77blas*pdf
