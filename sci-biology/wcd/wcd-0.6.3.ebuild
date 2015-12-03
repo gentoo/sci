@@ -31,6 +31,11 @@ PATCHES=(
 	"${FILESDIR}"/${P}-impl-decl.patch
 	)
 
+src_prepare() {
+	rm -r src/*o src/.deps || die
+	autotools-utils_src_prepare
+}
+
 src_configure(){
 	local myeconfargs=()
 	use mpi && myeconfargs+=( --enable-mpi )
