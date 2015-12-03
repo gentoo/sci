@@ -200,6 +200,7 @@ sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/
 sci-libs/itk:itkv3compat - Enable compatibility with ITK version 3
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
+sci-libs/lapack-reference:deprecated - Build deprecated routines
 sci-libs/lapack-reference:int64 - Build the 64 bits integer library
 sci-libs/lapack-reference:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
 sci-libs/lapacke-reference:tmg - Build LAPACKE with a Test Matrix Generator library
