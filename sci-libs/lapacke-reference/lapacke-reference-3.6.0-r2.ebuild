@@ -41,6 +41,7 @@ src_prepare() {
 		-e '/export/s:lapacke:reflapacke:g' \
 		-e '/ALL_TARGETS/s:lapacke):reflapacke):' \
 		-e '/LAPACK_LIBRARIES/s:lapacke:reflapacke:g' \
+		LAPACKE/CMakeLists.txt \
 		CMakeLists.txt || die
 	sed -i \
 		-e '/librar/s:(lapacke:(reflapacke:g' \
