@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 NUMERIC_MODULE_NAME="reflapack"
 
-inherit alternatives-2 cmake-utils fortran-2 numeric-int64-multibuild python-any-r1 eutils
+inherit alternatives-2 cmake-utils eutils fortran-2 numeric-int64-multibuild python-any-r1
 
 MY_PN=lapack
 MYP=${MY_PN}-${PV}
