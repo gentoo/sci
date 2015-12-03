@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*pysam-0.8.4 (03 Dec 2015)
+
+  03 Dec 2015; Ted Tanberry <ted.tanberry@gmail.com> +pysam-0.8.4.ebuild:
+  sci-biology/pysam: version bump to 0.8.4
+
   04 May 2015; Marius Brehler <marbre@linux.sungazer.de> pysam-0.7.5.ebuild:
   Fix deps
 
