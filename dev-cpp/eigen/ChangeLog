@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*eigen-3.2.7 (03 Dec 2015)
+
+  03 Dec 2015; Ted Tanberry <ted.tanberry@gmail.com> +eigen-3.2.7.ebuild:
+  dev-cpp/eigen: version bump to 3.2.7
+
 *eigen-3.2.4 (16 Apr 2015)
 
   16 Apr 2015; Justin Lecher <jlec@gentoo.org> +eigen-3.2.4.ebuild,
