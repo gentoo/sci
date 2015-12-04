@@ -9,10 +9,10 @@ inherit cmake-utils git-r3
 DESCRIPTION="High Performance Visualizations for ArrayFire"
 HOMEPAGE="http://www.arrayfire.com/"
 EGIT_REPO_URI="https://github.com/arrayfire/${PN}.git git://github.com/arrayfire/${PN}.git"
-KEYWORDS=""
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS=""
 IUSE="examples"
 
 RDEPEND="
@@ -38,6 +38,7 @@ src_configure() {
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   -DUSE_SYSTEM_GLM=ON
 	   -DUSE_SYSTEM_FREETYPE=ON
+	   -DFG_INSTALL_CMAKE_DIR=/usr/$(get_libdir)/cmake/Forge
 	)
 	cmake-utils_src_configure
 }
