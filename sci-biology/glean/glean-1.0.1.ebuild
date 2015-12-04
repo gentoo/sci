@@ -24,10 +24,10 @@ RDEPEND="${DEPEND}
 	virtual/perl-Data-Dumper
 	dev-perl/Module-Pluggable
 	dev-perl/Algorithm-Diff
+	dev-perl/yaml
 	sci-biology/bioperl
 	graphviz? ( dev-perl/GraphViz )"
 # FindBin
-# YAML
 
 S="${WORKDIR}"/glean-gene
 
