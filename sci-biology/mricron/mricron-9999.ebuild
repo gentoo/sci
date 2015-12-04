@@ -24,8 +24,7 @@ src_compile() {
 
 src_install() {
 	dobin mricron
-	dobin dcm2nii
-	dobin dcm2niigui
-	dobin pigz_mricron
+	dobin dcm2nii/dcm2nii
+	dobin dcm2nii/dcm2niigui
 }
 
