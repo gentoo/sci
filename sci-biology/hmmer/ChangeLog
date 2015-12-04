@@ -1,0 +1,13 @@
+# ChangeLog for sci-biology/hmmer
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  hmmer-3.1_beta2.ebuild:
+  sci-biology/hmmer: fix ${S} variable
+
+*hmmer-3.1_beta2 (19 Nov 2015)
+
+  19 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +hmmer-3.1_beta2.ebuild, +metadata.xml:
+  sci-biology/hmmer: version bump

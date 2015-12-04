@@ -21,7 +21,7 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="dev-libs/boost
 	python? (
-		dev-libs/boost[${PYTHON_USEDEP}]
+		dev-libs/boost[python,${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
 	)
 	>=dev-db/sqlite-3"

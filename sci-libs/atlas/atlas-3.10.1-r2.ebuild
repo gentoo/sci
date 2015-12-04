@@ -1,11 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
 FORTRAN_NEEDED=fortran
-inherit eutils toolchain-funcs fortran-2 versionator alternatives-2 multilib
+
+inherit alternatives-2 eutils fortran-2 multilib toolchain-funcs versionator
 
 LAPACKP=lapack-3.5.0.tgz
 
@@ -17,7 +18,7 @@ SRC_URI="mirror://sourceforge/math-atlas/${PN}${PV}.tar.bz2
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="fortran doc generic lapack static-libs threads"
+IUSE="doc fortran generic lapack static-libs threads"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"

@@ -1,0 +1,61 @@
+--- mothur-1.36.1/makefile.ori	2015-11-30 18:38:40.511576683 +0100
++++ mothur-1.36.1/makefile	2015-11-30 18:41:24.261579412 +0100
+@@ -9,7 +9,7 @@
+ #
+ 
+ USEMPI ?= no
+-64BIT_VERSION ?= yes
++64BIT_VERSION ?= no
+ USEREADLINE ?= yes
+ USECOMPRESSION ?= no
+ USEBOOST ?= yes
+@@ -18,7 +18,7 @@
+ VERSION = "\"1.36.1\""
+ 
+ # Optimize to level 3:
+-CXXFLAGS += -O3
++# CXXFLAGS += -O3
+ 
+ 
+ ifeq  ($(strip $(64BIT_VERSION)),yes)
+@@ -58,7 +58,7 @@
+ 
+ 
+ ifeq  ($(strip $(USEMPI)),yes)
+-    CXX = mpic++
++#    CXX = mpic++
+     CXXFLAGS += -DUSE_MPI
+ endif
+ 
+@@ -106,10 +106,8 @@
+     OBJECTS+=$(patsubst %.cpp,%.o,$(wildcard *.cpp))
+     OBJECTS+=$(patsubst %.c,%.o,$(wildcard *.c))
+ 
+-mothur : $(OBJECTS) uchime
++mothur : $(OBJECTS)
+ 	$(CXX) $(LDFLAGS) $(TARGET_ARCH) -o $@ $(OBJECTS) $(LIBS)
+-	strip mothur
+-
+ 
+ uchime:
+ 	cd source/uchime_src && ./mk && mv uchime ../../ && cd ..
+--- mothur-1.36.1/makefile.ori	2015-11-30 18:46:41.411584697 +0100
++++ mothur-1.36.1/makefile	2015-11-30 19:15:18.531613315 +0100
+@@ -64,14 +64,12 @@
+ 
+ #The boost libraries allow you to read gz files.
+ ifeq  ($(strip $(USEBOOST)),yes)
+-    BOOST_INCLUDE_DIR="/usr/local/include"
+-    BOOST_LIBRARY_DIR="/usr/local/lib"
++    BOOST_INCLUDE_DIR="/usr/include"
++    BOOST_LIBRARY_DIR="/usr/lib"
+ 
+     CXXFLAGS += -DUSE_BOOST
+ 
+-    LIBS += \
+-    ${BOOST_LIBRARY_DIR}/libboost_iostreams.a \
+-    ${BOOST_LIBRARY_DIR}/zlib.a
++    LIBS += -lboost_iostreams -lz
+ 
+     #if linux or windows then ${BOOST_LIBRARY_DIR}/libz.a
+ endif

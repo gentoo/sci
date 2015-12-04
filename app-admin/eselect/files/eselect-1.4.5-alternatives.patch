@@ -1,12 +1,12 @@
  bin/Makefile.am                  |   1 +
  bin/eselect.in                   | 150 +++++++++++-
  libs/Makefile.am                 |   7 +-
- libs/alternatives-common.bash.in | 509 +++++++++++++++++++++++++++++++++++++++
+ libs/alternatives-common.bash.in | 510 +++++++++++++++++++++++++++++++++++++++
  libs/alternatives.bash.in        | 316 ++++++++++++++++++++++++
  modules/Makefile.am              |   1 +
  modules/alternatives.eselect     | 178 ++++++++++++++
  modules/modules.eselect          | 288 ++++++++++++++--------
- 8 files changed, 1342 insertions(+), 108 deletions(-)
+ 8 files changed, 1343 insertions(+), 108 deletions(-)
 
 diff --git a/bin/Makefile.am b/bin/Makefile.am
 index 20902c1..ad08867 100644
@@ -251,10 +251,10 @@ index 027ef73..a5fe373 100644
  	@$(dosed) $< > $@
 diff --git a/libs/alternatives-common.bash.in b/libs/alternatives-common.bash.in
 new file mode 100644
-index 0000000..024d41e
+index 0000000..10d6616
 --- /dev/null
 +++ b/libs/alternatives-common.bash.in
-@@ -0,0 +1,509 @@
+@@ -0,0 +1,510 @@
 +# Copyright (c) 2005-2015 Gentoo Foundation
 +# Copyright (c) 2008 Mike Kelly
 +# Copyright (c) 2009-2013 David Leverton
@@ -277,7 +277,8 @@ index 0000000..024d41e
 +inherit config output path-manipulation tests
 +
 +: "${ALTERNATIVESDIR_ROOTLESS:=@sysconfdir@/env.d/alternatives}"
-+ALTERNATIVESDIR="${EROOT%/}${ALTERNATIVESDIR_ROOTLESS}"
++: "${ALTERNATIVESDIR_ROOT:=${ROOT%/}}"
++ALTERNATIVESDIR="${ALTERNATIVESDIR_ROOT}${ALTERNATIVESDIR_ROOTLESS}"
 +
 +get_current_provider() {
 +	local dieprefix="Could not determine current provider for ${ALTERNATIVE}"
@@ -467,7 +468,7 @@ index 0000000..024d41e
 +				old_i+=1
 +
 +			else
-+				local target=${ALTERNATIVESDIR_ROOTLESS#/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
++				local target=${ALTERNATIVESDIR_ROOTLESS#${EPREFIX}/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
 +				while [[ -n ${dir} ]]; do
 +					target=../${target}
 +					dir=${dir%/*}
@@ -563,7 +564,7 @@ index 0000000..024d41e
 +		if [[ ${src} != /* ]]; then
 +			die "Source path must be absolute, but got ${src}"
 +		else
-+			local reltarget= dir=${provider_dir}${src%/*}
++			local reltarget= dir=${provider_dir#${ALTERNATIVESDIR_ROOT}${EPREFIX}}${src%/*}
 +			while [[ -n ${dir} ]]; do
 +				reltarget+=../
 +				dir=${dir%/*}

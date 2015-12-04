@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit autotools-utils distutils-r1 subversion
 
-DESCRIPTION="General Hidden Markov Model library - efficient data structures and algorithms for HMMs"
+DESCRIPTION="General Hidden Markov Model library"
 HOMEPAGE="http://ghmm.sourceforge.net/"
 SRC_URI=""
 ESVN_REPO_URI="https://ghmm.svn.sourceforge.net/svnroot/ghmm/trunk/ghmm"

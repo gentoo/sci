@@ -1,0 +1,20 @@
+--- trinityrnaseq-2.1.1/trinity-plugins/Makefile.ori	2015-11-21 00:34:52.310075544 +0100
++++ trinityrnaseq-2.1.1/trinity-plugins/Makefile	2015-11-21 00:37:16.260075920 +0100
+@@ -10,7 +10,7 @@
+ PARAFLY_CODE=parafly-code
+ TRIMMOMATIC_CODE=Trimmomatic-0.32
+ 
+-trinity_essentials: jellyfish scaffold_iworm_contigs_target fastool_target parafly_target trimmomatic_target samtools
++trinity_essentials: scaffold_iworm_contigs_target fastool_target parafly_target
+ 
+ trimmomatic_target:
+ 	ln -sf ${TRIMMOMATIC_CODE} Trimmomatic
+@@ -31,7 +31,7 @@
+ #	cd htslib-1.2.1 && ./configure && $(MAKE)
+ 	tar xvf ${HTSLIB_CODE} && cd htslib && $(MAKE)
+ 
+-scaffold_iworm_contigs_target: htslib_target
++scaffold_iworm_contigs_target:
+ 	cd scaffold_iworm_contigs && $(MAKE)
+ 
+ fastool_target:

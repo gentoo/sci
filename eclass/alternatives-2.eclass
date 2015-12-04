@@ -7,7 +7,7 @@
 # Copyright 2008, 2009 Mike Kelly
 # Copyright 2009 David Leverton
 
-# @ECLASS: alternatives-2
+# @ECLASS: alternatives-2.eclass
 # @MAINTAINER:
 # Gentoo Science Project <sci@gentoo.org>
 # @BLURB: Manage alternative implementations.
@@ -31,7 +31,7 @@ case "${EAPI:-0}" in
 		;;
 esac
 
-DEPEND=">=app-admin/eselect-1.4.4-r102"
+DEPEND=">=app-admin/eselect-1.4.5-r102"
 RDEPEND="${DEPEND}
 	!app-admin/eselect-blas
 	!app-admin/eselect-cblas
@@ -102,7 +102,7 @@ alternatives-2_pkg_postinst() {
 		fi
 
 		# Set alternative provider if there is no valid provider selected
-		eselect "${alt}" update "${provider}"
+		eselect alternatives update "${alt}"
 
 		cleanup_old_alternatives_module ${alt}
 	done
@@ -122,9 +122,9 @@ alternatives-2_pkg_prerm() {
 
 	# If we are uninstalling, update alternatives to valid provider
 	[[ -n ${REPLACED_BY_VERSION} ]] || ignore="--ignore"
-
 	for alt in ${ALTERNATIVES_CREATED[@]}; do
-		eselect "${alt}" update ${ignore} "${provider}"
+		eselect alternatives update "${alt}"
+		ret=$?
 
 		case ${ret} in
 			0) : ;;
@@ -134,7 +134,7 @@ alternatives-2_pkg_prerm() {
 				eselect alternatives delete "${alt}" || eerror "Failed to remove ${alt}"
 				;;
 			*)
-				eerror "eselect ${alt} update ${provider} returned ${ret}"
+				eerror "eselect alternatives update returned \"${ret}\""
 				;;
 		esac
 	done

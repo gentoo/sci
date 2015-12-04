@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   This implementation provides a native C interface to LAPACK routines
   available at www.netlib.org/lapack to facilitate usage of LAPACK
   functionality for C programmers. 
 </longdescription>
-<use>
-  <flag name="tmg">Build LAPACKE with a Test Matrix Generator library</flag>
-  <flag name="xblas">Build LAPACKE with extra precision (needs
+  <use>
+    <flag name="tmg">Build LAPACKE with a Test Matrix Generator library</flag>
+    <flag name="xblas">Build LAPACKE with extra precision (needs
   <pkg>sci-libs/xblas</pkg>)</flag>
-</use>
+  </use>
 </pkgmetadata>

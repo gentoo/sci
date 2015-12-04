@@ -36,10 +36,6 @@ dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
 dev-python/ffnet:matplotlib - Use matplotlib for drawing
-dev-python/ipython:matplotlib - Add support for dev-python/matplotlib
-dev-python/ipython:mongodb - Enable support for MongoDB via dev-python/pymongo
-dev-python/ipython:nbconvert - Enable support for converting notebooks to various formats using app-text/pandoc
-dev-python/ipython:notebook - Install requirements for the web notebook based on www-servers/tornado
 dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
 dev-python/ufl:scipy - Adds support for evaluating Bessel functions using dev-python/scipy
 dev-tex/pythontex:highlighting - PLEASE FIX MY DESCRIPTION
@@ -67,6 +63,7 @@ sci-biology/discrover:rmathlib - Link to the standalone Rmathlib for statistical
 sci-biology/estscan:icc - Undocumented USE
 sci-biology/estscan:ifc - Undocumented USE
 sci-biology/exonerate-gff3:utils - Unknown
+sci-biology/hmmer:pvm - Add support for parallel virtual machine (sys-cluster/pvm)
 sci-biology/ncbi-blast+:boost - Undocumented USE
 sci-biology/ncbi-blast+:cppunit - Undocumented USE
 sci-biology/ncbi-blast+:freetype - Undocumented USE
@@ -197,13 +194,13 @@ sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-libs/gmsh:petsc - Enable sci-mathematics/petsc support
 sci-libs/gmsh:taucs - Enable sci-libs/taucs support
 sci-libs/gmsh:tetgen - Enable 3D delauny triangulation using tetgen lib
-sci-libs/gotoblas2:dynamic - Build dynamic architecture detection at run time (for multi targets)
 sci-libs/gotoblas2:incblas - Build the CBLAS interface
 sci-libs/gotoblas2:int64 - Build the 64 bits integer library
 sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/cblas) instead of shipped internal version
 sci-libs/itk:itkv3compat - Enable compatibility with ITK version 3
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
+sci-libs/lapack-reference:deprecated - Build deprecated routines
 sci-libs/lapack-reference:int64 - Build the 64 bits integer library
 sci-libs/lapack-reference:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
 sci-libs/lapacke-reference:tmg - Build LAPACKE with a Test Matrix Generator library
@@ -316,6 +313,7 @@ sci-misc/hfst:glib - Parse UTF-8 and collate unicode using glib instead of homeb
 sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-misc/openfst)
 sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
 sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
+sci-misc/kaldi:cuda - Build with CUDA support.
 sci-physics/abinit:atompaw - Enable support for atompaw, a Projector Augmented Waves atomic data generator
 sci-physics/abinit:bigdft - Enable support for BigDFT, DFT package using wavelet basis set
 sci-physics/abinit:cuda - Enable support for nVidia CUDA

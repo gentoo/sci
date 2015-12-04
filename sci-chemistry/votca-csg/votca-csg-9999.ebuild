@@ -94,8 +94,8 @@ src_install() {
 		else
 			dodoc "${DISTDIR}/${PN}-manual-${PV}.pdf"
 		fi
-		cmake-utils_src_make -C "${CMAKE_BUILD_DIR}" html
-		dohtml -r "${CMAKE_BUILD_DIR}"/share/doc/html/*
+		cmake-utils_src_make -C "${BUILD_DIR}" html
+		dohtml -r "${BUILD_DIR}"/share/doc/html/*
 	fi
 	if use examples; then
 		insinto "/usr/share/doc/${PF}/tutorials"

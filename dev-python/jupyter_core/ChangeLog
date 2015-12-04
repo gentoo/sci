@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> -Manifest,
+  -files/jupyter_core-4.0.4-add-test-files.patch, -jupyter_core-4.0.4-r1.ebuild,
+  -jupyter_core-4.0.6.ebuild:
+  dev-python/jupyter_core: Moved to tree; Drop old
+
   21 Sep 2015; Marius Brehler <marbre@linux.sungazer.de>
   jupyter_core-9999.ebuild:
   dev-python/jupyter_core: Add ~x86 to KEYWORDS

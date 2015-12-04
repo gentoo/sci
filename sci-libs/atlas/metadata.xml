@@ -12,6 +12,7 @@
 </longdescription>
   <use>
     <flag name="generic">Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)</flag>
+    <flag name="ifko">Use iFKO to improve ATLAS performance (ATTENTION!!! Increases builtime enormously)</flag>
   </use>
   <upstream>
     <remote-id type="sourceforge">math-atlas</remote-id>

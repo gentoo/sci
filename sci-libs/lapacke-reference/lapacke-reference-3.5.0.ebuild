@@ -1,29 +1,22 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-inherit alternatives-2 cmake-utils eutils fortran-2 toolchain-funcs
-
 FORTRAN_NEEDED=test
+
+inherit alternatives-2 cmake-utils eutils fortran-2 toolchain-funcs
 
 MYP=lapack-${PV}
 
-if [[ ${PV} == "9999" ]] ; then
-	ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/lapack/trunk"
-	inherit subversion
-	KEYWORDS=""
-else
-	SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-fi
-
 DESCRIPTION="C Interface to LAPACK"
 HOMEPAGE="http://www.netlib.org/lapack/"
+SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test tmg xblas"
 
 RDEPEND="
@@ -75,29 +68,29 @@ src_configure() {
 
 	lapack_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" lapack_configure \
+		BUILD_DIR="${WORKDIR}/${PN}_static" lapack_configure \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
 }
 
 src_compile() {
 	use test && cmake-utils_src_compile -C TESTING/MATGEN
 	cmake-utils_src_compile -C lapacke
-	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
-			cmake-utils_src_compile -C lapacke
+	use static-libs \
+		&& BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_compile -C lapacke
 }
 
 src_test() {
-	pushd "${CMAKE_BUILD_DIR}/lapacke" > /dev/null
+	pushd "${BUILD_DIR}/lapacke" > /dev/null || die
 	local ctestargs
 	[[ -n ${TEST_VERBOSE} ]] && ctestargs="--extra-verbose --output-on-failure"
 	ctest ${ctestargs} || die
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 src_install() {
 	cmake-utils_src_install -C lapacke
-	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
-		cmake-utils_src_install -C lapacke
+	use static-libs \
+		&& BUILD_DIR="${WORKDIR}/${PN}_static" cmake-utils_src_install -C lapacke
 	alternatives_for lapacke reference 0 \
 		/usr/$(get_libdir)/pkgconfig/lapacke.pc reflapacke.pc
 }

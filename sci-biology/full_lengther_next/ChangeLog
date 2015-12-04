@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/full_lengther_next
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*full_lengther_next-0.0.8 (02 Dec 2015)
+
+  02 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +full_lengther_next-0.0.8.ebuild, +metadata.xml:
+  sci-biology/full_lengther_next: new package

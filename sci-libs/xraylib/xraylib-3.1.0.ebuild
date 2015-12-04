@@ -11,7 +11,7 @@ PYTHON_COMPAT=( python2_7 ) # python 3 supported by github master
 
 inherit eutils autotools-utils python-single-r1 java-pkg-opt-2 fortran-2
 
-DESCRIPTION="A library for X-ray matter interaction cross sections for X-ray fluorescence applications"
+DESCRIPTION="X-ray matter interaction cross sections for X-ray fluorescence library"
 HOMEPAGE="https://github.com/tschoonj/xraylib"
 SRC_URI="https://github.com/tschoonj/xraylib/archive/${P}.tar.gz"
 

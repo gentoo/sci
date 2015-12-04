@@ -31,7 +31,7 @@ src_configure() {
 
 src_install() {
 	insinto "/usr/$(get_libdir)"
-	doins "${CMAKE_BUILD_DIR}/libChemKit2.so"
+	doins "${BUILD_DIR}/libChemKit2.so"
 
 	insinto "/usr/include"
 	doins -r "${S}/include/ChemKit2"

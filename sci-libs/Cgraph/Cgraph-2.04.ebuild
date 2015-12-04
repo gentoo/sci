@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils flag-o-matic multilib
 
-DESCRIPTION="A set of C functions that generate PostScript for publication quality scientific plots"
+DESCRIPTION="C functions that generate PostScript for publication quality scientific plots"
 HOMEPAGE="http://neurovision.berkeley.edu/software/A_Cgraph.html"
 SRC_URI="http://neurovision.berkeley.edu/software/${PN}${PV}.tar.gz"
 

@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de> -Manifest,
+  -ipykernel-4.0.3.ebuild, -ipykernel-4.1.1.ebuild, -ipykernel-4.2.0.ebuild:
+  dev-python/ipykernel: Moved to tree; Drop old
+
+*ipykernel-4.2.0 (27 Nov 2015)
+
+  27 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +ipykernel-4.2.0.ebuild:
+  dev-python/ipykernel: Version bump
+
 *ipykernel-4.1.1 (21 Oct 2015)
 
   21 Oct 2015; Marius Brehler <marbre@linux.sungazer.de>

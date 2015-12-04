@@ -1,0 +1,90 @@
+--- easel/devkit/autodoc.ori	2015-11-19 23:54:04.170245412 +0100
++++ easel/devkit/autodoc	2015-11-19 23:54:27.190245472 +0100
+@@ -49,8 +49,8 @@
+ #
+ # SRE, Tue Nov 30 19:43:47 2004
+ 
+-require  "getopts.pl";
+-&Getopts('n:t');
++use Getopt::Std;
++getopts('n:t');
+ $cfile = shift;
+ 
+ if ($opt_t) { $show_api_table = 1; }
+--- easel/devkit/esl-dependencies.ori	2015-11-19 23:54:40.830245508 +0100
++++ easel/devkit/esl-dependencies	2015-11-19 23:55:08.510245580 +0100
+@@ -13,8 +13,8 @@
+ # SRE, Mon Jun 11 11:15:31 2007
+ # SVN $Id$
+ 
+-require "getopts.pl"
+-&Getopts('1afr');
++use Getopt::Std;
++getopts('1afr');
+ 
+ if ($opt_1) { $show_summary_table = 1; }
+ if ($opt_a) { $list_augfiles      = 1; }
+--- easel/devkit/sqc.ori	2015-11-19 23:55:15.900245600 +0100
++++ easel/devkit/sqc	2015-11-19 23:56:16.530245758 +0100
+@@ -674,7 +674,7 @@
+ #
+ sub tempname {
+     my ($dir, $name, $suffix);
+-    if ($TMPDIR) { $dir = $TMPDIR."/"; } else {$dir = "";}
++    if ($ENV{TMPDIR}) { $dir = $ENV{TMPDIR}."/"; } else {$dir = "";}
+ 
+     foreach $suffix ("aa".."zz") {
+         $name = "$dir"."esltmp".$suffix.$$;
+--- easel/testsuite/coverage_report.pl.ori	2015-11-19 23:56:34.010245804 +0100
++++ easel/testsuite/coverage_report.pl	2015-11-19 23:57:03.040245879 +0100
+@@ -16,9 +16,9 @@
+ #
+ # SRE, Thu Mar  1 19:22:57 2007 (Janelia)
+ # SVN $Id: coverage_report.pl 231 2008-03-25 14:43:57Z eddys $
+-require  "getopts.pl";
++use Getopt::Std;
+ $have_sloccount = 1;
+-&Getopts('cs');
++getopts('cs');
+ if ($opt_c) { $do_recompile     = 1; }
+ if ($opt_s) { $have_sloccount   = 0; }
+ 
+--- easel/testsuite/driver_report.pl.ori	2015-11-19 23:57:14.600245910 +0100
++++ easel/testsuite/driver_report.pl	2015-11-19 23:57:39.310245974 +0100
+@@ -25,8 +25,8 @@
+ # SRE, Fri Mar  2 10:01:44 2007 (Janelia)
+ # SVN $Id: driver_report.pl 664 2011-02-27 17:08:36Z eddys $
+ 
+-require  "getopts.pl";
+-&Getopts('c');
++use Getopt::Std;
++getopts('c');
+ if ($opt_c) { $do_recompile = 1; }
+ 
+ if ($ENV{'CC'}       ne "") { $CC       = $ENV{'CC'};       } else { $CC        = "gcc"; } 
+--- easel/testsuite/valgrind_report.pl.ori	2015-11-19 23:57:47.480245996 +0100
++++ easel/testsuite/valgrind_report.pl	2015-11-19 23:58:03.000246036 +0100
+@@ -10,8 +10,8 @@
+ #
+ # SRE, Fri Mar  2 08:37:48 2007 [Janelia]
+ # SVN $Id: valgrind_report.pl 231 2008-03-25 14:43:57Z eddys $
+-require  "getopts.pl";
+-&Getopts('c');
++use Getopt::Std;
++getopts('c');
+ if ($opt_c) { $do_recompile = 1; }
+ 
+ if ($ENV{'CC'}     ne "") { $CC     = $ENV{'CC'};     } else { $CC       = "gcc"; } 
+--- profmark/rocplot.pl.ori	2015-11-19 23:58:12.530246061 +0100
++++ profmark/rocplot.pl	2015-11-19 23:58:43.090246141 +0100
+@@ -2,8 +2,8 @@
+ 
+ $nsearches = 2809;
+ 
+-require "getopts.pl";
+-&Getopts('n:X:x:');
++use Getopt::Std;
++getopts('n:X:x:');
+ 
+ if ($opt_n) { $nsearches = $opt_n; }
+ if ($opt_X) { 

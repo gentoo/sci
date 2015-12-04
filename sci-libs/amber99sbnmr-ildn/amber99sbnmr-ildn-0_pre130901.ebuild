@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-DESCRIPTION="AMBER99SBnmr1-ILDN force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)"
+DESCRIPTION="AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)"
 HOMEPAGE="https://research.chemistry.ohio-state.edu/bruschweiler/protein-force-field/"
 SRC_URI="http://research.chemistry.ohio-state.edu/bruschweiler/files/2013/09/nmr1-ildn.tar -> ${P}.tar"
 

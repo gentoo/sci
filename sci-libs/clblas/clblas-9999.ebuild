@@ -12,18 +12,19 @@ MY_PN="clBLAS"
 
 DESCRIPTION="A software library containing BLAS routines for OpenCL"
 HOMEPAGE="https://github.com/clMathLibraries/clBLAS"
-EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git git://github.com/clMathLibraries/${MY_PN}.git"
-S="${WORKDIR}/${P}/src"
+EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git"
 
 LICENSE="Apache-2.0"
 SLOT="0"
+KEYWORDS=""
 IUSE="+client examples +ktest performance test"
 
+REQUIRED_USE="performance? ( ${PYTHON_REQUIRED_USE} )"
+
 RDEPEND="
-	>=sys-devel/gcc-4.6:*
+	dev-libs/boost
 	virtual/opencl
 	|| ( >=dev-util/amdapp-2.9 dev-util/intel-ocl-sdk )
-	dev-libs/boost
 	performance? ( ${PYTHON_DEPS} )
 	"
 DEPEND="${RDEPEND}"
@@ -36,11 +37,23 @@ DEPEND="${RDEPEND}"
 # Therefore src_test() won't execute any test.
 RESTRICT="test"
 
+S="${WORKDIR}/${P}/src"
+
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		if [[ $(gcc-major-version) -lt 4 ]] || ( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 6 ]] ) ; then
 			die "Compilation with gcc older than 4.6 is not supported."
 		fi
+	fi
+
+	if [ ! -d "/usr/local/include/CL" ]; then
+		eerror "As a temporary workaround for Bug #521734, a symlink pointing to"
+		eerror "OpenCL headers >= 1.2 is needed. A symlink pointing to the CL-1.2"
+		eerror "headers, provided by the eselect-opencl package, can be created with"
+		eerror ""
+		eerror "  ln -s /usr/lib64/OpenCL/global/include/CL-1.2/ /usr/local/include/CL"
+		eerror ""
+		die "/usr/local/include/CL not found"
 	fi
 }
 
@@ -51,6 +64,7 @@ src_configure() {
 		$(cmake-utils_use_build ktest KTEST)
 		$(cmake-utils_use_build performance PERFORMANCE)
 		$(cmake-utils_use_build test TEST)
+		-DOPENCL_ROOT="/usr/local/include"
 	)
 	cmake-utils_src_configure
 }

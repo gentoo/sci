@@ -30,7 +30,7 @@ src_compile(){
 src_install() {
 	mkdir -p "${D}"/usr/include
 	cp simclist.h "${D}"/usr/include/
-	cd "${CMAKE_BUILD_DIR}"
+	cd "${BUILD_DIR}"
 	dolib libsimclist.so
 	cd "${S}"
 	if use doc; then

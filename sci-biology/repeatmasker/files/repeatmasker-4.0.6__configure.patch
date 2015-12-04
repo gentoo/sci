@@ -1,0 +1,106 @@
+--- configure.ori	2015-11-24 20:56:46.000000000 +0100
++++ configure	2015-11-24 20:59:58.000000000 +0100
+@@ -253,17 +253,16 @@
+   close INVERS;
+ }
+ else {
+-  print "\nYour RepeatMasker installation is missing a library file.\n"
++  die "\nYour RepeatMasker installation is missing a library file.\n"
+       . "RepeatMasker requires a minimal set of library sequences to run\n"
+       . "properly.  Please check that all files were extracted from the\n"
+       . "distribution before re-running the configure program.\n\n";
+-  exit;
+ }
+ 
+ print "\n  -- Building monolithic RM database...";
+ system(
+ "$rmLocation/util/buildRMLibFromEMBL.pl $rmLocation/Libraries/RepeatMaskerLib.embl > $rmLocation/Libraries/RepeatMasker.lib 2>/dev/null"
+-);
++) and die "$rmLocation/util/buildRMLibFromEMBL.pl $rmLocation/Libraries/RepeatMaskerLib.embl command filed with: $!";
+ 
+ ##
+ ## TRF location
+@@ -475,7 +474,7 @@
+     }
+     close IN;
+     close OUT;
+-    system( "mv $configFile.tmp $configFile" );
++    system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+   }
+ 
+ }
+@@ -607,15 +606,15 @@
+   }
+   close IN;
+   close OUT;
+-  system( "mv $configFile.tmp $configFile" );
++  system( "mv $configFile.tmp $configFile" ) and die "Faled to mv $configFile.tmp $configFile: $!";
+ 
+   # Freeze RM and RMPep libraries for RepeatModeler use among others
+   my $rmLocation = "$FindBin::Bin";
+   print "Building RMBlast frozen libraries..\n";
+   system(   "$pgLocation/makeblastdb -dbtype nucl -in "
+-          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" ) and die "$pgLocation/makeblastdb -dbtype nucl -in $rmLocation/Libraries/RepeatMasker.lib failed: $!";
+   system(   "$pgLocation/makeblastdb -dbtype prot -in "
+-          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" ) and die "$pgLocation/makeblastdb -dbtype prot -in $rmLocation/Libraries/RepeatPeps.lib failed with: $!";
+ 
+   my $pgDefault = &promptScreen(
+     "",
+@@ -682,15 +681,15 @@
+   }
+   close IN;
+   close OUT;
+-  system( "mv $configFile.tmp $configFile" );
++  system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+ 
+   # Freeze RM and RMPep libraries
+   my $rmLocation = "$FindBin::Bin";
+   print "Building WUBlast/ABBlast frozen libraries..\n";
+   system(   "$wuLocation/xdformat -n -I "
+-          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" ) and die "$wuLocation/xdformat -n -I $rmLocation/Libraries/RepeatMasker.lib failed with: $!";
+   system(   "$wuLocation/xdformat -p -I "
+-          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" ) and die "$wuLocation/xdformat -p -I $rmLocation/Libraries/RepeatPeps.lib failed with: $!";
+ 
+   my $wuDefault = &promptScreen(
+     "",
+@@ -756,7 +755,7 @@
+       }
+     }
+     else {
+-      print "ERROR: Could not find nhmmer program in this directory!\n";
++      print "ERROR: Could not find nhmmer program in '$location' directory!\n";
+     }
+   }
+ 
+@@ -776,7 +775,7 @@
+   }
+   close IN;
+   close OUT;
+-  system( "mv $configFile.tmp $configFile" );
++  system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+ 
+   my $default = &promptScreen(
+     "",
+@@ -830,7 +829,7 @@
+   }
+   close IN;
+   close OUT;
+-  system( "mv $configFile.tmp $configFile" );
++  system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+ 
+   my $deDefault = &promptScreen(
+     "",
+@@ -866,9 +865,6 @@
+ 
+   my $answer = undef;
+ 
+-  # Clear the screen
+-  system( "clear" );
+-
+   print "\n\n\n";
+   print $screenText;
+   my $numLines = ( $screenText =~ s/(\n)/$1/g );
