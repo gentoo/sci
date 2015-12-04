@@ -147,6 +147,7 @@ sci-libs/arrayfire:opencl - Build OpenCL backend.
 sci-libs/arrayfire:unified - Build Backend-Independent API.
 sci-libs/asl:matio - Matlab support with sci-libs/matio
 sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
+sci-libs/atlas:ifko - Use iFKO to improve ATLAS performance (ATTENTION!!! Increases builtime enormously)
 sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA
 sci-libs/bigdft-abi:etsf_io - Enable support for reading and writing the European Theoretical Spectroscopy facility (ETSF) file format
 sci-libs/bigdft-abi:glib - Compile with GLib Object System support
