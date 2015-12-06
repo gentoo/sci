@@ -1,4 +1,7 @@
-#NeuroGentoo Overlay
+#NeuroGentoo Overlay 
+<p align="center">
+  <img src="http://chymera.eu/img/ng_medium.png"/>
+</p>
 
 NeuroGentoo is a persistent fork of the science overlay, and augments the Gentoo ecosystem by helping you get neuroscience software not (yet) provided by [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay).
 This repository is the cornerstone of the NeuroGentoo initiative, which was first described on [Chymeric Tutorials](http://tutorials.chymera.eu/blog/2013/10/02/neurogentoo/).
