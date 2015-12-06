@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*repeatmasker-4.0.6-r2 (06 Dec 2015)
+
+  06 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +repeatmasker-4.0.6-r2.ebuild, -repeatmasker-4.0.6-r1.ebuild:
+  sci-biology/repeatmasker: actually the the utilities do not include Libraries/
+  in the paths so install it along all other *.pm files
+
 *repeatmasker-4.0.6-r1 (06 Dec 2015)
 
   06 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

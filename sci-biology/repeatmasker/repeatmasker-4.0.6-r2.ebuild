@@ -74,9 +74,7 @@ src_install() {
 
 	dodir /usr/share/${PN}/lib
 	insinto /usr/share/${PN}/lib
-	doins "${S}"/*.pm
-	insinto /usr/share/${PN}/lib/Libraries
-	doins "${S}"/Libraries/*.pm
+	doins "${S}"/*.pm "${S}"/Libraries/*.pm
 	rm -rf "${S}"/Libraries/*.pm # zap the supposedly misplaced RepeatAnnotationData.pm file
 
 	# if sci-biology/repeatmasker-libraries is installed prevent file collision
