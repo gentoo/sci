@@ -1,6 +1,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*arrayfire-3.1.3-r1 (04 Dec 2015)
+*arrayfire-3.2.0-r1 (04 Dec 2015)
+
+  04 Dec 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +arrayfire-3.1.3-r1.ebuild, +arrayfire-3.2.0-r1.ebuild,
+  -arrayfire-3.1.3.ebuild, -arrayfire-3.2.0.ebuild, arrayfire-9999.ebuild:
+  sci-libs/arrayfire: Fix installation path for CMake files
+
   28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
   -arrayfire-3.1.1-r2.ebuild, -arrayfire-3.1.2.ebuild:
   sci-libs/arrayfire: Drop old

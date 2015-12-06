@@ -98,7 +98,7 @@ src_configure() {
 	   -DUSE_SYSTEM_CLBLAS=ON
 	   -DUSE_SYSTEM_CLFFT=ON
 	   -DUSE_SYSTEM_FORGE=ON
-	   -DAF_INSTALL_CMAKE_DIR=/usr/${get_libdir}/cmake/ArrayFire
+	   -DAF_INSTALL_CMAKE_DIR=/usr/$(get_libdir)/cmake/ArrayFire
 	)
 	cmake-utils_src_configure
 }

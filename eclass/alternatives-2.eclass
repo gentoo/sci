@@ -33,9 +33,9 @@ esac
 
 DEPEND=">=app-admin/eselect-1.4.5-r102"
 RDEPEND="${DEPEND}
-	!app-admin/eselect-blas
-	!app-admin/eselect-cblas
-	!app-admin/eselect-lapack"
+	!app-eselect/eselect-blas
+	!app-eselect/eselect-cblas
+	!app-eselect/eselect-lapack"
 
 # @ECLASS-VARIABLE: ALTERNATIVES_DIR
 # @INTERNAL
@@ -58,7 +58,7 @@ alternatives_for() {
 
 	dodir /etc/env.d/alternatives
 
-	ALTERNATIVESDIR_ROOTLESS="${ED}/etc/env.d/alternatives" \
+	ALTERNATIVESDIR_ROOT="${D%/}" \
 		eselect alternatives add ${@} || die
 
 	ALTERNATIVES_CREATED+=( ${1} )

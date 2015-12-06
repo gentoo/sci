@@ -4,15 +4,15 @@
 
 EAPI=5
 
-inherit cmake-utils git-r3
+inherit cmake-utils multilib
 
 DESCRIPTION="High Performance Visualizations for ArrayFire"
 HOMEPAGE="http://www.arrayfire.com/"
-EGIT_REPO_URI="https://github.com/arrayfire/${PN}.git git://github.com/arrayfire/${PN}.git"
+SRC_URI="https://github.com/arrayfire/${PN}/archive/af${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="examples"
 
 RDEPEND="
@@ -20,10 +20,12 @@ RDEPEND="
 	>=media-libs/glfw-3.1.1
 	media-libs/freetype:2
 	media-libs/fontconfig:1.0
-	media-libs/glm
+	>=media-libs/glm-0.9.7.1
 	virtual/opengl
 	"
 DEPEND="${RDEPEND}"
+
+S="${WORKDIR}/${PN}-af${PV}"
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then

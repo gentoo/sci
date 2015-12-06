@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  04 Dec 2015; Marius Brehler <marbre@linux.sungazer.de> forge-9999.ebuild:
+  sci-visualization/forge: Add installation path for CMake files
+
+*forge-3.2.1 (04 Dec 2015)
+
+  04 Dec 2015; Marius Brehler <marbre@linux.sungazer.de> +forge-3.2.1.ebuild:
+  sci-visualization/forge: Version bumop
+
   28 Nov 2015; Marius Brehler <marbre@linux.sungazer.de>
   -files/forge-3.1-find-glm.patch, -forge-3.1.ebuild:
   sci-visualization/forge: Drop old

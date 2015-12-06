@@ -143,11 +143,15 @@ atlas_install_libs() {
 	local libname=$(basename ${1%.*})
 	einfo "Installing ${libname}"
 	local soname=${libname}.so.$(get_major_version)
+	local _cmd
 	shift
 	pushd "${S}_shared"/lib > /dev/null
-	${LINK:-$(tc-getCC)} ${LDFLAGS} -shared -Wl,-soname=${soname} \
-		-Wl,--whole-archive ${libname}.a -Wl,--no-whole-archive \
-		"$@" -o ${soname} || die "Creating ${soname} failed"
+	_cmd="${LINK:-$(tc-getCC)}"
+	_cmd+=" ${LDFLAGS} -shared -Wl,--no-undefined -Wl,-soname=${soname}"
+	_cmd+=" -Wl,--whole-archive ${libname}.a -Wl,--no-whole-archive"
+	_cmd+=" $@ -o ${soname}"
+	einfo "${_cmd}"
+	${_cmd} || die "Creating ${soname} failed"
 	dolib.so ${soname}
 	dosym ${soname} /usr/$(get_libdir)/${soname%.*}
 	popd > /dev/null || die
@@ -190,7 +194,7 @@ src_install() {
 	atlas_install_libs libatlas.a -lm ${PTLIBS}
 
 	# cblas
-	atlas_install_libs libatlcblas.a -lm -L. -latlas
+	atlas_install_libs libatlcblas.a -L. -latlas -lm
 	atlas_install_pc atlcblas atlas-cblas
 	alternatives_for cblas atlas 0 \
 		/usr/$(get_libdir)/pkgconfig/cblas.pc atlas-cblas.pc \
@@ -198,7 +202,7 @@ src_install() {
 
 	# cblas threaded
 	if [[ -e libptcblas.a ]]; then
-		atlas_install_libs libptcblas.a -lm -L. -latlas ${PTLIBS}
+		atlas_install_libs libptcblas.a -L. -latlas -lm ${PTLIBS}
 		atlas_install_pc ptcblas atlas-cblas-threads
 		alternatives_for cblas atlas-threads 0 \
 			/usr/$(get_libdir)/pkgconfig/cblas.pc atlas-cblas-threads.pc \
@@ -208,12 +212,12 @@ src_install() {
 	if use lapack; then
 		PCREQ="cblas"
 		# clapack
-		atlas_install_libs libatlclapack.a -lm -L. -latlas -latlcblas
+		atlas_install_libs libatlclapack.a -L. -latlcblas -latlas -lm
 		atlas_install_pc atlclapack atlas-clapack
 
 		# clapack threaded
 		if [[ -e libptclapack.a ]]; then
-			atlas_install_libs libptclapack.a -lm -L. -latlas -lptcblas ${PTLIBS}
+			atlas_install_libs libptclapack.a -L. -lptcblas -latlas -lm ${PTLIBS}
 			atlas_install_pc ptclapack atlas-clapack-threads
 		fi
 	fi
@@ -222,14 +226,14 @@ src_install() {
 		LINK=$(tc-getF77) PCREQ=
 
 		# blas
-		atlas_install_libs libf77blas.a -lm -L. -latlas
+		atlas_install_libs libf77blas.a -L. -latlas -lm
 		atlas_install_pc f77blas atlas-blas
 		alternatives_for blas atlas 0 \
 			/usr/$(get_libdir)/pkgconfig/blas.pc atlas-blas.pc
 
 		# blas threaded
 		if [[ -e libptf77blas.a ]]; then
-			atlas_install_libs libptf77blas.a -lm -L. -latlas ${PTLIBS}
+			atlas_install_libs libptf77blas.a -L. -latlas -lm ${PTLIBS}
 			atlas_install_pc ptf77blas atlas-blas-threads
 			alternatives_for blas atlas-threads 0 \
 				/usr/$(get_libdir)/pkgconfig/blas.pc atlas-blas-threads.pc
@@ -239,14 +243,14 @@ src_install() {
 			PCREQ="blas cblas"
 			# lapack
 			atlas_install_libs libatllapack.a \
-				-lm -L. -latlas -latlcblas -lf77blas
+				-L. -latlcblas -lf77blas -latlas -lm
 			atlas_install_pc atllapack atlas-lapack
 			alternatives_for lapack atlas 0 \
 				/usr/$(get_libdir)/pkgconfig/lapack.pc atlas-lapack.pc
 			# lapack threaded
 			if [[ -e libptlapack.a ]]; then
 				atlas_install_libs libptlapack.a \
-					-lm -L. -latlas -lptcblas -lptf77blas ${PTLIBS}
+					-L. -lptcblas -lptf77blas -latlas -lm ${PTLIBS}
 				atlas_install_pc ptlapack atlas-lapack-threads
 				alternatives_for lapack atlas-threads 0 \
 					/usr/$(get_libdir)/pkgconfig/lapack.pc atlas-lapack-threads.pc
