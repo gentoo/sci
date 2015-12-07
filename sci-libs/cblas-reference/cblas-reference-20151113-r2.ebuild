@@ -24,7 +24,7 @@ IUSE="static-libs test"
 
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND=""
+RDEPEND="virtual/blas"
 DEPEND="${RDEPEND}
 	test? ( ${PYTHON_DEPS} )
 	virtual/pkgconfig"
