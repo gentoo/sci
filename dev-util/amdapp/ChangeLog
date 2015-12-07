@@ -2,6 +2,17 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*amdapp-2.9.1-r1 (07 Dec 2015)
+*amdapp-3.0-r1 (07 Dec 2015)
+
+  07 Dec 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +amdapp-2.9.1-r1.ebuild, +amdapp-3.0-r1.ebuild, -amdapp-2.9.1.ebuild,
+  -amdapp-3.0.ebuild:
+  dev-util/amdapp: Add dependency on x11-drivers/ati-drivers  Rely on
+  libOpenCL.so* and /etc/OpenCL/vendors files provided by catalyst.  Gentoo-Bug:
+  https://bugs.gentoo.org/show_bug.cgi?id=544124 Gentoo-Bug:
+  https://bugs.gentoo.org/show_bug.cgi?id=567240
+
   07 Dec 2015; Marius Brehler <marbre@linux.sungazer.de> -amdapp-2.9.ebuild:
   dev-util/amdapp: Drop old
 
