@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/cblas-reference
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  07 Dec 2015; Ted Tanberry <ted.tanberry@gmail.com>
+  cblas-reference-20151113-r2.ebuild:
+  sci-libs/cblas-reference: Added missing virtual/blas dependency.
 
 *cblas-reference-20110218-r1 (13 Oct 2014)
 
