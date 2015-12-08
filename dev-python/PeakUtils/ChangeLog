@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/PeakUtils
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*PeakUtils-1.0.1 (08 Dec 2015)
+
+  08 Dec 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +PeakUtils-1.0.1.ebuild, +metadata.xml:
+  dev-python/PeakUtils: New package, ebuild written by me
