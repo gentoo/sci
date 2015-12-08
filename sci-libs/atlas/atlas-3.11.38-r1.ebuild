@@ -18,10 +18,11 @@ SRC_URI="mirror://sourceforge/math-atlas/${PN}${PV}.tar.bz2
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc fortran generic ifko lapack static-libs threads"
+IUSE="+deprecated doc fortran generic ifko lapack static-libs threads"
 
-RDEPEND=""
-DEPEND="${RDEPEND}"
+REQUIRED_USE="
+	deprecated? ( lapack )
+	lapack? ( fortran )"
 
 S="${WORKDIR}/ATLAS"
 
@@ -111,6 +112,10 @@ src_configure() {
 		# for debugging
 		echo ${myconf[@]} > myconf.out
 		"${S}"/configure ${myconf[@]} || die "configure in ${confdir} failed"
+
+		if use deprecated; then
+			echo "BUILD_DEPRECATED=1" >> src/lapack/reference/make.inc.example || die
+		fi
 	}
 
 	atlas_configure shared "-Fa alg -fPIC" ${EXTRA_ECONF}
