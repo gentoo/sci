@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -14,16 +14,19 @@ EGIT_REPO_URI="https://github.com/pezmaster31/bamtools.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="static-libs"
 
-S="${WORKDIR}"/src
+DEPEND="
+	>=dev-libs/jsoncpp-0.5.0-r1
+	<dev-libs/jsoncpp-1
+	sys-libs/zlib"
+RDEPEND="${DEPEND}"
+
+PATCHES=( "${FILESDIR}"/${P}-unbundle.patch )
 
 src_install() {
-	dobin bin/bamtools
-	dolib lib/*
-	insinto /usr/include/bamtools/api
-	doins include/api/*
-	insinto /usr/include/bamtools/shared
-	doins include/shared/*
-	dodoc README
+	cmake-utils_src_install
+	if ! use static-libs; then
+		rm "${ED}"/usr/$(get_libdir)/*.a || die
+	fi
 }
