@@ -6,7 +6,7 @@ EAPI=5
 
 FORTRAN_NEEDED=fortran
 
-inherit alternatives-2 eutils fortran-2 multilib numeric toolchain-funcs versionator
+inherit alternatives-2 eutils fortran-2 linux-info multilib numeric toolchain-funcs versionator
 
 LAPACKP=lapack-3.6.0.tgz
 
@@ -39,6 +39,13 @@ pkg_setup() {
 	[[ -e /sys/devices/system/cpu/intel_pstate ]] \
 		&& die "Intel P-State driver detected. Please reboot with 'intel_pstate=disable' in your cmdline"
 	use fortran && fortran-2_pkg_setup
+	CONFIG_CHECK="
+		!~X86_P4_CLOCKMOD
+		!~X86_INTEL_PSTATE
+	"
+	ERROR_KERNEL_X86_P4_CLOCKMOD="P4 Clockmod frequency scaling influences tuning and needs to be disabled at compile time."
+	ERROR_KERNEL_X86_INTEL_PSTATE="Intel Pstate frequency scaling influences tuning and needs to be disabled at compile time."
+	linux-info_pkg_setup
 }
 
 src_configure() {
