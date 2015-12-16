@@ -1,0 +1,18 @@
+# ChangeLog for sci-libs/nipy-templates
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  19 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-templates-0.2.ebuild:
+  sci-libs/nipy-templates: removed unneeded eclasses, updated description
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-templates-0.2.ebuild:
+  sci-libs/nipy-templates: no stable ebuilds in the overlay
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-templates-0.2.ebuild:
+  sci-libs/nipy-templates: removed empty dependency lists
+
+*nipy-data-0.2 (16 Dec 2015)
+
+  16 Dec 2015; Horea Christian <h.chr@mail.ru> +metadata.xml,
+  +nipy-data-0.2.ebuild:
+  sci-libs/nipy-data: new package
