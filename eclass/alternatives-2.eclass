@@ -31,7 +31,7 @@ case "${EAPI:-0}" in
 		;;
 esac
 
-DEPEND=">=app-admin/eselect-1.4.5-r102"
+DEPEND=">=app-admin/eselect-1.4.5-r103"
 RDEPEND="${DEPEND}
 	!app-eselect/eselect-blas
 	!app-eselect/eselect-cblas

@@ -11,6 +11,7 @@
   LAPACK using the reference LAPACK from Netlib.
 </longdescription>
   <use>
+    <flag name="deprecated">Build deprecated routines</flag>
     <flag name="generic">Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)</flag>
     <flag name="ifko">Use iFKO to improve ATLAS performance (ATTENTION!!! Increases builtime enormously)</flag>
   </use>

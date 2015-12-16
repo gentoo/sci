@@ -146,6 +146,7 @@ sci-libs/arrayfire:nonfree - Build ArrayFire nonfree algorithms.
 sci-libs/arrayfire:opencl - Build OpenCL backend.
 sci-libs/arrayfire:unified - Build Backend-Independent API.
 sci-libs/asl:matio - Matlab support with sci-libs/matio
+sci-libs/atlas:deprecated - Build deprecated routines
 sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
 sci-libs/atlas:ifko - Use iFKO to improve ATLAS performance (ATTENTION!!! Increases builtime enormously)
 sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA

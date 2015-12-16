@@ -6,7 +6,7 @@ EAPI=5
 
 FORTRAN_NEEDED=fortran
 
-inherit alternatives-2 eutils fortran-2 multilib numeric toolchain-funcs versionator
+inherit alternatives-2 eutils fortran-2 linux-info multilib numeric toolchain-funcs versionator
 
 LAPACKP=lapack-3.6.0.tgz
 
@@ -18,10 +18,11 @@ SRC_URI="mirror://sourceforge/math-atlas/${PN}${PV}.tar.bz2
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc fortran generic ifko lapack static-libs threads"
+IUSE="+deprecated doc fortran generic ifko lapack static-libs threads"
 
-RDEPEND=""
-DEPEND="${RDEPEND}"
+REQUIRED_USE="
+	deprecated? ( lapack )
+	lapack? ( fortran )"
 
 S="${WORKDIR}/ATLAS"
 
@@ -38,6 +39,13 @@ pkg_setup() {
 	[[ -e /sys/devices/system/cpu/intel_pstate ]] \
 		&& die "Intel P-State driver detected. Please reboot with 'intel_pstate=disable' in your cmdline"
 	use fortran && fortran-2_pkg_setup
+	CONFIG_CHECK="
+		!~X86_P4_CLOCKMOD
+		!~X86_INTEL_PSTATE
+	"
+	ERROR_KERNEL_X86_P4_CLOCKMOD="P4 Clockmod frequency scaling influences tuning and needs to be disabled at compile time."
+	ERROR_KERNEL_X86_INTEL_PSTATE="Intel Pstate frequency scaling influences tuning and needs to be disabled at compile time."
+	linux-info_pkg_setup
 }
 
 src_configure() {
@@ -111,6 +119,10 @@ src_configure() {
 		# for debugging
 		echo ${myconf[@]} > myconf.out
 		"${S}"/configure ${myconf[@]} || die "configure in ${confdir} failed"
+
+		if use deprecated; then
+			echo "BUILD_DEPRECATED=1" >> src/lapack/reference/make.inc.example || die
+		fi
 	}
 
 	atlas_configure shared "-Fa alg -fPIC" ${EXTRA_ECONF}
