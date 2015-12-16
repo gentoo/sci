@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>h.chr@mail.ru</email>
+    <name>Horea Christian</name>
+  </maintainer>
+  <longdescription lang="en">
+	Nipy-templates is a package containing template files needed by some nipy functions.
+</longdescription>
+</pkgmetadata>
