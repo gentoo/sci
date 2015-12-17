@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>h.chr@mail.ru</email>
+    <name>Horea Christian</name>
+  </maintainer>
+  <longdescription lang="en">
+    Nilearn is a Python module for fast and easy statistical learning on NeuroImaging data.
+    It leverages the scikit-learn Python toolbox for multivariate statistics with applications
+    such as predictive modelling, classification, decoding, or connectivity analysis.
+  </longdescription>
+  <use>
+    <flag name="plot">Adds optional dependency needed for plotting function subset.</flag>
+  </use>
+  <upstream>
+    <remote-id type="pypi">nilearn</remote-id>
+  </upstream>
+</pkgmetadata>

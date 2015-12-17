@@ -1,0 +1,35 @@
+# ChangeLog for dev-python/nilearn
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  19 Nov 2015;  <chymera@gentoo.org> nilearn-0.1.4.1.ebuild,
+  nilearn-9999.ebuild:
+  dev-python/nilearn: moved deps to DEPEND
+
+  19 Nov 2015;  <chymera@gentoo.org> nilearn-0.1.4.1.ebuild,
+  nilearn-9999.ebuild:
+  dev-python/nilearn: added test flag and test dependency
+
+  14 Nov 2015; Horea Christian <h.chr@mail.ru> nilearn-0.1.4.1.ebuild:
+  dev-python/nilearn: added test function
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> nilearn-9999.ebuild:
+  dev-python/nilearn: plot use flag in live ebuild as well
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> metadata.xml,
+  nilearn-0.1.4.1.ebuild:
+  dev-python/nilearn: added plot use flag, added MY_PV, removed deprecated
+  dependency version
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> nilearn-9999.ebuild:
+  dev-python/nilearn: dropped empty IUSE, added PYTHON_USEDEP
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> nilearn-0.1.4.1.ebuild:
+  dev-python/nilearn: corrected format, added PYTHON_USEDEP, removed emtty IUSE
+
+*nilearn-0.1.4.1 (19 Oct 2015)
+*nilearn-9999 (19 Oct 2015)
+
+  19 Oct 2015; Horea Christian <h.chr@mail.ru> +metadata.xml,
+  +nilearn-0.1.4.1.ebuild, +nilearn-9999.ebuild:
+  dev-python/nilearn: new package
