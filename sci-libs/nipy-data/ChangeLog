@@ -3,6 +3,9 @@
 # $Id$
 
   17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
+  sci-libs/nipy-data: no stable packages in the overlay
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
   sci-libs/nipy-data: removed emtpy deps
 
   17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
