@@ -16,9 +16,10 @@ SRC_URI="mirror://pypi/n/${PN}/${PN}-${MY_PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+plot"
+IUSE="+plot test"
 
 DEPEND="
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="

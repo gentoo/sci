@@ -16,9 +16,10 @@ EGIT_REPO_URI="git://github.com/nilearn/nilearn"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="+plot"
+IUSE="+plot test"
 
 DEPEND="
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="
@@ -27,3 +28,7 @@ RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
+
+src_test() {
+	emake test-code
+}
