@@ -3,6 +3,9 @@
 # $Id$
 
   17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
+  sci-libs/nipy-data: removed emtpy deps
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
   sci-libs/nipy-data: marked package as stable
 
 *nipy-data-0.2 (16 Dec 2015)
