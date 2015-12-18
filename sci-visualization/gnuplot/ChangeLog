@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  18 Dec 2015; Christoph Junghans <ottxor@gentoo.org> gnuplot-5.0.9999.ebuild,
+  gnuplot-5.1.9999.ebuild:
+  sci-visualization/gnuplot: added missing subslot (bug #568628)
+
   25 May 2015; Christoph Junghans <ottxor@gentoo.org> -gnuplot-4.6.9999.ebuild,
   metadata.xml:
   remove old

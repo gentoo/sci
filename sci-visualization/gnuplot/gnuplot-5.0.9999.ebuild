@@ -34,7 +34,7 @@ RDEPEND="
 	cairo? (
 		x11-libs/cairo
 		x11-libs/pango )
-	gd? ( >=media-libs/gd-2.0.35-r3[png] )
+	gd? ( >=media-libs/gd-2.0.35-r3:2=[png] )
 	ggi? ( media-libs/libggi )
 	latex? (
 		virtual/latex-base
