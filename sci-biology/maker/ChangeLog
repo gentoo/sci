@@ -3,6 +3,9 @@
 # $Id$
 
   18 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
+  sci-biology/maker: drop duplicated Module-Build requirement
+
+  18 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
   sci-biology/maker: fix Module-Build dependency
 
   01 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:

@@ -35,7 +35,6 @@ DEPEND="
 	dev-perl/Want
 	dev-perl/IO-Prompt
 	dev-perl/Perl-Unsafe-Signals
-	dev-perl/Module-Build
 	>=sci-biology/bioperl-1.6
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
 	sci-biology/snap
