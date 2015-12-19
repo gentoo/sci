@@ -18,10 +18,10 @@ SLOT="0"
 IUSE=""
 KEYWORDS=""
 
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	dev-python/numpy[${PYTHON_USEDEP}]"
-RDEPEND="${DEPEND}
+COMMONDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
+DEPEND="${COMMONDEPEND}
+	dev-python/setuptools[${PYTHON_USEDEP}]"
+RDEPEND="${COMMONDEPEND}
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/sympy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
