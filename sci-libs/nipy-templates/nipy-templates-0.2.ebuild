@@ -6,9 +6,9 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 eutils multilib flag-o-matic
+inherit distutils-r1
 
-DESCRIPTION="Neuroimaging tools for Python"
+DESCRIPTION="Normalization templates for Python Neuroimaging"
 HOMEPAGE="http://nipy.org/"
 SRC_URI="http://nipy.org/data-packages/${P}.tar.gz"
 
