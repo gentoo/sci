@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*mpich-3.2-r1 (21 Dec 2015)
+
+  21 Dec 2015; Justin Bronder <jsbronder@gentoo.org> +mpich-3.2-r1.ebuild:
+  sys-cluster/mpich:  bump 3.2
+
   21 Nov 2015; Christoph Junghans <ottxor@gentoo.org> -mpich-3.1.3-r99.ebuild:
   sys-cluster/mpich: bye bye multilib version
 
