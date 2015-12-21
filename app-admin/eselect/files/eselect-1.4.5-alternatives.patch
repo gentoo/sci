@@ -251,7 +251,7 @@ index 027ef73..a5fe373 100644
  	@$(dosed) $< > $@
 diff --git a/libs/alternatives-common.bash.in b/libs/alternatives-common.bash.in
 new file mode 100644
-index 0000000..10d6616
+index 0000000..8753b89
 --- /dev/null
 +++ b/libs/alternatives-common.bash.in
 @@ -0,0 +1,510 @@
@@ -547,7 +547,7 @@ index 0000000..10d6616
 +	elif [[ ! -d "${provider_dir}" ]]; then
 +		die "${provider_dir} exists but is a file"
 +	else
-+		die "${provider_dir} already present. You need ot remove it before adding it again"
++		die "${provider_dir} already present. You need to remove it before adding it again"
 +	fi
 +
 +	# Make sure importance is a signed integer
