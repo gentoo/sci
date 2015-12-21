@@ -36,7 +36,6 @@ dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
 dev-python/ffnet:matplotlib - Use matplotlib for drawing
-dev-python/nilearn:plot - Adds optional dependency needed for plotting function subset.
 dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
 dev-python/ufl:scipy - Adds support for evaluating Bessel functions using dev-python/scipy
 dev-tex/pythontex:highlighting - PLEASE FIX MY DESCRIPTION
@@ -85,6 +84,7 @@ sci-biology/ncbi-tools++:sqlite3 - Add support for dev-db/sqlite:3
 sci-biology/ncbi-tools++:xalan - Undocumented USE
 sci-biology/ncbi-tools++:xerces - Undocumented USE
 sci-biology/ncbi-tools++:xslt - Undocumented USE
+sci-biology/nilearn:plot - Adds optional dependency needed for plotting function subset.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
 sci-chemistry/avogadro2:rpc - Enable RPC server
 sci-chemistry/ball:cuda - Include cuda support
