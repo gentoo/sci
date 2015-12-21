@@ -4,11 +4,13 @@
 
 EAPI=5
 
+AUTOTOOLS_AUTORECONF=yes
+
 inherit autotools-utils
 
 DESCRIPTION="Integer Matrix Library"
 HOMEPAGE="http://www.cs.uwaterloo.ca/~astorjoh/iml.html"
-SRC_URI="http://www.cs.uwaterloo.ca/~astorjoh/${P}.tar.gz"
+SRC_URI="http://www.cs.uwaterloo.ca/~astorjoh/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,13 +22,11 @@ RESTRICT="mirror"
 DEPEND="virtual/cblas"
 RDEPEND="${DEPEND}"
 
-AUTOTOOLS_AUTORECONF=yes
 AT_M4DIR="config"
 DOCS=( AUTHORS ChangeLog README )
+
 PATCHES=(
-	"${FILESDIR}"/${P}-use-any-cblas-implementation.patch
-	"${FILESDIR}"/${P}-fix-undefined-symbol.patch
-	"${FILESDIR}"/${P}-repl_removal.patch
+	"${FILESDIR}"/${PN}-1.0.4-use-any-cblas-implementation.patch
 )
 
 src_configure() {
