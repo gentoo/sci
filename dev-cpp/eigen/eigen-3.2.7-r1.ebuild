@@ -70,6 +70,10 @@ src_prepare() {
 
 	sed -i -e "/Unknown build type/d" CMakeLists.txt || die
 
+	sed \
+		-e '/Cflags/s|:.*|: -I${CMAKE_INSTALL_PREFIX}/${INCLUDE_INSTALL_DIR}|g' \
+		-i eigen3.pc.in || die
+
 	cmake-utils_src_prepare
 }
 
@@ -81,6 +85,8 @@ src_configure() {
 		-DEIGEN_BUILD_BTL=OFF
 	)
 	export VARTEXFONTS="${T}/fonts"
+	export PKG_CONFIG_LIBDIR=/usr/$(get_libdir)/
+
 	cmake-utils_src_configure
 	# use fortran && FORTRAN_LIBS="blas lapack" not ready
 	use fortran && FORTRAN_LIBS="blas"
