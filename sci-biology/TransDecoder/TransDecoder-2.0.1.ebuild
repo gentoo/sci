@@ -15,7 +15,7 @@ if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/TransDecoder/TransDecoder.git"
 	KEYWORDS=""
 else
-    SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/"${PV}".tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/"${PV}".tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64"
 	S="${WORKDIR}"/TransDecoder-"${PV}"
 fi
@@ -34,7 +34,7 @@ src_prepare(){
 	rm -rf transdecoder_plugins/cd-hit
 	for f in PerlLib/*.pm; do
 		p=`basename $f .pm`;
-		sed -e "s#use $p;#use TransDecoder::$p;#" -i PerlLib/*.pm util/*.pl TransDecoder.LongOrfs TransDecoder.Predict;
+		sed -e "s#use $p;#use TransDecoder::$p;#" -i PerlLib/*.pm util/*.pl TransDecoder.LongOrfs TransDecoder.Predict || die;
 	done
 	epatch "${FILESDIR}"/"${P}"__fix_paths.patch
 	epatch "${FILESDIR}"/pfam_runner.pl.patch
