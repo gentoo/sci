@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  25 Dec 2015; Marius Brehler <marbre@linux.sungazer.de> metadata.xml:
+  sci-biology/Atlas2: Add longdescription
+
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> Atlas2-1.4.3.ebuild:
   sci-biology/Atlas2: Fix ruby deps
 
