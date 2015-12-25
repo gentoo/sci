@@ -31,4 +31,3 @@ src_install() {
 	use gui && dobin Bru2Nii
 	dodoc README.md
 }
-
