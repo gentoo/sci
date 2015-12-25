@@ -4,11 +4,11 @@
 
 EAPI=5
 
-USE_RUBY="ruby19 ruby20"
+USE_RUBY="ruby20"
 
 inherit ruby-fakegem
 
-DESCRIPTION="Variant analysis tools (true SNPs, insertions, deletions) from whole exome capture sequencing (WECS)"
+DESCRIPTION="Variant analysis tools from whole exome capture sequencing (WECS)"
 HOMEPAGE="https://www.hgsc.bcm.edu/software/atlas2"
 SRC_URI="http://downloads.sourceforge.net/project/atlas2/Atlas2_v1.4.3.zip"
 
@@ -30,12 +30,12 @@ src_compile(){
 	cd SOLiD-SNP-caller || die
 	default
 
-	cd ../vcfPrinter
+	cd ../vcfPrinter || die
 	# TODO: install the *.rb files
 
-	cd ../Atlas-Indel2
+	cd ../Atlas-Indel2 || die
 	# TODO: install the *.rb and files in lib/
 
-	cd ../Atlas-SNP2
+	cd ../Atlas-SNP2 || die
 	# TODO: install
 }
