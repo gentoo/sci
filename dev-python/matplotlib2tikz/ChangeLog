@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*matplotlib2tikz-0.5.2 (25 Dec 2015)
+
+  25 Dec 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +matplotlib2tikz-0.5.2.ebuild, -matplotlib2tikz-0.4.0.ebuild,
+  -matplotlib2tikz-0.5.1.ebuild:
+  dev-python/matplotlib2tikz: Version bump; drop old
+
   03 Dec 2015; Marius Brehler <marbre@linux.sungazer.de>
   -matplotlib2tikz-0.2.4.ebuild:
   dev-python/matplotlib2tikz: Drop old
