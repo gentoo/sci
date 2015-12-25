@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  25 Dec 2015; Marius Brehler <marbre@linux.sungazer.de> mricron-9999.ebuild:
+  sci-biology/mricron: Fix minorsyn
+
   06 Dec 2015; Horea Christian <h.chr@mail.ru> mricron-9999.ebuild:
   sci-biology/mricron: added icon and gnome desktop entry
 
