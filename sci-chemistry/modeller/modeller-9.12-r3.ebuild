@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -27,7 +27,6 @@ INPATH="${EPREFIX}"/opt/modeller${ver}
 
 QA_PREBUILT="/opt/*"
 
-
 pkg_setup() {
 	case ${ARCH} in
 		x86)
@@ -45,18 +44,18 @@ python_prepare_all(){
 }
 
 python_compile(){
-	cd src/swig
+	cd src/swig || die
 	swig -python -keyword -nodefaultctor -nodefaultdtor -noproxy modeller.i || die
 	distutils-r1_python_compile
 }
 
 python_install() {
-	cd src/swig
+	cd src/swig || die
 	distutils-r1_python_install
 }
 
 python_install_all(){
-	cd "${S}"
+	cd "${S}" || die
 	sed \
 		-e "/^EXECUTABLE_TYPE/s:xxx:${EXECTYPE}:g" \
 		-e "/MODINSTALL/s:xxx:\"${INPATH}\":g" \
