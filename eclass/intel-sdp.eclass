@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -122,7 +122,7 @@
 # Full path to intel registry db
 INTEL_SDP_DB="${EROOT%/}"/opt/intel/intel-sdp-products.db
 
-inherit check-reqs multilib versionator
+inherit check-reqs eutils multilib versionator
 
 _INTEL_PV1=$(get_version_component_range 1)
 _INTEL_PV2=$(get_version_component_range 2)
@@ -190,7 +190,7 @@ QA_PREBUILT="${INTEL_SDP_DIR}/*"
 # Creating necessary links to use intel compiler with eclipse
 _isdp_link_eclipse_plugins() {
 	local c f
-	pushd ${INTEL_SDP_DIR}/eclipse_support > /dev/null
+	pushd ${INTEL_SDP_DIR}/eclipse_support > /dev/null || die
 		for c in cdt*; do
 			local cv=${c#cdt} ev=3.$(( ${cv:0:1} - 1))
 			if has_version "dev-util/eclipse-sdk:${ev}"; then
@@ -207,7 +207,7 @@ _isdp_link_eclipse_plugins() {
 				done
 			fi
 		done
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 # @FUNCTION: _isdp_big-warning
@@ -230,9 +230,9 @@ _isdp_big-warning() {
 	esac
 
 	echo ""
-	ewarn "Make sure you have recieved the an Intel license."
+	ewarn "Make sure you have received an Intel license."
 	ewarn "To receive a non-commercial license, you need to register at:"
-	ewarn "http://software.intel.com/en-us/articles/non-commercial-software-development/"
+	ewarn "https://software.intel.com/en-us/qualify-for-free-software"
 	ewarn "Install the license file into ${INTEL_SDP_EDIR}/licenses/"
 
 	case ${1} in
@@ -461,7 +461,13 @@ intel-sdp_src_unpack() {
 # @DESCRIPTION:
 # Install everything
 intel-sdp_src_install() {
-	if [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
+	if path_exists "${INTEL_SDP_DIR}"/uninstall*; then
+		ebegin "Cleaning out uninstall information"
+		find "${INTEL_SDP_DIR}"/uninstall* -delete || die
+		eend
+	fi
+
+	if path_exists "${INTEL_SDP_DIR}"/Documentation; then
 		dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
 
 		ebegin "Cleaning out documentation"
@@ -469,7 +475,7 @@ intel-sdp_src_install() {
 		eend
 	fi
 
-	if [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
+	if path_exists "${INTEL_SDP_DIR}"/Samples; then
 		if use examples ; then
 			insinto /usr/share/${P}/examples/
 			doins -r "${INTEL_SDP_DIR}"/Samples/*
@@ -479,7 +485,7 @@ intel-sdp_src_install() {
 		eend
 	fi
 
-	if [[ -d "${INTEL_SDP_DIR}"/eclipse_support ]]; then
+	if path_exists "${INTEL_SDP_DIR}"/eclipse_support; then
 		if has eclipse ${IUSE} && use eclipse; then
 			_isdp_link_eclipse_plugins
 		else
@@ -489,12 +495,13 @@ intel-sdp_src_install() {
 		fi
 	fi
 
-	if [[ -d "${INTEL_SDP_DIR}"/man ]]; then
-		nonfatal doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
-		nonfatal doman "${INTEL_SDP_DIR}"/man/man1/*
-		if has linguas_ja ${IUSE} && use linguas_ja; then
+	if path_exists "${INTEL_SDP_DIR}"/man; then
+		path_exists "${INTEL_SDP_DIR}"/man/en_US/man1/* && \
+			doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
+		path_exists "${INTEL_SDP_DIR}"/man/man1/* && \
+			doman "${INTEL_SDP_DIR}"/man/man1/*
+		has linguas_ja ${IUSE} && use linguas_ja && \
 			doman -i18n=ja_JP "${INTEL_SDP_DIR}"/man/ja_JP/man1/*
-		fi
 
 		find "${INTEL_SDP_DIR}"/man -delete || die
 	fi
