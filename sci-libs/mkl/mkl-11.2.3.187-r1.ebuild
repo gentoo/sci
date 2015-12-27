@@ -10,7 +10,9 @@ INTEL_DPV=2015_update3
 INTEL_SUBDIR=composerxe
 INTEL_SINGLE_ARCH=false
 
-inherit intel-sdp multilib alternatives-2
+NUMERIC_MODULE_NAME=${PN}
+
+inherit alternatives-2 intel-sdp numeric-int64-multibuild
 
 DESCRIPTION="Intel Math Kernel Library: linear algebra, fft, math functions"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-mkl/"
@@ -34,111 +36,125 @@ INTEL_AMD64_RPMS=(
 	mkl-mic mkl-mic-devel
 	mkl-sp2dp mkl-sp2dp-devel
 	)
-INTEL_DAT_RPMS=(mkl-common mkl-cluster-common mkl-f95-common)
+INTEL_DAT_RPMS=(
+	mkl-common
+	mkl-cluster-common
+	mkl-f95-common
+	)
 
-src_prepare() {
-	chmod u+w -R opt
+pkg_setup() {
+	intel-sdp_pkg_setup
 }
 
-mkl_add_prof() {
-	local pcname=${1} libs cflags x
+src_prepare() {
+	chmod u+w -R opt || die
+}
+
+_mkl_add_pc_file() {
+	local pcname=${1} cflags="" suffix=""
 	shift
-	[[ ${pcname} = *int64* ]] && cflags=-DMKL_ILP64
-	cat <<-EOF > ${pcname}.pc
-		prefix=${INTEL_SDP_EDIR}/mkl
-		libdir=\${prefix}/lib/${IARCH}
-		libdir_comp=${INTEL_SDP_EDIR}/compiler/lib/${IARCH}
-		includedir=\${prefix}/include
-		Name: ${pcname}
-		Description: ${DESCRIPTION}
-		Version: ${PV}
-		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -L\${libdir_comp} ${libs}
-		Cflags: -I\${includedir} ${cflags}
-	EOF
-	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${pcname}.pc
-	for x in $*; do
-		alternatives_for ${x} ${pcname/-${x}} 0 \
-			/usr/$(get_libdir)/pkgconfig/${x}.pc ${pcname}.pc
+	numeric-int64_is_int64_build && cflags=-DMKL_ILP64 && suffix="-int64"
+
+	local IARCH=$(convert2intel_arch ${MULTIBUILD_ID})
+
+	create_pkgconfig \
+		--prefix "${INTEL_SDP_EDIR}/mkl" \
+		--libdir "\${prefix}/lib/${IARCH}" \
+		--includedir "\${prefix}/include" \
+		--name ${pcname} \
+		--libs "-L\${libdir} -L${INTEL_SDP_EDIR}/compiler/lib/${IARCH} $* -lpthread -lm" \
+		--cflags "-I\${includedir} ${cflags}" \
+		${pcname}${suffix}
+}
+
+_mkl_add_alternative_provider() {
+	local prov=$1; shift
+	local alt
+	for alt in $*; do
+		NUMERIC_MODULE_NAME=${prov} \
+			numeric-int64-multibuild_install_alternative ${alt} ${prov}
 	done
 }
 
-# mkl_prof [_ilp64 or _lp64]
 # help: http://software.intel.com/en-us/articles/intel-mkl-link-line-advisor/
-mkl_prof() {
+mkl_add_pc_file() {
 	local bits=""
-	if [[ ${IARCH} == intel64 ]]; then
-		bits=_lp64
-		[[ ${1} == int64 ]] && bits=_ilp64
-	fi
+	[[ ${MULTIBUILD_ID} =~ amd64 ]] && bits=_lp64
+	numeric-int64_is_int64_build && bits=_ilp64
+
 	local gf="-Wl,--no-as-needed -Wl,--start-group -lmkl_gf${bits}"
 	local gc="-Wl,--no-as-needed -Wl,--start-group -lmkl_intel${bits}"
 	local intel="-Wl,--start-group -lmkl_intel${bits}"
 	local core="-lmkl_core -Wl,--end-group"
-	local prof=mkl${IARCH:((${#IARCH} - 2)):2}
-	[[ ${1} == int64 ]] && prof=${prof}-int64
-	local libs
 
-	libs="${gf} -lmkl_sequential ${core} -lpthread" \
-		mkl_add_prof ${prof}-gfortran blas lapack
-	libs="${intel} -lmkl_sequential ${core} -lpthread" \
-		mkl_add_prof ${prof}-intel blas lapack cblas lapacke
-	libs="${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
-		mkl_add_prof ${prof}-gfortran-openmp blas lapack
-	libs="${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
-		mkl_add_prof ${prof}-gcc-openmp cblas lapacke
-	libs="${intel} -lmkl_intel_thread ${core} -openmp -lpthread" \
-		mkl_add_prof ${prof}-intel-openmp blas lapack cblas lapacke
-	libs="-lmkl_rt -lpthread" \
-		mkl_add_prof ${prof}-dynamic blas lapack cblas lapacke
-	libs="-lmkl_rt -liomp5 -lpthread" \
-		mkl_add_prof ${prof}-dynamic-openmp blas lapack cblas lapacke
+	# blas lapack cblas lapacke
+	_mkl_add_pc_file mkl-gfortran ${gf} -lmkl_sequential ${core}
+	_mkl_add_pc_file mkl-intel ${intel} -lmkl_sequential ${core}
+	_mkl_add_pc_file mkl-gfortran-openmp ${gf} -lmkl_gnu_thread ${core} -fopenmp
+	_mkl_add_pc_file mkl-gcc-openmp ${gc} -lmkl_gnu_thread ${core} -fopenmp
+	_mkl_add_pc_file mkl-intel-openmp ${intel} -lmkl_intel_thread ${core} -openmp
+	_mkl_add_pc_file mkl-dynamic -lmkl_rt
+	_mkl_add_pc_file mkl-dynamic-openmp -lmkl_rt -liomp5
 
 	# blacs and scalapack
 	local scal="-lmkl_scalapack${bits:-_core}"
 	local blacs="-lmkl_blacs_intelmpi${bits}"
 	core="-lmkl_core ${blacs} -Wl,--end-group"
 
-	libs="${gf} -lmkl_sequential ${core} -lpthread" \
-		mkl_add_prof ${prof}-gfortran-blacs blacs
-	libs="${scal} ${gf} -lmkl_sequential ${core} -lpthread" \
-		mkl_add_prof ${prof}-gfortran-scalapack scalapack
-	libs="${intel} -lmkl_sequential ${core} -lpthread" \
-		mkl_add_prof ${prof}-intel-blacs blacs
-	libs="${scal} ${intel} -lmkl_sequential ${core} -lpthread" \
-		mkl_add_prof ${prof}-intel-scalapack scalapack
-	libs="${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
-		mkl_add_prof ${prof}-gfortran-openmp-blacs blacs
-	libs="${scal} ${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
-		mkl_add_prof ${prof}-gfortran-openmp-scalapack scalapack
-	libs="${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
-		mkl_add_prof ${prof}-gcc-openmp-blacs blacs
-	libs="${scal} ${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
-		mkl_add_prof ${prof}-gcc-openmp-scalapack scalapack
-	libs="${intel} -lmkl_intel_thread ${core} -liomp5 -lpthread" \
-		mkl_add_prof ${prof}-intel-openmp-blacs blacs
-	libs="${scal} ${intel} -lmkl_intel_thread ${core} -liomp5 -lpthread" \
-		mkl_add_prof ${prof}-intel-openmp-scalapack scalapack
-	libs="-lmkl_rt ${blacs} -lpthread" \
-		mkl_add_prof ${prof}-dynamic-blacs blacs
-	libs="${scal} -lmkl_rt ${blacs} -lpthread" \
-		mkl_add_prof ${prof}-dynamic-scalapack scalapack
-	libs="-lmkl_rt ${blacs} -liomp5 -lpthread" \
-		mkl_add_prof ${prof}-dynamic-openmp-blacs blacs
-	libs="${scal} -lmkl_rt ${blacs} -liomp5 -lpthread" \
-		mkl_add_prof ${prof}-dynamic-openmp-scalapack scalapack
+	_mkl_add_pc_file mkl-gfortran-blacs ${gf} -lmkl_sequential ${core}
+	_mkl_add_pc_file mkl-gfortran-scalapack ${scal} ${gf} -lmkl_sequential ${core}
+	_mkl_add_pc_file mkl-intel-blacs ${intel} -lmkl_sequential ${core}
+	_mkl_add_pc_file mkl-intel-scalapack ${scal} ${intel} -lmkl_sequential ${core}
+	_mkl_add_pc_file mkl-gfortran-openmp-blacs ${gf} -lmkl_gnu_thread ${core} -fopenmp
+	_mkl_add_pc_file mkl-gfortran-openmp-scalapack ${scal} ${gf} -lmkl_gnu_thread ${core} -fopenmp
+	_mkl_add_pc_file mkl-gcc-openmp-blacs ${gc} -lmkl_gnu_thread ${core} -fopenmp
+	_mkl_add_pc_file mkl-gcc-openmp-scalapack ${scal} ${gc} -lmkl_gnu_thread ${core} -fopenmp
+	_mkl_add_pc_file mkl-intel-openmp-blacs ${intel} -lmkl_intel_thread ${core} -liomp5
+	_mkl_add_pc_file mkl-intel-openmp-scalapack ${scal} ${intel} -lmkl_intel_thread ${core} -liomp5
+	_mkl_add_pc_file mkl-dynamic-blacs -lmkl_rt ${blacs}
+	_mkl_add_pc_file mkl-dynamic-scalapack ${scal} -lmkl_rt ${blacs}
+	_mkl_add_pc_file mkl-dynamic-openmp-blacs -lmkl_rt ${blacs} -liomp5
+	_mkl_add_pc_file mkl-dynamic-openmp-scalapack ${scal} -lmkl_rt ${blacs} -liomp5
+}
+
+mkl_add_alternative_provider() {
+	# blas lapack cblas lapacke
+	_mkl_add_alternative_provider mkl-gfortran blas lapack
+	_mkl_add_alternative_provider mkl-intel blas lapack cblas lapacke
+	_mkl_add_alternative_provider mkl-gfortran-openmp blas lapack
+	_mkl_add_alternative_provider mkl-gcc-openmp cblas lapacke
+	_mkl_add_alternative_provider mkl-intel-openmp blas lapack cblas lapacke
+	_mkl_add_alternative_provider mkl-dynamic blas lapack cblas lapacke
+	_mkl_add_alternative_provider mkl-dynamic-openmp blas lapack cblas lapacke
+
+	# blacs and scalapack
+	_mkl_add_alternative_provider mkl-gfortran-blacs blacs
+	_mkl_add_alternative_provider mkl-gfortran-scalapack scalapack
+	_mkl_add_alternative_provider mkl-intel-blacs blacs
+	_mkl_add_alternative_provider mkl-intel-scalapack scalapack
+	_mkl_add_alternative_provider mkl-gfortran-openmp-blacs blacs
+	_mkl_add_alternative_provider mkl-gfortran-openmp-scalapack scalapack
+	_mkl_add_alternative_provider mkl-gcc-openmp-blacs blacs
+	_mkl_add_alternative_provider mkl-gcc-openmp-scalapack scalapack
+	_mkl_add_alternative_provider mkl-intel-openmp-blacs blacs
+	_mkl_add_alternative_provider mkl-intel-openmp-scalapack scalapack
+	_mkl_add_alternative_provider mkl-dynamic-blacs blacs
+	_mkl_add_alternative_provider mkl-dynamic-scalapack scalapack
+	_mkl_add_alternative_provider mkl-dynamic-openmp-blacs blacs
+	_mkl_add_alternative_provider mkl-dynamic-openmp-scalapack scalapack
 }
 
 src_install() {
+	local IARCH
+	local ldpath="LDPATH="
 	intel-sdp_src_install
-	echo -n > 35mkl "LDPATH="
-	for IARCH in ${INTEL_ARCH}; do
-		mkl_prof
-		sed -i -e '/mkl/s/$/:/' 35mkl
-		echo -n >> 35mkl "${INTEL_SDP_EDIR}/mkl/lib/${IARCH}"
-		[[ ${IARCH} == intel64 ]] && mkl_prof int64
-	done
-	echo >> 35mkl
-	doenvd 35mkl
+
+	numeric-int64-multibuild_foreach_all_abi_variants mkl_add_pc_file
+	mkl_add_alternative_provider
+
+	use abi_x86_64 && ldpath+="${INTEL_SDP_EDIR}/mkl/lib/$(convert2intel_arch abi_x86_64)"
+	use abi_x86_32 && ldpath+=":${INTEL_SDP_EDIR}/mkl/lib/$(convert2intel_arch abi_x86_32)"
+
+	echo "${ldpath}" > "${T}"/35mkl || die
+	doenvd "${T}"/35mkl
 }
