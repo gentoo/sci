@@ -5,8 +5,8 @@
 EAPI=5
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=5207
-INTEL_DPV=2015_update2
+INTEL_DID=3447
+INTEL_DPV=2013_sp1
 INTEL_SUBDIR=composerxe
 INTEL_SINGLE_ARCH=false
 
@@ -19,22 +19,20 @@ IUSE=""
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 DEPEND=""
-RDEPEND=">=dev-libs/intel-common-15"
+RDEPEND=">=dev-libs/intel-common-13"
 
 CHECKREQS_DISK_BUILD=2500M
 
-INTEL_BIN_RPMS=(
+INTEL_BIN_RPMS="
 	mkl mkl-devel
 	mkl-cluster mkl-cluster-devel
 	mkl-f95-devel
 	mkl-gnu mkl-gnu-devel
-	mkl-pgi mkl-pgi-devel
-	)
-INTEL_AMD64_RPMS=(
-	mkl-mic mkl-mic-devel
-	mkl-sp2dp mkl-sp2dp-devel
-	)
-INTEL_DAT_RPMS=(mkl-common mkl-cluster-common mkl-f95-common)
+	mkl-pgi mkl-pgi-devel"
+# single arch packages
+#	mkl-mic mkl-mic-devel
+#	mkl-sp2dp mkl-sp2dp-devel
+INTEL_DAT_RPMS="mkl-common mkl-cluster-common mkl-f95-common"
 
 src_prepare() {
 	chmod u+w -R opt
@@ -72,7 +70,8 @@ mkl_prof() {
 		bits=_lp64
 		[[ ${1} == int64 ]] && bits=_ilp64
 	fi
-	local gf="-Wl,--start-group -lmkl_gf${bits}"
+	local gf="-Wl,--no-as-needed -Wl,--start-group -lmkl_gf${bits}"
+	local gc="-Wl,--no-as-needed -Wl,--start-group -lmkl_intel${bits}"
 	local intel="-Wl,--start-group -lmkl_intel${bits}"
 	local core="-lmkl_core -Wl,--end-group"
 	local prof=mkl${IARCH:((${#IARCH} - 2)):2}
@@ -85,7 +84,7 @@ mkl_prof() {
 		mkl_add_prof ${prof}-intel blas lapack cblas lapacke
 	libs="${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gfortran-openmp blas lapack
-	libs="${intel} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
+	libs="${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gcc-openmp cblas lapacke
 	libs="${intel} -lmkl_intel_thread ${core} -openmp -lpthread" \
 		mkl_add_prof ${prof}-intel-openmp blas lapack cblas lapacke
@@ -111,9 +110,9 @@ mkl_prof() {
 		mkl_add_prof ${prof}-gfortran-openmp-blacs blacs
 	libs="${scal} ${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gfortran-openmp-scalapack scalapack
-	libs="${intel} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
+	libs="${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gcc-openmp-blacs blacs
-	libs="${scal} ${intel} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
+	libs="${scal} ${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gcc-openmp-scalapack scalapack
 	libs="${intel} -lmkl_intel_thread ${core} -liomp5 -lpthread" \
 		mkl_add_prof ${prof}-intel-openmp-blacs blacs

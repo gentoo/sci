@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=3644
-INTEL_DPV=2013_sp1_update1
+INTEL_DID=4584
+INTEL_DPV=2015
 INTEL_SUBDIR=composerxe
 INTEL_SINGLE_ARCH=false
 
@@ -70,7 +70,8 @@ mkl_prof() {
 		bits=_lp64
 		[[ ${1} == int64 ]] && bits=_ilp64
 	fi
-	local gf="-Wl,--start-group -lmkl_gf${bits}"
+	local gf="-Wl,--no-as-needed -Wl,--start-group -lmkl_gf${bits}"
+	local gc="-Wl,--no-as-needed -Wl,--start-group -lmkl_intel${bits}"
 	local intel="-Wl,--start-group -lmkl_intel${bits}"
 	local core="-lmkl_core -Wl,--end-group"
 	local prof=mkl${IARCH:((${#IARCH} - 2)):2}
@@ -83,7 +84,7 @@ mkl_prof() {
 		mkl_add_prof ${prof}-intel blas lapack cblas lapacke
 	libs="${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gfortran-openmp blas lapack
-	libs="${intel} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
+	libs="${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gcc-openmp cblas lapacke
 	libs="${intel} -lmkl_intel_thread ${core} -openmp -lpthread" \
 		mkl_add_prof ${prof}-intel-openmp blas lapack cblas lapacke
@@ -109,9 +110,9 @@ mkl_prof() {
 		mkl_add_prof ${prof}-gfortran-openmp-blacs blacs
 	libs="${scal} ${gf} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gfortran-openmp-scalapack scalapack
-	libs="${intel} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
+	libs="${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gcc-openmp-blacs blacs
-	libs="${scal} ${intel} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
+	libs="${scal} ${gc} -lmkl_gnu_thread ${core} -fopenmp -lpthread" \
 		mkl_add_prof ${prof}-gcc-openmp-scalapack scalapack
 	libs="${intel} -lmkl_intel_thread ${core} -liomp5 -lpthread" \
 		mkl_add_prof ${prof}-intel-openmp-blacs blacs
