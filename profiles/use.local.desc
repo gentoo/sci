@@ -218,6 +218,7 @@ sci-libs/libgeodecomp:scotch - Optinally use Scotch for domain decomposition.
 sci-libs/libgeodecomp:visit - Add in situ visualization for big simulations via VisIt.
 sci-libs/libsc:romio - Build with support for the ROMIO MPI-IO component
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
+sci-libs/mkl:int64 - Build the 64 bits integer library
 sci-libs/nexus:cbf - Support for Crystallographic Binary Format files with sci-libs/cbflib
 sci-libs/nexus:doc - Generate library documentation with app-doc/doxygen
 sci-libs/nexus:fortran - Build the Fortran bindings
@@ -412,8 +413,11 @@ sys-cluster/openmpi:mpi-threads - Enable MPI_THREAD_MULTIPLE
 sys-cluster/openmpi:numa - Enable numactl to allow binding processes to CPUs
 sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
 sys-cluster/openmpi:vt - Enable bundled VampirTrace support
+virtual/blacs:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/blas:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/cblas:int64 - Add eselect module for cblas libraries built with 64 bits integer ABI
 virtual/lapack:int64 - Add eselect module for lapack libraries built with 64 bits integer ABI
+virtual/lapacke:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
+virtual/scalapack:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 x11-libs/agg:gpc - Enable gpc polygon clipper library
