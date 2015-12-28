@@ -5,4 +5,8 @@
   <longdescription lang="en">
   Gentoo virtual package for the Basic Linear Algebra Communication Subprograms implementation.
 </longdescription>
+  <use>
+    <flag name="int64">Add eselect module for blas libraries built with 64 bits
+  integer ABI</flag>
+  </use>
 </pkgmetadata>
