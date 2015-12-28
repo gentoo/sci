@@ -6,4 +6,8 @@
   Gentoo virtual package for the Linear Algebra PACKAge
   C implementation.
 </longdescription>
+  <use>
+    <flag name="int64">Add eselect module for blas libraries built with 64 bits
+  integer ABI</flag>
+  </use>
 </pkgmetadata>
