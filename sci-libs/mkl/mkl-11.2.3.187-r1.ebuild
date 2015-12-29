@@ -9,6 +9,7 @@ INTEL_DID=7538
 INTEL_DPV=2015_update3
 INTEL_SUBDIR=composerxe
 INTEL_SINGLE_ARCH=false
+INTEL_SKIP_LICENSE=true
 
 NUMERIC_MODULE_NAME=${PN}
 
@@ -21,7 +22,7 @@ IUSE=""
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 DEPEND=""
-RDEPEND=">=dev-libs/intel-common-15"
+RDEPEND=">=dev-libs/intel-common-15[${MULTILIB_USEDEP}]"
 
 CHECKREQS_DISK_BUILD=2500M
 

@@ -9,6 +9,7 @@ INTEL_DID=3949
 INTEL_DPV=2013_sp1_update2
 INTEL_SUBDIR=composerxe
 INTEL_SINGLE_ARCH=false
+INTEL_SKIP_LICENSE=true
 
 inherit intel-sdp multilib alternatives-2
 
