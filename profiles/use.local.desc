@@ -87,6 +87,7 @@ sci-biology/ncbi-tools++:xslt - Undocumented USE
 sci-biology/nilearn:plot - Adds optional dependency needed for plotting function subset.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
 sci-chemistry/avogadro2:rpc - Enable RPC server
+sci-chemistry/avogadro2:vtk - include vtk support
 sci-chemistry/ball:cuda - Include cuda support
 sci-chemistry/ball:sql - Include SQL database support
 sci-chemistry/ball:webkit - Uses dev-qt/qt-webkit for drawing
