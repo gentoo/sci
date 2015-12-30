@@ -1,0 +1,9 @@
+# ChangeLog for dev-perl/forks
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*forks-0.36 (30 Dec 2015)
+
+  30 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +forks-0.36.ebuild,
+  +metadata.xml:
+  dev-perl/forks: new package, needed by sci-biology/maker
