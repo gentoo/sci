@@ -3,6 +3,10 @@
 # $Id$
 
   30 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
+  sci-biology/maker: added openmpi as dependency; define our own src_install();
+  add einfo message; added dev-perl/forks-shared dependency
+
+  30 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
   sci-biology/maker: added dependency on dev-perl/forks
 
   18 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
