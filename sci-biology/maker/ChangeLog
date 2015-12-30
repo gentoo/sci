@@ -3,6 +3,11 @@
 # $Id$
 
   30 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
+  sci-biology/maker: do install from a top-level directory; there is a file
+  collision with /usr/bin/compare from media-gfx/imagemagick and with
+  /usr/bin/fasta_tool from sci-biology/trinityrnaseq
+
+  30 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
   sci-biology/maker: added openmpi as dependency; define our own src_install();
   add einfo message; added dev-perl/forks-shared dependency
 

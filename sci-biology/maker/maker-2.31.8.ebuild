@@ -102,6 +102,7 @@ src_compile(){
 }
 
 src_install(){
+	cd "${WORKDIR}"/maker || die
 	dobin bin/*
 	dodoc README INSTALL
 	insinto /usr/share/"{PN}"/GMOD/Apollo
