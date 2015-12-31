@@ -19,7 +19,7 @@ IUSE="int64"
 
 RDEPEND="
 	|| (
-		abi_x86_64? ( !abi_x86_32? ( >=sci-libs/lapacke-reference-3.5 ) )
+		abi_x86_64? ( !abi_x86_32? ( >=sci-libs/lapacke-reference-${PV} ) )
 		sci-libs/mkl[int64?,${MULTILIB_USEDEP}]
 	)
 	int64? ( sci-libs/mkl[int64,${MULTILIB_USEDEP}] )

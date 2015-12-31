@@ -10,10 +10,8 @@ SRC_URI=""
 
 LICENSE=""
 SLOT="0"
-
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
-RDEPEND="|| (
-		>=sci-libs/lapacke-reference-3.5
-	)"
+
+RDEPEND=">=sci-libs/lapacke-reference-${PV}"
 DEPEND=""
