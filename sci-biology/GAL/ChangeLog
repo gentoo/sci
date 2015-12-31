@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/GAL
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*GAL-0.2.1 (31 Dec 2015)
+*GAL-0.2.2 (31 Dec 2015)
+
+  31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +GAL-0.2.1.ebuild,
+  +GAL-0.2.2.ebuild, +metadata.xml:
+  sci-biology/GAL: new package, needed by trinityrnaseq and maker
