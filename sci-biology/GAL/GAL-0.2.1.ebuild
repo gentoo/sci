@@ -17,3 +17,5 @@ IUSE=""
 
 DEPEND="dev-perl/Module-Build"
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}/${PN}_${PV}"
