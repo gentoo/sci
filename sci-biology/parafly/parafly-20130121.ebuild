@@ -7,6 +7,8 @@ EAPI=5
 DESCRIPTION="Some dependency for transdecoder"
 HOMEPAGE="http://sourceforge.net/projects/transdecoder/"
 SRC_URI="http://sourceforge.net/projects/transdecoder/files/OLDER/TransDecoder_r20140704.tar.gz"
+# are current sources available only from here?
+# https://github.com/trinityrnaseq/trinityrnaseq/tree/f81f0497a211c84ba4299063086604760933e6e3/trinity-plugins/parafly-code
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"

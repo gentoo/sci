@@ -4,6 +4,10 @@
 
   31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   parafly-20130121.ebuild:
+  sci-biology/parafly: note code bundled under trinity-plugins
+
+  31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  parafly-20130121.ebuild:
   sci-biology/parafly: updating moved SRC_URI of a last release left on
   sourceforge
 
