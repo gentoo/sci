@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
+  sci-biology/maker: DEPEND on external sci-biology/GAL package; rename
+  'compare' binary as agreed with upstream
+
   30 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> maker-2.31.8.ebuild:
   sci-biology/maker: do install from a top-level directory; there is a file
   collision with /usr/bin/compare from media-gfx/imagemagick and with
