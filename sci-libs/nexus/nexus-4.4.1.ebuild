@@ -31,6 +31,8 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen dev-tex/xcolor )
 "
 
+S="${WORKDIR}/code-${PV}"
+
 pkg_setup() {
 	# Handling of dependencies between Fortran module files doesn't play well with parallel make
 	use fortran && export MAKEOPTS="${MAKEOPTS} -j1 "
