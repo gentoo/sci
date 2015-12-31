@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  parafly-20130121.ebuild:
+  sci-biology/parafly: updating moved SRC_URI of a last release left on
+  sourceforge
+
   20 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   parafly-20130121.ebuild:
   sci-biology/parafly: document a recent upstream bugreport from github

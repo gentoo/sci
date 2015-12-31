@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="Some dependency for transdecoder"
 HOMEPAGE="http://sourceforge.net/projects/transdecoder/"
-SRC_URI="http://downloads.sourceforge.net/project/transdecoder/TransDecoder_r20140704.tar.gz"
+SRC_URI="http://sourceforge.net/projects/transdecoder/files/OLDER/TransDecoder_r20140704.tar.gz"
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
