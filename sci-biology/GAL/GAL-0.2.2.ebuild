@@ -15,7 +15,5 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="
-	dev-perl/TAP-Harness
-	dev-perl/Module-Build"
+DEPEND="dev-perl/Module-Build"
 RDEPEND="${DEPEND}"
