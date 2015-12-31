@@ -19,3 +19,7 @@ DEPEND="dev-perl/Module-Build"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}_${PV}"
+
+src_prepare(){
+	epatch "${FILESDIR}"/Build.PL.patch
+}

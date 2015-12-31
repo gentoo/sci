@@ -1,0 +1,10 @@
+--- GAL_0.2.2/Build.PL.ori	2016-01-01 00:46:26.000000000 +0100
++++ GAL_0.2.2/Build.PL	2016-01-01 00:50:21.000000000 +0100
+@@ -10,7 +10,6 @@
+        sub ACTION_build {
+ 	 my $self = shift;
+ 	 $self->SUPER::ACTION_build;
+-	 $self->dispatch('installdeps');
+        }
+        sub ACTION_install {
+ 	   my $self = shift;

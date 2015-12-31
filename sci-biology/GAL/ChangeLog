@@ -2,12 +2,6 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
-  31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> GAL-0.2.1.ebuild,
-  GAL-0.2.2.ebuild:
-  sci-biology/GAL: fix S variable; beware the package is a bundle of many 3rd-
-  party perl modules and apps, it runs wget to fetch additional ones, can't go
-  into the tree as it is now (resolving it now with upstream)
-
 *GAL-0.2.1 (31 Dec 2015)
 *GAL-0.2.2 (31 Dec 2015)
 
