@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+  31 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  trinityrnaseq-2.0.6.ebuild, trinityrnaseq-2.1.1.ebuild:
+  sci-biology/trinityrnaseq: do not install bundled GAL but DEPEND on it via
+  external package as sci-biology/GAL
+
 *trinityrnaseq-2.1.1 (20 Nov 2015)
 
   20 Nov 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
