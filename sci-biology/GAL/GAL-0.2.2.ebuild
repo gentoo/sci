@@ -15,7 +15,21 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-perl/Module-Build"
+DEPEND="
+	>=dev-lang/perl-5.6.1
+	dev-perl/Module-Build
+	dev-perl/DBIx-Class
+	dev-perl/IO-All
+	dev-perl/Number-Format
+	dev-perl/Set-IntSpan
+	dev-perl/Statistics-Descriptive-Discrete
+	dev-perl/Template
+	dev-perl/Text-Graph
+	dev-perl/Text-RecordParser
+	dev-perl/Text-Table
+	dev-perl/Exception-Class
+	dev-perl/Test-Warn
+	dev-perl/DBIx-Class-ResultClass-HashRefInflator"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}_${PV}"
