@@ -24,6 +24,8 @@ dev-lang/berkeley_upc:sptr-struct - Use the 'struct' shared pointer representati
 dev-lang/berkeley_upc:sptr-symmetric - Enable 'symmetric' pointer variant where available (64-bit smp and shmem)
 dev-lang/berkeley_upc:udp - Support running over UDP
 dev-lang/conceptual:gui - Build the Java base graphical interface
+dev-lang/icc:eclipse - Install the dev-util/eclipse-sdk plugins
+dev-lang/idb:eclipse - Install the dev-util/eclipse-sdk plugins
 dev-lang/julia:int64 - Build with 64 bits integer blas and lapack (needs sci-libs/openblas and sci-libs/lapack-reference)
 dev-lang/path64:assembler - Build PathAS assembler
 dev-lang/path64:debugger - Build PathDB debugger
@@ -32,6 +34,7 @@ dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
 dev-lang/pgi:acml - Install AMD's core math library.
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
+dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
 dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
