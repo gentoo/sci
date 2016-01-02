@@ -10,7 +10,7 @@ inherit cmake-utils fortran-2 java-pkg-opt-2
 
 DESCRIPTION="Data format for neutron and x-ray scattering data"
 HOMEPAGE="http://nexusformat.org/"
-SRC_URI="https://github.com/nexusformat/code/archive/v${PV}.tar.gz"
+SRC_URI="https://github.com/nexusformat/code/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
