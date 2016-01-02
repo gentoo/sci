@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -29,7 +29,8 @@ DEPEND="
 	dev-perl/Text-Table
 	dev-perl/Exception-Class
 	dev-perl/Test-Warn
-	dev-perl/DBIx-Class-ResultClass-HashRefInflator"
+	dev-perl/DBIx-Class-ResultClass-HashRefInflator
+	dev-perl/URI"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}_${PV}"
