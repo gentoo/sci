@@ -5,8 +5,7 @@
 EAPI=5
 
 FORTRAN_NEEDED=fortran
-FORTRAN_STANDARD=90
-PYTHON_COMPAT=( python2_7 )
+FORTRAN_STANDARD="77 90"
 inherit cmake-utils fortran-2 java-pkg-opt-2
 
 DESCRIPTION="Data format for neutron and x-ray scattering data"
