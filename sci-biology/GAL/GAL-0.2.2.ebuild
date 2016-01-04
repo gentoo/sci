@@ -23,13 +23,13 @@ DEPEND="
 	dev-perl/Number-Format
 	dev-perl/Set-IntSpan
 	dev-perl/Statistics-Descriptive-Discrete
-	dev-perl/Template
+	dev-perl/Template-Toolkit
 	dev-perl/Text-Graph
 	dev-perl/Text-RecordParser
 	dev-perl/Text-Table
 	dev-perl/Exception-Class
 	dev-perl/Test-Warn
-	dev-perl/DBIx-Class-ResultClass-HashRefInflator
+	dev-perl/DBIx-Class
 	dev-perl/URI"
 RDEPEND="${DEPEND}"
 
