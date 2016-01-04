@@ -17,6 +17,10 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+src_prepare(){
+	sed -e 's@#!/usr/local/python/bin/python@#! /usr/bin/env python@' -i *.py || die
+}
+
 src_install(){
 	dobin *.py
 	insinto /usr/share/"${PN}"/
