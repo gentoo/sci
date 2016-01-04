@@ -57,5 +57,5 @@ src_install() {
 	exeinto /usr/share/Modules/bin
 	doexe "${FILESDIR}"/createmodule.{sh,py}
 	dosym /usr/share/Modules/init/csh /etc/profile.d/modules.csh
-	dodir /etc/modulesfiles
+	dodir /etc/modulefiles
 }
