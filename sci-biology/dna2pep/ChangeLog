@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/dna2pep
+# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*dna2pep-1.1 (04 Jan 2016)
+
+  04 Jan 2016; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +dna2pep-1.1.ebuild,
+  +metadata.xml:
+  sci-biology/dna2pep: new package that will needed by sci-biology/Annocript
