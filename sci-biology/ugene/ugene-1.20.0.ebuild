@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit qt4-r2
+inherit qmake-utils
 
 DESCRIPTION="A free open-source cross-platform bioinformatics software"
 HOMEPAGE="http://ugene.unipro.ru"
@@ -34,5 +34,9 @@ src_configure() {
 
 	use cpu_flags_x86_sse2 && CONFIG_OPTS+=( use_sse2 )
 
-	eqmake4 $CONFIG_OPTS || die
+	eqmake5 $CONFIG_OPTS || die
+}
+
+src_install() {
+	emake DESTDIR="${D}" INSTALL_ROOT="${ED}" install
 }
