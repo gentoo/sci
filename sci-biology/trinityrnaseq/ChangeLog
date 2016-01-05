@@ -3,6 +3,10 @@
 # $Id$
 
   05 Jan 2016; Marius Brehler <marbre@linux.sungazer.de>
+  trinityrnaseq-2.0.6.ebuild, trinityrnaseq-2.1.1.ebuild:
+  sci-biology/trinityrnaseq: Add missing die
+
+  05 Jan 2016; Marius Brehler <marbre@linux.sungazer.de>
   trinityrnaseq-2.0.6.ebuild:
   sci-biology/trinityrnaseq: Drop KEYWORDS (depends on masked package)
 

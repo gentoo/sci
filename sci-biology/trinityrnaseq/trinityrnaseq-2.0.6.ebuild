@@ -48,7 +48,7 @@ src_install(){
 	doins -r util/*
 	#
 	dobin Inchworm/bin/*
-	cd Chrysalis
+	cd Chrysalis || die
 	dobin MakeDepend checkLock BreakTransByPairs Chrysalis GraphFromFasta IsoformAugment JoinTransByPairs QuantifyGraph ReadsToTranscripts RunButterfly TranscriptomeFromVaryK analysis/ReadsToComponents.pl
 	cd "${S}" || die
 	insinto "${VENDOR_LIB}/${PN}"
