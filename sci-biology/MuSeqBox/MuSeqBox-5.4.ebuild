@@ -9,6 +9,7 @@ inherit toolchain-funcs
 DESCRIPTION="Parse and filter BLAST output into tab-delimited file"
 HOMEPAGE="http://brendelgroup.org/bioinformatics2go/MuSeqBox.php"
 SRC_URI="http://www.brendelgroup.org/bioinformatics2go/Download/MuSeqBox-4-8-2015.tar.gz"
+# code will move to https://github.com/BrendelGroup
 
 LICENSE="GPL-3"
 SLOT="0"
