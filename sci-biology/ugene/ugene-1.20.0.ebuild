@@ -36,3 +36,7 @@ src_configure() {
 
 	eqmake5 $CONFIG_OPTS || die
 }
+
+src_install() {
+	emake DESTDIR="${D}" INSTALL_ROOT="${ED}" install
+}

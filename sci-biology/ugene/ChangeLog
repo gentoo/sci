@@ -3,6 +3,9 @@
 # $Id$
 
   05 Jan 2016; Alexey Shvetsov <alexxy@gentoo.org> ugene-1.20.0.ebuild:
+  sci-biology/ugene: Fix install target
+
+  05 Jan 2016; Alexey Shvetsov <alexxy@gentoo.org> ugene-1.20.0.ebuild:
   sci-biology/ugene: Make it actualy compile
 
 *ugene-1.20.0 (04 Jan 2016)
