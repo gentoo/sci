@@ -73,7 +73,6 @@ sci-biology/ncbi-blast+:freetype - Undocumented USE
 sci-biology/ncbi-blast+:mesa - Undocumented USE
 sci-biology/ncbi-blast+:muparser - Undocumented USE
 sci-biology/ncbi-blast+:sablotron - Undocumented USE
-sci-biology/ncbi-blast+:sqlite3 - Add support for dev-db/sqlite:3
 sci-biology/ncbi-blast+:xalan - Undocumented USE
 sci-biology/ncbi-blast+:xerces - Undocumented USE
 sci-biology/ncbi-blast+:xslt - Undocumented USE
@@ -83,7 +82,6 @@ sci-biology/ncbi-tools++:freetype - Undocumented USE
 sci-biology/ncbi-tools++:mesa - Undocumented USE
 sci-biology/ncbi-tools++:muparser - Undocumented USE
 sci-biology/ncbi-tools++:sablotron - Undocumented USE
-sci-biology/ncbi-tools++:sqlite3 - Add support for dev-db/sqlite:3
 sci-biology/ncbi-tools++:xalan - Undocumented USE
 sci-biology/ncbi-tools++:xerces - Undocumented USE
 sci-biology/ncbi-tools++:xslt - Undocumented USE
@@ -208,6 +206,7 @@ sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/lapack-reference:deprecated - Build deprecated routines
 sci-libs/lapack-reference:int64 - Build the 64 bits integer library
 sci-libs/lapack-reference:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
+sci-libs/lapacke-reference:deprecated - Build deprecated routines
 sci-libs/lapacke-reference:tmg - Build LAPACKE with a Test Matrix Generator library
 sci-libs/lapacke-reference:xblas - Build LAPACKE with extra precision (needs sci-libs/xblas)
 sci-libs/libfac:singular - Automatically generated description for singular
