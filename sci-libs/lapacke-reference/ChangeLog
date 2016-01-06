@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/lapacke-reference
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  06 Jan 2016; Marius Brehler <marbre@linux.sungazer.de>
+  lapacke-reference-3.6.0-r2.ebuild, metadata.xml:
+  sci-libs/lapacke-reference: Build deprecated by default
 
 *lapacke-reference-3.5.0 (08 Dec 2013)
 
