@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -51,6 +51,7 @@ each_ruby_configure() {
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
+		-DOPTIMIZE_NATIVE=OFF
 		-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
 		-DOB_MODULE_PATH="${EPREFIX}"/usr/$(get_libdir)/openbabel/"${PV}"
 		-DLIB_INSTALL_DIR="${ED}"/$(ruby_rbconfig_value sitearchdir)
@@ -69,8 +70,7 @@ each_ruby_compile() {
 }
 
 each_ruby_test() {
-	for i in scripts/ruby/examples/*
-	do
+	for i in scripts/ruby/examples/*; do
 		einfo "Running test: ${WORKDIR}/${environment}/${i}"
 		${RUBY} -I"${WORKDIR}/${environment}/$(get_libdir)" "${i}" || die
 	done
