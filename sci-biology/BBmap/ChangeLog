@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/BBmap
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+*BBmap-35.82 (06 Jan 2016)
+
+  06 Jan 2016; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +BBmap-35.82.ebuild,
+  -BBmap-35.68.ebuild:
+  sci-biology/BBmap: version bump
 
 *BBmap-35.68 (19 Nov 2015)
 
