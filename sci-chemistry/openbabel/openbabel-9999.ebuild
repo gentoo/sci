@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -50,6 +50,7 @@ src_configure() {
 	local mycmakeargs=""
 	mycmakeargs="${mycmakeargs}
 		-DOPENBABEL_USE_SYSTEM_INCHI=ON
+		-DOPTIMIZE_NATIVE=OFF
 		$(cmake-utils_use_enable openmp OPENMP)
 		$(cmake-utils_use wxwidgets BUILD_GUI)"
 
@@ -60,6 +61,7 @@ src_test() {
 	local mycmakeargs=""
 	mycmakeargs="${mycmakeargs}
 		-DOPENBABEL_USE_SYSTEM_INCHI=ON
+		-DOPTIMIZE_NATIVE=OFF
 		-DPYTHON_EXECUTABLE=false
 		$(cmake-utils_use wxwidgets BUILD_GUI)
 		$(cmake-utils_use_enable openmp OPENMP)
@@ -71,18 +73,20 @@ src_test() {
 }
 
 src_install() {
-	dohtml doc/{*.html,*.png}
-	if use doc ; then
-		insinto /usr/share/doc/${PF}/API/html
-		doins doc/API/html/*
+	docinto html
+	dodoc doc/{*.html,*.png}
+	if use doc; then
+		docinto html/API
+		dodoc doc/API/html/*
 	fi
+
 	cmake-utils_src_install
 
 	# Ensure that modules are allways in openbabel/${PV}
-	pushd "${ED}/usr/$(get_libdir)/openbabel"
+	pushd "${ED}/usr/$(get_libdir)/openbabel" > /dev/null || die
 	ver=$(ls -d * | grep -E '([0-9]+[.]){2}[0-9]+')
 	if [ "${ver}" != "${PV}" ] ; then
-		ln -s ${ver} ${PV}
+		ln -s ${ver} ${PV} || die
 	fi
-	popd
+	popd > /dev/null || die
 }
