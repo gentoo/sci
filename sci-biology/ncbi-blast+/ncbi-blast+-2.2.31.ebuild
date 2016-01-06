@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -28,7 +28,7 @@ IUSE="
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
-	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
+	sablotron sqlite tiff xerces xalan xml xpm xslt X"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 #KEYWORDS=""
 
@@ -41,8 +41,7 @@ DEPEND="
 	berkdb? ( sys-libs/db:4.3[cxx] )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
-	sqlite? ( dev-db/sqlite:0 )
-	sqlite3? ( dev-db/sqlite:3 )
+	sqlite? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl media-libs/glew )
