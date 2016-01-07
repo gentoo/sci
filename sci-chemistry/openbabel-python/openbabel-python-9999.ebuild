@@ -38,9 +38,6 @@ src_prepare() {
 		-outdir scripts/python \
 		scripts/openbabel-python.i \
 		|| die "Regeneration of openbabel-python.cpp failed"
-	sed \
-		-e '/__GNUC__/s:== 4:>= 4:g' \
-		-i include/openbabel/shared_ptr.h || die
 }
 
 src_configure() {
