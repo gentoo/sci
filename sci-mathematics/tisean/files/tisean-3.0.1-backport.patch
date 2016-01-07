@@ -1,0 +1,752 @@
+From 377911cf0ba30428e8e6095162ac9d63689838b8 Mon Sep 17 00:00:00 2001
+From: Rainer Hegger <hegger@theochem.uni-frankfurt.de>
+Date: Thu, 16 Apr 2015 15:49:31 +0200
+Subject: [PATCH] Collected changes over the last years
+
+---
+ configure                  |  22 +++++-----
+ docs/docs_c/corr.html      |   5 +++
+ docs/docs_c/lfo-ar.html    |   2 +-
+ docs/docs_c/lyap_spec.html |   4 +-
+ docs/tutorial/ex1.html     |   2 +-
+ docs/tutorial/ex2.html     |  10 ++---
+ docs/tutorial/ex3.html     |   2 +-
+ source_c/corr.c            |  28 +++++++++---
+ source_c/false_nearest.c   |  10 ++++-
+ source_c/histogram.c       |  55 +++++++++++++++---------
+ source_c/lzo-run.c         |   2 +-
+ source_c/mem_spec.c        |   5 ++-
+ source_c/mutual.c          | 105 +++++++++++++++++++++++++++++----------------
+ source_c/polynom.c         |   7 ++-
+ source_c/polynomp.c        |   2 +-
+ source_c/xcor.c            |   2 +-
+ source_f/cluster.f         |   3 +-
+ 17 files changed, 172 insertions(+), 94 deletions(-)
+
+diff --git a/configure b/configure
+index c27cf28..095e16d 100755
+--- a/configure
++++ b/configure
+@@ -35,17 +35,17 @@ verbose=
+ x_includes=NONE
+ x_libraries=NONE
+ bindir='bin'
+-sbindir='${exec_prefix}/sbin'
+-libexecdir='${exec_prefix}/libexec'
+-datadir='${prefix}/share'
+-sysconfdir='${prefix}/etc'
+-sharedstatedir='${prefix}/com'
+-localstatedir='${prefix}/var'
+-libdir='${exec_prefix}/lib'
+-includedir='${prefix}/include'
++sbindir='sbin'
++libexecdir='libexec'
++datadir='share'
++sysconfdir='etc'
++sharedstatedir='com'
++localstatedir='var'
++libdir='lib'
++includedir='include'
+ oldincludedir='/usr/include'
+-infodir='${prefix}/info'
+-mandir='${prefix}/man'
++infodir='info'
++mandir='man'
+ 
+ # Initialize some other variables.
+ subdirs=
+@@ -1020,7 +1020,7 @@ fi
+ 
+ 
+ 
+-for fff in "$FC" f77 g77 "f77 +U77" "f77 -q -f -B108 -lU77"; do
++for fff in "$FC" f77 g77 gfortran "f77 +U77" "f77 -q -f -B108 -lU77"; do
+    if test -z "$fff"; then 
+       continue
+    fi
+diff --git a/docs/docs_c/corr.html b/docs/docs_c/corr.html
+index 8b2eb8c..f2aa4f2 100644
+--- a/docs/docs_c/corr.html
++++ b/docs/docs_c/corr.html
+@@ -57,6 +57,11 @@ <h2 align=center>Usage:</h2>
+ <td>100
+ </tr>
+ <tr>
++<th>-s#
++<td>calculate the correlation only every #-th step
++<td>1
++</tr>
++<tr>
+ <th>-n
+ <td>don't use normalization to standard deviation
+ <td>not set
+diff --git a/docs/docs_c/lfo-ar.html b/docs/docs_c/lfo-ar.html
+index 59263b6..11a9b4e 100644
+--- a/docs/docs_c/lfo-ar.html
++++ b/docs/docs_c/lfo-ar.html
+@@ -117,7 +117,7 @@ <h2 align=center>Description of the Output:</h2>
+ The output consists of 5 columns for each neighborhood size:</b>
+ <ul>
+ <li> neighborhood size (units of the data)
+-<li> relative forecast error ((forecast error)/(variance of the data))
++<li> relative forecast error ((forecast error)/(standard deviation of data))
+ <li> fraction of points for which neighbors were found for this neighborhood 
+ size
+ <li> average number of neighbors found per point
+diff --git a/docs/docs_c/lyap_spec.html b/docs/docs_c/lyap_spec.html
+index ab67d84..189482a 100644
+--- a/docs/docs_c/lyap_spec.html
++++ b/docs/docs_c/lyap_spec.html
+@@ -58,7 +58,9 @@ <h2 align=center>Usage:</h2>
+ -->
+ <tr>
+ <th>-r#
+-<td>minimal neighborhood size
++<td>minimal neighborhood size. This option dominates -k. This means
++  that if -r is set and more than -k neighbors are found, the number
++  of neighbors will not be reduced to the value given with -k.
+ <td>not set
+ </tr>
+ <tr>
+diff --git a/docs/tutorial/ex1.html b/docs/tutorial/ex1.html
+index e77be7b..660811b 100644
+--- a/docs/tutorial/ex1.html
++++ b/docs/tutorial/ex1.html
+@@ -146,7 +146,7 @@
+ variable <font color=blue>x </font> of the logistic equation for
+ various parameter values (e.g.: <font color=green>
+ gnuplot&#62; plot '&#60; henon -B0 -A2 -l10000 | histogram -b100' with
+-hist</font>). When a sufficiently long transient has been
++histeps</font>). When a sufficiently long transient has been
+ discarded, such a histogram is the approximation to the invaraint
+ measure on the bins of the histogram. Verify numerically:<br>
+ <ul>
+diff --git a/docs/tutorial/ex2.html b/docs/tutorial/ex2.html
+index 5324a15..a0fbb11 100644
+--- a/docs/tutorial/ex2.html
++++ b/docs/tutorial/ex2.html
+@@ -82,7 +82,7 @@
+ the two histograms, you thus should shift the one with respect to the
+ other by the mean value of the data:<br>
+ <font color=green>  
+-set data style histep<br>
++set style data histep<br>
+ plot '&#60; histogram amplitude.dat' u ($1-.146):2,'&#60; histogram
+ ar.dat' </font> 
+ <br>Result: The data sets are differnt: the distribution of <font
+@@ -95,7 +95,7 @@
+ <a href="../docs_f/spectrum.html">spectrum</a>) of both of them:<br>
+ <font color=red> corr amplitude.dat -D500 -o<br>
+ corr ar.dat -D500 -o</font><br>
+-<font color=green>set data style lines</font><br>
++<font color=green>set style data lines</font><br>
+ <font color=green> plot 'ar.dat.cor','amplitude.dat.cor'</font><br>
+ <font color=red>spectrum amplitude.dat -o<br>
+ spectrum ar.dat -o</font><br>
+@@ -150,7 +150,7 @@
+ <ul>
+ <li> compute the false nearest neighbour statistics 
+ (<a href="../docs_c/false_nearest.html">false_nearest</a>):<br>
+-<font color=red> false_nearest  amplitude.dat -M8 -d8 -o
++<font color=red> false_nearest  amplitude.dat -M1,8 -d8 -o
+ -t200 -f5 </font><br>
+ Study the output, <font color=blue>amplitude.dat.fnn</font>, and
+ observe the invariance of the result (namely that the embedding dimension
+@@ -158,9 +158,9 @@
+ <br><br>
+ 
+ <li> Use the zeorth-order predictor 
+-(<a href="../docs_c/zeroth.html">zeroth</a>)
++(<a href="../docs_c/lzo-test.html">zeroth</a>)
+ on amplitude.dat and on ar.dat.<br>
+-<font color=red> zeroth amplitude.dat -m1,4 -d8 -o
++<font color=red> lzo-test amplitude.dat -m1,4 -d8 -o
+ -s250<br>
+ zeroth ar.dat -m1,4 -d8 -o
+ -s250</font><br>
+diff --git a/docs/tutorial/ex3.html b/docs/tutorial/ex3.html
+index 91735dd..2894689 100644
+--- a/docs/tutorial/ex3.html
++++ b/docs/tutorial/ex3.html
+@@ -196,7 +196,7 @@
+ <font color=red> ll-ar optimal.dat -d10 -m3 -i2000 -s1 -o</font>,<br>
+ and compare the results:<br>
+ <font color=green>
+-set data style linespoints<br>
++set style data linespoints<br>
+ plot 'whatisit.dat.ll', 'whatisit.dat.ll' u 1:3,'optimal.dat.ll',
+ 'optimal.dat.ll' u 1:3</font><br> 
+ <br>
+diff --git a/source_c/corr.c b/source_c/corr.c
+index 06da07a..4c79b9a 100644
+--- a/source_c/corr.c
++++ b/source_c/corr.c
+@@ -30,7 +30,7 @@
+ char *format,*outfile=NULL,stout=1,normalize=1;
+ unsigned int column=1;
+ unsigned int verbosity=0xff;
+-unsigned long tau=100,length=ULONG_MAX,exclude=0;
++unsigned long tau=100,step=1,length=ULONG_MAX,exclude=0;
+ double *array;
+ double av,var;
+ char *infile=NULL;
+@@ -48,6 +48,8 @@ void show_options(char *progname)
+   fprintf(stderr,"\t-x # of lines to be ignored [default 0]\n");
+   fprintf(stderr,"\t-c column to read [default is 1]\n");
+   fprintf(stderr,"\t-D corrlength  [default is 100]\n");
++  fprintf(stderr,"\t-s # calculate the correlation only every #-th step "
++	  "[default is 1]\n");
+   fprintf(stderr,"\t-n don\'t normalize to the variance"
+ 	  " of the data [not set]\n");
+   fprintf(stderr,"\t-o output_file  [default is 'datafile'.cor; no -o"
+@@ -72,6 +74,8 @@ void scan_options(int argc,char **argv)
+     sscanf(out,"%u",&column);
+   if ((out=check_option(argv,argc,'D','u')) != NULL)
+     sscanf(out,"%lu",&tau);
++  if ((out=check_option(argv,argc,'s','u')) != NULL)
++    sscanf(out,"%lu",&step);
+   if ((out=check_option(argv,argc,'n','n')) != NULL)
+     normalize=0;
+   if ((out=check_option(argv,argc,'V','u')) != NULL)
+@@ -88,16 +92,17 @@ double corr(long i)
+   long j;
+   double c=0.0;
+   
+-  for (j=0;j<(length-i);j++)
++  for (j=0;j<(length-i);j++) {
+     c += array[j]*array[j+i];
++  }
+ 
+-  return c/(length-i);
++  return c/(double)(length-i);
+ }
+ 
+ int main(int argc,char** argv)
+ {
+-  char stdi=0;
+-  long i;
++  char stdi=0,done=0;
++  unsigned long i;
+   FILE *fout=NULL;
+   
+   if (scan_help(argc,argv))
+@@ -157,14 +162,25 @@ int main(int argc,char** argv)
+   else
+     var=1.0;
+ 
+-  for (i=0;i<=tau;i++)
++  for (i=0;i<=tau;i += step)
+     if (!stout) {
+       fprintf(fout,"%ld %e\n",i,corr(i)/var);
+       fflush(fout);
++      if (i == tau) done=1;
+     }
+     else {
+       fprintf(stdout,"%ld %e\n",i,corr(i)/var);
+       fflush(stdout);
++      if (i == tau) done=1;
++    }
++  if (!done)
++    if (!stout) {
++      fprintf(fout,"%ld %e\n",tau,corr(tau)/var);
++      fflush(fout);
++    }
++    else {
++      fprintf(stdout,"%ld %e\n",tau,corr(tau)/var);
++      fflush(stdout);
+     }
+   if (!stout)
+     fclose(fout);
+diff --git a/source_c/false_nearest.c b/source_c/false_nearest.c
+index f8a16e9..f5eed04 100644
+--- a/source_c/false_nearest.c
++++ b/source_c/false_nearest.c
+@@ -21,6 +21,7 @@
+ /*Changes:
+   12/10/05: It's multivariate now
+   12/16/05: Scaled <eps> and sigma(eps)
++  03/08/09: delay was missing in delay embedding of univariate case
+ */
+ 
+ #include <stdio.h>
+@@ -37,7 +38,7 @@ char *infile=NULL;
+ char stdo=1,dimset=0;
+ char *column=NULL;
+ unsigned long length=ULONG_MAX,exclude=0,theiler=0;
+-unsigned int delay=1,maxdim=5,minemb=1;
++unsigned int delay=1,maxdim=6,minemb=1;
+ unsigned int comp=1,maxemb=5;
+ unsigned int verbosity=0xff;
+ double rt=2.0;
+@@ -226,6 +227,11 @@ int main(int argc,char **argv)
+     series=(double**)get_multi_series(infile,&length,exclude,&comp,column,
+ 				      dimset,verbosity);
+ 
++  if ((maxemb*delay+1) >= length) {
++      fprintf(stderr,"Not enough points!\n");
++      exit(FALSE_NEAREST_NOT_ENOUGH_POINTS);
++  }
++
+   for (i=0;i<comp;i++) {
+     rescale_data(series[i],length,&min,&ind_inter);
+     variance(series[i],length,&av,&ind_var);
+@@ -259,7 +265,7 @@ int main(int argc,char **argv)
+   for (i=0;i<maxdim;i++) {
+     if (comp == 1) {
+       vcomp[i]=0;
+-      vemb[i]=i;
++      vemb[i]=i*delay;
+     }
+     else {
+       vcomp[i]=i%comp;
+diff --git a/source_c/histogram.c b/source_c/histogram.c
+index 6ab9f02..a45576d 100644
+--- a/source_c/histogram.c
++++ b/source_c/histogram.c
+@@ -17,10 +17,8 @@
+  *   along with TISEAN; if not, write to the Free Software
+  *   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  */
+-/*Author: Rainer Hegger. Last modified Dec 6, 2005*/
+-/*Changes:
+-  12/06/05: shift output x value to center of interval
+-*/
++/*Author: Rainer Hegger. Last modified May 16, 2014*/
++
+ #include <math.h>
+ #include <limits.h>
+ #include <stdio.h>
+@@ -28,7 +26,7 @@
+ #include <string.h>
+ #include "routines/tsa.h"
+ 
+-#define WID_STR "Makes a histogram of the data"
++#define WID_STR "Creates a histogram of a onedimensional dataset"
+ 
+ unsigned long length=ULONG_MAX;
+ unsigned long base=50;
+@@ -36,15 +34,10 @@ unsigned long exclude=0;
+ unsigned int column=1;
+ unsigned int verbosity=0xff;
+ double size;
+-char my_stdout=1,gotsize=0;
++char my_stdout=1,gotsize=0,density=0;
+ char *outfile=NULL;
+ char *infile=NULL;
+ 
+-double *series;
+-double average,var;
+-double min,max;
+-long *box;
+-
+ void show_options(char *progname)
+ {
+   what_i_do(progname,WID_STR);
+@@ -57,6 +50,8 @@ void show_options(char *progname)
+   fprintf(stderr,"\t-x # of lines to ignore [default %ld]\n",exclude);
+   fprintf(stderr,"\t-c column to read [default %d]\n",column);
+   fprintf(stderr,"\t-b # of intervals [default %ld]\n",base);
++  fprintf(stderr,"\t-D output densities not relative frequencies"
++	  " [default not set]\n");
+   fprintf(stderr,"\t-o output file [default 'datafile'.dat ;"
+ 	  " If no -o is given: stdout]\n");
+   fprintf(stderr,"\t-V verbosity level [default 1]\n\t\t"
+@@ -80,6 +75,8 @@ void scan_options(int n,char **str)
+     sscanf(out,"%lu",&base);
+   if ((out=check_option(str,n,'V','u')) != NULL)
+     sscanf(out,"%u",&verbosity);
++  if ((out=check_option(str,n,'D','n')) != NULL)
++    density=1;
+   if ((out=check_option(str,n,'o','o')) != NULL) {
+     my_stdout=0;
+     if (strlen(out) > 0)
+@@ -92,6 +89,10 @@ int main(int argc,char **argv)
+   char stdi=0;
+   unsigned long i,j;
+   double x,norm,size=1.0,size2=1.0;
++  double min,max;
++  double *series;
++  double average,var;
++  long *box;
+   FILE *fout;
+ 
+   if (scan_help(argc,argv))
+@@ -123,24 +124,36 @@ int main(int argc,char **argv)
+ 
+   series=(double*)get_series(infile,&length,exclude,column,verbosity);
+   variance(series,length,&average,&var);
+-  rescale_data(series,length,&min,&max);
+-  
+-  
++
++  min=max=series[0];
++  for (i=1;i<length;i++) {
++    if (series[i] < min) min=series[i];
++    else if (series[i] > max) max=series[i];
++  }
++  max -= min;
++
++  for (i=0;i<length;i++)
++    series[i]=(series[i]-min);
++
+   if (base > 0) {
+     check_alloc(box=(long*)malloc(sizeof(long)*base));
+     for (i=0;i<base;i++)
+       box[i]=0;
+     size=1./base;
+-    size2=size/2.0;
++    size2=(1.0-size/2.0)*max;
+     for (i=0;i<length;i++) {
+-      if (series[i] > (1.0-size2))
+-	series[i]=1.0-size2;
+-      j=(long)(series[i]*base);
++      if (series[i] > size2)
++	series[i]=size2;
++      j=(long)(series[i]*base/max);
+       box[j]++;
+     }
+   }
+ 
+-  norm=1.0/(double)length;
++  if (!density)
++    norm=1.0/(double)length;
++  else
++    norm=1.0/(double)length*(double)base/max;
++
+   if (!my_stdout) {
+     fout=fopen(outfile,"w");
+     if (verbosity&VER_INPUT)
+@@ -150,7 +163,7 @@ int main(int argc,char **argv)
+     fprintf(fout,"#standard deviation= %e\n",var);
+     for (i=0;i<base;i++) {
+       x=(double)(i*size);
+-      fprintf(fout,"%e %e\n",(x+size2)*max+min,(double)box[i]*norm);
++      fprintf(fout,"%e %e\n",(x+size/2.0)*max+min,(double)box[i]*norm);
+     }
+     fclose(fout);
+   }
+@@ -162,7 +175,7 @@ int main(int argc,char **argv)
+     fprintf(stdout,"#standard deviation= %e\n",var);
+     for (i=0;i<base;i++) {
+       x=(double)(i*size);
+-      fprintf(stdout,"%e %e\n",(x+size2)*max+min,(double)box[i]*norm);
++      fprintf(stdout,"%e %e\n",(x+size/2.0)*max+min,(double)box[i]*norm);
+       fflush(stdout);
+     }
+   }
+diff --git a/source_c/lzo-run.c b/source_c/lzo-run.c
+index 5393e9f..bc54fb5 100644
+--- a/source_c/lzo-run.c
++++ b/source_c/lzo-run.c
+@@ -49,7 +49,7 @@ unsigned int MINN=50;
+ unsigned int **indexes;
+ unsigned long LENGTH=ULONG_MAX,FLENGTH=1000,exclude=0;
+ unsigned long seed=0x9074325L;
+-double EPS0=1.e-3,EPSF=1.2,Q=10.0;
++double EPS0=1.e-3,EPSF=1.2,Q=0.0;
+ 
+ double **mat,*vec,*hsum,*newav;
+ 
+diff --git a/source_c/mem_spec.c b/source_c/mem_spec.c
+index a38fcfd..9821488 100644
+--- a/source_c/mem_spec.c
++++ b/source_c/mem_spec.c
+@@ -22,6 +22,7 @@
+   Feb 19, 2007: changed meaning of -f flag and added -P flag to be 
+                 consistent with spectrum
+   Dec 5, 2006: Seg fault when poles > length;
++  Mar 15, 2007: normalization now the same as in spectrum
+  */
+ #include <stdio.h>
+ #include <string.h>
+@@ -216,7 +217,7 @@ int main(int argc,char **argv)
+       fdt=i/(2.0*out);
+       pow_spec=powcoef(fdt,cof);
+       fprintf(fout,"%e %e\n",fdt*samplingrate,
+-	      pm/pow_spec/sqrt((double)length));
++	      pm/pow_spec/(double)length);
+       fflush(fout);
+     }
+     fclose(fout);
+@@ -233,7 +234,7 @@ int main(int argc,char **argv)
+       fdt=i/(2.0*out);
+       pow_spec=powcoef(fdt,cof);
+       fprintf(stdout,"%e %e\n",fdt*samplingrate,
+-	      pm/pow_spec/*/sqrt((double)length)*/);
++	      pm/pow_spec/(double)length);
+     }
+   }
+   
+diff --git a/source_c/mutual.c b/source_c/mutual.c
+index fbea470..0496e92 100644
+--- a/source_c/mutual.c
++++ b/source_c/mutual.c
+@@ -17,7 +17,7 @@
+  *   along with TISEAN; if not, write to the Free Software
+  *   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  */
+-/*Author: Rainer Hegger. Last modified, Sep 20, 2000 */
++/*Author: Rainer Hegger. Last modified, Jul 13, 2010 */
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <math.h>
+@@ -26,16 +26,17 @@
+ #include "routines/tsa.h"
+ 
+ #define WID_STR "Estimates the time delayed mutual information\n\t\
+-of the data set"
++of one or two data columns"
+ 
+ 
+-char *file_out=NULL,stout=1;
++char *file_out=NULL,stout=1,dimset=0;
+ char *infile=NULL;
+ unsigned long length=ULONG_MAX,exclude=0;
+-unsigned int column=1;
++unsigned int dim=1;
+ unsigned int verbosity=0xff;
+ long partitions=16,corrlength=20;
+-long *array,*h1,*h11,**h2;
++long **array,*h1,*h11,**h2;
++char *column=NULL;
+ 
+ void show_options(char *progname)
+ {
+@@ -48,7 +49,7 @@ void show_options(char *progname)
+           " means stdin\n");
+   fprintf(stderr,"\t-l # of points to be used [Default is all]\n");
+   fprintf(stderr,"\t-x # of lines to be ignored [Default is 0]\n");
+-  fprintf(stderr,"\t-c column to read  [Default is 1]\n");
++  fprintf(stderr,"\t-c columns to read  [Default is 1]\n");
+   fprintf(stderr,"\t-b # of boxes [Default is 16]\n");
+   fprintf(stderr,"\t-D max. time delay [Default is 20]\n");
+   fprintf(stderr,"\t-o output file [-o without name means 'datafile'.mut;"
+@@ -69,8 +70,8 @@ void scan_options(int n,char** in)
+     sscanf(out,"%lu",&length);
+   if ((out=check_option(in,n,'x','u')) != NULL)
+     sscanf(out,"%lu",&exclude);
+-  if ((out=check_option(in,n,'c','u')) != NULL)
+-    sscanf(out,"%u",&column);
++  if ((out=check_option(in,n,'c','s')) != NULL)
++    column=out;
+   if ((out=check_option(in,n,'b','u')) != NULL)
+     sscanf(out,"%lu",&partitions);
+   if ((out=check_option(in,n,'D','u')) != NULL)
+@@ -86,7 +87,7 @@ void scan_options(int n,char** in)
+ 
+ double make_cond_entropy(long t)
+ {
+-  long i,j,hi,hii,count=0;
++  long i,j,hi,hii,count=0,start,stop;
+   double hpi,hpj,pij,cond_ent=0.0,norm;
+ 
+   for (i=0;i<partitions;i++) {
+@@ -94,15 +95,23 @@ double make_cond_entropy(long t)
+     for (j=0;j<partitions;j++)
+       h2[i][j]=0;
+   }
+-  for (i=0;i<length;i++)
+-    if (i >= t) {
+-      hii=array[i];
+-      hi=array[i-t];
+-      h1[hi]++;
+-      h11[hii]++;
+-      h2[hi][hii]++;
+-      count++;
+-    }
++  if (t < 0) {
++    start=0;
++    stop=length+t;
++  }
++  else {
++    start=t;
++    stop=length;
++  }
++
++  for (i=start;i<stop;i++) {
++    hii=array[0][i];
++    hi=array[1][i+t];
++    h1[hi]++;
++    h11[hii]++;
++    h2[hi][hii]++;
++    count++;
++  }
+ 
+   norm=1.0/(double)count;
+   cond_ent=0.0;
+@@ -127,8 +136,8 @@ double make_cond_entropy(long t)
+ int main(int argc,char** argv)
+ {
+   char stdi=0;
+-  long tau,i;
+-  double *series,min,interval,shannon;
++  long tau,i,j;
++  double **series,min1,min2,interval1,interval2,shannon,condent;
+   FILE *file;
+   
+   if (scan_help(argc,argv))
+@@ -140,7 +149,7 @@ int main(int argc,char** argv)
+     what_i_do(argv[0],WID_STR);
+ #endif
+ 
+-  infile=search_datafile(argc,argv,&column,verbosity);
++  infile=search_datafile(argc,argv,NULL,verbosity);
+   if (infile == NULL)
+     stdi=1;
+ 
+@@ -158,20 +167,44 @@ int main(int argc,char** argv)
+   if (!stout)
+     test_outfile(file_out);
+ 
+-  series=(double*)get_series(infile,&length,exclude,column,verbosity);
+-  rescale_data(series,length,&min,&interval);
++  if (column == NULL) {
++    series=(double**)get_multi_series(infile,&length,exclude,&dim,"",
++				      dimset,verbosity);
++  }
++  else {
++    series=(double**)get_multi_series(infile,&length,exclude,&dim,column,
++                                      dimset,verbosity);
++  }
+ 
+   check_alloc(h1=(long *)malloc(sizeof(long)*partitions));
+   check_alloc(h11=(long *)malloc(sizeof(long)*partitions));
+   check_alloc(h2=(long **)malloc(sizeof(long *)*partitions));
+   for (i=0;i<partitions;i++) 
+     check_alloc(h2[i]=(long *)malloc(sizeof(long)*partitions));
+-  check_alloc(array=(long *)malloc(sizeof(long)*length));
+-  for (i=0;i<length;i++)
+-    if (series[i] < 1.0)
+-      array[i]=(long)(series[i]*(double)partitions);
+-    else
+-      array[i]=partitions-1;
++  check_alloc(array=(long **)malloc(sizeof(long*)*2));
++  check_alloc(array[0]=(long *)malloc(sizeof(long)*length));
++  check_alloc(array[1]=(long *)malloc(sizeof(long)*length));
++  if (dim == 1) {
++    rescale_data(series[0],length,&min1,&interval1);
++    for (i=0;i<length;i++)
++      if (series[0][i] < 1.0)
++	array[0][i]=array[1][i]=(long)(series[0][i]*(double)partitions);
++      else
++	array[0][i]=array[1][i]=partitions-1;
++    free(series[0]);
++  }
++  else {
++    rescale_data(series[0],length,&min1,&interval1);
++    rescale_data(series[1],length,&min2,&interval2);
++    for (j=0;j<2;j++) {
++      for (i=0;i<length;i++)
++	if (series[j][i] < 1.0)
++	  array[j][i]=(long)(series[j][i]*(double)partitions);
++	else
++	  array[j][i]=partitions-1;
++      free(series[j]);
++    }
++  }
+   free(series);
+ 
+   shannon=make_cond_entropy(0);
+@@ -182,10 +215,9 @@ int main(int argc,char** argv)
+     file=fopen(file_out,"w");
+     if (verbosity&VER_INPUT)
+       fprintf(stderr,"Opened %s for writing\n",file_out);
+-    fprintf(file,"#shannon= %e\n",shannon);
+-    fprintf(file,"%d %e\n",0,shannon);
+-    for (tau=1;tau<=corrlength;tau++) {
+-      fprintf(file,"%ld %e\n",tau,make_cond_entropy(tau));
++    for (tau=-corrlength;tau<=corrlength;tau++) {
++      condent=make_cond_entropy(tau);
++      fprintf(file,"%ld %e %e\n",tau,condent,condent/log((double)partitions));
+       fflush(file);
+     }
+     fclose(file);
+@@ -193,10 +225,9 @@ int main(int argc,char** argv)
+   else {
+     if (verbosity&VER_INPUT)
+       fprintf(stderr,"Writing to stdout\n");
+-    fprintf(stdout,"#shannon= %e\n",shannon);
+-    fprintf(stdout,"%d %e\n",0,shannon);
+-    for (tau=1;tau<=corrlength;tau++) {
+-      fprintf(stdout,"%ld %e\n",tau,make_cond_entropy(tau));
++    for (tau=-corrlength;tau<=corrlength;tau++) {
++      condent=make_cond_entropy(tau);
++      fprintf(stdout,"%ld %e %e\n",tau,condent,condent/log((double)partitions));
+       fflush(stdout);
+     }
+   }
+diff --git a/source_c/polynom.c b/source_c/polynom.c
+index bc57ba8..6448f49 100644
+--- a/source_c/polynom.c
++++ b/source_c/polynom.c
+@@ -20,6 +20,8 @@
+ /*Author: Rainer Hegger*/
+ /* Changes:
+    6/30/2006: Norm of the errors was wrong
++   6/5/2008: Norm was still wrong. Now its given as an absolute value in 
++             units of the data
+ */
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -265,6 +267,7 @@ int main(int argc,char **argv)
+ 
+   series=(double*)get_series(infile,&LENGTH,exclude,COLUMN,verbosity);
+   variance(series,LENGTH,&av,&std_dev);
++
+   for (i=0;i<LENGTH;i++)
+     series[i] /= std_dev;
+ 
+@@ -307,11 +310,11 @@ int main(int argc,char **argv)
+ 
+   in_error=make_error((unsigned long)0,INSAMPLE);
+ 
+-  fprintf(file,"#average insample error= %e\n",sqrt(in_error));
++  fprintf(file,"#average insample error= %e\n",sqrt(in_error)*std_dev);
+ 
+   if (INSAMPLE < LENGTH) {
+     out_error=make_error(INSAMPLE,LENGTH);
+-    fprintf(file,"#average out of sample error= %e\n",sqrt(out_error));
++    fprintf(file,"#average out of sample error= %e\n",sqrt(out_error)*std_dev);
+   }
+ 
+   if (CAST)
+diff --git a/source_c/polynomp.c b/source_c/polynomp.c
+index 6021e19..5b32e58 100644
+--- a/source_c/polynomp.c
++++ b/source_c/polynomp.c
+@@ -239,7 +239,7 @@ int main(int argc,char **argv)
+   fclose(file);
+ 
+   dummy=(double**)get_multi_series(parin,&plength,0LU,
+-				   &dim,"",(char)"1",verbosity);
++				   &dim,"",1,verbosity);
+   
+   check_alloc(order=(unsigned int**)malloc(sizeof(int*)*plength));
+   for (i=0;i<plength;i++) {
+diff --git a/source_c/xcor.c b/source_c/xcor.c
+index ec1ed7f..8f50609 100644
+--- a/source_c/xcor.c
++++ b/source_c/xcor.c
+@@ -30,7 +30,7 @@ given as two columns of one file."
+ 
+ char *columns=NULL,*outfile=NULL,stout=1;
+ unsigned long length=ULONG_MAX,exclude=0;
+-long tau=100;
++unsigned long tau=100;
+ unsigned int verbosity=0xff;
+ double *array1,*array2;
+ char *infile=NULL;
+diff --git a/source_f/cluster.f b/source_f/cluster.f
+index 61357ff..d564fc7 100644
+--- a/source_f/cluster.f
++++ b/source_f/cluster.f
+@@ -47,7 +47,8 @@
+       d(i,j)=dij
+       np=max(i,j,np)
+       goto 1
+- 999  if(iv_io(iverb).eq.1) write(0,'(a,i)') "matrix size ", np
++c 999  if(iv_io(iverb).eq.1) write(0,'(a,i)') "matrix size ", np
++ 999  if(iv_io(iverb).eq.1) write(0,*) "matrix size ", np
+       dmean=0
+       nd=0
+       do 20 i=1,np
