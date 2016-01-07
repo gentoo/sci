@@ -1,9 +1,0 @@
-# ChangeLog for sys-cluster/libquo
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*libquo-9999 (07 Jan 2015)
-
-  07 Jan 2015; Christoph Junghans <ottxor@gentoo.org> +libquo-9999.ebuild,
-  +metadata.xml:
-  added live version
