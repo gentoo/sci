@@ -1,9 +1,0 @@
-# ChangeLog for sci-biology/barnacle
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*barnacle-1.0.3 (05 May 2015)
-
-  05 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  +barnacle-1.0.3.ebuild, +metadata.xml:
-  sci-biology/barnacle: a skeleton of a messy package

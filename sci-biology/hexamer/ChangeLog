@@ -1,9 +1,0 @@
-# ChangeLog for sci-biology/hexamer
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*hexamer-19990330 (01 May 2015)
-
-  01 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  +hexamer-19990330.ebuild, +metadata.xml:
-  sci-biology/hexamer: new package

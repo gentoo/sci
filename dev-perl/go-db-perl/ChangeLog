@@ -1,8 +1,0 @@
-# ChangeLog for dev-perl/go-db-perl
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-  24 Sep 2014; Justin Lecher <jlec@gentoo.org> go-db-perl-0.04.ebuild,
-  metadata.xml:
-  Bump to EAPI=5
-
