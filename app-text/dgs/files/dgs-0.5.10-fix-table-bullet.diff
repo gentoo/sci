@@ -1,0 +1,20 @@
+--- dgs-0.5.10.ORIG/doc/faq.tmpl.texi	2016-01-10 14:07:38.361193193 +0100
++++ dgs-0.5.10/doc/faq.tmpl.texi	2016-01-10 15:30:32.881330177 +0100
+@@ -14,7 +14,7 @@
+ should read the appropriate license for each component before making any
+ decisions about what you can and cannot do.
+ 
+-@table @bullet
++@itemize @bullet
+ @item DPS/README
+ Adobe DPSclient library copyrighted by Adobe Systems Incorporated.
+ 
+@@ -32,7 +32,7 @@
+ 
+ @item zlib/README
+ ZLIB library copyrighted by Jean-loup Gailly and Mark Adler
+-@end table
++@end itemize
+ 
+ @item How can I get support for this software?
+ 

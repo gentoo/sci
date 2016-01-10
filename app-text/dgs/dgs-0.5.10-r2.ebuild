@@ -31,6 +31,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-gs-time_.h-gentoo.diff \
 		"${FILESDIR}"/${P}-tcpd-gentoo.diff \
 		"${FILESDIR}"/${P}-gcc-3.4.diff \
+		"${FILESDIR}"/${P}-fix-table-bullet.diff \
 		"${FILESDIR}"/${PV}-workaround-include-in-comments.patch \
 		"${FILESDIR}"/${PN}-fix-as-needed.patch
 
