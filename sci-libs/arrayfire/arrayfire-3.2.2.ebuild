@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -44,7 +44,7 @@ RDEPEND="
 	graphics? (
 		media-libs/glew
 		>=media-libs/glfw-3.1.1
-		=sci-visualization/forge-3.2.0
+		=sci-visualization/forge-3.2.2
 	)"
 DEPEND="${RDEPEND}"
 
