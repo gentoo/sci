@@ -26,6 +26,8 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
+	epatch_user
+
 	sed \
 		-e "/^dist_doc_DATA/d" \
 		-i Makefile.am || die "Failed to disable installation of LICENSE file"
