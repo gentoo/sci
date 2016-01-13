@@ -26,6 +26,8 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-pkg_config.patch
+
 	epatch_user
 
 	sed \
