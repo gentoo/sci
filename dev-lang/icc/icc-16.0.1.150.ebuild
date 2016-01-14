@@ -24,20 +24,27 @@ DEPEND="
 RDEPEND="${DEPEND}
 	~dev-libs/intel-common-${PV}[compiler]"
 
-#INTEL_BIN_RPMS="compilerproc compilerproc-devel"
-#INTEL_DAT_RPMS="compilerproc-common compilerproc-vars"
-
 CHECKREQS_DISK_BUILD=325M
 
-pkg_setup() {
-	INTEL_BIN_RPMS="icc-l-all-devel"
-	INTEL_DAT_RPMS="icc-doc-16.0.1-150.noarch.rpm icc-l-all-common icc-l-all-vars icc-l-ps-common icc-ps-doc-16.0.1-150.noarch.rpm icc-ps-doc-jp-16.0.1-150.noarch.rpm icc-ps-ss-doc-16.0.1-150.noarch.rpm"
+INTEL_BIN_RPMS=(
+	"icc-l-all-devel")
+INTEL_DAT_RPMS=(
+	"icc-doc-16.0.1-150.noarch.rpm"
+	"icc-l-all-common icc-l-all-vars"
+	"icc-l-ps-common"
+	"icc-ps-doc-16.0.1-150.noarch.rpm"
+	"icc-ps-doc-jp-16.0.1-150.noarch.rpm"
+	"icc-ps-ss-doc-16.0.1-150.noarch.rpm")
 
-	INTEL_X86_RPMS="icc-l-all-32 icc-l-ps icc-l-ps-ss-wrapper"
-	INTEL_AMD64_RPMS="icc-l-all icc-l-ps-devel icc-l-ps-ss icc-l-ps-ss-devel"
-
-	intel-sdp-r1_pkg_setup
-}
+INTEL_X86_RPMS=(
+	"icc-l-all-32"
+	"icc-l-ps"
+	"icc-l-ps-ss-wrapper")
+INTEL_AMD64_RPMS=(
+	"icc-l-all"
+	"icc-l-ps-devel"
+	"icc-l-ps-ss"
+	"icc-l-ps-ss-devel")
 
 src_install() {
 	if ! use linguas_ja; then
