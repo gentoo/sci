@@ -125,6 +125,7 @@ sci-chemistry/rosetta:lange - Apply patches from www.csrosetta.org
 sci-chemistry/shiftx2:debug - Enables debug output in the shiftx2 java part
 sci-chemistry/votca-csg:extras - Pull in extra applications from sci-chemistry/votca-csg-apps
 sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats through sci-chemistry/gromacs
+sci-chemistry/wxmacmolplt:flash - Add support for flash movie generation using media-libs/ming
 sci-electronics/player:boost - Automatically generated description for boost
 sci-electronics/player:festival - Automatically generated description for festival
 sci-electronics/player:openssl - Automatically generated description for openssl
