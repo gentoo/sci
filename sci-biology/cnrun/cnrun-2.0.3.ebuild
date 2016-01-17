@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI="5"
 
-DESCRIPTION="A NeuroML-enabled, neuronal network simulator w/ conductance- and rate-based HH neurons"
+DESCRIPTION="A NeuroML-enabled, precise but slow neuronal network simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/cnrun"
 SRC_URI="http://johnhommer.com/academic/code/cnrun/source/${P}.tar.xz"
 
