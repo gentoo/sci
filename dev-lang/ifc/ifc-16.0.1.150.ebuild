@@ -12,7 +12,7 @@ INTEL_SINGLE_ARCH=false
 
 inherit intel-sdp-r1
 
-DESCRIPTION="Intel C/C++ Compiler"
+DESCRIPTION="Intel FORTRAN Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 LINGUAS="ja"
@@ -24,35 +24,31 @@ DEPEND="!dev-lang/ifc[linguas_ja]
 RDEPEND="${DEPEND}
 	~dev-libs/intel-common-${PV}[compiler]"
 
-CHECKREQS_DISK_BUILD=325M
+CHECKREQS_DISK_BUILD=375M
 
 INTEL_BIN_RPMS=(
-	"icc-l-all-devel")
+	"ifort-l-ps"
+	"ifort-l-ps-devel")
 INTEL_DAT_RPMS=(
-	"icc-l-all-common"
-	"icc-l-all-vars"
-	"icc-l-ps-common")
-INTEL_X86_RPMS=(
-	"icc-l-all-32"
-	"icc-l-ps"
-	"icc-l-ps-ss-wrapper")
-INTEL_AMD64_RPMS=(
-	"icc-l-all"
-	"icc-l-ps-devel"
-	"icc-l-ps-ss"
-	"icc-l-ps-ss-devel")
+	"ifort-l-ps-common"
+	"ifort-l-ps-vars")
+INTEL_X86_RPMS=()
+INTEL_AMD64_RPMS=()
 
 pkg_setup() {
 	if use doc; then
 		INTEL_DAT_RPMS+=(
-			"icc-doc-16.0.1-150.noarch.rpm"
-			"icc-ps-doc-16.0.1-150.noarch.rpm"
-			"icc-ps-ss-doc-16.0.1-150.noarch.rpm")
+			"ifort-ps-doc-16.0.1-150.noarch.rpm")
 
 		if use linguas_ja; then
 			INTEL_DAT_RPMS+=(
-				"icc-ps-doc-jp-16.0.1-150.noarch.rpm")
+				"ifort-ps-doc-jp-16.0.1-150.noarch.rpm")
 		fi
+	fi
+
+	if use linguas_ja; then
+		INTEL_BIN_RPMS+=(
+			"ifort-l-ps-jp")
 	fi
 
 	intel-sdp-r1_pkg_setup
