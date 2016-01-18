@@ -1,9 +1,0 @@
-# ChangeLog for sci-biology/snap
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*snap-20131129 (30 Mar 2015)
-
-  30 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
-  +snap-20131129.ebuild:
-  sci-biology/snap: new package

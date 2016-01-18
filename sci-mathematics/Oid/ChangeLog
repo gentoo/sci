@@ -1,9 +1,0 @@
-# ChangeLog for sci-mathematics/Oid
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*Oid-4.0 (02 Sep 2010)
-
-  02 Sep 2010; Thomas Kahle <tom111@gmx.de> +Oid-4.0.ebuild, +metadata.xml:
-  Initial Import, ebuild due to Johannes Rauh
-

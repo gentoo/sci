@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,6 +7,13 @@
 # Justin Lecher <jlec@gentoo.org>
 # Sci Team <sci@gentoo.org>
 # @BLURB: Handling of Intel's Software Development Products package management
+
+if [[ ! ${_INTEL_SDP_ECLASS_} ]]; then
+
+case "${EAPI:-0}" in
+	5) ;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac
 
 # @ECLASS-VARIABLE: INTEL_DID
 # @DEFAULT_UNSET
@@ -122,7 +129,9 @@
 # Full path to intel registry db
 INTEL_SDP_DB="${EROOT%/}"/opt/intel/intel-sdp-products.db
 
-inherit check-reqs multilib versionator
+MULTILIB_COMPAT=( abi_x86_{32,64} )
+
+inherit check-reqs eutils multilib-build versionator
 
 _INTEL_PV1=$(get_version_component_range 1)
 _INTEL_PV2=$(get_version_component_range 2)
@@ -138,9 +147,8 @@ _INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${
 
 if [ ${INTEL_SINGLE_ARCH} == true ]; then
 	SRC_URI="
-		amd64? ( multilib? ( ${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX} ) )
-		amd64? ( !multilib? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.${INTEL_TARX} ) )
-		x86?	( ${_INTEL_URI}_${INTEL_DPV}_ia32.${INTEL_TARX} )"
+		abi_x86_32? ( ${_INTEL_URI}_${INTEL_DPV}_ia32.${INTEL_TARX} )
+		abi_x86_64? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.${INTEL_TARX} )"
 else
 	SRC_URI="${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX}"
 fi
@@ -149,7 +157,7 @@ LICENSE="Intel-SDP"
 # Future work, #394411
 #SLOT="${_INTEL_PV1}.${_INTEL_PV2}"
 SLOT="0"
-IUSE="examples multilib"
+IUSE="examples"
 
 RESTRICT="mirror"
 
@@ -189,8 +197,10 @@ QA_PREBUILT="${INTEL_SDP_DIR}/*"
 # @DESCRIPTION:
 # Creating necessary links to use intel compiler with eclipse
 _isdp_link_eclipse_plugins() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local c f
-	pushd ${INTEL_SDP_DIR}/eclipse_support > /dev/null
+	pushd ${INTEL_SDP_DIR}/eclipse_support > /dev/null || die
 		for c in cdt*; do
 			local cv=${c#cdt} ev=3.$(( ${cv:0:1} - 1))
 			if has_version "dev-util/eclipse-sdk:${ev}"; then
@@ -207,7 +217,7 @@ _isdp_link_eclipse_plugins() {
 				done
 			fi
 		done
-	popd > /dev/null
+	popd > /dev/null || die
 }
 
 # @FUNCTION: _isdp_big-warning
@@ -216,6 +226,8 @@ _isdp_link_eclipse_plugins() {
 # @DESCRIPTION:
 # warn user that we really require a license
 _isdp_big-warning() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	case ${1} in
 		pre-check )
 			echo ""
@@ -230,9 +242,9 @@ _isdp_big-warning() {
 	esac
 
 	echo ""
-	ewarn "Make sure you have recieved the an Intel license."
+	ewarn "Make sure you have received an Intel license."
 	ewarn "To receive a non-commercial license, you need to register at:"
-	ewarn "http://software.intel.com/en-us/articles/non-commercial-software-development/"
+	ewarn "https://software.intel.com/en-us/qualify-for-free-software"
 	ewarn "Install the license file into ${INTEL_SDP_EDIR}/licenses/"
 
 	case ${1} in
@@ -251,6 +263,8 @@ _isdp_big-warning() {
 # @DESCRIPTION:
 # Testing for valid license by asking for version information of the compiler
 _isdp_version_test() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local comp comp_full arch warn
 	case ${PN} in
 		ifc )
@@ -292,6 +306,8 @@ _isdp_version_test() {
 # @INTERNAL
 # Test if installed compiler is working
 _isdp_run-test() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	if [[ -z ${INTEL_SKIP_LICENSE} ]]; then
 		case ${PN} in
 			ifc | icc )
@@ -303,13 +319,36 @@ _isdp_run-test() {
 	fi
 }
 
-# @FUNCTION: intel-sdp_pkg_pretend
+# @FUNCTION: convert2intel_arch
+# @USAGE: <arch>
+# @DESCRIPTION:
+# Convert between portage arch (e.g. amd64, x86) and intel arch
+# nomenclature (e.g. intel64, ia32)
+convert2intel_arch() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	case $1 in
+		amd64|abi_x86_64|*amd64*)
+			echo "intel64"
+			;;
+		x86|abi_x86_32|*x86*)
+			echo "ia32"
+			;;
+		*)
+			die "Abi \'$1\' is unsupported"
+			;;
+	esac
+}
+
+# @FUNCTION: intel-sdp-r1_pkg_pretend
 # @DESCRIPTION:
 # @CODE
 # * Check that the user has a (valid) license file before going on.
 # * Check for space requirements being fullfilled
 # @CODE
 intel-sdp_pkg_pretend() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	local warn=1 dir dirs ret arch a p
 
 	: ${CHECKREQS_DISK_BUILD:=256M}
@@ -351,18 +390,18 @@ intel-sdp_pkg_pretend() {
 # @DESCRIPTION:
 # Setting up and sorting some internal variables
 intel-sdp_pkg_setup() {
+	debug-print-function ${FUNCNAME} "${@}"
 	local arch a p
 
-	if use x86; then
-		arch=${INTEL_X86}
-		INTEL_ARCH="ia32"
-	elif use amd64; then
-		arch=x86_64
-		INTEL_ARCH="intel64"
-		if has_multilib_profile; then
-			arch="x86_64 ${INTEL_X86}"
-			INTEL_ARCH="intel64 ia32"
-		fi
+	INTEL_ARCH=""
+
+	if use abi_x86_64; then
+		arch+=" x86_64"
+		INTEL_ARCH+=" intel64"
+	fi
+	if use abi_x86_32; then
+		arch+=" ${INTEL_X86}"
+		INTEL_ARCH+=" ia32"
 	fi
 	INTEL_RPMS=()
 	INTEL_RPMS_FULL=()
@@ -461,7 +500,15 @@ intel-sdp_src_unpack() {
 # @DESCRIPTION:
 # Install everything
 intel-sdp_src_install() {
-	if [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
+	debug-print-function ${FUNCNAME} "${@}"
+
+	if path_exists "${INTEL_SDP_DIR}"/uninstall*; then
+		ebegin "Cleaning out uninstall information"
+		find "${INTEL_SDP_DIR}"/uninstall* -delete || die
+		eend
+	fi
+
+	if path_exists "${INTEL_SDP_DIR}"/Documentation; then
 		dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
 
 		ebegin "Cleaning out documentation"
@@ -469,7 +516,7 @@ intel-sdp_src_install() {
 		eend
 	fi
 
-	if [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
+	if path_exists "${INTEL_SDP_DIR}"/Samples; then
 		if use examples ; then
 			insinto /usr/share/${P}/examples/
 			doins -r "${INTEL_SDP_DIR}"/Samples/*
@@ -479,7 +526,7 @@ intel-sdp_src_install() {
 		eend
 	fi
 
-	if [[ -d "${INTEL_SDP_DIR}"/eclipse_support ]]; then
+	if path_exists "${INTEL_SDP_DIR}"/eclipse_support; then
 		if has eclipse ${IUSE} && use eclipse; then
 			_isdp_link_eclipse_plugins
 		else
@@ -489,12 +536,13 @@ intel-sdp_src_install() {
 		fi
 	fi
 
-	if [[ -d "${INTEL_SDP_DIR}"/man ]]; then
-		nonfatal doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
-		nonfatal doman "${INTEL_SDP_DIR}"/man/man1/*
-		if has linguas_ja ${IUSE} && use linguas_ja; then
+	if path_exists "${INTEL_SDP_DIR}"/man; then
+		path_exists "${INTEL_SDP_DIR}"/man/en_US/man1/* && \
+			doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
+		path_exists "${INTEL_SDP_DIR}"/man/man1/* && \
+			doman "${INTEL_SDP_DIR}"/man/man1/*
+		has linguas_ja ${IUSE} && use linguas_ja && \
 			doman -i18n=ja_JP "${INTEL_SDP_DIR}"/man/ja_JP/man1/*
-		fi
 
 		find "${INTEL_SDP_DIR}"/man -delete || die
 	fi
@@ -516,6 +564,8 @@ intel-sdp_src_install() {
 # @DESCRIPTION:
 # Add things to intel database
 intel-sdp_pkg_postinst() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	# add product registry to intel "database"
 	local l r
 	for r in ${INTEL_RPMS}; do
@@ -535,6 +585,8 @@ intel-sdp_pkg_postinst() {
 # @DESCRIPTION:
 # Sanitize intel database
 intel-sdp_pkg_postrm() {
+	debug-print-function ${FUNCNAME} "${@}"
+
 	# remove from intel "database"
 	if [[ -e ${INTEL_SDP_DB} ]]; then
 		local r
@@ -552,8 +604,6 @@ intel-sdp_pkg_postrm() {
 }
 
 EXPORT_FUNCTIONS pkg_setup src_unpack src_install pkg_postinst pkg_postrm pkg_pretend
-case "${EAPI:-0}" in
-	0|1|2|3)die "EAPI=${EAPI} is not supported anymore" ;;
-	4|5) ;;
-	*) die "EAPI=${EAPI} is not supported" ;;
-esac
+
+_INTEL_SDP_ECLASS_=1
+fi

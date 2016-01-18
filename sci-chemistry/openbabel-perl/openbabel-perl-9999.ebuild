@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -29,6 +29,7 @@ src_unpack() {
 src_configure() {
 	perl_set_version
 	local mycmakeargs=(
+		-DOPTIMIZE_NATIVE=OFF
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
 		-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
@@ -50,14 +51,13 @@ src_test() {
 	cp \
 		"${CMAKE_USE_DIR}/scripts/perl/OpenBabel.pm" \
 		"${BUILD_DIR}/$(get_libdir)/Chemistry/"
-	for i in "${CMAKE_USE_DIR}"/scripts/perl/t/*
-	do
+	for i in "${CMAKE_USE_DIR}"/scripts/perl/t/*; do
 		einfo "Running test: ${i}"
 		perl -I"${BUILD_DIR}/$(get_libdir)" "${i}" || die
 	done
 }
 
 src_install() {
-	cd "${BUILD_DIR}"
+	cd "${BUILD_DIR}" || die
 	cmake -DCOMPONENT=bindings_perl -P cmake_install.cmake
 }

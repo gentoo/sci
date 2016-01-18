@@ -24,6 +24,8 @@ dev-lang/berkeley_upc:sptr-struct - Use the 'struct' shared pointer representati
 dev-lang/berkeley_upc:sptr-symmetric - Enable 'symmetric' pointer variant where available (64-bit smp and shmem)
 dev-lang/berkeley_upc:udp - Support running over UDP
 dev-lang/conceptual:gui - Build the Java base graphical interface
+dev-lang/icc:eclipse - Install the dev-util/eclipse-sdk plugins
+dev-lang/idb:eclipse - Install the dev-util/eclipse-sdk plugins
 dev-lang/julia:int64 - Build with 64 bits integer blas and lapack (needs sci-libs/openblas and sci-libs/lapack-reference)
 dev-lang/path64:assembler - Build PathAS assembler
 dev-lang/path64:debugger - Build PathDB debugger
@@ -32,6 +34,7 @@ dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
 dev-lang/pgi:acml - Install AMD's core math library.
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
+dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
 dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
@@ -70,7 +73,6 @@ sci-biology/ncbi-blast+:freetype - Undocumented USE
 sci-biology/ncbi-blast+:mesa - Undocumented USE
 sci-biology/ncbi-blast+:muparser - Undocumented USE
 sci-biology/ncbi-blast+:sablotron - Undocumented USE
-sci-biology/ncbi-blast+:sqlite3 - Add support for dev-db/sqlite:3
 sci-biology/ncbi-blast+:xalan - Undocumented USE
 sci-biology/ncbi-blast+:xerces - Undocumented USE
 sci-biology/ncbi-blast+:xslt - Undocumented USE
@@ -80,12 +82,11 @@ sci-biology/ncbi-tools++:freetype - Undocumented USE
 sci-biology/ncbi-tools++:mesa - Undocumented USE
 sci-biology/ncbi-tools++:muparser - Undocumented USE
 sci-biology/ncbi-tools++:sablotron - Undocumented USE
-sci-biology/ncbi-tools++:sqlite3 - Add support for dev-db/sqlite:3
 sci-biology/ncbi-tools++:xalan - Undocumented USE
 sci-biology/ncbi-tools++:xerces - Undocumented USE
 sci-biology/ncbi-tools++:xslt - Undocumented USE
+sci-biology/nilearn:plot - Adds optional dependency needed for plotting function subset.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
-sci-chemistry/avogadro2:rpc - Enable RPC server
 sci-chemistry/ball:cuda - Include cuda support
 sci-chemistry/ball:sql - Include SQL database support
 sci-chemistry/ball:webkit - Uses dev-qt/qt-webkit for drawing
@@ -124,6 +125,7 @@ sci-chemistry/rosetta:lange - Apply patches from www.csrosetta.org
 sci-chemistry/shiftx2:debug - Enables debug output in the shiftx2 java part
 sci-chemistry/votca-csg:extras - Pull in extra applications from sci-chemistry/votca-csg-apps
 sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats through sci-chemistry/gromacs
+sci-chemistry/wxmacmolplt:flash - Add support for flash movie generation using media-libs/ming
 sci-electronics/player:boost - Automatically generated description for boost
 sci-electronics/player:festival - Automatically generated description for festival
 sci-electronics/player:openssl - Automatically generated description for openssl
@@ -205,6 +207,7 @@ sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/lapack-reference:deprecated - Build deprecated routines
 sci-libs/lapack-reference:int64 - Build the 64 bits integer library
 sci-libs/lapack-reference:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
+sci-libs/lapacke-reference:deprecated - Build deprecated routines
 sci-libs/lapacke-reference:tmg - Build LAPACKE with a Test Matrix Generator library
 sci-libs/lapacke-reference:xblas - Build LAPACKE with extra precision (needs sci-libs/xblas)
 sci-libs/libfac:singular - Automatically generated description for singular
@@ -217,14 +220,13 @@ sci-libs/libgeodecomp:scotch - Optinally use Scotch for domain decomposition.
 sci-libs/libgeodecomp:visit - Add in situ visualization for big simulations via VisIt.
 sci-libs/libsc:romio - Build with support for the ROMIO MPI-IO component
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
-sci-libs/nexus:cbf - Support for Crystallographic Binary Format files with sci-libs/cbflib
+sci-libs/mkl:int64 - Build the 64 bits integer library
 sci-libs/nexus:doc - Generate library documentation with app-doc/doxygen
 sci-libs/nexus:fortran - Build the Fortran bindings
-sci-libs/nexus:guile - Build the Scheme bindings
+sci-libs/nexus:hdf4 - Support the old HDF4 representation
+sci-libs/nexus:hdf5 - Support the standard representation (HDF5)
 sci-libs/nexus:java - Build the Java bindings
-sci-libs/nexus:python - Build the Python bindings
-sci-libs/nexus:swig - Generate bindings with dev-lang/swig
-sci-libs/nexus:tcl - Build the TCL bindings
+sci-libs/nexus:utils - Build optional utility applications
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
 sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
@@ -411,8 +413,11 @@ sys-cluster/openmpi:mpi-threads - Enable MPI_THREAD_MULTIPLE
 sys-cluster/openmpi:numa - Enable numactl to allow binding processes to CPUs
 sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
 sys-cluster/openmpi:vt - Enable bundled VampirTrace support
+virtual/blacs:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/blas:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/cblas:int64 - Add eselect module for cblas libraries built with 64 bits integer ABI
 virtual/lapack:int64 - Add eselect module for lapack libraries built with 64 bits integer ABI
+virtual/lapacke:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
+virtual/scalapack:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 x11-libs/agg:gpc - Enable gpc polygon clipper library

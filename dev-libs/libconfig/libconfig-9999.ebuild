@@ -18,7 +18,7 @@ if [[ ${PV} == "9999" ]] ; then
 	KEYWORDS=""
 else
 	SRC_URI="http://www.hyperrealm.com/${PN}/${P}.tar.gz"
-	KEYWORDS="amd64 ~arm ~mips ppc ppc64 sparc x86 ~x86-linux"
+	KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-linux"
 	PATCHES=( "${FILESDIR}/${P}-out-of-source-build.patch" )
 fi
 

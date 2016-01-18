@@ -1,9 +1,0 @@
-# ChangeLog for sci-biology/scbi_mapreduce
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*scbi_mapreduce-0.0.40 (02 Dec 2015)
-
-  02 Dec 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
-  +scbi_mapreduce-0.0.40.ebuild:
-  sci-biology/scbi_mapreduce: new package

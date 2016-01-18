@@ -1,0 +1,30 @@
+diff -ruN GAL_0.2.2.orig/Build.PL GAL_0.2.2/Build.PL
+--- GAL_0.2.2.orig/Build.PL	2014-01-30 01:35:11.000000000 +0100
++++ GAL_0.2.2/Build.PL	2016-01-02 12:09:16.212623256 +0100
+@@ -6,26 +6,6 @@
+ my $class = Module::Build->subclass
+   (
+    class => 'Module::Build::Custom',
+-   code => q{
+-       sub ACTION_build {
+-	 my $self = shift;
+-	 $self->SUPER::ACTION_build;
+-	 $self->dispatch('installdeps');
+-       }
+-       sub ACTION_install {
+-	   my $self = shift;
+-	   print "\n\nGAL does not do a system wide install\n\n";
+-	   print "To make the libraries and scripts accessible\n";
+-	   print "modify the paths to fit your system and run the following:\n\n";
+-	   print "export PERL5LIB=\$PERL5LIB:/path/to/GAL/lib\n";
+-	   print "export PATH=\$PATH:/path/to/GAL/bin\n\n";
+-	   print "Add those lines to ~/.bash_profile or /etc/profile to\n";
+-	   print "make those changes permanent.\n\n";
+-	   print "If you want a system wide install, edit the Build.PL script and\n";
+-	   print "remove the entire subroutine (ACTION_install) where this message\n";
+-	   print "is printed run Build realclean and re-install.\n\n";
+-       }
+-     },
+   );
+ 
+ my $builder = $class->new(

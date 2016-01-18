@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -38,21 +38,19 @@ src_prepare() {
 		-outdir scripts/python \
 		scripts/openbabel-python.i \
 		|| die "Regeneration of openbabel-python.cpp failed"
-	sed \
-		-e '/__GNUC__/s:== 4:>= 4:g' \
-		-i include/openbabel/shared_ptr.h || die
 }
 
 src_configure() {
 	my_impl_src_configure() {
 		local mycmakeargs=(
 			-DCMAKE_INSTALL_RPATH=
+			-DOPTIMIZE_NATIVE=OFF
 			-DBINDINGS_ONLY=ON
 			-DBABEL_SYSTEM_LIBRARY="${EPREFIX}/usr/$(get_libdir)/libopenbabel.so"
 			-DOB_MODULE_PATH="${EPREFIX}/usr/$(get_libdir)/openbabel/${PV}"
-			-DLIB_INSTALL_DIR="${D}$(python_get_sitedir)"
 			-DPYTHON_BINDINGS=ON
 			-DPYTHON_EXECUTABLE=${PYTHON}
+			-DCMAKE_INSTALL_PREFIX="${D}/usr"
 			-DPYTHON_INCLUDE_DIR="$(python_get_includedir)"
 			-DPYTHON_INCLUDE_PATH="$(python_get_includedir)"
 			-DPYTHON_LIBRARY="$(python_get_library_path)"

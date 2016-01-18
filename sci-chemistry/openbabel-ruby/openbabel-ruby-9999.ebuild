@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-USE_RUBY="ruby19 ruby20 ruby21"
+USE_RUBY="ruby20 ruby21"
 
 inherit cmake-utils eutils ruby-ng git-r3
 
@@ -43,7 +43,7 @@ all_ruby_prepare() {
 		-outdir scripts/ruby \
 		scripts/openbabel-ruby.i \
 		|| die "Generation of openbabel-ruby.cpp failed"
-	sed 's/void Init_OpenBabel/void Init_openbabel/' -i scripts/ruby/openbabel-ruby.cpp
+	sed 's/void Init_OpenBabel/void Init_openbabel/' -i scripts/ruby/openbabel-ruby.cpp || die
 }
 
 each_ruby_configure() {
@@ -51,6 +51,7 @@ each_ruby_configure() {
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
+		-DOPTIMIZE_NATIVE=OFF
 		-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
 		-DOB_MODULE_PATH="${EPREFIX}"/usr/$(get_libdir)/openbabel/"${PV}"
 		-DLIB_INSTALL_DIR="${ED}"/$(ruby_rbconfig_value sitearchdir)
@@ -69,8 +70,7 @@ each_ruby_compile() {
 }
 
 each_ruby_test() {
-	for i in scripts/ruby/examples/*
-	do
+	for i in scripts/ruby/examples/*; do
 		einfo "Running test: ${WORKDIR}/${environment}/${i}"
 		${RUBY} -I"${WORKDIR}/${environment}/$(get_libdir)" "${i}" || die
 	done

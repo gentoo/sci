@@ -7,4 +7,8 @@
   version number corresponds to the version of the ScaLAPACK reference
   implementation.
 </longdescription>
+  <use>
+    <flag name="int64">Add eselect module for blas libraries built with 64 bits
+  integer ABI</flag>
+  </use>
 </pkgmetadata>

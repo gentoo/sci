@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -25,6 +25,7 @@ RDEPEND="${DEPEND}
 	>=sci-libs/htslib-1.2.1
 	<=sci-biology/samtools-1.1
 	>=sci-biology/trimmomatic-0.32
+	>=sci-biology/GAL-0.2.1
 	dev-perl/IO-All"
 # ReleaseNotes mentions that <sci-biology/samtools-1.1 is needed
 # version of bundled jellyfish is 2.1.4
@@ -52,11 +53,11 @@ src_install(){
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
 	#
 	insinto /usr/share/"${PN}"/util
-	rm -f util/fasta_tool
+	rm -f trinity-plugins/GAL_0.2.1 util/fasta_tool
 	doins -r util/*
 	#
 	dobin Inchworm/bin/*
-	cd Chrysalis
+	cd Chrysalis  || die
 	dobin MakeDepend checkLock BreakTransByPairs Chrysalis GraphFromFasta IsoformAugment JoinTransByPairs QuantifyGraph ReadsToTranscripts RunButterfly TranscriptomeFromVaryK analysis/ReadsToComponents.pl
 	cd "${S}" || die
 	insinto "${VENDOR_LIB}/${PN}"

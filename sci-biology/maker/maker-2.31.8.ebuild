@@ -22,7 +22,7 @@ IUSE="mpi"
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks.pm             # bug #566360
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks/shared.pm
 DEPEND="
-	mpi? ( sys-cluster/mpich2 )
+	mpi? ( sys-cluster/mpich2 || ( sys-cluster/openmpi ) )
 	dev-perl/DBI
 	dev-perl/DBD-SQLite
 	dev-perl/File-Which
@@ -35,7 +35,9 @@ DEPEND="
 	dev-perl/Want
 	dev-perl/IO-Prompt
 	dev-perl/Perl-Unsafe-Signals
-	virtual/perl-Module-Build
+	dev-perl/forks
+	dev-perl/forks-shared
+	>=sci-biology/GAL-0.2.1
 	>=sci-biology/bioperl-1.6
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
 	sci-biology/snap
@@ -92,9 +94,22 @@ pkg_nofetch() {
 	einfo "MAKER install process will stop."
 	einfo "That in turn requires you to register at http://www.girinst.org/server/RepBase"
 	einfo "to obtain sci-biology/repeatmasker-libraries data file"
+	einfo "For execution through openmpi or mpich please read INSTALL file"
 }
 
 src_compile(){
 	perl Build.PL || die
 	./Build install || die
+}
+
+src_install(){
+	cd "${WORKDIR}"/maker || die
+	rm -f bin/fasta_tool # is part of sci-biology/GAL
+	mv bin/compare bin/compare_gff3_to_chado # rename as agreed by upstream, will be in maker-3 as well
+	dobin bin/*
+	dodoc README INSTALL
+	insinto /usr/share/"{PN}"/GMOD/Apollo
+	doins GMOD/Apollo/gff3.tiers
+	insinto /usr/share/"{PN}"/GMOD/JBrowse
+	doins GMOD/JBrowse/maker.css
 }

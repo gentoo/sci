@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -17,7 +17,7 @@ SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="static-libs test tmg xblas"
+IUSE="+deprecated static-libs test tmg xblas"
 
 RDEPEND="
 	virtual/blas
@@ -67,6 +67,7 @@ src_configure() {
 			$(cmake-utils_use tmg LAPACKE_WITH_TMG)
 			$(cmake-utils_use_build test TESTING)
 			$(cmake-utils_use_use xblas XBLAS)
+			$(cmake-utils_use_build deprecated DEPRECATED)
 			$@
 		)
 		cmake-utils_src_configure

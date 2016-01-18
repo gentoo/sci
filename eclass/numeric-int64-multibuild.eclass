@@ -24,6 +24,8 @@ case ${EAPI:-0} in
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
+MULTILIB_COMPAT=( abi_x86_{32,64} )
+
 inherit alternatives-2 eutils fortran-2 multilib-build numeric toolchain-funcs
 
 IUSE="int64"
@@ -327,6 +329,7 @@ numeric-int64-multibuild_install_alternative() {
 		alternatives_for \
 			${alternative} ${module_name} 0 \
 			$(cat "${T}"/alternative-${alternative}.sh) ${@}
+		rm "${T}"/alternative-${alternative}.sh || die
 	}
 	numeric-int64-multibuild_foreach_all_abi_variants pc_file ${@}
 	numeric-int64-multibuild_foreach_int_abi pc_install ${@}
@@ -387,7 +390,6 @@ numeric-int64-multibuild_foreach_all_abi_variants() {
 # @DESCRIPTION:
 # Thin wrapper around multibuild_copy_sources()
 numeric-int64-multibuild_copy_sources() {
-
 	debug-print-function ${FUNCNAME} "${@}"
 	local MULTIBUILD_VARIANTS=( $(numeric-int64_get_all_abi_variants) )
 	multibuild_copy_sources

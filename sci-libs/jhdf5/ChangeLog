@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/jhdf5
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*jhdf5-14.12.1 (10 Jun 2015)
-
-  10 Jun 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  +jhdf5-14.12.1.ebuild, +metadata.xml:
-  a skeleton for a java package

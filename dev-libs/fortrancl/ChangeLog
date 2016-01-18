@@ -1,8 +1,0 @@
-# ChangeLog for dev-libs/fortrancl
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-  03 Mar 2013; Justin Lecher <jlec@gentoo.org> fortrancl-0.1_alpha3.ebuild,
-  metadata.xml:
-  Clean whitespace errors
-

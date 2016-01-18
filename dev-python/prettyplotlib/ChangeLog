@@ -1,9 +1,0 @@
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-*prettyplotlib-9999 (04 Feb 2015)
-*prettyplotlib-0.1.7 (04 Feb 2015)
-
-  04 Feb 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
-  +prettyplotlib-9999.ebuild, +prettyplotlib-0.1.7.ebuild:
-  Add prettyplotlib to overlay

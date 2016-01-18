@@ -1,7 +1,0 @@
-# ChangeLog for sci-biology/pvmsx
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Id$
-
-  10 Jan 2015; Justin Lecher <jlec@gentoo.org> pvmsx-0.1.ebuild, metadata.xml:
-  Soma QA and polishing
-
