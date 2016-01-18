@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,23 +6,20 @@ EAPI="5"
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils gnome2-utils distutils-r1 git-r3
+inherit eutils gnome2-utils distutils-r1
 
 DESCRIPTION="Python experimental psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/psychopy/psychopy.git"
-EGIT_COMMIT="1.83.03"
+SRC_URI="https://github.com/psychopy/psychopy/releases/download/${PV}/${P}.zip"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
-RDEPEND="${DEPEND}
-	dev-python/pillow[${PYTHON_USEDEP}]
+RDEPEND="dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[lapack,${PYTHON_USEDEP}]
