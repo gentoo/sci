@@ -12,11 +12,11 @@ DESCRIPTION="Python experimental psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/psychopy/psychopy.git"
-EGIT_COMMIT="1.83.03x"
+EGIT_COMMIT="1.83.03"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
