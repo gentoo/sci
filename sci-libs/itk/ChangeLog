@@ -2,6 +2,11 @@
 # Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
 
+*itk-4.8.2 (18 Jan 2016)
+
+  18 Jan 2016; Horea Christian <h.chr@mail.ru> +itk-4.8.2.ebuild:
+  sci-libs/itk: added new versio
+
   18 Jan 2016; Horea Christian <h.chr@mail.ru> itk-4.8.1.ebuild:
   sci-libs/itk: sorted use flags alphabetically, added PYTHON_USEDEP
 
