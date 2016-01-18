@@ -21,8 +21,7 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
-RDEPEND="${DEPEND}
-	dev-python/pillow[${PYTHON_USEDEP}]
+RDEPEND="dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[lapack,${PYTHON_USEDEP}]
