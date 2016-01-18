@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -21,7 +21,7 @@ RESTRICT="primaryuri"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debug doc examples fftw itkv3compat python review cpu_flags_x86_sse2 test vtkglue"
+IUSE="cpu_flags_x86_sse2 debug doc examples fftw itkv3compat python review test vtkglue"
 
 RDEPEND="
 	dev-libs/double-conversion:0=
@@ -32,7 +32,7 @@ RDEPEND="
 	sys-libs/zlib:0=
 	virtual/jpeg:0=
 	fftw? ( sci-libs/fftw:3.0= )
-	vtkglue? ( sci-libs/vtk:0=[python?] )
+	vtkglue? ( sci-libs/vtk:0=[${PYTHON_USEDEP}] )
 "
 DEPEND="${RDEPEND}
 	python? (
