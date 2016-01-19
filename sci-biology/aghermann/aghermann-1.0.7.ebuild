@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI="5"
 
-DESCRIPTION="A sleep-research experiment manager, EDF viewer & Achermann's Process S model runner"
+DESCRIPTION="A sleep-research experiment manager, EDF viewer & Process S simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/aghermann"
 SRC_URI="http://johnhommer.com/academic/code/aghermann/source/${P}.tar.xz"
 
@@ -26,5 +26,5 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_configure() {
-	econf --bindir="${EPREFIX}"/bin
+	econf --bindir="${EPREFIX}"/usr/bin
 }
