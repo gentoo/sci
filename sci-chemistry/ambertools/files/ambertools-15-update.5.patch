@@ -1,0 +1,25 @@
+**********> update.5
+
+Author: Jason Swails
+
+Date: Oct. 31, 2015
+
+Program: ParmEd
+
+Description: Fix Python 2.6-compatibility for ParmEd
+
+--------------------------------------------------------------------------------
+
+ AmberTools/src/parmed/chemistry/openmm/reporters.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git AmberTools/src/parmed/chemistry/openmm/reporters.py AmberTools/src/parmed/chemistry/openmm/reporters.py
+index d4e47d4..0f4c3ea 100644
+--- AmberTools/src/parmed/chemistry/openmm/reporters.py
++++ AmberTools/src/parmed/chemistry/openmm/reporters.py
+@@ -1,4 +1,4 @@
+-from __future__ import division
++from __future__ import division, with_statement
+ 
+ from chemistry.amber.asciicrd import AmberMdcrd
+ from chemistry.geometry import box_vectors_to_lengths_and_angles

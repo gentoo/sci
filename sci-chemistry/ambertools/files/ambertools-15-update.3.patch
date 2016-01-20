@@ -1,0 +1,95 @@
+********> update.3
+  Author: Istvan Kolossvary
+  Date:   15 June 2015
+
+  Programs: nab, sff
+
+  Description: Fix problem with lmod docking when fixed atoms are present
+
+  ---------------------------------------------------------------------------
+
+diff --git AmberTools/src/sff/lmodC.c AmberTools/src/sff/lmodC.c
+index 8a19dd8..45c8244 100644
+--- AmberTools/src/sff/lmodC.c
++++ AmberTools/src/sff/lmodC.c
+@@ -864,7 +864,7 @@ trans_ligand(double *xyz, int start, int end, double dx, double dy,
+              double dz)
+ {
+    int i, x, y, z;
+-   for (i = start - 1; i < end; i++) {
++   for (i = start; i <= end; i++) {
+       x = 3 * i;
+       y = x + 1;
+       z = y + 1;
+@@ -900,7 +900,7 @@ rot_ligand(double *xyz, int start, int end, double cent_x, double cent_y,
+ {
+    int i, x, y, z;
+    double temp_x, temp_y, temp_z;
+-   for (i = start - 1; i < end; i++) {
++   for (i = start; i <= end; i++) {
+       x = 3 * i;
+       y = x + 1;
+       z = y + 1;
+@@ -930,7 +930,7 @@ calc_centroid(double *xyz, int start, int end, double *cent_x,
+ {
+    int i, x, y, z, n;
+    *cent_x = *cent_y = *cent_z = ZERO;
+-   for (i = start - 1; i < end; i++) {
++   for (i = start; i <= end; i++) {
+       x = 3 * i;
+       y = x + 1;
+       z = y + 1;
+@@ -1591,6 +1591,7 @@ lmodC(int *nlmodit, int *nmod, int *kmod, int *rotran, int *natm_ext,
+        i, j, k, kk, l, n, cnt;
+    static int barrier_crossing_test_on, do_all, do_ligs;
+    static int *index = NULL;
++   static int ikk, lig_start_kk, lig_end_kk, lig_rot_cent_kk;
+    static double ref_energy, energy, energy_old, min_energy,
+        glob_min_energy, rad, sum, max_atmov, scale, lmod_step, rms,
+        rms_old, grad_rms;
+@@ -2554,7 +2555,19 @@ lmodC(int *nlmodit, int *nmod, int *kmod, int *rotran, int *natm_ext,
+                xtrans *= trscale / trnorm;
+                ytrans *= trscale / trnorm;
+                ztrans *= trscale / trnorm;
+-               trans_ligand(xyz_local, lig_start[kk], lig_end[kk], xtrans,
++               for (ikk = 0; ikk < natm_local; ikk++ ) {
++                 if ( atm_indx[ikk] == (lig_start[kk] -1) ) {  /* lig_start[] contains external PDB atom numbers */
++                   lig_start_kk = ikk;
++                   break;
++                 }
++               }
++               for (ikk = 0; ikk < natm_local; ikk++ ) {
++                 if ( atm_indx[ikk] == (lig_end[kk] -1) ) {  /* lig_end[] contains external PDB atom numbers */
++                   lig_end_kk = ikk;
++                   break;
++                 }
++               }
++               trans_ligand(xyz_local, lig_start_kk, lig_end_kk, xtrans,
+                             ytrans, ztrans);
+                do {
+                   xrot = 2 * rand2() - 1;
+@@ -2568,13 +2581,19 @@ lmodC(int *nlmodit, int *nmod, int *kmod, int *rotran, int *natm_ext,
+                rotang = angmin[kk] + (angmax[kk] - angmin[kk]) * rand2();
+                calc_rot_matrix(DEG2RAD * rotang, xrot, yrot, zrot, rotmat);
+                if (lig_rot_cent[kk]) {
+-                  xcent = xyz_local[(lig_rot_cent[kk] - 1) * 3    ];
+-                  ycent = xyz_local[(lig_rot_cent[kk] - 1) * 3 + 1];
+-                  zcent = xyz_local[(lig_rot_cent[kk] - 1) * 3 + 2];
++                 for (ikk = 0; ikk < natm_local; ikk++ ) {
++                   if ( atm_indx[ikk] == (lig_rot_cent[kk] -1)   ) {  /* lig_rot_cent[] contains external PDB atom numbers */
++                     lig_rot_cent_kk = ikk;
++                     break;
++                   }
++                 }
++                 xcent = xyz_local[ lig_rot_cent_kk * 3    ];
++                 ycent = xyz_local[ lig_rot_cent_kk * 3 + 1];
++                 zcent = xyz_local[ lig_rot_cent_kk * 3 + 2];
+                } else
+-                  calc_centroid(xyz_local, lig_start[kk], lig_end[kk],
++                  calc_centroid(xyz_local, lig_start_kk, lig_end_kk,
+                                 &xcent, &ycent, &zcent);
+-               rot_ligand(xyz_local, lig_start[kk], lig_end[kk], xcent,
++               rot_ligand(xyz_local, lig_start_kk, lig_end_kk, xcent,
+                           ycent, zcent, rotmat);
+             }
+             /* close pair separation operates on xyz_ext[]: */
