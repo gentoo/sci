@@ -1,0 +1,118 @@
+*******> update.1
+
+Author: Jason Swails
+
+Date: June 1, 2015
+
+Programs: MMPBSA.py, ParmEd, cpptraj
+
+Description: This fixes a number of small issues:
+             1) Fix Python 2.4 and Python 2.5 support for ParmEd and MMPBSA.py
+             2) Fix the MMPBSA.py Python API
+             3) Scale charges correctly for LIE action in cpptraj with non-unity
+                dielectric constant
+
+--------------------------------------------------------------------------------
+
+ AmberTools/src/cpptraj/src/Action_LIE.cpp              |  2 +-
+ AmberTools/src/mmpbsa_py/MMPBSA_mods/API.py            |  3 ++-
+ AmberTools/src/mmpbsa_py/MMPBSA_mods/infofile.py       |  1 +
+ AmberTools/src/parmed/chemistry/__init__.py            |  6 +++++-
+ .../test/mmpbsa_py/07_Comprehensive/Run.comprehensive  | 18 ++++++++++++++++++
+ 5 files changed, 27 insertions(+), 3 deletions(-)
+
+diff --git AmberTools/src/cpptraj/src/Action_LIE.cpp AmberTools/src/cpptraj/src/Action_LIE.cpp
+index 25825c1..716a04f 100644
+--- AmberTools/src/cpptraj/src/Action_LIE.cpp
++++ AmberTools/src/cpptraj/src/Action_LIE.cpp
+@@ -132,7 +132,7 @@ int Action_LIE::SetupParms(Topology const& ParmIn) {
+   atom_charge_.reserve( ParmIn.Natom() );
+   for (Topology::atom_iterator atom = ParmIn.begin();
+                                atom != ParmIn.end(); ++atom)
+-    atom_charge_.push_back( atom->Charge() * Constants::ELECTOAMBER / dielc_ );
++    atom_charge_.push_back( atom->Charge() * Constants::ELECTOAMBER / sqrt(dielc_) );
+   return 0;
+ }
+ 
+diff --git AmberTools/src/mmpbsa_py/MMPBSA_mods/API.py AmberTools/src/mmpbsa_py/MMPBSA_mods/API.py
+index e6c4fe9..d7cc7ec 100644
+--- AmberTools/src/mmpbsa_py/MMPBSA_mods/API.py
++++ AmberTools/src/mmpbsa_py/MMPBSA_mods/API.py
+@@ -63,7 +63,7 @@ class mmpbsa_data(dict):
+       self.stability = app.stability
+       # Now load the data
+       for key in app.calc_types:
+-         if key == 'mutant':
++         if key == 'mutant' or key =='qh':
+             has_mutant = True
+             continue
+          self[key] = {}
+@@ -86,6 +86,7 @@ class mmpbsa_data(dict):
+       if has_mutant:
+          self.mutant = {}
+          for key in app.calc_types['mutant']:
++            if key == 'qh': continue
+             self.mutant[key] = {}
+             tmpdict = {}
+             for dkey in app.calc_types['mutant'][key]['complex'].data:
+diff --git AmberTools/src/mmpbsa_py/MMPBSA_mods/infofile.py AmberTools/src/mmpbsa_py/MMPBSA_mods/infofile.py
+index ecdc2f2..ecaa6c1 100644
+--- AmberTools/src/mmpbsa_py/MMPBSA_mods/infofile.py
++++ AmberTools/src/mmpbsa_py/MMPBSA_mods/infofile.py
+@@ -80,6 +80,7 @@ class InfoFile(object):
+       outfile.write('numframes = %d\n' % self.app.numframes)
+       outfile.write('numframes_nmode = %d\n' % self.app.numframes_nmode)
+       outfile.write("mut_str = '%s'\n" % self.app.mut_str)
++      outfile.write('using_chamber = %s\n' % self.app.using_chamber)
+       outfile.write(self.app.input_file_text)
+ 
+    def read_info(self, name=None):
+diff --git AmberTools/src/parmed/chemistry/__init__.py AmberTools/src/parmed/chemistry/__init__.py
+index 52f5245..544e016 100644
+--- AmberTools/src/parmed/chemistry/__init__.py
++++ AmberTools/src/parmed/chemistry/__init__.py
+@@ -11,10 +11,14 @@ from chemistry.structure import Structure
+ from chemistry.topologyobjects import *
+ from chemistry import unit
+ from chemistry.residue import *
+-from chemistry import amber, charmm, tinker, openmm
++from chemistry import amber, charmm, tinker
+ from chemistry import formats
+ load_file = formats.load_file
+ read_PDB = formats.PDBFile.parse
+ read_CIF = formats.CIFFile.parse
+ write_PDB = formats.PDBFile.write
+ write_CIF = formats.CIFFile.write
++try:
++    from chemistry import openmm
++except ImportError:
++    pass
+diff --git AmberTools/test/mmpbsa_py/07_Comprehensive/Run.comprehensive AmberTools/test/mmpbsa_py/07_Comprehensive/Run.comprehensive
+index 268515e..aa7d9df 100755
+--- AmberTools/test/mmpbsa_py/07_Comprehensive/Run.comprehensive
++++ AmberTools/test/mmpbsa_py/07_Comprehensive/Run.comprehensive
+@@ -108,6 +108,24 @@ if [ -z "$DO_PARALLEL" ]; then
+    ../../dacdif -a 6.0 FINAL_RESULTS_MMPBSA_2.dat.save FINAL_RESULTS_MMPBSA_2.dat
+ fi
+ 
++# Check the API
++python << EOF
++from __future__ import division
++import MMPBSA_mods.API as API
++
++print('Checking the API')
++try:
++    stuff = API.load_mmpbsa_info('_MMPBSA_info')
++    total_data = stuff['gb']['complex']['TOTAL']
++    if abs((sum(total_data) / len(total_data)) + 466.7565) > 0.0002:
++        print('possible FAILURE')
++    else:
++        print('PASSED')
++except:
++    print('Program error')
++print('==============================================================')
++EOF
++
+ $EXE --clean 2>&1 > /dev/null
+ 
+ rm -f mmpbsa.in mmpbsa.out FINAL_DECOMP_MMPBSA_2.csv-e FINAL_DECOMP_MMPBSA.dat
