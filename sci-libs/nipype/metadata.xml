@@ -17,8 +17,13 @@
 	the learning curve necessary to use different packages. Nipype is
 	creating a collaborative platform for neuroimaging software development
 	in a high-level language and addressing limitations of existing pipeline systems.
-  </longdescription>
-  <upstream>
+</longdescription>
+ <upstream>
     <remote-id type="sourceforge">nipy</remote-id>
-  </upstream>
+ </upstream>
+  <use>
+    <flag name="spm">Pull in "Statistical Parametric Mapping" (sci-biology/spm)</flag>
+    <flag name="fsl">Pull in the "FMRIB Software Library" (sci-biology/fsl)</flag>
+    <flag name="afni">Pull in the NIH AFNI software bundle (sci-biology/afni)</flag>
+  </use>
 </pkgmetadata>

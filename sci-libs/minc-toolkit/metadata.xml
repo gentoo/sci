@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <longdescription lang="en">
+  This metaproject bundles multiple MINC (Medical Imaging NetCDF) and 
+  MINC-based packages that historically have been developed somewhat 
+  independently.
+</longdescription>
+<use>
+  <flag name="itk">Build ITK-based tools</flag>
+</use>
+</pkgmetadata>

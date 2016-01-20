@@ -31,5 +31,5 @@ src_configure() {
 
 	use cpu_flags_x86_sse2 && CONFIG_OPTS+=( use_sse2 )
 
-	eqmake4 $CONFIG_OPTS || die
+	eqmake4 $CONFIG_OPTS
 }

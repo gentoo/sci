@@ -1,0 +1,36 @@
+# ChangeLog for sci-libs/itk
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*itk-4.8.1 (16 Nov 2015)
+
+  16 Nov 2015; Horea Christian <h.chr@mail.ru> +itk-4.8.1.ebuild:
+  sci-libs/itk: version bump
+
+  08 Jun 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  sci-libs/itk: Updating remote-id in metadata.xml
+
+  01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  itk-4.4.2.ebuild, itk-4.4.2-r1.ebuild, itk-4.5.1.ebuild:
+  Convert sse2 to cpu_flags_x86_sse2
+
+
+*itk-4.5.1 (10 Apr 2014)
+
+  10 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/0001-BUG-Wrap-TransformFileReader-TransformFileWriter.patch,
+  +files/0002-COMP-Fixed-itkQuasiNewtonOptimizerv4-wrapping-warnin.patch,
+  +files/0003-COMP-Fixed-itkGradientDescentOptimizerv4-wrapping-wa.patch,
+  +files/0004-COMP-Warp-OptimizerParameterScalesEstimatorTemplate.patch,
+  +files/0005-make-gdcm-helper-library-static.patch,
+  +files/nrrdio-linking.patch, +itk-4.5.1.ebuild:
+  sci-libs/itk: Version bump. Reworked ebuild
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Fix missing local USE
+
+*itk-4.4.2 (12 Sep 2013)
+
+  12 Sep 2013; Sébastien Fabbro <bicatali@gentoo.org> +itk-4.4.2.ebuild,
+  -files/itk-4.4-v3compat_I2VI_const-fix.patch, -itk-4.4.0.ebuild, metadata.xml:
+  sci-libs/itk: Version bump. Cleaned-up ebuild and metadata.xml
