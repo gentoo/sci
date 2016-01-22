@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils fortran-2 multilib python-r1 toolchain-funcs
+inherit fortran-2 python-r1 toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -49,11 +49,12 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch \
-		"${FILESDIR}"/${PN}-15-gentoo.patch \
+	eapply \
+		"${FILESDIR}"/${PN}-15-gentoo.patch
+	eapply -p0 \
 		"${FILESDIR}"/${PN}-15-update.{1..6}.patch
 
-	epatch_user
+	eapply_user
 
 	cd "${S}"/AmberTools/src || die
 	rm -r \
@@ -116,19 +117,20 @@ src_configure() {
 		gnu || die
 }
 
-src_test() {
-	source ${AMBERHOME}/amber.sh
-
-	emake test
-}
-
 src_compile() {
 	emake \
 		CC=$(tc-getCC) \
 		FC=$(tc-getFC)
 }
 
+src_test() {
+	source ${AMBERHOME}/amber.sh
+
+	emake test
+}
+
 src_install() {
+	local x
 	for x in bin/*
 	do
 		[ ! -d ${x} ] && dobin ${x}
@@ -143,16 +145,40 @@ src_install() {
 	dodir /usr/share/${PN}/bin
 	cd "${ED}/usr/bin" || die
 	for x in *
-		do dosym /usr/bin/${x} ../share/${PN}/bin/${x}
+	do
+		dosym ../../../bin/${x} /usr/share/${PN}/bin/${x}
 	done
 	cd "${S}" || die
 
 	dodoc doc/Amber15.pdf
-	dolib.a lib/*{.a,.so}
-	insinto /usr/$(get_libdir)
-	doins -r lib/python2.7
+
+	dolib.a  lib/*.a
+	dolib.so lib/*.so
+
+	local m=(
+		chemistry
+		compat24.py
+		cpinutils
+		fortranformat
+		interface
+		mcpb
+		mdoutanalyzer
+		MMPBSA_mods
+		ParmedTools
+		pymsmtexp.py
+		pymsmtlib
+		pymsmtmol
+		sander
+		sanderles
+	)
+	for x in ${m[@]}
+	do
+		python_domodule lib/${EPYTHON}/site-packages/${x}
+	done
+
 	insinto /usr/include/${PN}
 	doins include/*
+
 	insinto /usr/share/${PN}
 	doins -r dat
 	cd AmberTools || die

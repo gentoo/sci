@@ -1,5 +1,5 @@
 diff --git a/AmberTools/src/Makefile b/AmberTools/src/Makefile
-index 3d69773..c2a5045 100644
+index 3d69773..71c794c 100644
 --- a/AmberTools/src/Makefile
 +++ b/AmberTools/src/Makefile
 @@ -15,12 +15,6 @@ install: $(INSTALLTYPE)
@@ -36,26 +36,26 @@ index 3d69773..c2a5045 100644
  	(cd pbsa && $(MAKE) libinstall )
  	(cd rism && $(MAKE) $(RISM) )
  	(cd cifparse && $(MAKE) install )
-@@ -144,12 +131,6 @@ parallel: configured_parallel THIRDPARTY
+@@ -144,12 +131,7 @@ parallel: configured_parallel THIRDPARTY
  #	(cd pbsa && $(MAKE) clean && $(MAKE) install.parallel )
  	(cd pbsa && $(MAKE) libinstall )
  	$(MAKE) cpptraj
 -	(cd byacc && $(MAKE) install )
 -	(cd ucpp-1.3 && $(MAKE) $(UCPP) )
--	(cd cifparse && $(MAKE) install )
+ 	(cd cifparse && $(MAKE) install )
 -	(cd arpack && $(MAKE) install );
 -	(cd lapack && $(MAKE) $(LAPACK) )
 -	(cd blas && $(MAKE) $(BLAS) )
  	(cd mdgx && $(MAKE) $(MDGX) )
  	(if [ "$(RISM)" = "yes" ]; then \
  		cd rism && $(MAKE) install_mpi ; \
-@@ -215,18 +196,11 @@ netcdf_uninstall:
+@@ -215,18 +197,12 @@ netcdf_uninstall:
  	-/bin/rm -f netcdf_config.log ../lib/libnetcdf* ../include/netcdf.*
  
  clean::
 -	-(cd ucpp-1.3 && $(MAKE) clean )
 -	-(cd byacc && $(MAKE) clean )
--	-(cd cifparse && $(MAKE) clean )
+ 	-(cd cifparse && $(MAKE) clean )
  	-(cd nab && $(MAKE) clean )
  	-(cd sff && $(MAKE) clean )
  	-(cd nss && $(MAKE) clean )
@@ -68,7 +68,7 @@ index 3d69773..c2a5045 100644
  	-(cd etc && $(MAKE) clean )
  	-(cd chamber && $(MAKE) clean )
  	-(cd pbsa && $(MAKE) clean )
-@@ -236,15 +210,12 @@ clean::
+@@ -236,15 +212,12 @@ clean::
  	-(cd lib && $(MAKE) clean )
  	-(cd ptraj && $(MAKE) clean )
  	-(cd cpptraj && $(MAKE) clean)
@@ -84,7 +84,7 @@ index 3d69773..c2a5045 100644
  	-(cd mmpbsa_py && /bin/rm -fr MMPBSA.py.MPI build/ mpi4py-1.2.2/)
  	-(cd mm_pbsa && $(MAKE) clean )
  	-(cd FEW && $(MAKE) clean )
-@@ -315,7 +286,7 @@ $(LIBDIR)/libxblas-amb.a:
+@@ -315,7 +288,7 @@ $(LIBDIR)/libxblas-amb.a:
  $(LIBDIR)/libfftw3.a $(LIBDIR)/libfftw3_mpi.a: 
  	cd fftw-3.3 && $(MAKE) && $(MAKE) -j 1 install;
  
@@ -447,19 +447,6 @@ index 12acf35..4f26593 100644
  	$(FC) $(FPPFLAGS) $(FFLAGS) $(AMBERFFLAGS) -o quasih$(SFX) \
  		quasih.o fileio.o thermo.o mexit.o \
  		$(LIBOBJ) binpos.o ../lib/sys.a -L$(LIBDIR) $(FLIBSF) \
-diff --git a/AmberTools/src/parmed/chemistry/unit/unit.py b/AmberTools/src/parmed/chemistry/unit/unit.py
-index 7767f39..a8d8a47 100644
---- a/AmberTools/src/parmed/chemistry/unit/unit.py
-+++ b/AmberTools/src/parmed/chemistry/unit/unit.py
-@@ -612,7 +612,7 @@ class UnitSystem(object):
-                 to_base_units[m][n] = power
-         try:
-             self.from_base_units = ~to_base_units
--        except ArithmeticError, e:
-+        except ArithmeticError as e:
-             raise ArithmeticError("UnitSystem is not a valid basis set.  " + str(e))
- 
-     def __iter__(self):
 diff --git a/AmberTools/src/pbsa/Makefile b/AmberTools/src/pbsa/Makefile
 index 1b2c09a..6dc65a6 100644
 --- a/AmberTools/src/pbsa/Makefile
@@ -517,7 +504,7 @@ index df789e8..48227d5 100644
  netlib:
  	cd ../lapack && $(MAKE) $(LAPACK)
 diff --git a/AmberTools/src/sander/Makefile b/AmberTools/src/sander/Makefile
-index 9b9488c..67fe45a 100644
+index 9b9488c..de25fc7 100644
 --- a/AmberTools/src/sander/Makefile
 +++ b/AmberTools/src/sander/Makefile
 @@ -90,7 +90,7 @@ APBSOBJ= \
@@ -651,7 +638,7 @@ index 9b9488c..67fe45a 100644
  		-o rand2.o ../sff/rand2.c
  
 +dsarpack.o:  ../sff/dsarpack.f
-+	$(CC) -c -DSQM $(CNOOPTFLAGS) $(CFLAGS) $(AMBERCFLAGS) \
++	$(FC) -c $(FPPFLAGS) $(CFLAGS) $(AMBERFFLAGS) \
 +	        -o dsarpack.o ../sff/dsarpack.f
 +
  lmodC.o:  ../sff/lmodC.c
