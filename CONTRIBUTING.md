@@ -83,6 +83,10 @@ Once *all* reported problems are resolved, you can commit it
     repo-commit "Here we write a comprehensible commit message"
 
 ###Push to Github and make a pull request
+In order to facilitate potential reverts of mistakes, we prefer to keep the git history as linear as possible. For this, always rebase your changes on the latest remote changes.
+
+    hub pull --rebase=preserve github master
+
 Next we push back the changes in the PACKAGE_NAME branch to our fork and send a pull-request to the overlay maintainers.
 
     hub push YOUR_GITHUB_USER PACKAGE_NAME
@@ -92,6 +96,13 @@ Lastly you need to wait for review comments and the merge of your work. If you f
 
 ###What's next?
 If you would like to get direct access to the overlay, prove some contribution and ping us via sci@gentoo.org or on irc in #gentoo-science @ freenode. If you would like to become a dev yourself, prove some more contributions and again, contact us. We are always looking for new candidates.
+
+----
+##Ebuild recommendations
+As the Gentoo Science overlay is a constant work-in-progress, we have some recommendations for prospective contributors:
+
+* **Aim for writing EAPI=6 ebuilds.** For certain eclasses, EAPI=6 is not allowed yet. In such cases you may use EAPI=5. We will not accept EAPI<5 ebuilds.
+* **Version bumps should always follow the latest guidelines.** For instance, a version bump of an ebuild that still employs autotools-utils.eclass should be avoided. Instead, drop 'autotools-utils', move to 'autotools' and call `default` followed by `eautoreconf` in src_prepare().
 
 ----
 ##Merging contributions
