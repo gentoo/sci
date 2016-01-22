@@ -22,5 +22,3 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/compute-${PV}"
-
-PATCHES=( "${FILESDIR}/${P}"-CMakeLists.patch )
