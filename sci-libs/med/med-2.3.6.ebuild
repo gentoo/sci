@@ -47,18 +47,18 @@ src_install() {
 		exeinto /usr/share/doc/${PF}/examples/c
 		for i in `ls tests/c/*.o` ;
 		do
-			doexe tests/c/`basename ${i} .o` || die "doexe failed"
+			doexe tests/c/`basename ${i} .o` "doexe failed"
 		done
 		exeinto /usr/share/doc/${PF}/examples/c/.libs
-		doexe  tests/c/.libs/* || die "doexe failed"
+		doexe  tests/c/.libs/* "doexe failed"
 
 		dodir /usr/share/doc/${PF}/examples/f/.libs
 		exeinto /usr/share/doc/${PF}/examples/f
 		for i in `ls tests/f/*.o` ;
 		do
-			doexe tests/f/`basename ${i} .o` || die "doexe failed"
+			doexe tests/f/`basename ${i} .o` "doexe failed"
 		done
 		exeinto /usr/share/doc/${PF}/examples/f/.libs
-		doexe tests/f/.libs/* || die "doexe failed"
+		doexe tests/f/.libs/* "doexe failed"
 	fi
 }

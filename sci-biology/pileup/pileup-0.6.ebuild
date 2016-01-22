@@ -48,14 +48,14 @@ src_compile(){
 
 src_install(){
 	cd ssaha_pileup/ssaha_pileup || die "Cannot cd to "${S}"ssaha_pileup/ssaha_pileup"
-	dobin ssaha_pileup ssaha_solexa ssaha_pairs ssaha_clean ssaha_mates ssaha_cigar ssaha_indel view_pileup ssaha_reads ssaha_merge ssaha_check-cigar || die "dobin failed"
+	dobin ssaha_pileup ssaha_solexa ssaha_pairs ssaha_clean ssaha_mates ssaha_cigar ssaha_indel view_pileup ssaha_reads ssaha_merge ssaha_check-cigar "dobin failed"
 
 	cd "${S}" || die
 	for f in ssaha_pileup/other_codes/get_seqreads/get_seqreads \
 		ssaha_pileup/other_codes/ssaha_split/ssaha_split \
 		ssaha_pileup/other_codes/ssaha_parseSNP/ssaha_parseSNP \
 		ssaha_pileup/other_codes/search_read/search_read; do
-			dobin $f || die "dobin failed"
+			dobin $f "dobin failed"
 	done
 
 	# TODO:

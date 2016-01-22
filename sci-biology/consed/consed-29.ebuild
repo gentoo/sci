@@ -74,7 +74,7 @@ src_install() {
 	echo 'CONSED_PARAMETERS="${EPREFIX}/etc/consedrc"' >> "${S}"/99consed || die
 	mkdir -p "${ED}"/etc/consedrc || die
 	touch "${ED}"/etc/consedrc || die
-	doenvd "${S}/99consed" || die
+	doenvd "${S}/99consed"
 	sed \
 		-e "s#/usr/local/genome#${EPREFIX}/usr#" \
 		-i "${ED}"/usr/bin/{*.perl,phredPhrap,phredPhrapWithPhdBalls} || die
