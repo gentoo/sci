@@ -1,8 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
+
+inherit multilib
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
@@ -22,9 +24,8 @@ DEPEND="${RDEPEND}
 
 src_install(){
 	default
-	# beware the filename say 2.0 instead of 2.1. does it matter?
-	sed -e "s#jellyfish-${PV}#jellyfish#" -i "${D}"/usr/lib64/pkgconfig/jellyfish-2.0.pc || die
-	mkdir -p "${D}/usr/include/${PN}" || die
-	mv "${D}"/usr/include/"${P}"/"${PN}"/* "${D}/usr/include/${PN}/" || die
-	rm -rf "${D}/usr/include/${P}"
+	sed -e "s#jellyfish-${PV}#jellyfish#" -i "${ED}/usr/$(get_libdir)"/pkgconfig/jellyfish-2.0.pc || die
+	mkdir -p "${ED}/usr/include/${PN}" || die
+	mv "${ED}"/usr/include/"${P}"/"${PN}"/* "${ED}/usr/include/${PN}/" || die
+	rm -rf "${ED}/usr/include/${P}"
 }
