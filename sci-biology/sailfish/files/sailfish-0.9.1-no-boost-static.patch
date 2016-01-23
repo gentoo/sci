@@ -1,0 +1,20 @@
+Do not force static and multithreaded boost libs, use what is available
+
+Patch by Michael Schubert
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -162,13 +162,6 @@ if ( DEFINED CUSTOM_BOOST_PATH )
+     set (CMAKE_LIBRARY_PATH ${CUSTOM_BOOST_PATH}/lib ${CMAKE_LIBRARY_PATH})
+ endif ( DEFINED CUSTOM_BOOST_PATH )
+ 
+-##
+-# We want static, multithreaded boost libraries
+-##
+-set (Boost_USE_STATIC_LIBS ON)
+-set (Boost_USE_MULTITHREADED ON)
+-#set (Boost_USE_STATIC_RUNTIME OFF)
+-
+ find_package (ZLIB)
+ if (NOT ZLIB_FOUND)
+ 	message (FATAL_ERROR "zlib must be installed before configuration & building can proceed")
