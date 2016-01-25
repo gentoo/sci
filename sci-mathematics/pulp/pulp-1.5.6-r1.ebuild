@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -34,10 +34,7 @@ python_prepare_all() {
 	distutils-r1_python_prepare_all
 }
 
-pyhton_install_all() {
+python_install_all() {
+	use examples && EXAMPLES=( examples/. )
 	distutils-r1_python_install_all
-	if use examples; then
-		insinto /usr/share/doc/"${PF}"/
-		doins -r examples
-	fi
 }
