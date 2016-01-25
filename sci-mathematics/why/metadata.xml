@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
+<maintainer>
+  <email>sci@gentoo.org</email>
+  <name>Gentoo Science Project</name>
+</maintainer>
 <longdescription>
   Why is a software verification platform. It contains a general-purpose
   verification condition generator (VCG) which is used as a back-end

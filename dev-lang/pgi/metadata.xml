@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>cluster</herd>
   <longdescription>
 	PGI is the C/C++/Fortran compiler suite of the Portland Group.
   </longdescription>
   <maintainer>
     <email>gentryx@gmx.de</email>
+  </maintainer>
+  <maintainer>
+    <email>cluster@gentoo.org</email>
+    <name>Gentoo Cluster Project</name>
   </maintainer>
   <use>
 	<flag name="acml">Install AMD's core math library.</flag>

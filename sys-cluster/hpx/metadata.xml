@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>cluster</herd>
   <longdescription>
   HPX (High Performance ParalleX) is a general C++ runtime system
   for parallel and distributed applications of any scale. It is the
@@ -13,6 +12,10 @@
 </longdescription>
   <maintainer>
     <email>gentryx@gmx.de</email>
+  </maintainer>
+  <maintainer>
+    <email>cluster@gentoo.org</email>
+    <name>Gentoo Cluster Project</name>
   </maintainer>
   <use>
     <flag name="jemalloc">Use <pkg>dev-libs/jemalloc</pkg> for memory allocation</flag>

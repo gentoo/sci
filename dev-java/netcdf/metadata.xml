@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
+  <maintainer>
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
   <longdescription lang="en">
   The NetCDF-Java Library is a Java interface to NetCDF files,
   as well as to many other types of scientific data formats.

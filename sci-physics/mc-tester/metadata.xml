@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-physics</herd>
   <maintainer>
     <email>piatlicki@gmail.com</email>
+  </maintainer>
+  <maintainer>
+    <email>sci-physics@gentoo.org</email>
+    <name>Gentoo Physics Project</name>
   </maintainer>
   <longdescription>
   A universal tool for comparisons of Monte Carlo predictions in High Energy Physics

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>cluster</herd>
   <longdescription>
     LibGeoDecomp is a multi-dimensional C++ array class which provides
     an object-oriented view (a.k.a. array of structs, AoS) while
@@ -10,6 +9,10 @@
   </longdescription>
   <maintainer>
     <email>gentryx@gmx.de</email>
+  </maintainer>
+  <maintainer>
+    <email>cluster@gentoo.org</email>
+    <name>Gentoo Cluster Project</name>
   </maintainer>
   <use>
     <flag name="cuda">

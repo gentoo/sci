@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
+  <maintainer>
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
   <longdescription lang="en">
 GlueGen is a tool which automatically generates the Java and JNI code necessary
 to call C libraries. It reads as input ANSI C header files and separate

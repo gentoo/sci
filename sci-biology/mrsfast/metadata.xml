@@ -5,7 +5,10 @@
     <email>weaver@gentoo.org</email>
     <name>Andrey Kislyuk</name>
   </maintainer>
-  <herd>sci-biology</herd>
+  <maintainer>
+    <email>sci-biology@gentoo.org</email>
+    <name>Gentoo Biology Project</name>
+  </maintainer>
   <upstream>
     <remote-id type="sourceforge">mrsfast</remote-id>
   </upstream>
