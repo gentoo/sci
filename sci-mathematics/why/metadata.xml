@@ -10,13 +10,13 @@
   programs and Caduceus, a tool for the verification of C programs.
 </longdescription>
 <use>
-  <flag name='apron'>Use <pkg>sci-mathematics/apron</pkg> library for
+  <flag name="apron">Use <pkg>sci-mathematics/apron</pkg> library for
   abstract interpretation</flag>
-  <flag name='coq'>Add <pkg>sci-mathematics/coq</pkg> support</flag>
-  <flag name='float'>Add <pkg>sci-mathematics/flocq</pkg> support</flag>
-  <flag name='gappa'>Add <pkg>sci-mathematics/gappalib-coq</pkg> support</flag>
-  <flag name='frama-c'>Add <pkg>sci-mathematics/frama-c</pkg> support</flag>
-  <flag name='pff'>Add <pkg>sci-mathematics/pff</pkg> support</flag>
-  <flag name='why3'>Add <pkg>sci-mathematics/why3</pkg> support</flag>
+  <flag name="coq">Add <pkg>sci-mathematics/coq</pkg> support</flag>
+  <flag name="float">Add <pkg>sci-mathematics/flocq</pkg> support</flag>
+  <flag name="gappa">Add <pkg>sci-mathematics/gappalib-coq</pkg> support</flag>
+  <flag name="frama-c">Add <pkg>sci-mathematics/frama-c</pkg> support</flag>
+  <flag name="pff">Add <pkg>sci-mathematics/pff</pkg> support</flag>
+  <flag name="why3">Add <pkg>sci-mathematics/why3</pkg> support</flag>
 </use>
 </pkgmetadata>

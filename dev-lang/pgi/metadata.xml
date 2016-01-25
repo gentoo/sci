@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>cluster</herd>
@@ -9,8 +9,8 @@
     <email>gentryx@gmx.de</email>
   </maintainer>
   <use>
-	<flag name='acml'>Install AMD's core math library.</flag>
-	<flag name='java'>Install a PGI-tuned JRE.</flag>
-	<flag name='cuda'>Install PGI's CUDA components (e.g. for OpenACC)</flag>
+	<flag name="acml">Install AMD's core math library.</flag>
+	<flag name="java">Install a PGI-tuned JRE.</flag>
+	<flag name="cuda">Install PGI's CUDA components (e.g. for OpenACC)</flag>
   </use>
 </pkgmetadata>

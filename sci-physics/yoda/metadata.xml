@@ -10,6 +10,6 @@
   in Rivet.
 </longdescription>
 <use>
-  <flag name='root'>Adds support for <pkg>sci-physics/root</pkg></flag>
+  <flag name="root">Adds support for <pkg>sci-physics/root</pkg></flag>
 </use>
 </pkgmetadata>

@@ -10,5 +10,5 @@
 </maintainer>
 <longdescription>Mini-XML is a lightweight, ultra-portable XML library
   that requires only an ANSI C compiler and a 'make' program.</longdescription>
-<use></use>
+<use/>
 </pkgmetadata>
