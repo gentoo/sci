@@ -4,10 +4,10 @@
   <longdescription>
 	PGI is the C/C++/Fortran compiler suite of the Portland Group.
   </longdescription>
-  <maintainer>
+  <maintainer type="person">
     <email>gentryx@gmx.de</email>
   </maintainer>
-  <maintainer>
+  <maintainer type="project">
     <email>cluster@gentoo.org</email>
     <name>Gentoo Cluster Project</name>
   </maintainer>

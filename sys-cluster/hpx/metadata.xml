@@ -10,10 +10,10 @@
   currently, Linux based systems, such as SMP nodes and conventional
   clusters.
 </longdescription>
-  <maintainer>
+  <maintainer type="person">
     <email>gentryx@gmx.de</email>
   </maintainer>
-  <maintainer>
+  <maintainer type="project">
     <email>cluster@gentoo.org</email>
     <name>Gentoo Cluster Project</name>
   </maintainer>
