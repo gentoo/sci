@@ -11,7 +11,7 @@
   networks.
 </longdescription>
 <use>
-<flag name='modelfit'>
+<flag name="modelfit">
   Enable profile model fitting, needs <pkg>sci-libs/atlas</pkg>
   and <pkg>sci-libs/fftw</pkg>
 </flag>
