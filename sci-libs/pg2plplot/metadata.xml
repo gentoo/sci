@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
   <maintainer>
     <email>AstroFloyd@gmail.com</email>
     <name>AstroFloyd</name>
+  </maintainer>
+  <maintainer>
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
   </maintainer>
   <longdescription>
   PG2PLplot is code intended to help the transition from Fortran code

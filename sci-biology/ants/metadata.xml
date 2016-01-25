@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
+  <maintainer>
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
   <longdescription>ANTs extracts information from complex datasets that include imaging (Word Cloud). 
 Paired with ANTsR (answer), ANTs is useful for managing, interpreting and visualizing multidimensional 
 data. ANTs is popularly considered a state-of-the-art medical image registration and segmentation 

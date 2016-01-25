@@ -5,7 +5,10 @@
     <email>yanlinlin82@gmail.com</email>
     <name>Linlin Yan</name>
   </maintainer>
-  <herd>sci-biology</herd>
+  <maintainer>
+    <email>sci-biology@gentoo.org</email>
+    <name>Gentoo Biology Project</name>
+  </maintainer>
   <longdescription lang="en">
 Bismark is a program to map bisulfite treated sequencing reads to a genome of
 interest and perform methylation calls in a single step. The output can be

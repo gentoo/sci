@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-chemistry</herd>
+  <maintainer>
+    <email>sci-chemistry@gentoo.org</email>
+    <name>Gentoo Chemistry Project</name>
+  </maintainer>
   <longdescription>
 		SHIFTX2 predicts both the backbone and side chain 1H, 13C and 15N chemical
 		shifts for proteins using their structural (PDB) coordinates as input.
