@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-biology</herd>
+  <maintainer>
+    <email>mschu.dev@gmail.com</email>
+    <name>Michael Schubert</name>
+  </maintainer>
+  <use>
+    <flag name="variation">Install variation module</flag>
+    <flag name="funcgen">Install functional genomics module</flag>
+    <flag name="compara">Install compara module</flag>
+    <flag name="io">Install io module</flag>
+  </use>
+  <upstream>
+    <remote-id type="github">Ensembl/ensembl</remote-id>
+  </upstream>
+</pkgmetadata>
