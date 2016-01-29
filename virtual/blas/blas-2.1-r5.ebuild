@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -26,9 +26,11 @@ RDEPEND="
 		sci-libs/mkl[int64?,${MULTILIB_USEDEP}]
 		abi_x86_64? (
 			!abi_x86_32? (
-				>=dev-cpp/eigen-3.1.4
-				sci-libs/atlas[fortran]
-				>=sci-libs/acml-4.4
+				|| (
+					>=dev-cpp/eigen-3.1.4
+					sci-libs/atlas[fortran]
+					>=sci-libs/acml-4.4
+				)
 			)
 		)
 	)
