@@ -5,4 +5,9 @@
     <email>sci-biology@gentoo.org</email>
     <name>Gentoo Biology Project</name>
   </maintainer>
+  <use>
+    <flag name="phrap">Use cross_match search engine</flag>
+    <flag name="rmblast">Use RM-BLAST search engine</flag>
+    <flag name="hmmer">Use HMMER search engine</flag>
+  </use>
 </pkgmetadata>
