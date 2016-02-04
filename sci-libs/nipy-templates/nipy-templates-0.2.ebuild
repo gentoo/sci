@@ -7,6 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 inherit distutils-r1
 
 DESCRIPTION="Normalization templates for Python Neuroimaging"
@@ -15,6 +16,11 @@ inherit distutils-r1 eutils multilib flag-o-matic
 
 DESCRIPTION="Neuroimaging tools for Python"
 >>>>>>> 9280b26... sci-libs/nipy-templates: new package
+=======
+inherit distutils-r1
+
+DESCRIPTION="Normalization templates for Python Neuroimaging"
+>>>>>>> 888a8fa... sci-libs/nipy-templates: removed unneeded eclasses, updated description
 HOMEPAGE="http://nipy.org/"
 SRC_URI="http://nipy.org/data-packages/${P}.tar.gz"
 
