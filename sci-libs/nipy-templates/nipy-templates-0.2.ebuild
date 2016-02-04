@@ -21,11 +21,15 @@ SRC_URI="http://nipy.org/data-packages/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 <<<<<<< HEAD
+<<<<<<< HEAD
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 =======
 KEYWORDS="amd64 x86 amd64-linux x86-linux"
+=======
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+>>>>>>> a173580... sci-libs/nipy-templates: no stable ebuilds in the overlay
 IUSE=""
 
 <<<<<<< HEAD
