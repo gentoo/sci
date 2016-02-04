@@ -19,7 +19,8 @@ IUSE="cpu_flags_x86_sse2"
 #   Project MESSAGE: Cannot build Unipro UGENE with Qt version 4.8.7
 #   Project ERROR: Use at least Qt 5.2.1. 
 DEPEND="
-	>=dev-qt/qtgui-5.2.1"
+	>=dev-qt/qtgui-5.2.1
+	>=dev-qt/qtscript-5.2.1[scripttools]"
 RDEPEND="${DEPEND}"
 
 LANGS="cs en ru zh"

@@ -1,7 +1,10 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
   <longdescription lang="en">
     MRIcron is a simple medical imaging visualization tool written in Lazarus.
   </longdescription>
@@ -9,4 +12,3 @@
     <remote-id type="github">neurolabusc/MRIcron</remote-id>
   </upstream>
 </pkgmetadata>
-

@@ -1,10 +1,13 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-mathematics</herd>
-  <maintainer>
+  <maintainer type="person">
     <email>tim@cerazone.net</email>
     <name>Tim Cera</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci-mathematics@gentoo.org</email>
+    <name>Gentoo Mathematics Project</name>
   </maintainer>
   <longdescription lang="en">
 	Modular toolkit for Data Processing (MDP) is a Python data processing

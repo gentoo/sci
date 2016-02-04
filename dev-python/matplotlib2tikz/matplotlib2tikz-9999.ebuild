@@ -1,14 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-PYTHON_COMPAT=( python2_7 python3_{3,4} )
+PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
 inherit distutils-r1 git-r3
 
-DESCRIPTION="Python script for converting matplotlib figures into native Pgfplots (TikZ) figures"
+DESCRIPTION="Convert matplotlib figures into native Pgfplots (TikZ) figures"
 HOMEPAGE="https://github.com/nschloe/matplotlib2tikz"
 EGIT_REPO_URI="https://github.com/nschloe/${PN}.git git://github.com/nschloe/${PN}.git"
 KEYWORDS=""

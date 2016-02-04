@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
+<maintainer type="project">
+  <email>sci@gentoo.org</email>
+  <name>Gentoo Science Project</name>
+</maintainer>
 <longdescription lang="en">
   The AMD(R) Core Math Library provides an implementation of the "Basic
   Linear Algebra Subprograms" (BLAS) and the "Linear Algebra PACKage"
@@ -15,10 +18,10 @@
   Alle Routinen sind hoch optimiert für AMD(R) x86 und amd64 CPUs.
 </longdescription>
 <use>
-  <flag name='gfortran'>Fetch and install acml compiled with GNU FORTRAN compiler</flag>
-  <flag name='ifort'>Fetch and install acml compiled with the Intel FORTRAN compiler</flag>
-  <flag name='int64'>Install the 64 bits integer library</flag>
-  <flag name='pgi'>Fetch and install acml compiled with the Portland Group FORTRAN compiler</flag>
-  <flag name='open64'>Fetch and install acml compiled with the Open64 FORTRAN Compiler</flag>
+  <flag name="gfortran">Fetch and install acml compiled with GNU FORTRAN compiler</flag>
+  <flag name="ifort">Fetch and install acml compiled with the Intel FORTRAN compiler</flag>
+  <flag name="int64">Install the 64 bits integer library</flag>
+  <flag name="pgi">Fetch and install acml compiled with the Portland Group FORTRAN compiler</flag>
+  <flag name="open64">Fetch and install acml compiled with the Open64 FORTRAN Compiler</flag>
 </use>
 </pkgmetadata>

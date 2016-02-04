@@ -46,5 +46,5 @@ src_install() {
 	java-pkg_dojar jars/apollo.jar
 
 	echo "PATH=/opt/Apollo" > 99Apollo
-	doenvd 99Apollo || die
+	doenvd 99Apollo
 }

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>cluster</herd>
   <longdescription>
     LibGeoDecomp is an auto-parallelizing library to speed up stencil
     code based computer simulations. It runs on virtually all current
     architectures, be it multi-cores, GPUs, or large scale MPI
     clusters.
   </longdescription>
-  <maintainer>
+  <maintainer type="person">
     <email>gentryx@gmx.de</email>
+  </maintainer>
+  <maintainer type="project">
+    <email>cluster@gentoo.org</email>
+    <name>Gentoo Cluster Project</name>
   </maintainer>
   <use>
     <flag name="cuda">

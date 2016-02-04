@@ -93,5 +93,5 @@ src_install() {
 	# python_foreach_impl python_doscript "${WORKDIR}"/coveragestats.py
 
 	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
-	doenvd 99Tablet || die
+	doenvd 99Tablet
 }

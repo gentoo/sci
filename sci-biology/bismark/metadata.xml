@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer>
+  <maintainer type="person">
     <email>yanlinlin82@gmail.com</email>
     <name>Linlin Yan</name>
   </maintainer>
-  <herd>sci-biology</herd>
+  <maintainer type="project">
+    <email>sci-biology@gentoo.org</email>
+    <name>Gentoo Biology Project</name>
+  </maintainer>
   <longdescription lang="en">
 Bismark is a program to map bisulfite treated sequencing reads to a genome of
 interest and perform methylation calls in a single step. The output can be

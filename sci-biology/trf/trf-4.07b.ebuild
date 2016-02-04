@@ -35,7 +35,7 @@ src_install() {
 	dosym /opt/${PN}/${MY_P}.linux.exe /opt/bin/trf
 	# GTK version (http://tandem.bu.edu/trf/downloads/trf400.linuxgtk.exe) has broken linking
 	#if use gtk; then
-	#	doexe trf400.linuxgtk.exe || die
+	#	doexe trf400.linuxgtk.exe
 	#	make_desktop_entry /opt/${PN}/trf400.linuxgtk.exe "Tandem Repeats Finder" || die
 	#fi
 	dodoc \

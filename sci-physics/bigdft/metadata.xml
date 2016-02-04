@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-physics</herd>
+  <maintainer type="project">
+    <email>sci-physics@gentoo.org</email>
+    <name>Gentoo Physics Project</name>
+  </maintainer>
   <longdescription lang="en">
 BigDFT is a DFT massively parallel electronic structure code (GPL license) using a wavelet basis set. Wavelets form a real space basis set distributed on an adaptive mesh (two levels of resolution in our implementation). GTH or HGH pseudopotentials are used to remove the core electrons. Thanks to our Poisson solver based on a Green function formalism, periodic systems, surfaces and isolated systems can be simulated with the proper boundary conditions. 
 </longdescription>

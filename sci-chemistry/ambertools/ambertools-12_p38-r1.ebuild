@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -144,8 +144,8 @@ src_install() {
 	# Make symlinks untill binpath for amber will be fixed
 	dodir /usr/share/${PN}/bin
 	cd "${ED}/usr/bin" || die
-	for x in *
-		do dosym /usr/bin/${x} ../share/${PN}/bin/${x}
+	for x in *; do
+		dosym ../../../bin/${x} /usr/share/${PN}/bin/${x}
 	done
 	cd "${S}" || die
 
