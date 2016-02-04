@@ -20,6 +20,12 @@
 >>>>>>> 6e709b8... sci-libs/nipy-data: new package
 =======
   17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
+  sci-libs/nipy-data: no stable packages in the overlay
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
+  sci-libs/nipy-data: removed emtpy deps
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-data-0.2.ebuild:
   sci-libs/nipy-data: marked package as stable
 
 >>>>>>> f7adcb4... sci-libs/nipy-data: marked package as stable
