@@ -1,6 +1,21 @@
 # ChangeLog for sci-libs/itk
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  04 Feb 2016; Horea Christian <h.chr@mail.ru> itk-4.8.1.ebuild,
+  itk-4.8.2.ebuild:
+  sci-libs/itk: added die call, removed RESTRICT, using docinto for docs
+
+*itk-4.8.2 (18 Jan 2016)
+
+  18 Jan 2016; Horea Christian <h.chr@mail.ru> +itk-4.8.2.ebuild:
+  sci-libs/itk: added new versio
+
+  18 Jan 2016; Horea Christian <h.chr@mail.ru> itk-4.8.1.ebuild:
+  sci-libs/itk: sorted use flags alphabetically, added PYTHON_USEDEP
+
+  16 Nov 2015; Horea Christian <h.chr@mail.ru> itk-4.8.1.ebuild:
+  sci-libs/itk: removed deprecated patches
 
 *itk-4.8.1 (16 Nov 2015)
 
