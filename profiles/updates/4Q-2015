@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 move dev-python/nilearn sci-biology/nilearn
+=======
+move sci-libs/nipy sci-biology/nipy
+>>>>>>> 8101442... added move notice
