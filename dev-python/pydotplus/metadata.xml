@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>h.chr@mail.ru</email>
+    <name>Horea Christian</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription lang="en">
+    PyDotPlus is an improved version of the old pydot project that provides a Python Interface to
+    Graphviz’s Dot language.
+  </longdescription>
+  <upstream>
+    <remote-id type="pypi">pydotplus</remote-id>
+  </upstream>
+</pkgmetadata>
