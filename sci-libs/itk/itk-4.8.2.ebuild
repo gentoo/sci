@@ -16,7 +16,6 @@ DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
 SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.xz
 	doc? ( mirror://sourceforge/${PN}/Doxygen${MYPN}-${DOC_PV}.tar.gz )"
-RESTRICT="primaryuri"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -142,10 +141,10 @@ src_install() {
 
 	if use doc; then
 		insinto /usr/share/doc/${PF}/api-docs
-		cd "${WORKDIR}"/html
+		cd "${WORKDIR}"/html || die
 		rm  *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
-		insinto /usr/share/doc/${PF}/api-docs
-		doins -r *
+		docinto api-docs
+		dodoc -r *
 	fi
 }
