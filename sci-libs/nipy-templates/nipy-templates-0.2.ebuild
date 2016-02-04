@@ -28,6 +28,9 @@ IUSE=""
 KEYWORDS="amd64 x86 amd64-linux x86-linux"
 IUSE=""
 
+<<<<<<< HEAD
 RDEPEND=""
 DEPEND=""
 >>>>>>> 9280b26... sci-libs/nipy-templates: new package
+=======
+>>>>>>> f54ccdd... sci-libs/nipy-templates: removed empty depend list

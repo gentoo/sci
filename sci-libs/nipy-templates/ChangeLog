@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # ChangeLog for sci-libs/nipy-templates
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
@@ -18,6 +19,15 @@
 # $Id$
 
 >>>>>>> 9280b26... sci-libs/nipy-templates: new package
+=======
+# ChangeLog for sci-libs/nipy-templates
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  17 Dec 2015; Horea Christian <h.chr@mail.ru> nipy-templates-0.2.ebuild:
+  sci-libs/nipy-templates: removed empty dependency lists
+
+>>>>>>> f54ccdd... sci-libs/nipy-templates: removed empty depend list
 *nipy-data-0.2 (16 Dec 2015)
 
   16 Dec 2015; Horea Christian <h.chr@mail.ru> +metadata.xml,
