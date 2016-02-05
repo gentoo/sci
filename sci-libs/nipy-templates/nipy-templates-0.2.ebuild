@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 eutils multilib flag-o-matic
+inherit distutils-r1
 
-DESCRIPTION="Neuroimaging tools for Python"
+DESCRIPTION="Normalization templates for Python Neuroimaging"
 HOMEPAGE="http://nipy.org/"
 SRC_URI="http://nipy.org/data-packages/${P}.tar.gz"
 
@@ -17,3 +17,5 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
+RDEPEND=""
+DEPEND=""
