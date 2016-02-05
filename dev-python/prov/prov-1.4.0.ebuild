@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-PYTHON_COMPAT=( python{2_7,3_4} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
 
@@ -17,8 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
-#test? ( dev-python/pydotplus[${PYTHON_USEDEP}] )
 DEPEND="
+	test? ( dev-python/pydotplus[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]
