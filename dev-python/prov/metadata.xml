@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>h.chr@mail.ru</email>
+    <name>TheChymera</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription lang="en">
+    A library for W3C Provenance Data Model supporting PROV-JSON and PROV-XML import/export
+  </longdescription>
+  <upstream>
+    <remote-id type="pypi">prov</remote-id>
+  </upstream>
+</pkgmetadata>
