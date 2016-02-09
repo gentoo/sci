@@ -30,6 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec@gentoo.org> (9 Feb 2016)
+# rev dep masked
+sci-biology/inGAP-bin
+
 # Andreas K. Huettel <dilfridge@gentoo.org> (1 Nov 2014)
 # Lab::Instrument and Lab::Tools provided as separate packages
 # are way outdated. These are now supplied as parts of the package
