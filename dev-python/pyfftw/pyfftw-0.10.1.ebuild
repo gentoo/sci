@@ -5,17 +5,20 @@
 EAPI=6
 PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 MY_PN="pyFFTW"
 
 DESCRIPTION="FFTW wrapper for python"
 HOMEPAGE="http://hgomersall.github.io/pyFFTW/"
-EGIT_REPO_URI="https://github.com/${MY_PN}/${MY_PN}.git git://github.com/${MY_PN}/${MY_PN}.git"
+SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_PN}-${PV}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 IUSE="test"
+KEYWORDS="~amd64"
+
+S="${WORKDIR}/${MY_PN}-${PV}"
 
 RDEPEND="
 	>=dev-python/numpy-1.8.0[${PYTHON_USEDEP}]
@@ -24,9 +27,13 @@ RDEPEND="
 	"
 DEPEND="${RDEPEND}"
 
+#current python_test() broken
+RESTRICT="test"
+
 python_test() {
 	distutils_install_for_testing
 	cd "${TEST_DIR}"/lib || die
+
 	cp "${S}"/setup.py "${TEST_DIR}"/lib/ || die
 	cp -r "${S}"/test "${TEST_DIR}"/lib/ || die
 	esetup.py test || die
