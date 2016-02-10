@@ -23,6 +23,8 @@ RDEPEND="
 # was only tested with sci-libs/libsvm-2.84
 
 src_install(){
+	sed -e 's///' -i *.pl || die "Failed to convert from DOS line endings to Unix"
+	sed -e 's#/home/rtarrial/prog#/usr/bin#' -i *.pl
 	dobin *.pl
 	dodoc README.txt
 	insinto /usr/share/"${PN}"
