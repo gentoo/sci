@@ -1,16 +1,15 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-
-EGIT_REPO_URI="git://github.com/gentoo-science/eselect.git"
-EGIT_BRANCH="alternatives"
+EAPI=6
 
 inherit autotools git-r3 bash-completion-r1
 
 DESCRIPTION="Gentoo's multi-purpose configuration and management tool"
 HOMEPAGE="http://wiki.gentoo.org/wiki/Project:Eselect"
+EGIT_REPO_URI="git://github.com/gentoo-science/eselect.git"
+EGIT_BRANCH="alternatives"
 
 LICENSE="GPL-2+ || ( GPL-2+ CC-BY-SA-2.5 )"
 SLOT="0"
