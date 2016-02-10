@@ -12,9 +12,6 @@
 		spaces and defining expressions for weak forms in a notation close to
 		mathematical notation.
 	</longdescription>
-	<use>
-		<flag name="scipy">Adds support for evaluating Bessel functions using <pkg>dev-python/scipy</pkg></flag>
-	</use>
 	<upstream>
 		<remote-id type="bitbucket">fenics-project/ufl</remote-id>
 		<remote-id type="launchpad">ufl</remote-id>
