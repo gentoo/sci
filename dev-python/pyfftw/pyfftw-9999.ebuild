@@ -11,7 +11,7 @@ MY_PN="pyFFTW"
 
 DESCRIPTION="FFTW wrapper for python"
 HOMEPAGE="http://hgomersall.github.io/pyFFTW/"
-EGIT_REPO_URI="https://github.com/hgomersall/${MY_PN}.git git://github.com/hgomersall/${MY_PN}.git"
+EGIT_REPO_URI="https://github.com/${MY_PN}/${MY_PN}.git git://github.com/${MY_PN}/${MY_PN}.git"
 
 LICENSE="BSD"
 SLOT="0"
