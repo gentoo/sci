@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils findlib multilib
 
-DESCRIPTION="The Zarith library implements arithmetic and logical operations over arbitrary-precision integers"
+DESCRIPTION="Arithmetic and logical operations over arbitrary-precision integers"
 HOMEPAGE="http://forge.ocamlcore.org/projects/zarith"
 SRC_URI="http://forge.ocamlcore.org/frs/download.php/1199/${P}.tgz"
 
