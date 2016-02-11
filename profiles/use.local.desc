@@ -40,7 +40,6 @@ dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
 dev-python/ffnet:matplotlib - Use matplotlib for drawing
 dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
-dev-python/ufl:scipy - Adds support for evaluating Bessel functions using dev-python/scipy
 dev-tex/pythontex:highlighting - PLEASE FIX MY DESCRIPTION
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
 dev-util/amdapp:examples - Build the OpenCL example programs
