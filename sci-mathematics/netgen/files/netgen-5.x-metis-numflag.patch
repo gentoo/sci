@@ -1,0 +1,21 @@
+diff -uwrN ./netgen-5.3.1/libsrc/meshing/parallelmesh.cpp netgen-5.3.1.ORIG/libsrc/meshing/parallelmesh.cpp
+--- ./netgen-5.3.1/libsrc/meshing/parallelmesh.cpp	2016-02-11 19:12:14.474185736 +0100
++++ netgen-5.3.1.ORIG/libsrc/meshing/parallelmesh.cpp	2014-08-29 11:54:05.000000000 +0200
+@@ -1318,7 +1318,7 @@
+     idxtype  *xadj, * adjacency, *v_weights = NULL, *e_weights = NULL;
+ 
+     int weightflag = 0;
+-    int numflag = 0;
++    // int numflag = 0;
+     int nparts = ntasks - 1;
+ 
+     int options[5];
+@@ -1485,7 +1485,7 @@
+     idxtype *v_weights = NULL, *e_weights = NULL;
+ 
+     int weightflag = 0;
+-    int numflag = 0;
++    // int numflag = 0;
+     int nparts = ntasks - 1;
+ 
+     int edgecut;
