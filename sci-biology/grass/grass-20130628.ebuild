@@ -19,7 +19,8 @@ IUSE=""
 # ilcplex/ilocplex.h: No such file or directory
 # https://github.com/AlexeyG/GRASS/issues/6
 DEPEND="sci-biology/bamtools
-	sci-biology/ncbi-tools++"
+	sci-biology/ncbi-tools++
+	sys-cluster/openmpi"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/GRASS-master
