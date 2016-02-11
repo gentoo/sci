@@ -17,6 +17,7 @@ IUSE=""
 
 # some IBM development CPLEX library?
 # ilcplex/ilocplex.h: No such file or directory
+# https://github.com/AlexeyG/GRASS/issues/6
 DEPEND="sci-biology/bamtools
 	sci-biology/ncbi-tools++"
 RDEPEND="${DEPEND}"
