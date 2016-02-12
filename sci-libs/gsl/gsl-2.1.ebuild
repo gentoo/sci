@@ -13,7 +13,7 @@ HOMEPAGE="http://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
-SLOT="0"
+SLOT="0/19"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~x86-macos ~x64-macos ~sparc-solaris ~x86-solaris"
 IUSE="cblas-external static-libs"
 
