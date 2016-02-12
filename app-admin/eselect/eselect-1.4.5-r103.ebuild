@@ -34,8 +34,10 @@ RDEPEND="!app-admin/eselect-news
 PDEPEND="emacs? ( app-emacs/eselect-mode )
 	vim-syntax? ( app-vim/eselect-syntax )"
 
+PATCHES=( "${FILESDIR}"/${P}-alternatives.patch )
+
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-alternatives.patch
+	default
 	AT_M4DIR="." eautoreconf
 }
 

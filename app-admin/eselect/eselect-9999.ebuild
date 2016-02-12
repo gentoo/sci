@@ -11,17 +11,20 @@ HOMEPAGE="http://wiki.gentoo.org/wiki/Project:Eselect"
 EGIT_REPO_URI="git://github.com/gentoo-science/eselect.git"
 EGIT_BRANCH="alternatives"
 
-LICENSE="GPL-2+ || ( GPL-2+ CC-BY-SA-2.5 )"
+LICENSE="GPL-2+ || ( GPL-2+ CC-BY-SA-3.0 )"
 SLOT="0"
 IUSE="doc emacs vim-syntax"
 
-RDEPEND="sys-apps/sed
+RDEPEND="
+	!app-eselect/eselect-blas
+	!app-eselect/eselect-lapack
 	|| (
 		sys-apps/coreutils
 		sys-freebsd/freebsd-bin
 		app-misc/realpath
 	)"
 DEPEND="${RDEPEND}
+	app-arch/xz-utils
 	doc? ( dev-python/docutils )"
 RDEPEND="!app-admin/eselect-news
 	${RDEPEND}
@@ -32,7 +35,8 @@ PDEPEND="emacs? ( app-emacs/eselect-mode )
 	vim-syntax? ( app-vim/eselect-syntax )"
 
 src_prepare() {
-	eautoreconf
+	default
+	AT_M4DIR="." eautoreconf
 }
 
 src_compile() {
