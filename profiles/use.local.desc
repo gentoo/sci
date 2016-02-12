@@ -200,6 +200,7 @@ sci-libs/gmsh:tetgen - Enable 3D delauny triangulation using tetgen lib
 sci-libs/gotoblas2:incblas - Build the CBLAS interface
 sci-libs/gotoblas2:int64 - Build the 64 bits integer library
 sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/cblas) instead of shipped internal version
+sci-libs/gsl:int64 - Build the 64 bits integer library
 sci-libs/itk:itkv3compat - Enable compatibility with ITK version 3
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
