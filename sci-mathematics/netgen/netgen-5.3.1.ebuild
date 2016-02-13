@@ -25,7 +25,7 @@ DEPEND="
 	opencascade? ( sci-libs/opencascade:* )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg:0= )
-	mpi? ( virtual/mpi ( || ( sci-libs/parmetis sci-libs/metis ) ) ) "
+	mpi? ( virtual/mpi ( || ( sci-libs/parmetis <sci-libs/metis-5.0 ) ) sci-libs/hdf5[mpi] ) "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
@@ -33,6 +33,14 @@ src_prepare() {
 	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
 	epatch "${FILESDIR}/${PN}-5.x-missing-define.patch"
 	epatch "${FILESDIR}/${PN}-5.x-metis-numflag.patch"
+	epatch "${FILESDIR}/${PN}-5.x-occ-stl-api-change.patch"
+	if use mpi; then
+		export CC=mpicc
+		export CXX=mpic++
+		export FC=mpif90
+		export F90=mpif90
+		export F77=mpif77
+	fi
 	eautoreconf
 }
 
@@ -47,8 +55,14 @@ src_configure() {
 		append-ldflags -L$CASROOT/lin/$(get_libdir)
 	fi
 	if use mpi; then
+		ewarn "*************************************************************************"
+		ewarn ""
+		ewarn "MPI has not been tested, you should probably deactivate the mpi use flag"
+		ewarn ""
+		ewarn "*************************************************************************"
 		myconf="${myconf} --enable-parallel"
 		append-cppflags -I/usr/include/metis
+		append-ldflags -L/usr/$(get_libdir)/openmpi/
 	fi
 	use ffmpeg && myconf="${myconf} --enable-ffmpeg"
 	use jpeg && myconf="${myconf} --enable-jpeglib"
