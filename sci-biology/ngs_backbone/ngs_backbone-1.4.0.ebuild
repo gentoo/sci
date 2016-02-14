@@ -1,27 +1,20 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
 
-[ "$PV" == "9999" ] && inherit git-2
-
-DESCRIPTION="Assembly and annotation pipeline with web interface for EST/chromosomal sequences"
+DESCRIPTION="Assembly & annotation pipeline with web interface for EST/chromosomal sequences"
 HOMEPAGE="http://bioinf.comav.upv.es/ngs_backbone/index.html"
-if [ "$PV" == "9999" ]; then
-	EGIT_REPO_URI="https://github.com/JoseBlanca/franklin"
-	KEYWORDS=""
-else
-	SRC_URI="http://bioinf.comav.upv.es/_downloads/"${P}".tar.gz"
-	KEYWORDS="~amd64"
-fi
+SRC_URI="http://bioinf.comav.upv.es/_downloads/"${P}".tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=""
