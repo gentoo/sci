@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils mpi multilib
 
-DESCRIPTION="A Portable Implementation of the High-Performance Linpack Benchmark for Distributed-Memory Computers"
+DESCRIPTION="High-Performance Linpack Benchmark for Distributed-Memory Computers"
 HOMEPAGE="http://www.netlib.org/benchmark/hpl/"
 SRC_URI="http://www.netlib.org/benchmark/hpl/hpl-${PV}.tar.gz"
 
@@ -19,7 +19,7 @@ RDEPEND="
 	$(mpi_pkg_deplist)
 	virtual/blas
 	virtual/lapack"
-DEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
@@ -40,9 +40,11 @@ src_prepare() {
 		-e "/^CCFLAGS\>/s|= .*|= \$(HPL_DEFS) ${CFLAGS}|" \
 		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS}|" \
 		Make.gentoo_hpl_fblas_x86 || die
+	default
 }
 
 src_compile() {
+	# do NOT use emake here
 	mpi_pkg_set_env
 	# parallel make failure bug #321539
 	HOME=${WORKDIR} emake -j1 arch=gentoo_hpl_fblas_x86
