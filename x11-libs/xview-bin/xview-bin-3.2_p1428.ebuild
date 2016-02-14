@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DEBVER="3.2p1.4-28.1"
 
-DESCRIPTION="The X Window-System-based Visual/Integrated Environment for Workstations - binary package"
+DESCRIPTION="The X Window-System-based Visual/Integrated Environment - binary package"
 HOMEPAGE="http://physionet.caregroup.harvard.edu/physiotools/xview/"
 SRC_URI="mirror://debian/pool/main/x/xview/xviewg_${DEBVER}_i386.deb"
 
