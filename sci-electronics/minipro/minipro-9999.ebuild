@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI=6
 
-inherit bash-completion-r1 eutils git-2
+inherit bash-completion-r1 git-r3 udev
 
 DESCRIPTION="A free and open TL866XX programmer"
 HOMEPAGE="https://github.com/vdudouyt/minipro"
@@ -19,12 +19,9 @@ RDEPEND="virtual/libusb:1"
 DEPEND="${RDEPEND}"
 
 src_install() {
-	dobin minipro
-	dobin minipro-query-db
-	dobin miniprohex
-	insinto /lib/udev/rules.d
-	doins udev/rules.d/80-minipro.rules
-	doman man/minipro.1
-	dobashcomp bash_completion.d/minipro
-	bashcomp_alias minipro minipro-query-db
+	dobin ${PN}{,-query-db,hex}
+	udev_dorules udev/rules.d/80-${PN}.rules
+	doman man/${PN}.1
+	dobashcomp bash_completion.d/${PN}
+	bashcomp_alias ${PN} ${PN}-query-db
 }
