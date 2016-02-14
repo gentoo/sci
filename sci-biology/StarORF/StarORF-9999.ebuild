@@ -1,12 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit java-pkg-2 java-ant-2
-
-[ "$PV" == "9999" ] && inherit git-2
+inherit java-pkg-2 java-ant-2 git-r3
 
 DESCRIPTION="Java-based utility to show ORFs in a sequence"
 HOMEPAGE="http://star.mit.edu/orf"
