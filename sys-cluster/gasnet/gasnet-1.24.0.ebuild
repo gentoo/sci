@@ -1,13 +1,13 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit autotools-utils
+inherit autotools
 
 MY_P="${PN^^[gasn]}-${PV}"
-DESCRIPTION="networking middleware layer to implementing partitioned global address space (PGAS) language"
+DESCRIPTION="Networking middleware for partitioned global address space (PGAS) language"
 HOMEPAGE="http://gasnet.lbl.gov/"
 SRC_URI="http://gasnet.lbl.gov/${MY_P}.tar.gz"
 
@@ -22,9 +22,11 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-	find . \( -name Makefile.am -or -name "*.mak" \) -exec sed -i '/^docdir/s/^/#/' {} + || die
-	AUTOTOOLS_AUTORECONF=yes
-	autotools-utils_src_prepare
+	find . \
+		\( -name Makefile.am -or -name "*.mak" \) \
+		-exec sed -i '/^docdir/s/^/#/' {} + || die
+	default
+	eautoreconf
 }
 
 src_configure() {
@@ -32,5 +34,5 @@ src_configure() {
 		$(use_enable threads pthreads)
 		$(use_enable mpi)
 	)
-	autotools-utils_src_configure
+	econf ${myeconfargs[@]}
 }
