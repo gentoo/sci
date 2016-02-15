@@ -28,3 +28,8 @@ RDEPEND="${DEPEND}
 	>=sci-biology/scbi_mapreduce-0.0.29
 	>=sci-biology/scbi_plot-0.0.6
 	>=dev-ruby/xml-simple-1.0.12"
+
+#src_prepare(){
+#	cp "${FILESDIR}"/download_fln_dbs.rb all/full_lengther_next-0.0.8/bin || die
+#	chmod a+rx all/full_lengther_next-0.0.8/bin/*.rb || die
+#}

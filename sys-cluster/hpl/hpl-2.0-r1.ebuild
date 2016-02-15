@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils mpi toolchain-funcs
 
@@ -10,8 +10,8 @@ DESCRIPTION="High-Performance Linpack Benchmark for Distributed-Memory Computers
 HOMEPAGE="http://www.netlib.org/benchmark/hpl/"
 SRC_URI="http://www.netlib.org/benchmark/hpl/hpl-${PV}.tar.gz"
 
-LICENSE="HPL"
 SLOT="0"
+LICENSE="HPL"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 
@@ -25,7 +25,7 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	local mpicc_path="$(mpi_pkg_cc)"
 
-	cp setup/Make.Linux_PII_FBLAS Make.gentoo_hpl_fblas_x86
+	cp setup/Make.Linux_PII_FBLAS Make.gentoo_hpl_fblas_x86 || die
 	sed -i \
 		-e "/^TOPdir/s,= .*,= ${S}," \
 		-e '/^HPL_OPTS\>/s,=,= -DHPL_DETAILED_TIMING -DHPL_COPY_L,' \
@@ -37,11 +37,13 @@ src_prepare() {
 		-e "/^CC\>/s,= .*,= ${mpicc_path}," \
 		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS} $($(tc-getPKG_CONFIG) --libs-only-L blas lapack)|" \
 		Make.gentoo_hpl_fblas_x86 || die
+	default
 }
 
 src_compile() {
 	# do NOT use emake here
 	mpi_pkg_set_env
+	# parallel make failure bug #321539
 	HOME=${WORKDIR} emake -j1 arch=gentoo_hpl_fblas_x86
 	mpi_pkg_restore_env
 }

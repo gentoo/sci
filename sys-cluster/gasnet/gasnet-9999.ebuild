@@ -1,27 +1,19 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit autotools-utils
+inherit autotools git-r3
 
 MY_P="${PN^^[gasn]}-${PV}"
-DESCRIPTION="networking middleware layer to implementing partitioned global address space (PGAS) language"
+DESCRIPTION="Networking middleware for partitioned global address space (PGAS) language"
 HOMEPAGE="http://gasnet.lbl.gov/"
-
-if [[ $PV = 9999 ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="https://bitbucket.org/berkeleylab/${PN}.git"
-	AUTOTOOLS_AUTORECONF=yes
-else
-	KEYWORDS="~amd64"
-	SRC_URI="http://gasnet.lbl.gov/${MY_P}.tar.gz"
-	S="${WORKDIR}/${MY_P}"
-fi
+SRC_URI=""
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS=""
 IUSE="mpi threads"
 
 DEPEND="mpi? ( virtual/mpi )"
@@ -35,10 +27,15 @@ pkg_setup() {
 	echo
 }
 
+src_prepare() {
+	default
+	eautoreconf
+}
+
 src_configure() {
 	local myeconfargs=(
 		$(use_enable threads pthreads)
 		$(use_enable mpi)
 	)
-	autotools-utils_src_configure
+	econf ${myeconfargs[@]}
 }

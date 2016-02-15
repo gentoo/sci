@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit autotools eutils bash-completion-r1
 
@@ -34,8 +34,10 @@ RDEPEND="!app-admin/eselect-news
 PDEPEND="emacs? ( app-emacs/eselect-mode )
 	vim-syntax? ( app-vim/eselect-syntax )"
 
+PATCHES=( "${FILESDIR}"/${P}-alternatives.patch )
+
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-alternatives.patch
+	default
 	AT_M4DIR="." eautoreconf
 }
 

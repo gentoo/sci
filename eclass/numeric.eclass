@@ -10,14 +10,14 @@
 # Various functions which make the maintenance  numerical algebra packages
 # easier.
 
-case ${EAPI:-0} in
-	0|1|2|3|4|5) ;;
-	*) die "EAPI=${EAPI} is not supported" ;;
-esac
-
 if [[ ! ${_NUMERIC_ECLASS} ]]; then
 
-inherit multilib
+case ${EAPI:-0} in
+	0|1|2|3|4|5)
+		inherit multilib ;;
+	6) ;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac
 
 # @VARIABLE: NUMERIC_MODULE_NAME
 # @DESCRIPTION:

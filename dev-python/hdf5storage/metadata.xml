@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription>
+    This Python package provides high level utilities to read/write a
+    variety of Python types to/from HDF5 (Heirarchal Data Format)
+    formatted files. This package also provides support for MATLAB MAT
+    v7.3 formatted files, which are just HDF5 files with a different
+    extension and some extra meta-data.
+  </longdescription>
+  <upstream>
+    <remote-id type="pypi">hdf5storage</remote-id>
+    <remote-id type="github">frejanordsiek/hdf5storage</remote-id>
+  </upstream>
+</pkgmetadata>

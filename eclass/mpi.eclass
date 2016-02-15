@@ -17,8 +17,8 @@ if [[ ! ${_MPI_ECLASS} ]]; then
 
 case ${EAPI:-0} in
 	2|3|4|5)
-		inherit multilib
-		;;
+		inherit multilib ;;
+	6) ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 

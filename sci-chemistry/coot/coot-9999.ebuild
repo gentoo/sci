@@ -1,14 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-AUTOTOOLS_AUTORECONF="true"
-
-inherit autotools-utils git-r3 python-single-r1 toolchain-funcs versionator
+inherit autotools git-r3 python-single-r1 toolchain-funcs versionator
 
 MY_S2_PV=$(replace_version_separator 2 - ${PV})
 MY_S2_P=${PN}-${MY_S2_PV/pre1/pre-1}
@@ -16,7 +14,7 @@ MY_S_P=${MY_S2_P}-${PR/r/revision-}
 MY_PV=${PV}
 MY_P=${PN}-${MY_PV}
 
-DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
+DESCRIPTION="Crystallographic Object-Oriented Toolkit"
 HOMEPAGE="https://www2.mrc-lmb.cam.ac.uk/Personal/pemsley/coot/"
 SRC_URI="test? ( https://www2.mrc-lmb.cam.ac.uk/Personal/pemsley/coot/data/greg-data.tar.gz )"
 EGIT_REPO_URI="https://github.com/pemsley/coot.git"
@@ -113,7 +111,8 @@ src_prepare() {
 		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-${EPYTHON}-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
 		-i configure.ac || die
 
-	autotools-utils_src_prepare
+	default
+	eautoreconf
 }
 
 src_configure() {
@@ -128,7 +127,7 @@ src_configure() {
 		--with-sqlite3
 		--with-boost="${EPREFIX}/usr"
 		)
-	autotools-utils_src_configure
+	econf ${myeconfargs[@]}
 }
 
 src_test() {

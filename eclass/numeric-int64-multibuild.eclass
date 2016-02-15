@@ -19,8 +19,8 @@ if [[ ! ${_NUMERIC_INT64_MULTILIB_ECLASS} ]]; then
 # EAPI=5 is required for meaningful MULTILIB_USEDEP.
 case ${EAPI:-0} in
 	5)
-		inherit multilib
-		;;
+		inherit multilib ;;
+	6) ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 

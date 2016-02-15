@@ -1,12 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit autotools-utils eutils multilib
-
-DESCRIPTION="Compares putatively similar files, ignoring small numeric differences and formats"
+DESCRIPTION="File comparision, ignoring small numeric differences and formats"
 HOMEPAGE="http://www.nongnu.org/numdiff/"
 SRC_URI="http://savannah.nongnu.org/download/numdiff/${P}.tar.gz"
 
@@ -28,11 +26,11 @@ src_configure() {
 		$(use_enable nls)
 	    --enable-optimization
 	)
-	autotools-utils_src_configure
+	econf ${myeconfargs[@]}
 }
 
 src_install() {
-	autotools-utils_src_install
+	default
 
 	# Remove some empty folders:
 	rm -r "${ED}"/usr/share/locale || die
