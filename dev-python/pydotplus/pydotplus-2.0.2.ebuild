@@ -24,8 +24,6 @@ RDEPEND="
 	dev-python/pyparsing[${PYTHON_USEDEP}]
 	"
 
-S="${WORKDIR}/${PN}-${MY_PV}"
-
 src_test() {
 	${PYTHON} -m unittest discover || die
 }
