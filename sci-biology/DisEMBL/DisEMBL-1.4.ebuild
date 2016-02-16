@@ -15,6 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
+# The smoothing function sav_gol.c cannot be re-distributed but can be downloaded from TISEAN.
+# http://www.mpipks-dresden.mpg.de/~tisean/
+
 DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/biopython"
