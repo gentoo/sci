@@ -22,6 +22,7 @@ src_prepare(){
 }
 
 src_install(){
-	dobin cross_genome.csh cross_genome
+	# per upstream cross_genome.csh is not needed
+	dobin cross_genome
 	dodoc README
 }
