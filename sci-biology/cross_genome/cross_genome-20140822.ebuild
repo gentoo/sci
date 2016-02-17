@@ -1,8 +1,8 @@
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="Genome scaffolding using cross-species synteny"
 HOMEPAGE="http://www.sanger.ac.uk/science/tools/crossgenome"
@@ -13,14 +13,12 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 S="${WORKDIR}"
 
 src_prepare(){
 	sed -e 's/^CC =/# CC =/' -i Makefile || die
 	sed -e 's/^CFLAGS =/# CFLAGS =/' -i Makefile || die
+	default
 }
 
 src_install(){
