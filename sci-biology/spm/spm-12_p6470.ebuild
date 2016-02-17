@@ -20,7 +20,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 "
 
-S="${WORKDIR}/${PN}${PV}/src"
+S="${WORKDIR}/${PN}${MY_PV}/src"
 
 src_prepare() {
 	emake distclean PLATFORM=octave
@@ -33,5 +33,5 @@ src_compile() {
 src_install() {
 	emake install PLATFORM=octave
 	insinto "$(octave-config --m-site-dir)/${P}"
-	doins -r "${WORKDIR}/${PN}${PV}"/*
+	doins -r "${WORKDIR}/${PN}${MY_PV}"/*
 }
