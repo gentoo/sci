@@ -20,7 +20,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 "
 
-S="${WORKDIR}/${PN}${PV}/src"
+S="${WORKDIR}/${PN}${MY_PV}/src"
 
 src_prepare() {
 	emake distclean PLATFORM=octave
