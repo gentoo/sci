@@ -35,9 +35,8 @@ src_prepare() {
 	default
 	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
 	epatch "${FILESDIR}/${PN}-5.x-missing-define.patch"
-	epatch "${FILESDIR}/${PN}-5.x-metis-numflag.patch"
-	# Taken from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
-	epatch "${FILESDIR}/${PN}-5.x-fedora-metis.patch"
+	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
+	epatch "${FILESDIR}/${PN}-5.x-metis-fixes.patch"
 	epatch "${FILESDIR}/${PN}-5.x-occ-stl-api-change.patch"
 	if use mpi; then
 		export CC=mpicc
