@@ -38,6 +38,8 @@ src_prepare() {
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
 	epatch "${FILESDIR}/${PN}-5.x-metis-fixes.patch"
 	epatch "${FILESDIR}/${PN}-5.x-occ-stl-api-change.patch"
+	# Taken from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.1_build.patch
+	epatch "${FILESDIR}/${PN}-5.3.1_build.patch"
 	if use mpi; then
 		export CC=mpicc
 		export CXX=mpic++
