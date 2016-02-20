@@ -6,7 +6,7 @@ diff -rupN netgen-5.3.1/configure.ac netgen-5.3.1-new/configure.ac
          [occdir=$withval] 
  	[occon=true],
 -	[occdir=/opt/OpenCASCADE]
-+	[occdir=/usr]
++	[occdir=$CASROOT]
          )
  
  
@@ -15,7 +15,7 @@ diff -rupN netgen-5.3.1/configure.ac netgen-5.3.1-new/configure.ac
  
 -	AC_SUBST([OCCFLAGS], ["-DOCCGEOMETRY -I$occdir/inc -I/usr/include/opencascade"])
 -	AC_SUBST([OCCLIBS], ["-L$occdir/lib -lTKernel -lTKGeomBase -lTKMath -lTKG2d -lTKG3d -lTKXSBase -lTKOffset -lTKFillet -lTKShHealing -lTKMesh -lTKMeshVS -lTKTopAlgo -lTKGeomAlgo -lTKBool -lTKPrim -lTKBO -lTKIGES -lTKBRep -lTKSTEPBase -lTKSTEP -lTKSTL -lTKSTEPAttr -lTKSTEP209 -lTKXDESTEP -lTKXDEIGES -lTKXCAF -lTKLCAF -lFWOSPlugin"])
-+	AC_SUBST([OCCFLAGS], ["-DOCCGEOMETRY -I/usr/include/oce"])
++	AC_SUBST([OCCFLAGS], ["-DOCCGEOMETRY -I$occdir/inc"])
 +	AC_SUBST([OCCLIBS], ["-lTKernel -lTKGeomBase -lTKMath -lTKG2d -lTKG3d -lTKXSBase -lTKOffset -lTKFillet -lTKShHealing -lTKMesh -lTKMeshVS -lTKTopAlgo -lTKGeomAlgo -lTKBool -lTKPrim -lTKBO -lTKIGES -lTKBRep -lTKSTEPBase -lTKSTEP -lTKSTL -lTKSTEPAttr -lTKSTEP209 -lTKXDESTEP -lTKXDEIGES -lTKXCAF -lTKLCAF -lFWOSPlugin"])
  
  #  -lTKDCAF
