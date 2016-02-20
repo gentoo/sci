@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit autotools eutils flag-o-matic multilib versionator
 
@@ -30,6 +30,7 @@ RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
 src_prepare() {
+	default
 	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
 	epatch "${FILESDIR}/${PN}-5.x-missing-define.patch"
 	epatch "${FILESDIR}/${PN}-5.x-metis-numflag.patch"
