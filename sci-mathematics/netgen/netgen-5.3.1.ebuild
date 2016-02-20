@@ -18,9 +18,11 @@ KEYWORDS="~amd64 ~x86"
 IUSE="-ffmpeg jpeg -mpi opencascade"
 
 DEPEND="
+	dev-lang/tk
 	dev-tcltk/tix
 	dev-tcltk/togl:1.7
 	virtual/opengl
+	x11-libs/libX11
 	x11-libs/libXmu
 	opencascade? ( sci-libs/opencascade:* )
 	ffmpeg? ( media-video/ffmpeg )
