@@ -1,5 +1,5 @@
---- ./netgen-5.3.1/libsrc/meshing/parallelmesh.cpp	2016-02-20 21:55:59.227450843 +0100
-+++ ./netgen/libsrc/meshing/parallelmesh.cpp	2016-02-20 21:46:32.331435233 +0100
+--- netgen-5.3.1.ORIG/libsrc/meshing/parallelmesh.cpp	2014-08-29 11:54:05.000000000 +0200
++++ netgen/libsrc/meshing/parallelmesh.cpp	2016-02-20 23:07:00.350568182 +0100
 @@ -14,7 +14,7 @@
  
  #if METIS_VER_MAJOR >= 5
@@ -47,6 +47,15 @@
  	BubbleSort(array);
        }
  
+@@ -1318,7 +1318,7 @@
+     idxtype  *xadj, * adjacency, *v_weights = NULL, *e_weights = NULL;
+ 
+     int weightflag = 0;
+-    // int numflag = 0;
++    int numflag = 0;
+     int nparts = ntasks - 1;
+ 
+     int options[5];
 @@ -1377,7 +1377,7 @@
  
      for ( int el = 0; el < ne; el++ )
@@ -72,7 +81,7 @@
      idxtype *v_weights = NULL, *e_weights = NULL;
  
 -    int weightflag = 0;
--    int numflag = 0;
+-    // int numflag = 0;
 -    int nparts = ntasks - 1;
 +    metis::idx_t weightflag = 0;
 +    metis::idx_t numflag = 0;
