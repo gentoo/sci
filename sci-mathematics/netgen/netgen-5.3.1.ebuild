@@ -15,9 +15,10 @@ SRC_URI="mirror://sourceforge/project/${MY_PN}/${MY_PN}/${MY_PV}/${P}.tar.gz"
 SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
-IUSE="-ffmpeg jpeg -mpi opencascade -openmp"
+IUSE="-ffmpeg jpeg -mpi opencascade openmp"
 
 DEPEND="
+	dev-lang/tcl
 	dev-lang/tk
 	dev-tcltk/tix
 	dev-tcltk/togl:1.7
@@ -27,7 +28,7 @@ DEPEND="
 	opencascade? ( sci-libs/opencascade:* )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg:0= )
-	mpi? ( virtual/mpi ( || ( sci-libs/parmetis <sci-libs/metis-5.0 ) ) sci-libs/hdf5[mpi] ) "
+	mpi? ( virtual/mpi || ( sci-libs/parmetis <sci-libs/metis-5.0 ) opencascade? ( sci-libs/hdf5[mpi] ) ) "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
