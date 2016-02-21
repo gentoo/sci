@@ -15,7 +15,7 @@ SRC_URI="mirror://sourceforge/project/${MY_PN}/${MY_PN}/${MY_PV}/${P}.tar.gz"
 SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
-IUSE="-ffmpeg jpeg -mpi opencascade"
+IUSE="-ffmpeg jpeg -mpi opencascade -openmp"
 
 DEPEND="
 	dev-lang/tk
@@ -56,6 +56,10 @@ src_configure() {
 	# This is not the most clever way to deal with these flags
 	# but --disable-xxx does not seem to work correcly, so...
 	local myconf="--with-togl=/usr/$(get_libdir)/Togl1.7"
+
+	if use !openmp; then
+		myconf="${myconf} --disable-openmp"
+	fi
 
 	if use opencascade; then
 		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
