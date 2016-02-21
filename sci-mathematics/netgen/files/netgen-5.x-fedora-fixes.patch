@@ -1,0 +1,223 @@
+diff -uwrN netgen-5.3.1/libsrc/meshing/meshtype.cpp netgen/libsrc/meshing/meshtype.cpp
+--- netgen-5.3.1/libsrc/meshing/meshtype.cpp	2016-02-20 21:55:59.226450843 +0100
++++ netgen/libsrc/meshing/meshtype.cpp	2016-02-20 23:54:12.293646166 +0100
+@@ -1,4 +1,5 @@
+ #include <mystdlib.h>
++#include <float.h> // to get DBL_MIN defined
+ 
+ #include "meshing.hpp"  
+ 
+@@ -666,7 +667,8 @@
+ 
+         double det = trans.Det();
+ 
+-        if (det <= 0)
++        // if (det <= 0)
++        if (det <= DBL_MIN) // avoid FPE
+           err += 1e12;
+         else
+           err += frob * frob / det;
+@@ -722,7 +724,8 @@
+ 
+             double det = trans(0,0)*trans(1,1)-trans(1,0)*trans(0,1);
+ 
+-            if (det <= 0)
++            // if (det <= 0)
++            if (det <= DBL_MIN)  // avoid FPE
+               {
+                 dd = 0;
+                 return 1e12;
+@@ -806,7 +809,8 @@
+           = dtrans(0,0) * trans(1,1) - trans(0,1) * dtrans(1,0)
+           + trans(0,0) * dtrans(1,1) - dtrans(0,1) * trans(1,0);
+ 
+-        if (det <= 0)
++        // if (det <= 0)
++        if (det <= DBL_MIN) // avoid FPE
+           err += 1e12;
+         else
+           {
+@@ -856,7 +860,8 @@
+         frob /= 2;
+ 
+         double det = trans.Det();
+-        if (det <= 0)
++        //if (det <= 0)
++        if (det <= DBL_MIN) // avoid FPE
+           err += 1e12;
+         else
+           err += frob * frob / det;
+@@ -1864,7 +1869,8 @@
+       case PYRAMID:
+         {
+           double noz = 1-p(2);
+-          if (noz == 0.0) noz = 1e-10;
++          //if (noz == 0.0) noz = 1e-10;
++          if (noz <= DBL_MIN) noz = 1e-10; // avoid FPE
+ 
+           double xi  = p(0) / noz;
+           double eta = p(1) / noz;
+@@ -2513,10 +2519,10 @@
+ 
+   MeshingParameters :: MeshingParameters ()
+   {
+-    optimize3d = "cmdmustm";
++    optimize3d = (char*)"cmdmustm"; // optimize3d = "cmdmustm";
+     //optimize3d = "cmdmstm";
+     optsteps3d = 3;
+-    optimize2d = "smsmsmSmSmSm";
++    optimize2d = (char*)"smsmsmSmSmSm"; // optimize2d = "smsmsmSmSmSm";
+     optsteps2d = 3;
+     opterrpow = 2;
+     blockfill = 1;
+diff -uwrN netgen-5.3.1/libsrc/meshing/meshtype.hpp netgen/libsrc/meshing/meshtype.hpp
+--- netgen-5.3.1/libsrc/meshing/meshtype.hpp	2016-02-20 21:55:59.226450843 +0100
++++ netgen/libsrc/meshing/meshtype.hpp	2016-02-20 23:54:12.295646166 +0100
+@@ -15,6 +15,7 @@
+     Classes for NETGEN
+   */
+ 
++class Mesh; // added due to compilation errors on some platforms
+ 
+ 
+   enum ELEMENT_TYPE { 
+diff -uwrN netgen-5.3.1/libsrc/meshing/smoothing2.cpp netgen/libsrc/meshing/smoothing2.cpp
+--- netgen-5.3.1/libsrc/meshing/smoothing2.cpp	2016-02-20 21:55:59.228450843 +0100
++++ netgen/libsrc/meshing/smoothing2.cpp	2016-02-20 23:54:12.298646166 +0100
+@@ -361,7 +361,8 @@
+     vgrad = 0;
+     double badness = 0;
+ 
+-    ld.meshthis -> GetNormalVector (ld.surfi, ld.sp1, ld.gi1, n);
++    //normal already computed: ld.meshthis -> GetNormalVector (ld.surfi, ld.sp1, ld.gi1, n);
++    n = ld.normal;
+     pp1 = ld.sp1 + x(0) * ld.t1 + x(1) * ld.t2;
+ 
+     //  meshthis -> ProjectPoint (surfi, pp1);
+@@ -577,7 +578,8 @@
+     vgrad = 0;
+     badness = 0;
+ 
+-    ld.meshthis -> GetNormalVector (ld.surfi, ld.sp1, ld.gi1, n);
++    //normal already computed: ld.meshthis -> GetNormalVector (ld.surfi, ld.sp1, ld.gi1, n);
++    n = ld.normal;
+ 
+     pp1 = ld.sp1 + x(0) * ld.t1 + x(1) * ld.t2;
+ 
+@@ -649,7 +651,8 @@
+     vgrad = 0;
+     badness = 0;
+ 
+-    ld.meshthis -> GetNormalVector (ld.surfi, ld.sp1, ld.gi1, n);
++    //normal already computed: ld.meshthis -> GetNormalVector (ld.surfi, ld.sp1, ld.gi1, n);
++    n = ld.normal;
+ 
+     // pp1 = sp1;
+     //    pp1.Add2 (x.Get(1), t1, x.Get(2), t2);
+diff -uwrN netgen-5.3.1/libsrc/occ/occconstruction.cpp netgen/libsrc/occ/occconstruction.cpp
+--- netgen-5.3.1/libsrc/occ/occconstruction.cpp	2016-02-20 21:53:44.420447131 +0100
++++ netgen/libsrc/occ/occconstruction.cpp	2016-02-20 23:54:12.299646166 +0100
+@@ -28,7 +28,7 @@
+ #include <BRepAlgoAPI_Common.hxx>
+ #include <BRepAlgoAPI_Fuse.hxx>
+ #include <BRepAlgoAPI_Section.hxx>
+-#include <BRepOffsetAPI_Sewing.hxx>
++//#include <BRepOffsetAPI_Sewing.hxx>
+ //#include <BRepAlgo_Sewing.hxx>
+ #include <BRepOffsetAPI_MakeOffsetShape.hxx>
+ #include <ShapeFix_Shape.hxx>
+diff -uwrN netgen-5.3.1/libsrc/occ/occmeshsurf.cpp netgen/libsrc/occ/occmeshsurf.cpp
+--- netgen-5.3.1/libsrc/occ/occmeshsurf.cpp	2016-02-20 21:53:44.421447131 +0100
++++ netgen/libsrc/occ/occmeshsurf.cpp	2016-02-20 23:54:12.310646166 +0100
+@@ -6,6 +6,7 @@
+ #include <meshing.hpp>
+ #include <GeomLProp_SLProps.hxx>
+ #include <ShapeAnalysis_Surface.hxx>
++#include <GeomAPI_ProjectPointOnCurve.hxx> // -- moved here from occgeom.hpp
+ 
+ 
+ namespace netgen
+@@ -689,7 +691,7 @@
+       }
+   
+     newp = hnewp;
+-  }
++  }//; -- to compile with -Wall -pedantic
+ 
+ 
+   void OCCRefinementSurfaces ::  
+ 
+ 
+diff -uwrN netgen-5.3.1/libsrc/occ/Partition_Inter3d.cxx netgen/libsrc/occ/Partition_Inter3d.cxx
+--- netgen-5.3.1/libsrc/occ/Partition_Inter3d.cxx	2016-02-20 21:53:44.418447131 +0100
++++ netgen/libsrc/occ/Partition_Inter3d.cxx	2016-02-20 23:54:12.311646166 +0100
+@@ -243,8 +243,10 @@
+       Standard_Integer i, nbExt = anExtPS.NbExt();
+       Extrema_POnSurf aPOnSurf;
+       for (i = 1; i <= nbExt; ++i )
++       // porting to OCCT6.5.1
+ 	  // if (anExtPS.Value( i ) <= TolE)               // V6.3
+-	  if (anExtPS.SquareDistance( i ) <= TolE)   // V6.5
++       // if (anExtPS.SquareDistance( i ) <= TolE)   // V6.5
++       if (anExtPS.SquareDistance( i ) <= TolE * TolE)
+ 	  {
+           aPOnSurf = anExtPS.Point( i );
+           break;
+diff -uwrN netgen-5.3.1/libsrc/occ/Partition_Spliter.cxx netgen/libsrc/occ/Partition_Spliter.cxx
+--- netgen-5.3.1/libsrc/occ/Partition_Spliter.cxx	2016-02-20 21:53:44.420447131 +0100
++++ netgen/libsrc/occ/Partition_Spliter.cxx	2016-02-20 23:54:12.313646166 +0100
+@@ -1169,8 +1169,10 @@
+           for (; j<=nbj && ok; ++j) {
+             if (Extrema.IsMin(j)) {
+ 	      hasMin = Standard_True;
++	      // porting to OCCT6.5.1
+ 	      // ok = Extrema.Value(j) <= tol;  // V6.3
+-	      ok = Extrema.SquareDistance(j) <= tol;  // V6.5
++	      // ok = Extrema.SquareDistance(j) <= tol;  // V6.5
++	      ok = Extrema.SquareDistance(j) <= tol * tol;
+ 	    }
+           }
+         }
+diff -uwrN netgen-5.3.1/libsrc/occ/utilities.h netgen/libsrc/occ/utilities.h
+--- netgen-5.3.1/libsrc/occ/utilities.h	2016-02-20 21:53:44.421447131 +0100
++++ netgen/libsrc/occ/utilities.h	2016-02-20 23:54:12.314646166 +0100
+@@ -33,6 +33,7 @@
+ 
+ #include <string>
+ #include <iostream>
++#include <iomanip>
+ #include <cstdlib>
+ // #include "SALOME_Log.hxx"
+ 
+diff -uwrN netgen-5.3.1/libsrc/stlgeom/stlgeommesh.cpp netgen/libsrc/stlgeom/stlgeommesh.cpp
+--- netgen-5.3.1/libsrc/stlgeom/stlgeommesh.cpp	2016-02-20 21:55:59.234450844 +0100
++++ netgen/libsrc/stlgeom/stlgeommesh.cpp	2016-02-20 23:54:12.315646166 +0100
+@@ -1435,7 +1435,8 @@
+ 	  /*
+ 	  if (!optstring || strlen(optstring) == 0)
+ 	    {
+-	      mparam.optimize2d = "smcm";
++	      //mparam.optimize2d = (char*)"smcm";
++              mparam.optimize2d = (char*)"smcm";
+ 	    }
+ 	  else
+ 	    {
+@@ -1453,7 +1454,7 @@
+ 	      mesh -> LoadLocalMeshSize (mparam.meshsizefilename);	      
+ 	      mesh -> CalcLocalHFromSurfaceCurvature (mparam.grading, 
+ 						      stlparam.resthsurfmeshcurvfac);
+-	      mparam.optimize2d = "cmsmSm";
++	      mparam.optimize2d = "(char*)cmsmSm";
+ 	      STLSurfaceOptimization (*stlgeometry, *mesh, mparam);
+ #ifdef STAT_STREAM
+ 	      (*statout) << GetTime() << " & ";
+@@ -1560,7 +1561,8 @@
+ 	  /*
+ 	  if (!optstring || strlen(optstring) == 0)
+ 	    {
+-	      mparam.optimize3d = "cmdmstm";
++              //mparam.optimize3d = "cmdmstm";
++	      mparam.optimize3d = (char*)"cmdmstm";
+ 	    }
+ 	  else
+ 	    {
