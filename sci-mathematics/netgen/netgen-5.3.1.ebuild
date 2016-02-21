@@ -53,12 +53,11 @@ src_prepare() {
 src_configure() {
 	# This is not the most clever way to deal with these flags
 	# but --disable-xxx does not seem to work correcly, so...
-	sed -i -e 's:-lTogl:-lTogl1.7:' ng/Makefile.am || die
 	local myconf="--with-togl=/usr/$(get_libdir)/Togl1.7"
 
 	if use opencascade; then
 		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
-		append-ldflags -L$CASROOT/lin/$(get_libdir)
+		append-ldflags -L$CASROOT/$(get_libdir)
 	fi
 	if use mpi; then
 		ewarn "*************************************************************************"
