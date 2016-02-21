@@ -43,6 +43,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-5.3.1_build.patch"
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_fixes.patch
 	epatch "${FILESDIR}/${PN}-5.x-fedora-fixes.patch"
+	epatch "${FILESDIR}/${PN}-5.x-includes-fixes.patch"
 	if use mpi; then
 		export CC=mpicc
 		export CXX=mpic++
