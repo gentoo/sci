@@ -39,8 +39,8 @@ src_prepare() {
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
 	epatch "${FILESDIR}/${PN}-5.x-metis-fixes.patch"
 	epatch "${FILESDIR}/${PN}-5.x-occ-stl-api-change.patch"
-	# Taken from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.1_build.patch
-	epatch "${FILESDIR}/${PN}-5.3.1_build.patch"
+	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.1_build.patch
+	epatch "${FILESDIR}/${PN}-5.x-makefiles-fixes.patch"
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_fixes.patch
 	epatch "${FILESDIR}/${PN}-5.x-fedora-fixes.patch"
 	epatch "${FILESDIR}/${PN}-5.x-includes-fixes.patch"

@@ -1,7 +1,15 @@
-diff -rupN netgen-5.3.1/configure.ac netgen-5.3.1-new/configure.ac
---- netgen-5.3.1/configure.ac	2014-10-07 21:38:21.990021106 +0200
-+++ netgen-5.3.1-new/configure.ac	2014-10-07 21:39:14.530034275 +0200
-@@ -35,15 +35,15 @@ AC_ARG_WITH([occ],
+diff -uwrN -x.git netgen-5.3.1/configure.ac netgen/configure.ac
+--- netgen-5.3.1/configure.ac	2016-02-21 21:40:41.852331652 +0100
++++ netgen/configure.ac	2016-02-21 21:39:31.355329711 +0100
+@@ -14,7 +14,6 @@
+ AC_DISABLE_STATIC
+ 
+ AC_LANG([C++])
+-AM_PROG_AR
+ AC_PROG_CXX
+ 
+ AC_OPENMP
+@@ -36,15 +35,15 @@
          [AC_HELP_STRING([--with-occ=dir],[use OpenCascade installed in directory dir])],
          [occdir=$withval] 
  	[occon=true],
@@ -20,7 +28,7 @@ diff -rupN netgen-5.3.1/configure.ac netgen-5.3.1-new/configure.ac
  
  #  -lTKDCAF
  
-@@ -89,18 +89,18 @@ AC_ARG_ENABLE([gui],
+@@ -90,18 +89,18 @@
          [AC_HELP_STRING([--disable-gui],[don't build netgen with GUI])],
          [if test "$enableval" = yes; then ngguion=true; else ngguion=false; fi])
  
@@ -43,10 +51,10 @@ diff -rupN netgen-5.3.1/configure.ac netgen-5.3.1-new/configure.ac
          )       
  #          -DVTRACE
  #          -lvt-hyb
-diff -rupN netgen-5.3.1/libsrc/csg/Makefile.am netgen-5.3.1-new/libsrc/csg/Makefile.am
---- netgen-5.3.1/libsrc/csg/Makefile.am	2014-10-07 21:38:21.787017193 +0200
-+++ netgen-5.3.1-new/libsrc/csg/Makefile.am	2014-10-07 21:39:14.530034275 +0200
-@@ -8,24 +8,24 @@ revolution.hpp spline3d.hpp vscsg.hpp
+diff -uwrN -x.git netgen-5.3.1/libsrc/csg/Makefile.am netgen/libsrc/csg/Makefile.am
+--- netgen-5.3.1/libsrc/csg/Makefile.am	2016-02-21 21:40:41.852331652 +0100
++++ netgen/libsrc/csg/Makefile.am	2016-02-21 21:39:31.355329711 +0100
+@@ -8,24 +8,24 @@
  AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include  $(TCL_INCLUDES)
  METASOURCES = AUTO
  
@@ -77,10 +85,10 @@ diff -rupN netgen-5.3.1/libsrc/csg/Makefile.am netgen-5.3.1-new/libsrc/csg/Makef
  endif
  
  #   $(top_builddir)/libsrc/geom2d/libgeom2d.la 
-diff -rupN netgen-5.3.1/libsrc/general/Makefile.am netgen-5.3.1-new/libsrc/general/Makefile.am
---- netgen-5.3.1/libsrc/general/Makefile.am	2014-10-07 21:38:21.638014320 +0200
-+++ netgen-5.3.1-new/libsrc/general/Makefile.am	2014-10-07 21:39:14.531034296 +0200
-@@ -4,8 +4,8 @@ include_HEADERS = ngexception.hpp
+diff -uwrN -x.git netgen-5.3.1/libsrc/general/Makefile.am netgen/libsrc/general/Makefile.am
+--- netgen-5.3.1/libsrc/general/Makefile.am	2016-02-21 21:40:41.852331652 +0100
++++ netgen/libsrc/general/Makefile.am	2016-02-21 21:39:31.356329711 +0100
+@@ -4,8 +4,8 @@
  
  AM_CPPFLAGS =  $(MPI_INCLUDES) -I$(top_srcdir)/libsrc/include
  METASOURCES = AUTO
@@ -91,10 +99,10 @@ diff -rupN netgen-5.3.1/libsrc/general/Makefile.am netgen-5.3.1-new/libsrc/gener
  	hashtabl.cpp mystring.cpp ngexception.cpp optmem.cpp parthreads.cpp \
  	profiler.cpp seti.cpp sort.cpp spbita2d.cpp symbolta.cpp table.cpp \
  	mpi_interface.cpp gzstream.cpp
-diff -rupN netgen-5.3.1/libsrc/geom2d/Makefile.am netgen-5.3.1-new/libsrc/geom2d/Makefile.am
---- netgen-5.3.1/libsrc/geom2d/Makefile.am	2014-10-07 21:38:21.832018060 +0200
-+++ netgen-5.3.1-new/libsrc/geom2d/Makefile.am	2014-10-07 21:39:14.531034296 +0200
-@@ -4,18 +4,18 @@ AM_CPPFLAGS = -I$(top_srcdir)/libsrc/inc
+diff -uwrN -x.git netgen-5.3.1/libsrc/geom2d/Makefile.am netgen/libsrc/geom2d/Makefile.am
+--- netgen-5.3.1/libsrc/geom2d/Makefile.am	2016-02-21 21:40:41.852331652 +0100
++++ netgen/libsrc/geom2d/Makefile.am	2016-02-21 21:39:31.356329711 +0100
+@@ -4,18 +4,18 @@
  
  METASOURCES = AUTO
  
@@ -119,10 +127,10 @@ diff -rupN netgen-5.3.1/libsrc/geom2d/Makefile.am netgen-5.3.1-new/libsrc/geom2d
 +libnggeom2dvis_la_LIBADD = libnggeom2d.la -lGL $(MPI_LIBS)
  
  
-diff -rupN netgen-5.3.1/libsrc/gprim/Makefile.am netgen-5.3.1-new/libsrc/gprim/Makefile.am
---- netgen-5.3.1/libsrc/gprim/Makefile.am	2014-10-07 21:38:21.719015882 +0200
-+++ netgen-5.3.1-new/libsrc/gprim/Makefile.am	2014-10-07 21:39:14.531034296 +0200
-@@ -2,6 +2,6 @@ noinst_HEADERS = adtree.hpp  geom3d.hpp
+diff -uwrN -x.git netgen-5.3.1/libsrc/gprim/Makefile.am netgen/libsrc/gprim/Makefile.am
+--- netgen-5.3.1/libsrc/gprim/Makefile.am	2016-02-21 21:40:41.853331652 +0100
++++ netgen/libsrc/gprim/Makefile.am	2016-02-21 21:39:31.357329711 +0100
+@@ -2,6 +2,6 @@
  
  AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include
  METASOURCES = AUTO
@@ -131,10 +139,10 @@ diff -rupN netgen-5.3.1/libsrc/gprim/Makefile.am netgen-5.3.1-new/libsrc/gprim/M
 +noinst_LTLIBRARIES = libnggprim.la
 +libnggprim_la_SOURCES = adtree.cpp geom2d.cpp geom3d.cpp geomfuncs.cpp \
  	geomtest3d.cpp transform3d.cpp spline.cpp splinegeometry.cpp
-diff -rupN netgen-5.3.1/libsrc/interface/Makefile.am netgen-5.3.1-new/libsrc/interface/Makefile.am
---- netgen-5.3.1/libsrc/interface/Makefile.am	2014-10-07 21:38:21.846018330 +0200
-+++ netgen-5.3.1-new/libsrc/interface/Makefile.am	2014-10-07 21:44:17.523887314 +0200
-@@ -2,14 +2,14 @@ noinst_HEADERS = writeuser.hpp
+diff -uwrN -x.git netgen-5.3.1/libsrc/interface/Makefile.am netgen/libsrc/interface/Makefile.am
+--- netgen-5.3.1/libsrc/interface/Makefile.am	2016-02-21 21:40:41.853331652 +0100
++++ netgen/libsrc/interface/Makefile.am	2016-02-21 21:39:31.357329711 +0100
+@@ -2,14 +2,14 @@
  
  AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include -I$(top_srcdir)/libsrc/interface  $(MPI_INCLUDES) $(TCL_INCLUDES) -DOPENGL
  METASOURCES = AUTO
@@ -152,9 +160,9 @@ diff -rupN netgen-5.3.1/libsrc/interface/Makefile.am netgen-5.3.1-new/libsrc/int
 +libnginterface_la_LIBADD = $(top_builddir)/libsrc/meshing/libngmesh.la
  
  # libinterface_la_LDFLAGS = -rdynamic
-diff -rupN netgen-5.3.1/libsrc/linalg/Makefile.am netgen-5.3.1-new/libsrc/linalg/Makefile.am
---- netgen-5.3.1/libsrc/linalg/Makefile.am	2014-10-07 21:38:21.667014879 +0200
-+++ netgen-5.3.1-new/libsrc/linalg/Makefile.am	2014-10-07 21:39:14.532034315 +0200
+diff -uwrN -x.git netgen-5.3.1/libsrc/linalg/Makefile.am netgen/libsrc/linalg/Makefile.am
+--- netgen-5.3.1/libsrc/linalg/Makefile.am	2016-02-21 21:40:41.853331652 +0100
++++ netgen/libsrc/linalg/Makefile.am	2016-02-21 21:39:31.357329711 +0100
 @@ -1,8 +1,8 @@
  noinst_HEADERS = densemat.hpp linalg.hpp polynomial.hpp vector.hpp opti.hpp
  AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include
@@ -166,10 +174,10 @@ diff -rupN netgen-5.3.1/libsrc/linalg/Makefile.am netgen-5.3.1-new/libsrc/linalg
  
  #  vector.cpp
  
-diff -rupN netgen-5.3.1/libsrc/meshing/Makefile.am netgen-5.3.1-new/libsrc/meshing/Makefile.am
---- netgen-5.3.1/libsrc/meshing/Makefile.am	2014-10-07 21:38:21.895019275 +0200
-+++ netgen-5.3.1-new/libsrc/meshing/Makefile.am	2014-10-07 21:39:14.532034315 +0200
-@@ -15,9 +15,9 @@ clusters.hpp hprefinement.hpp improve3.h
+diff -uwrN -x.git netgen-5.3.1/libsrc/meshing/Makefile.am netgen/libsrc/meshing/Makefile.am
+--- netgen-5.3.1/libsrc/meshing/Makefile.am	2016-02-21 21:40:41.853331652 +0100
++++ netgen/libsrc/meshing/Makefile.am	2016-02-21 21:39:31.358329711 +0100
+@@ -15,9 +15,9 @@
  
  METASOURCES = AUTO
  
@@ -181,7 +189,7 @@ diff -rupN netgen-5.3.1/libsrc/meshing/Makefile.am netgen-5.3.1-new/libsrc/meshi
  	clusters.cpp curvedelems.cpp delaunay.cpp delaunay2d.cpp	    \
  	geomsearch.cpp global.cpp hprefinement.cpp improve2.cpp		    \
  	improve2gen.cpp improve3.cpp localh.cpp meshclass.cpp		    \
-@@ -30,8 +30,8 @@ libmesh_la_SOURCES = adfront2.cpp adfron
+@@ -30,8 +30,8 @@
  	topology.cpp triarls.cpp validate.cpp zrefine.cpp bcfunctions.cpp   \
  	parallelmesh.cpp  paralleltop.cpp  paralleltop.hpp basegeom.cpp 
  
@@ -194,10 +202,10 @@ diff -rupN netgen-5.3.1/libsrc/meshing/Makefile.am netgen-5.3.1-new/libsrc/meshi
 +	$(top_builddir)/libsrc/general/libnggen.la \
 +	$(MPI_LIBS) -lz
  
-diff -rupN netgen-5.3.1/libsrc/occ/Makefile.am netgen-5.3.1-new/libsrc/occ/Makefile.am
---- netgen-5.3.1/libsrc/occ/Makefile.am	2014-10-07 21:38:21.739016267 +0200
-+++ netgen-5.3.1-new/libsrc/occ/Makefile.am	2014-10-07 21:39:14.533034334 +0200
-@@ -14,20 +14,20 @@ AM_CPPFLAGS = -I$(top_srcdir)/libsrc/inc
+diff -uwrN -x.git netgen-5.3.1/libsrc/occ/Makefile.am netgen/libsrc/occ/Makefile.am
+--- netgen-5.3.1/libsrc/occ/Makefile.am	2016-02-21 21:40:41.853331652 +0100
++++ netgen/libsrc/occ/Makefile.am	2016-02-21 21:39:31.358329711 +0100
+@@ -14,20 +14,20 @@
  
  METASOURCES = AUTO
  
@@ -224,10 +232,10 @@ diff -rupN netgen-5.3.1/libsrc/occ/Makefile.am netgen-5.3.1-new/libsrc/occ/Makef
 +libngoccvis_la_LIBADD = libngocc.la $(TCL_LIB_SPEC)
  
  
-diff -rupN netgen-5.3.1/libsrc/stlgeom/Makefile.am netgen-5.3.1-new/libsrc/stlgeom/Makefile.am
---- netgen-5.3.1/libsrc/stlgeom/Makefile.am	2014-10-07 21:38:21.683015188 +0200
-+++ netgen-5.3.1-new/libsrc/stlgeom/Makefile.am	2014-10-07 21:39:14.533034334 +0200
-@@ -4,18 +4,18 @@ stltool.hpp stltopology.hpp vsstl.hpp
+diff -uwrN -x.git netgen-5.3.1/libsrc/stlgeom/Makefile.am netgen/libsrc/stlgeom/Makefile.am
+--- netgen-5.3.1/libsrc/stlgeom/Makefile.am	2016-02-21 21:40:41.854331653 +0100
++++ netgen/libsrc/stlgeom/Makefile.am	2016-02-21 21:39:31.359329711 +0100
+@@ -4,18 +4,18 @@
  AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include $(TCL_INCLUDES)
  METASOURCES = AUTO
  
@@ -252,10 +260,10 @@ diff -rupN netgen-5.3.1/libsrc/stlgeom/Makefile.am netgen-5.3.1-new/libsrc/stlge
 +libngstl_la_LIBADD = $(top_builddir)/libsrc/meshing/libngmesh.la $(MPI_LIBS)
  # libstlvis_la_LIBADD = libstl.la $(top_builddir)/libsrc/linalg/libla.la 
  
-diff -rupN netgen-5.3.1/libsrc/visualization/Makefile.am netgen-5.3.1-new/libsrc/visualization/Makefile.am
---- netgen-5.3.1/libsrc/visualization/Makefile.am	2014-10-07 21:38:21.822017867 +0200
-+++ netgen-5.3.1-new/libsrc/visualization/Makefile.am	2014-10-07 21:39:14.533034334 +0200
-@@ -7,11 +7,11 @@ AM_CPPFLAGS =  $(MPI_INCLUDES) -I$(top_s
+diff -uwrN -x.git netgen-5.3.1/libsrc/visualization/Makefile.am netgen/libsrc/visualization/Makefile.am
+--- netgen-5.3.1/libsrc/visualization/Makefile.am	2016-02-21 21:40:41.854331653 +0100
++++ netgen/libsrc/visualization/Makefile.am	2016-02-21 21:39:31.359329711 +0100
+@@ -7,11 +7,11 @@
  METASOURCES = AUTO
  
  if NGGUI
@@ -270,10 +278,30 @@ diff -rupN netgen-5.3.1/libsrc/visualization/Makefile.am netgen-5.3.1-new/libsrc
  
 -
 +libngvisual_la_LIBADD = -lGL
-diff -rupN netgen-5.3.1/ng/Makefile.am netgen-5.3.1-new/ng/Makefile.am
---- netgen-5.3.1/ng/Makefile.am	2014-10-07 21:38:21.973020778 +0200
-+++ netgen-5.3.1-new/ng/Makefile.am	2014-10-07 21:39:14.534034353 +0200
-@@ -17,21 +17,18 @@ MKL_LIBS = -L$(MKLROOT)/lib/intel64  -lm
+diff -uwrN -x.git netgen-5.3.1/libsrc/visualization/Makefile.in netgen/libsrc/visualization/Makefile.in
+--- netgen-5.3.1/libsrc/visualization/Makefile.in	2016-02-21 21:40:41.855331653 +0100
++++ netgen/libsrc/visualization/Makefile.in	2016-02-21 21:39:31.360329711 +0100
+@@ -275,7 +275,7 @@
+ visual.hpp vssolution.hpp
+ 
+ include_HEADERS = soldata.hpp
+-AM_CPPFLAGS = $(MPI_INCLUDES) -I$(top_srcdir)/libsrc/include  -DOPENGL -D$(TOGL_WINDOWINGSYSTEM) $(OCCFLAGS) $(TCL_INCLUDES)
++AM_CPPFLAGS = $(MPI_INCLUDES) -I$(top_srcdir)/libsrc/include  -DOPENGL $(OCCFLAGS) $(TCL_INCLUDES)
+ METASOURCES = AUTO
+ @NGGUI_TRUE@noinst_LTLIBRARIES = libvisual.la
+ libvisual_la_SOURCES = meshdoc.cpp mvdraw.cpp \
+diff -uwrN -x.git netgen-5.3.1/ng/Makefile.am netgen/ng/Makefile.am
+--- netgen-5.3.1/ng/Makefile.am	2016-02-21 21:40:41.855331653 +0100
++++ netgen/ng/Makefile.am	2016-02-21 21:39:31.360329711 +0100
+@@ -1,6 +1,6 @@
+ include_HEADERS = 
+ 
+-AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include -I$(top_srcdir)/libsrc/interface -DOPENGL  -D$(TOGL_WINDOWINGSYSTEM)  $(TCL_INCLUDES) $(MPI_INCLUDES) $(FFMPEG_INCLUDES) $(JPEGLIB_INCLUDES) 
++AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include -I$(top_srcdir)/libsrc/interface -DOPENGL $(TCL_INCLUDES) $(MPI_INCLUDES) $(FFMPEG_INCLUDES) $(JPEGLIB_INCLUDES) 
+ 
+ 
+ if NGGUI
+@@ -17,21 +17,18 @@
  endif
  # -lpardiso500-GNU472-X86-64 -lgfortran
  
@@ -307,10 +335,22 @@ diff -rupN netgen-5.3.1/ng/Makefile.am netgen-5.3.1-new/ng/Makefile.am
  
  
  # add for static linkage of ngsolve:
-diff -rupN netgen-5.3.1/nglib/Makefile.am netgen-5.3.1-new/nglib/Makefile.am
---- netgen-5.3.1/nglib/Makefile.am	2014-10-07 21:38:21.552012662 +0200
-+++ netgen-5.3.1-new/nglib/Makefile.am	2014-10-07 21:39:27.915292493 +0200
-@@ -8,15 +8,15 @@ lib_LTLIBRARIES = libnglib.la
+diff -uwrN -x.git netgen-5.3.1/ng/Makefile.in netgen/ng/Makefile.in
+--- netgen-5.3.1/ng/Makefile.in	2016-02-21 21:40:41.856331653 +0100
++++ netgen/ng/Makefile.in	2016-02-21 21:39:31.361329711 +0100
+@@ -302,7 +302,7 @@
+ include_HEADERS = 
+ AM_CPPFLAGS = -I$(top_srcdir)/libsrc/include \
+ 	-I$(top_srcdir)/libsrc/interface -DOPENGL \
+-	-D$(TOGL_WINDOWINGSYSTEM) $(TCL_INCLUDES) $(MPI_INCLUDES) \
++	$(TCL_INCLUDES) $(MPI_INCLUDES) \
+ 	$(FFMPEG_INCLUDES) $(JPEGLIB_INCLUDES) $(am__append_1)
+ netgen_SOURCES = demoview.cpp ngappinit.cpp onetcl.cpp parallelfunc.cpp ngpkg.cpp demoview.hpp parallelfunc.hpp togl_1_7.h
+ @NGMKL_TRUE@MKL_LIBS = -L$(MKLROOT)/lib/intel64  -lmkl_intel_lp64 -lmkl_gnu_thread -lmkl_core -lmkl_def
+diff -uwrN -x.git netgen-5.3.1/nglib/Makefile.am netgen/nglib/Makefile.am
+--- netgen-5.3.1/nglib/Makefile.am	2016-02-21 21:40:41.856331653 +0100
++++ netgen/nglib/Makefile.am	2016-02-21 21:39:31.362329711 +0100
+@@ -8,15 +8,15 @@
  libnglib_la_SOURCES = nglib.cpp 
  
  libnglib_la_LIBADD = \
@@ -333,7 +373,7 @@ diff -rupN netgen-5.3.1/nglib/Makefile.am netgen-5.3.1-new/nglib/Makefile.am
  #  -rdynamic
  
  
-@@ -25,24 +25,24 @@ bin_PROGRAMS = ng_vol ng_stl
+@@ -25,24 +25,24 @@
  
  ng_vol_SOURCES = ng_vol.cpp
  ng_vol_LDADD = libnglib.la \
