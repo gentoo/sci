@@ -21,14 +21,15 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/setuptools[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]"
 RDEPEND="
-	sci-libs/scipy[${PYTHON_USEDEP}]
-	dev-python/traits[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
-	dev-python/pygraphviz[${PYTHON_USEDEP}]"
+	dev-python/pydotplus[${PYTHON_USEDEP}]
+	dev-python/pygraphviz[${PYTHON_USEDEP}]
+	dev-python/traits[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]"
 
 python_test() {
 	nosetests -v || die
