@@ -12,4 +12,7 @@
   <use>
     <flag name="compiler">Install the libraries needed for the icc and ifort compilers</flag>
   </use>
+  <use>
+    <flag name="mic">Install the libraries needed for supporting Intel Many Integrated Core (Xeon Phi)</flag>
+  </use>
 </pkgmetadata>

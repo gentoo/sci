@@ -24,17 +24,15 @@ IUSE="fsl spm afni"
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/prov[${PYTHON_USEDEP}]
-	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/nibabel[${PYTHON_USEDEP}]
-	fsl? ( sci-biology/fsl )
-	spm? ( sci-biology/spm )
-	afni? ( sci-biology/afni )"
+	dev-python/setuptools[${PYTHON_USEDEP}]
+	sci-libs/nibabel[${PYTHON_USEDEP}]"
 RDEPEND="
-	sci-libs/scipy[${PYTHON_USEDEP}]
-	dev-python/traits[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
-	dev-python/pygraphviz[${PYTHON_USEDEP}]"
+	dev-python/pydotplus[${PYTHON_USEDEP}]
+	dev-python/pygraphviz[${PYTHON_USEDEP}]
+	dev-python/traits[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]"
 
 python_test() {
 	nosetests -v || die

@@ -1,0 +1,908 @@
+*******> update.4
+Author: Benjamin D. Madej
+Date: October 19, 2015
+Programs: Leap, Lipid14 force field
+Description: Adds a parameter set for cholesterol to the Lipid14 force field.
+             Please reference:
+             Madej, B. D.; Gould, I.R.; Walker, R. C. A Parameterization of
+             Cholesterol for Mixed Lipid Bilayer Simulation within the Amber
+             Lipid14 Force Field. J. Phys. Chem. B 2015, 119 (38)
+             pp 12424-12435.
+-------------------------------------------------------------------------------
+ dat/leap/lib/lipid14.lib  | 480 ++++++++++++++++++++++++++++++++++++++++++++++
+ dat/leap/parm/lipid11.dat |   2 +-
+ dat/leap/parm/lipid14.dat | 291 ++++++++++++++++++----------
+ 3 files changed, 666 insertions(+), 107 deletions(-)
+
+diff --git dat/leap/lib/lipid14.lib dat/leap/lib/lipid14.lib
+index 891937b..75c2f2b 100644
+--- dat/leap/lib/lipid14.lib
++++ dat/leap/lib/lipid14.lib
+@@ -1,10 +1,490 @@
+ !!index array str
++ "CHL"
+  "LA"
+  "MY"
+  "OL"
+  "PA"
+  "PC"
+  "PE"
++!entry.CHL.unit.atoms table  str name  str type  int typex  int resx  int flags  int seq  int elmnt  dbl chg
++ "C1" "cA" 0 1 131073 1 6 -0.031691
++ "H11" "hA" 0 1 131073 2 1 0.009380
++ "H12" "hA" 0 1 131073 3 1 0.009380
++ "C2" "cA" 0 1 131073 4 6 -0.088130
++ "H21" "hA" 0 1 131073 5 1 0.044625
++ "H22" "hA" 0 1 131073 6 1 0.044625
++ "C3" "cA" 0 1 131073 7 6 0.293553
++ "H31" "hE" 0 1 131073 8 1 0.029611
++ "C4" "cA" 0 1 131073 9 6 -0.162218
++ "H41" "hA" 0 1 131073 10 1 0.090036
++ "H42" "hA" 0 1 131073 11 1 0.090036
++ "C5" "cB" 0 1 131073 12 6 -0.139495
++ "C6" "cB" 0 1 131073 13 6 -0.208190
++ "H61" "hB" 0 1 131073 14 1 0.122828
++ "C7" "cA" 0 1 131073 15 6 -0.069897
++ "H71" "hA" 0 1 131073 16 1 0.047919
++ "H72" "hA" 0 1 131073 17 1 0.047919
++ "C8" "cA" 0 1 131073 18 6 -0.011390
++ "H81" "hA" 0 1 131073 19 1 0.072891
++ "C9" "cA" 0 1 131073 20 6 0.019609
++ "H91" "hA" 0 1 131073 21 1 0.029289
++ "C10" "cA" 0 1 131073 22 6 0.079112
++ "C11" "cA" 0 1 131073 23 6 -0.066365
++ "H111" "hA" 0 1 131073 24 1 0.030085
++ "H112" "hA" 0 1 131073 25 1 0.030085
++ "C12" "cA" 0 1 131073 26 6 -0.064973
++ "H121" "hA" 0 1 131073 27 1 0.010352
++ "H122" "hA" 0 1 131073 28 1 0.010352
++ "C13" "cA" 0 1 131073 29 6 0.057407
++ "C14" "cA" 0 1 131073 30 6 0.005830
++ "H141" "hA" 0 1 131073 31 1 0.031557
++ "C15" "cA" 0 1 131073 32 6 -0.101977
++ "H151" "hA" 0 1 131073 33 1 0.026458
++ "H152" "hA" 0 1 131073 34 1 0.026458
++ "C16" "cA" 0 1 131073 35 6 -0.092064
++ "H161" "hA" 0 1 131073 36 1 0.033335
++ "H162" "hA" 0 1 131073 37 1 0.033335
++ "C17" "cA" 0 1 131073 38 6 0.032398
++ "H171" "hA" 0 1 131073 39 1 0.016590
++ "C18" "cA" 0 1 131073 40 6 -0.115049
++ "H181" "hA" 0 1 131073 41 1 0.024541
++ "H182" "hA" 0 1 131073 42 1 0.024541
++ "H183" "hA" 0 1 131073 43 1 0.024541
++ "C19" "cA" 0 1 131073 44 6 -0.108064
++ "H191" "hA" 0 1 131073 45 1 0.033990
++ "H192" "hA" 0 1 131073 46 1 0.033990
++ "H193" "hA" 0 1 131073 47 1 0.033990
++ "C20" "cD" 0 1 131075 48 6 0.044268
++ "H201" "hL" 0 1 131075 49 1 0.020951
++ "C21" "cD" 0 1 131075 50 6 -0.154621
++ "H211" "hL" 0 1 131075 51 1 0.036274
++ "H212" "hL" 0 1 131075 52 1 0.036274
++ "H213" "hL" 0 1 131075 53 1 0.036274
++ "C22" "cD" 0 1 131075 54 6 -0.039033
++ "H221" "hL" 0 1 131075 55 1 0.008359
++ "H222" "hL" 0 1 131075 56 1 0.008359
++ "C23" "cD" 0 1 131075 57 6 -0.028460
++ "H231" "hL" 0 1 131075 58 1 0.015742
++ "H232" "hL" 0 1 131075 59 1 0.015742
++ "C24" "cD" 0 1 131075 60 6 -0.125596
++ "H241" "hL" 0 1 131075 61 1 0.040110
++ "H242" "hL" 0 1 131075 62 1 0.040110
++ "C25" "cD" 0 1 131075 63 6 0.212446
++ "H251" "hL" 0 1 131075 64 1 -0.002466
++ "C26" "cD" 0 1 131075 65 6 -0.257776
++ "H261" "hL" 0 1 131075 66 1 0.057982
++ "H262" "hL" 0 1 131075 67 1 0.057982
++ "H263" "hL" 0 1 131075 68 1 0.057982
++ "C27" "cD" 0 1 131075 69 6 -0.257776
++ "H271" "hL" 0 1 131075 70 1 0.057982
++ "H272" "hL" 0 1 131075 71 1 0.057982
++ "H273" "hL" 0 1 131075 72 1 0.057982
++ "O1" "oH" 0 1 131073 73 8 -0.703022
++ "HO1" "hO" 0 1 131073 74 1 0.414804
++!entry.CHL.unit.atomspertinfo table  str pname  str ptype  int ptypex  int pelmnt  dbl pchg
++ "C1" "cA" 0 -1 0.0
++ "H11" "hA" 0 -1 0.0
++ "H12" "hA" 0 -1 0.0
++ "C2" "cA" 0 -1 0.0
++ "H21" "hA" 0 -1 0.0
++ "H22" "hA" 0 -1 0.0
++ "C3" "cA" 0 -1 0.0
++ "H31" "hE" 0 -1 0.0
++ "C4" "cA" 0 -1 0.0
++ "H41" "hA" 0 -1 0.0
++ "H42" "hA" 0 -1 0.0
++ "C5" "cB" 0 -1 0.0
++ "C6" "cB" 0 -1 0.0
++ "H61" "hB" 0 -1 0.0
++ "C7" "cA" 0 -1 0.0
++ "H71" "hA" 0 -1 0.0
++ "H72" "hA" 0 -1 0.0
++ "C8" "cA" 0 -1 0.0
++ "H81" "hA" 0 -1 0.0
++ "C9" "cA" 0 -1 0.0
++ "H91" "hA" 0 -1 0.0
++ "C10" "cA" 0 -1 0.0
++ "C11" "cA" 0 -1 0.0
++ "H111" "hA" 0 -1 0.0
++ "H112" "hA" 0 -1 0.0
++ "C12" "cA" 0 -1 0.0
++ "H121" "hA" 0 -1 0.0
++ "H122" "hA" 0 -1 0.0
++ "C13" "cA" 0 -1 0.0
++ "C14" "cA" 0 -1 0.0
++ "H141" "hA" 0 -1 0.0
++ "C15" "cA" 0 -1 0.0
++ "H151" "hA" 0 -1 0.0
++ "H152" "hA" 0 -1 0.0
++ "C16" "cA" 0 -1 0.0
++ "H161" "hA" 0 -1 0.0
++ "H162" "hA" 0 -1 0.0
++ "C17" "cA" 0 -1 0.0
++ "H171" "hA" 0 -1 0.0
++ "C18" "cA" 0 -1 0.0
++ "H181" "hA" 0 -1 0.0
++ "H182" "hA" 0 -1 0.0
++ "H183" "hA" 0 -1 0.0
++ "C19" "cA" 0 -1 0.0
++ "H191" "hA" 0 -1 0.0
++ "H192" "hA" 0 -1 0.0
++ "H193" "hA" 0 -1 0.0
++ "C20" "cA" 0 -1 0.0
++ "H201" "hA" 0 -1 0.0
++ "C21" "cA" 0 -1 0.0
++ "H211" "hA" 0 -1 0.0
++ "H212" "hA" 0 -1 0.0
++ "H213" "hA" 0 -1 0.0
++ "C22" "cA" 0 -1 0.0
++ "H221" "hA" 0 -1 0.0
++ "H222" "hA" 0 -1 0.0
++ "C23" "cA" 0 -1 0.0
++ "H231" "hA" 0 -1 0.0
++ "H232" "hA" 0 -1 0.0
++ "C24" "cA" 0 -1 0.0
++ "H241" "hA" 0 -1 0.0
++ "H242" "hA" 0 -1 0.0
++ "C25" "cA" 0 -1 0.0
++ "H251" "hA" 0 -1 0.0
++ "C26" "cA" 0 -1 0.0
++ "H261" "hA" 0 -1 0.0
++ "H262" "hA" 0 -1 0.0
++ "H263" "hA" 0 -1 0.0
++ "C27" "cA" 0 -1 0.0
++ "H271" "hA" 0 -1 0.0
++ "H272" "hA" 0 -1 0.0
++ "H273" "hA" 0 -1 0.0
++ "O1" "oH" 0 -1 0.0
++ "HO1" "hO" 0 -1 0.0
++!entry.CHL.unit.boundbox array dbl
++ -1.000000
++ 0.0
++ 0.0
++ 0.0
++ 0.0
++!entry.CHL.unit.childsequence single int
++ 2
++!entry.CHL.unit.connect array int
++ 0
++ 0
++!entry.CHL.unit.connectivity table  int atom1x  int atom2x  int flags
++ 1 2 1
++ 1 3 1
++ 1 4 1
++ 1 22 1
++ 4 5 1
++ 4 6 1
++ 4 7 1
++ 7 8 1
++ 7 9 1
++ 7 73 1
++ 9 10 1
++ 9 11 1
++ 9 12 1
++ 12 13 2
++ 12 22 1
++ 13 14 1
++ 13 15 1
++ 15 16 1
++ 15 17 1
++ 15 18 1
++ 18 19 1
++ 18 20 1
++ 18 30 1
++ 20 21 1
++ 20 22 1
++ 20 23 1
++ 22 44 1
++ 23 24 1
++ 23 25 1
++ 23 26 1
++ 26 27 1
++ 26 28 1
++ 26 29 1
++ 29 30 1
++ 29 38 1
++ 29 40 1
++ 30 31 1
++ 30 32 1
++ 32 33 1
++ 32 34 1
++ 32 35 1
++ 35 36 1
++ 35 37 1
++ 35 38 1
++ 38 39 1
++ 38 48 1
++ 40 41 1
++ 40 42 1
++ 40 43 1
++ 44 45 1
++ 44 46 1
++ 44 47 1
++ 48 49 1
++ 48 50 1
++ 48 54 1
++ 50 51 1
++ 50 52 1
++ 50 53 1
++ 54 55 1
++ 54 56 1
++ 54 57 1
++ 57 58 1
++ 57 59 1
++ 57 60 1
++ 60 61 1
++ 60 62 1
++ 60 63 1
++ 63 64 1
++ 63 65 1
++ 63 69 1
++ 65 66 1
++ 65 67 1
++ 65 68 1
++ 69 70 1
++ 69 71 1
++ 69 72 1
++ 73 74 1
++!entry.CHL.unit.hierarchy table  str abovetype  int abovex  str belowtype  int belowx
++ "U" 0 "R" 1
++ "R" 1 "A" 1
++ "R" 1 "A" 2
++ "R" 1 "A" 3
++ "R" 1 "A" 4
++ "R" 1 "A" 5
++ "R" 1 "A" 6
++ "R" 1 "A" 7
++ "R" 1 "A" 8
++ "R" 1 "A" 9
++ "R" 1 "A" 10
++ "R" 1 "A" 11
++ "R" 1 "A" 12
++ "R" 1 "A" 13
++ "R" 1 "A" 14
++ "R" 1 "A" 15
++ "R" 1 "A" 16
++ "R" 1 "A" 17
++ "R" 1 "A" 18
++ "R" 1 "A" 19
++ "R" 1 "A" 20
++ "R" 1 "A" 21
++ "R" 1 "A" 22
++ "R" 1 "A" 23
++ "R" 1 "A" 24
++ "R" 1 "A" 25
++ "R" 1 "A" 26
++ "R" 1 "A" 27
++ "R" 1 "A" 28
++ "R" 1 "A" 29
++ "R" 1 "A" 30
++ "R" 1 "A" 31
++ "R" 1 "A" 32
++ "R" 1 "A" 33
++ "R" 1 "A" 34
++ "R" 1 "A" 35
++ "R" 1 "A" 36
++ "R" 1 "A" 37
++ "R" 1 "A" 38
++ "R" 1 "A" 39
++ "R" 1 "A" 40
++ "R" 1 "A" 41
++ "R" 1 "A" 42
++ "R" 1 "A" 43
++ "R" 1 "A" 44
++ "R" 1 "A" 45
++ "R" 1 "A" 46
++ "R" 1 "A" 47
++ "R" 1 "A" 48
++ "R" 1 "A" 49
++ "R" 1 "A" 50
++ "R" 1 "A" 51
++ "R" 1 "A" 52
++ "R" 1 "A" 53
++ "R" 1 "A" 54
++ "R" 1 "A" 55
++ "R" 1 "A" 56
++ "R" 1 "A" 57
++ "R" 1 "A" 58
++ "R" 1 "A" 59
++ "R" 1 "A" 60
++ "R" 1 "A" 61
++ "R" 1 "A" 62
++ "R" 1 "A" 63
++ "R" 1 "A" 64
++ "R" 1 "A" 65
++ "R" 1 "A" 66
++ "R" 1 "A" 67
++ "R" 1 "A" 68
++ "R" 1 "A" 69
++ "R" 1 "A" 70
++ "R" 1 "A" 71
++ "R" 1 "A" 72
++ "R" 1 "A" 73
++ "R" 1 "A" 74
++!entry.CHL.unit.name single str
++ "CHL"
++!entry.CHL.unit.positions table  dbl x  dbl y  dbl z
++ 4.697000 -1.469000 -0.739000
++ 4.428000 -1.214000 -1.762000
++ 4.303000 -2.462000 -0.556000
++ 6.224000 -1.517000 -0.642000
++ 6.547000 -1.874000 0.331000
++ 6.617000 -2.214000 -1.376000
++ 6.830000 -0.145000 -0.877000
++ 6.590000 0.176000 -1.891000
++ 6.246000 0.863000 0.111000
++ 6.601000 0.589000 1.102000
++ 6.636000 1.856000 -0.095000
++ 4.731000 0.895000 0.070000
++ 4.091000 2.041000 -0.088000
++ 4.668000 2.946000 -0.204000
++ 2.599000 2.206000 -0.119000
++ 2.323000 3.070000 0.480000
++ 2.290000 2.443000 -1.137000
++ 1.853000 0.964000 0.375000
++ 1.922000 0.946000 1.460000
++ 2.514000 -0.306000 -0.204000
++ 2.518000 -0.165000 -1.285000
++ 4.012000 -0.452000 0.214000
++ 1.671000 -1.566000 0.076000
++ 2.085000 -2.410000 -0.467000
++ 1.730000 -1.829000 1.125000
++ 0.190000 -1.429000 -0.312000
++ 0.108000 -1.322000 -1.392000
++ -0.312000 -2.355000 -0.056000
++ -0.469000 -0.212000 0.358000
++ 0.381000 1.015000 -0.041000
++ 0.381000 1.020000 -1.132000
++ -0.462000 2.215000 0.391000
++ -0.304000 2.443000 1.442000
++ -0.217000 3.115000 -0.163000
++ -1.913000 1.751000 0.131000
++ -2.537000 1.930000 1.001000
++ -2.357000 2.309000 -0.684000
++ -1.859000 0.228000 -0.203000
++ -1.794000 0.127000 -1.286000
++ -0.546000 -0.407000 1.886000
++ -1.062000 0.412000 2.374000
++ 0.431000 -0.485000 2.344000
++ -1.086000 -1.316000 2.130000
++ 4.156000 -0.937000 1.675000
++ 3.579000 -0.319000 2.354000
++ 5.185000 -0.898000 2.008000
++ 3.826000 -1.963000 1.788000
++ -3.141000 -0.519000 0.237000
++ -3.267000 -0.372000 1.309000
++ -3.080000 -2.029000 -0.029000
++ -2.330000 -2.520000 0.577000
++ -2.851000 -2.232000 -1.072000
++ -4.025000 -2.508000 0.198000
++ -4.375000 0.093000 -0.461000
++ -4.324000 1.175000 -0.403000
++ -4.337000 -0.153000 -1.522000
++ -5.732000 -0.335000 0.111000
++ -5.862000 -1.406000 0.010000
++ -5.752000 -0.121000 1.179000
++ -6.898000 0.389000 -0.569000
++ -6.718000 1.461000 -0.516000
++ -6.910000 0.137000 -1.629000
++ -8.286000 0.104000 0.028000
++ -8.244000 0.333000 1.092000
++ -8.705000 -1.362000 -0.122000
++ -8.034000 -2.035000 0.400000
++ -8.723000 -1.655000 -1.169000
++ -9.702000 -1.521000 0.280000
++ -9.336000 1.023000 -0.605000
++ -9.079000 2.069000 -0.470000
++ -10.316000 0.862000 -0.166000
++ -9.420000 0.839000 -1.674000
++ 8.224000 -0.262000 -0.734000
++ 8.633000 0.570000 -0.924000
++!entry.CHL.unit.residueconnect table  int c1x  int c2x  int c3x  int c4x  int c5x  int c6x
++ 0 0 0 0 0 0
++!entry.CHL.unit.residues table  str name  int seq  int childseq  int startatomx  str restype  int imagingx
++ "CHL" 1 75 1 "?" 0
++!entry.CHL.unit.residuesPdbSequenceNumber array int
++ 0
++!entry.CHL.unit.solventcap array dbl
++ -1.000000
++ 0.0
++ 0.0
++ 0.0
++ 0.0
++!entry.CHL.unit.velocities table  dbl x  dbl y  dbl z
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
++ 0.0 0.0 0.0
+ !entry.LA.unit.atoms table  str name  str type  int typex  int resx  int flags  int seq  int elmnt  dbl chg
+  "H12T" "hL" 0 1 131073 1 1 0.025809
+  "C112" "cD" 0 1 131073 2 6 -0.118534
+diff --git dat/leap/parm/lipid11.dat dat/leap/parm/lipid11.dat
+index 0f8d83e..9c25f35 100644
+--- dat/leap/parm/lipid11.dat
++++ dat/leap/parm/lipid11.dat
+@@ -1,4 +1,4 @@
+-AMBER Lipid 2011 Force Field (v1.0), A.Skjevik, B. Madej, K.Teigen & R.C.Walker
++** Warning: Lipid11 is deprecated. Please refer to Amber Lipid14 for more information ** AMBER Lipid 2011 Force Field (v1.0), A.Skjevik, B. Madej, K.Teigen & R.C.Walker
+ cC 12.01                             carbonyl sp2 carbon (GAFF c -)
+ cB 12.01                             aliphatic sp2 carbon (GAFF c2-)  
+ cA 12.01                             sp3 carbon (GAFF c3-)
+diff --git dat/leap/parm/lipid14.dat dat/leap/parm/lipid14.dat
+index 46da737..f102976 100644
+--- dat/leap/parm/lipid14.dat
++++ dat/leap/parm/lipid14.dat
+@@ -3,59 +3,81 @@ cA 12.01                             sp3 carbon (GAFF c3-head,glycerol)
+ cB 12.01                             aliphatic sp2 carbon (GAFF c2-tail)  
+ cC 12.01                             carbonyl sp2 carbon (GAFF c -head,glycerol)
+ cD 12.010                            sp3 carbon (GAFFlipid a3-tail)
++hA 1.008                             H bonded to aliphatic carbon without electrwd. group (GAFF hc-)
++hB 1.008                             H bonded to aromatic carbon (GAFF ha-)
++hE 1.008                             H bonded to aliphatic carbon with 1 electrwd. group (GAFF h1-)
++hL 1.008                             H bonded to aliphatic carbon without electrwd. group (GAFFlipid hl-)
++hN 1.008                             H bonded to nitrogen (GAFF hn-)
++hO 1.008                             H in Hydroxyl group (GAFF ho-)
++hX 1.008                             H bonded to C next to positively charged group (GAFF hx-)
++nA 14.01                             sp3 N with four connected atoms (GAFF n4-)
+ oC 16.00                             sp2 oxygen with one connected atom (e.g C=O, COO-) (GAFF o -)
+-oS 16.00                             sp3 oxygen in ethers and esters (GAFF os-)
++oH 16.00                             sp3 oxygen in hydroxyl group (GAFF oh-)
+ oP 16.00                             sp2 oxygen with one connected atom (e.g P-O) in phosphate group (GAFF o -)
++oS 16.00                             sp3 oxygen in ethers and esters (GAFF os-)
+ oT 16.00                             sp3 oxygen bonded to carbon in phosphate group (GAFF os-)
+-nA 14.01                             sp3 N with four connected atoms (GAFF n4-)
+ pA 30.97                             phosphorus with four connected atoms, such as O=P(OH)3 (GAFF p5-)
+-hE 1.008                             H bonded to aliphatic carbon with 1 electrwd. group (GAFF h1-)
+-hX 1.008                             H bonded to C next to positively charged group (GAFF hx-)
+-hB 1.008                             H bonded to aromatic carbon (GAFF ha-)
+-hN 1.008                             H bonded to nitrogen (GAFF hn-)
+-hL 1.008                             H bonded to aliphatic carbon without electrwd. group (GAFFlipid hl-)
+ 
+ cA cB cC cD oC oS oP oT nA pA hE hX hB hN hL
+ cA-cA  303.1    1.5350       Lipid11  v1.0 (GAFF c3-c3)
++cA-cB  328.3    1.5080       Lipid11  v1.0 (GAFF c3-c2)
++cA-cD  303.1    1.5350       Lipid14  v2.14(GAFF c3-c3)
++cA-hA  337.3    1.0920       Lipid11  v1.0 (GAFF c3-hc)
+ cA-hE  335.9    1.0930       Lipid11  v1.0 (GAFF c3-h1)
+ cA-hX  338.7    1.0910       Lipid11  v1.0 (GAFF c3-hx)
+ cA-nA  293.6    1.4990       Lipid11  v1.0 (GAFF c3-n4)
++cA-oH  314.1    1.4260       Lipid11  v1.0 (GAFF c3-oh)
+ cA-oS  301.5    1.4390       Lipid11  v1.0 (GAFF c3-os)
+ cA-oT  301.5    1.4390       Lipid11  v1.0 (GAFF c3-os)
+ cB-cB  589.7    1.3240       Lipid11  v1.0 (GAFF c2-c2)
++cB-cD  328.3    1.5080       Lipid14  v2.0 (GAFF c2-c3)
+ cB-hB  344.3    1.0870       Lipid11  v1.0 (GAFF c2-ha)
++cC-cD  328.3    1.5080       Lipid14  v2.0 (GAFF c -c3)
+ cC-oC  648.0    1.2140       Lipid11  v1.0 (GAFF c -o )
+ cC-oS  411.3    1.3430       Lipid11  v1.0 (GAFF c -os)
+-cD-cB  328.3    1.5080       Lipid14  v2.0 (GAFF c3-c2)
+-cD-cC  328.3    1.5080       Lipid14  v2.0 (GAFF c3-c )
+ cD-cD  303.1    1.5350       Lipid14  v2.0 (GAFF c3-c3)
+ cD-hL  337.3    1.0920       Lipid14  v2.0 (GAFF c3-hc)
+ hN-nA  369.0    1.0330       Lipid11  v1.0 (GAFF hn-n4)
++hO-oH  369.6    0.9740       Lipid11  v1.0 (GAFF ho-oh)
+ oP-pA  487.7    1.4810       Lipid11  v1.0 (GAFF o -p5)
+ oT-pA  342.5    1.6020       Lipid11  v1.0 (GAFF os-p5)
+ 
+ cA-cA-cA   63.210     110.630   Lipid11  v1.0 (GAFF c3-c3-c3)
++cA-cA-cB   63.530     111.440   Lipid11  v1.0 (GAFF c3-c3-c2)
++cA-cA-cD   63.210     110.630   Lipid14  v2.14(GAFF c3-c3-c3)
++cA-cA-hA   46.370     110.050   Lipid11  v1.0 (GAFF c3-c3-hc)
+ cA-cA-hE   46.360     110.070   Lipid11  v1.0 (GAFF c3-c3-h1)
+ cA-cA-hX   46.020     111.740   Lipid11  v1.0 (GAFF c3-c3-hx)
+ cA-cA-nA   64.450     114.320   Lipid11  v1.0 (GAFF c3-c3-n4)
++cA-cA-oH   67.720     109.430   Lipid11  v1.0 (GAFF c3-c3-oh)
+ cA-cA-oS   67.780     108.420   Lipid11  v1.0 (GAFF c3-c3-os)
+ cA-cA-oT   67.780     108.420   Lipid11  v1.0 (GAFF c3-c3-os)
++cA-cB-cA   62.700     116.520   Lipid11  v1.0 (GAFF c3-c2-c3)
++cA-cB-cB   64.330     123.420   Lipid11  v1.0 (GAFF c3-c2-c2)
++cA-cB-hB   45.660     117.300   Lipid11  v1.0 (GAFF c3-c2-ha)
++cA-cD-cD   63.210     110.630   Lipid14  v2.14(GAFF c3-c3-c3)
++cA-cD-hL   46.370     110.050   Lipid14  v2.14(GAFF c3-c3-hc)
+ cA-nA-cA   62.840     110.640   Lipid11  v1.0 (GAFF c3-n4-c3)
+ cA-nA-hN   46.190     110.110   Lipid11  v1.0 (GAFF c3-n4-hn)
++cA-oH-hO   47.090     108.160   Lipid11  v1.0 (GAFF c3-oh-ho)
+ cA-oS-cC   63.630     115.140   Lipid11  v1.0 (GAFF c3-os-c ) 
+ cA-oT-pA   78.480     118.000   Lipid11  v1.0 (GAFF c3-os-p5)
++cB-cA-hA   47.030     110.490   Lipid11  v1.0 (GAFF c2-c3-hc)
++cB-cB-cD   64.330     123.420   Lipid14  v2.0 (GAFF c2-c2-c3)
+ cB-cB-hB   50.040     120.940   Lipid11  v1.0 (GAFF c2-c2-ha)
++cB-cD-cD   63.530     111.440   Lipid14  v2.0 (GAFF c2-c3-c3)
+ cB-cD-hL   47.030     110.490   Lipid14  v2.0 (GAFF c2-c3-hc)
++cC-cD-cD   63.790     110.530   Lipid14  v2.0 (GAFF c -c3-c3)
+ cC-cD-hL   47.200     109.680   Lipid14  v2.0 (GAFF c -c3-hc)
+-cD-cB-cB   64.330     123.420   Lipid14  v2.0 (GAFF c3-c2-c2)
++cD-cA-hA   46.370     110.050   Lipid14  v2.14(GAFF c3-c3-hc)
+ cD-cB-hB   45.660     117.300   Lipid14  v2.0 (GAFF c3-c2-ha)
+ cD-cC-oC   68.030     123.110   Lipid14  v2.0 (GAFF c3-c -o )
+ cD-cC-oS   69.260     111.960   Lipid14  v2.0 (GAFF c3-c -os)
+-cD-cD-cB   63.530     111.440   Lipid14  v2.0 (GAFF c3-c3-c2)
+-cD-cD-cC   63.790     110.530   Lipid14  v2.0 (GAFF c3-c3-c )
+ cD-cD-cD   63.210     110.630   Lipid14  v2.0 (GAFF c3-c3-c3)
+ cD-cD-hL   46.370     110.050   Lipid14  v2.0 (GAFF c3-c3-hc)
++hA-cA-hA   39.430     108.350   Lipid11  v1.0 (GAFF hc-c3-hc)
+ hE-cA-hE   39.180     109.550   Lipid11  v1.0 (GAFF h1-c3-h1)
++hE-cA-oH   50.970     109.880   Lipid11  v1.0 (GAFF ha-c3-oh)
+ hE-cA-oS   50.840     108.820   Lipid11  v1.0 (GAFF h1-c3-os)
+ hE-cA-oT   50.840     108.820   Lipid11  v1.0 (GAFF h1-c3-os)
+ hL-cD-hL   39.430     108.350   Lipid14  v2.0 (GAFF hc-c3-hc)
+@@ -67,86 +89,133 @@ oP-pA-oP   46.010     115.800   Lipid11  v1.0 (GAFF o -p5-o )
+ oP-pA-oT   44.010     116.090   Lipid11  v1.0 (GAFF o -p5-os)
+ oT-pA-oT   45.370     101.770   Lipid11  v1.0 (GAFF os-p5-os)
+ 
+-cA-cA-cA-hE   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-cA-cA-cA-oS   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-cA-cA-cA-oT   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-cA-cA-nA-cA   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-n4-X )
+-cA-cA-nA-hN   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-n4-X )
+-cA-cA-oT-pA   1    0.3833        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-os-X )
+-cA-nA-cA-hX   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-n4-X )
+-cA-oS-cC-oS   1    2.700       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c -os-X )
+-cA-oT-pA-oP   1    0.800         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -os-p5-X )
+-cA-oT-pA-oP   1    0.800         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -os-p5-X )
+-cA-oT-pA-oT   1    0.25          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF c3-os-p5-os)
+-cA-oT-pA-oT   1    1.20          0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF c3-os-p5-os)
+-cB-cB-cD-cD   1    0.3464        0.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cB-cD-cD   1   -0.5577        0.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cB-cD-cD   1   -0.2920        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cB-cD-cD   1   -0.0943        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cB-cD-cD   1    0.0226        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cD-cD-cD   1    0.0251      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cD-cD-cD   1    0.0054      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cD-cD-cD   1    0.2007        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cD-cD-cD   1    0.2103        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cD-cD-cD   1    0.0811        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cB-cD-cD-hL   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF X -c3-c3-X )
+-cC-cD-cD-hL   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF X -c3-c3-X )
+-cC-oS-cA-cA   1    0.383         0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF c3-c3-os-c )
+-cC-oS-cA-cA   1    0.80        180.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF c3-c3-os-c )
+-cC-oS-cA-hE   1    0.3833        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-os-X )
+-cD-cB-cB-cD   1    0.3073      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cB-cB-cD   1    4.0051      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cB-cB-cD   1    0.1990        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cB-cB-cD   1    0.3242        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cB-cB-cD   1   -0.0415        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cB-cB-hB   1    6.650       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF X -c2-c2-X )
+-cD-cC-oS-cA   1    2.700       180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c -os-X )
+-cD-cD-cC-oC   1   -0.9110      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oC   1    0.7382      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oC   1    0.3290        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oC   1   -0.5864        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oC   1    0.1333        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oS   1   -0.1226      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oS   1   -0.2054      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oS   1    0.1802        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oS   1    0.5107        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cC-oS   1    0.1355        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cD-cC   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF )
+-cD-cD-cD-cD   1    0.3112      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cD-cD   1   -0.1233      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cD-cD   1    0.1149        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cD-cD   1   -0.2199        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cD-cD   1    0.2170        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.10 (paramfit)
+-cD-cD-cD-hL   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF c3-c3-c3-hc)
+-hB-cB-cB-hB   1    6.650       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c2-c2-X )
+-hE-cA-cA-hE   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-hE-cA-cA-nA   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-hE-cA-cA-hX   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-hE-cA-cA-oS   1    0.00          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF h1-c3-c3-os)
+-hE-cA-cA-oS   1    0.25          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF h1-c3-c3-os)
+-hE-cA-cA-oT   1    0.00          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF h1-c3-c3-os)
+-hE-cA-cA-oT   1    0.25          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF h1-c3-c3-os)
+-hE-cA-oT-pA   1    0.3833        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-os-X )
+-hB-cB-cD-cD   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF X -c3-c2-X )
+-hB-cB-cD-hL   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF X -c3-c2-X )
+-hL-cD-cB-cB   1    0.38        180.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF hc-c3-c2-c2)
+-hL-cD-cB-cB   1    1.15          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF hc-c3-c2-c2)
+-hL-cD-cC-oC   1    0.80          0.0            -1.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF hc-c3-c -o )
+-hL-cD-cC-oC   1    0.08        180.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF hc-c3-c -o )
+-hL-cD-cC-oS   1    0.000       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF X -c -c3-X )
+-hL-cD-cD-hL   1    0.15          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14  v2.0 (GAFF hc-c3-c3-hc)
+-hN-nA-cA-hX   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-n4-X )
+-hX-cA-cA-oT   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-nA-cA-cA-oT   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF X -c3-c3-X )
+-cA-oS-cC-oC   1    2.70        180.0            -2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF c3-os-c -o )
+-cA-oS-cC-oC   1    1.40        180.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF c3-os-c -o )
+-oS-cA-cA-oS   1    0.144         0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF os-c3-c3-os)
+-oS-cA-cA-oS   1    1.175         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF os-c3-c3-os)
+-oT-cA-cA-oS   1    0.144         0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF os-c3-c3-os)
+-oT-cA-cA-oS   1    1.175         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11  v1.0 (GAFF os-c3-c3-os)
+-
++cA-cA-cA-cA   1    0.18          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-c3-c3)
++cA-cA-cA-cA   1    0.25        180.0            -2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-c3-c3)
++cA-cA-cA-cA   1    0.20        180.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-c3-c3)
++cA-cA-cA-cB   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cA-cA-cA-cD   1    0.3112      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cA-cD   1   -0.1233      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cA-cD   1    0.1149        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cA-cD   1   -0.2199        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cA-cD   1    0.2170        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cA-hA   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-c3-hc)
++cA-cA-cA-hE   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cA-cA-cA-oH   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )    
++cA-cA-cA-oS   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cA-cA-cA-oT   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cA-cA-cB-cA   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c2-X )
++cA-cA-cB-cB   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c2-X )
++cA-cA-cB-hB   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c2-X )
++cA-cA-cD-cD   1    0.3112      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cD-cD   1   -0.1233      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cD-cD   1    0.1149        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cD-cD   1   -0.2199        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cD-cD   1    0.2170        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cA-cD-hL   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(GAFF c3-c3-c3-hc)
++cA-cA-nA-cA   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-n4-X )
++cA-cA-nA-hN   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-n4-X )
++cA-cA-oH-hO   1    0.16          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-oh-ho)
++cA-cA-oH-hO   1    0.25          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-oh-ho)
++cA-cA-oS-cC   1    0.383         0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-os-c )
++cA-cA-oS-cC   1    0.80        180.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c3-os-c )
++cA-cA-oT-pA   1    0.3833        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-os-X )
++cA-cB-cA-hA   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c2-X )
++cA-cB-cB-cA   1    6.65        180.0            -2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c2-c2-c3)
++cA-cB-cB-cA   1    1.90        180.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-c2-c2-c3)
++cA-cB-cB-hB   1    6.650       180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c2-c2-X )
++cA-cD-cD-cD   1    0.3112      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cD-cD-cD   1   -0.1233      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cD-cD-cD   1    0.1149        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cD-cD-cD   1   -0.2199        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cD-cD-cD   1    0.2170        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(Lipid14 cD-cD-cD-cD)
++cA-cD-cD-hL   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(GAFF c3-c3-c3-hc)
++cA-nA-cA-hX   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-n4-X )
++cA-oS-cC-cD   1    2.700       180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -os-c -X )
++cA-oS-cC-oC   1    2.70        180.0            -2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-os-c -o )
++cA-oS-cC-oC   1    1.40        180.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-os-c -o )
++cA-oS-cC-oS   1    2.700       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c -os-X )
++cA-oT-pA-oP   1    0.800         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -os-p5-X )
++cA-oT-pA-oT   1    0.25          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-os-p5-os)
++cA-oT-pA-oT   1    1.20          0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF c3-os-p5-os)
++cB-cA-cA-hA   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cB-cA-cA-hE   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cB-cA-cA-oH   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cB-cB-cA-hA   1    0.38        180.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF hc-c3-c2-c2)
++cB-cB-cA-hA   1    1.15          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF hc-c3-c2-c2)
++cB-cB-cD-cD   1    0.3464        0.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cB-cD-cD   1   -0.5577        0.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cB-cD-cD   1   -0.2920        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cB-cD-cD   1   -0.0943        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cB-cD-cD   1    0.0226        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cB-cD-hL   1    0.38        180.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF c2-c2-c3-hc)
++cB-cB-cD-hL   1    1.15          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF c2-c2-c3-hc)
++cB-cD-cD-cD   1    0.0251      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cD-cD-cD   1    0.0054      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cD-cD-cD   1    0.2007        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cD-cD-cD   1    0.2103        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cD-cD-cD   1    0.0811        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cB-cD-cD-hL   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF X -c3-c3-X )
++cC-cD-cD-cD   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++cC-cD-cD-hL   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF X -c3-c3-X )
++cC-oS-cA-hE   1    0.3833        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-os-X )
++cD-cA-cA-hA   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(GAFF c3-c3-c3-hc)
++cD-cB-cB-cD   1    0.3073      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cB-cB-cD   1    4.0051      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cB-cB-cD   1    0.1990        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cB-cB-cD   1    0.3242        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cB-cB-cD   1   -0.0415        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cB-cB-hB   1    6.650       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF X -c2-c2-X )
++cD-cD-cA-hA   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(GAFF c3-c3-c3-hc)
++cD-cD-cB-hB   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF X -c3-c2-X )
++cD-cD-cC-oC   1   -0.9110      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oC   1    0.7382      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oC   1    0.3290        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oC   1   -0.5864        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oC   1    0.1333        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oS   1   -0.1226      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oS   1   -0.2054      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oS   1    0.1802        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oS   1    0.5107        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cC-oS   1    0.1355        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cD-cD   1    0.3112      180.000           1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cD-cD   1   -0.1233      180.000           2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cD-cD   1    0.1149        0.000           3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cD-cD   1   -0.2199        0.000           4.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cD-cD   1    0.2170        0.000           5.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.10 (paramfit)
++cD-cD-cD-hL   1    0.16          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF c3-c3-c3-hc)
++hA-cA-cA-hA   1    0.15          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF hc-c3-c3-hc)
++hA-cA-cA-hE   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++hA-cA-cA-oH   1    0.00          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF hc-c3-c3-oh)
++hA-cA-cA-oH   1    0.25          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF hc-c3-c3-oh)
++hA-cA-cB-hB   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c2-X )
++hA-cA-cD-hL   1    0.15          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.14(GAFF hc-c3-c3-hc)
++hB-cB-cB-hB   1    6.650       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c2-c2-X )
++hB-cB-cD-hL   1    0.000         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF X -c3-c2-X )
++hE-cA-cA-hE   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++hE-cA-cA-hX   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++hE-cA-cA-nA   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++hE-cA-cA-oS   1    0.00          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF h1-c3-c3-os)
++hE-cA-cA-oS   1    0.25          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF h1-c3-c3-os)
++hE-cA-cA-oT   1    0.00          0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF h1-c3-c3-os)
++hE-cA-cA-oT   1    0.25          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF h1-c3-c3-os)
++hE-cA-oH-hO   1    0.500         0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-oh-X )
++hE-cA-oT-pA   1    0.3833        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-os-X )
++hL-cD-cC-oC   1    0.08        180.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF hc-c3-c -o )
++hL-cD-cC-oC   1    0.80          0.0             1.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF hc-c3-c -o )
++hL-cD-cC-oS   1    0.000       180.0             2.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF X -c -c3-X )
++hL-cD-cD-hL   1    0.15          0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid14 v2.0 (GAFF hc-c3-c3-hc)
++hN-nA-cA-hX   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-n4-X )
++hX-cA-cA-oT   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++nA-cA-cA-oT   1    0.1556        0.0             3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF X -c3-c3-X )
++oS-cA-cA-oS   1    0.144         0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF os-c3-c3-os)
++oS-cA-cA-oS   1    1.175         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF os-c3-c3-os)
++oS-cA-cA-oT   1    0.144         0.0            -3.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF os-c3-c3-os)
++oS-cA-cA-oT   1    1.175         0.0             2.000     SCEE=1.2 SCNB=2.0 Lipid11 v1.0 (GAFF os-c3-c3-os)
++
++cA-cB-cB-cA         1.1          180.          2.0         Lipid14 CHL (GAFF)
++cB-cA-cB-hB         1.1          180.          2.0         Lipid14 CHL (GAFF)
++cB-cD-cB-hB         1.1          180.0         2.0         Lipid14  v2.0 aliphatic improper (GAFF c2-c3-c2-ha)
+ cD-oC-cC-oS         10.5         180.0         2.0         Lipid14  v2.0 ester improper (GAFF X -X -c -o )
+-cB-cD-cB-hB         1.1          180.0         2.0         Lipid14  v2.0 aliphatic improper (GAFF c2-c3-c2-ha - default)
+ 
+   hw  ow  0000.     0000.                                4.  flag for fast water - Hack for no 10-12 terms
+ 
+@@ -156,17 +225,20 @@ MOD4      RE
+   cB          1.9080  0.0860             Lipid14 v2.10
+   cC          1.9080  0.0700             Lipid14 v2.10
+   cD          1.9080  0.1094             OPLS
++  hA          1.4870  0.0157             OPLS
++  hB          1.2500  0.0070             Lipid14 v2.10
++  hE          1.3870  0.0157             Veenstra et al JCC,8,(1992),963
++  hL          1.4600  0.0100             Lipid14 v2.10
++  hN          0.6000  0.0157             !Ferguson base pair geom.
++  hO          0.0000  0.0000             OPLS Jorgensen, JACS,110,(1988),1657 (RCW Needs fixing give radii)
++  hX          1.1000  0.0157             Veenstra et al JCC,8,(1992),963
++  nA          1.8240  0.1700             OPLS
+   oC          1.6500  0.1400             Lipid14 v2.10
++  oH          1.7210  0.2104             OPLS
++  oP          1.6500  0.1400             Lipid14 v2.10
+   oS          1.6500  0.1200             Lipid14 v2.10
+   oT          1.6500  0.1200             Lipid14 v2.10
+-  oP          1.6500  0.1400             Lipid14 v2.10
+-  nA          1.8240  0.1700             OPLS
+   pA          2.1000  0.2000             JCC,7,(1986),230; 
+-  hE          1.3870  0.0157             Veenstra et al JCC,8,(1992),963
+-  hX          1.1000  0.0157             Veenstra et al JCC,8,(1992),963
+-  hB          1.2500  0.0070             Lipid14 v2.10
+-  hN          0.6000  0.0157            !Ferguson base pair geom.
+-  hL          1.4600  0.0100             Lipid14 v2.10
+ 
+ END
+ 
+@@ -175,7 +247,7 @@ END
+ 
+ *** AMBER Lipid14 Force Field, C. Dickson, B. Madej, A.Skjevik, K. Teigen, I.R. Gould, R.C. Walker ***
+ 
+-Citation is - Released version 2.10: 
++Citation is: 
+ 
+ Dickson, C.J., Madej, B.D., Skjevik, A.A., Betz, R.M., Teigen, K., Gould, I.R., Walker, R.C., "Lipid14: The Amber Lipid Force Field", J. Chem. Theory Comput., 2014, in press, DOI: 10.1021/ct4010307
+ 
+@@ -241,24 +313,31 @@ Version 2.11 (February 2014)
+ Version 2.12 (February 2014)
+ - Replace angle force constants involving phosporus with the correct values from the update GAFF.dat file.
+ 
++Version 2.14 (September 2015)
++- Reorder parameters so they are alphabetical.
++- Add cholesterol parameters
++
+ Atom type mapping
+ -----------------
+ 
+ GAFF     Lipid14    Description
+ ----     -------    -----------
+- c3        cA       sp3 carbon
+- c2        cB       aliphatic sp2 carbon
+  c         cC       carbonyl sp2 carbon
+- o         oC       sp2 oxygen with one connected atom (e.g C=O, COO-)
+- os        oS       sp3 oxygen in ethers and esters
+- n4        nA       sp3 N with four connected atoms 
+- p5        pA       phosphorus with four connected atoms, such as O=P(OH)3
++ c2        cB       aliphatic sp2 carbon
++ c3        cA       sp3 carbon
+  h1        hE       H bonded to aliphatic carbon with 1 electrwd. group
+- hx        hX       H bonded to C next to positively charged group
+  ha        hB       H bonded to aromatic carbon
++ hc        hA       H bonded to aliphatic carbon without electrwd. group
+  hn        hN       H bonded to nitrogen
++ ho        hO       H in Hydroxyl group
++ hx        hX       H bonded to C next to positively charged group
++ n4        nA       sp3 N with four connected atoms 
++ o         oC       sp2 oxygen with one connected atom (e.g C=O, COO-)
+  o         oP       sp2 oxygen with one connected atom (e.g P-O) in phosphate group
++ oh        oH       sp3 oxygen in hydroxyl group
++ os        oS       sp3 oxygen in ethers and esters
+  os        oT       sp3 oxygen bonded to carbon in phosphate group
++ p5        pA       phosphorus with four connected atoms, such as O=P(OH)3
+ 
+ GAFFlipid Lipid14   Description
+ --------- -------   -----------

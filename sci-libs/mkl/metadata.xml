@@ -16,4 +16,7 @@
   <use>
     <flag name="int64">Build the 64 bits integer library</flag>
   </use>
+  <use>
+    <flag name="mic">Install the libraries needed for supporting Intel Many Integrated Core (Xeon Phi)</flag>
+  </use>
 </pkgmetadata>

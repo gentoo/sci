@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -28,5 +28,5 @@ RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]
 	"
 
 src_test() {
-	${PYTHON} -m unittest discover
+	${PYTHON} -m unittest discover || die
 }
