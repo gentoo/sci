@@ -8,7 +8,7 @@ inherit autotools eutils flag-o-matic multilib versionator
 
 MY_PN=${PN}-mesher
 MY_PV=$(get_version_component_range 1-2)
-DESCRIPTION="NETGEN is an automatic 3d tetrahedral mesh generator"
+DESCRIPTION="Automatic 3d tetrahedral mesh generator"
 HOMEPAGE="http://www.hpfem.jku.at/netgen/"
 SRC_URI="mirror://sourceforge/project/${MY_PN}/${MY_PN}/${MY_PV}/${P}.tar.gz"
 
