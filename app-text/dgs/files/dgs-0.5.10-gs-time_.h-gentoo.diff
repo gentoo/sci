@@ -1,5 +1,5 @@
---- gs/time_.h~	Thu Apr  1 07:31:53 1999
-+++ gs/time_.h	Wed Mar 14 17:11:12 2001
+--- a/gs/time_.h	Thu Apr  1 07:31:53 1999
++++ b/gs/time_.h	Wed Mar 14 17:11:12 2001
 @@ -43,9 +43,7 @@
   */
  #ifdef HAVE_SYS_TIME_H
