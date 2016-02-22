@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs flag-o-matic multilib
 
@@ -34,21 +34,21 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${MY_PN}
 
+PATCHES=(
+	"${FILESDIR}"/${P}-impl-dec.patch
+	"${WORKDIR}"/debian/patches/{debian-changes-3.2p1.4-26,display_setting}
+)
+
 src_prepare() {
+	default
+
 	append-flags -m32
 	append-ldflags -m32
-
-	EPATCH_OPTS="-p1"
-
-	epatch \
-		"${FILESDIR}"/${P}-impl-dec.patch \
-		"${WORKDIR}"/debian/patches/{debian-changes-3.2p1.4-26,display_setting}
 
 	# Do not build xgettext and msgfmt since they are provided by the gettext
 	# package. Using the programs provided by xview breaks many packages
 	# including vim, grep and binutils.
-	sed \
-		-e 's/MSG_UTIL = xgettext msgfmt/#MSG_UTIL = xgettext msgfmt/' \
+	sed -e 's/MSG_UTIL = xgettext msgfmt/#MSG_UTIL = xgettext msgfmt/' \
 		-i util/Imakefile || die "gettext sed failed"
 
 	# (#120910) Look for imake in the right place
@@ -57,12 +57,15 @@ src_prepare() {
 	sed -i -e 's:/usr/X11R6:/usr:' config/XView.cf Build-LinuxXView.bash || die
 
 	# Nasty hacks to force CC and CFLAGS
-	sed \
-		-e "s:^\(IMAKEINCLUDE=.*\)\"$:\1 -DCcCmd=$(tc-getCC)\":" \
-		-e "s:usr/lib/X11/config:usr/$(get_libdir)/X11/config:" -i Build-LinuxXView.bash || die
-	sed -e "s:\(.*STD_DEFINES =.*\)$:\1 -D_GNU_SOURCE ${CFLAGS}:" -i config/XView.obj || die
-	sed -e "s:\(.*define LibXViewDefines .*\)$:\1 -D_GNU_SOURCE ${CFLAGS}:" -i config/XView.cf || die
-	sed -e "s:^\(MORECCFLAGS.*\)$:\1 -D_GNU_SOURCE ${CFLAGS}:" -i clients/olvwm-4.1/Imakefile
+	sed -e "s:^\(IMAKEINCLUDE=.*\)\"$:\1 -DCcCmd=$(tc-getCC)\":" \
+		-e "s:usr/lib/X11/config:usr/$(get_libdir)/X11/config:" \
+		-i Build-LinuxXView.bash || die
+	sed -e "s:\(.*STD_DEFINES =.*\)$:\1 -D_GNU_SOURCE ${CFLAGS}:" \
+		-i config/XView.obj || die
+	sed -e "s:\(.*define LibXViewDefines .*\)$:\1 -D_GNU_SOURCE ${CFLAGS}:" \
+		-i config/XView.cf || die
+	sed -e "s:^\(MORECCFLAGS.*\)$:\1 -D_GNU_SOURCE ${CFLAGS}:" \
+		-i clients/olvwm-4.1/Imakefile || die
 	sed -e "s:\(-Wl,-soname\):${LDFLAGS} \1:g" -i config/XView.rules || die
 }
 
@@ -99,12 +102,18 @@ src_install() {
 #		|| die "installing olvwm failed"
 #	cd "${ED}"/usr
 
-	use static-libs || \
-		find "${ED}" -type f -name "*.a" -delete
+	if ! use static-libs; then
+		find "${ED}" -type f -name "*.a" -delete || die
+	fi
 
 	mv "${ED}"/usr/man "${ED}"/usr/share/ || die
 
 	cd "${S}"/doc || die
-	dodoc README xview-info olgx_api.txt olgx_api.ps sel_api.txt dnd_api.txt whats_new.ps
-	rm -rf "${ED}"/usr/X11R6/share/doc/xview "${ED}"/usr/X11R6/share/doc "${ED}"/usr/bin || die
+	dodoc \
+		README xview-info olgx_api.txt olgx_api.ps sel_api.txt \
+		dnd_api.txt whats_new.ps
+	rm -rf \
+		"${ED}"/usr/X11R6/share/doc/xview \
+		"${ED}"/usr/X11R6/share/doc \
+		"${ED}"/usr/bin || die
 }
