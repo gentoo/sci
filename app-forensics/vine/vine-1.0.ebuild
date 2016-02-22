@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs
 
@@ -26,14 +26,13 @@ RDEPEND="${DEPEND}"
 
 MAKEOPTS="${MAKEOPTS} -j1"
 
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-binutils.patch \
-		"${FILESDIR}"/${P}-gcc46.patch \
-		"${FILESDIR}"/${P}-install.patch \
-		"${FILESDIR}"/${P}-ocamlgraph182.patch
-}
+PATCHES=(
+	"${FILESDIR}"/${P}-binutils.patch
+	"${FILESDIR}"/${P}-gcc46.patch
+	"${FILESDIR}"/${P}-install.patch
+	"${FILESDIR}"/${P}-ocamlgraph182.patch
+)
 
 src_compile() {
-	emake CC=$(tc-getCC) CCFLAGS="${CFLAGS} -fpic"
+	emake CC=$(tc-getCC) CCFLAGS="${CFLAGS} -fPIC"
 }

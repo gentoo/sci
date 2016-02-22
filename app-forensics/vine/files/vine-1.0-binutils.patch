@@ -2,8 +2,8 @@ https://groups.google.com/d/msg/bitblaze-users/Zpg7Ddzngns/o7LNnR0qqxwJ
 
 Index: libasmir/src/disasm/asm_program.cpp
 ===================================================================
---- libasmir/src/disasm/asm_program.cpp        (older version)
-+++ libasmir/src/disasm/asm_program.cpp        (fixed version)
+--- a/libasmir/src/disasm/asm_program.cpp        (older version)
++++ b/libasmir/src/disasm/asm_program.cpp        (fixed version)
 @@ -7,6 +7,11 @@
  #include "debug.h"
  #include "asm_program.h"

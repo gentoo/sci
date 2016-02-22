@@ -1,5 +1,5 @@
---- vine-1.0.orig/stp/ocaml/Makefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/stp/ocaml/Makefile	2013-03-14 20:22:49.993194747 -0600
+--- a/stp/ocaml/Makefile	2009-09-24 15:45:57.000000000 -0600
++++ b/stp/ocaml/Makefile	2013-03-14 20:22:49.993194747 -0600
 @@ -14,3 +14,6 @@
  		Makefile
  
@@ -7,8 +7,8 @@
 +
 +install: rawinstall
 +
---- vine-1.0.orig/stp/ocaml/OCamlMakefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/stp/ocaml/OCamlMakefile	2013-03-14 20:20:23.012069386 -0600
+--- a/stp/ocaml/OCamlMakefile	2009-09-24 15:45:57.000000000 -0600
++++ b/stp/ocaml/OCamlMakefile	2013-03-14 20:20:23.012069386 -0600
 @@ -1126,10 +1126,10 @@
  .PHONY: rawinstall
  rawinstall:	all
@@ -23,8 +23,8 @@
  	done
  	$(QUIET)printf "\nInstallation successful.\n"
 
---- vine-1.0.orig/ocaml/Makefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/ocaml/Makefile	2013-03-14 20:22:49.993194747 -0600
+--- a/ocaml/Makefile	2009-09-24 15:45:57.000000000 -0600
++++ b/ocaml/Makefile	2013-03-14 20:22:49.993194747 -0600
 @@ -14,3 +14,6 @@
  
  
@@ -32,8 +32,8 @@
 +
 +install: rawinstall
 +
---- vine-1.0.orig/ocaml/OCamlMakefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/ocaml/OCamlMakefile	2013-03-14 20:20:23.012069386 -0600
+--- a/ocaml/OCamlMakefile	2009-09-24 15:45:57.000000000 -0600
++++ b/ocaml/OCamlMakefile	2013-03-14 20:20:23.012069386 -0600
 @@ -1126,10 +1126,10 @@
  .PHONY: rawinstall
  rawinstall:	all
@@ -47,8 +47,8 @@
  	  fi; \
  	done
  	$(QUIET)printf "\nInstallation successful.\n"
---- vine-1.0.orig/trace/Makefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/trace/Makefile	2013-03-14 20:22:49.993194747 -0600
+--- a/trace/Makefile	2009-09-24 15:45:57.000000000 -0600
++++ b/trace/Makefile	2013-03-14 20:22:49.993194747 -0600
 @@ -14,3 +14,6 @@
  
  
@@ -56,8 +56,8 @@
 +
 +install: rawinstall
 +
---- vine-1.0.orig/trace_utils/Makefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/trace_utils/Makefile	2013-03-16 14:31:46.375690732 -0600
+--- a/trace_utils/Makefile	2009-09-24 15:45:57.000000000 -0600
++++ b/trace_utils/Makefile	2013-03-16 14:31:46.375690732 -0600
 @@ -88,6 +88,8 @@
  #    * subprjs
  
@@ -67,8 +67,8 @@
  
  %:
  	make -f $(OCAMLMAKEFILE) subprojs SUBTARGET=$@
---- vine-1.0.orig/utils/Makefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/utils/Makefile	2013-03-16 14:31:46.375690732 -0600
+--- a/utils/Makefile	2009-09-24 15:45:57.000000000 -0600
++++ b/utils/Makefile	2013-03-16 14:31:46.375690732 -0600
 @@ -88,6 +88,8 @@
  #    * subprjs
  
@@ -78,8 +78,8 @@
  
  %:
  	make -f $(OCAMLMAKEFILE) subprojs SUBTARGET=$@
---- vine-1.0.orig/doc/Makefile	2009-09-24 15:45:57.000000000 -0600
-+++ vine-1.0/doc/Makefile	2013-03-16 14:41:59.182926821 -0600
+--- a/doc/Makefile	2009-09-24 15:45:57.000000000 -0600
++++ b/doc/Makefile	2013-03-16 14:41:59.182926821 -0600
 @@ -17,3 +17,6 @@
  
  clean:

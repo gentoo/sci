@@ -1,7 +1,7 @@
 Index: ocaml/vine_cfg.mli
 ===================================================================
---- ocaml/vine_cfg.mli          (old version)
-+++ ocaml/vine_cfg.mli          (new version)
+--- a/ocaml/vine_cfg.mli          (old version)
++++ b/ocaml/vine_cfg.mli          (new version)
 @@ -86,6 +86,11 @@
      (** [cfg#iter_edges f] calls [f a b] forall [(a,b)] where there is an edge
  vine-1.0-from [a] to [b] in the CFG.  *)
@@ -24,8 +24,8 @@ Index: ocaml/vine_cfg.mli
    val in_degree : t -> vertex -> int
 Index: ocaml/vine_cfg.ml
 ===================================================================
---- ocaml/vine_cfg.ml             (old version)
-+++ ocaml/vine_cfg.ml             (new version)
+--- a/ocaml/vine_cfg.ml             (old version)
++++ b/ocaml/vine_cfg.ml             (new version)
 @@ -115,6 +115,7 @@
    method iter_bb : ('a bb -> unit) -> unit
    method fold_bb : 'b. ('a bb -> 'b -> 'b) -> 'b -> 'b

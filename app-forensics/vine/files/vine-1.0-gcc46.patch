@@ -2,8 +2,8 @@ https://groups.google.com/d/msg/bitblaze-users/sTTPlFEzWo0/0ZjPL0QYC8IJ
 
 Index: libasmir/src/vex/irtoir-i386.cpp
 ===================================================================
---- libasmir/src/vex/irtoir-i386.cpp        (old revision)
-+++ libasmir/src/vex/irtoir-i386.cpp        (new revision)
+--- a/libasmir/src/vex/irtoir-i386.cpp        (old revision)
++++ b/libasmir/src/vex/irtoir-i386.cpp        (new revision)
 @@ -9,6 +9,13 @@
  web site at: http://bitblaze.cs.berkeley.edu/
  */
@@ -20,8 +20,8 @@ Index: libasmir/src/vex/irtoir-i386.cpp
  #include <iostream>
 Index: libasmir/src/vex/irtoir-arm.cpp
 ===================================================================
---- libasmir/src/vex/irtoir-arm.cpp        (old revision)
-+++ libasmir/src/vex/irtoir-arm.cpp        (new revision)
+--- a/libasmir/src/vex/irtoir-arm.cpp        (old revision)
++++ b/libasmir/src/vex/irtoir-arm.cpp        (new revision)
 @@ -9,6 +9,12 @@
  web site at: http://bitblaze.cs.berkeley.edu/
  */
