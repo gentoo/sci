@@ -239,8 +239,6 @@ sci-libs/pagmo:kepler - Automatically generated description for kepler
 sci-libs/pagmo:nlopt - Automatically generated description for nlopt
 sci-libs/parmetis:double-precision - Floating-point operation done as double precision
 sci-libs/parmetis:int64 - Build the 64 bits integer library (needed for > 2^31 vertices)
-sci-libs/pastix:int64 - Build the 64 bits integer library
-sci-libs/pastix:starpu - Build and link with dev-libs/starpu
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
 sci-libs/scikits_image:pyamg - Enable support for algebraic solvers via dev-python/pyamg
 sci-libs/symengine:boost - Add support for boost (dev-libs/boost)
