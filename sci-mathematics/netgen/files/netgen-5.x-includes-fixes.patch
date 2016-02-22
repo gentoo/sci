@@ -1,0 +1,29 @@
+diff -uwrN -x.git netgen-5.3.1/libsrc/include/meshing.hpp netgen/libsrc/include/meshing.hpp
+--- netgen-5.3.1/libsrc/include/meshing.hpp	2016-02-21 20:12:55.885186643 +0100
++++ netgen/libsrc/include/meshing.hpp	2016-02-21 20:09:26.275180871 +0100
+@@ -1 +1 @@
+-#include <../meshing/meshing.hpp>
++#include "../meshing/meshing.hpp"
+diff -uwrN -x.git netgen-5.3.1/libsrc/include/myadt.hpp netgen/libsrc/include/myadt.hpp
+--- netgen-5.3.1/libsrc/include/myadt.hpp	2016-02-21 20:12:55.886186643 +0100
++++ netgen/libsrc/include/myadt.hpp	2016-02-21 20:09:26.275180871 +0100
+@@ -1 +1 @@
+-#include <../general/myadt.hpp>
++#include "../general/myadt.hpp"
+diff -uwrN -x.git netgen-5.3.1/libsrc/include/stlgeom.hpp netgen/libsrc/include/stlgeom.hpp
+--- netgen-5.3.1/libsrc/include/stlgeom.hpp	2016-02-21 20:12:55.886186643 +0100
++++ netgen/libsrc/include/stlgeom.hpp	2016-02-21 20:09:26.275180871 +0100
+@@ -1 +1 @@
+-#include <../stlgeom/stlgeom.hpp>
++#include "../stlgeom/stlgeom.hpp"
+diff -uwrN -x.git netgen-5.3.1/libsrc/meshing/parallelmesh.cpp netgen/libsrc/meshing/parallelmesh.cpp
+--- netgen-5.3.1/libsrc/meshing/parallelmesh.cpp	2016-02-21 20:12:55.888186643 +0100
++++ netgen/libsrc/meshing/parallelmesh.cpp	2016-02-21 20:09:26.276180871 +0100
+@@ -1,6 +1,6 @@
+ #ifdef PARALLEL
+ 
+-#include <meshing.hpp>
++#include "meshing.hpp"
+ #include "paralleltop.hpp"
+ 
+ // #define METIS4
