@@ -1,0 +1,102 @@
+--- netgen-5.3.1.ORIG/libsrc/meshing/parallelmesh.cpp	2014-08-29 11:54:05.000000000 +0200
++++ netgen/libsrc/meshing/parallelmesh.cpp	2016-02-20 23:07:00.350568182 +0100
+@@ -14,7 +14,7 @@
+ 
+ #if METIS_VER_MAJOR >= 5
+ #define METIS5
+-    typedef idx_t idxtype;   
++    typedef metis::idx_t idxtype;
+ #else
+ #define METIS4
+     typedef idxtype idx_t;  
+@@ -794,10 +794,10 @@
+     eptr.Append (eind.Size());
+     Array<idx_t> epart(ne), npart(nn);
+ 
+-    int nparts = ntasks-1;
+-    int edgecut;
++    metis::idx_t nparts = ntasks-1;
++    metis::idx_t edgecut;
+ 
+-    int ncommon = 3;
++    metis::idx_t ncommon = 3;
+     METIS_PartMeshDual (&ne, &nn, &eptr[0], &eind[0], NULL, NULL, &ncommon, &nparts,
+ 			NULL, NULL,
+ 			&edgecut, &epart[0], &npart[0]);
+@@ -1029,11 +1029,11 @@
+     eptr.Append (eind.Size());
+     Array<idx_t> epart(ne), npart(nn);
+ 
+-    int nparts = ntasks-1;
+-    int edgecut;
++    metis::idx_t nparts = ntasks-1;
++    metis::idx_t edgecut;
+ 
+ 
+-    int ncommon = 3;
++    metis::idx_t ncommon = 3;
+     METIS_PartMeshDual (&ne, &nn, &eptr[0], &eind[0], &nwgt[0], NULL, &ncommon, &nparts,
+ 			NULL, NULL,
+ 			&edgecut, &epart[0], &npart[0]);
+@@ -1266,7 +1266,7 @@
+ 
+     for ( int vert = 0; vert < nn; vert++ )
+       {
+-	FlatArray<int> array ( cnt[vert], &adjacency[ xadj[vert] ] );
++	FlatArray<metis::idx_t> array ( cnt[vert], &adjacency[ xadj[vert] ] );
+ 	BubbleSort(array);
+       }
+ 
+@@ -1318,7 +1318,7 @@
+     idxtype  *xadj, * adjacency, *v_weights = NULL, *e_weights = NULL;
+ 
+     int weightflag = 0;
+-    // int numflag = 0;
++    int numflag = 0;
+     int nparts = ntasks - 1;
+ 
+     int options[5];
+@@ -1377,7 +1377,7 @@
+ 
+     for ( int el = 0; el < ne; el++ )
+       {
+-	FlatArray<int> array ( cnt[el], &adjacency[ xadj[el] ] );
++	FlatArray<metis::idx_t> array ( cnt[el], &adjacency[ xadj[el] ] );
+ 	BubbleSort(array);
+       }
+ 
+@@ -1428,8 +1428,8 @@
+   void Mesh :: PartDualHybridMesh2D ( ) 
+   {
+ #ifdef METIS
+-    int ne = GetNSE();
+-    int nv = GetNV();
++    metis::idx_t ne = GetNSE();
++    metis::idx_t nv = GetNV();
+ 
+     Array<idxtype> xadj(ne+1);
+     Array<idxtype> adjacency(ne*4);
+@@ -1484,18 +1484,18 @@
+ 
+     idxtype *v_weights = NULL, *e_weights = NULL;
+ 
+-    int weightflag = 0;
+-    // int numflag = 0;
+-    int nparts = ntasks - 1;
++    metis::idx_t weightflag = 0;
++    metis::idx_t numflag = 0;
++    metis::idx_t nparts = ntasks - 1;
+ 
+-    int edgecut;
++    metis::idx_t edgecut;
+     Array<idxtype> part(ne);
+ 
+     for ( int el = 0; el < ne; el++ )
+       BubbleSort (adjacency.Range (xadj[el], xadj[el+1]));
+ 
+ #ifdef METIS4	
+-    int options[5];
++    metis::idx_t options[5];
+     options[0] = 0;
+     METIS_PartGraphKway ( &ne, &xadj[0], &adjacency[0], v_weights, e_weights, &weightflag, 
+ 			  &numflag, &nparts, options, &edgecut, &part[0] );
