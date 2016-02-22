@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit autotools-utils fortran-2
+inherit fortran-2
 
 DESCRIPTION="The lowest-level Growler library"
 HOMEPAGE="http://www.nas.nasa.gov/~bgreen/growler/"
@@ -13,7 +13,7 @@ SRC_URI="${HOMEPAGE}/downloads/growler-link-${PV}.tar.gz"
 SLOT="0"
 LICENSE="NOSA"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc fortran static tcpd"
+IUSE="doc fortran static-libs tcpd"
 
 RDEPEND="
 	dev-libs/boost
@@ -30,7 +30,7 @@ src_configure() {
 	local myeconfargs=(
 		$(use_enable doc)
 		$(use_enable tcpd)
-		$(use_enable static)
+		$(use_enable static-libs static)
 		)
-	autotools-utils_src_configure
+	econf ${myeconfargs[@]}
 }
