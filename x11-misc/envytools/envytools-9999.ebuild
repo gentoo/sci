@@ -1,15 +1,14 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils git-r3
 
 DESCRIPTION="Tools for people envious of nvidia's blob driver"
 HOMEPAGE="https://github.com/pathscale/envytools"
 EGIT_REPO_URI="
-	git://github.com/envytools/envytools.git
 	https://github.com/envytools/envytools.git"
 
 LICENSE="MIT"
