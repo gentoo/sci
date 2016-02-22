@@ -1,5 +1,5 @@
---- libsrc/occ/occgeom.cpp	2014-08-29 11:54:03.000000000 +0200
-+++ libsrc/occ/occgeom.cpp	2016-02-12 21:14:49.258982206 +0100
+--- a/libsrc/occ/occgeom.cpp	2014-08-29 11:54:03.000000000 +0200
++++ b/libsrc/occ/occgeom.cpp	2016-02-12 21:14:49.258982206 +0100
 @@ -149,7 +149,7 @@
  
           for (exp0.Init (shape, TopAbs_FACE); exp0.More(); exp0.Next())

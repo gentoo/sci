@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -18,8 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="-ffmpeg jpeg -mpi opencascade openmp"
 
 DEPEND="
-	dev-lang/tcl
-	dev-lang/tk
+	dev-lang/tcl:0
+	dev-lang/tk:0
 	dev-tcltk/tix
 	dev-tcltk/togl:1.7
 	virtual/opengl
@@ -32,19 +32,22 @@ DEPEND="
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
+PATCHES=(
+	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
+	"${FILESDIR}"/${PN}-5.x-missing-define.patch
+	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
+	"${FILESDIR}"/${PN}-5.x-metis-fixes.patch
+	"${FILESDIR}"/${PN}-5.x-occ-stl-api-change.patch
+	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.1_build.patch
+	"${FILESDIR}"/${PN}-5.x-makefiles-fixes.patch
+	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_fixes.patch
+	"${FILESDIR}"/${PN}-5.x-fedora-fixes.patch
+	"${FILESDIR}"/${PN}-5.x-includes-fixes.patch
+	"${FILESDIR}"/${PN}-5.x-parallelmetis4-fix.patch
+)
+
 src_prepare() {
 	default
-	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
-	epatch "${FILESDIR}/${PN}-5.x-missing-define.patch"
-	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
-	epatch "${FILESDIR}/${PN}-5.x-metis-fixes.patch"
-	epatch "${FILESDIR}/${PN}-5.x-occ-stl-api-change.patch"
-	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.1_build.patch
-	epatch "${FILESDIR}/${PN}-5.x-makefiles-fixes.patch"
-	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_fixes.patch
-	epatch "${FILESDIR}/${PN}-5.x-fedora-fixes.patch"
-	epatch "${FILESDIR}/${PN}-5.x-includes-fixes.patch"
-	epatch "${FILESDIR}/${PN}-5.x-parallelmetis4-fix.patch"
 	if use mpi; then
 		export CC=mpicc
 		export CXX=mpic++
@@ -58,14 +61,12 @@ src_prepare() {
 src_configure() {
 	# This is not the most clever way to deal with these flags
 	# but --disable-xxx does not seem to work correcly, so...
-	local myconf="--with-togl=/usr/$(get_libdir)/Togl1.7"
+	local myconf=( --with-togl=/usr/$(get_libdir)/Togl1.7 )
 
-	if use !openmp; then
-		myconf="${myconf} --disable-openmp"
-	fi
+	myconf+=( $(use_enable openmp) )
 
 	if use opencascade; then
-		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
+		myconf+=( --enable-occ --with-occ=$CASROOT )
 		append-ldflags -L$CASROOT/$(get_libdir)
 	fi
 	if use mpi; then
@@ -74,16 +75,16 @@ src_configure() {
 		ewarn "MPI has not been tested, you should probably deactivate the mpi use flag"
 		ewarn ""
 		ewarn "*************************************************************************"
-		myconf="${myconf} --enable-parallel"
+		myconf+=( --enable-parallel )
 		append-cppflags -I/usr/include/metis
 		append-ldflags -L/usr/$(get_libdir)/openmpi/
 	fi
-	use ffmpeg && myconf="${myconf} --enable-ffmpeg"
-	use jpeg && myconf="${myconf} --enable-jpeglib"
+	use ffmpeg && myconf+=( --enable-ffmpeg )
+	use jpeg && myconf+=( --enable-jpeglib )
 	append-cppflags -I/usr/include/togl-1.7
 
 	econf \
-		${myconf}
+		${myconf[@]}
 
 	# This would be the more elegant way:
 # 	econf \
@@ -106,6 +107,8 @@ src_install() {
 	# Install icon and .desktop for menu entry
 	doicon "${FILESDIR}"/${PN}.png
 	domenu "${FILESDIR}"/${PN}.desktop
+
+	prune_libtool_files
 }
 
 pkg_postinst() {
