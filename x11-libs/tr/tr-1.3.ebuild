@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs
 
@@ -18,8 +18,10 @@ IUSE=""
 RDEPEND="media-libs/freeglut"
 DEPEND="${RDEPEND}"
 
+PATCHES=( "${FILESDIR}"/${PV}-Makefile.patch )
+
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-Makefile.patch
+	default
 	tc-export CC
 }
 
