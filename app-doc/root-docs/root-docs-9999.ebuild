@@ -1,36 +1,20 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 ROOT_PN="root"
 ROOFIT_DOC_PV=2.91-33
 ROOFIT_QS_DOC_PV=3.00
 TMVA_DOC_PV=4.2.0
 
-if [[ ${PV} == "9999" ]] ; then
-	inherit git-r3
-	EVCS_OFFLINE=yes # we need exactly the same checkout as root itself
-	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
-else
-	SRC_URI="ftp://root.cern.ch/${ROOT_PN}/${ROOT_PN}_v${PV}.source.tar.gz"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-	S="${WORKDIR}/${ROOT_PN}-${PV}"
-fi
-
-inherit eutils multilib virtualx
+inherit eutils git-r3 multilib virtualx
 
 DESCRIPTION="Documentation for ROOT Data Analysis Framework"
 HOMEPAGE="http://root.cern.ch/drupal"
-SRC_URI="${SRC_URI}
-	math? (
-		http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
-		http://root.cern.ch/download/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
-		http://root.cern.ch/drupal/sites/default/files/roofit_quickstart_${ROOFIT_QS_DOC_PV}.pdf )
-	api? (
-		${HOMEPAGE}/sites/default/files/images/root6-banner.jpg
-		${HOMEPAGE}/sites/all/themes/newsflash/images/info.png )"
+SRC_URI=""
+EGIT_REPO_URI="http://root.cern.ch/git/root.git"
 
 SLOT="0"
 LICENSE="LGPL-2.1"
@@ -51,20 +35,12 @@ RDEPEND=""
 
 DOC_DIR="/usr/share/doc/${ROOT_PN}-${PV}"
 
-src_unpack() {
-	if [[ ${PV} == "9999" ]] ; then
-		# we need to force sci-physics/root checkout here
-		git-r3_checkout "${EGIT_REPO_URI}" "${WORKDIR}/${P}" "sci-physics/root/0"
-	else
-		default
-	fi
-}
+PATCHES=(
+	"${FILESDIR}"/${PN}-6.00.01-makehtml.patch
+)
 
 src_prepare() {
-	epatch \
-		"${FILESDIR}/${PN}-6.00.01-makehtml.patch" \
-		"${FILESDIR}/${PN}-6.02.05-jsroot.patch"
-
+	default
 	# prefixify the configure script
 	sed -i \
 		-e "s:/usr:${EPREFIX}/usr:g" \
