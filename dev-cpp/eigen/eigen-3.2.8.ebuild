@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 FORTRAN_NEEDED=fortran
 
@@ -32,7 +32,8 @@ CDEPEND="
 		sci-libs/cholmod[metis?]
 		sci-libs/spqr
 		sci-libs/superlu
-		sci-libs/umfpack )"
+		sci-libs/umfpack
+	)"
 DEPEND="
 	doc? ( app-doc/doxygen[dot,latex] )
 	test? ( ${CDEPEND} )"
@@ -53,12 +54,14 @@ src_prepare() {
 		{blas,lapack}/CMakeLists.txt || die
 
 	# TOFIX: static-libs for blas are always built with PIC
-	use static-libs || sed -i \
-		-e "/add_dependencies/s/eigen_[a-z]*_static//g" \
-		-e "/TARGETS/s/eigen_[a-z]*_static//g" \
-		-e "/add_library(eigen_[a-z]*_static/d" \
-		-e "/target_link_libraries(eigen_[a-z]*_static/d" \
-		{blas,lapack}/CMakeLists.txt || die
+	if ! use static-libs; then
+		sed \
+			-e "/add_dependencies/s/eigen_[a-z]*_static//g" \
+			-e "/TARGETS/s/eigen_[a-z]*_static//g" \
+			-e "/add_library(eigen_[a-z]*_static/d" \
+			-e "/target_link_libraries(eigen_[a-z]*_static/d" \
+			-i {blas,lapack}/CMakeLists.txt || die
+	fi
 
 	sed -i -e "/Unknown build type/d" CMakeLists.txt || die
 

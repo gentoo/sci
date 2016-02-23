@@ -1,17 +1,17 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=7538
-INTEL_DPV=2015_update3
+INTEL_DID=8470
+INTEL_DPV=2015_update6
 INTEL_SUBDIR=composerxe
 INTEL_SINGLE_ARCH=false
 INTEL_SDP_DIR=opt/intel/
 
-inherit intel-sdp multilib
+inherit intel-sdp
 
 DESCRIPTION="Intel VTune Amplifier XE"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-vtune-amplifier-xe/"

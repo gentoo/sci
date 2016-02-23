@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 # Upstream is dead.
 
-EAPI=5
+EAPI=6
 
 WANT_AUTOCONF="2.1"
 
@@ -13,10 +13,12 @@ inherit autotools eutils
 DESCRIPTION="A Ghostscript based Display Postscript (DPS) server"
 HOMEPAGE="http://www.gnustep.org/developers/DGS.html"
 SRC_URI="ftp://ftp.gnustep.org/pub/gnustep/old/dgs/${P}.tar.gz"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~ppc ~sparc ~alpha ~amd64 ~hppa ~mips ~ppc64 ~ia64"
 IUSE="tcpd"
+
 RDEPEND="
 	dev-libs/glib:1
 	!<x11-base/xorg-x11-7"
@@ -26,15 +28,17 @@ DEPEND="${RDEPEND}
 
 DOCS=( ANNOUNCE ChangeLog FAQ NEWS NOTES README STATUS TODO Version )
 
-src_prepare() {
-	epatch \
+PATCHES=(
 		"${FILESDIR}"/${P}-gs-time_.h-gentoo.diff \
 		"${FILESDIR}"/${P}-tcpd-gentoo.diff \
 		"${FILESDIR}"/${P}-gcc-3.4.diff \
 		"${FILESDIR}"/${P}-fix-table-bullet.diff \
 		"${FILESDIR}"/${PV}-workaround-include-in-comments.patch \
 		"${FILESDIR}"/${PN}-fix-as-needed.patch
+)
 
+src_prepare() {
+	default
 	eautoconf
 	export MAKEOPTS+=" -j1"
 }

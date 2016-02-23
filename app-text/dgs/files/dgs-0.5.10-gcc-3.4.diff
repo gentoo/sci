@@ -1,5 +1,5 @@
---- DPS/clients/makepsres/makepsres.c.old	2004-04-22 19:48:50.568331512 +0100
-+++ DPS/clients/makepsres/makepsres.c	2004-04-22 19:50:34.076595864 +0100
+--- a/DPS/clients/makepsres/makepsres.c.old	2004-04-22 19:48:50.568331512 +0100
++++ b/DPS/clients/makepsres/makepsres.c	2004-04-22 19:50:34.076595864 +0100
 @@ -124,8 +124,6 @@
  
  char *program;
@@ -9,8 +9,8 @@
  #if !defined(__NetBSD__) && !defined(__FreeBSD__)
  # if !defined(__GLIBC__)
  extern char *sys_errlist[];
---- DPS/clients/pswrap/psw.c.old	2004-04-22 19:54:13.609221832 +0100
-+++ DPS/clients/pswrap/psw.c	2004-04-22 19:54:39.149339144 +0100
+--- a/DPS/clients/pswrap/psw.c.old	2004-04-22 19:54:13.609221832 +0100
++++ b/DPS/clients/pswrap/psw.c	2004-04-22 19:54:39.149339144 +0100
 @@ -1906,7 +1906,6 @@
  
  char *psw_malloc(s) int s; {

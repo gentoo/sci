@@ -1,5 +1,5 @@
---- Makefile	2005-08-25 22:18:31.000000000 +0200
-+++ Makefile.new	2009-03-21 15:11:55.000000000 +0100
+--- a/Makefile	2005-08-25 22:18:31.000000000 +0200
++++ b/Makefile	2009-03-21 15:11:55.000000000 +0100
 @@ -4,8 +4,8 @@
  # You'll probably have to tweak this for your platform.
  

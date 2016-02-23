@@ -1,5 +1,5 @@
---- libsrc/occ/Partition_Loop2d.cxx.orig	2012-11-14 21:16:22.876287910 +0100
-+++ libsrc/occ/Partition_Loop2d.cxx	2012-11-14 21:22:30.909650554 +0100
+--- a/libsrc/occ/Partition_Loop2d.cxx	2012-11-14 21:16:22.876287910 +0100
++++ b/libsrc/occ/Partition_Loop2d.cxx	2012-11-14 21:22:30.909650554 +0100
 @@ -13,6 +13,7 @@
  
  //using namespace std;
@@ -26,8 +26,8 @@
        {
          // an angle is too close to PI; assure that an angle sign really
          // reflects an edge position: +PI - an edge is worst,
---- configure.ac.orig	2012-11-15 14:55:45.048938870 +0100
-+++ configure.ac	2012-11-15 14:55:12.545923777 +0100
+--- a/configure.ac	2012-11-15 14:55:45.048938870 +0100
++++ b/configure.ac	2012-11-15 14:55:12.545923777 +0100
 @@ -14,6 +14,7 @@
  AC_DISABLE_STATIC
  

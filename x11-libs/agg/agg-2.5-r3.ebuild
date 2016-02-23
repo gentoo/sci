@@ -1,13 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-AUTOTOOLS_AUTORECONF=1
-AT_M4DIR="."
-
-inherit eutils autotools-utils
+inherit autotools
 
 DESCRIPTION="High quality rendering engine library for C++"
 HOMEPAGE="http://antigrain.com/"
@@ -32,27 +29,19 @@ DOCS=( readme authors ChangeLog news )
 
 # patches taken from fedora
 PATCHES=(
-	"${FILESDIR}"/${PV}/agg-2.4-depends.patch
-	"${FILESDIR}"/${PV}/agg-2.5-pkgconfig.patch
-	"${FILESDIR}"/${PV}/agg-2.5-autotools.patch
-	"${FILESDIR}"/${PV}/agg-2.5-sdl-m4.patch
-	"${FILESDIR}"/${PV}/agg-2.5-sdl-automagic.patch
-	"${FILESDIR}"/${PV}/0001-Fix-non-terminating-loop-conditions-when-len-1.patch
-	"${FILESDIR}"/${PV}/0002-Cure-recursion-by-aborting-if-the-co-ordinates-are-t.patch
-	"${FILESDIR}"/${PV}/0003-Get-coordinates-from-previous-vertex-if-last-command.patch
-	"${FILESDIR}"/${PV}/0004-Make-rasterizer_outline_aa-ignore-close_polygon-when.patch
-	"${FILESDIR}"/${PV}/0005-Remove-VC-6-workaround.patch
-	"${FILESDIR}"/${PV}/0006-Implement-grain-merge-blending-mode-GIMP.patch
-	"${FILESDIR}"/${PV}/0007-Implement-grain-extract-blending-mode-GIMP.patch
-	"${FILESDIR}"/${PV}/0008-Declare-multiplication-and-division-operators-as-con.patch
-	"${FILESDIR}"/${PV}/0009-Add-a-static-identity-transformation.patch
-	"${FILESDIR}"/${PV}/0010-Add-renderer_scanline_aa_alpha.patch
-	"${FILESDIR}"/${PV}/0011-Avoid-division-by-zero-in-color-burn-mode.patch
-	"${FILESDIR}"/${PV}/0012-Avoid-pixel-artifacts-when-compositing.patch
-	"${FILESDIR}"/${PV}/0013-Modify-agg-conv-classes-to-allow-access-to-the-origi.patch
-	"${FILESDIR}"/${PV}/0014-Avoid-potential-zero-division-resulting-in-nan-in-ag.patch
-	"${FILESDIR}"/${PV}/0015-Ensure-first-value-in-the-gamma-table-is-always-zero.patch
+	"${FILESDIR}"/agg-2.4-depends.patch
+	"${FILESDIR}"/${P}-pkgconfig.patch
+	"${FILESDIR}"/${P}-autotools.patch
+	"${FILESDIR}"/${P}-sdl-m4.patch
+	"${FILESDIR}"/${P}-sdl-automagic.patch
+	"${FILESDIR}"/${PV}
 )
+
+src_prepare() {
+	default
+	mv configure.{in,ac} || die
+	AT_M4DIR="." eautoreconf
+}
 
 src_configure() {
 	local myeconfargs=(
@@ -64,5 +53,5 @@ src_configure() {
 		$(use_enable truetype freetype)
 		$(use_with X x)
 	)
-	autotools-utils_src_configure
+	econf ${myeconfargs[@]}
 }

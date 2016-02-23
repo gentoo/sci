@@ -1,5 +1,5 @@
---- DPS/lib/dpstk/Makefile.in~	2000-06-16 05:54:36.000000000 +0200
-+++ DPS/lib/dpstk/Makefile.in	2009-09-17 22:18:34.417953240 +0200
+--- a/DPS/lib/dpstk/Makefile.in~	2000-06-16 05:54:36.000000000 +0200
++++ b/DPS/lib/dpstk/Makefile.in	2009-09-17 22:18:34.417953240 +0200
 @@ -96,7 +96,7 @@
  libdpstk_la_SOURCES =  	$(dps_sources) 	XDPSshare.c 	XDPSpreview.c 	XDPSuserpath.c 	FontSBI.h 	dpsXcommonI.h
  

@@ -1,33 +1,21 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 FORTRAN_NEEDED=fortran
 
-if [[ ${PV} == "9999" ]] ; then
-	inherit mercurial
-	EHG_REPO_URI="https://bitbucket.org/eigen/eigen"
-	SRC_URI=""
-	KEYWORDS=""
-else
-	inherit vcs-snapshot
-	SRC_URI="
-		http://bitbucket.org/eigen/eigen/get/${PV}.tar.bz2 -> ${P}.tar.bz2
-		https://bitbucket.org/eigen/eigen/commits/1d71b1341c03a7c485289be2c8bd906a259c0487/raw/ -> ${P}-cmake.patch
-		"
-	PATCHES=( "${DISTDIR}"/${P}-cmake.patch	)
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-fi
-
-inherit alternatives-2 cmake-utils fortran-2 multilib
+inherit alternatives-2 cmake-utils fortran-2 mercurial multilib
 
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="http://eigen.tuxfamily.org/"
+SRC_URI=""
+EHG_REPO_URI="https://bitbucket.org/eigen/eigen"
 
 SLOT="3"
 LICENSE="MPL-2.0"
+KEYWORDS=""
 IUSE="adolc doc fortran fftw gmp metis mkl pastix sparse static-libs test"
 
 CDEPEND="
@@ -42,7 +30,8 @@ CDEPEND="
 		sci-libs/cholmod[metis?]
 		sci-libs/spqr
 		sci-libs/superlu
-		sci-libs/umfpack )"
+		sci-libs/umfpack
+	)"
 DEPEND="
 	doc? ( app-doc/doxygen[dot,latex] )
 	test? ( ${CDEPEND} )"
@@ -61,12 +50,21 @@ src_prepare() {
 		{blas,lapack}/CMakeLists.txt || die
 
 	# TOFIX: static-libs for blas are always built with PIC
-	use static-libs || sed -i \
-		-e "/add_dependencies/s/eigen_[a-z]*_static//g" \
-		-e "/TARGETS/s/eigen_[a-z]*_static//g" \
-		-e "/add_library(eigen_[a-z]*_static/d" \
-		-e "/target_link_libraries(eigen_[a-z]*_static/d" \
-		{blas,lapack}/CMakeLists.txt || die
+	if ! use static-libs; then
+		sed \
+			-e "/add_dependencies/s/eigen_[a-z]*_static//g" \
+			-e "/TARGETS/s/eigen_[a-z]*_static//g" \
+			-e "/add_library(eigen_[a-z]*_static/d" \
+			-e "/target_link_libraries(eigen_[a-z]*_static/d" \
+			-i {blas,lapack}/CMakeLists.txt || die
+	fi
+
+	sed -i -e "/Unknown build type/d" CMakeLists.txt || die
+
+	sed \
+		-e '/Cflags/s|:.*|: -I${CMAKE_INSTALL_PREFIX}/${INCLUDE_INSTALL_DIR}|g' \
+		-i eigen3.pc.in || die
+
 	cmake-utils_src_prepare
 }
 
@@ -78,7 +76,9 @@ src_configure() {
 		-DEIGEN_BUILD_BTL=OFF
 	)
 	export VARTEXFONTS="${T}/fonts"
-	CMAKE_BUILD_TYPE="release" cmake-utils_src_configure
+	export PKG_CONFIG_LIBDIR=/usr/$(get_libdir)/
+
+	cmake-utils_src_configure
 	# use fortran && FORTRAN_LIBS="blas lapack" not ready
 	use fortran && FORTRAN_LIBS="blas"
 }
@@ -97,21 +97,17 @@ src_install() {
 	for x in ${FORTRAN_LIBS}; do
 		local libname="eigen_${x}"
 		emake DESTDIR="${D}" -C "${BUILD_DIR}/${x}" install ${libname}
-		cat > ${libname}.pc <<-EOF
-			prefix=${EPREFIX}/usr
-			libdir=\${prefix}/$(get_libdir)
-			includedir=\${prefix}/include
-			Name: ${PN}
-			Description: ${DESCRIPTION} ${x^^} implementation
-			Version: ${PV}
-			URL: ${HOMEPAGE}
-			Libs: -L\${libdir} -l${libname}
-			Libs.private: -lm
-			$([[ ${x} == lapack ]] && echo "Requires: blas")
-		EOF
+		create_pkgconfig \
+			--description "${DESCRIPTION} ${x^^} implementation" \
+			--libs "-L\${libdir} -l${libname}" \
+			--libs-private "-lm" \
+			$([[ ${x} == lapack ]] && echo "--requires 'blas'") \
+			${libname}
 		alternatives_for ${x} eigen 0 \
 			/usr/$(get_libdir)/pkgconfig/${x}.pc ${libname}.pc
-		insinto /usr/$(get_libdir)/pkgconfig
-		doins ${libname}.pc
 	done
+
+	# Debian installs it and some projects started using it.
+	insinto /usr/share/cmake/Modules/
+	doins "${S}/cmake/FindEigen3.cmake"
 }

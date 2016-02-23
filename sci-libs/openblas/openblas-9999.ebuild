@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 NUMERIC_MODULE_NAME="openblas"
 
@@ -29,6 +29,10 @@ MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/openblas/openblas_config.h
 )
 
+PATCHES=(
+	"${DISTDIR}"/${PN}-0.2.11-gentoo.patch
+)
+
 get_openblas_flags() {
 	local openblas_flags=()
 	use dynamic && \
@@ -49,6 +53,9 @@ get_openblas_flags() {
 		local libnamesuffix="${underscoresuffix#_}"
 		openblas_flags+=( LIBNAMESUFFIX=${libnamesuffix} )
 	fi
+
+	[[ "${ABI}" == "x86" ]] && openblas_flags+=( BINARY=32 )
+
 	echo "${openblas_flags[@]}"
 }
 
@@ -65,7 +72,7 @@ get_openblas_abi_cflags() {
 }
 
 src_prepare() {
-	epatch "${DISTDIR}/${PN}-0.2.11-gentoo.patch"
+	default
 
 	# lapack and lapacke are not modified from upstream lapack
 	sed \

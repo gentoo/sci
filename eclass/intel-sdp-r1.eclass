@@ -143,7 +143,14 @@ esac
 # Gets the full internal Intel version specifier.
 _isdp_get-sdp-full-pv() {
 	local _intel_pv=($(get_version_components))
-	local _intel_pv_full="${_intel_pv[3]}-${_intel_pv[0]}.${_intel_pv[1]}.${_intel_pv[2]}-${_intel_pv[3]}"
+	case ${#_intel_pv[@]} in
+		3)
+			local _intel_pv_full="${_intel_pv[0]}.${_intel_pv[1]}-${_intel_pv[2]}"
+			;;
+		4)
+			local _intel_pv_full="${_intel_pv[3]}-${_intel_pv[0]}.${_intel_pv[1]}.${_intel_pv[2]}-${_intel_pv[3]}"
+			;;
+	esac
 	echo "${_intel_pv_full}"
 }
 
