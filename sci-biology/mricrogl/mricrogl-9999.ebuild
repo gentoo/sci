@@ -24,10 +24,13 @@ src_compile() {
 
 src_install() {
 	dobin MRIcroGL
-	dobin dcm2niix
-	dobin dcm2nii/dcm2niigui
-	doicon icons/mricron.png
-	make_desktop_entry MRIcroGL MRIcroGL mricrogl.svg
+
+	insinto /usr/bin/shaders
+	doins shaders/*.txt
+
+	doicon mricrogl.ico
+	make_desktop_entry MRIcroGL MRIcroGL mricrogl
+$
 }
 
 pkg_postinst() {
