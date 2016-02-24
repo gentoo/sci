@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI="6"
 
-inherit git-r3
+inherit git-r3 gnome2-utils
 
 DESCRIPTION="A simle medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/MRIcroGL"
@@ -30,7 +30,6 @@ src_install() {
 
 	doicon mricrogl.ico
 	make_desktop_entry MRIcroGL MRIcroGL mricrogl
-$
 }
 
 pkg_postinst() {
