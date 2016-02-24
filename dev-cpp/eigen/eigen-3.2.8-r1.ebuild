@@ -13,7 +13,7 @@ HOMEPAGE="http://eigen.tuxfamily.org/"
 SRC_URI="
 	https://bitbucket.org/eigen/eigen/get/${PV}.tar.bz2 -> ${P}.tar.bz2
 	https://bitbucket.org/eigen/eigen/commits/1d71b1341c03a7c485289be2c8bd906a259c0487/raw/ -> ${P}-cmake.patch
-		"
+"
 
 SLOT="3"
 LICENSE="MPL-2.0"
