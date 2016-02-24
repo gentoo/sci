@@ -19,7 +19,7 @@ DEPEND="dev-lang/fpc
 	dev-lang/lazarus"
 
 src_compile() {
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die
+	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi --ws=gtk3 || die
 }
 
 src_install() {
