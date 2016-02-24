@@ -30,7 +30,6 @@ src_install() {
 
 	doicon mricrogl.ico
 	make_desktop_entry MRIcroGL MRIcroGL mricrogl
-$
 }
 
 pkg_postinst() {
