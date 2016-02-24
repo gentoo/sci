@@ -4,7 +4,7 @@
 
 EAPI="6"
 
-inherit git-r3
+inherit git-r3 gnome2-utils
 
 DESCRIPTION="A simle medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/MRIcroGL"
