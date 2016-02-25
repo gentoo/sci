@@ -51,5 +51,5 @@ python_test() {
 	find . -type d -name data -exec ln -s "${S}"/{} ${TEST_DIR}/{} \; || die
 	cd ${TEST_DIR} || die
 	VIRTUALX_COMMAND="run_test"
-	virtualmake
+	virtx
 }
