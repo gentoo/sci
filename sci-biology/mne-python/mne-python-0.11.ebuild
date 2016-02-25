@@ -10,7 +10,7 @@ inherit distutils-r1 virtualx
 
 DESCRIPTION="Python package for MEG and EEG data analysis"
 HOMEPAGE="http://martinos.org/mne/mne-python.html"
-SRC_URI="https://github.com/mne-tools/mne-python/archive/v${PV}.zip"
+SRC_URI="https://github.com/mne-tools/mne-python/archive/v${PV}.zip -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
