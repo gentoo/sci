@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 FORTRAN_NEEDED=fortran
 
@@ -18,10 +18,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="minimal fortran threads debug"
 
-COMMON_DEPEND="!minimal? ( x11-libs/libXtst
-		x11-libs/libXi )
-	|| ( sys-cluster/openmpi[fortran?,threads?]
-		sys-cluster/mpich2[fortran?,threads?] )"
+COMMON_DEPEND="
+	!minimal? (
+		x11-libs/libXtst
+		x11-libs/libXi
+	)
+	|| (
+		sys-cluster/openmpi[fortran?,threads?]
+		sys-cluster/mpich2[fortran?,threads?]
+	)"
 
 DEPEND="!minimal? ( >=virtual/jdk-1.4 )
 	${COMMON_DEPEND}"
@@ -67,6 +72,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	default
 	# Don't assume path contains ./
 	sed -i 's,\($MPERUN\) $pgm,\1 ./$pgm,' sbin/mpetestexeclog.in || die
 
