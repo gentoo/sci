@@ -29,7 +29,7 @@ src_install() {
 	doins shaders/*.txt
 
 	doicon -s scalable mricrogl.svg
-        make_desktop_entry MRIcroGL MRIcroGL /usr/share/icons/hicolor/scalable/apps/mricrogl.svg
+	make_desktop_entry MRIcroGL MRIcroGL /usr/share/icons/hicolor/scalable/apps/mricrogl.svg
 }
 
 pkg_postinst() {
