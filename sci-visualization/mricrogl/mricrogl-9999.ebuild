@@ -28,7 +28,7 @@ src_install() {
 	insinto /usr/bin/shaders
 	doins shaders/*.txt
 
-        doicon -s scalable mricrogl.svg
+	doicon -s scalable mricrogl.svg
         make_desktop_entry MRIcroGL MRIcroGL /usr/share/icons/hicolor/scalable/apps/mricrogl.svg
 }
 
