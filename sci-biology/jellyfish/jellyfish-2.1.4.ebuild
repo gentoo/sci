@@ -2,9 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-
-inherit multilib
+EAPI=6
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
