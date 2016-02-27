@@ -26,6 +26,8 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	virtual/perl-Scalar-List-Utils
 	sci-biology/augustus"
+# Current version of BRAKER1 1.8 requires GeneMark-ET v.4.29 (or up).
+
 #
 # BUG:
 # this causes:
@@ -39,4 +41,9 @@ src_install(){
 	insinto ${VENDOR_LIB}/${PN}
 	doins *.pm
 	dodoc README.braker
+}
+
+pkg_postinst(){
+	einfo "Please install GeneMark-ET >= v.4.29 after obtaininig a license from"
+	einfo "http://exon.gatech.edu/GeneMark/gmes_instructions.html"
 }
