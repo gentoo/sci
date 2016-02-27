@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit git-r3 perl-functions
 
@@ -24,15 +24,12 @@ RDEPEND="${DEPEND}
 
 src_install() {
 	perl_set_version
-# the line below should work but doesn't (double prefix)
-#	insinto "${VENDOR_LIB}/EnsEMBL"
 	insinto /usr/lib/perl5/${PERL_VERSION}
 	doins -r modules/*
 	rm -r "${ED}"/usr/lib/perl5/${PERL_VERSION}/t || die
 
 	insinto /usr/share/${PN}
-	doins -r misc-scripts
-	doins -r sql
+	doins -r misc-scripts sql
 
 	dodoc README.md
 }

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit git-r3 perl-functions
 
@@ -20,7 +20,7 @@ RDEPEND="${DEPEND}
 	sci-biology/ensembl"
 
 src_compile() {
-	cd C_code
+	cd C_code || die
 	emake
 }
 
