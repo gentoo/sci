@@ -27,5 +27,5 @@ src_install(){
 	sed -e "s#jellyfish-${PV}#jellyfish#" -i "${ED}/usr/$(get_libdir)"/pkgconfig/jellyfish-1.1.pc || die
 	mkdir -p "${ED}/usr/include/${PN}" || die
 	mv "${ED}"/usr/include/"${P}"/"${PN}"/* "${ED}/usr/include/${PN}/" || die
-	rm -rf "${ED}/usr/include/${P}"
+	rm -r "${ED}/usr/include/${P}" || die
 }
