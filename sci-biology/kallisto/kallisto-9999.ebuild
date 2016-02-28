@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit git-r3 cmake-utils
 
@@ -13,7 +13,6 @@ EGIT_REPO_URI="https://github.com/pachterlab/kallisto.git"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 DEPEND="sci-libs/hdf5"

@@ -6,16 +6,16 @@ EAPI=6
 
 inherit cmake-utils git-r3
 
-DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
-HOMEPAGE="https://github.com/COMBINE-lab/salmon"
+DESCRIPTION="Rapid Mapping-based Isoform Quantification from RNA-Seq Reads"
+HOMEPAGE="http://www.cs.cmu.edu/~ckingsf/software/sailfish/"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/COMBINE-lab/salmon.git"
+EGIT_REPO_URI="https://github.com/kingsfordgroup/sailfish.git"
 
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
-PATCHES=( "${FILESDIR}"/${PN}-0.3.2-no-boost-static.patch )
+PATCHES=( "${FILESDIR}"/${PN}-0.9.1-no-boost-static.patch )
 
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc

@@ -10,6 +10,6 @@
     <name>Michael Schubert</name>
   </maintainer>
   <upstream>
-    <remote-id type="github">pachterlab/kallisto</remote-id>
+    <remote-id type="github">kingsfordgroup/sailfish</remote-id>
   </upstream>
 </pkgmetadata>
