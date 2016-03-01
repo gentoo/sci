@@ -4,25 +4,24 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_{6,7} python3_{3,4} )
 
 inherit distutils-r1 fortran-2 flag-o-matic
 
 DESCRIPTION="Feed-forward neural network for python"
 HOMEPAGE="http://ffnet.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 SLOT="0"
-LICENSE="GPL-2"
+LICENSE="LGPL-3"
 KEYWORDS="~x86 ~amd64"
-IUSE="examples graphviz matplotlib"
+IUSE="examples matplotlib"
 
 DEPEND="${PYTHON_DEPS}
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )
-	graphviz? ( dev-python/pygraphviz[${PYTHON_USEDEP}] )"
+	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 
 python_prepare_all() {
