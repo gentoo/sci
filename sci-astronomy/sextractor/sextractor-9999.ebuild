@@ -17,11 +17,13 @@ HOMEPAGE="http://www.astromatic.net/software/sextractor"
 LICENSE="GPL-3"
 SLOT="0"
 
-IUSE="doc modelfit threads"
+IUSE="doc modelfit test threads"
 
 RDEPEND="
 	modelfit? ( sci-libs/atlas[lapack,threads=] sci-libs/fftw:3.0 )"
 DEPEND="${RDEPEND}"
+
+REQUIRED_USE="test? ( modelfit )"
 
 src_prepare() {
 	default
