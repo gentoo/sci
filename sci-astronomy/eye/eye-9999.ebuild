@@ -19,10 +19,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="doc threads"
 
-RDEPEND="
-	media-libs/tiff:0=
-	virtual/jpeg:0
-	sys-libs/zlib:0="
+RDEPEND=""
 DEPEND="${RDEPEND}"
 
 src_prepare() {
