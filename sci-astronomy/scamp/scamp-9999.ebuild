@@ -19,7 +19,7 @@ SLOT="0"
 IUSE="doc plplot threads"
 
 RDEPEND="
-	>=sci-astronomy/cdsclient-3.4
+	net-misc/curl:=
 	sci-libs/atlas[lapack,threads=]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot:= )"
@@ -34,13 +34,10 @@ src_prepare() {
 		[[ -e "${EPREFIX}"/usr/$(get_libdir)/libptclapack.so ]] && \
 			myclapack=ptclapack
 	fi
-	sed -i \
-		-e "s/-lcblas/-l${mycblas}/g" \
-		-e "s/AC_CHECK_LIB(cblas/AC_CHECK_LIB(${mycblas}/g" \
-		-e "s/-llapack/-l${myclapack}/g" \
-		-e "s/\(lapack_lib=\).*/\1${myclapack}/g" \
-		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
-		acx_atlas.m4 || die
+	sed -e "s/-lcblas/-l${mycblas}/g"\
+		-e "/SEARCH_LIBS/s/ cblas,/${mycblas},/g" \
+		-e "/SEARCH_LIBS/s/lapack_atlas/${myclapack}/g" \
+		-i acx_atlas.m4 || die
 	eautoreconf
 	subversion_src_prepare
 }
