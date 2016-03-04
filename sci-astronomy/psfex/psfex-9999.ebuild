@@ -42,8 +42,6 @@ src_prepare() {
 		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
 		-i acx_atlas.m4 || die
 
-	# fix for newer plplot
-	sed -e 's/plcol(/plcol0(/g' -i src/cplot.c || die
 	eautoreconf
 	subversion_src_prepare
 }
