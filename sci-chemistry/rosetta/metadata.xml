@@ -12,6 +12,6 @@
     <flag name="lange">Apply patches from www.csrosetta.org</flag>
   </use>
   <upstream>
-    <bugs-to>general-support@mail.rosettacommons.org</bugs-to>
+    <bugs-to>mailto:general-support@mail.rosettacommons.org</bugs-to>
   </upstream>
 </pkgmetadata>

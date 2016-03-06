@@ -14,22 +14,14 @@ to serve as a library for sci-physics/abinit.
 </longdescription>
   <use>
     <flag name="cuda">Enable support for nVidia CUDA</flag>
-  </use>
-  <use>
     <flag name="etsf_io">
       Enable support for reading and writing the European Theoretical
       Spectroscopy facility (ETSF) file format
     </flag>
-  </use>
-  <use>
     <flag name="glib">
       Compile with GLib Object System support
     </flag>
-  </use>
-  <use>
     <flag name="opencl">Enable support for OpenCL GPU acceleration</flag>
-  </use>
-  <use>
     <flag name="scalapack">
       Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
     </flag>

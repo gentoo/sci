@@ -10,12 +10,10 @@
 	</maintainer>
 	<use>
 		<flag name="libxc">Enable support for libxc, an exchange-correlation potentials library</flag>
-	</use>
-	<use>
 		<flag name="longplot">
                   Patch the sources to plot functions all over the space considered,
                   not just up to the matching radius plus 50 grid points. May be useless
                   or even harmful.
-                </flag>
+        </flag>
 	</use>
 </pkgmetadata>

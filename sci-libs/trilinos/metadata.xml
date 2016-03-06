@@ -27,8 +27,10 @@
 		<flag name="hdf5">Add support for hdf5 (<pkg>sci-libs/hdf5</pkg>)</flag>
 		<flag name="hypre">Add support for hypre (<pkg>sci-libs/hypre</pkg>)</flag>
 		<flag name="matio">Add support for matio (<pkg>sci-libs/matio</pkg>)</flag>
-		<flag name="metis">Add support for metis (<pkg>sci-libs/(par)metis</pkg>)</flag>
-		<flag name="mkl">Add support for mkl (<pkg>sci/libs/mkl</pkg>)</flag>
+		<flag name="metis">
+			Add support for metis (<pkg>sci-libs/metis</pkg> or <pkg>sci-libs/parmetis</pkg>)
+		</flag>
+		<flag name="mkl">Add support for mkl (<pkg>sci-libs/mkl</pkg>)</flag>
 		<flag name="mumps">Add support for mumps (<pkg>sci-libs/mumps</pkg>)</flag>
 		<flag name="netcdf">Add support for netcdf (<pkg>sci-libs/netcdf</pkg>)</flag>
 		<flag name="petsc">Add support for petsc (<pkg>sci-mathematics/petsc</pkg>)</flag>
@@ -40,6 +42,6 @@
 		<flag name="taucs">Add support for taucs (<pkg>sci-libs/taucs</pkg>)</flag>
 		<flag name="tbb">Add support for threading building blocks library (<pkg>dev-cpp/tbb</pkg>)</flag>
 		<flag name="tvmet">Add support for tvmet (<pkg>dev-libs/tvmet</pkg>)</flag>
-		<flag name="yaml">Add support for yaml (<pkg>dev-cpp-yaml</pkg>)</flag>
+		<flag name="yaml">Add support for yaml (<pkg>dev-cpp/yaml</pkg>)</flag>
 	</use>
 </pkgmetadata>
