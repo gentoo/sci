@@ -1,0 +1,22 @@
+--- spglib-1.9.0/configure.ac
++++ spglib-1.9.0/configure.ac
+@@ -17,6 +17,9 @@
+ # Checks for libraries.
+ AC_CHECK_FUNCS([sqrt])
+ 
++# Checks for OpenMP.
++AC_OPENMP
++
+ # Checks for header files.
+ AC_HEADER_STDC
+ AC_CHECK_HEADERS([stdlib.h string.h math.h])
+--- spglib-1.9.0/src/Makefile.am
++++ spglib-1.9.0/src/Makefile.am
+@@ -60,4 +60,6 @@
+ version.h
+ 
+ # libsymspg_la_LDFLAGS = -version-info 0:1:0
+-libsymspg_la_LIBADD = -lm
++libsymspg_la_LIBADD = -lm @OPENMP_CFLAGS@
++
++AM_CFLAGS = @OPENMP_CFLAGS@
