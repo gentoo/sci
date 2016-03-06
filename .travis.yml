@@ -7,6 +7,9 @@ python:
     - pypy
 env:
     - PORTAGE_VER="2.2.27"
+before_install:
+    - sudo apt-get -qq update
+    - sudo apt-get install -y libxml2
 before_script:
     - mkdir travis-overlay
     - mv !(travis-overlay) travis-overlay/
@@ -31,6 +34,9 @@ before_script:
 script:
     - ./../spinner.sh "python ../portage-${PORTAGE_VER}/bin/repoman full -d"
 # You can append own scripts after this line
+
+    - wget "https://raw.githubusercontent.com/mgorny/gentoo-xml-schema/master/metadata.xsd" -O metadata.xsd
+    - xmllint --noout --schema metadata.xsd */*/metadata.xml 2>&1 | grep "fails to validate"; [[ ${PIPESTATUS[0]} -gt 0 ]] && exit 1
 
 notifications:
     irc: "chat.freenode.net#gentoo-science"
