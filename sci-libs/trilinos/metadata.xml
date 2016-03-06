@@ -21,7 +21,7 @@
 		<flag name="cppunit">Add support for (<pkg/>)</flag>
 		<flag name="cuda">Add support for cuda (<pkg>dev-util/nvidia-cuda-toolkit</pkg>)</flag>
 		<flag name="eigen">Add support for eigen (<pkg>dev-cpp/eigen</pkg>)</flag>
-		<flag name="glpk">Add support for (<pkg/>)</flag>
+		<flag name="glpk">Add support for (...)</flag>
 		<flag name="gtest">Add support for gtest (<pkg>dev-cpp/gtest</pkg>)</flag>
 		<flag name="hwloc">Add support for hwloc (<pkg>sys-apps/hwloc</pkg>)</flag>
 		<flag name="hdf5">Add support for hdf5 (<pkg>sci-libs/hdf5</pkg>)</flag>
