@@ -11,9 +11,10 @@ RUBY_FAKEGEM_EXTRADOC="README.rdoc History.txt"
 inherit ruby-fakegem
 
 DESCRIPTION="Classify assembled transcripts and fix frameshifts in ORFs"
-HOMEPAGE="http://www.scbi.uma.es/site/scbi/downloads/313-full-lengthernext"
+HOMEPAGE="http://www.rubydoc.info/gems/full_lengther_next
+	http://www.scbi.uma.es/site/scbi/downloads/313-full-lengthernext"
 # https://rubygems.org/gems/full_lengther_next/versions/0.0.8
-# http://www.rubydoc.info/gems/full_lengther_next/0.0.8/frames
+# http://www.rubydoc.info/gems/full_lengther_next
 # https://www.omniref.com/ruby/gems/full_lengther_next/0.0.8/symbols/FullLengtherNext
 
 LICENSE="MIT"
@@ -21,13 +22,16 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-ruby/hoe-2.8.0"
+DEPEND=">=dev-ruby/hoe-2.8.0
+	dev-ruby/bundler"
 RDEPEND="${DEPEND}
+	sci-biology/bioruby
 	>=sci-biology/scbi_blast-0.0.37
 	>=sci-biology/scbi_fasta-0.1.7
 	>=sci-biology/scbi_mapreduce-0.0.29
 	>=sci-biology/scbi_plot-0.0.6
-	>=dev-ruby/xml-simple-1.0.12"
+	>=dev-ruby/xml-simple-1.0.12
+	>=dev-ruby/gnuplot-2.3.0"
 
 #src_prepare(){
 #	cp "${FILESDIR}"/download_fln_dbs.rb all/full_lengther_next-0.0.8/bin || die
