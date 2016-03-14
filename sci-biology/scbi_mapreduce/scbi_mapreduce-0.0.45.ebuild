@@ -6,7 +6,7 @@ EAPI=5
 USE_RUBY="ruby20 ruby21"
 
 RUBY_FAKEGEM_TASK_DOC=""
-RUBY_FAKEGEM_EXTRADOC="README.rdoc History.txt"
+RUBY_FAKEGEM_EXTRADOC="README.md"
 
 inherit ruby-fakegem
 
