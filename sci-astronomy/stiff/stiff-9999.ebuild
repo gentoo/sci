@@ -13,7 +13,7 @@ SRC_URI=""
 KEYWORDS=""
 
 DESCRIPTION="Converts astronomical FITS images to the TIFF format"
-HOMEPAGE="http://astromatic.iap.fr/software/stiff"
+HOMEPAGE="http://www.astromatic.net/software/stiff"
 
 LICENSE="GPL-3"
 SLOT="0"
