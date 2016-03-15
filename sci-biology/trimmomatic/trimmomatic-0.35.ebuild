@@ -9,7 +9,7 @@ inherit java-pkg-2 java-ant-2
 DESCRIPTION="Illumina adapter trimming tool"
 HOMEPAGE="http://www.usadellab.org/cms/?page=trimmomatic"
 SRC_URI="
-	http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-Src-0.32.zip
+	http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-Src-${PV}.zip
 	http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf -> "${P}"_manual.pdf"
 
 # http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.32.zip
