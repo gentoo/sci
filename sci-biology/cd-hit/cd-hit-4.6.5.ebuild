@@ -12,8 +12,7 @@ RELEASE="${PN}-v${PV}-${RELDATE}"
 DESCRIPTION="Clustering Database at High Identity with Tolerance"
 HOMEPAGE="http://weizhong-lab.ucsd.edu/cd-hit
 	http://weizhongli-lab.org/cd-hit"
-SRC_URI="https://github.com/weizhongli/cdhit/archive/V${PV}.tar.gz -> ${P}.tar.gz
-	http://weizhong-lab.ucsd.edu/cd-hit/wiki/doku.php?id=cd-hit-auxtools-manual -> cd-hit-auxtools-manual.html"
+SRC_URI="https://github.com/weizhongli/cdhit/archive/V${PV}.tar.gz -> ${P}.tar.gz"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -47,7 +46,7 @@ src_install() {
 	emake PREFIX="${ED}/usr/bin" install
 	dobin psi-cd-hit/*.pl cd-hit-auxtools/*.pl cd-hit-auxtools/{cd-hit-lap,read-linker,cd-hit-dup}
 	dodoc ChangeLog psi-cd-hit/README.psi-cd-hit
-	use doc && dodoc doc/* psi-cd-hit/qsub-template "${DISTDIR}"/cd-hit-auxtools-manual.html
+	use doc && dodoc doc/* psi-cd-hit/qsub-template "${FILESDIR}"/cd-hit-auxtools-manual.txt
 }
 
 pkg_postinst(){
@@ -58,4 +57,5 @@ pkg_postinst(){
 	einfo "The cd-hit-auxtools are no longer a separate package and belong to cd-hit since"
 	einfo "version 4.6.5. However, there is no manual for that in current cd-hit tree. Therefore"
 	einfo "see http://weizhong-lab.ucsd.edu/cd-hit/wiki/doku.php?id=cd-hit-auxtools-manual"
+	einfo "A local copy is is in /usr/share/doc/${PN}/cd-hit-auxtools-manual.txt"
 }
