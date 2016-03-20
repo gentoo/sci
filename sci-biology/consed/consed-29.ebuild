@@ -22,6 +22,7 @@ DEPEND=">=x11-libs/motif-2.3:0"
 # This file was about sci-biology/samtools-1.2 time moved to sci-libs/htslib-1.2.1
 RDEPEND="${DEPEND}
 	<sci-biology/samtools-1.0
+	>=sci-biology/samtools-0.1.18
 	>=sci-biology/phred-000925
 	>=sci-biology/phrap-1.080721
 	dev-lang/perl"
