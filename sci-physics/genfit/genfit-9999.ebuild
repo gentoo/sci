@@ -7,9 +7,8 @@ EAPI=5
 inherit cmake-utils versionator
 
 if [[ ${PV} == *9999* ]]; then
-	inherit subversion
-	ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/trunk"
-	ESVN_PROJECT="${PN}.${PV}"
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/GenFit/GenFit.git"
 	KEYWORDS=""
 else
 	# .zip-snapshot can be recreated by visiting
