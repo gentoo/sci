@@ -9,15 +9,13 @@ AUTOTOOLS_AUTORECONF=yes
 inherit autotools-utils eutils flag-o-matic fortran-2 multilib
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
-HOMEPAGE="http://sourceforge.net/projects/staden/"
-SRC_URI="
-	http://downloads.sourceforge.net/staden/staden-${PV/_beta/b}-src.tar.gz
-	http://sourceforge.net/projects/staden/files/staden/${PV/_beta/b}/staden_doc-${PV/_beta/b}-src.tar.gz"
+HOMEPAGE="http://sourceforge.net/projects/staden"
+SRC_URI="http://downloads.sourceforge.net/staden/staden-${PV/_beta/b}-src.tar.gz"
 
 LICENSE="staden"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="curl debug fortran png tcl tk X zlib"
+IUSE="debug doc fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
 # edit src/mk/linux.mk accordingly
@@ -37,7 +35,9 @@ DEPEND="
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )
-	tk? ( >=dev-tcltk/itk-3.2 )"
+	tk? ( >=dev-tcltk/itk-3.2 )
+	net-misc/curl
+	doc? ( sci-biology/staden_doc )"
 
 S="${WORKDIR}"/staden-${PV/_beta/b}-src
 
@@ -69,10 +69,6 @@ src_configure(){
 
 src_install() {
 	autotools-utils_src_install
-	# TODO: dodoc /usr/share/doc/staden/manual/gap4.index ?
-	#cd "${WORKDIR}"/staden_doc-${PV/_beta/b}-src || die "failed to cd "${WORKDIR}"/staden_doc-${PV/_beta/b}-src"
-	#make install prefix="${D}"/usr || die "failed to install pre-created docs from upstream"
-
 	# install the LDPATH so that it appears in /etc/ld.so.conf after env-update
 	# subsequently, apps linked against /usr/lib/staden can be run because
 	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
@@ -81,6 +77,5 @@ src_install() {
 	STADENROOT="${EPREFIX}"/usr/share/staden
 	LDPATH="${EPREFIX}/usr/$(get_libdir)/staden"
 	EOF
-
 	doenvd "${T}"/99staden
 }

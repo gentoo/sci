@@ -16,7 +16,7 @@ ESVN_REPO_URI="https://staden.svn.sourceforge.net/svnroot/staden/staden/trunk/sr
 LICENSE="staden"
 SLOT="0"
 KEYWORDS=""
-IUSE="curl debug fortran png tcl tk X zlib"
+IUSE="debug doc fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
 # edit src/mk/linux.mk accordingly
@@ -36,7 +36,9 @@ DEPEND="
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )
-	tk? ( >=dev-tcltk/itk-3.2 )"
+	tk? ( >=dev-tcltk/itk-3.2 )
+	net-misc/curl
+	doc? ( sci-biology/staden_doc )"
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
@@ -62,13 +64,10 @@ src_configure() {
 }
 
 src_install() {
-	# TODO: dodoc /usr/share/doc/staden/manual/gap4.index ?
 	autotools-utils_src_install SVN_VERSION="${ESVN_REVISION}"
-
 	cat >> "${T}"/99staden <<- EOF
 	STADENROOT="${EPREFIX}"/usr/share/staden
 	LDPATH="${EPREFIX}/usr/$(get_libdir)/staden"
 	EOF
-
 	doenvd "${T}"/99staden
 }
