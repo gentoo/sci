@@ -10,7 +10,7 @@ inherit perl-module eutils toolchain-funcs
 AUTOTOOLS_AUTORECONF=true
 inherit autotools-utils git-r3
 
-DESCRIPTION="Genome assembly package live cvs sources"
+DESCRIPTION="Whole genome assembler, Hawkeye and AMOScmp to compare multiple assemblies"
 HOMEPAGE="http://sourceforge.net/projects/amos"
 SRC_URI=""
 EGIT_REPO_URI="git://amos.git.sourceforge.net/gitroot/amos/amos"
@@ -34,6 +34,10 @@ RDEPEND="${DEPEND}
 
 #  --with-jellyfish        location of Jellyfish headers
 
+# $ gap-links
+# ERROR:  Could not open file  LIBGUESTFS_PATH=/usr/share/guestfs/appliance/
+# $
+
 src_install() {
 	default
 	python_replicate_script "${ED}"/usr/bin/goBambus2
@@ -49,4 +53,8 @@ src_install() {
 	# zap the mis-placed files ('make install' is at fault)
 	rm -f "${D}"/usr/lib64/AMOS/*.pm
 	rm -rf "${D}"/usr/lib64/TIGR
+	echo AMOSCONF="${EPREFIX}"/etc/amos.acf > "${S}"/99amos || die
+	mkdir -p "${ED}"/etc || die
+	touch "${ED}"/etc/amos.acf || die
+	doenvd "${S}/99amos"
 }
