@@ -73,8 +73,7 @@ src_install() {
 		solexa_example_answer selectRegions selectRegionsAnswer
 	echo CONSED_HOME="${EPREFIX}"/usr > "${S}"/99consed || die
 	echo CONSED_PARAMETERS="${EPREFIX}"/etc/consedrc >> "${S}"/99consed || die
-	mkdir -p "${ED}"/etc/consedrc || die
-	touch "${ED}"/etc/consedrc || die
+	touch "${ED}"/etc/consedrc || die "Cannot create a file for system-wide settings"
 	doenvd "${S}/99consed"
 	sed \
 		-e "s#/usr/local/genome#${EPREFIX}/usr#" \
