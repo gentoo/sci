@@ -1,0 +1,73 @@
+# Copyright 1999-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id$
+
+EAPI=6
+
+inherit multilib unpacker versionator
+
+MY_V="$(get_version_component_range 1).$(get_version_component_range 2).130.136-GA"
+
+X86_AT="AMD-APP-SDKInstaller-v${MY_V}-linux32.tar.bz2"
+AMD64_AT="AMD-APP-SDKInstaller-v${MY_V}-linux64.tar.bz2"
+
+MY_P_AMD64="AMD-APP-SDK-v${MY_V}-linux64.sh"
+MY_P_AMD32="AMD-APP-SDK-v${MY_V}-linux32.sh"
+
+DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
+HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk"
+SRC_URI="
+		amd64? ( ${AMD64_AT} )
+		x86? ( ${X86_AT} )"
+LICENSE="AMD-APPSDK"
+SLOT="0"
+KEYWORDS="~amd64 ~x86"
+IUSE="examples"
+
+RDEPEND="
+	app-eselect/eselect-opengl
+	!<dev-util/amdstream-2.6
+	sys-devel/llvm
+	sys-devel/gcc:*
+	media-libs/mesa
+	media-libs/freeglut
+	virtual/opencl
+	examples? ( media-libs/glew:0 )
+	app-eselect/eselect-opencl
+	x11-drivers/ati-drivers"
+DEPEND="
+	${RDEPEND}
+	dev-lang/perl
+	dev-util/patchelf
+	sys-apps/fakeroot"
+
+RESTRICT="mirror strip"
+
+S="${WORKDIR}"
+
+pkg_nofetch() {
+	einfo "AMD doesn't provide direct download links. Please download"
+	einfo "${ARCHIVE} from ${HOMEPAGE}"
+}
+
+src_unpack() {
+	default
+
+	cd "${WORKDIR}" || die
+
+	if use amd64 || use amd64-linux ; then
+		unpacker ./${MY_P_AMD64}
+	else
+		unpacker ./${MY_P_X86}
+	fi
+}
+
+src_compile() {
+	MAKEOPTS+=" -j1"
+	use examples && cd samples/opencl && default
+}
+
+src_install() {
+	dodir /opt/AMDAPP
+	doins -r "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
+}
