@@ -79,3 +79,7 @@ src_install() {
 	EOF
 	doenvd "${T}"/99staden
 }
+
+pkg_postinst(){
+	einfo "There is a tutorial at https://sourceforge.net/projects/staden/files/tutorials/1.1/course-1.1.tar.gz"
+}
