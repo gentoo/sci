@@ -31,7 +31,7 @@ DEPEND="
 	dev-tcltk/tklib
 	media-libs/libpng:0
 	sci-biology/samtools
-	>=sci-libs/io_lib-1.12.2
+	>=sci-libs/io_lib-1.13.8
 	sys-libs/zlib"
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
