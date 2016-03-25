@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs flag-o-matic fortran-2
 
@@ -18,7 +18,7 @@ SRC_URI="
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="arpack doc examples threads"
+IUSE="arpack doc examples openmp threads"
 
 RDEPEND="
 	arpack? ( >=sci-libs/arpack-3.1.3 )
@@ -31,9 +31,9 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/CalculiX/${MY_P}/src
 
-src_prepare (){
-	epatch "${FILESDIR}/01_${MY_P}_Makefile_custom_cc_flags_spooles_arpack.patch"
-}
+PATCHES=(
+	"${FILESDIR}/01_${MY_P}_Makefile_custom_cc_flags_spooles_arpack.patch"
+)
 
 src_configure() {
 	# Technically we currently only need this when arpack is not used.
@@ -43,6 +43,11 @@ src_configure() {
 	append-cflags "-I/usr/include/spooles -DSPOOLES"
 	if use threads; then
 		append-cflags "-DUSE_MT"
+	fi
+	
+	if use openmp; then
+		append-fflags "-fopenmp"
+		append-cflags "-fopenmp"
 	fi
 
 	if use arpack; then
