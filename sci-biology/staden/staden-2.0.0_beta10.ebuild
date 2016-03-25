@@ -45,7 +45,6 @@ AUTOTOOLS_IN_SOURCE_BUILD=1
 
 PATCHES=(
 	"${FILESDIR}"/${P}-ldflags.patch
-	"${FILESDIR}"/${P}-libpng-1.5.patch
 	"${FILESDIR}"/${P}-zlib.patch )
 
 src_prepare() {
