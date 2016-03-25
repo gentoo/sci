@@ -22,5 +22,5 @@ IUSE=""
 # http://www.mathworks.com/products/compiler/mcr/index.html
 DEPEND=""
 RDEPEND="${DEPEND}
-	>=sci-biology/ncbi-tools+-2.2.28
+	>=sci-biology/ncbi-tools-2.2.28
 	>=sci-mathematics/octave-3.6.2"
