@@ -15,7 +15,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="
-	dev-perl/perl-tk
+	dev-perl/Tk
 	dev-perl/libwww-perl
 	>=sci-biology/rebase-904"
 

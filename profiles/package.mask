@@ -30,10 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher <jlec@gentoo.org> (29 Feb 2016)
-# unknown rev dep masked
-sci-biology/perlprimer
-
 # Justin Lecher <jlec@gentoo.org> (9 Feb 2016)
 # rev dep masked
 sci-biology/inGAP-bin
