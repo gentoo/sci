@@ -6,7 +6,7 @@ language: python
 python:
     - pypy
 env:
-    - PORTAGE_VER="2.2.27"
+    - PORTAGE_VER="2.2.28"
 before_install:
     - sudo apt-get -qq update
     - sudo apt-get install -y libxml2
