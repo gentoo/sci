@@ -13,7 +13,7 @@ SRC_URI="http://sourceforge.net/projects/staden/files/staden/${PV/_beta/b}/stade
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-lang/perl
