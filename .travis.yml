@@ -36,7 +36,7 @@ script:
 # You can append own scripts after this line
 
     - wget "https://raw.githubusercontent.com/mgorny/gentoo-xml-schema/master/metadata.xsd" -O metadata.xsd
-    - xmllint --noout --schema metadata.xsd */*/metadata.xml 2>&1 | grep "fails to validate"; [[ ${PIPESTATUS[0]} == 0 ]] || exit 1
+    - xmllint --noout --schema metadata.xsd */*/metadata.xml 2>&1 | grep "fails to validate"; [[ ${PIPESTATUS[0]} == 0 ]] || false
 
 notifications:
     irc: "chat.freenode.net#gentoo-science"
