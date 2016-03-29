@@ -31,12 +31,12 @@ before_script:
     - SIZE=$(stat -c %s .travis.yml.upstream)
     - if ! cmp -n $SIZE -s .travis.yml .travis.yml.upstream; then echo -e "\e[31m !!! .travis.yml outdated! Update available https://github.com/mrueg/repoman-travis \e[0m" > /tmp/update ; fi
     - cd travis-overlay
+    - wget "https://raw.githubusercontent.com/mgorny/gentoo-xml-schema/master/metadata.xsd" -O metadata.xsd
 script:
     - ./../spinner.sh "python ../portage-${PORTAGE_VER}/bin/repoman full -d"
 # You can append own scripts after this line
-
-    - wget "https://raw.githubusercontent.com/mgorny/gentoo-xml-schema/master/metadata.xsd" -O metadata.xsd
-    - xmllint --noout --schema metadata.xsd */*/metadata.xml 2>&1 | grep "fails to validate"; [[ ${PIPESTATUS[0]} == 0 ]] || false
+    #too old xmllint on travis
+    #- xmllint --noout --schema metadata.xsd */*/metadata.xml 2>&1 | grep "fails to validate"; [[ ${PIPESTATUS[0]} == 0 ]] || false
 
 notifications:
     irc: "chat.freenode.net#gentoo-science"
