@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="IGS-modified version of the genome annotation tool using Chado database schema"
 HOMEPAGE="http://manatee.sourceforge.net/igs"
@@ -36,7 +36,7 @@ DEPEND="
 	virtual/perl-Storable
 	dev-perl/Log-Log4perl
 	dev-perl/Log-Cabin
-	dev-perl/DateManip
+	dev-perl/Date-Manip
 	dev-perl/IO-Tee
 	dev-perl/MLDBM
 	dev-perl/JSON
