@@ -11,8 +11,6 @@
   </maintainer>
   <use>
     <flag name="icc">Undocumented USE</flag>
-  </use>
-  <use>
     <flag name="ifc">Undocumented USE</flag>
   </use>
   <upstream>

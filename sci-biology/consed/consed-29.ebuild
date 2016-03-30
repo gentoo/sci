@@ -22,6 +22,7 @@ DEPEND=">=x11-libs/motif-2.3:0"
 # This file was about sci-biology/samtools-1.2 time moved to sci-libs/htslib-1.2.1
 RDEPEND="${DEPEND}
 	<sci-biology/samtools-1.0
+	>=sci-biology/samtools-0.1.18
 	>=sci-biology/phred-000925
 	>=sci-biology/phrap-1.080721
 	dev-lang/perl"
@@ -48,12 +49,12 @@ src_prepare() {
 		-e 's#/me1/gordon/samtools/samtools-0.1.18#/usr/include/bam/ -I/usr/include/htslib/#' "${S}/makefile" || die
 	sed -i -e 's/CFLAGS=/CFLAGS += /' "${S}"/misc/*/Makefile || die
 	sed \
-		-e 's!\($szPhredParameterFile =\).*!\1 $ENV{PHRED_PARAMETER_FILE} || "'${EPREFIX}'/usr/share/phred/phredpar.dat";!' \
+		-e "s!\$szPhredParameterFile = .*!\$szPhredParameterFile = \$ENV{'PHRED_PARAMETER_FILE'} || \'"${EPREFIX}"/usr/share/phred/phredpar.dat\';!" \
 		-i "${S}"/scripts/* || die
 }
 
 src_compile() {
-	einfo "consed does not compile with sys-devel/gcc-4.6:* or newer (but 4.4.7 works)"
+	einfo "consed does not compile with >=sys-devel/gcc-4.6:* but 4.4.7 works"
 	default
 	emake -C misc/mktrace
 	emake -C misc/phd2fasta
@@ -70,10 +71,9 @@ src_install() {
 		standard polyphred autofinish assembly_view 454_newbler \
 		align454reads align454reads_answer solexa_example \
 		solexa_example_answer selectRegions selectRegionsAnswer
-	echo 'CONSED_HOME="${EPREFIX}/usr"' > "${S}"/99consed || die
-	echo 'CONSED_PARAMETERS="${EPREFIX}/etc/consedrc"' >> "${S}"/99consed || die
-	mkdir -p "${ED}"/etc/consedrc || die
-	touch "${ED}"/etc/consedrc || die
+	echo CONSED_HOME="${EPREFIX}"/usr > "${S}"/99consed || die
+	echo CONSED_PARAMETERS="${EPREFIX}"/etc/consedrc >> "${S}"/99consed || die
+	touch "${ED}"/etc/consedrc || die "Cannot create a file for system-wide settings"
 	doenvd "${S}/99consed"
 	sed \
 		-e "s#/usr/local/genome#${EPREFIX}/usr#" \

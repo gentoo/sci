@@ -12,13 +12,9 @@ Elk is an all-electron full-potential linearised augmented-plane wave (FP-LAPW) 
     <flag name="libxc">
    Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
   </flag>
-  </use>
-  <use>
     <flag name="perl">
    Install perl scripts.
   </flag>
-  </use>
-  <use>
     <flag name="python">
    Install python scripts.
   </flag>

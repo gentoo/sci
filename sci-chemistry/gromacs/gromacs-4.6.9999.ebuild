@@ -154,12 +154,12 @@ src_configure() {
 
 	mycmakeargs_pre+=(
 		"${fft_opts[@]}"
-		$(cmake-utils_use X GMX_X11)
-		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
-		$(cmake-utils_use gsl GMX_GSL)
-		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
-		$(cmake-utils_use openmp GMX_OPENMP)
-		$(cmake-utils_use offensive GMX_COOL_QUOTES)
+		-DGMX_X11=$(usex X)
+		-DGMX_EXTERNAL_BLAS=$(usex blas)
+		-DGMX_GSL=$(usex gsl)
+		-DGMX_EXTERNAL_LAPACK=$(usex lapack)
+		-DGMX_OPENMP=$(usex openmp)
+		-DGMX_COOL_QUOTES=$(usex offensive)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
@@ -182,7 +182,7 @@ src_configure() {
 		[[ ${x} = "float" ]] && use cuda && \
 			cuda=( -DGMX_GPU=ON )
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-			$(cmake-utils_use threads GMX_THREAD_MPI) "${cuda[@]}" -DGMX_OPENMM=OFF
+			-DGMX_THREAD_MPI=$(usex threads) "${cuda[@]}" -DGMX_OPENMM=OFF
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure

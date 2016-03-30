@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 flag-o-matic fortran-2 toolchain-funcs
+inherit distutils-r1 fortran-2 flag-o-matic
 
 DESCRIPTION="Feed-forward neural network for python"
 HOMEPAGE="http://ffnet.sourceforge.net/"
@@ -38,8 +38,5 @@ src_compile() {
 
 python_install_all() {
 	distutils-r1_python_install_all
-	if use examples; then
-		insinto /usr/share/doc/${PF}
-		doins -r examples
-	fi
+	use examples && dodoc -r examples
 }

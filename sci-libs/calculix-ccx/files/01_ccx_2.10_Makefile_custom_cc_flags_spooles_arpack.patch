@@ -1,0 +1,35 @@
+Fix Makefile to make it use custom CFLAGS and system libraries.
+
+diff -uwrN ccx_2.10.ORIG/src/Makefile ccx_2.10/src/Makefile
+--- src/Makefile	2016-03-07 04:57:09.462878788 +0100
++++ ccx_2.10/src/Makefile	2016-03-07 06:05:44.150786978 +0100
+@@ -1,9 +1,6 @@
+ 
+-CFLAGS = -Wall -O3 -fopenmp -I ../../../SPOOLES.2.2 -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE
+-FFLAGS = -Wall -O3 -fopenmp
+-
+-CC=cc
+-FC=gfortran
++CFLAGS := -Wall -DARCH="Linux" -DMATRIXSTORAGE $(CFLAGS)
++FFLAGS := -Wall $(FFLAGS)
+ 
+ .c.o :
+ 	$(CC) $(CFLAGS) -c $<
+@@ -18,15 +15,10 @@
+ OCCXC = $(SCCXC:.c=.o)
+ OCCXMAIN = $(SCCXMAIN:.c=.o)
+ 
+-DIR=../../../SPOOLES.2.2
+-
+-LIBS = \
+-       $(DIR)/spooles.a \
+-	../../../ARPACK/libarpack_INTEL.a \
+-       -lpthread -lm -lc
++LIBS = $(ARPACKLIB) $(LAPACK) -lm -lc -lspooles -lpthread
+ 
+ ccx_2.10: $(OCCXMAIN) ccx_2.10.a  $(LIBS)
+-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.10.c; $(FC) -fopenmp -Wall -O3 -o $@ $(OCCXMAIN) ccx_2.10.a $(LIBS)
++	./date.pl; $(CC) $(CFLAGS) -c ccx_2.10.c; $(FC) $(FFLAGS) -o $@ $(OCCXMAIN) ccx_2.10.a $(LIBS)
+ 
+ ccx_2.10.a: $(OCCXF) $(OCCXC)
+ 	ar vr $@ $?
