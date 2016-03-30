@@ -18,7 +18,7 @@ IUSE=""
 # The smoothing function sav_gol.c cannot be re-distributed but can be downloaded from TISEAN.
 # http://www.mpipks-dresden.mpg.de/~tisean/
 
-DEPEND=""
+DEPEND="sci-mathematics/tisean"
 RDEPEND="${DEPEND}
 	sci-biology/biopython"
 
