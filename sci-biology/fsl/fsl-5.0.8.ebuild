@@ -128,7 +128,7 @@ src_install() {
 	#fi
 
 	doenvd "${FILESDIR}"/99fsl
-	rm "${ED}"/usr/bin/cluster || die
+	newbin "${ED}"/usr/bin/cluster fsl_cluster || die
 }
 
 pkg_postinst() {
