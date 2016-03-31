@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
+
+inherit eutils
 
 DESCRIPTION="Verify and correct genome assembly scaffolds using paired-end reads"
 HOMEPAGE="http://www.sanger.ac.uk/science/tools/reapr"
@@ -11,7 +13,7 @@ SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/reapr/Reapr_${PV}.tar.gz
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="" # does not link against -lbamtools
+KEYWORDS=""
 IUSE=""
 
 # tested smalt versions 0.6.4 to 0.7.0.1 only
@@ -28,11 +30,15 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/Reapr_"${PV}"
 
+# we use temporarily patches from https://anonscm.debian.org/cgit/debian-med/reapr.git/tree/debian/patches
+
 src_prepare(){
+	default
+	for f in "${FILESDIR}"/*.patch; do epatch $f || die; done
 	sed -e 's#^CC = g++#CXX ?= g++#' -i src/Makefile || die
 	sed -e 's#$(CC)#$(CXX)#' -i src/Makefile || die
 	sed -e 's#-O3##' -i src/Makefile || die
-	sed -e 's#^CFLAGS =#CXXFLAGS += -I../third_party/bamtools/src -L../third_party/bamtools/src#' -i src/Makefile || die
+	sed -e 's#^CFLAGS =#CXXFLAGS += -I../third_party/tabix -L../third_party/tabix -I../third_party/bamtools/src -L../third_party/bamtools/src#' -i src/Makefile || die
 	#sed -e 's#-lbamtools#../third_party/bamtools/src/libbamtools.so#' -i src/Makefile || die
 	sed -e 's#-ltabix#../third_party/tabix/libtabix.a#' -i src/Makefile || die
 	sed -e 's#CFLAGS#CXXFLAGS#' -i src/Makefile || die
