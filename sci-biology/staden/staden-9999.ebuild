@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -30,7 +30,7 @@ DEPEND="
 	dev-lang/tk:0=
 	dev-tcltk/tklib
 	media-libs/libpng:0
-	sci-biology/samtools
+	sci-biology/samtools:0
 	>=sci-libs/io_lib-1.13.8
 	sys-libs/zlib"
 RDEPEND="${DEPEND}
