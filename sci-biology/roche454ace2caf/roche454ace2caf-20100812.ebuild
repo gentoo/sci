@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="Convert from ace to gap4 (of staden v1.x), not needed to convert ace for gap5 of staden v2"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
@@ -10,7 +10,7 @@ SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/roche45
 
 LICENSE="FLI-Jena"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 DEPEND=""
