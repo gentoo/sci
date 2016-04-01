@@ -14,7 +14,7 @@ SRC_URI="http://downloads.sourceforge.net/staden/staden-${PV/_beta/b}-src.tar.gz
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE="debug doc fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
