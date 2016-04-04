@@ -13,20 +13,26 @@ SRC_URI="http://bibiserv.techfak.uni-bielefeld.de/applications/cgcat/resources/d
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=virtual/jre-1.6:*"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	>=virtual/jre-1.6:*
+	dev-lang/perl
+	sci-biology/ncbi-tools"
+DEPEND="${RDEPEND}
+	>=virtual/jdk-1.6:*
+	dev-java/ant-core"
 
 S="${WORKDIR}"/r2cat
 
 src_prepare(){
-	sed -e "s#/vol/bioapps#"${D}"/usr#" -e "s#/vol/bibidev/r2cat#"${D}"/usr#" -i Makefile
+	sed -e "s#/vol/bioapps#"${D}"/usr#" -e "s#/vol/bibidev/r2cat#"${D}"/usr#" -i Makefile || die
+	sed -e "s#/vol/gnu#/usr#" -i de/bielefeld/uni/cebitec/r2cat/blast_to_r2cat.pl || die
 }
 
 src_compile(){
-	emake
+	emake r2cat.jar
 }
 
 src_install(){
@@ -35,9 +41,20 @@ src_install(){
 	# Enter Passphrase for keystore: jarsigner: you must enter key password
 	# Makefile:44: recipe for target 'cg-cat.jar' failed
 	mkdir -p "${D}"/usr/share/r2cat
-	emake install_cebitec
-	emake install_bibiserv
+	# emake install_cebitec
+	# emake install_bibiserv
+	# the blast_to_r2cat.pl script needs bioperl
+	dobin de/bielefeld/uni/cebitec/r2cat/blast_to_r2cat.pl
+	java-pkg_dojar r2cat.jar || die
+	dodoc README.md ReadmeLicenses.txt
+	insinto /usr/share/doc/"${PN}"/html
+	doins de/bielefeld/uni/cebitec/r2cat/help/*
 }
 
-# java -Xmx1024M -jar r2cat.jar
-# java -Xmx1024M -cp r2cat.jar de.bielefeld.uni.cebitec.treecat.Treecat -Xmx -d64
+# to start r2cat:
+# java -Xmx10240M -jar r2cat.jar de.bielefeld.uni.cebitec.r2cat.R2cat
+
+# to start treecat:
+# java -Xmx10240M -cp r2cat.jar de.bielefeld.uni.cebitec.treecat.Treecat -Xmx -d64
+
+# add -d64 on the java commandline if you need more than 4GB of memory and your system can handle it

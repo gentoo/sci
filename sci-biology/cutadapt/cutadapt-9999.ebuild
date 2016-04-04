@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Remove adapter sequences from high-throughput sequencing data"
-HOMEPAGE="https://code.google.com/p/cutadapt/"
+HOMEPAGE="https://github.com/marcelm/cutadapt"
 EGIT_REPO_URI="https://github.com/marcelm/cutadapt"
 
 LICENSE="MIT"

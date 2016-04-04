@@ -1,0 +1,72 @@
+diff -uwrN cgx_2.10.ORIG/src/cgx.c cgx_2.10/src/cgx.c
+--- src/cgx.c   2016-03-04 20:40:43.429549000 +0100
++++ cgx_2.10/src/cgx.c   2016-03-08 10:53:56.816865592 +0100
+@@ -242,6 +242,9 @@
+ int   subsubmenu_animTune=-1, subsubmenu_animSteps=-1;
+ int   subsubmenu_animPeriod=-1;
+ 
++char recompileFlag=0; /* 0 if nothing to recompile */
++int recompileMenu=0; /* If recompile needed, set to lc */
++
+ GLfloat lmodel_twoside[] = { GL_TRUE };
+ GLfloat lmodel_oneside[] = { GL_FALSE };
+ double dx ,dy;                                      /* Mauskoordinaten im bereich +-1*/
+@@ -400,7 +403,11 @@
+ #endif
+ }
+ 
+-
++void queueRecompileEntitiesInMenu(int lc) 
++{
++  recompileFlag = 1;
++  recompileMenu = lc;
++}
+ 
+ /* the node pointer must not be changed inside the function. Since that is the case the *node is changed to *node_dummy
+    and the global *node is used which is always correct so far */
+@@ -3201,7 +3208,7 @@
+       seqLC[2]=anz->l-1;
+   }/* no sequence until a new entity is selected and all data are prepared */
+ 
+-  recompileEntitiesInMenu(pre_lc);
++  queueRecompileEntitiesInMenu(pre_lc);
+ }
+ 
+ 
+@@ -3229,7 +3236,15 @@
+   glutSetWindow( activWindow);
+ }
+ 
+-
++void processMenuStatus(int status, int x, int y) 
++{
++  if (status == GLUT_MENU_NOT_IN_USE) {
++    if (recompileFlag) {
++      recompileEntitiesInMenu(recompileMenu);
++      recompileFlag = 0;
++    }
++  }
++}
+ 
+ void recompileEntitiesInMenu(int lc)
+ {
+@@ -5918,6 +5933,7 @@
+   glutSpecialFunc ( specialKeyboard );
+   glutEntryFunc ( entryfunktion );
+   glutPassiveMotionFunc ( Mouse );
++  glutMenuStatusFunc( processMenuStatus );
+   glDisable(GL_DITHER);
+   glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_oneside);
+   glCullFace ( GL_BACK );
+diff -uwrN cgx_2.10.ORIG/src/extUtil.h cgx_2.10/src/extUtil.h
+--- src/extUtil.h   2016-02-13 02:21:44.342442000 +0100
++++ cgx_2.10/src/extUtil.h   2016-03-08 10:55:36.194863375 +0100
+@@ -34,7 +34,7 @@
+ }
+   #endif
+ #else
+-  #include <GL/glut_cgx.h>
++  #include <GL/glut.h>
+ #endif
+ 
+ #define     PI          3.14159265358979323846264338327950288

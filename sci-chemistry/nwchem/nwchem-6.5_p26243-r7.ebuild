@@ -193,8 +193,8 @@ src_compile() {
 		lapackpkg="lapack-int64"
 	fi
 	use blas && export BLASOPT="$($(tc-getPKG_CONFIG) --libs ${blaspkg})"
-	use lapack && export BLASOPT+="$($(tc-getPKG_CONFIG) --libs ${lapackpkg})"
-	use scalapack && export BLASOPT+="$($(tc-getPKG_CONFIG) --libs scalapack)"
+	use lapack && export BLASOPT+=" $($(tc-getPKG_CONFIG) --libs ${lapackpkg})"
+	use scalapack && export BLASOPT+=" $($(tc-getPKG_CONFIG) --libs scalapack)"
 	if use cuda; then
 		export TCE_CUDA=Y
 		export CUDA_PATH=/opt/cuda

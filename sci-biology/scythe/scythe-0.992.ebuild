@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils git-r3
 
-DESCRIPTION="Bayesian adapter trimmer for Illumina/Solexa"
+DESCRIPTION="Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa"
 HOMEPAGE="https://github.com/vsbuffalo/scythe"
 EGIT_REPO_URI="https://github.com/vsbuffalo/scythe"
 

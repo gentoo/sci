@@ -1,0 +1,16 @@
+Description: adapt samtools sort usage to 1.3 syntax 
+ Samtools 1.3 changed the syntax of the 'samtools sort' command, breaking
+ REAPR's smaltmap command in the process.
+ Discussed and forwarded to upstream in person, hence no URL.
+Author: Sascha Steinbiss <sascha@steinbiss.name>
+--- a/src/task_smaltmap.pl
++++ b/src/task_smaltmap.pl
+@@ -155,7 +155,7 @@
+                . " | $samtools view -S -T $assembly -b - > $raw_bam";
+ 
+ # sort the bam by coordinate
+-push @commands, "$samtools sort $raw_bam $raw_bam.sort";
++push @commands, "$samtools sort $raw_bam -O bam -o $raw_bam.sort.bam";
+ 
+ # remove duplicates
+ push @commands, "$samtools rmdup $raw_bam.sort.bam $rmdup_bam";

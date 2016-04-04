@@ -10,7 +10,7 @@ inherit eutils python-r1
 PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
-DESCRIPTION="A Modular, Open-Source whole genome assembler"
+DESCRIPTION="Whole genome assembler, Hawkeye and AMOScmp to compare multiple assemblies"
 HOMEPAGE="http://amos.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
@@ -38,6 +38,9 @@ src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-gcc-4.7.patch \
 		"${FILESDIR}"/${P}-goBambus2.py-indent-and-cleanup.patch
+	# $ gap-links
+	# ERROR:  Could not open file  LIBGUESTFS_PATH=/usr/share/guestfs/appliance/
+	# $
 }
 
 #  --with-jellyfish        location of Jellyfish headers
@@ -57,4 +60,8 @@ src_install() {
 	# zap the mis-placed files ('make install' is at fault)
 	rm -f "${D}"/usr/lib64/AMOS/*.pm
 	rm -rf "${D}"/usr/lib64/TIGR
+	echo AMOSCONF="${EPREFIX}"/etc/amos.acf > "${S}"/99amos || die
+	mkdir -p "${ED}"/etc || die
+	touch "${ED}"/etc/amos.acf || die
+	doenvd "${S}/99amos"
 }

@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit python-r1
 
-DESCRIPTION="Combine FASTA contigs from a de novo assembly into scaffolds using a reference assembly"
+DESCRIPTION="Combine FASTA contigs from a de novo assembly into scaffolds using a reference genome"
 HOMEPAGE="
 	http://sourceforge.net/projects/scaffold-b
 	http://edwards.sdsu.edu/scaffold_builder"

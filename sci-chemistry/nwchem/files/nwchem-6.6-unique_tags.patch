@@ -1,0 +1,12 @@
+diff -Naurp nwchem-6.6.orig/src/util/nwc_const.fh nwchem-6.6/src/util/nwc_const.fh
+--- nwchem-6.6.orig/src/util/nwc_const.fh	2015-10-01 17:33:14.000000000 +0000
++++ nwchem-6.6/src/util/nwc_const.fh	2015-11-26 10:53:46.386110924 +0000
+@@ -62,7 +62,7 @@
+ * Maximum number of unique tags
+ *
+       integer nw_max_unq_tags
+-      parameter (nw_max_unq_tags = 40)
++      parameter (nw_max_unq_tags = nw_max_atom)
+ *------------------------------------------------------------------------------
+ * Maximum number of general contractions in a shell
+ *
