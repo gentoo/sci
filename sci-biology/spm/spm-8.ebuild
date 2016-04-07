@@ -12,8 +12,7 @@ LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND=">=sci-mathematics/octave-3.6.4
-	"
+RDEPEND=">=sci-mathematics/octave-3.6.4"
 
 DEPEND="${RDEPEND}
 	app-arch/unzip
