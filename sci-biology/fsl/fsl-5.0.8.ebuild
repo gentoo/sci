@@ -108,7 +108,13 @@ src_install() {
 	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
 		$(grep -l "\$FSLDIR/tcl" tcl/*) || die
 
-	dobin bin/*
+	exeinto /usr/share/${PN}/bin
+	doexe bin/*
+
+	for FILE in bin/*
+	do
+		/usr/bin/"${P}"_"${FILE}" bin/"${FILE}"
+	done
 
 	insinto /usr/share/${PN}
 	doins -r data
@@ -128,7 +134,6 @@ src_install() {
 	#fi
 
 	doenvd "${FILESDIR}"/99fsl
-	mv "${ED}"/usr/bin/{,fsl_}cluster || die
 }
 
 pkg_postinst() {

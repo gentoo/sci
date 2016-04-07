@@ -19,7 +19,7 @@ EGIT_REPO_URI="https://github.com/nipy/nipype"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="fsl spm afni"
 
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
