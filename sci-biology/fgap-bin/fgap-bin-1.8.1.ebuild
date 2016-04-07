@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="Tool to close gaps in de novo assembled contigs or scaffolds"
 HOMEPAGE="http://www.bioinfo.ufpr.br/fgap"
-SRC_URI="https://sourceforge.net/projects/fgap/files/fgap.m"
+SRC_URI="https://sourceforge.net/projects/fgap/files/FGAP_1_8_1_LINUX64b.tar.gz"
 # http://bmcresnotes.biomedcentral.com/articles/10.1186/1756-0500-7-371
 
 LICENSE="MIT"
@@ -22,5 +22,4 @@ IUSE=""
 # http://www.mathworks.com/products/compiler/mcr/index.html
 DEPEND=""
 RDEPEND="${DEPEND}
-	>=sci-biology/ncbi-tools-2.2.28
-	>=sci-mathematics/octave-3.6.2"
+	sci-biology/ncbi-tools+"

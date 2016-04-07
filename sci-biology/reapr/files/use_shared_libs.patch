@@ -1,0 +1,252 @@
+Description: Use_shared_libs
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -1,7 +1,6 @@
+-BAMTOOLS_ROOT = $(CURDIR)/bamtools
+ CC = g++
+-CFLAGS = -Wl,-rpath,$(BAMTOOLS_ROOT)/lib  -Wall -O3  -I $(BAMTOOLS_ROOT)/include -L $(BAMTOOLS_ROOT)/lib
+-TABIX = tabix/tabix.o  -L./tabix -ltabix -lz
++CFLAGS = -Wall -O3  -I /usr/include/bamtools -I /usr/include
++TABIX = -ltabix -lhts -lz
+ STATS_OBJS =  trianglePlot.o coveragePlot.o fasta.o histogram.o utils.o
+ SCORE_OBJS = errorWindow.o utils.o histogram.o
+ BREAK_OBJS = fasta.o utils.o
+@@ -35,46 +34,46 @@
+ 	$(CC) $(CFLAGS) -c histogram.cpp
+ 
+ utils.o: utils.cpp
+-	$(CC) $(CFLAGS) -lbamtools -c utils.cpp
++	$(CC) $(CFLAGS) -c utils.cpp
+ 
+ task_stats: task_stats.o $(STATS_OBJS)
+-	$(CC) $(CFLAGS) task_stats.o $(STATS_OBJS) -lbamtools -o task_stats $(TABIX)
++	$(CC) $(CFLAGS) task_stats.o  $(STATS_OBJS)  -lbamtools $(TABIX) -o task_stats
+ 
+ task_stats.o: task_stats.cpp $(STATS_OBJS)
+ 	$(CC) $(CFLAGS) -c task_stats.cpp
+ 
+ task_score: task_score.o $(SCORE_OBJS)
+-	$(CC) $(CFLAGS) task_score.o $(SCORE_OBJS) -lbamtools -o task_score $(TABIX)
++	$(CC) -o task_score $(CFLAGS) task_score.o $(SCORE_OBJS) -lbamtools $(TABIX)
+ 
+ task_score.o: task_score.cpp $(SCORE_OBJS)
+ 	$(CC) $(CFLAGS) -c task_score.cpp
+ 
+ task_break: task_break.o $(BREAK_OBJS)
+-	$(CC) $(CFLAGS) task_break.o $(BREAK_OBJS) -lbamtools -o task_break $(TABIX)
++	$(CC) $(CFLAGS) task_break.o $(BREAK_OBJS) -lbamtools $(TABIX) -o task_break
+ 
+ task_break.o: task_break.cpp $(BREAK_OBJS)
+ 	$(CC) $(CFLAGS) -c task_break.cpp
+ 
+ bam2fragCov: bam2fragCov.o $(BAM2COV_OBJS)
+-	$(CC) $(CFLAGS) bam2fragCov.o $(BAM2COV_OBJS) -lbamtools -o bam2fragCov $(TABIX)
++	$(CC) $(CFLAGS) bam2fragCov.o $(BAM2COV_OBJS) $(TABIX) -lbamtools -o bam2fragCov
+ 
+ bam2fragCov.o: bam2fragCov.cpp $(BAM2COV_OBJS)
+ 	$(CC) $(CFLAGS) -c bam2fragCov.cpp
+ 
+ bam2insert: bam2insert.o $(BAM2INSERT_OBJS)
+-	$(CC) $(CFLAGS) bam2insert.o $(BAM2INSERT_OBJS) -lbamtools -o bam2insert $(TABIX)
++	$(CC) $(CFLAGS) bam2insert.o $(BAM2INSERT_OBJS) $(TABIX) -lbamtools -o bam2insert
+ 
+ bam2insert.o: bam2insert.cpp $(BAM2INSERT_OBJS)
+ 	$(CC) $(CFLAGS) -c bam2insert.cpp
+ 
+ bam2perfect: bam2perfect.o $(BAM2PERFECT_OBJS)
+-	$(CC) $(CFLAGS) bam2perfect.o $(BAM2PERFECT_OBJS) -lbamtools -o bam2perfect $(TABIX)
++	$(CC) $(CFLAGS) bam2perfect.o $(BAM2PERFECT_OBJS) $(TABIX) -lbamtools -o bam2perfect
+ 
+ bam2perfect.o: bam2perfect.cpp $(BAM2PERFECT_OBJS)
+ 	$(CC) $(CFLAGS) -c bam2perfect.cpp
+ 
+ bam2fcdEstimate: bam2fcdEstimate.o $(BAM2FCDESTIMATE_OBJS)
+-	$(CC) $(CFLAGS) bam2fcdEstimate.o $(BAM2FCDESTIMATE_OBJS) -lbamtools -o bam2fcdEstimate $(TABIX)
++	$(CC) $(CFLAGS) bam2fcdEstimate.o $(TABIX) $(BAM2FCDESTIMATE_OBJS) -o bam2fcdEstimate
+ 
+ bam2fcdEstimate.o: bam2fcdEstimate.cpp $(BAM2FCDESTIMATE_OBJS)
+ 	$(CC) $(CFLAGS) -c bam2fcdEstimate.cpp
+@@ -110,13 +109,13 @@
+ 	$(CC) $(CFLAGS) -c scaff2contig.cpp
+ 
+ task_gapresize: task_gapresize.o $(GAPRESIZE_OBJS)
+-	$(CC) $(CFLAGS) task_gapresize.o $(GAPRESIZE_OBJS) -lbamtools -o task_gapresize $(TABIX)
++	$(CC) $(CFLAGS) task_gapresize.o $(TABIX) $(GAPRESIZE_OBJS) -o task_gapresize
+ 
+ task_gapresize.o: task_gapresize.cpp $(GAPRESIZE_OBJS)
+ 	$(CC) $(CFLAGS) -c task_gapresize.cpp
+ 
+ task_fcdrate: task_fcdrate.o $(FCDRATE_OBJS)
+-	$(CC) $(CFLAGS) task_fcdrate.o $(FCDRATE_OBJS) -lbamtools -o task_fcdrate $(TABIX)
++	$(CC) $(CFLAGS) task_fcdrate.o $(TABIX) $(FCDRATE_OBJS) -o task_fcdrate
+ 
+ task_fcdrate.o: task_fcdrate.cpp $(FCDRATE_OBJS)
+ 	$(CC) $(CFLAGS) -c task_fcdrate.cpp
+--- a/src/task_break.cpp
++++ b/src/task_break.cpp
+@@ -10,7 +10,6 @@
+ #include <assert.h>
+ #include "fasta.h"
+ #include "utils.h"
+-#include "tabix/tabix.hpp"
+ 
+ using namespace std;
+ 
+--- a/src/task_score.cpp
++++ b/src/task_score.cpp
+@@ -18,7 +18,6 @@
+ #include "histogram.h"
+ #include "api/BamMultiReader.h"
+ #include "api/BamReader.h"
+-#include "tabix/tabix.hpp"
+ 
+ using namespace BamTools;
+ using namespace std;
+--- a/src/task_stats.cpp
++++ b/src/task_stats.cpp
+@@ -18,7 +18,6 @@
+ #include "utils.h"
+ #include "api/BamMultiReader.h"
+ #include "api/BamReader.h"
+-#include "tabix/tabix.hpp"
+ 
+ using namespace BamTools;
+ using namespace std;
+--- a/src/utils.h
++++ b/src/utils.h
+@@ -11,7 +11,7 @@
+ 
+ #include "api/BamMultiReader.h"
+ #include "api/BamReader.h"
+-#include "tabix/tabix.hpp"
++#include "tabix.hpp"
+ 
+ const short INNIE = 1;
+ const short OUTTIE = 2;
+--- a/src/task_fcdrate.cpp
++++ b/src/task_fcdrate.cpp
+@@ -9,7 +9,6 @@
+ 
+ #include "utils.h"
+ #include "histogram.h"
+-#include "tabix/tabix.hpp"
+ 
+ using namespace std;
+ 
+--- a/src/reapr.pl
++++ b/src/reapr.pl
+@@ -12,8 +12,8 @@
+ $this_script = File::Spec->rel2abs($this_script);
+ my ($scriptname, $scriptdir) = fileparse($this_script);
+ $scriptdir = File::Spec->rel2abs($scriptdir);
+-my $tabix = File::Spec->catfile($scriptdir, 'tabix/tabix');
+-my $bgzip = File::Spec->catfile($scriptdir, 'tabix/bgzip');
++my $tabix = 'tabix';
++my $bgzip = 'bgzip';
+ my $version = '1.0.18';
+ 
+ if ($#ARGV == -1) {
+--- a/src/task_preprocess.pl
++++ b/src/task_preprocess.pl
+@@ -52,9 +52,9 @@
+ my $ideal_fcd_file = File::Spec->catfile($sample_dir, 'ideal_fcd.txt');
+ my $lowess_prefix = File::Spec->catfile($sample_dir, 'gc_vs_cov.lowess');
+ my $r_script = File::Spec->catfile($sample_dir, 'gc_vs_cov.R');
+-my $tabix = File::Spec->catfile($scriptdir, 'tabix/tabix');
+-my $bgzip = File::Spec->catfile($scriptdir, 'tabix/bgzip');
+-my $samtools = File::Spec->catfile($scriptdir, 'samtools');
++my $tabix = 'tabix';
++my $bgzip = 'bgzip';
++my $samtools = 'samtools';
+ 
+ # make directory and soft links to required files
+ $fasta_in = File::Spec->rel2abs($fasta_in);
+--- a/src/task_perfectfrombam.pl
++++ b/src/task_perfectfrombam.pl
+@@ -57,12 +57,12 @@
+ my $min_perfect_map_qual = $ARGV[5];
+ my $min_align_score = $ARGV[6];
+ my $bam2perfect = File::Spec->catfile($scriptdir, 'bam2perfect');
+-my $bgzip = File::Spec->catfile($scriptdir, 'tabix/bgzip');
+-my $tabix = File::Spec->catfile($scriptdir, 'tabix/tabix');
++my $bgzip = 'bgzip';
++my $tabix = 'tabix';
+ my $ERROR_PREFIX = '[REAPR perfectfrombam]';
+ my $perfect_bam = "$out_prefix.tmp.perfect.bam";
+ my $repetitive_bam = "$out_prefix.tmp.repetitive.bam";
+-my $samtools = File::Spec->catfile($scriptdir, 'samtools');
++my $samtools = 'samtools';
+ my %seq_lengths;
+ my %used_seqs;
+ my $hist_file = "$out_prefix.hist";
+--- a/src/task_perfectmap.pl
++++ b/src/task_perfectmap.pl
+@@ -38,14 +38,14 @@
+ my $reads_2 = $ARGV[2];
+ my $fragsize = $ARGV[3];
+ my $preout = $ARGV[4];
+-my $findknownsnps = File::Spec->catfile($scriptdir, 'findknownsnps');
++my $findknownsnps = 'findknownsnps';
+ my $ERROR_PREFIX = '[REAPR perfect_map]';
+ my $raw_coverage_file = "$preout.tmp.cov.txt";
+ my $tmp_bin = "$preout.tmp.bin";
+ my $tmp_bin_single_match = "$tmp_bin\_single_match.fastq";
+-my $tabix = File::Spec->catfile($scriptdir, 'tabix/tabix');
+-my $bgzip = File::Spec->catfile($scriptdir, 'tabix/bgzip');
+-my $samtools = File::Spec->catfile($scriptdir, 'samtools');
++my $tabix = 'tabix';
++my $bgzip = 'bgzip';
++my $samtools = 'samtools';
+ my $all_bases_outfile = "$preout.perfect_cov.gz";
+ my $hist_outfile = "$preout.hist";
+ my @coverage = (0) x 101;
+--- a/src/task_plots.pl
++++ b/src/task_plots.pl
+@@ -50,9 +50,9 @@
+ }
+ 
+ 
+-my $tabix = File::Spec->catfile($scriptdir, 'tabix/tabix');
+-my $bgzip = File::Spec->catfile($scriptdir, 'tabix/bgzip');
+-my $samtools = File::Spec->catfile($scriptdir, 'samtools');
++my $tabix = 'tabix';
++my $bgzip = 'bgzip';
++my $samtools = 'samtools';
+ my @plot_list = ('frag_cov', 'frag_cov_cor', 'read_cov', 'read_ratio_f', 'read_ratio_r', 'clip', 'FCD_err');
+ my @file_list;
+ my $fa_out = "$outprefix.ref.fa";
+--- a/src/task_pipeline.pl
++++ b/src/task_pipeline.pl
+@@ -9,7 +9,7 @@
+ 
+ my ($scriptname, $scriptdir) = fileparse($0);
+ my $reapr_dir = abs_path(File::Spec->catfile($scriptdir, File::Spec->updir()));
+-my $reapr = File::Spec->catfile($reapr_dir, 'reapr');
++my $reapr = 'reapr';
+ 
+ my %options = (fcdcut => 0);
+ 
+--- a/src/task_seqrename.pl
++++ b/src/task_seqrename.pl
+@@ -7,7 +7,7 @@
+ use Getopt::Long;
+ 
+ my ($scriptname, $scriptdir) = fileparse($0);
+-my $samtools = File::Spec->catfile($scriptdir, 'samtools');
++my $samtools = 'samtools';
+ my %options;
+ my $usage = qq/<rename file> <in.bam> <out.bam>
+ 
+--- a/src/task_smaltmap.pl
++++ b/src/task_smaltmap.pl
+@@ -77,8 +77,8 @@
+ my $reads_2 = $ARGV[2];
+ my $final_bam = $ARGV[3];
+ my $ERROR_PREFIX = '[REAPR smaltmap]';
+-my $samtools = File::Spec->catfile($scriptdir, 'samtools');
+-my $smalt = File::Spec->catfile($scriptdir, 'smalt');
++my $samtools = 'samtools';
++my $smalt = 'smalt';
+ my $tmp_prefix = "$final_bam.tmp.$$.smaltmap";
+ my $smalt_index = "$tmp_prefix.smalt_index";
+ my $smalt_sample = "$tmp_prefix.smalt_sample";

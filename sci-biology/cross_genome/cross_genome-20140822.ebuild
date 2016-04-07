@@ -6,7 +6,7 @@ EAPI=6
 
 DESCRIPTION="Genome scaffolding using cross-species synteny"
 HOMEPAGE="http://www.sanger.ac.uk/science/tools/crossgenome"
-SRC_URI="https://sourceforge.net/projects/phusion2/files/cross_genome/cross_genome.tar.gz -> cross_genome-20140822.tar.gz"
+SRC_URI="https://sourceforge.net/projects/phusion2/files/cross_genome/cross_genome.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"

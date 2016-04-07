@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -14,7 +14,7 @@ SRC_URI="http://downloads.sourceforge.net/staden/staden-${PV/_beta/b}-src.tar.gz
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE="debug doc fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
@@ -30,7 +30,7 @@ DEPEND="
 	dev-lang/tk:0=
 	dev-tcltk/tklib
 	media-libs/libpng:0
-	sci-biology/samtools
+	sci-biology/samtools:0
 	>=sci-libs/io_lib-1.13.8
 	sys-libs/zlib"
 RDEPEND="${DEPEND}
