@@ -108,13 +108,12 @@ src_install() {
 	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
 		$(grep -l "\$FSLDIR/tcl" tcl/*) || die
 
-	mkdir /usr/share/${PN}/bin
 	exeinto /usr/share/${PN}/bin
 	doexe bin/*
 
 	for FILE in bin/*
 	do
-		dosym "${ED}"/usr/bin/"${P}"_"${FILE}" "${FILE}"
+		/usr/bin/"${P}"_"${FILE}" bin/"${FILE}"
 	done
 
 	insinto /usr/share/${PN}
