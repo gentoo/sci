@@ -130,9 +130,9 @@ src_install() {
 
 	doenvd "${FILESDIR}"/99fsl
 
-	for FILE in ${ED}/usr/share/${PN}/bin/*
+	for FILE in /usr/share/${PN}/bin/*
 	do
-		dosym ${ED}/usr/bin/"${P}"_"${FILE}" ${ED}/usr/share/${PN}/bin/"${FILE}" || die "Could not create FSL function symlinks"
+		dosym "${FILE}" /usr/bin/"${PN}"_$(basename "${FILE}") || die "Could not create FSL function symlinks"
 	done
 }
 
