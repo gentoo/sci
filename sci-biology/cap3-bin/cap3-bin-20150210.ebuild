@@ -21,7 +21,7 @@ SRC_URI="
 
 LICENSE="" # only for academic use
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE=""
 
 S="${WORKDIR}/CAP3"
