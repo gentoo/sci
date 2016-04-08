@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ inherit eutils python-single-r1 toolchain-funcs
 
 MY_PV="${PV/_}" # convert from _rc2 to rc2
 
-DESCRIPTION="De novo whole-genome shotgun DNA sequence assembler (Celera Assembler and CABOG)"
+DESCRIPTION="De novo whole-genome shotgun DNA sequence OLC assembler (Celera Assembler, CABOG)"
 HOMEPAGE="http://sourceforge.net/projects/wgs-assembler/"
 SRC_URI="http://sourceforge.net/projects/${PN}/files/${PN}/wgs-8.3/wgs-${MY_PV}.tar.bz2"
 
