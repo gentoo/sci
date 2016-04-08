@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="De novo assembler for smaller genomes (bacteria to fungi)"
+DESCRIPTION="De novo de Bruijn genome assembler (bacteria to fungi) or uneven coverage"
 HOMEPAGE="http://bioinf.spbau.ru/en/spades"
 SRC_URI="http://spades.bioinf.spbau.ru/release3.5.0/SPAdes-3.5.0.tar.gz
 	http://spades.bioinf.spbau.ru/release3.5.0/manual.html"
