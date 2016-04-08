@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils git-r3
 
-DESCRIPTION="String Graph Assembler for short-read assemblies"
+DESCRIPTION="String Graph OLC Assembler for short reads (overlap-layout-consensus)"
 HOMEPAGE="https://github.com/jts/sga"
 EGIT_REPO_URI="git://github.com/jts/sga"
 
