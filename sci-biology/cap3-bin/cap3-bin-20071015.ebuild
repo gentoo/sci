@@ -22,7 +22,7 @@ SRC_URI="
 	x86? ( http://seq.cs.iastate.edu/CAP3/cap3.linux.tar )
 	amd64? ( http://seq.cs.iastate.edu/CAP3/cap3.linux.i686_xeon64.tar )"
 
-LICENSE="Artistic"
+LICENSE="" # only for academic use
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
