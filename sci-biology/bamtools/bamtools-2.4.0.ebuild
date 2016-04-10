@@ -15,6 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static-libs"
 
+# seems jsconcpp header filenames were prefixed 'json_' and the bundled version is about 0.10
 DEPEND="
 	>=dev-libs/jsoncpp-0.5.0-r1
 	<dev-libs/jsoncpp-1
