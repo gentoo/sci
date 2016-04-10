@@ -1,0 +1,15 @@
+--- Makefile.ori	2016-04-10 22:34:31.976222662 +0200
++++ Makefile	2016-04-10 22:37:49.636225327 +0200
+@@ -1,8 +1,8 @@
+-CC = gcc
+-CFLAGS = -Wall
+-DEBUG = -g
++CC ?= gcc
++CFLAGS ?= -Wall
++DEBUG ?= -g
+ LIBS = -lm
+-OPT = -O3
++#OPT = -O3
+ export MAXKMERLENGTH = 64
+ export CATEGORIES = 2
+ DEF = -D MAXKMERLENGTH=$(MAXKMERLENGTH) -D CATEGORIES=$(CATEGORIES)
