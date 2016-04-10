@@ -23,6 +23,7 @@ RDEPEND="${DEPEND}
 	python? ( sci-biology/pysam
 			sci-biology/ruffus )"
 
+# http://www.vcru.wisc.edu/simonlab/bioinformatics/programs/install/sga.htm
 src_configure(){
 	cd src || die
 	./autogen.sh || die
