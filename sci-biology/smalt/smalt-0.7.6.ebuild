@@ -13,7 +13,7 @@ SRC_URI="http://sourceforge.net/projects/${PN}/files/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 S="${WORKDIR}"/${MY_P}
@@ -24,6 +24,6 @@ src_install(){
 	doins misc/*.py
 	dodoc README NEWS
 }
-# is the tarball with source code lacking the manual?
+# is the tarball with source code lacking the manual? Upstream contacted.
 #	dodoc NEWS ${MY_PN}_manual.pdf
 #	doman ${MY_PN}.1
