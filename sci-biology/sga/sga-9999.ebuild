@@ -18,10 +18,10 @@ IUSE="jemalloc python"
 DEPEND="dev-cpp/sparsehash
 	sci-biology/bamtools
 	sys-libs/zlib
-	jemalloc? ( dev-libs/jemalloc )
+	jemalloc? ( dev-libs/jemalloc )"
+RDEPEND="${DEPEND}
 	python? ( sci-biology/pysam
 			sci-biology/ruffus )"
-RDEPEND="${DEPEND}"
 
 src_configure(){
 	cd src || die
