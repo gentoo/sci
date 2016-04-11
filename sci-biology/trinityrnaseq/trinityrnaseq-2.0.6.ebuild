@@ -44,7 +44,7 @@ src_install(){
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
 	#
 	insinto /usr/share/"${PN}"/util
-	rm -f trinity-plugins/GAL_0.2.1 util/fasta_tool
+	rm -rf trinity-plugins/GAL_0.2.1 util/fasta_tool
 	doins -r util/*
 	#
 	dobin Inchworm/bin/*
