@@ -23,7 +23,7 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/parafly
 	=sci-biology/jellyfish-2.1.4
-	sci-biology/samtools
+	sci-biology/samtools:0.1-legacy
 	>=sci-biology/GAL-0.2.1
 	dev-perl/IO-All"
 # ReleaseNotes mentions that <sci-biology/samtools-1.1 is needed
