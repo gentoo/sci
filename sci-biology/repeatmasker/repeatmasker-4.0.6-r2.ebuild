@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -22,8 +22,8 @@ RDEPEND="
 	sci-biology/rmblast
 	>=sci-biology/trf-4.0.4
 	sci-biology/repeatmasker-libraries
-	sci-biology/phrap"
-# dev-perl/Text-Soundex see bug #566740
+	sci-biology/phrap
+	dev-perl/Text-Soundex"
 
 S="${WORKDIR}/RepeatMasker"
 
