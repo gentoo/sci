@@ -34,7 +34,8 @@ IUSE=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-DEPEND="${PYTHON_DEPS}"
+DEPEND="${PYTHON_DEPS}
+	app-text/dos2unix"
 RDEPEND="${DEPEND}
 		virtual/jre"
 
@@ -91,6 +92,9 @@ src_install() {
 	#  *   requested impl: python2.7
 	#
 	# python_foreach_impl python_doscript "${WORKDIR}"/coveragestats.py
+	dos2unix "${WORKDIR}"/coveragestats.py coveragestats.py || die
+	insinto /opt/Tablet/utils
+	doins coveragestats.py
 
 	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
 	doenvd 99Tablet
