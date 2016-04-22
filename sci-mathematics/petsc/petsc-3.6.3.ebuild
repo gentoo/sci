@@ -245,9 +245,3 @@ src_install() {
 		dohtml -r docs/*.html docs/changes docs/manualpages
 	fi
 }
-
-pkg_postinst() {
-	elog "The petsc ebuild is still under development."
-	elog "Help us improve the ebuild in:"
-	elog "http://bugs.gentoo.org/show_bug.cgi?id=53386"
-}
