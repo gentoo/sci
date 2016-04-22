@@ -17,7 +17,10 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	virtual/perl-Getopt-Long
 	virtual/perl-File-Temp
-	dev-perl/Digest-MD5-File"
+	virtual/perl-MIME-Base64
+	dev-perl/Digest-MD5-File
+	dev-perl/JSON
+	dev-perl/Cairo"
 # Cwd
 # Pod::Usage
 # Fcntl qw(:flock SEEK_END)
@@ -25,10 +28,7 @@ RDEPEND="${DEPEND}
 
 # prinseq-graphs.pl needs in addition
 # https://sourceforge.net/projects/prinseq/files/README.txt 
-# JSON
-# Cairo
 # Statistics::PCA
-# perl-core/MIME-Base64
 
 src_install(){
 	dobin *.pl
