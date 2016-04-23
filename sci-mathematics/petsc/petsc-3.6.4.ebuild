@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -17,9 +17,9 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="afterimage complex-scalars cxx debug doc
+IUSE="afterimage boost complex-scalars cxx debug doc fftw
 	fortran hdf5 hypre mpi mumps scotch sparse superlu threads X"
-# Failed: boost imagemagick metis
+# Failed: imagemagick metis
 
 # hypre and superlu curretly exclude each other due to missing linking to hypre
 # if both are enabled
@@ -37,6 +37,8 @@ RDEPEND="
 	virtual/blas
 	virtual/lapack
 	afterimage? ( media-libs/libafterimage )
+	boost? ( dev-libs/boost )
+	fftw? ( sci-libs/fftw:3.0[mpi?] )
 	hdf5? ( sci-libs/hdf5[mpi?] )
 	hypre? ( >=sci-libs/hypre-2.8.0b[mpi?] )
 	mpi? ( virtual/mpi[cxx?,fortran?] )
@@ -46,7 +48,6 @@ RDEPEND="
 	superlu? ( sci-libs/superlu )
 	X? ( x11-libs/libX11 )
 "
-#	boost? ( dev-libs/boost )
 #	metis? ( sci-libs/parmetis )
 #	imagemagick? ( media-gfx/imagemagick )
 
@@ -68,11 +69,21 @@ MAKEOPTS="${MAKEOPTS} -j1"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P%_*}-disable-rpath.patch
+	epatch \
+		"${FILESDIR}"/${PN}-3.6.0-disable-rpath.patch \
+		"${FILESDIR}"/${PN}-3.6.0-fix_sandbox_violation.patch
+
 	sed -i -e 's%/usr/bin/env python%/usr/bin/env python2%' configure || die
 }
 
 src_configure() {
+	# bug 548498
+	# PETSc runs mpi processes during configure that result in a sandbox
+	# violation by trying to open /proc/mtrr rw. This is not easy to
+	# mitigate because it happens in libpciaccess.so called by libhwloc.so,
+	# which is used by libmpi.so.
+	addpredict /proc/mtrr
+
 	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
 	petsc_enable() {
 		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"
@@ -121,11 +132,6 @@ src_configure() {
 	# i.e. when not using complex scalars
 	# (no complex type for both available at the same time)
 
-	if use threads; then
-		ewarn "Threads support may be incomplete on $PN-3.3 release and is not officially supported."
-		ewarn "Upstream recommends not to enable threads support for production runs."
-	fi
-
 	# run petsc configure script
 	econf \
 		scrollOutput=1 \
@@ -147,18 +153,17 @@ src_configure() {
 		$(petsc_enable fortran) \
 		$(use fortran && echo "$(petsc_select mpi fc mpif77 $(tc-getF77))") \
 		$(petsc_enable mpi mpi-compilers) \
-		$(petsc_enable threads pthread) \
-		$(petsc_enable threads pthreadclasses) \
 		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
 		--with-cmake=cmake \
+		$(petsc_enable threads pthread) \
 		$(petsc_with afterimage afterimage \
 			/usr/include/libAfterImage -lAfterImage) \
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre \
 			/usr/include/hypre -lHYPRE) \
-		$(petsc_with sparse cholmod) \
+		$(petsc_with sparse suitesparse) \
 		$(petsc_with superlu superlu \
 			/usr/include/superlu -lsuperlu) \
 		$(petsc_with X x) \
@@ -172,18 +177,18 @@ src_configure() {
 			/usr/include \
 			[-lcmumps,-ldmumps,-lsmumps,-lzmumps,-lmumps_common,-lpord]) \
 		--with-imagemagick=0 \
-		--with-python=0
+		--with-python=0 \
+		$(petsc_with boost) \
+		$(petsc_with fftw)
 
 # not yet tested:
-#		python bindings, netcdf
-# non-working:
-#		fftw: no mpi-implementaion available in gentoo
+#		python bindings, netcdf, fftw
 
 # failed dependencies, perhaps fixed in upstream soon:
 #		$(petsc_with metis parmetis) \ # needs metis too (>=5.0.2)
-#		$(petsc_with boost) \
 #		$(petsc_with imagemagick imagemagick \
 #			/usr/include/ImageMagick $($(tc-getPKG_CONFIG) --libs MagickCore)) \
+#		$(petsc_enable threads pthreadclasses) \
 }
 
 src_install() {
@@ -197,18 +202,18 @@ src_install() {
 	doins ${PETSC_ARCH}/include/*
 	if use fortran; then
 		insinto /usr/include/${PN}/finclude
-		doins include/finclude/*.h
+		doins -r include/${PN}/finclude/*
 	fi
 	if ! use mpi ; then
 		insinto /usr/include/${PN}/mpiuni
 		doins include/mpiuni/*.h
 	fi
 	insinto /usr/include/${PN}/conf
-	doins conf/{variables,rules,test}
+	doins lib/${PN}/conf/{variables,rules,test}
 	insinto /usr/include/${PN}/${PETSC_ARCH}/conf
-	doins ${PETSC_ARCH}/conf/{petscrules,petscvariables,RDict.db}
-	insinto /usr/include/${PN}/petsc-private
-	doins include/petsc-private/*.h
+	doins ${PETSC_ARCH}/lib/${PN}/conf/{petscrules,petscvariables,RDict.db}
+	insinto /usr/include/${PN}/private
+	doins include/${PN}/private/*.h
 
 	# fix configuration files: replace "${S}" by installed location
 	sed -i \
@@ -223,6 +228,11 @@ src_install() {
 		-e "s:usr/lib:usr/$(get_libdir):g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h || die
 
+	# fix the include path of petscvariables in lib/${PN}/conf/variables
+	# bug #559172
+	sed -i -e 's#lib/petsc/conf/#conf/#g' \
+		"${ED}"/usr/include/${PN}/conf/variables || die
+
 	# add information about installation directory and
 	# PETSC_ARCH to environmental variables
 	cat >> 99petsc <<- EOF
@@ -232,6 +242,7 @@ src_install() {
 	doenvd 99petsc
 
 	dolib.so ${PETSC_ARCH}/lib/*.so
+	dolib.so ${PETSC_ARCH}/lib/*.so.*
 
 	if use doc ; then
 		einfo "installing documentation (this could take a while)"
