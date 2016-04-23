@@ -1,10 +1,15 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
 inherit cmake-utils eutils multilib
+
+# deal.II uses its own FindLAPACK.cmake file that calls into the system
+# FindLAPACK.cmake module and does additional internal setup. Do not remove
+# any of these modules:
+CMAKE_REMOVE_MODULES_LIST=""
 
 DESCRIPTION="Solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
