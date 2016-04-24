@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="=sci-biology/pysam-0.7.5[${PYTHON_USEDEP}]"
+DEPEND=">=sci-biology/pysam-0.7.5[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 
 # pysam (v0.7.5) was built in RSeQC. The latest version of pysam may not be compatible with RSeQC.
