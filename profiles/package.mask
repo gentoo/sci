@@ -33,6 +33,7 @@
 # Justin Lecher <jlec@gentoo.org> (24 April 2016)
 # rev dep absent
 sci-biology/genseed
+sci-biology/tgicl
 
 # Justin Lecher <jlec@gentoo.org> (24 April 2016)
 # rev dep missing keywords
