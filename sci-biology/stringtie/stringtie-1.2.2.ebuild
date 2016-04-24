@@ -4,7 +4,7 @@
 
 EAPI=6
 
-DESCRIPTION="Transcriptome assembler and RNA-Seq analysis using BAM files (like cufflinks)"
+DESCRIPTION="Transcriptome assembler and RNA-Seq analysis on BAM files aka cufflinks"
 HOMEPAGE="https://ccb.jhu.edu/software/stringtie
 	https://github.com/gpertea/stringtie"
 SRC_URI="http://ccb.jhu.edu/software/stringtie/dl/${P}.tar.gz"
