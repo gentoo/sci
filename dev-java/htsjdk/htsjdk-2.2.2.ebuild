@@ -32,6 +32,7 @@ JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_GENTOO_CLASSPATH="commons-jexl-2,commons-compress,commons-logging"
 
 java_prepare() {
+	default
 	rm -v lib/{commons-compress,commons-jexl,commons-logging}*.jar || die
 }
 
