@@ -1,0 +1,115 @@
+diff --git a/build.xml b/build.xml
+index f0b98ab..14ff7f7 100755
+--- a/build.xml
++++ b/build.xml
+@@ -83,15 +83,6 @@
+     <!-- INIT -->
+     <target name="init">
+         <path id="classpath">
+-            <fileset dir="${htsjdk_lib_dir}">
+-                <include name="*.jar"/>
+-                <include name="**/*.jar"/>
+-            </fileset>
+-            <!-- for the specific HTSJDK library JARs -->
+-            <fileset dir="${htsjdk}/lib">
+-                <include name="*.jar"/>
+-                <include name="**/*.jar"/>
+-            </fileset>
+             <fileset dir="${lib}">
+                 <include name="**/*.jar"/>
+             </fileset>
+@@ -117,53 +108,21 @@
+ 
+     <!-- HTS-JDK -->
+     <target name="set-htsjdk-version">
+-        <!-- set the htsjdk version -->
+-        <ant antfile="build.xml" dir="${htsjdk}" target="write-version-property" inheritall="false"/>
+-        <loadfile property="htsjdk-version" srcFile="${htsjdk}/htsjdk.version.properties">
+-            <filterchain>
+-                <linecontains>
+-                    <contains value="htsjdk-version="/>
+-                </linecontains>
+-                <tokenfilter>
+-                    <replacestring from="htsjdk-version=" to=""/>
+-                </tokenfilter>
+-                <striplinebreaks/>
+-            </filterchain>
+-        </loadfile>
+     </target>
+ 
+     <target name="clone-htsjdk" description="Clone HTS-JDK sources from Sourceforge">
+-        <exec executable="git" failonerror="true">
+-            <arg value="clone"/>
+-            <arg value="${htsjdk_git_url}"/>
+-            <arg value="${htsjdk}"/>
+-        </exec>
+     </target>
+ 
+     <target name="compile-htsjdk" depends="set-htsjdk-version" description="Build HTS-JDK, and grab build jars">
+-        <ant antfile="build.xml" dir="${htsjdk}" target="clean" inheritall="false"/>
+-        <ant antfile="build.xml" dir="${htsjdk}" target="all" inheritall="false"/>
+-        <copy todir="${htsjdk_lib_dir}">
+-            <fileset dir="${htsjdk}/dist" includes="**/*-*.jar"/>
+-            <fileset dir="${htsjdk}/lib" includes="*.jar"/>
+-        </copy>
+-        <copy todir="${dist}">
+-            <fileset dir="${htsjdk}/dist" includes="**/*.jar" excludes="**/*-*.jar"/>
+-        </copy>
+-        <!-- set the htsjdk version -->
+-        <ant antfile="build.xml" dir="${htsjdk}" target="write-version-property" inheritall="false"/>
+     </target>
+ 
+     <target name="clean-htsjdk" description="Clean HTS-JDK">
+-        <ant antfile="build.xml" dir="${htsjdk}" target="clean" inheritall="false"/>
+     </target>
+ 
+     <target name="test-htsjdk" description="Test HTS-JDK">
+-        <ant antfile="build.xml" dir="${htsjdk}" target="test" inheritall="false"/>
+     </target>
+ 
+     <target name="compile-htsjdk-tests" description="Compile HTS-JDK Tests">
+-        <ant antfile="build.xml" dir="${htsjdk}" target="compile-tests" inheritall="false"/>
+     </target>
+ 
+     <!-- COMPILE -->
+@@ -292,15 +251,11 @@
+             <fileset dir="${lib}">
+                 <exclude name="**/jacocoant.jar"/> <!-- must exclude this jar from packing into picard - this is only used for testing -->
+             </fileset>
+-            <fileset dir="${htsjdk_lib_dir}">
+-                <include name="*.jar"/>
+-            </fileset>
+         </unjar>
+ 
+         <jar destfile="${dist}/picard.jar" compress="no">
+             <fileset dir="${classes}" includes="picard/**/*.*, META-INF/**/*"/>
+             <fileset dir="${src.scripts}" includes="**/*.R"/>
+-            <fileset dir="${htsjdk-classes}" includes ="${htsjdk}/*/**/*.*"/>
+             <fileset dir="${dist.tmp}" includes="**/*"/>
+             <fileset dir="${jar_opt}" includes="**/*"/>
+ 
+@@ -396,13 +351,9 @@
+                 <fileset dir="${lib}">
+                     <include name="**/*.jar"/>
+                 </fileset>
+-                <fileset dir="${htsjdk}/dist">
+-                    <include name="**/*.jar"/>
+-                </fileset>
+             </classpath>
+             <fileset dir=".">
+                 <include name="${src}/**/*.java"/>
+-                <include name="${htsjdk_src}/**/*.java"/>
+             </fileset>
+             <arg line="-f ${command-line-html-dir}/picard-metric-definitions.html"/>
+         </javadoc>
+@@ -508,10 +459,8 @@
+             description="Default build target">
+         <zip zipfile="${dist}/picard-tools-${picard-version}.zip">
+             <zipfileset dir="${dist}" includes="*.jar" prefix="picard-tools-${picard-version}"/>
+-            <zipfileset dir="${htsjdk_lib_dir}" includes="htsjdk-*.jar" prefix="picard-tools-${picard-version}"/>
+             <zipfileset dir="${lib}" includes="snappy*.jar"/>
+             <!-- distribute libJniDeflater.so in same directory as jarfiles-->
+-            <zipfileset dir="${htsjdk}/lib/jni" includes="*" prefix="picard-tools-${picard-version}"/>
+         </zip>
+     </target>
+ 
