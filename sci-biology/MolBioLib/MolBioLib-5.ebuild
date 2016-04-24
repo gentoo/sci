@@ -11,7 +11,7 @@ SRC_URI="https://sourceforge.net/projects/molbiolib/files/MolBioLib_public.versi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="" # does not build
-IUSE=""
+IUSE="doc"
 
 # contains bundled samtools-0.1.18 and bamtools (pezmaster31-bamtools-d553a62) which contains jsoncpp
 # also needs app-doc/doxygen
@@ -19,13 +19,21 @@ DEPEND="dev-lang/perl
 	sys-devel/gcc:*
 	sys-devel/clang
 	>=sci-biology/samtools-0.1.18:0
-	<sci-biology/samtools-1:0"
+	<sci-biology/samtools-1:0
+	doc? ( app-doc/doxygen )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/MolBioLib
+
+src_prepare(){
+	# edit MakeAllApps.pl
+	default
+}
 
 src_compile(){
 	perl MakeAllApps.pl || die
 }
 
-# src_install() needs to be written
+src_install(){
+	dodoc -r docs/doxygen/*
+}
