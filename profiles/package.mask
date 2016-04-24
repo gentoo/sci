@@ -34,6 +34,10 @@
 # rev dep absent
 sci-biology/genseed
 
+# Justin Lecher <jlec@gentoo.org> (24 April 2016)
+# rev dep missing keywords
+sci-biology/iCORN2
+
 # Justin Lecher <jlec@gentoo.org> (9 Feb 2016)
 # rev dep masked
 sci-biology/inGAP-bin
