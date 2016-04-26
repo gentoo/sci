@@ -49,7 +49,6 @@ dev-util/nvidia-cuda-gdk:nvvs - Install the NVIDIA Validation Suite.
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
 media-gfx/librecad:3d - Require all 2D coordinates stored as 3D
 media-gfx/librecad:tools - Build additional tool programs: tff2lff
-sci-astronomy/astrometry:extra - Add extra tools, specifically for plots
 sci-astronomy/mosstack:opencl - Enables OpenCL support and pulls in pyopencl. This makes some operations much faster but requires specific hardware and drivers.
 sci-astronomy/mosstack:qt4 - Pulls in PyQt4. Program works on command line interface without it but for GUI the library is required.
 sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
@@ -246,17 +245,17 @@ sci-libs/trilinos:adolc - Add support for adolc (sci-libs/adolc)
 sci-libs/trilinos:arprec - Add support for arprec (sci-libs/arprec)
 sci-libs/trilinos:boost - Add support for boost (dev-libs/boost)
 sci-libs/trilinos:clp - Add support for clp (sci-libs/coinor-clp)
-sci-libs/trilinos:cppunit - Add support for ()
+sci-libs/trilinos:cppunit - Add support for (...)
 sci-libs/trilinos:cuda - Add support for cuda (dev-util/nvidia-cuda-toolkit)
 sci-libs/trilinos:eigen - Add support for eigen (dev-cpp/eigen)
-sci-libs/trilinos:glpk - Add support for ()
+sci-libs/trilinos:glpk - Add support for (...)
 sci-libs/trilinos:gtest - Add support for gtest (dev-cpp/gtest)
 sci-libs/trilinos:hdf5 - Add support for hdf5 (sci-libs/hdf5)
 sci-libs/trilinos:hwloc - Add support for hwloc (sys-apps/hwloc)
 sci-libs/trilinos:hypre - Add support for hypre (sci-libs/hypre)
 sci-libs/trilinos:matio - Add support for matio (sci-libs/matio)
-sci-libs/trilinos:metis - Add support for metis (sci-libs/(par)metis)
-sci-libs/trilinos:mkl - Add support for mkl (sci/libs/mkl)
+sci-libs/trilinos:metis - Add support for metis (sci-libs/metis or sci-libs/parmetis)
+sci-libs/trilinos:mkl - Add support for mkl (sci-libs/mkl)
 sci-libs/trilinos:mumps - Add support for mumps (sci-libs/mumps)
 sci-libs/trilinos:netcdf - Add support for netcdf (sci-libs/netcdf)
 sci-libs/trilinos:petsc - Add support for petsc (sci-mathematics/petsc)
@@ -268,7 +267,7 @@ sci-libs/trilinos:superlu - Add support for superlu (sci-libs/superlu)
 sci-libs/trilinos:taucs - Add support for taucs (sci-libs/taucs)
 sci-libs/trilinos:tbb - Add support for threading building blocks library (dev-cpp/tbb)
 sci-libs/trilinos:tvmet - Add support for tvmet (dev-libs/tvmet)
-sci-libs/trilinos:yaml - Add support for yaml (dev-cpp-yaml)
+sci-libs/trilinos:yaml - Add support for yaml (dev-cpp/yaml)
 sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/Macaulay2:optimization - Disable to build with -O0 for debugging.
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
