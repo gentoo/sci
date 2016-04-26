@@ -397,6 +397,10 @@ cleanup_install() {
 }
 
 src_install() {
+	# Write access to /dev/random is required to run root.exe
+	# More information at https://sft.its.cern.ch/jira/browse/ROOT-8146
+	addwrite /dev/random
+
 	DOCS=($(find README/* -maxdepth 1 -type f))
 	default
 	dodoc README.md
