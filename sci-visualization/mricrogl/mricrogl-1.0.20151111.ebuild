@@ -10,6 +10,7 @@ DESCRIPTION="A simle medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/MRIcroGL"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/neurolabusc/MRIcroGL.git"
+EGIT_COMMIT="${PV}"
 
 LICENSE="BSD"
 SLOT="0"
