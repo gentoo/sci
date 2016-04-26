@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -32,8 +32,3 @@ RDEPEND="${DEPEND}
 	>=sci-biology/scbi_plot-0.0.6
 	>=dev-ruby/xml-simple-1.0.12
 	>=dev-ruby/gnuplot-2.3.0"
-
-#src_prepare(){
-#	cp "${FILESDIR}"/download_fln_dbs.rb all/full_lengther_next-0.0.8/bin || die
-#	chmod a+rx all/full_lengther_next-0.0.8/bin/*.rb || die
-#}
