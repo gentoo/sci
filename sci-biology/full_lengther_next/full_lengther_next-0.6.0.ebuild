@@ -23,11 +23,15 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-ruby/hoe-2.8.0
+	>=dev-ruby/rdoc-3.10
 	dev-ruby/bundler"
+	# >=dev-ruby/newgem-1.5.3
 RDEPEND="${DEPEND}
 	sci-biology/bioruby
+	>=sci-biology/bio-cd-hit-report-0.1.0
 	>=sci-biology/scbi_blast-0.0.37
 	>=sci-biology/scbi_fasta-0.1.7
+	>=sci-biology/scbi_zcat-0.0.2
 	>=sci-biology/scbi_mapreduce-0.0.29
 	>=sci-biology/scbi_plot-0.0.6
 	>=dev-ruby/xml-simple-1.0.12
