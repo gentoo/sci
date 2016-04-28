@@ -31,7 +31,7 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="
 	all-modules aqua boost cg doc examples imaging ffmpeg gdal java json kaapi mpi
-	mysql odbc offscreen postgres python qt4 qt5 rendering smp tbb test theora tk
+	mysql odbc offscreen postgres python qt4 +qt5 rendering smp tbb test theora tk
 	tcl video_cards_nvidia views web xdmf2 R +X"
 
 REQUIRED_USE="
