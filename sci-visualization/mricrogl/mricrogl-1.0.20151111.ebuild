@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND=""
-DEPEND="dev-lang/fpc
+DEPEND="<dev-lang/fpc-3.0.0
 	dev-lang/lazarus"
 
 src_compile() {
