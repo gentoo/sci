@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}
 	virtual/perl-Data-Dumper
 	dev-perl/Module-Pluggable
 	dev-perl/Algorithm-Diff
-	dev-perl/yaml
+	dev-perl/YAML
 	sci-biology/bioperl
 	graphviz? ( dev-perl/GraphViz )"
 # FindBin
