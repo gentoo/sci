@@ -18,7 +18,6 @@ IUSE="graphviz"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-perl/yaml
 	virtual/perl-Storable
 	virtual/perl-Getopt-Long
 	virtual/perl-Data-Dumper
