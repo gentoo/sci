@@ -12,6 +12,6 @@
 	with other tools, such as the SRILM Tooolkit.
   </longdescription>
 	<upstream>
-		<remote-id type="sourceforge">irstlm</remote-id>
+		<remote-id type="github">irstlm-team/irstlm</remote-id>
 	</upstream>
 </pkgmetadata>
