@@ -1,0 +1,16 @@
+--- a/emcc.orig	2016-05-13 02:59:24.977645718 +0200
++++ b/emcc	2016-05-13 03:00:22.778643301 +0200
+@@ -4,6 +4,7 @@
+ 
+ 
+ import sys
++import os
+ 
+ 
+ 
+@@ -14,4 +15,4 @@
+ else:
+   import os, subprocess
+   if __name__ == '__main__':
+-    sys.exit(subprocess.call(['python2', os.path.join(os.path.dirname(__file__), 'emcc.py')] + sys.argv[1:]))
++    sys.exit(subprocess.call(['python2', os.path.join(os.path.dirname(os.environ['EM_CONFIG']), 'emcc.py')] + sys.argv[1:]))
