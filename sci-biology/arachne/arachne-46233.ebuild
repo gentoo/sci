@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Whole genome shotgun assembler for Sanger read lengths (overlap-layout-contig)"
+DESCRIPTION="Whole genome shotgun OLC assembler for Sanger reads (overlap-layout-contig)"
 HOMEPAGE="https://www.broadinstitute.org/crd/wiki
 	http://genome.cshlp.org/content/12/1/177.abstract"
 SRC_URI="ftp://ftp.broadinstitute.org/pub/crd/ARACHNE/latest_source_code/${P}.tar.gz"

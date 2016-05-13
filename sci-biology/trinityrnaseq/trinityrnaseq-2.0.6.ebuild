@@ -23,7 +23,7 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/parafly
 	=sci-biology/jellyfish-2.1.4
-	sci-biology/samtools
+	sci-biology/samtools:0.1-legacy
 	>=sci-biology/GAL-0.2.1
 	dev-perl/IO-All"
 # ReleaseNotes mentions that <sci-biology/samtools-1.1 is needed
@@ -44,7 +44,7 @@ src_install(){
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
 	#
 	insinto /usr/share/"${PN}"/util
-	rm -f trinity-plugins/GAL_0.2.1 util/fasta_tool
+	rm -rf trinity-plugins/GAL_0.2.1 util/fasta_tool
 	doins -r util/*
 	#
 	dobin Inchworm/bin/*

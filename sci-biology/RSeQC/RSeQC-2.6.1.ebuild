@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -18,11 +18,10 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="=sci-biology/pysam-0.7.5[${PYTHON_USEDEP}]"
+DEPEND=">=sci-biology/pysam-0.7.5[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 
 # pysam (v0.7.5) was built in RSeQC. The latest version of pysam may not be compatible with RSeQC.
-
 python_install(){
 	distutils-r1_python_install
 	rm -r "${D}$(python_get_sitedir)"/pysam

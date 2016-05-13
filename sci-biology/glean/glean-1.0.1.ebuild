@@ -18,13 +18,12 @@ IUSE="graphviz"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-perl/yaml
 	virtual/perl-Storable
 	virtual/perl-Getopt-Long
 	virtual/perl-Data-Dumper
 	dev-perl/Module-Pluggable
 	dev-perl/Algorithm-Diff
-	dev-perl/yaml
+	dev-perl/YAML
 	sci-biology/bioperl
 	graphviz? ( dev-perl/GraphViz )"
 # FindBin
