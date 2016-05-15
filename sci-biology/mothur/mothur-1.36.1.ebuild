@@ -45,4 +45,5 @@ src_compile() {
 
 src_install() {
 	dobin ${PN}
+	dodoc README.md
 }
