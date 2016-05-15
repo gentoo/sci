@@ -1,33 +1,38 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils eutils
 
 DESCRIPTION='C++ library for geometric design and numerical simulation'
 HOMEPAGE="https://gs.jku.at/gismo"
-SRC_URI="https://github.com/filiatra/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://timeraider4u.github.io/myoverlay/files/${P}.tar.gz"
 
 LICENSE="MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples"
+IUSE="doc examples vtk"
 
 # Unbundling in progress, 
 # preparing local changes to get upstream
 DEPEND="
-	doc? ( >=app-doc/doxygen-1.8 )"
+	doc? ( >=app-doc/doxygen-1.8 )
+	vtk? (	dev-qt/qtwidgets:5
+			sci-mathematics/axel
+			sci-mathematics/axel-vtkview
+		 )"
 
 src_prepare() {
-	epatch "${FILESDIR}/examples-CMakeLists.patch"
-	epatch "${FILESDIR}/doc-install.patch"
+	epatch "${FILESDIR}/${PV}/gsAxel-CMakeLists.txt.patch"
+	eapply_user
 }
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use examples GISMO_BUILD_EXAMPLES)
+		-DGISMO_BUILD_EXAMPLES=$(usex examples)
+		-DGISMO_BUILD_AXL=$(usex vtk)
 	)
 	cmake-utils_src_configure
 }

@@ -1,0 +1,52 @@
+--- axel-2016.08.11/CMakeLists.txt.orig 2016-08-11 20:28:09.768927371 +0200
++++ axel-2016.08.11/CMakeLists.txt      2016-08-11 20:28:36.408138750 +0200
+@@ -163,7 +163,7 @@
+ find_package(Qt5Network     REQUIRED)
+ find_package(Qt5Gui         REQUIRED)
+ find_package(Qt5Xml         REQUIRED)
+-find_package(Qt5Declarative REQUIRED)
++find_package(Qt5Quick       REQUIRED)
+ find_package(Qt5OpenGL      REQUIRED)
+ 
+ set(CMAKE_AUTOMOC ON)
+
+--- axel-2016.05.15/CMakeLists.txt.orig	2016-05-15 19:57:05.901771973 +0200
++++ axel-2016.05.15/CMakeLists.txt	2016-05-15 20:02:27.456758525 +0200
+@@ -323,18 +323,31 @@
+ ####################################################################
+ if(BUILD_FOR_RELEASE)
+ configure_file ( "${PROJECT_SOURCE_DIR}/cmake/install-AxelConfig.cmake.in"
+-                 "${CMAKE_BINARY_DIR}/for_installer/lib/cmake/AxelConfig.cmake"
++                 "${CMAKE_BINARY_DIR}/lib/cmake/AxelConfig.cmake"
+                   @ONLY IMMEDIATE)
+ 
+-install ( FILES "${CMAKE_BINARY_DIR}/for_installer/lib/cmake/AxelConfig.cmake"
+-          DESTINATION lib/cmake)
++install ( FILES "${CMAKE_BINARY_DIR}/lib/cmake/AxelConfig.cmake"
++          DESTINATION lib/cmake/Axel)
+ 
+ configure_file ( "${PROJECT_SOURCE_DIR}/cmake/install-axel-config.h.in"
+-                 "${CMAKE_BINARY_DIR}/for_installer/include/axel-config.h"
++                 "${CMAKE_BINARY_DIR}/include/axel-config.h"
+                  @ONLY IMMEDIATE)
+ 
+-install ( FILES "${CMAKE_BINARY_DIR}/for_installer/include/axel-config.h"
+-          DESTINATION include)
++install ( FILES "${CMAKE_BINARY_DIR}/include/axel-config.h"
++          DESTINATION include/Axel)
++install ( FILES "${CMAKE_BINARY_DIR}/src/axlCore/axlCoreExport.h"
++          DESTINATION include/axlCore)
++install ( FILES "${CMAKE_BINARY_DIR}/src/axlGui/axlGuiExport.h"
++          DESTINATION include/axlGui)
++
++install(DIRECTORY "${PROJECT_SOURCE_DIR}/src/axlCore"
++        DESTINATION include/
++        FILES_MATCHING PATTERN "*.h"
++)
++install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/axlGui
++        DESTINATION include/
++        FILES_MATCHING PATTERN "*.h"
++)
+ endif(BUILD_FOR_RELEASE)
+ ######################################################################
+ # Update
