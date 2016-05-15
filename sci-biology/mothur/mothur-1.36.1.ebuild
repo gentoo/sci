@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -17,6 +17,7 @@ KEYWORDS="~amd64 ~x86"
 
 CDEPEND="dev-libs/boost"
 RDEPEND="
+	readline? ( sys-libs/readline:= )
 	sci-biology/uchime
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
@@ -27,7 +28,8 @@ pkg_setup() {
 	use mpi && export CXX=mpicxx || export CXX=$(tc-getCXX)
 	use amd64 && append-cppflags -DBIT_VERSION
 	use readline && export USEREADLINE=yes || export USEREADLINE=no
-	# use boost && export USEBOOST=yes || export USEBOOST=no
+	# there is not USE=boost
+	export USEBOOST=yes
 	use zlib && export USECOMPRESSION=yes || export USECOMPRESSION=no
 }
 
