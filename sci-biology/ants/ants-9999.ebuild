@@ -26,4 +26,5 @@ src_install() {
 	doexe *.sh
 	dodir /usr/$(get_libdir)/ants
 	install -t "${D}"usr/$(get_libdir)/ants *
+	doenvd "${FILESDIR}"/99ants
 }
