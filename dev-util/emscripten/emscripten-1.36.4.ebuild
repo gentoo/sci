@@ -34,6 +34,8 @@ prepare_file() {
 src_prepare() {
 	prepare_file "99emscripten"
 	prepare_file "emscripten.config"
+	eapply "${FILESDIR}/${PV}/emcc.patch"
+	eapply "${FILESDIR}/${PV}/emcmake.patch"
 	eapply_user
 }
 
@@ -49,7 +51,7 @@ src_test() {
 	test -f "${TEST}/hello_world.js" || die "Could not find '${TEST}/hello_world.js'"
 	OUT=$(/usr/bin/node "${TEST}/hello_world.js") || \
 		die "Could not execute /usr/bin/node"
-	EXP=$(echo -e -n 'Hello World!\n \n') || die "Could not create expected string"
+	EXP=$(echo -e -n 'Hello World!\n') || die "Could not create expected string"
 	if [ "${OUT}" != "${EXP}" ]; then
 		die "Expected '${EXP}' but got '${OUT}'!"
 	fi

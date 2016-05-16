@@ -1,0 +1,16 @@
+--- a/emcmake.orig	2016-05-13 02:59:31.244645456 +0200
++++ b/emcmake	2016-05-13 03:03:54.995634425 +0200
+@@ -4,6 +4,7 @@
+ 
+ 
+ import sys
++import os
+ 
+ 
+ 
+@@ -14,4 +15,4 @@
+ else:
+   import os, subprocess
+   if __name__ == '__main__':
+-    sys.exit(subprocess.call(['python2', os.path.join(os.path.dirname(__file__), 'emcmake.py')] + sys.argv[1:]))
++    sys.exit(subprocess.call(['python2', os.path.join(os.path.dirname(os.environ['EM_CONFIG']), 'emcmake.py')] + sys.argv[1:]))
