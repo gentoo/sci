@@ -6,16 +6,15 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 
-inherit distutils-r1 git-r3
-
-MY_PN="nbconvert"
+inherit distutils-r1
 
 DESCRIPTION="Converting Jupyter Notebooks"
 HOMEPAGE="http://jupyter.org"
-EGIT_REPO_URI="https://github.com/jupyter/${MY_PN}.git git://github.com/jupyter/${MY_PN}.git"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
@@ -25,6 +24,7 @@ RDEPEND="
 	dev-python/jinja[${PYTHON_USEDEP}]
 	dev-python/pygments[${PYTHON_USEDEP}]
 	dev-python/traitlets[${PYTHON_USEDEP}]
+	dev-python/entrypoints[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
 	doc? (
