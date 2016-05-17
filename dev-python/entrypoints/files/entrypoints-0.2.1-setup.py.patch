@@ -2,7 +2,7 @@ setup.py for entrypoints by Marius Brehler <marbre@linux.sungazer.de>.
 
 Patch by Marius Brehler <marbrbre@linux.sungazer.de>.
 --- /dev/null
-+++ setup.py
++++ ${WORKDIR}/setup.py
 @@ -0,0 +1,13 @@
 +from distutils.core import setup
 +
