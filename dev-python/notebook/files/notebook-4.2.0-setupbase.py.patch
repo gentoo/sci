@@ -1,8 +1,8 @@
 Disable bundled mathjax.
 
 Patch by Marius Brehler
---- ${WORKDIR}/setupbase.py	2016-04-15 21:15:35.000000000 +0200
-+++ ${WORKDIR}/setupbase.py	2016-05-17 14:54:04.998783993 +0200
+--- a/setupbase.py
++++ b/setupbase.py
 @@ -152,36 +152,6 @@ def find_package_data():
              if f.endswith(('.js', '.css')):
                  static_data.append(pjoin(parent, f))
