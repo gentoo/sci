@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils git-r3 multilib
 
@@ -44,7 +44,7 @@ RDEPEND="
 	graphics? (
 		media-libs/glew
 		>=media-libs/glfw-3.1.1
-		>=sci-visualization/forge-3.1
+		=sci-visualization/forge-3.2.2
 	)"
 DEPEND="${RDEPEND}"
 
@@ -86,19 +86,19 @@ src_configure() {
 	fi
 
 	local mycmakeargs=(
-	   $(cmake-utils_use_build cpu CPU)
-	   $(cmake-utils_use_build cuda CUDA)
-	   $(cmake-utils_use_build opencl OPENCL)
-	   $(cmake-utils_use_build examples EXAMPLES)
-	   $(cmake-utils_use_build test TEST)
-	   $(cmake-utils_use_build graphics GRAPHICS)
-	   $(cmake-utils_use_build nonfree NONFREE)
-	   $(cmake-utils_use_build unified UNIFIED)
-	   -DUSE_SYSTEM_BOOST_COMPUTE=ON
-	   -DUSE_SYSTEM_CLBLAS=ON
-	   -DUSE_SYSTEM_CLFFT=ON
-	   -DUSE_SYSTEM_FORGE=ON
-	   -DAF_INSTALL_CMAKE_DIR=/usr/$(get_libdir)/cmake/ArrayFire
+		-DBUILD_CPU="$(usex cpu)"
+		-DBUILD_CUDA="$(usex cuda)"
+		-DBUILD_OPENCL="$(usex opencl)"
+		-DBUILD_EXAMPLES="$(usex examples)"
+		-DBUILD_TEST="$(usex test)"
+		-DBUILD_GRAPHICS="$(usex graphics)"
+		-DBUILD_NONFREE="$(usex nonfree)"
+		-DBUILD_UNIFIED="$(usex unified)"
+		-DUSE_SYSTEM_BOOST_COMPUTE=ON
+		-DUSE_SYSTEM_CLBLAS=ON
+		-DUSE_SYSTEM_CLFFT=ON
+		-DUSE_SYSTEM_FORGE=ON
+		-DAF_INSTALL_CMAKE_DIR=/usr/$(get_libdir)/cmake/ArrayFire
 	)
 	cmake-utils_src_configure
 }
