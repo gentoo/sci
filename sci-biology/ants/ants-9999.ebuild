@@ -22,6 +22,8 @@ src_install() {
 	cd "${WORKDIR}/${P}_build/ANTS-build" || die "build dir not found"
 	default
 	cd "${WORKDIR}/${P}/Scripts" || die "scripts dir not found"
+	dobin *.sh
 	dodir /usr/$(get_libdir)/ants
 	install -t "${D}"usr/$(get_libdir)/ants *
+	doenvd "${FILESDIR}"/99ants
 }
