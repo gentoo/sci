@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Short read aligner, K-mer-based error-correction and normalization, FASTA/Q conversion"
+DESCRIPTION="Short read aligner, K-mer-based error-correct and normalize, FASTA/Q tool"
 HOMEPAGE="http://sourceforge.net/projects/bbmap/"
 SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_"${PV}".tar.gz"
 
