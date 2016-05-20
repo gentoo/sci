@@ -36,10 +36,10 @@ RDEPEND="
 		virtual/blas
 		virtual/cblas
 		virtual/lapacke
-		dev-libs/boost
-		dev-libs/boost-compute
 		>=sci-libs/clblas-2.4
 		>=sci-libs/clfft-2.6.1
+		dev-libs/boost
+		|| ( dev-libs/boost-compute >=dev-libs/boost-1.61.0 )
 	)
 	graphics? (
 		media-libs/glew
