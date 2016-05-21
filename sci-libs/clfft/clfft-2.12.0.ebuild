@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils
 
@@ -43,10 +43,10 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_build callback_client CALLBACK_CLIENT)
-		$(cmake-utils_use_build client CLIENT)
-		$(cmake-utils_use_build examples EXAMPLES)
-		$(cmake-utils_use_build test TEST)
+		-DBUILD_CALLBACK_CLIENT="$(usex callback_client)"
+		-DBUILD_CLIENT="$(usex client)"
+		-DBUILD_SAMPLE="$(usex examples)"
+		-DBUILD_TEST="$(usex test)"
 		-DBoost_USE_STATIC_LIBS=OFF
 	)
 	cmake-utils_src_configure
