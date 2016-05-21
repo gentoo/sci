@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -59,11 +59,11 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_build client CLIENT)
-		$(cmake-utils_use_build examples SAMPLE)
-		$(cmake-utils_use_build ktest KTEST)
-		$(cmake-utils_use_build performance PERFORMANCE)
-		$(cmake-utils_use_build test TEST)
+		-DBUILD_CLIENT="$(usex client)"
+		-DBUILD_SAMPLE="$(usex examples)"
+		-DBUILD_KTEST="$(usex ktest)"
+		-DBUILD_PERFORMANCE="$(usex performance)"
+		-DBUILD_TEST="$(usex test)"
 		-DOPENCL_ROOT="/usr/local/include"
 	)
 	cmake-utils_src_configure
