@@ -4,7 +4,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
+PYTHON_COMPAT=( python2_7 python3_{4,5} )
 PYTHON_REQ_USE="threads(+)"
 
 inherit distutils-r1 git-r3
@@ -21,6 +21,7 @@ IUSE="test"
 RDEPEND="
 	dev-python/traitlets[${PYTHON_USEDEP}]
 	dev-python/ipykernel[${PYTHON_USEDEP}]
+	>=dev-python/widgetsnbextension-1.2.2[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
 	test? (
