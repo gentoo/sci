@@ -14,7 +14,7 @@ EGIT_COMMIT="${PV}"
 
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="sci-libs/itk"
 RDEPEND="${DEPEND}"
