@@ -23,6 +23,15 @@ DEPEND="${PYTHON_DEPS}
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.5"
 
+src_prepare() {
+	eapply "${FILESDIR}/${PV}/CMakeLists.txt.patch"
+	cd "${S}/../${PN}-clang-${PV}" || \
+		die "Could not change to directory '${S}/../${PN}-clang-${PV}'"
+	eapply "${FILESDIR}/${PV}/Version.cpp.patch"
+	cd "${S}" || die "Could not change to directory '${S}'"
+	eapply_user
+}
+
 src_configure() {
 	# create symlink to tools/clang
 	ln -s "${WORKDIR}/${PN}-clang-${PV}/" "${WORKDIR}/${P}/tools/clang" \
