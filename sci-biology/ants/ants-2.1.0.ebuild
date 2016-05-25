@@ -10,7 +10,7 @@ DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="http://stnava.github.io/ANTs/"
 SRC_URI=""
 EGIT_REPO_URI="git://github.com/stnava/ANTs.git"
-EGIT_COMMIT="${PV}"
+EGIT_COMMIT="v${PV}"
 
 SLOT="0"
 LICENSE="BSD"
