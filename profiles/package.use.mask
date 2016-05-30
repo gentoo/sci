@@ -16,6 +16,10 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Bryan Gardiner <bog@khumba.net> (24 May 2016)
+# dev-java/freehep-* dependencies are masked, #580094
+sci-mathematics/scilab emf
+
 # Christoph Junghans <ottxor@gentoo.org> (12 Sep 2014)
 # icc and ifc don't work on no-multilib
 sci-biology/estscan icc ifc
