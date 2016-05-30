@@ -79,7 +79,7 @@ src_install() {
 	mv doc/man/man3/{,cuda-}deprecated.3 || die
 	doman doc/man/man*/*
 
-	use debugger || remove+=" bin/cuda-gdb extras/Debugger"
+	use debugger || remove+=" bin/cuda-gdb extras/Debugger extras/cuda-gdb-${PV}.src.tar.gz"
 	( use profiler || use eclipse ) || remove+=" libnsight"
 	remove+=" cuda-installer.pl"
 
