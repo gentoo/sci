@@ -47,6 +47,8 @@ src_configure() {
 src_install() {
 	emake \
 		QCLDIR="${D}/usr/share/${PN}" \
-		QCLBIN="${D}/usr/bin" install
-	use doc && dodoc {structquprog,qcldoc,quprog}.pdf
+		QCLBIN="${D}/usr/bin" \
+		install
+	dodoc CHANGES README
+	use doc && dodoc "${DISTDIR}/"{structquprog,qcldoc,quprog}.pdf
 }
