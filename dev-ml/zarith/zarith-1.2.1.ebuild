@@ -26,6 +26,7 @@ pkg_setup() {
 }
 
 src_prepare(){
+	default
 	sed \
 		-e 's:(OCAMLFIND) install:(OCAMLFIND) install -ldconf $(INSTALLDIR)/ld.conf:g' \
 		-i "${S}"/project.mak || die
