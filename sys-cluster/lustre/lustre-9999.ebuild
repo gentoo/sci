@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -41,9 +41,6 @@ DEPEND="${RDEPEND}
 	virtual/linux-sources"
 
 PATCHES=(
-	"${FILESDIR}/0001-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
-	"${DISTDIR}/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0003-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
 	"${FILESDIR}/lustre-readline6.3_fix.patch"
 )
 
