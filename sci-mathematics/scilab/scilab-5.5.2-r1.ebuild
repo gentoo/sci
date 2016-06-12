@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -40,11 +40,11 @@ CDEPEND="
 	sys-libs/readline:0=
 	virtual/lapack
 	emf? (
-		dev-java/freehep-graphicsio
-		dev-java/freehep-graphicsio-emf
-		dev-java/freehep-graphics2d
-		dev-java/freehep-io
-		dev-java/freehep-util
+		dev-java/freehep-graphicsio:0
+		dev-java/freehep-graphicsio-emf:0
+		dev-java/freehep-graphics2d:0
+		dev-java/freehep-io:0
+		dev-java/freehep-graphicsbase:0
 	)
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
@@ -128,7 +128,8 @@ src_prepare() {
 		"${FILESDIR}/${P}-missinglib.patch" \
 		"${FILESDIR}/${P}-batik-1.8.patch" \
 		"${FILESDIR}/${P}-fop-2.0.patch" \
-		"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch"
+		"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch" \
+		"${FILESDIR}/${P}-freehep.patch"
 
 	# works for me on x86, but users are having
 	# trouble without see #282 on github
@@ -142,6 +143,10 @@ src_prepare() {
 
 	# make sure the DOCBOOK_ROOT variable is set
 	sed -i -e "s/xsl-stylesheets-\*/xsl-stylesheets/g" bin/scilab* || die
+
+	# remove self closing <br /> (error our with javadoc8)
+	# already upstream commit 2103082c
+	find . -name '*.java' -exec sed -i "s|<br />|<BR>|" {} \; ||die
 
 	#add specific gentoo java directories
 	if use gui; then
@@ -177,7 +182,7 @@ src_prepare() {
 	fi
 	if use emf; then
 		java-pkg_jar-from freehep-graphicsio-emf,freehep-graphics2d
-		java-pkg_jar-from freehep-graphicsio,freehep-io,freehep-util
+		java-pkg_jar-from freehep-graphicsio,freehep-io,freehep-graphicsbase
 	fi
 	if use test; then
 		java-pkg_jar-from junit-4 junit.jar junit4.jar

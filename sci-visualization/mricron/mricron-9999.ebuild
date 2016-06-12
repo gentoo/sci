@@ -24,8 +24,6 @@ src_compile() {
 
 src_install() {
 	dobin mricron
-	dobin dcm2nii/dcm2nii
-	dobin dcm2nii/dcm2niigui
 	doicon icons/mricron.png
 	make_desktop_entry mricron MRIcron mricron
 }

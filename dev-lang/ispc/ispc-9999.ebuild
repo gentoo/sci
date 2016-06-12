@@ -1,15 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
 inherit toolchain-funcs python-any-r1
 
 DESCRIPTION="Intel SPMD Program Compiler"
-HOMEPAGE="http://ispc.github.com/"
+HOMEPAGE="https://ispc.github.com/"
 
 if [[ ${PV} = *9999 ]]; then
 	inherit git-r3
