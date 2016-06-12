@@ -50,9 +50,10 @@ pkg_setup() {
 }
 
 src_prepare() {
-	if [ -z ${PATCHES[@]} ]; then
+	if [ ! -z ${PATCHES[@]} ]; then
 		epatch ${PATCHES[@]}
 	fi
+	eapply_user
 	# replace upstream autogen.sh by our src_prepare()
 	local DIRS="libcfs lnet lustre snmp"
 	local ACLOCAL_FLAGS
@@ -64,13 +65,6 @@ src_prepare() {
 	eautoheader
 	eautomake
 	eautoconf
-	# now walk in configure dirs
-	einfo "Reconfiguring source in libsysio"
-	cd libsysio
-	eaclocal
-	eautomake
-	eautoconf
-	cd ..
 }
 
 src_configure() {
