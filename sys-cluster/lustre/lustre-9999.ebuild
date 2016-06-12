@@ -43,6 +43,8 @@ REQUIRED_USE="
 	modules? ( client )
 	modules? ( server )"
 
+PATCHES=( "${FILESDIR}/lustre-do-not-include-udef.h.patch" )
+
 pkg_setup() {
 	filter-mfpmath sse
 	filter-mfpmath i386
@@ -83,9 +85,7 @@ src_configure() {
 	econf \
 		${myconf} \
 		--without-ldiskfs \
-		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
-		--with-linux-release="${KV_FULL}" \
 		$(use_enable client) \
 		$(use_enable utils) \
 		$(use_enable modules) \
