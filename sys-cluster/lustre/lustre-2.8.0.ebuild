@@ -50,7 +50,9 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch ${PATCHES[@]}
+	if [ -z ${PATCHES[@]} ]; then
+		epatch ${PATCHES[@]}
+	fi
 	# replace upstream autogen.sh by our src_prepare()
 	local DIRS="libcfs lnet lustre snmp"
 	local ACLOCAL_FLAGS
