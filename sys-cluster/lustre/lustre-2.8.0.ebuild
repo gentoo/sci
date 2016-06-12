@@ -25,12 +25,11 @@ EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="+client +utils server liblustre readline tests tcpd +urandom"
+IUSE="client +utils modules server readline tests"
 
 RDEPEND="
 	virtual/awk
 	readline? ( sys-libs/readline:0 )
-	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
 		>=sys-kernel/spl-0.6.1
 		>=sys-fs/zfs-kmod-0.6.1
@@ -39,6 +38,10 @@ RDEPEND="
 	"
 DEPEND="${RDEPEND}
 	virtual/linux-sources"
+
+REQUIRED_USE="
+	modules? ( client )
+	modules? ( server )"
 
 pkg_setup() {
 	filter-mfpmath sse
@@ -85,11 +88,9 @@ src_configure() {
 		--with-linux-release="${KV_FULL}" \
 		$(use_enable client) \
 		$(use_enable utils) \
+		$(use_enable modules) \
 		$(use_enable server) \
-		$(use_enable liblustre) \
 		$(use_enable readline) \
-		$(use_enable tcpd libwrap) \
-		$(use_enable urandom) \
 		$(use_enable tests)
 }
 

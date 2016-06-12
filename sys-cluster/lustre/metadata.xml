@@ -12,8 +12,6 @@ Lustre is a parallel distributed file system, generally used for large scale clu
     <flag name="client">Enable kernel client modules</flag>
     <flag name="server">Enable kernels server modules</flag>
     <flag name="utils">Enable lustre utils</flag>
-    <flag name="liblustre">Enable building of liblustre</flag>
     <flag name="tests">Enable installation of tests</flag>
-    <flag name="urandom">Enable use of urandom</flag>
   </use>
 </pkgmetadata>
