@@ -1,7 +1,7 @@
 From 6c3f19ba5b6db287980241e4d20be9ac5d0c1293 Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 17:27:23 +1000
-Subject: [PATCH 3/7] LU-8056 socklnd: NETIF_F_ALL_CSUM renamed to
+Subject: [PATCH 3/8] LU-8056 socklnd: NETIF_F_ALL_CSUM renamed to
  NETIF_F_CSUM_MASK
 
 In kernel 4.5 NETIF_F_CSUM_MASK got renamed to NETIF_F_CSUM_MASK.

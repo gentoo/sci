@@ -1,7 +1,7 @@
 From 0242d060692573dcb6f09750a62db1fa0f6d36df Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 17:18:39 +1000
-Subject: [PATCH 2/7] LU-8056 o2iblnd: ib_query_device removed in 4.5
+Subject: [PATCH 2/8] LU-8056 o2iblnd: ib_query_device removed in 4.5
 
 We should use the cached attributes in ib_device instead of
 calling ib_query_device since kernel 4.5

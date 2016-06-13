@@ -1,7 +1,7 @@
 From 9b478d607922c9683663f8e317d93b840e528884 Mon Sep 17 00:00:00 2001
 From: Dmitry Eremin <dmitry.eremin@intel.com>
 Date: Thu, 5 May 2016 22:08:05 +0300
-Subject: [PATCH 1/7] LU-8056 libcfs: Support for linux 4.2 kernels
+Subject: [PATCH 1/8] LU-8056 libcfs: Support for linux 4.2 kernels
 
 In kernel version 4.2 commit df6b35f409af0a8ff1ef62f552b8402f3fef8665
 header file i387.h was renamed to fpu/api.h

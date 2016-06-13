@@ -44,7 +44,6 @@ REQUIRED_USE="
 	server? ( modules )"
 
 PATCHES=(
-	"${FILESDIR}/lustre-do-not-include-udef.h.patch"
 	"${FILESDIR}/0001-LU-8056-libcfs-Support-for-linux-4.2-kernels.patch"
 	"${FILESDIR}/0002-LU-8056-o2iblnd-ib_query_device-removed-in-4.5.patch"
 	"${FILESDIR}/0003-LU-8056-socklnd-NETIF_F_ALL_CSUM-renamed-to-NETIF_F_.patch"
@@ -52,6 +51,7 @@ PATCHES=(
 	"${FILESDIR}/0005-LU-8056-llite-inode_operations-interface-changed-in-.patch"
 	"${FILESDIR}/0006-LU-8056-llite-POSIX_ACL_XATTR_-ACCESS-DEFAULT-remove.patch"
 	"${FILESDIR}/0007-LU-8056-lloop-fix-bio_for_each_segment_all-for-newer.patch"
+	"${FILESDIR}/0008-Fix-build-error-with-gcc-6.1.patch"
 	)
 
 pkg_setup() {
@@ -64,7 +64,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	if [ ! -z ${PATCHES[@]} ]; then
+	if [ ! -z ${#PATCHES[0]} ]; then
 		epatch ${PATCHES[@]}
 	fi
 	eapply_user

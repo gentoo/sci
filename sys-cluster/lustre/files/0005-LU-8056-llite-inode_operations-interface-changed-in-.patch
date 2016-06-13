@@ -1,7 +1,7 @@
 From 0ec0c36d7a0ec5636e19eece4d5df7615f656c23 Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 21:57:31 +1000
-Subject: [PATCH 5/7] LU-8056 llite: inode_operations interface changed in 4.5
+Subject: [PATCH 5/8] LU-8056 llite: inode_operations interface changed in 4.5
 
 Linux kernel 4.5 replaced follow_link() with get_link()
 while put_link() is removed.

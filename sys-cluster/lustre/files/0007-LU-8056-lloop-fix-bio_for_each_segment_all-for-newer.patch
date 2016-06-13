@@ -1,7 +1,7 @@
 From 028c4416216af21dcae53f7daa4f549d0c2bad4f Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@yahoo.com>
 Date: Fri, 3 Jun 2016 14:09:54 -0400
-Subject: [PATCH 7/7] LU-8056 lloop: fix bio_for_each_segment_all for newer
+Subject: [PATCH 7/8] LU-8056 lloop: fix bio_for_each_segment_all for newer
  kernels
 
 Lustre patch http://review.whamcloud.com/20478 back ported

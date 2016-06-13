@@ -1,7 +1,7 @@
 From ab0006e3a3bf5b0ff63f0914a9e7246dfa1729f8 Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 17:40:55 +1000
-Subject: [PATCH 4/7] LU-8056 llite: use inode_lock to access i_mutex
+Subject: [PATCH 4/8] LU-8056 llite: use inode_lock to access i_mutex
 
 Linux kernel 4.5 introduced wrappers for i_mutex as the type
 of i_mutex will be changed in the future.
