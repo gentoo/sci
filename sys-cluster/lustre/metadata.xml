@@ -9,9 +9,10 @@
 Lustre is a parallel distributed file system, generally used for large scale cluster computing
 </longdescription>
   <use>
-    <flag name="client">Enable kernel client modules</flag>
-    <flag name="server">Enable kernels server modules</flag>
-    <flag name="utils">Enable lustre utils</flag>
-    <flag name="tests">Enable installation of tests</flag>
+	  <flag name="client">Enable kernel client modules</flag>
+	  <flag name="dlc">Enable Dynamic LNET Configuration</flag>
+	  <flag name="server">Enable kernels server modules</flag>
+	  <flag name="utils">Enable lustre utils</flag>
+	  <flag name="tests">Enable installation of tests</flag>
   </use>
 </pkgmetadata>

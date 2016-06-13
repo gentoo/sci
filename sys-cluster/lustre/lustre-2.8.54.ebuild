@@ -25,10 +25,11 @@ EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="+client +utils +modules server readline tests"
+IUSE="+client +utils +modules +dlc server readline tests"
 
 RDEPEND="
 	virtual/awk
+	dlc? ( dev-libs/libyaml )
 	readline? ( sys-libs/readline:0 )
 	server? (
 		>=sys-kernel/spl-0.6.1
@@ -95,6 +96,7 @@ src_configure() {
 		${myconf} \
 		--without-ldiskfs \
 		--with-linux="${KERNEL_DIR}" \
+		$(use_enable dlc) \
 		$(use_enable client) \
 		$(use_enable utils) \
 		$(use_enable modules) \
