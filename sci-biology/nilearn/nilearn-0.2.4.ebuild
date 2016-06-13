@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="Fast and easy statistical learning on NeuroImaging data"
 HOMEPAGE="http://nilearn.github.io/"
-SRC_URI="https://github.com/nilearn/nilearn/archive/${PV}.tar.gz -> ${P}"
+SRC_URI="https://github.com/nilearn/nilearn/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
