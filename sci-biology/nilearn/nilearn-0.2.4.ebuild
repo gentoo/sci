@@ -6,13 +6,11 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_4 )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 DESCRIPTION="Fast and easy statistical learning on NeuroImaging data"
 HOMEPAGE="http://nilearn.github.io/"
-SRC_URI=""
-EGIT_REPO_URI="git://github.com/nilearn/nilearn"
-EGIT_COMMIT="${PV}"
+SRC_URI="https://github.com/nilearn/nilearn/archive/${PV}.tar.gz -> ${P}"
 
 LICENSE="BSD"
 SLOT="0"
