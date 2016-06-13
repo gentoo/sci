@@ -43,10 +43,6 @@ REQUIRED_USE="
 	client? ( modules )
 	server? ( modules )"
 
-PATCHES=(
-	"${FILESDIR}/lustre-do-not-include-udef.h.patch"
-	)
-
 pkg_setup() {
 	filter-mfpmath sse
 	filter-mfpmath i386
@@ -57,7 +53,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	if [ ! -z ${PATCHES[@]} ]; then
+	if [ ! -z ${#PATCHES[@]} ]; then
 		epatch ${PATCHES[@]}
 	fi
 	eapply_user
