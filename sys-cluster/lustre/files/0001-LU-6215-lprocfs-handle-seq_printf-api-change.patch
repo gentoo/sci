@@ -1,0 +1,4126 @@
+From cd60eb450f58589c39568507215e6366b41aa154 Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@yahoo.com>
+Date: Wed, 23 Mar 2016 18:37:27 -0400
+Subject: [PATCH 01/19] LU-6215 lprocfs: handle seq_printf api change
+
+Starting with the 4.3 linux kernel seq_printf is a void
+function not returning the character count. This work
+updates lustre to treat seq_printf as a void function.
+Fixed alignment issues and ran this patch against the
+Linux kernels checkpatch to make it compliant to
+upstream standards.
+
+Change-Id: I0cfd71252322038c1b54da624fce48b37a6f30b6
+Signed-off-by: James Simmons <uja.ornl@yahoo.com>
+Reviewed-on: http://review.whamcloud.com/16933
+Tested-by: Jenkins
+Reviewed-by: Dmitry Eremin <dmitry.eremin@intel.com>
+Tested-by: Maloo <hpdd-maloo@intel.com>
+Reviewed-by: Bob Glossman <bob.glossman@intel.com>
+Reviewed-by: Oleg Drokin <oleg.drokin@intel.com>
+---
+ contrib/scripts/checkpatch.pl           |   2 +
+ libcfs/include/libcfs/libcfs_hash.h     |   4 +-
+ libcfs/libcfs/hash.c                    |  55 ++++----
+ lustre/fid/lproc_fid.c                  |  47 +++----
+ lustre/fld/lproc_fld.c                  |   2 +-
+ lustre/ldlm/ldlm_pool.c                 |  21 ++-
+ lustre/ldlm/ldlm_resource.c             |   8 +-
+ lustre/lfsck/lfsck_internal.h           |  14 +-
+ lustre/lfsck/lfsck_layout.c             | 157 ++++++++++-----------
+ lustre/lfsck/lfsck_lib.c                |  66 ++++-----
+ lustre/lfsck/lfsck_namespace.c          | 234 +++++++++++++++-----------------
+ lustre/llite/lproc_llite.c              | 147 ++++++++++----------
+ lustre/lmv/lproc_lmv.c                  |  17 ++-
+ lustre/lod/lproc_lod.c                  |  50 ++++---
+ lustre/lov/lproc_lov.c                  |  30 ++--
+ lustre/mdc/lproc_mdc.c                  |  15 +-
+ lustre/mdd/mdd_lproc.c                  |   6 +-
+ lustre/mdt/mdt_coordinator.c            |  15 +-
+ lustre/mdt/mdt_hsm_cdt_actions.c        |  54 ++++----
+ lustre/mdt/mdt_lproc.c                  |  45 +++---
+ lustre/mgc/mgc_request.c                |   4 +-
+ lustre/obdclass/genops.c                |   4 +-
+ lustre/obdclass/linux/linux-module.c    |  29 ++--
+ lustre/obdclass/lprocfs_jobstats.c      |   3 +-
+ lustre/obdclass/lprocfs_status.c        | 176 ++++++++++++------------
+ lustre/obdclass/lprocfs_status_server.c |  36 ++---
+ lustre/obdclass/lu_object.c             |  27 ++--
+ lustre/ofd/lproc_ofd.c                  |  65 +++++----
+ lustre/osc/lproc_osc.c                  |  95 +++++++------
+ lustre/osd-ldiskfs/osd_lproc.c          |  35 +++--
+ lustre/osd-ldiskfs/osd_scrub.c          | 160 +++++++++-------------
+ lustre/osd-zfs/osd_lproc.c              |   9 +-
+ lustre/osp/lproc_osp.c                  |  60 +++++---
+ lustre/ptlrpc/gss/lproc_gss.c           |  42 +++---
+ lustre/ptlrpc/lproc_ptlrpc.c            |  47 ++++---
+ lustre/ptlrpc/nodemap_lproc.c           |  36 +++--
+ lustre/ptlrpc/nrs_tbf.c                 |   6 +-
+ lustre/ptlrpc/sec_bulk.c                |  84 ++++++------
+ lustre/quota/qsd_lib.c                  |  45 +++---
+ 39 files changed, 974 insertions(+), 978 deletions(-)
+
+diff --git a/contrib/scripts/checkpatch.pl b/contrib/scripts/checkpatch.pl
+index dc85c7c..372ed4c 100755
+--- a/contrib/scripts/checkpatch.pl
++++ b/contrib/scripts/checkpatch.pl
+@@ -472,6 +472,8 @@ my %dep_functions = (
+ 	'strcat',			'strncat',
+ 	'tempnam',			'mkstemp',
+ 	'f_dentry',			'f_path.dentry',
++	'= seq_printf',			'seq_printf',
++	'return seq_printf',		'seq_printf',
+ );
+ 
+ my @rawlines = ();
+diff --git a/libcfs/include/libcfs/libcfs_hash.h b/libcfs/include/libcfs/libcfs_hash.h
+index f076b37..6285c66 100644
+--- a/libcfs/include/libcfs/libcfs_hash.h
++++ b/libcfs/include/libcfs/libcfs_hash.h
+@@ -803,8 +803,8 @@ __cfs_hash_set_theta(struct cfs_hash *hs, int min, int max)
+ 
+ /* Generic debug formatting routines mainly for proc handler */
+ struct seq_file;
+-int cfs_hash_debug_header(struct seq_file *m);
+-int cfs_hash_debug_str(struct cfs_hash *hs, struct seq_file *m);
++void cfs_hash_debug_header(struct seq_file *m);
++void cfs_hash_debug_str(struct cfs_hash *hs, struct seq_file *m);
+ 
+ /*
+  * Generic djb2 hash algorithm for character arrays.
+diff --git a/libcfs/libcfs/hash.c b/libcfs/libcfs/hash.c
+index 02575fb..7afa6cc 100644
+--- a/libcfs/libcfs/hash.c
++++ b/libcfs/libcfs/hash.c
+@@ -2043,13 +2043,10 @@ void cfs_hash_rehash_key(struct cfs_hash *hs, const void *old_key,
+ }
+ EXPORT_SYMBOL(cfs_hash_rehash_key);
+ 
+-int cfs_hash_debug_header(struct seq_file *m)
++void cfs_hash_debug_header(struct seq_file *m)
+ {
+-	return seq_printf(m, "%-*s%6s%6s%6s%6s%6s%6s%6s%7s%8s%8s%8s%s\n",
+-			CFS_HASH_BIGNAME_LEN,
+-			"name", "cur", "min", "max", "theta", "t-min", "t-max",
+-			"flags", "rehash", "count", "maxdep", "maxdepb",
+-			" distribution");
++	seq_printf(m, "%-*s   cur   min   max theta t-min t-max flags rehash   count  maxdep maxdepb distribution\n",
++		   CFS_HASH_BIGNAME_LEN, "name");
+ }
+ EXPORT_SYMBOL(cfs_hash_debug_header);
+ 
+@@ -2077,31 +2074,28 @@ cfs_hash_full_nbkt(struct cfs_hash *hs)
+                CFS_HASH_RH_NBKT(hs) : CFS_HASH_NBKT(hs);
+ }
+ 
+-int cfs_hash_debug_str(struct cfs_hash *hs, struct seq_file *m)
++void cfs_hash_debug_str(struct cfs_hash *hs, struct seq_file *m)
+ {
+-	int	dist[8]	= { 0, };
+-	int	maxdep	= -1;
+-	int	maxdepb	= -1;
+-	int	total	= 0;
+-	int	c	= 0;
+-	int	theta;
+-	int	i;
++	int dist[8] = { 0, };
++	int maxdep = -1;
++	int maxdepb = -1;
++	int total = 0;
++	int theta;
++	int i;
+ 
+ 	cfs_hash_lock(hs, 0);
+ 	theta = __cfs_hash_theta(hs);
+ 
+-	c += seq_printf(m, "%-*s ", CFS_HASH_BIGNAME_LEN, hs->hs_name);
+-	c += seq_printf(m, "%5d ",  1 << hs->hs_cur_bits);
+-	c += seq_printf(m, "%5d ",  1 << hs->hs_min_bits);
+-	c += seq_printf(m, "%5d ",  1 << hs->hs_max_bits);
+-	c += seq_printf(m, "%d.%03d ", __cfs_hash_theta_int(theta),
+-			__cfs_hash_theta_frac(theta));
+-	c += seq_printf(m, "%d.%03d ", __cfs_hash_theta_int(hs->hs_min_theta),
+-			__cfs_hash_theta_frac(hs->hs_min_theta));
+-	c += seq_printf(m, "%d.%03d ", __cfs_hash_theta_int(hs->hs_max_theta),
+-			__cfs_hash_theta_frac(hs->hs_max_theta));
+-	c += seq_printf(m, " 0x%02x ", hs->hs_flags);
+-	c += seq_printf(m, "%6d ", hs->hs_rehash_count);
++	seq_printf(m, "%-*s %5d %5d %5d %d.%03d %d.%03d %d.%03d  0x%02x %6d ",
++		   CFS_HASH_BIGNAME_LEN, hs->hs_name,
++		   1 << hs->hs_cur_bits, 1 << hs->hs_min_bits,
++		   1 << hs->hs_max_bits,
++		   __cfs_hash_theta_int(theta), __cfs_hash_theta_frac(theta),
++		   __cfs_hash_theta_int(hs->hs_min_theta),
++		   __cfs_hash_theta_frac(hs->hs_min_theta),
++		   __cfs_hash_theta_int(hs->hs_max_theta),
++		   __cfs_hash_theta_frac(hs->hs_max_theta),
++		   hs->hs_flags, hs->hs_rehash_count);
+ 
+ 	/*
+ 	 * The distribution is a summary of the chained hash depth in
+@@ -2126,17 +2120,14 @@ int cfs_hash_debug_str(struct cfs_hash *hs, struct seq_file *m)
+ 			maxdepb = ffz(~maxdep);
+ 		}
+ 		total += bd.bd_bucket->hsb_count;
+-		dist[min(fls(bd.bd_bucket->hsb_count/max(theta,1)),7)]++;
++		dist[min(fls(bd.bd_bucket->hsb_count / max(theta, 1)), 7)]++;
+ 		cfs_hash_bd_unlock(hs, &bd, 0);
+ 	}
+ 
+-	c += seq_printf(m, "%7d ", total);
+-	c += seq_printf(m, "%7d ", maxdep);
+-	c += seq_printf(m, "%7d ", maxdepb);
++	seq_printf(m, "%7d %7d %7d ", total, maxdep, maxdepb);
+ 	for (i = 0; i < 8; i++)
+-		c += seq_printf(m, "%d%c",  dist[i], (i == 7) ? '\n' : '/');
++		seq_printf(m, "%d%c",  dist[i], (i == 7) ? '\n' : '/');
+ 
+ 	cfs_hash_unlock(hs, 0);
+-	return c;
+ }
+ EXPORT_SYMBOL(cfs_hash_debug_str);
+diff --git a/lustre/fid/lproc_fid.c b/lustre/fid/lproc_fid.c
+index 078df00..00b2c7b 100644
+--- a/lustre/fid/lproc_fid.c
++++ b/lustre/fid/lproc_fid.c
+@@ -127,17 +127,15 @@ static int
+ lprocfs_server_fid_space_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_server_seq *seq = (struct lu_server_seq *)m->private;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+ 
+ 	mutex_lock(&seq->lss_mutex);
+-	rc = seq_printf(m, "["LPX64" - "LPX64"]:%x:%s\n",
+-			PRANGE(&seq->lss_space));
++	seq_printf(m, "["LPX64" - "LPX64"]:%x:%s\n", PRANGE(&seq->lss_space));
+ 	mutex_unlock(&seq->lss_mutex);
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ static int
+@@ -145,7 +143,6 @@ lprocfs_server_fid_server_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_server_seq *seq = (struct lu_server_seq *)m->private;
+ 	struct client_obd *cli;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+@@ -153,16 +150,15 @@ lprocfs_server_fid_server_seq_show(struct seq_file *m, void *unused)
+ 	if (seq->lss_cli) {
+ 		if (seq->lss_cli->lcs_exp != NULL) {
+ 			cli = &seq->lss_cli->lcs_exp->exp_obd->u.cli;
+-			rc = seq_printf(m, "%s\n", cli->cl_target_uuid.uuid);
++			seq_printf(m, "%s\n", cli->cl_target_uuid.uuid);
+ 		} else {
+-			rc = seq_printf(m, "%s\n",
+-					seq->lss_cli->lcs_srv->lss_name);
++			seq_printf(m, "%s\n", seq->lss_cli->lcs_srv->lss_name);
+                 }
+ 	} else {
+-		rc = seq_printf(m, "<none>\n");
++		seq_puts(m, "<none>\n");
+ 	}
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ static ssize_t
+@@ -197,16 +193,15 @@ static int
+ lprocfs_server_fid_width_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_server_seq *seq = (struct lu_server_seq *)m->private;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+ 
+ 	mutex_lock(&seq->lss_mutex);
+-	rc = seq_printf(m, LPU64"\n", seq->lss_width);
++	seq_printf(m, LPU64"\n", seq->lss_width);
+ 	mutex_unlock(&seq->lss_mutex);
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ LPROC_SEQ_FOPS(lprocfs_server_fid_space);
+@@ -334,7 +329,7 @@ static int fldb_seq_show(struct seq_file *p, void *v)
+ 		       fld->lsf_name, rc);
+ 	} else if (fld_rec.lsr_start != 0) {
+ 		range_be_to_cpu(&fld_rec, &fld_rec);
+-		rc = seq_printf(p, DRANGE"\n", PRANGE(&fld_rec));
++		seq_printf(p, DRANGE"\n", PRANGE(&fld_rec));
+ 	}
+ 
+ 	return rc;
+@@ -533,17 +528,16 @@ static int
+ lprocfs_client_fid_space_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_client_seq *seq = (struct lu_client_seq *)m->private;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+ 
+ 	mutex_lock(&seq->lcs_mutex);
+-	rc = seq_printf(m, "["LPX64" - "LPX64"]:%x:%s\n",
+-			PRANGE(&seq->lcs_space));
++	seq_printf(m, "["LPX64" - "LPX64"]:%x:%s\n",
++		   PRANGE(&seq->lcs_space));
+ 	mutex_unlock(&seq->lcs_mutex);
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ static ssize_t
+@@ -585,32 +579,30 @@ static int
+ lprocfs_client_fid_width_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_client_seq *seq = (struct lu_client_seq *)m->private;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+ 
+ 	mutex_lock(&seq->lcs_mutex);
+-	rc = seq_printf(m, LPU64"\n", seq->lcs_width);
++	seq_printf(m, LPU64"\n", seq->lcs_width);
+ 	mutex_unlock(&seq->lcs_mutex);
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ static int
+ lprocfs_client_fid_fid_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_client_seq *seq = (struct lu_client_seq *)m->private;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+ 
+ 	mutex_lock(&seq->lcs_mutex);
+-	rc = seq_printf(m, DFID"\n", PFID(&seq->lcs_fid));
++	seq_printf(m, DFID"\n", PFID(&seq->lcs_fid));
+ 	mutex_unlock(&seq->lcs_mutex);
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ static int
+@@ -618,18 +610,17 @@ lprocfs_client_fid_server_seq_show(struct seq_file *m, void *unused)
+ {
+ 	struct lu_client_seq *seq = (struct lu_client_seq *)m->private;
+ 	struct client_obd *cli;
+-	int rc;
+ 	ENTRY;
+ 
+ 	LASSERT(seq != NULL);
+ 
+ 	if (seq->lcs_exp != NULL) {
+ 		cli = &seq->lcs_exp->exp_obd->u.cli;
+-		rc = seq_printf(m, "%s\n", cli->cl_target_uuid.uuid);
++		seq_printf(m, "%s\n", cli->cl_target_uuid.uuid);
+ 	} else {
+-		rc = seq_printf(m, "%s\n", seq->lcs_srv->lss_name);
++		seq_printf(m, "%s\n", seq->lcs_srv->lss_name);
+ 	}
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ LPROC_SEQ_FOPS(lprocfs_client_fid_space);
+diff --git a/lustre/fld/lproc_fld.c b/lustre/fld/lproc_fld.c
+index 4ae4f26..24e336c 100644
+--- a/lustre/fld/lproc_fld.c
++++ b/lustre/fld/lproc_fld.c
+@@ -263,7 +263,7 @@ static int fldb_seq_show(struct seq_file *p, void *v)
+ 		       fld->lsf_name, rc);
+ 	} else if (fld_rec->lsr_start != 0) {
+ 		range_be_to_cpu(fld_rec, fld_rec);
+-		rc = seq_printf(p, DRANGE"\n", PRANGE(fld_rec));
++		seq_printf(p, DRANGE"\n", PRANGE(fld_rec));
+ 	}
+ 
+ 	return rc;
+diff --git a/lustre/ldlm/ldlm_pool.c b/lustre/ldlm/ldlm_pool.c
+index 5292266..5ed717c 100644
+--- a/lustre/ldlm/ldlm_pool.c
++++ b/lustre/ldlm/ldlm_pool.c
+@@ -685,20 +685,19 @@ static int lprocfs_pool_state_seq_show(struct seq_file *m, void *unused)
+ 	spin_unlock(&pl->pl_lock);
+ 
+ 	seq_printf(m, "LDLM pool state (%s):\n"
+-		      "  SLV: "LPU64"\n"
+-		      "  CLV: "LPU64"\n"
+-		      "  LVF: %d\n",
+-		      pl->pl_name, slv, clv, lvf);
++		   "  SLV: "LPU64"\n"
++		   "  CLV: "LPU64"\n"
++		   "  LVF: %d\n",
++		   pl->pl_name, slv, clv, lvf);
+ 
+ 	if (ns_is_server(ldlm_pl2ns(pl))) {
+-		seq_printf(m, "  GSP: %d%%\n"
+-			      "  GP:  %d\n",
+-			      grant_step, grant_plan);
++		seq_printf(m, "  GSP: %d%%\n", grant_step);
++		seq_printf(m, "  GP:  %d\n", grant_plan);
+ 	}
+-	seq_printf(m, "  GR:  %d\n" "  CR:  %d\n" "  GS:  %d\n"
+-		      "  G:   %d\n" "  L:   %d\n",
+-		      grant_rate, cancel_rate, grant_speed,
+-		      granted, limit);
++
++	seq_printf(m, "  GR:  %d\n  CR:  %d\n  GS:  %d\n  G:   %d\n  L:   %d\n",
++		   grant_rate, cancel_rate, grant_speed,
++		   granted, limit);
+ 	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lprocfs_pool_state);
+diff --git a/lustre/ldlm/ldlm_resource.c b/lustre/ldlm/ldlm_resource.c
+index 7ed21e3..7abcaaa 100644
+--- a/lustre/ldlm/ldlm_resource.c
++++ b/lustre/ldlm/ldlm_resource.c
+@@ -88,7 +88,8 @@ LPROC_SEQ_FOPS_RO_TYPE(ldlm, uint);
+ 
+ static int seq_watermark_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, LPU64"\n", *(__u64 *)m->private);
++	seq_printf(m, LPU64"\n", *(__u64 *)m->private);
++	return 0;
+ }
+ 
+ static ssize_t seq_watermark_write(struct file *file,
+@@ -161,8 +162,9 @@ static const struct file_operations ldlm_watermark_fops = {
+ 
+ static int seq_granted_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, LPU64"\n", percpu_counter_sum_positive(
+-				(struct percpu_counter *)m->private));
++	seq_printf(m, LPU64"\n", percpu_counter_sum_positive(
++		   (struct percpu_counter *)m->private));
++	return 0;
+ }
+ 
+ static int seq_granted_open(struct inode *inode, struct file *file)
+diff --git a/lustre/lfsck/lfsck_internal.h b/lustre/lfsck/lfsck_internal.h
+index 281643e..a75e948 100644
+--- a/lustre/lfsck/lfsck_internal.h
++++ b/lustre/lfsck/lfsck_internal.h
+@@ -411,9 +411,9 @@ struct lfsck_operations {
+ 			  int result,
+ 			  bool init);
+ 
+-	int (*lfsck_dump)(const struct lu_env *env,
+-			  struct lfsck_component *com,
+-			  struct seq_file *m);
++	void (*lfsck_dump)(const struct lu_env *env,
++			   struct lfsck_component *com,
++			   struct seq_file *m);
+ 
+ 	int (*lfsck_double_scan)(const struct lu_env *env,
+ 				 struct lfsck_component *com);
+@@ -917,11 +917,11 @@ void lfsck_component_cleanup(const struct lu_env *env,
+ 			     struct lfsck_component *com);
+ void lfsck_instance_cleanup(const struct lu_env *env,
+ 			    struct lfsck_instance *lfsck);
+-int lfsck_bits_dump(struct seq_file *m, int bits, const char *names[],
++void lfsck_bits_dump(struct seq_file *m, int bits, const char *names[],
++		     const char *prefix);
++void lfsck_time_dump(struct seq_file *m, __u64 time, const char *name);
++void lfsck_pos_dump(struct seq_file *m, struct lfsck_position *pos,
+ 		    const char *prefix);
+-int lfsck_time_dump(struct seq_file *m, __u64 time, const char *name);
+-int lfsck_pos_dump(struct seq_file *m, struct lfsck_position *pos,
+-		   const char *prefix);
+ void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
+ 		    struct lfsck_position *pos, bool init);
+ bool __lfsck_set_speed(struct lfsck_instance *lfsck, __u32 limit);
+diff --git a/lustre/lfsck/lfsck_layout.c b/lustre/lfsck/lfsck_layout.c
+index 66732d5..e40c311 100644
+--- a/lustre/lfsck/lfsck_layout.c
++++ b/lustre/lfsck/lfsck_layout.c
+@@ -4747,73 +4747,59 @@ static int lfsck_layout_slave_post(const struct lu_env *env,
+ 	return rc;
+ }
+ 
+-static int lfsck_layout_dump(const struct lu_env *env,
+-			     struct lfsck_component *com, struct seq_file *m)
++static void lfsck_layout_dump(const struct lu_env *env,
++			      struct lfsck_component *com, struct seq_file *m)
+ {
+ 	struct lfsck_instance	*lfsck = com->lc_lfsck;
+ 	struct lfsck_bookmark	*bk    = &lfsck->li_bookmark_ram;
+ 	struct lfsck_layout	*lo    = com->lc_file_ram;
+-	int			 rc;
+ 
+ 	down_read(&com->lc_sem);
+ 	seq_printf(m, "name: lfsck_layout\n"
+-		      "magic: %#x\n"
+-		      "version: %d\n"
+-		      "status: %s\n",
+-		      lo->ll_magic,
+-		      bk->lb_version,
+-		      lfsck_status2names(lo->ll_status));
+-
+-	rc = lfsck_bits_dump(m, lo->ll_flags, lfsck_flags_names, "flags");
+-	if (rc < 0)
+-		goto out;
++		   "magic: %#x\n"
++		   "version: %d\n"
++		   "status: %s\n",
++		   lo->ll_magic,
++		   bk->lb_version,
++		   lfsck_status2name(lo->ll_status));
+ 
+-	rc = lfsck_bits_dump(m, bk->lb_param, lfsck_param_names, "param");
+-	if (rc < 0)
+-		goto out;
++	lfsck_bits_dump(m, lo->ll_flags, lfsck_flags_names, "flags");
+ 
+-	rc = lfsck_time_dump(m, lo->ll_time_last_complete,
+-			     "last_completed");
+-	if (rc < 0)
+-		goto out;
++	lfsck_bits_dump(m, bk->lb_param, lfsck_param_names, "param");
+ 
+-	rc = lfsck_time_dump(m, lo->ll_time_latest_start,
+-			     "latest_start");
+-	if (rc < 0)
+-		goto out;
++	lfsck_time_dump(m, lo->ll_time_last_complete, "last_completed");
+ 
+-	rc = lfsck_time_dump(m, lo->ll_time_last_checkpoint,
+-			     "last_checkpoint");
+-	if (rc < 0)
+-		goto out;
++	lfsck_time_dump(m, lo->ll_time_latest_start, "latest_start");
++
++	lfsck_time_dump(m, lo->ll_time_last_checkpoint, "last_checkpoint");
+ 
+ 	seq_printf(m, "latest_start_position: "LPU64"\n"
+-		      "last_checkpoint_position: "LPU64"\n"
+-		      "first_failure_position: "LPU64"\n",
+-		      lo->ll_pos_latest_start,
+-		      lo->ll_pos_last_checkpoint,
+-		      lo->ll_pos_first_inconsistent);
++		   "last_checkpoint_position: "LPU64"\n"
++		   "first_failure_position: "LPU64"\n",
++		   lo->ll_pos_latest_start,
++		   lo->ll_pos_last_checkpoint,
++		   lo->ll_pos_first_inconsistent);
+ 
+ 	seq_printf(m, "success_count: %u\n"
+-		      "repaired_dangling: "LPU64"\n"
+-		      "repaired_unmatched_pair: "LPU64"\n"
+-		      "repaired_multiple_referenced: "LPU64"\n"
+-		      "repaired_orphan: "LPU64"\n"
+-		      "repaired_inconsistent_owner: "LPU64"\n"
+-		      "repaired_others: "LPU64"\n"
+-		      "skipped: "LPU64"\n"
+-		      "failed_phase1: "LPU64"\n"
+-		      "failed_phase2: "LPU64"\n",
+-		      lo->ll_success_count,
+-		      lo->ll_objs_repaired[LLIT_DANGLING - 1],
+-		      lo->ll_objs_repaired[LLIT_UNMATCHED_PAIR - 1],
+-		      lo->ll_objs_repaired[LLIT_MULTIPLE_REFERENCED - 1],
+-		      lo->ll_objs_repaired[LLIT_ORPHAN - 1],
+-		      lo->ll_objs_repaired[LLIT_INCONSISTENT_OWNER - 1],
+-		      lo->ll_objs_repaired[LLIT_OTHERS - 1],
+-		      lo->ll_objs_skipped,
+-		      lo->ll_objs_failed_phase1,
+-		      lo->ll_objs_failed_phase2);
++		   "repaired_dangling: "LPU64"\n"
++		   "repaired_unmatched_pair: "LPU64"\n"
++		   "repaired_multiple_referenced: "LPU64"\n"
++		   "repaired_orphan: "LPU64"\n"
++		   "repaired_inconsistent_owner: "LPU64"\n"
++		   "repaired_others: "LPU64"\n"
++		   "skipped: "LPU64"\n"
++		   "failed_phase1: "LPU64"\n"
++		   "failed_phase2: "LPU64"\n",
++		   lo->ll_success_count,
++		   lo->ll_objs_repaired[LLIT_DANGLING - 1],
++		   lo->ll_objs_repaired[LLIT_UNMATCHED_PAIR - 1],
++		   lo->ll_objs_repaired[LLIT_MULTIPLE_REFERENCED - 1],
++		   lo->ll_objs_repaired[LLIT_ORPHAN - 1],
++		   lo->ll_objs_repaired[LLIT_INCONSISTENT_OWNER - 1],
++		   lo->ll_objs_repaired[LLIT_OTHERS - 1],
++		   lo->ll_objs_skipped,
++		   lo->ll_objs_failed_phase1,
++		   lo->ll_objs_failed_phase2);
+ 
+ 	if (lo->ll_status == LS_SCANNING_PHASE1) {
+ 		__u64 pos;
+@@ -4833,19 +4819,19 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 		if (rtime != 0)
+ 			do_div(speed, rtime);
+ 		seq_printf(m, "checked_phase1: "LPU64"\n"
+-			      "checked_phase2: "LPU64"\n"
+-			      "run_time_phase1: %u seconds\n"
+-			      "run_time_phase2: %u seconds\n"
+-			      "average_speed_phase1: "LPU64" items/sec\n"
+-			      "average_speed_phase2: N/A\n"
+-			      "real-time_speed_phase1: "LPU64" items/sec\n"
+-			      "real-time_speed_phase2: N/A\n",
+-			      checked,
+-			      lo->ll_objs_checked_phase2,
+-			      rtime,
+-			      lo->ll_run_time_phase2,
+-			      speed,
+-			      new_checked);
++			   "checked_phase2: "LPU64"\n"
++			   "run_time_phase1: %u seconds\n"
++			   "run_time_phase2: %u seconds\n"
++			   "average_speed_phase1: "LPU64" items/sec\n"
++			   "average_speed_phase2: N/A\n"
++			   "real-time_speed_phase1: "LPU64" items/sec\n"
++			   "real-time_speed_phase2: N/A\n",
++			   checked,
++			   lo->ll_objs_checked_phase2,
++			   rtime,
++			   lo->ll_run_time_phase2,
++			   speed,
++			   new_checked);
+ 
+ 		LASSERT(lfsck->li_di_oit != NULL);
+ 
+@@ -4878,26 +4864,23 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 			do_div(speed1, lo->ll_run_time_phase1);
+ 		if (rtime != 0)
+ 			do_div(speed2, rtime);
+-		rc = seq_printf(m, "checked_phase1: "LPU64"\n"
+-				"checked_phase2: "LPU64"\n"
+-				"run_time_phase1: %u seconds\n"
+-				"run_time_phase2: %u seconds\n"
+-				"average_speed_phase1: "LPU64" items/sec\n"
+-				"average_speed_phase2: "LPU64" items/sec\n"
+-				"real-time_speed_phase1: N/A\n"
+-				"real-time_speed_phase2: "LPU64" items/sec\n"
+-				"current_position: "DFID"\n",
+-				lo->ll_objs_checked_phase1,
+-				checked,
+-				lo->ll_run_time_phase1,
+-				rtime,
+-				speed1,
+-				speed2,
+-				new_checked,
+-				PFID(&com->lc_fid_latest_scanned_phase2));
+-		if (rc <= 0)
+-			goto out;
+-
++		seq_printf(m, "checked_phase1: "LPU64"\n"
++			   "checked_phase2: "LPU64"\n"
++			   "run_time_phase1: %u seconds\n"
++			   "run_time_phase2: %u seconds\n"
++			   "average_speed_phase1: "LPU64" items/sec\n"
++			   "average_speed_phase2: "LPU64" items/sec\n"
++			   "real-time_speed_phase1: N/A\n"
++			   "real-time_speed_phase2: "LPU64" items/sec\n"
++			   "current_position: "DFID"\n",
++			   lo->ll_objs_checked_phase1,
++			   checked,
++			   lo->ll_run_time_phase1,
++			   rtime,
++			   speed1,
++			   speed2,
++			   new_checked,
++			   PFID(&com->lc_fid_latest_scanned_phase2));
+ 	} else {
+ 		__u64 speed1 = lo->ll_objs_checked_phase1;
+ 		__u64 speed2 = lo->ll_objs_checked_phase2;
+@@ -4922,10 +4905,8 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 			   speed1,
+ 			   speed2);
+ 	}
+-out:
+-	up_read(&com->lc_sem);
+ 
+-	return rc;
++	up_read(&com->lc_sem);
+ }
+ 
+ static int lfsck_layout_master_double_scan(const struct lu_env *env,
+diff --git a/lustre/lfsck/lfsck_lib.c b/lustre/lfsck/lfsck_lib.c
+index 139c95b..1064392 100644
+--- a/lustre/lfsck/lfsck_lib.c
++++ b/lustre/lfsck/lfsck_lib.c
+@@ -1749,17 +1749,14 @@ static inline int lfsck_instance_add(struct lfsck_instance *lfsck)
+ 	return 0;
+ }
+ 
+-int lfsck_bits_dump(struct seq_file *m, int bits, const char *names[],
+-		    const char *prefix)
++void lfsck_bits_dump(struct seq_file *m, int bits, const char *names[],
++		     const char *prefix)
+ {
+ 	int flag;
+ 	int i;
+ 	bool newline = (bits != 0 ? false : true);
+-	int rc;
+ 
+-	rc = seq_printf(m, "%s:%c", prefix, bits != 0 ? ' ' : '\n');
+-	if (rc < 0)
+-		return rc;
++	seq_printf(m, "%s:%c", prefix, bits != 0 ? ' ' : '\n');
+ 
+ 	for (i = 0, flag = 1; bits != 0; i++, flag = 1 << i) {
+ 		if (flag & bits) {
+@@ -1768,54 +1765,43 @@ int lfsck_bits_dump(struct seq_file *m, int bits, const char *names[],
+ 				if (bits == 0)
+ 					newline = true;
+ 
+-				rc = seq_printf(m, "%s%c", names[i],
+-						newline ? '\n' : ',');
+-				if (rc < 0)
+-					return rc;
++				seq_printf(m, "%s%c", names[i],
++					   newline ? '\n' : ',');
+ 			}
+ 		}
+ 	}
+ 
+ 	if (!newline)
+-		rc = seq_printf(m, "\n");
+-
+-	return rc;
++		seq_putc(m, '\n');
+ }
+ 
+-int lfsck_time_dump(struct seq_file *m, __u64 time, const char *name)
++void lfsck_time_dump(struct seq_file *m, __u64 time, const char *name)
+ {
+-	int rc;
+-
+ 	if (time == 0) {
+-		rc = seq_printf(m, "%s_time: N/A\n", name);
+-		if (rc == 0)
+-			rc = seq_printf(m, "time_since_%s: N/A\n", name);
+-
+-		return rc;
++		seq_printf(m, "%s_time: N/A\n", name);
++		seq_printf(m, "time_since_%s: N/A\n", name);
++	} else {
++		seq_printf(m, "%s_time: "LPU64"\n", name, time);
++		seq_printf(m, "time_since_%s: "LPU64" seconds\n",
++			   name, cfs_time_current_sec() - time);
+ 	}
+-
+-	rc = seq_printf(m, "%s_time: "LPU64"\n", name, time);
+-	if (rc == 0)
+-		rc = seq_printf(m, "time_since_%s: "LPU64" seconds\n",
+-				name, cfs_time_current_sec() - time);
+-
+-	return rc;
+ }
+ 
+-int lfsck_pos_dump(struct seq_file *m, struct lfsck_position *pos,
+-		   const char *prefix)
++void lfsck_pos_dump(struct seq_file *m, struct lfsck_position *pos,
++		    const char *prefix)
+ {
+ 	if (fid_is_zero(&pos->lp_dir_parent)) {
+-		if (pos->lp_oit_cookie == 0)
+-			return seq_printf(m, "%s: N/A, N/A, N/A\n", prefix);
+-
+-		return seq_printf(m, "%s: "LPU64", N/A, N/A\n",
+-				  prefix, pos->lp_oit_cookie);
++		if (pos->lp_oit_cookie == 0) {
++			seq_printf(m, "%s: N/A, N/A, N/A\n", prefix);
++			return;
++		}
++		seq_printf(m, "%s: "LPU64", N/A, N/A\n",
++			   prefix, pos->lp_oit_cookie);
++	} else {
++		seq_printf(m, "%s: "LPU64", "DFID", "LPX64"\n",
++			   prefix, pos->lp_oit_cookie,
++			   PFID(&pos->lp_dir_parent), pos->lp_dir_cookie);
+ 	}
+-
+-	return seq_printf(m, "%s: "LPU64", "DFID", "LPX64"\n",
+-			  prefix, pos->lp_oit_cookie,
+-			  PFID(&pos->lp_dir_parent), pos->lp_dir_cookie);
+ }
+ 
+ void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
+@@ -2696,7 +2682,7 @@ int lfsck_dump(struct seq_file *m, struct dt_device *key, enum lfsck_type type)
+ 	if (likely(lfsck != NULL)) {
+ 		com = lfsck_component_find(lfsck, type);
+ 		if (likely(com != NULL)) {
+-			rc = com->lc_ops->lfsck_dump(&env, com, m);
++			com->lc_ops->lfsck_dump(&env, com, m);
+ 			lfsck_component_put(&env, com);
+ 		} else {
+ 			rc = -ENOTSUPP;
+diff --git a/lustre/lfsck/lfsck_namespace.c b/lustre/lfsck/lfsck_namespace.c
+index fa448bb..a97fa17 100644
+--- a/lustre/lfsck/lfsck_namespace.c
++++ b/lustre/lfsck/lfsck_namespace.c
+@@ -3611,75 +3611,75 @@ static void lfsck_namespace_dump_statistics(struct seq_file *m,
+ 					    __u32 time_phase2)
+ {
+ 	seq_printf(m, "checked_phase1: "LPU64"\n"
+-		      "checked_phase2: "LPU64"\n"
+-		      "updated_phase1: "LPU64"\n"
+-		      "updated_phase2: "LPU64"\n"
+-		      "failed_phase1: "LPU64"\n"
+-		      "failed_phase2: "LPU64"\n"
+-		      "directories: "LPU64"\n"
+-		      "dirent_repaired: "LPU64"\n"
+-		      "linkea_repaired: "LPU64"\n"
+-		      "nlinks_repaired: "LPU64"\n"
+-		      "multiple_linked_checked: "LPU64"\n"
+-		      "multiple_linked_repaired: "LPU64"\n"
+-		      "unknown_inconsistency: "LPU64"\n"
+-		      "unmatched_pairs_repaired: "LPU64"\n"
+-		      "dangling_repaired: "LPU64"\n"
+-		      "multiple_referenced_repaired: "LPU64"\n"
+-		      "bad_file_type_repaired: "LPU64"\n"
+-		      "lost_dirent_repaired: "LPU64"\n"
+-		      "local_lost_found_scanned: "LPU64"\n"
+-		      "local_lost_found_moved: "LPU64"\n"
+-		      "local_lost_found_skipped: "LPU64"\n"
+-		      "local_lost_found_failed: "LPU64"\n"
+-		      "striped_dirs_scanned: "LPU64"\n"
+-		      "striped_dirs_repaired: "LPU64"\n"
+-		      "striped_dirs_failed: "LPU64"\n"
+-		      "striped_dirs_disabled: "LPU64"\n"
+-		      "striped_dirs_skipped: "LPU64"\n"
+-		      "striped_shards_scanned: "LPU64"\n"
+-		      "striped_shards_repaired: "LPU64"\n"
+-		      "striped_shards_failed: "LPU64"\n"
+-		      "striped_shards_skipped: "LPU64"\n"
+-		      "name_hash_repaired: "LPU64"\n"
+-		      "success_count: %u\n"
+-		      "run_time_phase1: %u seconds\n"
+-		      "run_time_phase2: %u seconds\n",
+-		      checked_phase1,
+-		      checked_phase2,
+-		      ns->ln_items_repaired,
+-		      ns->ln_objs_repaired_phase2,
+-		      ns->ln_items_failed,
+-		      ns->ln_objs_failed_phase2,
+-		      ns->ln_dirs_checked,
+-		      ns->ln_dirent_repaired,
+-		      ns->ln_linkea_repaired,
+-		      ns->ln_objs_nlink_repaired,
+-		      ns->ln_mul_linked_checked,
+-		      ns->ln_mul_linked_repaired,
+-		      ns->ln_unknown_inconsistency,
+-		      ns->ln_unmatched_pairs_repaired,
+-		      ns->ln_dangling_repaired,
+-		      ns->ln_mul_ref_repaired,
+-		      ns->ln_bad_type_repaired,
+-		      ns->ln_lost_dirent_repaired,
+-		      ns->ln_local_lpf_scanned,
+-		      ns->ln_local_lpf_moved,
+-		      ns->ln_local_lpf_skipped,
+-		      ns->ln_local_lpf_failed,
+-		      ns->ln_striped_dirs_scanned,
+-		      ns->ln_striped_dirs_repaired,
+-		      ns->ln_striped_dirs_failed,
+-		      ns->ln_striped_dirs_disabled,
+-		      ns->ln_striped_dirs_skipped,
+-		      ns->ln_striped_shards_scanned,
+-		      ns->ln_striped_shards_repaired,
+-		      ns->ln_striped_shards_failed,
+-		      ns->ln_striped_shards_skipped,
+-		      ns->ln_name_hash_repaired,
+-		      ns->ln_success_count,
+-		      time_phase1,
+-		      time_phase2);
++		   "checked_phase2: "LPU64"\n"
++		   "updated_phase1: "LPU64"\n"
++		   "updated_phase2: "LPU64"\n"
++		   "failed_phase1: "LPU64"\n"
++		   "failed_phase2: "LPU64"\n"
++		   "directories: "LPU64"\n"
++		   "dirent_repaired: "LPU64"\n"
++		   "linkea_repaired: "LPU64"\n"
++		   "nlinks_repaired: "LPU64"\n"
++		   "multiple_linked_checked: "LPU64"\n"
++		   "multiple_linked_repaired: "LPU64"\n"
++		   "unknown_inconsistency: "LPU64"\n"
++		   "unmatched_pairs_repaired: "LPU64"\n"
++		   "dangling_repaired: "LPU64"\n"
++		   "multiple_referenced_repaired: "LPU64"\n"
++		   "bad_file_type_repaired: "LPU64"\n"
++		   "lost_dirent_repaired: "LPU64"\n"
++		   "local_lost_found_scanned: "LPU64"\n"
++		   "local_lost_found_moved: "LPU64"\n"
++		   "local_lost_found_skipped: "LPU64"\n"
++		   "local_lost_found_failed: "LPU64"\n"
++		   "striped_dirs_scanned: "LPU64"\n"
++		   "striped_dirs_repaired: "LPU64"\n"
++		   "striped_dirs_failed: "LPU64"\n"
++		   "striped_dirs_disabled: "LPU64"\n"
++		   "striped_dirs_skipped: "LPU64"\n"
++		   "striped_shards_scanned: "LPU64"\n"
++		   "striped_shards_repaired: "LPU64"\n"
++		   "striped_shards_failed: "LPU64"\n"
++		   "striped_shards_skipped: "LPU64"\n"
++		   "name_hash_repaired: "LPU64"\n"
++		   "success_count: %u\n"
++		   "run_time_phase1: %u seconds\n"
++		   "run_time_phase2: %u seconds\n",
++		   checked_phase1,
++		   checked_phase2,
++		   ns->ln_items_repaired,
++		   ns->ln_objs_repaired_phase2,
++		   ns->ln_items_failed,
++		   ns->ln_objs_failed_phase2,
++		   ns->ln_dirs_checked,
++		   ns->ln_dirent_repaired,
++		   ns->ln_linkea_repaired,
++		   ns->ln_objs_nlink_repaired,
++		   ns->ln_mul_linked_checked,
++		   ns->ln_mul_linked_repaired,
++		   ns->ln_unknown_inconsistency,
++		   ns->ln_unmatched_pairs_repaired,
++		   ns->ln_dangling_repaired,
++		   ns->ln_mul_ref_repaired,
++		   ns->ln_bad_type_repaired,
++		   ns->ln_lost_dirent_repaired,
++		   ns->ln_local_lpf_scanned,
++		   ns->ln_local_lpf_moved,
++		   ns->ln_local_lpf_skipped,
++		   ns->ln_local_lpf_failed,
++		   ns->ln_striped_dirs_scanned,
++		   ns->ln_striped_dirs_repaired,
++		   ns->ln_striped_dirs_failed,
++		   ns->ln_striped_dirs_disabled,
++		   ns->ln_striped_dirs_skipped,
++		   ns->ln_striped_shards_scanned,
++		   ns->ln_striped_shards_repaired,
++		   ns->ln_striped_shards_failed,
++		   ns->ln_striped_shards_skipped,
++		   ns->ln_name_hash_repaired,
++		   ns->ln_success_count,
++		   time_phase1,
++		   time_phase2);
+ }
+ 
+ static void lfsck_namespace_release_lmv(const struct lu_env *env,
+@@ -4243,14 +4243,13 @@ static int lfsck_namespace_post(const struct lu_env *env,
+ 	RETURN(rc);
+ }
+ 
+-static int
++static void
+ lfsck_namespace_dump(const struct lu_env *env, struct lfsck_component *com,
+ 		     struct seq_file *m)
+ {
+ 	struct lfsck_instance	*lfsck = com->lc_lfsck;
+ 	struct lfsck_bookmark	*bk    = &lfsck->li_bookmark_ram;
+ 	struct lfsck_namespace	*ns    = com->lc_file_ram;
+-	int			 rc;
+ 
+ 	down_read(&com->lc_sem);
+ 	seq_printf(m, "name: lfsck_namespace\n"
+@@ -4261,43 +4260,23 @@ lfsck_namespace_dump(const struct lu_env *env, struct lfsck_component *com,
+ 		   bk->lb_version,
+ 		   lfsck_status2names(ns->ln_status));
+ 
+-	rc = lfsck_bits_dump(m, ns->ln_flags, lfsck_flags_names, "flags");
+-	if (rc < 0)
+-		goto out;
++	lfsck_bits_dump(m, ns->ln_flags, lfsck_flags_names, "flags");
+ 
+-	rc = lfsck_bits_dump(m, bk->lb_param, lfsck_param_names, "param");
+-	if (rc < 0)
+-		goto out;
++	lfsck_bits_dump(m, bk->lb_param, lfsck_param_names, "param");
+ 
+-	rc = lfsck_time_dump(m, ns->ln_time_last_complete,
+-			     "last_completed");
+-	if (rc < 0)
+-		goto out;
++	lfsck_time_dump(m, ns->ln_time_last_complete, "last_completed");
+ 
+-	rc = lfsck_time_dump(m, ns->ln_time_latest_start,
+-			     "latest_start");
+-	if (rc < 0)
+-		goto out;
++	lfsck_time_dump(m, ns->ln_time_latest_start, "latest_start");
+ 
+-	rc = lfsck_time_dump(m, ns->ln_time_last_checkpoint,
+-			     "last_checkpoint");
+-	if (rc < 0)
+-		goto out;
++	lfsck_time_dump(m, ns->ln_time_last_checkpoint, "last_checkpoint");
+ 
+-	rc = lfsck_pos_dump(m, &ns->ln_pos_latest_start,
+-			    "latest_start_position");
+-	if (rc < 0)
+-		goto out;
++	lfsck_pos_dump(m, &ns->ln_pos_latest_start, "latest_start_position");
+ 
+-	rc = lfsck_pos_dump(m, &ns->ln_pos_last_checkpoint,
+-			    "last_checkpoint_position");
+-	if (rc < 0)
+-		goto out;
++	lfsck_pos_dump(m, &ns->ln_pos_last_checkpoint,
++		       "last_checkpoint_position");
+ 
+-	rc = lfsck_pos_dump(m, &ns->ln_pos_first_inconsistent,
+-			    "first_failure_position");
+-	if (rc < 0)
+-		goto out;
++	lfsck_pos_dump(m, &ns->ln_pos_first_inconsistent,
++		       "first_failure_position");
+ 
+ 	if (ns->ln_status == LS_SCANNING_PHASE1) {
+ 		struct lfsck_position pos;
+@@ -4319,13 +4298,13 @@ lfsck_namespace_dump(const struct lu_env *env, struct lfsck_component *com,
+ 
+ 		lfsck_namespace_dump_statistics(m, ns, checked, 0, rtime, 0);
+ 		seq_printf(m, "average_speed_phase1: "LPU64" items/sec\n"
+-			      "average_speed_phase2: N/A\n"
+-			      "average_speed_total: "LPU64" items/sec\n"
+-			      "real_time_speed_phase1: "LPU64" items/sec\n"
+-			      "real_time_speed_phase2: N/A\n",
+-			      speed,
+-			      speed,
+-			      new_checked);
++			   "average_speed_phase2: N/A\n"
++			   "average_speed_total: "LPU64" items/sec\n"
++			   "real_time_speed_phase1: "LPU64" items/sec\n"
++			   "real_time_speed_phase2: N/A\n",
++			   speed,
++			   speed,
++			   new_checked);
+ 
+ 		LASSERT(lfsck->li_di_oit != NULL);
+ 
+@@ -4389,16 +4368,16 @@ lfsck_namespace_dump(const struct lu_env *env, struct lfsck_component *com,
+ 						checked,
+ 						ns->ln_run_time_phase1, rtime);
+ 		seq_printf(m, "average_speed_phase1: "LPU64" items/sec\n"
+-			      "average_speed_phase2: "LPU64" objs/sec\n"
+-			      "average_speed_total: "LPU64" items/sec\n"
+-			      "real_time_speed_phase1: N/A\n"
+-			      "real_time_speed_phase2: "LPU64" objs/sec\n"
+-			      "current_position: "DFID"\n",
+-			      speed1,
+-			      speed2,
+-			      speed0,
+-			      new_checked,
+-			      PFID(&ns->ln_fid_latest_scanned_phase2));
++			   "average_speed_phase2: "LPU64" objs/sec\n"
++			   "average_speed_total: "LPU64" items/sec\n"
++			   "real_time_speed_phase1: N/A\n"
++			   "real_time_speed_phase2: "LPU64" objs/sec\n"
++			   "current_position: "DFID"\n",
++			   speed1,
++			   speed2,
++			   speed0,
++			   new_checked,
++			   PFID(&ns->ln_fid_latest_scanned_phase2));
+ 	} else {
+ 		__u64 speed1 = ns->ln_items_checked;
+ 		__u64 speed2 = ns->ln_objs_checked_phase2;
+@@ -4423,18 +4402,17 @@ lfsck_namespace_dump(const struct lu_env *env, struct lfsck_component *com,
+ 						ns->ln_run_time_phase1,
+ 						ns->ln_run_time_phase2);
+ 		seq_printf(m, "average_speed_phase1: "LPU64" items/sec\n"
+-			      "average_speed_phase2: "LPU64" objs/sec\n"
+-			      "average_speed_total: "LPU64" items/sec\n"
+-			      "real_time_speed_phase1: N/A\n"
+-			      "real_time_speed_phase2: N/A\n"
+-			      "current_position: N/A\n",
+-			      speed1,
+-			      speed2,
+-			      speed0);
++			   "average_speed_phase2: "LPU64" objs/sec\n"
++			   "average_speed_total: "LPU64" items/sec\n"
++			   "real_time_speed_phase1: N/A\n"
++			   "real_time_speed_phase2: N/A\n"
++			   "current_position: N/A\n",
++			   speed1,
++			   speed2,
++			   speed0);
+ 	}
+-out:
++
+ 	up_read(&com->lc_sem);
+-	return 0;
+ }
+ 
+ static int lfsck_namespace_double_scan(const struct lu_env *env,
+diff --git a/lustre/llite/lproc_llite.c b/lustre/llite/lproc_llite.c
+index e631f50..1767a00 100644
+--- a/lustre/llite/lproc_llite.c
++++ b/lustre/llite/lproc_llite.c
+@@ -66,7 +66,7 @@ static int ll_blksize_seq_show(struct seq_file *m, void *v)
+ 				cfs_time_shift_64(-OBD_STATFS_CACHE_SECONDS),
+ 				OBD_STATFS_NODELAY);
+ 	if (!rc)
+-		rc = seq_printf(m, "%u\n", osfs.os_bsize);
++		seq_printf(m, "%u\n", osfs.os_bsize);
+ 	return rc;
+ }
+ LPROC_SEQ_FOPS_RO(ll_blksize);
+@@ -88,7 +88,7 @@ static int ll_kbytestotal_seq_show(struct seq_file *m, void *v)
+ 		while (blk_size >>= 1)
+ 			result <<= 1;
+ 
+-		rc = seq_printf(m, LPU64"\n", result);
++		seq_printf(m, LPU64"\n", result);
+ 	}
+ 	return rc;
+ }
+@@ -111,7 +111,7 @@ static int ll_kbytesfree_seq_show(struct seq_file *m, void *v)
+ 		while (blk_size >>= 1)
+ 			result <<= 1;
+ 
+-		rc = seq_printf(m, LPU64"\n", result);
++		seq_printf(m, LPU64"\n", result);
+ 	}
+ 	return rc;
+ }
+@@ -134,7 +134,7 @@ static int ll_kbytesavail_seq_show(struct seq_file *m, void *v)
+ 		while (blk_size >>= 1)
+ 			result <<= 1;
+ 
+-		rc = seq_printf(m, LPU64"\n", result);
++		seq_printf(m, LPU64"\n", result);
+ 	}
+ 	return rc;
+ }
+@@ -151,7 +151,7 @@ static int ll_filestotal_seq_show(struct seq_file *m, void *v)
+ 				cfs_time_shift_64(-OBD_STATFS_CACHE_SECONDS),
+ 				OBD_STATFS_NODELAY);
+ 	if (!rc)
+-		rc = seq_printf(m, LPU64"\n", osfs.os_files);
++		seq_printf(m, LPU64"\n", osfs.os_files);
+ 	return rc;
+ }
+ LPROC_SEQ_FOPS_RO(ll_filestotal);
+@@ -167,7 +167,7 @@ static int ll_filesfree_seq_show(struct seq_file *m, void *v)
+ 				cfs_time_shift_64(-OBD_STATFS_CACHE_SECONDS),
+ 				OBD_STATFS_NODELAY);
+ 	if (!rc)
+-		rc = seq_printf(m, LPU64"\n", osfs.os_ffree);
++		seq_printf(m, LPU64"\n", osfs.os_ffree);
+ 	return rc;
+ }
+ LPROC_SEQ_FOPS_RO(ll_filesfree);
+@@ -175,15 +175,14 @@ LPROC_SEQ_FOPS_RO(ll_filesfree);
+ static int ll_client_type_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct ll_sb_info *sbi = ll_s2sbi((struct super_block *)m->private);
+-	int rc;
+ 
+ 	LASSERT(sbi != NULL);
+ 
+ 	if (sbi->ll_flags & LL_SBI_RMT_CLIENT)
+-		rc = seq_printf(m, "remote client\n");
++		seq_puts(m, "remote client\n");
+ 	else
+-		rc = seq_printf(m, "local client\n");
+-	return rc;
++		seq_puts(m, "local client\n");
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ll_client_type);
+ 
+@@ -192,7 +191,8 @@ static int ll_fstype_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 
+ 	LASSERT(sb != NULL);
+-	return seq_printf(m, "%s\n", sb->s_type->name);
++	seq_printf(m, "%s\n", sb->s_type->name);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ll_fstype);
+ 
+@@ -201,7 +201,8 @@ static int ll_sb_uuid_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 
+ 	LASSERT(sb != NULL);
+-	return seq_printf(m, "%s\n", ll_s2sbi(sb)->ll_sb_uuid.uuid);
++	seq_printf(m, "%s\n", ll_s2sbi(sb)->ll_sb_uuid.uuid);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ll_sb_uuid);
+ 
+@@ -209,7 +210,8 @@ static int ll_xattr_cache_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct ll_sb_info *sbi = ll_s2sbi((struct super_block *)m->private);
+ 
+-	return seq_printf(m, "%u\n", sbi->ll_xattr_cache_enabled);
++	seq_printf(m, "%u\n", sbi->ll_xattr_cache_enabled);
++	return 0;
+ }
+ 
+ static ssize_t ll_xattr_cache_seq_write(struct file *file,
+@@ -407,17 +409,17 @@ static int ll_max_cached_mb_seq_show(struct seq_file *m, void *v)
+ 
+ 	max_cached_mb = cache->ccc_lru_max >> shift;
+ 	unused_mb = atomic_long_read(&cache->ccc_lru_left) >> shift;
+-	return seq_printf(m,
+-			"users: %d\n"
+-			"max_cached_mb: %ld\n"
+-			"used_mb: %ld\n"
+-			"unused_mb: %ld\n"
+-			"reclaim_count: %u\n",
+-			atomic_read(&cache->ccc_users),
+-			max_cached_mb,
+-			max_cached_mb - unused_mb,
+-			unused_mb,
+-			cache->ccc_lru_shrinkers);
++	seq_printf(m, "users: %d\n"
++		   "max_cached_mb: %ld\n"
++		   "used_mb: %ld\n"
++		   "unused_mb: %ld\n"
++		   "reclaim_count: %u\n",
++		   atomic_read(&cache->ccc_users),
++		   max_cached_mb,
++		   max_cached_mb - unused_mb,
++		   unused_mb,
++		   cache->ccc_lru_shrinkers);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -538,7 +540,8 @@ static int ll_checksum_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 
+-	return seq_printf(m, "%u\n", (sbi->ll_flags & LL_SBI_CHECKSUM) ? 1 : 0);
++	seq_printf(m, "%u\n", (sbi->ll_flags & LL_SBI_CHECKSUM) ? 1 : 0);
++	return 0;
+ }
+ 
+ static ssize_t ll_checksum_seq_write(struct file *file,
+@@ -575,13 +578,14 @@ static int ll_rd_track_id(struct seq_file *m, enum stats_track_type type)
+ 	struct super_block *sb = m->private;
+ 
+ 	if (ll_s2sbi(sb)->ll_stats_track_type == type) {
+-		return seq_printf(m, "%d\n",
+-				  ll_s2sbi(sb)->ll_stats_track_id);
++		seq_printf(m, "%d\n",
++			   ll_s2sbi(sb)->ll_stats_track_id);
+ 	} else if (ll_s2sbi(sb)->ll_stats_track_type == STATS_TRACK_ALL) {
+-		return seq_printf(m, "0 (all)\n");
++		seq_puts(m, "0 (all)\n");
+ 	} else {
+-		return seq_printf(m, "untracked\n");
++		seq_puts(m, "untracked\n");
+ 	}
++	return 0;
+ }
+ 
+ static int ll_wr_track_id(const char __user *buffer, unsigned long count,
+@@ -649,7 +653,8 @@ static int ll_statahead_max_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 
+-	return seq_printf(m, "%u\n", sbi->ll_sa_max);
++	seq_printf(m, "%u\n", sbi->ll_sa_max);
++	return 0;
+ }
+ 
+ static ssize_t ll_statahead_max_seq_write(struct file *file,
+@@ -679,8 +684,9 @@ static int ll_statahead_agl_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 
+-	return seq_printf(m, "%u\n",
+-			  sbi->ll_flags & LL_SBI_AGL_ENABLED ? 1 : 0);
++	seq_printf(m, "%u\n",
++		   sbi->ll_flags & LL_SBI_AGL_ENABLED ? 1 : 0);
++	return 0;
+ }
+ 
+ static ssize_t ll_statahead_agl_seq_write(struct file *file,
+@@ -709,13 +715,13 @@ static int ll_statahead_stats_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 
+-	return seq_printf(m,
+-                        "statahead total: %u\n"
+-                        "statahead wrong: %u\n"
+-                        "agl total: %u\n",
+-                        atomic_read(&sbi->ll_sa_total),
+-                        atomic_read(&sbi->ll_sa_wrong),
+-                        atomic_read(&sbi->ll_agl_total));
++	seq_printf(m, "statahead total: %u\n"
++		    "statahead wrong: %u\n"
++		    "agl total: %u\n",
++		    atomic_read(&sbi->ll_sa_total),
++		    atomic_read(&sbi->ll_sa_wrong),
++		    atomic_read(&sbi->ll_agl_total));
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ll_statahead_stats);
+ 
+@@ -724,8 +730,9 @@ static int ll_lazystatfs_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 
+-	return seq_printf(m, "%u\n",
+-			  (sbi->ll_flags & LL_SBI_LAZYSTATFS) ? 1 : 0);
++	seq_printf(m, "%u\n",
++		   (sbi->ll_flags & LL_SBI_LAZYSTATFS) ? 1 : 0);
++	return 0;
+ }
+ 
+ static ssize_t ll_lazystatfs_seq_write(struct file *file,
+@@ -760,7 +767,8 @@ static int ll_max_easize_seq_show(struct seq_file *m, void *v)
+ 	if (rc)
+ 		return rc;
+ 
+-	return seq_printf(m, "%u\n", ealen);
++	seq_printf(m, "%u\n", ealen);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ll_max_easize);
+ 
+@@ -786,7 +794,8 @@ static int ll_default_easize_seq_show(struct seq_file *m, void *v)
+ 	if (rc)
+ 		return rc;
+ 
+-	return seq_printf(m, "%u\n", ealen);
++	seq_printf(m, "%u\n", ealen);
++	return 0;
+ }
+ 
+ /**
+@@ -865,10 +874,11 @@ static int ll_unstable_stats_seq_show(struct seq_file *m, void *v)
+ 	pages = atomic_long_read(&cache->ccc_unstable_nr);
+ 	mb    = (pages * PAGE_CACHE_SIZE) >> 20;
+ 
+-	return seq_printf(m, "unstable_check:     %8d\n"
+-			     "unstable_pages: %12ld\n"
+-			     "unstable_mb:        %8d\n",
+-			  cache->ccc_unstable_check, pages, mb);
++	seq_printf(m, "unstable_check:     %8d\n"
++		   "unstable_pages: %12ld\n"
++		   "unstable_mb:        %8d\n",
++		   cache->ccc_unstable_check, pages, mb);
++	return 0;
+ }
+ 
+ static ssize_t ll_unstable_stats_seq_write(struct file *file,
+@@ -910,7 +920,8 @@ static int ll_root_squash_seq_show(struct seq_file *m, void *v)
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 	struct root_squash_info *squash = &sbi->ll_squash;
+ 
+-	return seq_printf(m, "%u:%u\n", squash->rsi_uid, squash->rsi_gid);
++	seq_printf(m, "%u:%u\n", squash->rsi_uid, squash->rsi_gid);
++	return 0;
+ }
+ 
+ static ssize_t ll_root_squash_seq_write(struct file *file,
+@@ -932,20 +943,20 @@ static int ll_nosquash_nids_seq_show(struct seq_file *m, void *v)
+ 	struct super_block *sb = m->private;
+ 	struct ll_sb_info *sbi = ll_s2sbi(sb);
+ 	struct root_squash_info *squash = &sbi->ll_squash;
+-	int len, rc;
++	int len;
+ 
+ 	down_read(&squash->rsi_sem);
+ 	if (!list_empty(&squash->rsi_nosquash_nids)) {
+ 		len = cfs_print_nidlist(m->buf + m->count, m->size - m->count,
+ 					&squash->rsi_nosquash_nids);
+ 		m->count += len;
+-		rc = seq_printf(m, "\n");
++		seq_putc(m, '\n');
+ 	} else {
+-		rc = seq_printf(m, "NONE\n");
++		seq_puts(m, "NONE\n");
+ 	}
+ 	up_read(&squash->rsi_sem);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t ll_nosquash_nids_seq_write(struct file *file,
+@@ -1333,9 +1344,7 @@ static int ll_rw_extents_stats_pp_seq_show(struct seq_file *seq, void *v)
+ 	do_gettimeofday(&now);
+ 
+ 	if (!sbi->ll_rw_stats_on) {
+-		seq_printf(seq, "disabled\n"
+-                                "write anything in this file to activate, "
+-                                "then 0 or \"[D/d]isabled\" to deactivate\n");
++		seq_puts(seq, "disabled\n write anything in this file to activate, then 0 or \[D/d]isabled\" to deactivate\n");
+                 return 0;
+         }
+         seq_printf(seq, "snapshot_time:         %lu.%lu (secs.usecs)\n",
+@@ -1412,18 +1421,16 @@ static int ll_rw_extents_stats_seq_show(struct seq_file *seq, void *v)
+ 	do_gettimeofday(&now);
+ 
+ 	if (!sbi->ll_rw_stats_on) {
+-                seq_printf(seq, "disabled\n"
+-                                "write anything in this file to activate, "
+-                                "then 0 or \"[D/d]isabled\" to deactivate\n");
+-                return 0;
+-        }
+-        seq_printf(seq, "snapshot_time:         %lu.%lu (secs.usecs)\n",
+-                   now.tv_sec, now.tv_usec);
++		seq_puts(seq, "disabled\n write anything in this file to activate, then 0 or \"[D/d]isabled\" to deactivate\n");
++		return 0;
++	}
++	seq_printf(seq, "snapshot_time:         %lu.%lu (secs.usecs)\n",
++		   now.tv_sec, now.tv_usec);
+ 
+-        seq_printf(seq, "%15s %19s       | %20s\n", " ", "read", "write");
+-        seq_printf(seq, "%13s   %14s %4s %4s  | %14s %4s %4s\n",
+-                   "extents", "calls", "%", "cum%",
+-                   "calls", "%", "cum%");
++	seq_printf(seq, "%15s %19s       | %20s\n", " ", "read", "write");
++	seq_printf(seq, "%13s   %14s %4s %4s  | %14s %4s %4s\n",
++		   "extents", "calls", "%", "cum%",
++		   "calls", "%", "cum%");
+ 	spin_lock(&sbi->ll_lock);
+ 	ll_display_extents_info(io_extents, seq, LL_PROCESS_HIST_MAX);
+ 	spin_unlock(&sbi->ll_lock);
+@@ -1591,11 +1598,9 @@ static int ll_rw_offset_stats_seq_show(struct seq_file *seq, void *v)
+ 	do_gettimeofday(&now);
+ 
+ 	if (!sbi->ll_rw_stats_on) {
+-                seq_printf(seq, "disabled\n"
+-                                "write anything in this file to activate, "
+-                                "then 0 or \"[D/d]isabled\" to deactivate\n");
+-                return 0;
+-        }
++		seq_puts(seq, "disabled\n write anything in this file to activate, then 0 or \"[D/d]isabled\" to deactivate\n");
++		return 0;
++	}
+ 	spin_lock(&sbi->ll_process_lock);
+ 
+         seq_printf(seq, "snapshot_time:         %lu.%lu (secs.usecs)\n",
+diff --git a/lustre/lmv/lproc_lmv.c b/lustre/lmv/lproc_lmv.c
+index 1f8b5a6..251dd93 100644
+--- a/lustre/lmv/lproc_lmv.c
++++ b/lustre/lmv/lproc_lmv.c
+@@ -55,7 +55,8 @@ static int lmv_numobd_seq_show(struct seq_file *m, void *v)
+ 
+         LASSERT(dev != NULL);
+         desc = &dev->u.lmv.desc;
+-	return seq_printf(m, "%u\n", desc->ld_tgt_count);
++	seq_printf(m, "%u\n", desc->ld_tgt_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lmv_numobd);
+ 
+@@ -89,7 +90,8 @@ static int lmv_placement_seq_show(struct seq_file *m, void *v)
+ 
+         LASSERT(dev != NULL);
+         lmv = &dev->u.lmv;
+-	return seq_printf(m, "%s\n", placement_policy2name(lmv->lmv_placement));
++	seq_printf(m, "%s\n", placement_policy2name(lmv->lmv_placement));
++	return 0;
+ }
+ 
+ #define MAX_POLICY_STRING_SIZE 64
+@@ -137,7 +139,8 @@ static int lmv_activeobd_seq_show(struct seq_file *m, void *v)
+ 
+         LASSERT(dev != NULL);
+         desc = &dev->u.lmv.desc;
+-	return seq_printf(m, "%u\n", desc->ld_active_tgt_count);
++	seq_printf(m, "%u\n", desc->ld_active_tgt_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lmv_activeobd);
+ 
+@@ -148,7 +151,8 @@ static int lmv_desc_uuid_seq_show(struct seq_file *m, void *v)
+ 
+         LASSERT(dev != NULL);
+         lmv = &dev->u.lmv;
+-	return seq_printf(m, "%s\n", lmv->desc.ld_uuid.uuid);
++	seq_printf(m, "%s\n", lmv->desc.ld_uuid.uuid);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lmv_desc_uuid);
+ 
+@@ -178,8 +182,9 @@ static int lmv_tgt_seq_show(struct seq_file *p, void *v)
+ 
+ 	if (tgt == NULL)
+ 		return 0;
+-	return seq_printf(p, "%u: %s %sACTIVE\n", tgt->ltd_idx,
+-			  tgt->ltd_uuid.uuid, tgt->ltd_active ? "" : "IN");
++	seq_printf(p, "%u: %s %sACTIVE\n", tgt->ltd_idx,
++		  tgt->ltd_uuid.uuid, tgt->ltd_active ? "" : "IN");
++	return 0;
+ }
+ 
+ static const struct seq_operations lmv_tgt_sops = {
+diff --git a/lustre/lod/lproc_lod.c b/lustre/lod/lproc_lod.c
+index b02697f..06e2314 100644
+--- a/lustre/lod/lproc_lod.c
++++ b/lustre/lod/lproc_lod.c
+@@ -65,8 +65,9 @@ static int lod_stripesize_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, LPU64"\n",
+-			lod->lod_desc.ld_default_stripe_size);
++	seq_printf(m, LPU64"\n",
++		   lod->lod_desc.ld_default_stripe_size);
++	return 0;
+ }
+ 
+ /**
+@@ -120,8 +121,9 @@ static int lod_stripeoffset_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, LPU64"\n",
+-			lod->lod_desc.ld_default_stripe_offset);
++	seq_printf(m, LPU64"\n",
++		   lod->lod_desc.ld_default_stripe_offset);
++	return 0;
+ }
+ 
+ /**
+@@ -175,7 +177,8 @@ static int lod_stripetype_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%u\n", lod->lod_desc.ld_pattern);
++	seq_printf(m, "%u\n", lod->lod_desc.ld_pattern);
++	return 0;
+ }
+ 
+ /**
+@@ -227,8 +230,9 @@ static int lod_stripecount_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%d\n",
+-			(__s16)(lod->lod_desc.ld_default_stripe_count + 1) - 1);
++	seq_printf(m, "%d\n",
++		   (__s16)(lod->lod_desc.ld_default_stripe_count + 1) - 1);
++	return 0;
+ }
+ 
+ /**
+@@ -280,7 +284,8 @@ static int lod_numobd_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%u\n", lod->lod_desc.ld_tgt_count);
++	seq_printf(m, "%u\n", lod->lod_desc.ld_tgt_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lod_numobd);
+ 
+@@ -300,7 +305,8 @@ static int lod_activeobd_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%u\n", lod->lod_desc.ld_active_tgt_count);
++	seq_printf(m, "%u\n", lod->lod_desc.ld_active_tgt_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lod_activeobd);
+ 
+@@ -320,7 +326,8 @@ static int lod_desc_uuid_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod  = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%s\n", lod->lod_desc.ld_uuid.uuid);
++	seq_printf(m, "%s\n", lod->lod_desc.ld_uuid.uuid);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lod_desc_uuid);
+ 
+@@ -344,8 +351,9 @@ static int lod_qos_priofree_seq_show(struct seq_file *m, void *v)
+ 	struct lod_device *lod = lu2lod_dev(dev->obd_lu_dev);
+ 
+ 	LASSERT(lod != NULL);
+-	return seq_printf(m, "%d%%\n",
+-			(lod->lod_qos.lq_prio_free * 100 + 255) >> 8);
++	seq_printf(m, "%d%%\n",
++		   (lod->lod_qos.lq_prio_free * 100 + 255) >> 8);
++	return 0;
+ }
+ 
+ /**
+@@ -405,8 +413,9 @@ static int lod_qos_thresholdrr_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%d%%\n",
+-			(lod->lod_qos.lq_threshold_rr * 100 + 255) >> 8);
++	seq_printf(m, "%d%%\n",
++		   (lod->lod_qos.lq_threshold_rr * 100 + 255) >> 8);
++	return 0;
+ }
+ 
+ /**
+@@ -468,7 +477,8 @@ static int lod_qos_maxage_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lod = lu2lod_dev(dev->obd_lu_dev);
+-	return seq_printf(m, "%u Sec\n", lod->lod_desc.ld_qos_maxage);
++	seq_printf(m, "%u Sec\n", lod->lod_desc.ld_qos_maxage);
++	return 0;
+ }
+ 
+ /**
+@@ -612,9 +622,10 @@ static int lod_osts_seq_show(struct seq_file *p, void *v)
+ 	} else if (rc)
+ 		return rc;
+ 
+-	return seq_printf(p, "%d: %s %sACTIVE\n", idx,
+-			  obd_uuid2str(&ost_desc->ltd_uuid),
+-			  active ? "" : "IN");
++	seq_printf(p, "%d: %s %sACTIVE\n", idx,
++		   obd_uuid2str(&ost_desc->ltd_uuid),
++		   active ? "" : "IN");
++	return 0;
+ }
+ 
+ static const struct seq_operations lod_osts_sops = {
+@@ -664,7 +675,8 @@ static int lod_lmv_failout_seq_show(struct seq_file *m, void *v)
+ 	LASSERT(dev != NULL);
+ 	lod = lu2lod_dev(dev->obd_lu_dev);
+ 
+-	return seq_printf(m, "%d\n", lod->lod_lmv_failout ? 1 : 0);
++	seq_printf(m, "%d\n", lod->lod_lmv_failout ? 1 : 0);
++	return 0;
+ }
+ 
+ /**
+diff --git a/lustre/lov/lproc_lov.c b/lustre/lov/lproc_lov.c
+index 386ee62..4732a35 100644
+--- a/lustre/lov/lproc_lov.c
++++ b/lustre/lov/lproc_lov.c
+@@ -51,7 +51,8 @@ static int lov_stripesize_seq_show(struct seq_file *m, void *v)
+ 	LASSERT(dev != NULL);
+ 	desc = &dev->u.lov.desc;
+ 
+-	return seq_printf(m, LPU64"\n", desc->ld_default_stripe_size);
++	seq_printf(m, LPU64"\n", desc->ld_default_stripe_size);
++	return 0;
+ }
+ 
+ static ssize_t lov_stripesize_seq_write(struct file *file,
+@@ -82,7 +83,8 @@ static int lov_stripeoffset_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	desc = &dev->u.lov.desc;
+-	return seq_printf(m, LPU64"\n", desc->ld_default_stripe_offset);
++	seq_printf(m, LPU64"\n", desc->ld_default_stripe_offset);
++	return 0;
+ }
+ 
+ static ssize_t lov_stripeoffset_seq_write(struct file *file,
+@@ -112,7 +114,8 @@ static int lov_stripetype_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	desc = &dev->u.lov.desc;
+-	return seq_printf(m, "%u\n", desc->ld_pattern);
++	seq_printf(m, "%u\n", desc->ld_pattern);
++	return 0;
+ }
+ 
+ static ssize_t lov_stripetype_seq_write(struct file *file,
+@@ -142,8 +145,9 @@ static int lov_stripecount_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	desc = &dev->u.lov.desc;
+-	return seq_printf(m, "%d\n",
+-			  (__s16)(desc->ld_default_stripe_count + 1) - 1);
++	seq_printf(m, "%d\n",
++		  (__s16)(desc->ld_default_stripe_count + 1) - 1);
++	return 0;
+ }
+ 
+ static ssize_t lov_stripecount_seq_write(struct file *file,
+@@ -173,7 +177,8 @@ static int lov_numobd_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	desc = &dev->u.lov.desc;
+-	return seq_printf(m, "%u\n", desc->ld_tgt_count);
++	seq_printf(m, "%u\n", desc->ld_tgt_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lov_numobd);
+ 
+@@ -184,7 +189,8 @@ static int lov_activeobd_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	desc = &dev->u.lov.desc;
+-	return seq_printf(m, "%u\n", desc->ld_active_tgt_count);
++	seq_printf(m, "%u\n", desc->ld_active_tgt_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lov_activeobd);
+ 
+@@ -195,7 +201,8 @@ static int lov_desc_uuid_seq_show(struct seq_file *m, void *v)
+ 
+ 	LASSERT(dev != NULL);
+ 	lov = &dev->u.lov;
+-	return seq_printf(m, "%s\n", lov->desc.ld_uuid.uuid);
++	seq_printf(m, "%s\n", lov->desc.ld_uuid.uuid);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(lov_desc_uuid);
+ 
+@@ -231,9 +238,10 @@ static void *lov_tgt_seq_next(struct seq_file *p, void *v, loff_t *pos)
+ static int lov_tgt_seq_show(struct seq_file *p, void *v)
+ {
+         struct lov_tgt_desc *tgt = v;
+-	return seq_printf(p, "%d: %s %sACTIVE\n", tgt->ltd_index,
+-			  obd_uuid2str(&tgt->ltd_uuid),
+-			  tgt->ltd_active ? "" : "IN");
++	seq_printf(p, "%d: %s %sACTIVE\n", tgt->ltd_index,
++		   obd_uuid2str(&tgt->ltd_uuid),
++		   tgt->ltd_active ? "" : "IN");
++	return 0;
+ }
+ 
+ static const struct seq_operations lov_tgt_sops = {
+diff --git a/lustre/mdc/lproc_mdc.c b/lustre/mdc/lproc_mdc.c
+index 023b779..c8b0cd6 100644
+--- a/lustre/mdc/lproc_mdc.c
++++ b/lustre/mdc/lproc_mdc.c
+@@ -46,12 +46,11 @@
+ static int mdc_active_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+-	int rc;
+ 
+ 	LPROCFS_CLIMP_CHECK(dev);
+-	rc = seq_printf(m, "%d\n", !dev->u.cli.cl_import->imp_deactive);
++	seq_printf(m, "%d\n", !dev->u.cli.cl_import->imp_deactive);
+ 	LPROCFS_CLIMP_EXIT(dev);
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t mdc_active_seq_write(struct file *file,
+@@ -82,12 +81,11 @@ static int mdc_max_rpcs_in_flight_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+ 	__u32 max;
+-	int rc;
+ 
+ 	max = obd_get_max_rpcs_in_flight(&dev->u.cli);
+-	rc = seq_printf(m, "%u\n", max);
++	seq_printf(m, "%u\n", max);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t mdc_max_rpcs_in_flight_seq_write(struct file *file,
+@@ -115,12 +113,11 @@ static int mdc_max_mod_rpcs_in_flight_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+ 	__u16 max;
+-	int rc;
+ 
+ 	max = obd_get_max_mod_rpcs_in_flight(&dev->u.cli);
+-	rc = seq_printf(m, "%hu\n", max);
++	seq_printf(m, "%hu\n", max);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t mdc_max_mod_rpcs_in_flight_seq_write(struct file *file,
+diff --git a/lustre/mdd/mdd_lproc.c b/lustre/mdd/mdd_lproc.c
+index c09ee9c..1329852 100644
+--- a/lustre/mdd/mdd_lproc.c
++++ b/lustre/mdd/mdd_lproc.c
+@@ -78,7 +78,8 @@ static int mdd_atime_diff_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct mdd_device *mdd = m->private;
+ 
+-	return seq_printf(m, "%lu\n", mdd->mdd_atime_diff);
++	seq_printf(m, "%lu\n", mdd->mdd_atime_diff);
++	return 0;
+ }
+ LPROC_SEQ_FOPS(mdd_atime_diff);
+ 
+@@ -182,7 +183,8 @@ static int mdd_sync_perm_seq_show(struct seq_file *m, void *data)
+ 	struct mdd_device *mdd = m->private;
+ 
+ 	LASSERT(mdd != NULL);
+-	return seq_printf(m, "%d\n", mdd->mdd_sync_permission);
++	seq_printf(m, "%d\n", mdd->mdd_sync_permission);
++	return 0;
+ }
+ 
+ static ssize_t
+diff --git a/lustre/mdt/mdt_coordinator.c b/lustre/mdt/mdt_coordinator.c
+index 27ff1e3..9f371bc 100644
+--- a/lustre/mdt/mdt_coordinator.c
++++ b/lustre/mdt/mdt_coordinator.c
+@@ -2067,17 +2067,20 @@ int mdt_hsm_cdt_control_seq_show(struct seq_file *m, void *data)
+ static int
+ mdt_hsm_request_mask_show(struct seq_file *m, __u64 mask)
+ {
+-	int i, rc = 0;
++	bool first = true;
++	int i;
+ 	ENTRY;
+ 
+ 	for (i = 0; i < 8 * sizeof(mask); i++) {
+-		if (mask & (1UL << i))
+-			rc += seq_printf(m, "%s%s", rc == 0 ? "" : " ",
+-					hsm_copytool_action2name(i));
++		if (mask & (1UL << i)) {
++			seq_printf(m, "%s%s", first ? "" : " ",
++				   hsm_copytool_action2name(i));
++			first = false;
++		}
+ 	}
+-	rc += seq_printf(m, "\n");
++	seq_putc(m, '\n');
+ 
+-	RETURN(rc);
++	RETURN(0);
+ }
+ 
+ static int
+diff --git a/lustre/mdt/mdt_hsm_cdt_actions.c b/lustre/mdt/mdt_hsm_cdt_actions.c
+index 59cbfe2..342a919 100644
+--- a/lustre/mdt/mdt_hsm_cdt_actions.c
++++ b/lustre/mdt/mdt_hsm_cdt_actions.c
+@@ -398,7 +398,7 @@ static int hsm_actions_show_cb(const struct lu_env *env,
+ 	struct llog_agent_req_rec    *larr = (struct llog_agent_req_rec *)hdr;
+ 	struct seq_file		     *s = data;
+ 	struct agent_action_iterator *aai;
+-	int			      rc, sz;
++	int			      sz;
+ 	size_t			      count;
+ 	char			      buf[12];
+ 	ENTRY;
+@@ -417,35 +417,29 @@ static int hsm_actions_show_cb(const struct lu_env *env,
+ 
+ 	count = s->count;
+ 	sz = larr->arr_hai.hai_len - sizeof(larr->arr_hai);
+-	rc = seq_printf(s, "lrh=[type=%X len=%d idx=%d/%d] fid="DFID
+-			" dfid="DFID
+-			" compound/cookie="LPX64"/"LPX64
+-			" action=%s archive#=%d flags="LPX64
+-			" extent="LPX64"-"LPX64
+-			" gid="LPX64" datalen=%d status=%s"
+-			" data=[%s]\n",
+-			hdr->lrh_type, hdr->lrh_len,
+-			llh->lgh_hdr->llh_cat_idx, hdr->lrh_index,
+-			PFID(&larr->arr_hai.hai_fid),
+-			PFID(&larr->arr_hai.hai_dfid),
+-			larr->arr_compound_id, larr->arr_hai.hai_cookie,
+-			hsm_copytool_action2name(larr->arr_hai.hai_action),
+-			larr->arr_archive_id,
+-			larr->arr_flags,
+-			larr->arr_hai.hai_extent.offset,
+-			larr->arr_hai.hai_extent.length,
+-			larr->arr_hai.hai_gid, sz,
+-			agent_req_status2name(larr->arr_status),
+-			hai_dump_data_field(&larr->arr_hai, buf, sizeof(buf)));
+-	if (rc == 0) {
+-		aai->aai_cat_index = llh->lgh_hdr->llh_cat_idx;
+-		aai->aai_index = hdr->lrh_index;
+-	} else {
+-		if (s->count == s->size && count > 0) /* rewind the buffer */
+-			s->count = count;
+-		rc = LLOG_PROC_BREAK;
+-	}
+-	RETURN(rc);
++	seq_printf(s, "lrh=[type=%X len=%d idx=%d/%d] fid="DFID
++		   " dfid="DFID" compound/cookie="LPX64"/"LPX64
++		   " action=%s archive#=%d flags="LPX64
++		   " extent="LPX64"-"LPX64
++		   " gid="LPX64" datalen=%d status=%s data=[%s]\n",
++		   hdr->lrh_type, hdr->lrh_len,
++		   llh->lgh_hdr->llh_cat_idx, hdr->lrh_index,
++		   PFID(&larr->arr_hai.hai_fid),
++		   PFID(&larr->arr_hai.hai_dfid),
++		   larr->arr_compound_id, larr->arr_hai.hai_cookie,
++		   hsm_copytool_action2name(larr->arr_hai.hai_action),
++		   larr->arr_archive_id,
++		   larr->arr_flags,
++		   larr->arr_hai.hai_extent.offset,
++		   larr->arr_hai.hai_extent.length,
++		   larr->arr_hai.hai_gid, sz,
++		   agent_req_status2name(larr->arr_status),
++		   hai_dump_data_field(&larr->arr_hai, buf, sizeof(buf)));
++
++	aai->aai_cat_index = llh->lgh_hdr->llh_cat_idx;
++	aai->aai_index = hdr->lrh_index;
++
++	RETURN(0);
+ }
+ 
+ /**
+diff --git a/lustre/mdt/mdt_lproc.c b/lustre/mdt/mdt_lproc.c
+index 58728e8..612da16 100644
+--- a/lustre/mdt/mdt_lproc.c
++++ b/lustre/mdt/mdt_lproc.c
+@@ -217,7 +217,8 @@ static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_entry_expire);
++	seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_entry_expire);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -243,7 +244,8 @@ static int mdt_identity_acquire_expire_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_acquire_expire);
++	seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_acquire_expire);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -479,7 +481,8 @@ static int mdt_evict_tgt_nids_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", mdt->mdt_opts.mo_evict_tgt_nids);
++	seq_printf(m, "%u\n", mdt->mdt_opts.mo_evict_tgt_nids);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -505,7 +508,8 @@ static int mdt_sec_level_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%d\n", mdt->mdt_lut.lut_sec_level);
++	seq_printf(m, "%d\n", mdt->mdt_lut.lut_sec_level);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -540,7 +544,8 @@ static int mdt_cos_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", mdt_cos_is_enabled(mdt));
++	seq_printf(m, "%u\n", mdt_cos_is_enabled(mdt));
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -566,8 +571,9 @@ static int mdt_root_squash_seq_show(struct seq_file *m, void *data)
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct root_squash_info *squash = &mdt->mdt_squash;
+ 
+-	return seq_printf(m, "%u:%u\n", squash->rsi_uid,
+-			  squash->rsi_gid);
++	seq_printf(m, "%u:%u\n", squash->rsi_uid,
++		   squash->rsi_gid);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -589,19 +595,19 @@ static int mdt_nosquash_nids_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct root_squash_info *squash = &mdt->mdt_squash;
+-	int len = 0, rc;
++	int len = 0;
+ 
+ 	down_read(&squash->rsi_sem);
+ 	if (!list_empty(&squash->rsi_nosquash_nids)) {
+ 		len = cfs_print_nidlist(m->buf + m->count, m->size - m->count,
+ 					&squash->rsi_nosquash_nids);
+ 		m->count += len;
+-		rc = seq_printf(m, "\n");
++		seq_putc(m, '\n');
+ 	} else
+-		rc = seq_printf(m, "NONE\n");
++		seq_puts(m, "NONE\n");
+ 	up_read(&squash->rsi_sem);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -623,7 +629,8 @@ static int mdt_enable_remote_dir_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", mdt->mdt_enable_remote_dir);
++	seq_printf(m, "%u\n", mdt->mdt_enable_remote_dir);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -653,8 +660,9 @@ static int mdt_enable_remote_dir_gid_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%d\n",
+-			  (int)mdt->mdt_enable_remote_dir_gid);
++	seq_printf(m, "%d\n",
++		  (int)mdt->mdt_enable_remote_dir_gid);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -692,7 +700,8 @@ static int mdt_slc_seq_show(struct seq_file *m, void *data)
+ 	struct lu_target *tgt = obd->u.obt.obt_lut;
+ 	char *slc_states[] = {"never", "blocking", "always" };
+ 
+-	return seq_printf(m, "%s\n", slc_states[tgt->lut_sync_lock_cancel]);
++	seq_printf(m, "%s\n", slc_states[tgt->lut_sync_lock_cancel]);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(mdt_slc);
+ 
+@@ -710,7 +719,8 @@ static int mdt_async_commit_count_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%d\n", atomic_read(&mdt->mdt_async_commit_count));
++	seq_printf(m, "%d\n", atomic_read(&mdt->mdt_async_commit_count));
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -747,7 +757,8 @@ static int mdt_sync_count_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct lu_target *tgt = obd->u.obt.obt_lut;
+ 
+-	return seq_printf(m, "%d\n", atomic_read(&tgt->lut_sync_count));
++	seq_printf(m, "%d\n", atomic_read(&tgt->lut_sync_count));
++	return 0;
+ }
+ 
+ static ssize_t
+diff --git a/lustre/mgc/mgc_request.c b/lustre/mgc/mgc_request.c
+index 9dc2a3e..3c83dc0 100644
+--- a/lustre/mgc/mgc_request.c
++++ b/lustre/mgc/mgc_request.c
+@@ -490,8 +490,8 @@ int lprocfs_mgc_rd_ir_state(struct seq_file *m, void *data)
+ 		if (cld->cld_recover == NULL)
+ 			continue;
+ 		seq_printf(m,  "    - { client: %s, nidtbl_version: %u }\n",
+-			       cld->cld_logname,
+-			       cld->cld_recover->cld_cfg.cfg_last_idx);
++			   cld->cld_logname,
++			   cld->cld_recover->cld_cfg.cfg_last_idx);
+ 	}
+ 	spin_unlock(&config_list_lock);
+ 
+diff --git a/lustre/obdclass/genops.c b/lustre/obdclass/genops.c
+index 7ca03f0..c13c9333 100644
+--- a/lustre/obdclass/genops.c
++++ b/lustre/obdclass/genops.c
+@@ -2184,8 +2184,8 @@ int obd_mod_rpc_stats_seq_show(struct client_obd *cli,
+ 		unsigned long mod = cli->cl_mod_rpcs_hist.oh_buckets[i];
+ 		mod_cum += mod;
+ 		seq_printf(seq, "%d:\t\t%10lu %3lu %3lu\n",
+-				 i, mod, pct(mod, mod_tot),
+-				 pct(mod_cum, mod_tot));
++			   i, mod, pct(mod, mod_tot),
++			   pct(mod_cum, mod_tot));
+ 		if (mod_cum == mod_tot)
+ 			break;
+ 	}
+diff --git a/lustre/obdclass/linux/linux-module.c b/lustre/obdclass/linux/linux-module.c
+index 200d19f..c019863 100644
+--- a/lustre/obdclass/linux/linux-module.c
++++ b/lustre/obdclass/linux/linux-module.c
+@@ -215,21 +215,23 @@ struct miscdevice obd_psdev = {
+ #ifdef CONFIG_PROC_FS
+ static int obd_proc_version_seq_show(struct seq_file *m, void *v)
+ {
+-	return seq_printf(m, "lustre: %s\nkernel: %s\nbuild:  %s\n",
+-			  LUSTRE_VERSION_STRING, "patchless_client",
+-			  BUILD_VERSION);
++	seq_printf(m, "lustre: %s\nkernel: %s\nbuild:  %s\n",
++		   LUSTRE_VERSION_STRING, "patchless_client",
++		   BUILD_VERSION);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(obd_proc_version);
+ 
+ static int obd_proc_pinger_seq_show(struct seq_file *m, void *v)
+ {
+-	return seq_printf(m, "%s\n",
++	seq_printf(m, "%s\n",
+ #ifdef ENABLE_PINGER
+-			     "on"
++		   "on"
+ #else
+-			     "off"
++		   "off"
+ #endif
+-			 );
++		 );
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(obd_proc_pinger);
+ 
+@@ -266,7 +268,7 @@ static int obd_proc_health_seq_show(struct seq_file *m, void *data)
+ 
+ 		if (obd_health_check(NULL, obd)) {
+ 			seq_printf(m, "device %s reported unhealthy\n",
+-					obd->obd_name);
++				   obd->obd_name);
+ 			healthy = false;
+ 		}
+ 		class_decref(obd, __FUNCTION__, current);
+@@ -275,7 +277,7 @@ static int obd_proc_health_seq_show(struct seq_file *m, void *data)
+ 	read_unlock(&obd_dev_lock);
+ 
+ 	if (healthy)
+-		return seq_printf(m, "healthy\n");
++		seq_puts(m, "healthy\n");
+ 
+ 	seq_printf(m, "NOT HEALTHY\n");
+ 	return 0;
+@@ -405,10 +407,11 @@ static int obd_device_list_seq_show(struct seq_file *p, void *v)
+         else
+                 status = "--";
+ 
+-        return seq_printf(p, "%3d %s %s %s %s %d\n",
+-                          (int)index, status, obd->obd_type->typ_name,
+-                          obd->obd_name, obd->obd_uuid.uuid,
+-			  atomic_read(&obd->obd_refcount));
++	seq_printf(p, "%3d %s %s %s %s %d\n",
++		   (int)index, status, obd->obd_type->typ_name,
++		   obd->obd_name, obd->obd_uuid.uuid,
++		   atomic_read(&obd->obd_refcount));
++	return 0;
+ }
+ 
+ static const struct seq_operations obd_device_list_sops = {
+diff --git a/lustre/obdclass/lprocfs_jobstats.c b/lustre/obdclass/lprocfs_jobstats.c
+index c0ea8f3..af6cc5f 100644
+--- a/lustre/obdclass/lprocfs_jobstats.c
++++ b/lustre/obdclass/lprocfs_jobstats.c
+@@ -636,7 +636,8 @@ int lprocfs_job_interval_seq_show(struct seq_file *m, void *data)
+ 		return -ENODEV;
+ 
+ 	stats = &obd->u.obt.obt_jobstats;
+-	return seq_printf(m, "%d\n", stats->ojs_cleanup_interval);
++	seq_printf(m, "%d\n", stats->ojs_cleanup_interval);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_job_interval_seq_show);
+ 
+diff --git a/lustre/obdclass/lprocfs_status.c b/lustre/obdclass/lprocfs_status.c
+index 917bd6b..0cae0eb 100644
+--- a/lustre/obdclass/lprocfs_status.c
++++ b/lustre/obdclass/lprocfs_status.c
+@@ -292,7 +292,8 @@ EXPORT_SYMBOL(lprocfs_register);
+ /* Generic callbacks */
+ int lprocfs_uint_seq_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, "%u\n", *(unsigned int *)data);
++	seq_printf(m, "%u\n", *(unsigned int *)data);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_uint_seq_show);
+ 
+@@ -333,7 +334,8 @@ EXPORT_SYMBOL(lprocfs_uint_seq_write);
+ int lprocfs_u64_seq_show(struct seq_file *m, void *data)
+ {
+ 	LASSERT(data != NULL);
+-	return seq_printf(m, LPU64"\n", *(__u64 *)data);
++	seq_printf(m, LPU64"\n", *(__u64 *)data);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_u64_seq_show);
+ 
+@@ -341,7 +343,8 @@ int lprocfs_atomic_seq_show(struct seq_file *m, void *data)
+ {
+ 	atomic_t *atom = data;
+ 	LASSERT(atom != NULL);
+-	return seq_printf(m, "%d\n", atomic_read(atom));
++	seq_printf(m, "%d\n", atomic_read(atom));
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_atomic_seq_show);
+ 
+@@ -370,7 +373,8 @@ int lprocfs_uuid_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = data;
+ 
+ 	LASSERT(obd != NULL);
+-	return seq_printf(m, "%s\n", obd->obd_uuid.uuid);
++	seq_printf(m, "%s\n", obd->obd_uuid.uuid);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_uuid_seq_show);
+ 
+@@ -379,7 +383,8 @@ int lprocfs_name_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *dev = data;
+ 
+ 	LASSERT(dev != NULL);
+-	return seq_printf(m, "%s\n", dev->obd_name);
++	seq_printf(m, "%s\n", dev->obd_name);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_name_seq_show);
+ 
+@@ -391,7 +396,7 @@ int lprocfs_blksize_seq_show(struct seq_file *m, void *data)
+ 			    cfs_time_shift_64(-OBD_STATFS_CACHE_SECONDS),
+ 			    OBD_STATFS_NODELAY);
+ 	if (!rc)
+-		rc = seq_printf(m, "%u\n", osfs.os_bsize);
++		seq_printf(m, "%u\n", osfs.os_bsize);
+ 	return rc;
+ }
+ EXPORT_SYMBOL(lprocfs_blksize_seq_show);
+@@ -410,7 +415,7 @@ int lprocfs_kbytestotal_seq_show(struct seq_file *m, void *data)
+ 		while (blk_size >>= 1)
+ 			result <<= 1;
+ 
+-		rc = seq_printf(m, LPU64"\n", result);
++		seq_printf(m, LPU64"\n", result);
+ 	}
+ 	return rc;
+ }
+@@ -430,7 +435,7 @@ int lprocfs_kbytesfree_seq_show(struct seq_file *m, void *data)
+ 		while (blk_size >>= 1)
+ 			result <<= 1;
+ 
+-		rc = seq_printf(m, LPU64"\n", result);
++		seq_printf(m, LPU64"\n", result);
+ 	}
+ 	return rc;
+ }
+@@ -450,7 +455,7 @@ int lprocfs_kbytesavail_seq_show(struct seq_file *m, void *data)
+ 		while (blk_size >>= 1)
+ 			result <<= 1;
+ 
+-		rc = seq_printf(m, LPU64"\n", result);
++		seq_printf(m, LPU64"\n", result);
+ 	}
+ 	return rc;
+ }
+@@ -464,7 +469,7 @@ int lprocfs_filestotal_seq_show(struct seq_file *m, void *data)
+ 			    cfs_time_shift_64(-OBD_STATFS_CACHE_SECONDS),
+ 			    OBD_STATFS_NODELAY);
+ 	if (!rc)
+-		rc = seq_printf(m, LPU64"\n", osfs.os_files);
++		seq_printf(m, LPU64"\n", osfs.os_files);
+ 	return rc;
+ }
+ EXPORT_SYMBOL(lprocfs_filestotal_seq_show);
+@@ -477,7 +482,7 @@ int lprocfs_filesfree_seq_show(struct seq_file *m, void *data)
+ 			    cfs_time_shift_64(-OBD_STATFS_CACHE_SECONDS),
+ 			    OBD_STATFS_NODELAY);
+ 	if (!rc)
+-		rc = seq_printf(m, LPU64"\n", osfs.os_ffree);
++		seq_printf(m, LPU64"\n", osfs.os_ffree);
+ 	return rc;
+ }
+ EXPORT_SYMBOL(lprocfs_filesfree_seq_show);
+@@ -493,8 +498,8 @@ int lprocfs_server_uuid_seq_show(struct seq_file *m, void *data)
+ 	LPROCFS_CLIMP_CHECK(obd);
+ 	imp = obd->u.cli.cl_import;
+ 	imp_state_name = ptlrpc_import_state_name(imp->imp_state);
+-	rc = seq_printf(m, "%s\t%s%s\n", obd2cli_tgt(obd), imp_state_name,
+-			imp->imp_deactive ? "\tDEACTIVATED" : "");
++	seq_printf(m, "%s\t%s%s\n", obd2cli_tgt(obd), imp_state_name,
++		   imp->imp_deactive ? "\tDEACTIVATED" : "");
+ 
+ 	LPROCFS_CLIMP_EXIT(obd);
+ 	return rc;
+@@ -512,9 +517,9 @@ int lprocfs_conn_uuid_seq_show(struct seq_file *m, void *data)
+ 	LPROCFS_CLIMP_CHECK(obd);
+ 	conn = obd->u.cli.cl_import->imp_connection;
+ 	if (conn && obd->u.cli.cl_import)
+-		rc = seq_printf(m, "%s\n", conn->c_remote_uuid.uuid);
++		seq_printf(m, "%s\n", conn->c_remote_uuid.uuid);
+ 	else
+-		rc = seq_printf(m, "%s\n", "<none>");
++		seq_printf(m, "%s\n", "<none>");
+ 
+ 	LPROCFS_CLIMP_EXIT(obd);
+ 	return rc;
+@@ -705,16 +710,16 @@ static void obd_connect_data_seqprint(struct seq_file *m,
+ 	flags = ocd->ocd_connect_flags;
+ 
+ 	seq_printf(m, "    connect_data:\n"
+-		      "       flags: "LPX64"\n"
+-		      "       instance: %u\n",
+-		      ocd->ocd_connect_flags,
+-		      ocd->ocd_instance);
++		   "       flags: "LPX64"\n"
++		   "       instance: %u\n",
++		   ocd->ocd_connect_flags,
++		   ocd->ocd_instance);
+ 	if (flags & OBD_CONNECT_VERSION)
+ 		seq_printf(m, "       target_version: %u.%u.%u.%u\n",
+-			      OBD_OCD_VERSION_MAJOR(ocd->ocd_version),
+-			      OBD_OCD_VERSION_MINOR(ocd->ocd_version),
+-			      OBD_OCD_VERSION_PATCH(ocd->ocd_version),
+-			      OBD_OCD_VERSION_FIX(ocd->ocd_version));
++			   OBD_OCD_VERSION_MAJOR(ocd->ocd_version),
++			   OBD_OCD_VERSION_MINOR(ocd->ocd_version),
++			   OBD_OCD_VERSION_PATCH(ocd->ocd_version),
++			   OBD_OCD_VERSION_FIX(ocd->ocd_version));
+ 	if (flags & OBD_CONNECT_MDS)
+ 		seq_printf(m, "       mdt_index: %d\n", ocd->ocd_group);
+ 	if (flags & OBD_CONNECT_GRANT)
+@@ -725,28 +730,30 @@ static void obd_connect_data_seqprint(struct seq_file *m,
+ 		seq_printf(m, "       max_brw_size: %d\n", ocd->ocd_brw_size);
+ 	if (flags & OBD_CONNECT_IBITS)
+ 		seq_printf(m, "       ibits_known: "LPX64"\n",
+-				ocd->ocd_ibits_known);
++			   ocd->ocd_ibits_known);
+ 	if (flags & OBD_CONNECT_GRANT_PARAM)
+ 		seq_printf(m, "       grant_block_size: %d\n"
+-			      "       grant_inode_size: %d\n"
+-			      "       grant_extent_overhead: %d\n",
+-			      ocd->ocd_blocksize,
+-			      ocd->ocd_inodespace,
+-			      ocd->ocd_grant_extent);
++			   "       grant_inode_size: %d\n"
++			   "       grant_max_extent_size: %d\n"
++			   "       grant_extent_tax: %d\n",
++			   1 << ocd->ocd_grant_blkbits,
++			   1 << ocd->ocd_grant_inobits,
++			   ocd->ocd_grant_max_blks << ocd->ocd_grant_blkbits,
++			   ocd->ocd_grant_tax_kb << 10);
+ 	if (flags & OBD_CONNECT_TRANSNO)
+ 		seq_printf(m, "       first_transno: "LPX64"\n",
+-				ocd->ocd_transno);
++			   ocd->ocd_transno);
+ 	if (flags & OBD_CONNECT_CKSUM)
+ 		seq_printf(m, "       cksum_types: %#x\n",
+-			      ocd->ocd_cksum_types);
++			   ocd->ocd_cksum_types);
+ 	if (flags & OBD_CONNECT_MAX_EASIZE)
+ 		seq_printf(m, "       max_easize: %d\n", ocd->ocd_max_easize);
+ 	if (flags & OBD_CONNECT_MAXBYTES)
+ 		seq_printf(m, "       max_object_bytes: "LPU64"\n",
+-			      ocd->ocd_maxbytes);
++			   ocd->ocd_maxbytes);
+ 	if (flags & OBD_CONNECT_MULTIMODRPCS)
+ 		seq_printf(m, "       max_mod_rpcs: %hu\n",
+-			      ocd->ocd_maxmodrpcs);
++			   ocd->ocd_maxmodrpcs);
+ }
+ 
+ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+@@ -768,23 +775,23 @@ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+ 	ocd = &imp->imp_connect_data;
+ 
+ 	seq_printf(m, "import:\n"
+-		      "    name: %s\n"
+-		      "    target: %s\n"
+-		      "    state: %s\n"
+-		      "    connect_flags: [ ",
+-		      obd->obd_name,
+-		      obd2cli_tgt(obd),
+-		      ptlrpc_import_state_name(imp->imp_state));
++		   "    name: %s\n"
++		   "    target: %s\n"
++		   "    state: %s\n"
++		   "    connect_flags: [ ",
++		   obd->obd_name,
++		   obd2cli_tgt(obd),
++		   ptlrpc_import_state_name(imp->imp_state));
+ 	obd_connect_seq_flags2str(m, imp->imp_connect_data.ocd_connect_flags,
+-					", ");
++				  ", ");
+ 	seq_printf(m, " ]\n");
+ 	obd_connect_data_seqprint(m, ocd);
+ 	seq_printf(m, "    import_flags: [ ");
+ 	obd_import_flags2str(imp, m);
+ 
+ 	seq_printf(m, " ]\n"
+-		      "    connection:\n"
+-		      "       failover_nids: [ ");
++		   "    connection:\n"
++		   "       failover_nids: [ ");
+ 	spin_lock(&imp->imp_lock);
+ 	j = 0;
+ 	list_for_each_entry(conn, &imp->imp_conn_list, oic_item) {
+@@ -799,14 +806,14 @@ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+ 	else
+ 		strncpy(nidstr, "<none>", sizeof(nidstr));
+ 	seq_printf(m, " ]\n"
+-		      "       current_connection: %s\n"
+-		      "       connection_attempts: %u\n"
+-		      "       generation: %u\n"
+-		      "       in-progress_invalidations: %u\n",
+-		      nidstr,
+-		      imp->imp_conn_cnt,
+-		      imp->imp_generation,
+-		      atomic_read(&imp->imp_inval_count));
++		   "       current_connection: %s\n"
++		   "       connection_attempts: %u\n"
++		   "       generation: %u\n"
++		   "       in-progress_invalidations: %u\n",
++		   nidstr,
++		   imp->imp_conn_cnt,
++		   imp->imp_generation,
++		   atomic_read(&imp->imp_inval_count));
+ 	spin_unlock(&imp->imp_lock);
+ 
+ 	if (obd->obd_svc_stats == NULL)
+@@ -822,14 +829,14 @@ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+ 	} else
+ 		ret.lc_sum = 0;
+ 	seq_printf(m, "    rpcs:\n"
+-		      "       inflight: %u\n"
+-		      "       unregistering: %u\n"
+-		      "       timeouts: %u\n"
+-		      "       avg_waittime: "LPU64" %s\n",
+-		      atomic_read(&imp->imp_inflight),
+-		      atomic_read(&imp->imp_unregistering),
+-		      atomic_read(&imp->imp_timeouts),
+-		      ret.lc_sum, header->lc_units);
++		   "       inflight: %u\n"
++		   "       unregistering: %u\n"
++		   "       timeouts: %u\n"
++		   "       avg_waittime: "LPU64" %s\n",
++		   atomic_read(&imp->imp_inflight),
++		   atomic_read(&imp->imp_unregistering),
++		   atomic_read(&imp->imp_timeouts),
++		   ret.lc_sum, header->lc_units);
+ 
+ 	k = 0;
+ 	for(j = 0; j < IMP_AT_MAX_PORTALS; j++) {
+@@ -839,18 +846,18 @@ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+ 			  at_get(&imp->imp_at.iat_service_estimate[j]));
+ 	}
+ 	seq_printf(m, "    service_estimates:\n"
+-		      "       services: %u sec\n"
+-		      "       network: %u sec\n",
+-		      k,
+-		      at_get(&imp->imp_at.iat_net_latency));
++		   "       services: %u sec\n"
++		   "       network: %u sec\n",
++		   k,
++		   at_get(&imp->imp_at.iat_net_latency));
+ 
+ 	seq_printf(m, "    transactions:\n"
+-		      "       last_replay: "LPU64"\n"
+-		      "       peer_committed: "LPU64"\n"
+-		      "       last_checked: "LPU64"\n",
+-		      imp->imp_last_replay_transno,
+-		      imp->imp_peer_committed_transno,
+-		      imp->imp_last_transno_checked);
++		   "       last_replay: "LPU64"\n"
++		   "       peer_committed: "LPU64"\n"
++		   "       last_checked: "LPU64"\n",
++		   imp->imp_last_replay_transno,
++		   imp->imp_peer_committed_transno,
++		   imp->imp_last_transno_checked);
+ 
+ 	/* avg data rates */
+ 	for (rw = 0; rw <= 1; rw++) {
+@@ -863,9 +870,9 @@ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+ 			do_div(sum, ret.lc_count);
+ 			ret.lc_sum = sum;
+ 			seq_printf(m, "    %s_data_averages:\n"
+-				      "       bytes_per_rpc: "LPU64"\n",
+-				      rw ? "write" : "read",
+-				      ret.lc_sum);
++				   "       bytes_per_rpc: "LPU64"\n",
++				   rw ? "write" : "read",
++				   ret.lc_sum);
+ 		}
+ 		k = (int)ret.lc_sum;
+ 		j = opcode_offset(OST_READ + rw) + EXTRA_MAX_OPCODES;
+@@ -877,11 +884,11 @@ int lprocfs_import_seq_show(struct seq_file *m, void *data)
+ 			do_div(sum, ret.lc_count);
+ 			ret.lc_sum = sum;
+ 			seq_printf(m, "       %s_per_rpc: "LPU64"\n",
+-					header->lc_units, ret.lc_sum);
++				   header->lc_units, ret.lc_sum);
+ 			j = (int)ret.lc_sum;
+ 			if (j > 0)
+ 				seq_printf(m, "       MB_per_sec: %u.%.02u\n",
+-						k / j, (100 * k / j) % 100);
++					   k / j, (100 * k / j) % 100);
+ 		}
+ 	}
+ 
+@@ -1223,8 +1230,8 @@ static int lprocfs_stats_seq_show(struct seq_file *p, void *v)
+ 		struct timeval now;
+ 
+ 		do_gettimeofday(&now);
+-		rc = seq_printf(p, "%-25s %lu.%lu secs.usecs\n",
+-				"snapshot_time", now.tv_sec, now.tv_usec);
++		seq_printf(p, "%-25s %lu.%lu secs.usecs\n",
++			   "snapshot_time", now.tv_sec, now.tv_usec);
+ 		if (rc < 0)
+ 			return rc;
+ 	}
+@@ -1235,22 +1242,22 @@ static int lprocfs_stats_seq_show(struct seq_file *p, void *v)
+ 	if (ctr.lc_count == 0)
+ 		goto out;
+ 
+-	rc = seq_printf(p, "%-25s "LPD64" samples [%s]", hdr->lc_name,
+-			ctr.lc_count, hdr->lc_units);
++	seq_printf(p, "%-25s "LPD64" samples [%s]", hdr->lc_name,
++		   ctr.lc_count, hdr->lc_units);
+ 	if (rc < 0)
+ 		goto out;
+ 
+ 	if ((hdr->lc_config & LPROCFS_CNTR_AVGMINMAX) && ctr.lc_count > 0) {
+-		rc = seq_printf(p, " "LPD64" "LPD64" "LPD64,
+-				ctr.lc_min, ctr.lc_max, ctr.lc_sum);
++		seq_printf(p, " "LPD64" "LPD64" "LPD64,
++			   ctr.lc_min, ctr.lc_max, ctr.lc_sum);
+ 		if (rc < 0)
+ 			goto out;
+ 		if (hdr->lc_config & LPROCFS_CNTR_STDDEV)
+-			rc = seq_printf(p, " "LPD64, ctr.lc_sumsquare);
++			seq_printf(p, " "LPD64, ctr.lc_sumsquare);
+ 		if (rc < 0)
+ 			goto out;
+ 	}
+-	rc = seq_printf(p, "\n");
++	seq_putc(p, '\n');
+ out:
+ 	return (rc < 0) ? rc : 0;
+ }
+@@ -1849,12 +1856,11 @@ int lprocfs_obd_max_pages_per_rpc_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct obd_device *dev = data;
+ 	struct client_obd *cli = &dev->u.cli;
+-	int rc;
+ 
+ 	spin_lock(&cli->cl_loi_list_lock);
+-	rc = seq_printf(m, "%d\n", cli->cl_max_pages_per_rpc);
++	seq_printf(m, "%d\n", cli->cl_max_pages_per_rpc);
+ 	spin_unlock(&cli->cl_loi_list_lock);
+-	return rc;
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_obd_max_pages_per_rpc_seq_show);
+ 
+diff --git a/lustre/obdclass/lprocfs_status_server.c b/lustre/obdclass/lprocfs_status_server.c
+index 148f65a..6bb6c27 100644
+--- a/lustre/obdclass/lprocfs_status_server.c
++++ b/lustre/obdclass/lprocfs_status_server.c
+@@ -109,7 +109,8 @@ int lprocfs_num_exports_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = data;
+ 
+ 	LASSERT(obd != NULL);
+-	return seq_printf(m, "%u\n", obd->obd_num_exports);
++	seq_printf(m, "%u\n", obd->obd_num_exports);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_num_exports_seq_show);
+ 
+@@ -237,9 +238,9 @@ int lprocfs_exp_print_replydata_seq(struct cfs_hash *hs, struct cfs_hash_bd *bd,
+ 	struct tg_export_data *ted = &exp->exp_target_data;
+ 
+ 	seq_printf(m, "reply_cnt: %d\n"
+-		      "reply_max: %d\n"
+-		      "reply_released_by_xid: %d\n"
+-		      "reply_released_by_tag: %d\n\n",
++		   "reply_max: %d\n"
++		   "reply_released_by_xid: %d\n"
++		   "reply_released_by_tag: %d\n\n",
+ 		   ted->ted_reply_cnt,
+ 		   ted->ted_reply_max,
+ 		   ted->ted_release_xid,
+@@ -260,8 +261,8 @@ LPROC_SEQ_FOPS_RO(lprocfs_exp_replydata);
+ 
+ int lprocfs_nid_stats_clear_seq_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, "%s\n", "Write into this file to clear all nid "
+-			  "stats and stale nid entries");
++	seq_puts(m, "Write into this file to clear all nid stats and stale nid entries\n");
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_nid_stats_clear_seq_show);
+ 
+@@ -548,16 +549,15 @@ EXPORT_SYMBOL(lprocfs_free_obd_stats);
+ int lprocfs_hash_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct obd_device *obd = m->private;
+-	int c = 0;
+ 
+ 	if (obd == NULL)
+ 		return 0;
+ 
+-	c += cfs_hash_debug_header(m);
+-	c += cfs_hash_debug_str(obd->obd_uuid_hash, m);
+-	c += cfs_hash_debug_str(obd->obd_nid_hash, m);
+-	c += cfs_hash_debug_str(obd->obd_nid_stats_hash, m);
+-	return c;
++	cfs_hash_debug_header(m);
++	cfs_hash_debug_str(obd->obd_uuid_hash, m);
++	cfs_hash_debug_str(obd->obd_nid_hash, m);
++	cfs_hash_debug_str(obd->obd_nid_stats_hash, m);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_hash_seq_show);
+ 
+@@ -631,7 +631,8 @@ int lprocfs_ir_factor_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 
+ 	LASSERT(obd != NULL);
+-	return seq_printf(m, "%d\n", obd->obd_recovery_ir_factor);
++	seq_printf(m, "%d\n", obd->obd_recovery_ir_factor);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_ir_factor_seq_show);
+ 
+@@ -661,7 +662,8 @@ int lprocfs_recovery_time_soft_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 
+ 	LASSERT(obd != NULL);
+-	return seq_printf(m, "%d\n", obd->obd_recovery_timeout);
++	seq_printf(m, "%d\n", obd->obd_recovery_timeout);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_recovery_time_soft_seq_show);
+ 
+@@ -689,7 +691,8 @@ int lprocfs_recovery_time_hard_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 
+ 	LASSERT(obd != NULL);
+-	return seq_printf(m, "%u\n", obd->obd_recovery_time_hard);
++	seq_printf(m, "%u\n", obd->obd_recovery_time_hard);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_recovery_time_hard_seq_show);
+ 
+@@ -719,7 +722,8 @@ int lprocfs_target_instance_seq_show(struct seq_file *m, void *data)
+ 
+ 	LASSERT(obd != NULL);
+ 	LASSERT(target->obt_magic == OBT_MAGIC);
+-	return seq_printf(m, "%u\n", obd->u.obt.obt_instance);
++	seq_printf(m, "%u\n", obd->u.obt.obt_instance);
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_target_instance_seq_show);
+ 
+diff --git a/lustre/obdclass/lu_object.c b/lustre/obdclass/lu_object.c
+index c478d51..7709a8d 100644
+--- a/lustre/obdclass/lu_object.c
++++ b/lustre/obdclass/lu_object.c
+@@ -2223,19 +2223,20 @@ int lu_site_stats_seq_print(const struct lu_site *s, struct seq_file *m)
+ 	memset(&stats, 0, sizeof(stats));
+ 	lu_site_stats_get(s->ls_obj_hash, &stats, 1);
+ 
+-	return seq_printf(m, "%d/%d %d/%d %d %d %d %d %d %d %d %d\n",
+-			  stats.lss_busy,
+-			  stats.lss_total,
+-			  stats.lss_populated,
+-			  CFS_HASH_NHLIST(s->ls_obj_hash),
+-			  stats.lss_max_search,
+-			  ls_stats_read(s->ls_stats, LU_SS_CREATED),
+-			  ls_stats_read(s->ls_stats, LU_SS_CACHE_HIT),
+-			  ls_stats_read(s->ls_stats, LU_SS_CACHE_MISS),
+-			  ls_stats_read(s->ls_stats, LU_SS_CACHE_RACE),
+-			  ls_stats_read(s->ls_stats, LU_SS_CACHE_DEATH_RACE),
+-			  ls_stats_read(s->ls_stats, LU_SS_LRU_PURGED),
+-			  ls_stats_read(s->ls_stats, LU_SS_LRU_LEN));
++	seq_printf(m, "%d/%d %d/%d %d %d %d %d %d %d %d %d\n",
++		   stats.lss_busy,
++		   stats.lss_total,
++		   stats.lss_populated,
++		   CFS_HASH_NHLIST(s->ls_obj_hash),
++		   stats.lss_max_search,
++		   ls_stats_read(s->ls_stats, LU_SS_CREATED),
++		   ls_stats_read(s->ls_stats, LU_SS_CACHE_HIT),
++		   ls_stats_read(s->ls_stats, LU_SS_CACHE_MISS),
++		   ls_stats_read(s->ls_stats, LU_SS_CACHE_RACE),
++		   ls_stats_read(s->ls_stats, LU_SS_CACHE_DEATH_RACE),
++		   ls_stats_read(s->ls_stats, LU_SS_LRU_PURGED),
++		   ls_stats_read(s->ls_stats, LU_SS_LRU_LEN));
++	return 0;
+ }
+ EXPORT_SYMBOL(lu_site_stats_seq_print);
+ 
+diff --git a/lustre/ofd/lproc_ofd.c b/lustre/ofd/lproc_ofd.c
+index 65b57f3..29350da 100644
+--- a/lustre/ofd/lproc_ofd.c
++++ b/lustre/ofd/lproc_ofd.c
+@@ -64,7 +64,8 @@ static int ofd_seqs_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", ofd->ofd_seq_count);
++	seq_printf(m, "%u\n", ofd->ofd_seq_count);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_seqs);
+ 
+@@ -84,7 +85,8 @@ static int ofd_tot_dirty_seq_show(struct seq_file *m, void *data)
+ 
+ 	LASSERT(obd != NULL);
+ 	ofd = ofd_dev(obd->obd_lu_dev);
+-	return seq_printf(m, LPU64"\n", ofd->ofd_tot_dirty);
++	seq_printf(m, LPU64"\n", ofd->ofd_tot_dirty);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_tot_dirty);
+ 
+@@ -104,7 +106,8 @@ static int ofd_tot_granted_seq_show(struct seq_file *m, void *data)
+ 
+ 	LASSERT(obd != NULL);
+ 	ofd = ofd_dev(obd->obd_lu_dev);
+-	return seq_printf(m, LPU64"\n", ofd->ofd_tot_granted);
++	seq_printf(m, LPU64"\n", ofd->ofd_tot_granted);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_tot_granted);
+ 
+@@ -124,7 +127,8 @@ static int ofd_tot_pending_seq_show(struct seq_file *m, void *data)
+ 
+ 	LASSERT(obd != NULL);
+ 	ofd = ofd_dev(obd->obd_lu_dev);
+-	return seq_printf(m, LPU64"\n", ofd->ofd_tot_pending);
++	seq_printf(m, LPU64"\n", ofd->ofd_tot_pending);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_tot_pending);
+ 
+@@ -142,8 +146,9 @@ static int ofd_grant_precreate_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 
+ 	LASSERT(obd != NULL);
+-	return seq_printf(m, "%ld\n",
+-			  obd->obd_self_export->exp_filter_data.fed_grant);
++	seq_printf(m, "%ld\n",
++		   obd->obd_self_export->exp_filter_data.fed_grant);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_grant_precreate);
+ 
+@@ -225,7 +230,8 @@ static int ofd_precreate_batch_seq_show(struct seq_file *m, void *data)
+ 
+ 	LASSERT(obd != NULL);
+ 	ofd = ofd_dev(obd->obd_lu_dev);
+-	return seq_printf(m, "%d\n", ofd->ofd_precreate_batch);
++	seq_printf(m, "%d\n", ofd->ofd_precreate_batch);
++	return 0;
+ }
+ 
+ /**
+@@ -277,7 +283,6 @@ static int ofd_last_id_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device	*obd = m->private;
+ 	struct ofd_device	*ofd;
+ 	struct ofd_seq		*oseq = NULL;
+-	int			retval = 0, rc;
+ 
+ 	if (obd == NULL)
+ 		return 0;
+@@ -292,15 +297,10 @@ static int ofd_last_id_seq_show(struct seq_file *m, void *data)
+ 		      fid_idif_seq(ostid_id(&oseq->os_oi),
+ 				   ofd->ofd_lut.lut_lsd.lsd_osd_index) :
+ 		      ostid_seq(&oseq->os_oi);
+-		rc = seq_printf(m, DOSTID"\n", seq, ostid_id(&oseq->os_oi));
+-		if (rc < 0) {
+-			retval = rc;
+-			break;
+-		}
+-		retval += rc;
++		seq_printf(m, DOSTID"\n", seq, ostid_id(&oseq->os_oi));
+ 	}
+ 	read_unlock(&ofd->ofd_seq_list_lock);
+-	return retval;
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_last_id);
+ 
+@@ -318,7 +318,8 @@ static int ofd_fmd_max_num_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", ofd->ofd_fmd_max_num);
++	seq_printf(m, "%u\n", ofd->ofd_fmd_max_num);
++	return 0;
+ }
+ 
+ /**
+@@ -373,8 +374,9 @@ static int ofd_fmd_max_age_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%ld\n", jiffies_to_msecs(ofd->ofd_fmd_max_age) /
+-				      MSEC_PER_SEC);
++	seq_printf(m, "%ld\n", jiffies_to_msecs(ofd->ofd_fmd_max_age) /
++		   MSEC_PER_SEC);
++	return 0;
+ }
+ 
+ /**
+@@ -433,7 +435,8 @@ static int ofd_degraded_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", ofd->ofd_raid_degraded);
++	seq_printf(m, "%u\n", ofd->ofd_raid_degraded);
++	return 0;
+ }
+ 
+ /**
+@@ -491,7 +494,8 @@ static int ofd_fstype_seq_show(struct seq_file *m, void *data)
+ 	LASSERT(ofd->ofd_osd);
+ 	d = &ofd->ofd_osd->dd_lu_dev;
+ 	LASSERT(d->ld_type);
+-	return seq_printf(m, "%s\n", d->ld_type->ldt_name);
++	seq_printf(m, "%s\n", d->ld_type->ldt_name);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ofd_fstype);
+ 
+@@ -517,7 +521,8 @@ static int ofd_syncjournal_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device	*obd = m->private;
+ 	struct ofd_device	*ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", ofd->ofd_syncjournal);
++	seq_printf(m, "%u\n", ofd->ofd_syncjournal);
++	return 0;
+ }
+ 
+ /**
+@@ -579,8 +584,9 @@ static int ofd_sync_lock_cancel_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device	*obd = m->private;
+ 	struct lu_target	*tgt = obd->u.obt.obt_lut;
+ 
+-	return seq_printf(m, "%s\n",
+-			  sync_on_cancel_states[tgt->lut_sync_lock_cancel]);
++	seq_printf(m, "%s\n",
++		   sync_on_cancel_states[tgt->lut_sync_lock_cancel]);
++	return 0;
+ }
+ 
+ /**
+@@ -673,7 +679,8 @@ static int ofd_grant_compat_disable_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m, "%u\n", ofd->ofd_grant_compat_disable);
++	seq_printf(m, "%u\n", ofd->ofd_grant_compat_disable);
++	return 0;
+ }
+ 
+ /**
+@@ -851,11 +858,11 @@ static int ofd_lfsck_verify_pfid_seq_show(struct seq_file *m, void *data)
+ 	struct obd_device *obd = m->private;
+ 	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return seq_printf(m,
+-			  "switch: %s\ndetected: "LPU64"\nrepaired: "LPU64"\n",
+-			  ofd->ofd_lfsck_verify_pfid ? "on" : "off",
+-			  ofd->ofd_inconsistency_self_detected,
+-			  ofd->ofd_inconsistency_self_repaired);
++	seq_printf(m, "switch: %s\ndetected: "LPU64"\nrepaired: "LPU64"\n",
++		   ofd->ofd_lfsck_verify_pfid ? "on" : "off",
++		   ofd->ofd_inconsistency_self_detected,
++		   ofd->ofd_inconsistency_self_repaired);
++	return 0;
+ }
+ 
+ /**
+diff --git a/lustre/osc/lproc_osc.c b/lustre/osc/lproc_osc.c
+index 983442f..3bd44a6 100644
+--- a/lustre/osc/lproc_osc.c
++++ b/lustre/osc/lproc_osc.c
+@@ -47,12 +47,11 @@
+ static int osc_active_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+-	int rc;
+ 
+ 	LPROCFS_CLIMP_CHECK(dev);
+-	rc = seq_printf(m, "%d\n", !dev->u.cli.cl_import->imp_deactive);
++	seq_printf(m, "%d\n", !dev->u.cli.cl_import->imp_deactive);
+ 	LPROCFS_CLIMP_EXIT(dev);
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t osc_active_seq_write(struct file *file,
+@@ -82,12 +81,11 @@ static int osc_max_rpcs_in_flight_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+ 	struct client_obd *cli = &dev->u.cli;
+-	int rc;
+ 
+ 	spin_lock(&cli->cl_loi_list_lock);
+-	rc = seq_printf(m, "%u\n", cli->cl_max_rpcs_in_flight);
++	seq_printf(m, "%u\n", cli->cl_max_rpcs_in_flight);
+ 	spin_unlock(&cli->cl_loi_list_lock);
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t osc_max_rpcs_in_flight_seq_write(struct file *file,
+@@ -179,18 +177,16 @@ static int osc_cached_mb_seq_show(struct seq_file *m, void *v)
+ 	struct obd_device *dev = m->private;
+ 	struct client_obd *cli = &dev->u.cli;
+ 	int shift = 20 - PAGE_CACHE_SHIFT;
+-	int rc;
+ 
+-	rc = seq_printf(m,
+-		      "used_mb: %ld\n"
+-		      "busy_cnt: %ld\n"
+-		      "reclaim: "LPU64"\n",
+-		      (atomic_long_read(&cli->cl_lru_in_list) +
+-		       atomic_long_read(&cli->cl_lru_busy)) >> shift,
+-		      atomic_long_read(&cli->cl_lru_busy),
+-		      cli->cl_lru_reclaim);
++	seq_printf(m, "used_mb: %ld\n"
++		   "busy_cnt: %ld\n"
++		   "reclaim: "LPU64"\n",
++		   (atomic_long_read(&cli->cl_lru_in_list) +
++		    atomic_long_read(&cli->cl_lru_busy)) >> shift,
++		    atomic_long_read(&cli->cl_lru_busy),
++		   cli->cl_lru_reclaim);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ /* shrink the number of caching pages to a specific number */
+@@ -248,12 +244,11 @@ static int osc_cur_dirty_bytes_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+ 	struct client_obd *cli = &dev->u.cli;
+-	int rc;
+ 
+ 	spin_lock(&cli->cl_loi_list_lock);
+-	rc = seq_printf(m, "%lu\n", cli->cl_dirty_pages << PAGE_CACHE_SHIFT);
++	seq_printf(m, "%lu\n", cli->cl_dirty_pages << PAGE_CACHE_SHIFT);
+ 	spin_unlock(&cli->cl_loi_list_lock);
+-	return rc;
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osc_cur_dirty_bytes);
+ 
+@@ -261,12 +256,11 @@ static int osc_cur_grant_bytes_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+ 	struct client_obd *cli = &dev->u.cli;
+-	int rc;
+ 
+ 	spin_lock(&cli->cl_loi_list_lock);
+-	rc = seq_printf(m, "%lu\n", cli->cl_avail_grant);
++	seq_printf(m, "%lu\n", cli->cl_avail_grant);
+ 	spin_unlock(&cli->cl_loi_list_lock);
+-	return rc;
++	return 0;
+ }
+ 
+ static ssize_t osc_cur_grant_bytes_seq_write(struct file *file,
+@@ -308,23 +302,35 @@ static int osc_cur_lost_grant_bytes_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *dev = m->private;
+ 	struct client_obd *cli = &dev->u.cli;
+-	int rc;
+ 
+ 	spin_lock(&cli->cl_loi_list_lock);
+-	rc = seq_printf(m, "%lu\n", cli->cl_lost_grant);
++	seq_printf(m, "%lu\n", cli->cl_lost_grant);
+ 	spin_unlock(&cli->cl_loi_list_lock);
+-	return rc;
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osc_cur_lost_grant_bytes);
+ 
++static int osc_cur_dirty_grant_bytes_seq_show(struct seq_file *m, void *v)
++{
++	struct obd_device *dev = m->private;
++	struct client_obd *cli = &dev->u.cli;
++
++	spin_lock(&cli->cl_loi_list_lock);
++	seq_printf(m, "%lu\n", cli->cl_dirty_grant);
++	spin_unlock(&cli->cl_loi_list_lock);
++	return 0;
++}
++LPROC_SEQ_FOPS_RO(osc_cur_dirty_grant_bytes);
++
+ static int osc_grant_shrink_interval_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *obd = m->private;
+ 
+ 	if (obd == NULL)
+ 		return 0;
+-	return seq_printf(m, "%d\n",
+-			  obd->u.cli.cl_grant_shrink_interval);
++	seq_printf(m, "%d\n",
++		   obd->u.cli.cl_grant_shrink_interval);
++	return 0;
+ }
+ 
+ static ssize_t osc_grant_shrink_interval_seq_write(struct file *file,
+@@ -357,8 +363,8 @@ static int osc_checksum_seq_show(struct seq_file *m, void *v)
+ 	if (obd == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, "%d\n",
+-			  obd->u.cli.cl_checksum ? 1 : 0);
++	seq_printf(m, "%d\n", obd->u.cli.cl_checksum ? 1 : 0);
++	return 0;
+ }
+ 
+ static ssize_t osc_checksum_seq_write(struct file *file,
+@@ -439,7 +445,8 @@ static int osc_resend_count_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *obd = m->private;
+ 
+-	return seq_printf(m, "%u\n", atomic_read(&obd->u.cli.cl_resends));
++	seq_printf(m, "%u\n", atomic_read(&obd->u.cli.cl_resends));
++	return 0;
+ }
+ 
+ static ssize_t osc_resend_count_seq_write(struct file *file,
+@@ -467,7 +474,8 @@ static int osc_contention_seconds_seq_show(struct seq_file *m, void *v)
+ 	struct obd_device *obd = m->private;
+ 	struct osc_device *od  = obd2osc_dev(obd);
+ 
+-	return seq_printf(m, "%u\n", od->od_contention_time);
++	seq_printf(m, "%u\n", od->od_contention_time);
++	return 0;
+ }
+ 
+ static ssize_t osc_contention_seconds_seq_write(struct file *file,
+@@ -486,7 +494,8 @@ static int osc_lockless_truncate_seq_show(struct seq_file *m, void *v)
+ 	struct obd_device *obd = m->private;
+ 	struct osc_device *od  = obd2osc_dev(obd);
+ 
+-	return seq_printf(m, "%u\n", od->od_lockless_truncate);
++	seq_printf(m, "%u\n", od->od_lockless_truncate);
++	return 0;
+ }
+ 
+ static ssize_t osc_lockless_truncate_seq_write(struct file *file,
+@@ -504,8 +513,9 @@ LPROC_SEQ_FOPS(osc_lockless_truncate);
+ static int osc_destroys_in_flight_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct obd_device *obd = m->private;
+-	return seq_printf(m, "%u\n",
+-			  atomic_read(&obd->u.cli.cl_destroy_in_flight));
++	seq_printf(m, "%u\n",
++		   atomic_read(&obd->u.cli.cl_destroy_in_flight));
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osc_destroys_in_flight);
+ 
+@@ -562,9 +572,10 @@ static int osc_unstable_stats_seq_show(struct seq_file *m, void *v)
+ 	pages = atomic_long_read(&cli->cl_unstable_count);
+ 	mb    = (pages * PAGE_CACHE_SIZE) >> 20;
+ 
+-	return seq_printf(m, "unstable_pages: %20ld\n"
+-			  "unstable_mb:              %10d\n",
+-			pages, mb);
++	seq_printf(m, "unstable_pages: %20ld\n"
++		   "unstable_mb:              %10d\n",
++		   pages, mb);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osc_unstable_stats);
+ 
+@@ -716,11 +727,11 @@ static int osc_rpc_stats_seq_show(struct seq_file *seq, void *v)
+                 unsigned long w = cli->cl_write_rpc_hist.oh_buckets[i];
+                 read_cum += r;
+                 write_cum += w;
+-                seq_printf(seq, "%d:\t\t%10lu %3lu %3lu   | %10lu %3lu %3lu\n",
+-                                 i, r, pct(r, read_tot),
+-                                 pct(read_cum, read_tot), w,
+-                                 pct(w, write_tot),
+-                                 pct(write_cum, write_tot));
++		seq_printf(seq, "%d:\t\t%10lu %3lu %3lu   | %10lu %3lu %3lu\n",
++			   i, r, pct(r, read_tot),
++			   pct(read_cum, read_tot), w,
++			   pct(w, write_tot),
++			   pct(write_cum, write_tot));
+                 if (read_cum == read_tot && write_cum == write_tot)
+                         break;
+         }
+diff --git a/lustre/osd-ldiskfs/osd_lproc.c b/lustre/osd-ldiskfs/osd_lproc.c
+index d15b3bf..4812342 100644
+--- a/lustre/osd-ldiskfs/osd_lproc.c
++++ b/lustre/osd-ldiskfs/osd_lproc.c
+@@ -243,7 +243,8 @@ static int ldiskfs_osd_fstype_seq_show(struct seq_file *m, void *data)
+ 	struct osd_device *osd = osd_dt_dev((struct dt_device *)m->private);
+ 
+ 	LASSERT(osd != NULL);
+-	return seq_printf(m, "ldiskfs\n");
++	seq_puts(m, "ldiskfs\n");
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ldiskfs_osd_fstype);
+ 
+@@ -255,7 +256,8 @@ static int ldiskfs_osd_mntdev_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(osd->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, "%s\n", osd->od_mntdev);
++	seq_printf(m, "%s\n", osd->od_mntdev);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ldiskfs_osd_mntdev);
+ 
+@@ -267,7 +269,8 @@ static int ldiskfs_osd_cache_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(osd->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, "%u\n", osd->od_read_cache);
++	seq_printf(m, "%u\n", osd->od_read_cache);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -300,7 +303,8 @@ static int ldiskfs_osd_wcache_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(osd->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, "%u\n", osd->od_writethrough_cache);
++	seq_printf(m, "%u\n", osd->od_writethrough_cache);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -351,7 +355,8 @@ LPROC_SEQ_FOPS_WO_TYPE(ldiskfs, osd_force_sync);
+ 
+ static int ldiskfs_osd_pdo_seq_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, "%s\n", ldiskfs_pdo ? "ON" : "OFF");
++	seq_printf(m, "%s\n", ldiskfs_pdo ? "ON" : "OFF");
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -378,7 +383,8 @@ static int ldiskfs_osd_auto_scrub_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(dev->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, "%d\n", !dev->od_noscrub);
++	seq_printf(m, "%d\n", !dev->od_noscrub);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -411,7 +417,8 @@ static int ldiskfs_osd_full_scrub_ratio_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(dev->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, LPU64"\n", dev->od_full_scrub_ratio);
++	seq_printf(m, LPU64"\n", dev->od_full_scrub_ratio);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -448,8 +455,9 @@ static int ldiskfs_osd_full_scrub_threshold_rate_seq_show(struct seq_file *m,
+ 	if (unlikely(dev->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, LPU64" (bad OI mappings/minute)\n",
+-			  dev->od_full_scrub_threshold_rate);
++	seq_printf(m, LPU64" (bad OI mappings/minute)\n",
++		   dev->od_full_scrub_threshold_rate);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -481,7 +489,8 @@ LPROC_SEQ_FOPS(ldiskfs_osd_full_scrub_threshold_rate);
+ static int
+ ldiskfs_osd_track_declares_assert_seq_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, "%d\n", ldiskfs_track_declares_assert);
++	seq_printf(m, "%d\n", ldiskfs_track_declares_assert);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -522,7 +531,8 @@ static int ldiskfs_osd_readcache_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(osd->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, LPU64"\n", osd->od_readcache_max_filesize);
++	seq_printf(m, LPU64"\n", osd->od_readcache_max_filesize);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -558,7 +568,8 @@ static int ldiskfs_osd_index_in_idif_seq_show(struct seq_file *m, void *data)
+ 	if (unlikely(dev->od_mnt == NULL))
+ 		return -EINPROGRESS;
+ 
+-	return seq_printf(m, "%d\n", (int)(dev->od_index_in_idif));
++	seq_printf(m, "%d\n", (int)(dev->od_index_in_idif));
++	return 0;
+ }
+ 
+ static ssize_t
+diff --git a/lustre/osd-ldiskfs/osd_scrub.c b/lustre/osd-ldiskfs/osd_scrub.c
+index 80f2794..5d12724 100644
+--- a/lustre/osd-ldiskfs/osd_scrub.c
++++ b/lustre/osd-ldiskfs/osd_scrub.c
+@@ -2989,50 +2989,38 @@ static const char *scrub_param_names[] = {
+ 	NULL
+ };
+ 
+-static int scrub_bits_dump(struct seq_file *m, int bits, const char *names[],
+-			   const char *prefix)
++static void scrub_bits_dump(struct seq_file *m, int bits, const char *names[],
++			    const char *prefix)
+ {
+ 	int flag;
+-	int rc;
+ 	int i;
+ 
+-	rc = seq_printf(m, "%s:%c", prefix, bits != 0 ? ' ' : '\n');
+-	if (rc < 0)
+-		return rc;
++	seq_printf(m, "%s:%c", prefix, bits != 0 ? ' ' : '\n');
+ 
+ 	for (i = 0, flag = 1; bits != 0; i++, flag = 1 << i) {
+ 		if (flag & bits) {
+ 			bits &= ~flag;
+-			rc = seq_printf(m, "%s%c", names[i],
+-					bits != 0 ? ',' : '\n');
+-			if (rc < 0)
+-				return rc;
++			seq_printf(m, "%s%c", names[i],
++				   bits != 0 ? ',' : '\n');
+ 		}
+ 	}
+-	return 0;
+ }
+ 
+-static int scrub_time_dump(struct seq_file *m, __u64 time, const char *prefix)
++static void scrub_time_dump(struct seq_file *m, __u64 time, const char *prefix)
+ {
+-	int rc;
+-
+ 	if (time != 0)
+-		rc = seq_printf(m, "%s: "LPU64" seconds\n", prefix,
+-			      cfs_time_current_sec() - time);
++		seq_printf(m, "%s: "LPU64" seconds\n", prefix,
++			   cfs_time_current_sec() - time);
+ 	else
+-		rc = seq_printf(m, "%s: N/A\n", prefix);
+-	return rc;
++		seq_printf(m, "%s: N/A\n", prefix);
+ }
+ 
+-static int scrub_pos_dump(struct seq_file *m, __u64 pos, const char *prefix)
++static void scrub_pos_dump(struct seq_file *m, __u64 pos, const char *prefix)
+ {
+-	int rc;
+-
+ 	if (pos != 0)
+-		rc = seq_printf(m, "%s: "LPU64"\n", prefix, pos);
++		seq_printf(m, "%s: "LPU64"\n", prefix, pos);
+ 	else
+-		rc = seq_printf(m, "%s: N/A\n", prefix);
+-	return rc;
++		seq_printf(m, "%s: N/A\n", prefix);
+ }
+ 
+ int osd_scrub_dump(struct seq_file *m, struct osd_device *dev)
+@@ -3041,71 +3029,48 @@ int osd_scrub_dump(struct seq_file *m, struct osd_device *dev)
+ 	struct scrub_file *sf      = &scrub->os_file;
+ 	__u64		   checked;
+ 	__u64		   speed;
+-	int		   rc;
+ 
+ 	down_read(&scrub->os_rwsem);
+-	rc = seq_printf(m, "name: OI_scrub\n"
+-			"magic: 0x%x\n"
+-			"oi_files: %d\n"
+-			"status: %s\n",
+-			sf->sf_magic, (int)sf->sf_oi_count,
+-			scrub_status_names[sf->sf_status]);
+-	if (rc < 0)
+-		goto out;
++	seq_printf(m, "name: OI_scrub\n"
++		   "magic: 0x%x\n"
++		   "oi_files: %d\n"
++		   "status: %s\n",
++		   sf->sf_magic, (int)sf->sf_oi_count,
++		   scrub_status_names[sf->sf_status]);
+ 
+-	rc = scrub_bits_dump(m, sf->sf_flags, scrub_flags_names,
+-			     "flags");
+-	if (rc < 0)
+-		goto out;
++	scrub_bits_dump(m, sf->sf_flags, scrub_flags_names, "flags");
+ 
+-	rc = scrub_bits_dump(m, sf->sf_param, scrub_param_names,
+-			     "param");
+-	if (rc < 0)
+-		goto out;
++	scrub_bits_dump(m, sf->sf_param, scrub_param_names, "param");
+ 
+-	rc = scrub_time_dump(m, sf->sf_time_last_complete,
+-			     "time_since_last_completed");
+-	if (rc < 0)
+-		goto out;
++	scrub_time_dump(m, sf->sf_time_last_complete,
++			"time_since_last_completed");
+ 
+-	rc = scrub_time_dump(m, sf->sf_time_latest_start,
+-			     "time_since_latest_start");
+-	if (rc < 0)
+-		goto out;
++	scrub_time_dump(m, sf->sf_time_latest_start,
++			"time_since_latest_start");
+ 
+-	rc = scrub_time_dump(m, sf->sf_time_last_checkpoint,
+-			     "time_since_last_checkpoint");
+-	if (rc < 0)
+-		goto out;
++	scrub_time_dump(m, sf->sf_time_last_checkpoint,
++			"time_since_last_checkpoint");
+ 
+-	rc = scrub_pos_dump(m, sf->sf_pos_latest_start,
+-			    "latest_start_position");
+-	if (rc < 0)
+-		goto out;
++	scrub_pos_dump(m, sf->sf_pos_latest_start,
++			"latest_start_position");
+ 
+-	rc = scrub_pos_dump(m, sf->sf_pos_last_checkpoint,
+-			    "last_checkpoint_position");
+-	if (rc < 0)
+-		goto out;
++	scrub_pos_dump(m, sf->sf_pos_last_checkpoint,
++			"last_checkpoint_position");
+ 
+-	rc = scrub_pos_dump(m, sf->sf_pos_first_inconsistent,
+-			    "first_failure_position");
+-	if (rc < 0)
+-		goto out;
++	scrub_pos_dump(m, sf->sf_pos_first_inconsistent,
++			"first_failure_position");
+ 
+ 	checked = sf->sf_items_checked + scrub->os_new_checked;
+-	rc = seq_printf(m, "checked: "LPU64"\n"
+-		      "updated: "LPU64"\n"
+-		      "failed: "LPU64"\n"
+-		      "prior_updated: "LPU64"\n"
+-		      "noscrub: "LPU64"\n"
+-		      "igif: "LPU64"\n"
+-		      "success_count: %u\n",
+-		      checked, sf->sf_items_updated, sf->sf_items_failed,
+-		      sf->sf_items_updated_prior, sf->sf_items_noscrub,
+-		      sf->sf_items_igif, sf->sf_success_count);
+-	if (rc < 0)
+-		goto out;
++	seq_printf(m, "checked: "LPU64"\n"
++		   "updated: "LPU64"\n"
++		   "failed: "LPU64"\n"
++		   "prior_updated: "LPU64"\n"
++		   "noscrub: "LPU64"\n"
++		   "igif: "LPU64"\n"
++		   "success_count: %u\n",
++		   checked, sf->sf_items_updated, sf->sf_items_failed,
++		   sf->sf_items_updated_prior, sf->sf_items_noscrub,
++		   sf->sf_items_igif, sf->sf_success_count);
+ 
+ 	speed = checked;
+ 	if (thread_is_running(&scrub->os_thread)) {
+@@ -3120,31 +3085,30 @@ int osd_scrub_dump(struct seq_file *m, struct osd_device *dev)
+ 			do_div(new_checked, duration);
+ 		if (rtime != 0)
+ 			do_div(speed, rtime);
+-		rc = seq_printf(m, "run_time: %u seconds\n"
+-			      "average_speed: "LPU64" objects/sec\n"
+-			      "real-time_speed: "LPU64" objects/sec\n"
+-			      "current_position: %u\n"
+-			      "lf_scanned: "LPU64"\n"
+-			      "lf_repaired: "LPU64"\n"
+-			      "lf_failed: "LPU64"\n",
+-			      rtime, speed, new_checked, scrub->os_pos_current,
+-			      scrub->os_lf_scanned, scrub->os_lf_repaired,
+-			      scrub->os_lf_failed);
++		seq_printf(m, "run_time: %u seconds\n"
++			   "average_speed: "LPU64" objects/sec\n"
++			   "real-time_speed: "LPU64" objects/sec\n"
++			   "current_position: %u\n"
++			   "lf_scanned: "LPU64"\n"
++			   "lf_repaired: "LPU64"\n"
++			   "lf_failed: "LPU64"\n",
++			   rtime, speed, new_checked, scrub->os_pos_current,
++			   scrub->os_lf_scanned, scrub->os_lf_repaired,
++			   scrub->os_lf_failed);
+ 	} else {
+ 		if (sf->sf_run_time != 0)
+ 			do_div(speed, sf->sf_run_time);
+-		rc = seq_printf(m, "run_time: %u seconds\n"
+-			      "average_speed: "LPU64" objects/sec\n"
+-			      "real-time_speed: N/A\n"
+-			      "current_position: N/A\n"
+-			      "lf_scanned: "LPU64"\n"
+-			      "lf_repaired: "LPU64"\n"
+-			      "lf_failed: "LPU64"\n",
+-			      sf->sf_run_time, speed, scrub->os_lf_scanned,
+-			      scrub->os_lf_repaired, scrub->os_lf_failed);
++		seq_printf(m, "run_time: %u seconds\n"
++			   "average_speed: "LPU64" objects/sec\n"
++			   "real-time_speed: N/A\n"
++			   "current_position: N/A\n"
++			   "lf_scanned: "LPU64"\n"
++			   "lf_repaired: "LPU64"\n"
++			   "lf_failed: "LPU64"\n",
++			   sf->sf_run_time, speed, scrub->os_lf_scanned,
++			   scrub->os_lf_repaired, scrub->os_lf_failed);
+ 	}
+ 
+-out:
+ 	up_read(&scrub->os_rwsem);
+-	return (rc < 0 ? -ENOSPC : 0);
++	return 0;
+ }
+diff --git a/lustre/osd-zfs/osd_lproc.c b/lustre/osd-zfs/osd_lproc.c
+index c43aff8..d648298 100644
+--- a/lustre/osd-zfs/osd_lproc.c
++++ b/lustre/osd-zfs/osd_lproc.c
+@@ -217,7 +217,8 @@ out:
+ 
+ static int zfs_osd_fstype_seq_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, "zfs\n");
++	seq_puts(m, "zfs\n");
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(zfs_osd_fstype);
+ 
+@@ -226,7 +227,8 @@ static int zfs_osd_mntdev_seq_show(struct seq_file *m, void *data)
+ 	struct osd_device *osd = osd_dt_dev((struct dt_device *)m->private);
+ 
+ 	LASSERT(osd != NULL);
+-	return seq_printf(m, "%s\n", osd->od_mntdev);
++	seq_printf(m, "%s\n", osd->od_mntdev);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(zfs_osd_mntdev);
+ 
+@@ -254,7 +256,8 @@ static int zfs_osd_iused_est_seq_show(struct seq_file *m, void *data)
+ 	struct osd_device *osd = osd_dt_dev((struct dt_device *)m->private);
+ 	LASSERT(osd != NULL);
+ 
+-	return seq_printf(m, "%d\n", osd->od_quota_iused_est);
++	seq_printf(m, "%d\n", osd->od_quota_iused_est);
++	return 0;
+ }
+ 
+ static ssize_t
+diff --git a/lustre/osp/lproc_osp.c b/lustre/osp/lproc_osp.c
+index 422b388..cf0ee83 100644
+--- a/lustre/osp/lproc_osp.c
++++ b/lustre/osp/lproc_osp.c
+@@ -52,12 +52,11 @@
+ static int osp_active_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct obd_device	*dev = m->private;
+-	int			 rc;
+ 
+ 	LPROCFS_CLIMP_CHECK(dev);
+-	rc = seq_printf(m, "%d\n", !dev->u.cli.cl_import->imp_deactive);
++	seq_printf(m, "%d\n", !dev->u.cli.cl_import->imp_deactive);
+ 	LPROCFS_CLIMP_EXIT(dev);
+-	return rc;
++	return 0;
+ }
+ 
+ /**
+@@ -113,7 +112,8 @@ static int osp_syn_in_flight_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%u\n", osp->opd_syn_rpc_in_flight);
++	seq_printf(m, "%u\n", osp->opd_syn_rpc_in_flight);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_syn_in_flight);
+ 
+@@ -133,7 +133,8 @@ static int osp_syn_in_prog_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%u\n", osp->opd_syn_rpc_in_progress);
++	seq_printf(m, "%u\n", osp->opd_syn_rpc_in_progress);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_syn_in_prog);
+ 
+@@ -153,7 +154,8 @@ static int osp_syn_changes_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%lu\n", osp->opd_syn_changes);
++	seq_printf(m, "%lu\n", osp->opd_syn_changes);
++	return 0;
+ }
+ 
+ /**
+@@ -203,7 +205,8 @@ static int osp_max_rpcs_in_flight_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%u\n", osp->opd_syn_max_rpc_in_flight);
++	seq_printf(m, "%u\n", osp->opd_syn_max_rpc_in_flight);
++	return 0;
+ }
+ 
+ /**
+@@ -256,7 +259,8 @@ static int osp_max_rpcs_in_prog_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%u\n", osp->opd_syn_max_rpc_in_progress);
++	seq_printf(m, "%u\n", osp->opd_syn_max_rpc_in_progress);
++	return 0;
+ }
+ 
+ /**
+@@ -310,7 +314,8 @@ static int osp_create_count_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, "%d\n", osp->opd_pre_create_count);
++	seq_printf(m, "%d\n", osp->opd_pre_create_count);
++	return 0;
+ }
+ 
+ /**
+@@ -378,7 +383,8 @@ static int osp_max_create_count_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, "%d\n", osp->opd_pre_max_create_count);
++	seq_printf(m, "%d\n", osp->opd_pre_max_create_count);
++	return 0;
+ }
+ 
+ /**
+@@ -437,7 +443,8 @@ static int osp_prealloc_next_id_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, "%u\n", fid_oid(&osp->opd_pre_used_fid) + 1);
++	seq_printf(m, "%u\n", fid_oid(&osp->opd_pre_used_fid) + 1);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_prealloc_next_id);
+ 
+@@ -457,7 +464,8 @@ static int osp_prealloc_last_id_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, "%u\n", fid_oid(&osp->opd_pre_last_created_fid));
++	seq_printf(m, "%u\n", fid_oid(&osp->opd_pre_last_created_fid));
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_prealloc_last_id);
+ 
+@@ -477,7 +485,8 @@ static int osp_prealloc_next_seq_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, LPX64"\n", fid_seq(&osp->opd_pre_used_fid));
++	seq_printf(m, LPX64"\n", fid_seq(&osp->opd_pre_used_fid));
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_prealloc_next_seq);
+ 
+@@ -497,8 +506,9 @@ static int osp_prealloc_last_seq_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, LPX64"\n",
+-			fid_seq(&osp->opd_pre_last_created_fid));
++	seq_printf(m, LPX64"\n",
++		   fid_seq(&osp->opd_pre_last_created_fid));
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_prealloc_last_seq);
+ 
+@@ -518,7 +528,8 @@ static int osp_prealloc_reserved_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return 0;
+ 
+-	return seq_printf(m, LPU64"\n", osp->opd_pre_reserved);
++	seq_printf(m, LPU64"\n", osp->opd_pre_reserved);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_prealloc_reserved);
+ 
+@@ -538,7 +549,8 @@ static int osp_maxage_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%u\n", osp->opd_statfs_maxage);
++	seq_printf(m, "%u\n", osp->opd_statfs_maxage);
++	return 0;
+ }
+ 
+ /**
+@@ -593,7 +605,8 @@ static int osp_pre_status_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL || osp->opd_pre == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%d\n", osp->opd_pre_status);
++	seq_printf(m, "%d\n", osp->opd_pre_status);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_pre_status);
+ 
+@@ -620,8 +633,9 @@ static int osp_destroys_in_flight_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%lu\n",
+-			  osp->opd_syn_rpc_in_progress + osp->opd_syn_changes);
++	seq_printf(m, "%lu\n",
++		   osp->opd_syn_rpc_in_progress + osp->opd_syn_changes);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_destroys_in_flight);
+ 
+@@ -641,7 +655,8 @@ static int osp_old_sync_processed_seq_show(struct seq_file *m, void *data)
+ 	if (osp == NULL)
+ 		return -EINVAL;
+ 
+-	return seq_printf(m, "%d\n", osp->opd_syn_prev_done);
++	seq_printf(m, "%d\n", osp->opd_syn_prev_done);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(osp_old_sync_processed);
+ 
+@@ -660,7 +675,8 @@ osp_lfsck_max_rpcs_in_flight_seq_show(struct seq_file *m, void *data)
+ 	__u32 max;
+ 
+ 	max = obd_get_max_rpcs_in_flight(&dev->u.cli);
+-	return seq_printf(m, "%u\n", max);
++	seq_printf(m, "%u\n", max);
++	return 0;
+ }
+ 
+ /**
+diff --git a/lustre/ptlrpc/gss/lproc_gss.c b/lustre/ptlrpc/gss/lproc_gss.c
+index 13427fc..4648695 100644
+--- a/lustre/ptlrpc/gss/lproc_gss.c
++++ b/lustre/ptlrpc/gss/lproc_gss.c
+@@ -96,25 +96,26 @@ void gss_stat_oos_record_svc(int phase, int replay)
+ 
+ static int gss_proc_oos_seq_show(struct seq_file *m, void *v)
+ {
+-	return seq_printf(m, "seqwin:		   %u\n"
+-			  "backwin:		%u\n"
+-			  "client fall behind seqwin\n"
+-			  "  occurrence:	%d\n"
+-			  "  max seq behind:	%d\n"
+-			  "server replay detected:\n"
+-			  "  phase 0:		%d\n"
+-			  "  phase 1:		%d\n"
+-			  "  phase 2:		%d\n"
+-			  "server verify ok:\n"
+-			  "  phase 2:		%d\n",
+-			  GSS_SEQ_WIN_MAIN,
+-			  GSS_SEQ_WIN_BACK,
+-			  atomic_read(&gss_stat_oos.oos_cli_count),
+-			  gss_stat_oos.oos_cli_behind,
+-			  atomic_read(&gss_stat_oos.oos_svc_replay[0]),
+-			  atomic_read(&gss_stat_oos.oos_svc_replay[1]),
+-			  atomic_read(&gss_stat_oos.oos_svc_replay[2]),
+-			  atomic_read(&gss_stat_oos.oos_svc_pass[2]));
++	seq_printf(m, "seqwin:		   %u\n"
++		   "backwin:		%u\n"
++		   "client fall behind seqwin\n"
++		   "  occurrence:	%d\n"
++		   "  max seq behind:	%d\n"
++		   "server replay detected:\n"
++		   "  phase 0:		%d\n"
++		   "  phase 1:		%d\n"
++		   "  phase 2:		%d\n"
++		   "server verify ok:\n"
++		   "  phase 2:		%d\n",
++		   GSS_SEQ_WIN_MAIN,
++		   GSS_SEQ_WIN_BACK,
++		   atomic_read(&gss_stat_oos.oos_cli_count),
++		   gss_stat_oos.oos_cli_behind,
++		   atomic_read(&gss_stat_oos.oos_svc_replay[0]),
++		   atomic_read(&gss_stat_oos.oos_svc_replay[1]),
++		   atomic_read(&gss_stat_oos.oos_svc_replay[2]),
++		   atomic_read(&gss_stat_oos.oos_svc_pass[2]));
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(gss_proc_oos);
+ 
+@@ -154,7 +155,8 @@ static int gss_lk_debug_level = 1;
+ 
+ static int gss_lk_proc_dl_seq_show(struct seq_file *m, void *v)
+ {
+-	return seq_printf(m, "%u\n", gss_lk_debug_level);
++	seq_printf(m, "%u\n", gss_lk_debug_level);
++	return 0;
+ }
+ 
+ static ssize_t
+diff --git a/lustre/ptlrpc/lproc_ptlrpc.c b/lustre/ptlrpc/lproc_ptlrpc.c
+index 4c55fe1..3cb05f5 100644
+--- a/lustre/ptlrpc/lproc_ptlrpc.c
++++ b/lustre/ptlrpc/lproc_ptlrpc.c
+@@ -268,7 +268,8 @@ ptlrpc_lprocfs_req_history_len_seq_show(struct seq_file *m, void *v)
+ 	ptlrpc_service_for_each_part(svcpt, i, svc)
+ 		total += svcpt->scp_hist_nrqbds;
+ 
+-	return seq_printf(m, "%d\n", total);
++	seq_printf(m, "%d\n", total);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ptlrpc_lprocfs_req_history_len);
+ 
+@@ -283,7 +284,8 @@ ptlrpc_lprocfs_req_history_max_seq_show(struct seq_file *m, void *n)
+ 	ptlrpc_service_for_each_part(svcpt, i, svc)
+ 		total += svc->srv_hist_nrqbds_cpt_max;
+ 
+-	return seq_printf(m, "%d\n", total);
++	seq_printf(m, "%d\n", total);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -330,8 +332,9 @@ ptlrpc_lprocfs_threads_min_seq_show(struct seq_file *m, void *n)
+ {
+ 	struct ptlrpc_service *svc = m->private;
+ 
+-	return seq_printf(m, "%d\n",
+-			  svc->srv_nthrs_cpt_init * svc->srv_ncpts);
++	seq_printf(m, "%d\n",
++		   svc->srv_nthrs_cpt_init * svc->srv_ncpts);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -375,7 +378,8 @@ ptlrpc_lprocfs_threads_started_seq_show(struct seq_file *m, void *n)
+ 	ptlrpc_service_for_each_part(svcpt, i, svc)
+ 		total += svcpt->scp_nthrs_running;
+ 
+-	return seq_printf(m, "%d\n", total);
++	seq_printf(m, "%d\n", total);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(ptlrpc_lprocfs_threads_started);
+ 
+@@ -384,8 +388,9 @@ ptlrpc_lprocfs_threads_max_seq_show(struct seq_file *m, void *n)
+ {
+ 	struct ptlrpc_service *svc = m->private;
+ 
+-	return seq_printf(m, "%d\n",
+-			  svc->srv_nthrs_cpt_limit * svc->srv_ncpts);
++	seq_printf(m, "%d\n",
++		   svc->srv_nthrs_cpt_limit * svc->srv_ncpts);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -599,21 +604,21 @@ again:
+ 	for (pol_idx = 0; pol_idx < num_pols; pol_idx++) {
+ 		if (strlen(infos[pol_idx].pi_arg) > 0)
+ 			seq_printf(m, "  - name: %s %s\n",
+-				      infos[pol_idx].pi_name,
+-				      infos[pol_idx].pi_arg);
++				   infos[pol_idx].pi_name,
++				   infos[pol_idx].pi_arg);
+ 		else
+ 			seq_printf(m, "  - name: %s\n",
+-				      infos[pol_idx].pi_name);
++				   infos[pol_idx].pi_name);
+ 
+ 
+ 		seq_printf(m, "    state: %s\n"
+-			      "    fallback: %s\n"
+-			      "    queued: %-20d\n"
+-			      "    active: %-20d\n\n",
+-			      nrs_state2str(infos[pol_idx].pi_state),
+-			      infos[pol_idx].pi_fallback ? "yes" : "no",
+-			      (int)infos[pol_idx].pi_req_queued,
+-			      (int)infos[pol_idx].pi_req_started);
++			   "    fallback: %s\n"
++			   "    queued: %-20d\n"
++			   "    active: %-20d\n\n",
++			   nrs_state2str(infos[pol_idx].pi_state),
++			   infos[pol_idx].pi_fallback ? "yes" : "no",
++			   (int)infos[pol_idx].pi_req_queued,
++			   (int)infos[pol_idx].pi_req_started);
+ 	}
+ 
+ 	if (!hp && nrs_svc_has_hp(svc)) {
+@@ -1047,7 +1052,8 @@ LPROC_SEQ_FOPS_RO(ptlrpc_lprocfs_timeouts);
+ static int ptlrpc_lprocfs_hp_ratio_seq_show(struct seq_file *m, void *v)
+ {
+ 	struct ptlrpc_service *svc = m->private;
+-	return seq_printf(m, "%d\n", svc->srv_hpreq_ratio);
++	seq_printf(m, "%d\n", svc->srv_hpreq_ratio);
++	return 0;
+ }
+ 
+ static ssize_t
+@@ -1296,12 +1302,11 @@ int lprocfs_pinger_recov_seq_show(struct seq_file *m, void *n)
+ {
+ 	struct obd_device *obd = m->private;
+ 	struct obd_import *imp = obd->u.cli.cl_import;
+-	int rc;
+ 
+ 	LPROCFS_CLIMP_CHECK(obd);
+-	rc = seq_printf(m, "%d\n", !imp->imp_no_pinger_recover);
++	seq_printf(m, "%d\n", !imp->imp_no_pinger_recover);
+ 	LPROCFS_CLIMP_EXIT(obd);
+-	return rc;
++	return 0;
+ }
+ EXPORT_SYMBOL(lprocfs_pinger_recov_seq_show);
+ 
+diff --git a/lustre/ptlrpc/nodemap_lproc.c b/lustre/ptlrpc/nodemap_lproc.c
+index e5c4b0c..a77c478 100644
+--- a/lustre/ptlrpc/nodemap_lproc.c
++++ b/lustre/ptlrpc/nodemap_lproc.c
+@@ -239,7 +239,8 @@ static int nodemap_exports_open(struct inode *inode, struct file *file)
+  */
+ static int nodemap_active_seq_show(struct seq_file *m, void *data)
+ {
+-	return seq_printf(m, "%u\n", (unsigned int)nodemap_active);
++	seq_printf(m, "%u\n", (unsigned int)nodemap_active);
++	return 0;
+ }
+ 
+ /**
+@@ -290,21 +291,20 @@ LPROC_SEQ_FOPS(nodemap_active);
+ static int nodemap_id_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct lu_nodemap *nodemap;
+-	int rc;
+ 
+ 	mutex_lock(&active_config_lock);
+ 	nodemap = nodemap_lookup(m->private);
+ 	mutex_unlock(&active_config_lock);
+ 	if (IS_ERR(nodemap)) {
+-		rc = PTR_ERR(nodemap);
++		int rc = PTR_ERR(nodemap);
+ 		CERROR("cannot find nodemap '%s': rc = %d\n",
+ 			(char *)m->private, rc);
+ 		return rc;
+ 	}
+ 
+-	rc = seq_printf(m, "%u\n", nodemap->nm_id);
++	seq_printf(m, "%u\n", nodemap->nm_id);
+ 	nodemap_putref(nodemap);
+-	return rc;
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(nodemap_id);
+ 
+@@ -318,21 +318,20 @@ LPROC_SEQ_FOPS_RO(nodemap_id);
+ static int nodemap_squash_uid_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct lu_nodemap *nodemap;
+-	int rc;
+ 
+ 	mutex_lock(&active_config_lock);
+ 	nodemap = nodemap_lookup(m->private);
+ 	mutex_unlock(&active_config_lock);
+ 	if (IS_ERR(nodemap)) {
+-		rc = PTR_ERR(nodemap);
++		int rc = PTR_ERR(nodemap);
+ 		CERROR("cannot find nodemap '%s': rc = %d\n",
+ 			(char *)m->private, rc);
+ 		return rc;
+ 	}
+ 
+-	rc = seq_printf(m, "%u\n", nodemap->nm_squash_uid);
++	seq_printf(m, "%u\n", nodemap->nm_squash_uid);
+ 	nodemap_putref(nodemap);
+-	return rc;
++	return 0;
+ }
+ 
+ /**
+@@ -345,21 +344,20 @@ static int nodemap_squash_uid_seq_show(struct seq_file *m, void *data)
+ static int nodemap_squash_gid_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct lu_nodemap *nodemap;
+-	int rc;
+ 
+ 	mutex_lock(&active_config_lock);
+ 	nodemap = nodemap_lookup(m->private);
+ 	mutex_unlock(&active_config_lock);
+ 	if (IS_ERR(nodemap)) {
+-		rc = PTR_ERR(nodemap);
++		int rc = PTR_ERR(nodemap);
+ 		CERROR("cannot find nodemap '%s': rc = %d\n",
+ 			(char *)m->private, rc);
+ 		return rc;
+ 	}
+ 
+-	rc = seq_printf(m, "%u\n", nodemap->nm_squash_gid);
++	seq_printf(m, "%u\n", nodemap->nm_squash_gid);
+ 	nodemap_putref(nodemap);
+-	return rc;
++	return 0;
+ }
+ 
+ /**
+@@ -372,21 +370,21 @@ static int nodemap_squash_gid_seq_show(struct seq_file *m, void *data)
+ static int nodemap_trusted_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct lu_nodemap *nodemap;
+-	int rc;
+ 
+ 	mutex_lock(&active_config_lock);
+ 	nodemap = nodemap_lookup(m->private);
+ 	mutex_unlock(&active_config_lock);
+ 	if (IS_ERR(nodemap)) {
+-		rc = PTR_ERR(nodemap);
++		int rc = PTR_ERR(nodemap);
++
+ 		CERROR("cannot find nodemap '%s': rc = %d\n",
+ 			(char *)m->private, rc);
+ 		return rc;
+ 	}
+ 
+-	rc = seq_printf(m, "%d\n", (int)nodemap->nmf_trust_client_ids);
++	seq_printf(m, "%d\n", (int)nodemap->nmf_trust_client_ids);
+ 	nodemap_putref(nodemap);
+-	return rc;
++	return 0;
+ }
+ 
+ /**
+@@ -411,9 +409,9 @@ static int nodemap_admin_seq_show(struct seq_file *m, void *data)
+ 		return rc;
+ 	}
+ 
+-	rc = seq_printf(m, "%d\n", (int)nodemap->nmf_allow_root_access);
++	seq_printf(m, "%d\n", (int)nodemap->nmf_allow_root_access);
+ 	nodemap_putref(nodemap);
+-	return rc;
++	return 0;
+ }
+ 
+ #ifdef NODEMAP_PROC_DEBUG
+diff --git a/lustre/ptlrpc/nrs_tbf.c b/lustre/ptlrpc/nrs_tbf.c
+index 7f92e10..6c94ff5 100644
+--- a/lustre/ptlrpc/nrs_tbf.c
++++ b/lustre/ptlrpc/nrs_tbf.c
+@@ -832,9 +832,10 @@ static int nrs_tbf_jobid_rule_init(struct ptlrpc_nrs_policy *policy,
+ static int
+ nrs_tbf_jobid_rule_dump(struct nrs_tbf_rule *rule, struct seq_file *m)
+ {
+-	return seq_printf(m, "%s {%s} %llu, ref %d\n", rule->tr_name,
++	seq_printf(m, "%s {%s} %llu, ref %d\n", rule->tr_name,
+ 			  rule->tr_jobids_str, rule->tr_rpc_rate,
+ 			  atomic_read(&rule->tr_ref) - 1);
++	return 0;
+ }
+ 
+ static int
+@@ -1037,9 +1038,10 @@ static int nrs_tbf_nid_rule_init(struct ptlrpc_nrs_policy *policy,
+ static int
+ nrs_tbf_nid_rule_dump(struct nrs_tbf_rule *rule, struct seq_file *m)
+ {
+-	return seq_printf(m, "%s {%s} %llu, ref %d\n", rule->tr_name,
++	seq_printf(m, "%s {%s} %llu, ref %d\n", rule->tr_name,
+ 			  rule->tr_nids_str, rule->tr_rpc_rate,
+ 			  atomic_read(&rule->tr_ref) - 1);
++	return 0;
+ }
+ 
+ static int
+diff --git a/lustre/ptlrpc/sec_bulk.c b/lustre/ptlrpc/sec_bulk.c
+index c091dd6..87b570e 100644
+--- a/lustre/ptlrpc/sec_bulk.c
++++ b/lustre/ptlrpc/sec_bulk.c
+@@ -138,55 +138,49 @@ static struct shrinker *pools_shrinker;
+  */
+ int sptlrpc_proc_enc_pool_seq_show(struct seq_file *m, void *v)
+ {
+-        int     rc;
+-
+ 	spin_lock(&page_pools.epp_lock);
+ 
+-	rc = seq_printf(m,
+-                      "physical pages:          %lu\n"
+-                      "pages per pool:          %lu\n"
+-                      "max pages:               %lu\n"
+-                      "max pools:               %u\n"
+-                      "total pages:             %lu\n"
+-                      "total free:              %lu\n"
+-                      "idle index:              %lu/100\n"
+-                      "last shrink:             %lds\n"
+-                      "last access:             %lds\n"
+-                      "max pages reached:       %lu\n"
+-                      "grows:                   %u\n"
+-                      "grows failure:           %u\n"
+-                      "shrinks:                 %u\n"
+-                      "cache access:            %lu\n"
+-                      "cache missing:           %lu\n"
+-                      "low free mark:           %lu\n"
+-                      "max waitqueue depth:     %u\n"
+-		      "max wait time:           "CFS_TIME_T"/%lu\n"
+-		      "out of mem:             %lu\n"
+-                      ,
+-		      totalram_pages,
+-                      PAGES_PER_POOL,
+-                      page_pools.epp_max_pages,
+-                      page_pools.epp_max_pools,
+-                      page_pools.epp_total_pages,
+-                      page_pools.epp_free_pages,
+-                      page_pools.epp_idle_idx,
+-                      cfs_time_current_sec() - page_pools.epp_last_shrink,
+-                      cfs_time_current_sec() - page_pools.epp_last_access,
+-                      page_pools.epp_st_max_pages,
+-                      page_pools.epp_st_grows,
+-                      page_pools.epp_st_grow_fails,
+-                      page_pools.epp_st_shrinks,
+-                      page_pools.epp_st_access,
+-		      page_pools.epp_st_missings,
+-		      page_pools.epp_st_lowfree,
+-		      page_pools.epp_st_max_wqlen,
+-		      page_pools.epp_st_max_wait,
+-		      msecs_to_jiffies(MSEC_PER_SEC),
+-		      page_pools.epp_st_outofmem
+-		     );
++	seq_printf(m, "physical pages:          %lu\n"
++		   "pages per pool:          %lu\n"
++		   "max pages:               %lu\n"
++		   "max pools:               %u\n"
++		   "total pages:             %lu\n"
++		   "total free:              %lu\n"
++		   "idle index:              %lu/100\n"
++		   "last shrink:             %lds\n"
++		   "last access:             %lds\n"
++		   "max pages reached:       %lu\n"
++		   "grows:                   %u\n"
++		   "grows failure:           %u\n"
++		   "shrinks:                 %u\n"
++		   "cache access:            %lu\n"
++		   "cache missing:           %lu\n"
++		   "low free mark:           %lu\n"
++		   "max waitqueue depth:     %u\n"
++		   "max wait time:           "CFS_TIME_T"/%lu\n"
++		   "out of mem:             %lu\n",
++		   totalram_pages, PAGES_PER_POOL,
++		   page_pools.epp_max_pages,
++		   page_pools.epp_max_pools,
++		   page_pools.epp_total_pages,
++		   page_pools.epp_free_pages,
++		   page_pools.epp_idle_idx,
++		   cfs_time_current_sec() - page_pools.epp_last_shrink,
++		   cfs_time_current_sec() - page_pools.epp_last_access,
++		   page_pools.epp_st_max_pages,
++		   page_pools.epp_st_grows,
++		   page_pools.epp_st_grow_fails,
++		   page_pools.epp_st_shrinks,
++		   page_pools.epp_st_access,
++		   page_pools.epp_st_missings,
++		   page_pools.epp_st_lowfree,
++		   page_pools.epp_st_max_wqlen,
++		   page_pools.epp_st_max_wait,
++		   msecs_to_jiffies(MSEC_PER_SEC),
++		   page_pools.epp_st_outofmem);
+ 
+ 	spin_unlock(&page_pools.epp_lock);
+-	return rc;
++	return 0;
+ }
+ 
+ static void enc_pools_release_free_pages(long npages)
+diff --git a/lustre/quota/qsd_lib.c b/lustre/quota/qsd_lib.c
+index 9f89cac..efd7840 100644
+--- a/lustre/quota/qsd_lib.c
++++ b/lustre/quota/qsd_lib.c
+@@ -77,7 +77,6 @@ static int qsd_state_seq_show(struct seq_file *m, void *data)
+ {
+ 	struct qsd_instance	*qsd = m->private;
+ 	char			 enabled[5];
+-	int			 rc;
+ 
+ 	LASSERT(qsd != NULL);
+ 
+@@ -89,14 +88,14 @@ static int qsd_state_seq_show(struct seq_file *m, void *data)
+ 	if (strlen(enabled) == 0)
+ 		strcat(enabled, "none");
+ 
+-	rc = seq_printf(m, "target name:    %s\n"
+-			"pool ID:        %d\n"
+-			"type:           %s\n"
+-			"quota enabled:  %s\n"
+-			"conn to master: %s\n",
+-			qsd->qsd_svname, qsd->qsd_pool_id,
+-			qsd->qsd_is_md ? "md" : "dt", enabled,
+-			qsd->qsd_exp_valid ? "setup" : "not setup yet");
++	seq_printf(m, "target name:    %s\n"
++		   "pool ID:        %d\n"
++		   "type:           %s\n"
++		   "quota enabled:  %s\n"
++		   "conn to master: %s\n",
++		   qsd->qsd_svname, qsd->qsd_pool_id,
++		   qsd->qsd_is_md ? "md" : "dt", enabled,
++		   qsd->qsd_exp_valid ? "setup" : "not setup yet");
+ 
+ 	if (qsd->qsd_prepared) {
+ 		memset(enabled, 0, sizeof(enabled));
+@@ -106,18 +105,18 @@ static int qsd_state_seq_show(struct seq_file *m, void *data)
+ 			strcat(enabled, "g");
+ 		if (strlen(enabled) == 0)
+ 			strcat(enabled, "none");
+-		rc += seq_printf(m, "space acct:     %s\n"
+-				"user uptodate:  glb[%d],slv[%d],reint[%d]\n"
+-				"group uptodate: glb[%d],slv[%d],reint[%d]\n",
+-				enabled,
+-				qsd->qsd_type_array[USRQUOTA]->qqi_glb_uptodate,
+-				qsd->qsd_type_array[USRQUOTA]->qqi_slv_uptodate,
+-				qsd->qsd_type_array[USRQUOTA]->qqi_reint,
+-				qsd->qsd_type_array[GRPQUOTA]->qqi_glb_uptodate,
+-				qsd->qsd_type_array[GRPQUOTA]->qqi_slv_uptodate,
+-				qsd->qsd_type_array[GRPQUOTA]->qqi_reint);
++		seq_printf(m, "space acct:     %s\n"
++			   "user uptodate:  glb[%d],slv[%d],reint[%d]\n"
++			   "group uptodate: glb[%d],slv[%d],reint[%d]\n",
++			   enabled,
++			   qsd->qsd_type_array[USRQUOTA]->qqi_glb_uptodate,
++			   qsd->qsd_type_array[USRQUOTA]->qqi_slv_uptodate,
++			   qsd->qsd_type_array[USRQUOTA]->qqi_reint,
++			   qsd->qsd_type_array[GRPQUOTA]->qqi_glb_uptodate,
++			   qsd->qsd_type_array[GRPQUOTA]->qqi_slv_uptodate,
++			   qsd->qsd_type_array[GRPQUOTA]->qqi_reint);
+ 	}
+-	return rc;
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(qsd_state);
+ 
+@@ -136,7 +135,8 @@ static int qsd_enabled_seq_show(struct seq_file *m, void *data)
+ 	if (strlen(enabled) == 0)
+ 		strcat(enabled, "none");
+ 
+-	return seq_printf(m, "%s\n", enabled);
++	seq_printf(m, "%s\n", enabled);
++	return 0;
+ }
+ LPROC_SEQ_FOPS_RO(qsd_enabled);
+ 
+@@ -185,7 +185,8 @@ static int qsd_timeout_seq_show(struct seq_file *m, void *data)
+ 	struct qsd_instance *qsd = m->private;
+ 	LASSERT(qsd != NULL);
+ 
+-	return seq_printf(m, "%d\n", qsd_wait_timeout(qsd));
++	seq_printf(m, "%d\n", qsd_wait_timeout(qsd));
++	return 0;
+ }
+ 
+ static ssize_t
+-- 
+2.8.2
+

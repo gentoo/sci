@@ -1,0 +1,95 @@
+From 7d62fb54e3faec60e86135d75cc6349cf626a46b Mon Sep 17 00:00:00 2001
+From: Li Dongyang <dongyang.li@anu.edu.au>
+Date: Tue, 1 Mar 2016 16:53:49 +1100
+Subject: [PATCH 04/19] LU-6215 llite: make_request_fn returns blk_qc_t in
+ kernel 4.4
+
+For the 4.4 kernel request_queue.make_request_fn is defined as
+a function returns blk_qc_t. loop_make_request() should return
+BLK_QC_T_NONE in this case.
+
+Linux-commit: dece16353ef47d8d33f5302bc158072a9d65e26f
+
+Signed-off-by: Li Dongyang <dongyang.li@anu.edu.au>
+Change-Id: I20a796caf6d8e6411f084db2392683c12307a0bf
+Reviewed-on: http://review.whamcloud.com/18730
+Tested-by: Jenkins
+Tested-by: Maloo <hpdd-maloo@intel.com>
+Reviewed-by: James Simmons <uja.ornl@yahoo.com>
+Reviewed-by: Dmitry Eremin <dmitry.eremin@intel.com>
+Reviewed-by: Lai Siyao <lai.siyao@intel.com>
+Reviewed-by: Oleg Drokin <oleg.drokin@intel.com>
+---
+ lustre/autoconf/lustre-core.m4 | 21 +++++++++++++++++++++
+ lustre/include/lustre_compat.h | 15 ++++++++++-----
+ 2 files changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index b2a4af0..0201a28 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -2009,6 +2009,26 @@ locks_lock_file_wait, [
+ ]) # LC_HAVE_LOCKS_LOCK_FILE_WAIT
+ 
+ #
++# LC_HAVE_QC_MAKE_REQUEST_FN
++#
++# 4.4 request_queue.make_request_fn defined as function returns with blk_qc_t
++# see kernel commit dece16353ef47d8d33f5302bc158072a9d65e26f
++#
++AC_DEFUN([LC_HAVE_QC_MAKE_REQUEST_FN], [
++LB_CHECK_COMPILE([if 'request_queue.make_request_fn' returns blk_qc_t],
++make_request_fn_blk_qc_t, [
++	#include <linux/blkdev.h>
++],[
++	blk_qc_t ret;
++	make_request_fn *mrf;
++	ret = mrf(NULL, NULL);
++],[
++	AC_DEFINE(HAVE_QC_MAKE_REQUEST_FN, 1,
++		[request_queue.make_request_fn returns blk_qc_t])
++])
++]) # LC_HAVE_QC_MAKE_REQUEST_FN
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -2174,6 +2194,7 @@ AC_DEFUN([LC_PROG_LINUX], [
+ 
+ 	# 4.4
+ 	LC_HAVE_LOCKS_LOCK_FILE_WAIT
++	LC_HAVE_QC_MAKE_REQUEST_FN
+ 
+ 	#
+ 	AS_IF([test "x$enable_server" != xno], [
+diff --git a/lustre/include/lustre_compat.h b/lustre/include/lustre_compat.h
+index c038aa1..4e9f3ac 100644
+--- a/lustre/include/lustre_compat.h
++++ b/lustre/include/lustre_compat.h
+@@ -298,12 +298,17 @@ static inline int ll_namei_to_lookup_intent_flag(int flag)
+ 	return flag;
+ }
+ 
+-#ifdef HAVE_VOID_MAKE_REQUEST_FN
+-# define ll_mrf_ret void
+-# define LL_MRF_RETURN(rc)
++#ifdef HAVE_QC_MAKE_REQUEST_FN
++# define ll_mrf_ret blk_qc_t
++# define LL_MRF_RETURN(rc) RETURN(BLK_QC_T_NONE)
+ #else
+-# define ll_mrf_ret int
+-# define LL_MRF_RETURN(rc) RETURN(rc)
++# ifdef HAVE_VOID_MAKE_REQUEST_FN
++#  define ll_mrf_ret void
++#  define LL_MRF_RETURN(rc)
++# else
++#  define ll_mrf_ret int
++#  define LL_MRF_RETURN(rc) RETURN(rc)
++# endif
+ #endif
+ 
+ #include <linux/fs.h>
+-- 
+2.8.2
+

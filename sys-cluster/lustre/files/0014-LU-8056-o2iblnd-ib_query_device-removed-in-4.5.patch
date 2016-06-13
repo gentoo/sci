@@ -1,0 +1,167 @@
+From 53b7041eed99418ec8b2a6c3fb29eaa331accfe2 Mon Sep 17 00:00:00 2001
+From: Li Dongyang <dongyang.li@anu.edu.au>
+Date: Mon, 16 May 2016 17:18:39 +1000
+Subject: [PATCH 14/19] LU-8056 o2iblnd: ib_query_device removed in 4.5
+
+We should use the cached attributes in ib_device instead of
+calling ib_query_device since kernel 4.5
+
+Linux-commit:182a2da0c768a9ec64abb0d6009667057f1c06af
+Linux-commit:cebfe5ca038e2a0f677b41e9682501708ffa2ff3
+
+Signed-off-by: Li Dongyang <dongyang.li@anu.edu.au>
+Change-Id: Ie2ab681a3b508f0a1f89d3ff86bf2713b7257e62
+---
+ lnet/autoconf/lustre-lnet.m4 | 22 ++++++++++++++
+ lnet/klnds/o2iblnd/o2iblnd.c | 69 ++++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 82 insertions(+), 9 deletions(-)
+
+diff --git a/lnet/autoconf/lustre-lnet.m4 b/lnet/autoconf/lustre-lnet.m4
+index 2e2adb2..2aefe70 100644
+--- a/lnet/autoconf/lustre-lnet.m4
++++ b/lnet/autoconf/lustre-lnet.m4
+@@ -460,6 +460,28 @@ AS_IF([test $ENABLEO2IB != "no"], [
+ 		AC_DEFINE(HAVE_IB_MAP_MR_SG, 1,
+ 			[ib_map_mr_sg exists])
+ 	])
++
++	# ib_query_device() removed in 4.5
++	LB_CHECK_COMPILE([if 'struct ib_device' has member 'attrs'],
++	ib_device.attrs, [
++		#ifdef HAVE_COMPAT_RDMA
++		#undef PACKAGE_NAME
++		#undef PACKAGE_TARNAME
++		#undef PACKAGE_VERSION
++		#undef PACKAGE_STRING
++		#undef PACKAGE_BUGREPORT
++		#undef PACKAGE_URL
++		#include <linux/compat-2.6.h>
++		#endif
++		#include <rdma/ib_verbs.h>
++	],[
++		struct ib_device dev;
++		struct ib_device_attr dev_attr = {};
++		dev.attrs = dev_attr;
++	],[
++		AC_DEFINE(HAVE_IB_DEVICE_ATTRS, 1,
++			[struct ib_device.attrs is defined])
++	])
+ ]) # ENABLEO2IB != "no"
+ ]) # LN_CONFIG_O2IB
+ 
+diff --git a/lnet/klnds/o2iblnd/o2iblnd.c b/lnet/klnds/o2iblnd/o2iblnd.c
+index ada1322..5bae966 100644
+--- a/lnet/klnds/o2iblnd/o2iblnd.c
++++ b/lnet/klnds/o2iblnd/o2iblnd.c
+@@ -1562,25 +1562,70 @@ kiblnd_create_fmr_pool(kib_fmr_poolset_t *fps, kib_fmr_pool_t **pp_fpo)
+ 	kib_fmr_pool_t *fpo;
+ 	int rc;
+ 
++#ifndef HAVE_IB_DEVICE_ATTRS
++	dev_attr = kmalloc(sizeof(*dev_attr), GFP_KERNEL);
++	if (!dev_attr)
++		return -ENOMEM;
++#endif
++
+ 	LIBCFS_CPT_ALLOC(fpo, lnet_cpt_table(), fps->fps_cpt, sizeof(*fpo));
+ 	if (fpo == NULL)
+ 		return -ENOMEM;
+ 
+ 	fpo->fpo_hdev = kiblnd_current_hdev(dev);
+ 
+-	fpo->fpo_fmr_pool = ib_create_fmr_pool(fpo->fpo_hdev->ibh_pd, &param);
+-	if (IS_ERR(fpo->fpo_fmr_pool)) {
+-		rc = PTR_ERR(fpo->fpo_fmr_pool);
+-		CERROR("Failed to create FMR pool: %d\n", rc);
++#ifdef HAVE_IB_DEVICE_ATTRS
++	dev_attr = &fpo->fpo_hdev->ibh_ibdev->attrs;
++#else
++	rc = ib_query_device(fpo->fpo_hdev->ibh_ibdev, dev_attr);
++	if (rc) {
++		CERROR("Query device failed for %s: %d\n",
++			fpo->fpo_hdev->ibh_ibdev->name, rc);
++		goto out_dev_attr;
++	}
++#endif
++
++	/* Check for FMR or FastReg support */
++	fpo->fpo_is_fmr = 0;
++	if (fpo->fpo_hdev->ibh_ibdev->alloc_fmr &&
++	    fpo->fpo_hdev->ibh_ibdev->dealloc_fmr &&
++	    fpo->fpo_hdev->ibh_ibdev->map_phys_fmr &&
++	    fpo->fpo_hdev->ibh_ibdev->unmap_fmr) {
++		LCONSOLE_INFO("Using FMR for registration\n");
++		fpo->fpo_is_fmr = 1;
++	} else if (dev_attr->device_cap_flags & IB_DEVICE_MEM_MGT_EXTENSIONS) {
++		LCONSOLE_INFO("Using FastReg for registration\n");
++	} else {
++		rc = -ENOSYS;
++		LCONSOLE_ERROR_MSG(rc, "IB device does not support FMRs nor FastRegs, can't register memory\n");
++		goto out_dev_attr;
++	}
++
++	if (fpo->fpo_is_fmr)
++		rc = kiblnd_alloc_fmr_pool(fps, fpo);
++	else
++		rc = kiblnd_alloc_freg_pool(fps, fpo);
++	if (rc)
++		goto out_fpo;
++
++#ifndef HAVE_IB_DEVICE_ATTRS
++	kfree(dev_attr);
++#endif
++	fpo->fpo_deadline = cfs_time_shift(IBLND_POOL_DEADLINE);
++	fpo->fpo_owner    = fps;
++	*pp_fpo = fpo;
++
++	return 0;
+ 
+                 kiblnd_hdev_decref(fpo->fpo_hdev);
+                 LIBCFS_FREE(fpo, sizeof(kib_fmr_pool_t));
+                 return rc;
+         }
+ 
+-        fpo->fpo_deadline = cfs_time_shift(IBLND_POOL_DEADLINE);
+-        fpo->fpo_owner    = fps;
+-        *pp_fpo = fpo;
++out_dev_attr:
++#ifndef HAVE_IB_DEVICE_ATTRS
++	kfree(dev_attr);
++#endif
+ 
+         return 0;
+ }
+@@ -2388,8 +2433,10 @@ kiblnd_net_init_pools(kib_net_t *net, __u32 *cpts, int ncpts)
+ static int
+ kiblnd_hdev_get_attr(kib_hca_dev_t *hdev)
+ {
+-        struct ib_device_attr *attr;
+-        int                    rc;
++#ifndef HAVE_IB_DEVICE_ATTRS
++	struct ib_device_attr *attr;
++	int                    rc;
++#endif
+ 
+         /* It's safe to assume a HCA can handle a page size
+          * matching that of the native system */
+@@ -2397,6 +2444,9 @@ kiblnd_hdev_get_attr(kib_hca_dev_t *hdev)
+         hdev->ibh_page_size  = 1 << PAGE_SHIFT;
+         hdev->ibh_page_mask  = ~((__u64)hdev->ibh_page_size - 1);
+ 
++#ifdef HAVE_IB_DEVICE_ATTRS
++	hdev->ibh_mr_size = hdev->ibh_ibdev->attrs.max_mr_size;
++#else
+         LIBCFS_ALLOC(attr, sizeof(*attr));
+         if (attr == NULL) {
+                 CERROR("Out of memory\n");
+@@ -2413,6 +2463,7 @@ kiblnd_hdev_get_attr(kib_hca_dev_t *hdev)
+                 CERROR("Failed to query IB device: %d\n", rc);
+                 return rc;
+         }
++#endif
+ 
+         if (hdev->ibh_mr_size == ~0ULL) {
+                 hdev->ibh_mr_shift = 64;
+-- 
+2.8.2
+

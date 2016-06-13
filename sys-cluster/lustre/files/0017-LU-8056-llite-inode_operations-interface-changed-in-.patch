@@ -1,0 +1,166 @@
+From 4780e65730a868432c4be7c6ea635496c725fc3a Mon Sep 17 00:00:00 2001
+From: Li Dongyang <dongyang.li@anu.edu.au>
+Date: Mon, 16 May 2016 21:57:31 +1000
+Subject: [PATCH 17/19] LU-8056 llite: inode_operations interface changed in
+ 4.5
+
+Linux kernel 4.5 replaced follow_link() with get_link()
+while put_link() is removed.
+This patch handles the API change.
+
+Linux-commit:6b2553918d8b4e6de9853fd6315bec7271a2e592
+Linux-commit:fceef393a538134f03b778c5d2519e670269342f
+
+Signed-off-by: Li Dongyang <dongyang.li@anu.edu.au>
+Change-Id: Ia9b8c9b855ed5ab7a428a370074b8801e34d3f99
+---
+ lustre/autoconf/lustre-core.m4 | 20 +++++++++++++++
+ lustre/llite/dcache.c          |  4 +++
+ lustre/llite/symlink.c         | 56 +++++++++++++++++++++++++++++++++++-------
+ 3 files changed, 71 insertions(+), 9 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 622345f..867fa51 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -2062,6 +2062,25 @@ inode_lock, [
+ ]) # LC_HAVE_INODE_LOCK
+ 
+ #
++# LC_HAVE_IOP_GET_LINK
++#
++# 4.5 vfs replaced iop->follow_link with
++# iop->get_link
++#
++AC_DEFUN([LC_HAVE_IOP_GET_LINK], [
++LB_CHECK_COMPILE([if 'iop' has 'get_link'],
++inode_ops_get_link, [
++	#include <linux/fs.h>
++],[
++	struct inode_operations iop;
++	iop.get_link = NULL;
++],[
++	AC_DEFINE(HAVE_IOP_GET_LINK, 1,
++		[have iop get_link])
++])
++]) # LC_HAVE_IOP_GET_LINK
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -2232,6 +2251,7 @@ AC_DEFUN([LC_PROG_LINUX], [
+ 
+ 	# 4.5
+ 	LC_HAVE_INODE_LOCK
++	LC_HAVE_IOP_GET_LINK
+ 
+ 	#
+ 	AS_IF([test "x$enable_server" != xno], [
+diff --git a/lustre/llite/dcache.c b/lustre/llite/dcache.c
+index 4ec4421..d579ba0 100644
+--- a/lustre/llite/dcache.c
++++ b/lustre/llite/dcache.c
+@@ -368,7 +368,11 @@ static int ll_revalidate_dentry(struct dentry *dentry,
+ 		return 1;
+ 
+ 	/* Symlink - always valid as long as the dentry was found */
++#ifdef HAVE_IOP_GET_LINK
++	if (dentry->d_inode && dentry->d_inode->i_op->get_link)
++#else
+ 	if (dentry->d_inode && dentry->d_inode->i_op->follow_link)
++#endif
+ 		return 1;
+ 
+ 	/* Last path component lookup for open or create - we always
+diff --git a/lustre/llite/symlink.c b/lustre/llite/symlink.c
+index e635037..70577ce 100644
+--- a/lustre/llite/symlink.c
++++ b/lustre/llite/symlink.c
+@@ -122,6 +122,20 @@ failed:
+ }
+ 
+ #ifdef HAVE_SYMLINK_OPS_USE_NAMEIDATA
++static void ll_put_link(struct dentry *dentry,
++			struct nameidata *nd, void *cookie)
++#else
++# ifdef HAVE_IOP_GET_LINK
++static void ll_put_link(void *cookie)
++# else
++static void ll_put_link(struct inode *unused, void *cookie)
++# endif
++#endif
++{
++	ptlrpc_req_finished(cookie);
++}
++
++#ifdef HAVE_SYMLINK_OPS_USE_NAMEIDATA
+ static void *ll_follow_link(struct dentry *dentry, struct nameidata *nd)
+ {
+ 	struct inode *inode = dentry->d_inode;
+@@ -156,6 +170,34 @@ static void *ll_follow_link(struct dentry *dentry, struct nameidata *nd)
+ 	RETURN(request);
+ }
+ #else
++# ifdef HAVE_IOP_GET_LINK
++static const char *ll_get_link(struct dentry *dentry,
++			       struct inode *inode,
++			       struct delayed_call *done)
++{
++	struct ptlrpc_request *request;
++	char *symname = NULL;
++	int rc;
++
++	ENTRY;
++	CDEBUG(D_VFSTRACE, "VFS Op\n");
++	if (!dentry)
++		RETURN(ERR_PTR(-ECHILD));
++	ll_inode_size_lock(inode);
++	rc = ll_readlink_internal(inode, &request, &symname);
++	ll_inode_size_unlock(inode);
++	if (rc < 0) {
++		ptlrpc_req_finished(request);
++		return ERR_PTR(rc);
++	}
++
++	/* symname may contain a pointer to the request message buffer,
++	 * we delay request releasing then.
++	 */
++	set_delayed_call(done, ll_put_link, request);
++	RETURN(symname);
++}
++# else
+ static const char *ll_follow_link(struct dentry *dentry, void **cookie)
+ {
+ 	struct inode *inode = d_inode(dentry);
+@@ -179,22 +221,18 @@ static const char *ll_follow_link(struct dentry *dentry, void **cookie)
+ 	*cookie = request;
+ 	RETURN(symname);
+ }
++# endif /* HAVE_IOP_GET_LINK */
+ #endif /* HAVE_SYMLINK_OPS_USE_NAMEIDATA */
+ 
+-#ifdef HAVE_SYMLINK_OPS_USE_NAMEIDATA
+-static void ll_put_link(struct dentry *dentry, struct nameidata *nd, void *cookie)
+-#else
+-static void ll_put_link(struct inode *unused, void *cookie)
+-#endif
+-{
+-	ptlrpc_req_finished(cookie);
+-}
+-
+ struct inode_operations ll_fast_symlink_inode_operations = {
+ 	.readlink	= generic_readlink,
+ 	.setattr	= ll_setattr,
++#ifdef HAVE_IOP_GET_LINK
++	.get_link	= ll_get_link,
++#else
+ 	.follow_link	= ll_follow_link,
+ 	.put_link	= ll_put_link,
++#endif
+ 	.getattr	= ll_getattr,
+ 	.permission	= ll_inode_permission,
+ 	.setxattr	= ll_setxattr,
+-- 
+2.8.2
+

@@ -1,0 +1,169 @@
+From d514117bc52fee3e392aa48dc44b3552c01a0981 Mon Sep 17 00:00:00 2001
+From: Dmitry Eremin <dmitry.eremin@intel.com>
+Date: Tue, 17 May 2016 09:22:15 -0400
+Subject: [PATCH 12/19] LU-6215 lnet: split struct ib_send_wr
+
+In v4.4 Linux kernel split up struct ib_send_wr so that all non-trivial
+verbs use their own structure which embeds struct ib_send_wr.
+
+Linux-commit: e622f2f4ad2142d2a613a57fb85f8cf737935ef5
+Change-Id: Iea2599ea57a576a4c061841be47a989aba097cc6
+Signed-off-by: Dmitry Eremin <dmitry.eremin@intel.com>
+Reviewed-on: http://review.whamcloud.com/19168
+Reviewed-by: Doug Oucharek <doug.s.oucharek@intel.com>
+Reviewed-by: James Simmons <uja.ornl@yahoo.com>
+Reviewed-by: Li Dongyang <dongyang.li@anu.edu.au>
+Tested-by: Jenkins
+Tested-by: Maloo <hpdd-maloo@intel.com>
+Reviewed-by: Oleg Drokin <oleg.drokin@intel.com>
+---
+ lnet/autoconf/lustre-lnet.m4    | 31 +++++++++++++++----------------
+ lnet/klnds/o2iblnd/o2iblnd.c    |  5 +++--
+ lnet/klnds/o2iblnd/o2iblnd.h    |  6 +++---
+ lnet/klnds/o2iblnd/o2iblnd_cb.c | 14 +++-----------
+ 4 files changed, 24 insertions(+), 32 deletions(-)
+
+diff --git a/lnet/autoconf/lustre-lnet.m4 b/lnet/autoconf/lustre-lnet.m4
+index 5f90bca..2e2adb2 100644
+--- a/lnet/autoconf/lustre-lnet.m4
++++ b/lnet/autoconf/lustre-lnet.m4
+@@ -395,10 +395,8 @@ AS_IF([test $ENABLEO2IB != "no"], [
+ 		AC_DEFINE(HAVE_IB_CQ_INIT_ATTR, 1,
+ 			[struct ib_cq_init_attr is used by ib_create_cq])
+ 	])
+-])
+ 
+-# 4.3 removed ib_alloc_fast_reg_mr()
+-AS_IF([test $ENABLEO2IB != "no"], [
++	# 4.3 removed ib_alloc_fast_reg_mr()
+ 	LB_CHECK_COMPILE([if 'ib_alloc_fast_reg_mr' exists],
+ 	ib_alloc_fast_reg_mr, [
+ 		#ifdef HAVE_COMPAT_RDMA
+@@ -417,12 +415,13 @@ AS_IF([test $ENABLEO2IB != "no"], [
+ 		AC_DEFINE(HAVE_IB_ALLOC_FAST_REG_MR, 1,
+ 			[ib_alloc_fast_reg_mr is defined])
+ 	])
+-])
+ 
+-# 4.4 added network namespace parameter for rdma_create_id()
+-AS_IF([test $ENABLEO2IB != "no"], [
+-	LB_CHECK_COMPILE([if 'rdma_create_id' wants five args],
+-	rdma_create_id_5args, [
++	# In v4.4 Linux kernel,
++	# commit e622f2f4ad2142d2a613a57fb85f8cf737935ef5
++	# split up struct ib_send_wr so that all non-trivial verbs
++	# use their own structure which embedds struct ib_send_wr.
++	LB_CHECK_COMPILE([if 'struct ib_rdma_wr' is defined],
++	ib_rdma_wr, [
+ 		#ifdef HAVE_COMPAT_RDMA
+ 		#undef PACKAGE_NAME
+ 		#undef PACKAGE_TARNAME
+@@ -432,17 +431,17 @@ AS_IF([test $ENABLEO2IB != "no"], [
+ 		#undef PACKAGE_URL
+ 		#include <linux/compat-2.6.h>
+ 		#endif
+-		#include <rdma/rdma_cm.h>
++		#include <rdma/ib_verbs.h>
+ 	],[
+-		rdma_create_id(NULL, NULL, NULL, 0, 0);
++		struct ib_rdma_wr *wr __attribute__ ((unused));
++
++		wr = rdma_wr(NULL);
+ 	],[
+-		AC_DEFINE(HAVE_RDMA_CREATE_ID_5ARG, 1,
+-			[rdma_create_id wants 5 args])
++		AC_DEFINE(HAVE_IB_RDMA_WR, 1,
++			[struct ib_rdma_wr is defined])
+ 	])
+-])
+ 
+-# new fast registration API introduced in 4.4
+-AS_IF([test $ENABLEO2IB != "no"], [
++	# new fast registration API introduced in 4.4
+ 	LB_CHECK_COMPILE([if 'ib_map_mr_sg' exists],
+ 	ib_map_mr_sg, [
+ 		#ifdef HAVE_COMPAT_RDMA
+@@ -461,7 +460,7 @@ AS_IF([test $ENABLEO2IB != "no"], [
+ 		AC_DEFINE(HAVE_IB_MAP_MR_SG, 1,
+ 			[ib_map_mr_sg exists])
+ 	])
+-])
++]) # ENABLEO2IB != "no"
+ ]) # LN_CONFIG_O2IB
+ 
+ #
+diff --git a/lnet/klnds/o2iblnd/o2iblnd.c b/lnet/klnds/o2iblnd/o2iblnd.c
+index 1262268..ada1322 100644
+--- a/lnet/klnds/o2iblnd/o2iblnd.c
++++ b/lnet/klnds/o2iblnd/o2iblnd.c
+@@ -1760,7 +1760,7 @@ again:
+ 				struct ib_reg_wr *wr;
+ 				int n;
+ #else
+-				struct ib_send_wr *wr;
++				struct ib_rdma_wr *wr;
+ 				struct ib_fast_reg_page_list *frpl;
+ #endif
+ 				struct ib_mr *mr;
+@@ -1805,8 +1805,9 @@ again:
+ 
+ 				wr = &frd->frd_fastreg_wr;
+ 				memset(wr, 0, sizeof(*wr));
++
+ 				wr->wr.opcode = IB_WR_REG_MR;
+-				wr->wr.wr_id = IBLND_WID_MR;
++				wr->wr.wr_id  = IBLND_WID_MR;
+ 				wr->wr.num_sge = 0;
+ 				wr->wr.send_flags = 0;
+ 				wr->mr = mr;
+diff --git a/lnet/klnds/o2iblnd/o2iblnd.h b/lnet/klnds/o2iblnd/o2iblnd.h
+index e784adf..38e5f14 100644
+--- a/lnet/klnds/o2iblnd/o2iblnd.h
++++ b/lnet/klnds/o2iblnd/o2iblnd.h
+@@ -350,12 +350,12 @@ struct ib_rdma_wr {
+ 
+ struct kib_fast_reg_descriptor { /* For fast registration */
+ 	struct list_head		 frd_list;
+-	struct ib_send_wr		 frd_inv_wr;
++	struct ib_rdma_wr		 frd_inv_wr;
+ #ifdef HAVE_IB_MAP_MR_SG
+ 	struct ib_reg_wr		 frd_fastreg_wr;
+ #else
+-	struct ib_send_wr		 frd_fastreg_wr;
+-	struct ib_fast_reg_page_list	*frd_frpl;
++	struct ib_rdma_wr		 frd_fastreg_wr;
++	struct ib_fast_reg_page_list    *frd_frpl;
+ #endif
+ 	struct ib_mr			*frd_mr;
+ 	bool				 frd_valid;
+diff --git a/lnet/klnds/o2iblnd/o2iblnd_cb.c b/lnet/klnds/o2iblnd/o2iblnd_cb.c
+index e400eb2..6541d94 100644
+--- a/lnet/klnds/o2iblnd/o2iblnd_cb.c
++++ b/lnet/klnds/o2iblnd/o2iblnd_cb.c
+@@ -840,20 +840,12 @@ __must_hold(&conn->ibc_lock)
+ 
+ 		if (frd != NULL) {
+ 			if (!frd->frd_valid) {
+-				wrq = &frd->frd_inv_wr;
+-#ifdef HAVE_IB_MAP_MR_SG
+-				wrq->next = &frd->frd_fastreg_wr.wr;
+-			} else {
+-				wrq = &frd->frd_fastreg_wr.wr;
+-			}
+-			frd->frd_fastreg_wr.wr.next = tx->tx_wrq;
+-#else
+-				wrq->next = &frd->frd_fastreg_wr;
++				wr = &frd->frd_inv_wr.wr;
++				wr->next = &frd->frd_fastreg_wr.wr;
+ 			} else {
+ 				wr = &frd->frd_fastreg_wr.wr;
+ 			}
+-			frd->frd_fastreg_wr.next = tx->tx_wrq;
+-#endif
++			frd->frd_fastreg_wr.wr.next = &tx->tx_wrq[0].wr;
+ 		}
+ 
+ 		LASSERTF(wrq->wr_id == kiblnd_ptr2wreqid(tx, IBLND_WID_TX),
+-- 
+2.8.2
+
