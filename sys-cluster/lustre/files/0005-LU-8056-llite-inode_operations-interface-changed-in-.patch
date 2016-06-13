@@ -1,8 +1,7 @@
-From 4780e65730a868432c4be7c6ea635496c725fc3a Mon Sep 17 00:00:00 2001
+From 0ec0c36d7a0ec5636e19eece4d5df7615f656c23 Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 21:57:31 +1000
-Subject: [PATCH 17/19] LU-8056 llite: inode_operations interface changed in
- 4.5
+Subject: [PATCH 5/7] LU-8056 llite: inode_operations interface changed in 4.5
 
 Linux kernel 4.5 replaced follow_link() with get_link()
 while put_link() is removed.
@@ -20,10 +19,10 @@ Change-Id: Ia9b8c9b855ed5ab7a428a370074b8801e34d3f99
  3 files changed, 71 insertions(+), 9 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 622345f..867fa51 100644
+index 5554490..ec18055 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2062,6 +2062,25 @@ inode_lock, [
+@@ -2104,6 +2104,25 @@ inode_lock, [
  ]) # LC_HAVE_INODE_LOCK
  
  #
@@ -49,7 +48,7 @@ index 622345f..867fa51 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2232,6 +2251,7 @@ AC_DEFUN([LC_PROG_LINUX], [
+@@ -2278,6 +2297,7 @@ AC_DEFUN([LC_PROG_LINUX], [
  
  	# 4.5
  	LC_HAVE_INODE_LOCK
@@ -58,10 +57,10 @@ index 622345f..867fa51 100644
  	#
  	AS_IF([test "x$enable_server" != xno], [
 diff --git a/lustre/llite/dcache.c b/lustre/llite/dcache.c
-index 4ec4421..d579ba0 100644
+index 8c3db0a..3168ca8 100644
 --- a/lustre/llite/dcache.c
 +++ b/lustre/llite/dcache.c
-@@ -368,7 +368,11 @@ static int ll_revalidate_dentry(struct dentry *dentry,
+@@ -331,7 +331,11 @@ static int ll_revalidate_dentry(struct dentry *dentry,
  		return 1;
  
  	/* Symlink - always valid as long as the dentry was found */

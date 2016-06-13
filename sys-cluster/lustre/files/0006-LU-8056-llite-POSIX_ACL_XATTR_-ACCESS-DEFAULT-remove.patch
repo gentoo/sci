@@ -1,7 +1,7 @@
-From 9f0940464d87e1111ab665684f9e9a45db6c3787 Mon Sep 17 00:00:00 2001
+From 103a363fa53f691d2bdbb38280e44d1c830c7322 Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 22:07:54 +1000
-Subject: [PATCH 18/19] LU-8056 llite: POSIX_ACL_XATTR_{ACCESS,DEFAULT} removed
+Subject: [PATCH 6/7] LU-8056 llite: POSIX_ACL_XATTR_{ACCESS,DEFAULT} removed
  in 4.5
 
 POSIX_ACL_XATTR_{ACCESS,DEFAULT} are duplicate

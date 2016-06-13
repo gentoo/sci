@@ -1,7 +1,7 @@
-From 917e3d42d9fe0584c740584db5c5f59cf6875c9f Mon Sep 17 00:00:00 2001
+From ab0006e3a3bf5b0ff63f0914a9e7246dfa1729f8 Mon Sep 17 00:00:00 2001
 From: Li Dongyang <dongyang.li@anu.edu.au>
 Date: Mon, 16 May 2016 17:40:55 +1000
-Subject: [PATCH 16/19] LU-8056 llite: use inode_lock to access i_mutex
+Subject: [PATCH 4/7] LU-8056 llite: use inode_lock to access i_mutex
 
 Linux kernel 4.5 introduced wrappers for i_mutex as the type
 of i_mutex will be changed in the future.
@@ -22,7 +22,7 @@ Change-Id: Ia4c30443cddfaa5232e1dc1519c33c97dba2a271
  lustre/include/lustre_compat.h |  6 ++++++
  lustre/include/lvfs.h          |  4 ++--
  lustre/llite/dir.c             |  4 ++--
- lustre/llite/file.c            | 29 +++++++++++++++++++----------
+ lustre/llite/file.c            | 20 ++++++++++----------
  lustre/llite/llite_internal.h  |  2 --
  lustre/llite/llite_lib.c       |  8 ++++----
  lustre/llite/llite_nfs.c       |  4 ++--
@@ -30,13 +30,13 @@ Change-Id: Ia4c30443cddfaa5232e1dc1519c33c97dba2a271
  lustre/llite/rw26.c            |  4 ++--
  lustre/llite/vvp_io.c          |  4 ++--
  lustre/llite/vvp_page.c        |  4 ++--
- 12 files changed, 63 insertions(+), 30 deletions(-)
+ 12 files changed, 54 insertions(+), 30 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 9497cdd..622345f 100644
+index 0d5c599..5554490 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2045,6 +2045,23 @@ key_payload_data_array, [
+@@ -2087,6 +2087,23 @@ key_payload_data_array, [
  ]) #LC_HAVE_KEY_PAYLOAD_DATA_ARRAY
  
  #
@@ -60,7 +60,7 @@ index 9497cdd..622345f 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2213,6 +2230,9 @@ AC_DEFUN([LC_PROG_LINUX], [
+@@ -2259,6 +2276,9 @@ AC_DEFUN([LC_PROG_LINUX], [
  	LC_HAVE_QC_MAKE_REQUEST_FN
  	LC_HAVE_KEY_PAYLOAD_DATA_ARRAY
  
@@ -71,10 +71,10 @@ index 9497cdd..622345f 100644
  	AS_IF([test "x$enable_server" != xno], [
  		LC_FUNC_DEV_SET_RDONLY
 diff --git a/lustre/include/lustre_compat.h b/lustre/include/lustre_compat.h
-index 4e9f3ac..2a5a2fd 100644
+index d777993..0d303f2 100644
 --- a/lustre/include/lustre_compat.h
 +++ b/lustre/include/lustre_compat.h
-@@ -370,6 +370,12 @@ static inline struct dentry *d_make_root(struct inode *root)
+@@ -371,6 +371,12 @@ static inline struct dentry *d_make_root(struct inode *root)
  #define ll_vfs_unlink(a, b) vfs_unlink(a, b)
  #endif
  
@@ -104,10 +104,10 @@ index be4187f..2bdee77 100644
  	if (IS_ERR(dchild) || dchild->d_inode == NULL)
  		return dchild;
 diff --git a/lustre/llite/dir.c b/lustre/llite/dir.c
-index 4f28145..f657725 100644
+index ec71a19..1f6e02c 100644
 --- a/lustre/llite/dir.c
 +++ b/lustre/llite/dir.c
-@@ -1736,7 +1736,7 @@ static loff_t ll_dir_seek(struct file *file, loff_t offset, int origin)
+@@ -1733,7 +1733,7 @@ static loff_t ll_dir_seek(struct file *file, loff_t offset, int origin)
          loff_t ret = -EINVAL;
          ENTRY;
  
@@ -116,7 +116,7 @@ index 4f28145..f657725 100644
          switch (origin) {
                  case SEEK_SET:
                          break;
-@@ -1774,7 +1774,7 @@ static loff_t ll_dir_seek(struct file *file, loff_t offset, int origin)
+@@ -1771,7 +1771,7 @@ static loff_t ll_dir_seek(struct file *file, loff_t offset, int origin)
          GOTO(out, ret);
  
  out:
@@ -126,10 +126,10 @@ index 4f28145..f657725 100644
  }
  
 diff --git a/lustre/llite/file.c b/lustre/llite/file.c
-index d1819c6..b8670c7 100644
+index cfc01f4..f381d26 100644
 --- a/lustre/llite/file.c
 +++ b/lustre/llite/file.c
-@@ -2144,13 +2144,13 @@ static int ll_hsm_import(struct inode *inode, struct file *file,
+@@ -2162,13 +2162,13 @@ static int ll_hsm_import(struct inode *inode, struct file *file,
  			 ATTR_MTIME | ATTR_MTIME_SET |
  			 ATTR_ATIME | ATTR_ATIME_SET;
  
@@ -145,7 +145,7 @@ index d1819c6..b8670c7 100644
  
  out:
  	if (hss != NULL)
-@@ -2197,9 +2197,9 @@ static int ll_file_futimes_3(struct file *file, const struct ll_futimes_3 *lfu)
+@@ -2215,9 +2215,9 @@ static int ll_file_futimes_3(struct file *file, const struct ll_futimes_3 *lfu)
  	if (!S_ISREG(inode->i_mode))
  		RETURN(-EINVAL);
  
@@ -157,7 +157,7 @@ index d1819c6..b8670c7 100644
  
  	RETURN(rc);
  }
-@@ -2598,9 +2598,9 @@ generic_file_llseek_size(struct file *file, loff_t offset, int origin,
+@@ -2715,9 +2715,9 @@ generic_file_llseek_size(struct file *file, loff_t offset, int origin,
  		 * SEEK_CURs. Note that parallel writes and reads behave
  		 * like SEEK_SET.
  		 */
@@ -169,7 +169,7 @@ index d1819c6..b8670c7 100644
  		return offset;
  	case SEEK_DATA:
  		/*
-@@ -2758,7 +2758,7 @@ int ll_fsync(struct file *file, struct dentry *dentry, int datasync)
+@@ -2875,7 +2875,7 @@ int ll_fsync(struct file *file, struct dentry *dentry, int datasync)
  
  #ifdef HAVE_FILE_FSYNC_4ARGS
  	rc = filemap_write_and_wait_range(inode->i_mapping, start, end);
@@ -178,7 +178,7 @@ index d1819c6..b8670c7 100644
  #else
  	/* fsync's caller has already called _fdata{sync,write}, we want
  	 * that IO to finish before calling the osc and mdc sync methods */
-@@ -2796,7 +2796,7 @@ int ll_fsync(struct file *file, struct dentry *dentry, int datasync)
+@@ -2913,7 +2913,7 @@ int ll_fsync(struct file *file, struct dentry *dentry, int datasync)
  	}
  
  #ifdef HAVE_FILE_FSYNC_4ARGS
@@ -187,38 +187,29 @@ index d1819c6..b8670c7 100644
  #endif
  	RETURN(rc);
  }
-@@ -3021,7 +3021,15 @@ int ll_migrate(struct inode *parent, struct file *file, int mdtidx,
- 	if (child_inode == NULL)
- 		GOTO(out_free, rc = -EINVAL);
+@@ -3146,7 +3146,7 @@ int ll_migrate(struct inode *parent, struct file *file, int mdtidx,
+ 	if (child_inode == parent->i_sb->s_root->d_inode)
+ 		GOTO(out_iput, rc = -EINVAL);
  
 -	mutex_lock(&child_inode->i_mutex);
-+	/*
-+	 * lfs migrate command needs to be blocked on the client
-+	 * by checking the migrate FID against the FID of the
-+	 * filesystem root.
-+	 */
-+	if (child_inode == parent->i_sb->s_root->d_inode)
-+		GOTO(out_iput, rc = -EINVAL);
-+
 +	inode_lock(child_inode);
  	op_data->op_fid3 = *ll_inode2fid(child_inode);
  	if (!fid_is_sane(&op_data->op_fid3)) {
  		CERROR("%s: migrate %s, but FID "DFID" is insane\n",
-@@ -3099,7 +3107,8 @@ out_close:
+@@ -3224,7 +3224,7 @@ out_close:
  	if (rc == 0)
  		clear_nlink(child_inode);
  out_unlock:
 -	mutex_unlock(&child_inode->i_mutex);
 +	inode_unlock(child_inode);
-+out_iput:
+ out_iput:
  	iput(child_inode);
  out_free:
- 	ll_finish_md_op_data(op_data);
 diff --git a/lustre/llite/llite_internal.h b/lustre/llite/llite_internal.h
-index adbf9d3..94c8045 100644
+index 20956f4..9c9979e 100644
 --- a/lustre/llite/llite_internal.h
 +++ b/lustre/llite/llite_internal.h
-@@ -681,8 +681,6 @@ struct ll_file_data {
+@@ -693,8 +693,6 @@ struct ll_file_data {
  	struct list_head fd_lccs; /* list of ll_cl_context */
  };
  
@@ -228,10 +219,10 @@ index adbf9d3..94c8045 100644
  
  static inline struct inode *ll_info2i(struct ll_inode_info *lli)
 diff --git a/lustre/llite/llite_lib.c b/lustre/llite/llite_lib.c
-index d1050d4..bf80506 100644
+index c488fc2..9a8c69b 100644
 --- a/lustre/llite/llite_lib.c
 +++ b/lustre/llite/llite_lib.c
-@@ -1521,10 +1521,10 @@ static int ll_md_setattr(struct dentry *dentry, struct md_op_data *op_data)
+@@ -1545,10 +1545,10 @@ static int ll_md_setattr(struct dentry *dentry, struct md_op_data *op_data)
  	 * cache is not cleared yet. */
  	op_data->op_attr.ia_valid &= ~(TIMES_SET_FLAGS | ATTR_SIZE);
  	if (S_ISREG(inode->i_mode))
@@ -244,7 +235,7 @@ index d1050d4..bf80506 100644
  	op_data->op_attr.ia_valid = ia_valid;
  
  	rc = ll_update_inode(inode, &md);
-@@ -1613,7 +1613,7 @@ int ll_setattr_raw(struct dentry *dentry, struct iattr *attr, bool hsm_import)
+@@ -1637,7 +1637,7 @@ int ll_setattr_raw(struct dentry *dentry, struct iattr *attr, bool hsm_import)
  	if (S_ISREG(inode->i_mode)) {
  		if (attr->ia_valid & ATTR_SIZE)
  			inode_dio_write_done(inode);
@@ -253,7 +244,7 @@ index d1050d4..bf80506 100644
  	}
  
  	/* We always do an MDS RPC, even if we're only changing the size;
-@@ -1690,7 +1690,7 @@ out:
+@@ -1714,7 +1714,7 @@ out:
  		ll_finish_md_op_data(op_data);
  
  	if (S_ISREG(inode->i_mode)) {
@@ -283,7 +274,7 @@ index 9e19e78..bc238f5 100644
  	if (!rc && !lgd.lgd_found)
  		rc = -ENOENT;
 diff --git a/lustre/llite/lloop.c b/lustre/llite/lloop.c
-index f3b9288..c20df96 100644
+index b8ae0b5..64318ca 100644
 --- a/lustre/llite/lloop.c
 +++ b/lustre/llite/lloop.c
 @@ -277,9 +277,9 @@ static int do_bio_lustrebacked(struct lloop_device *lo, struct bio *head)
@@ -299,10 +290,10 @@ index f3b9288..c20df96 100644
  	return (bytes == pvec->ldp_size) ? 0 : (int)bytes;
  }
 diff --git a/lustre/llite/rw26.c b/lustre/llite/rw26.c
-index b362532..ad692db 100644
+index d9482b2..3f02754 100644
 --- a/lustre/llite/rw26.c
 +++ b/lustre/llite/rw26.c
-@@ -388,7 +388,7 @@ ll_direct_IO(
+@@ -389,7 +389,7 @@ ll_direct_IO(
  	 * 1. Need inode mutex to operate transient pages.
  	 */
  	if (iov_iter_rw(iter) == READ)
@@ -311,7 +302,7 @@ index b362532..ad692db 100644
  
  	while (iov_iter_count(iter)) {
  		struct page **pages;
-@@ -439,7 +439,7 @@ ll_direct_IO(
+@@ -440,7 +440,7 @@ ll_direct_IO(
  	}
  out:
  	if (iov_iter_rw(iter) == READ)
@@ -321,10 +312,10 @@ index b362532..ad692db 100644
  	if (tot_bytes > 0) {
  		struct vvp_io *vio = vvp_env_io(env);
 diff --git a/lustre/llite/vvp_io.c b/lustre/llite/vvp_io.c
-index cbc4997..8dc657b 100644
+index 8a81b83..a48a0b0 100644
 --- a/lustre/llite/vvp_io.c
 +++ b/lustre/llite/vvp_io.c
-@@ -736,7 +736,7 @@ static int vvp_io_setattr_start(const struct lu_env *env,
+@@ -661,7 +661,7 @@ static int vvp_io_setattr_start(const struct lu_env *env,
  	struct inode		*inode = vvp_object_inode(io->ci_obj);
  	struct ll_inode_info	*lli   = ll_i2info(inode);
  
@@ -333,7 +324,7 @@ index cbc4997..8dc657b 100644
  	if (cl_io_is_trunc(io)) {
  		down_write(&lli->lli_trunc_sem);
  		inode_dio_wait(inode);
-@@ -762,7 +762,7 @@ static void vvp_io_setattr_end(const struct lu_env *env,
+@@ -687,7 +687,7 @@ static void vvp_io_setattr_end(const struct lu_env *env,
  		inode_dio_write_done(inode);
  		up_write(&lli->lli_trunc_sem);
  	}
