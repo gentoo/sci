@@ -19,7 +19,8 @@ DEPEND="dev-lang/fpc
 	dev-lang/lazarus"
 
 src_compile() {
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die
+	addpredict "/usr/share/lazarus/lcl/languages"
+	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die "Lazarus build failed"
 }
 
 src_install() {
