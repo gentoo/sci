@@ -19,7 +19,8 @@ DEPEND="dev-lang/fpc
 	dev-lang/lazarus"
 
 src_compile() {
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" mricron.lpr || die
+	addpredict "/usr/share/lazarus/lcl/languages"
+	lazbuild -B --lazarusdir="/usr/share/lazarus/" mricron.lpr || die "Lazarus build failed"
 }
 
 src_install() {
