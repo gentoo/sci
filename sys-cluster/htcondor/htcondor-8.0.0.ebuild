@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -17,7 +17,7 @@ SRC_URI="condor_src-${PV}-all-all.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="boinc cgroup contrib curl dmtcp doc kerberos libvirt management minimal postgres python soap ssl test X xml"
+IUSE="boinc cgroup contrib curl doc kerberos libvirt management minimal postgres python soap ssl test X xml"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -29,7 +29,6 @@ CDEPEND="
 	boinc? ( sci-misc/boinc )
 	cgroup? ( >=dev-libs/libcgroup-0.37 )
 	curl? ( >=net-misc/curl-7.19.7[ssl?] )
-	dmtcp? ( sys-apps/dmtcp )
 	libvirt? ( >=app-emulation/libvirt-0.6.2 )
 	kerberos? ( virtual/krb5 )
 	X? ( x11-libs/libX11 )
