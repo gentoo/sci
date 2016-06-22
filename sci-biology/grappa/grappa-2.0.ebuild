@@ -23,6 +23,7 @@ src_prepare() {
 src_install() {
 	dobin grappa
 	dosym grappa /usr/bin/invdist
-	dosym grappa /usr/bin/distmat
+	# avoid file collision with emboss and rename distmat to distmat_grappa
+	dosym grappa /usr/bin/distmat_grappa
 	dodoc README
 }
