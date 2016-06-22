@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-USE_RUBY="ruby19"
+USE_RUBY="ruby20 ruby21"
 
 if [ "$PV" == "9999" ]; then
 	ESVN_REPO_URI="http://biopieces.googlecode.com/svn/trunk"
@@ -19,7 +19,7 @@ fi
 
 inherit ruby-fakegem python-single-r1
 
-DESCRIPTION="Toolkit to find and trim adaptors, plot read lengths, qualities, map reads and submit to GenBank"
+DESCRIPTION="Trim adaptors, plot read lengths, qualities, map reads and submit to GenBank"
 HOMEPAGE="http://code.google.com/p/biopieces"
 SRC_URI=""
 
@@ -67,6 +67,6 @@ RDEPEND="${CDEPEND}
 	sci-biology/bowtie
 	sci-biology/bwa
 	sci-biology/velvet
-	sci-biology/idba
 	sci-biology/Ray
 	sci-biology/scan_for_matches"
+# sci-biology/idba
