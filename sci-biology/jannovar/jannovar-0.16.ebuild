@@ -29,7 +29,8 @@ src_compile(){
 
 src_install(){
 	mvn install -Dmaven.test.skip.exec=true || die
-	dojar *.jar
-	java-pkg_newjar jannovar-bin.jar
-	java-pkg_dolauncher jannovar-bin --jar jannovar-bin.jar
+	java-pkg_dojar jannovar-cli.jar
+	java-pkg_dolauncher jannovar-cli --jar jannovar-cli.jar
+	java-pkg_dojar jped-cli.jar
+	java-pkg_dolauncher jped-cli --jar jped-cli.jar
 }
