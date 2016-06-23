@@ -14,7 +14,7 @@ SRC_URI="https://github.com/charite/jannovar/releases/download/v${PV}/jannovar-c
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=virtual/jdk-1.6"
@@ -22,12 +22,9 @@ RDEPEND=">=virtual/jre-1.6"
 
 S="${WORKDIR}"
 
-# BUG: the two jar file soverwrite each other somehow during install
 src_install(){
-	cp "${DISTDIR}"/jannovar-cli-"${PV}".jar jannovar-cli-bin.jar
-	java-pkg_newjar jannovar-cli-bin.jar
-	java-pkg_dolauncher jannovar-bin --jar jannovar-cli-"${PV}".jar
-	cp "${DISTDIR}"/jped-cli-"${PV}".jar jped-cli-bin.jar
-	java-pkg_newjar jped-cli-bin.jar
-	java-pkg_dolauncher jped-cli-bin --jar jped-cli-"${PV}".jar
+	java-pkg_newjar "${DISTDIR}"/jannovar-cli-"${PV}".jar jannovar-cli.jar
+	java-pkg_dolauncher jannovar-cli-bin --jar jannovar-cli.jar
+	java-pkg_newjar "${DISTDIR}"/jped-cli-"${PV}".jar jped-cli.jar
+	java-pkg_dolauncher jped-cli-bin --jar jped-cli.jar
 }
