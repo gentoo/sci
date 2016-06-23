@@ -14,5 +14,15 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-libs/boost"
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}"/atlas-src
+
+src_compile(){
+	# install headers, bins and libs into CBT_DEVEL_USER, then compile apps
+	cd src || die
+	emake CBT_DEVEL_DIR="${S}"/CBT CBT_INSTALL_DIR="${D}"
+	cd ../CBTApps || die
+	emake CBT_DEVEL_DIR="${S}"/CBT CBT_INSTALL_DIR="${D}"
+}
