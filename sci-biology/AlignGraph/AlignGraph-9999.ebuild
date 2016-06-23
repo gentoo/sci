@@ -10,7 +10,7 @@ if [ "$PV" == "9999" ]; then
 	inherit git-r3
 fi
 
-DESCRIPTION="Reference-assisted asssembly of contigs/scaffolds"
+DESCRIPTION="Reference-genome-assisted asssembly of contigs/scaffolds using PE reads"
 HOMEPAGE="https://github.com/baoe/AlignGraph
 	http://bioinformatics.oxfordjournals.org/content/30/12/i319.long"
 if [ "$PV" == "9999" ]; then
@@ -27,6 +27,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
+	sci-biology/mummer
 	sci-biology/blat
 	sci-biology/bowtie"
 
