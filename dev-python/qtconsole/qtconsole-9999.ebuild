@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
 PYTHON_REQ_USE="threads(+)"
@@ -20,12 +20,12 @@ IUSE="doc test"
 
 RDEPEND="
 	dev-python/ipykernel[${PYTHON_USEDEP}]
-	dev-python/jupyter_client[${PYTHON_USEDEP}]
+	>=dev-python/jupyter_client-4.1.1[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
 	doc? (
-		dev-python/ipython[${PYTHON_USEDEP}]
-		dev-python/sphinx[${PYTHON_USEDEP}]
+		>=dev-python/ipython-4.0.0-r2[${PYTHON_USEDEP}]
+		>=dev-python/sphinx-1.3.1-r1[${PYTHON_USEDEP}]
 	)
 	test? (
 		>=dev-python/nose-0.10.1[${PYTHON_USEDEP}]
@@ -54,7 +54,12 @@ python_compile_all() {
 }
 
 python_test() {
-	nosetests --with-coverage --cover-package qtconsole qtconsole || die
+	# jupyter qtconsole --generate-config ... jupyter-qtconsole: cannot connect to X server
+	# ERROR
+	sed \
+		-e 's:test_generate_config:_&:g' \
+		-i qtconsole/tests/test_app.py || die
+	virtx nosetests --verbosity=2 qtconsole
 }
 
 python_install_all() {
