@@ -15,7 +15,7 @@ SLOT="0"
 LICENSE="BSD"
 KEYWORDS=""
 
-DEPEND="sci-libs/itk"
+DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_install() {
