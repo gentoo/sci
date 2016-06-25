@@ -5,7 +5,7 @@
 
 NeuroGentoo is a persistent fork of the science overlay, this overlay provides *every* software package provided by [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay) - including many neuroscience ebuilds.
 Additionally this repository provides a number of ebuilds not yet included by Gentoo Science.
-This repository is the cornerstone of the NeuroGentoo initiative, which was first described on [Chymeric Tutorials](http://tutorials.chymera.eu/blog/2013/10/02/neurogentoo/).
+This repository is the cornerstone of the NeuroGentoo initiative, which was first described [on Chymeric Tutorials](http://tutorials.chymera.eu/blog/2013/10/02/neurogentoo/).
 
 ##Install
 
