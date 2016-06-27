@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>h.chr@mail.ru</email>
+    <name>Horea Christian</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription lang="en">
+    Dipy is a free and open source software project for computational neuroanatomy, focusing mainly on 
+    diffusion magnetic resonance imaging (dMRI) analysis. It implements a broad range of algorithms for 
+    denoising, registration, reconstruction, tracking, clustering, visualization, and statistical 
+    analysis of MRI data.
+  </longdescription>
+  <upstream>
+    <remote-id type="github">nipy/dipy</remote-id>
+  </upstream>
+</pkgmetadata>
