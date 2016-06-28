@@ -1,7 +1,7 @@
 Patch to bring back setup.py from
 https://github.com/jupyter/testpath/blob/086bd1bd1ec7da1b3dacfed1705c0c99fae231b3/setup.py
 --- /dev/null
-+++ setup.py
++++ b/setup.py
 @@ -0,0 +1,22 @@
 +from distutils.core import setup
 +
@@ -9,7 +9,7 @@ https://github.com/jupyter/testpath/blob/086bd1bd1ec7da1b3dacfed1705c0c99fae231b
 +    readme = f.read()
 +
 +setup(name='testpath',
-+      version='0.1',
++      version='0.3',
 +      description='Test utilities for code working with files and commands',
 +      long_description = readme,
 +      author='Thomas Kluyver',
