@@ -20,3 +20,8 @@ RDEPEND="${DEPEND}"
 
 # installs into /usr/local/bin
 # should not even try to compile bundled gtest
+
+src_prepare(){
+	eapply_user
+	sed -e 's#/usr/local/bin#${EPREFIX}/usr/bin#' -i CMakeLists.txt || die
+}
