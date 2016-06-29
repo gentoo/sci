@@ -35,7 +35,7 @@ src_prepare() {
 	sed \
 		-e 's: -O3 -finline-functions::g' \
 		-i configure.in || die
-	mc configure.in configure.ac
+	mv configure.in configure.ac
 	autotools-utils_src_prepare
 }
 
