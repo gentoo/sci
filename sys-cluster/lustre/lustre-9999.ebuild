@@ -41,6 +41,7 @@ RDEPEND="
 	)
 	"
 DEPEND="${RDEPEND}
+	dev-python/docutils
 	virtual/linux-sources"
 
 REQUIRED_USE="
