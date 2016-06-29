@@ -13,10 +13,13 @@ if [[ $PV = *9999* ]]; then
 	EGIT_BRANCH="master"
 else
 	KEYWORDS="~amd64"
-	EGIT_TAG="${PV}"
+	EGIT_COMMIT="${PV}"
 fi
 
-inherit git-r3 autotools linux-mod toolchain-funcs udev flag-o-matic
+SUPPORTED_KV_MAJOR=4
+SUPPORTED_KV_MINOR=1
+
+inherit git-r3 autotools linux-info linux-mod toolchain-funcs udev flag-o-matic
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
@@ -44,16 +47,13 @@ REQUIRED_USE="
 	client? ( modules )
 	server? ( modules )"
 
-PATCHES=(
-	"${FILESDIR}/0001-LU-8056-libcfs-Support-for-linux-4.2-kernels.patch"
-	"${FILESDIR}/0002-LU-8056-o2iblnd-ib_query_device-removed-in-4.5.patch"
-	"${FILESDIR}/0003-LU-8056-socklnd-NETIF_F_ALL_CSUM-renamed-to-NETIF_F_.patch"
-	"${FILESDIR}/0004-LU-8056-llite-use-inode_lock-to-access-i_mutex.patch"
-	"${FILESDIR}/0005-LU-8056-llite-inode_operations-interface-changed-in-.patch"
-	"${FILESDIR}/0006-LU-8056-llite-POSIX_ACL_XATTR_-ACCESS-DEFAULT-remove.patch"
-	"${FILESDIR}/0007-LU-8056-lloop-fix-bio_for_each_segment_all-for-newer.patch"
-	"${FILESDIR}/0008-Fix-build-error-with-gcc-6.1.patch"
-	)
+pkg_pretend() {
+	KVSUPP=${SUPPORTED_KV_MAJOR}.${SUPPORTED_KV_MINOR}.x
+	if kernel_is gt ${SUPPORTED_KV_MAJOR} ${SUPPORTED_KV_MINOR}; then
+		eerror "Unsupported kernel version! Latest supported one is ${KVSUPP}"
+		die
+	fi
+}
 
 pkg_setup() {
 	filter-mfpmath sse
@@ -65,7 +65,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	if [ ! -z ${#PATCHES[0]} ]; then
+	if [ ${#PATCHES[0]} -ne 0 ]; then
 		epatch ${PATCHES[@]}
 	fi
 	eapply_user
@@ -111,4 +111,6 @@ src_compile() {
 
 src_install() {
 	default
+	newinitd "${FILESDIR}/lnet.initd" lnet
+	newinitd "${FILESDIR}/lustre-client.initd" lustre-client
 }
