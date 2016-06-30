@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,7 +11,7 @@ HOMEPAGE="http://pachterlab.github.io/kallisto/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/pachterlab/kallisto.git"
 
-LICENSE="all-rights-reserved"
+LICENSE="kallisto" # For commercial use contact Office of Technology Licensing, UC Berkeley
 SLOT="0"
 IUSE=""
 
