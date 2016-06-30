@@ -35,7 +35,8 @@ src_prepare() {
 	sed \
 		-e 's: -O3 -finline-functions::g' \
 		-i configure.in || die
-	mv configure.in configure.ac
+	# we patch the configure.in file like sci-biology/exonerate:gentoo does, though it is ugly hack
+	# mv configure.in configure.ac
 	autotools-utils_src_prepare
 }
 
