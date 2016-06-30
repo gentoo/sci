@@ -25,7 +25,3 @@ S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/parafly-r2013-01-21
 src_configure(){
 	./configure --prefix="${EPREFIX}"/usr
 }
-
-src_install(){
-	emake install DESTDIR="${D}"/"${EPREFIX}"
-}
