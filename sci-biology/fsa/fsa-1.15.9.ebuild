@@ -27,6 +27,12 @@ RDEPEND="${DEPEND}"
 # * Home for VM '' does not exist: 
 # * Invalid System VM: 
 
+src_install(){
+	default
+	# avoid file collision with sci-biology/ESTate-0.5
+	mv "${D}"/"${EPREFIX}"/usr/bin/translate "${D}"/"${EPREFIX}"/usr/bin/fsa_translate || die
+}
+
 pkg_postinst(){
 	einfo "Optionally you may want to install sci-biology/mummer and"
 	einfo "sci-biology/exonerate"
