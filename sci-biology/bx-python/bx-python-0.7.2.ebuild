@@ -20,3 +20,5 @@ IUSE=""
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-python/cython[${PYTHON_USEDEP}]"
+
+# has file collision with sci-biology/RSeQC
