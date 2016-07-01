@@ -6,6 +6,8 @@ EAPI=5
 
 inherit perl-module
 
+MY_PV="${PV/./_}"
+
 DESCRIPTION="Perl library of modules to manipulate SwissProt flatfiles"
 HOMEPAGE="http://swissknife.sourceforge.net/"
 SRC_URI="ftp://ftp.ebi.ac.uk/pub/software/swissprot/Swissknife/Swissknife_${PV}.tar.gz"
@@ -23,4 +25,4 @@ RDEPEND="${DEPEND}
 
 SRC_TEST=no
 
-S="${WORKDIR}"/Swissknife_${PV}
+S="${WORKDIR}"/Swissknife_${MY_PV}
