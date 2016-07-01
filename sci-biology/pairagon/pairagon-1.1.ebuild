@@ -31,8 +31,7 @@ src_compile(){
 }
 
 src_install(){
-	# emake DESTDIR="${D}"/usr install
-	dobin bin/*
+	dobin bin/pairagon bin/pairameter_estimate bin/Pairagon.pl bin/alignmentConvert.pl
 	dodoc README
 	perl_set_version
 	insinto /usr/share/pairagon
