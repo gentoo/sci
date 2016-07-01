@@ -35,6 +35,10 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}"/BRAKER_v"${PV}"
 
+src_prepare(){
+	sed -e 's/^use helpMod/use BRAKER::helpMod/' -i braker.pl || die
+}
+
 src_install(){
 	perl_set_version
 	dobin *.pl
