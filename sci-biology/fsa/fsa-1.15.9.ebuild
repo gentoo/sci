@@ -10,10 +10,24 @@ DESCRIPTION="Distance-based probabilistic multiple sequence alignment algo for D
 HOMEPAGE="http://fsa.sourceforge.net"
 SRC_URI="http://downloads.sourceforge.net/project/fsa/"${P}".tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-java/java-config"
 RDEPEND="${DEPEND}"
+
+# needs java for fsa-1.15.9/display/ processing:
+# jar cmf mad/manifest.mf mad.jar \
+#         -C . mad \
+#         -C . JMF-2.1.1e/lib/jmf.jar \
+#         -C . jai-1_1_3/lib/jai_core.jar \
+#         -C . jai-1_1_3/lib/jai_codec.jar
+# * Home for VM '' does not exist: 
+# * Invalid System VM: 
+
+pkg_postinst(){
+	einfo "Optionally you may want to install sci-biology/mummer and"
+	einfo "sci-biology/exonerate"
+}
