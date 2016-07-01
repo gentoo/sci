@@ -24,7 +24,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	virtual/perl-Scalar-List-Utils
+	dev-perl/Scalar-Util-Numeric
 	sci-biology/augustus"
 # Current version of BRAKER1 1.8 requires GeneMark-ET v.4.29 (or up).
 
