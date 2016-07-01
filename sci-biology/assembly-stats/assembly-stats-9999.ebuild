@@ -23,3 +23,9 @@ src_prepare(){
 	eapply_user
 	sed -e 's#/usr/local/bin#${EPREFIX}/usr/bin#' -i CMakeLists.txt || die
 }
+
+src_install(){
+	default
+	mv "${D}"/usr/bin/assembly-stats "${D}"/"${EPREFIX}"/usr/bin/ || die
+	rmdir "${D}"/usr/bin || die
+}
