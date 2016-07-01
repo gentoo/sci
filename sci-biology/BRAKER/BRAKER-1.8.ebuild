@@ -33,7 +33,7 @@ RDEPEND="${DEPEND}
 # this causes:
 # [blocks B      ] <perl-core/Scalar-List-Utils-1.380.0 ("<perl-core/Scalar-List-Utils-1.380.0" is blocking virtual/perl-Scalar-List-Utils-1.380.0)
 
-S="${WORKDIR}"
+S="${WORKDIR}"/BRAKER_v"${PV}"
 
 src_install(){
 	perl_set_version
