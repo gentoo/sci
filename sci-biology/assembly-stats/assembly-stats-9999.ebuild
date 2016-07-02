@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=5
 
 inherit git-r3 cmake-utils
 
@@ -18,5 +18,12 @@ IUSE=""
 DEPEND=">=dev-cpp/gtest-1.7.0"
 RDEPEND="${DEPEND}"
 
-# installs into /usr/local/bin
-# should not even try to compile bundled gtest
+# TODO: should not even try to compile bundled gtest
+src_prepare(){
+	sed -e "s#/usr/local/bin#${EPREFIX}/usr/bin#" -i CMakeLists.txt || die
+}
+
+src_install(){
+	dobin ../assembly-stats-9999_build/assembly-stats
+	dodoc README.md
+}

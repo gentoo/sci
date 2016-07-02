@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -23,5 +23,5 @@ S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/parafly-r2013-01-21
 # maybe we once the CXXFLAGS and LDFLAGS mentioned
 #   in https://github.com/trinityrnaseq/trinityrnaseq/issues/65 ?
 src_configure(){
-	./configure --prefix=/usr
+	./configure --prefix="${EPREFIX}"/usr
 }

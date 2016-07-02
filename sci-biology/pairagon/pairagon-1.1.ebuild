@@ -23,6 +23,7 @@ S="${WORKDIR}"/pairagon
 
 src_prepare(){
 	sed -e 's:src/get-glib-flags.sh:#src/get-glib-flags.sh:; s:-Wall -Werror::' -i Makefile
+	sed -e 's/^use Alignment/use pairagon::Alignment/' -i bin/alignmentConvert.pl || die
 }
 
 src_compile(){
@@ -30,12 +31,11 @@ src_compile(){
 }
 
 src_install(){
-	# emake DESTDIR="${D}"/usr install
-	dobin bin/*
+	dobin bin/pairagon bin/pairameter_estimate bin/Pairagon.pl bin/alignmentConvert.pl
 	dodoc README
 	perl_set_version
 	insinto /usr/share/pairagon
 	doins parameters/*
-	insinto ${VENDOR_LIB}
+	insinto ${VENDOR_LIB}/${PN}
 	doins lib/perl5/Alignment.pm
 }

@@ -33,7 +33,7 @@ sci-physics
 sci-visualization
 sys-cluster
 sys-devel
-sys-infiniband
+sys-fabric
 virtual
 x11-libs
 x11-misc

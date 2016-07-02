@@ -22,4 +22,4 @@ IUSE=""
 # http://www.mathworks.com/products/compiler/mcr/index.html
 DEPEND=""
 RDEPEND="${DEPEND}
-	sci-biology/ncbi-tools+"
+	sci-biology/ncbi-tools++"

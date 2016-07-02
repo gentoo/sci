@@ -24,7 +24,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	virtual/perl-Scalar-List-Utils
+	dev-perl/Scalar-Util-Numeric
 	sci-biology/augustus"
 # Current version of BRAKER1 1.8 requires GeneMark-ET v.4.29 (or up).
 
@@ -33,7 +33,11 @@ RDEPEND="${DEPEND}
 # this causes:
 # [blocks B      ] <perl-core/Scalar-List-Utils-1.380.0 ("<perl-core/Scalar-List-Utils-1.380.0" is blocking virtual/perl-Scalar-List-Utils-1.380.0)
 
-S="${WORKDIR}"
+S="${WORKDIR}"/BRAKER_v"${PV}"
+
+src_prepare(){
+	sed -e 's/^use helpMod/use BRAKER::helpMod/' -i braker.pl || die
+}
 
 src_install(){
 	perl_set_version

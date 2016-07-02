@@ -1,5 +1,5 @@
-move sys-infiniband/openib-diags sys-infiniband/infiniband-diags
-move sys-infiniband/openib-osm sys-infiniband/opensm
-move sys-infiniband/openib-perf sys-infiniband/perftest
-move sys-infiniband/openib-srptools sys-infiniband/srptools
-move sys-infiniband/openib-mvapich2 sys-cluster/mvapich2
+move sys-fabric/openib-diags sys-fabric/infiniband-diags
+move sys-fabric/openib-osm sys-fabric/opensm
+move sys-fabric/openib-perf sys-fabric/perftest
+move sys-fabric/openib-srptools sys-fabric/srptools
+move sys-fabric/openib-mvapich2 sys-cluster/mvapich2

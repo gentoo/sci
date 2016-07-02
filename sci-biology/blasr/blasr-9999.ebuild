@@ -1,10 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
-
-MY_HASH=885c33a
 
 inherit git-r3
 
@@ -16,13 +14,21 @@ EGIT_REPO_URI="https://github.com/PacificBiosciences/blasr.git"
 
 LICENSE="blasr"
 SLOT="0"
-IUSE=""
+IUSE="hdf5"
 KEYWORDS=""
 
-DEPEND="sci-libs/hdf5[cxx]"
+DEPEND="hdf5? ( >=sci-libs/hdf5-1.8.12[cxx] )" # needs H5Cpp.h
 RDEPEND=""
 
-S="${WORKDIR}/blasr-${MY_HASH}"
+S="${WORKDIR}/blasr-9999"
+
+src_configure(){
+	if use hdf5; then \
+		python ./configure.py --shared --sub --no-pbbam HDF5_INCLUDE="${EPREFIX}"/usr/include HDF5_LIB="${EPREFIX}"/usr/lib64 || die
+	else
+		python ./configure.py --shared --sub --no-pbbam || die
+	fi
+}
 
 src_install() {
 	dodir /usr/bin

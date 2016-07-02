@@ -21,14 +21,16 @@ IUSE="test"
 DEPEND="
 	test? ( dev-python/nose[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	"
+	dev-python/cython[${PYTHON_USEDEP}]
+"
 RDEPEND="
-	dev-python/cython
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	"
+"
 
-src_test() {
-	emake test-code
+python_test() {
+	distutils_install_for_testing
+	cd "${TEST_DIR}"/lib || die
+	nosetests || die
 }
