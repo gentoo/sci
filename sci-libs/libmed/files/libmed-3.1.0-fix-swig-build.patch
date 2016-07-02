@@ -1,0 +1,19 @@
+Fix wierd typedefs macroses in the header witch made swing to fail
+
+diff --git a/include/H5public_extract.h.in b/include/H5public_extract.h.in
+index ba07342..28318f4 100644
+--- a/include/H5public_extract.h.in
++++ b/include/H5public_extract.h.in
+@@ -28,9 +28,9 @@ extern "C" {
+ @HDF5_TYPEDEF_HID_T@
+ @HDF5_TYPEDEF_HSIZE_T@
+ 
+-#typedef int herr_t;
+-#typedef int hid_t;
+-#typedef unsigned long long   hsize_t;
++typedef int herr_t;
++typedef int hid_t;
++typedef unsigned long long   hsize_t;
+ 
+ #ifdef __cplusplus
+ }
