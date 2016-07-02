@@ -9,6 +9,7 @@ env:
     - PORTAGE_VER="2.3.0"
 before_install:
     - sudo apt-get -qq update
+    - pip install lxml
 before_script:
     - mkdir travis-overlay
     - mv !(travis-overlay) travis-overlay/
