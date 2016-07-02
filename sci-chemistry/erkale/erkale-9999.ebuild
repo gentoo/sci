@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils flag-o-matic git-r3 multibuild toolchain-funcs
 
@@ -27,9 +27,9 @@ DEPEND="${DEPEND}
 "
 
 MULTIBUILD_VARIANTS=( serial )
-use openmp && MULTIBUILD_VARIANTS+=( omp )
 
 src_prepare() {
+	use openmp && MULTIBUILD_VARIANTS+=( omp )
 	append-cxxflags "-DARMA_DONT_USE_ATLAS -DARMA_DONT_USE_WRAPPER"
 	cmake-utils_src_prepare
 }
