@@ -1,17 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<!--
-	<maintainer type="project">
-		<email>sci@gentoo.org</email>
-		<name>Gentoo Science Project</name>
-	</maintainer>
-	<maintainer type="project">
-		<email>java@gentoo.org</email>
-	        <name>Java</name>
-	</maintainer>
-	-->
-	<maintainer>
+	<maintainer type="person">
 		<email>harald.weiner@jku.at</email>
 		<name>Harald Weiner</name>
 	</maintainer>
@@ -32,4 +22,3 @@
 		<flag name="R">Enable support for dev-lang/R</flag>
 	</use>
 </pkgmetadata>
-                          
