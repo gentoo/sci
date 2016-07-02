@@ -23,7 +23,7 @@ before_script:
     - echo "portage::250:portage,travis" >> /etc/group
     - mkdir -p /etc/portage /usr/portage/distfiles
     - wget "https://www.gentoo.org/dtd/metadata.dtd" -O /usr/portage/distfiles/metadata.dtd
-    - tar xzf portage-${PORTAGE_VER}.tar.gz
+    - tar xzf portage-${PORTAGE_VER}.tar.gz && mv portage-portage-${PORTAGE_VER} portage-${PORTAGE_VER}
     - tar xzf portage-tree.tar.gz -C /usr/portage --strip-components=1
     - cp portage-${PORTAGE_VER}/cnf/repos.conf /etc/portage/
     - ln -s /usr/portage/profiles/base/ /etc/portage/make.profile
