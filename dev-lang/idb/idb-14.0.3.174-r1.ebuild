@@ -20,8 +20,7 @@ KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 DEPEND=">=dev-libs/intel-common-13.1[compiler,${MULTILIB_USEDEP}]"
 RDEPEND="${DEPEND}
-	virtual/jre
-	eclipse? ( dev-util/eclipse-sdk )"
+	virtual/jre"
 
 INTEL_BIN_RPMS=( idb )
 INTEL_DAT_RPMS=( idb-common idbcdt )
