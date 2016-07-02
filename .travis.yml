@@ -15,7 +15,7 @@ before_script:
     - mv .git travis-overlay/
     - wget "https://raw.githubusercontent.com/mrueg/repoman-travis/master/.travis.yml" -O .travis.yml.upstream
     - wget "https://raw.githubusercontent.com/mrueg/repoman-travis/master/spinner.sh"
-    - wget "https://github.com/gentoo/portage/archive/v${PORTAGE_VER}.tar.gz" -O portage-${PORTAGE_VER}.tar.gz
+    - wget "https://github.com/gentoo/portage/archive/portage-${PORTAGE_VER}.tar.gz" -O portage-${PORTAGE_VER}.tar.gz
     - wget "https://github.com/gentoo-mirror/gentoo/archive/master.tar.gz" -O portage-tree.tar.gz
     - sudo chmod a+rwX /etc/passwd /etc/group /etc /usr spinner.sh
     - chmod a+rwx spinner.sh
