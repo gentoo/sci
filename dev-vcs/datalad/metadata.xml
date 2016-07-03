@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>horea.christ@gmail.com</email>
+    <name>Horea Christian</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription lang="en">
+    DataLad aims to provide access to scientific data available from various
+    sources through a single convenient interface and integrated with your
+    software package managers.
+  </longdescription>
+  <upstream>
+    <remote-id type="github">datalad/datalad</remote-id>
+  </upstream>
+</pkgmetadata>
