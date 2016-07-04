@@ -37,6 +37,10 @@ RDEPEND="
 	dev-python/msgpack[${PYTHON_USEDEP}]
 	dev-vcs/git-annex"
 
-src_test() {
-	emake test-code
+python_test() {
+	git config --global user.name "TESTING"; \
+        git config --global user.email "TESTING@example.com"
+	distutils_install_for_testing
+	#cd "${TEST_DIR}"/lib || die
+	nosetests || die
 }
