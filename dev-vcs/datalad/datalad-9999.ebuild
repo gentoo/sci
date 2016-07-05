@@ -38,8 +38,8 @@ RDEPEND="
 	dev-vcs/git-annex"
 
 python_test() {
-	git config --global user.name "TESTING"; \
-        git config --global user.email "TESTING@example.com"
+	git config user.name "TESTING"
+	git config user.email "TESTING@example.com"
 	distutils_install_for_testing
 	#cd "${TEST_DIR}"/lib || die
 	nosetests || die
