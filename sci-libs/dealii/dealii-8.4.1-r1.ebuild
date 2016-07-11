@@ -79,6 +79,7 @@ src_configure() {
 		-DDEAL_II_LIBRARY_RELDIR="$(get_libdir)"
 		-DDEAL_II_SHARE_RELDIR="share/${PN}"
 		-DDEAL_II_DOCREADME_RELDIR="share/doc/${P}"
+		-DDEAL_II_DOCHTML_RELDIR="share/doc/${P}/html"
 		-DDEAL_II_EXAMPLES_RELDIR="share/doc/${P}/examples"
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
