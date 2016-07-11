@@ -24,3 +24,10 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/ncbi-tools++"
 S="${WORKDIR}"/FGAP_1_8_1_LINUX64b
+
+src_install(){
+	dobin run_fgap.sh fgap
+	dodoc README
+	insinto /usr/share/"${PN}"/sample_data
+	doins sample_data/*.fasta
+}
