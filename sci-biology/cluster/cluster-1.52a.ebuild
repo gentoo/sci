@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Clustering software for microarray analysis"
+DESCRIPTION="Hierarchical, k-means, k-medians clustering for expression/microarray analysis"
 HOMEPAGE="http://bonsai.hgc.jp/~mdehoon/software/cluster
 	http://bonsai.hgc.jp/~mdehoon/software/cluster/software.htm#ctv"
 SRC_URI="${P}.tar.gz"
