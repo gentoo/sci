@@ -18,7 +18,7 @@ if [[ $PV = *9999* ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
-		test? ( http://gerrit.gromacs.org/download/regressiontests-${PV}.tar.gz )"
+		test? ( http://gerrit.gromacs.org/download/regressiontests-${PV/_/-}.tar.gz )"
 	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 fi
 
@@ -32,7 +32,7 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-IUSE="X blas cuda +doc -double-precision +fftw lapack mkl mpi +offensive openmp +single-precision test +threads +tng ${ACCE_IUSE}"
+IUSE="X blas cuda +doc -double-precision +fftw +hwloc lapack mkl mpi +offensive openmp +single-precision test +threads +tng ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -43,6 +43,7 @@ CDEPEND="
 	blas? ( virtual/blas )
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 )
 	fftw? ( sci-libs/fftw:3.0 )
+	hwloc? ( sys-apps/hwloc )
 	lapack? ( virtual/lapack )
 	mkl? ( sci-libs/mkl )
 	mpi? ( virtual/mpi )
@@ -149,15 +150,13 @@ src_configure() {
 		-DGMX_EXTERNAL_LAPACK=$(usex lapack)
 		-DGMX_OPENMP=$(usex openmp)
 		-DGMX_COOL_QUOTES=$(usex offensive)
-		-DGMX_EXTERNAL_BOOST=$(usex boost)
 		-DGMX_USE_TNG=$(usex tng)
 		-DGMX_BUILD_MANUAL=$(usex doc)
+		-DGMX_HWLOC=$(usex hwloc)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_SIMD="$acce"
 		-DGMX_LIB_INSTALL_DIR="$(get_libdir)"
 		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
-		-DGMX_X86_AVX_GCC_MASKLOAD_BUG=OFF
-		-DGMX_USE_GCC44_BUG_WORKAROUND=OFF
 		-DBUILD_TESTING=OFF
 		-DGMX_BUILD_UNITTESTS=OFF
 		${extra}
@@ -179,7 +178,6 @@ src_configure() {
 			-DGMX_MPI=OFF
 			-DGMX_THREAD_MPI=$(usex threads)
 			"${cuda[@]}"
-			-DGMX_OPENMM=OFF
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
 			-DGMX_BINARY_SUFFIX="${suffix}"
 			-DGMX_LIBS_SUFFIX="${suffix}"
