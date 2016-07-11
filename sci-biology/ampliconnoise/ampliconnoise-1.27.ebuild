@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="Noise removal from pyrosequenced amplicons"
 HOMEPAGE="http://code.google.com/p/ampliconnoise/"
@@ -15,3 +15,16 @@ LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
+
+S="${WORKDIR}/AmpliconNoiseV1.27"
+
+src_compile(){
+	emake
+	cd ../DiversityEstimates || die
+	emake
+}
+
+src_install(){
+	default
+	dodoc "${WORKDIR}"/TutorialV1.22/Tutorial.ppt "${WORKDIR}"/TutorialV1.22/SmallTwins.*
+}
