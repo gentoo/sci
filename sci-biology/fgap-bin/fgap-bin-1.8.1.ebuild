@@ -23,3 +23,4 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/ncbi-tools++"
+S="${WORKDIR}"/FGAP_1_8_1_LINUX64b
