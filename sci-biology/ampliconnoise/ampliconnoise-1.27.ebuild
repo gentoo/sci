@@ -13,7 +13,7 @@ SRC_URI="
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 S="${WORKDIR}/AmpliconNoiseV1.27"
