@@ -35,8 +35,8 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
 	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 c++11 +debug doc +examples
-	hdf5 +lapack metis mpi muparser opencascade netcdf p4est parameter_gui
-	petsc +sparse static-libs +tbb trilinos
+	+gsl hdf5 +lapack metis mpi muparser opencascade netcdf p4est petsc
+	+sparse static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -48,6 +48,7 @@ RDEPEND="dev-libs/boost
 	app-arch/bzip2
 	sys-libs/zlib
 	arpack? ( sci-libs/arpack[mpi=] )
+	gsl? ( sci-libs/gsl )
 	hdf5? ( sci-libs/hdf5[mpi=] )
 	lapack? ( virtual/lapack )
 	metis? ( >=sci-libs/parmetis-4 )
@@ -56,7 +57,6 @@ RDEPEND="dev-libs/boost
 	netcdf? ( sci-libs/netcdf-cxx:0 )
 	opencascade? ( sci-libs/opencascade:* )
 	p4est? ( sci-libs/p4est[mpi] )
-	parameter_gui? ( dev-qt/qtgui:4 )
 	petsc? ( sci-mathematics/petsc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
@@ -89,6 +89,7 @@ src_configure() {
 		$(cmake-utils_use cpu_flags_x86_sse2 DEAL_II_HAVE_SSE2)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
 		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
+		$(cmake-utils_use gsl DEAL_II_WITH_GSL)
 		$(cmake-utils_use hdf5 DEAL_II_WITH_HDF5)
 		$(cmake-utils_use lapack DEAL_II_WITH_LAPACK)
 		$(cmake-utils_use metis DEAL_II_WITH_METIS)
@@ -98,7 +99,6 @@ src_configure() {
 		-DOPENCASCADE_DIR="${CASROOT}"
 		$(cmake-utils_use opencascade DEAL_II_WITH_OPENCASCADE)
 		$(cmake-utils_use p4est DEAL_II_WITH_P4EST)
-		$(cmake-utils_use parameter_gui DEAL_II_COMPONENT_PARAMETER_GUI)
 		$(cmake-utils_use petsc DEAL_II_WITH_PETSC)
 		$(cmake-utils_use sparse DEAL_II_WITH_UMFPACK)
 		$(cmake-utils_use !static-libs BUILD_SHARED_LIBS)
