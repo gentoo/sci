@@ -5,7 +5,8 @@
 EAPI=5
 
 DESCRIPTION="Clustering software for microarray analysis"
-HOMEPAGE="http://bonsai.ims.u-tokyo.ac.jp/~mdehoon/software/cluster/software.htm#ctv"
+HOMEPAGE="http://bonsai.hgc.jp/~mdehoon/software/cluster
+	http://bonsai.hgc.jp/~mdehoon/software/cluster/software.htm#ctv"
 SRC_URI="${P}.tar.gz"
 
 LICENSE="Eisen"
