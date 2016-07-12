@@ -15,7 +15,7 @@ SRC_URI="https://github.com/samtools/htsjdk/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="" # SANDBOX VIOLATION
 
 CDEPEND="dev-java/commons-jexl:2
 	dev-java/commons-compress:0
@@ -31,9 +31,12 @@ EANT_NEEDS_TOOLS="true"
 JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_GENTOO_CLASSPATH="commons-jexl-2,commons-compress,commons-logging"
 
-java_prepare() {
+java_prepare(){
 	default
-	rm -v lib/{commons-compress,commons-jexl,commons-logging}*.jar || die
+}
+
+src_compile(){
+	./gradlew build || die
 }
 
 src_install() {
