@@ -20,23 +20,27 @@ if [[ ${PV} = *9999* ]]; then
 	SRC_URI=""
 	KEYWORDS=""
 else
-	SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.gz
-		doc? ( https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}-offline_documentation.tar.gz )"
+	MY_PV="${PV//0_rc/rc}"
+	MY_P="${PN}-${MY_PV}"
+	SRC_URI="https://github.com/dealii/dealii/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz
+		doc? (
+			https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${MY_P}-offline_documentation.tar.gz
+			-> ${P}-offline_documentation.tar.gz
+			)"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-	S="${WORKDIR}/deal.II"
+	S="${WORKDIR}/${PN}-${MY_PV}"
 fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 +debug doc +examples hdf5
-	+lapack mesh_converter metis mpi mumps netcdf p4est parameter_gui petsc
-	+sparse static-libs +tbb trilinos
+	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 c++11 +debug doc +examples
+	hdf5 +lapack metis mpi muparser opencascade netcdf p4est parameter_gui
+	petsc +sparse static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 REQUIRED_USE="
-	mumps? ( mpi lapack )
 	p4est? ( mpi )
 	trilinos? ( mpi )"
 
@@ -48,8 +52,9 @@ RDEPEND="dev-libs/boost
 	lapack? ( virtual/lapack )
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
-	mumps? ( sci-libs/mumps[mpi] )
+	muparser? ( dev-cpp/muParser )
 	netcdf? ( sci-libs/netcdf-cxx:0 )
+	opencascade? ( sci-libs/opencascade:* )
 	p4est? ( sci-libs/p4est[mpi] )
 	parameter_gui? ( dev-qt/qtgui:4 )
 	petsc? ( sci-mathematics/petsc[mpi=] )
@@ -66,30 +71,32 @@ src_configure() {
 	local CMAKE_BUILD_TYPE=$(usex debug DebugRelease Release)
 
 	local mycmakeargs=(
+		-DDEAL_II_PACKAGE_VERSION=9999
 		-DDEAL_II_ALLOW_AUTODETECTION=OFF
 		-DDEAL_II_ALLOW_BUNDLED=OFF
 		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF
 		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
-		-DDEAL_II_COMPONENT_COMPAT_FILES=OFF
-		-DDEAL_II_CMAKE_MACROS_RELDIR=share/${PN}/cmake/macros
-		-DDEAL_II_DOCHTML_RELDIR=share/doc/${PF}/html
-		-DDEAL_II_DOCREADME_RELDIR=share/doc/${PF}/
-		-DDEAL_II_EXAMPLES_RELDIR=share/doc/${PF}/examples
-		-DDEAL_II_LIBRARY_RELDIR=$(get_libdir)
+		-DDEAL_II_LIBRARY_RELDIR="$(get_libdir)"
+		-DDEAL_II_SHARE_RELDIR="share/${PN}"
+		-DDEAL_II_DOCREADME_RELDIR="share/doc/${P}"
+		-DDEAL_II_DOCHTML_RELDIR="share/doc/${P}/html"
+		-DDEAL_II_EXAMPLES_RELDIR="share/doc/${P}/examples"
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
+		$(cmake-utils_use c++11 DEAL_II_WITH_CXX11)
 		$(cmake-utils_use cpu_flags_x86_avx DEAL_II_HAVE_AVX)
 		$(cmake-utils_use cpu_flags_x86_sse2 DEAL_II_HAVE_SSE2)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
 		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
 		$(cmake-utils_use hdf5 DEAL_II_WITH_HDF5)
 		$(cmake-utils_use lapack DEAL_II_WITH_LAPACK)
-		$(cmake-utils_use mesh_converter DEAL_II_COMPONENT_MESH_CONVERTER)
 		$(cmake-utils_use metis DEAL_II_WITH_METIS)
 		$(cmake-utils_use mpi DEAL_II_WITH_MPI)
-		$(cmake-utils_use mumps DEAL_II_WITH_MUMPS)
+		$(cmake-utils_use muparser DEAL_II_WITH_MUPARSER)
 		$(cmake-utils_use netcdf DEAL_II_WITH_NETCDF)
+		-DOPENCASCADE_DIR="${CASROOT}"
+		$(cmake-utils_use opencascade DEAL_II_WITH_OPENCASCADE)
 		$(cmake-utils_use p4est DEAL_II_WITH_P4EST)
 		$(cmake-utils_use parameter_gui DEAL_II_COMPONENT_PARAMETER_GUI)
 		$(cmake-utils_use petsc DEAL_II_WITH_PETSC)
@@ -103,8 +110,6 @@ src_configure() {
 }
 
 src_install() {
-	DOCS=( README )
-
 	if use doc && [[ ${PV} != *9999* ]]; then
 		# copy missing images to the build directory:
 		cp -r "${WORKDIR}"/doc/doxygen/deal.II/images \

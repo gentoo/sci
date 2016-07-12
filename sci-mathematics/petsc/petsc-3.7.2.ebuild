@@ -64,14 +64,16 @@ DEPEND="${RDEPEND}
 # -j1. The underlying build system does automatically invoke a parallel
 # build. This might not be what you want, but *hey* not your choice.
 #
-MAKEOPTS="${MAKEOPTS} -j1"
+# V=1 enables verbose output with full compiler and linker invocation
+#
+MAKEOPTS="${MAKEOPTS} -j1 V=1"
 
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${P%_*}-disable-rpath.patch \
-		"${FILESDIR}"/${P%_*}-fix_sandbox_violation.patch
+		"${FILESDIR}"/${PN}-3.7.0-disable-rpath.patch \
+		"${FILESDIR}"/${PN}-3.7.0-fix_sandbox_violation.patch
 
 	sed -i -e 's%/usr/bin/env python%/usr/bin/env python2%' configure || die
 }
@@ -135,8 +137,9 @@ src_configure() {
 	# run petsc configure script
 	econf \
 		scrollOutput=1 \
-		CFLAGS="${CFLAGS}" \
-		CXXFLAGS="${CXXFLAGS}" \
+		FFLAGS="${FFLAGS} -fPIC" \
+		CFLAGS="${CFLAGS} -fPIC" \
+		CXXFLAGS="${CXXFLAGS} -fPIC" \
 		LDFLAGS="${LDFLAGS}" \
 		--with-shared-libraries \
 		--with-single-library \
@@ -227,6 +230,11 @@ src_install() {
 	sed -i \
 		-e "s:usr/lib:usr/$(get_libdir):g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h || die
+
+	# fix the include path of petscvariables in lib/${PN}/conf/variables
+	# bug #559172
+	sed -i -e 's#lib/petsc/conf/#conf/#g' \
+		"${ED}"/usr/include/${PN}/conf/variables || die
 
 	# add information about installation directory and
 	# PETSC_ARCH to environmental variables
