@@ -22,6 +22,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 RDEPEND="
 	>=dev-python/numpy-1.8.0[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
 	>=sci-libs/fftw-3.3.3
 	>=dev-python/cython-0.19.1[${PYTHON_USEDEP}]
 	"
