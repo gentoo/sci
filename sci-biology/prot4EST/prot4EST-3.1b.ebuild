@@ -25,6 +25,7 @@ DEPEND="sci-biology/emboss
 	dev-perl/Statistics-Descriptive
 	dev-perl/Tie-IxHash
 	dev-perl/Algorithm-Loops"
+	# sci-biology/DECODER
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/"p4e3.1b"
