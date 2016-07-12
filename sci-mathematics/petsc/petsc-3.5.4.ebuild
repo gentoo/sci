@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -69,7 +69,7 @@ MAKEOPTS="${MAKEOPTS} -j1"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P%_*}-disable-rpath.patch
+	epatch "${FILESDIR}"/${PN}-3.5.3-disable-rpath.patch
 	sed -i -e 's%/usr/bin/env python%/usr/bin/env python2%' configure || die
 }
 
