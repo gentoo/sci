@@ -36,7 +36,9 @@ java_prepare(){
 }
 
 src_compile(){
-	./gradlew build || die
+	# work around gradle writing $HOME/.gradle
+	# https://github.com/samtools/htsjdk/issues/660#issuecomment-232155965
+	GRADLE_USER_HOME="${WORKDIR}" ./gradlew build || die
 }
 
 src_install() {
