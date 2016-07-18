@@ -189,9 +189,9 @@ src_install() {
 	numeric-int64-multibuild_foreach_all_abi_variants mkl_add_pc_file
 	mkl_add_alternative_provider
 
-	use abi_x86_64 && ldpath+="$(isdp_get-sdp-edir)/linux/mkl/lib/$(isdp_convert2intel-arch abi_x86_64)"
+	use abi_x86_64 && ldpath+=":$(isdp_get-sdp-edir)/linux/mkl/lib/$(isdp_convert2intel-arch abi_x86_64)"
 	use abi_x86_32 && ldpath+=":$(isdp_get-sdp-edir)/linux/mkl/lib/$(isdp_convert2intel-arch abi_x86_32)"
 
-	echo "${ldpath}" > "${T}"/35mkl || die
+	echo "${ldpath}" > "${T}"/35mkl || die
 	doenvd "${T}"/35mkl
 }
