@@ -1,0 +1,22 @@
+This is a release version.  Permission is granted for the normal 
+use of the program and its output in an academic setting, including
+in publications.  If the program is used to generate data for a 
+publication, please cite this paper:
+
+  G. Lunter and M. Goodson.  Stampy: A statistical algorithm for 
+  sensitive and fast mapping of Illumina sequence reads.  Genome
+  Res. 2011 21:936-939.
+
+The program itself may not be modified in any way, and may not be
+reverse-engineered.
+
+This license does not allow the use of this program for any 
+commercial purpose.  If you wish to use this program for commercial 
+purposes, please contact the author.
+
+No guarantees are given as to the program's correctness, or the 
+accuracy or completeness of its output.  The author accepts no 
+liability for damage or otherwise following from using and 
+interpreting the output of this program.  The software is supplied 
+"as is", without obligation by the author to provide any services 
+or support.

@@ -15,6 +15,8 @@ KEYWORDS=""
 IUSE=""
 
 # Matlab (R2012a) or Octave (3.6.2)
+# fag from sci-biology/fgap-bin needs /usr/local/MATLAB/R2012a/bin/glnx86/libmwi18n.so, which comes from MATLAB
+# export LD_LIBRARY_PATH= /usr/local/MATLAB/R2012a/bin/glnx86
 #
 # Source code (Octave/Matlab): https://sourceforge.net/projects/fgap/files/fgap.m
 
@@ -23,3 +25,11 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/ncbi-tools++"
+S="${WORKDIR}"/FGAP_1_8_1_LINUX64b
+
+src_install(){
+	dobin run_fgap.sh fgap
+	dodoc README
+	insinto /usr/share/"${PN}"/sample_data
+	doins sample_data/*.fasta
+}

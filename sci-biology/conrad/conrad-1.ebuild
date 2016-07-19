@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Gene predictor using ab initio and ad hoc evidence (RNA-Seq, BLAST) on gDNA"
+DESCRIPTION="Ab initio- and ad hoc evidence-based (RNA-Seq, BLAST) gene/ORF predictor"
 HOMEPAGE="http://www.broadinstitute.org/annotation/conrad
 	http://sourceforge.net/projects/conradcrf"
 SRC_URI="http://www.broadinstitute.org/annotation/conrad/conradSrcV1.zip"
@@ -16,17 +16,20 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
+# upstream binaries do not work with oracle-java-8
 RDEPEND="
 	>=virtual/jre-1.5:*
+	<=virtual/jre-1.7:*
 	dev-java/commons-logging
 	>=dev-java/commons-lang-2.1:*
 	dev-java/colt
 	dev-java/dom4j
 	"
 	# spring # see bug #97004
-	# LBFGS
+	# dev-java/LBFGS # LBFGS is a numericla library we use internally for the solver
 DEPEND="${RDEPEND}
 	>=virtual/jdk-1.5:*
+	<=virtual/jdk-1.7:*
 	dev-java/ant-core
 	>=dev-java/jfreechart-1.0.3
 	>=dev-java/jcommon-1.0.6

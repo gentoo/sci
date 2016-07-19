@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit toolchain-funcs
+AUTOTOOLS_AUTORECONF=yes
+
+inherit toolchain-funcs autotools-utils
 
 DESCRIPTION="C/C++ library for working with human genetic variation data"
 HOMEPAGE="http://atgu.mgh.harvard.edu/plinkseq"
@@ -14,15 +16,20 @@ SRC_URI="http://psychgen.u.hpc.mssm.edu/plinkseq_downloads/plinkseq-src-latest.t
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
-DEPEND="sys-libs/zlib"
+DEPEND="sys-libs/zlib
+	dev-libs/protobuf"
 RDEPEND="${DEPEND}"
 
 src_prepare(){
 	sed -e "s/gcc/$(tc-getCC)/g;s/g++/$(tc-getCXX)/g;s/-O3/${CFLAGS}/g" -i config_defs.Makefile || die
 	sed -e "s/= -static/=/g" -i config_defs.Makefile || die
+	rm -rf sources/ext/protobuf-* || die
+	sed -e 's#^all:.*#all: echo "skipping compilation of bundled dev-libs/protobuf"#' -i sources/ext/Makefile || die
+	find . -name \*.proto | while read f; do d=`dirname $f`; pushd $d; protoc --cpp_out=. *.proto || exit 255; popd; done || die
+	autotools-utils_src_prepare
 }
 
 src_install(){

@@ -53,7 +53,7 @@ src_install(){
 	dobin TransDecoder.Predict TransDecoder.LongOrfs
 	insinto /usr/share/${PN}/util
 	doins util/*.pl
-	chmod -R a+rx "${D}"/usr/share/${PN}/util
+	chmod -R a+rx "${D}"/"${EPREFIX}"/usr/share/${PN}/util || die
 	# zap the bundled cdhit binaries copied from transdecoder_plugins/cdhit/ to util/bin
 	rm -rf util/bin
 	#
@@ -67,6 +67,10 @@ src_install(){
 	# *      /usr/bin/TiedHash.pm
 	#
 	perl_set_version
+	# this is broken and installs into
+	# /scratch/mmokrejs/gentoo/var/tmp/portage/sci-biology/TransDecoder-2.1.0/image/scratch/mmokrejs/gentoo/scratch/mmokrejs/gentoo/usr/lib/perl5/vendor_perl/
+	# instead of
+	# /scratch/mmokrejs/gentoo/var/tmp/portage/sci-biology/TransDecoder-2.1.0/image/scratch/mmokrejs/gentoo/usr/lib/perl5/vendor_perl/
 	insinto ${VENDOR_LIB}/${PN}
 	doins PerlLib/*.pm
 	# dodoc Release.Notes

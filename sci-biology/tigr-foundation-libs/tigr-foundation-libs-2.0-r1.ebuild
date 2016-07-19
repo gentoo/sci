@@ -26,5 +26,7 @@ src_prepare(){
 }
 
 src_install(){
-	emake install DESTDIR="${D}/usr"
+	emake install DESTDIR="${D}/${EPREFIX}"/usr # Makefile does not respect DESTDIR
+	mkdir -p "${D}/${EPREFIX}" || die
+	mv "${D}"/usr "${D}/${EPREFIX}"/ || die
 }
