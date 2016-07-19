@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,7 +13,7 @@ inherit distutils-r1
 
 DESCRIPTION="Neuroimaging in Python: Pipelines and Interfaces"
 HOMEPAGE="http://nipy.sourceforge.net/nipype/"
-SRC_URI="https://github.com/nipy/nipype/archive/0.11.0.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/nipy/nipype/archive/{PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
