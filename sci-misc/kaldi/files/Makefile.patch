@@ -1,5 +1,5 @@
---- Makefile.orig	2015-11-06 18:43:31.000000000 -0400
-+++ Makefile	2015-11-17 20:15:14.452502675 -0400
+--- src/Makefile.orig	2015-11-06 18:43:31.000000000 -0400
++++ src/Makefile	2015-11-17 20:15:14.452502675 -0400
 @@ -30,7 +30,7 @@
  
  # Reset the default goal, so that the all target will become default
