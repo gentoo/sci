@@ -9,7 +9,7 @@ inherit eutils
 MY_PV="3.1b2"
 DESCRIPTION="Sequence analysis using profile hidden Markov models"
 HOMEPAGE="http://hmmer.janelia.org/"
-SRC_URI="ftp://selab.janelia.org/pub/software/hmmer3/"${MY_PV}"/"${PN}"-"${MY_PV}".tar.gz"
+SRC_URI="http://eddylab.org/software/hmmer3/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

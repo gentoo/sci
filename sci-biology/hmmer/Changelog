@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/squiz
+# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  22 Jul 2016 Bertrand Néron <freeh4cker@gmail.com> hmmer-3.1_beta2,
+	update SRC_URI
+
