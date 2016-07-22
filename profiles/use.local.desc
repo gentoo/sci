@@ -37,7 +37,6 @@ dev-libs/intel-common:compiler - Install the libraries needed for the icc and if
 dev-libs/intel-common:mic - Install the libraries needed for supporting Intel Many Integrated Core (Xeon Phi)
 dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
-dev-ml/zarith:mpir - Use sci-libs/mpir for arbitrary precision integer arithmetic
 dev-python/ffnet:matplotlib - Use matplotlib for drawing
 dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
 dev-tex/pythontex:highlighting - PLEASE FIX MY DESCRIPTION
@@ -60,6 +59,7 @@ sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plot
 sci-astronomy/scamp:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
 sci-astronomy/sextractor:modelfit - Enable profile model fitting, needs sci-libs/atlas and sci-libs/fftw
 sci-astronomy/zpeg:gdl - Install GDL/IDL plotting routines
+sci-biology/abyss:misc-haskell - build abyss-samtobreak tool, pull in haskell toolchain
 sci-biology/bru2nii:gui - Build graphical user interface
 sci-biology/discrover:cairo - Use Cairo for sequence logo plotting capabilities
 sci-biology/discrover:dreme - Enable usage of DREME from the MEME package for seeding
@@ -69,7 +69,6 @@ sci-biology/discrover:rmathlib - Link to the standalone Rmathlib for statistical
 sci-biology/estscan:icc - Undocumented USE
 sci-biology/estscan:ifc - Undocumented USE
 sci-biology/exonerate-gff3:utils - Unknown
-sci-biology/hmmer:pvm - Add support for parallel virtual machine (sys-cluster/pvm)
 sci-biology/ncbi-blast+:boost - Undocumented USE
 sci-biology/ncbi-blast+:cppunit - Undocumented USE
 sci-biology/ncbi-blast+:freetype - Undocumented USE
@@ -97,14 +96,6 @@ sci-chemistry/gamess:neo - Enable NEO for nuclear basis support
 sci-chemistry/gamess:pax_kernel - Make this package work on PAX kernels
 sci-chemistry/gamess:qmmm-tinker - Enable tinker qmmm code
 sci-chemistry/gnome-chemistry-utils:gnumeric - Build pluging for gnumeric
-sci-chemistry/gromacs:boost - Enable external boost library
-sci-chemistry/gromacs:cuda - Enable cuda non-bonded kernels
-sci-chemistry/gromacs:double-precision - More precise calculations at the expense of speed
-sci-chemistry/gromacs:make-symlinks - Create symbolic links for pre-5.0 binary names
-sci-chemistry/gromacs:mkl - Use sci-libs/mkl for fft, blas, lapack routines
-sci-chemistry/gromacs:offensive - Enable gromacs partly offensive quotes
-sci-chemistry/gromacs:single-precision - Single precision version of gromacs (default)
-sci-chemistry/gromacs:tng - Enable new trajectory format - tng
 sci-chemistry/mdsctk:R - Install dev-lang/R scripts as well
 sci-chemistry/nwchem:blas - Use external BLAS library instead of the internal routines
 sci-chemistry/nwchem:cuda - Enable CUDA GPU support for the Tensor Contraction Engine generated methods (CI, MBPT, CC)
@@ -126,8 +117,6 @@ sci-chemistry/rosetta:boost - compile rosetta with boost supported code
 sci-chemistry/rosetta:float - Build with floats rather than doubles
 sci-chemistry/rosetta:lange - Apply patches from www.csrosetta.org
 sci-chemistry/shiftx2:debug - Enables debug output in the shiftx2 java part
-sci-chemistry/votca-csg:extras - Pull in extra applications from sci-chemistry/votca-csg-apps
-sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats through sci-chemistry/gromacs
 sci-chemistry/wxmacmolplt:flash - Add support for flash movie generation using media-libs/ming
 sci-electronics/player:boost - Automatically generated description for boost
 sci-electronics/player:festival - Automatically generated description for festival
@@ -184,8 +173,6 @@ sci-libs/dealii:tbb - Add threading support with the help of the tbb library (de
 sci-libs/dealii:trilinos - Add support for trilinos (sci-libs/trilinos)
 sci-libs/etsf_io:pic - Compile Position Independent Code
 sci-libs/factory:singular - Enable support for sci-mathematics/singular
-sci-libs/fftw:quad - Build quadruple precision lib
-sci-libs/fftw:zbus - Adds support for ZBus cycle-counter of mips
 sci-libs/fox:dom - Compile the W3C document object model module
 sci-libs/fox:fast - Compile with best known optimization flags
 sci-libs/fox:sax - Compile the streaming, validating parser based on java's Simple API for XML
@@ -361,16 +348,12 @@ sci-physics/bigdft:scalapack - Use ScaLAPACK, a subset of LAPACK routines redesi
 sci-physics/elk:libxc - Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
 sci-physics/elk:perl - Install perl scripts.
 sci-physics/elk:python - Install python scripts.
-sci-physics/espresso:cuda - Enable cuda support
-sci-physics/espresso:examples - Installs the examples
-sci-physics/espresso:packages - Installs extra subpackages
 sci-physics/geant-vmc:g4root - Build G4Root (interface for GEANT4 simulation with a ROOT geometry)
 sci-physics/geant-vmc:geant3 - Build with Geant4 G3toG4 library
 sci-physics/geant-vmc:mtroot - Build MTRoot (provides ROOT IO manager classes with multi-threading support)
 sci-physics/geant-vmc:vgm - Enable the Virtual Geometry Model (sci-physics/vgm)
 sci-physics/herwig++:c++11 - Build Herwig++ using the C++11 standard. Experimental feature, not for production use.
 sci-physics/herwig++:fastjet - Adds support for sci-physics/fastjet
-sci-physics/hoomd-blue:cuda - Enable cuda non-bonded kernels
 sci-physics/mc-tester:hepmc - Compile sci-physics/hepmc interface
 sci-physics/root:fits - Support for images and data from FITS files with sci-libs/cfitsio
 sci-physics/root:geocad - Enable ROOT-CAD interface using sci-libs/opencascade
@@ -384,10 +367,6 @@ sci-physics/tauola:tau-spinner - Compile with TauSpinner library
 sci-physics/vgm:geant4 - Enable interaction with Geant4(sci-physics/geant:4)
 sci-physics/vgm:root - Enable interactions with ROOT (sci-physics/root)
 sci-physics/yoda:root - Adds support for sci-physics/root
-sci-visualization/gnuplot:bitmap - Enable dot-matrix printers and pbm terminal
-sci-visualization/gnuplot:compat - Enable backwards compatibility with version 4 syntax
-sci-visualization/gnuplot:gd - Add support for media-libs/gd. Needed for GIF, JPEG, and PNG image output.
-sci-visualization/gnuplot:libcerf - Enable special functions from sci-libs/libcerf
 sci-visualization/mantid:doc - Generate documentation with app-doc/doxygen, QT Assistant etc
 sci-visualization/mantid:opencascade - Use OpenCascade to show 3D models of instruments
 sci-visualization/mantid:opencl - Use OpenCL to accelerate calculations
@@ -398,10 +377,6 @@ sci-visualization/v_sim:abinit - Add support for ABINIT file formats sci-physics
 sci-visualization/v_sim:cube - Add support plug-in support for Cube files (densities and structures)
 sci-visualization/v_sim:openbabel - Add support for ABINIT file formats sci-chemistry/openbabel
 sci-visualization/v_sim:xsf - plug-in support for files that follow the XCrysDen format for structural positions and densities
-sys-cluster/hpx:jemalloc - Use dev-libs/jemalloc for memory allocation
-sys-cluster/hpx:papi - Use dev-libs/papi for NaCl
-sys-cluster/hpx:perftools - Use dev-util/google-perftools for memory allocation
-sys-cluster/hpx:tbb - Use dev-cpp/tbb for memory allocation
 sys-cluster/htcondor:X - Enable the HTCondor Keyboard Daemon to monitor logged in X users for activity
 sys-cluster/htcondor:boinc - Enable backfill with BOINC jobs when the cluster is not being used
 sys-cluster/htcondor:cgroup - Use dev-libs/libcgroup for kernel control groups
@@ -411,10 +386,9 @@ sys-cluster/htcondor:libvirt - Use app-emulation/libvirt for virtualisation
 sys-cluster/htcondor:management - Use net-libs/qmf for management
 sys-cluster/htcondor:minimal - Don't support standard universe jobs
 sys-cluster/lustre:client - Enable kernel client modules
-sys-cluster/lustre:liblustre - Enable building of liblustre
+sys-cluster/lustre:dlc - Enable Dynamic LNET Configuration
 sys-cluster/lustre:server - Enable kernels server modules
 sys-cluster/lustre:tests - Enable installation of tests
-sys-cluster/lustre:urandom - Enable use of urandom
 sys-cluster/lustre:utils - Enable lustre utils
 sys-cluster/mpich:mpi-threads - Enable MPI_THREAD_MULTIPLE
 sys-cluster/mpich:romio - Build the ROMIO MPI-IO component
