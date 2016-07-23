@@ -1,0 +1,87 @@
+--- Bio/SeqRecord.py.old	2016-06-08 15:27:00.000000000 +0200
++++ Bio/SeqRecord.py	2016-07-22 17:48:19.620712535 +0200
+@@ -292,19 +292,28 @@
+         >>> sub_record.letter_annotations = {}
+         >>> sub_record.letter_annotations
+         {}
++
++        Note that if replacing the record's sequence with a sequence of a
++        different length you must first clear the letter_annotations dict.
+         """)
+ 
+     def _set_seq(self, value):
+         # TODO - Add a deprecation warning that the seq should be write only?
+         if self._per_letter_annotations:
+-            # TODO - Make this a warning? Silently empty the dictionary?
+-            raise ValueError("You must empty the letter annotations first!")
+-        self._seq = value
+-        try:
+-            self._per_letter_annotations = _RestrictedDict(length=len(self.seq))
+-        except AttributeError:
+-            # e.g. seq is None
+-            self._per_letter_annotations = _RestrictedDict(length=0)
++            if len(self) != len(value):
++                # TODO - Make this a warning? Silently empty the dictionary?
++                raise ValueError("You must empty the letter annotations first!")
++            else:
++                # Leave the existing per letter annotations unchanged:
++                self._seq = value
++        else:
++            self._seq = value
++            # Reset the (empty) letter annotations dict with new length:
++            try:
++                self._per_letter_annotations = _RestrictedDict(length=len(self.seq))
++            except AttributeError:
++                # e.g. seq is None
++                self._per_letter_annotations = _RestrictedDict(length=0)
+ 
+     seq = property(fget=lambda self: self._seq,
+                    fset=_set_seq,
+@@ -427,10 +436,17 @@
+             if self.seq is None:
+                 raise ValueError("If the sequence is None, we cannot slice it.")
+             parent_length = len(self)
+-            answer = self.__class__(self.seq[index],
+-                                    id=self.id,
+-                                    name=self.name,
+-                                    description=self.description)
++            from BioSQL.BioSeq import DBSeqRecord
++            if isinstance(self, DBSeqRecord):
++                answer = SeqRecord(self.seq[index],
++                                        id=self.id,
++                                        name=self.name,
++                                        description=self.description)
++            else:
++                answer = self.__class__(self.seq[index],
++                                        id=self.id,
++                                        name=self.name,
++                                        description=self.description)
+             # TODO - The description may no longer apply.
+             # It would be safer to change it to something
+             # generic like "edited" or the default value.
+--- Tests/test_SeqRecord.py.old	2016-06-08 15:27:00.000000000 +0200
++++ Tests/test_SeqRecord.py	2016-07-22 17:48:45.401428898 +0200
+@@ -72,6 +72,23 @@
+         except (TypeError, ValueError) as e:
+             pass
+ 
++    def test_replacing_seq(self):
++        """Replacing .seq if .letter_annotation present."""
++        rec = SeqRecord(Seq("ACGT", generic_dna),
++                        id="Test", name="Test", description="Test",
++                        letter_annotations={"example": [1, 2, 3, 4]})
++        try:
++            rec.seq = Seq("ACGTACGT", generic_dna)
++            self.fail("Changing .seq length with letter_annotations present should fail!")
++        except ValueError as e:
++            self.assertEqual(str(e), "You must empty the letter annotations first!")
++        # Check we can replace IF the length is the same
++        self.assertEqual(str(rec.seq), "ACGT")
++        self.assertEqual(rec.letter_annotations, {"example": [1, 2, 3, 4]})
++        rec.seq = Seq("NNNN" , generic_dna)
++        self.assertEqual(str(rec.seq), "NNNN")
++        self.assertEqual(rec.letter_annotations, {"example": [1, 2, 3, 4]})
++
+     def test_valid_id(self):
+         with self.assertRaises(TypeError):
+             SeqRecord(Seq("ACGT", generic_dna), id=dict())
