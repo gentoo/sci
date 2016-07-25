@@ -10,7 +10,7 @@ inherit eutils gnome2-utils distutils-r1
 
 DESCRIPTION="Python experimental psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-SRC_URI="https://github.com/psychopy/psychopy/releases/download/${PV}/${P}.zip"
+SRC_URI="https://github.com/psychopy/psychopy/archive/${PV}.zip -> ${P}"
 
 LICENSE="GPL-3+"
 SLOT="0"
