@@ -30,8 +30,6 @@ RDEPEND="dev-python/pillow[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 
-#S="${WORKDIR}/PsychoPy-${PV}"
-
 python_install_all() {
 	distutils-r1_python_install_all
 	newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
