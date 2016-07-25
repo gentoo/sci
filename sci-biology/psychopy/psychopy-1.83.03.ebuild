@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -29,8 +29,6 @@ RDEPEND="dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/wxpython:*[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
-
-#S="${WORKDIR}/PsychoPy-${PV}"
 
 python_install_all() {
 	distutils-r1_python_install_all
