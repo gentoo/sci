@@ -1,5 +1,5 @@
---- makefiles/default_rules.mk.orig	2015-11-06 18:43:31.000000000 -0400
-+++ makefiles/default_rules.mk	2015-11-09 18:42:33.609774157 -0400
+--- src/makefiles/default_rules.mk.orig	2015-11-06 18:43:31.000000000 -0400
++++ src/makefiles/default_rules.mk	2015-11-09 18:42:33.609774157 -0400
 @@ -14,7 +14,7 @@
          LIBFILE = lib$(LIBNAME).so
          #LDLIBS  += -l$(LIBNAME)
