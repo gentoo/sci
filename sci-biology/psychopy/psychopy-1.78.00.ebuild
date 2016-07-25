@@ -1,51 +1,39 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 gnome2-utils eutils
-
-MY_P="PsychoPy-${PV}"
+inherit eutils gnome2-utils distutils-r1
 
 DESCRIPTION="Python experimental psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-SRC_URI="http://sourceforge.net/projects/psychpy/files/PsychoPy/${MY_P}.zip"
+SRC_URI="https://github.com/psychopy/psychopy/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
-
-RDEPEND="
-	dev-python/numpy[lapack,${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
-	dev-python/matplotlib[${PYTHON_USEDEP}]
-	dev-python/pyopengl[${PYTHON_USEDEP}]
-	dev-python/pillow[${PYTHON_USEDEP}]
-	dev-python/wxpython:*[${PYTHON_USEDEP}]
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	dev-python/lxml[${PYTHON_USEDEP}]
-	dev-python/pyglet[${PYTHON_USEDEP}]
-	dev-python/pygame[${PYTHON_USEDEP}]
-	"
 
 DEPEND="
-	app-arch/unzip
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? ( ${RDEPEND} )
 	"
-
-RESTRICT="test" # interactive, opens lots of windows
-
-S="${WORKDIR}/${MY_P}"
+RDEPEND="dev-python/pillow[${PYTHON_USEDEP}]
+	dev-python/lxml[${PYTHON_USEDEP}]
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/numpy[lapack,${PYTHON_USEDEP}]
+	dev-python/pygame[${PYTHON_USEDEP}]
+	dev-python/pyglet[${PYTHON_USEDEP}]
+	dev-python/pyopengl[${PYTHON_USEDEP}]
+	dev-python/wxpython:*[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	"
 
 python_install_all() {
 	distutils-r1_python_install_all
-	doicon psychopy/monitors/psychopy.ico
-	make_desktop_entry psychopyapp.py PsychoPy psychopy
+	newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
+	make_desktop_entry psychopyApp.py PsychoPy psychopy
 }
 
 pkg_postinst() {
