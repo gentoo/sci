@@ -5,8 +5,8 @@
 EAPI=6
 
 DIST_AUTHOR="TYEMQ"
-DIST_A_EXT="zip"
-DIST_VERSION="1.031"
+DIST_A_EXT="tar.gz"
+DIST_VERSION="1.032"
 
 inherit perl-module
 
