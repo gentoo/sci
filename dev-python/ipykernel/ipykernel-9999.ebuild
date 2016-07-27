@@ -19,17 +19,17 @@ KEYWORDS=""
 IUSE="test"
 
 RDEPEND="
-	dev-python/traitlets[${PYTHON_USEDEP}]"
-	#dev-python/jupyter_client[${PYTHON_USEDEP}]
-	#>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
+	>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
+	dev-python/jupyter_client[${PYTHON_USEDEP}]
+	>=www-servers/tornado-4.0[${PYTHON_USEDEP}]
+	dev-python/traitlets[${PYTHON_USEDEP}]
+	"
 DEPEND="${RDEPEND}
 	test? (
-		dev-python/coverage[${PYTHON_USEDEP}]
-		>=dev-python/ipython-4.0.0[${PYTHON_USEDEP}]
 		dev-python/nose[${PYTHON_USEDEP}]
 	)
 	"
 
 python_test() {
-	nosetests --with-coverage --cover-package ipykernel ipykernel || die
+	nosetests --verbose ipykernel || die
 }
