@@ -6,7 +6,9 @@ EAPI=5
 
 inherit eutils
 
-MY_PV="3.1b2"
+
+MY_PV=${PV/_beta/b}
+
 DESCRIPTION="Sequence analysis using profile hidden Markov models"
 HOMEPAGE="http://hmmer.janelia.org/"
 SRC_URI="http://eddylab.org/software/hmmer3/${MY_PV}/${PN}-${MY_PV}.tar.gz"
