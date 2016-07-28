@@ -1,0 +1,27 @@
+--- blatSrc/inc/userApp.mk.old	2014-11-06 04:19:54.000000000 +0100
++++ blatSrc/inc/userApp.mk	2016-07-28 12:45:32.092378879 +0200
+@@ -28,11 +28,11 @@
+ objects = ${O} ${extraObjects} ${externObjects}
+ 
+ ${DESTDIR}${BINDIR}/${A}${EXE}: ${DEPLIBS} ${O} ${extraObjects}
+-	${CC} ${COPT} -o ${DESTDIR}${BINDIR}/${A}${EXE} ${objects} ${LINKLIBS} ${L} -lm
++	${CC} ${COPT} ${CFLAGS} ${LDFLAGS} -o ${DESTDIR}${BINDIR}/${A}${EXE} ${objects} ${LINKLIBS} ${L} -lm
+ 	${STRIP} ${DESTDIR}${BINDIR}/${A}${EXE}
+ 
+ compile:: ${DEPLIBS} ${O} ${extraObjects}
+-	${CC} ${COPT} ${CFLAGS} -o ${A}${EXE} ${objects} ${LINKLIBS} ${L} -lm
++	${CC} ${COPT} ${CFLAGS} ${LDFLAGS} -o ${A}${EXE} ${objects} ${LINKLIBS} ${L} -lm
+ 
+ install:: compile
+ 	rm -f ${DESTDIR}${BINDIR}/${A}${EXE}
+--- blatSrc/blat/makefile.old	2011-03-29 03:43:44.000000000 +0200
++++ blatSrc/blat/makefile	2016-07-28 12:41:11.905261175 +0200
+@@ -7,7 +7,7 @@
+ O = blat.o
+ 
+ blat: $O $(MYLIBS)
+-	${CC} ${COPT} ${CFLAGS} -o ${DESTDIR}${BINDIR}/blat $O $(MYLIBS) $L
++	${CC} ${COPT} ${CFLAGS} ${LDFLAGS} -o ${DESTDIR}${BINDIR}/blat $O $(MYLIBS) $L
+ 	${STRIP} ${DESTDIR}${BINDIR}/blat${EXE}
+ 
+ all:
