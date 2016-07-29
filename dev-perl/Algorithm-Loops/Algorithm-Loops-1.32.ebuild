@@ -5,14 +5,14 @@
 EAPI=6
 
 DIST_AUTHOR="TYEMQ"
-DIST_A_EXT="zip"
-DIST_VERSION="1.031"
+DIST_A_EXT="tar.gz"
+DIST_VERSION="1.032"
 
 inherit perl-module
 
 DESCRIPTION="Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*"
 
-LICENSE="all-rights-reserved" # actually unknown, upstream contacted
+LICENSE="CC0-1.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""

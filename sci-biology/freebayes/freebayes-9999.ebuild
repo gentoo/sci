@@ -6,7 +6,7 @@ EAPI=6
 
 inherit eutils git-r3
 
-DESCRIPTION="Bayesian gen. variant detector to find small polymorphisms"
+DESCRIPTION="Bayesian gen. variant detector to find short polymorphisms"
 HOMEPAGE="https://github.com/ekg/freebayes"
 EGIT_REPO_URI="git://github.com/ekg/freebayes.git"
 
@@ -22,5 +22,4 @@ RDEPEND="${DEPEND}
 
 src_install(){
 	dobin bin/freebayes bin/bamleftalign
-	dobin vcflib/bin/*
 }

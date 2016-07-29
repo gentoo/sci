@@ -9,7 +9,7 @@ inherit java-pkg-2 java-ant-2
 DESCRIPTION="Annotate SNP changes and predict their effect"
 HOMEPAGE="http://snpeff.sourceforge.net"
 SRC_URI="
-	http://sourceforge.net/projects/snpeff/files/snpEff_v4_1e_core.zip
+	http://sourceforge.net/projects/snpeff/files/snpEff_v4_2_core.zip
 	http://snpeff.sourceforge.net/SnpSift.html -> ${P}.html"
 
 LICENSE="LGPL-3"
@@ -37,7 +37,7 @@ src_install(){
 	# but portage does not install the .* files and subdirs, grr!
 	unzip \
 		"${DISTDIR}"/snpEff_v4_1e_core.zip -d "${D}"/usr/share \
-		|| die "failed to unzip ${DISTDIR}/snpEff_v4_1e_core.zip"
+		|| die "failed to unzip ${DISTDIR}/snpEff_v4_2_core.zip"
 	sed \
 		-e 's#$HOME/tools/picard/#/usr/share/picard/lib/#' \
 		-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die

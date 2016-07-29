@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -10,7 +10,7 @@ inherit eutils gnome2-utils distutils-r1
 
 DESCRIPTION="Python experimental psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-SRC_URI="https://github.com/psychopy/psychopy/releases/download/${PV}/${P}.zip"
+SRC_URI="https://github.com/psychopy/psychopy/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
