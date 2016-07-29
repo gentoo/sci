@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -7,7 +7,7 @@ EAPI=5
 PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
-DESCRIPTION="iscan (aka twinscan and N-SCAN) and wrapper around Pairagon: A gene structure prediction pipeline"
+DESCRIPTION="iscan (aka twinscan and N-SCAN), Pairagon wrapper: Gene structure pred. pipeline"
 HOMEPAGE="http://mblab.wustl.edu/software/twinscan"
 SRC_URI="http://mblab.wustl.edu/software/download/iscan-${PV}.tar_.gz -> ${P}.tar.gz"
 
@@ -39,6 +39,9 @@ src_prepare() {
 }
 
 src_install() {
+	# TODO: prevent file collision with media-gfx/iscan by renaming iscan to iscan_twinscan
+	# also fix a Genscan++ToZoe.pl Nscan_driver.pl runTwinscan2.pl run_iscan.pl run_iscan_cons.pl run_iscan_cons_list.pl test.pl
+	rm bin/test.pl || die
 	dobin bin/iscan bin/zoe2gtf bin/*.pl src/*.pl
 	dolib lib/libzoe.a
 	insinto /usr/share/${PN}
