@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ inherit python-single-r1 wxwidgets
 
 DESCRIPTION="View and analyze genome sequences"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/projects/gbench/"
-SRC_URI="ftp://ftp.ncbi.nlm.nih.gov/toolbox/gbench/ver-2.3.2/gbench-src-"${PV}".tgz"
+SRC_URI="ftp://ftp.ncbi.nlm.nih.gov/toolbox/gbench/ver-"${PV}"/gbench-src-"${PV}".tgz"
 
 LICENSE="public-domain"
 SLOT="0"
@@ -34,13 +34,13 @@ RDEPEND="${PYTHON_DEPS}
 	dev-util/cppunit
 	media-libs/freetype
 	media-libs/giflib
-	media-libs/glew
+	media-libs/glew:=
 	media-libs/tiff:0=
 	net-libs/gnutls
 	sci-libs/hdf5
 	sys-fs/fuse
 	sys-libs/db:*
-	virtual/glut
+	virtual/glu
 	virtual/opengl
 	x11-libs/fltk
 	x11-libs/wxGTK:*
@@ -59,4 +59,16 @@ RDEPEND="${PYTHON_DEPS}
 "
 DEPEND="${RDEPEND}"
 
-# ensure in src_compile no --mandir=/usr/share/man is passed to configure, use the ebuild logic from ncbi-tools++
+# recycle ebuild logic from ncbi-tools++
+
+S="${WORKDIR}"/gbench-src-"${PV}"
+
+src_configure(){
+	# configure: error: --mandir=/usr/share/man:  unknown option;  use --help to show usage
+	# configure: error: --infodir=/usr/share/info:  unknown option;  use --help to show usage
+	# configure: error: --datadir=/usr/share:  unknown option;  use --help to show usage
+	# configure: error: --sysconfdir=/etc:  unknown option;  use --help to show usage
+	# configure: error: --localstatedir=/var/lib:  unknown option;  use --help to show usage
+	./configure --prefix="${DESTDIR}"/"${EPREFIX}/usr" --libdir="${EPREFIX}/usr/$(get_libdir)" CC="$(tc-getCC)" \
+		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" || die
+}
