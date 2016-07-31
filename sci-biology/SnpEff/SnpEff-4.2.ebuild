@@ -25,7 +25,7 @@ DEPEND="
 RDEPEND="${DEPEND}
 	>=virtual/jdk-1.7:*"
 
-	S="${WORKDIR}"
+S="${WORKDIR}"
 
 #src_compile(){
 #	mvn || die
