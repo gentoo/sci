@@ -4,6 +4,8 @@
 
 EAPI=5
 
+inherit perl-module
+
 DESCRIPTION="Find closely related subjects using SNP genotype data, validate pedigree file"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/Software.cgi"
 SRC_URI="http://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/GetZip.cgi?zip_name=GRAF_files.zip -> ${P}.zip"
@@ -17,6 +19,10 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
+
+src_prepare(){
+	sed -e 's#/usr/local/bin/perl#/usr/bin/perl#' -i PlotGraf.pl || die # there is not perl_fix_shebang
+}
 
 src_install(){
 	dobin graf PlotGraf.pl
