@@ -40,8 +40,9 @@ RDEPEND="${PYTHON_DEPS}
 	sci-libs/hdf5
 	sys-fs/fuse
 	sys-libs/db:*
-	virtual/glu
-	virtual/opengl
+	glut? ( virtual/glu )
+	opengl? ( virtual/opengl
+		media-libs/ftgl )
 	x11-libs/fltk
 	x11-libs/wxGTK:*
 	mysql? ( virtual/mysql )
