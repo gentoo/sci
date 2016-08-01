@@ -41,7 +41,7 @@ src_prepare() {
 src_install() {
 	# TODO: prevent file collision with media-gfx/iscan by renaming iscan to iscan_twinscan
 	# also fix a Genscan++ToZoe.pl Nscan_driver.pl runTwinscan2.pl run_iscan.pl run_iscan_cons.pl run_iscan_cons_list.pl test.pl
-	rm bin/test.pl || die
+	rm src/test.pl || die
 	dobin bin/iscan bin/zoe2gtf bin/*.pl src/*.pl
 	dolib lib/libzoe.a
 	insinto /usr/share/${PN}
