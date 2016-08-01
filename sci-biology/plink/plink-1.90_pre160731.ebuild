@@ -14,16 +14,15 @@ SRC_URI="https://www.cog-genomics.org/static/bin/plink160731/plink_src.zip -> ${
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="lapack"
 
 DEPEND="
 	app-arch/unzip
 	virtual/pkgconfig"
 RDEPEND="
 	sys-libs/zlib
-	virtual/cblas
-	virtual/lapack
-	"
+	lapack? ( virtual/lapack
+		virtual/cblas )"
 
 S="${WORKDIR}/"
 
@@ -31,6 +30,7 @@ S="${WORKDIR}/"
 # Package contains bytecode-only jar gPLINK.jar. Ignored, notified upstream.
 
 src_prepare() {
+	rm -rf zlib-1.2.8 || die
 	sed \
 		-e 's:zlib-1.2.8/zlib.h:zlib.h:g' \
 		-i *.{c,h} || die
@@ -40,17 +40,27 @@ src_prepare() {
 		-e 's:gcc:$(CC):g' \
 		-e 's:gfortran:$(FC):g' \
 		-i Makefile || die
+	if ! use lapack; then
+		sed -e 's/^NO_LAPACK =/NO_LAPACK = 1/' -i Makefile || die
+		sed -e 's@^// #define NOLAPACK@#define NOLAPACK@' -i plink_common.h || die
+	fi
 	tc-export PKG_CONFIG
 }
 
 src_compile() {
+	local blasflags
+	use lapack && blasflags="$($(tc-getPKG_CONFIG) --libs lapack cblas)"
 	emake \
 		CXX=$(tc-getCXX) \
 		CFLAGS="${CFLAGS}" \
 		ZLIB="$($(tc-getPKG_CONFIG) --libs zlib)" \
-		BLASFLAGS="$($(tc-getPKG_CONFIG) --libs lapack cblas)"
+		BLASFLAGS="$blasflags"
 }
 
 src_install() {
 	newbin plink p-link
+}
+
+pkg_postinst(){
+	einfo "plink binary is now renamed to p-link to avoid file collision"
 }
