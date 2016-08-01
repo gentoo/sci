@@ -7,7 +7,8 @@ EAPI=5
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Whole genome association analysis toolset"
-HOMEPAGE="http://pngu.mgh.harvard.edu/~purcell/plink/"
+HOMEPAGE="http://pngu.mgh.harvard.edu/~purcell/plink
+	https://www.cog-genomics.org/plink2/"
 SRC_URI="https://www.cog-genomics.org/static/bin/plink160731/plink_src.zip -> ${P}.zip"
 
 LICENSE="GPL-3+"
