@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
@@ -18,12 +18,13 @@ KEYWORDS="~amd64"
 IUSE=""
 
 # https://github.com/pcingola/SnpEff/blob/master/README_release.txt
-DEPEND="
+RDEPEND="
 	>=virtual/jre-1.7:*
 	dev-java/maven-bin:*
 	dev-java/antlr:*"
-RDEPEND="${DEPEND}
-	>=virtual/jdk-1.7:*"
+DEPEND="${RDEPEND}
+	>=virtual/jdk-1.7:*
+	dev-java/ant-core"
 
 S="${WORKDIR}"
 
@@ -36,7 +37,7 @@ src_install(){
 	mkdir -p "${D}"/usr/share || die
 	# but portage does not install the .* files and subdirs, grr!
 	unzip \
-		"${DISTDIR}"/snpEff_v4_1e_core.zip -d "${D}"/usr/share \
+		"${DISTDIR}"/snpEff_v4_2_core.zip -d "${D}"/usr/share \
 		|| die "failed to unzip ${DISTDIR}/snpEff_v4_2_core.zip"
 	sed \
 		-e 's#$HOME/tools/picard/#/usr/share/picard/lib/#' \
