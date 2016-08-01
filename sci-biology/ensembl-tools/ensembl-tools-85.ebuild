@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="" # BUG: needs Bio::EnsEMBL::Registry
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-perl/File-Copy-Recursive
+	dev-perl/Archive-Extract"
 #DEPEND="dev-perl/Perl-XS
 #	dev-perl/Bio-DB-HTS"
 RDEPEND="${DEPEND}"
@@ -28,7 +29,8 @@ src_install(){
 	perl_set_version
 	insinto ${VENDOR_LIB}/${PN}
 	cd scripts/variant_effect_predictor || die
-	perl INSTALL.pl --DESTDIR="${EPREFIX}"/"${DESTDIR}" --AUTO ac
+	# FIXME: INSTALL.pl does not exit upon error
+	./INSTALL.pl --DESTDIR="${DESTDIR}"/"${EPREFIX}" --AUTO=ac || die
 	newdoc README.txt variant_effect_predictor.txt
 	cd ../../scripts/region_reporter || die
 	dobin *.pl
