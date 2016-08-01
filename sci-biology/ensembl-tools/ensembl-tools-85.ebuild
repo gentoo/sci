@@ -8,8 +8,8 @@ PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module
 
 DESCRIPTION="Bioinformatics tools incl. Variant Effect Predictor (VEP)"
-HOMEPAGE="http://grch37.ensembl.org/info/docs/tools/vep/script/index.html
-	http://grch37.ensembl.org/info/docs/tools/vep/script/vep_plugins.html"
+HOMEPAGE="http://www.ensembl.org/info/docs/tools/vep/script
+	http://www.ensembl.org/info/docs/tools/vep/script/vep_plugins.html"
 SRC_URI="https://github.com/Ensembl/ensembl-tools/archive/release/${PV}.zip -> ${P}.zip"
 
 LICENSE="Apache-2.0"
