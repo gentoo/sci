@@ -16,6 +16,10 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+src_prepare(){
+	for f in fac.mak fas.mak mscore.mak; do sed -e "s/OPT = -O3/OPT = ${CFLAGS}/" -i $f || die; done
+}
+
 src_install(){
 	dobin fac fas mscore
 	dodoc README.txt
