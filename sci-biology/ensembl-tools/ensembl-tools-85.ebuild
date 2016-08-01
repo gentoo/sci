@@ -35,8 +35,10 @@ src_install(){
 	newdoc README.txt region_reporter.txt
 	cd ../../scripts/assembly_converter
 	dobin *.pl
-	insinto ${VENDOR_LIB}/${PN}
-	doins *.pm
+	insinto /usr/share/"${PN}"/examples
+	doins assemblymapper.in
+	#insinto ${VENDOR_LIB}/${PN}
+	#doins *.pm
 	newdoc README.txt assembly_converter.txt
 	insinto /usr/share/"${PN}"/examples
 	doins assemblymapper.in
