@@ -4,6 +4,7 @@
 
 EAPI=5
 
+PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit eutils perl-module
 
 DESCRIPTION="A genome annotation viewer and pipeline for small eukaryota and prokaryota"
@@ -36,7 +37,6 @@ DEPEND="
 	dev-perl/IO-Prompt
 	dev-perl/Perl-Unsafe-Signals
 	dev-perl/forks
-	dev-perl/forks-shared
 	>=sci-biology/GAL-0.2.1
 	>=sci-biology/bioperl-1.6
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
@@ -45,6 +45,7 @@ DEPEND="
 	sci-biology/augustus
 	sci-biology/repeatmasker"
 RDEPEND="${DEPEND}"
+# dev-perl/forks-shared ?
 
 # ==============================================================================
 # STATUS MAKER v2.31.8
@@ -114,9 +115,18 @@ src_install(){
 	find . -name mpi_evaluator | xargs rm || die
 	mv bin/compare bin/compare_gff3_to_chado # rename as agreed by upstream, will be in maker-3 as well
 	dobin bin/*
+	perl_set_version
+	insinto "${VENDOR_LIB}"/MAKER # uppercase, not "${PN}"
+	doins perl/lib/MAKER/*.pm
+	doman perl/man/*.3pm
+	insinto "${VENDOR_LIB}"/Parallel/Application
+	doins perl/lib/Parallel/Application/*.pm
+	insinto /usr/share/"${PN}"/data
+	doins data/*
+	# FIXME: find equivalent perl packages for lib/* contents, for example lib/GI.pm
 	dodoc README INSTALL
-	insinto /usr/share/"{PN}"/GMOD/Apollo
+	insinto /usr/share/"${PN}"/GMOD/Apollo
 	doins GMOD/Apollo/gff3.tiers
-	insinto /usr/share/"{PN}"/GMOD/JBrowse
+	insinto /usr/share/"${PN}"/GMOD/JBrowse
 	doins GMOD/JBrowse/maker.css
 }
