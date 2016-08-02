@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -95,6 +95,7 @@ pkg_nofetch() {
 	einfo "That in turn requires you to register at http://www.girinst.org/server/RepBase"
 	einfo "to obtain sci-biology/repeatmasker-libraries data file"
 	einfo "For execution through openmpi or mpich please read INSTALL file"
+	einfo "Customization typically go into maker_opts.ctl file"
 }
 
 src_compile(){
@@ -102,9 +103,15 @@ src_compile(){
 	./Build install || die
 }
 
+# If you move it, then the executables won’t be able to locate dependencies in the …/maker/data, 
+# …/maker/lib, and …/maker/perl directories. You should really either add the location of
+# …/maker/bin to you PATH environmental variable or at most soft link the executables somewhere
+# else using the ‘ln -s’ command.
 src_install(){
 	cd "${WORKDIR}"/maker || die
 	rm -f bin/fasta_tool # is part of sci-biology/GAL
+	# drop development related accessory script requiring Parallel/MPIcar.pm
+	find . -name mpi_evaluator | xargs rm || die
 	mv bin/compare bin/compare_gff3_to_chado # rename as agreed by upstream, will be in maker-3 as well
 	dobin bin/*
 	dodoc README INSTALL
