@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,7 +10,7 @@ MPV=$(get_version_component_range 2-)
 
 DESCRIPTION="Virtual Monte Carlo Geant4 implementation"
 HOMEPAGE="http://root.cern.ch/root/vmc/VirtualMC.html"
-SRC_URI="ftp://root.cern.ch/root/vmc/geant4_vmc.${MPV}.tar.gz"
+SRC_URI="http://root.cern.ch/download/vmc/geant4_vmc.${MPV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="4"
