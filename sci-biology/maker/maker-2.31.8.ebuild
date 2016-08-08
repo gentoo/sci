@@ -1,9 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
+PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit eutils perl-module
 
 DESCRIPTION="A genome annotation viewer and pipeline for small eukaryota and prokaryota"
@@ -36,7 +37,6 @@ DEPEND="
 	dev-perl/IO-Prompt
 	dev-perl/Perl-Unsafe-Signals
 	dev-perl/forks
-	dev-perl/forks-shared
 	>=sci-biology/GAL-0.2.1
 	>=sci-biology/bioperl-1.6
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
@@ -45,6 +45,7 @@ DEPEND="
 	sci-biology/augustus
 	sci-biology/repeatmasker"
 RDEPEND="${DEPEND}"
+# dev-perl/forks-shared ?
 
 # ==============================================================================
 # STATUS MAKER v2.31.8
@@ -95,6 +96,7 @@ pkg_nofetch() {
 	einfo "That in turn requires you to register at http://www.girinst.org/server/RepBase"
 	einfo "to obtain sci-biology/repeatmasker-libraries data file"
 	einfo "For execution through openmpi or mpich please read INSTALL file"
+	einfo "Customization typically go into maker_opts.ctl file"
 }
 
 src_compile(){
@@ -102,14 +104,29 @@ src_compile(){
 	./Build install || die
 }
 
+# If you move it, then the executables won’t be able to locate dependencies in the …/maker/data, 
+# …/maker/lib, and …/maker/perl directories. You should really either add the location of
+# …/maker/bin to you PATH environmental variable or at most soft link the executables somewhere
+# else using the ‘ln -s’ command.
 src_install(){
 	cd "${WORKDIR}"/maker || die
 	rm -f bin/fasta_tool # is part of sci-biology/GAL
+	# drop development related accessory script requiring Parallel/MPIcar.pm
+	find . -name mpi_evaluator | xargs rm || die
 	mv bin/compare bin/compare_gff3_to_chado # rename as agreed by upstream, will be in maker-3 as well
 	dobin bin/*
+	perl_set_version
+	insinto "${VENDOR_LIB}"/MAKER # uppercase, not "${PN}"
+	doins perl/lib/MAKER/*.pm
+	doman perl/man/*.3pm
+	insinto "${VENDOR_LIB}"/Parallel/Application
+	doins perl/lib/Parallel/Application/*.pm
+	insinto /usr/share/"${PN}"/data
+	doins data/*
+	# FIXME: find equivalent perl packages for lib/* contents, for example lib/GI.pm
 	dodoc README INSTALL
-	insinto /usr/share/"{PN}"/GMOD/Apollo
+	insinto /usr/share/"${PN}"/GMOD/Apollo
 	doins GMOD/Apollo/gff3.tiers
-	insinto /usr/share/"{PN}"/GMOD/JBrowse
+	insinto /usr/share/"${PN}"/GMOD/JBrowse
 	doins GMOD/JBrowse/maker.css
 }

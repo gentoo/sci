@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -28,7 +28,15 @@ src_prepare(){
 	sed -e "s/= -static/=/g" -i config_defs.Makefile || die
 	rm -rf sources/ext/protobuf-* || die
 	sed -e 's#^all:.*#all: echo "skipping compilation of bundled dev-libs/protobuf"#' -i sources/ext/Makefile || die
-	find . -name \*.proto | while read f; do d=`dirname $f`; pushd $d; protoc --cpp_out=. *.proto || exit 255; popd; done || die
+	# TODO: fix also sources/ext/sources/include/DUMMY/include/google/protobuf/compiler/plugin.proto causing:
+	# plugin.proto: Import "google/protobuf/descriptor.proto" was not found or had errors.
+	# plugin.proto:74:12: "FileDescriptorProto" is not defined.
+	find . -name \*.proto | while read f; do \
+		d=`dirname $f`; \
+		pushd $d; \
+		protoc --cpp_out=. *.proto || exit 255; \
+		popd; \
+	done || die
 	autotools-utils_src_prepare
 }
 

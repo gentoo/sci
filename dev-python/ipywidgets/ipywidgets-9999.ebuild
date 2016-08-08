@@ -19,9 +19,9 @@ KEYWORDS=""
 IUSE="test"
 
 RDEPEND="
-	dev-python/traitlets[${PYTHON_USEDEP}]
-	dev-python/ipykernel[${PYTHON_USEDEP}]
-	>=dev-python/widgetsnbextension-1.2.2[${PYTHON_USEDEP}]
+	>=dev-python/traitlets-4.2.0[${PYTHON_USEDEP}]
+	>=dev-python/ipykernel-4.2.2[${PYTHON_USEDEP}]
+	>=dev-python/widgetsnbextension-1.2.3[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}
 	test? (
