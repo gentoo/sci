@@ -32,6 +32,7 @@ KEYWORDS=""
 COMMON_DEPS="
 	dev-java/absolutelayout
 	dev-java/jama:0
+	>=dev-java/commons-compress-1.11
 	dev-java/commons-logging:0
 	>=dev-java/commons-io-2.1:1
 	dev-java/commons-math:2
