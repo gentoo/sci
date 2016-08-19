@@ -67,7 +67,7 @@ java_prepare() {
 	mv lib oldlib || die
 	mkdir lib || die
 
-	mv -v oldlib/{htsjdk-1.139-patched.jar,jide-oss-3.5.5.jar,goby-io-igv__V1.0.jar,jargs.jar,mongo-java-driver-2.11.3.jar,na12878kb-utils.jar,picard-lib.jar} lib || die
+	mv -v oldlib/{htsjdk-1.139-patched.jar,jide-oss-3.5.5.jar,goby-io-igv__V1.0.jar,jargs.jar,mongo-java-driver-2.11.3.jar,na12878kb-utils.jar,picard-lib.jar,mysql-connector-java-3.1.14-bin.jar} lib || die
 	mv -v oldlib/batik* lib || die
 
 	rm -rvf oldlib/* || die
