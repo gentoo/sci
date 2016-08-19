@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -27,7 +27,7 @@ HOMEPAGE="http://www.broadinstitute.org/igv/"
 LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 COMMON_DEPS="
 	dev-java/absolutelayout
@@ -52,7 +52,7 @@ DEPEND=">=virtual/jdk-1.7
 RDEPEND=">=virtual/jre-1.7
 	${COMMON_DEPS}"
 
-S="${WORKDIR}/igv-${PV}"
+S="${WORKDIR}/igv-${PV}" # if the file unpacks into IGV_"${PV}" then you fetched wrong file with the precompiled jar
 
 EANT_BUILD_TARGET="all"
 JAVA_ANT_REWRITE_CLASSPATH="true"
@@ -66,12 +66,10 @@ java_prepare() {
 	mv lib oldlib || die
 	mkdir lib || die
 
-	mv -v oldlib/{htsjdk-1.124.jar,bcprov-debug-jdk15on-147.jar,jide-oss-3.5.5.jar,goby-io-igv__V1.0.jar,jargs.jar,mongo-java-driver-2.11.3.jar,na12878kb-utils.jar,picard-lib.jar} lib || die
+	mv -v oldlib/{htsjdk-1.139-patched.jar,jide-oss-3.5.5.jar,goby-io-igv__V1.0.jar,jargs.jar,mongo-java-driver-2.11.3.jar,na12878kb-utils.jar,picard-lib.jar} lib || die
 	mv -v oldlib/batik* lib || die
 
 	rm -rvf oldlib/* || die
-
-	epatch "${FILESDIR}"/"${PV}"-remove-oracle.jdbc.patch
 }
 
 src_install() {
@@ -80,4 +78,8 @@ src_install() {
 	for i in lib/*.jar; do java-pkg_dojar $i; done
 
 	java-pkg_dolauncher igv --jar igv.jar --main org.broad.igv.ui.Main
+}
+
+pkg_postinst(){
+	einfo "You may want to install sci-biology/blat for easy sequence searches inside igv"
 }
