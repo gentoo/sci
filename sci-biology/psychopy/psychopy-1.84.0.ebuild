@@ -21,10 +21,10 @@ DEPEND="
 	"
 RDEPEND="
 	dev-python/configobj[${PYTHON_USEDEP}]
-	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[lapack,${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/pygame[${PYTHON_USEDEP}]
 	dev-python/pyglet[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
