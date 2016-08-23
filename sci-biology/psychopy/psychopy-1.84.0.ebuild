@@ -29,6 +29,7 @@ RDEPEND="
 	dev-python/pyglet[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython:*[${PYTHON_USEDEP}]
+	media-libs/avbin-bin
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 
