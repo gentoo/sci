@@ -1,0 +1,14 @@
+--- a/lib/Basic/Version.cpp       2016-03-17 23:31:35.160129074 +0100
++++ b/lib/Basic/Version.cpp       2016-03-17 23:32:07.722127712 +0100
+@@ -135,9 +135,9 @@
+
+   // XXX EMSCRIPTEN: show our versions
+   OS <<  " (emscripten "
+-#include "../../../../emscripten-version.txt"
++#include "../../emscripten-version.txt"
+          " : "
+-#include "../../../../tools/clang/emscripten-version.txt"
++#include "../../emscripten-version.txt"
+          ")";
+
+   return OS.str();
