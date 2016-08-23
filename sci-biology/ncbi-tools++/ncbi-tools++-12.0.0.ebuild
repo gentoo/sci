@@ -50,7 +50,6 @@ DEPEND="
 	mesa? ( media-libs/mesa[osmesa] )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
-	fastcgi? ( www-apache/mod_fastcgi )
 	gnutls? ( net-libs/gnutls )
 	python? ( ${PYTHON_DEPS} )
 	cppunit? ( dev-util/cppunit )
