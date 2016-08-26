@@ -1,6 +1,3 @@
-# Copyright 1999-2016 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
 
@@ -29,6 +26,8 @@ RDEPEND="
 	dev-python/pyglet[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython:*[${PYTHON_USEDEP}]
+	media-libs/avbin-bin
+	media-libs/opencv[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 
