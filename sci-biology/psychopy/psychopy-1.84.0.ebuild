@@ -30,7 +30,7 @@ RDEPEND="
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython:*[${PYTHON_USEDEP}]
 	media-libs/avbin-bin
-	media-libs/opencv[${PYTHON_USEDEP}]
+	media-libs/opencv[python,python_single_target_python2_7]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 
