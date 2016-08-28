@@ -1,14 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
 DESCRIPTION="A thin wrapper around FFmpeg"
-HOMEPAGE="http://code.google.com/p/avbin/"
+HOMEPAGE="http://avbin.github.io/"
 SRC_URI="
-	amd64? ( http://avbin.googlecode.com/files/avbin-linux-x86-64-${PV}.tar.gz )
-	x86? ( http://avbin.googlecode.com/files/avbin-linux-x86-32-${PV}.tar.gz )"
+	amd64? ( mirror://github/AVbin/AVbin/avbin-linux-x86-64-${PV}.tar.gz )
+	x86? ( mirror://github/AVbin/AVbin/avbin-linux-x86-32-${PV}.tar.gz )"
 
 LICENSE="GPL-3 LGPL-3"
 SLOT="0"
