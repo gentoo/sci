@@ -89,18 +89,18 @@ multilib_src_install() {
 	# fortran header cannot be wrapped (bug #540508), workaround part 1
 	if multilib_is_native_abi && use fortran; then
 		mkdir "${T}"/fortran || die
-		mv "${ED}"usr/include/mpif* "${T}"/fortran || die
-		mv "${ED}"usr/include/*.mod "${T}"/fortran || die
+		mv "${ED}"/$(mpi_root)/usr/include/mpif* "${T}"/fortran || die
+		mv "${ED}"/$(mpi_root)/usr/include/*.mod "${T}"/fortran || die
 	else
 		# some fortran files get installed unconditionally
-		rm "${ED}"usr/include/mpif* "${ED}"usr/include/*.mod || die
+		rm "${ED}"/$(mpi_root)/usr/include/mpif* "${ED}"usr/include/*.mod || die
 	fi
 }
 
 multilib_src_install_all() {
 	# fortran header cannot be wrapped (bug #540508), workaround part 2
 	if use fortran; then
-		mv "${T}"/fortran/* "${ED}"usr/include || die
+		mv "${T}"/fortran/* "${ED}"/$(mpi_root)/usr/include || die
 	fi
 
 	mpi_dodir /usr/share/doc/${PF}
