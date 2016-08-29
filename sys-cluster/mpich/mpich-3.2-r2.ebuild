@@ -91,7 +91,6 @@ multilib_src_configure() {
 		--with-pm=hydra \
 		--disable-fast \
 		--enable-versioning \
-		--with-hwloc-prefix=/usr \
 		$(use_enable romio) \
 		$(use_enable cxx) \
 		$(multilib_native_use_enable fortran fortran all)
