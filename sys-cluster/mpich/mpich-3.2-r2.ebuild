@@ -69,6 +69,13 @@ multilib_src_configure() {
 		c="${c} --enable-threads=single"
 	fi
 
+	if ! mpi_classed; then
+		c="${c} --sysconfdir=${EPREFIX}/etc/${PN}"
+		c="${c} --docdir=${EPREFIX}/usr/share/doc/${PF}"
+	else
+		c="${c} --docdir=$(mpi_root)/usr/share/doc/${PF}"
+	fi
+
 	export MPICHLIB_CFLAGS="${CFLAGS}"
 	export MPICHLIB_CPPFLAGS="${CPPFLAGS}"
 	export MPICHLIB_CXXFLAGS="${CXXFLAGS}"
@@ -77,16 +84,14 @@ multilib_src_configure() {
 	export MPICHLIB_LDFLAGS="${LDFLAGS}"
 	unset CFLAGS CPPFLAGS CXXFLAGS FFLAGS FCFLAGS LDFLAGS
 
-	ECONF_SOURCE=${S} $(mpi_econf_args) econf \
+	ECONF_SOURCE=${S} econf $(mpi_econf_args) \
 		--enable-shared \
-		--sysconfdir="${EPREFIX}/etc/${PN}" \
 		--with-hwloc-prefix="${EPREFIX}/usr" \
 		${c} \
 		--with-pm=hydra \
 		--disable-fast \
 		--enable-versioning \
 		--with-hwloc-prefix=/usr \
-		$(mpi_classed && echo "--docdir=$(mpi_root)/usr/share/doc/${PF}") \
 		$(use_enable romio) \
 		$(use_enable cxx) \
 		$(multilib_native_use_enable fortran fortran all)
