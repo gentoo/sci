@@ -158,10 +158,10 @@ multilib_src_install() {
 	# fortran header cannot be wrapped (bug #540508), workaround part 1
 	if multilib_is_native_abi && use fortran; then
 		mkdir "${T}"/fortran || die
-		mv "${ED}"usr/include/mpif* "${T}"/fortran || die
+		mv "${ED}"/$(mpi_root)/usr/include/mpif* "${T}"/fortran || die
 	else
 		# some fortran files get installed unconditionally
-		rm "${ED}"usr/include/mpif* "${ED}"usr/bin/mpif* || die
+		rm "${ED}"/$(mpi_root)/usr/include/mpif* "${ED}"usr/bin/mpif* || die
 	fi
 }
 
@@ -171,7 +171,7 @@ multilib_src_install_all() {
 
 	# fortran header cannot be wrapped (bug #540508), workaround part 2
 	if use fortran; then
-		mv "${T}"/fortran/mpif* "${ED}"usr/include || die
+		mv "${T}"/fortran/mpif* "${ED}"/$(mpi_root)/usr/include || die
 	fi
 
 	# Avoid collisions with libevent
