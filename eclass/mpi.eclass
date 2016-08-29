@@ -56,6 +56,9 @@ mpi_classed() {
 	[[ ${CATEGORY} == mpi-* ]]
 }
 
+#empi has no support for multilib yet
+mpi_classed && [[ ${_MULTILIB_BUILD} ]] && REQUIRED_USE="abi_x86_64? ( !abi_x86_32 )"
+
 # @FUNCTION: mpi_class
 # @RETURN: The name of the current class, or nothing if unclassed.
 mpi_class() {
