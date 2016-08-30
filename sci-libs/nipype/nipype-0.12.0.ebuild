@@ -29,7 +29,9 @@ RDEPEND="
 	dev-python/pydotplus[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/simplejson[${PYTHON_USEDEP}]
+	"
 
 python_test() {
 	nosetests -v || die
