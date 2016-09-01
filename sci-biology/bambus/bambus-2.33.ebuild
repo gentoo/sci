@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -72,7 +72,7 @@ src_prepare() {
 }
 
 src_compile() {
-	emake DESTDIR="${D}/usr"
+	emake DESTDIR="${ED}/usr"
 
 	# TODO:
 	#ld  -L../TIGR_Foundation_CC/ -shared -fPIC -o grommit grommit.o -L. -lgraph -lTigrFoundation
@@ -89,10 +89,10 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}/usr" install
+	emake DESTDIR="${ED}/usr" install
 	# cvs HEAD of amos now contains even more updated files: /usr/bin/printScaff /usr/bin/untangle /usr/lib/TIGR/AsmLib.pm
-	for f in FASTArecord.pm FASTAreader.pm Foundation.pm FASTAgrammar.pm AsmLib.pm; do rm "${D}"/usr/lib/TIGR/$f; done || die
-	for f in printScaff untangle; do rm "${D}"/usr/bin/$f; done || die
+	for f in FASTArecord.pm FASTAreader.pm Foundation.pm FASTAgrammar.pm AsmLib.pm; do rm "${ED}"/usr/lib/TIGR/$f; done || die
+	for f in printScaff untangle; do rm "${ED}"/usr/bin/$f; done || die
 
 	# we compiled using locally provided TIGR_Foundation_CC/{cc,.hh} files but
 	# link against the libTigrFoundation.a provided by sci-biology/tigr-foundation-libs package
