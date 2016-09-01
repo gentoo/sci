@@ -23,7 +23,7 @@ fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-IUSE="debug examples mpi romio static-libs"
+IUSE="debug examples mpi openmp romio static-libs threads"
 
 REQUIRED_USE="romio? ( mpi )"
 
@@ -42,6 +42,13 @@ DOCS=(AUTHORS NEWS README)
 
 AUTOTOOLS_AUTORECONF=true
 
+pkg_pretend() {
+	if [[ ${MERGE_TYPE} != "binary" ]] && use openmp; then
+		tc-has-openmp || \
+			die "Please select an openmp capable compiler like gcc[openmp]"
+	fi
+}
+
 src_prepare() {
 	# Inject a version number into the build system
 	echo "${PV}" > ${S}/.tarball-version
@@ -53,7 +60,9 @@ src_configure() {
 	local myeconfargs=(
 		$(use_enable debug)
 		$(use_enable mpi)
+		$(use_enable openmp openmp)
 		$(use_enable romio mpiio)
+		$(use_enable threads pthread)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
