@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -90,7 +90,6 @@ src_configure() {
 		$(use_enable threads pthread)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
-		$(use_with petsc)
 		--with-sc="${EPREFIX}/usr"
 	)
 	autotools-utils_src_configure
