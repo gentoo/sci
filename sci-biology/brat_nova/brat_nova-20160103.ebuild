@@ -6,7 +6,7 @@ EAPI=5
 
 inherit toolchain-funcs
 
-DESCRIPTION="Bisulfite-aware short read mapper, FM-index, no InDel support (improved brat_bw)"
+DESCRIPTION="Bisulfite-aware short read mapper, FM-index, accepts 1 InDel/read, local align"
 HOMEPAGE="http://compbio.cs.ucr.edu/brat/"
 SRC_URI="http://compbio.cs.ucr.edu/brat/downloads/brat_nova.tar.gz -> ${P}.tar.gz"
 
