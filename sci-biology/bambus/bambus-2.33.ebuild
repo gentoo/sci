@@ -68,7 +68,7 @@ src_prepare() {
 	#sed -i 's:TIGR_Foundation_CC::' src/Makefile || die "Failed to zap last pointer to local copy of tigr-foundation-libs"
 	cd src/TIGR_Foundation_CC || die "Failed to cd src/TIGR_Foundation_CC/"
 	epatch "${FILESDIR}"/TigrFoundation-all-patches.patch || die
-	sed -e "s:/export/usr/local:${D}/usr:g" -i Makefile || die
+	sed -e "s:/export/usr/local:${ED}/usr:g" -i Makefile || die
 }
 
 src_compile() {
