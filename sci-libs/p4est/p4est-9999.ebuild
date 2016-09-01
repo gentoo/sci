@@ -26,16 +26,17 @@ fi
 LICENSE="GPL-2+"
 SLOT="0"
 
-IUSE="debug doc examples mpi romio static-libs +vtk-binary"
+# TODO petsc
+IUSE="debug doc examples mpi openmp romio static-libs threads +vtk-binary"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-	>=sci-libs/libsc-1.0[mpi,romio]
+	>=sci-libs/libsc-1.0[mpi=,openmp=,romio=,threads=]
 	dev-lang/lua:*
 	sys-apps/util-linux
 	virtual/blas
 	virtual/lapack
-	mpi? ( virtual/mpi[romio?] )"
+	mpi? ( virtual/mpi[romio=] )"
 
 DEPEND="
 	${RDEPEND}
@@ -46,6 +47,13 @@ DOCS=( AUTHORS NEWS README )
 
 AT_M4DIR="${WORKDIR}/${P}/config ${WORKDIR}/${P}/sc/config"
 AUTOTOOLS_AUTORECONF=true
+
+pkg_pretend() {
+	if [[ ${MERGE_TYPE} != "binary" ]] && use openmp; then
+		tc-has-openmp || \
+			die "Please select an openmp capable compiler like gcc[openmp]"
+	fi
+}
 
 src_prepare() {
 	# Inject libsc to get  all parts of the build system...
@@ -76,10 +84,13 @@ src_configure() {
 	local myeconfargs=(
 		$(use_enable debug)
 		$(use_enable mpi)
+		$(use_enable openmp)
 		$(use_enable romio mpiio)
 		$(use_enable vtk-binary)
+		$(use_enable threads pthread)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
+		$(use_with petsc)
 		--with-sc="${EPREFIX}/usr"
 	)
 	autotools-utils_src_configure
