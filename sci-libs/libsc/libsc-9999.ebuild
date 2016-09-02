@@ -14,6 +14,7 @@ HOMEPAGE="http://www.p4est.org/"
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="git://github.com/cburstedde/libsc.git"
+	EGIT_BRANCH="develop"
 	SRC_URI=""
 	KEYWORDS=""
 else
