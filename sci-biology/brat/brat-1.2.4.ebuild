@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,7 +6,7 @@ EAPI=5
 
 inherit toolchain-funcs
 
-DESCRIPTION="Bisulfite-treated Reads Analysis Tool"
+DESCRIPTION="Bisulfite-treated Reads Analysis Tool (short read mapper)"
 HOMEPAGE="http://compbio.cs.ucr.edu/brat/"
 SRC_URI="http://compbio.cs.ucr.edu/${PN}/downloads/${P}.tar.gz"
 

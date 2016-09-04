@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -14,13 +14,13 @@ MYP=${PN}-$(replace_all_version_separators -)
 DESCRIPTION="AMD Core Math Library for amd64 CPUs"
 HOMEPAGE="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/"
 CURI="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-downloads-resources/#download"
-SRC_URI="gfortran? ( ${P}-gfortran64.tgz )"
+SRC_URI="${P}-gfortran64.tgz"
 
 LICENSE="ACML-EULA"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~amd64-linux"
-IUSE="doc examples +gfortran openmp test"
-RESTRICT="strip mirror"
+IUSE="doc examples  test"
+RESTRICT="strip mirror fetch"
 
 DEPEND=""
 RDEPEND=""
