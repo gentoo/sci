@@ -2,6 +2,7 @@
 EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE="threads(+)"
 
 inherit eutils gnome2-utils distutils-r1
 
