@@ -7,7 +7,7 @@ EAPI=6
 # pyamg missing py3 support
 # PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3,3_4} )
 PYTHON_COMPAT=( python2_7 )
-PYTHON_REQ_USE="sqlite"
+PYTHON_REQ_USE="threads(+),sqlite"
 
 inherit distutils-r1
 
