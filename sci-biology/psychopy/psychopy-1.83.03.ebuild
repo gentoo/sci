@@ -5,6 +5,7 @@
 EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE="threads(+)"
 
 inherit eutils gnome2-utils distutils-r1
 
@@ -22,6 +23,7 @@ DEPEND="
 RDEPEND="dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/moviepy[${PYTHON_USEDEP}]
 	dev-python/numpy[lapack,${PYTHON_USEDEP}]
 	dev-python/pygame[${PYTHON_USEDEP}]
 	dev-python/pyglet[${PYTHON_USEDEP}]

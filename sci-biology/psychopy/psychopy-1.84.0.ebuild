@@ -5,6 +5,7 @@
 EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE="threads(+)"
 
 inherit eutils gnome2-utils distutils-r1
 
@@ -23,6 +24,7 @@ RDEPEND="
 	dev-python/configobj[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/moviepy[${PYTHON_USEDEP}]
 	dev-python/numpy[lapack,${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/pygame[${PYTHON_USEDEP}]
@@ -30,6 +32,7 @@ RDEPEND="
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython:*[${PYTHON_USEDEP}]
 	media-libs/avbin-bin
+	media-libs/opencv[python,python_single_target_python2_7]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 
