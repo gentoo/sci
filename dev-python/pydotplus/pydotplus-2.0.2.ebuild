@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1
 
@@ -24,6 +24,6 @@ RDEPEND="
 	dev-python/pyparsing[${PYTHON_USEDEP}]
 	"
 
-src_test() {
-	${PYTHON} -m unittest discover || die
+python_test() {
+	${EPYTHON} -m unittest discover || die
 }
