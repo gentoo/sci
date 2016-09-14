@@ -1,0 +1,13 @@
+--- shell_integration/nautilus/CMakeLists.txt	2016-08-08 15:42:39.000000000 +0200
++++ shell_integration/nautilus/CMakeLists.txt-new	2016-09-10 18:01:22.387950249 +0200
+@@ -19,8 +19,8 @@
+                     ERROR_VARIABLE errors OUTPUT_VARIABLE out)
+ 
+                                         
+-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/syncstate.py DESTINATION ${DATADIR}/nautilus-python/extensions)
+-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/syncstate_nemo.py DESTINATION ${DATADIR}/nemo-python/extensions RENAME syncstate.py)
++    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/syncstate.py DESTINATION ${DATADIR}/nautilus-python/extensions RENAME syncstate-${APPLICATION_SHORTNAME}.py)
++    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/syncstate_nemo.py DESTINATION ${DATADIR}/nemo-python/extensions RENAME syncstate-${APPLICATION_SHORTNAME}.py)
+     
+     
+ 
