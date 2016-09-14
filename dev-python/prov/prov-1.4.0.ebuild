@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="6"
+EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1
 
@@ -27,6 +27,6 @@ RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]
 	>=dev-python/six-1.10[${PYTHON_USEDEP}]
 	"
 
-src_test() {
-	${PYTHON} -m unittest discover || die
+python_test() {
+	${EPYTHON} -m unittest discover || die
 }
