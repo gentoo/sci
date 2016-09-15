@@ -17,14 +17,15 @@ EGIT_REPO_URI="https://github.com/nipy/nipype"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="test"
 
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/prov[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	sci-libs/nibabel[${PYTHON_USEDEP}]"
+	sci-libs/nibabel[${PYTHON_USEDEP}]
+	test? ( dev-python/mock[${PYTHON_USEDEP}] )"
 RDEPEND="
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pydotplus[${PYTHON_USEDEP}]
