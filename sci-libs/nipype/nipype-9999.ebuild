@@ -25,7 +25,8 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	test? ( dev-python/mock[${PYTHON_USEDEP}] )"
+	test? ( dev-python/mock[${PYTHON_USEDEP}] )
+	"
 RDEPEND="
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pydotplus[${PYTHON_USEDEP}]
