@@ -26,7 +26,7 @@ SLOT="0"
 IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
-	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
+	berkdb boost bzip2 cppunit curl expat fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -243,7 +243,6 @@ src_configure() {
 	$(use_with wxwidgets wxwidgets "${EPREFIX}/usr")
 	$(use_with wxwidgets wxwidgets-ucs)
 	$(use_with freetype freetype "${EPREFIX}/usr")
-	$(use_with fastcgi fastcgi "${EPREFIX}/usr")
 #	$(use_with berkdb bdb "${EPREFIX}/usr") # not in ncbi-blast+
 	$(usex odbc --with-odbc="${EPREFIX}/usr" "")
 	$(use_with python python "${EPREFIX}/usr")
