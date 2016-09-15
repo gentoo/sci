@@ -42,7 +42,7 @@ QA_EXECSTACK=(
 
 pkg_nofetch() {
 	einfo "Please download the RHEL 7 \"runfile (local)\" installer"
-	einfo "  - cuda_${P}_rc_linux.run"
+	einfo "  - cuda_${P}_linux.run"
 	einfo "from ${CURI} and place it in ${DISTDIR}"
 }
 
