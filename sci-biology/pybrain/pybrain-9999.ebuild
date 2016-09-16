@@ -20,11 +20,11 @@ IUSE="test"
 
 RDEPEND="sci-libs/scipy[${PYTHON_USEDEP}]"
 DEPEND="
-        dev-python/setuptools[${PYTHON_USEDEP}]
-        test? ( ${RDEPEND} ) 
-        "
+	dev-python/setuptools[${PYTHON_USEDEP}]
+	test? ( ${RDEPEND} )
+	"
 
 python_test() {
-        python pybrain/tests/runtests.py || die
+	python pybrain/tests/runtests.py || die
 }
 
