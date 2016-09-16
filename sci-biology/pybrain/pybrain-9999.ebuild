@@ -27,4 +27,3 @@ DEPEND="
 python_test() {
 	python pybrain/tests/runtests.py || die
 }
-
