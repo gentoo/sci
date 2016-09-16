@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1 git-r3
 
@@ -20,12 +20,11 @@ IUSE="test"
 
 RDEPEND="sci-libs/scipy[${PYTHON_USEDEP}]"
 DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? (
-		${RDEPEND}
-		dev-python/pytest[${PYTHON_USEDEP}]
-	)"
+        dev-python/setuptools[${PYTHON_USEDEP}]
+        test? ( ${RDEPEND} ) 
+        "
 
 python_test() {
-	py.test --verbose || die
+        python pybrain/tests/runtests.py || die
 }
+
