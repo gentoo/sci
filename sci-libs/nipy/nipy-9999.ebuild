@@ -2,17 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 multilib git-r3 flag-o-matic
 
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="http://nipy.org/"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/matthew-brett/nipy"
-EGIT_BRANCH="no-mpl-registration"
+EGIT_REPO_URI="https://github.com/nipy/nipy"
 
 LICENSE="BSD"
 SLOT="0"
