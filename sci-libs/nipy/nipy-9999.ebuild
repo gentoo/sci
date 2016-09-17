@@ -11,7 +11,8 @@ inherit distutils-r1 multilib git-r3 flag-o-matic
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="http://nipy.org/"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/nipy/nipy"
+EGIT_REPO_URI="https://github.com/matthew-brett/nipy"
+EGIT_BRANCH="no-mpl-registration"
 
 LICENSE="BSD"
 SLOT="0"
