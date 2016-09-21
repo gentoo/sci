@@ -30,10 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Christoph Junghans <ottxor@gentoo.org> (05 Sep 2016)
-# use the one from gx86 instead
-virtual/mpi
-
 # Justin Lecher <jlec@gentoo.org> (24 April 2016)
 # rev dep absent
 sci-biology/genseed

@@ -409,6 +409,5 @@ virtual/blas:int64 - Add eselect module for blas libraries built with 64 bits in
 virtual/cblas:int64 - Add eselect module for cblas libraries built with 64 bits integer ABI
 virtual/lapack:int64 - Add eselect module for lapack libraries built with 64 bits integer ABI
 virtual/lapacke:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
-virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
 virtual/scalapack:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 x11-libs/agg:gpc - Enable gpc polygon clipper library
