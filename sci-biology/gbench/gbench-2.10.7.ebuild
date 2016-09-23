@@ -28,22 +28,23 @@ RDEPEND="${PYTHON_DEPS}
 	dev-libs/expat
 	dev-libs/icu
 	dev-libs/libxslt
-	dev-libs/lzo
+	lzo? ( dev-libs/lzo )
 	dev-libs/xalan-c
 	dev-libs/xerces-c
 	dev-util/cppunit
 	media-libs/freetype
 	media-libs/giflib
-	media-libs/glew:=
 	media-libs/tiff:0=
-	net-libs/gnutls
-	sci-libs/hdf5
+	gnutls? ( net-libs/gnutls )
+	hdf5? ( sci-libs/hdf5 )
 	sys-fs/fuse
-	sys-libs/db:*
+	berkdb? ( >=sys-libs/db-4.3:* )
 	glut? ( virtual/glu )
 	opengl? ( virtual/opengl
-		media-libs/ftgl )
+		media-libs/ftgl
+		media-libs/glew:= )
 	x11-libs/fltk
+	>=x11-libs/gtk+-2:*
 	x11-libs/wxGTK:*
 	mysql? ( virtual/mysql )
 	pcre? ( dev-libs/libpcre )
