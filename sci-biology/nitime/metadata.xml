@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		Nitime is a library for time-series analysis of data from neuroscience experiments
+		in both the time and spectral domains.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">nipy/nitime</remote-id>
+	</upstream>
+</pkgmetadata>
