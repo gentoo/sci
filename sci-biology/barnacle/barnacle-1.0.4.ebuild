@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -29,7 +29,8 @@ S="${S}"
 src_compile(){
 	cd src || die
 	# Run setup.py to compile the portions of Barnacle that require compilation, and download and setup the default annotations
-	./setup.py || die
+	touch alignment_processing/gap_realigner_cluster || die # prevent compilation on a cluster
+	./setup.py localhost || die
 }
 
 src_install(){
