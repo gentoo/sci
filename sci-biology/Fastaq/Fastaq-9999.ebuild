@@ -4,11 +4,11 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python3_3 python3_4 )
+PYTHON_COMPAT=( python3_3 python3_4 python3_5 )
 
 inherit distutils-r1 git-r3
 
-DESCRIPTION="Python3 script to manipulate FASTA/Q files plus API for developers"
+DESCRIPTION="Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers"
 HOMEPAGE="https://github.com/sanger-pathogens/Fastaq"
 EGIT_REPO_URI="https://github.com/sanger-pathogens/Fastaq.git"
 
