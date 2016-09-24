@@ -28,6 +28,6 @@ RDEPEND="
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
-src_test() {
-	emake test-code
+python_test() {
+	nosetests -v || die
 }

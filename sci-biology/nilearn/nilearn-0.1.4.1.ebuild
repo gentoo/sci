@@ -31,6 +31,6 @@ RDEPEND="
 
 S="${WORKDIR}/${PN}-${MY_PV}"
 
-src_test() {
-	emake test-code
+python_test() {
+	nosetests -v || die
 }
