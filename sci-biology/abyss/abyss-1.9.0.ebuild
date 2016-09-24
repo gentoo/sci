@@ -33,6 +33,7 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}"/${P}-ac_prog_ar.patch
+	"${FILESDIR}"/${P}-gcc-6.patch
 )
 
 src_prepare() {
