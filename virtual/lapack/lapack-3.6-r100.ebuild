@@ -20,7 +20,7 @@ IUSE="doc int64"
 RDEPEND="
 	!app-eselect/eselect-lapack
 	|| (
-		>=sci-libs/lapack-reference-${PV}[int64?,${MULTILIB_USEDEP}]
+		>=sci-libs/lapack-reference-${PV}-r100[int64?,${MULTILIB_USEDEP}]
 		sci-libs/mkl[int64?,${MULTILIB_USEDEP}]
 		abi_x86_64? ( !abi_x86_32? ( >=sci-libs/atlas-3.9.34[lapack] ) )
 	)
