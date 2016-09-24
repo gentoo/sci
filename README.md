@@ -3,9 +3,9 @@
   <img src="http://chymera.eu/img/ng_medium.png"/>
 </p>
 
-NeuroGentoo is a persistent fork of the science overlay, this overlay provides *every* software package provided by [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay) - including many neuroscience ebuilds.
-Additionally this repository provides a number of ebuilds not yet included by Gentoo Science.
-This repository is the cornerstone of the NeuroGentoo initiative, which was first described [on Chymeric Tutorials](http://tutorials.chymera.eu/blog/2013/10/02/neurogentoo/).
+NeuroGentoo is a persistent fork of the science overlay, this overlay provides *every* software package provided by [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay) (including many neuroscience ebuilds).
+Additionally, this repository provides a number of ebuilds not yet included by Gentoo Science.
+This repository is the cornerstone of the NeuroGentoo initiative, which was first described [on Chymeric Tutorials (article is very much out of date)](http://tutorials.chymera.eu/blog/2013/10/02/neurogentoo/).
 
 ##Install
 
@@ -18,6 +18,17 @@ location = /usr/local/portage/neurogentoo
 sync-type = git
 sync-uri = https://github.com/TheChymera/neurogentoo.git
 priority=8888
+```
+
+You can alternatively directly enable the Gentoo Science overlay, which should provide a similar usage experience (though somewhat slower in periods of rapid development).
+Simply crate an `/etc/portage/repos.conf/sci` file containing precisely:
+
+```
+[sci]
+location = /usr/local/portage/sci
+sync-type = git
+sync-uri = https://github.com/gentoo-science/sci.git
+priority=7777
 ```
 
 Afterwards, simply run `emerge --sync`, and Portage should seamlessly make all our ebuilds available.
