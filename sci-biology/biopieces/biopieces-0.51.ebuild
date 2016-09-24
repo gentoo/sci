@@ -68,5 +68,5 @@ RDEPEND="${CDEPEND}
 	sci-biology/bwa
 	sci-biology/velvet
 	sci-biology/Ray
-	sci-biology/scan_for_matches"
-# sci-biology/idba
+	sci-biology/scan_for_matches
+	sci-biology/idba"
