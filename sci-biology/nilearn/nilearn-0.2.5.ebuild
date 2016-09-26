@@ -4,7 +4,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 python3_4 )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1
 
@@ -28,6 +28,6 @@ RDEPEND="
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
-src_test() {
-	emake test-code
+python_test() {
+	nosetests -v || die
 }
