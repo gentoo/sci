@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="6"
+EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
@@ -21,7 +21,7 @@ KEYWORDS=""
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	dev-python/nose[${PYTHON_USEDEP}]
+	dev-python/mock[${PYTHON_USEDEP}]
 	dicom? (
 		sci-libs/pydicom[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
@@ -30,7 +30,10 @@ RDEPEND="
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? ( ${RDEPEND} )
+	test? (
+		${RDEPEND}
+		dev-python/nose[${PYTHON_USEDEP}]
+		)
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	"
 
