@@ -30,5 +30,6 @@ RDEPEND="
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
 python_test() {
-	nosetests -v || die
+	echo "backend: Agg" > matplotlibrc
+	MPLCONFIGDIR=. nosetests -v || die
 }
