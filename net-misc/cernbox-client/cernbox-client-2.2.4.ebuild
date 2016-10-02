@@ -88,8 +88,7 @@ src_prepare() {
 		popd > /dev/null || die
 	fi
 
-	eapply 	"${FILESDIR}"/shell-integration-nautilus.patch \
-		"${FILESDIR}"/shell-integration-dolphin.patch
+	eapply 	"${FILESDIR}"/shell-integration-nautilus.patch
 
 	default
 }
