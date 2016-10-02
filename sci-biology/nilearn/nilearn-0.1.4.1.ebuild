@@ -32,5 +32,6 @@ RDEPEND="
 S="${WORKDIR}/${PN}-${MY_PV}"
 
 python_test() {
-	nosetests -v || die
+	echo "backend: Agg" > matplotlibrc
+	MPLCONFIGDIR=. nosetests -v || die
 }
