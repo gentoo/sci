@@ -4,9 +4,7 @@
 
 EAPI=6
 
-# pyamg missing py3 support
-# PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3,3_4} )
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 PYTHON_REQ_USE="threads(+),sqlite"
 
 inherit distutils-r1
@@ -18,12 +16,14 @@ SRC_URI="https://github.com/nipy/nipype/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="test"
 
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	sci-libs/nibabel[${PYTHON_USEDEP}]"
+	sci-libs/nibabel[${PYTHON_USEDEP}]
+	test? ( dev-python/mock[${PYTHON_USEDEP}] )
+        "
 RDEPEND="
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pydotplus[${PYTHON_USEDEP}]

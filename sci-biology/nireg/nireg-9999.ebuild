@@ -4,31 +4,30 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1 git-r3
 
-DESCRIPTION="Neuroimaging tools for Python"
+DESCRIPTION="Image registration package for Python."
 HOMEPAGE="http://nipy.org/"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/nistats/${PN}"
+EGIT_REPO_URI="https://github.com/nipy/${PN}"
 
 LICENSE="BSD"
 SLOT="0"
-IUSE=""
+IUSE="test"
 KEYWORDS=""
 
-COMMONDEPEND="
-	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/patsy[${PYTHON_USEDEP}]
-	"
+COMMONDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="${COMMONDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	"
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )"
 RDEPEND="${COMMONDEPEND}
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	dev-python/sympy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	dev-python/pandas[${PYTHON_USEDEP}]
-	sci-biology/nilearn[${PYTHON_USEDEP}]
 	"
+
+python_test() {
+	#nosetests -v || die
+	python -c "import nireg; nireg.test()" || die
+}
