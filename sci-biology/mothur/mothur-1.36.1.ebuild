@@ -39,7 +39,8 @@ src_prepare() {
 }
 
 src_compile() {
-	emake USEMPI=$(usex mpi) USEREADLINE=$(usex readline) USEBOOST=$(usex boost) USECOMPRESSION=$(usex zlib)
+	# USEBOOST should be set already in pkg_setup
+	emake USEMPI=$(usex mpi) USEREADLINE=$(usex readline) USECOMPRESSION=$(usex zlib)
 }
 
 src_install() {
