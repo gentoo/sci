@@ -1,0 +1,28 @@
+diff --git a/git2db.py b/git2db.py
+index 8bd727f..688b7e2 100644
+--- a/git2db.py
++++ b/git2db.py
+@@ -15,14 +15,14 @@ FULL_IMPORT_TYPE = 3
+ 
+ class Git2Db():
+ 
+-    def __init__(self, db_name, git_repo_path, before_date, import_last_commit, import_type, logger):
++    def __init__(self, db_name, git_repo_path, before_date, import_last_commit, import_type, logger, branch):
+         self.logger = logger
+         self.git_repo_path = git_repo_path
+         self.db_name = db_name
+         self.before_date = before_date
+         self.import_last_commit = import_last_commit
+         self.import_type = import_type
+-        self.querier = GitQuerier(git_repo_path, logger)
++        self.querier = GitQuerier(git_repo_path, logger, branch)
+ 
+         self.cnx = mysql.connector.connect(**config_db.CONFIG)
+         self.set_database()
+@@ -430,4 +430,4 @@ class Git2Db():
+         minutes_and_seconds = divmod((end_time-start_time).total_seconds(), 60)
+         self.logger.info("Git2Db: process finished after " + str(minutes_and_seconds[0])
+                      + " minutes and " + str(round(minutes_and_seconds[1], 1)) + " secs")
+-        return
+\ No newline at end of file
++        return
