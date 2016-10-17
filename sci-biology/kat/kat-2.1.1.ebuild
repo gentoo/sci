@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{3_4,3_5} ) # requires python >= 3.1
 
 DESCRIPTION="K-mer Analysis Toolkit (histogram, filter, compare sets, plot)"
 HOMEPAGE="https://github.com/TGAC/KAT"
-SRC_URI="https://github.com/TGAC/KAT/archive/Release-${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/TGAC/KAT/releases/download/Release-${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -20,10 +20,3 @@ DEPEND="dev-libs/boost:0
 	sci-visualization/gnuplot"
 RDEPEND="${DEPEND}"
 # contains bundled modified version of jellyfish-2.2.
-
-S="${WORKDIR}"/KAT-Release-"${PV}"
-
-src_prepare(){
-	sh ./autogen.sh . || die
-	default
-}
