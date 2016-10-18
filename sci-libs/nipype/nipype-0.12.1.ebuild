@@ -19,6 +19,7 @@ KEYWORDS="~amd64"
 IUSE="test"
 
 DEPEND="
+	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
