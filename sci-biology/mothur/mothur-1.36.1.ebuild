@@ -28,7 +28,6 @@ pkg_setup() {
 	use mpi && export CXX=mpicxx || export CXX=$(tc-getCXX)
 	use amd64 && append-cppflags -DBIT_VERSION
 	use readline && export USEREADLINE=yes || export USEREADLINE=no
-	# there is not USE=boost
 	export USEBOOST=yes
 	use zlib && export USECOMPRESSION=yes || export USECOMPRESSION=no
 }
