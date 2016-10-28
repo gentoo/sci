@@ -2,15 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_2,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_{4,5}} )
 
 inherit eutils toolchain-funcs
 
 DESCRIPTION="De novo de Bruijn genome assembler (bacteria to fungi) or uneven coverage"
 HOMEPAGE="http://bioinf.spbau.ru/en/spades"
-SRC_URI="http://spades.bioinf.spbau.ru/release3.5.0/SPAdes-3.5.0.tar.gz
+SRC_URI="
+	http://spades.bioinf.spbau.ru/release3.5.0/SPAdes-3.5.0.tar.gz
 	http://spades.bioinf.spbau.ru/release3.5.0/manual.html"
 
 LICENSE="GPL-2"
@@ -18,7 +19,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="sys-libs/zlib
+DEPEND="
+	sys-libs/zlib
 	app-arch/bzip2
 	dev-python/regex
 	dev-libs/boost"
