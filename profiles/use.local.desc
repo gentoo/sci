@@ -25,7 +25,6 @@ dev-lang/berkeley_upc:sptr-symmetric - Enable 'symmetric' pointer variant where 
 dev-lang/berkeley_upc:udp - Support running over UDP
 dev-lang/conceptual:gui - Build the Java base graphical interface
 dev-lang/idb:eclipse - Install the dev-util/eclipse-sdk plugins
-dev-lang/julia:int64 - Build with 64 bits integer blas and lapack (needs sci-libs/openblas and sci-libs/lapack-reference)
 dev-lang/path64:assembler - Build PathAS assembler
 dev-lang/path64:debugger - Build PathDB debugger
 dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
@@ -53,6 +52,9 @@ dev-util/nvidia-cuda-toolkit:profiler - Installs the NVIDIA CUDA visual profiler
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
 media-gfx/librecad:3d - Require all 2D coordinates stored as 3D
 media-gfx/librecad:tools - Build additional tool programs: tff2lff
+net-misc/cernbox-client:dolphin - Install the kde-apps/dolphin extension
+net-misc/cernbox-client:nautilus - Install the gnome-base/nautilus extension
+net-misc/cernbox-client:sftp - Enable sftp transfer support via net-libs/libssh
 sci-astronomy/mosstack:opencl - Enables OpenCL support and pulls in pyopencl. This makes some operations much faster but requires specific hardware and drivers.
 sci-astronomy/mosstack:qt4 - Pulls in PyQt4. Program works on command line interface without it but for GUI the library is required.
 sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
