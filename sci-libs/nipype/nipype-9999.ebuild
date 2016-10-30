@@ -39,8 +39,8 @@ RDEPEND="
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
-	EXISTING_REQUIRE="setup_requires=['future', 'configparser']"
-	CORRECTED_REQUIRE="setup_requires=['future']"
+	EXISTING_REQUIRE="setup_requires=\['future', 'configparser'\]"
+	CORRECTED_REQUIRE="setup_requires=\['future'\]"
 	sed \
 		-e "s/${EXISTING_REQUIRE}/${CORRECTED_REQUIRE}/g" \
 		-i setup.py \
