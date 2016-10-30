@@ -26,6 +26,7 @@ DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	test? ( dev-python/mock[${PYTHON_USEDEP}] )
+	$(python_gen_cond_dep 'dev-python/configparser[${PYTHON_USEDEP}]' python2_7)
 	"
 RDEPEND="
 	dev-python/networkx[${PYTHON_USEDEP}]
@@ -35,6 +36,16 @@ RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	"
+
+python_prepare_all() {
+	distutils-r1_python_prepare_all
+	EXISTING_REQUIRE="setup_requires=['future', 'configparser']"
+	CORRECTED_REQUIRE="setup_requires=['future']"
+	sed \
+		-e "s/${EXISTING_REQUIRE}/${CORRECTED_REQUIRE}/g" \
+		-i setup.py \
+		|| die "sed setup.py"
+}
 
 python_test() {
 	nosetests -v || die
