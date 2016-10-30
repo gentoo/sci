@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
+PYTHON_COMPAT=(  python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
