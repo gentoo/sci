@@ -44,7 +44,7 @@ COMMON_DEPS="
 	dev-java/jlfgr:0
 	dev-java/log4j:0
 	dev-java/gson:2.2.2
-	dev-java/guava:17
+	dev-java/guava:*
 	dev-java/swing-layout:1
 	dev-java/jgrapht:0
 	dev-java/junit:4"
