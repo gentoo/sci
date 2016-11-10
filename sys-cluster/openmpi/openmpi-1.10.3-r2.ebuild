@@ -48,6 +48,7 @@ REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
 	openmpi_ofed_features_failover? ( openmpi_fabrics_ofed )"
 
 MPI_UNCLASSED_DEP_STR="
+	!>=dev-libs/intel-common-16[mpi]
 	vt? (
 		!dev-libs/libotf
 		!app-text/lcdf-typetools

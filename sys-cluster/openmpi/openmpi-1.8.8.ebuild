@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -49,6 +49,7 @@ REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
 	openmpi_ofed_features_failover? ( openmpi_fabrics_ofed )"
 
 MPI_UNCLASSED_DEP_STR="
+	!>=dev-libs/intel-common-16[mpi]
 	vt? (
 		!dev-libs/libotf
 		!app-text/lcdf-typetools

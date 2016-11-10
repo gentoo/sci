@@ -47,6 +47,10 @@ REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
 	openmpi_ofed_features_dynamic-sl? ( openmpi_fabrics_ofed )
 	openmpi_ofed_features_failover? ( openmpi_fabrics_ofed )"
 
+MPI_UNCLASSED_DEP_STR="
+	!>=dev-libs/intel-common-16[mpi]
+"
+
 CDEPEND="
 	>=dev-libs/libevent-2.0.22[${MULTILIB_USEDEP}]
 	dev-libs/libltdl:0[${MULTILIB_USEDEP}]
