@@ -63,7 +63,7 @@ EANT_NEEDS_TOOLS="true"
 EANT_EXTRA_ARGS="-Dnotests=true"
 
 EANT_GENTOO_CLASSPATH="absolutelayout,jama,commons-logging,commons-math-2,commons-jexl-2,jfreechart-1.0,jlfgr,log4j,commons-io-1,"
-EANT_GENTOO_CLASSPATH+="gson-2.2.2,guava-17,swing-layout-1,jgrapht,junit-4"
+EANT_GENTOO_CLASSPATH+="gson-2.2.2,guava-20,swing-layout-1,jgrapht,junit-4"
 
 java_prepare() {
 	mv lib oldlib || die
