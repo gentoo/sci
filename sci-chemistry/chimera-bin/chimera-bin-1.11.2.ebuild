@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils
 
@@ -47,7 +47,7 @@ RDEPEND="
 	x11-libs/libXrender
 	x11-libs/libSM
 	x11-libs/libXt
-	|| ( x11-libs/libGLw <media-libs/mesa-8 )"
+	x11-libs/libGLw"
 
 S="${WORKDIR}"
 
