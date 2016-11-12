@@ -8,17 +8,16 @@ MY_PN=ASL
 CMAKE_MIN_VERSION=3.0.2
 CMAKE_MAKEFILE_GENERATOR="${CMAKE_MAKEFILE_GENERATOR:-ninja}"
 
-inherit cmake-utils git-r3
+inherit cmake-utils
 
 DESCRIPTION="Advanced Simulation Library - hardware accelerated multiphysics simulation platform"
 HOMEPAGE="http://asl.org.il/"
-SRC_URI=""
-EGIT_REPO_URI="git://github.com/AvtechScientific/${MY_PN}.git"
+SRC_URI="https://github.com/AvtechScientific/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="AGPL-3"
 SLOT="0"
 IUSE="doc examples matlab"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	>=dev-libs/boost-1.53:=
@@ -29,6 +28,8 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )
 	matlab? ( >=sci-libs/matio-1.5.2 )
 "
+
+S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_configure() {
 	local mycmakeargs=(
