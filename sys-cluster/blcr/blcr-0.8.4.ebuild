@@ -8,7 +8,7 @@ inherit linux-mod
 
 DESCRIPTION="Berkeley Lab Checkpoint/Restart for Linux"
 HOMEPAGE="https://ftg.lbl.gov/projects/CheckpointRestart"
-SRC_URI="https://ftg.lbl.gov/assets/projects/CheckpointRestart/downloads/${P}.tar.gz"
+SRC_URI="https://crd.lbl.gov/assets/Uploads/FTG/Projects/CheckpointRestart/downloads/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
