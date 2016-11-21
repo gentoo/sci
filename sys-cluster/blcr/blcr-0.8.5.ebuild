@@ -8,7 +8,7 @@ inherit linux-mod
 
 DESCRIPTION="Berkeley Lab Checkpoint/Restart for Linux"
 HOMEPAGE="https://ftg.lbl.gov/projects/CheckpointRestart"
-SRC_URI="https://ftg.lbl.gov/assets/projects/CheckpointRestart/downloads/${P}.tar.gz"
+SRC_URI="https://crd.lbl.gov/assets/Uploads/FTG/Projects/CheckpointRestart/downloads/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -24,8 +24,9 @@ pkg_setup() {
 	linux-info_pkg_setup
 
 	# kernel version check
-	if kernel_is gt 2 6 38; then
-		eerror "${PN} is being developed and tested up to linux-2.6.38."
+	if kernel_is gt 3 8; then
+		eerror "${PN} is being developed and tested up to linux-3.7.x."
+		eerror "It is known not to work with 3.8.x kernels"
 		eerror "Make sure you have a proper kernel version and point"
 		eerror "  /usr/src/linux symlink or env variable KERNEL_DIR to it!"
 		die "Wrong kernel version ${KV_FULL}"
