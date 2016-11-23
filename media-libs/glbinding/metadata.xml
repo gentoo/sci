@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription>
+    glbinding leverages modern C++11 features like enum classes,
+    lambdas, and variadic templates, instead of relying on macros; all
+    OpenGL symbols are real functions and variables. It provides
+    type-safe parameters, per feature API header, lazy function
+    resolution, multi-context and multi-thread support, global and local
+    function callbacks, meta information about the generated OpenGL
+    binding and the OpenGL runtime, as well as tools and examples for
+    quick-starting your projects. Based on the OpenGL API specification
+    (gl.xml) glbinding is generated using python scripts and templates
+    that can be easily adapted to fit custom needs.
+  </longdescription>
+  <upstream>
+    <remote-id type="github">cginternals/glbinding</remote-id>
+  </upstream>
+</pkgmetadata>

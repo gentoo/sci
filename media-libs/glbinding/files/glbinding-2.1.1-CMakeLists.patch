@@ -1,0 +1,29 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -103,7 +103,7 @@ endif()
+ if(UNIX AND SYSTEM_DIR_INSTALL)
+     # Install into the system (/usr/bin or /usr/local/bin)
+     set(INSTALL_ROOT      "share/${project}")       # /usr/[local]/share/<project>
+-    set(INSTALL_CMAKE     "share/${project}/cmake") # /usr/[local]/share/<project>/cmake
++    set(INSTALL_CMAKE     "lib/cmake")              # /usr/[local]/lib/cmake
+     set(INSTALL_EXAMPLES  "share/${project}")       # /usr/[local]/share/<project>
+     set(INSTALL_DATA      "share/${project}")       # /usr/[local]/share/<project>
+     set(INSTALL_BIN       "bin")                    # /usr/[local]/bin
+@@ -159,16 +159,8 @@ add_subdirectory(deploy)
+ # Deployment (global project files)
+ # 
+ 
+-# Install version file
+-install(FILES "${PROJECT_BINARY_DIR}/VERSION" DESTINATION ${INSTALL_ROOT} COMPONENT runtime)
+-
+ # Install cmake find script for the project
+-install(FILES ${META_PROJECT_NAME}-config.cmake DESTINATION ${INSTALL_ROOT} COMPONENT dev)
+-
+-# Install the project meta files
+-install(FILES AUTHORS   DESTINATION ${INSTALL_ROOT} COMPONENT runtime)
+-install(FILES LICENSE   DESTINATION ${INSTALL_ROOT} COMPONENT runtime)
+-install(FILES README.md DESTINATION ${INSTALL_ROOT} COMPONENT runtime)
++install(FILES ${META_PROJECT_NAME}-config.cmake DESTINATION ${INSTALL_LIB}/cmake/${project} COMPONENT dev)
+ 
+ # Install runtime data
+ install(DIRECTORY ${PROJECT_SOURCE_DIR}/data DESTINATION ${INSTALL_DATA} COMPONENT examples_data)
