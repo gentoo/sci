@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -50,7 +50,7 @@ src_configure(){
 
 src_install() {
 	emake install DESTDIR="${D}"
-	mv "${D}"/usr/bin/{aide,giac-help} || die
+	dobin src/aide
 	rm "${D}"/usr/bin/*cas_help || die
 	dodoc AUTHORS ChangeLog INSTALL NEWS README TROUBLES
 	if use !fltk; then
@@ -59,7 +59,7 @@ src_install() {
 		pax-mark -m "${D}"/usr/bin/x*
 	fi
 	if use !doc; then
-		rm -R "${D}"/usr/share/doc/giac "${D}"/usr/share/giac/doc/ || die
+		rm -R "${D}"/usr/share/doc "${D}"/usr/share/giac/doc/ || die
 	else
 		for LANG in el en es fr pt; do
 			if echo ${LINGUAS} | grep -v "$LANG" &> /dev/null; then
