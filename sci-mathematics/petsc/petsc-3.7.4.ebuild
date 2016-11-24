@@ -86,6 +86,10 @@ src_configure() {
 	# which is used by libmpi.so.
 	addpredict /proc/mtrr
 
+	# configureMPITypes with openmpi-2* insists on accessing the scaling
+	# governor rw.
+	addpredict /sys/devices/system/cpu/
+
 	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
 	petsc_enable() {
 		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"
