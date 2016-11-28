@@ -1,15 +1,15 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-[ "$PV" == "9999" ] && inherit subversion
+[ "$PV" == "9999" ] && inherit git-r3
 
 DESCRIPTION="C++ Bloom Filter Library"
-HOMEPAGE="https://code.google.com/p/bloom"
+HOMEPAGE="https://github.com/arashpartow/bloom"
 if [ "$PV" == "9999" ]; then
-	ESVN_REPO_URI="http://bloom.googlecode.com/svn/trunk"
+	EGIT_REPO_URI="https://github.com/ArashPartow/bloom.git"
 else
 	SRC_URI=""
 fi
@@ -23,6 +23,6 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_prepare(){
-	sed -e "s#-c++#$(tc-getCC)#;s#-O3#${CXXFLAGS}#" -i Makefile || die
+	sed -e "s#-c++#$(tc-getCXX)#;s#-O3#${CXXFLAGS}#" -i Makefile || die
 	sed -e "s#-pedantic-errors -ansi -Wall -Wextra -Werror -Wno-long-long##" -i Makefile || die
 }
