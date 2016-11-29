@@ -13,6 +13,7 @@ SRC_URI="https://github.com/arrayfire/arrayfire-python/archive/${PV}.tar.gz -> $
 
 LICENSE="BSD"
 SLOT="0"
+IUSE="test"
 KEYWORDS="~amd64"
 
 RDEPEND="
@@ -20,3 +21,7 @@ RDEPEND="
 	<sci-libs/arrayfire-3.5.0
 	"
 DEPEND="${RDEPEND}"
+
+python_test() {
+	${EPYTHON} -m arrayfire.tests
+}
