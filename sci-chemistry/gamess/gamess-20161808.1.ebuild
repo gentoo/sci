@@ -221,6 +221,10 @@ src_prepare() {
 	setenv GMS_MATHLIB atlas
 	setenv GMS_MATHLIB_PATH  /usr/$(get_libdir)/atlas
 	setenv GMS_DDI_COMM sockets
+	setenv GMS_LIBCCHEM false
+	setenv GMS_PHI false
+	setenv GMS_SHMTYPE sysv
+	setenv GMS_OPENMP false
 	EOF
 
 }
