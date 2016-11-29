@@ -1,25 +1,27 @@
-diff -urN gamess.orig/comp gamess.new/comp
---- gamess.orig/comp	2013-05-03 23:18:53.000000000 +0300
-+++ gamess.new/comp	2013-09-28 18:32:46.621341822 +0300
-@@ -1544,7 +1544,7 @@
- #   g77 does not support FORTRAN logical units above 99, or 128 bit math.
- #
-    case g77:
--   set OPT = '-O2'
-+   set gentoo-OPT = '-O2'
-    if ($MODULE == ormas1) set OPT='-O2 -fno-move-all-movables' # RH9, g77 3.3
-    if ($MODULE == zheev)  set OPT='-O0'  # defensive compiling
-    if (($MODULE == qeigen) || ($MODULE == int2c)) then
-@@ -1574,7 +1574,7 @@
- #      -std=legacy  suppresses warnings about use of f77 constructs.
+diff -urN gamess.orig/comp gamess/comp
+--- gamess.orig/comp	2016-10-08 17:15:03.000000000 +0300
++++ gamess/comp	2016-11-29 11:30:44.836507346 +0300
+@@ -1548,7 +1548,7 @@
  #
     case gfortran:
--   set OPT='-O2'
-+   set gentoo-OPT='-O2'
-    if ($MODULE == zheev)  set OPT='-O0'  # defensive compiling
-    if ($MODULE == pcmcv2) set OPT='-O1'  # EFP+CPCM, ala Francois, v4.1.2
-    if ($GMS_GFORTRAN_VERNO == 4.6) then
-@@ -1636,7 +1636,7 @@
+ #
+-      set OPT='-O2'
++      set gentoo-OPT='-O2'
+       if ($MODULE == zheev)  set OPT='-O0'  # defensive compiling
+ 
+       set EXTRAOPT=" "
+@@ -1593,6 +1593,10 @@
+          case 5.1:
+          case 5.2:
+          case 5.3:
++	 case 5.4:
++	 case 6.0:
++	 case 6.1:
++	 case 6.2:
+             if ($MODULE == cosmo)  set OPT='-O0'
+             if ($MODULE == dcscf)  set OPT='-O0'
+             if ($MODULE == tddgrd) set OPT='-O0'
+@@ -1621,7 +1625,7 @@
  #    optimizations in 32 bit mode, as a function of the ifort version.
  #
     case ifort:
@@ -28,24 +30,27 @@ diff -urN gamess.orig/comp gamess.new/comp
     if ($MODULE == delocl) set OPT='-O0'  # from Cheol
     if ($MODULE == prpamm) set OPT='-O0'  # for exam13
     if ($MODULE == zheev)  set OPT='-O0'
-@@ -1755,7 +1755,7 @@
- #           -finit-real=<zero|inf|-inf|nan>  could be interesting debug opt
- #           -fno-automatic forces static storage of all local variables
- #           -fno-whole-file suppresses argument's data type checking
+@@ -1766,7 +1770,7 @@
+ #
+ #         first, initialize OPT and EXTRAOPT
+ #
 -      set OPT='-O2'
 +      set gentoo-OPT='-O2'
-       if (".$GMS_DEBUG_FLAGS" != .) set OPT="$GMS_DEBUG_FLAGS"
+       if ($MODULE == zheev)  set OPT='-O0'  # defensive compiling
  
-       if ($GMS_GFORTRAN_VERNO == 4.6) then
-@@ -1804,6 +1804,7 @@
-             breaksw
-          case 4.6:
-          case 4.7:
-+         case 4.8:
-             set EXTRAOPT="$EXTRAOPT -fno-whole-file"
-             breaksw
-          default:
-@@ -1833,7 +1834,7 @@
+       set EXTRAOPT=" "
+@@ -1823,6 +1827,10 @@
+          case 5.1:
+          case 5.2:
+          case 5.3:
++	 case 5.4:
++	 case 6.0:
++	 case 6.1:
++	 case 6.2:
+             if ($MODULE == cosmo)  set OPT='-O0'  # same issue as seen in 4.6
+             if ($MODULE == dcscf)  set OPT='-O0'  # exam44, continues from 4.7
+             if ($MODULE == tddgrd) set OPT='-O0'  # exam41, continues from 4.6
+@@ -1864,7 +1872,7 @@
  #     -WB means warn but don't fail on out-of-bounds array references
  #     -ftz flushes underflow results to zero
  #
@@ -54,10 +59,10 @@ diff -urN gamess.orig/comp gamess.new/comp
        if (".$GMS_DEBUG_FLAGS" != .) set OPT="$GMS_DEBUG_FLAGS"
  #       alas, I'm so tired of hearing about so many versions failing to
  #       diagonalize, that this time critical code is run w/o optimization.
-diff -urN gamess.orig/ddi/compddi gamess.new/ddi/compddi
---- gamess.orig/ddi/compddi	2013-05-03 23:14:15.000000000 +0300
-+++ gamess.new/ddi/compddi	2013-09-28 18:09:10.390246354 +0300
-@@ -640,7 +640,7 @@
+diff -urN gamess.orig/ddi/compddi gamess/ddi/compddi
+--- gamess.orig/ddi/compddi	2016-06-22 21:28:44.000000000 +0300
++++ gamess/ddi/compddi	2016-11-29 11:28:19.067151986 +0300
+@@ -627,7 +627,7 @@
  
       set FORTRAN=$GMS_FORTRAN   # might be g77, gfortran, ifort, pgf77, f2c
  
@@ -66,7 +71,7 @@ diff -urN gamess.orig/ddi/compddi gamess.new/ddi/compddi
       set CFLAGS = "-DLINUX -O3 -fstrict-aliasing -I./"
       set CLIBS  = "-lpthread"
  
-@@ -694,7 +694,7 @@
+@@ -681,7 +681,7 @@
                               set ARCH='-m64'
       if (`uname -p` == ia64) set ARCH=''
  
@@ -75,9 +80,9 @@ diff -urN gamess.orig/ddi/compddi gamess.new/ddi/compddi
       set CFLAGS = "-DLINUX $ARCH -O3 -fstrict-aliasing -I./"
       set CLIBS  = "-lpthread"
  
-diff -urN gamess.orig/ddi/kickoff/ddikick.c gamess.new/ddi/kickoff/ddikick.c
---- gamess.orig/ddi/kickoff/ddikick.c	2011-11-22 21:54:33.000000000 +0200
-+++ gamess.new/ddi/kickoff/ddikick.c	2013-09-28 18:10:27.380423340 +0300
+diff -urN gamess.orig/ddi/kickoff/ddikick.c gamess/ddi/kickoff/ddikick.c
+--- gamess.orig/ddi/kickoff/ddikick.c	2011-11-22 23:54:33.000000000 +0400
++++ gamess/ddi/kickoff/ddikick.c	2016-11-29 11:28:19.068151988 +0300
 @@ -105,7 +105,7 @@
            remoteshell = argv[++i];
         } else {
@@ -87,9 +92,9 @@ diff -urN gamess.orig/ddi/kickoff/ddikick.c gamess.new/ddi/kickoff/ddikick.c
            }
         }
  
-diff -urN gamess.orig/gms-files.csh gamess.new/gms-files.csh
---- gamess.orig/gms-files.csh	2013-05-03 22:18:03.000000000 +0300
-+++ gamess.new/gms-files.csh	2013-09-28 18:28:04.952744349 +0300
+diff -urN gamess.orig/gms-files.csh gamess/gms-files.csh
+--- gamess.orig/gms-files.csh	2016-09-07 22:42:51.000000000 +0300
++++ gamess/gms-files.csh	2016-11-29 11:28:19.068151988 +0300
 @@ -28,7 +28,7 @@
  #     to see all the file definitions (one is just below).
  #
@@ -99,17 +104,11 @@ diff -urN gamess.orig/gms-files.csh gamess.new/gms-files.csh
  setenv  EXTBAS /dev/null
  setenv  NUCBAS /dev/null
  setenv  POSBAS /dev/null
-diff -urN gamess.orig/lked gamess.new/lked
---- gamess.orig/lked	2013-05-17 19:15:06.000000000 +0300
-+++ gamess.new/lked	2013-09-28 18:20:14.922777944 +0300
-@@ -384,17 +384,17 @@
+diff -urN gamess.orig/lked gamess/lked
+--- gamess.orig/lked	2016-07-29 20:59:09.000000000 +0300
++++ gamess/lked	2016-11-29 11:32:22.885745512 +0300
+@@ -362,12 +362,12 @@
     switch ($GMS_FORTRAN)
-      case g77:
-         set LDR='g77'
--        set LDOPTS=' '  # add '-Wl,-M' to see load map
-+        set gentoo-LDOPTS=' '  # add '-Wl,-M' to see load map
-         set FORTLIBS=' '
-         breaksw
       case gfortran:
          set LDR='gfortran'
 -        set LDOPTS=' '
@@ -122,17 +121,8 @@ diff -urN gamess.orig/lked gamess.new/lked
 +        set gentoo-LDOPTS=' '  # add '-Wl,-M' to see load map
          set FORTLIBS='-Vaxlib'
          breaksw
-      case pgfortran
-@@ -405,7 +405,7 @@
-         breaksw
-      case f2c:
-         set LDR='gcc'
--        set LDOPTS=' '
-+        set gentoo-LDOPTS=' '
-         set FORTLIBS='-lf2c -lm'
-         breaksw
-      default:
-@@ -458,12 +458,7 @@
+      case pgfortran:
+@@ -426,12 +426,7 @@
        #     Otherwise, attempt a link against shared object libs.
        #     See the 64 bit Atlas below for a way to fix the linker's
        #     not being able to locate -lf77blas, if that happens.
@@ -146,13 +136,14 @@ diff -urN gamess.orig/lked gamess.new/lked
        set BLAS=' '
        breaksw
  
-@@ -497,12 +492,12 @@
+@@ -465,13 +460,13 @@
     switch ($GMS_FORTRAN)
        case gfortran:
           set LDR='gfortran'
 -         set LDOPTS=' '
 +         set gentoo-LDOPTS=' '
           set FORTLIBS=' '
+          if ($GMS_OPENMP == true) set LDOPTS="$LDOPTS -fopenmp"
           breaksw
        case ifort:
           set LDR='ifort'
@@ -160,8 +151,8 @@ diff -urN gamess.orig/lked gamess.new/lked
 +         set gentoo-LDOPTS=' '  # -Wl,-M generates a load map
  #            this auxiliary library seems to have disappeared in ifort 10
           set FORTLIBS=' '
-          if($GMS_IFORT_VERNO < 10) set FORTLIBS='-Vaxlib'
-@@ -619,13 +614,7 @@
+          if ($GMS_IFORT_VERNO < 10) set FORTLIBS='-Vaxlib'
+@@ -616,13 +611,7 @@
        #          ln -s liblapack_atlas.so.3.0 liblapack.so
        #          ln -s liblapack.so.3.0       liblapack.so
        #     It is strange the RPM's don't do these soft links for us.
@@ -176,9 +167,9 @@ diff -urN gamess.orig/lked gamess.new/lked
        set BLAS=' '
        breaksw
  
-diff -urN gamess.orig/runall gamess.new/runall
---- gamess.orig/runall	2012-02-03 01:55:01.000000000 +0200
-+++ gamess.new/runall	2013-09-28 18:20:59.446867749 +0300
+diff -urN gamess.orig/runall gamess/runall
+--- gamess.orig/runall	2012-02-03 03:55:01.000000000 +0400
++++ gamess/runall	2016-11-29 11:28:19.069151991 +0300
 @@ -46,7 +46,7 @@
       xgms -v $VERNO -q $QUEUE -l exam$NUM.log exam$NUM
       sleep 2
@@ -188,15 +179,15 @@ diff -urN gamess.orig/runall gamess.new/runall
    endif
    @ i++
  end
-diff -urN gamess.orig/rungms gamess.new/rungms
---- gamess.orig/rungms	2013-05-17 19:15:11.000000000 +0300
-+++ gamess.new/rungms	2013-09-28 18:26:53.268594417 +0300
-@@ -60,9 +60,9 @@
+diff -urN gamess.orig/rungms gamess/rungms
+--- gamess.orig/rungms	2016-10-08 17:16:14.000000000 +0300
++++ gamess/rungms	2016-11-29 11:28:19.070151993 +0300
+@@ -61,9 +61,9 @@
  #       See also a very old LoadLeveler "ll-gms" for some IBM systems.
  #
  set TARGET=sockets
 -set SCR=/scr/$USER
--set USERSCR=~$USER/scr
+-set USERSCR=/u1/$USER/scr
 -set GMSPATH=/u1/mike/gamess
 +set SCR=`pwd`
 +set USERSCR=`pwd`

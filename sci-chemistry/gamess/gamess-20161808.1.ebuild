@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils fortran-2 flag-o-matic pax-utils toolchain-funcs
 
@@ -36,7 +36,7 @@ S="${WORKDIR}/${PN}"
 RESTRICT="fetch"
 
 GAMESS_DOWNLOAD="http://www.msg.ameslab.gov/GAMESS/License_Agreement.html"
-GAMESS_VERSION="5 DEC 2014 (R1)"
+GAMESS_VERSION="18 AUG 2016 (R1)"
 
 pkg_nofetch() {
 	echo
@@ -106,6 +106,7 @@ src_prepare() {
 	tc-export PKG_CONFIG
 	# apply LINUX-arch patches to gamess makesfiles
 	epatch "${FILESDIR}/${P}.gentoo.patch"
+	eapply_user
 	# select arch
 	# NOTE: please leave lked alone; it should be good as is!!
 	cd "${S}"
