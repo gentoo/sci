@@ -21,5 +21,6 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 RDEPEND="
 	>=sci-libs/arrayfire-3.2.0
+	<sci-libs/arrayfire-3.3.0
 	"
 DEPEND="${RDEPEND}"

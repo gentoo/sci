@@ -17,5 +17,6 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=sci-libs/arrayfire-3.3.2
+	<sci-libs/arrayfire-3.4.0
 	"
 DEPEND="${RDEPEND}"
