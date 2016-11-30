@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -24,7 +24,7 @@ DESCRIPTION="Advanced Simulation Library - multiphysics simulation software pack
 HOMEPAGE="http://asl.org.il/"
 LICENSE="AGPL-3"
 SLOT="0"
-IUSE="doc examples matio"
+IUSE="doc examples matlab"
 
 RDEPEND="
 	>=dev-libs/boost-1.55:=
@@ -33,7 +33,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )
-	matio? ( >=sci-libs/matio-1.5.2 )
+	matlab? ( >=sci-libs/matio-1.5.2 )
 "
 
 src_configure() {
@@ -42,7 +42,7 @@ src_configure() {
 		-DCMAKE_SKIP_RPATH=yes
 		$(cmake-utils_use_with doc API_DOC)
 		$(cmake-utils_use_with examples)
-		$(cmake-utils_use_with matio)
+		$(cmake-utils_use_with matlab)
 	)
 	cmake-utils_src_configure
 }

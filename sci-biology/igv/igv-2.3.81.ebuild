@@ -32,22 +32,22 @@ KEYWORDS="" # igv-2.3.81/src/com/iontorrent/views/FlowSignalDistributionPanel.ja
 # actually more exactly the COMMON_DEPS should contain:
 #   >=dev-java/commons-compress-1.11 # use bundled library until dev-java/commons-compress is bumped, see bug #591696
 COMMON_DEPS="
-	dev-java/absolutelayout
+	dev-java/absolutelayout:0
 	dev-java/jama:0
 	dev-java/commons-compress
 	dev-java/commons-logging:0
 	>=dev-java/commons-io-2.1:1
-	dev-java/commons-math:2
-	dev-java/commons-jexl:2
-	dev-java/jcommon:1.0
-	dev-java/jfreechart:1.0
+	dev-java/commons-math:*
+	dev-java/commons-jexl:*
+	dev-java/jcommon:*
+	dev-java/jfreechart:*
 	dev-java/jlfgr:0
 	dev-java/log4j:0
-	dev-java/gson:2.2.2
-	dev-java/guava:17
-	dev-java/swing-layout:1
+	dev-java/gson:*
+	>=dev-java/guava-17:*
+	dev-java/swing-layout:*
 	dev-java/jgrapht:0
-	dev-java/junit:4"
+	dev-java/junit:0"
 
 DEPEND=">=virtual/jdk-1.7
 	app-arch/unzip

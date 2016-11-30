@@ -11,7 +11,7 @@ GTEST_PV="1.7.0"
 DESCRIPTION="A general purpose GPU library"
 HOMEPAGE="http://www.arrayfire.com/"
 SRC_URI="http://arrayfire.com/arrayfire_source/${PN}-full-${PV}.tar.bz2 -> ${P}.tar.bz2
-test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
+test? ( https://github.com/google/googletest/archive/release-${GTEST_PV}.zip -> gtest-${GTEST_PV}.zip )"
 KEYWORDS="~amd64"
 
 LICENSE="BSD
@@ -42,7 +42,7 @@ RDEPEND="
 		|| ( dev-libs/boost-compute >=dev-libs/boost-1.61.0 )
 	)
 	graphics? (
-		media-libs/glew
+		media-libs/glew:=
 		>=media-libs/glfw-3.1.1
 		=sci-visualization/forge-3.1.2
 	)"
