@@ -4,7 +4,9 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{3_4,3_5} ) # requires python >= 3.1
+PYTHON_COMPAT=( python{2_7,3_4,3_5} ) # https://github.com/Ensembl/Bio-DB-HTS/issues/30
+
+inherit python-r1
 
 DESCRIPTION="K-mer Analysis Toolkit (histogram, filter, compare sets, plot)"
 HOMEPAGE="https://github.com/TGAC/KAT"
@@ -19,4 +21,8 @@ DEPEND="dev-libs/boost:0
 	dev-python/matplotlib
 	sci-visualization/gnuplot"
 RDEPEND="${DEPEND}"
-# contains bundled modified version of jellyfish-2.2.
+# contains bundled modified version of jellyfish-2.2 which should install under different filenames
+
+src_configure(){
+	econf PYTHON_VERSION="${PYTHON_SINGLE_TARGET}"
+}
