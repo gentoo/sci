@@ -38,7 +38,7 @@ RDEPEND="${DEPEND}
 
 src_install(){
 	perl_set_version
-	dobin Trinity util/*.pl trinity-plugins/GAL_0.2.1/fasta_tool
+	dobin Trinity util/*.pl
 	# should become a new package depending on dev-perl/IO-All
 	dobin trinity-plugins/fstrozzi-Fastool-7c3e034f05/fastool
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
