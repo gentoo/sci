@@ -34,7 +34,7 @@ src_prepare() {
 
 	sed \
 		-e "/^GLIB_CFLAGS/s:=.*:=$($(tc-getPKG_CONFIG) --cflags glib-2.0) -DHAS_GLIB:g" \
-		-e "/^GLIB_LFLAGS/s:=.*:=$($(tc-getPKG_CONFIG) --libs glib-2.0)-DHAS_GLIB:g" \
+		-e "/^GLIB_LFLAGS/s:=.*:=$($(tc-getPKG_CONFIG) --libs glib-2.0) -DHAS_GLIB:g" \
 		-i Makefile.include || die
 }
 

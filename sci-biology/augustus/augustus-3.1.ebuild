@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -29,6 +29,7 @@ src_prepare() {
 	# TODO: do we need anything from the 2.5.5 patch?
 	# epatch "${FILESDIR}"/${P}-sane-build.patch
 	tc-export CC CXX
+	sed -e 's/ -O3//g' -i src/Makefile || die
 }
 
 src_compile() {
