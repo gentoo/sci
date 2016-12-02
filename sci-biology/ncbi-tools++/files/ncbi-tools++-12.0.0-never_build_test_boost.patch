@@ -1,0 +1,11 @@
+--- ncbi_cxx--12_0_0/src/corelib/Makefile.in.ori	2016-12-01 20:28:33.239758102 +0100
++++ ncbi_cxx--12_0_0/src/corelib/Makefile.in	2016-12-01 20:28:46.330110659 +0100
+@@ -7,7 +7,7 @@
+ #################################
+ 
+ USR_PROJ = precompile
+-LIB_PROJ = corelib test_mt test_boost
++LIB_PROJ = corelib test_mt
+ SUB_PROJ = test
+ PROJ_TAG = core
+ 

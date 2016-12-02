@@ -120,6 +120,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
 		"${FILESDIR}"/${P}-fix-install.patch
 		"${FILESDIR}"/${P}-bdb6.patch
+		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
 		)
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch
