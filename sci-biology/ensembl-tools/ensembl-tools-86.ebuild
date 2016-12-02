@@ -18,9 +18,11 @@ KEYWORDS="" # BUG: needs Bio::EnsEMBL::Registry
 IUSE=""
 
 DEPEND="dev-perl/File-Copy-Recursive
-	dev-perl/Archive-Extract"
+	dev-perl/Archive-Extract
+	dev-perl/Bio-DB-HTS"
+# BUG: needs Bio::EnsEMBL::Registry from http://www.ensembl.org/info/docs/api/api_installation.html
+#	dev-perl/Bio-EnsEMBL" # 
 #DEPEND="dev-perl/Perl-XS
-#	dev-perl/Bio-DB-HTS"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/ensembl-tools-release-${PV}"
