@@ -42,8 +42,11 @@ DEPEND="
 	sci-biology/ncbi-tools || ( sci-biology/ncbi-tools++ )
 	sci-biology/snap
 	sci-biology/exonerate
-	sci-biology/augustus
+	>=sci-biology/augustus-2.0
 	sci-biology/repeatmasker"
+	#sci-biology/GeneMark_ES-bin
+	#sci-biology/GeneMark_S-bin
+	#>=sci-biology/FGENESH-bin-2.4 (not in gentoo yet)
 RDEPEND="${DEPEND}"
 # dev-perl/forks-shared ?
 
