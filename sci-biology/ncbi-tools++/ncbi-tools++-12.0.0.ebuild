@@ -329,6 +329,9 @@ src_compile() {
 	# 
 	# To take full advantage of --with-flat-makefile, you'll need the following (instead of 'emake all_p -C "${S}"_build/build') and call configure --with-flat-makefile:
 	emake -C "${S}"_build/build -f Makefile.flat
+	#
+	# >=gcc-5.3.0 is not supported, see also bug #579248#c8
+	# configure: error: Do not know how to build MT-safe with compiler /usr/bin/x86_64-pc-linux-gnu-g++  5.3.0
 }
 
 src_install() {
