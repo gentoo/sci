@@ -2,19 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Annotate SNP changes and predict their effect"
+MY_PV=${PV/./_}
+
+DESCRIPTION="SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF"
 HOMEPAGE="http://snpeff.sourceforge.net"
 SRC_URI="
-	http://sourceforge.net/projects/snpeff/files/snpEff_v4_2_core.zip
+	http://sourceforge.net/projects/snpeff/files/snpEff_v${MY_PV}_core.zip
 	http://snpeff.sourceforge.net/SnpSift.html -> ${P}.html"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 # https://github.com/pcingola/SnpEff/blob/master/README_release.txt
@@ -37,8 +39,8 @@ src_install(){
 	mkdir -p "${D}"/usr/share || die
 	# but portage does not install the .* files and subdirs, grr!
 	unzip \
-		"${DISTDIR}"/snpEff_v4_2_core.zip -d "${D}"/usr/share \
-		|| die "failed to unzip ${DISTDIR}/snpEff_v4_2_core.zip"
+		"${DISTDIR}"/snpEff_v"${MY_PV}"_core.zip -d "${D}"/usr/share \
+		|| die "failed to unzip ${DISTDIR}/snpEff_v${MY_PV}_core.zip"
 	sed \
 		-e 's#$HOME/tools/picard/#/usr/share/picard/lib/#' \
 		-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die
