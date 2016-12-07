@@ -36,22 +36,22 @@ S="${WORKDIR}"
 
 src_install(){
 	cd .. || die
-	mkdir -p "${D}"/usr/share || die
+	mkdir -p "${ED}"/usr/share || die
 	# but portage does not install the .* files and subdirs, grr!
 	unzip \
-		"${DISTDIR}"/snpEff_v"${MY_PV}"_core.zip -d "${D}"/usr/share \
+		"${DISTDIR}"/snpEff_v"${MY_PV}"_core.zip -d "${ED}"/usr/share \
 		|| die "failed to unzip ${DISTDIR}/snpEff_v${MY_PV}_core.zip"
 	sed \
-		-e 's#$HOME/tools/picard/#/usr/share/picard/lib/#' \
+		-e "s#$HOME/tools/picard/#${ED}/usr/share/picard/lib/#" \
 		-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die
 	sed \
-		-e 's#$HOME/tools/gatk/#/usr/share/gatk/lib/#' \
+		-e "s#$HOME/tools/gatk/#${ED}/usr/share/gatk/lib/#" \
 		-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die
 	sed \
-		-e 's#$HOME/snpEff/#/usr/share/snpEff/#' \
+		-e "s#$HOME/snpEff/#${ED}/usr/share/snpEff/#" \
 		-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die
 	sed \
-	-e 's#$HOME/snpEff/snpEff.config#/usr/share/snpEff/snpEff.config#' \
+	-e "s#$HOME/snpEff/snpEff.config#${ED}/usr/share/snpEff/snpEff.config#" \
 	-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die
 }
 
