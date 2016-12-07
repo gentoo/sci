@@ -34,4 +34,3 @@ src_prepare(){
 # is the below -rpath acceptable?
 # x86_64-pc-linux-gnu-gcc -shared -O2 -pipe -maes -mpclmul -mpopcnt -mavx -march=native -Wl,-O1 -Wl,--as-needed -o blib/arch/auto/Bio/DB/HTS/HTS.so lib/Bio/DB/HTS.o -L/usr/lib -Wl,-rpath,/usr/lib -lhts -lpthread -lz
 # x86_64-pc-linux-gnu-gcc -shared -O2 -pipe -maes -mpclmul -mpopcnt -mavx -march=native -Wl,-O1 -Wl,--as-needed -o blib/arch/auto/Bio/DB/HTS/Faidx/Faidx.so lib/Bio/DB/HTS/Faidx.o -L/usr/lib -Wl,-rpath,/usr/lib -lhts -lpthread -lz
-
