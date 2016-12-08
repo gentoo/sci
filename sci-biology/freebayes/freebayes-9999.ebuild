@@ -17,9 +17,9 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	sci-biology/htslib
+	sci-libs/htslib
 	sci-biology/bamtools
-	sci-biology/samtools"
+	sci-biology/samtools:*"
 
 # $ git clone --recursive git://github.com/ekg/freebayes.git
 # Cloning into 'freebayes'...
