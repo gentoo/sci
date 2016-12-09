@@ -4,6 +4,8 @@
 
 EAPI=6
 
+inherit eutils flag-o-matic
+
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.cbcb.umd.edu/software/jellyfish"
 SRC_URI="http://www.cbcb.umd.edu/software/jellyfish/jellyfish-1.1.11.tar.gz
@@ -16,11 +18,21 @@ SRC_URI="http://www.cbcb.umd.edu/software/jellyfish/jellyfish-1.1.11.tar.gz
 LICENSE="GPL-3+ BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="cpu_flags_x86_sse"
 
 DEPEND=""
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
+
+src_prepare(){
+	#  --with-sse              enable SSE
+	#  --with-half             enable half float (16 bits)
+	#  --with-int128           enable int128
+	local myconf
+	use cpu_flags_x86_sse && myconf+=( --with-sse )
+	econf econf ${myconf[@]}
+	eapply_user
+}
 
 src_install(){
 	default
