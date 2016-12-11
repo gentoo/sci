@@ -52,6 +52,7 @@ src_install(){
 	dobin trinity-plugins/fstrozzi-Fastool-7c3e034f05/fastool
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
 	#
+	# https://github.com/trinityrnaseq/trinityrnaseq/issues/126
 	insinto /usr/share/"${PN}"/util
 	rm -rf trinity-plugins/GAL_0.2.1 util/fasta_tool
 	doins -r util/*

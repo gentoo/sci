@@ -8,7 +8,7 @@ inherit java-pkg-2
 
 DESCRIPTION="Exome annotation tool"
 HOMEPAGE="http://compbio.charite.de/contao/index.php/jannovar.html"
-SRC_URI="https://github.com/charite/jannovar/archive/v0.16.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/charite/jannovar/archive/v"${PV}".tar.gz -> ${P}.tar.gz"
 
 # https://github.com/charite/jannovar
 LICENSE="BSD-2"
@@ -46,18 +46,14 @@ src_install(){
 	# maven download 95MB from the network into "${PORTAGE_BUILDDIR}/homedir/"
 	export M2="${HOME}"
 	mvn install -Dmaven.test.skip.exec=true -Duser.home="${HOME}" || die
-	java-pkg_dojar jannovar-cli/target/jannovar-cli-0.16.jar
-	java-pkg_dolauncher jannovar-cli --jar jannovar-cli-0.16.jar
-	java-pkg_dojar jped-cli/target/jped-cli-0.16.jar
-	java-pkg_dolauncher jped-cli --jar jped-cli-0.16.jar
-	#java-pkg_dojar jannovar-hgvs/target/jannovar-hgvs-0.16.jar
-	#java-pkg_dolauncher jannovar-hgvs --jar jannovar-hgvs-0.16.jar
-	#java-pkg_dojar jannovar-htsjdk/target/jannovar-htsjdk-0.16.jar
-	#java-pkg_dolauncher jannovar-htsjdk --jar jannovar-htsjdk-0.16.jar
-	#java-pkg_dojar jannovar-core/target/jannovar-core-0.16.jar
-	#java-pkg_dolauncher jannovar-core --jar jannovar-core-0.16.jar
-	#java-pkg_dojar jannovar-filter/target/jannovar-filter-0.16.jar
-	#java-pkg_dolauncher jannovar-filter --jar jannovar-filter-0.16.jar
-	#java-pkg_dojar jannovar-inheritance-checker/target/jannovar-inheritance-checker-0.16.jar
-	#java-pkg_dolauncher jannovar-inheritance-checker --jar jannovar-inheritance-checker-0.16.jar
+	# jannovar-cli-${PV}.jar includes all libraries (jannovar and others like htsjdk)
+	java-pkg_dojar jannovar-cli/target/jannovar-cli-"${PV}".jar
+	java-pkg_dolauncher jannovar-cli --jar jannovar-cli-"${PV}".jar
+	# original-jannovar-cli-0.17.jar contains only the source files of the specific package
+	java-pkg_dojar jannovar-cli/target/original-jannovar-cli-"${PV}".jar
+	java-pkg_dojar jannovar-hgvs/target/jannovar-hgvs-"${PV}".jar
+	java-pkg_dojar jannovar-htsjdk/target/jannovar-htsjdk-"${PV}".jar
+	java-pkg_dojar jannovar-core/target/jannovar-core-"${PV}".jar
+	java-pkg_dojar jannovar-vardbs/target/jannovar-vardbs-"${PV}".jar
+	java-pkg_dojar jannovar-inheritance-checker/target/jannovar-inheritance-checker-"${PV}".jar
 }

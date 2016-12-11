@@ -6,12 +6,12 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=yes
 
-inherit toolchain-funcs autotools-utils
+inherit toolchain-funcs git-r3
 
 DESCRIPTION="C/C++ library for working with human genetic variation data"
 HOMEPAGE="http://atgu.mgh.harvard.edu/plinkseq"
-SRC_URI="http://psychgen.u.hpc.mssm.edu/plinkseq_downloads/plinkseq-src-latest.tgz -> ${P}.tgz"
-# https://bitbucket.org/statgen/plinkseq.git
+EGIT_REPO_URI="https://bitbucket.org/statgen/plinkseq.git"
+# https://bitbucket.org/statgen/plinkseq/commits/all
 # http://pngu.mgh.harvard.edu/~purcell/plink/download.shtml
 
 LICENSE="GPL-2"
@@ -21,6 +21,7 @@ IUSE=""
 
 DEPEND="sys-libs/zlib
 	dev-libs/protobuf
+	www-servers/mongoose
 	!sci-biology/fsl" # file collision on /usr/bin/mm
 RDEPEND="${DEPEND}"
 
@@ -30,16 +31,24 @@ src_prepare(){
 	rm -rf sources/ext/protobuf-* || die
 	rm -rf sources/mongoose || die
 	sed -e 's@^all:.*@all: # skipping compilation of bundled dev-libs/protobuf@' -i sources/ext/Makefile || die
-	# TODO: fix also sources/ext/sources/include/DUMMY/include/google/protobuf/compiler/plugin.proto causing:
-	# plugin.proto: Import "google/protobuf/descriptor.proto" was not found or had errors.
-	# plugin.proto:74:12: "FileDescriptorProto" is not defined.
 	find . -name \*.proto | while read f; do \
 		d=`dirname $f`; \
 		pushd $d; \
 		protoc --cpp_out=. *.proto || exit 255; \
 		popd; \
 	done || die
-	autotools-utils_src_prepare
+	#
+	# recopy the updated files
+	cp -p sources/plinkseq/sources/lib/matrix.pb.h sources/plinkseq/sources/include/plinkseq/matrix.pb.h || die
+	cp -p sources/plinkseq/sources/lib/variant.pb.h sources/plinkseq/sources/include/plinkseq/variant.pb.h || die
+	sed -e 's/google::protobuf::internal::kEmptyString/google::protobuf::internal::GetEmptyStringAlreadyInited()/g' -i sources/plinkseq/sources/lib/matrix.pb.cpp || die
+	sed -e 's/google::protobuf::internal::kEmptyString/google::protobuf::internal::GetEmptyStringAlreadyInited()/g' -i sources/plinkseq/sources/lib/variant.pb.cpp || die
+	local myinc=`pkg-config protobuf --variable=includedir`
+	sed -e "s@\$(PROTOBUF_LIB_BASE_DIR)/\$(INC_DIR)/@$myinc@" -i Makefile || die
+	local mylib=`pkg-config protobuf --variable=libdir`
+	sed -e "s@$(PROTOBUF_LIB_BASE_DIR)/$(BLD_LIB_DIR)/@$mylib@" -i Makefile || die
+	local mylibs=`pkg-config protobuf --libs`
+	sed -e "s@libprotobuf.a@$mylibs@" -i Makefile || die
 }
 
 src_install(){

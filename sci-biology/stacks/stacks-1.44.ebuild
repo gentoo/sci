@@ -21,7 +21,8 @@ DEPEND="
 	>=sci-libs/htslib-1.3.1
 	dev-cpp/sparsehash
 	sci-biology/samtools:*
-	sci-biology/bamtools"
+	sci-biology/bamtools
+	sci-biology/gmap" # Source code for both GMAP and GSNAP
 RDEPEND="${DEPEND}
 	dev-lang/perl
 	>=dev-lang/php-5

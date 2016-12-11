@@ -1,0 +1,267 @@
+diff --git a/Common/Makefile b/Common/Makefile
+index bc63a66..f83906a 100644
+--- a/Common/Makefile
++++ b/Common/Makefile
+@@ -14,7 +14,7 @@ $(ODIR) :
+ 	$(MD) -p $(ODIR)
+ 
+ $(ODIR)/%.o : %.cpp %.h | $(ODIR) 
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	$(RM) -rf $(ODIR)
+diff --git a/Makefile.config b/Makefile.config
+index c589af5..73b88d2 100644
+--- a/Makefile.config
++++ b/Makefile.config
+@@ -1,16 +1,23 @@
+ # C++ compiler
+-CCC = g++
++CXX ?= g++
+ # Compiler flags (you probably don't need to change anything here)
+-CCCFLAGS = -O2 -m64 -std=gnu++0x -Wall
++CXXFLAGS += -std=gnu++0x -Wall
++#
++BAMTOOLS_INC ?= -I/usr/include/bamtools
++BAMTOOLS_LIB ?= -lbamtools
++NCBI_TOOLS_PLUSPLUS_INC ?= -I/usr/include/ncbi-tools++
++NCBI_TOOLS_PLUSPLUS_LIBS ?= -lxalgoalignnw -lxobjmgr -lgenome_collection -lseqset -lseqedit -lseq -lseqcode -lsequtil -lpub -lmedline -lbiblio -lgeneral -lxser -lxutil -lxncbi -ltables
++CPLEX_INC ?= -I/data/bio/alexeygritsenk/apps/ILOG/cplex/include
++CPLEX_LIB ?= -L/data/bio/alexeygritsenk/apps/ILOG/cplex/lib/x86-64_sles10_4.1/static_pic -lilocplex -lcplex -L/data/bio/alexeygritsenk/apps/ILOG/concert/lib/x86-64_sles10_4.1/static_pic -lconcert
+ # include directory
+-CCCINC = -I../Common/ -I/usr/include/bamtools
++CXXINC = -I../Common/ $(BAMTOOLS_INC)
+ # library directory and libraries
+-CCCLIB = -lbamtools
++CXXLIB = $(BAMTOOLS_LIB)
+ 
+ # Extra flags. Used for compiling scaffoldOptimizer (it uses the NCBI C++ Toolkit and CPLEX API)
+ CCEFLAGS = -fPIC -fexceptions -fopenmp -DNDEBUG -DIL_STD
+-CCEINC = -I/data/bio/alexeygritsenk/apps/ILOG/cplex/include -I/data/bio/alexeygritsenk/apps/ILOG/concert/include -I/usr/include/ncbi-tools++
+-CCELIB = -lxalgoalignnw -lxobjmgr -lgenome_collection -lseqset -lseqedit -lseq -lseqcode -lsequtil -lpub -lmedline -lbiblio -lgeneral -lxser -lxutil -lxncbi -ltables -L/data/bio/alexeygritsenk/apps/ILOG/cplex/lib/x86-64_sles10_4.1/static_pic -lilocplex -lcplex -L/data/bio/alexeygritsenk/apps/ILOG/concert/lib/x86-64_sles10_4.1/static_pic -lconcert -lm -pthread
++CCEINC = $(CPLEX_INC) -I/data/bio/alexeygritsenk/apps/ILOG/concert/include $(NCBI_TOOLS_PLUSPLUS_INC)
++CCELIB = $(NCBI_TOOLS_PLUSPLUS_LIBS) $(CPLEX_LIB) -lm -pthread
+ 
+ # Do not change anything below unless (you think) you know what you're doing.
+ MAKE = make
+diff --git a/breakpointCounter/Makefile b/breakpointCounter/Makefile
+index f042f5d..879528f 100644
+--- a/breakpointCounter/Makefile
++++ b/breakpointCounter/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/coverageUtil/Makefile b/coverageUtil/Makefile
+index c9768ce..b81b1f9 100644
+--- a/coverageUtil/Makefile
++++ b/coverageUtil/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/dataFilter/Makefile b/dataFilter/Makefile
+index 86885a0..aac1281 100644
+--- a/dataFilter/Makefile
++++ b/dataFilter/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/dataLinker/Makefile b/dataLinker/Makefile
+index bb22310..8846d09 100644
+--- a/dataLinker/Makefile
++++ b/dataLinker/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/dataSelector/Makefile b/dataSelector/Makefile
+index 79be6fc..54e45c6 100644
+--- a/dataSelector/Makefile
++++ b/dataSelector/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/dataSimulator/Makefile b/dataSimulator/Makefile
+index 4151efc..a8d4cb6 100644
+--- a/dataSimulator/Makefile
++++ b/dataSimulator/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/kmer/Makefile b/kmer/Makefile
+index 733a007..04bf766 100644
+--- a/kmer/Makefile
++++ b/kmer/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/readCleaner/Makefile b/readCleaner/Makefile
+index d011432..b17c334 100644
+--- a/readCleaner/Makefile
++++ b/readCleaner/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/readDiff/Makefile b/readDiff/Makefile
+index 2d703c0..f1b184e 100644
+--- a/readDiff/Makefile
++++ b/readDiff/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCCINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB)
++	$(CXX) $(CXXFLAGS) $(CXXINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCCINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CXXINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
+diff --git a/scaffoldOptimizer/Makefile b/scaffoldOptimizer/Makefile
+index 635cdd4..244c5ff 100644
+--- a/scaffoldOptimizer/Makefile
++++ b/scaffoldOptimizer/Makefile
+@@ -13,7 +13,7 @@ _COBJ = $(patsubst %,$(CDIR)/$(ODIR)/%,$(COBJ))
+ main : Common $(BDIR)/$(BNAME)
+ 
+ $(BDIR)/$(BNAME) : $(_OBJ) | $(BDIR)
+-	$(CCC) $(CCCFLAGS) $(CCEFLAGS) $(CCCINC) $(CCEINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CCCLIB) $(CCELIB)
++	$(CXX) $(CXXFLAGS) $(CCEFLAGS) $(CXXINC) $(CCEINC) -o $(BDIR)/$(BNAME) $(_OBJ) $(_COBJ) $(CXXLIB) $(CCELIB)
+ 
+ dirs : | $(ODIR) $(BDIR)
+ 
+@@ -27,7 +27,7 @@ Common :
+ 	$(MAKE) -C $(CDIR) $(_COBJ)
+ 
+ $(ODIR)/%.o : %.cpp | $(ODIR)
+-	$(CCC) -c $(CCCFLAGS) $(CCEFLAGS) $(CCCINC) $(CCEINC) -o $@ $<
++	$(CXX) -c $(CXXFLAGS) $(CCEFLAGS) $(CXXINC) $(CCEINC) -o $@ $<
+ 
+ clean :
+ 	rm -f $(BDIR)/$(BNAME)
