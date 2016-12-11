@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_7 python3_4 python3_5)
 
 inherit distutils-r1
 
@@ -15,10 +15,17 @@ SRC_URI="mirror://pypi/m/${PN}/${P}.zip"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="test"
 
 RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
-DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	"
+DEPEND="
+	dev-python/setuptools[${PYTHON_USEDEP}]
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
+
+python_test() {
+	py.test --verbose || die
+}
