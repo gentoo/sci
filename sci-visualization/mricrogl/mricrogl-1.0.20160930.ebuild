@@ -4,23 +4,24 @@
 
 EAPI=6
 
-inherit git-r3 gnome2-utils
+inherit gnome2-utils
 
 DESCRIPTION="A simle medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/MRIcroGL"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/neurolabusc/MRIcroGL.git"
+SRC_URI="https://github.com/neurolabusc/MRIcroGL/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND=""
 DEPEND="dev-lang/fpc
 	>=dev-lang/lazarus-1.6.2"
 
+S="${WORKDIR}/MRIcroGL-${PV}"
+
 src_compile() {
-	addpredict "/usr/share/lazarus/lcl/languages"
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die "Lazarus build failed"
+	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die
 }
 
 src_install() {
