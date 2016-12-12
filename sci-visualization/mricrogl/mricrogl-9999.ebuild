@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="6"
+EAPI=6
 
 inherit git-r3 gnome2-utils
 
@@ -16,7 +16,7 @@ SLOT="0"
 
 RDEPEND=""
 DEPEND="dev-lang/fpc
-	dev-lang/lazarus"
+	>=dev-lang/lazarus-1.6.2"
 
 src_compile() {
 	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die
