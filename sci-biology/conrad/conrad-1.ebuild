@@ -48,7 +48,9 @@ src_compile(){
 
 src_install() {
 	dobin bin/conrad.sh
+	java-pkg_newjar lib/conrad.jar
 	java-pkg_dojar lib/conrad.jar
+	java-pkg_dolauncher conrad --jar conrad.jar
 	insinto /usr/share/conrad
 	dodoc -r docs models samples trainingFiles
 }
