@@ -80,7 +80,7 @@ DEPEND="${CDEPEND}
 	gui? (
 		>=virtual/jdk-1.6
 		doc? ( app-text/docbook-xsl-stylesheets
-			   dev-java/xml-commons-external:1.4
+			   dev-java/xml-commons-external:1.3
 			   dev-java/saxon:9 )
 		xcos? ( dev-lang/ocaml )
 		)
@@ -177,7 +177,7 @@ src_prepare() {
 		if use doc; then
 			java-pkg_jar-from --build-only batik-1.8 batik-all.jar
 			java-pkg_jar-from --build-only saxon-9 saxon.jar saxon9he.jar
-			java-pkg_jar-from --build-only xml-commons-external-1.4 xml-apis-ext.jar
+			java-pkg_jar-from --build-only xml-commons-external-1.3 xml-apis-ext.jar
 		fi
 	fi
 	if use emf; then
