@@ -4,20 +4,20 @@
 
 EAPI=6
 
-inherit git-r3
-
 DESCRIPTION="Converts Bruker ParaVision MRI data to the NIfTI file format"
 HOMEPAGE="https://github.com/neurolabusc/Bru2Nii"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/neurolabusc/Bru2Nii.git"
+SRC_URI="https://github.com/neurolabusc/Bru2Nii/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="|| ( Artistic GPL-1+ )"
 SLOT="0"
+KEYWORDS="~amd64"
 IUSE="gui"
 
 RDEPEND=""
 DEPEND="dev-lang/fpc
 	gui? ( dev-lang/lazarus )"
+
+S="${WORKDIR}/Bru2Nii-${PV}"
 
 src_compile() {
 	fpc -Tlinux Bru2.lpr || die
