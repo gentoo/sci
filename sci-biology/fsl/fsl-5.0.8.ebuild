@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -126,6 +126,11 @@ src_install() {
 	#if use matlab; then
 	#	doins etc/matlab
 	#fi
+
+	#the following is needed for FSL and depending programs to be able
+	#to find its files, since FSL uses an uncommon:
+	#https://github.com/gentoo-science/sci/pull/612#r60289295
+	dosym /etc /usr/share/fsl/etc
 
 	doenvd "${FILESDIR}"/99fsl
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
