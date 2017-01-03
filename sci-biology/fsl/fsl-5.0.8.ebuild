@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -118,10 +118,10 @@ src_install() {
 	insinto /usr/libexec/fsl
 	doins -r tcl/*
 
-	insinto /etc/fslconf
+	insinto /usr/etc/fslconf
 	doins etc/fslconf/fsl.sh
 
-	insinto /etc
+	insinto /usr/etc
 	doins etc/fslversion
 	doins -r etc/default_flobs.flobs etc/flirtsch etc/js etc/luts
 	#if use matlab; then
