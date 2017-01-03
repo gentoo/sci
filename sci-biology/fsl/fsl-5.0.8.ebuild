@@ -117,15 +117,20 @@ src_install() {
 	insinto /usr/libexec/fsl
 	doins -r tcl/*
 
-	insinto /usr/etc/fslconf
+	insinto /etc/fslconf
 	doins etc/fslconf/fsl.sh
 
-	insinto /usr/etc
+	insinto /etc
 	doins etc/fslversion
 	doins -r etc/default_flobs.flobs etc/flirtsch etc/js etc/luts
 	#if use matlab; then
 	#	doins etc/matlab
 	#fi
+
+	#the following is needed for FSL and depending programs to be able
+	#to find its files, since FSL uses an uncommon:
+	#https://github.com/gentoo-science/sci/pull/612#r60289295
+	dosym /etc /usr/share/fsl/etc
 
 	doenvd "${FILESDIR}"/99fsl
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
