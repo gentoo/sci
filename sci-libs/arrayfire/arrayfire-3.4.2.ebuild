@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -44,15 +44,13 @@ RDEPEND="
 	graphics? (
 		media-libs/glbinding
 		>=media-libs/glfw-3.1.1
-		=sci-visualization/forge-0.9.0
+		=sci-visualization/forge-0.9.2
 	)"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}-full-${PV}"
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
-
-PATCHES=("${FILESDIR}/${P}-FindCBLAS.patch")
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
