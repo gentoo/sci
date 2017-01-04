@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs prefix
 
@@ -131,6 +131,7 @@ src_install() {
 	#to find its files, since FSL uses an uncommon:
 	#https://github.com/gentoo-science/sci/pull/612#r60289295
 	dosym /etc /usr/share/fsl/etc
+	dosym /usr/share/doc/${P} /usr/share/fsl/doc
 
 	doenvd "${FILESDIR}"/99fsl
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
