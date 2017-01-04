@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs prefix
 
@@ -87,6 +87,7 @@ src_prepare(){
 		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
 
 	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
+	default
 }
 
 src_compile() {
