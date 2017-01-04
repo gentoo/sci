@@ -87,6 +87,7 @@ src_prepare(){
 		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
 
 	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
+	default
 }
 
 src_compile() {
