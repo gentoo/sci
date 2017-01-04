@@ -37,6 +37,7 @@ dev-libs/intel-common:mic - Install the libraries needed for supporting Intel Ma
 dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
 dev-python/ffnet:matplotlib - Use matplotlib for drawing
+dev-python/nbdime:webtools - Install web-based diff and merge tools.
 dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
 dev-tex/pythontex:highlighting - PLEASE FIX MY DESCRIPTION
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
@@ -335,8 +336,6 @@ sci-physics/geant-vmc:g4root - Build G4Root (interface for GEANT4 simulation wit
 sci-physics/geant-vmc:geant3 - Build with Geant4 G3toG4 library
 sci-physics/geant-vmc:mtroot - Build MTRoot (provides ROOT IO manager classes with multi-threading support)
 sci-physics/geant-vmc:vgm - Enable the Virtual Geometry Model (sci-physics/vgm)
-sci-physics/herwig++:c++11 - Build Herwig++ using the C++11 standard. Experimental feature, not for production use.
-sci-physics/herwig++:fastjet - Adds support for sci-physics/fastjet
 sci-physics/mc-tester:hepmc - Compile sci-physics/hepmc interface
 sci-physics/root:fits - Support for images and data from FITS files with sci-libs/cfitsio
 sci-physics/root:geocad - Enable ROOT-CAD interface using sci-libs/opencascade
@@ -349,7 +348,6 @@ sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:tau-spinner - Compile with TauSpinner library
 sci-physics/vgm:geant4 - Enable interaction with Geant4(sci-physics/geant:4)
 sci-physics/vgm:root - Enable interactions with ROOT (sci-physics/root)
-sci-physics/yoda:root - Adds support for sci-physics/root
 sci-visualization/mantid:doc - Generate documentation with app-doc/doxygen, QT Assistant etc
 sci-visualization/mantid:opencascade - Use OpenCascade to show 3D models of instruments
 sci-visualization/mantid:opencl - Use OpenCL to accelerate calculations
