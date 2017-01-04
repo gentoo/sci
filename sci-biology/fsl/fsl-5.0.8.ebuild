@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs prefix
 
@@ -87,6 +87,7 @@ src_prepare(){
 		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
 
 	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
+	default
 }
 
 src_compile() {
@@ -126,6 +127,12 @@ src_install() {
 	#if use matlab; then
 	#	doins etc/matlab
 	#fi
+
+	#the following is needed for FSL and depending programs to be able
+	#to find its files, since FSL uses an uncommon:
+	#https://github.com/gentoo-science/sci/pull/612#r60289295
+	dosym /etc /usr/share/fsl/etc
+	dosym /usr/share/doc/${P} /usr/share/fsl/doc
 
 	doenvd "${FILESDIR}"/99fsl
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
