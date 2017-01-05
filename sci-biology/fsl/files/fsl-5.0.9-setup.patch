@@ -103,12 +103,13 @@ diff -Naur fsl.orig/config/generic/systemvars.mk fsl/config/generic/systemvars.m
 diff -Naur fsl.orig/extras/build fsl/extras/build
 --- fsl.orig/extras/build	2015-03-29 00:11:15.080236000 +1300
 +++ fsl/extras/build	2015-03-29 00:15:53.170496000 +1300
-@@ -60,7 +60,7 @@
+@@ -104,8 +104,8 @@
  if [ ${BUILDICONV} -eq 1 ]; then
    PROJECTS="${PROJECTS} libiconv"
  fi
 -PROJECTS="${PROJECTS} libgd libgdc libprob libcprob newmat cprob newran fftw"
 +PROJECTS="libgdc libprob libcprob newmat cprob newran"
+ PROJECTS="${PROJECTS} boost libxml2-2.9.2 libxml++-2.34.0"
  for projname in $PROJECTS; do
  
      if [ -d $FSLESRCDIR/$projname ] ; then
