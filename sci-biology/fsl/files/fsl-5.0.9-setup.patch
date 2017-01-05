@@ -1,7 +1,7 @@
 diff -Naur fsl.orig/build fsl/build
 --- fsl.orig/build	2015-03-29 00:10:39.845936000 +1300
 +++ fsl/build	2015-03-29 00:12:37.160487000 +1300
-@@ -11,8 +11,7 @@
+@@ -11,9 +11,8 @@
  ifit load_varian load_dicom misc_scripts fdt first possum sgeutils \
  flameo oxford_asl relax qboot topup ptx2 lesions eddy dwssfp verbena";
  fi
