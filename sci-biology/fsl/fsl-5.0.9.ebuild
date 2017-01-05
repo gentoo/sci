@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
-SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
+SRC_URI="https://dev.gentoo.org/~jlec/distfiles/${P}-sources.tar.gz"
 
 LICENSE="FSL BSD-2 newmat"
 SLOT="0"
@@ -33,7 +33,7 @@ S=${WORKDIR}/${PN}
 
 src_prepare(){
 	epatch \
-		"${FILESDIR}/${PN}"-5.0.8-setup.patch \
+		"${FILESDIR}/${PN}"-5.0.9-setup.patch \
 		"${FILESDIR}/${PN}"-5.0.8-headers.patch \
 		"${FILESDIR}/${PN}"-5.0.8-fsldir_redux.patch
 
