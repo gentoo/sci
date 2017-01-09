@@ -6,7 +6,7 @@ EAPI=6
 
 inherit git-r3 gnome2-utils
 
-DESCRIPTION="A simle medical imaging visualization tool"
+DESCRIPTION="A surface rendering tool supporting neuroimaging data"
 HOMEPAGE="https://github.com/neurolabusc/surf-ice"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/neurolabusc/surf-ice.git"
