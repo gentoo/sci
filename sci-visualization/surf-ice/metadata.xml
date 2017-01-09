@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<longdescription lang="en">
+		Surf Ice is an open source surface render. It supports 
+		mesh formats including 3DS, CTM, DXF, FreeSurfer, GII 
+		(GIfTI), GTS, LWO2, MS3D, MZ3, NV (BrainNetViewer), OBJ,
+		OFF, PLY, STL, VTK. It also supports tractography formats 
+		including BFloat, PDB, TCK, TRK, and VTK. Further, the 
+		software supports the NIfTI voxelwise format
+  	</longdescription>
+	<upstream>
+		<remote-id type="github">neurolabusc/surf-ice</remote-id>
+	</upstream>
+</pkgmetadata>
