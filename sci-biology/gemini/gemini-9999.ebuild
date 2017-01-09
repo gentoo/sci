@@ -20,6 +20,10 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="dev-python/sqlalchemy
+	sci-biology/grabix
+	sci-libs/htslib
+	sci-biology/bedtools
+	sci-biology/pybedtools
 	${DEPEND}"
 
 # GEMINI includes CADD scores (PMID: 24487276) for annotating variants.
