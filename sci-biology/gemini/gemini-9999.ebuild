@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -19,7 +19,8 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="dev-python/sqlalchemy
+	${DEPEND}"
 
 # GEMINI includes CADD scores (PMID: 24487276) for annotating variants.
 #
