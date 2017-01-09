@@ -1,0 +1,32 @@
+--- CMakeLists.txt.orig	2016-04-09 17:28:22.197678165 +0200
++++ CMakeLists.txt	2016-04-09 17:40:35.343647503 +0200
+@@ -202,6 +202,7 @@
+ find_package (Qt5Core REQUIRED)
+ find_package (Qt5Sql REQUIRED)
+ find_package (Qt5WebKitWidgets REQUIRED)
++find_package (Qt5Xml REQUIRED)
+ 
+ set (QT_USE_QTXML 1)
+ set (QT_USE_QTOPENGL 1)
+@@ -319,3 +320,21 @@
+ # Build axl
+ ######################################################################
+ add_subdirectory (axl)
++
++MESSAGE(STATUS "<<< Gentoo configuration >>>
++Build type      ${CMAKE_BUILD_TYPE}
++Install path    ${CMAKE_INSTALL_PREFIX}
++Compiler flags:
++C               ${CMAKE_C_FLAGS}
++C++             ${CMAKE_CXX_FLAGS}
++Linker flags:
++Executable      ${CMAKE_EXE_LINKER_FLAGS}
++Module          ${CMAKE_MODULE_LINKER_FLAGS}
++Shared          ${CMAKE_SHARED_LINKER_FLAGS}\n")
++
++install ( FILES "${CMAKE_BINARY_DIR}/plugins/libaxlVtkView.so"
++          DESTINATION lib/axel-plugins)
++
++install ( DIRECTORY "${PROJECT_SOURCE_DIR}/axl/axlVtkView"
++        DESTINATION include/
++        FILES_MATCHING PATTERN "*.h")
