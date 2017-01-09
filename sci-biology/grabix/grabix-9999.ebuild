@@ -24,4 +24,5 @@ src_compile(){
 
 src_install(){
 	dobin grabix
+	dodoc README.md
 }
