@@ -6,7 +6,7 @@ EAPI=6
 
 inherit gnome2-utils
 
-DESCRIPTION="A simle medical imaging visualization tool"
+DESCRIPTION="A simple medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/MRIcroGL"
 SRC_URI="https://github.com/neurolabusc/MRIcroGL/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
