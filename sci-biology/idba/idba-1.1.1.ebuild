@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -30,5 +30,5 @@ src_install(){
 	# https://github.com/loneknightpy/idba/issues/23
 	rm "${D}"/usr/bin/scan.py "${D}"/usr/bin/run-unittest.py || die
 	rm bin/test bin/*.o bin/Makefile* || die # avoid file collision
-	dobin bin/*
+	dobin bin/* # https://github.com/loneknightpy/idba/issues/23
 }

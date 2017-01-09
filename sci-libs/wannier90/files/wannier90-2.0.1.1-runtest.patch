@@ -1,0 +1,12 @@
+diff -Naurp wannier90-2.0.1.1.orig/tests/run_test.pl wannier90-2.0.1.1/tests/run_test.pl
+--- wannier90-2.0.1.1.orig/tests/run_test.pl	2016-02-08 11:51:52.000000000 +0000
++++ wannier90-2.0.1.1/tests/run_test.pl	2017-01-05 12:10:29.584850729 +0000
+@@ -2,7 +2,7 @@
+ #
+ use Cwd;
+ my $cwd = cwd();
+-$wanex="../wannier90.x" ;
++$wanex="../src/wannier90.x" ;
+ $wanex=$cwd."/".$wanex ;
+ print " Running test set of inputs\n";
+ @tests_found = <./test*>;
