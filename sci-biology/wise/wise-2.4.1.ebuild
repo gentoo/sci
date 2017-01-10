@@ -13,7 +13,7 @@ SRC_URI="http://www.ebi.ac.uk/~birney/${PN}2/${PN}$(delete_version_separator 3).
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc static-libs"
 
 RDEPEND="sci-biology/hmmer:2"
