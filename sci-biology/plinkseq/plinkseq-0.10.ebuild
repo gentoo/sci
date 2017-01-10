@@ -28,6 +28,7 @@ src_prepare(){
 	sed -e "s/gcc/$(tc-getCC)/g;s/g++/$(tc-getCXX)/g;s/-O3/${CFLAGS}/g" -i config_defs.Makefile || die
 	sed -e "s/= -static/=/g" -i config_defs.Makefile || die
 	rm -rf sources/ext/protobuf-* || die
+	rm sources/ext/protobuf sources/ext/sources/include/google || die
 	rm -rf sources/mongoose || die
 	sed -e 's@^all:.*@all: # skipping compilation of bundled dev-libs/protobuf@' -i sources/ext/Makefile || die
 	# TODO: fix also sources/ext/sources/include/DUMMY/include/google/protobuf/compiler/plugin.proto causing:
