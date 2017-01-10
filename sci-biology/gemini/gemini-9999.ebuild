@@ -11,6 +11,9 @@ inherit git-r3 distutils-r1
 DESCRIPTION="Lightweight VCF to DB framework for disease and population genetics"
 HOMEPAGE="https://github.com/arq5x/gemini
 	http://gemini.readthedocs.org/en/latest"
+# https://media.readthedocs.org/pdf/gemini/latest/gemini.pdf
+# http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003153
+# http://quinlanlab.org/pdf/Gemini-Quinlan-Stroke-UVA.pdf
 EGIT_REPO_URI="https://github.com/arq5x/gemini.git"
 
 LICENSE="MIT" # see note below!
