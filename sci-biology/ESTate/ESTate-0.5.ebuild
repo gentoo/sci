@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -28,12 +28,12 @@ src_prepare(){
 		-i src/Makefile || die
 }
 
-# Detected file collision(s) versus sci-biology/hmmer-2.3.2-r2:
-#  * sci-biology/ESTate-0.5:0::science
-#  *      /usr/bin/revcomp
-#  *      /usr/bin/translate
-
 src_install(){
+	# prevent file collision with sci-biology/hmmer-2.3.2
+	newbin bin/{revcomp,revcomp_ESTate}
+	rm bin/revcomp || die
+	newbin bin/{translate,translate_ESTate}
+	rm bin/translate || die
 	dobin bin/*
 	doman doc/man/man1/*.1 doc/man/man7/*.7
 
