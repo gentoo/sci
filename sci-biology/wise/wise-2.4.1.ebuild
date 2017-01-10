@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="doc static-libs"
 
-RDEPEND="~sci-biology/hmmer-2.3.2"
+RDEPEND="sci-biology/hmmer:2"
 DEPEND="
 	${RDEPEND}
 	dev-lang/perl
