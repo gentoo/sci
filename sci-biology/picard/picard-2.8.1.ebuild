@@ -16,7 +16,7 @@ SRC_URI="https://github.com/broadinstitute/picard/archive/${PV}.tar.gz -> ${P}.t
 LICENSE="MIT"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 CDEPEND="dev-java/snappy:1.1
 	dev-java/cofoja:0
@@ -41,14 +41,19 @@ java_prepare() {
 	epatch "${FILESDIR}"/${PV}-build.xml.patch
 }
 
-src_install() {
-	cd dist || die
-
-	java-pkg_dojar ${PN}.jar
-	java-pkg_dojar ${PN}-lib.jar
-
-	java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
-
-	use source && java-pkg_dosrc "${S}"/src/java/*
-	use doc && java-pkg_dojavadoc "${S}"/javadoc
+src_compile(){
+	# work around gradle writing $HOME/.gradle and requiring $HOME/.git
+	# https://github.com/samtools/htsjdk/issues/660#issuecomment-232155965
+	GRADLE_USER_HOME="${WORKDIR}" ./gradlew build || die
 }
+
+#src_install() {
+#	cd dist || die
+#	java-pkg_dojar ${PN}.jar
+#	java-pkg_dojar ${PN}-lib.jar
+#	
+#	java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
+#	
+#	use source && java-pkg_dosrc "${S}"/src/java/*
+#	use doc && java-pkg_dojavadoc "${S}"/javadoc
+#}
