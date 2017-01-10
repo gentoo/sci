@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,10 +10,10 @@ SRC_URI="ftp://ftp.genome.umd.edu/pub/QuorUM/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="=sci-biology/jellyfish-2.1.4"
+DEPEND=">=sci-biology/jellyfish-2.1.4"
 RDEPEND="${DEPEND}"
 
 src_configure(){

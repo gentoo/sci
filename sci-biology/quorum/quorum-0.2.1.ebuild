@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="=sci-biology/jellyfish-1.1.11"
+DEPEND=">=sci-biology/jellyfish-1.1.11
+		<=sci-biology/jellyfish-2.0.0"
 RDEPEND="${DEPEND}"
 
 src_configure(){
