@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -55,5 +55,6 @@ src_install(){
 	cd build/execs || die
 	# TODO: avoid file collision with sci-biology/fsl
 	# https://bitbucket.org/statgen/plinkseq/issue/9/rename-mm-filename-to-plinkseq_mm
+	# TODO: avoid file collision with www-servers/mongoose
 	dobin gcol browser pseq behead mm smp tab2vcf pdas
 }
