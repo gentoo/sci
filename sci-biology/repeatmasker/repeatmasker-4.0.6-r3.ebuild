@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -72,16 +72,16 @@ src_install() {
 		dosym /usr/share/${PN}/$i /usr/bin/$i
 	done
 
-	dodir /usr/share/${PN}/lib
-	insinto /usr/share/${PN}/lib
+	perl_set_version
+	insinto "${VENDOR_LIB}"
 	doins "${S}"/*.pm "${S}"/Libraries/*.pm
 	# zap the supposedly misplaced RepeatAnnotationData.pm file
-	rm -rf "${S}"/Libraries/*.pm || die
+	rm -r "${S}"/Libraries/*.pm || die
 
 	# if sci-biology/repeatmasker-libraries is installed prevent file collision
 	# and do NOT install Libraries/RepeatMaskerLib.embl file which contains
 	# a limited version of the file: 20110419-min
-	rm -rf Libraries/RepeatMaskerLib.embl || die
+	rm -r Libraries/RepeatMaskerLib.embl || die
 	insinto /usr/share/${PN}
 	doins -r util Matrices Libraries *.help
 	keepdir /usr/share/${PN}/Libraries
