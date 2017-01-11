@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,7 +11,7 @@ inherit autotools-utils flag-o-matic fortran-2 multilib
 MY_P=${P//_/-}
 
 DESCRIPTION="A library of exchange-correlation functionals for use in DFT"
-HOMEPAGE="http://www.tddft.org/programs/octopus/wiki/index.php/Libxc"
+HOMEPAGE="http://octopus-code.org/wiki/Libxc"
 SRC_URI="http://www.tddft.org/programs/octopus/download/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-3"
