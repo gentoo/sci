@@ -4,14 +4,15 @@
 
 EAPI="6"
 
-JAVA_PKG_IUSE="doc source"
+#JAVA_PKG_IUSE="doc source"
+JAVA_PKG_IUSE=""
 
-inherit java-pkg-2 java-ant-2
+inherit git-r3 java-pkg-2 java-ant-2
 
 DESCRIPTION="Java-based command-line utilities that manipulate SAM/BAM/CRAM/VCF files"
 HOMEPAGE="http://picard.sourceforge.net
 	http://broadinstitute.github.io/picard"
-SRC_URI="https://github.com/broadinstitute/picard/archive/${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/broadinstitute/picard.git"
 
 LICENSE="MIT"
 SLOT="0"
@@ -47,13 +48,13 @@ src_compile(){
 	GRADLE_USER_HOME="${WORKDIR}" ./gradlew || die
 }
 
-#src_install() {
-#	cd dist || die
-#	java-pkg_dojar ${PN}.jar
-#	java-pkg_dojar ${PN}-lib.jar
-#	
-#	java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
-#	
-#	use source && java-pkg_dosrc "${S}"/src/java/*
-#	use doc && java-pkg_dojavadoc "${S}"/javadoc
-#}
+src_install() {
+	cd build/libs || die
+	java-pkg_dojar "${PN}".jar
+	java-pkg_dojar "${PN}"-*-SNAPSHOT.jar
+
+	java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
+
+	#use source && java-pkg_dosrc "${S}"/src/java/*
+	#use doc && java-pkg_dojavadoc "${S}"/javadoc
+}
