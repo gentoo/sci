@@ -6,11 +6,11 @@ EAPI="6"
 
 JAVA_PKG_IUSE="doc source"
 
-inherit java-pkg-2 java-ant-2
+inherit git-r3 java-pkg-2 java-ant-2
 
 DESCRIPTION="Java API for high-throughput sequencing data (HTS) formats."
 HOMEPAGE="https://samtools.github.io/htsjdk/"
-SRC_URI="https://github.com/samtools/htsjdk/archive/${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/samtools/htsjdk.git"
 
 LICENSE="MIT"
 SLOT="0"
@@ -38,16 +38,16 @@ java_prepare(){
 src_compile(){
 	# work around gradle writing $HOME/.gradle and $HOME/.git
 	# https://github.com/samtools/htsjdk/issues/660#issuecomment-232155965
-	GRADLE_USER_HOME="${WORKDIR}" ./gradlew build || die
+	GRADLE_USER_HOME="${WORKDIR}" ./gradlew || die
 }
 
 src_install() {
-	cd dist || die
+	cd build/libs || die
 
-	for i in *.jar; do
-		java-pkg_newjar $i ${i/-[0-9]*.jar/.jar}
-	done
-
-	use source && java-pkg_dosrc "${S}"/src/java/*
-	use doc && java-pkg_dojavadoc "${S}"/javadoc
+	#for i in *-SNAPSHOT.jar; do
+	#	java-pkg_newjar $i ${i/-[0-9]*.jar/.jar}
+	#done
+	java-pkg_newjar "${S}"/build/libs/*-SNAPSHOT.jar htsjdk.jar
+	use source && java-pkg_dosrc "${S}"/build/libs/*-sources.jar
+	use doc && java-pkg_dojavadoc "${S}"/build/libs/*-javadoc.jar
 }
