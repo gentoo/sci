@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -84,7 +84,8 @@ trilinos_enable() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch \
-		"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch
+		"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch \
+		"${FILESDIR}"/${P}-fix_install_paths_for_destdir-2.patch
 }
 
 src_configure() {
