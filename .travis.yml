@@ -33,5 +33,8 @@ script:
 # You can append own scripts after this line
 
 notifications:
-    irc: "chat.freenode.net#gentoo-science"
-
+    irc:
+        channels: "chat.freenode.net#gentoo-science"
+        template:
+            - "%{repository} - %{branch} - %{author}: %{commit_subject} - %{message} - Build details : %{build_url}"
+        use_notice: true
