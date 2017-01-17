@@ -31,7 +31,7 @@ src_install(){
 	dobin *.pl
 	# TODO: prepend shebang lines to *.py files
 	# https://bugs.gentoo.org/show_bug.cgi?id=602580
-	sed -i -e "1i #!/usr/bin/env ${EPYTHON}" RangeFinder.py || die
+	sed -i -e "1i #!/usr/bin/env python" RangeFinder.py || die
 	python_foreach_impl python_doscript *.py
 	dodoc \
 		"${DISTDIR}"/eval-documentation.pdf \
