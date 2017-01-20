@@ -38,7 +38,7 @@ EANT_GENTOO_CLASSPATH="snappy-1.1,cofoja,commons-jexl-2,ant-core,htsjdk"
 
 java_prepare() {
 	default
-	rm -r src/java/picard/util/TestNGUtil.java src/tests/java/* || die
+	rm -r src/ src/test/java/* || die
 	epatch "${FILESDIR}"/${PV}-build.xml.patch
 }
 
