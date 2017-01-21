@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -29,10 +29,11 @@ RDEPEND="sci-libs/fftw:*
 	sys-devel/gcc:*[fortran]
 	virtual/lapack
 	virtual/blas
+	dev-python/numpy
+	dev-python/matplotlib
 	${PYTHON_DEPS}"
 
-DEPEND="dev-python/numpy
-	${RDEPEND}"
+DEPEND="${RDEPEND}"
 
 src_compile() {
 	append-ldflags -shared # needed by f2py
