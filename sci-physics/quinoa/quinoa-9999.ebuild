@@ -19,6 +19,7 @@ DEPEND=">=sci-libs/trilinos-12.10.1[netcdf]
 	sci-libs/h5part
 	>=sys-cluster/charm-6.7.1[mpi]
 	dev-libs/boost
+	dev-libs/boost-mpl-cartesian_product
 	dev-libs/tut
 	dev-libs/pugixml
 	dev-cpp/pstreams
