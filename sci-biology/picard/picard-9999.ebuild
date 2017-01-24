@@ -36,11 +36,6 @@ EANT_NEEDS_TOOLS="true"
 JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_GENTOO_CLASSPATH="snappy-1.1,cofoja,commons-jexl-2,ant-core,htsjdk"
 
-java_prepare() {
-	default
-	epatch "${FILESDIR}"/${PV}-build.xml.patch
-}
-
 src_compile(){
 	# work around gradle writing $HOME/.gradle, requiring $HOME/.git and $HOME/.m2/
 	# https://github.com/samtools/htsjdk/issues/660#issuecomment-232155965
