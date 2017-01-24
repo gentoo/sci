@@ -38,7 +38,7 @@ EANT_GENTOO_CLASSPATH="snappy-1.1,cofoja,commons-jexl-2,ant-core,htsjdk"
 
 java_prepare() {
 	default
-	epatch "${FILESDIR}"/${PV}-build.xml.patch
+	epatch "${FILESDIR}"/2.2.2-build.xml.patch
 }
 
 src_compile(){
