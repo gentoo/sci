@@ -1,13 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module eutils
+inherit perl-functions
 
-DESCRIPTION="Optimise three primary parameter options (K, -exp_cov, -cov_cutoff) for Velvet sequence assembler"
+DESCRIPTION="Optimise Velvet sequence assembler"
 HOMEPAGE="http://www.vicbioinformatics.com/software.velvetoptimiser.shtml"
 SRC_URI="http://www.vicbioinformatics.com/"${P}".tar.gz"
 
