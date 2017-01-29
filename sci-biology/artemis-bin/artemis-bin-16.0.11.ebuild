@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -10,12 +10,14 @@ MY_V="16"
 
 DESCRIPTION="DNA sequence viewer, annotation (Artemis) without comparison (ACT) tool"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/artemis"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/v"${PV}"/artemis_compiled_v"${PV}".tar.gz
+SRC_URI="
+	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/v"${PV}"/artemis_compiled_v"${PV}".tar.gz
 	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/v"${PV}"/artemis_v"${PV}".jar
 	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/v"${PV}"/sartemis_v"${PV}".jar
 	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/artemis_manual_complete.pdf -> ${P}.manual.pdf
 	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/release_notes.txt -> ${P}.release_notes.txt
 	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v"${MY_V}"/art_html_build.zip -> ${P}.html_build.zip"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -25,7 +27,7 @@ S="${WORKDIR}"
 
 DEPEND="
 	!sci-biology/artemis
-	sci-biology/samtools"
+	sci-biology/samtools:0"
 RDEPEND="${DEPEND}
 		>=virtual/jre-1.6"
 
