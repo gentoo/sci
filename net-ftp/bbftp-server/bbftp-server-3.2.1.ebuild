@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="Secure file transfer software with its own transfer protocol optimized for files larger than 2GB"
+DESCRIPTION="Secure file transfer optimized for files larger than 2GB"
 HOMEPAGE="http://doc.in2p3.fr/bbftp/"
 SRC_URI="http://doc.in2p3.fr/bbftp/dist/${P}.tar.gz"
 
@@ -20,9 +20,10 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P}/bbftpd"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-deffixes.patch
+PATCHES=( "${FILESDIR}"/${PV}-deffixes.patch )
 
+src_prepare() {
+	default
 	sed \
 		-e '/@INSTALL@\|mkdir/s:${\(prefix\|mandir\|bindir\)}:${DESTDIR}${\1}:' \
 		-e '/\/etc/d' \
