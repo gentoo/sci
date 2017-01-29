@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="Helsinki Finite State Transducer API and tools"
 HOMEPAGE="http://hfst.sourceforge.net/"
@@ -14,11 +14,12 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+openfst sfst foma xml +glib"
 
 RDEPEND="
+	foma? ( >sci-misc/foma-0.9.13 )
+	glib? ( dev-libs/glib:2 )
 	openfst? ( >sci-misc/openfst-1.2 )
 	sfst? ( >sci-misc/sfst-1.3 )
-	foma? ( >sci-misc/foma-0.9.13 )
-	xml? ( dev-libs/libxml2 dev-cpp/libxmlpp )
-	glib? ( dev-libs/glib:2 )"
+	xml? ( dev-libs/libxml2:2= dev-cpp/libxmlpp:3.0= )
+"
 DEPEND="${RDEPEND}
 	>=sys-devel/flex-2.5.35
 	sys-devel/bison"
