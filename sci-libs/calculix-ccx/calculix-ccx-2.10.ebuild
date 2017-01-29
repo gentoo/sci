@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -44,7 +44,7 @@ src_configure() {
 	if use threads; then
 		append-cflags "-DUSE_MT"
 	fi
-	
+
 	if use openmp; then
 		append-fflags "-fopenmp"
 		append-cflags "-fopenmp"
