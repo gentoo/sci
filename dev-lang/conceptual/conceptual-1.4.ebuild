@@ -1,29 +1,29 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 JAVA_PKG_OPT_USE="gui"
 
 inherit java-pkg-opt-2 python-single-r1
 
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-KEYWORDS="~amd64"
-
 DESCRIPTION="A Network Correctness and Performance Testing Language"
 HOMEPAGE="http://conceptual.sourceforge.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD-2"
 IUSE="gui test"
+KEYWORDS="~amd64"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="virtual/mpi
+RDEPEND="
+	virtual/mpi
 	${PYTHON_DEPS}
-	gui? ( virtual/jdk:* dev-java/jython:0 )"
+	gui? ( virtual/jdk:* )"
 DEPEND="${RDEPEND}"
 
 src_compile() {
