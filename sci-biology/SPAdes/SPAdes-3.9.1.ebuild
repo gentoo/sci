@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,8 +11,8 @@ inherit eutils toolchain-funcs
 DESCRIPTION="De novo de Bruijn genome assembler (bacteria to fungi) or uneven coverage"
 HOMEPAGE="http://bioinf.spbau.ru/en/spades"
 SRC_URI="
-	http://spades.bioinf.spbau.ru/release3.5.0/SPAdes-3.5.0.tar.gz
-	http://spades.bioinf.spbau.ru/release3.5.0/manual.html"
+	http://spades.bioinf.spbau.ru/release${PV}/SPAdes-${PV}.tar.gz
+	http://spades.bioinf.spbau.ru/release${PV}/manual.html -> ${P}_manual.html"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -37,14 +37,13 @@ pkg_pretend() {
 	fi
 }
 
-src_prepare(){
-	insinto /usr/share/doc/SPAdes
+#src_compile(){
+#	# grr, it actually also installs the files into $DESTDIR but that is purged before pkg_qmerge starts
+#	PREFIX="${D}"/usr ./spades_compile.sh || die
+#}
+
+src_install(){
+	PREFIX="${ED}"/usr ./spades_compile.sh || die
+	insinto /usr/share/"${PN}"
 	dodoc "${DISTDIR}"/manual.html
 }
-
-src_compile(){
-	# grr, it actually also installs the files into $PREFIX
-	PREFIX="${D}"/usr ./spades_compile.sh || die
-}
-
-# BUG: contents of "${D}" do not propagate during qmerge?
