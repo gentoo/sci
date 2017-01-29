@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit java-pkg-2 java-ant-2 eutils
+inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Display short reads alignment, identify the genetic variation + associate with reference annotation"
+DESCRIPTION="Display short reads alignment"
 HOMEPAGE="http://bioinformatics.zj.cn/magicviewer"
 SRC_URI="
 	http://59.79.168.90/soft/${PN}_${PV}_x86_64_linux.tar.gz
