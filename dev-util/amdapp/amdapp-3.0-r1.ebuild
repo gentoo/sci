@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit multilib unpacker versionator
 
@@ -17,29 +17,30 @@ MY_P_AMD32="AMD-APP-SDK-v${MY_V}-linux32.sh"
 DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
 HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk"
 SRC_URI="
-		amd64? ( ${AMD64_AT} )
-		x86? ( ${X86_AT} )"
+	amd64? ( ${AMD64_AT} )
+	x86? ( ${X86_AT} )"
+
 LICENSE="AMD-APPSDK"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND="
-	app-eselect/eselect-opengl
 	!<dev-util/amdstream-2.6
-	sys-devel/llvm
-	sys-devel/gcc:*
-	media-libs/mesa
-	media-libs/freeglut
-	virtual/opencl
-	examples? ( media-libs/glew )
 	app-eselect/eselect-opencl
-	x11-drivers/ati-drivers"
+	app-eselect/eselect-opengl
+	media-libs/freeglut
+	media-libs/mesa[video_cards_radeonsi]
+	sys-devel/gcc:*
+	sys-devel/llvm
+	virtual/opencl
+	examples? ( media-libs/glew:0= )"
 DEPEND="
 	${RDEPEND}
-	dev-lang/perl
 	dev-util/patchelf
-	sys-apps/fakeroot"
+	dev-lang/perl
+	sys-apps/fakeroot
+"
 
 RESTRICT="mirror strip"
 
