@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -18,11 +18,12 @@ IUSE="openmp"
 RDEPEND="
 	sci-libs/gsl
 	sci-libs/hdf5
-	sci-libs/libint
+	sci-libs/libint:2
 	>=sci-libs/libxc-2.0.0
 "
-DEPEND="${DEPEND}
+DEPEND="
 	>=sci-libs/armadillo-4[blas,lapack]
+	virtual/pkgconfig
 	${RDEPEND}
 "
 
