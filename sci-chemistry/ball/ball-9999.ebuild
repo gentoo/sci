@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -28,7 +28,7 @@ RDEPEND="
 	dev-qt/qtopengl:4
 	dev-qt/qttest:4
 	dev-qt/qtwebkit:4
-	media-libs/glew
+	media-libs/glew:0=
 	sci-libs/fftw:3.0[threads?]
 	sci-libs/gsl
 	sci-libs/libsvm
