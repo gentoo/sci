@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit toolchain-funcs
 
-DESCRIPTION="Secure file transfer software with its own transfer protocol optimized for files larger than 2GB"
+DESCRIPTION="Secure file transfer optimized for files larger than 2GB"
 HOMEPAGE="http://doc.in2p3.fr/bbftp/"
 SRC_URI="http://doc.in2p3.fr/bbftp/dist/${P}.tar.gz"
 
@@ -26,6 +26,7 @@ src_prepare() {
 		-e '/\/etc/d' \
 		-i Makefile.in || die
 	tc-export CC
+	default
 }
 
 src_configure() {
