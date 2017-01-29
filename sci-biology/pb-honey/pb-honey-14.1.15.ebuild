@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -18,9 +18,9 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	sci-biology/samtools[${PYTHON_USEDEP}]
 	sci-biology/blasr
 	sci-biology/pysam[${PYTHON_USEDEP}]
+	sci-biology/samtools:0[${PYTHON_USEDEP}]
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
