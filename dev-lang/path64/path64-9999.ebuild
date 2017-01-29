@@ -1,26 +1,18 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-if [ "${PV%9999}" != "${PV}" ] ; then
-	SCM=git-r3
-	EGIT_REPO_URI="git://github.com/pathscale/${PN}-suite.git"
-	PATH64_URI="compiler assembler"
-	PATHSCALE_URI="compiler-rt libcxxrt libdwarf-bsd libunwind stdcxx"
-	DBG_URI="git://github.com/path64/debugger.git"
-fi
-
-inherit cmake-utils ${SCM} multilib toolchain-funcs
+inherit cmake-utils git-r3 toolchain-funcs
 
 DESCRIPTION="Path64 Compiler Suite Community Edition"
 HOMEPAGE="http://www.pathscale.com/ekopath-compiler-suite"
-if [ "${PV%9999}" != "${PV}" ] ; then
-	SRC_URI=""
-else
-	SRC_URI=""  # for tarballs
-fi
+SRC_URI=""
+EGIT_REPO_URI="git://github.com/pathscale/${PN}-suite.git"
+PATH64_URI="compiler assembler"
+PATHSCALE_URI="compiler-rt libcxxrt libdwarf-bsd libunwind stdcxx"
+DBG_URI="git://github.com/path64/debugger.git"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -29,7 +21,7 @@ IUSE="assembler custom-cflags debugger fortran +native +openmp valgrind"
 
 DEPEND="
 	!native? ( sys-devel/gcc:*[vanilla] )
-	native? ( || ( dev-lang/ekopath dev-lang/path64 ) )
+	native? ( || ( dev-lang/ekopath:* dev-lang/path64 ) )
 	valgrind? ( dev-util/valgrind )"
 RDEPEND="${DEPEND}"
 
@@ -46,8 +38,8 @@ pkg_setup() {
 
 src_unpack() {
 	git-r3_src_unpack
-	cd "${S}"
-	mkdir compiler
+	cd "${S}" || die
+	mkdir compiler || die
 	for f in ${PATH64_URI}; do
 		EGIT_REPO_URI="git://github.com/${PN}/${f}.git" \
 		EGIT_DIR="${EGIT_STORE_DIR}/compiler/${f}" \
