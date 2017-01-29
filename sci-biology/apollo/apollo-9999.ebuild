@@ -1,23 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit java-pkg-2 java-ant-2
+inherit java-pkg-2 java-ant-2 subversion
 
-[ "$PV" == "9999" ] && inherit subversion
-
-DESCRIPTION="Apollo genome editor is Java-based application for browsing and annotation of genomic sequences"
+DESCRIPTION="Apollo genome editor"
 HOMEPAGE="http://gmod.org/wiki/Apollo"
-if [ "$PV" == "9999" ]; then
-	#SRC_URI="http://gmod.svn.sourceforge.net/viewvc/gmod/apollo/?view=tar" # Apollo_unix.sh
-	ESVN_REPO_URI="https://gmod.svn.sourceforge.net/svnroot/gmod/apollo/trunk"
-	#KEYWORDS="~amd64 ~x86"
-else
-	SRC_URI="http://apollo.berkeleybop.org/current/installers/Apollo_unix.sh"
-	#KEYWORDS="~amd64 ~x86"
-fi
+ESVN_REPO_URI="https://gmod.svn.sourceforge.net/svnroot/gmod/apollo/trunk"
 
 LICENSE="Artistic"
 SLOT="0"
