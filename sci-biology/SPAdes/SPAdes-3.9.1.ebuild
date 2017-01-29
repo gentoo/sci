@@ -12,7 +12,10 @@ DESCRIPTION="De novo de Bruijn genome assembler (bacteria to fungi) or uneven co
 HOMEPAGE="http://bioinf.spbau.ru/en/spades"
 SRC_URI="
 	http://spades.bioinf.spbau.ru/release${PV}/SPAdes-${PV}.tar.gz
-	http://spades.bioinf.spbau.ru/release${PV}/manual.html -> ${P}_manual.html"
+	http://spades.bioinf.spbau.ru/release${PV}/manual.html -> ${P}_manual.html
+	http://spades.bioinf.spbau.ru/release3.9.1/dipspades_manual.html -> ${P}_dipspades_manual.html
+	http://spades.bioinf.spbau.ru/release3.9.1/rnaspades_manual.html -> ${P}_rnaspades_manual.html
+	http://spades.bioinf.spbau.ru/release3.9.1/truspades_manual.html -> ${P}_truspades_manual.html"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -45,5 +48,5 @@ pkg_pretend() {
 src_install(){
 	PREFIX="${ED}"/usr ./spades_compile.sh || die
 	insinto /usr/share/"${PN}"
-	dodoc "${DISTDIR}"/manual.html
+	dodoc "${DISTDIR}"/${P}_*manual.html
 }
