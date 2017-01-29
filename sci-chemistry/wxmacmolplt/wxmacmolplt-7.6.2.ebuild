@@ -1,8 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 WX_GTK_VER=3.0
 
@@ -18,7 +18,7 @@ SLOT="0"
 IUSE="flash"
 
 RDEPEND="
-	media-libs/glew
+	media-libs/glew:0=
 	media-libs/mesa
 	x11-libs/wxGTK:${WX_GTK_VER}[X,opengl]
 	flash? ( media-libs/ming )"
@@ -26,7 +26,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
-	epatch_user
+	default
 
 	sed \
 		-e "/^dist_doc_DATA/d" \
