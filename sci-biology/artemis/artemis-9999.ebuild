@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -8,7 +8,8 @@ inherit java-pkg-2 java-ant-2 git-r3
 
 DESCRIPTION="DNA sequence viewer/annotation (Artemis) and comparison (ACT) tool"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/artemis"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/artemis.pdf -> ${P}.manual.pdf
+SRC_URI="
+	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/artemis.pdf -> ${P}.manual.pdf
 	ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/v16/art_html_build.zip -> ${P}.html_build.zip"
 EGIT_REPO_URI="https://github.com/sanger-pathogens/Artemis"
 
@@ -19,7 +20,7 @@ IUSE=""
 
 # uses its own BamView
 RDEPEND="
-	sci-biology/samtools
+	sci-biology/samtools:0
 	>=virtual/jre-1.6:*"
 DEPEND="${RDEPEND}
 	!sci-biology/artemis-bin
