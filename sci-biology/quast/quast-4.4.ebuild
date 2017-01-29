@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -23,7 +23,11 @@ DEPEND="
 	sci-biology/glimmerhmm"
 #	sci-biology/GAGE
 #	sci-biology/GeneMarkS
-#	sci-biology/MetaGeneMark"
+#   sci-biology/GeneMarkES
+#	sci-biology/MetaGeneMark
+#   sci-biology/ncbi-tools++
+#
+# comes with bundled executables in ./quast_libs
 
 # the above packages need to be created first
 
@@ -32,8 +36,10 @@ RDEPEND="${DEPEND}"
 src_install(){
 	python_foreach_impl python_newscript quast.py quast
 	python_foreach_impl python_newscript metaquast.py metaquast
+	python_foreach_impl python_newscript icarus.py icarus
 
-	dodoc manual.html CHANGES
+	dodoc manual.html
 
-	# TODO: install lib/ subdirectory contents into some PATH and PYTHON_PATH
+	# TODO: install quast_libs/ subdirectory contents into some PATH and PYTHON_PATH
+	# TODO: unbundle bundled executables
 }
