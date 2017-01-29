@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils
 
@@ -15,8 +15,9 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-CDEPEND="dev-cpp/tbb
-	>=sci-biology/seqan-1.4.1"
+CDEPEND="
+	dev-cpp/tbb
+	>=sci-biology/seqan-1.4.1:0"
 DEPEND="${CDEPEND}"
 RDEPEND="${CDEPEND}"
 
