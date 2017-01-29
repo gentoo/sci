@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils
 
@@ -19,11 +19,12 @@ IUSE=""
 
 DEPEND=">=dev-lang/perl-5.8"
 RDEPEND="
+	dev-perl/Text-Soundex
+	sci-biology/phrap
+	sci-biology/repeatmasker-libraries
 	sci-biology/rmblast
 	>=sci-biology/trf-4.0.4
-	sci-biology/repeatmasker-libraries
-	sci-biology/phrap
-	dev-perl/Text-Soundex"
+"
 
 S="${WORKDIR}/RepeatMasker"
 
@@ -45,7 +46,7 @@ src_configure() {
 	# below try to define paths to trf, cross_match, rmblast and nhmmer as search tools
 	echo "
 env
-${S}
+\"${S}\"
 /opt/bin
 1
 /usr/bin
@@ -96,8 +97,8 @@ pkg_postinst(){
 	einfo "PATHs to the search binaries are defined in"
 	einfo "/usr/share/${PN}/lib/RepeatMaskerConfig.pm"
 	einfo "Supported search engines are:"
-	einfo "cross_match from sci-biology/phrap"
-	einfo "rmblast from sci-biology/rmblast"
-	einfo "nhmmer from >=sci-biology/hmmer-3.1"
+	optfeature "cross_match" sci-biology/phrap
+	optfeature "rmblast" sci-biology/rmblast
+	optfeature "nhmmer" >=sci-biology/hmmer-3.1
 	einfo "abblast/wublast from http://blast.advbiocomp.com/licensing"
 }
