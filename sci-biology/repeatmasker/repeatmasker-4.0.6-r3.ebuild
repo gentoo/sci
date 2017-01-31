@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit eutils
+inherit eutils perl-module
 
 MY_PV=${PV//\./-}
 
@@ -35,6 +35,11 @@ src_prepare(){
 }
 
 src_configure() {
+	sed -e "s#/usr/bin/which#${EPREFIX}/usr/bin/which#g" -i "${S}"/configure || die
+	sed -e "s#/usr/bin/perl#${EPREFIX}/usr/bin/perl#g" -i "${S}"/configure || die
+	perl_set_version
+	insinto ${VENDOR_LIB}
+	sed -e "s#/usr/perl5/lib/#${VENDOR_LIB}#g" -i "${S}"/configure || die
 	# The below is wrong as it causes:
 	# Enter path [ /var/tmp/portage/sci-biology/repeatmasker-4.0.1-r1/work/RepeatMasker ]: 
 	#  -- Building monolithic RM database...sh: /var/tmp/portage/sci-biology/repeatmasker-4.0.1-r1/image///usr/share/repeatmasker/Libraries/RepeatMasker.lib: No such file or directory
