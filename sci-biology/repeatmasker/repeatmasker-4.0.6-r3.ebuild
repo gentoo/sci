@@ -35,8 +35,8 @@ src_prepare(){
 }
 
 src_configure() {
-	sed -e "s#/usr/bin/which#${EPREFIX}/usr/bin/which#g" -i "${S}"/configure || die
-	sed -e "s#/usr/bin/perl#${EPREFIX}/usr/bin/perl#g" -i "${S}"/configure || die
+	sed -e "s#/usr/bin/which#which#g" -i "${S}"/configure || die
+	sed -e "s#/usr/bin/perl#perl#g" -i "${S}"/configure || die
 	perl_set_version
 	insinto ${VENDOR_LIB}
 	sed -e "s#/usr/perl5/lib/#${VENDOR_LIB}#g" -i "${S}"/configure || die
@@ -53,18 +53,18 @@ src_configure() {
 	# below try to define paths to trf, cross_match, rmblast and nhmmer as search tools
 	echo "
 env
-\"${S}\"
-"${EPREFIX}"/opt/bin
+${S}
+${EPREFIX}/opt/trf/bin
 1
-"${EPREFIX}"/usr/bin
+${EPREFIX}/usr/bin
 Y
 2
-"${EPREFIX}"/usr/bin
+${EPREFIX}/usr/bin
 Y
 4
-"${EPREFIX}"/usr/bin
+${EPREFIX}/usr/bin
 Y
-5" | "${S}/configure" || die "configure failed"
+5" | "${S}"/configure || die "configure failed"
 	sed -i -e "s|use lib $FindBin::RealBin;|use lib ${EPREFIX}/usr/share/${PN}/lib;|" \
 		-e "s|.*\(taxonomy.dat\)|${EPREFIX}/usr/share/${PN}/Libraries/\1|" \
 		-e "/$REPEATMASKER_DIR/ s|$FindBin::RealBin|${EPREFIX}/usr/share/${PN}|" \
