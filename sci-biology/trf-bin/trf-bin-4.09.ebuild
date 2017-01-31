@@ -14,6 +14,7 @@ DESCRIPTION="Tandem Repeats Finder"
 HOMEPAGE="http://tandem.bu.edu/trf/trf.html"
 SRC_URI="x86? ( http://tandem.bu.edu/trf/downloads/${MY_P}.linux32 )
 	amd64? ( http://tandem.bu.edu/trf/downloads/${MY_P}.linux64 )"
+# trf: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by trf)
 
 LICENSE="trf"	# http://tandem.bu.edu/trf/trf.license.html
 SLOT="0"
