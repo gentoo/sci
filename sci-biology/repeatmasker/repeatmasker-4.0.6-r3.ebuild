@@ -31,6 +31,7 @@ S="${WORKDIR}/RepeatMasker"
 
 src_prepare(){
 	epatch "${FILESDIR}"/"${P}"__configure.patch
+	default
 }
 
 src_configure() {
