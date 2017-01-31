@@ -40,11 +40,11 @@ src_configure() {
 	#  -- Building monolithic RM database...sh: /var/tmp/portage/sci-biology/repeatmasker-4.0.1-r1/image///usr/share/repeatmasker/Libraries/RepeatMasker.lib: No such file or directory
 	# -e 's|> \($rmLocation/Libraries/RepeatMasker.lib\)|> '${D}'/\1|'
 	sed -i -e 's/system( "clear" );//' "${S}/configure" || die
-	mkdir -p "${D}"/usr/share/repeatmasker/Libraries/ || die
+	mkdir -p "${ED}"/usr/share/repeatmasker/Libraries/ || die
 	#
 	# the below files is actually overwritten by buildRMLibFromEMBL.pl so the 'blah'
 	# item does not get installed
-	echo ">blah\natgc" > "${D}"/usr/share/repeatmasker/Libraries/RepeatMasker.lib || die
+	echo ">blah\natgc" > "${ED}"/usr/share/repeatmasker/Libraries/RepeatMasker.lib || die
 	# below try to define paths to trf, cross_match, rmblast and nhmmer as search tools
 	echo "
 env
