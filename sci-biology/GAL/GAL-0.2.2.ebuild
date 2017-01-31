@@ -18,13 +18,15 @@ IUSE=""
 DEPEND="
 	>=dev-lang/perl-5.6.1
 	dev-perl/Module-Build
+	dev-perl/Config-Std
 	virtual/perl-Data-Dumper
+	dev-perl/Data-Types
 	dev-perl/DBD-SQLite
 	dev-perl/DBIx-Class
 	dev-perl/IO-All
 	dev-perl/Number-Format
 	virtual/perl-Scalar-List-Utils
-	dev-perl/Set-IntSpan
+	dev-perl/Set-IntSpan-Fast
 	dev-perl/Statistics-Descriptive-Discrete
 	dev-perl/Template-Toolkit
 	dev-perl/Text-Graph
