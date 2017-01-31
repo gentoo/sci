@@ -23,7 +23,8 @@ RDEPEND="
 	sci-biology/phrap
 	sci-biology/repeatmasker-libraries
 	sci-biology/rmblast
-	>=sci-biology/trf-4.0.4
+	!sci-biology/trf
+	>=sci-biology/trf-bin-4.0.4
 "
 
 S="${WORKDIR}/RepeatMasker"
