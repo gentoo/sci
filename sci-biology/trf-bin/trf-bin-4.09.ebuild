@@ -38,6 +38,7 @@ src_unpack() {
 src_install() {
 	exeinto /opt/"${MY_PN}"/bin
 	doexe "${MY_PN}"
+	dosym /opt/"${MY_PN}"/bin/"${MY_PN}" /opt/bin/"${MY_PN}"
 	# GTK version (http://tandem.bu.edu/trf/downloads/trf400.linuxgtk.exe) has broken linking
 	#if use gtk; then
 	#	doexe trf400.linuxgtk.exe
