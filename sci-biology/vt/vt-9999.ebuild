@@ -18,7 +18,7 @@ IUSE="pdf"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	pdf? ( dev-texlive/texlive-latex )"
+	pdf? ( dev-texlive/texlive-latex || ( dev-texlive/texlive-basic ) )"
 #	>=sci-libs/htslib-1.3.2
 #	dev-cpp/tclap
 #	sci-libs/libsvm
