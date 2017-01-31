@@ -49,20 +49,20 @@ src_configure() {
 	echo "
 env
 \"${S}\"
-/opt/bin
+"${EPREFIX}"/opt/bin
 1
-/usr/bin
+"${EPREFIX}"/usr/bin
 Y
 2
-/usr/bin
+"${EPREFIX}"/usr/bin
 Y
 4
-/usr/bin
+"${EPREFIX}"/usr/bin
 Y
 5" | "${S}/configure" || die "configure failed"
-	sed -i -e 's|use lib $FindBin::RealBin;|use lib "/usr/share/'${PN}'/lib";|' \
-		-e 's|".*\(taxonomy.dat\)"|"/usr/share/'${PN}'/Libraries/\1"|' \
-		-e '/$REPEATMASKER_DIR/ s|$FindBin::RealBin|/usr/share/'${PN}'|' \
+	sed -i -e "s|use lib $FindBin::RealBin;|use lib ${EPREFIX}/usr/share/${PN}/lib;|" \
+		-e "s|.*\(taxonomy.dat\)|${EPREFIX}/usr/share/${PN}/Libraries/\1|" \
+		-e "/$REPEATMASKER_DIR/ s|$FindBin::RealBin|${EPREFIX}/usr/share/${PN}|" \
 		"${S}"/{DateRepeats,ProcessRepeats,RepeatMasker,DupMasker,RepeatProteinMask,RepeatMaskerConfig.pm,Taxonomy.pm} || die
 }
 # configure failed to 'cp RepeatMaskerConfig.tmpl RepeatMaskerConfig.pm'
@@ -97,7 +97,7 @@ pkg_postinst(){
 	einfo "from Dfam-1.0 database www.dfam.org"
 	einfo "You can configure which search search engine is to be used and"
 	einfo "PATHs to the search binaries are defined in"
-	einfo "/usr/share/${PN}/lib/RepeatMaskerConfig.pm"
+	einfo "${EPREFIX}/usr/share/${PN}/lib/RepeatMaskerConfig.pm"
 	einfo "Supported search engines are:"
 	optfeature "cross_match" sci-biology/phrap
 	optfeature "rmblast" sci-biology/rmblast
