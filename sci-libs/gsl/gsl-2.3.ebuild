@@ -14,7 +14,7 @@ SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0/19.3"
-KEYWORDS="~amd64 ~mips ~s390 ~sh ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~x64-macos ~x86-macos ~sparc-solaris ~x86-solaris"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="cblas-external static-libs"
 
 RDEPEND="cblas-external? ( >=virtual/cblas-2.0-r3[${MULTILIB_USEDEP}] )"
