@@ -29,10 +29,10 @@ src_configure() {
 
 # set the following environment variables
 # http://www.broadinstitute.org/crd/wiki/index.php/Setup
-# 
+#
 # ARACHNE_PRE
 # ARACHNE_BIN_DIR
-# ARACHNE_PRETTY_HELP 
+# ARACHNE_PRETTY_HELP
 
 pkg_postinst(){
 	einfo "Please add these to your ~/.bashrc"

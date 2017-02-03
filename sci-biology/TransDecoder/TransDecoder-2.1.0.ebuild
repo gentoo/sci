@@ -46,7 +46,7 @@ src_compile(){
 
 # avoid fetching 1.5TB "${S}"/pfam/Pfam-AB.hmm.bin, see
 # "Re: [Transdecoder-users] Announcement: Transdecoder release r20140704"
-# thread in archives. You can get it from 
+# thread in archives. You can get it from
 # http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin
 
 src_install(){

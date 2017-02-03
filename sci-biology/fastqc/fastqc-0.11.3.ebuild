@@ -41,7 +41,7 @@ src_install(){
 	# .class files (a jar file is just a zip file full of .class files).  All
 	# you need to copy out is the contents of the bin subdirectory, the rest of
 	# the download you can discard.
-	# 
+	#
 	# jbzip2-0.9.jar comes from https://code.google.com/p/jbzip2
 	#
 	# ignore the sam-1.103.jar and rely on /usr/share/picard/lib/sam.jar from sci-biology/picard

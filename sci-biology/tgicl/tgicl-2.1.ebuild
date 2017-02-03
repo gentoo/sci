@@ -36,7 +36,7 @@ S="${WORKDIR}"/TGICL-2.1
 
 # Also cap3 was a problem because for a long time there was no package for it and it is not an OS product. We got author agreement that we can redistribute his binaries along with tgicl code. From what I see you have a package. It would be great if I can make tgicl depend on a cap3 package at some point. I have to check debian/rh though.
 
-# On a same note, there is a ncbi package and tgicl should depend on that. There is however a problem with mgblast. Old time ago, in a galaxy far, far away, some dark sith lord made a patch for it, patch that never made it back to ncbi developers. Meanwhile ncbi tools kept evolving and the patch is now obsolete and it may break the code. However I hope to entirely drop mgblast for the next tgicl release. I also hope to slowly phase out tclust, sclust, cdbfasta, cdbyank, zmsort, psx, tgicl_asm.psx and tgicl_cluster.psx. 
+# On a same note, there is a ncbi package and tgicl should depend on that. There is however a problem with mgblast. Old time ago, in a galaxy far, far away, some dark sith lord made a patch for it, patch that never made it back to ncbi developers. Meanwhile ncbi tools kept evolving and the patch is now obsolete and it may break the code. However I hope to entirely drop mgblast for the next tgicl release. I also hope to slowly phase out tclust, sclust, cdbfasta, cdbyank, zmsort, psx, tgicl_asm.psx and tgicl_cluster.psx.
 
 src_install(){
 	./Build install || die "Failed to execute ./Build install"

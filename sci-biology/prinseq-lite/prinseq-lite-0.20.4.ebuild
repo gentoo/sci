@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}
 # List::Util qw(sum min max)
 
 # prinseq-graphs.pl needs in addition
-# https://sourceforge.net/projects/prinseq/files/README.txt 
+# https://sourceforge.net/projects/prinseq/files/README.txt
 # Statistics::PCA
 
 src_install(){

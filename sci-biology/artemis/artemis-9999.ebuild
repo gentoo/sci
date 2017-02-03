@@ -34,7 +34,7 @@ DEPEND="${RDEPEND}
 	sci-biology/picard
 	dev-java/biojava"
 # some more dependencies extracted from /usr/bin/act
-# JacORB.jar, jemAlign.jar, macos.jar, chado-14-interface.jar, iBatis, biojava.jar, 
+# JacORB.jar, jemAlign.jar, macos.jar, chado-14-interface.jar, iBatis, biojava.jar,
 #
 
 # http://www.mail-archive.com/artemis-users@sanger.ac.uk/msg00551.html

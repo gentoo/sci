@@ -31,7 +31,7 @@ RDEPEND="${DEPEND}
 	sci-biology/blat
 	sci-biology/bowtie"
 
-# AlignGraph runs the alignment steps with BLAT and Bowtie2 automatically, but both 
+# AlignGraph runs the alignment steps with BLAT and Bowtie2 automatically, but both
 # need to be installed on the system. AlignGraph’s run time is currently 23–57 min
 # per million aligned reads. In the performance tests of this study, the memory usage
 # was 36–50 GB, and it stays <100 GB even for entire mammalian genomes. These requirements

@@ -51,9 +51,9 @@ src_compile(){
 #	cd dist || die
 #	java-pkg_dojar ${PN}.jar
 #	java-pkg_dojar ${PN}-lib.jar
-#	
+#
 #	java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
-#	
+#
 #	use source && java-pkg_dosrc "${S}"/src/java/*
 #	use doc && java-pkg_dojavadoc "${S}"/javadoc
 #}

@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples"
 
-# Unbundling in progress, 
+# Unbundling in progress,
 # preparing local changes to get upstream
 DEPEND="
 	doc? ( >=app-doc/doxygen-1.8 )"

@@ -9,7 +9,7 @@ HOMEPAGE="http://www.sanger.ac.uk/resources/software/ssaha2/"
 SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/ssaha2/pileup.tgz"
 
 # http://samtools.sourceforge.net/pileup.shtml
-# 
+#
 LICENSE="GRL"
 SLOT="0"
 KEYWORDS=""

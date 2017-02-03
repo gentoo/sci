@@ -23,7 +23,7 @@ DEPEND="dev-libs/boost:0
 RDEPEND="${DEPEND}"
 # a C++-11 compliant compiler is needs, aka >=gcc-4.7
 
-# TODO: disable 
+# TODO: disable
 # [  7%] Performing download step (verify and extract) for 'libdivsufsort'
 #i
 # contains bundled RapMap

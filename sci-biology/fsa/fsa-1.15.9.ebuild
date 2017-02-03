@@ -24,8 +24,8 @@ RDEPEND="${DEPEND}"
 #         -C . JMF-2.1.1e/lib/jmf.jar \
 #         -C . jai-1_1_3/lib/jai_core.jar \
 #         -C . jai-1_1_3/lib/jai_codec.jar
-# * Home for VM '' does not exist: 
-# * Invalid System VM: 
+# * Home for VM '' does not exist:
+# * Invalid System VM:
 
 src_install(){
 	default

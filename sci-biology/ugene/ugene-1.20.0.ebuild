@@ -17,7 +17,7 @@ IUSE="cpu_flags_x86_sse2"
 
 # http://ugene.net/download.html states Qt5.4 and QtWebkit but:
 #   Project MESSAGE: Cannot build Unipro UGENE with Qt version 4.8.7
-#   Project ERROR: Use at least Qt 5.2.1. 
+#   Project ERROR: Use at least Qt 5.2.1.
 DEPEND="
 	>=dev-qt/qtgui-5.2.1
 	>=dev-qt/qtscript-5.2.1[scripttools]"

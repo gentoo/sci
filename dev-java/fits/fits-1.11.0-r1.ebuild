@@ -47,7 +47,7 @@ java_prepare() {
 	# from http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v111.0:
 	# The source code JAR (fits_src.jar) includes a number of new classes for
 	# which the corresponding class files are not included in fits.jar.  These
-	# classes are pre-alpha versions of support for tile compressed data that 
+	# classes are pre-alpha versions of support for tile compressed data that
 	# is being developed.  Interested Users may take a look at these, but they
 	# definitely are not expected to work today.
 	rm 	src/nom/tam/image/comp/Quantizer.java \

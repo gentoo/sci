@@ -44,7 +44,7 @@ src_install(){
 	#  *  Note: Bugs should be filed for the respective maintainers
 	#  *  of the package in question and not hardened@g.o.
 	#  * RWX --- --- usr/lib64/libffindex.so.0.1
-	# 
+	#
 	dolib libffindex.so.0.1 libffindex.so
 
 	# make install INSTALL_DIR="${DESTDIR}" HAVE_MPI=1

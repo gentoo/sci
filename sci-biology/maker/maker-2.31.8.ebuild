@@ -58,22 +58,22 @@ RDEPEND="${DEPEND}"
 #                   !  Want
 #                   !  forks
 #                   !  forks::shared
-# 
+#
 # External Programs:      MISSING
 #                   !  RepeatMasker
-# 
+#
 # External C Libraries:   VERIFIED
 # MPI SUPPORT:            DISABLED
 # MWAS Web Interface:     DISABLED
 # MAKER PACKAGE:          MISSING PREREQUISITES
-# 
-# 
+#
+#
 # Important Commands:
 #         ./Build installdeps     #installs missing PERL dependencies
 #         ./Build installexes     #installs all missing external programs
 #         ./Build install         #installs MAKER
 #         ./Build status          #Shows this status menu
-# 
+#
 # Other Commands:
 #         ./Build repeatmasker    #installs RepeatMasker (asks for RepBase)
 #         ./Build blast           #installs BLAST (NCBI BLAST+)
@@ -86,7 +86,7 @@ RDEPEND="${DEPEND}"
 #         ./Build webapollo       #installs WebApollo (use maker2wap to create DBs)
 #         ./Build mpich2          #installs MPICH2 (but manual install recommended)
 # Building MAKER
-# 
+#
 # * MISSING MAKER PREREQUISITES - CANNOT CONTINUE!!
 
 S="${WORKDIR}"/maker/src
@@ -107,7 +107,7 @@ src_compile(){
 	./Build install || die
 }
 
-# If you move it, then the executables won’t be able to locate dependencies in the …/maker/data, 
+# If you move it, then the executables won’t be able to locate dependencies in the …/maker/data,
 # …/maker/lib, and …/maker/perl directories. You should really either add the location of
 # …/maker/bin to you PATH environmental variable or at most soft link the executables somewhere
 # else using the ‘ln -s’ command.

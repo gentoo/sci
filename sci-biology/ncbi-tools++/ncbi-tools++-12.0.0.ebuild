@@ -316,17 +316,17 @@ src_compile() {
 	# only in --with-flat-makefile configurations.  For now (12.0.0), you'll need to
 	# add or extend more DLL_LIB settings, to which end you may find the
 	# resources at http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/depgraphs/
-	# helpful.  For instance, 
-	# 
+	# helpful.  For instance,
+	#
 	# http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/depgraphs/dbapi_driver.html
-	# 
+	#
 	# indicates that src/dbapi/driver/Makefile.dbapi_driver.lib should set
-	# 
+	#
 	# DLL_LIB = xncbi
-	# 
+	#
 	# (You can find the path to that makefile by examining
 	# .../status/.dbapi_driver.dep or .../build/Makefile.flat.)
-	# 
+	#
 	# To take full advantage of --with-flat-makefile, you'll need the following (instead of 'emake all_p -C "${S}"_build/build') and call configure --with-flat-makefile:
 	emake -C "${S}"_build/build -f Makefile.flat
 	#
