@@ -8,7 +8,7 @@ JAVA_PKG_IUSE="doc source"
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Java API for high-throughput sequencing data (HTS) formats."
+DESCRIPTION="Java API for high-throughput sequencing data (HTS) formats"
 HOMEPAGE="https://samtools.github.io/htsjdk/"
 SRC_URI="https://github.com/samtools/htsjdk/archive/${PV}.tar.gz -> ${P}.tar.gz"
 

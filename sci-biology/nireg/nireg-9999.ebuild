@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1 git-r3
 
-DESCRIPTION="Image registration package for Python."
+DESCRIPTION="Image registration package for Python"
 HOMEPAGE="http://nipy.org/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/nipy/${PN}"
