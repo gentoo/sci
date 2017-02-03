@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="6"
+EAPI=6
 
 DESCRIPTION="A NeuroML-enabled, precise but slow neuronal network simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/cnrun"

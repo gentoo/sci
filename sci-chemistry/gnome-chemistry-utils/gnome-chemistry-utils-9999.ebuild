@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI=5
 
 GCONF_DEBUG="no"
 inherit autotools flag-o-matic gnome2 versionator subversion

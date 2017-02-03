@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI=5
 
 JAVA_PKG_IUSE="doc source test"
 WANT_ANT_TASKS="ant-apache-bcel dev-java/testng:0 ant-junit4"
