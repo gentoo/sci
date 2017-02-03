@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="GUI application written in Perl to design primers for standard PCR, bisulphite PCR and Real-time PCR"
+DESCRIPTION="Primers design for standard PCR, bisulphite PCR and Real-time PCR"
 HOMEPAGE="http://perlprimer.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 

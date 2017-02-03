@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Annotate VCF files and prioritize genome/exome mutations (Jannovar, UCSC KnownGenes, hg19)"
+DESCRIPTION="Annotate VCF files and prioritize genome/exome mutations"
 HOMEPAGE="http://www.sanger.ac.uk/science/tools/exomiser"
 SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/exomiser/downloads/exomiser/exomiser-cli-${PV}-distribution.zip
 	ftp://ftp.sanger.ac.uk/pub/resources/software/exomiser/downloads/exomiser/GenomiserREADME -> ${PN}.README

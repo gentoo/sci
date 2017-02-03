@@ -6,7 +6,7 @@ EAPI=5
 
 [ "$PV" == "9999" ] && inherit subversion
 
-DESCRIPTION="NGS suite for read mapping, analysis of mapped reads, summary of exon/intron/gene counts"
+DESCRIPTION="NGS suite for analysis of mapped reads, summary of exon/intron/gene counts"
 HOMEPAGE="http://bioinf.wehi.edu.au/featureCounts/"
 if [ "$PV" == "9999" ]; then
 	ESVN_REPO_URI="https://subread.svn.sourceforge.net/svnroot/subread/trunk"

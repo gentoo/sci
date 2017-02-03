@@ -10,7 +10,7 @@ CMAKE_MAKEFILE_GENERATOR="${CMAKE_MAKEFILE_GENERATOR:-ninja}"
 
 inherit cmake-utils git-r3
 
-DESCRIPTION="Advanced Simulation Library - hardware accelerated multiphysics simulation platform"
+DESCRIPTION="Hardware accelerated multiphysics simulation platform"
 HOMEPAGE="http://asl.org.il/"
 SRC_URI=""
 EGIT_REPO_URI="git://github.com/AvtechScientific/${MY_PN}.git"

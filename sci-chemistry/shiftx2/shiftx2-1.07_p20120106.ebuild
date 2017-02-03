@@ -12,7 +12,7 @@ MY_PV="$(delete_all_version_separators $(get_version_component_range 1-2))"
 MY_PATCH="20120106"
 MY_P="${PN}-v${MY_PV}-linux"
 
-DESCRIPTION="Predicts both the backbone and side chain 1H, 13C and 15N chemical shifts for proteins"
+DESCRIPTION="Predicts of backbone and side chain 1H, 13C and 15N CS for proteins"
 HOMEPAGE="http://shiftx2.wishartlab.com/"
 SRC_URI="http://shiftx2.wishartlab.com/download/${MY_P}-${MY_PATCH}.tgz"
 

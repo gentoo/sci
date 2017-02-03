@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="FASTA record indexing/retrievieng utility, a part of TIGR Gene Indices project tools"
+DESCRIPTION="FASTA record indexing/retrievieng utility"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software"
 SRC_URI="ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/cdbfasta/cdbfasta.tar.gz"
 

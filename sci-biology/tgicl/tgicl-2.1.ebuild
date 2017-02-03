@@ -6,7 +6,7 @@ EAPI=5
 
 inherit perl-module
 
-DESCRIPTION="TIGR perl scripts for clustering large EST/mRNAs datasets and aceconv, mgblast and pvmsx binaries"
+DESCRIPTION="TIGR perl scripts for clustering"
 HOMEPAGE="http://sourceforge.net/projects/tgicl"
 SRC_URI="http://sourceforge.net/projects/tgicl/files/tgicl%20v2.1/TGICL-2.1.tar.gz"
 

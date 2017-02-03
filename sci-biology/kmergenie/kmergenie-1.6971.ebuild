@@ -8,7 +8,7 @@ inherit eutils
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-DESCRIPTION="Estimate best k-mer length to be used in novo assemblies (default set during compilation is 121)"
+DESCRIPTION="Estimate best k-mer length to be used in novo assemblies"
 HOMEPAGE="http://kmergenie.bx.psu.edu/"
 SRC_URI="http://kmergenie.bx.psu.edu/"${P}".tar.gz"
 

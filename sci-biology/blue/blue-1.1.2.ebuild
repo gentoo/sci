@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Error corrector for Illummina and Roche/454 able to also fix insertions and deletions"
+DESCRIPTION="Error corrector for Illummina and Roche/454, inculding insertions and deletions"
 HOMEPAGE="http://www.bioinformatics.csiro.au/blue"
 SRC_URI="
 	http://www.bioinformatics.csiro.au/public/files/Linux-${PV}.tar.gz -> ${P}.tar.gz

@@ -6,7 +6,7 @@ EAPI=5
 
 inherit fortran-2 multilib
 
-DESCRIPTION="A program for optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data"
+DESCRIPTION="Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data"
 HOMEPAGE="http://www.palmer.hs.columbia.edu/software/modelfree.html"
 SRC_URI="http://www.palmer.hs.columbia.edu/software/modelfree4_linux.tar.gz"
 

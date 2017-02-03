@@ -8,7 +8,7 @@ inherit eutils
 
 MYPN=MC-TESTER
 
-DESCRIPTION="A universal tool for comparisons of Monte Carlo predictions in High Energy Physics"
+DESCRIPTION="Comparisons of Monte Carlo predictions in High Energy Physics"
 HOMEPAGE="http://mc-tester.web.cern.ch/MC-TESTER/"
 SRC_URI="http://mc-tester.web.cern.ch/MC-TESTER/${MYPN}-${PV}.tar.gz"
 LICENSE="CPC GPL-2+"

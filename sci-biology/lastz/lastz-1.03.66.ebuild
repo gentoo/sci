@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils flag-o-matic toolchain-funcs
 
-DESCRIPTION="A pairwise DNA sequence aligner (also chromosome to chromosome), a BLASTZ replacement"
+DESCRIPTION="A pairwise DNA sequence aligner, a BLASTZ replacement"
 HOMEPAGE="http://www.bx.psu.edu/~rsharris/lastz/"
 SRC_URI="http://www.bx.psu.edu/~rsharris/lastz/newer/${P}.tar.gz"
 

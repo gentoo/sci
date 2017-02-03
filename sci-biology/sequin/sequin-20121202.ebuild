@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils
 
-DESCRIPTION="A tool to facilitate submission of data to the GenBank, EMBL, and DDBJ sequence databases"
+DESCRIPTION="Facilitate submission of data to the GenBank, EMBL, and DDBJ sequence databases"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/Sequin/"
 SRC_URI="
 	amd64? ( ftp://ftp.ncbi.nih.gov/sequin/sequin.linux-x86_64.tar.gz -> ${P}-x86_64.tar.gz )

@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="A collection of tools for bioinformatics (notably Tallymer, Readjoiner, gff3validator)"
+DESCRIPTION="Tools for bioinformatics (notably Tallymer, Readjoiner, gff3validator)"
 HOMEPAGE="http://genometools.org"
 SRC_URI="http://genometools.org/pub/${P}.tar.gz"
 

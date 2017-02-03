@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Customized version of megablast from TIGR Gene Indices project used by tgicl and gicl utilities"
+DESCRIPTION="Customized version of megablast from TIGR Gene Indices project"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
 SRC_URI="ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/mgblast.tar.gz"
 

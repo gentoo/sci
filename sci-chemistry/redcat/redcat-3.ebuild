@@ -6,7 +6,7 @@ EAPI=5
 
 inherit cmake-utils java-pkg-2
 
-DESCRIPTION="Analysis of residual dipolar couplings (RDCs) for structure validation and elucidation"
+DESCRIPTION="Analysis of RDCs for structure validation and elucidation"
 HOMEPAGE="http://ifestos.cse.sc.edu/software.php"
 SRC_URI="http://ifestos.cse.sc.edu/downloads.php?get=Redcat.${PV}.tar.gz -> Redcat.${PV}.tar.gz"
 

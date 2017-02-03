@@ -8,7 +8,7 @@ AUTOTOOLS_AUTORECONF=true
 
 inherit autotools-utils multilib toolchain-funcs
 
-DESCRIPTION="a program that will automatically determine values of the anomalous scattering factors"
+DESCRIPTION="Automatically determine values of the anomalous scattering factors"
 HOMEPAGE="http://www.gwyndafevans.co.uk/id2.html"
 SRC_URI="ftp://ftp.ccp4.ac.uk/${PN}/${PV}/packed/${P}.tar.gz"
 

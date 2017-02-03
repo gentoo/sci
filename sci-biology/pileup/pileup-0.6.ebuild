@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="SSAHA2-based pipeline to align reads into format also understood by samtools, maq"
+DESCRIPTION="SSAHA2-based pipeline to align reads"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/ssaha2/"
 SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/ssaha2/pileup.tgz"
 

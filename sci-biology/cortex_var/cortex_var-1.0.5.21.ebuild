@@ -7,7 +7,7 @@ EAPI=5
 PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
-DESCRIPTION="Assemble and compare genotype variants (variant discovery without reference sequence)"
+DESCRIPTION="Genotype variant discovery without reference sequence"
 HOMEPAGE="http://cortexassembler.sourceforge.net/index_cortex_var.html"
 SRC_URI="http://sourceforge.net/projects/cortexassembler/files/cortex_var/latest/CORTEX_release_v1.0.5.21.tgz
 	http://cortexassembler.sourceforge.net/cortex_var_user_manual.pdf"

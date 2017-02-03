@@ -6,7 +6,7 @@ EAPI=5
 
 inherit toolchain-funcs
 
-DESCRIPTION="A tool to map bisulfite converted sequence reads and determine cytosine methylation states"
+DESCRIPTION="Map bisulfite converted sequence reads and determine cytosine methylation states"
 HOMEPAGE="http://www.bioinformatics.babraham.ac.uk/projects/bismark/"
 SRC_URI="http://www.bioinformatics.babraham.ac.uk/projects/${PN}/${PN}_v${PV}.tar.gz"
 

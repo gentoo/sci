@@ -6,7 +6,7 @@ EAPI="5"
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="Static analysis of the numerical variables of a program by Abstract Interpretation"
+DESCRIPTION="Static analysis of the numerical variables by Abstract Interpretation"
 HOMEPAGE="http://apron.cri.ensmp.fr/library/"
 SRC_URI="http://apron.cri.ensmp.fr/library/${P}.tgz"
 

@@ -6,7 +6,7 @@ EAPI="5"
 
 inherit autotools
 
-DESCRIPTION="A set of tools designed for the efficient estimation of statistical n-gram language models"
+DESCRIPTION="Tools designed for efficient estimation of statistical n-gram language models"
 HOMEPAGE="https://github.com/mitlm/mitlm"
 SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${PN}_${PV}.tar.gz -> ${P}.tar.gz"
 

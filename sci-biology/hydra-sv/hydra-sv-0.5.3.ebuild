@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Detection of structural variation breakpoints in unique and duplicated genomic regions"
+DESCRIPTION="Detection of structural variation breakpoints"
 HOMEPAGE="http://code.google.com/p/hydra-sv/"
 SRC_URI="http://hydra-sv.googlecode.com/files/Hydra.v${PV}.tar.gz"
 

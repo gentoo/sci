@@ -8,7 +8,7 @@ inherit eutils multilib toolchain-funcs fortran-2
 
 PATCHDATE="14Feb17"
 
-DESCRIPTION="Material eXplorer using DFT, NC pseudopotentials, and pseudo-atomic localized basis functions"
+DESCRIPTION="Material eXplorer"
 HOMEPAGE="http://www.openmx-square.org/"
 SRC_URI="
 	http://www.openmx-square.org/${PN}${PV%.[0-9]}.tar.gz

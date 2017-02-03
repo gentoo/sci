@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Adaptor and MID removal / trimming tool, also for Illumina-oriented paired-end reads"
+DESCRIPTION="Adaptor and MID removal / trimming tool"
 HOMEPAGE="http://sourceforge.net/projects/skewer"
 SRC_URI="
 	http://sourceforge.net/projects/skewer/files/Binaries/skewer-0.1.104-linux-x86_64

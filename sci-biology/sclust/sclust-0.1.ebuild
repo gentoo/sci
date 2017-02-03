@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="seeded clustering tool by processing pairwise alignments from TIGR Gene Indices project tools"
+DESCRIPTION="Seeded clustering tool by processing pairwise alignments"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
 SRC_URI="
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/${PN}.tar.gz

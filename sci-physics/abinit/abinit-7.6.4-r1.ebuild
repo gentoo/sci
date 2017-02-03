@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs
 
-DESCRIPTION="Find total energy, charge density and electronic structure using density functional theory"
+DESCRIPTION="Total energy, charge density and electronic structure using DFT"
 HOMEPAGE="http://www.abinit.org/"
 SRC_URI="http://ftp.abinit.org/${P}.tar.gz"
 

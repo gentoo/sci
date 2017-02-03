@@ -11,7 +11,7 @@ inherit autotools eutils qt4-r2 subversion python-single-r1 versionator
 ELMER_ROOT="elmerfem"
 MY_PN=ElmerGUI
 
-DESCRIPTION="a collection of finite element programs, libraries, and visualization tools, New Elmer pre-processor"
+DESCRIPTION="Finite element programs, libraries, visualization tools"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
 SRC_URI=""
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"

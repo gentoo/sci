@@ -6,7 +6,7 @@ EAPI=5
 
 inherit autotools eutils
 
-DESCRIPTION="Disequilibrium gene mapping based on coalescent theory using Bayesian Markov Chain MC methods"
+DESCRIPTION="Disequilibrium gene mapping based on coalescent theory using Bayesian MC methods"
 HOMEPAGE="http://www.daimi.au.dk/~mailund/GeneRecon/"
 SRC_URI="http://www.daimi.au.dk/~mailund/GeneRecon/download/${P}.tar.gz"
 

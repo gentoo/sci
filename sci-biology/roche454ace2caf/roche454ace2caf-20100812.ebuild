@@ -4,7 +4,7 @@
 
 EAPI=6
 
-DESCRIPTION="Convert from ace to gap4 (of staden v1.x), not needed to convert ace for gap5 of staden v2"
+DESCRIPTION="ace to gap4 converter"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
 SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/roche454ace2gap-2010-12-08.tgz"
 

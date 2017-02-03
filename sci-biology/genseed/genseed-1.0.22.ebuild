@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Seed-driven progressive assembly program using legacy NCBI blast, CAP3, and optionally cross_match"
+DESCRIPTION="Seed-driven progressive assembly program"
 HOMEPAGE="http://www.coccidia.icb.usp.br/genseed/"
 SRC_URI="http://www.coccidia.icb.usp.br/genseed/download/${P}.tar.gz"
 

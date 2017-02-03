@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils
 
-DESCRIPTION="Show statistics of BAM/SAM (error profiles, nucleotide composition, base quals, len. distribution)"
+DESCRIPTION="Statistics of BAM/SAM files"
 HOMEPAGE="http://samstat.sourceforge.net"
 SRC_URI="http://sourceforge.net/projects/samstat/files/samstat.tgz"
 

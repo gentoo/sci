@@ -6,7 +6,7 @@ EAPI=5
 
 inherit qt4-r2
 
-DESCRIPTION="Display, edit next-gen sequence alignment (BED, BLAST, Eland, mapview processed MAQ, Corona formats)"
+DESCRIPTION="Display, edit NGS alignments"
 HOMEPAGE="http://sourceforge.net/projects/ngsview"
 SRC_URI="mirror://sourceforge/projects/${PN}/files/${PN}/${P}.tar.gz"
 

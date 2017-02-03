@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2 eutils java-ant-2
 
-DESCRIPTION="Perl-based wrapper around java apps to quality control FASTA/FASTQ sequence files"
+DESCRIPTION="Quality control FASTA/FASTQ sequence files"
 HOMEPAGE="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
 SRC_URI="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v"${PV}"_source.zip"
 

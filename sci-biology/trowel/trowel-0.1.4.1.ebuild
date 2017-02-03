@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Error corrector for genomic Illumina FASTQ reads using QUALs and not coverage info"
+DESCRIPTION="Error corrector for genomic Illumina FASTQ reads"
 HOMEPAGE="http://sourceforge.net/projects/trowel-ec"
 SRC_URI="http://downloads.sourceforge.net/project/trowel-ec/src/trowel.0.1.4.1.src.tar.gz"
 

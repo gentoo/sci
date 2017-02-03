@@ -12,7 +12,7 @@ INTEL_SINGLE_ARCH=false
 
 inherit intel-sdp
 
-DESCRIPTION="Intel Integrated Performance Primitive library for multimedia and data processing"
+DESCRIPTION="Intel Integrated Performance Primitive library"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-ipp/"
 
 IUSE=""

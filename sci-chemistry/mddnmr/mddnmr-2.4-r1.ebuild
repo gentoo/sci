@@ -10,7 +10,7 @@ inherit python-single-r1
 
 MY_P="${PN}${PV}"
 
-DESCRIPTION="Program for processing of non-uniformly sampled (NUS) multidimensional NMR spectra"
+DESCRIPTION="Program for processing of NUS multidimensional NMR spectra"
 HOMEPAGE="http://www.nmr.gu.se/~mdd/"
 SRC_URI="http://pc8.nmr.gu.se/~mdd/Downloads/${MY_P}.tgz"
 

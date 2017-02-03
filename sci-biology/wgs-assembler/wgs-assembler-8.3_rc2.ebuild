@@ -10,7 +10,7 @@ inherit eutils python-single-r1 toolchain-funcs
 
 MY_PV="${PV/_}" # convert from _rc2 to rc2
 
-DESCRIPTION="De novo whole-genome shotgun DNA sequence OLC assembler (Celera Assembler, CABOG)"
+DESCRIPTION="De novo whole-genome shotgun DNA sequence OLC assembler"
 HOMEPAGE="http://sourceforge.net/projects/wgs-assembler/"
 SRC_URI="http://sourceforge.net/projects/${PN}/files/${PN}/wgs-8.3/wgs-${MY_PV}.tar.bz2"
 

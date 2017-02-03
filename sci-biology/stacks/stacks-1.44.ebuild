@@ -8,7 +8,7 @@ AUTOTOOLS_AUTORECONF=yes
 
 inherit flag-o-matic eutils perl-module webapp autotools
 
-DESCRIPTION="Analyze restriction enzyme data, draw gen. maps, population genomics (RAD-seq sequencing)"
+DESCRIPTION="Analyze restriction enzyme data, draw gen. maps, population genomics"
 HOMEPAGE="http://creskolab.uoregon.edu/stacks"
 SRC_URI="http://creskolab.uoregon.edu/stacks/source/${P}.tar.gz"
 

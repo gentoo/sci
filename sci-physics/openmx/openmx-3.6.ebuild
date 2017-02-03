@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils multilib toolchain-funcs
 
-DESCRIPTION="Material eXplorer using DFT, NC pseudopotentials, and pseudo-atomic localized basis functions"
+DESCRIPTION="Material eXplorer"
 HOMEPAGE="http://www.openmx-square.org/"
 SRC_URI="
 	http://www.openmx-square.org/${PN}${PV}.tar.gz
