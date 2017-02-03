@@ -19,7 +19,7 @@ LICENSE="gamess"
 # provides the latest version. In other words: As soon as a
 # new version comes out the stable version will be useless since
 # users can not get at the tarball any more.
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="mpi neo pax_kernel qmmm-tinker"
 
 CDEPEND="

@@ -18,7 +18,7 @@ SRC_URI="http://dev.gentoo.org/~bicatali/${MYP}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~x86-macos ~ppc-macos ~x64-macos"
+KEYWORDS="~amd64 ~x86"
 IUSE="+incblas +openmp static-libs threads"
 
 REQUIRED_USE="|| ( openmp threads )"

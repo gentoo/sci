@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/mmtl/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD GPL-2"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 RDEPEND="

@@ -14,7 +14,7 @@ SRC_URI="http://kinemage.biochem.duke.edu/downloads/software/mage/${MY_P}.src.tg
 
 LICENSE="richardson"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="sci-chemistry/prekin"
 DEPEND="${RDEPEND}"

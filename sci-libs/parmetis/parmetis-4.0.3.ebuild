@@ -19,7 +19,7 @@ SRC_URI="
 	examples? ( http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${METISP}.tar.gz )"
 
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="free-noncomm"
 IUSE="doc double-precision examples int64 mpi openmp pcre static-libs"
 

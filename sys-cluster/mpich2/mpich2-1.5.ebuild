@@ -15,7 +15,7 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 
 SLOT="0"
 LICENSE="mpich2"
-KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+cxx doc fortran mpi-threads romio threads"
 
 COMMON_DEPEND="
