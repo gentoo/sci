@@ -25,21 +25,21 @@ KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND="
-	app-eselect/eselect-opengl
 	!<dev-util/amdstream-2.6
-	sys-devel/llvm
-	sys-devel/gcc:*
-	media-libs/mesa
-	media-libs/freeglut
-	virtual/opencl
-	examples? ( media-libs/glew:0 )
 	app-eselect/eselect-opencl
-	x11-drivers/ati-drivers"
+	app-eselect/eselect-opengl
+	media-libs/freeglut
+	media-libs/mesa[video_cards_radeonsi]
+	sys-devel/gcc:*
+	sys-devel/llvm
+	virtual/opencl
+	examples? ( media-libs/glew:0= )"
 DEPEND="
 	${RDEPEND}
-	dev-lang/perl
 	dev-util/patchelf
-	sys-apps/fakeroot"
+	dev-lang/perl
+	sys-apps/fakeroot
+"
 
 RESTRICT="mirror strip"
 
