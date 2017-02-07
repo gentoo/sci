@@ -69,5 +69,5 @@ src_compile() {
 
 src_install() {
 	dodir /opt/AMDAPP
-	doins -r "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
+	cp -r "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
 }
