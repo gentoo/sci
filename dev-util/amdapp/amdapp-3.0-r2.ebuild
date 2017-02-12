@@ -45,6 +45,8 @@ RESTRICT="mirror strip"
 
 S="${WORKDIR}"
 
+OPT_DIR="/opt/AMDAPP"
+
 pkg_nofetch() {
 	einfo "AMD doesn't provide direct download links. Please download"
 	einfo "${ARCHIVE} from ${HOMEPAGE}"
@@ -68,6 +70,22 @@ src_compile() {
 }
 
 src_install() {
-	dodir /opt/AMDAPP
-	cp -r "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
+	# Copy everything
+	dodir $OPT_DIR
+	insinto $OPT_DIR
+	doins -r * || die "Install failed!"
+
+	# Set executable bits
+	exeinto $OPT_DIR/bin/x86_64/
+	doexe bin/x86_64/clinfo
+
+	exeinto $OPT_DIR/bin/x86/
+	doexe bin/x86/clinfo
+
+	# Delete archive - already unpacked
+	if use amd64 || use amd64-linux ; then
+		rm "${D}/${OPT_DIR}/${MY_P_AMD64}"
+	else
+		rm "${D}/${OPT_DIR}/${MY_P_X86}"
+	fi
 }
