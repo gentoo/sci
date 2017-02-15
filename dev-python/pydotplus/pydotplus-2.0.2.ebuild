@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -19,6 +19,14 @@ IUSE="test"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
+	test? (
+		dev-python/flake8[${PYTHON_USEDEP}]
+		dev-python/pytest[${PYTHON_USEDEP}]
+		dev-python/pytest-cov[${PYTHON_USEDEP}]
+		dev-python/sphinx[${PYTHON_USEDEP}]
+		dev-python/sphinx_rtd_theme[${PYTHON_USEDEP}]
+		dev-python/tox[${PYTHON_USEDEP}]
+		)
 	"
 RDEPEND="
 	dev-python/pyparsing[${PYTHON_USEDEP}]
@@ -26,4 +34,5 @@ RDEPEND="
 
 python_test() {
 	${EPYTHON} -m unittest discover || die
+	tox
 }
