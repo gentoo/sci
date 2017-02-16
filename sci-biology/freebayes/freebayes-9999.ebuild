@@ -15,7 +15,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-util/cmake"
+CDEPEND="dev-util/cmake"
+DEPEND=""
 RDEPEND="${DEPEND}
 	sci-libs/htslib
 	sci-biology/bamtools
