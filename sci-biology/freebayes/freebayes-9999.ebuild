@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -83,6 +83,10 @@ RDEPEND="${DEPEND}
 # Submodule path 'vcflib/tabixpp/htslib': checked out '0f298ce22c5c825c506129bf242348a31630c382'
 
 # g++ -O3 -D_FILE_OFFSET_BITS=64 -g -I../ttmath -I../bamtools/src/ -I../vcflib/src/ -I../vcflib/tabixpp/ -I../vcflib/smithwaterman/ -I../vcflib/multichoose/ -I../vcflib/filevercmp/ -I../vcflib/tabixpp/htslib -I../SeqLib -I../SeqLib/htslib -c freebayes.cpp
+
+src_compile(){
+	emake -j1 # vcflib/smithwaterman/ sometimes does not compile
+}
 
 src_install(){
 	dobin bin/freebayes bin/bamleftalign
