@@ -15,8 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="sci-libs/htslib
-	dev-lang/perl"
+# compiles bundled sci-libs/htslib-"${PV}" as a static library and links it into binaries
+DEPEND="dev-lang/perl"
 RDEPEND="${DEPEND}"
 
 src_prepare(){
