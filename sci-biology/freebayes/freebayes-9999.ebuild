@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit eutils git-r3
+inherit eutils git-r3 toolchain-funcs
 
 DESCRIPTION="Bayesian gen. variant detector to find short polymorphisms"
 HOMEPAGE="https://github.com/ekg/freebayes"
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-util/cmake"
 RDEPEND="${DEPEND}
 	sci-libs/htslib
 	sci-biology/bamtools
@@ -83,6 +83,23 @@ RDEPEND="${DEPEND}
 # Submodule path 'vcflib/tabixpp/htslib': checked out '0f298ce22c5c825c506129bf242348a31630c382'
 
 # g++ -O3 -D_FILE_OFFSET_BITS=64 -g -I../ttmath -I../bamtools/src/ -I../vcflib/src/ -I../vcflib/tabixpp/ -I../vcflib/smithwaterman/ -I../vcflib/multichoose/ -I../vcflib/filevercmp/ -I../vcflib/tabixpp/htslib -I../SeqLib -I../SeqLib/htslib -c freebayes.cpp
+
+src_prepare(){
+	find . -name Makefile | while read f; do \
+		sed -e "s/-O3 -D_FILE_OFFSET_BITS=64/${CFLAGS}/" -i $f || die
+		sed -e "s/^CFLAGS:= -O3/CFLAGS ?= ${CFLAGS}/" -i $f || die
+		sed -e "s/^CXX = g++/CXX = $(tc-getCXX)/;s/^CXX=g++/CXX = $(tc-getCXX)/" -i $f || die
+		sed -e "s/g++ /$(tc-getCXX) /" -i $f || die
+		sed -e "s/-O3/${CXXFLAGS}/" -i $f || die
+		sed -e "s/^CC[ 	]*=[ 	]gcc/CC = $(tc-getCC)/" -i $f || die
+		sed -e "s/-g -Wall -O2/${CFLAGS}/;s/-g -Wall -Wno-unused-function -O2/${CFLAGS}/" -i $f || die
+		sed -e "s/-O3 /${CFLAGS}/;s/ -O3/${CFLAGS}/" -i $f || die
+	done
+	sed -e "s/^C=gcc/C = $(tc-getCC)/" -i Makefile || die
+	sed -e "s/gcc/$(tc-getCC)/" -i SeqLib/bwa/Makefile SeqLib/fermi-lite/Makefile || die
+	sed -e "s/g++/$(tc-getCXX)/" -i SeqLib/src/Makefile.am || die
+	default
+}
 
 src_compile(){
 	emake -j1 # vcflib/smithwaterman/ sometimes does not compile
