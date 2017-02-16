@@ -84,6 +84,10 @@ RDEPEND="${DEPEND}
 
 # g++ -O3 -D_FILE_OFFSET_BITS=64 -g -I../ttmath -I../bamtools/src/ -I../vcflib/src/ -I../vcflib/tabixpp/ -I../vcflib/smithwaterman/ -I../vcflib/multichoose/ -I../vcflib/filevercmp/ -I../vcflib/tabixpp/htslib -I../SeqLib -I../SeqLib/htslib -c freebayes.cpp
 
+src_compile(){
+	emake -j1 # vcflib/smithwaterman/ sometimes does not compile
+}
+
 src_install(){
 	dobin bin/freebayes bin/bamleftalign
 }
