@@ -45,7 +45,8 @@ src_compile(){
 
 src_install(){
 	default
-	# https://github.com/loneknightpy/idba/issues/23
+	mkdir -p "${ED}"/usr/bin || die
+	mv "${D}"/usr/local/bin/* "${ED}"/usr/bin/ || die "Move to EPREFIX-compliant place"
 	rm "${ED}"/usr/bin/scan.py "${ED}"/usr/bin/run-unittest.py || die
 	rm bin/test bin/*.o bin/Makefile* || die # avoid file collision
 	dobin bin/* # https://github.com/loneknightpy/idba/issues/23
