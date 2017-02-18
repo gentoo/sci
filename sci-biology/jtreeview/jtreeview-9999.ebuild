@@ -4,7 +4,6 @@
 
 EAPI=6
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit java-pkg-2 git-r3
 
 DESCRIPTION="Viewer for Microarray Data in PCL or CDT formats"
