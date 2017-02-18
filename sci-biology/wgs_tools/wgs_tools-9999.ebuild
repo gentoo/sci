@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -20,9 +20,11 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	dev-lang/perl"
 
+S="${W}/"
+
 src_install(){
+	cd "${DISTDIR}" || die
 	dobin *.pl
-	dodoc README*
 }
 
 pkg_postinst(){
