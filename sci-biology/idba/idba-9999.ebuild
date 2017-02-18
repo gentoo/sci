@@ -45,9 +45,9 @@ src_compile(){
 src_install(){
 	default
 	# https://github.com/loneknightpy/idba/issues/23
-	mkdir -p "${D}"/usr/bin || die
-	mv "${D}"/usr/local/bin/* "${D}"/usr/bin/ || die
-	rm "${D}"/usr/bin/scan.py "${D}"/usr/bin/run-unittest.py || die
+	mkdir -p "${ED}"/usr/bin || die
+	mv "${ED}"/usr/local/bin/* "${ED}"/usr/bin/ || die
+	rm "${ED}"/usr/bin/scan.py "${ED}"/usr/bin/run-unittest.py || die
 	rm bin/test bin/*.o bin/Makefile* || die # avoid file collision
 	dobin bin/* # https://github.com/loneknightpy/idba/issues/23
 }
