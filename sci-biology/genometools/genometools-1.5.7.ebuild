@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -16,3 +16,7 @@ IUSE=""
 DEPEND="x11-libs/pango
 	x11-libs/cairo"
 RDEPEND="${DEPEND}"
+
+src_prepare(){
+	sed -e "s#/usr/local#"${EPREFIX}"/usr#" -i Makefile || die
+}
