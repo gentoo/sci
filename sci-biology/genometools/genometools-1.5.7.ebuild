@@ -16,3 +16,7 @@ IUSE=""
 DEPEND="x11-libs/pango
 	x11-libs/cairo"
 RDEPEND="${DEPEND}"
+
+src_prepare(){
+	sed -e "s#/usr/local#"${EPREFIX}"/usr#" -i Makefile || die
+}
