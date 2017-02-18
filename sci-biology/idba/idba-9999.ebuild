@@ -50,4 +50,5 @@ src_install(){
 	rm "${ED}"/usr/bin/scan.py "${ED}"/usr/bin/run-unittest.py || die
 	rm bin/test bin/*.o bin/Makefile* || die # avoid file collision
 	dobin bin/* # https://github.com/loneknightpy/idba/issues/23
+	if [ ! -z "${EPREFIX}" ]; then rm -rf "${D}"/usr || die "Failed to zap empty non-EPREFIXED dirs"; fi
 }
