@@ -46,7 +46,7 @@ src_compile(){
 src_install(){
 	default
 	# https://github.com/loneknightpy/idba/issues/23
-	rm "${D}"/usr/bin/scan.py "${D}"/usr/bin/run-unittest.py || die
+	rm "${ED}"/usr/bin/scan.py "${ED}"/usr/bin/run-unittest.py || die
 	rm bin/test bin/*.o bin/Makefile* || die # avoid file collision
 	dobin bin/* # https://github.com/loneknightpy/idba/issues/23
 }
