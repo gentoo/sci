@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -29,7 +29,7 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"/"phusion_pipeline_v2.1c"
 
 src_prepare(){
-	cp -pf /usr/bin/phrap src/phrap/phrap.manylong || die
+	cp -pf "${EPREFIX}"/usr/bin/phrap src/phrap/phrap.manylong || die
 }
 
 src_compile(){
