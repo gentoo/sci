@@ -27,6 +27,7 @@ src_prepare(){
 	sed \
 		-i 's#/usr/local/bin/perl#/usr/bin/perl#' \
 		-i abacas.pl || die
+	eapply_user
 }
 src_install(){
 	dobin abacas.pl
