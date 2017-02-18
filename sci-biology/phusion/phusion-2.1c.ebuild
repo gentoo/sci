@@ -29,7 +29,7 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"/"phusion_pipeline_v2.1c"
 
 src_prepare(){
-	cp -pf /usr/bin/phrap src/phrap/phrap.manylong || die
+	cp -pf "${EPREFIX}"/usr/bin/phrap src/phrap/phrap.manylong || die
 }
 
 src_compile(){
