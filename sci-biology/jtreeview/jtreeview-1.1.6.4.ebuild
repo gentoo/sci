@@ -21,7 +21,8 @@ SLOT="0"
 KEYWORDS="" # resulting java binary does not execute for me
 IUSE=""
 
-DEPEND=">virtual/jdk-1.5:*"
+DEPEND=">virtual/jdk-1.5:*
+	dev-java/nanoxml"
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.5:*"
 
