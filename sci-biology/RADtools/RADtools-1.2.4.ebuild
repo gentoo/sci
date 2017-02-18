@@ -1,10 +1,11 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=5
 
-inherit perl-module
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit eutils perl-module
 
 DESCRIPTION="Tools for processing RAD Sequencing Illumina reads"
 HOMEPAGE="https://www.wiki.ed.ac.uk/display/RADSequencing/Home"
@@ -25,9 +26,8 @@ S="${WORKDIR}"
 
 src_install() {
 	dobin RADMIDs RADmarkers RADpools RADtags
-	mydoc="CHANGELOG RADmanual.pdf RADmanual.tex README"
-	eval `perl '-V:installvendorlib'` || die
-	vendor_lib_install_dir="${installvendorlib}"
-	insinto ${vendor_lib_install_dir}
+	dodoc CHANGELOG RADmanual.pdf RADmanual.tex README
+	perl_set_version
+	insinto "${VENDOR_LIB}"
 	doins *.pm
 }
