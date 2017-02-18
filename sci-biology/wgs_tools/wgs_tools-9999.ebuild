@@ -20,9 +20,11 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	dev-lang/perl"
 
+S="${W}/"
+
 src_install(){
+	cd "${DISTDIR}" || die
 	dobin *.pl
-	dodoc README*
 }
 
 pkg_postinst(){
