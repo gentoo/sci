@@ -1,5 +1,5 @@
---- documentation/latex_documentation/Tauola_interface_design.tex
-+++ documentation/latex_documentation/Tauola_interface_design.tex
+--- a/documentation/latex_documentation/Tauola_interface_design.tex
++++ b/documentation/latex_documentation/Tauola_interface_design.tex
 @@ -2652,6 +2652,7 @@
          there is a mismatch in the {\tt TAUOLA} version number given,
          but otherwise all information on the generated sample, 

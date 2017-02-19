@@ -1,14 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils
 
 MYPN=TAUOLA
 
-DESCRIPTION="tau decay Monte Carlo generator"
+DESCRIPTION="Tau decay Monte Carlo generator"
 HOMEPAGE="http://tauolapp.web.cern.ch/tauolapp/"
 SRC_URI="http://tauolapp.web.cern.ch/tauolapp/resources/${MYPN}.${PV}/${MYPN}.${PV}.tar.gz"
 
@@ -26,17 +26,17 @@ DEPEND="${RDEPEND}
 	doc? (
 		app-doc/doxygen
 		app-text/ghostscript-gpl
-		app-text/texlive )
+		app-text/texlive
+	)
 "
 
 S="${WORKDIR}/${MYPN}"
 
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-doc.patch \
-		"${FILESDIR}"/${PN}-1.1.4-makefile.patch \
-		"${FILESDIR}"/${PN}-1.1.3-tau-spinner-makefile.patch
-}
+PATCHES=(
+	"${FILESDIR}"/${P}-doc.patch
+	"${FILESDIR}"/${PN}-1.1.4-makefile.patch
+	"${FILESDIR}"/${PN}-1.1.3-tau-spinner-makefile.patch
+)
 
 src_configure() {
 	econf \
