@@ -16,7 +16,8 @@ KEYWORDS=""
 IUSE=""
 
 # contains bundled htslib
-DEPEND="dev-util/cmake"
+CDEPEND="dev-util/cmake"
+DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_install(){
