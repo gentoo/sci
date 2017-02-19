@@ -1,8 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit linux-mod
 
@@ -14,8 +14,6 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-MAKEOPTS="${MAKEOPTS} -j1"
 
 # up to kernel 2.6.38
 
@@ -37,6 +35,8 @@ pkg_setup() {
 		blcr_imports(blcr::${S}/blcr_imports/kbuild)"
 	BUILD_TARGETS="clean all"
 	ECONF_PARAMS="--with-kernel=${KV_DIR}"
+
+	MAKEOPTS+=" -j1"
 }
 
 src_install() {
