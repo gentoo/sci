@@ -74,7 +74,7 @@ src_install() {
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
 	sed \
-		-e "s#/bin/java\" -Dinstall4j.jvmDir#"${EPREFIX}"/bin/java\" -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
+		-e 's#"$app_java_home/bin/java" -Dinstall4j.jvmDir# '"${EPREFIX}""/usr/bin/java -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
 	sh \
 		"${WORKDIR}"/${P}.sh \
 		-q -overwrite \
