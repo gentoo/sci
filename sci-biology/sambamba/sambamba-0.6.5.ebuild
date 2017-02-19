@@ -13,11 +13,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="debug"
 
-# needs ldmd2 compiler from LDC package
-# wget https://github.com/ldc-developers/ldc/releases/download/v0.17.1/ldc2-0.17.1-linux-x86_64.tar.xz
-# tar xJf ldc2-0.17.1-linux-x86_64.tar.xz
-# export PATH=~/ldc2-0.17.1-linux-x86_64/bin/:$PATH
-# export LIBRARY_PATH=~/ldc2-0.17.1-linux-x86_64/lib/
+# https://github.com/ldc-developers/gentoo-overlay/tree/master/dev-lang/ldc2
 #
 # contains bundled htslib
 DEPEND=""

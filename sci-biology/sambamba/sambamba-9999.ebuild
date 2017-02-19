@@ -18,6 +18,8 @@ IUSE="debug"
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+# https://github.com/ldc-developers/gentoo-overlay/tree/master/dev-lang/ldc2
+
 src_compile(){
 	if use debug ; then
 		emake sambamba-ldmd2-debug
