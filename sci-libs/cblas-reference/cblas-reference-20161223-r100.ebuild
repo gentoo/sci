@@ -60,7 +60,7 @@ src_prepare() {
 		CBLAS/testing/CMakeLists.txt || die
 	sed -i \
 		-e 's:BINARY_DIR}/cblas:BINARY_DIR}/${PROFNAME}:' \
-		-e '/CBLAS_INCLUDE/s:include ):include/${PROFNAME} ):g' \
+		-e '/install/s:include):include/${PROFNAME}):g' \
 		CBLAS/CMakeLists.txt || die
 }
 
