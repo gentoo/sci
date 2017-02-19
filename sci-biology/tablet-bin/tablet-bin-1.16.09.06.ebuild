@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -35,9 +35,10 @@ IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
-	app-text/dos2unix"
+	app-text/dos2unix
+	>=virtual/jdk-1.8"
 RDEPEND="${DEPEND}
-		virtual/jre"
+		>=virtual/jre-1.8"
 
 S="${WORKDIR}"
 
@@ -73,8 +74,7 @@ src_install() {
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
 	sed \
-		-e "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir#" \
-		-i "${WORKDIR}"/${P}.sh || die
+		-e "s#/bin/java\" -Dinstall4j.jvmDir#"${EPREFIX}"/bin/java\" -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
 	sh \
 		"${WORKDIR}"/${P}.sh \
 		-q -overwrite \
