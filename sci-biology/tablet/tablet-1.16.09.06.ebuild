@@ -44,6 +44,6 @@ src_install() {
 	java-pkg_dojar lib/scri-commons.jar
 	java-pkg_dojar lib/samtools*.jar
 
-	echo "PATH=${EPREFIX}/usr/share/${PN}" > 99Tablet
+	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
 	doenvd 99Tablet
 }

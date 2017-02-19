@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -18,7 +18,7 @@ if [ "$PV" == "9999" ]; then
 	KEYWORDS=""
 else
 	ESVN_REPO_URI="http://ics.hutton.ac.uk/svn/tablet/tags/${PV}"
-	KEYWORDS=""
+	KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="Tablet"
@@ -28,9 +28,9 @@ IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
-	>=virtual/jdk-1.7:*"
+	>=virtual/jdk-1.8:*"
 RDEPEND="${PYTHON_DEPS}
-	>=virtual/jre-1.7:*
+	>=virtual/jre-1.8:*
 	sci-biology/samtools
 	sci-biology/picard
 	dev-db/sqlite:3"
@@ -38,12 +38,14 @@ RDEPEND="${PYTHON_DEPS}
 S="${WORKDIR}"
 
 src_install() {
-	java-pkg_dojar lib/tablet-resources.jar
-	java-pkg_dojar lib/tablet.jar
-	java-pkg_dojar lib/flamingo.jar
-	java-pkg_dojar lib/scri-commons.jar
-	java-pkg_dojar lib/samtools*.jar
+	cd lib || die
+	java-pkg_dojar tablet.jar
+	java-pkg_dolauncher ${PN}
+	java-pkg_dojar tablet-resources.jar
+	java-pkg_dojar flamingo.jar
+	java-pkg_dojar scri-commons.jar
+	java-pkg_dojar samtools*.jar
 
-	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
+	echo "PATH=${EPREFIX}/usr/share/${PN}/" > 99Tablet
 	doenvd 99Tablet
 }
