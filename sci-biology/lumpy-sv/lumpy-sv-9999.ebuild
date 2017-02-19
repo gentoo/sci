@@ -32,9 +32,13 @@ src_install(){
 	rm -f bin/lumpyexpress.config
 	dobin bin/*
 	insinto /usr/share/lumpy-sv/scripts
-	for f in lumpy lumpy_filter lumpyexpress; do
-		rm bin/"$f" || die
+	for f in lumpyexpress lumpyexpress.config; do
+		rm scripts/"$f" || die
 	done
 	doins scripts/*
 	dodoc README.md
+	insinto /usr/share/lumpy-sv/scripts/bamkit
+	cd scripts/bamkit || die
+	doins *.py sectosupp
+	newdoc README.md README_bamkit.md
 }
