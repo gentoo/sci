@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit git-r3
+inherit flag-o-matic git-r3 toolchain-funcs
 
 DESCRIPTION="DNA mapper for single-end reads to detect structural variants (SV)"
 HOMEPAGE="https://github.com/GregoryFaust/yaha"
@@ -15,11 +15,19 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
+PATCHES=(
+	"${FILESDIR}"/${P}-fpermissive.patch
+	"${FILESDIR}"/${P}-buildsystem.patch
+)
 
-# TODO: respect CFLAGS/CXXFLAGS
-# https://github.com/GregoryFaust/yaha/issues/5
+src_prepare() {
+	default
+	append-cflags '-DCOMPILE_USER_MODE' '-DBUILDNUM=$(BUILDNUM)' -std=gnu99
+	append-cxxflags '-DCOMPILE_USER_MODE' '-DBUILDNUM=$(BUILDNUM)'
+	tc-export CC CXX
+	export CFLAGS
+	export CXXFLAGS
+}
 
 src_install(){
 	dobin bin/yaha

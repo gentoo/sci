@@ -1,0 +1,61 @@
+diff --git a/Makefile b/Makefile
+index 44fa872..b844ba6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,24 +10,27 @@ SDIR := src
+ ODIR := obj
+ BDIR := bin
+ 
++CC	     ?= gcc
++CXX      ?= g++
++CFLAGS   ?= -Wall -O3
++CXXFLAGS ?= -Wall -O3
++LDFLAGS  ?=
++
++CFLAGS	 += -MMD -MP -std=gnu99
++CXXFLAGS += -MMD -MP
++LDFLAGS  += -pthread
++
+ # Set up flags depending on mode
+ ifdef USERMODE
+ PROG	 := yaha
+-CCFLAGS  := -Wall -O3 -D COMPILE_USER_MODE -D BUILDNUM=$(BUILDNUM)
++CFLAGS   += -D COMPILE_USER_MODE -D BUILDNUM=$(BUILDNUM)
++CXXFLAGS += -D COMPILE_USER_MODE -D BUILDNUM=$(BUILDNUM)
+ else
+ PROG	 := yaha$(BUILDNUM)
+-CCFLAGS  := -Wall -Winline -O3 -g -D BUILDNUM=$(BUILDNUM)
++CFLAGS   += -g -D BUILDNUM=$(BUILDNUM)
++CXXFLAGS += -g -D BUILDNUM=$(BUILDNUM)
+ endif
+ 
+-# Auto build dependency files.
+-CCFLAGS  += -MMD -MP
+-
+-CC	 := gcc
+-CPP      := g++
+-CFLAGS	 := $(CCFLAGS) -std=gnu99
+-CPPFLAGS := $(CCFLAGS)
+-LDFLAGS  := -pthread
+-
+ # The list of object files.
+ OBJfiles := Main.o AlignArgs.o AlignHelpers.o AlignExtFrag.o AlignOutput.o BaseSeq.o Compress.o \
+ 	FileHelpers.o GraphPath.o Index.o Query.o QueryMatch.o QueryState.o SW.o Math.o
+@@ -45,7 +48,7 @@ $(BDIR):
+ 
+ # Link the program
+ $(BDIR)/$(PROG): $(OBJS)
+-	$(CPP) $(LDFLAGS) -o $@ $(OBJS)
++	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
+ 
+ # Include the dependencies.
+ # The actual objects will be built by the below generic rules based on these dependencies.
+@@ -58,7 +61,7 @@ $(ODIR)/%.o: $(SDIR)/%.c
+ 	$(CC) $(CFLAGS) -c $< -o $@
+ 
+ $(ODIR)/%.o: $(SDIR)/%.cpp
+-	$(CPP) $(CPPFLAGS) -c $< -o $@
++	$(CXX) $(CXXFLAGS) -c $< -o $@
+ 
+ .PHONY: clean
+ clean:
