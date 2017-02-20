@@ -39,6 +39,7 @@ DEPEND="${PYTHON_DEPS}
 	>=virtual/jdk-1.8"
 RDEPEND="${DEPEND}
 		>=virtual/jre-1.8"
+# contains bundled sqlite-jdbc-3.8.6.jar, samtools-linux64.jar, picard.jar
 
 S="${WORKDIR}"
 
@@ -73,8 +74,13 @@ src_install() {
 	# make sure we force java to point a to $HOME which is inside our sanbox
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
-	sed \
-		-e 's#"$app_java_home/bin/java" -Dinstall4j.jvmDir# '"${EPREFIX}""/usr/bin/java -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
+	if [ -z "${EPREFIX}" ]; then
+		sed \
+		-e "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
+	else
+		sed \
+			-e 's#"$app_java_home/bin/java" -Dinstall4j.jvmDir# '"${EPREFIX}""/usr/bin/java -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
+	fi
 	sh \
 		"${WORKDIR}"/${P}.sh \
 		-q -overwrite \
@@ -82,7 +88,7 @@ src_install() {
 		--destination="${ED}"/opt/Tablet \
 		-dir "${ED}"/opt/Tablet || die
 
-	rm -rf "${ED}"/opt/Tablet/jre || die
+	rm -rf "${ED}"/opt/Tablet/jre "${ED}"/opt/Tablet/.install4j || die
 
 	# this dies with tablet-bin-1.14.04.10 with
 	#  * python2_7: running python_doscript /mnt/1TB/var/tmp/portage/sci-biology/tablet-bin-1.14.04.10/work/coveragestats.py
@@ -96,6 +102,7 @@ src_install() {
 	insinto /opt/Tablet/utils
 	doins coveragestats.py
 
-	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
-	doenvd 99Tablet
+	# do not use 99Tablet to avoid file collision with sci-biology/tablet
+	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet-bin
+	doenvd 99Tablet-bin
 }
