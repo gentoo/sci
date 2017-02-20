@@ -18,7 +18,7 @@ if [ "$PV" == "9999" ]; then
 	KEYWORDS=""
 else
 	ESVN_REPO_URI="http://ics.hutton.ac.uk/svn/tablet/tags/${PV}"
-	KEYWORDS=""
+	KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="Tablet"
