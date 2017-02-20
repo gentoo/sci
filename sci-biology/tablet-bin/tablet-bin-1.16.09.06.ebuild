@@ -40,6 +40,8 @@ DEPEND="${PYTHON_DEPS}
 RDEPEND="${DEPEND}
 		>=virtual/jre-1.8"
 # contains bundled sqlite-jdbc-3.8.6.jar, samtools-linux64.jar, picard.jar
+# sqlite-jdbc-3.8.6.jar is not dev-db/sqlite:3 and samtools-linux64.jar is not sci-biology/samtools either
+# replacing picard.jar with a symlink to picard.jar from sci-biology.picard does not help either
 
 S="${WORKDIR}"
 
@@ -89,6 +91,15 @@ src_install() {
 		-dir "${ED}"/opt/Tablet || die
 
 	rm -rf "${ED}"/opt/Tablet/jre "${ED}"/opt/Tablet/.install4j || die
+
+	# zap bundled jars
+	# do not zap even picard.jar because tablet does not start then with an error:
+	#   java.lang.NoClassDefFoundError: net/sf/samtools/SAMReadGroupRecord
+	# not even a symlink to "${EPREFIX}"/usr/share/picard/lib/picard.jar helps
+	#
+	# for f in picard.jar; do
+	# 	rm -f "${ED}"/opt/Tablet/lib/"$f" || die
+	# done
 
 	# this dies with tablet-bin-1.14.04.10 with
 	#  * python2_7: running python_doscript /mnt/1TB/var/tmp/portage/sci-biology/tablet-bin-1.14.04.10/work/coveragestats.py
