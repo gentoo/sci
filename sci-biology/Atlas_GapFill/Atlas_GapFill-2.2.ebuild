@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -18,7 +18,6 @@ IUSE=""
 # is there an ebuild for newbler so we could add it to DEPEND?
 RDEPEND="
 	dev-lang/perl
-	sys-cluster/torque
 	sci-biology/phrap
 	sci-biology/bwa
 	sci-biology/velvet"
