@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -23,7 +23,6 @@ IUSE=""
 
 RDEPEND="
 	sci-biology/tigr-foundation-libs
-	dev-lang/perl
 	dev-perl/XML-Parser
 	dev-perl/Config-IniFiles
 	dev-perl/GraphViz"
