@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils
 
@@ -22,11 +22,10 @@ S="${WORKDIR}"/autoEditor-1.20/TigrFoundation-2.0
 
 src_prepare(){
 	epatch "${FILESDIR}"/TigrFoundation-all-patches.patch
-	sed -i "s:/export/usr/local:${D}/usr:g" Makefile || die
+	sed -i "s:/export/usr/local:${ED}/usr:g" Makefile || die
+	default
 }
 
 src_install(){
 	emake install DESTDIR="${D}/${EPREFIX}"/usr # Makefile does not respect DESTDIR
-	mkdir -p "${D}/${EPREFIX}" || die
-	mv "${D}"/usr "${D}/${EPREFIX}"/ || die
 }
