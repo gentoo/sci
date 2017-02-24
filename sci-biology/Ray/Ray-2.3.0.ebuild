@@ -19,5 +19,5 @@ RDEPEND="${DEPEND}
 
 src_install(){
 	dobin Ray
-	use statics-libs && dolib.a libRayPlatform.a libRay.a
+	use static-libs && dolib.a libRayPlatform.a libRay.a
 }
