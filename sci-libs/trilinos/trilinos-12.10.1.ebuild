@@ -18,7 +18,7 @@ SLOT="0"
 IUSE="
 	adolc arprec boost clp cppunit cuda eigen glpk gtest hdf5 hwloc hypre
 	matio metis mkl mumps netcdf petsc qd qt4 scalapack scotch sparse
-	superlu taucs tbb test threads tvmet yaml zlib
+	superlu taucs tbb test threads tvmet yaml zlib X
 "
 
 # TODO: fix export cmake function for tests
@@ -55,7 +55,8 @@ RDEPEND="
 	tbb? ( dev-cpp/tbb )
 	tvmet? ( dev-libs/tvmet )
 	yaml? ( dev-cpp/yaml-cpp )
-	zlib? ( sys-libs/zlib )"
+	zlib? ( sys-libs/zlib )
+	X? ( x11-libs/libX11 )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -144,6 +145,7 @@ src_configure() {
 		$(trilinos_enable tvmet)
 		$(trilinos_enable yaml yaml-cpp)
 		$(trilinos_enable zlib Zlib)
+		$(trilinos_enable X X11)
 	)
 
 	use eigen && \
