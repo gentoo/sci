@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit multilib unpacker versionator
+inherit unpacker versionator
 
 MY_V="$(get_version_component_range 1).$(get_version_component_range 2).130.135-GA"
 
@@ -31,7 +31,7 @@ RDEPEND="
 	media-libs/freeglut
 	media-libs/mesa[video_cards_radeonsi]
 	sys-devel/gcc:*
-	sys-devel/llvm
+	sys-devel/llvm:*
 	virtual/opencl
 	examples? ( media-libs/glew:0= )"
 DEPEND="
