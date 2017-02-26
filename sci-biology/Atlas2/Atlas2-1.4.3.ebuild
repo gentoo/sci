@@ -1,9 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-USE_RUBY="ruby20"
+USE_RUBY="ruby21"
 
 inherit ruby-fakegem
 
