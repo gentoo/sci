@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -34,6 +34,7 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/freetype
 	media-libs/giflib
 	media-libs/tiff:0=
+	|| ( sci-biology/ncbi-tools++ sci-biology/sra_sdk )
 	gnutls? ( net-libs/gnutls )
 	hdf5? ( sci-libs/hdf5 )
 	sys-fs/fuse
@@ -70,6 +71,19 @@ src_configure(){
 	# configure: error: --datadir=/usr/share:  unknown option;  use --help to show usage
 	# configure: error: --sysconfdir=/etc:  unknown option;  use --help to show usage
 	# configure: error: --localstatedir=/var/lib:  unknown option;  use --help to show usage
-	./configure --prefix="${DESTDIR}"/"${EPREFIX}/usr" --libdir="${EPREFIX}/usr/$(get_libdir)" CC="$(tc-getCC)" \
-		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" || die
+	./configure --prefix="${DESTDIR}"/"${EPREFIX}/usr" --libdir="${EPREFIX}/usr/$(get_libdir)" \
+		--without-downloaded-vdb \
+		CC="$(tc-getCC)" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" || die
 }
+
+# Doh, it runs git during configure phase if it could not find NCBI SRA VDB
+# by executing ./scripts/common/add_vdb.sh which points to https://github.com/ncbi/ncbi-vdb
+# But, we already have sci-biology/sra_sdk which blocks sci-biology/ncbi-tools++
+# as some file overlap. Seems ncbi-vdb is yet another smaller subset of either
+# of the two?
+#
+# Same come checking out ncbi-vdb should be in ncbi-tools++-18.0.0 .
+#
+#   That behavior is entirely optional; you can suppress it by
+#   configuring the Toolkit --without-downloaded-vdb, --with-vdb=PATH (e.g.,
+#   --with-vdb=/usr), or --without-vdb altogether.

@@ -220,6 +220,11 @@ src_configure() {
 	--without-sybase
 	--with-autodep
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
+	# preventing executing git to checkout during configure phase ncbi-vdb sources
+	# resulting in 'checking for ncbi-vdb... no' and
+	# '^PACKAGES:'
+	# '^  disabled: ... VDB'
+	--without-downloaded-vdb
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
