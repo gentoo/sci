@@ -1,13 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates"
 HOMEPAGE="https://code.google.com/p/kaks-calculator"
-SRC_URI="https://kaks-calculator.googlecode.com/files/KaKs_Calculator"${PV}".tar.gz
+SRC_URI="
+	https://kaks-calculator.googlecode.com/files/KaKs_Calculator"${PV}".tar.gz
 	https://kaks-calculator.googlecode.com/files/parseFastaIntoAXT.pl"
 
 LICENSE="GPL-3"
@@ -23,7 +24,8 @@ RDEPEND="
 S="${WORKDIR}"/KaKs_Calculator"${PV}"
 
 src_prepare(){
-	sed -e "s/^CC = g++/CC="$(tc-getCXX)"/; s/^CFLAGS/#CFLAGS/" -i src/makefile
+	sed -e "s/^CC = g++/CC="$(tc-getCXX)"/; s/^CFLAGS/#CFLAGS/" -i src/makefile  || die
+	default
 }
 
 src_compile(){
