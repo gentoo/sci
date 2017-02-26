@@ -23,7 +23,7 @@ RDEPEND="${CDEPEND}"
 # TODO: need to call 'pkg-config --cflags seqan-2.2' and pass it down
 src_configure() {
 	local CPPFLAGS=${CPPFLAGS}
-    append-cppflags `pkg-config --cflags seqan-2.2`
+	append-cppflags `pkg-config --cflags seqan-2.2`
 	local CXXFLAGS="${CXXFLAGS}"
 	append-cxxflags "-std=c++14"
 	cmake-utils_src_configure
