@@ -79,7 +79,7 @@ src_configure(){
 # Doh, it runs git during configure phase if it could not find NCBI SRA VDB
 # by executing ./scripts/common/add_vdb.sh which points to https://github.com/ncbi/ncbi-vdb
 # But, we already have sci-biology/sra_sdk which blocks sci-biology/ncbi-tools++
-# as some file overlap. Seems ncbi-vdb is yet another smaller subset of either
+# as some files overlap. Seems ncbi-vdb is yet another smaller subset of either
 # of the two?
 #
 # Same come checking out ncbi-vdb should be in ncbi-tools++-18.0.0 .
