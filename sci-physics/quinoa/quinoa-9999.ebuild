@@ -22,7 +22,7 @@ DEPEND=">=sci-libs/trilinos-12.10.1[netcdf]
 	dev-libs/tut
 	dev-libs/pugixml
 	dev-cpp/pstreams
-	sci-libs/hypre
+	sci-libs/hypre[mpi]
 	dev-libs/pegtl
 	dev-cpp/random123
 	virtual/lapacke"
