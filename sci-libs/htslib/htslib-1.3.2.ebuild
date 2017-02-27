@@ -9,7 +9,7 @@ SRC_URI="mirror://sourceforge/samtools/${PV}/${P}.tar.bz2"
 
 SLOT="0"
 LICENSE="MIT"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="static-libs"
 
 src_install() {
