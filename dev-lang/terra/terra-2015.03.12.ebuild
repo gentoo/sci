@@ -1,13 +1,15 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
+
+#cannot be unbundled easily, because needs to compiled with clang
+LUAJIT="LuaJIT-2.0.3.tar.gz"
 
 DESCRIPTION="A low-level counterpart to Lua"
 HOMEPAGE="http://terralang.org/"
-#cannot be unbundled easily, because needs to compiled with clang
-LUAJIT="LuaJIT-2.0.3.tar.gz"
-SRC_URI="https://github.com/zdevito/terra/archive/release-${PV//./-}.tar.gz -> ${P}.tar.gz
+SRC_URI="
+	https://github.com/zdevito/terra/archive/release-${PV//./-}.tar.gz -> ${P}.tar.gz
 	http://luajit.org/download/${LUAJIT}"
 
 LICENSE="MIT"
@@ -15,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="test"
 
-DEPEND="sys-devel/clang
+DEPEND="
+	sys-devel/clang:*
 	dev-lang/luajit:2"
 RDEPEND="${DEPEND}"
 
