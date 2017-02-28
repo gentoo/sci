@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -34,7 +34,7 @@ src_prepare() {
 }
 
 src_test() {
-	cd test
+	cd test || die
 	export BPZPATH="${S}" PYTHONPATH="${S}"
 	${EPYTHON} ../bpz.py UDFtest.cat -INTERP 2 || die
 	${EPYTHON} ../bpzfinalize.py UDFtest || die
