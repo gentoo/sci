@@ -1,6 +1,6 @@
 diff -ru opt/pgi/linux86/13.5/include/bits/types.h opt/pgi-b/linux86/13.5/include/bits/types.h
---- opt/pgi/linux86/13.5/include/bits/types.h	2013-05-07 21:45:39.000000000 +0200
-+++ opt/pgi-b/linux86/13.5/include/bits/types.h	2013-06-02 01:24:19.000000000 +0200
+--- a/opt/pgi/linux86/13.5/include/bits/types.h	2013-05-07 21:45:39.000000000 +0200
++++ b/opt/pgi-b/linux86/13.5/include/bits/types.h	2013-06-02 01:24:19.000000000 +0200
 @@ -136,6 +136,7 @@
  #include <bits/typesizes.h>	/* Defines __*_T_TYPE macros.  */
  
@@ -10,8 +10,8 @@ diff -ru opt/pgi/linux86/13.5/include/bits/types.h opt/pgi-b/linux86/13.5/includ
  __STD_TYPE __UID_T_TYPE __uid_t;	/* Type of user identifications.  */
  __STD_TYPE __GID_T_TYPE __gid_t;	/* Type of group identifications.  */
 diff -ru opt/pgi/linux86-64/13.5/include/bits/types.h opt/pgi-b/linux86-64/13.5/include/bits/types.h
---- opt/pgi/linux86-64/13.5/include/bits/types.h	2013-05-07 21:45:39.000000000 +0200
-+++ opt/pgi-b/linux86-64/13.5/include/bits/types.h	2013-06-02 01:23:51.000000000 +0200
+--- a/opt/pgi/linux86-64/13.5/include/bits/types.h	2013-05-07 21:45:39.000000000 +0200
++++ b/opt/pgi-b/linux86-64/13.5/include/bits/types.h	2013-06-02 01:23:51.000000000 +0200
 @@ -135,7 +135,7 @@
  #endif
  #include <bits/typesizes.h>	/* Defines __*_T_TYPE macros.  */

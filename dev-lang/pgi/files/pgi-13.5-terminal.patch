@@ -1,6 +1,6 @@
 diff -ru pgi-a/install pgi/install
---- pgi-a/install	2013-06-01 01:24:11.522714654 +0200
-+++ pgi/install	2013-06-01 01:27:36.372713265 +0200
+--- a/pgi-a/install	2013-06-01 01:24:11.522714654 +0200
++++ b/pgi/install	2013-06-01 01:27:36.372713265 +0200
 @@ -83,7 +83,7 @@
  else 
    licensefile=$SRC/common/BETA_LICENSE
