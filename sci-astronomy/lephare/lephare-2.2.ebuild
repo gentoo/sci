@@ -1,9 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-inherit eutils check-reqs fortran-2 versionator
+inherit check-reqs fortran-2 versionator
 
 MYP=${PN}_dev_v$(replace_version_separator 2 '')
 
@@ -53,11 +53,14 @@ src_install() {
 		zphota \
 		mag_zform
 	dodoc README_TECH
-	insinto /usr/share/${PN}
+
 	cd .. || die
+	insinto /usr/share/${PN}
 	doins -r {ext,filt,config,opa,sed,simul,test,tools,vega}
-	echo "LEPHAREDIR=${EPREFIX}/usr/share/${PN}" > 99lephare
-	doenvd 99lephare
+
+	echo "LEPHAREDIR=${EPREFIX}/usr/share/${PN}" > "${T}"/99lephare
+	doenvd "${T}"/99lephare
+
 	newdoc INSTALL README
 	use doc && dodoc doc/*.pdf
 }
