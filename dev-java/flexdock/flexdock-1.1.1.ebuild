@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 JAVA_PKG_IUSE="doc source"
 
@@ -27,12 +27,14 @@ EANT_DOC_TARGET="doc"
 
 S="${WORKDIR}"
 
-java_prepare() {
-	epatch "${FILESDIR}"/${P}-nodemo.patch
+PATCHES=( "${FILESDIR}"/${P}-nodemo.patch )
 
+src_prepare() {
+	eapply ${PATCHES[@]}
+	java-pkg-2_src_prepare
 	#some cleanups
-	find . -name '*.so' -exec rm -v {} \;|| die
-	find . -name '*.dll' -exec rm -v {} \;|| die
+	find . -type f -name '*.so' -exec rm -v {} \;|| die
+	find . -type f -name '*.dll' -exec rm -v {} \;|| die
 
 	#remove built-in jars and use the system ones
 	cd lib || die
