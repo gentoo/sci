@@ -1,13 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module eutils toolchain-funcs
-
-AUTOTOOLS_AUTORECONF=true
-inherit autotools-utils git-r3
+inherit autotools git-r3 perl-module toolchain-funcs
 
 DESCRIPTION="Whole genome assembler, Hawkeye and AMOScmp to compare multiple assemblies"
 HOMEPAGE="http://sourceforge.net/projects/amos"
@@ -22,8 +18,10 @@ IUSE="mpi qt4"
 DEPEND="
 	mpi? ( virtual/mpi )
 	dev-libs/boost
-	qt4? ( dev-qt/qtcore:4[qt3support]
-		dev-qt/qt3support:4 )
+	qt4? (
+		dev-qt/qtcore:4[qt3support]
+		dev-qt/qt3support:4
+	)
 	sci-biology/blat
 	sci-biology/jellyfish"
 RDEPEND="${DEPEND}
@@ -37,23 +35,33 @@ RDEPEND="${DEPEND}
 # ERROR:  Could not open file  LIBGUESTFS_PATH=/usr/share/guestfs/appliance/
 # $
 
+src_prepare() {
+	default
+	eautoreconf
+}
+
 src_install() {
 	default
 	python_replicate_script "${ED}"/usr/bin/goBambus2
 	# bambus needs TIGR::FASTAreader.pm and others
 	# configure --libdir sadly copies both *.a files and *.pm into /usr/lib64/AMOS/ and /usr/lib64/TIGR/, work around it
 	perl_set_version
+
 	insinto ${VENDOR_LIB}/AMOS
 	doins "${D}"/usr/lib64/AMOS/*.pm
+
 	insinto ${VENDOR_LIB}/TIGR
 	doins "${D}"/usr/lib64/TIGR/*.pm
+
 	# move also /usr/lib64/AMOS/AMOS.py to /usr/bin
-	mv "${D}"/usr/lib64/AMOS/*.py "${D}"/usr/bin || die
+	mv "${ED}"/usr/lib64/AMOS/*.py "${ED}"/usr/bin || die
 	# zap the mis-placed files ('make install' is at fault)
-	rm -f "${D}"/usr/lib64/AMOS/*.pm
-	rm -rf "${D}"/usr/lib64/TIGR
-	echo AMOSCONF="${EPREFIX}"/etc/amos.acf > "${S}"/99amos || die
+	rm -f "${ED}"/usr/lib64/AMOS/*.pm
+	rm -rf "${ED}"/usr/lib64/TIGR
+
 	mkdir -p "${ED}"/etc || die
 	touch "${ED}"/etc/amos.acf || die
-	doenvd "${S}/99amos"
+
+	echo AMOSCONF="${EPREFIX}"/etc/amos.acf > "${T}"/99amos || die
+	doenvd "${T}/99amos"
 }
