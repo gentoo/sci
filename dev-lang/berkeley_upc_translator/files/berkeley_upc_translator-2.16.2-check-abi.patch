@@ -1,5 +1,5 @@
---- config-aux/config-builddir
-+++ config-aux/config-builddir
+--- a/config-aux/config-builddir
++++ b/config-aux/config-builddir
 @@ -1,5 +1,7 @@
  #!/bin/sh
  
