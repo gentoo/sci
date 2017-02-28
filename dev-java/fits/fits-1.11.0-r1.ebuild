@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 JAVA_PKG_IUSE="doc source test"
 
@@ -27,6 +27,11 @@ EANT_EXTRA_ARGS="-Dpackage.version=${PV}"
 JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_GENTOO_CLASSPATH="junit-4"
 
+PATCHES=(
+	"${FILESDIR}"/01-Use-getResource-to-access-CompressTest-data-for-unit.patch
+	"${FILESDIR}"/02-Update-ArrayFuncsTest.java-to-JUnit-4.patch
+)
+
 src_unpack() {
 	mkdir -p ${P}/src && cd ${P}/src || die
 	unpack ${A}
@@ -35,9 +40,8 @@ src_unpack() {
 java_prepare() {
 	cd "${S}" || die
 	cp "${FILESDIR}"/README.Gentoo "${FILESDIR}"/build.xml . || die
-	epatch \
-		"${FILESDIR}"/01-Use-getResource-to-access-CompressTest-data-for-unit.patch \
-		"${FILESDIR}"/02-Update-ArrayFuncsTest.java-to-JUnit-4.patch
+
+	default
 
 	if ! use test; then
 		find "${S}" \( -name "*Test.java" -o -name "*Tester.java" \) -print -delete || die
@@ -49,7 +53,8 @@ java_prepare() {
 	# classes are pre-alpha versions of support for tile compressed data that
 	# is being developed.  Interested Users may take a look at these, but they
 	# definitely are not expected to work today.
-	rm 	src/nom/tam/image/comp/Quantizer.java \
+	rm \
+		src/nom/tam/image/comp/Quantizer.java \
 		src/nom/tam/image/comp/RealStats.java \
 		src/nom/tam/image/comp/TiledImageHDU.java \
 		src/nom/tam/image/QuantizeRandoms.java \
