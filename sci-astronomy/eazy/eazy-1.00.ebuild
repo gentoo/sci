@@ -1,9 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
+EAPI=6
 
 DESCRIPTION="Photometric redshift estimator for galaxies"
 HOMEPAGE="http://www.astro.yale.edu/eazy/?home"
@@ -18,9 +16,7 @@ RDEPEND=""
 DEPEND="${RDEPEND}
 	doc? ( virtual/latex-base )"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-makefile.patch
-}
+PATCHES=( "${FILESDIR}"/${P}-makefile.patch )
 
 src_compile() {
 	emake -C src
@@ -28,21 +24,21 @@ src_compile() {
 }
 
 src_test() {
-	cd inputs
-	../src/eazy
-	mv zphot.param.default zphot.param
+	cd inputs && ../src/eazy || die
+	mv zphot.param.default zphot.param || die
 	../src/eazy || die
 }
 
 src_install() {
 	dobin src/eazy
+
 	insinto /usr/share/eazy
 	doins -r templates
+
 	use doc && dodoc doc/eazy_manual.pdf
+
 	if use examples; then
-		cd inputs
-		rm templates
-		insinto /usr/share/doc/${PF}
-		doins -r *
+		cd inputs && rm templates || die
+		dodoc -r *
 	fi
 }
