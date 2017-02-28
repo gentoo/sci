@@ -1,8 +1,8 @@
 Install the BoostComputeConfig to /usr/lib/cmake instead of /usr/share/cmake.
 
 Patch by Marius Brehler.
---- CMakeLists.txt
-+++ CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
 @@ -81,7 +81,7 @@ configure_file(
  # install cmake config file
  install(
