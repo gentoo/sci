@@ -2,12 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 # this is https://metacpan.org/pod/Bio::DB::HTS and https://github.com/Ensembl/Bio-DB-HTS
 # this is not https://metacpan.org/pod/Bio::HTS
 MODULE_AUTHOR="RISHIDEV"
-inherit perl-module multilib toolchain-funcs
+
+inherit perl-module toolchain-funcs
 
 DESCRIPTION="Enable rapid access to bgzipped FASTA files"
 
@@ -25,9 +26,10 @@ SRC_TEST="do"
 
 src_prepare(){
 	# https://github.com/Ensembl/Bio-HTS/issues/30
-	export HTSLIB_LIBDIR="${EPREFIX}"/"$(get_libdir)" # currently ignored
-	export HTSLIB_INCDIR="${EPREFIX}"/usr/include/htslib # currently ignored
-	export HTSLIB_DIR="${EPREFIX}"/usr # useless, Build.PL will not invent /usr/lib64/ is the correct answer
+	HTSLIB_LIBDIR="${EPREFIX}"/"$(get_libdir)" || die
+	HTSLIB_INCDIR="${EPREFIX}"/usr/include/htslib # currently ignored
+	HTSLIB_DIR="${EPREFIX}"/usr # useless, Build.PL will not invent /usr/lib64/ is the correct answer
+	export HTSLIB_LIBDIR HTSLIB_INCDIR HTSLIB_DIR
 	perl-module_src_prepare
 }
 

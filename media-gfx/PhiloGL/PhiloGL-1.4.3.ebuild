@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="WebGL Framework for Data Vis, Creative Coding and Game Development"
 HOMEPAGE="http://www.senchalabs.org/philogl/"
@@ -16,6 +16,7 @@ IUSE="examples"
 S=${WORKDIR}
 
 src_prepare() {
+	local f
 	if use examples ; then
 		for f in $(find "${S}"/examples -name index.html); do
 	   		sed -e "s:../../../build:/usr/share/${PN}/build:g" \

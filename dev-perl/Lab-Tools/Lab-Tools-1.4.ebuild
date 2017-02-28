@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit perl-module
 
@@ -16,7 +16,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-lang/perl
 	dev-perl/XML-Generator
 	dev-perl/XML-DOM
 	dev-perl/XML-Twig

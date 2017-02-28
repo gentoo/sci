@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils
 
-DESCRIPTION="SimCList is a high quality C (C++ embeddable) library for handling lists"
+DESCRIPTION="High quality C (C++ embeddable) library for handling lists"
 HOMEPAGE="http://mij.oltrelinux.com/devel/simclist"
 SRC_URI="${HOMEPAGE}/${P/_/}.tar.bz2"
 
@@ -28,16 +28,8 @@ src_compile(){
 }
 
 src_install() {
-	mkdir -p "${D}"/usr/include
-	cp simclist.h "${D}"/usr/include/
-	cd "${BUILD_DIR}"
-	dolib libsimclist.so
-	cd "${S}"
-	if use doc; then
-		dohtml -r doc/html/*
-	fi
-	if use examples; then
-		docinto examples
-		dodoc examples/*
-	fi
+	doheader simclist.h
+	dolib.so "${BUILD_DIR}"/libsimclist.so*
+	use doc && dohtml -r "${S}"/doc/html/*
+	use examples &&  dodoc -r "${S}"/examples
 }

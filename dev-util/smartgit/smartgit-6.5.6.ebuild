@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils java-utils-2 versionator
 
@@ -32,7 +32,7 @@ pkg_nofetch(){
 }
 
 src_install() {
-	local rdir="/opt/${PN}" X
+	local rdir="/opt/${PN}" s
 	insinto ${rdir}
 	doins -r *
 
@@ -40,11 +40,12 @@ src_install() {
 
 	java-pkg_regjar "${ED}"/${rdir}/lib/*.jar
 
-	java-pkg_dolauncher ${PN} --java_args "-Dsun.io.useCanonCaches=false -Xmx768m -Xverify:none -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:InitiatingHeapOccupancyPercent=25" --jar bootloader.jar
+	java-pkg_dolauncher ${PN} \
+		--java_args "-Dsun.io.useCanonCaches=false -Xmx768m -Xverify:none -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:InitiatingHeapOccupancyPercent=25" \
+		--jar bootloader.jar
 
-	for X in 32 64 128; do
-		insinto /usr/share/icons/hicolor/${X}x${X}/apps
-		newins "${S}"/bin/smartgit-${X}.png ${PN}.png
+	for s in 32 64 128; do
+		newicon -s ${s} "${S}"/bin/smartgit-${s}.png ${PN}.png
 	done
 
 	make_desktop_entry "${PN}" "SmartGIT" ${PN} "Development;RevisionControl"

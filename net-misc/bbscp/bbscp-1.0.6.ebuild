@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="SCP-like interface to bbFTP"
 HOMEPAGE="http://www.nas.nasa.gov/Users/Documentation/Networks/BBSCP/bbscp.html"

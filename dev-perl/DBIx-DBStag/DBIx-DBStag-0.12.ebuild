@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 MODULE_AUTHOR="SCAIN"
 
@@ -21,6 +21,5 @@ DEPEND="
 	>=dev-perl/Data-Stag-0.11
 	dev-perl/DBI
 	dev-perl/Parse-RecDescent
-	dev-lang/perl"
-
+	"
 RDEPEND="${DEPEND}"

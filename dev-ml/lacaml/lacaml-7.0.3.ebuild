@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 OASIS_BUILD_DOCS=1
 
@@ -26,13 +26,13 @@ DEPEND="${DEPEND}
 DOCS=( "README.md" "CHANGES.txt" "TODO.md" )
 
 src_prepare() {
+	default
 	if use doc; then
 		cp "${FILESDIR}/API.odocl" . || die
 	fi
-	cclib="$($(tc-getPKG_CONFIG) --libs blas lapack)"
-	cclib="[$(echo $cclib|sed -e 's/\(-[a-z0-9]*\) /\"\1\"\;/g' -e \
-	's/\(-[a-z0-9]*\)$/\"\1\"/')]"
-	sed -i "s/cclib = \[\]/cclib = ${cclib}/" setup.conf
+	cclib="$($(tc-getPKG_CONFIG) --libs blas lapack)" || die
+	cclib="[$(echo $cclib|sed -e 's/\(-[a-z0-9]*\) /\"\1\"\;/g' -e 's/\(-[a-z0-9]*\)$/\"\1\"/')]"  || die
+	sed -i "s/cclib = \[\]/cclib = ${cclib}/" setup.conf || die
 	#would like to do the below, but doesn't work from ebuild
 	#oasis_configure_opts="--override conf_cclib $($(tc-getPKG_CONFIG) --libs blas lapack)"
 }

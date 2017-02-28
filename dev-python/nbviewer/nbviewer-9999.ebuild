@@ -2,21 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
+
 PYTHON_COMPAT=( python3_{4,5} )
 
-inherit distutils-r1
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Nbconvert as a webservice (rendering ipynb to static HTML)"
 HOMEPAGE="http://jupyter.org"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/jupyter/${PN}.git git://github.com/jupyter/${PN}.git"
-else
-	SRC_URI=""
-	KEYWORDS="~amd64"
-fi
+EGIT_REPO_URI="https://github.com/jupyter/${PN}.git git://github.com/jupyter/${PN}.git"
 
 LICENSE="BSD-4"
 SLOT="0"

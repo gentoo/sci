@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils
 
@@ -20,40 +20,38 @@ RDEPEND="net-misc/curl"
 RESTRICT="mirror strip"
 
 QA_PREBUILT="
-		opt/pgi/linux86/2013/cuda/4.2/lib/lib*.so.*
-		opt/pgi/linux86-64/13.5/bin/*
-		opt/pgi/linux86-64/13.5/lib/lib*
-		opt/pgi/linux86-64/13.5/lib/*.o
-		opt/pgi/linux86-64/13.5/libso/lib*
-		opt/pgi/linux86-64/13.5/libso/*.o
-		opt/pgi/linux86-64/13.5/cray/lib*
-		opt/pgi/linux86-64/13.5/etc/pgi_license_tool/curl
-		opt/pgi/linux86-64/13.5/REDIST/lib*.so
-		opt/pgi/linux86-64/2013/cuda/5.0/nvvm/cicc
-		opt/pgi/linux86-64/2013/cuda/4.2/nvvm/cicc
-		opt/pgi/linux86-64/2013/acml/5.3.0/lib/lib*
-		opt/pgi/linux86-64/2013/acml/5.3.0/libso/lib*.so
-		opt/pgi/linux86/13.5/etc/pgi_license_tool/curl
-		opt/pgi/linux86/13.5/bin/*
-		opt/pgi/linux86/13.5/lib/lib*
-		opt/pgi/linux86/13.5/lib/*.o
-		opt/pgi/linux86/13.5/libso/lib*
-		opt/pgi/linux86/13.5/cray/lib*
-		opt/pgi/linux86/2013/cuda/5.0/nvvm/cicc
-		opt/pgi/linux86/2013/cuda/4.2/nvvm/cicc
-		opt/pgi/linux86/2013/acml/4.4.0/lib/lib*
-		opt/pgi/linux86/2013/acml/4.4.0/libso/lib*.so
+	opt/pgi/linux86/2013/cuda/4.2/lib/lib*.so.*
+	opt/pgi/linux86-64/13.5/bin/*
+	opt/pgi/linux86-64/13.5/lib/lib*
+	opt/pgi/linux86-64/13.5/lib/*.o
+	opt/pgi/linux86-64/13.5/libso/lib*
+	opt/pgi/linux86-64/13.5/libso/*.o
+	opt/pgi/linux86-64/13.5/cray/lib*
+	opt/pgi/linux86-64/13.5/etc/pgi_license_tool/curl
+	opt/pgi/linux86-64/13.5/REDIST/lib*.so
+	opt/pgi/linux86-64/2013/cuda/5.0/nvvm/cicc
+	opt/pgi/linux86-64/2013/cuda/4.2/nvvm/cicc
+	opt/pgi/linux86-64/2013/acml/5.3.0/lib/lib*
+	opt/pgi/linux86-64/2013/acml/5.3.0/libso/lib*.so
+	opt/pgi/linux86/13.5/etc/pgi_license_tool/curl
+	opt/pgi/linux86/13.5/bin/*
+	opt/pgi/linux86/13.5/lib/lib*
+	opt/pgi/linux86/13.5/lib/*.o
+	opt/pgi/linux86/13.5/libso/lib*
+	opt/pgi/linux86/13.5/cray/lib*
+	opt/pgi/linux86/2013/cuda/5.0/nvvm/cicc
+	opt/pgi/linux86/2013/cuda/4.2/nvvm/cicc
+	opt/pgi/linux86/2013/acml/4.4.0/lib/lib*
+	opt/pgi/linux86/2013/acml/4.4.0/libso/lib*.so
 "
 
 S="${WORKDIR}"
 
+PATCHES=( "${FILESDIR}"/${P}-terminal.patch )
+
 pkg_nofetch() {
 	einfo "PGI doesn't provide direct download links. Please download"
 	einfo "${ARCHIVE} from ${HOMEPAGE}"
-}
-
-src_prepare() {
-	epatch "${FILESDIR}/${P}-terminal.patch"
 }
 
 src_install() {
@@ -101,11 +99,13 @@ y
 ${command}
 EOF
 	# fix problems with PGI's C++ compiler and current glibc:
-	cd "${ED}"
-	epatch "${FILESDIR}/${P}-glibc.patch"
+	cd "${ED}" || die
+	eapply "${FILESDIR}"/${P}-glibc.patch
 
 	# java symlink might be broken if useflag is disabled:
-	use java || rm opt/pgi/linux86-64/13.5/jre
+	if ! use java; then
+		rm opt/pgi/linux86-64/13.5/jre || die
+	fi
 
 	# replace PGI's curl with the stock version:
 	dodir /opt/pgi/linux86-64/13.5/etc/pgi_license_tool

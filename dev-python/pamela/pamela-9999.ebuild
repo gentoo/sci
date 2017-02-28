@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
+EAPI=6
+
+PYTHON_COMPAT=( python2_7 python3_{4,5} )
 
 inherit distutils-r1 git-r3
 
@@ -19,5 +20,5 @@ IUSE="test"
 DEPEND="test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
 
 python_test() {
-	py.test --assert=plain test_pamela.py
+	py.test --assert=plain test_pamela.py || die
 }

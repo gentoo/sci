@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -34,6 +34,7 @@ python_prepare_all() {
 
 python_compile() {
 	mkdir "${BUILD_DIR}" || die
-	echo "BOOST_PYTHON_LIBNAME = [\'boost_${EPYTHON}-mt\']">> "${BUILD_DIR}"/siteconf.py
+	echo "BOOST_PYTHON_LIBNAME = [\'boost_${EPYTHON}-mt\']" \
+		>> "${BUILD_DIR}"/siteconf.py || die
 	distutils-r1_python_compile
 }

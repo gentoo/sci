@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils qmake-utils
 
@@ -18,6 +18,9 @@ IUSE="3d debug doc tools qt4 +qt5"
 REQUIRED_USE="|| ( qt4 qt5 )"
 
 DEPEND="
+	dev-cpp/muParser
+	dev-libs/boost
+	media-libs/freetype
 	qt4? (
 		dev-qt/qtcore:4
 		dev-qt/qtgui:4
@@ -32,10 +35,7 @@ DEPEND="
 		dev-qt/qtsvg:5
 		dev-qt/qtwidgets:5
 		dev-qt/qtxml:5
-	)
-	dev-libs/boost
-	dev-cpp/muParser
-	media-libs/freetype"
+	)"
 
 RDEPEND="${DEPEND}"
 S="${WORKDIR}/LibreCAD-${PV}"
@@ -46,22 +46,21 @@ src_prepare() {
 }
 
 src_configure() {
-	if use qt4
-	then
-		eqmake4 -r
-	else
-		eqmake5 -r
-	fi
+	eqmake$(use qt4 && echo 4 || echo 5) -r
 }
 
 src_install() {
 	dobin unix/librecad
 	use tools && dobin unix/ttf2lff
+
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
+
 	use doc && dohtml -r librecad/support/doc/*
+
 	insinto /usr/share/appdata
 	doins unix/appdata/librecad.appdata.xml
+
 	doicon librecad/res/main/"${PN}".png
 	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{4,5} )
 PYTHON_REQ_USE="threads(+)"
@@ -12,11 +12,12 @@ inherit distutils-r1
 DESCRIPTION="Jupyter Interactive Notebook"
 HOMEPAGE="http://jupyter.org"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-KEYWORDS="~amd64 ~x86"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
+
 RDEPEND="
 	>=dev-libs/mathjax-2.4
 	dev-python/jinja[${PYTHON_USEDEP}]
@@ -79,7 +80,9 @@ python_test() {
 python_install() {
 	distutils-r1_python_install
 
-	ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
+	ln -sf \
+		"${EPREFIX}/usr/share/mathjax" \
+		"${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
 }
 
 python_install_all() {

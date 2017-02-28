@@ -2,24 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit toolchain-funcs
-
-if [ "$PV" == "9999" ]; then
-	inherit git-r3
-fi
+inherit toolchain-funcs git-r3
 
 DESCRIPTION="Reference-genome-assisted asssembly of contigs/scaffolds using PE reads"
-HOMEPAGE="https://github.com/baoe/AlignGraph
+HOMEPAGE="
+	https://github.com/baoe/AlignGraph
 	http://bioinformatics.oxfordjournals.org/content/30/12/i319.long"
-if [ "$PV" == "9999" ]; then
-	EGIT_REPO_URI="https://github.com/baoe/AlignGraph.git"
-	KEYWORDS=""
-else
-	SRC_URI=""
-	KEYWORDS=""
-fi
+EGIT_REPO_URI="https://github.com/baoe/AlignGraph.git"
 
 LICENSE="Artistic-2"
 SLOT="0"
@@ -43,9 +34,9 @@ RDEPEND="${DEPEND}
 # runtime is usually from BLAT, no matter how many threads there are for Bowtie2.
 src_compile(){
 	cd AlignGraph || die
-	$(tc-getCXX) ${CXXFLAGS} -o AlignGraph AlignGraph.cpp -lpthread
+	$(tc-getCXX) ${CXXFLAGS} ${LDFLAGS} -o AlignGraph AlignGraph.cpp -lpthread || die
 	cd ../Eval-AlignGraph || die
-	$(tc-getCXX) ${CXXFLAGS} -o Eval-AlignGraph Eval-AlignGraph.cpp -lpthread
+	$(tc-getCXX) ${CXXFLAGS} ${LDFLAGS} -o Eval-AlignGraph Eval-AlignGraph.cpp -lpthread || die
 }
 
 src_install(){

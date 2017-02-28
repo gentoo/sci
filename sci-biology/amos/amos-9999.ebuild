@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
@@ -49,12 +49,14 @@ src_install() {
 	insinto ${VENDOR_LIB}/TIGR
 	doins "${D}"/usr/lib64/TIGR/*.pm
 	# move also /usr/lib64/AMOS/AMOS.py to /usr/bin
-	mv "${D}"/usr/lib64/AMOS/*.py "${D}"/usr/bin || die
+	mv "${ED}"/usr/lib64/AMOS/*.py "${ED}"/usr/bin || die
 	# zap the mis-placed files ('make install' is at fault)
-	rm -f "${D}"/usr/lib64/AMOS/*.pm
-	rm -rf "${D}"/usr/lib64/TIGR
-	echo AMOSCONF="${EPREFIX}"/etc/amos.acf > "${S}"/99amos || die
+	rm -f "${ED}"/usr/lib64/AMOS/*.pm
+	rm -rf "${ED}"/usr/lib64/TIGR
+
 	mkdir -p "${ED}"/etc || die
 	touch "${ED}"/etc/amos.acf || die
-	doenvd "${S}/99amos"
+
+	echo AMOSCONF="${EPREFIX}"/etc/amos.acf > "${T}"/99amos || die
+	doenvd "${T}/99amos"
 }

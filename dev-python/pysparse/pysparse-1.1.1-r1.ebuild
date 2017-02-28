@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -31,7 +31,7 @@ PATCHES=(
 pc_libs() {
 	$(tc-getPKG_CONFIG) --libs-only-l $@ | \
 	sed -e 's/[ ]-l*\(pthread\|m\)[ ]*//g' \
-	-e 's/^-l/"/' -e 's/[ ]*-l/","/g' -e 's/[ ]*$/"/g'
+	-e 's/^-l/"/' -e 's/[ ]*-l/","/g' -e 's/[ ]*$/"/g' || die
 }
 
 python_prepare_all() {

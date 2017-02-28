@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 MODULE_AUTHOR="BRICKER"
 MODULE_A_EXT="tar.gz"
+
 inherit perl-module
 
 DESCRIPTION="Load and save configuration files in a standard format"

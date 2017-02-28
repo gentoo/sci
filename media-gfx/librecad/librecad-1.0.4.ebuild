@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils qt4-r2 vcs-snapshot
 
@@ -29,9 +29,9 @@ src_prepare() {
 
 src_install() {
 	dobin unix/librecad
-	insinto /usr/share/"${PN}"
+	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r support/doc/*
-	doicon res/main/"${PN}".png
-	make_desktop_entry "${PN}" LibreCAD "${PN}.png" Graphics
+	doicon res/main/${PN}.png
+	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }

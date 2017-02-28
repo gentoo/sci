@@ -2,26 +2,19 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit cmake-utils multilib python-any-r1
+inherit cmake-utils git-r3 multilib python-any-r1
 
 DESCRIPTION="Intel Concurrent Collections for C++ - Parallelism without the Pain"
 HOMEPAGE="https://software.intel.com/en-us/articles/intel-concurrent-collections-for-cc"
-
-if [[ $PV = 9999 ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/icnc/icnc.git"
-	KEYWORDS=
-else
-	SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64"
-fi
+EGIT_REPO_URI="https://github.com/icnc/icnc.git"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS=
 IUSE="doc examples mpi test"
 
 RDEPEND="

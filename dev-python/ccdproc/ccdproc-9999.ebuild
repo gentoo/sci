@@ -4,19 +4,13 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_4} )
-inherit distutils-r1
+PYTHON_COMPAT=( python{2_7,3_{4,5}} )
 
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/astropy/${PN}.git"
-else
-	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-	KEYWORDS="~amd64"
-fi
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Astropy affiliated package for reducing optical/IR CCD data"
 HOMEPAGE="https://github.com/astropy/ccdproc"
+EGIT_REPO_URI="https://github.com/astropy/${PN}.git"
 
 LICENSE="BSD"
 SLOT="0"

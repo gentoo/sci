@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 MODULE_AUTHOR="LDS"
 
-inherit eutils flag-o-matic perl-module
+inherit flag-o-matic perl-module
 
 DESCRIPTION="BigWig and BigBed file perl-based interface for Gbrowse-2"
 
@@ -24,8 +24,10 @@ DEPEND="${RDEPEND}
 
 SRC_TEST="do"
 
+PATCHES=( "${FILESDIR}"/Build.PL.patch )
+
 src_prepare(){
 	append-cflags -D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing
 	append-lfs-flags
-	epatch "${FILESDIR}"/Build.PL.patch
+	default
 }

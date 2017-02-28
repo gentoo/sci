@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils portability toolchain-funcs unpacker versionator
+inherit portability toolchain-funcs unpacker versionator
 
 MYD=$(get_version_component_range 1)_$(get_version_component_range 2)
 
@@ -29,7 +29,8 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
 
-QA_PREBUILT="/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
+QA_PREBUILT="
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
 	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/gpu_rdma_bw
 	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/ibv_rdma_bw
 	/opt/cuda/gdk/nvml/lib/libnvidia-ml.so.1"

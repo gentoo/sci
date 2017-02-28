@@ -2,13 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
+
 inherit versionator
+
+MY_P=$(version_format_string '${PN%-bin}-$1$2.$3.$4-${5#p}-64b')
 
 DESCRIPTION="Software package to calibrate, image, and analyze radioastronomical data"
 HOMEPAGE="http://casa.nrao.edu/"
-
-MY_P=$(version_format_string '${PN%-bin}-$1$2.$3.$4-${5#p}-64b')
 SRC_URI="https://svn.cv.nrao.edu/casa/linux_distro/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1+"
@@ -47,19 +48,23 @@ RDEPEND="
 "
 
 S="${WORKDIR}/${MY_P}"
-QA_PREBUILT="/opt/casapy/* /opt/casapy/sbin/* /opt/casapy/lib64/*"
+
+QA_PREBUILT="
+	/opt/casapy/*
+	/opt/casapy/sbin/*
+	/opt/casapy/lib64/*"
 
 src_compile() { :; }
 
 src_install() {
+	local binary
 	dodir /opt/
-	cp -R "${S}" "${D}/opt/casapy" || die "Could not copy casapy into ${D}/opt"
+	cp -R "${S}" "${ED}/opt/casapy" || die "Could not copy casapy into ${D}/opt"
 
 	dodir /opt/bin
-	cd "${D}/opt/casapy/bin"
-	for binary in `ls`
-	do
-		dosym ../casapy/$binary /opt/bin/$binary
+	cd "${ED}/opt/casapy/bin" || die
+	for binary in "${ED}"/opt/casapy/bin/*; do
+		dosym ../casapy/$(basename ${binary}) ${binary}
 	done
 }
 

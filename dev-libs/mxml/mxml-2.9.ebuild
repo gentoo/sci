@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-DESCRIPTION="Mini-XML: A lightweight ANSI C XML library"
+DESCRIPTION="A lightweight ANSI C XML library"
 HOMEPAGE="http://www.msweet.org/projects.php?Z3"
 SRC_URI="http://www.msweet.org/files/project3/${P}.tar.gz"
 

@@ -51,11 +51,15 @@ src_test() {
 
 src_install() {
 	dobin bin/zpeg
+
 	insinto /usr/share/${PN}
 	doins -r data VERSION
+
 	dodoc HISTORY
-	echo > 99zpeg "ZPEG_ROOT=${EROOT}/usr/share/${PN}"
-	doenvd 99zpeg
+
+	echo > "${T}"/99zpeg "ZPEG_ROOT=${EROOT}/usr/share/${PN}"
+	doenvd "${T}"/99zpeg
+
 	if use gdl; then
 		insinto /usr/share/gnudatalanguage/${PN}
 		doins idl/*.pro

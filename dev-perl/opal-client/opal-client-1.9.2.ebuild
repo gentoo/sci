@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -22,7 +22,6 @@ IUSE=""
 
 RDEPEND="
 	dev-perl/SOAP-Lite
-	dev-lang/perl
 	dev-python/opal-client[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 

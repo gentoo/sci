@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit perl-module
 
@@ -15,6 +15,3 @@ LICENSE="|| ( Artistic GPL-2 )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-DEPEND="dev-lang/perl"
-RDEPEND="${DEPEND}"

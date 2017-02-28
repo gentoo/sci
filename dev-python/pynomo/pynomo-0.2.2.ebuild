@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -11,8 +11,9 @@ inherit distutils-r1
 MY_PN="PyNomo"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="PyNomo is a program to create nomographs (nomograms) using Python interpreter"
-HOMEPAGE="http://pynomo.org/
+DESCRIPTION="Create nomographs (nomograms) using Python interpreter"
+HOMEPAGE="
+	http://pynomo.org/
 	http://sourceforge.net/projects/pynomo/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
@@ -21,12 +22,14 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="examples"
 
-RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]
+RDEPEND="
+	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pyx[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 
 S="${WORKDIR}/${MY_P}"
+
 DOCS=( AUTHORS.txt CHANGES.txt README.txt )
 
 python_install_all() {

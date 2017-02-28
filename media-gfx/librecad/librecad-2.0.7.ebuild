@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit eutils flag-o-matic qt4-r2 vcs-snapshot
 
@@ -16,11 +16,11 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug doc tools 3d"
 
 DEPEND="
+	dev-cpp/muParser
+	dev-libs/boost
 	dev-qt/qtgui:4
 	dev-qt/qthelp:4
 	dev-qt/qtsvg:4
-	dev-libs/boost
-	dev-cpp/muParser
 	media-libs/freetype"
 
 RDEPEND="${DEPEND}"

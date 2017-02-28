@@ -2,15 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-
-inherit eutils
+EAPI=6
 
 DESCRIPTION="The Berkeley UPC-to-C translator"
 HOMEPAGE="http://upc.lbl.gov/"
 SRC_URI="http://upc.lbl.gov/download/release/${P}.tar.gz"
-LICENSE="BSD-4"
 
+LICENSE="BSD-4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
@@ -18,12 +16,11 @@ IUSE=""
 DEPEND="app-shells/tcsh"
 RDEPEND="dev-lang/berkeley_upc"
 
-src_prepare() {
-	epatch "$FILESDIR/${PN}-2.16.2-check-abi.patch"
-}
+PATCHES=( "$FILESDIR/${PN}-2.16.2-check-abi.patch" )
 
-src_compile() {
-	emake -j1
+src_prepare() {
+	default
+	MAKEOPTS+=" -j1"
 }
 
 src_install() {

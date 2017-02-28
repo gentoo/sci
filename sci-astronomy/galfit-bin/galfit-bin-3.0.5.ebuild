@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 MYPN=galfit
-
-inherit multilib
 
 DESCRIPTION="Galaxy morphology fitting program"
 HOMEPAGE="http://users.obs.carnegiescience.edu/peng/work/galfit/galfit.html"
@@ -31,9 +29,9 @@ RESTRICT="mirror"
 S="${WORKDIR}"
 
 src_test() {
-	chmod +x ${MYPN}
-	cd ${MYPN}-example/EXAMPLE
-	LD_LIBRARY_PATH=../.. ../../${MYPN} ${MYPN}.feedme
+	chmod +x ${MYPN} || die
+	cd ${MYPN}-example/EXAMPLE || die
+	LD_LIBRARY_PATH=../.. ../../${MYPN} ${MYPN}.feedme || die
 }
 
 src_install () {

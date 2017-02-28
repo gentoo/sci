@@ -2,14 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils fortran-2
 
 DESCRIPTION="Fortran library to compute positions of celestial bodies"
 HOMEPAGE="http://libthesky.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
-mirror://sourceforge/${PN}/libthesky-data-20131020.tar.bz2"
+SRC_URI="
+	mirror://sourceforge/${PN}/${P}.tar.gz
+	mirror://sourceforge/${PN}/libthesky-data-20131020.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -18,6 +19,8 @@ IUSE="static-libs"
 
 DEPEND=">=sci-libs/libsufr-0.5.4"
 RDEPEND="${DEPEND}"
+
+DOCS="CHANGELOG README VERSION"
 
 src_configure() {
 	mycmakeargs=(
@@ -32,5 +35,3 @@ src_install() {
 	doins "${WORKDIR}"/data/*
 	cmake-utils_src_install
 }
-
-DOCS="CHANGELOG README VERSION"

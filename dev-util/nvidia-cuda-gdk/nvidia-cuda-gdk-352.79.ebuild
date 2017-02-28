@@ -33,7 +33,8 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
 
-QA_PREBUILT="/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
+QA_PREBUILT="
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
 	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/gpu_rdma_bw
 	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/ibv_rdma_bw
 	/opt/cuda/gdk/nvml/lib/libnvidia-ml.so.1
