@@ -1,5 +1,5 @@
---- unix/Makefile	2005-02-26 20:58:34.000000000 +0100
-+++ unix/Makefile.new	2009-04-12 19:49:56.000000000 +0200
+--- a/unix/Makefile	2005-02-26 20:58:34.000000000 +0100
++++ b/unix/Makefile.new	2009-04-12 19:49:56.000000000 +0200
 @@ -45,6 +45,7 @@
  CC = cc#	try using "gcc" target rather than changing this (CC and LD
  LD = $(CC)#	must match, else "unresolved symbol:  ___main" is possible)

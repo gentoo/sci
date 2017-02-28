@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit eutils flag-o-matic toolchain-funcs
 
@@ -18,11 +18,14 @@ IUSE="static-libs"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-no-exec-stack.patch
+	"${FILESDIR}"/${P}-CVE-2008-0888.patch
+	"${FILESDIR}"/${P}-Makefile.patch
+)
+
 src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-no-exec-stack.patch \
-		"${FILESDIR}"/${P}-CVE-2008-0888.patch \
-		"${FILESDIR}"/${P}-Makefile.patch
+	default
 	sed -i \
 		-e 's:-O3:$(CFLAGS) $(CPPFLAGS):' \
 		-e 's:-O :$(CFLAGS) $(CPPFLAGS) :' \
