@@ -1,13 +1,13 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils eutils
 
 DESCRIPTION='C++ library for geometric design and numerical simulation'
 HOMEPAGE="https://gs.jku.at/gismo"
-SRC_URI="https://github.com/filiatra/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 LICENSE="MPL-2.0"
 SLOT="0"
@@ -19,14 +19,11 @@ IUSE="doc examples"
 DEPEND="
 	doc? ( >=app-doc/doxygen-1.8 )"
 
-src_prepare() {
-	epatch "${FILESDIR}/examples-CMakeLists.patch"
-	epatch "${FILESDIR}/doc-install.patch"
-}
-
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use examples GISMO_BUILD_EXAMPLES)
+		-DGISMO_BUILD_EXAMPLES=$(usex examples)
+		# set to same directory as the one used by einstalldocs
+		-DDOC_INSTALL_DIR="/usr/share/doc/${PF}"
 	)
 	cmake-utils_src_configure
 }
