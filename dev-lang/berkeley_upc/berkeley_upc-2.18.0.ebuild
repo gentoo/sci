@@ -1,23 +1,23 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="The Berkeley UPC Runtime/driver"
 HOMEPAGE="http://upc.lbl.gov/"
 SRC_URI="http://upc.lbl.gov/download/release/${P}.tar.gz"
-LICENSE="BSD-4"
 
+LICENSE="BSD-4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="mpi mpi-compat pshm +segment-fast segment-large +single +sptr-packed
-	sptr-struct sptr-symmetric threads +udp"
+IUSE="mpi mpi-compat pshm +segment-fast segment-large +single +sptr-packed sptr-struct sptr-symmetric threads +udp"
 
 REQUIRED_USE="
 	^^ ( segment-fast segment-large )
 	^^ ( sptr-packed sptr-struct sptr-symmetric )"
 
-DEPEND="mpi? ( virtual/mpi )
+DEPEND="
+	mpi? ( virtual/mpi )
 	mpi-compat? ( virtual/mpi )"
 
 pkg_setup() {
