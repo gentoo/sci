@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit java-pkg-2 versionator
 MYPV=$(replace_version_separator 2 '-')
@@ -9,7 +9,8 @@ MYPV=$(replace_version_separator 2 '-')
 DESCRIPTION="Interactive graphical viewer and editor for astronomical tables"
 HOMEPAGE="http://www.star.bris.ac.uk/~mbt/topcat/"
 SRC_COM="ftp://andromeda.star.bris.ac.uk/pub/star/${PN}/v${MYPV}"
-SRC_URI="${SRC_COM}/${PN}-lite.jar -> ${P}-lite.jar
+SRC_URI="
+	${SRC_COM}/${PN}-lite.jar -> ${P}-lite.jar
 	!minimal? ( ${SRC_COM}/${PN}-full.jar -> ${P}-full.jar )"
 
 LICENSE="GPL-2"
