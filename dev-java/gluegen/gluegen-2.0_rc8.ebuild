@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 JAVA_PKG_IUSE="doc source"
 
@@ -40,10 +40,11 @@ src_unpack() {
 	unpack ./${MY_P}.tar
 }
 
-java_prepare() {
+src_prepare() {
+	java-pkg-2_src_prepare
 	# preserve android.jar, FIXME can be built form source!
 	mv make/lib/android-sdk "${T}" || die
-	find -name '*.jar' -exec rm -v {} + || die
+	find -type f -name '*.jar' -exec rm -v {} + || die
 	mv "${T}"/android-sdk make/lib/ || die
 }
 

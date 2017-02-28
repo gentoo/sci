@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 WANT_ANT_TASKS="ant-antlr"
 JAVA_PKG_IUSE=""
@@ -31,7 +31,8 @@ DEPEND="
 
 S="${WORKDIR}/${PN}-${PV#1_p}"
 
-java_prepare() {
+src_prepare() {
+	java-pkg-2_src_prepare
 	rm make/lib/{cdc_fp,cpptasks}.jar
 	java-pkg_jar-from --build-only --into make/lib cpptasks
 	sed -i -e 's/suncc/sunc89/g' make/${PN}-cpptasks.xml || die

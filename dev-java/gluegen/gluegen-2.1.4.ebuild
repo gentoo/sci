@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 JAVA_PKG_IUSE="doc source test"
 WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
@@ -43,8 +43,9 @@ EANT_GENTOO_CLASSPATH_EXTRA="${S}/build/${PN}{,-rt}.jar"
 EANT_EXTRA_ARGS="-Dc.strip.libraries=false"
 
 java_prepare() {
-	rm -rf make/lib
-	epatch "${FILESDIR}"/${PV}-*.patch
+	rm -r make/lib || die
+	eapply "${FILESDIR}"/${PV}-*.patch
+	default
 	java-ant_bsfix_files "${S}/make/build-test.xml"
 }
 
