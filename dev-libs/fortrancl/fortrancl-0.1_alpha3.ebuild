@@ -1,11 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-AUTOTOOLS_AUTORECONF=1
-
-inherit autotools-utils fortran-2
+inherit autotools fortran-2
 
 MY_PV=${PV/_}
 MY_P=${PN}-${MY_PV}
@@ -27,8 +25,17 @@ S=${WORKDIR}/${MY_P}
 DOCS=( AUTHORS ChangeLog README )
 PATCHES=( "${FILESDIR}"/${P}-gentoo.patch )
 
+src_prepare() {
+	default
+	eautoreconf
+}
+
+src_configure() {
+	econf $(use_enable static static-libs)
+}
+
 src_install() {
-	autotools-utils_src_install
+	default
 	if use examples ; then
 		insinto /usr/share/doc/${PF}/examples
 		doins examples/*.{f90,cl}
