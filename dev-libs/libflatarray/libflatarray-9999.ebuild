@@ -1,27 +1,18 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-if [ ${PV} == "9999" ] ; then
-	_SCM=mercurial
-	EHG_REPO_URI="http://bitbucket.org/gentryx/libflatarray"
-	SRC_URI=""
-	KEYWORDS=""
-	CMAKE_USE_DIR="${S}"
-else
-	SRC_URI="http://www.libgeodecomp.org/archive/${P}.tar.bz2"
-	KEYWORDS="~amd64 ~ppc ~x86"
-	S="${WORKDIR}/${P}"
-fi
-
-inherit cmake-utils cuda ${_SCM}
+inherit cmake-utils cuda mercurial
 
 DESCRIPTION="Struct of arrays library with object oriented interface for C++"
 HOMEPAGE="http://www.libgeodecomp.org/libflatarray.html"
+SRC_URI=""
+EHG_REPO_URI="http://bitbucket.org/gentryx/libflatarray"
 
 SLOT="0"
 LICENSE="Boost-1.0"
+KEYWORDS=""
 IUSE="cuda doc"
 
 RDEPEND="
@@ -30,22 +21,12 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
+CMAKE_USE_DIR="${S}"
+DOCS=( README )
+
 src_configure() {
 	local mycmakeargs=(
 		$(cmake-utils_use_with cuda CUDA)
 	)
 	cmake-utils_src_configure
-}
-
-src_compile() {
-	cmake-utils_src_compile
-}
-
-src_install() {
-	DOCS=( README )
-	cmake-utils_src_install
-}
-
-src_test() {
-	cmake-utils_src_make test
 }
