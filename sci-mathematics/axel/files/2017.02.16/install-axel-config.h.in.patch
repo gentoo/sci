@@ -1,0 +1,12 @@
+--- a/cmake/install-axel-config.h.in.orig	2016-04-09 02:52:24.299133099 +0200
++++ b/cmake/install-axel-config.h.in	2016-04-09 02:54:46.051127171 +0200
+@@ -12,7 +12,7 @@
+ #define AXEL_SOURCE_DIR "[INSTALLER_TARGET_DIR]"
+ 
+ /* Directory of plugins */
+-#define AXEL_PLUGIN_DIR "[INSTALLER_TARGET_DIR]/@INSTALLER_PLUGIN_SUBDIR@"
++#define AXEL_PLUGIN_DIR "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/axel-plugins"
+ 
+ /* Directory of data */
+-#define AXEL_DATA_DIR "[INSTALLER_TARGET_DIR]/data"
++#define AXEL_DATA_DIR "@CMAKE_INSTALL_PREFIX@/share/axel/data"
