@@ -30,27 +30,25 @@ src_prepare() {
 
 src_configure() {
 	gsl_configure() {
-		cd "${BUILD_DIR}"
 		if use cblas-external; then
 			export CBLAS_LIBS="$($(tc-getPKG_CONFIG) --libs cblas)"
 			export CBLAS_CFLAGS="$($(tc-getPKG_CONFIG) --cflags cblas)"
 		fi
 		econf $(use_with cblas-external)
 	}
-	multilib_foreach_abi gsl_configure
+	multilib_foreach_abi run_in_build_dir gsl_configure
 }
 
 src_compile() {
-	gsl_compile() {
-		cd "${BUILD_DIR}"
-		default
-	}
-	multilib_foreach_abi gsl_compile
+	multilib_foreach_abi run_in_build_dir default
+}
+
+src_test() {
+	multilib_foreach_abi run_in_build_dir default
 }
 
 src_install() {
 	gsl_install() {
-		cd "${BUILD_DIR}"
 		local libname=gslcblas
 
 		create_pkgconfig \
@@ -67,18 +65,10 @@ src_install() {
 
 		default
 	}
-	multilib_foreach_abi gsl_install
+	multilib_foreach_abi run_in_build_dir gsl_install
 
 	# Don't add gsl as a cblas alternative if using cblas-external
 	use cblas-external || alternatives_for cblas gsl 0 \
 		${GSL_ALTERNATIVES[@]} \
 		/usr/include/cblas.h gsl/gsl_cblas.h
-}
-
-src_test() {
-	gsl_test() {
-		cd "${BUILD_DIR}"
-		default
-	}
-	multilib_foreach_abi gsl_test
 }
