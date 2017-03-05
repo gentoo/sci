@@ -67,10 +67,6 @@ src_prepare(){
 		-e "s:\${FSLDIR}/data:${EPREFIX}/usr/share/fsl/data:g" \
 		-i $(grep -rl "\$FSLDIR/data" src/*)
 
-	sed -e "s:\$FSLDIR/etc:${EPREFIX}/etc:g" \
-		-e "s:\${FSLDIR}/etc:${EPREFIX}/etc:g" \
-		-i $(grep -rl "\$FSLDIR/etc" src/*)
-
 	sed -e "s:\$FSLDIR/doc:${EPREFIX}/usr/share/fsl/doc:g" \
 		-e "s:\${FSLDIR}/doc:${EPREFIX}/usr/share/fsl/doc:g" \
 		-i $(grep -rl "\$FSLDIR/doc" src/*)
@@ -78,7 +74,9 @@ src_prepare(){
 	sed -i "s:\'\${FSLDIR}\'/doc:${EPREFIX}/usr/share/fsl/doc:g" \
 		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
 
-	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
+	sed -i -e "s:\$FSLDIR/etc:${EPREFIX}/etc:g" \
+		-e "s:\${FSLDIR}/etc:${EPREFIX}/etc:g" \
+		`grep -rlI \$FSLDIR/etc *`
 	default
 }
 
