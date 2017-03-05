@@ -3,8 +3,6 @@
 
 EAPI=6
 
-MULTILIB_COMPAT=( abi_x86_{32,64} )
-
 inherit multilib-build multilib
 
 DESCRIPTION="Virtual for FORTRAN 77 BLAS implementation"
