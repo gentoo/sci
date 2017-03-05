@@ -3,8 +3,6 @@
 
 EAPI=6
 
-MULTILIB_COMPAT=( abi_x86_{32,64} )
-
 inherit multilib-build
 
 DESCRIPTION="Virtual for Linear Algebra Package FORTRAN 77 implementation"
