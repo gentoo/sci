@@ -22,7 +22,12 @@ src_prepare() {
 	eapply_user
 	# TODO: following line should be updated for non-linux etc. builds
 	# (Flammie does not have testing equipment)
-	cp "${S}"/makefiles/makefile.defs.linux.pulse "${S}"/makefile.defs || die
+	cp makefiles/makefile.defs.linux.pulse makefile.defs || die
+
+	cat <<-EOF >> makefile.defs
+		CFLAGS += ${CFLAGS}
+		CXXFLAGS += ${CXXFLAGS}
+	EOF
 }
 
 src_install() {
