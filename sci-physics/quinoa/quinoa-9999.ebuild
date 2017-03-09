@@ -25,7 +25,8 @@ DEPEND=">=sci-libs/trilinos-12.10.1[netcdf]
 	sci-libs/hypre[mpi]
 	dev-libs/pegtl
 	dev-cpp/random123
-	virtual/lapacke"
+	virtual/lapacke
+	dev-util/mad-numdiff"
 RDEPEND="${DEPEND}"
 
 CMAKE_USE_DIR="${S}/src"
