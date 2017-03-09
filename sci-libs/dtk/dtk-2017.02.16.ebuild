@@ -3,17 +3,16 @@
 
 EAPI=6
 
-inherit cmake-utils eutils
+inherit cmake-utils
 
-DESCRIPTION="dtk is a meta-platform for modular scientific platform development"
+DESCRIPTION="Meta-platform for modular scientific platform development"
 HOMEPAGE="https://github.com/d-tk/dtk"
+SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 RDEPEND="dev-qt/qtcore:5
 	dev-qt/qtconcurrent:5

@@ -3,17 +3,16 @@
 
 EAPI=6
 
-inherit cmake-utils eutils user
+inherit cmake-utils user
 
-DESCRIPTION="Axel is an algebraic geometric modeling platform"
+DESCRIPTION="Algebraic geometric modeling platform"
 HOMEPAGE="http://dtk.inria.fr/axel/"
+SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 RDEPEND="~sci-libs/dtk-${PV}"
 DEPEND="${RDEPEND}"
@@ -39,7 +38,6 @@ src_prepare() {
 		die "Could not copy '${FILESDIR}/${PV}/install-AxelConfig.cmake.in' to '${S}/cmake/'"
 	# patches are applied by cmake-utils
 	cmake-utils_src_prepare
-	eapply_user
 }
 
 src_configure() {

@@ -3,17 +3,16 @@
 
 EAPI=6
 
-inherit cmake-utils eutils
+inherit cmake-utils
 
-DESCRIPTION="Axel is an algebraic geometric modeling platform"
+DESCRIPTION="Vtk plug-in for sci-mathematics/axel"
 HOMEPAGE="http://dtk.inria.fr/axel/"
+SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
-SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 
 RDEPEND="~sci-libs/dtk-${PV}
 	~sci-mathematics/axel-${PV}
