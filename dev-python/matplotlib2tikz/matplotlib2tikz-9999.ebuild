@@ -16,8 +16,11 @@ LICENSE="MIT"
 SLOT="0"
 IUSE=""
 
+PATCHES=( "${FILESDIR}/${PN}-0.6-init_pipdated.patch" )
+
 RDEPEND="dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
+	>=dev-python/pillow-3.0.0[${PYTHON_USEDEP}]
 	dev-texlive/texlive-pictures"
 DEPEND="${RDEPEND}"
 	#test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
