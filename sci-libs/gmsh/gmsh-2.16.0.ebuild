@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -74,16 +74,17 @@ src_configure() {
 	cmake-utils_src_configure mycmakeargs
 }
 
-src_install() {
-	cmake-utils_src_install
-
-	# TODO: tutorials get installed twice ATM
+src_compile() {
 	if use doc ; then
 		cd "${BUILD_DIR}" || die
 		emake pdf
 		cd "${S}" || die
 		dodoc doc/texinfo/gmsh.pdf
 	fi
+}
+
+src_install() {
+	cmake-utils_src_install
 
 	if use examples ; then
 		insinto /usr/share/doc/${PF}
