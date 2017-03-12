@@ -17,11 +17,10 @@ IUSE=""
 RDEPEND="~sci-libs/dtk-${PV}"
 DEPEND="${RDEPEND}"
 
-AXEL_DATA_DIR="/usr/share/axel/data"
-AXEL_PLUGINS_DIR="/usr/lib/axel-plugins"
-AXEL_GROUP="dtk-axel"
-
 pkg_setup() {
+	AXEL_DATA_DIR="/usr/share/axel/data"
+	AXEL_PLUGINS_DIR="/usr/lib/axel-plugins"
+	AXEL_GROUP="dtk-axel"
 	enewgroup "${AXEL_GROUP}"
 }
 
@@ -54,9 +53,7 @@ src_configure() {
 
 src_install() {
 	cmake-utils_src_install
-	dodir "${AXEL_DATA_DIR}"
 	keepdir "${AXEL_DATA_DIR}"
-	dodir "${AXEL_PLUGINS_DIR}"
 	keepdir "${AXEL_PLUGINS_DIR}"
 	# allow users to develop plug-ins
 	fowners "root:${AXEL_GROUP}" "${AXEL_PLUGINS_DIR}"

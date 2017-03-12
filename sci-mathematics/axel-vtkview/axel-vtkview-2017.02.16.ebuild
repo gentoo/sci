@@ -16,7 +16,7 @@ IUSE=""
 
 RDEPEND="~sci-libs/dtk-${PV}
 	~sci-mathematics/axel-${PV}
-	>=sci-libs/vtk-6.0.0[qt5]"
+	>=sci-libs/vtk-6.0.0[qt5,rendering]"
 DEPEND="${RDEPEND}"
 
 PATCHES=(
