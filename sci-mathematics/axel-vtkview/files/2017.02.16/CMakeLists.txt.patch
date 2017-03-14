@@ -1,0 +1,21 @@
+--- a/CMakeLists.txt	2017-03-01 18:07:06.105852551 +0100
++++ b/CMakeLists.txt	2017-03-01 18:08:32.199894675 +0100
+@@ -202,6 +202,7 @@
+ find_package (Qt5Core REQUIRED)
+ find_package (Qt5Sql REQUIRED)
+ find_package (Qt5WebKitWidgets REQUIRED)
++find_package (Qt5Xml REQUIRED)
+ 
+ set (QT_USE_QTXML 1)
+ set (QT_USE_QTOPENGL 1)
+@@ -319,3 +320,10 @@
+ # Build axl
+ ######################################################################
+ add_subdirectory (axl)
++
++install ( FILES "${CMAKE_BINARY_DIR}/plugins/libaxlVtkView.so"
++          DESTINATION lib/axel-plugins)
++
++install ( DIRECTORY "${PROJECT_SOURCE_DIR}/axl/axlVtkView"
++        DESTINATION include/
++        FILES_MATCHING PATTERN "*.h")
