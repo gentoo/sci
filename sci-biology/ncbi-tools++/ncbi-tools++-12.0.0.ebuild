@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -220,11 +220,12 @@ src_configure() {
 	--without-sybase
 	--with-autodep
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
+	# --without-downloaded-vdb is not available in 12.0.0 release yet
 	# preventing executing git to checkout during configure phase ncbi-vdb sources
 	# resulting in 'checking for ncbi-vdb... no' and
 	# '^PACKAGES:'
 	# '^  disabled: ... VDB'
-	--without-downloaded-vdb
+	# --without-downloaded-vdb
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
