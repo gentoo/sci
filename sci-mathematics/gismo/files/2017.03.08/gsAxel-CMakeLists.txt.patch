@@ -1,0 +1,42 @@
+--- a/plugins/gsAxel/CMakeLists.txt	2016-10-14 02:04:17.303985030 +0200
++++ b/plugins/gsAxel/CMakeLists.txt	2016-10-14 02:06:30.251979470 +0200
+@@ -150,7 +150,7 @@
+ 
+ qt5_use_modules(${PROJECT_NAME} Quick)
+ qt5_use_modules(${PROJECT_NAME} Network)
+-qt5_use_modules(${PROJECT_NAME} Declarative)
++#qt5_use_modules(${PROJECT_NAME} Declarative)
+ qt5_use_modules(${PROJECT_NAME} Xml)
+ qt5_use_modules(${PROJECT_NAME} Core)
+ qt5_use_modules(${PROJECT_NAME} Gui)
+@@ -169,21 +169,21 @@
+ 
+ # note: policy CMP0026: The LOCATION property should not be read from target
+ #get_property(gsAxelPlugin_location TARGET ${PROJECT_NAME} PROPERTY LOCATION)
+-ADD_CUSTOM_COMMAND(
+-    TARGET ${PROJECT_NAME}
+-    POST_BUILD
+-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${AXEL_PLUGIN_DIR}
+-    COMMAND ${CMAKE_COMMAND} -E echo 'The plugin has been copied to ${AXEL_PLUGIN_DIR}.'
+-    )
++#ADD_CUSTOM_COMMAND(
++#    TARGET ${PROJECT_NAME}
++#    POST_BUILD
++#    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${AXEL_PLUGIN_DIR}
++#    COMMAND ${CMAKE_COMMAND} -E echo 'The plugin has been copied to ${AXEL_PLUGIN_DIR}.'
++#    )
+ 
+ ## #################################################################
+ ## Install rules
+ ## #################################################################
+ 
+ install(TARGETS ${PROJECT_NAME}
+-  RUNTIME DESTINATION include/gismo/plugins
+-  LIBRARY DESTINATION include/gismo/plugins
+-  ARCHIVE DESTINATION include/gismo/plugins)
++  RUNTIME DESTINATION lib/axel-plugins/
++  LIBRARY DESTINATION lib/axel-plugins/
++  ARCHIVE DESTINATION lib/axel-plugins/)
+ 
+ 
+ ##########CPACK
