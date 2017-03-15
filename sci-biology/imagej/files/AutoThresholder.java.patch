@@ -1,0 +1,10 @@
+--- imagej-1.51k/work/source/ij/process/AutoThresholder.java.ori	2017-03-15 22:33:45.843801175 +0100
++++ imagej-1.51k/work/source/ij/process/AutoThresholder.java	2017-03-15 22:33:55.104053480 +0100
+@@ -650,7 +650,6 @@
+ 		}
+ 		// The threshold is the minimum between the two peaks.
+ 		for (int i=1; i<255; i++) {
+-			//IJ.log(" "+i+"  "+iHisto[i]);
+ 			if (iHisto[i-1] > iHisto[i] && iHisto[i+1] >= iHisto[i]) {
+ 				threshold = i;
+ 				break;
