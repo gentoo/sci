@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -71,15 +71,16 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DDEAL_II_PACKAGE_VERSION=9999
+		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
 		-DDEAL_II_ALLOW_AUTODETECTION=OFF
 		-DDEAL_II_ALLOW_BUNDLED=OFF
 		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF
-		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
+		-DDEAL_II_COMPILE_EXAMPLES=OFF
+		-DDEAL_II_DOCHTML_RELDIR="share/doc/${P}/html"
+		-DDEAL_II_DOCREADME_RELDIR="share/doc/${P}"
+		-DDEAL_II_EXAMPLES_RELDIR="share/doc/${P}/examples"
 		-DDEAL_II_LIBRARY_RELDIR="$(get_libdir)"
 		-DDEAL_II_SHARE_RELDIR="share/${PN}"
-		-DDEAL_II_DOCREADME_RELDIR="share/doc/${P}"
-		-DDEAL_II_DOCHTML_RELDIR="share/doc/${P}/html"
-		-DDEAL_II_EXAMPLES_RELDIR="share/doc/${P}/examples"
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
