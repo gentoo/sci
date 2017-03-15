@@ -15,7 +15,7 @@ BRANDED_REL="1.1"
 
 HOMEPAGE="https://cernbox.cern.ch/"
 SRC_URI="http://download.owncloud.com/desktop/stable/${ORIGIN_P}-${PV}.tar.xz
-	 https://cernbox.cern.ch/cernbox/doc/Linux/repo/CentOS_7/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm"
+	https://cernbox.cern.ch/cernbox/doc/Linux/repo/CentOS_7/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm"
 
 LICENSE="CC-BY-3.0 GPL-2"
 SLOT="0"
