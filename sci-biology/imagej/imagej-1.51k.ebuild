@@ -1,6 +1,5 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 EAPI=6
 
@@ -14,6 +13,7 @@ MY_PV=$(delete_all_version_separators)
 # version instead. Change to present version locally if you are sure proper
 # version has been released.
 # see https://bugs.gentoo.org/show_bug.cgi?id=112275
+# https://github.com/imagej/imagej1/issues/28
 IJ_PV=$(expr ${MY_PV::3} - 1)
 
 DESCRIPTION="Image Processing and Analysis in Java"
@@ -26,7 +26,7 @@ SRC_URI="http://imagej.nih.gov/ij/download/src/${MY_PN}${MY_PV}-src.zip
 #	plugins? ( http://rsb.info.nih.gov/ij/download/zips/${MY_PN}${IJ_PV}.zip )"
 
 RESTRICT=""
-LICENSE="public-domain"
+LICENSE="public-domain" # http://imagej.net/disclaimer.html
 SLOT="0"
 
 KEYWORDS=""
@@ -66,7 +66,7 @@ src_compile() {
 	ant ${antflags} || die  "ant build failed"
 
 	# Max memory usage depends on available memory and CPU type
-	MEM=$(grep MemTotal ${EPREFIX}/proc/meminfo | cut -d':' -f2 | grep -o [0-9]*)
+	MEM=$(grep MemTotal /proc/meminfo | cut -d':' -f2 | grep -o [0-9]*)
 	IJ_MAX_MEM=$(expr ${MEM} / 1024)
 	if use x86 && $IJ_MAX_MEM -gt 2048 ; then
 		IJ_MAX_MEM=2048
