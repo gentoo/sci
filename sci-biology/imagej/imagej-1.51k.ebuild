@@ -121,7 +121,7 @@ pkg_postinst() {
 	einfo ""
 	einfo "You can configure the path of a folder, which contains \"plugins\" directory and IJ_Prefs.txt,"
 	einfo "by setting the environmental variable, \$IJ_HOME."
-	einfo "Default setting is \$IJ_HOME=\${HOME}, i.e. \${HOME}/plugins and \${HOME}/IJ_Prefs.txt."
+	einfo "Default setting is \$IJ_HOME=\${HOME}/.imagej, i.e. \${HOME}/.imagej/plugins and \${HOME}/.imagej/IJ_Prefs.txt."
 	einfo ""
 	einfo "You can also configure the memory size by setting the environmental variable, \$IJ_MEM,"
 	einfo "and the class path by setting the environmental variable, \$IJ_CP."
