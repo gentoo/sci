@@ -76,7 +76,7 @@ src_compile() {
 #!${EPREFIX}/bin/bash
 IJ_LIB=${EPREFIX}/usr/share/${PN}/lib
 if !([ "\${IJ_HOME}" ]) ; then
-	IJ_HOME=\${HOME}
+	IJ_HOME=\${HOME}/.imagej
 fi
 if [ -d \${IJ_HOME}/plugins ] ; then
 	IJ_PLG=\${IJ_HOME}
