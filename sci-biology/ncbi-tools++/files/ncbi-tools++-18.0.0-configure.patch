@@ -1,0 +1,20 @@
+--- ncbi_cxx--12_0_0/src/build-system/configure.ori	2014-06-25 23:47:05.000000000 +0200
++++ ncbi_cxx--12_0_0/src/build-system/configure	2014-06-25 23:52:35.000000000 +0200
+@@ -3201,6 +3203,17 @@
+       *\ -O* | *\ -xO* ) skip_fast_flags=yes ;;
+    esac
+ fi
++if test -n "$with_projects"; then
++   case "$with_projects" in
++      /* ) abs_projects=$with_projects         ;;
++      yes) abs_projects=$srcdir/projects       ;;
++      *  ) abs_projects=$srcdir/$with_projects ;;
++   esac
++   test -r "$abs_projects"  ||  \
++      { { echo "$as_me:$LINENO: error: unable to read requested projects file \"$abs_projects\"." >&5
++echo "$as_me: error: unable to read requested projects file \"$abs_projects\"." >&2;}
++   { (exit 1); exit 1; }; }
++fi
+ 
+ #### Always define this
+ 
