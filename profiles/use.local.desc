@@ -267,6 +267,8 @@ sci-mathematics/dolfin:scotch - Adds support for graph partitioning with sci-lib
 sci-mathematics/dolfin:umfpack - Adds support for sparse solving with sci-libs/umfpack
 sci-mathematics/gambit:X - Enable gui support using wxWidgets.
 sci-mathematics/gap:xtom - Automatically generated description for xtom
+sci-mathematics/gismo:doc - Build doxygen-documentation
+sci-mathematics/gismo:examples - Build examples
 sci-mathematics/htk:hdecode - Install HDecode, a large vocabulary word recogniser
 sci-mathematics/htk:hlmtools - Install the tools for manipulation of language models
 sci-mathematics/htk:hslab - Install HSLab a label editor for speech label manipulation
