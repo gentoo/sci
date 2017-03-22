@@ -113,7 +113,11 @@ src_prepare() {
 		"${FILESDIR}"/${P}-configure.patch
 		"${FILESDIR}"/${P}-fix-install.patch
 		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
+		"${FILESDIR}"/${P}-fix-annotwriter-linking.patch
+		"${FILESDIR}"/${P}-fix-undefined-xobjread.patch
+		"${FILESDIR}"/${P}-fix-apps-blast-linking.patch
 		)
+	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706

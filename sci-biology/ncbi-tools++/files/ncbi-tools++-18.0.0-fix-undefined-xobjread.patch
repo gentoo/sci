@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/asn2fasta/Makefile.asn2fasta.app.ori	2016-06-24 16:55:25.000000000 +0200
++++ ncbi_cxx--18_0_0/src/app/asn2fasta/Makefile.asn2fasta.app	2017-03-21 14:07:31.070364301 +0100
+@@ -9,7 +9,7 @@
+ APP = asn2fasta
+ SRC = asn2fasta
+ LIB = $(ncbi_xloader_wgs) $(SRAREAD_LIBS) \
+-          xobjwrite xobjread $(XFORMAT_LIBS) xalnmgr xobjutil valerr xregexp \
++          xobjwrite variation_utils $(OBJREAD_LIBS) $(XFORMAT_LIBS) xalnmgr xobjutil valerr xregexp \
+ 	  ncbi_xdbapi_ftds dbapi $(ncbi_xreader_pubseqos2) $(FTDS_LIB) \
+ 	  entrez2cli entrez2 tables $(OBJMGR_LIBS) $(PCRE_LIB)
+ 

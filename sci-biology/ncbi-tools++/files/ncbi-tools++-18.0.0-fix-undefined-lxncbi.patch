@@ -1,0 +1,10 @@
+--- work/ncbi_cxx--18_0_0/src/connect/Makefile.xthrserv.lib.ori	2017-03-17 22:33:51.569635396 +0100
++++ ncbi_cxx--18_0_0/src/connect/Makefile.xthrserv.lib	2017-03-17 22:33:58.349811199 +0100
+@@ -4,6 +4,6 @@
+ LIB      = xthrserv
+ PROJ_TAG = core
+ LIBS     = $(NETWORK_LIBS)
+-DLL_LIB  = xutil xconnect
++DLL_LIB  = xncbi xutil xconnect
+ 
+ WATCHERS = vakatov

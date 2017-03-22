@@ -1,0 +1,15 @@
+--- ncbi_cxx--18_0_0/src/app/annotwriter/Makefile.annotwriter.app.ori	2017-03-20 18:13:08.087145846 +0100
++++ ncbi_cxx--18_0_0/src/app/annotwriter/Makefile.annotwriter.app	2017-03-20 18:14:10.988888851 +0100
+@@ -8,8 +8,8 @@
+ 
+ APP = annotwriter
+ SRC = annotwriter
+-LIB = xobjwrite variation_utils $(OBJREAD_LIBS) xalnmgr xobjutil \
+-      gbseq entrez2cli entrez2 tables $(OBJMGR_LIBS)
++LIB = xobjwrite $(XFORMAT_LIBS) variation_utils $(OBJREAD_LIBS) xalnmgr \
++      xobjutil entrez2cli entrez2 tables xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ 
+-LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+
+ REQUIRES = objects -Cygwin
