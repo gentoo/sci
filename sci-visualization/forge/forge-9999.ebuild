@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -37,6 +37,8 @@ src_configure() {
 	local mycmakeargs=(
 	   -DBUILD_EXAMPLES="$(examples EXAMPLES)"
 	   -DUSE_SYSTEM_GLBINDING=ON
+	   -DUSE_SYSTEM_GLM=ON
+	   -DUSE_SYSTEM_FREETYPE=ON
 	   -DFG_INSTALL_CMAKE_DIR=/usr/$(get_libdir)/cmake/Forge
 	)
 	cmake-utils_src_configure
