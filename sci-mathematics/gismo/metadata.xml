@@ -8,5 +8,6 @@
 	<use>
 		<flag name="doc">Build doxygen-documentation</flag>
 		<flag name="examples">Build examples</flag>
+		<flag name="vtk">Build plug-in for sci-mathematics/axel-vtkview</flag>
 	</use>
 </pkgmetadata>
