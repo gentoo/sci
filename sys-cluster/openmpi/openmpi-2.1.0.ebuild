@@ -24,8 +24,7 @@ IUSE_OPENMPI_OFED_FEATURES="
 	openmpi_ofed_features_connectx-xrc
 	openmpi_ofed_features_udcm
 	openmpi_ofed_features_rdmacm
-	openmpi_ofed_features_dynamic-sl
-	openmpi_ofed_features_failover"
+	openmpi_ofed_features_dynamic-sl"
 
 DESCRIPTION="A high-performance message passing library (MPI)"
 HOMEPAGE="http://www.open-mpi.org"
@@ -43,8 +42,7 @@ REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
 	openmpi_ofed_features_connectx-xrc? ( openmpi_fabrics_ofed )
 	openmpi_ofed_features_udcm? ( openmpi_fabrics_ofed )
 	openmpi_ofed_features_rdmacm? ( openmpi_fabrics_ofed )
-	openmpi_ofed_features_dynamic-sl? ( openmpi_fabrics_ofed )
-	openmpi_ofed_features_failover? ( openmpi_fabrics_ofed )"
+	openmpi_ofed_features_dynamic-sl? ( openmpi_fabrics_ofed )"
 
 MPI_UNCLASSED_DEP_STR="
 	!>=dev-libs/intel-common-16[mpi]
@@ -132,7 +130,6 @@ multilib_src_configure() {
 		$(multilib_native_use_enable openmpi_ofed_features_rdmacm openib-rdmacm) \
 		$(multilib_native_use_enable openmpi_ofed_features_udcm openib-udcm) \
 		$(multilib_native_use_enable openmpi_ofed_features_dynamic-sl openib-dynamic-sl) \
-		$(multilib_native_use_enable openmpi_ofed_features_failover btl-openib-failover) \
 		$(multilib_native_use_with openmpi_rm_pbs tm) \
 		$(multilib_native_use_with openmpi_rm_slurm slurm)
 }
