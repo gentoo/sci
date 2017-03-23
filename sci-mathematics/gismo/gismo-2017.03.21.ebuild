@@ -12,16 +12,25 @@ SRC_URI="https://timeraider4u.github.io/distfiles/files/${P}.tar.gz"
 LICENSE="MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples"
+IUSE="doc examples vtk"
 
 # Unbundling in progress,
 # preparing local changes to get upstream
 DEPEND="
-	doc? ( >=app-doc/doxygen-1.8 )"
+	doc? ( >=app-doc/doxygen-1.8 )
+	vtk? (  dev-qt/qtwidgets:5
+		sci-mathematics/axel
+			sci-mathematics/axel-vtkview
+	)"
+
+PATCHES=(
+	"${FILESDIR}/${PV}/gsAxel-CMakeLists.txt.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(
 		-DGISMO_BUILD_EXAMPLES=$(usex examples)
+		-DGISMO_BUILD_AXL=$(usex vtk)
 		# set to same directory as the one used by einstalldocs
 		-DDOC_INSTALL_DIR="/usr/share/doc/${PF}"
 	)
