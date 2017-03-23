@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/sample/app/cgi/Makefile.cgi_session_sample.app.ori	2017-03-22 23:52:58.984696074 +0100
++++ ncbi_cxx--18_0_0/src/sample/app/cgi/Makefile.cgi_session_sample.app	2017-03-22 23:53:54.746258126 +0100
+@@ -11,7 +11,7 @@
+ # the lines reading "### BEGIN/END COPIED SETTINGS" in any way.
+ 
+ ### BEGIN COPIED SETTINGS
+-LIB = xgridcgi xcgi xhtml xconnserv xconnect xutil xncbi
++LIB = xgridcgi xcgi xhtml xconnserv xthrserv xconnect xutil xncbi
+ 
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 

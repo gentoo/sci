@@ -116,6 +116,8 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-annotwriter-linking.patch
 		"${FILESDIR}"/${P}-fix-undefined-xobjread.patch
 		"${FILESDIR}"/${P}-fix-apps-blast-linking.patch
+		"${FILESDIR}"/${P}-fix-sample-app-cgi-linking.patch
+		"${FILESDIR}"/${P}-fix-app-compartp-linking.patch
 		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}
