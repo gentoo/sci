@@ -118,6 +118,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-apps-blast-linking.patch
 		"${FILESDIR}"/${P}-fix-sample-app-cgi-linking.patch
 		"${FILESDIR}"/${P}-fix-app-compartp-linking.patch
+		"${FILESDIR}"/${P}-fix-app-convert_seq-linking.patch
 		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}
