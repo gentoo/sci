@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/grid/util/Makefile.ncfetch.app.ori	2017-03-23 21:12:52.028724998 +0100
++++ ncbi_cxx--18_0_0/src/app/grid/util/Makefile.ncfetch.app	2017-03-23 21:13:30.079737366 +0100
+@@ -5,7 +5,7 @@
+ APP = ncfetch.cgi
+ SRC = ncfetch
+ 
+-LIB = xcgi xconnserv xconnect xutil xncbi
++LIB = xcgi xconnserv xthrserv xconnect xutil xncbi
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+ WATCHERS = sadyrovr

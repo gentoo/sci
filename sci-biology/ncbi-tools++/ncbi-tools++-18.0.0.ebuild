@@ -119,6 +119,13 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-sample-app-cgi-linking.patch
 		"${FILESDIR}"/${P}-fix-app-compartp-linking.patch
 		"${FILESDIR}"/${P}-fix-app-convert_seq-linking.patch
+		"${FILESDIR}"/${P}-fix-app-hfilter-linking.patch
+		"${FILESDIR}"/${P}-fix-app-igblast-linking.patch
+		"${FILESDIR}"/${P}-fix-ncfetch-linking.patch
+		"${FILESDIR}"/${P}-fix-netcache_cgi_sample-linking.patch
+		"${FILESDIR}"/${P}-fix-netstorage_gc-linking.patch
+		"${FILESDIR}"/${P}-fix-speedtest-linking.patch
+		"${FILESDIR}"/${P}-fix-splign-linking.patch
 		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}
