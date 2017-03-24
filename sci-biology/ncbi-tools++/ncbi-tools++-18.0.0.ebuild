@@ -126,6 +126,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-netstorage_gc-linking.patch
 		"${FILESDIR}"/${P}-fix-speedtest-linking.patch
 		"${FILESDIR}"/${P}-fix-splign-linking.patch
+		"${FILESDIR}"/${P}-fix-srcchk-linking.patch
 		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}

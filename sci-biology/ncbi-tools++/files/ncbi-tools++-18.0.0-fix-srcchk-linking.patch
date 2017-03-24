@@ -1,0 +1,13 @@
+--- ncbi_cxx--18_0_0/src/app/srcchk/Makefile.srcchk.app.ori	2017-03-24 04:08:42.723928634 +0100
++++ ncbi_cxx--18_0_0/src/app/srcchk/Makefile.srcchk.app	2017-03-24 04:10:00.687004260 +0100
+@@ -8,8 +8,8 @@
+ 
+ APP = srcchk
+ SRC = srcchk
+-LIB = xobjwrite variation_utils $(OBJREAD_LIBS) xalnmgr xobjutil \
+-      gbseq entrez2cli entrez2 tables $(OBJMGR_LIBS)
++LIB = xobjwrite $(XFORMAT_LIBS) variation_utils $(OBJREAD_LIBS) xalnmgr \
++      xobjutil entrez2cli entrez2 tables $(OBJMGR_LIBS)
+ 
+ LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
