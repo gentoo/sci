@@ -1,6 +1,5 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -17,8 +16,8 @@ MY_P_AMD32="AMD-APP-SDK-v${MY_V}-linux32.sh"
 DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
 HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk"
 SRC_URI="
-		amd64? ( ${AMD64_AT} )
-		x86? ( ${X86_AT} )"
+	amd64? ( ${AMD64_AT} )
+	x86? ( ${X86_AT} )"
 LICENSE="AMD-APPSDK"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -31,7 +30,7 @@ RDEPEND="
 	media-libs/freeglut
 	media-libs/mesa[video_cards_radeonsi]
 	sys-devel/gcc:*
-	sys-devel/llvm
+	sys-devel/llvm:*
 	virtual/opencl
 	examples? ( media-libs/glew:0= )"
 DEPEND="
@@ -71,9 +70,8 @@ src_compile() {
 
 src_install() {
 	# Copy everything
-	dodir $OPT_DIR
 	insinto $OPT_DIR
-	doins -r * || die "Install failed!"
+	doins -r *
 
 	# Set executable bits
 	exeinto $OPT_DIR/bin/x86_64/
@@ -84,8 +82,8 @@ src_install() {
 
 	# Delete archive - already unpacked
 	if use amd64 || use amd64-linux ; then
-		rm "${D}/${OPT_DIR}/${MY_P_AMD64}"
+		rm "${D}/${OPT_DIR}/${MY_P_AMD64}" || die
 	else
-		rm "${D}/${OPT_DIR}/${MY_P_X86}"
+		rm "${D}/${OPT_DIR}/${MY_P_X86}" || die
 	fi
 }

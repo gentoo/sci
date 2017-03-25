@@ -32,7 +32,7 @@ RDEPEND="
 	media-libs/freeglut
 	media-libs/mesa[video_cards_radeonsi]
 	sys-devel/gcc:*
-	sys-devel/llvm
+	sys-devel/llvm:*
 	virtual/opencl
 	examples? ( media-libs/glew:0= )"
 DEPEND="
