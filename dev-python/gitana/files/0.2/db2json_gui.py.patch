@@ -1,0 +1,67 @@
+diff --git a/db2json_gui.py b/db2json_gui.py
+index 3edc13c..8dcb622 100644
+--- a/db2json_gui.py
++++ b/db2json_gui.py
+@@ -2,6 +2,7 @@ __author__ = 'atlanmod'
+ 
+ from Tkinter import *
+ from tkFileDialog import *
++import tkMessageBox
+ import ttk
+ import threading
+ import os
+@@ -137,6 +138,22 @@ class DB2JSON_GUI(Tk):
+         labelExecuting.grid(column=0, row=16, sticky='EW')
+ 
+         self.resizable(False, False)
++        
++        # TKinker is not thread safe!
++        # See http://stackoverflow.com/questions/22541693/tkinter-and-thread-out-of-stack-space-infinite-loop
++        self.resetButtons = False
++        self.importingFailureMsg = ""
++        def do_every_50_ms(self):
++            if self.resetButtons:
++                self.buttonFinish.config(state=NORMAL)
++                self.buttonAbort.config(state=DISABLED)
++                self.resetButtons = False
++            if self.importingFailureMsg:
++                tkMessageBox.showerror("Importing GIT repository failed:", 
++                                       self.importingFailureMsg)
++                self.importingFailureMsg = ""
++            self.after(50, do_every_50_ms, self)
++        do_every_50_ms(self)
+ 
+     def search_for_resource(self):
+         f = askopenfilename(parent=self, title='Choose a file',
+@@ -236,6 +253,9 @@ class DB2JSON_GUI(Tk):
+                 self.FILTER = "in"
+             else:
+                 self.FILTER = "out"
++                
++            if not os.path.exists(DB2JSON_GUI.JSON_DIRECTORY_PATH):
++                os.makedirs(DB2JSON_GUI.JSON_DIRECTORY_PATH)
+ 
+             g = Gitana(self.DBNAME)
+             g.db2json(self.DBNAME, self.OUTPUT_JSON, self.LINE_DETAILS)
+@@ -259,13 +279,16 @@ class DB2JSON_GUI(Tk):
+                            self.USER_ALIASES_PATH)
+ 
+             self.info_execution.set("Finished")
+-            self.buttonFinish.config(state=NORMAL)
+-            self.buttonAbort.config(state=DISABLED)
++            #self.buttonFinish.config(state=NORMAL)
++            #self.buttonAbort.config(state=DISABLED)
++            self.resetButtons = True
+         except Exception as e:
+-            print traceback.format_exc()
++            print( traceback.format_exc())
+             self.info_execution.set("Failed")
+-            self.buttonFinish.config(state=NORMAL)
+-            self.buttonAbort.config(state=DISABLED)
++            #self.buttonFinish.config(state=NORMAL)
++            #self.buttonAbort.config(state=DISABLED)
++            self.importingFailureMsg = traceback.format_exc(limit=1)
++            self.resetButtons = True
+ 
+     def start_export(self):
+         label = Label(self, text=id)
