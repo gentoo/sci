@@ -1,13 +1,15 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-inherit eutils
+PYTHON_COMPAT=( python2_7 )
+
+inherit python-r1
 
 DESCRIPTION="Align DNA reads to a population of genomes"
-HOMEPAGE="https://ccb.jhu.edu/software/hisat2
+HOMEPAGE="
+	https://ccb.jhu.edu/software/hisat2
 	https://github.com/infphilo/hisat2"
 SRC_URI="ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/${P}-source.zip"
 
@@ -16,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse2"
 
-DEPEND=""
+DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}"/${P}-respect_CXXFLAGS.patch )
@@ -44,7 +46,8 @@ src_compile(){
 }
 
 src_install(){
-	dobin hisat2 hisat2-build hisat2-inspect hisat2-build-s hisat2-build-l hisat2-align-s hisat2-align-l hisat2-inspect-s hisat2-inspect-l *.py
+	dobin hisat2{,-build,-inspect,-build-s,-build-l,-align-s,-align-l,-inspect-s,-inspect-l}
+	python_foreach_impl python_doscript *.py
 	insinto /usr/share/"${PN}"/scripts
 	doins scripts/*.sh
 	dodoc MANUAL TUTORIAL
