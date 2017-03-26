@@ -1,0 +1,10 @@
+--- ncbi_cxx--18_0_0/src/dbapi/lang_bind/python/tests/Makefile.symlink.in.old	2017-03-26 19:01:58.101495278 +0200
++++ ncbi_cxx--18_0_0/src/dbapi/lang_bind/python/tests/Makefile.symlink.in	2017-03-26 19:02:16.581990522 +0200
+@@ -13,6 +13,7 @@
+ 	     -a ! -d $(libdir)/64 ]; then \
+ 	    cd $(libdir)  &&  $(LN_S) . 64; \
+ 	fi
++	$(RM) $(LINK)
+ 	cd $(libdir)  &&  $(LN_S) libpython_ncbi_dbapi$(loadable_ext) $(LINK)
+ 
+ clean:;

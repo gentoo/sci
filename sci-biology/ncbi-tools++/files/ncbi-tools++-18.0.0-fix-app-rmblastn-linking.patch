@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/rmblastn/Makefile.rmblastn.app.ori	2017-03-26 18:49:50.431994978 +0200
++++ ncbi_cxx--18_0_0/src/app/rmblastn/Makefile.rmblastn.app	2017-03-26 18:50:11.222552131 +0200
+@@ -2,7 +2,7 @@
+ 
+ APP = rmblastn
+ SRC = rmblastn_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
