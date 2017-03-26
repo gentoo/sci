@@ -1,0 +1,10 @@
+--- a/axl/axlVtkView/CMakeLists.txt.orig	2016-04-08 15:02:22.921914810 +0200
++++ b/axl/axlVtkView/CMakeLists.txt	2016-04-08 15:03:05.692913022 +0200
+@@ -167,6 +167,7 @@
+ qt5_use_modules(${LIB_NAME} Gui)
+ qt5_use_modules(${LIB_NAME} OpenGL)
+ qt5_use_modules(${LIB_NAME} Widgets)
++qt5_use_modules(${LIB_NAME} Xml)
+ 
+ ## #################################################################
+ ## Target properties

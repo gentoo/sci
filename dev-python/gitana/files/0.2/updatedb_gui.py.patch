@@ -1,0 +1,64 @@
+diff --git a/updatedb_gui.py b/updatedb_gui.py
+index e3c94c6..b89ba4d 100644
+--- a/updatedb_gui.py
++++ b/updatedb_gui.py
+@@ -2,6 +2,7 @@ __author__ = 'atlanmod'
+ 
+ from Tkinter import *
+ from tkFileDialog import *
++import tkMessageBox
+ import threading
+ import os
+ import re
+@@ -76,6 +77,22 @@ class UpdateDB_GUI(Tk):
+         labelExecuting.grid(column=0, row=7, sticky='EW')
+ 
+         self.resizable(False, False)
++        
++        # TKinker is not thread safe!
++        # See http://stackoverflow.com/questions/22541693/tkinter-and-thread-out-of-stack-space-infinite-loop
++        self.resetButtons = False
++        self.importingFailureMsg = ""
++        def do_every_50_ms(self):
++            if self.resetButtons:
++                self.buttonFinish.config(state=NORMAL)
++                self.buttonAbort.config(state=DISABLED)
++                self.resetButtons = False
++            if self.importingFailureMsg:
++                tkMessageBox.showerror("Importing GIT repository failed:", 
++                                       self.importingFailureMsg)
++                self.importingFailureMsg = ""
++            self.after(50, do_every_50_ms, self)
++        do_every_50_ms(self)
+ 
+     def search_for_directory(self):
+         dir = askdirectory(parent=self, title='Choose a directory')
+@@ -141,19 +158,23 @@ class UpdateDB_GUI(Tk):
+         try:
+             self.REPO_PATH = self.repoPathVariable.get()
+             self.DBNAME = self.DBNameVariable.get()
++            print("DB_NAME='" + self.DBNAME + "'")
+             self.BEFORE_DATE = self.beforeDateVariable.get()
+             self.IMPORT_LAST_COMMIT = self.lastCommitCorruptedVariable.get()
+             g = Gitana(self.DBNAME)
+             g.updatedb(self.DBNAME, self.REPO_PATH, self.BEFORE_DATE, self.IMPORT_LAST_COMMIT)
+ 
+             self.info_execution.set("Finished")
+-            self.buttonFinish.config(state=NORMAL)
+-            self.buttonAbort.config(state=DISABLED)
++            #self.buttonFinish.config(state=NORMAL)
++            #self.buttonAbort.config(state=DISABLED)
++            self.resetButtons = True
+         except:
+-            print traceback.format_exc()
++            print( traceback.format_exc())
+             self.info_execution.set("Failed")
+-            self.buttonFinish.config(state=NORMAL)
+-            self.buttonAbort.config(state=DISABLED)
++            #self.buttonFinish.config(state=NORMAL)
++            #self.buttonAbort.config(state=DISABLED)
++            self.importingFailureMsg = traceback.format_exc(limit=1)
++            self.resetButtons = True
+ 
+     def start_export(self):
+         label = Label(self, text=id)

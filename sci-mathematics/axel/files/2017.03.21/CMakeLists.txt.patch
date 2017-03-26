@@ -1,0 +1,49 @@
+--- a/CMakeLists.txt	2017-03-01 16:45:56.000000000 +0100
++++ b/CMakeLists.txt	2017-03-01 16:53:47.896067236 +0100
+@@ -32,7 +32,7 @@
+ #set(AXEL_VERSION ${PROJECT_VERSION})
+ 
+ set(AXEL_INSTALL_PREFIX  ${CMAKE_INSTALL_PREFIX})
+-set(AXEL_PLUGIN_DIR  ${CMAKE_BINARY_DIR}/plugins)
++set(AXEL_PLUGIN_DIR  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/axel-plugins)
+ if (APPLE)
+  set (AXEL_PLUGIN_DIR ${CMAKE_BINARY_DIR}/bin/axel.app/Contents/PlugIns)
+ endif (APPLE)
+@@ -323,18 +323,31 @@
+ ####################################################################
+ if(BUILD_FOR_RELEASE)
+ configure_file ( "${PROJECT_SOURCE_DIR}/cmake/install-AxelConfig.cmake.in"
+-                 "${CMAKE_BINARY_DIR}/for_installer/lib/cmake/AxelConfig.cmake"
++                 "${CMAKE_BINARY_DIR}/lib/cmake/AxelConfig.cmake"
+                   @ONLY IMMEDIATE)
+ 
+-install ( FILES "${CMAKE_BINARY_DIR}/for_installer/lib/cmake/AxelConfig.cmake"
+-          DESTINATION lib/cmake)
++install ( FILES "${CMAKE_BINARY_DIR}/lib/cmake/AxelConfig.cmake"
++          DESTINATION lib/cmake/Axel)
+ 
+ configure_file ( "${PROJECT_SOURCE_DIR}/cmake/install-axel-config.h.in"
+-                 "${CMAKE_BINARY_DIR}/for_installer/include/axel-config.h"
++                 "${CMAKE_BINARY_DIR}/include/axel-config.h"
+                  @ONLY IMMEDIATE)
+ 
+-install ( FILES "${CMAKE_BINARY_DIR}/for_installer/include/axel-config.h"
+-          DESTINATION include)
++install ( FILES "${CMAKE_BINARY_DIR}/include/axel-config.h"
++          DESTINATION include/Axel)
++install ( FILES "${CMAKE_BINARY_DIR}/src/axlCore/axlCoreExport.h"
++          DESTINATION include/axlCore)
++install ( FILES "${CMAKE_BINARY_DIR}/src/axlGui/axlGuiExport.h"
++          DESTINATION include/axlGui)
++
++install(DIRECTORY "${PROJECT_SOURCE_DIR}/src/axlCore"
++        DESTINATION include/
++        FILES_MATCHING PATTERN "*.h"
++)
++install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/axlGui
++        DESTINATION include/
++        FILES_MATCHING PATTERN "*.h"
++)
+ endif(BUILD_FOR_RELEASE)
+ ######################################################################
+ # Update

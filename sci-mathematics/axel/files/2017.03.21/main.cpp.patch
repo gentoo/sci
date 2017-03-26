@@ -1,0 +1,23 @@
+--- axel-2017.02.16/app/axel/main.cpp	2017-03-01 17:35:15.329721658 +0100
++++ axel-2017.02.16/app/axel/main.cpp	2017-03-01 17:41:45.095111231 +0100
+@@ -39,6 +39,7 @@
+ #include <axlRpc/axlServer.h>
+ #endif
+ 
++#include <axel-config.h> // For AXEL_PLUGIN_DIR, AXEL_DATA_DIR
+ 
+ int main(int argc, char **argv)
+ {
+@@ -84,7 +85,11 @@
+ #elif defined(Q_OS_MAC)
+     QString pathPlugins  = QString("%1/../PlugIns/").arg(qApp->applicationDirPath());
+ #else
+-    QString pathPlugins  = QString("%1/../plugins/").arg(qApp->applicationDirPath());
++    #if defined(AXEL_PLUGIN_DIR)
++        QString pathPlugins  = QString(AXEL_PLUGIN_DIR);
++    #else
++        QString pathPlugins  = QString("%1/../plugins/").arg(qApp->applicationDirPath());
++    #endif
+ #endif
+     dtkPluginManager::instance()->setPath(pathPlugins);
+     //Initialized all factories

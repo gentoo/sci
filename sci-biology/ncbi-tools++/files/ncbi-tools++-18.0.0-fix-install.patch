@@ -1,0 +1,11 @@
+--- ncbi_cxx--12_0_0/src/build-system/Makefile.in.top.ori	2014-06-26 22:49:49.000000000 +0200
++++ ncbi_cxx--12_0_0/src/build-system/Makefile.in.top	2014-06-26 22:50:57.000000000 +0200
+@@ -48,7 +48,7 @@
+ 	    for x in *.a; do ln -s "$$x" "`basename \"$$x\" .a`-static.a"; done
+ 	cd $(includedir0) && find * -name CVS -prune -o -print |\
+             cpio -pd $(pincludedir)
+-	$(INSTALL) -m 644 $(incdir)/* $(pincludedir)
++	$(INSTALL) -m 644 $(incdir)/*.* $(pincludedir)
+ ## set up appropriate build and status directories somewhere under $(libdir)?
+ 
+ install-gbench:

@@ -1,0 +1,20 @@
+diff --git a/init_dbschema.py b/init_dbschema.py
+index 3429e3f..da87d2c 100644
+--- a/init_dbschema.py
++++ b/init_dbschema.py
+@@ -11,6 +11,7 @@ class InitDbSchema():
+     def __init__(self, db_name, logger):
+         self.logger = logger
+         self.db_name = db_name
++        print("DB-name='" + self.db_name + "'")
+ 
+         self.cnx = mysql.connector.connect(**config_db.CONFIG)
+ 
+@@ -357,6 +358,7 @@ class InitDbSchema():
+             RETURN _result;
+         END"""
+ 
++        cursor.execute("SET GLOBAL log_bin_trust_function_creators = 1;")
+         cursor.execute(get_file_history)
+         cursor.execute(levenshtein_distance)
+         cursor.execute(soundex_match)

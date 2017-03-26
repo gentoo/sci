@@ -1,18 +1,16 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-NUMERIC_MODULE_NAME="gsl"
-
-inherit autotools flag-o-matic numeric-int64-multibuild toolchain-funcs
+inherit alternatives-2 autotools multilib-build numeric toolchain-funcs
 
 DESCRIPTION="GNU Scientific Library"
 HOMEPAGE="http://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
-SLOT="0/19.3"
+SLOT="0/19"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="cblas-external static-libs"
 
@@ -20,12 +18,14 @@ RDEPEND="cblas-external? ( >=virtual/cblas-2.0-r3[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]"
 
-PATCHES=( "${FILESDIR}"/${P}-cblas-external.patch )
+PATCHES=(
+	"${FILESDIR}"/${PN}-2.3-cblas-external.patch
+	)
 
 src_prepare() {
 	default
 	eautoreconf
-	numeric-int64-multibuild_copy_sources
+	multilib_copy_sources
 }
 
 src_configure() {
@@ -34,45 +34,41 @@ src_configure() {
 			export CBLAS_LIBS="$($(tc-getPKG_CONFIG) --libs cblas)"
 			export CBLAS_CFLAGS="$($(tc-getPKG_CONFIG) --cflags cblas)"
 		fi
-		if numeric-int64_is_int64_build; then
-			append-fflags $(fortran_int64_abi_fflags)
-		fi
 		econf $(use_with cblas-external)
 	}
-	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir gsl_configure
+	multilib_foreach_abi run_in_build_dir gsl_configure
 }
 
 src_compile() {
-	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir default
+	multilib_foreach_abi run_in_build_dir default
 }
 
 src_test() {
-	local MAKEOPTS="${MAKEOPTS} -j1"
-	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir default
+	multilib_foreach_abi run_in_build_dir default
 }
 
 src_install() {
-	gsl_src_install() {
-		local profname=$(numeric-int64_get_module_name)
-		local libname="${profname//-/_}"
+	gsl_install() {
+		local libname=gslcblas
+
+		create_pkgconfig \
+				--name  "${libname}" \
+				--description "${PN} CBLAS implementation" \
+				--libs "-l${libname}" \
+				--libs-private "-lm" \
+				--cflags "-I\${includedir}/${PN}" \
+				--version "${PV}" \
+				--url "${HOMEPAGE}" \
+				"${libname}"
+
+		GSL_ALTERNATIVES+=( /usr/$(get_libdir)/pkgconfig/cblas.pc ${libname}.pc )
 
 		default
-
-		if ! numeric-int64_is_static_build; then
-			create_pkgconfig \
-				--name  ${profname} \
-				--description "${DESCRIPTION} CBLAS implementation" \
-				--libs "-L\${libdir} -l${libname}" \
-				--libs-private "-lm" \
-				--cflags "-I\${includedir} $(numeric-int64_get_fortran_int64_abi_fflags)" \
-				${profname}
-		fi
-
 	}
-	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir gsl_src_install
+	multilib_foreach_abi run_in_build_dir gsl_install
 
-	printf "/usr/include/cblas.h ${PN}/cblas.h" > "${T}"/alternative-cblas-generic.sh || die
-
-	use cblas-external || \
-		numeric-int64-multibuild_install_alternative cblas ${NUMERIC_MODULE_NAME}
+	# Don't add gsl as a cblas alternative if using cblas-external
+	use cblas-external || alternatives_for cblas gsl 0 \
+		${GSL_ALTERNATIVES[@]} \
+		/usr/include/cblas.h gsl/gsl_cblas.h
 }

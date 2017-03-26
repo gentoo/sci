@@ -1,0 +1,22 @@
+diff --git a/gitana.py b/gitana.py
+index ffbf7c0..c9351fc 100644
+--- a/gitana.py
++++ b/gitana.py
+@@ -29,8 +29,8 @@ class Gitana():
+         i.execute()
+         return
+ 
+-    def git2db(self, db_name, git_path, before, import_type):
+-        extractor = Git2Db(db_name, git_path, before, None, import_type, self.logger)
++    def git2db(self, db_name, git_path, before, import_type, branch):
++        extractor = Git2Db(db_name, git_path, before, None, import_type, self.logger, branch)
+         extractor.extract()
+         return
+ 
+@@ -52,4 +52,4 @@ class Gitana():
+     def updatedb(self, db_name, git_path, before_date, import_last_commit):
+         updater = UpdateDb(db_name, git_path, before_date, import_last_commit, self.logger)
+         updater.update()
+-        return
+\ No newline at end of file
++        return

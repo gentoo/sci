@@ -1,0 +1,205 @@
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.blast_formatter.app.ori	2017-03-22 17:21:05.653409646 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blast_formatter.app	2017-03-22 17:22:25.755581547 +0100
+@@ -2,7 +2,7 @@
+ 
+ APP = blast_formatter
+ SRC = blast_formatter
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -11,6 +11,6 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLASTFORMAT $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.blastn.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blastn.app	2017-03-22 19:58:28.925273217 +0100
+@@ -14,7 +14,7 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+ 
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.blastp.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blastp.app	2017-03-22 19:58:54.365962959 +0100
+@@ -4,7 +4,7 @@
+ 
+ APP = blastp
+ SRC = blastp_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -13,7 +13,7 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+ 
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.blastx.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blastx.app	2017-03-22 19:59:11.066415737 +0100
+@@ -4,7 +4,7 @@
+ 
+ APP = blastx
+ SRC = blastx_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -13,7 +13,7 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+ 
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.deltablast.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.deltablast.app	2017-03-22 19:59:30.396939821 +0100
+@@ -1,7 +1,7 @@
+ 
+ APP = deltablast
+ SRC = deltablast_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -10,6 +10,6 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.psiblast.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.psiblast.app	2017-03-22 19:59:51.837521114 +0100
+@@ -2,7 +2,7 @@
+ 
+ APP = psiblast
+ SRC = psiblast_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -11,6 +11,6 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.rpsblast.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.rpsblast.app	2017-03-22 20:00:15.808170999 +0100
+@@ -2,7 +2,7 @@
+ 
+ APP = rpsblast
+ SRC = rpsblast_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -11,6 +11,6 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.rpstblastn.app.ori	2017-03-22 19:57:18.063352028 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.rpstblastn.app	2017-03-22 20:00:34.328673121 +0100
+@@ -2,7 +2,7 @@
+ 
+ APP = rpstblastn
+ SRC = rpstblastn_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -11,6 +11,6 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.seedtop.app.ori	2017-03-22 19:57:18.073352297 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.seedtop.app	2017-03-22 20:00:52.309160604 +0100
+@@ -2,7 +2,7 @@
+ 
+ APP = seedtop
+ SRC = seedtop_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -11,6 +11,6 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastn.app.ori	2017-03-22 19:57:18.073352297 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastn.app	2017-03-22 20:01:09.669631276 +0100
+@@ -4,7 +4,7 @@
+ 
+ APP = tblastn
+ SRC = tblastn_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -13,7 +13,7 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+ 
+--- ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastx.app.ori	2017-03-22 19:57:18.073352297 +0100
++++ ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastx.app	2017-03-22 20:01:23.860016002 +0100
+@@ -4,7 +4,7 @@
+ 
+ APP = tblastx
+ SRC = tblastx_app
+-LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
++LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ LIB = blast_app_util $(LIB_:%=%$(STATIC))
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+@@ -13,7 +13,7 @@
+ LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+-LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects -Cygwin
+ 

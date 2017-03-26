@@ -1,0 +1,39 @@
+diff --git a/gitquerier_gitpython.py b/gitquerier_gitpython.py
+index ccbe5da..bfcf557 100644
+--- a/gitquerier_gitpython.py
++++ b/gitquerier_gitpython.py
+@@ -10,8 +10,10 @@ class GitQuerier():
+     #python, java, html, xml, sql, javascript, c, c++, scala, php, ruby, matlab
+     ALLOWED_EXTENSION = ['py', 'java', 'html', 'xml', 'sql', 'js', 'c', 'cpp', 'cc', 'scala', 'php', 'rb', 'm']
+ 
+-    def __init__(self, git_repo_path, logger):
++    def __init__(self, git_repo_path, logger, branch):
+         self.logger = logger
++        self.branch = branch
++        print("GitQuerier: self.branch='" + self.branch + "'")
+         self.repo = Repo(git_repo_path, odbt=GitCmdObjectDB)
+         self.gitt = self.repo.git
+         self.no_treated_extensions = set()
+@@ -164,9 +166,13 @@ class GitQuerier():
+         for ref in self.repo.references:
+             if type(ref) == RemoteReference:
+                 if ref.name != "origin/HEAD":
+-                    references.append((ref.name, 'branch'))
++                    if (not self.branch) or (ref.name == self.branch):
++                        print("references.append('" + ref.name + "'")
++                        references.append((ref.name, 'branch'))
+             elif type(ref) == TagReference:
+-                references.append((ref.name, 'tag'))
++                if (not self.branch) or (ref.name == self.branch):
++                    references.append((ref.name, 'tag'))
++                    print("references.append('" + ref.name + "'")
+             else:
+                 self.logger.warning("Git2Db: " + str(type(ref)) + " not handled in the extractor")
+ 
+@@ -686,4 +692,4 @@ class GitQuerier():
+             if self.line_contains_close_block_comment(line, ext):
+                 block_comment = False
+ 
+-        return block_comment
+\ No newline at end of file
++        return block_comment
