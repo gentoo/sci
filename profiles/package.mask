@@ -55,11 +55,9 @@ sci-mathematics/scilab
 # bigdft moved from sci-libs to sci-physics
 # sci-physics/abinit now uses sci-libs/bigdft-abi instead
 # sci-libs/bigdft should be deleted in 30 days
-sci-libs/bigdft
 
 # Justin Lecher <jlec@gentoo.org> (03 March 2013)
 # Missing deps
-sci-biology/gbrowse
 sci-mathematics/surfer
 dev-python/pymvpa
 sci-biology/artemis-bin
