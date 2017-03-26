@@ -1,0 +1,124 @@
+diff --git a/git2db_gui.py b/git2db_gui.py
+index a515bf2..8bceab4 100644
+--- a/git2db_gui.py
++++ b/git2db_gui.py
+@@ -2,6 +2,7 @@ __author__ = 'atlanmod'
+ 
+ from Tkinter import *
+ from tkFileDialog import *
++import tkMessageBox
+ import threading
+ import os
+ import re
+@@ -57,11 +58,19 @@ class Git2DB_GUI(Tk):
+         self.beforeDateVariable = StringVar()
+         self.beforeDate = Entry(self, textvariable=self.beforeDateVariable, width=30)
+         self.beforeDate.grid(column=1, row=5, sticky='W')
++        
++        #insert branch only
++        labelBranch = Label(self, text=u"Include this branch only (e.g. origin/master)", anchor="w")
++        labelBranch.grid(column=0, row=6, sticky='W')
++
++        self.branchVariable = StringVar()
++        self.entryBranch = Entry(self, textvariable=self.branchVariable, width=30)
++        self.entryBranch.grid(column=1, row=6, sticky='W')
+ 
+         ##########################
+         #empty label
+         emptyLabel = Label(self, anchor="w")
+-        emptyLabel.grid(column=0, row=6, sticky='WE')
++        emptyLabel.grid(column=0, row=7, sticky='WE')
+         ##########################
+ 
+         #select import process
+@@ -71,30 +80,46 @@ class Git2DB_GUI(Tk):
+         self.importProcessType2 = Radiobutton(self, text="Medium mode (patch contents)", variable=self.importProcessTypeVariable, value=2)
+         self.importProcessType3 = Radiobutton(self, text="Full mode (patch line details)", variable=self.importProcessTypeVariable, value=3)
+ 
+-        self.importProcessType1.grid(column=0, row=7, sticky='W')
+-        self.importProcessType2.grid(column=0, row=8, sticky='W')
+-        self.importProcessType3.grid(column=0, row=9, sticky='W')
++        self.importProcessType1.grid(column=0, row=8, sticky='W')
++        self.importProcessType2.grid(column=0, row=9, sticky='W')
++        self.importProcessType3.grid(column=0, row=10, sticky='W')
+ 
+         ##########################
+         #empty label
+         emptyLabel = Label(self, anchor="w")
+-        emptyLabel.grid(column=0, row=10, sticky='WE')
++        emptyLabel.grid(column=0, row=11, sticky='WE')
+         ##########################
+ 
+         #Finish button
+         self.buttonFinish = Button(self, text=u"Import", command=self.launch_thread_execute)
+-        self.buttonFinish.grid(column=1, row=11, sticky="E")
++        self.buttonFinish.grid(column=1, row=12, sticky="E")
+ 
+         #Abort interrupt
+         self.buttonAbort = Button(self, text=u"Abort", command=self.launch_thread_interrupt)
+-        self.buttonAbort.grid(column=2, row=11, sticky="E")
++        self.buttonAbort.grid(column=2, row=12, sticky="E")
+         self.buttonAbort.config(state=DISABLED)
+ 
+         self.info_execution = StringVar()
+         labelExecuting = Label(self, textvariable=self.info_execution, anchor="w")
+-        labelExecuting.grid(column=0, row=11, sticky='EW')
++        labelExecuting.grid(column=0, row=12, sticky='EW')
+ 
+         self.resizable(False, False)
++        
++        # TKinker is not thread safe!
++        # See http://stackoverflow.com/questions/22541693/tkinter-and-thread-out-of-stack-space-infinite-loop
++        self.resetButtons = False
++        self.importingFailureMsg = ""
++        def do_every_50_ms(self):
++            if self.resetButtons:
++                self.buttonFinish.config(state=NORMAL)
++                self.buttonAbort.config(state=DISABLED)
++                self.resetButtons = False
++            if self.importingFailureMsg:
++                tkMessageBox.showerror("Importing GIT repository failed:", 
++                                       self.importingFailureMsg)
++                self.importingFailureMsg = ""
++            self.after(50, do_every_50_ms, self)
++        do_every_50_ms(self)
+ 
+     def search_for_directory(self):
+         dir = askdirectory(parent=self, title='Choose a directory')
+@@ -163,22 +188,29 @@ class Git2DB_GUI(Tk):
+             self.REPO_NAME = self.repoNameVariable.get()
+             self.REPO_OWNER = self.repoOwnerVariable.get()
+             self.BEFORE_DATE = None
++            self.BRANCH = self.branchVariable.get()
++            print("Only branch='" + self.BRANCH + "'")
+             if self.beforeDateVariable.get() != '':
+                 self.BEFORE_DATE = self.beforeDateVariable.get()
+-            schema = self.REPO_OWNER + "_" + self.REPO_NAME
++            schema = self.REPO_NAME
++            if self.REPO_OWNER:
++                schema = self.REPO_OWNER + "_" + self.REPO_NAME
+             self.IMPORT_TYPE = self.importProcessTypeVariable.get()
+             g = Gitana(schema)
+             g.init_dbschema(schema)
+-            g.git2db(schema, self.REPO_PATH, self.BEFORE_DATE, self.IMPORT_TYPE)
++            g.git2db(schema, self.REPO_PATH, self.BEFORE_DATE, self.IMPORT_TYPE, self.BRANCH)
+ 
+             self.info_execution.set("Finished")
+-            self.buttonFinish.config(state=NORMAL)
+-            self.buttonAbort.config(state=DISABLED)
++            #self.buttonFinish.config(state=NORMAL)
++            #self.buttonAbort.config(state=DISABLED)
++            self.resetButtons = True
+         except:
+-            print traceback.format_exc()
++            print (traceback.format_exc())
+             self.info_execution.set("Failed")
+-            self.buttonFinish.config(state=NORMAL)
+-            self.buttonAbort.config(state=DISABLED)
++            #self.buttonFinish.config(state=NORMAL)
++            #self.buttonAbort.config(state=DISABLED)
++            self.importingFailureMsg = traceback.format_exc(limit=1)
++            self.resetButtons = True
+ 
+     def start_export(self):
+         label = Label(self, text=id)

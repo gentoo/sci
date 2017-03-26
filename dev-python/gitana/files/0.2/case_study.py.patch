@@ -1,0 +1,10 @@
+diff --git a/case_study.py b/case_study.py
+index 6ec3a5a..fdc2711 100644
+--- a/case_study.py
++++ b/case_study.py
+@@ -18,4 +18,4 @@ for repo in repos:
+     g = Gitana(schema)
+     g.init_dbschema(schema)
+     g.git2db(schema, repo[2])
+-    print schema + " done!"
++    print (schema + " done!")

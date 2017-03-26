@@ -1,0 +1,53 @@
+diff --git a/gitana_gui.py b/gitana_gui.py
+index 620f3a8..445544d 100644
+--- a/gitana_gui.py
++++ b/gitana_gui.py
+@@ -1,21 +1,25 @@
++#!/usr/bin/python2.7
+ __author__ = 'atlanmod'
+ 
+ from Tkinter import *
+ from PIL import ImageTk, Image
+ import subprocess
++import os
+ 
+ 
+ class GUI(Tk):
++    mypath = ""
+ 
+     def __init__(self):
+         Tk.__init__(self)
++        self.mypath = os.path.dirname(os.path.abspath(__file__)) + "/"
+ 
+         self.initialize()
+         self.title("Gitana")
+         self.mainloop()
+ 
+     def initialize(self):
+-        img = ImageTk.PhotoImage(Image.open("img/gitana_icon.png"))
++        img = ImageTk.PhotoImage(Image.open(self.mypath + "img/gitana_icon.png"))
+         labelImg = Label(image=img)
+         labelImg.image = img
+         labelImg.grid(row=2, columnspan=3, rowspan=10, sticky='WE')
+@@ -37,15 +41,18 @@ class GUI(Tk):
+         self.resizable(False, False)
+ 
+     def start_import(self):
+-        proc = subprocess.Popen({sys.executable, "git2db_gui.py"})
++        cmd = sys.executable + " " + self.mypath + "git2db_gui.py"       
++        proc = subprocess.Popen({cmd}, shell=True)
+         proc.communicate()
+ 
+     def start_update(self):
+-        proc = subprocess.Popen({sys.executable, "updatedb_gui.py"})
++        cmd = sys.executable + " " + self.mypath + "updatedb_gui.py"
++        proc = subprocess.Popen({cmd}, shell=True)
+         proc.communicate()
+ 
+     def start_export(self):
+-        proc = subprocess.Popen({sys.executable, "db2json_gui.py"})
++        cmd = sys.executable + " " + self.mypath + "db2json_gui.py"
++        proc = subprocess.Popen({cmd}, shell=True)
+         proc.communicate()
+ 
+ 

@@ -1,0 +1,29 @@
+diff --git a/updatedb.py b/updatedb.py
+index adda156..5ea592c 100644
+--- a/updatedb.py
++++ b/updatedb.py
+@@ -17,7 +17,7 @@ class UpdateDb():
+         self.before_date = before_date
+         self.import_last_commit = import_last_commit
+         self.existing_refs = []
+-        self.querier = GitQuerier(git_repo_path, logger)
++        self.querier = GitQuerier(git_repo_path, logger, '')
+ 
+         self.cnx = mysql.connector.connect(**config_db.CONFIG)
+         self.set_database()
+@@ -161,7 +161,7 @@ class UpdateDb():
+             self.delete_file_modifications(last_commit_id)
+ 
+     def update_repo(self, repo_id, import_type):
+-        git2db = Git2Db(self.db_name, self.git_repo_path, self.before_date, self.import_last_commit, import_type, self.logger)
++        git2db = Git2Db(self.db_name, self.git_repo_path, self.before_date, self.import_last_commit, import_type, self.logger, '')
+ 
+         if self.import_last_commit:
+             self.delete_last_commit_info(repo_id)
+@@ -228,4 +228,4 @@ class UpdateDb():
+         minutes_and_seconds = divmod((end_time-start_time).total_seconds(), 60)
+         self.logger.info("UpdateDb: process finished after " + str(minutes_and_seconds[0])
+                      + " minutes and " + str(round(minutes_and_seconds[1], 1)) + " secs")
+-        return
+\ No newline at end of file
++        return
