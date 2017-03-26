@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 # Versioning is output of nmrPipe -help
 
-EAPI=5
+EAPI=6
 
 inherit eutils virtualx
 
@@ -43,10 +43,7 @@ RDEPEND="${DEPEND}
 	media-fonts/font-sun-misc
 	!sci-chemistry/sparta+
 	!sci-chemistry/talos+
-	|| (
-		sys-libs/ncurses:0/5
-		sys-libs/ncurses:5/5
-	)
+	sys-libs/ncurses:5/5
 	x11-apps/xset
 	|| ( x11-libs/xview x11-libs/xview-bin )
 	!prefix? ( >=x11-libs/libX11-1.6.2[abi_x86_32(-)] )
