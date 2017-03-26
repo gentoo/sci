@@ -1,6 +1,5 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -30,7 +29,6 @@ RDEPEND="
 	opencascade? ( sci-libs/opencascade:* )
 	png? ( media-libs/libpng:0 )
 	petsc? ( sci-mathematics/petsc )
-	python? ( dev-lang/python:2.7 dev-lang/swig:0 )
 	zlib? ( sys-libs/zlib )
 	mpi? ( virtual/mpi[cxx] )
 	taucs? ( sci-libs/taucs )"
@@ -41,8 +39,9 @@ REQUIRED_USE="
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	dev-util/cmake
-	doc? ( virtual/latex-base )"
+	doc? ( virtual/latex-base )
+	python? ( dev-lang/swig:0 )
+	"
 
 S=${WORKDIR}/${P}-source
 
@@ -75,6 +74,7 @@ src_configure() {
 }
 
 src_compile() {
+	cmake-utils_src_compile
 	if use doc ; then
 		cd "${BUILD_DIR}" || die
 		emake pdf
