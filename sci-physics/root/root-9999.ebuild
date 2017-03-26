@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
@@ -50,7 +50,7 @@ CDEPEND="
 	media-libs/giflib:0=
 	media-libs/libpng:0=
 	media-libs/tiff:0=
-	>=sys-devel/clang-3.4
+	>=sys-devel/clang-3.4:=
 	sys-libs/zlib:0=
 	virtual/jpeg:0
 	virtual/shadow
