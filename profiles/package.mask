@@ -58,8 +58,6 @@ sci-mathematics/scilab
 
 # Justin Lecher <jlec@gentoo.org> (03 March 2013)
 # Missing deps
-dev-python/pymvpa
-sci-biology/artemis-bin
 
 # Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
 # Doesn't install pkg-config files, which many packages rely on
