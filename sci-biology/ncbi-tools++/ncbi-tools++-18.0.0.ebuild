@@ -129,6 +129,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-srcchk-linking.patch
 		"${FILESDIR}"/${P}-fix-app-rmblastn-linking.patch
 		"${FILESDIR}"/${P}-remove-old-symlinks.patch
+		"${FILESDIR}"/${P}-fix-app-table2asn-linking.patch
 		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}

@@ -1,0 +1,13 @@
+--- ncbi_cxx--18_0_0/src/app/table2asn/Makefile.table2asn.app.ori	2017-03-27 00:41:58.742206850 +0200
++++ ncbi_cxx--18_0_0/src/app/table2asn/Makefile.table2asn.app	2017-03-27 00:43:13.142206236 +0200
+@@ -12,8 +12,8 @@
+ 
+ LIB  = xdiscrepancy xalgophytree fastme prosplign xalgoalignutil xalgoseq xmlwrapp \
+        xvalidate xobjwrite xobjreadex valerr biotree macro \
+-       $(OBJEDIT_LIBS) $(XFORMAT_LIBS) $(BLAST_LIBS) id2cli \
+-       xregexp $(PCRE_LIB) $(SRAREAD_LIBS) $(DATA_LOADERS_UTIL_LIB) $(OBJMGR_LIBS)
++       $(OBJEDIT_LIBS) $(XFORMAT_LIBS) $(BLAST_LIBS) taxon1 id2cli \
++       xregexp $(PCRE_LIB) xqueryparse $(DATA_LOADERS_UTIL_LIB) $(OBJMGR_LIBS)
+ 
+ LIBS = $(LIBXSLT_LIBS) $(DATA_LOADERS_UTIL_LIBS) $(LIBXML_LIBS) $(CMPRS_LIBS) $(PCRE_LIBS) \
+        $(SRA_SDK_SYSLIBS) \
