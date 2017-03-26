@@ -46,7 +46,6 @@ sci-mathematics/scilab
 # Lab::Measurement (dev-perl/Lab-Measurement in the main portage
 # tree). Masked for removal.
 dev-perl/Lab-Instrument
-dev-perl/Lab-Tools
 
 # Jauhien Piatlicki <jauhien@gentoo.org> (13 Sep 2014)
 # dev-python/pythonocc-0.5 works only with sci-libs/opencascade-6.3
