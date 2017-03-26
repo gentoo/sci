@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -25,10 +25,7 @@ RDEPEND="${PYTHON_DEPS}
 	dev-lang/tcl:8.5
 	dev-lang/tk:8.5
 	dev-libs/libedit
-	|| (
-		sys-libs/ncurses:0/5
-		sys-libs/ncurses:5/5
-	)
+	sys-libs/ncurses:5/5
 "
 DEPEND="${RDEPEND}"
 
