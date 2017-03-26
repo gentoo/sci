@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,14 +9,16 @@ GTEST_PV="1.7.0"
 
 DESCRIPTION="A general purpose GPU library"
 HOMEPAGE="http://www.arrayfire.com/"
-SRC_URI="http://arrayfire.com/arrayfire_source/${PN}-full-${PV}.tar.bz2 -> ${P}.tar.bz2
-test? ( https://github.com/google/googletest/archive/release-${GTEST_PV}.zip -> gtest-${GTEST_PV}.zip )"
-KEYWORDS="~amd64"
+SRC_URI="
+	http://arrayfire.com/arrayfire_source/${PN}-full-${PV}.tar.bz2 -> ${P}.tar.bz2
+	test? ( https://github.com/google/googletest/archive/release-${GTEST_PV}.zip -> gtest-${GTEST_PV}.zip )"
 
-LICENSE="BSD
+LICENSE="
+	BSD
 	nonfree? ( OpenSIFT )"
 SLOT="0"
 IUSE="+examples +cpu cuda nonfree opencl test graphics"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
@@ -43,7 +45,7 @@ RDEPEND="
 	graphics? (
 		media-libs/glew:=
 		>=media-libs/glfw-3.1.1
-		=sci-visualization/forge-3.1.2
+		~sci-visualization/forge-3.1.2
 	)"
 DEPEND="${RDEPEND}"
 
