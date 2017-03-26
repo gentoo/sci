@@ -58,7 +58,6 @@ sci-mathematics/scilab
 
 # Justin Lecher <jlec@gentoo.org> (03 March 2013)
 # Missing deps
-sci-mathematics/surfer
 dev-python/pymvpa
 sci-biology/artemis-bin
 
