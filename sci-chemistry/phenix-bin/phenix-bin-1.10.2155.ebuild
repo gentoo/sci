@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -37,10 +37,7 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/libpng:1.2
 	sys-libs/db:4.7
 	sys-libs/gdbm
-	|| (
-		sys-libs/ncurses:0/5[tinfo]
-		sys-libs/ncurses:5/5[tinfo]
-	)
+	sys-libs/ncurses:5/5[tinfo]
 	sys-libs/readline
 	virtual/glu
 	x11-libs/cairo
