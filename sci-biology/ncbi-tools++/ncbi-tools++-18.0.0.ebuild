@@ -130,6 +130,8 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-app-rmblastn-linking.patch
 		"${FILESDIR}"/${P}-remove-old-symlinks.patch
 		"${FILESDIR}"/${P}-fix-app-table2asn-linking.patch
+		"${FILESDIR}"/${P}-fix-app-tls-linking.patch
+		"${FILESDIR}"/${P}-fix-app-vecscreen-linking.patch
 		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
 	epatch ${PATCHES[@]}
