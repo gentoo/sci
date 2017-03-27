@@ -30,8 +30,7 @@ IUSE="
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
-#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
@@ -363,6 +362,7 @@ src_install() {
 	mv -f "${ED}"/usr/bin/test_regexp "${ED}"/usr/bin/test_regexp+ # drop the eventually mistakenly compiled binaries
 	mv "${ED}"/usr/bin/vecscreen "${ED}"/usr/bin/vecscreen+
 	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop+
+	mv "${ED}"/usr/bin/idfetch "${ED}"/usr/bin/idfetch+ # new in ncbi-tools++-18.0.0
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/${PN}" > ${S}/99${PN}
 	doenvd "${S}/99${PN}"
