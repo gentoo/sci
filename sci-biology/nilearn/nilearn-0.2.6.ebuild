@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -30,6 +30,7 @@ RDEPEND="
 # upstream is reluctant to *not* depend on bundled scikits_learn:
 # https://github.com/nilearn/nilearn/pull/1398
 python_prepare_all() {
+	local f
 	for f in nilearn/{*/*/,*/,}*.py; do
 		sed -r \
 			-e '/^from/s/(sklearn|\.|)\.externals\.joblib/joblib/' \
