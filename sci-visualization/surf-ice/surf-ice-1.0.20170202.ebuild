@@ -33,7 +33,7 @@ src_install() {
 	doins shadersOld/*.txt
 
 	doicon -s scalable Surfice.jpg
-	make_desktop_entry surf-ice surf-ice /usr/share/icons/hicolor/scalable/apps/Surfice.jpg
+	make_desktop_entry surfice surfice /usr/share/icons/hicolor/scalable/apps/Surfice.jpg
 }
 
 pkg_postinst() {
