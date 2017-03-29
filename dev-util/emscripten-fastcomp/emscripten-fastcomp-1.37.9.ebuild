@@ -40,6 +40,8 @@ src_configure() {
 	local mycmakeargs=(
 		# avoid clashes with sys-devel/llvm
 		-DCMAKE_INSTALL_PREFIX="/usr/share/${P}"
+		-DLLVM_OCAML_INSTALL_PATH="/usr/share/${P}/ocaml"
+		-DLLVM_ENABLE_OCAMLDOC=OFF
 		-DLLVM_TARGETS_TO_BUILD="X86;JSBackend"
 		-DLLVM_INCLUDE_EXAMPLES=OFF
 		-DLLVM_INCLUDE_TESTS=OFF
