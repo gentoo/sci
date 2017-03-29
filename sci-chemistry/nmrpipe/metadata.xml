@@ -5,7 +5,7 @@
     <email>jlec@gentoo.org</email>
     <name>Justin Lecher</name>
   </maintainer>
-<maintainer type="project">
+  <maintainer type="project">
     <email>sci-chemistry@gentoo.org</email>
     <name>Gentoo Chemistry Project</name>
   </maintainer>

@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
 
@@ -37,7 +37,6 @@ REQUIRED_USE="
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	dev-util/cmake
 	doc? ( virtual/latex-base )"
 
 S=${WORKDIR}/${P}-source
@@ -67,7 +66,7 @@ src_configure() {
 		$(cmake-utils_use_enable tetgen TETGEN)
 		$(cmake-utils_use_enable opencascade OCC)
 		$(cmake-utils_use_enable petsc PETSC)"
-# 		$(cmake-utils_use_enable tetgen TETGEN_NEW)
+#		$(cmake-utils_use_enable tetgen TETGEN_NEW)
 
 	cmake-utils_src_configure ${mycmakeargs}
 }

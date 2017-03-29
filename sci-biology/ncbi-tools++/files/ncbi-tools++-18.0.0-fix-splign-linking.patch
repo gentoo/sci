@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/splign/Makefile.splign.app.ori	2017-03-23 22:08:16.937327984 +0100
++++ ncbi_cxx--18_0_0/src/app/splign/Makefile.splign.app	2017-03-23 22:09:19.208984755 +0100
+@@ -12,7 +12,7 @@
+ LIB = xalgoalignsplign xalgoalignutil xalgoalignnw \
+       $(BLAST_DB_DATA_LOADER_LIBS) \
+       ncbi_xloader_lds2 lds2 sqlitewrapp \
+-      xqueryparse xalgoseq $(PCRE_LIB) \
++      xqueryparse xalgoseq taxon1 xregexp $(PCRE_LIB) \
+       $(BLAST_LIBS:%=%$(STATIC)) \
+       $(OBJMGR_LIBS:%=%$(STATIC))
+ 

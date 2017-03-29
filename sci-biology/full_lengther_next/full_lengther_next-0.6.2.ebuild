@@ -1,8 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-USE_RUBY="ruby20 ruby21"
+EAPI=6
+
+USE_RUBY="ruby21"
 
 RUBY_FAKEGEM_TASK_DOC=""
 RUBY_FAKEGEM_EXTRADOC="README.rdoc History.txt"
@@ -21,7 +22,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-ruby/hoe-2.8.0
+DEPEND="
+	>=dev-ruby/hoe-2.8.0
 	>=dev-ruby/rdoc-3.10
 	dev-ruby/bundler"
 	# >=dev-ruby/newgem-1.5.3

@@ -1,0 +1,31 @@
+--- ncbi_cxx--18_0_0/src/app/compart/Makefile.compart.app.ori	2017-03-23 14:49:24.915182566 +0100
++++ ncbi_cxx--18_0_0/src/app/compart/Makefile.compart.app	2017-03-23 14:50:32.926896138 +0100
+@@ -5,11 +5,11 @@
+ APP = compart
+ SRC = compart
+ 
+-LIB =  xalgoalignsplign xalgoalignutil xalgoalignnw xqueryparse \
+-       $(BLAST_LIBS:%=%$(STATIC)) \
++LIB =  xalgoalignsplign xalgoalignutil xalgoalignnw xalgoseq taxon1 xqueryparse \
++       $(BLAST_LIBS:%=%$(STATIC)) xregexp $(REGEXP_LIB) \
+        $(OBJMGR_LIBS:%=%$(STATIC))
+ 
+-LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(REGEXP_LIBS) $(ORIG_LIBS)
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+--- ncbi_cxx--18_0_0/src/app/compart/Makefile.compartp.app.ori	2017-03-23 18:05:44.135172346 +0100
++++ ncbi_cxx--18_0_0/src/app/compart/Makefile.compartp.app	2017-03-23 18:09:00.990132154 +0100
+@@ -5,9 +5,9 @@
+ APP = compartp
+ SRC = compartp
+ 
+-LIB = prosplign  xalgoalignutil $(BLAST_LIBS)  xqueryparse $(OBJMGR_LIBS)
++LIB = prosplign  xalgoalignutil xalgoseq taxon1 $(BLAST_LIBS) xqueryparse xregexp $(REGEXP_LIB) $(OBJMGR_LIBS)
+ 
+-LIBS = $(CMPRS_LIBS) $(PCRE_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
++LIBS = $(CMPRS_LIBS) $(PCRE_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(REGEXP_LIBS) $(ORIG_LIBS)
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)

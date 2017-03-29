@@ -32,64 +32,14 @@
 
 # Justin Lecher <jlec@gentoo.org> (24 April 2016)
 # rev dep absent
-sci-biology/genseed
-sci-biology/tgicl
 sci-mathematics/scilab
-
-# Justin Lecher <jlec@gentoo.org> (24 April 2016)
-# rev dep missing keywords
-sci-biology/iCORN2
-
-# Justin Lecher <jlec@gentoo.org> (9 Feb 2016)
-# rev dep masked
-sci-biology/inGAP-bin
-
-# Andreas K. Huettel <dilfridge@gentoo.org> (1 Nov 2014)
-# Lab::Instrument and Lab::Tools provided as separate packages
-# are way outdated. These are now supplied as parts of the package
-# Lab::Measurement (dev-perl/Lab-Measurement in the main portage
-# tree). Masked for removal.
-dev-perl/Lab-Instrument
-dev-perl/Lab-Tools
-
-# Jauhien Piatlicki <jauhien@gentoo.org> (13 Sep 2014)
-# dev-python/pythonocc-0.5 works only with sci-libs/opencascade-6.3
-# which is not available in the tree, see bug #522678
-# mask until bug is not fixed
-dev-python/pythonocc
-
-# Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
-# bigdft moved from sci-libs to sci-physics
-# sci-physics/abinit now uses sci-libs/bigdft-abi instead
-# sci-libs/bigdft should be deleted in 30 days
-sci-libs/bigdft
-
-# Justin Lecher <jlec@gentoo.org> (03 March 2013)
-# Missing deps
-sci-biology/gbrowse
-sci-mathematics/surfer
-dev-python/pymvpa
-sci-biology/artemis-bin
-
-# Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
-# Doesn't install pkg-config files, which many packages rely on
-=sci-libs/mmdb-1.24.20111208
 
 # Sebasien Fabbro <bicatali@gentoo.org> (10 Mar 2012)
 # incompatible API with previous versions of metis (4)
 # masked until reverse depedencies are fixed
 >=sci-libs/parmetis-4
 
-# Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
-# paraview dep is masked
-sci-visualization/vtkPOFFReader
-
 # Sebastien Fabbro <bicatali@gentoo.org> (23 Aug 2011)
-# mask old blas from main tree to allow smoother transition to 
+# mask old blas from main tree to allow smoother transition to
 # new blas/lapack framework
 =sci-libs/blas-reference-20070226*
-
-
-# Justin Lecher <jlec@gentoo.org> (11 May 2009)
-# work in progress 
-=sci-chemistry/almost-1.0.3-r1

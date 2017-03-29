@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/netstorage/utils/Makefile.netstorage_gc.app.ori	2017-03-23 21:22:14.463688886 +0100
++++ ncbi_cxx--18_0_0/src/app/netstorage/utils/Makefile.netstorage_gc.app	2017-03-23 21:22:48.854603873 +0100
+@@ -10,7 +10,7 @@
+ REQUIRES = MT Linux
+ 
+ 
+-LIB =  netstorage ncbi_xcache_netcache xconnserv \
++LIB =  netstorage ncbi_xcache_netcache xconnserv xthrserv \
+        $(SDBAPI_LIB) xconnect connssl xutil xncbi
+ LIBS = $(SDBAPI_LIBS) $(NETWORK_LIBS) $(GNUTLS_LIBS) $(CMPRS_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 

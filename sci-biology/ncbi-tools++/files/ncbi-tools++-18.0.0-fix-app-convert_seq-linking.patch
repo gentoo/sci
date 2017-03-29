@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/convert_seq/Makefile.convert_seq.app.ori	2017-03-23 19:24:31.534280319 +0100
++++ ncbi_cxx--18_0_0/src/app/convert_seq/Makefile.convert_seq.app	2017-03-23 19:25:14.395360214 +0100
+@@ -2,7 +2,7 @@
+ 
+ APP = convert_seq
+ SRC = convert_seq
+-LIB = $(ncbi_xloader_wgs) $(SRAREAD_LIBS) xobjwrite \
++LIB = $(ncbi_xloader_wgs) $(SRAREAD_LIBS) xobjwrite variation_utils \
+       $(OBJREAD_LIBS) $(XFORMAT_LIBS) xalnmgr xobjutil tables xregexp \
+       $(PCRE_LIB) $(OBJMGR_LIBS)
+ 

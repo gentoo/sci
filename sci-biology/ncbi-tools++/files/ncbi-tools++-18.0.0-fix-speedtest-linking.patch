@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/speedtest/Makefile.speedtest.app.ori	2017-03-23 21:41:31.084603405 +0100
++++ ncbi_cxx--18_0_0/src/app/speedtest/Makefile.speedtest.app	2017-03-23 21:45:47.601428174 +0100
+@@ -8,7 +8,7 @@
+ 
+ APP = speedtest
+ SRC = speedtest
+-LIB = prosplign xalgoalignutil xcleanup taxon3 valid valerr $(BLAST_LIBS) \
++LIB = prosplign xalgoalignutil taxon1 xalgoseq xcleanup taxon3 valid valerr $(BLAST_LIBS) \
+       xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS:%=%$(STATIC))
+ 
+ LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)

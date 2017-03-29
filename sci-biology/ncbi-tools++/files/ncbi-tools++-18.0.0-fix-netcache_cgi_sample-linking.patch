@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/sample/app/netcache/Makefile.netcache_cgi_sample.app.ori	2017-03-23 21:16:18.824226906 +0100
++++ ncbi_cxx--18_0_0/src/sample/app/netcache/Makefile.netcache_cgi_sample.app	2017-03-23 21:16:50.085058615 +0100
+@@ -4,7 +4,7 @@
+ SRC = netcache_cgi_sample
+ 
+ ### BEGIN COPIED SETTINGS
+-LIB = xconnserv xconnect xcgi xhtml xutil xncbi
++LIB = xconnserv xthrserv xconnect xcgi xhtml xutil xncbi
+ 
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ ### END COPIED SETTINGS

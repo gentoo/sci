@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -14,9 +14,10 @@ IUSE="doc"
 
 # contains bundled samtools-0.1.18 and bamtools (pezmaster31-bamtools-d553a62) which contains jsoncpp
 # also needs app-doc/doxygen
-DEPEND="dev-lang/perl
+DEPEND="
+	dev-lang/perl
 	sys-devel/gcc:*
-	sys-devel/clang
+	sys-devel/clang:*
 	>=sci-biology/samtools-0.1.18:0
 	<sci-biology/samtools-1:0
 	doc? ( app-doc/doxygen )"
