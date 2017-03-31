@@ -14,5 +14,10 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
+DEPEND="net-misc/curl"
 RDEPEND="${DEPEND}"
+
+src_prepare(){
+	default
+	sed -e 's#/usr/local#$(DESTDIR)/usr#' -i Makefile || die
+}
