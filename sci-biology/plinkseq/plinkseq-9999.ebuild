@@ -20,7 +20,6 @@ IUSE=""
 
 DEPEND="sys-libs/zlib
 	dev-libs/protobuf
-	www-servers/mongoose
 	!sci-biology/fsl" # file collision on /usr/bin/mm
 RDEPEND="${DEPEND}"
 
@@ -29,7 +28,9 @@ src_prepare(){
 	sed -e "s/= -static/=/g" -i config_defs.Makefile || die
 	rm -rf sources/ext/protobuf-* || die
 	rm sources/ext/protobuf sources/ext/sources/include/google || die
-	rm -rf sources/mongoose || die
+	# we cannot zap calls to bundled mongoose because www-servers/mongoose does not build a library at all
+	# rm -rf sources/mongoose || die
+	# sed -e "s@$(MONGOOSE_LIB_DIR) @@;s@$(MONGOOSE_INC) @@;s@$(MONGOOSE_LIB_BASE_DIR) @@" - Makefile || die
 	sed -e 's@^all:.*@all: # skipping compilation of bundled dev-libs/protobuf@' -i sources/ext/Makefile || die
 	find . -name \*.proto | while read f; do \
 		d=`dirname $f`; \
@@ -44,11 +45,13 @@ src_prepare(){
 	sed -e 's/google::protobuf::internal::kEmptyString/google::protobuf::internal::GetEmptyStringAlreadyInited()/g' -i sources/plinkseq/sources/lib/matrix.pb.cpp || die
 	sed -e 's/google::protobuf::internal::kEmptyString/google::protobuf::internal::GetEmptyStringAlreadyInited()/g' -i sources/plinkseq/sources/lib/variant.pb.cpp || die
 	local myinc=`pkg-config protobuf --variable=includedir`
-	sed -e "s@\$(PROTOBUF_LIB_BASE_DIR)/\$(INC_DIR)/@$myinc@" -i Makefile || die
+	sed -e 's@$(PROTOBUF_LIB_BASE_DIR)/$(INC_DIR)/@'"${myinc}@" -i Makefile || die
 	local mylib=`pkg-config protobuf --variable=libdir`
-	sed -e "s@$(PROTOBUF_LIB_BASE_DIR)/$(BLD_LIB_DIR)/@$mylib@" -i Makefile || die
+	sed -e 's@$(PROTOBUF_LIB_BASE_DIR)/$(BLD_LIB_DIR)/@'"-L${mylib} @" -i Makefile || die # note the trailing space as it get prepended to PROTOBUF_LIBS
+	# anyway $(PROTOBUF_LIB_FULL_PATH) is a necessary build target, just drop it
+	sed -e 's@^PROTOBUF_LIB_FULL_PATH =.*/@PROTOBUF_LIB_FULL_PATH =@' -i Makefile || die
 	local mylibs=`pkg-config protobuf --libs`
-	sed -e "s@libprotobuf.a@$mylibs@" -i Makefile || die
+	sed -e "s@libprotobuf.a@ ${mylibs}@ " -i Makefile || die
 }
 
 src_install(){
