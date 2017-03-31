@@ -3,7 +3,9 @@
 
 EAPI=5
 
-inherit git-r3
+PYTHON_COMPAT=( python2_7 python3_5 )
+
+inherit git-r3 distutils-r1
 
 DESCRIPTION="Python extension written in C for quick access to and creation of bigWig files"
 HOMEPAGE="https://github.com/dpryan79/pyBigWig"
