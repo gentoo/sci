@@ -27,7 +27,7 @@ src_install() {
 	dobin MRIcroGL
 
 	insinto /usr/share/mricrogl
-	doins lut/* script/* shaders/*
+	doins -r lut script shaders
 
 	doicon -s scalable mricrogl.svg
 	make_desktop_entry MRIcroGL MRIcroGL /usr/share/icons/hicolor/scalable/apps/mricrogl.svg
