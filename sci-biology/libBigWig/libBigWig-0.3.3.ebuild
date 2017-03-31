@@ -19,3 +19,7 @@ src_prepare(){
 	default
 	sed -e 's#/usr/local#$(DESTDIR)/usr#' -i Makefile || die
 }
+
+src_install(){
+	emake install DESTDIR="${ED}"
+}
