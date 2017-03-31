@@ -9,7 +9,7 @@ Additionally, this repository provides a number of ebuilds not yet included by G
 ## Install
 
 As per the [current Portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html), overlays should be managed via `/etc/portage/repos.conf/`.
-To enable our overlay make sure you are using a recent Portage version (at least `2.2.14`), and crate an `/etc/portage/repos.conf/neurogentoo` file containing precisely:
+To enable our overlay make sure you are using a recent Portage version (at least `2.2.14`), and create an `/etc/portage/repos.conf/neurogentoo` file containing precisely:
 
 ```
 [neurogentoo]
@@ -20,7 +20,7 @@ priority=8888
 ```
 
 You can alternatively enable the Gentoo Science overlay, which should provide a similar usage experience (though somewhat slower in periods of rapid development).
-Simply crate an `/etc/portage/repos.conf/science` file containing precisely:
+Simply cerate an `/etc/portage/repos.conf/science` file containing precisely:
 
 ```
 [sci]
