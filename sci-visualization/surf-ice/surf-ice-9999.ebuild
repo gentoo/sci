@@ -25,7 +25,7 @@ src_install() {
 	dobin surfice
 
 	insinto /usr/share/surfice
-	doins lut/* script/* shaders/* shadersOld/*
+	doins -r lut script shaders shadersOld
 
 	doicon -s scalable Surfice.jpg
 	make_desktop_entry surfice surfice /usr/share/icons/hicolor/scalable/apps/Surfice.jpg
