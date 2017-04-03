@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python2_7 python3_{4,5} )
 
 inherit distutils-r1 git-r3
 
-DESCRIPTION="Convert matplotlib figures into native Pgfplots (TikZ) figures"
+DESCRIPTION="Convert matplotlib figures into TikZ/PGFPlots"
 HOMEPAGE="https://github.com/nschloe/matplotlib2tikz"
 EGIT_REPO_URI="https://github.com/nschloe/${PN}.git git://github.com/nschloe/${PN}.git"
 KEYWORDS=""
@@ -18,9 +18,9 @@ IUSE=""
 
 PATCHES=( "${FILESDIR}/${PN}-0.6-init_pipdated.patch" )
 
-RDEPEND="dev-python/matplotlib[${PYTHON_USEDEP}]
+RDEPEND="
+	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	>=dev-python/pillow-3.0.0[${PYTHON_USEDEP}]
-	dev-texlive/texlive-pictures"
+	dev-python/pillow[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 	#test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
