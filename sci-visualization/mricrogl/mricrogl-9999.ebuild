@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -15,7 +15,9 @@ SLOT="0"
 
 RDEPEND=""
 DEPEND="dev-lang/fpc
-	>=dev-lang/lazarus-1.6.2"
+	>=dev-lang/lazarus-1.6.2
+	media-libs/mesa
+	"
 
 src_compile() {
 	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die
@@ -24,8 +26,8 @@ src_compile() {
 src_install() {
 	dobin MRIcroGL
 
-	insinto /usr/bin/shaders
-	doins shaders/*.txt
+	insinto /usr/share/mricrogl
+	doins -r lut script shaders
 
 	doicon -s scalable mricrogl.svg
 	make_desktop_entry MRIcroGL MRIcroGL /usr/share/icons/hicolor/scalable/apps/mricrogl.svg
