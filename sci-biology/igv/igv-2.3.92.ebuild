@@ -36,17 +36,17 @@ COMMON_DEPS="
 	dev-java/commons-compress
 	dev-java/commons-logging:0
 	>=dev-java/commons-io-2.1:1
-	>=dev-java/commons-math-2:*
-	>=dev-java/commons-jexl-2:*
+	dev-java/commons-math:2
+	dev-java/commons-jexl:2
 	dev-java/jcommon:*
-	>=dev-java/jfreechart-1.0:*
+	dev-java/jfreechart:1.0
 	dev-java/jlfgr:0
 	dev-java/log4j:0
-	>=dev-java/gson-2.2.2:*
-	=dev-java/guava-17:*
-	>=dev-java/swing-layout-1
+	dev-java/gson:2.2.2
+	dev-java/guava:17
+	dev-java/swing-layout:1
 	dev-java/jgrapht:0
-	>=dev-java/junit-4"
+	dev-java/junit:4"
 
 DEPEND=">=virtual/jdk-1.7
 	app-arch/unzip
