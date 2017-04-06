@@ -5,7 +5,7 @@ EAPI=6
 
 inherit git-r3 eutils
 
-DESCRIPTION="Trim Illumina TruSeq adapters and split reads by NEBnext MatePair linker"
+DESCRIPTION="Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker"
 HOMEPAGE="https://github.com/sequencing/NxTrim"
 EGIT_REPO_URI="https://github.com/sequencing/NxTrim.git"
 
