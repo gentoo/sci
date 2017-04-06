@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/sequencing/NxTrim.git"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="" # https://github.com/sequencing/NxTrim/issues/32
 IUSE=""
 
 DEPEND=""
