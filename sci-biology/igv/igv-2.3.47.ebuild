@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -40,7 +40,7 @@ COMMON_DEPS="
 	dev-java/jlfgr:0
 	dev-java/log4j:0
 	dev-java/gson:2.2.2
-	dev-java/guava:*
+	dev-java/guava:20
 	dev-java/swing-layout:1
 	dev-java/jgrapht:0
 	dev-java/junit:4"
@@ -59,7 +59,7 @@ EANT_NEEDS_TOOLS="true"
 EANT_EXTRA_ARGS="-Dnotests=true"
 
 EANT_GENTOO_CLASSPATH="absolutelayout,jama,commons-logging,commons-math-2,commons-jexl-2,jfreechart-1.0,jlfgr,log4j,commons-io-1,"
-EANT_GENTOO_CLASSPATH+="gson-2.2.2,guava-17,swing-layout-1,jgrapht,junit-4"
+EANT_GENTOO_CLASSPATH+="gson-2.2.2,guava-20,swing-layout-1,jgrapht,junit-4"
 
 java_prepare() {
 	mv lib oldlib || die
