@@ -1,0 +1,21 @@
+diff --git a/dolfin/CMakeLists.txt b/dolfin/CMakeLists.txt
+index 26bc21a..0caf7ca 100644
+--- a/dolfin/CMakeLists.txt
++++ b/dolfin/CMakeLists.txt
+@@ -2,6 +2,7 @@ set(DOLFIN_H dolfin.h)
+ install(FILES ${DOLFIN_H} DESTINATION ${DOLFIN_INCLUDE_DIR}
+   COMPONENT Development)
+ 
++
+ # Configure and install dolfin/common/version.h file
+ string(REPLACE "+" "" DOLFIN_VERSION_MICRO_STRIPPED ${DOLFIN_VERSION_MICRO})
+ configure_file(${DOLFIN_SOURCE_DIR}/dolfin/common/version.h.in
+@@ -12,6 +13,8 @@ install(FILES ${CMAKE_BINARY_DIR}/dolfin/common/version.h
+   )
+ include_directories(${CMAKE_BINARY_DIR})
+ 
++include_directories(/usr/include/superlu)
++
+ #------------------------------------------------------------------------------
+ # DOLFIN source directories
+ 
