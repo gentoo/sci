@@ -19,10 +19,12 @@ IUSE="hdf5 mpi parmetis petsc scotch trilinos umfpack zlib vtk"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	trilinos? ( mpi )"
 
-RDEPEND="
+# Yes, swig is an RDEPEND
+DEPEND="
 	${PYTHON_DEPS}
-	dev-libs/boost:=
 	dev-cpp/eigen:3
+	dev-lang/swig:0=
+	dev-libs/boost:=
 	dev-libs/libxml2:2
 	~dev-python/ffc-${PV}[${PYTHON_USEDEP}]
 	~dev-python/fiat-${PV}[${PYTHON_USEDEP}]
@@ -45,8 +47,7 @@ RDEPEND="
 	)
 	vtk? ( sci-libs/vtk )
 	zlib? ( sys-libs/zlib )"
-DEPEND="${RDEPEND}
-	dev-lang/swig:0"
+RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/${P}-trilinos-superlu.patch
