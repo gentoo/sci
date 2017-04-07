@@ -26,6 +26,7 @@ DEPEND="
 	dev-lang/swig:0=
 	dev-libs/boost:=
 	dev-libs/libxml2:2
+	~dev-python/dijitso-${PV}[${PYTHON_USEDEP}]
 	~dev-python/ffc-${PV}[${PYTHON_USEDEP}]
 	~dev-python/fiat-${PV}[${PYTHON_USEDEP}]
 	~dev-python/instant-${PV}[${PYTHON_USEDEP}]
