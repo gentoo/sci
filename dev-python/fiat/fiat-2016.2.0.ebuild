@@ -18,6 +18,5 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="
-	dev-python/scientificpython[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	"
