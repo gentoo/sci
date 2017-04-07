@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils eutils multilib
 
@@ -83,29 +83,29 @@ src_configure() {
 		-DDEAL_II_SHARE_RELDIR="share/${PN}"
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
-		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
-		$(cmake-utils_use c++11 DEAL_II_WITH_CXX11)
-		$(cmake-utils_use cpu_flags_x86_avx DEAL_II_HAVE_AVX)
-		$(cmake-utils_use cpu_flags_x86_sse2 DEAL_II_HAVE_SSE2)
-		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
-		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
-		$(cmake-utils_use gsl DEAL_II_WITH_GSL)
-		$(cmake-utils_use hdf5 DEAL_II_WITH_HDF5)
-		$(cmake-utils_use lapack DEAL_II_WITH_LAPACK)
-		$(cmake-utils_use metis DEAL_II_WITH_METIS)
-		$(cmake-utils_use mpi DEAL_II_WITH_MPI)
-		$(cmake-utils_use muparser DEAL_II_WITH_MUPARSER)
-		$(cmake-utils_use netcdf DEAL_II_WITH_NETCDF)
+		-DDEAL_II_WITH_ARPACK="$(usex arpack)"
+		-DDEAL_II_WITH_CXX11="$(usex c++11)"
+		-DDEAL_II_HAVE_AVX="$(usex cpu_flags_x86_avx)"
+		-DDEAL_II_HAVE_SSE2="$(usex cpu_flags_x86_sse2)"
+		-DDEAL_II_COMPONENT_DOCUMENTATION="$(usex doc)"
+		-DDEAL_II_COMPONENT_EXAMPLES="$(usex examples)"
+		-DDEAL_II_WITH_GSL="$(usex gsl)"
+		-DDEAL_II_WITH_HDF5="$(usex hdf5)"
+		-DDEAL_II_WITH_LAPACK="$(usex lapack)"
+		-DDEAL_II_WITH_METIS="$(usex metis)"
+		-DDEAL_II_WITH_MPI="$(usex mpi)"
+		-DDEAL_II_WITH_MUPARSER="$(usex muparser)"
+		-DDEAL_II_WITH_NETCDF="$(usex netcdf)"
 		-DOPENCASCADE_DIR="${CASROOT}"
-		$(cmake-utils_use opencascade DEAL_II_WITH_OPENCASCADE)
-		$(cmake-utils_use p4est DEAL_II_WITH_P4EST)
-		$(cmake-utils_use petsc DEAL_II_WITH_PETSC)
-		$(cmake-utils_use sparse DEAL_II_WITH_UMFPACK)
-		$(cmake-utils_use !static-libs BUILD_SHARED_LIBS)
-		$(cmake-utils_use static-libs DEAL_II_PREFER_STATIC_LIBS)
-		$(cmake-utils_use tbb DEAL_II_WITH_THREADS)
-		$(cmake-utils_use trilinos DEAL_II_WITH_TRILINOS)
-		)
+		-DDEAL_II_WITH_OPENCASCADE="$(usex opencascade)"
+		-DDEAL_II_WITH_P4EST="$(usex p4est)"
+		-DDEAL_II_WITH_PETSC="$(usex petsc)"
+		-DDEAL_II_WITH_UMFPACK="$(usex sparse)"
+		-DBUILD_SHARED_LIBS="$(usex !static-libs)"
+		-DDEAL_II_PREFER_STATIC_LIBS="$(usex static-libs)"
+		-DDEAL_II_WITH_THREADS="$(usex tbb)"
+		-DDEAL_II_WITH_TRILINOS="$(usex trilinos)"
+	)
 	cmake-utils_src_configure
 }
 
