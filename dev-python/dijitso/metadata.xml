@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		This module was written to improve a core component of the FEniCS
+		framework, namely the just in time compilation of C++ code that is
+		generated from Python modules, but is only called from within a C++
+		library, and thus do not need wrapping in a nice Python interface.
+	</longdescription>
+	<upstream>
+		<remote-id type="bitbucket">fenics-project/ffc</remote-id>
+		<remote-id type="launchpad">ffc</remote-id>
+	</upstream>
+</pkgmetadata>

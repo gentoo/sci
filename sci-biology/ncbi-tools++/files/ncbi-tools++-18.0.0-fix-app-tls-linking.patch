@@ -1,0 +1,11 @@
+--- ncbi_cxx--18_0_0/src/app/tls/Makefile.tls.app.ori	2017-03-27 02:33:36.312151540 +0200
++++ ncbi_cxx--18_0_0/src/app/tls/Makefile.tls.app	2017-03-27 02:34:19.372151184 +0200
+@@ -10,7 +10,7 @@
+ SRC = tls
+ 
+ LIB = $(OBJEDIT_LIBS) $(XFORMAT_LIBS) xalnmgr xobjutil \
+-       xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
++       xregexp $(PCRE_LIB) tables $(OBJMGR_LIBS)
+ 
+ LIBS = $(PCRE_LIBS) \
+        $(NETWORK_LIBS) $(CMPRS_LIBS) $(ORIG_LIBS)

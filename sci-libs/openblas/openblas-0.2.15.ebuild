@@ -67,6 +67,7 @@ get_openblas_abi_cflags() {
 	fi
 	$(numeric-int64_is_int64_build) && \
 		openblas_abi_cflags+=( -DOPENBLAS_USE64BITINT )
+	use openmp && openblas_abi_cflags+=( -fopenmp )
 	echo "${openblas_abi_cflags[@]}"
 }
 
