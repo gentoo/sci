@@ -31,9 +31,9 @@ RDEPEND="${COMMON_DEPEND}
 S=${WORKDIR}/${PN}
 
 PATCHES=(
-		"${FILESDIR}/${PN}"-5.0.9-setup.patch \
-		"${FILESDIR}/${PN}"-5.0.9-headers.patch \
-		"${FILESDIR}/${PN}"-5.0.9-fsldir_redux.patch
+	"${FILESDIR}/${PN}"-5.0.9-setup.patch
+	"${FILESDIR}/${PN}"-5.0.9-headers.patch
+	"${FILESDIR}/${PN}"-5.0.9-fsldir_redux.patch
 )
 
 src_prepare(){
