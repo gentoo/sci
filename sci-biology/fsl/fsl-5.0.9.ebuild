@@ -69,6 +69,11 @@ src_prepare(){
 		-i $(grep -rl "\$FSLDIR/data" src/*) \
 		$(grep -rl "\${FSLDIR}/data" src/*) || die
 
+	sed -e "s:\$FSLDIR/doc:${EPREFIX}/usr/share/fsl/doc:g" \
+		-e "s:\${FSLDIR}/doc:${EPREFIX}/usr/share/fsl/doc:g" \
+		-i $(grep -rl "\$FSLDIR/doc" src/*) \
+		$(grep -rl "\${FSLDIR}/doc" src/*) || die
+
 	sed -e "s:/usr/share/fsl/doc:${EPREFIX}/usr/share/fsl/doc:g" \
 		$(grep -rl "/usr/share/fsl/doc" src/*) || die
 
