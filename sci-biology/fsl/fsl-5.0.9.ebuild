@@ -1,10 +1,9 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-inherit eutils toolchain-funcs prefix
+inherit toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
@@ -31,12 +30,14 @@ RDEPEND="${COMMON_DEPEND}
 
 S=${WORKDIR}/${PN}
 
-src_prepare(){
-	epatch \
+PATCHES=(
 		"${FILESDIR}/${PN}"-5.0.9-setup.patch \
 		"${FILESDIR}/${PN}"-5.0.9-headers.patch \
 		"${FILESDIR}/${PN}"-5.0.8-fsldir_redux.patch
+)
 
+src_prepare(){
+	default
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
 		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \
@@ -61,26 +62,20 @@ src_prepare(){
 	sed -e "s:\${FSLDIR}/bin/::g" \
 		-e "s:\$FSLDIR/bin/::g" \
 		-i $(grep -rl "\${FSLDIR}/bin" src/*) \
-		$(grep -rl "\${FSLDIR}/bin" etc/matlab/*)
+		$(grep -rl "\${FSLDIR}/bin" etc/matlab/*) || die
 
 	sed -e "s:\$FSLDIR/data:${EPREFIX}/usr/share/fsl/data:g" \
 		-e "s:\${FSLDIR}/data:${EPREFIX}/usr/share/fsl/data:g" \
 		-i $(grep -rl "\$FSLDIR/data" src/*) \
-		$(grep -rl "\${FSLDIR}/data" src/*)
+		$(grep -rl "\${FSLDIR}/data" src/*) || die
 
-	sed -e "s:\$FSLDIR/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		-e "s:\${FSLDIR}/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		-i $(grep -rl "\$FSLDIR/doc" src/*) \
-		$(grep -rl "\${FSLDIR}/doc" src/*)
-
-	sed -e "s:\'\${FSLDIR}\'/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		-i $(grep -rl "\'\${FSLDIR}\'/doc" src/*)
+	sed -e "s:/usr/share/fsl/doc:${EPREFIX}/usr/share/fsl/doc:g" \
+		$(grep -rl "/usr/share/fsl/doc" src/*) || die
 
 	sed -e "s:\$FSLDIR/etc:${EPREFIX}/etc:g" \
 		-e "s:\${FSLDIR}/etc:${EPREFIX}/etc:g" \
 		-i $(grep -rlI "\$FSLDIR/etc" *) \
-		-i $(grep -rlI "\${FSLDIR}/etc" *)
-	default
+		-i $(grep -rlI "\${FSLDIR}/etc" *) || die
 }
 
 src_compile() {
