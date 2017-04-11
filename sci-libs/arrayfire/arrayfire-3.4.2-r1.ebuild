@@ -53,6 +53,8 @@ S="${WORKDIR}/${PN}-full-${PV}"
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
 
+PATCHES=("${FILESDIR}/${P}-Build-fix-for-CUDA-Compile-PTX-generated-names.patch")
+
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
 RESTRICT="userpriv"
