@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -7,7 +7,7 @@ inherit eutils toolchain-funcs
 
 MY_P="Tisean_${PV}"
 
-DESCRIPTION="Time series alanalytics with theory of nonliner deterministic dynamical systems"
+DESCRIPTION="Time series analytics with theory of non-liner deterministic dynamical systems"
 HOMEPAGE="
 	https://github.com/heggus/Tisean
 	http://www.mpipks-dresden.mpg.de/%7Etisean/Tisean_3.0.1/index.html"
@@ -23,7 +23,7 @@ S="${WORKDIR}/${MY_P}"
 src_prepare() {
 	tc-export FC CC
 	epatch \
-		"${FILESDIR}"/${PV}-gentoo.patch \
+		"${FILESDIR}"/${P}-gentoo.patch \
 		"${FILESDIR}"/${P}-backport.patch
 }
 
@@ -33,6 +33,9 @@ src_configure() {
 }
 
 src_install() {
+	# TODO: fix file collisions with:
+	# media-gfx/graphviz: /usr/bin/cluster
+	# media-gfx/imagemagick: /usr/bin/compare
 	dodir /usr/bin
 	default
 }

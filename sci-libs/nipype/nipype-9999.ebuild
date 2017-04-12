@@ -32,7 +32,7 @@ RDEPEND="
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pydotplus[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]
-	dev-python/traits[${PYTHON_USEDEP}]
+	>=dev-python/traits-4.6.0[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	"

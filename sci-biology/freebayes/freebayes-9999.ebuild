@@ -7,7 +7,7 @@ inherit eutils git-r3 toolchain-funcs
 
 DESCRIPTION="Bayesian gen. variant detector to find short polymorphisms"
 HOMEPAGE="https://github.com/ekg/freebayes"
-EGIT_REPO_URI="git://github.com/ekg/freebayes.git"
+EGIT_REPO_URI="https://github.com/ekg/freebayes.git"
 
 LICENSE="MIT"
 SLOT="0"
