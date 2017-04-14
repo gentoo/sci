@@ -262,9 +262,13 @@ sci-mathematics/Macaulay2:optimization - Disable to build with -O0 for debugging
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
 sci-mathematics/dolfin:cgal - Adds support for geometric algorithms with sci-mathematics/cgal
 sci-mathematics/dolfin:cholmod - Adds support for sparse Cholesky factorization with sci-libs/cholmod
+sci-mathematics/dolfin:hdf5 - Adds support for sci-libs/hdf5
 sci-mathematics/dolfin:parmetis - Adds support for parallel graph partitioning with sci-libs/parmetis
+sci-mathematics/dolfin:petsc - Adds support for numerical linear algebra toolkit sci-mathematics/petsc
 sci-mathematics/dolfin:scotch - Adds support for graph partitioning with sci-libs/scotch
+sci-mathematics/dolfin:trilinos - Adds support for numerical linear algebra toolkit sci-libs/trilinos
 sci-mathematics/dolfin:umfpack - Adds support for sparse solving with sci-libs/umfpack
+sci-mathematics/dolfin:vtk - Adds support for the visualization toolkit sci-libs/vtk
 sci-mathematics/gambit:X - Enable gui support using wxWidgets.
 sci-mathematics/gap:xtom - Automatically generated description for xtom
 sci-mathematics/gismo:doc - Build doxygen-documentation
