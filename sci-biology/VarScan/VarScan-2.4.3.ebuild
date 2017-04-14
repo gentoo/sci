@@ -20,7 +20,8 @@ IUSE=""
 DEPEND="
 	>=virtual/jdk-1.5:*
 	!sci-biology/VarScan-bin"
-RDEPEND=">=virtual/jre-1.5:*"
+RDEPEND=">=virtual/jre-1.5:*
+	sci-biology/bam-readcount"
 
 S="${WORKDIR}"/net/sf/varscan
 
