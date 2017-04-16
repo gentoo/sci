@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# From http://www.cadsoft.de/faq.htm#17040701
+# Work around problems with the Composite X extension
+export XLIB_SKIP_ARGB_VISUALS=1
+
+exec /opt/eagle/bin/eagle "$@"

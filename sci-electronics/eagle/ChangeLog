@@ -1,0 +1,9 @@
+# ChangeLog for sci-electronics/eagle
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*eagle-7.2.0 (30 Nov 2014)
+
+  30 Nov 2014; Marius Brehler <marbre@linux.sungazer.de> +eagle-7.2.0.ebuild,
+  +files/eagle_wrapper_script, +metadata.xml:
+  Import to overlay and bump version
