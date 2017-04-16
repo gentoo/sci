@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-biology</herd>
+  <maintainer>
+    <email>freeh4cker@gmail.com</email>
+    <name>Bertrand Néron</name>
+  </maintainer>
+  <longdescription>
+Squizz is a sequence/alignment format checker, but it has some
+conversion capabilities too.
+
+Most common sequence and alignment formats are supported :
+
+- CODATA, EMBL, FASTA, GCG, GDE, GENBANK, IG, NBRF, RAW, and
+  SWISSPROT.
+- CLUSTAL, FASTA, MEGA, MSF, NEXUS, PHYLIP (interleaved and sequential) and
+  STOCKHOLM.
+  </longdescription>
+  <upstream>
+    <maintainer status="active">
+	     <email>njoly@pasteur.fr</email>	
+		   <name>Nicolas Joly</name>
+		</maintainer>
+		<bugs-to>njoly@pasteur.fr</bugs-to>
+  </upstream>
+</pkgmetadata>
