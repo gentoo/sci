@@ -77,7 +77,7 @@ python_test() {
 python_install() {
 	distutils-r1_python_install
 
-	ln -sf "${EPREFIX}/usr/share/mathjax" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
+	ln -sf "${EPREFIX}/usr/share/mathjax/unpacked" "${D}$(python_get_sitedir)/notebook/static/components/MathJax" || die
 }
 
 python_install_all() {
