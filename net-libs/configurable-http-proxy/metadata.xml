@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <longdescription>
+    A simple wrapper around node-http-proxy that adds a REST API for
+    updating the routing table. The proxy is developed as a part of
+    the Jupyter Hub multi-user server.
+  </longdescription>
+</pkgmetadata>
