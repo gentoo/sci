@@ -108,7 +108,8 @@ src_install() {
 	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
 		$(grep -l "\$FSLDIR/tcl" tcl/*) || die
 
-	dobin bin/*
+	exeinto /usr/share/${PN}/bin
+	doexe bin/*
 
 	insinto /usr/share/${PN}
 	doins -r data
@@ -134,7 +135,11 @@ src_install() {
 	dosym /usr/share/doc/${P} /usr/share/fsl/doc
 
 	doenvd "${FILESDIR}"/99fsl
-	mv "${ED}"/usr/bin/{,fsl_}cluster || die
+
+	for FILE in /usr/share/${PN}/bin/*
+	do
+		dosym "${FILE}" /usr/bin/"${PN}"_$(basename "${FILE}") || die "Could not create FSL function symlinks"
+	done
 }
 
 pkg_postinst() {
