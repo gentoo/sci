@@ -17,11 +17,6 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
-src_prepare(){
-	eapply_user
-	epatch "${FILESDIR}"/Makefile.patch # https://github.com/sequencing/NxTrim/pull/31
-}
-
 src_install(){
 	dobin nxtrim mergeReads
 	dodoc README.md

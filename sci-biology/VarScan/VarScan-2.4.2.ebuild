@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -21,7 +21,8 @@ IUSE=""
 DEPEND="
 	>=virtual/jdk-1.5:*
 	!sci-biology/VarScan-bin"
-RDEPEND=">=virtual/jre-1.5:*"
+RDEPEND=">=virtual/jre-1.5:*
+	sci-biology/bam-readcount"
 
 S="${WORKDIR}"/net/sf/varscan
 

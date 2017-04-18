@@ -24,8 +24,8 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.0.1[${PYTHON_USEDEP}]
-	test? ( 
-		dev-python/mock[${PYTHON_USEDEP}] 
+	test? (
+		dev-python/mock[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
 	)
 	$(python_gen_cond_dep 'dev-python/configparser[${PYTHON_USEDEP}]' python2_7)
