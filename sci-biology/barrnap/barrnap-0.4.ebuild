@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -19,7 +19,7 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-lang/perl
+	dev-lang/perl:=
 	sci-biology/nesoni"
 
 src_install(){
