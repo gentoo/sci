@@ -15,6 +15,8 @@ SLOT="0"
 KEYWORDS="" # breaks silently during install because of python syntax errors
 IUSE=""
 
+RESTRICT="fetch"
+
 DEPEND="
 	>=sci-biology/pysam-0.9.0
 	>=dev-python/bcbio-gff-0.6.2
