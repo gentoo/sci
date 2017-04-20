@@ -15,8 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-	>=sci-biology/pysam-0.8.0
+DEPEND=">=sci-biology/pysam-0.8.0
 	dev-python/cython"
 RDEPEND="${DEPEND}"
 
