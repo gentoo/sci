@@ -1,4 +1,4 @@
-#Gentoo Science Overlay
+# Gentoo Science Overlay
 
 An overlay for Gentoo, geared towards scientific packages.
 
