@@ -17,5 +17,8 @@
     <flag name="cuda">
       Build with CUDA support.
     </flag>
+    <flag name="double-precision">
+      Build in double precision mode.
+    </flag>
   </use>
 </pkgmetadata>
