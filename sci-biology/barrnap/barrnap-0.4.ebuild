@@ -26,10 +26,10 @@ src_install(){
 	# the below recreates the whole layout
 	insinto /usr/share/"${PN}"/bin
 	doins bin/barrnap
-	chmod a+rx "${D}"/usr/share/"${PN}"/bin/barrnap || die
+	chmod a+rx "${ED}"/usr/share/"${PN}"/bin/barrnap || die
 	insinto /usr/share/"${PN}"/binaries/linux
 	doins binaries/linux/nhmmer
-	chmod a+rx "${D}"/usr/share/"${PN}"/binaries/linux/nhmmer || die
+	chmod a+rx "${ED}"/usr/share/"${PN}"/binaries/linux/nhmmer || die
 	insinto /usr/share/"${PN}"/db
 	doins db/*
 	insinto /usr/share/"${PN}"/examples
