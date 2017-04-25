@@ -1,0 +1,30 @@
+--- src/makefiles/default_rules.mk.orig	2017-03-03 01:33:22.000000000 +0100
++++ src/makefiles/default_rules.mk	2017-03-03 18:24:54.159740235 +0100
+@@ -12,7 +12,7 @@
+     ifdef LIBNAME
+       LIBFILE = lib$(LIBNAME).so
+     endif
+-    LDFLAGS += -Wl,-rpath=$(shell readlink -f $(KALDILIBDIR))
++    LDFLAGS += -L. $(foreach dep,$(ADDLIBS), -L$(dir $(dep)))
+     EXTRA_LDLIBS += $(foreach dep,$(ADDLIBS), $(dir $(dep))lib$(notdir $(basename $(dep))).so)
+   else  # Platform not supported
+     $(error Dynamic libraries not supported on this platform. Run configure with --static flag.)
+@@ -82,7 +82,7 @@
+ 	for x in $(TESTFILES); do	\
+ 	  printf "Running $$x ...";	\
+       timestamp1=$$(date +"%s"); \
+-	  ./$$x >$$x.testlog 2>&1;	\
++	  LD_LIBRARY_PATH=$(KALDILIBDIR):${LD_LIBRARY_PATH} ./$$x >$$x.testlog 2>&1;	\
+       ret=$$? \
+       timestamp2=$$(date +"%s"); \
+       time_taken=$$[timestamp2-timestamp1]; \
+@@ -121,3 +121,9 @@
+ # removing automatic making of "depend" as it's quite slow.
+ #.depend.mk: depend
+ -include .depend.mk
++
++print-binfiles:
++	@echo $(addprefix $(shell pwd)/, $(BINFILES))
++
++print-libfiles:
++	@echo $(addsuffix .so, $(addprefix $(shell pwd)/lib, $(LIBNAME)))
