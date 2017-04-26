@@ -1,7 +1,7 @@
---- openblas-0.2.11-orig/getarch_2nd.c	2014-08-18 13:16:14.000000000 +1000
-+++ openblas-0.2.11/getarch_2nd.c	2014-09-01 23:44:07.070560148 +1000
+--- getarch_2nd.c	2014-08-18 13:16:14.000000000 +1000
++++ getarch_2nd.c	2014-09-01 23:44:07.070560148 +1000
 @@ -64,13 +64,13 @@
- 
+
  
    if ((argc >= 2) && (*argv[1] == '1')) {
 -    printf("#define SLOCAL_BUFFER_SIZE\t%ld\n", (SGEMM_DEFAULT_Q * SGEMM_DEFAULT_UNROLL_N * 4 * 1 *  sizeof(float)));
