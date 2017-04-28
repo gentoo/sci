@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -239,7 +239,9 @@ src_configure() {
 	$(use_with mesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
 	$(use_with opengl glew "${EPREFIX}/usr")
-	$(use_with opengl glew-mx)
+	#
+	# GLEW 2.0 dropped support for this, see https://bugs.gentoo.org/show_bug.cgi?id=611302
+	# $(use_with opengl glew-mx)
 	$(use_with wxwidgets wxwidgets "${EPREFIX}/usr")
 	$(use_with wxwidgets wxwidgets-ucs)
 	$(use_with freetype freetype "${EPREFIX}/usr")
@@ -264,6 +266,8 @@ src_configure() {
 	$(use_with curl curl "${EPREFIX}/usr")
 #	$(use_with X x "${EPREFIX}/usr")
 #	$(use_with X x) # there is no --with-x option
+	# prevent downloading VDB sources from https://github.com/ncbi/ncbi-vdb.git during configure execution
+	--without-vdb
 	)
 
 	# http://www.ncbi.nlm.nih.gov/books/NBK7167/
