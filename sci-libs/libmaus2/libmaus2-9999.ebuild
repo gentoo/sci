@@ -42,4 +42,5 @@ src_configure(){
 pkg_postinst(){
 	einfo "The io_lib, snappy and seqan dependencies are not strictly needed"
 	einfo "but were forced for optimal libmaus2 performance."
+	einfo "igzip is only used if gzip level is set to 11."
 }
