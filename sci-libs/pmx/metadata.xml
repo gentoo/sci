@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -13,4 +13,7 @@
 	functionalities, e.g. gromacs file parsers and scripts for setup and
 	analysis of free energy calculations.
   </longdescription>
+  <upstream>
+    <remote-id type="github">dseeliger/pmx</remote-id>
+  </upstream>
 </pkgmetadata>
