@@ -7,7 +7,7 @@ DESCRIPTION="C library for HTS data with bgzip, tabix and htsfile binaries"
 HOMEPAGE="http://www.htslib.org/"
 SRC_URI="mirror://sourceforge/samtools/${PV}/${P}.tar.bz2"
 
-SLOT="0"
+SLOT="2" # libhts.so.2
 LICENSE="MIT"
 KEYWORDS=""
 IUSE="static-libs"
@@ -24,4 +24,8 @@ src_install() {
 	if ! use static-libs; then
 		find "${ED}" -type f -name "*.a" -delete || die
 	fi
+}
+
+pkg_postinst(){
+	einfo "You may want to install sci-libs/htslib-plugins"
 }
