@@ -17,7 +17,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	>=sci-libs/htslib-1.3.1
+	>=sci-libs/htslib-1.3.1:0
 	dev-cpp/sparsehash
 	sci-biology/samtools:*
 	sci-biology/bamtools
