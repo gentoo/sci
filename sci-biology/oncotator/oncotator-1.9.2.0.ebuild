@@ -3,7 +3,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_7 ) # no python3+, issue #364
 inherit distutils-r1
 
 DESCRIPTION="Annotate genetic variants in VCF"
