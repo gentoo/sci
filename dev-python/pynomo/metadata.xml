@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -8,7 +8,7 @@
   Pynomo is a program to create (pdf) nomographs
   (nomograms) using Python interpreter. A nomograph (nomogram) is a
   graphical solution to an equation.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="sourceforge">pynomo</remote-id>
   </upstream>

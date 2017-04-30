@@ -10,7 +10,6 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="sourceforge">flexbar</remote-id>
 		<remote-id type="github">seqan/flexbar</remote-id>
 	</upstream>
 </pkgmetadata>

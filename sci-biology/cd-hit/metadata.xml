@@ -21,7 +21,6 @@ duplicates from pyrosequencing reads. The usage of other programs and
 scripts can be found in CD-HIT user's guide.
 	</longdescription>
 	<upstream>
-		<remote-id type="google-code">cdhit</remote-id>
 		<remote-id type="github">weizhongli/cdhit</remote-id>
 	</upstream>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -10,7 +10,7 @@
   numerical computations. It offers an interactive environment, an expressive
   programming language, a compiler, a large set of mathematical libraries of
   interest to researchers and practitioners of computational sciences.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="sourceforge">open-axiom</remote-id>
   </upstream>

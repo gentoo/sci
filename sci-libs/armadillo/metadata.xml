@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -16,7 +16,7 @@
   combine several operations into one and reduce (or eliminate) the
   need for temporaries. This is accomplished through recursive
   templates and template meta-programming.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="atlas">
     Link with <pkg>sci-libs/atlas</pkg> libraries for cblas and

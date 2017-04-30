@@ -13,7 +13,7 @@
     increase the resolution of the peak detection.
   </longdescription>
   <upstream>
-    <remote-id type="pypi">PeakUtils</remote-id>
     <remote-id type="bitbucket">lucashnegri/peakutils</remote-id>
+    <remote-id type="pypi">PeakUtils</remote-id>
   </upstream>
 </pkgmetadata>

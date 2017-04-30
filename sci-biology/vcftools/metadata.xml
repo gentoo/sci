@@ -6,7 +6,7 @@
     <name>Gentoo Biology Project</name>
   </maintainer>
   <upstream>
-    <remote-id type="sourceforge">vcftools</remote-id>
     <remote-id type="github">vcftools/vcftools</remote-id>
+    <remote-id type="sourceforge">vcftools</remote-id>
   </upstream>
 </pkgmetadata>

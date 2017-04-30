@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -15,7 +15,7 @@
 
   Mantid has been created to manipulate and analyse neutron scattering and muon
   spectroscopy data, but could be applied to many other techniques.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="doc">Generate documentation with <pkg>app-doc/doxygen</pkg>, QT Assistant etc</flag>
     <flag name="opencascade">Use OpenCascade to show 3D models of instruments</flag>

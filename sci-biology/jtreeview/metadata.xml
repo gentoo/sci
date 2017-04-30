@@ -10,7 +10,7 @@
     <name>Gentoo Biology Project</name>
   </maintainer>
   <upstream>
-    <remote-id type="sourceforge">jtreeview</remote-id>
     <remote-id type="bitbucket">TreeView3Dev/treeview3</remote-id>
+    <remote-id type="sourceforge">jtreeview</remote-id>
   </upstream>
 </pkgmetadata>

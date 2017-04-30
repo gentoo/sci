@@ -18,7 +18,7 @@
     <flag name="plot">Adds optional dependency needed for plotting function subset.</flag>
   </use>
   <upstream>
-    <remote-id type="pypi">nilearn</remote-id>
     <remote-id type="github">nilearn/nilearn</remote-id>
+    <remote-id type="pypi">nilearn</remote-id>
   </upstream>
 </pkgmetadata>

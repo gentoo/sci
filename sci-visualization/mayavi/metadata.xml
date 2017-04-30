@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -23,7 +23,7 @@
   interactive visualizations in any other application. It may also be
   used as an Envisage plug-in which allows it to be embedded in other
   Envisage based applications natively.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="github">enthought/mayavi</remote-id>
   </upstream>

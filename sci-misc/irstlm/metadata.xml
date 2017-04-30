@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
@@ -10,7 +10,7 @@
 	The software has been integrated into a popular open source Statistical Machine
 	Translation decoder called Moses, and is compatible with language models created
 	with other tools, such as the SRILM Tooolkit.
-  </longdescription>
+	</longdescription>
 	<upstream>
 		<remote-id type="github">irstlm-team/irstlm</remote-id>
 	</upstream>

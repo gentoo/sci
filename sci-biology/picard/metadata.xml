@@ -10,7 +10,7 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="sourceforge">picard</remote-id>
 		<remote-id type="github">broadinstitute/picard</remote-id>
+		<remote-id type="sourceforge">picard</remote-id>
 	</upstream>
 </pkgmetadata>

@@ -6,7 +6,6 @@
     <name>Gentoo Science Project</name>
   </maintainer>
   <upstream>
-    <remote-id type="sourceforge">varscan</remote-id>
     <remote-id type="github">dkoboldt/varscan</remote-id>
   </upstream>
 </pkgmetadata>

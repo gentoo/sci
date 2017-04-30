@@ -22,7 +22,7 @@
 	in a high-level language and addressing limitations of existing pipeline systems.
   </longdescription>
   <upstream>
-    <remote-id type="sourceforge">nipy</remote-id>
     <remote-id type="github">nipy/nipype</remote-id>
+    <remote-id type="sourceforge">nipy</remote-id>
   </upstream>
 </pkgmetadata>

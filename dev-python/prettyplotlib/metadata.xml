@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -7,7 +7,7 @@
   </maintainer>
   <longdescription>
     Python matplotlib-enhancer library which painlessly creates
-    beautiful default matplotlib plots. 
+    beautiful default matplotlib plots.
   </longdescription>
   <upstream>
     <remote-id type="pypi">prettyplotlib</remote-id>

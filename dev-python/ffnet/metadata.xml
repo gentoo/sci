@@ -13,7 +13,6 @@
     <flag name="matplotlib">Use matplotlib for drawing</flag>
   </use>
   <upstream>
-    <remote-id type="github">mrkwjc/ffnet</remote-id>
     <remote-id type="pypi">ffnet</remote-id>
     <remote-id type="sourceforge">ffnet</remote-id>
   </upstream>

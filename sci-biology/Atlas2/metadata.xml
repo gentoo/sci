@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -13,7 +13,7 @@
     Atlas2 is a next-generation sequencing suite of variant analysis
     tools specializing in the separation of true SNPs and insertions
     and deletions (indels) from sequencing and mapping errors in Whole
-    Exome Capture Sequencing (WECS) data. 
+    Exome Capture Sequencing (WECS) data.
   </longdescription>
   <upstream>
     <remote-id type="sourceforge">downloads</remote-id>

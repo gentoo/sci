@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -7,7 +7,7 @@
   <longdescription>
   Implementation of statistical classification using
   maximum entropy models in opennlp framework.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="sourceforge">maxent</remote-id>
   </upstream>

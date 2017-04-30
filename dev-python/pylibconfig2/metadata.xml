@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -19,7 +19,7 @@
     only, and represented as a string automatically.
   </longdescription>
   <upstream>
-    <remote-id type="pypi">pylibconfig2</remote-id>
     <remote-id type="github">heinzK1X/pylibconfig2</remote-id>
+    <remote-id type="pypi">pylibconfig2</remote-id>
   </upstream>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -17,7 +17,7 @@
     extension and some extra meta-data.
   </longdescription>
   <upstream>
-    <remote-id type="pypi">hdf5storage</remote-id>
     <remote-id type="github">frejanordsiek/hdf5storage</remote-id>
+    <remote-id type="pypi">hdf5storage</remote-id>
   </upstream>
 </pkgmetadata>

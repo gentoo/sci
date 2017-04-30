@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -11,9 +11,8 @@
  extremely precise ephemeris calculations, and more. Pysolar can
  calculate the location of the sun or the shading percentage as a
  function of time for a row of 2-axis tracked panels.
-</longdescription>
+  </longdescription>
   <upstream>
-    <remote-id type="pypi">Pysolar</remote-id>
     <remote-id type="github">pingswept/pysolar</remote-id>
   </upstream>
 </pkgmetadata>

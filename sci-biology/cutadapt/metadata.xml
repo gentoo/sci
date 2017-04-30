@@ -10,7 +10,7 @@
     <name>Gentoo Biology Project</name>
   </maintainer>
   <upstream>
-    <remote-id type="pypi">cutadapt</remote-id>
     <remote-id type="github">marcelm/cutadapt</remote-id>
+    <remote-id type="pypi">cutadapt</remote-id>
   </upstream>
 </pkgmetadata>

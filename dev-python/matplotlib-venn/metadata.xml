@@ -6,7 +6,6 @@
     <name>Gentoo Science Project</name>
   </maintainer>
   <upstream>
-    <remote-id type="github">matplotlib-venn</remote-id>
     <remote-id type="pypi">matplotlib-venn</remote-id>
   </upstream>
 </pkgmetadata>

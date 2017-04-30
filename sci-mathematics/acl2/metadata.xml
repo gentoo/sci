@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
@@ -15,11 +15,11 @@ ACL2 is both a programming language in which you can model computer systems and
 a tool to help you prove properties of those models. ACL2 is part of the
 Boyer-Moore family of provers, for which its authors have received the 2005 ACM
 Software System Award.
-  </longdescription>
+	</longdescription>
 	<use>
 		<flag name="books">
 	build community books, the canonical collection of open-source libraries
-    </flag>
+		</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">acl2-devel/acl2-devel</remote-id>

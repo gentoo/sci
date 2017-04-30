@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -14,7 +14,7 @@
     Instrument Software Architecture" (VISA) in pure Python.
   </longdescription>
   <upstream>
-    <remote-id type="pypi">PyVISA-py</remote-id>
     <remote-id type="github">hgrecco/pyvisa-py</remote-id>
+    <remote-id type="pypi">PyVISA-py</remote-id>
   </upstream>
 </pkgmetadata>
