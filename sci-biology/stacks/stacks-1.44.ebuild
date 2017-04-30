@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -29,15 +29,16 @@ RDEPEND="${DEPEND}
 
 src_prepare(){
 	sed -e 's/SUBDIRS = htslib/SUBDIRS = /' -i Makefile.am || die
-	mycppflags=`pkg-config --cflags htslib` # is blocked by bug #601366
-	sed -e "s#-I./htslib/htslib#-I${mycppflags}#" -i configure.ac || die
+	#mycppflags=`pkg-config --cflags htslib` # is blocked by bug #601366
+	if [ -z "$mycppflags" ]; then mycppflags="."; fi
+	sed -e "s#-I./htslib/htslib#-I/usr/include/bam -I${mycppflags}#" -i configure.ac || die
 	eautoreconf
 }
 
 src_configure() {
 	econf --enable-bam --enable-sparsehash
 	webapp_src_preinst
-	sed -i 's#/usr/lib/libbam.a#-lbam#' Makefile || die
+	sed -i 's#/usr/lib/libbam.a#-lbam#;#./htslib/libhts.a#-lhts#' Makefile || die
 }
 
 src_compile(){
