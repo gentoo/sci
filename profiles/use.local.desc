@@ -312,6 +312,7 @@ sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-mi
 sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
 sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
 sci-misc/kaldi:cuda - Build with CUDA support.
+sci-misc/kaldi:double-precision - Build in double precision mode.
 sci-physics/abinit:atompaw - Enable support for atompaw, a Projector Augmented Waves atomic data generator
 sci-physics/abinit:bigdft - Enable support for BigDFT, DFT package using wavelet basis set
 sci-physics/abinit:cuda - Enable support for nVidia CUDA
