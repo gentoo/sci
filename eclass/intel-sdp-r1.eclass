@@ -537,14 +537,12 @@ intel-sdp-r1_src_install() {
 		eend
 	fi
 
-	if use mpi; then
-		ebegin "Setting MPI root path"
-		_escaped_root=$(echo $(isdp_get-sdp-edir) | sed 's_/_\\/_g')
-		for i in $(find "$(isdp_get-sdp-dir)/linux/mpi/" -type f -name "mpi*"); do
-    			sed -i "s/I_MPI_SUBSTITUTE_INSTALLDIR/"${_escaped_root}"\/linux\/mpi/g" "$i"
-  		done
-		eend
-	fi
+	ebegin "Setting MPI root path"
+	_escaped_root=$(echo $(isdp_get-sdp-edir) | sed 's_/_\\/_g')
+	for i in $(find "$(isdp_get-sdp-dir)/linux/mpi/" -type f -name "mpi*"); do
+    		sed -i "s/I_MPI_SUBSTITUTE_INSTALLDIR/"${_escaped_root}"\/linux\/mpi/g" "$i"
+  	done
+	eend
 
 	# MPI man pages
 	if path_exists "$(isdp_get-sdp-dir)/linux/mpi/man/man3"; then
