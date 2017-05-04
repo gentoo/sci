@@ -1,8 +1,7 @@
-diff --git a/bindings/pyroot/Module.mk b/bindings/pyroot/Module.mk
-index 8c2782d..f41e0aa 100644
---- a/bindings/pyroot/Module.mk
-+++ b/bindings/pyroot/Module.mk
-@@ -65,10 +65,6 @@ $(LPATH)/ROOTaaS/%: $(MODDIR)/ROOTaaS/%
+diff -burN a/bindings/pyroot/Module.mk b/bindings/pyroot/Module.mk
+--- a/bindings/pyroot/Module.mk	2017-05-04 12:03:10.772053558 +0200
++++ b/bindings/pyroot/Module.mk	2017-05-04 12:07:58.179862924 +0200
+@@ -55,10 +55,6 @@
  	@[ -d $(dir $@) ] || mkdir -p $(dir $@)
  	cp -R $< $@
  endif
@@ -13,7 +12,7 @@ index 8c2782d..f41e0aa 100644
  
  # used in the main Makefile
  ALLHDRS      += $(patsubst $(MODDIRI)/%.h,include/%.h,$(PYROOTH))
-@@ -87,12 +83,9 @@ INCLUDEFILES += $(PYROOTDEP)
+@@ -74,12 +70,9 @@
  include/%.h:    $(PYROOTDIRI)/%.h
  		cp $< $@
  
@@ -28,12 +27,12 @@ index 8c2782d..f41e0aa 100644
  
  		@$(MAKELIB) $(PLATFORM) $(LD) "$(LDFLAGS)" \
  		  "$(SOFLAGS)" libPyROOT.$(SOEXT) $@ \
-@@ -138,7 +131,7 @@ clean::         clean-$(MODNAME)
+@@ -121,7 +114,7 @@
  
  distclean-$(MODNAME): clean-$(MODNAME)
  		@rm -f $(PYROOTDEP) $(PYROOTDS) $(PYROOTDH) $(PYROOTLIB) \
 -		   $(ROOTPY) $(ROOTPYC) $(ROOTPYO) $(PYROOTMAP) \
 +		   $(ROOTPY) $(PYROOTMAP) \
- 		   $(PYROOTPYD) $(PYTHON64DEP) $(PYTHON64)
+ 		   $(PYROOTPYD)
  		@rm -rf $(LPATH)/ROOTaaS bin/ROOTaaS
  
