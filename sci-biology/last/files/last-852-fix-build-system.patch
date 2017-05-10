@@ -1,0 +1,54 @@
+--- last-852/makefile.ori	2016-12-13 07:22:11.000000000 +0100
++++ last-852/makefile	2017-05-10 11:04:14.610665834 +0200
+@@ -1,6 +1,7 @@
+-CXXFLAGS = -O3 -std=c++11 -pthread -DHAS_CXX_THREADS
++CXXFLAGS ?= -O3
++CXXFLAGS += -std=c++11 -pthread -DHAS_CXX_THREADS
+ all:
+-	@cd src && $(MAKE) CXXFLAGS="$(CXXFLAGS)"
++	$(MAKE) -C src
+ 
+ progs = src/lastdb src/lastal src/last-split src/last-merge-batches	\
+ src/last-pair-probs src/lastdb8 src/lastal8 src/last-split8
+@@ -13,17 +14,17 @@
+ 	cp $(progs) scripts/* $(bindir)
+ 
+ clean:
+-	@cd src && $(MAKE) clean
++	$(MAKE) -C src clean
+ 
+ html:
+-	@cd doc && $(MAKE)
++	$(MAKE) -C doc
+ 
+ distdir = last-`hg id -n`
+ 
+ RSYNCFLAGS = -aC --exclude '*8' --exclude 'last??' --exclude last-split --exclude last-merge-batches --exclude last-pair-probs
+ 
+ dist: log html
+-	@cd src && $(MAKE) version.hh CyclicSubsetSeedData.hh ScoreMatrixData.hh
++	$(MAKE) -C src version.hh CyclicSubsetSeedData.hh ScoreMatrixData.hh
+ 	rsync $(RSYNCFLAGS) build doc examples makefile scripts src data *.txt $(distdir)
+ 	zip -qrm $(distdir) $(distdir)
+ 
+--- last-852/src/makefile.ori	2016-12-13 06:53:24.000000000 +0100
++++ last-852/src/makefile	2017-05-10 11:05:22.792501835 +0200
+@@ -1,12 +1,13 @@
+-CXX = g++
+-CC  = gcc
++CXX ?= g++
++CC  ?= gcc
+ 
+-CXXFLAGS = -O3 -Wall -Wextra -Wcast-qual -Wswitch-enum -Wundef	\
+--Wcast-align -pedantic -g -std=c++11 -pthread -DHAS_CXX_THREADS
++CXXFLAGS ?= -O3 -Wall -Wextra -Wcast-qual -Wswitch-enum -Wundef	\
++-Wcast-align -pedantic -g
++CXXFLAGS += -std=c++11 -pthread -DHAS_CXX_THREADS
+ # -Wconversion
+ # -fomit-frame-pointer ?
+ 
+-CFLAGS = -Wall -O2
++CFLAGS ?= -Wall -O2
+ 
+ alpObj = alp/sls_alignment_evaluer.o alp/sls_pvalues.o		\
+ alp/sls_alp_sim.o alp/sls_alp_regression.o alp/sls_alp_data.o	\

@@ -1,0 +1,56 @@
+--- last-852/scripts/last-dotplot.ori	2017-05-10 11:14:05.206748593 +0200
++++ last-852/scripts/last-dotplot	2017-05-10 11:15:31.009058957 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ 
+ # Read pair-wise alignments in MAF or LAST tabular format: write an
+ # "Oxford grid", a.k.a. dotplot.
+--- last-852/scripts/last-map-probs.ori	2017-05-10 11:14:11.856927669 +0200
++++ last-852/scripts/last-map-probs	2017-05-10 11:15:35.139288498 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ 
+ # Copyright 2010, 2011, 2012, 2014 Martin C. Frith
+ 
+--- last-852/scripts/last-postmask.ori	2017-05-10 11:14:19.817142021 +0200
++++ last-852/scripts/last-postmask	2017-05-10 11:15:44.939556158 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ 
+ # Copyright 2014 Martin C. Frith
+ 
+--- last-852/scripts/last-train.ori	2017-05-10 11:14:27.687353953 +0200
++++ last-852/scripts/last-train	2017-05-10 11:15:48.679658384 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ # Copyright 2015 Martin C. Frith
+ 
+ import math, optparse, os, random, signal, subprocess, sys, tempfile
+--- last-852/scripts/maf-convert.ori	2017-05-10 11:14:34.267531142 +0200
++++ last-852/scripts/maf-convert	2017-05-10 11:15:52.439761157 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ # Copyright 2010, 2011, 2013, 2014 Martin C. Frith
+ # Read MAF-format alignments: write them in other formats.
+ # Seems to work with Python 2.x, x>=6
+--- last-852/scripts/maf-join.ori	2017-05-10 11:14:41.407723414 +0200
++++ last-852/scripts/maf-join	2017-05-10 11:15:56.699877600 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ 
+ # Copyright 2009, 2010, 2011 Martin C. Frith
+ 
+--- last-852/scripts/maf-swap.ori	2017-05-10 11:14:48.417912185 +0200
++++ last-852/scripts/maf-swap	2017-05-10 11:16:02.300030669 +0200
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/env python2
+ 
+ # Read MAF-format alignments, and write them, after moving the Nth
+ # sequence to the top in each alignment.
