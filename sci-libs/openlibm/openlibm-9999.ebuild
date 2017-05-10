@@ -10,7 +10,7 @@ HOMEPAGE="http://julialang.org/"
 SRC_URI=""
 EGIT_REPO_URI="git://github.com/JuliaLang/openlibm.git"
 
-LICENSE="MIT freedist public-domain BSD"
+LICENSE="public-domain MIT ISC BSD-2 LGPL-2.1+"
 SLOT="0"
 KEYWORDS=""
 
