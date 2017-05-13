@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit autotools-utils fortran-2 multibuild
 
 DESCRIPTION="Parallel 3d FFT"
-HOMEPAGE="http://www-user.tu-chemnitz.de/~mpip/software.php"
+HOMEPAGE="https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software.php.en"
 
 if [[ $PV = *9999 ]] ; then
 	inherit git-r3
@@ -14,7 +14,7 @@ if [[ $PV = *9999 ]] ; then
 	KEYWORDS=""
 	AUTOTOOLS_AUTORECONF=1
 else
-	SRC_URI="http://www-user.tu-chemnitz.de/~mpip/software/${P//_/-}.tar.gz"
+	SRC_URI="https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software/${P//_/-}.tar.gz"
 	KEYWORDS="~x86 ~amd64"
 	S="${WORKDIR}/${P//_/-}"
 fi
