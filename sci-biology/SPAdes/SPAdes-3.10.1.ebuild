@@ -12,13 +12,13 @@ HOMEPAGE="http://bioinf.spbau.ru/en/spades"
 SRC_URI="
 	http://spades.bioinf.spbau.ru/release${PV}/SPAdes-${PV}.tar.gz
 	http://spades.bioinf.spbau.ru/release${PV}/manual.html -> ${P}_manual.html
-	http://spades.bioinf.spbau.ru/release3.9.1/dipspades_manual.html -> ${P}_dipspades_manual.html
-	http://spades.bioinf.spbau.ru/release3.9.1/rnaspades_manual.html -> ${P}_rnaspades_manual.html
-	http://spades.bioinf.spbau.ru/release3.9.1/truspades_manual.html -> ${P}_truspades_manual.html"
+	http://spades.bioinf.spbau.ru/release${PV}/dipspades_manual.html -> ${P}_dipspades_manual.html
+	http://spades.bioinf.spbau.ru/release${PV}/rnaspades_manual.html -> ${P}_rnaspades_manual.html
+	http://spades.bioinf.spbau.ru/release${PV}/truspades_manual.html -> ${P}_truspades_manual.html"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="
@@ -27,6 +27,26 @@ DEPEND="
 	dev-python/regex
 	dev-libs/boost"
 RDEPEND="${DEPEND}"
+
+# BUG: "${S}"/ext/src/ contains plenty of bundled 3rd-party tools. Drop them all and properly DEPEND on their
+#      existing packages
+# nlopt
+# llvm
+# python_libs
+# bamtools
+# ConsensusCore
+# ssw
+# jemalloc
+# htrie
+# getopt_pp
+# cppformat
+# cityhash
+# samtools
+# bwa
+
+# BUG: "${S}"/ext/tools/ contains even two version of bwa
+# bwa-0.7.12
+# bwa-0.6.2
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
@@ -39,13 +59,22 @@ pkg_pretend() {
 	fi
 }
 
-#src_compile(){
-#	# grr, it actually also installs the files into $DESTDIR but that is purged before pkg_qmerge starts
-#	PREFIX="${D}"/usr ./spades_compile.sh || die
-#}
+src_prepare(){
+	# https://github.com/Homebrew/homebrew-science/pull/5616
+	epatch "${FILESDIR}"/"${P}"-fix-missing-include.patch
+	cp -p spades_compile.sh spades_install.sh || die
+	sed -e 's/make install/#make install/;s/cd $PREFIX/#cd $PREFIX/' -i spades_compile.sh || die
+	default
+}
+
+src_compile(){
+	# grr, it actually also installs the files into $DESTDIR but that is purged before pkg_qmerge starts
+	PREFIX="${D}"/usr ./spades_compile.sh || die
+}
 
 src_install(){
-	PREFIX="${ED}"/usr ./spades_compile.sh || die
+	PREFIX="${ED}"/usr sh ./spades_install.sh || die
+	# BUG: move *.py files to standard site-packages/ subdirectories
 	insinto /usr/share/"${PN}"
 	dodoc "${DISTDIR}"/${P}_*manual.html
 }
