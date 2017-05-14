@@ -68,12 +68,14 @@ src_prepare(){
 }
 
 src_compile(){
-	# grr, it actually also installs the files into $DESTDIR but that is purged before pkg_qmerge starts
-	PREFIX="${D}"/usr ./spades_compile.sh || die
+	mkdir build_spades || die
+	cd build_spades || die
+	cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${ED}/usr" $* "${S}/src" || die
 }
 
 src_install(){
-	PREFIX="${ED}"/usr sh ./spades_install.sh || die
+	cd build_spades || die
+	emake install PREFIX="${ED}"/usr
 	# BUG: move *.py files to standard site-packages/ subdirectories
 	insinto /usr/share/"${PN}"
 	dodoc "${DISTDIR}"/${P}_*manual.html
