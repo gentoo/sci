@@ -5,10 +5,10 @@ EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_{4,5}} )
 
-inherit eutils toolchain-funcs
+inherit eutils toolchain-funcs cmake-utils
 
 DESCRIPTION="De novo de Bruijn genome assembler overcoming uneven coverage"
-HOMEPAGE="http://bioinf.spbau.ru/en/spades"
+HOMEPAGE="http://cab.spbu.ru/software/spades"
 SRC_URI="
 	http://spades.bioinf.spbau.ru/release${PV}/SPAdes-${PV}.tar.gz
 	http://spades.bioinf.spbau.ru/release${PV}/manual.html -> ${P}_manual.html
@@ -24,10 +24,11 @@ IUSE=""
 DEPEND="
 	sys-libs/zlib
 	app-arch/bzip2
-	dev-python/regex
-	dev-libs/boost"
+	dev-python/regex"
 RDEPEND="${DEPEND}"
-
+# BUG:
+# SPAdes uses bundled while modified copy of dev-libs/boost
+#
 # BUG: "${S}"/ext/src/ contains plenty of bundled 3rd-party tools. Drop them all and properly DEPEND on their
 #      existing packages
 # nlopt
@@ -44,7 +45,7 @@ RDEPEND="${DEPEND}"
 # samtools
 # bwa
 
-# BUG: "${S}"/ext/tools/ contains even two version of bwa
+# BUG: "${S}"/ext/tools/ contains even two version of bwa, being installed as bwa-spades binary?
 # bwa-0.7.12
 # bwa-0.6.2
 
@@ -76,6 +77,7 @@ src_compile(){
 src_install(){
 	cd build_spades || die
 	emake install PREFIX="${ED}"/usr
+	# cmake-utils_src_install # dies with "${S}" does not appear to contain CMakeLists.txt
 	# BUG: move *.py files to standard site-packages/ subdirectories
 	insinto /usr/share/"${PN}"
 	dodoc "${DISTDIR}"/${P}_*manual.html
