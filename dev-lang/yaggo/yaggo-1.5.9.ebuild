@@ -23,5 +23,5 @@ src_prepare(){
 }
 
 src_install(){
-	emake DESTDIR="${ED}"/usr
+	emake install DESTDIR="${ED}"/usr
 }
