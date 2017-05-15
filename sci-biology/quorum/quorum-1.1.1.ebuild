@@ -1,11 +1,12 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="Illumina reads error corrector"
-HOMEPAGE="http://www.genome.umd.edu/quorum.html"
-SRC_URI="ftp://ftp.genome.umd.edu/pub/QuorUM/${P}.tar.gz"
+HOMEPAGE="http://www.genome.umd.edu/quorum.html
+	https://github.com/gmarcais/Quorum"
+SRC_URI="https://github.com/gmarcais/Quorum/releases/download/v1.1.1/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -17,4 +18,5 @@ RDEPEND="${DEPEND}"
 
 src_configure(){
 	econf --enable-relative-paths --with-relative-jf-path
+	default
 }
