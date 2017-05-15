@@ -18,5 +18,10 @@ RDEPEND="${DEPEND}"
 src_prepare(){
 	sed -e 's/$(prefix)/$(DESTDIR)$(prefix)/g' -i Makefile || die
 	sed -e 's#/usr/local#/usr#g' -i Makefile || die
+	sed -e 's#prefix#PREFIX#g' -i Makefile || die
 	default
+}
+
+src_install(){
+	emake DESTDIR="${ED}"/usr
 }
