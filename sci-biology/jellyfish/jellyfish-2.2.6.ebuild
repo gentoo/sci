@@ -7,7 +7,7 @@ inherit eutils flag-o-matic autotools
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
-SRC_URI="https://github.com/gmarcais/Jellyfish/archive/v2.2.6.tar.gz -> ${P}.tar.gz
+SRC_URI="https://github.com/gmarcais/Jellyfish/releases/download/v${PV}/${P}.tar.gz
 	ftp://ftp.genome.umd.edu/pub/jellyfish/JellyfishUserGuide.pdf"
 
 # older version is hidden in trinityrnaseq_r20140413p1/trinity-plugins/jellyfish-1.1.11
@@ -17,11 +17,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse"
 
-RDEPEND="dev-lang/yaggo"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
-
-S="${WORKDIR}/Jellyfish-${PV}"
 
 src_prepare(){
 	eautoreconf
