@@ -1,13 +1,13 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit eutils flag-o-matic
+inherit eutils flag-o-matic autotools
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
-SRC_URI="ftp://ftp.genome.umd.edu/pub/${PN}/${P}.tar.gz
+SRC_URI="https://github.com/gmarcais/Jellyfish/archive/v2.2.6.tar.gz -> ${P}.tar.gz
 	ftp://ftp.genome.umd.edu/pub/jellyfish/JellyfishUserGuide.pdf"
 
 # older version is hidden in trinityrnaseq_r20140413p1/trinity-plugins/jellyfish-1.1.11
@@ -17,18 +17,26 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse"
 
-DEPEND=""
+CDEPEND="dev-lang/yaggo"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
+S="${WORKDIR}/Jellyfish-${PV}"
+
 src_prepare(){
+	eautoreconf
+	default
+}
+
+# TODO: enable compilation of Bindings to Ruby, Python and Perl
+# '--enable-ruby-binding', '--enable-python-binding' or '--enable-perl-binding',  '--enable-swig'
+src_configure(){
 	#  --with-sse              enable SSE
 	#  --with-half             enable half float (16 bits)
 	#  --with-int128           enable int128
 	local myconf
 	use cpu_flags_x86_sse && myconf+=( --with-sse )
 	econf econf ${myconf[@]}
-	eapply_user
 }
 
 src_install(){
