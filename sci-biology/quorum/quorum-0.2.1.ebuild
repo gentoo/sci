@@ -3,7 +3,7 @@
 
 EAPI=5
 
-DESCRIPTION="Illumina reads error corrector"
+DESCRIPTION="Correct substitution errors in Illumina reads"
 HOMEPAGE="http://www.genome.umd.edu/quorum.html"
 SRC_URI="ftp://ftp.genome.umd.edu/pub/QuorUM/${P}.tar.gz"
 

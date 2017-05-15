@@ -3,10 +3,10 @@
 
 EAPI=6
 
-DESCRIPTION="Illumina reads error corrector"
+DESCRIPTION="Correct substitution errors in Illumina reads"
 HOMEPAGE="http://www.genome.umd.edu/quorum.html
 	https://github.com/gmarcais/Quorum"
-SRC_URI="https://github.com/gmarcais/Quorum/releases/download/v1.1.1/${P}.tar.gz"
+SRC_URI="https://github.com/gmarcais/Quorum/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
