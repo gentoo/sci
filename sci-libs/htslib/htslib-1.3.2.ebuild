@@ -7,7 +7,7 @@ DESCRIPTION="C library for HTS data with bgzip, tabix and htsfile binaries"
 HOMEPAGE="http://www.htslib.org/"
 SRC_URI="mirror://sourceforge/samtools/${PV}/${P}.tar.bz2"
 
-SLOT="0"
+SLOT="1.4" # libhts.so.1.4
 LICENSE="MIT"
 KEYWORDS=""
 IUSE="static-libs"
