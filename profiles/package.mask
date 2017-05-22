@@ -30,11 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# David Seifert <soap@gentoo.org> (22 May 2017)
-# Mask due to p.mask of dev-util/nvidia-cuda-toolkit-6.5
-# in master repo
-=dev-util/nvidia-cuda-gdk/nvidia-cuda-gdk-340.29
-
 # Justin Lecher <jlec@gentoo.org> (24 April 2016)
 # rev dep absent
 sci-mathematics/scilab
