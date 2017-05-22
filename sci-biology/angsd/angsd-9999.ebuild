@@ -16,7 +16,7 @@ IUSE=""
 
 DEPEND="
 	dev-lang/R
-	sci-libs/htslib"
+	sci-libs/htslib:0="
 RDEPEND="${DEPEND}"
 
 # https://github.com/ANGSD/angsd/issues/9
