@@ -1,0 +1,22 @@
+.TH soapdenovo2 1  "February 09, 2013" "version 2.2.3" "USER COMMANDS"
+.SH NAME
+soapdenovo2 \-  Short-read assembly method that can build a de novo draft assembly
+.SH SYNOPSIS
+.B soapdenovo_63mer soapdenovo_127mer
+
+.SH Introduction
+
+SOAPdenovo is a novel short-read assembly method that can build a de novo draft assembly for the human-sized genomes. The program is specially designed to assemble Illumina GA short reads. It creates new opportunities for building reference sequences and carrying out accurate analyses of unexplored genomes in a cost effective way.
+
+1) Support large kmer up to 127 to utilize long reads. Three version are provided.
+    I. The 31mer version support kmer only <=31.
+    II. The 63mer version support kmer only <=63 and doubles the memory consumption than 31mer version, even being used with kmer <=31.
+    III. The 127mer version support kmer only <=127 and double the memory consumption than 63mer version, even being used with kmer <=63.
+
+Please notice that, with longer kmer, the quantity of nodes would decrease significantly, thus the memory consumption is usually smaller than double with shifted version.
+
+For more information, look at the MANUAL in /usr/share/doc/soapdenovo2 or on soapdenovo web site.
+
+.SH AUTHOR
+Olivier Sallou (olivier.sallou (at) irisa.fr) - Man page and packaging
+
