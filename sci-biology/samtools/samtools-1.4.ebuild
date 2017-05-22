@@ -21,7 +21,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 CDEPEND="
 	sys-libs/ncurses:0=
-	>=sci-libs/htslib-${PV}"
+	>=sci-libs/htslib-${PV}:2="
 
 RDEPEND="${CDEPEND}
 	dev-lang/lua
