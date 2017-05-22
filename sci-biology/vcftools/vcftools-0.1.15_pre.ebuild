@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit autotools flag-o-matic perl-functions toolchain-funcs
+inherit flag-o-matic perl-functions toolchain-funcs
 
 MY_PV=${PV/_pre/}
 S="${WORKDIR}/${PN}-${MY_PV}"
@@ -14,10 +14,11 @@ SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${PN}-${MY_P
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="lapack"
 
-RDEPEND="sys-libs/zlib
+RDEPEND="
+	sys-libs/zlib
 	dev-lang/perl:=
 	lapack? ( virtual/lapack )"
 DEPEND="${RDEPEND}
