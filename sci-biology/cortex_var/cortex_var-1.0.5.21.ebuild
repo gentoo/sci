@@ -30,6 +30,7 @@ S="${WORKDIR}"/CORTEX_release_v1.0.5.21
 src_prepare(){
 	default
 	sed -e "s/ -O3 / ${CFLAGS} /" Makefile || die
+	sed -e "s#libs/gsl-1.15#${EPREFIX}/usr/include/gsl#" Makefile || die
 }
 
 src_compile(){
@@ -43,7 +44,7 @@ src_install(){
 	insinto ${VENDOR_LIB}
 	doins scripts/analyse_variants/bioinf-perl/lib/* scripts/calling/*
 	echo \
-		"PATH=/usr/share/${PN}/scripts/analyse_variants/needleman_wunsch" \
+		"PATH=${EPREFIX}/usr/share/${PN}/scripts/analyse_variants/needleman_wunsch" \
 		> "${T}/99${PN}" || die
 	doenvd "${T}/99${PN}"
 	dodoc "${DISTDIR}"/cortex_var_user_manual.pdf
