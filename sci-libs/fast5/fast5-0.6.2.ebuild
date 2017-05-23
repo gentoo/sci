@@ -13,14 +13,31 @@ SRC_URI="https://github.com/mateidavid/fast5/archive/v0.6.2.tar.gz -> ${P}.tar.g
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="" # the install step is broken (python modules integration, upstream binary code)
 IUSE=""
 
 DEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
 	sci-libs/hdf5"
+# TODO: more deps
+# https://github.com/mateidavid/tclap.git
+# https://github.com/mateidavid/hpptools.git
 RDEPEND="${DEPEND}"
 
 src_compile(){
 	emake -C python develop-user
 }
+
+src_install(){
+	dobin src/hufftk
+	insinto /usr/include
+	doins src/*.hpp
+	dobin python/bin/* # bindled binaries
+	dolib python/fast5.so # bundled library
+}
+
+python_install_all() {
+	cd python || die
+	distutils-r1_src_install_all
+}
+
