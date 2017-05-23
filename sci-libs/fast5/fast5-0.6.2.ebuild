@@ -40,4 +40,3 @@ python_install_all() {
 	cd python || die
 	distutils-r1_src_install_all
 }
-
