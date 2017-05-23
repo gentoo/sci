@@ -1,5 +1,7 @@
---- ncbi_cxx--18_0_0/src/app/annotwriter/Makefile.annotwriter.app.ori	2017-03-20 18:13:08.087145846 +0100
-+++ ncbi_cxx--18_0_0/src/app/annotwriter/Makefile.annotwriter.app	2017-03-20 18:14:10.988888851 +0100
+Index: c++.18.0.0/src/app/annotwriter/Makefile.annotwriter.app
+===================================================================
+--- c++.18.0.0/src/app/annotwriter/Makefile.annotwriter.app	(revision 523253)
++++ c++.18.0.0/src/app/annotwriter/Makefile.annotwriter.app	(working copy)
 @@ -8,8 +8,8 @@
  
  APP = annotwriter
@@ -9,7 +11,5 @@
 +LIB = xobjwrite $(XFORMAT_LIBS) variation_utils $(OBJREAD_LIBS) xalnmgr \
 +      xobjutil entrez2cli entrez2 tables xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
  
--LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
-
- REQUIRES = objects -Cygwin
+ LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
