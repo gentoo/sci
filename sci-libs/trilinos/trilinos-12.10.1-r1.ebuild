@@ -203,10 +203,15 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
+	# Clean up the mess:
+	rm -r "${ED}"/TrilinosRepoVersion.txt "${ED}"/lib || die "rm failed"
+	mv "${ED}"/bin "${ED}/usr/$(get_libdir)"/trilinos || die "mv failed"
+
 	# register $(get_libdir)/trilinos in LDPATH so that the dynamic linker
 	# has a chance to pick up the libraries...
 	cat >> "${T}"/99trilinos <<- EOF
 	LDPATH="${EPREFIX}/usr/$(get_libdir)/trilinos"
+	PATH="${EPREFIX}/usr/$(get_libdir)/trilinos/bin"
 	EOF
 	doenvd "${T}"/99trilinos
 }
