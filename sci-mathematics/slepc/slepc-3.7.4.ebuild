@@ -41,6 +41,13 @@ src_configure() {
 	# *sigh*
 	addpredict "${PETSC_DIR}"/.nagged
 
+	# Make sure that the environment is set up correctly:
+	unset PETSC_DIR
+	unset PETSC_ARCH
+	unset SLEPC_DIR
+	source "${EPREFIX}"/etc/env.d/99petsc
+	export PETSC_DIR
+
 	# configure is a custom python script and doesn't want to have default
 	# configure arguments that we set with econf
 	./configure \
