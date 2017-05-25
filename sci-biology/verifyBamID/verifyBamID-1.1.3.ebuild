@@ -26,6 +26,9 @@ src_prepare(){
 	ln -s libStatGen-1.0.13 libStatGen || die
 	cd "${WORKDIR}" || die
 	ln -s libStatGen-1.0.13 libStatGen || die
+	cd "${WORKDIR}" || die
+	sed -e 's/-Werror//' -i verifyBamID-1.1.3/src/Makefile || die
+	sed -e 's/-Werror//' -i libStatGen-1.0.13/general/Makefile || die
 }
 
 src_compile(){
