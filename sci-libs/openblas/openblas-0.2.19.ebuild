@@ -114,12 +114,12 @@ src_compile() {
 		# cflags already defined twice
 		unset CFLAGS || die
 		emake clean && emake libs shared ${openblas_flags}
-		mkdir -p libs && mv libopenblas* libs/ ||??die
+		mkdir -p libs && mv libopenblas* libs/ || die
 		# avoid pic when compiling static libraries, so re-compiling
 		if use static-libs; then
 			emake clean
 			emake libs ${openblas_flags} NO_SHARED=1 NEED_PIC=
-			mv libopenblas* libs/ ||??die
+			mv libopenblas* libs/ || die
 		fi
 		rm -f config.h config_last.h || die
 		# Note: prints this spurious warning: make: Nothing to be done for 'config.h'.
@@ -174,7 +174,7 @@ src_install() {
 			${profname}
 
 		if [[ ${CHOST} == *-darwin* ]] ; then
-			cd "${ED}"/usr/$(get_libdir) ||??die
+			cd "${ED}"/usr/$(get_libdir) || die
 			local d
 			for d in *.dylib; do
 				ebegin "Correcting install_name of ${d}"
@@ -189,7 +189,7 @@ src_install() {
 	}
 	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir my_src_install
 
-	printf "/usr/include/cblas.h ${PN}/cblas.h" > "${T}"/alternative-cblas-generic.sh ||??die
+	printf "/usr/include/cblas.h ${PN}/cblas.h" > "${T}"/alternative-cblas-generic.sh || die
 	numeric-int64-multibuild_install_alternative blas ${NUMERIC_MODULE_NAME}
 	numeric-int64-multibuild_install_alternative cblas ${NUMERIC_MODULE_NAME}
 
