@@ -168,7 +168,7 @@ src_install() {
 
 		create_pkgconfig \
 			--name "${profname}" \
-			--libs "-L\${libdir} -l${libname}" \
+			--libs "-l${libname}" \
 			--libs-private "-lm" \
 			--cflags "-I\${includedir}/${PN} ${openblas_abi_cflags}" \
 			${profname}
