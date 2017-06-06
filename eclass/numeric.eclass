@@ -125,9 +125,9 @@ create_pkgconfig() {
 	Requires: ${pcrequires}
 	Requires.private: ${pcrequirespriv}
 	Conflicts: ${pcconflicts}
-	Libs: -L"${pclibdir}" ${pclibs}
+	Libs: -L\${libdir} ${pclibs}
 	Libs.private: ${pclibspriv}
-	Cflags: -I"${pcincldir}" ${pccflags}
+	Cflags: -I\${includedir} ${pccflags}
 	EOF
 
 	insinto /usr/$(get_libdir)/pkgconfig
