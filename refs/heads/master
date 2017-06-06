@@ -1,0 +1,22 @@
+certificate version 0.1
+pusher Benda Xu <heroxbd@gentoo.org> 1496722323 +0900
+pushee git+ssh://git.gentoo.org/proj/sci.git
+nonce 1496722323-b36074f9af675056df5e
+
+83c2b58ab3dd3b7b45d5baa6473e2bfa6fa8d134 d5ac214327ad893643c77adf474305c8a12cb09a refs/heads/master
+-----BEGIN PGP SIGNATURE-----
+
+iQIwBAABCgAaBQJZNiuUExxoZXJveGJkQGdlbnRvby5vcmcACgkQ33YQtSHxcSLz
+kg/9GCHaqrQPos//wpmLj94sS+QWdkTpsfEOczcyt8cgBiDSRiOTEmthkzP97nsX
+oaUzdJWqrEgiRnpuZ7vXngUiZsLpJQZxktLtD3I7hjkitEBrx7nWPaJfd3SKzGHy
+DhYD7UV6LRvdKTEOeXw9TA0ZYYkogppNvsEsG1ZzhoWOLdxpPR0q3JmWl55On85r
+QTipoMk2bqp2SJyLV35Apg0dnLY3oEzlAcwF6+K0Vh3IA1LDXrBx/2GUolxVRVvs
+SPO5guUPSjgQW2huBMfK67zJma2LXIkNHpp17A++2C7BsI/t3z13PpfGlwX6lU4E
+hnaYszQQ3IOr9ZMzrrM2LW9xdU0B4KB+PIwkQDZ3vGzAJfxez984rpF/J/OloUZQ
+/gOkd1dHH6XZyjNAO8R5Pv57jp8HLib/yBxC7XWf9cm1/phkoE+N1lzYkNSMQXOd
+cBbYlvX/qXpuQhDx2+5Hz2SviDNzM5mhq4xBmQZqwUZ/suPAhtWeaGzFUdNBTI3x
+UGhm7wmSklnUKMBlDhbHsA8K3zI98GaV2gaH4T5Mdt2rOkTRsROf/7Nv5ULldk0n
+4JMRjjOoXWx458BiseqIyXofZsfVvts5sg/NED8Nywu/+T9+vXd+6fKhC62UXvHv
+uunmUVIintbm0il+TyK7gZBFGLo3JzfRQLDjmBKaAVuC+sQ=
+=quQx
+-----END PGP SIGNATURE-----
