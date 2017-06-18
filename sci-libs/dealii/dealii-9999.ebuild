@@ -33,7 +33,7 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 c++11 +debug doc +examples
+	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 +debug doc +examples
 	+gsl hdf5 +lapack metis mpi muparser opencascade netcdf p4est petsc
 	slepc +sparse static-libs +tbb trilinos
 "
@@ -87,7 +87,6 @@ src_configure() {
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
 		-DDEAL_II_WITH_ARPACK="$(usex arpack)"
-		-DDEAL_II_WITH_CXX11="$(usex c++11)"
 		-DDEAL_II_HAVE_AVX="$(usex cpu_flags_x86_avx)"
 		-DDEAL_II_HAVE_SSE2="$(usex cpu_flags_x86_sse2)"
 		-DDEAL_II_COMPONENT_DOCUMENTATION="$(usex doc)"
