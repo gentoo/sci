@@ -1,0 +1,13 @@
+diff --git a/src/threads/blas/level3/ATL_tammm_G.c b/src/threads/blas/level3/ATL_tammm_G.c
+index a43a08b..77c78f4 100644
+--- a/src/threads/blas/level3/ATL_tammm_G.c
++++ b/src/threads/blas/level3/ATL_tammm_G.c
+@@ -479,7 +479,7 @@ static void DoCompNoCopy(ATL_tamm_gOOO_t *pd, ATL_UINT rank, TYPE *wC)
+ #ifndef TCPLX
+    #undef rC
+ #endif
+-void DoLastComp(ATL_tamm_gOOO_t *pd, ATL_UINT rank, TYPE *wC)
++static void DoLastComp(ATL_tamm_gOOO_t *pd, ATL_UINT rank, TYPE *wC)
+ {
+    ipinfo_t *ip=pd->ip;
+    TYPE *wA=pd->wA, *wB=pd->wB, *C=pd->C;
