@@ -9,7 +9,7 @@ inherit eutils flag-o-matic python-any-r1 toolchain-funcs versionator
 
 DESCRIPTION="Scalable Library for Eigenvalue Problem Computations"
 HOMEPAGE="http://slepc.upv.es/"
-SRC_URI="http://slepc.upv.es/download/download.php?filename=${P}.tar.gz -> ${P}.tar.gz"
+SRC_URI="http://slepc.upv.es/download/distrib/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
