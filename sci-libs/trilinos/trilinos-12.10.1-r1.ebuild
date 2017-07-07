@@ -86,6 +86,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch \
 		"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch \
 		"${FILESDIR}"/${P}-fix_install_paths_for_destdir-2.patch
+
+	eapply_user
 }
 
 src_configure() {
