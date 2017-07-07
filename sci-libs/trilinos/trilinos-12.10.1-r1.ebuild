@@ -87,7 +87,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch \
 		"${FILESDIR}"/${P}-fix_install_paths_for_destdir-2.patch
 
-	eapply_user
+	epatch_user
 }
 
 src_configure() {
