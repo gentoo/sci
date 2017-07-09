@@ -221,8 +221,9 @@ sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
 sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
 sci-libs/openblas:dynamic - Build dynamic architecture detection at run time (for multi targets)
 sci-libs/openblas:int64 - Build the 64 bits integer library
-sci-libs/pagmo:kepler - Automatically generated description for kepler
-sci-libs/pagmo:nlopt - Automatically generated description for nlopt
+sci-libs/pagmo:eigen - Use eigen, a c++ linear algebra library, for algorithms like CAMES
+sci-libs/pagmo:ipopt - Use ipopt, a interior-point optimizer
+sci-libs/pagmo:nlopt - Use nlopt, a non-linear optimization library
 sci-libs/parmetis:double-precision - Floating-point operation done as double precision
 sci-libs/parmetis:int64 - Build the 64 bits integer library (needed for > 2^31 vertices)
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
