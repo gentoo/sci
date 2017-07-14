@@ -85,7 +85,8 @@ trilinos_enable() {
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch \
 		"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch \
-		"${FILESDIR}"/${P}-fix_install_paths_for_destdir-2.patch
+		"${FILESDIR}"/${P}-fix_install_paths_for_destdir-2.patch \
+		"${FILESDIR}"/${P}-fix_gcc_7.patch
 
 	epatch_user
 }
