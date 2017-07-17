@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -59,10 +59,6 @@ src_prepare() {
 	fi
 
 	sed -i -e "/Unknown build type/d" CMakeLists.txt || die
-
-	sed \
-		-e '/Cflags/s|:.*|: -I${CMAKE_INSTALL_PREFIX}/${INCLUDE_INSTALL_DIR}|g' \
-		-i eigen3.pc.in || die
 
 	cmake-utils_src_prepare
 }

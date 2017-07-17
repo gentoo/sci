@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -13,7 +13,7 @@ DESCRIPTION="Portable, Extensible Toolkit for Scientific Computation"
 HOMEPAGE="http://www.mcs.anl.gov/petsc/"
 SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 
-LICENSE="petsc"
+LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="afterimage boost complex-scalars cxx debug doc fftw

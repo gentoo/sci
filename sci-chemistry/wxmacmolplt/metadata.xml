@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -17,4 +17,7 @@
 	  Add support for flash movie generation using <pkg>media-libs/ming</pkg>
 	</flag>
   </use>
+  <upstream>
+    <remote-id type="github">brettbode/wxmacmolplt</remote-id>
+  </upstream>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -13,7 +13,7 @@
 	Pydap is a pure Python library implementing the Data Access Protocol.
 	pydap_responses_kml allows Pydap server to use Google Earth to visualize
 	data.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="pypi">pydap.responses.kml</remote-id>
   </upstream>

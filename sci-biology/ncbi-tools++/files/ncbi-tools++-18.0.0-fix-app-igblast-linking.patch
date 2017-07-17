@@ -1,5 +1,7 @@
---- ncbi_cxx--18_0_0/src/app/igblast/Makefile.igblastn.app.ori	2017-03-23 20:30:35.667921836 +0100
-+++ ncbi_cxx--18_0_0/src/app/igblast/Makefile.igblastn.app	2017-03-23 20:32:04.553561820 +0100
+Index: c++.18.0.0/src/app/igblast/Makefile.igblastn.app
+===================================================================
+--- c++.18.0.0/src/app/igblast/Makefile.igblastn.app	(revision 523253)
++++ c++.18.0.0/src/app/igblast/Makefile.igblastn.app	(working copy)
 @@ -2,7 +2,8 @@
  
  APP = igblastn
@@ -10,17 +12,10 @@
  LIB = blast_app_util igblast $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -10,7 +11,7 @@
- CXXFLAGS = $(FAST_CXXFLAGS:ppc=i386)
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386)
- 
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 
---- ncbi_cxx--18_0_0/src/app/igblast/Makefile.igblastp.app.ori	2017-03-23 20:33:03.215124531 +0100
-+++ ncbi_cxx--18_0_0/src/app/igblast/Makefile.igblastp.app	2017-03-23 20:34:22.817243181 +0100
+Index: c++.18.0.0/src/app/igblast/Makefile.igblastp.app
+===================================================================
+--- c++.18.0.0/src/app/igblast/Makefile.igblastp.app	(revision 523253)
++++ c++.18.0.0/src/app/igblast/Makefile.igblastp.app	(working copy)
 @@ -2,7 +2,8 @@
  
  APP = igblastp
@@ -31,12 +26,3 @@
  LIB = blast_app_util igblast $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -10,7 +11,7 @@
- CXXFLAGS = $(FAST_CXXFLAGS:ppc=i386)
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386)
- 
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 

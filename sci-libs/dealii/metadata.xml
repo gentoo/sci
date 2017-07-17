@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>tamiko+GENTOO@kyomu.43-1.org</email>
+		<email>tamiko@gentoo.org</email>
 		<name>Matthias Maier</name>
 	</maintainer>
 	<maintainer type="project">
@@ -29,7 +29,8 @@ and extra output. If you want to get meaningful backtraces see
 		<flag name="opencascade">Add support for opencascade (<pkg>sci-libs/opencascade</pkg>)</flag>
 		<flag name="p4est">Add support for p4est (<pkg>sci-mathematics/p4est</pkg>)</flag>
 		<flag name="parameter_gui">Build and install the parameter_gui executable</flag>
-		<flag name="petsc">Add support for petsc (<pkg>sci-libs/petsc</pkg>)</flag>
+		<flag name="petsc">Add support for petsc (<pkg>sci-mathematics/petsc</pkg>)</flag>
+		<flag name="slepc">Add support for slepc (<pkg>sci-mathematics/slepc</pkg>)</flag>
 		<flag name="sparse">Add support for suitesparse (<pkg>sci-libs/suitesparse</pkg>)</flag>
 		<flag name="tbb">Add threading support with the help of the tbb library (<pkg>dev-cpp/tbb</pkg>)</flag>
 		<flag name="trilinos">Add support for trilinos (<pkg>sci-libs/trilinos</pkg>)</flag>

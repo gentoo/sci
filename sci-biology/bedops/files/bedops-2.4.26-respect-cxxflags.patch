@@ -1,0 +1,138 @@
+--- bedops-2.4.26/applications/bed/bedextract/src/Makefile.darwin.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/bedextract/src/Makefile.darwin	2017-04-28 21:53:55.811777276 +0200
+@@ -28,7 +28,7 @@
+ LIBLOCATION          = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBLIBDIR}
+ LIBRARIES            = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+ STDFLAGS             = -Wall -pedantic -std=c++11 -stdlib=libc++
+-BLDFLAGS             = -O3 ${STDFLAGS}
++BLDFLAGS             = ${CXXFLAGS:--O3} ${STDFLAGS}
+ 
+ 
+ FLAGS                = $(BLDFLAGS) $(OBJDIR)/NaN.o $(OBJDIR)/starchConstants.o $(OBJDIR)/starchFileHelpers.o $(OBJDIR)/starchHelpers.o $(OBJDIR)/starchMetadataHelpers.o $(OBJDIR)/unstarchHelpers.o $(OBJDIR)/starchSha1Digest.o $(OBJDIR)/starchBase64Coding.o ${LIBLOCATION} ${INCLUDES}
+--- bedops-2.4.26/applications/bed/bedextract/src/Makefile.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/bedextract/src/Makefile	2017-04-28 21:54:05.952048644 +0200
+@@ -24,7 +24,7 @@
+ INCLUDES                = -iquote$(HEAD) -I${LOCALJANSSONINCDIR} -I${LOCALBZIP2INCDIR} -I${LOCALZLIBINCDIR}
+ LIBLOCATION             = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBDIR}
+ LIBRARIES               = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+-BLDFLAGS                = -Wall -pedantic -O3 -std=c++11
++BLDFLAGS                = -Wall -pedantic ${CXXFLAGS:--O3} -std=c++11
+ SFLAGS                  = -static
+ 
+ dependency_names        = NaN starchConstants starchFileHelpers starchHelpers starchMetadataHelpers unstarchHelpers starchSha1Digest starchBase64Coding
+@@ -64,4 +64,4 @@
+ 	rm -rf $(OBJDIR)
+ 	rm -f $(BINDIR)/$(PROG)
+ 	rm -f $(BINDIR)/*.$(PROG)
+-	rm -rf $(BINDIR)
+\ No newline at end of file
++	rm -rf $(BINDIR)
+--- bedops-2.4.26/applications/bed/bedmap/src/Makefile.darwin.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/bedmap/src/Makefile.darwin	2017-04-28 21:54:12.162214836 +0200
+@@ -28,7 +28,7 @@
+ LIBLOCATION          = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBLIBDIR}
+ LIBRARIES            = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+ STDFLAGS             = -Wall -pedantic -std=c++11 -stdlib=libc++
+-BLDFLAGS             = -O3 ${STDFLAGS}
++BLDFLAGS             = ${CXXFLAGS:--O3} ${STDFLAGS}
+ 
+ FLAGS                = $(BLDFLAGS) $(OBJDIR)/NaN.o $(OBJDIR)/starchConstants.o $(OBJDIR)/starchFileHelpers.o $(OBJDIR)/starchHelpers.o $(OBJDIR)/starchMetadataHelpers.o $(OBJDIR)/unstarchHelpers.o $(OBJDIR)/starchSha1Digest.o $(OBJDIR)/starchBase64Coding.o ${LIBLOCATION} ${INCLUDES}
+ 
+--- bedops-2.4.26/applications/bed/bedmap/src/Makefile.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/bedmap/src/Makefile	2017-04-28 21:54:19.472410465 +0200
+@@ -23,7 +23,7 @@
+ INCLUDES            = -iquote${HEAD} -I${PARTY3} -I${LOCALJANSSONINCDIR} -I${LOCALBZIP2INCDIR} -I${LOCALZLIBINCDIR}
+ LIBLOCATION         = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBDIR}
+ LIBRARIES           = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+-BLDFLAGS            = -Wall -pedantic -O3 -std=c++11 
++BLDFLAGS            = -Wall -pedantic ${CXXFLAGS:--O3} -std=c++11 
+ SFLAGS              = -static
+ 
+ dependency_names    = NaN starchConstants starchFileHelpers starchHelpers starchMetadataHelpers unstarchHelpers starchSha1Digest starchBase64Coding
+--- bedops-2.4.26/applications/bed/conversion/src/Makefile.darwin.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/conversion/src/Makefile.darwin	2017-04-28 21:54:25.422569698 +0200
+@@ -1,7 +1,7 @@
+ MIN_OSX_VERSION           = 10.7
+ BLDFLAGS                  = -Wall -Wextra -pedantic -std=c99
+ COMMONFLAGS               = -D__STDC_CONSTANT_MACROS -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE=1
+-CFLAGS                    = -O3
++CFLAGS                    = ${CXXFLAGS:--O3}
+ CDFLAGS                   = -DDEBUG=1 -g -O0 -fno-inline
+ CPFLAGS                   = -pg
+ LIBS                      = -lpthread
+--- bedops-2.4.26/applications/bed/conversion/src/Makefile.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/conversion/src/Makefile	2017-04-28 21:54:30.832714482 +0200
+@@ -1,6 +1,6 @@
+ BLDFLAGS                  = -Wall -Wextra -pedantic -std=c99
+ COMMONFLAGS               = -D__STDC_CONSTANT_MACROS -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE=1
+-CFLAGS                    = -O3
++CFLAGS                    = ${CXXFLAGS:--O3}
+ CDFLAGS                   = -DDEBUG=1 -g -O0 -fno-inline
+ CPFLAGS                   = -pg
+ LIBS                      = -lpthread
+--- bedops-2.4.26/applications/bed/bedops/src/Makefile.darwin.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/bedops/src/Makefile.darwin	2017-04-28 21:54:37.312887898 +0200
+@@ -27,7 +27,7 @@
+ LIBLOCATION          = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBDIR}
+ LIBRARIES            = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+ STDFLAGS             = -Wall -pedantic -std=c++11 -stdlib=libc++
+-BLDFLAGS             = -O3 ${STDFLAGS}
++BLDFLAGS             = ${CXXFLAGS:--O3} ${STDFLAGS}
+ 
+ FLAGS                = $(BLDFLAGS) $(OBJDIR)/NaN.o $(OBJDIR)/starchConstants.o $(OBJDIR)/starchFileHelpers.o $(OBJDIR)/starchHelpers.o $(OBJDIR)/starchMetadataHelpers.o $(OBJDIR)/unstarchHelpers.o $(OBJDIR)/starchSha1Digest.o $(OBJDIR)/starchBase64Coding.o ${LIBLOCATION} ${INCLUDES}
+ 
+--- bedops-2.4.26/applications/bed/bedops/src/Makefile.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/bedops/src/Makefile	2017-04-28 21:54:43.513053823 +0200
+@@ -25,7 +25,7 @@
+ INCLUDES            = -iquote$(HEAD) -I${LOCALJANSSONINCDIR} -I${LOCALBZIP2INCDIR} -I${LOCALZLIBINCDIR}
+ LIBLOCATION         = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBDIR}
+ LIBRARIES           = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+-BLDFLAGS            = -Wall -pedantic -O3 -std=c++11
++BLDFLAGS            = -Wall -pedantic ${CXXFLAGS:--O3} -std=c++11
+ SFLAGS              = -static
+ 
+ dependency_names    = NaN starchConstants starchFileHelpers starchHelpers starchMetadataHelpers unstarchHelpers starchSha1Digest starchBase64Coding
+--- bedops-2.4.26/applications/bed/closestfeats/src/Makefile.darwin.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/closestfeats/src/Makefile.darwin	2017-04-28 21:54:49.093203153 +0200
+@@ -28,7 +28,7 @@
+ LIBLOCATION          = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBDIR}
+ LIBRARIES            = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+ STDFLAGS             = -Wall -pedantic -std=c++11 -stdlib=libc++
+-BLDFLAGS             = -O3 ${STDFLAGS}
++BLDFLAGS             = ${CXXFLAGS:--O3} ${STDFLAGS}
+ 
+ FLAGS                = $(BLDFLAGS) $(OBJDIR)/NaN.o $(OBJDIR)/starchConstants.o $(OBJDIR)/starchFileHelpers.o $(OBJDIR)/starchHelpers.o $(OBJDIR)/starchMetadataHelpers.o $(OBJDIR)/unstarchHelpers.o $(OBJDIR)/starchSha1Digest.o $(OBJDIR)/starchBase64Coding.o ${LIBLOCATION} ${INCLUDES}
+ 
+--- bedops-2.4.26/applications/bed/closestfeats/src/Makefile.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/closestfeats/src/Makefile	2017-04-28 21:54:54.283342049 +0200
+@@ -23,7 +23,7 @@
+ INCLUDES            = -iquote$(HEAD) -I${LOCALJANSSONINCDIR} -I${LOCALBZIP2INCDIR} -I${LOCALZLIBINCDIR}
+ LIBLOCATION         = -L${LOCALJANSSONLIBDIR} -L${LOCALBZIP2LIBDIR} -L${LOCALZLIBDIR}
+ LIBRARIES           = ${LOCALJANSSONLIB} ${LOCALBZIP2LIB} ${LOCALZLIBLIB}
+-BLDFLAGS            = -Wall -pedantic -O3 -std=c++11
++BLDFLAGS            = -Wall -pedantic ${CXXFLAGS:--O3} -std=c++11
+ SFLAGS              = -static
+ 
+ dependency_names    = NaN starchConstants starchFileHelpers starchHelpers starchMetadataHelpers unstarchHelpers starchSha1Digest starchBase64Coding
+--- bedops-2.4.26/applications/bed/sort-bed/src/Makefile.darwin.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/sort-bed/src/Makefile.darwin	2017-04-28 21:55:00.023495662 +0200
+@@ -7,7 +7,7 @@
+ PROG                 = sort-bed
+ DIST_DIR             = ../bin
+ OBJ_DIR              = objects_${ARCH}
+-OPTIMIZE             = -O3 -std=c++11 -stdlib=libc++
++OPTIMIZE             = ${CXXFLAGS:--O3} -std=c++11 -stdlib=libc++
+ WARNINGS             = -Wall
+ MAIN                 = ../../../..
+ HEAD                 = ${MAIN}/interfaces/general-headers
+--- bedops-2.4.26/applications/bed/sort-bed/src/Makefile.ori	2017-03-14 08:43:22.000000000 +0100
++++ bedops-2.4.26/applications/bed/sort-bed/src/Makefile	2017-04-28 21:55:05.663646597 +0200
+@@ -29,7 +29,7 @@
+ BINDIR              = ../bin
+ OBJDIR             = objects
+ WARNINGS            = -Wall -Wextra -pedantic
+-BLDFLAGS            = ${WARNINGS} -O3 -std=c++11
++BLDFLAGS            = ${WARNINGS} ${CXXFLAGS:--O3} -std=c++11
+ SFLAGS              = -static
+ 
+ dependency_names    = starchConstants starchFileHelpers starchHelpers starchMetadataHelpers unstarchHelpers starchSha1Digest starchBase64Coding SortDetails Sort CheckSort

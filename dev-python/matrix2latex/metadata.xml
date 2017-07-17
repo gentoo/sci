@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="project">
@@ -11,6 +11,6 @@
 		LATeX documents and compile them.
 	</longdescription>
 	<upstream>
-		<remote-id type="github">matrix2latex</remote-id>
+		<remote-id type="github">TheChymera/matrix2latex</remote-id>
 	</upstream>
 </pkgmetadata>

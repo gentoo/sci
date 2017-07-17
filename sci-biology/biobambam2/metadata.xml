@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -14,8 +14,8 @@ bammaskflags: reads BAM and writes BAM while masking (removing) bits from the fl
 bamrecompress: reads BAM and writes BAM with a defined compression setting. This tool is capable of multi-threading.
 bamsort: reads BAM and writes BAM resorted by coordinates or query name
 bamtofastq: reads BAM and writes FastQ; output can be collated or uncollated by query name
-</longdescription>
+  </longdescription>
   <upstream>
-    <remote-id type="github">gt1/biobambam</remote-id>
+    <remote-id type="github">gt1/biobambam2</remote-id>
   </upstream>
 </pkgmetadata>

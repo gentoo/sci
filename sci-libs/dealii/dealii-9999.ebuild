@@ -33,14 +33,15 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 c++11 +debug doc +examples
+	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 +debug doc +examples
 	+gsl hdf5 +lapack metis mpi muparser opencascade netcdf p4est petsc
-	+sparse static-libs +tbb trilinos
+	slepc +sparse static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 REQUIRED_USE="
 	p4est? ( mpi )
+	slepc? ( petsc )
 	trilinos? ( mpi )"
 
 RDEPEND="dev-libs/boost
@@ -57,6 +58,7 @@ RDEPEND="dev-libs/boost
 	opencascade? ( sci-libs/opencascade:* )
 	p4est? ( sci-libs/p4est[mpi] )
 	petsc? ( sci-mathematics/petsc[mpi=] )
+	slepc? ( sci-mathematics/slepc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
 	trilinos? ( sci-libs/trilinos )"
@@ -85,7 +87,6 @@ src_configure() {
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
 		-DDEAL_II_WITH_ARPACK="$(usex arpack)"
-		-DDEAL_II_WITH_CXX11="$(usex c++11)"
 		-DDEAL_II_HAVE_AVX="$(usex cpu_flags_x86_avx)"
 		-DDEAL_II_HAVE_SSE2="$(usex cpu_flags_x86_sse2)"
 		-DDEAL_II_COMPONENT_DOCUMENTATION="$(usex doc)"
@@ -101,6 +102,7 @@ src_configure() {
 		-DDEAL_II_WITH_OPENCASCADE="$(usex opencascade)"
 		-DDEAL_II_WITH_P4EST="$(usex p4est)"
 		-DDEAL_II_WITH_PETSC="$(usex petsc)"
+		-DDEAL_II_WITH_SLEPC="$(usex slepc)"
 		-DDEAL_II_WITH_UMFPACK="$(usex sparse)"
 		-DBUILD_SHARED_LIBS="$(usex !static-libs)"
 		-DDEAL_II_PREFER_STATIC_LIBS="$(usex static-libs)"

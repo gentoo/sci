@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -9,7 +9,4 @@
   	Interactive Parallel Computing with IPython.
     ipyparallel is the new home of IPython.parallel.
   </longdescription>
-  <upstream>
-    <remote-id type="pypi">ipyparallel</remote-id>
-  </upstream>
 </pkgmetadata>

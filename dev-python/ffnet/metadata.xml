@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -8,11 +8,12 @@
   <longdescription lang="en">
   ffnet is a fast and easy-to-use feed-forward neural
   network training library for python.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="matplotlib">Use matplotlib for drawing</flag>
   </use>
   <upstream>
-    <remote-id type="github">mrkwjc/ffnet</remote-id>
+    <remote-id type="pypi">ffnet</remote-id>
+    <remote-id type="sourceforge">ffnet</remote-id>
   </upstream>
 </pkgmetadata>

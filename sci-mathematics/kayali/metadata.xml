@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -10,7 +10,7 @@ kayali is a Qt based Computer Algebra System (CAS) that can also be
 used as an advanced replacement for KDE KCalc. It is essentially a
 front end GUI forMaxima (and is easily extended to other CAS
 back-ends) and Gnuplot.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="sourceforge">kayali</remote-id>
   </upstream>

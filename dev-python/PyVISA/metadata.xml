@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -15,7 +15,7 @@
     test equipment via GPIB, RS232, Ethernet or USB.
   </longdescription>
   <upstream>
+    <remote-id type="github">hgrecco/pyvisa-py</remote-id>
     <remote-id type="pypi">PyVISA</remote-id>
-    <remote-id type="github">hgrecco/pyvisa</remote-id>
   </upstream>
 </pkgmetadata>

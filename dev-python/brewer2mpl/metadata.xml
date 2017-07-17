@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -16,7 +16,7 @@
     ships with brewer2mpl so no internet connection is required.
   </longdescription>
   <upstream>
-    <remote-id type="pypi">brewer2mpl</remote-id>
     <remote-id type="github">jiffyclub/brewer2mpl</remote-id>
+    <remote-id type="pypi">brewer2mpl</remote-id>
   </upstream>
 </pkgmetadata>

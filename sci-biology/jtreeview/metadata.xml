@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -10,6 +10,7 @@
     <name>Gentoo Biology Project</name>
   </maintainer>
   <upstream>
+    <remote-id type="bitbucket">TreeView3Dev/treeview3</remote-id>
     <remote-id type="sourceforge">jtreeview</remote-id>
   </upstream>
 </pkgmetadata>

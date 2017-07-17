@@ -15,6 +15,11 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Matthias Maier <tamiko@gentoo.org) (25 May 2017)
+# sci-libs/parmetis-4* is masked
+sci-mathematics/petsc metis
+sci-libs/dealii metis
+
 # Andrew Savchenko <bircoph@gentoo.org> (02 Jun 2016)
 # doesn't link with plotutils-2.6
 sci-physics/qcl plotutils
@@ -30,9 +35,6 @@ sci-biology/mne-python cuda
 # Andreas Schäfer <gentryx@gmx.de> (21 Nov 2013)
 # cuda only works on x86 and amd64
 sys-cluster/openmpi -cuda
-
-# sci-libs/parmetis-4* is masked
-sci-libs/dealii metis
 
 # Andreas Schäfer <gentryx@gmx.de> (21 Nov 2013)
 # cuda only works on x86 and amd64

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -11,7 +11,4 @@
     kernels. It also provides the jupyter kernelspec entrypoint for
     installing kernelspecs for use with Jupyter frontends.
   </longdescription>
-  <upstream>
-    <remote-id type="pypi">jupyter_client</remote-id>
-  </upstream>
 </pkgmetadata>

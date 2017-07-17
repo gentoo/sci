@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -12,7 +12,7 @@ also have many other applications ranging from computer graphics to robotics.
 In order to generate these 2D and 3D meshes, MeshPy provides Python interfaces 
 to two well-regarded mesh generators, Triangle by J. Shewchuk and TetGen by 
 Hang Si. Both are included in the package in slightly modified versions.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="pypi">MeshPy</remote-id>
   </upstream>

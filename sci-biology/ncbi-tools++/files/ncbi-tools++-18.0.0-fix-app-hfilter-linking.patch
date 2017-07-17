@@ -1,6 +1,8 @@
---- ncbi_cxx--18_0_0/src/app/hfilter/Makefile.hfilter.app.ori	2017-03-23 19:47:10.204018194 +0100
-+++ ncbi_cxx--18_0_0/src/app/hfilter/Makefile.hfilter.app	2017-03-23 19:51:51.601108063 +0100
-@@ -5,9 +5,10 @@
+Index: c++.18.0.0/src/app/hfilter/Makefile.hfilter.app
+===================================================================
+--- c++.18.0.0/src/app/hfilter/Makefile.hfilter.app	(revision 523253)
++++ c++.18.0.0/src/app/hfilter/Makefile.hfilter.app	(working copy)
+@@ -5,7 +5,8 @@
  APP = hfilter
  SRC = hitfilter_app
  
@@ -8,8 +10,5 @@
 +LIB = xalgoalignutil xalgoseq taxon1 $(BLAST_LIBS) \
 +	xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
  
--LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
  
- CXXFLAGS = $(FAST_CXXFLAGS)
- LDFLAGS  = $(FAST_LDFLAGS)

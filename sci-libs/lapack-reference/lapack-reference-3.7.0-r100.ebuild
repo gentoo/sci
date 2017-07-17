@@ -81,7 +81,6 @@ src_configure() {
 			-DBLAS_REQUIRES="${blas_requires}"
 			-DLIBNAME="${libname}"
 			-DUSE_OPTIMIZED_BLAS=ON
-			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs ${blas_profname})"
 			-DBUILD_TESTING="$(usex test)"
 			-DUSE_XBLAS="$(usex xblas)"
 			-DBUILD_DEPRECATED="$(usex deprecated)"

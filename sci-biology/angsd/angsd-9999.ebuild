@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,11 +16,12 @@ IUSE=""
 
 DEPEND="
 	dev-lang/R
-	sci-libs/htslib"
+	sci-libs/htslib:0="
 RDEPEND="${DEPEND}"
 
 # https://github.com/ANGSD/angsd/issues/9
 src_prepare(){
+	default
 	sed \
 		-e 's@FLAGS=-O3@FLAGS=@' \
 		-e 's@HTSLIB = .*@HTSLIB = -lhts@' \

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -18,7 +18,7 @@
   their progress, and ultimately informs the user upon completion. HTCondor
   also contains mechanisms to submit jobs to grid-sites and supports many
   different grid toolkits.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="boinc">Enable backfill with BOINC jobs when the cluster is not being used</flag>
     <flag name="cgroup">Use <pkg>dev-libs/libcgroup</pkg> for kernel control groups</flag>

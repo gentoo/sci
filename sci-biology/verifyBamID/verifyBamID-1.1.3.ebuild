@@ -20,17 +20,19 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_prepare(){
-	default
 	# unpack ./libStatGen-1.0.13/ contents
 	gzip -dc "${DISTDIR}"/libStatGen-1.0.13.tar.gz | tar xf - || die
 	ln -s libStatGen-1.0.13 libStatGen || die
 	cd "${WORKDIR}" || die
 	ln -s libStatGen-1.0.13 libStatGen || die
+	sed -e 's/-Werror//' -i verifyBamID-1.1.3/src/Makefile || die
+	sed -e 's/-Werror//' -i verifyBamID-1.1.3/libStatGen-1.0.13/general/Makefile || die
+	eapply_user
 }
 
 src_compile(){
 	# LIB_PATH_GENERAL="${EPREFIX}"/usr/"$(get_libdir)" emake
-	LIB_PATH_GENERAL="../libStatGen-1.0.13" emake
+	LIB_PATH_GENERAL="../libStatGen-1.0.13" emake USER_WARNINGS=' '
 }
 
 src_install(){

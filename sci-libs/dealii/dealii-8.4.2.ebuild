@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -70,7 +70,6 @@ src_configure() {
 	local CMAKE_BUILD_TYPE=$(usex debug DebugRelease Release)
 
 	local mycmakeargs=(
-		-DDEAL_II_PACKAGE_VERSION=9999
 		-DDEAL_II_ALLOW_AUTODETECTION=OFF
 		-DDEAL_II_ALLOW_BUNDLED=OFF
 		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF

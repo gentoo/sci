@@ -1,5 +1,7 @@
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.blast_formatter.app.ori	2017-03-22 17:21:05.653409646 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blast_formatter.app	2017-03-22 17:22:25.755581547 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.blast_formatter.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.blast_formatter.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.blast_formatter.app	(working copy)
 @@ -2,7 +2,7 @@
  
  APP = blast_formatter
@@ -9,27 +11,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -11,6 +11,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLASTFORMAT $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.blastn.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blastn.app	2017-03-22 19:58:28.925273217 +0100
-@@ -14,7 +14,7 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.blastp.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blastp.app	2017-03-22 19:58:54.365962959 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.blastp.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.blastp.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.blastp.app	(working copy)
 @@ -4,7 +4,7 @@
  
  APP = blastp
@@ -39,17 +24,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -13,7 +13,7 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.blastx.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.blastx.app	2017-03-22 19:59:11.066415737 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.blastx.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.blastx.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.blastx.app	(working copy)
 @@ -4,7 +4,7 @@
  
  APP = blastx
@@ -59,17 +37,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -13,7 +13,7 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.deltablast.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.deltablast.app	2017-03-22 19:59:30.396939821 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.deltablast.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.deltablast.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.deltablast.app	(working copy)
 @@ -1,7 +1,7 @@
  
  APP = deltablast
@@ -79,16 +50,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -10,6 +10,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.psiblast.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.psiblast.app	2017-03-22 19:59:51.837521114 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.psiblast.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.psiblast.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.psiblast.app	(working copy)
 @@ -2,7 +2,7 @@
  
  APP = psiblast
@@ -98,16 +63,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -11,6 +11,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.rpsblast.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.rpsblast.app	2017-03-22 20:00:15.808170999 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.rpsblast.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.rpsblast.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.rpsblast.app	(working copy)
 @@ -2,7 +2,7 @@
  
  APP = rpsblast
@@ -117,16 +76,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -11,6 +11,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.rpstblastn.app.ori	2017-03-22 19:57:18.063352028 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.rpstblastn.app	2017-03-22 20:00:34.328673121 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.rpstblastn.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.rpstblastn.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.rpstblastn.app	(working copy)
 @@ -2,7 +2,7 @@
  
  APP = rpstblastn
@@ -136,16 +89,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -11,6 +11,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.seedtop.app.ori	2017-03-22 19:57:18.073352297 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.seedtop.app	2017-03-22 20:00:52.309160604 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.seedtop.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.seedtop.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.seedtop.app	(working copy)
 @@ -2,7 +2,7 @@
  
  APP = seedtop
@@ -155,16 +102,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -11,6 +11,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastn.app.ori	2017-03-22 19:57:18.073352297 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastn.app	2017-03-22 20:01:09.669631276 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.tblastn.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.tblastn.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.tblastn.app	(working copy)
 @@ -4,7 +4,7 @@
  
  APP = tblastn
@@ -174,17 +115,10 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -13,7 +13,7 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 
---- ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastx.app.ori	2017-03-22 19:57:18.073352297 +0100
-+++ ncbi_cxx--18_0_0/src/app/blast/Makefile.tblastx.app	2017-03-22 20:01:23.860016002 +0100
+Index: c++.18.0.0/src/app/blast/Makefile.tblastx.app
+===================================================================
+--- c++.18.0.0/src/app/blast/Makefile.tblastx.app	(revision 523253)
++++ c++.18.0.0/src/app/blast/Makefile.tblastx.app	(working copy)
 @@ -4,7 +4,7 @@
  
  APP = tblastx
@@ -194,12 +128,3 @@
  LIB = blast_app_util $(LIB_:%=%$(STATIC))
  
  # De-universalize Mac builds to work around a PPC toolchain limitation
-@@ -13,7 +13,7 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386) 
- 
- CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin
- 

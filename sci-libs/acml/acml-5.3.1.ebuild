@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -26,7 +26,7 @@ SRC_URI="
 				${URI}/${MYP}-gfortran-64bit.tgz
 				int64? ( ${URI}/${MYP}-gfortran-64bit-int64.tgz ) ) ) ) ) )"
 
-LICENSE="ACML"
+LICENSE="ACML-EULA"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~amd64-linux"
 IUSE="doc examples cpu_flags_x86_fma4 gfortran ifort int64 open64 openmp pgi static-libs test"

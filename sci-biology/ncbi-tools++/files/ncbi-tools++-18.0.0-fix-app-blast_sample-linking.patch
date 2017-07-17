@@ -1,28 +1,26 @@
---- ncbi_cxx--18_0_0/src/sample/app/blast/Makefile.blast_sample.app.ori	2017-03-27 03:01:00.032137965 +0200
-+++ ncbi_cxx--18_0_0/src/sample/app/blast/Makefile.blast_sample.app	2017-03-27 03:01:29.732137720 +0200
-@@ -12,9 +12,9 @@
+Index: c++.18.0.0/src/sample/app/blast/Makefile.blast_sample.app
+===================================================================
+--- c++.18.0.0/src/sample/app/blast/Makefile.blast_sample.app	(revision 523253)
++++ c++.18.0.0/src/sample/app/blast/Makefile.blast_sample.app	(working copy)
+@@ -12,7 +12,7 @@
  # the lines reading "### BEGIN/END COPIED SETTINGS" in any way.
  
  ### BEGIN COPIED SETTINGS
 -LIB_ = xobjsimple $(BLAST_LIBS) $(OBJMGR_LIBS)
 +LIB_ = xobjsimple $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
  LIB = $(LIB_:%=%$(STATIC))
--LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
  
- # These settings are necessary for optimized WorkShop builds, due to
- # BLAST's own use of them.
---- ncbi_cxx--18_0_0/src/sample/app/blast/Makefile.vsrun_sample.app.ori	2017-03-27 03:04:52.632136045 +0200
-+++ ncbi_cxx--18_0_0/src/sample/app/blast/Makefile.vsrun_sample.app	2017-03-27 03:05:26.012135769 +0200
-@@ -12,9 +12,9 @@
+Index: c++.18.0.0/src/sample/app/blast/Makefile.vsrun_sample.app
+===================================================================
+--- c++.18.0.0/src/sample/app/blast/Makefile.vsrun_sample.app	(revision 523253)
++++ c++.18.0.0/src/sample/app/blast/Makefile.vsrun_sample.app	(working copy)
+@@ -12,7 +12,7 @@
  # the lines reading "### BEGIN/END COPIED SETTINGS" in any way.
  
  ### BEGIN COPIED SETTINGS
 -LIB_ = xobjsimple $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
 +LIB_ = xobjsimple $(BLAST_INPUT_LIBS) $(BLAST_LIBS) xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
  LIB = $(LIB_:%=%$(STATIC))
--LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
  
- # These settings are necessary for optimized WorkShop builds, due to
- # BLAST's own use of them.

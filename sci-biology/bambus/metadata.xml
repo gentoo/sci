@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
@@ -11,6 +11,6 @@
 	</maintainer>
 	<longdescription>Bambus is the first general purpose scaffolder that is publicly available as an open source package. While most other scaffolders are closely tied to a specific assembly program, Bambus accepts the output from most current assemblers and provides the user with great flexibility in choosing the scaffolding parameters. In particular, Bambus is able to accept contig linking data other than specified by mate-pairs. Such sources of information include alignment to a reference genome (Bambus can directly use the output of MUMmer), physical mapping data, or information about gene synteny.</longdescription>
 	<upstream>
-		<remote-id type="sourceforge">amos</remote-id>
+		<remote-id type="sourceforge">mira-assembler</remote-id>
 	</upstream>
 </pkgmetadata>

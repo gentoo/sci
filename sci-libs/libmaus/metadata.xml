@@ -13,7 +13,7 @@ I/O classes (single byte and UTF-8)
 	text indexing classes (suffix and LCP array, fulltext and minute (FM), ...)
 	BAM sequence alignment files input/output (simple and collating)
 	and many lower level support classes.
-</longdescription>
+  </longdescription>
   <upstream>
     <remote-id type="github">gt1/libmaus</remote-id>
   </upstream>

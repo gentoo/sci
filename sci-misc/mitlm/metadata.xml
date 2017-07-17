@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -9,6 +9,9 @@
 	designed for the efficient estimation of statistical n-gram
 	language models involving iterative parameter estimation.
 	It achieves much of its efficiency through the use of a compact
-	vector representation of n-grams. 
+	vector representation of n-grams.
   </longdescription>
+  <upstream>
+    <remote-id type="github">mitlm/mitlm</remote-id>
+  </upstream>
 </pkgmetadata>

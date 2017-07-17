@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="project">
@@ -16,7 +16,7 @@
 	as well as its packaging into the Debian and Ubuntu distributions.
 	</longdescription>
 	<upstream>
-	<doc>http://www.wannier.org/</doc>
-	<remote-id type="launchpad">wannier90</remote-id>
+		<doc>http://www.wannier.org/</doc>
+		<remote-id type="launchpad">wannier90</remote-id>
 	</upstream>
 </pkgmetadata>

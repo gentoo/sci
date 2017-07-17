@@ -1,5 +1,7 @@
---- ncbi_cxx--18_0_0/src/app/vecscreen/Makefile.vecscreen.app.ori	2017-03-27 02:34:44.242150979 +0200
-+++ ncbi_cxx--18_0_0/src/app/vecscreen/Makefile.vecscreen.app	2017-03-27 02:36:22.752150165 +0200
+Index: c++.18.0.0/src/app/vecscreen/Makefile.vecscreen.app
+===================================================================
+--- c++.18.0.0/src/app/vecscreen/Makefile.vecscreen.app	(revision 523253)
++++ c++.18.0.0/src/app/vecscreen/Makefile.vecscreen.app	(working copy)
 @@ -4,7 +4,7 @@
  
  APP = vecscreen
@@ -9,11 +11,3 @@
  LIB = $(LIB_:%=%$(STATIC))
  # FIXME: do we need blast_app_util
  #LIB = blast_app_util $(LIB_:%=%$(STATIC))
-@@ -15,6 +15,6 @@
- LDFLAGS  = $(FAST_LDFLAGS:ppc=i386)
- 
- CPPFLAGS = $(ORIG_CPPFLAGS)
--LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
-+LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
- 
- REQUIRES = objects -Cygwin

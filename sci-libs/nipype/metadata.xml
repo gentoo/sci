@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
@@ -22,6 +22,7 @@
 	in a high-level language and addressing limitations of existing pipeline systems.
   </longdescription>
   <upstream>
+    <remote-id type="github">nipy/nipype</remote-id>
     <remote-id type="sourceforge">nipy</remote-id>
   </upstream>
 </pkgmetadata>

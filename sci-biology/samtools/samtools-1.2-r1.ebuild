@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -20,7 +20,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 CDEPEND="
 	sys-libs/ncurses:0=
-	>=sci-libs/htslib-${PV}"
+	>=sci-libs/htslib-${PV}:0="
 
 RDEPEND="${CDEPEND}
 	dev-lang/lua

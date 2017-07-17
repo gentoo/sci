@@ -1,0 +1,10 @@
+--- SPAdes-3.10.1/src/common/utils/segfault_handler.hpp.ori	2017-05-13 22:43:01.296207276 +0200
++++ SPAdes-3.10.1/src/common/utils/segfault_handler.hpp	2017-05-13 22:43:41.437310225 +0200
+@@ -12,6 +12,7 @@
+ #include "boost/noncopyable.hpp"
+ 
+ #include <signal.h>
++#include <functional>
+ 
+ struct segfault_handler : boost::noncopyable {
+     typedef std::function<void()> callback_t;

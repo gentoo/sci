@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -15,8 +15,8 @@
   include all of the capabilities of original f77 LAPACK. Emphasis is
   given to routines for solving linear systems consisting of non-symmetric
   matrices, symmetric positive definite systems, and solving linear
-  least-square systems. 
-</longdescription>
+  least-square systems.
+  </longdescription>
   <upstream>
     <remote-id type="sourceforge">lapackpp</remote-id>
   </upstream>

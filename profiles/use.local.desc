@@ -165,7 +165,8 @@ sci-libs/dealii:muparser - Add support for muparser (dev-cpp/muParser)
 sci-libs/dealii:opencascade - Add support for opencascade (sci-libs/opencascade)
 sci-libs/dealii:p4est - Add support for p4est (sci-mathematics/p4est)
 sci-libs/dealii:parameter_gui - Build and install the parameter_gui executable
-sci-libs/dealii:petsc - Add support for petsc (sci-libs/petsc)
+sci-libs/dealii:petsc - Add support for petsc (sci-mathematics/petsc)
+sci-libs/dealii:slepc - Add support for slepc (sci-mathematics/slepc)
 sci-libs/dealii:sparse - Add support for suitesparse (sci-libs/suitesparse)
 sci-libs/dealii:tbb - Add threading support with the help of the tbb library (dev-cpp/tbb)
 sci-libs/dealii:trilinos - Add support for trilinos (sci-libs/trilinos)
@@ -206,7 +207,6 @@ sci-libs/libgeodecomp:opencv - Some input components can read from cameras etc. 
 sci-libs/libgeodecomp:qt4 - Adds the QTWidgetWriter, which allows in situ visualization of a running simulation.
 sci-libs/libgeodecomp:scotch - Optinally use Scotch for domain decomposition.
 sci-libs/libgeodecomp:visit - Add in situ visualization for big simulations via VisIt.
-sci-libs/libsc:romio - Build with support for the ROMIO MPI-IO component
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
 sci-libs/mkl:int64 - Build the 64 bits integer library
 sci-libs/mkl:mic - Install the libraries needed for supporting Intel Many Integrated Core (Xeon Phi)
@@ -221,10 +221,9 @@ sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
 sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
 sci-libs/openblas:dynamic - Build dynamic architecture detection at run time (for multi targets)
 sci-libs/openblas:int64 - Build the 64 bits integer library
-sci-libs/p4est:romio - Build with support for the ROMIO MPI-IO component
-sci-libs/p4est:vtk-binary - Enable binary vtk output. If disabled vtk files will be written in ASCII text format.
-sci-libs/pagmo:kepler - Automatically generated description for kepler
-sci-libs/pagmo:nlopt - Automatically generated description for nlopt
+sci-libs/pagmo:eigen - Use eigen, a c++ linear algebra library, for algorithms like CAMES
+sci-libs/pagmo:ipopt - Use ipopt, a interior-point optimizer
+sci-libs/pagmo:nlopt - Use nlopt, a non-linear optimization library
 sci-libs/parmetis:double-precision - Floating-point operation done as double precision
 sci-libs/parmetis:int64 - Build the 64 bits integer library (needed for > 2^31 vertices)
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
@@ -283,8 +282,9 @@ sci-mathematics/petsc:afterimage - Use Afterstep image library (media-libs/libaf
 sci-mathematics/petsc:boost - Use boost (dev-libs/boost)
 sci-mathematics/petsc:complex-scalars - Make scalars complex
 sci-mathematics/petsc:hypre - Use HYPRE (sci-mathematics/hypre) and for preconditioning
-sci-mathematics/petsc:mumps - PLEASE FIX MY DESCRIPTION
-sci-mathematics/petsc:scotch - PLEASE FIX MY DESCRIPTION
+sci-mathematics/petsc:metis - Add support for metis (sci-libs/parmetis)
+sci-mathematics/petsc:mumps - Add support for mumps (sci-libs/mumps)
+sci-mathematics/petsc:scotch - Add support for scotch (sci-libs/scotch)
 sci-mathematics/petsc:sparse - Use suitesparse (sci-libs/suitesparse) including cholmod (sci-libs/cholmod) for sparse factorization
 sci-mathematics/petsc:superlu - Use superlu (sci-libs/superlu) for preconditioning
 sci-mathematics/scilab:emf - Add suport for exporting to emf files
@@ -292,6 +292,7 @@ sci-mathematics/scilab:gui - Build the Java base graphical interface
 sci-mathematics/scilab:matio - Enable support for MATLAB file through sci-libs/matio
 sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/umfpack
 sci-mathematics/scilab:xcos - Enable building hybrid dynamic systems modeler and simulator Xcos
+sci-mathematics/slepc:complex-scalars - Make scalars complex
 sci-mathematics/why:apron - Use sci-mathematics/apron library for abstract interpretation
 sci-mathematics/why:coq - Add sci-mathematics/coq support
 sci-mathematics/why:float - Add sci-mathematics/flocq support
@@ -312,6 +313,7 @@ sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-mi
 sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
 sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
 sci-misc/kaldi:cuda - Build with CUDA support.
+sci-misc/kaldi:double-precision - Build in double precision mode.
 sci-physics/abinit:atompaw - Enable support for atompaw, a Projector Augmented Waves atomic data generator
 sci-physics/abinit:bigdft - Enable support for BigDFT, DFT package using wavelet basis set
 sci-physics/abinit:cuda - Enable support for nVidia CUDA

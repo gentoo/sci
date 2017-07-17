@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="project">
@@ -10,7 +10,6 @@
 		that may be used by other projects.
 	</longdescription>
   <upstream>
-    <remote-id type="pypi">astropy-helpers</remote-id>
     <remote-id type="github">astropy/astropy-helpers</remote-id>
   </upstream>
 </pkgmetadata>

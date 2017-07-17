@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
     <email>freeh4cker@gmail.com</email>
     <name>Bertrand Néron</name>
   </maintainer>
-	<longdescription>Scripts to download genomes from the NCBI FTP servers.</longdescription>
+  <longdescription>Scripts to download genomes from the NCBI FTP servers.</longdescription>
   <upstream>
-    <remote-id type="github">ncbi-genome-download</remote-id>
+    <remote-id type="github">kblin/ncbi-genome-download</remote-id>
   </upstream>
 </pkgmetadata>

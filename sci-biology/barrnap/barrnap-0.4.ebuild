@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -19,17 +19,17 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-lang/perl
+	dev-lang/perl:=
 	sci-biology/nesoni"
 
 src_install(){
 	# the below recreates the whole layout
 	insinto /usr/share/"${PN}"/bin
 	doins bin/barrnap
-	chmod a+rx "${D}"/usr/share/"${PN}"/bin/barrnap || die
+	chmod a+rx "${ED}"/usr/share/"${PN}"/bin/barrnap || die
 	insinto /usr/share/"${PN}"/binaries/linux
 	doins binaries/linux/nhmmer
-	chmod a+rx "${D}"/usr/share/"${PN}"/binaries/linux/nhmmer || die
+	chmod a+rx "${ED}"/usr/share/"${PN}"/binaries/linux/nhmmer || die
 	insinto /usr/share/"${PN}"/db
 	doins db/*
 	insinto /usr/share/"${PN}"/examples
