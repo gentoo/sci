@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/dpryan79/libBigWig.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="" # https://github.com/dpryan79/libBigWig/issues/30
 IUSE=""
 
 DEPEND="net-misc/curl"
