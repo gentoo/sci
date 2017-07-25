@@ -27,12 +27,6 @@ MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/openblas/openblas_config.h
 )
 
-PATCHES=(
-	"${DISTDIR}"/${PN}-0.2.19-clang-3.9.patch
-	"${FILESDIR}"/${PN}-0.2.19-MAKE.patch
-	"${FILESDIR}"/${PN}-0.2.19-utest_ldflags.patch
-	)
-
 get_openblas_flags() {
 	local openblas_flags=()
 	use dynamic && \
