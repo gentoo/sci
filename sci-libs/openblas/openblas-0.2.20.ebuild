@@ -9,8 +9,7 @@ inherit alternatives-2 eutils multilib numeric numeric-int64-multibuild
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
-	http://sagetrac.lipn.univ-paris13.fr/sage/${PN}-0.2.19-clang-3.9.patch"
+SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
