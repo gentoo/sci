@@ -10,7 +10,7 @@ S="${WORKDIR}/${PN}-${MY_PV}"
 
 DESCRIPTION="Tools for working with VCF (Variant Call Format) files"
 HOMEPAGE="http://vcftools.sourceforge.net/"
-SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${PN}-${MY_PV}.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${PN}-${PV}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
