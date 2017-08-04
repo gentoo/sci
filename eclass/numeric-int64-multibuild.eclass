@@ -348,6 +348,7 @@ numeric-int64-multibuild_multilib_wrapper() {
 	local v="${MULTIBUILD_VARIANT/_${NUMERIC_INT32_SUFFIX}/}"
 	local v="${v/_${NUMERIC_INT64_SUFFIX}/}"
 	local ABI="${v/_${NUMERIC_STATIC_SUFFIX}/}"
+	local -r MULTILIB_ABI_FLAG="${v%.*}"
 	multilib_toolchain_setup "${ABI}"
 	"${@}" || die
 }
