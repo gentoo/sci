@@ -5,11 +5,11 @@ EAPI=6
 
 DESCRIPTION="C library for handling bigWig files (functionally replacing Jim Kent's lib)"
 HOMEPAGE="https://github.com/dpryan79/libBigWig"
-SRC_URI="https://github.com/dpryan79/libBigWig/archive/0.3.3.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/dpryan79/libBigWig/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86" # https://github.com/dpryan79/libBigWig/issues/30
 IUSE=""
 
 DEPEND="net-misc/curl"

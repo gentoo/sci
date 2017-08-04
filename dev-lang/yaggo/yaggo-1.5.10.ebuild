@@ -5,7 +5,7 @@ EAPI=6
 
 DESCRIPTION="Tool to generate command line parsers for C++ (aka Gengetopt)"
 HOMEPAGE="https://github.com/gmarcais/yaggo"
-SRC_URI="https://github.com/gmarcais/yaggo/archive/v1.5.9.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/gmarcais/yaggo/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -16,9 +16,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_prepare(){
-	sed -e 's/$(prefix)/$(DESTDIR)$(prefix)/g' -i Makefile || die
 	sed -e 's#/usr/local#/usr#g' -i Makefile || die
-	sed -e 's#prefix#PREFIX#g' -i Makefile || die
 	default
 }
 

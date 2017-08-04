@@ -43,7 +43,7 @@ java_prepare() {
 src_compile(){
 	# work around gradle writing $HOME/.gradle and requiring $HOME/.git
 	# https://github.com/samtools/htsjdk/issues/660#issuecomment-232155965
-	GRADLE_USER_HOME="${WORKDIR}" ./gradlew || die
+	GRADLE_USER_HOME="${WORKDIR}" ./gradlew --stacktrace --debug || die
 }
 
 #src_install() {

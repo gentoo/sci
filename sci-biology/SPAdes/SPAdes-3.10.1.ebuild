@@ -27,7 +27,8 @@ DEPEND="
 	dev-python/regex"
 RDEPEND="${DEPEND}"
 # BUG:
-# SPAdes uses bundled while modified copy of dev-libs/boost
+# SPAdes uses bundled while modified copy of dev-libs/boost (only headers are used,
+# not *.so or *.a are even used)
 #
 # BUG: "${S}"/ext/src/ contains plenty of bundled 3rd-party tools. Drop them all and properly DEPEND on their
 #      existing packages

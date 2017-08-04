@@ -4,7 +4,9 @@
 EAPI=6
 
 DESCRIPTION="de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore"
-HOMEPAGE="http://www.genome.umd.edu/masurca.html"
+HOMEPAGE="http://www.genome.umd.edu/masurca.html
+	http://bioinformatics.oxfordjournals.org/content/29/21/2669
+	http://biorxiv.org/content/biorxiv/early/2016/07/26/066100.full.pdf"
 SRC_URI="${P}.tar.gz
 	ftp://ftp.genome.umd.edu/pub/MaSuRCA/MaSuRCA_QuickStartGuide.pdf"
 
@@ -19,7 +21,6 @@ RDEPEND="${DEPEND}"
 
 RESTRICT="fetch"
 
-# the ebuild mimics "${S}"/install.sh
 src_configure(){
 	./install.sh || die
 }
