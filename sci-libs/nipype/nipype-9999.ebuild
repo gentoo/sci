@@ -32,10 +32,13 @@ DEPEND="
 	"
 RDEPEND="
 	>=dev-python/click-6.6[${PYTHON_USEDEP}]
+	dev-python/funcsigs[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
+	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pydotplus[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]
 	dev-python/pytest[${PYTHON_USEDEP}]
+	dev-python/python-dateutil[${PYTHON_USEDEP}]
 	>=dev-python/traits-4.6.0[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
