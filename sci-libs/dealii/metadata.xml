@@ -16,6 +16,7 @@ state-of-the-art programming techniques to offer you a modern interface
 to the complex data structures and algorithms required.
 	</longdescription>
 	<use>
+		<flag name="adolc">Adds support for ADOL-C (<pkg>sci-libs/adolc</pkg>)</flag>
 		<flag name="arpack">Adds support for ARPACK (<pkg>sci-libs/arpack</pkg>)</flag>
 		<flag name="debug">
 Build an additional debug library with extra debug codepaths, like asserts
@@ -26,6 +27,7 @@ and extra output. If you want to get meaningful backtraces see
 		<flag name="metis">Add support for metis (<pkg>sci-libs/metis</pkg>)</flag>
 		<flag name="mumps">Add support for mumps (<pkg>sci-libs/mumps</pkg>)</flag>
 		<flag name="muparser">Add support for muparser (<pkg>dev-cpp/muParser</pkg>)</flag>
+		<flag name="nanoflann">Adds support for nanoflann (<pkg>sci-libs/nanoflann</pkg>)</flag>
 		<flag name="opencascade">Add support for opencascade (<pkg>sci-libs/opencascade</pkg>)</flag>
 		<flag name="p4est">Add support for p4est (<pkg>sci-mathematics/p4est</pkg>)</flag>
 		<flag name="parameter_gui">Build and install the parameter_gui executable</flag>

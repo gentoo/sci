@@ -33,9 +33,9 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 +debug doc +examples
-	+gsl hdf5 +lapack metis mpi muparser opencascade netcdf p4est petsc
-	slepc +sparse static-libs +tbb trilinos
+	adolc arpack cpu_flags_x86_avx cpu_flags_x86_sse2 +debug doc +examples
+	+gsl hdf5 +lapack metis mpi muparser nanoflann opencascade netcdf p4est
+	petsc slepc +sparse static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -47,6 +47,7 @@ REQUIRED_USE="
 RDEPEND="dev-libs/boost
 	app-arch/bzip2
 	sys-libs/zlib
+	adolc? ( sci-libs/adolc )
 	arpack? ( sci-libs/arpack[mpi=] )
 	gsl? ( sci-libs/gsl )
 	hdf5? ( sci-libs/hdf5[mpi=] )
@@ -54,6 +55,7 @@ RDEPEND="dev-libs/boost
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
 	muparser? ( dev-cpp/muParser )
+	nanoflann? ( sci-libs/nanoflann )
 	netcdf? ( sci-libs/netcdf-cxx:0 )
 	opencascade? ( sci-libs/opencascade:* )
 	p4est? ( sci-libs/p4est[mpi] )
@@ -86,6 +88,7 @@ src_configure() {
 		-DDEAL_II_SHARE_RELDIR="share/${PN}"
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
+		-DDEAL_II_WITH_ADOLC="$(usex adolc)"
 		-DDEAL_II_WITH_ARPACK="$(usex arpack)"
 		-DDEAL_II_HAVE_AVX="$(usex cpu_flags_x86_avx)"
 		-DDEAL_II_HAVE_SSE2="$(usex cpu_flags_x86_sse2)"
@@ -97,6 +100,7 @@ src_configure() {
 		-DDEAL_II_WITH_METIS="$(usex metis)"
 		-DDEAL_II_WITH_MPI="$(usex mpi)"
 		-DDEAL_II_WITH_MUPARSER="$(usex muparser)"
+		-DDEAL_II_WITH_NANOFLANN="$(usex nanoflann)"
 		-DDEAL_II_WITH_NETCDF="$(usex netcdf)"
 		-DOPENCASCADE_DIR="${CASROOT}"
 		-DDEAL_II_WITH_OPENCASCADE="$(usex opencascade)"
