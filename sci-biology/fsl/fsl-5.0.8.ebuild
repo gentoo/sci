@@ -133,7 +133,9 @@ src_install() {
 	dosym /etc /usr/share/fsl/etc
 	dosym /usr/share/doc/${P} /usr/share/fsl/doc
 
-	doenvd "${FILESDIR}"/99fsl
+	cp "${FILESDIR}"/99fsl "${TMPDIR}"/99fsl || die
+	eprefixify "${TMPDIR}"/99fsl
+	doenvd "${TMPDIR}"/99fsl	
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
 }
 
