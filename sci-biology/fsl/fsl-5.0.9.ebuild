@@ -129,9 +129,7 @@ src_install() {
 	dosym /usr/share/doc/${PF} ${UPSTREAM_FSLDIR}/doc
 	dosym /usr/bin ${UPSTREAM_FSLDIR}/bin
 
-	cp "${FILESDIR}"/99fsl "${TMPDIR}"/99fsl || die
-	eprefixify "${TMPDIR}"/99fsl
-	doenvd "${TMPDIR}"/99fsl
+	doenvd "$(prefixify_ro "${FILESDIR}"/99fsl)"
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
 }
 

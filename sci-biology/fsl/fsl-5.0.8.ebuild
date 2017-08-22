@@ -135,7 +135,7 @@ src_install() {
 
 	cp "${FILESDIR}"/99fsl "${TMPDIR}"/99fsl || die
 	eprefixify "${TMPDIR}"/99fsl
-	doenvd "${TMPDIR}"/99fsl	
+	doenvd "${TMPDIR}"/99fsl
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
 }
 
