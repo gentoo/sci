@@ -9,12 +9,13 @@ inherit alternatives-2 eutils multilib numeric numeric-int64-multibuild
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
-	http://sagetrac.lipn.univ-paris13.fr/sage/${PN}-0.2.19-clang-3.9.patch"
+SRC_URI="
+	https://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
+	https://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="dynamic openmp static-libs threads"
 
 RDEPEND=""
@@ -22,16 +23,12 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 MULTILIB_WRAPPED_HEADERS=(
-	/usr/include/openblas/cblas.h
-	/usr/include/openblas/f77blas.h
 	/usr/include/openblas/openblas_config.h
 )
 
 PATCHES=(
-	"${DISTDIR}"/${PN}-0.2.19-clang-3.9.patch
-	"${FILESDIR}"/${PN}-0.2.19-MAKE.patch
-	"${FILESDIR}"/${PN}-0.2.19-utest_ldflags.patch
-	)
+	"${DISTDIR}"/${PN}-0.2.11-gentoo.patch
+)
 
 get_openblas_flags() {
 	local openblas_flags=()
@@ -62,13 +59,9 @@ get_openblas_flags() {
 get_openblas_abi_cflags() {
 	local openblas_abi_cflags=()
 	if [[ "${ABI}" == "x86" ]]; then
-		openblas_abi_cflags=( -DARCH_X86=1 -DOPENBLAS___32BIT__=1 )
-	elif [[ "${ABI}" == "amd64" ]]; then
-		openblas_abi_cflags=( -DARCH_X86_64=1 -DOPENBLAS___64BIT__=1 )
-	elif [[ "${ABI}" == "ppc64" ]]; then
-		openblas_abi_cflags=( -DARCH_POWER=1 -DOPENBLAS___64BIT__=1 )
+		openblas_abi_cflags=( -DOPENBLAS_ARCH_X86=1 -DOPENBLAS___32BIT__=1 )
 	else
-		die "unsupported abi: ${ABI}"
+		openblas_abi_cflags=( -DOPENBLAS_ARCH_X86_64=1 -DOPENBLAS___64BIT__=1 )
 	fi
 	$(numeric-int64_is_int64_build) && \
 		openblas_abi_cflags+=( -DOPENBLAS_USE64BITINT )
@@ -114,17 +107,13 @@ src_compile() {
 		# cflags already defined twice
 		unset CFLAGS || die
 		emake clean && emake libs shared ${openblas_flags}
-		mkdir -p libs && mv libopenblas* libs/ || die
+		mkdir -p libs && mv libopenblas* libs/ || die
 		# avoid pic when compiling static libraries, so re-compiling
 		if use static-libs; then
 			emake clean
 			emake libs ${openblas_flags} NO_SHARED=1 NEED_PIC=
-			mv libopenblas* libs/ || die
+			mv libopenblas* libs/ || die
 		fi
-		rm -f config.h config_last.h || die
-		# Note: prints this spurious warning: make: Nothing to be done for 'config.h'.
-		emake config.h
-		cp config.h config_last.h || die
 
 		mv libs/libopenblas* . || die
 	}
@@ -168,13 +157,13 @@ src_install() {
 
 		create_pkgconfig \
 			--name "${profname}" \
-			--libs "-l${libname}" \
+			--libs "-L\${libdir} -l${libname}" \
 			--libs-private "-lm" \
 			--cflags "-I\${includedir}/${PN} ${openblas_abi_cflags}" \
 			${profname}
 
 		if [[ ${CHOST} == *-darwin* ]] ; then
-			cd "${ED}"/usr/$(get_libdir) || die
+			cd "${ED}"/usr/$(get_libdir) || die
 			local d
 			for d in *.dylib; do
 				ebegin "Correcting install_name of ${d}"
@@ -189,7 +178,7 @@ src_install() {
 	}
 	numeric-int64-multibuild_foreach_all_abi_variants run_in_build_dir my_src_install
 
-	printf "/usr/include/cblas.h ${PN}/cblas.h" > "${T}"/alternative-cblas-generic.sh || die
+	printf "/usr/include/cblas.h ${PN}/cblas.h" > "${T}"/alternative-cblas-generic.sh || die
 	numeric-int64-multibuild_install_alternative blas ${NUMERIC_MODULE_NAME}
 	numeric-int64-multibuild_install_alternative cblas ${NUMERIC_MODULE_NAME}
 
