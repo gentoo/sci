@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,8 +10,8 @@ inherit alternatives-2 eutils multilib numeric numeric-int64-multibuild
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
 SRC_URI="
-	http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
-	http://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
+	https://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
+	https://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
 
 LICENSE="BSD"
 SLOT="0"
@@ -23,8 +23,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 MULTILIB_WRAPPED_HEADERS=(
-	/usr/include/openblas/cblas.h
-	/usr/include/openblas/f77blas.h
 	/usr/include/openblas/openblas_config.h
 )
 
@@ -115,16 +113,6 @@ src_compile() {
 			emake libs ${openblas_flags} NO_SHARED=1 NEED_PIC=
 			mv libopenblas* libs/ || die
 		fi
-		# Fix Bug 524612 - [science overlay] sci-libs/openblas-0.2.11 - Assembler messages:
-		# ../kernel/x86_64/gemm_kernel_8x4_barcelona.S:451: Error: missing ')'
-		# The problem is applying this patch in src_prepare() causes build failures on
-		# assembler code as the assembler does not understand sizeof(float).  So
-		# delay applying the patch until after building the libraries.
-		epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
-		rm -f config.h config_last.h || die
-		# Note: prints this spurious warning: make: Nothing to be done for 'config.h'.
-		emake config.h
-		cp config.h config_last.h || die
 
 		mv libs/libopenblas* . || die
 	}
