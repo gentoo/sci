@@ -24,7 +24,8 @@ RDEPEND="
 		abi_x86_64? (
 			!abi_x86_32? (
 				|| (
-					>=dev-cpp/eigen-3.1.4[fortran]
+					<dev-cpp/eigen-3.3[fortran]
+					>=dev-cpp/eigen-3.3[blas-provider]
 					sci-libs/atlas[fortran]
 					>=sci-libs/acml-4.4
 				)

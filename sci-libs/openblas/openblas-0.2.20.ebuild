@@ -9,8 +9,7 @@ inherit alternatives-2 eutils multilib numeric numeric-int64-multibuild
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
-	http://sagetrac.lipn.univ-paris13.fr/sage/${PN}-0.2.19-clang-3.9.patch"
+SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -26,12 +25,6 @@ MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/openblas/f77blas.h
 	/usr/include/openblas/openblas_config.h
 )
-
-PATCHES=(
-	"${DISTDIR}"/${PN}-0.2.19-clang-3.9.patch
-	"${FILESDIR}"/${PN}-0.2.19-MAKE.patch
-	"${FILESDIR}"/${PN}-0.2.19-utest_ldflags.patch
-	)
 
 get_openblas_flags() {
 	local openblas_flags=()
