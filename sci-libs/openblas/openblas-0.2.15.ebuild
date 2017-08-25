@@ -197,4 +197,7 @@ src_install() {
 	multilib_install_wrappers
 
 	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt *md Changelog.txt
+
+	# fix cmake installation
+	sed -i -e 's@'"${ED}"'@/@g' ${ED}/usr/$(get_libdir)/cmake/openblas/OpenBLASConfig.cmake || die
 }
