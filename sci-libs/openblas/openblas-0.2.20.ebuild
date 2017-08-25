@@ -146,9 +146,9 @@ src_install() {
 			-i config_last.h \
 			|| die "Could not ensure there is no definition of USE64BITINT in config_last.h"
 		emake install \
-			PREFIX="${ED}"usr ${openblas_flags} \
-			OPENBLAS_INCLUDE_DIR="${ED}"usr/include/${PN} \
-			OPENBLAS_LIBRARY_DIR="${ED}"usr/$(get_libdir)
+			DESTDIR="${D}" PREFIX="${EPREFIX}" ${openblas_flags} \
+			OPENBLAS_INCLUDE_DIR='$(PREFIX)'/usr/include/${PN} \
+			OPENBLAS_LIBRARY_DIR='$(PREFIX)'/usr/$(get_libdir)
 		if ! use static-libs; then
 			rm "${ED}"usr/$(get_libdir)/lib*.a || die
 		fi
