@@ -3,5 +3,5 @@ if [ -f @EPREFIX@/usr/share/Modules/init/${shell} ]
 then
   . @EPREFIX@/usr/share/Modules/init/${shell}
 else
-  . @PREFIX@/usr/share/Modules/init/sh
+  . @EPREFIX@/usr/share/Modules/init/sh
 fi

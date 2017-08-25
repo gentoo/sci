@@ -1,0 +1,20 @@
+--- modules-3.2.10/modules_def.h.orig	2017-04-21 19:33:52.698720482 +0300
++++ modules-3.2.10/modules_def.h	2017-04-21 19:35:19.506727343 +0300
+@@ -616,6 +616,9 @@
+ /**  ModuleCmd_Purge.c  **/
+ extern	int	  ModuleCmd_Purge( Tcl_Interp*, int, char*[]);
+ 
++/**  ModuleCmd_Refresh.c **/
++extern	int	  ModuleCmd_Refresh( Tcl_Interp*,	int	argc, char*[]);
++
+ /**  ModuleCmd_Switch.c  **/
+ extern	int	  ModuleCmd_Switch( Tcl_Interp*, int, char*[]);
+ 
+@@ -753,6 +756,7 @@
+ extern	char 	 *EMGetEnv(Tcl_Interp *, char const *);
+ extern	char 	 *EMSetEnv(Tcl_Interp *, char const *, char const *);
+ extern	int	  is_interactive(void);
++extern	void	 regex_quote(const char	*, char	*, int len);
+ 
+ #ifndef HAVE_STRDUP
+ #  undef strdup
