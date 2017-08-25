@@ -1,8 +1,0 @@
-shell=$(basename $(ps -p $$ -ocomm=))
-if [ -f @EPREFIX@/usr/share/Modules/init/${shell} ]
-then
-  . @EPREFIX@/usr/share/Modules/init/${shell}
-elif [ -f @PREFIX@/usr/share/Modules/init/${shell} ]
-then
-  . @PREFIX@/usr/share/Modules/init/sh
-fi
