@@ -40,6 +40,8 @@ get_openblas_flags() {
 		openblas_flags+=( USE_THREAD=1 USE_OPENMP=0 )
 	elif use openmp; then
 		openblas_flags+=( USE_OPENMP=1 )
+	else
+		openblas_flags+=( USE_THREAD=0 ) # single-threaded
 	fi
 	local profname=$(numeric-int64_get_module_name)
 	local libname="${profname//-/_}"
