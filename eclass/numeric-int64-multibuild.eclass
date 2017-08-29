@@ -347,17 +347,23 @@ numeric-int64-multibuild_multilib_wrapper() {
 	debug-print-function ${FUNCNAME} "${@}"
 
 	local v="${MULTIBUILD_VARIANT%_*}"
+	# MULTIBUILD_VARIANT could be abi_x86_64.amd64_static_int32
+	v=${v%_${NUMERIC_STATIC_SUFFIX}}
 	local ABI="${v#*.}"
 	# hack: our int64 and int32 ABIs can correspond to the same ABI
 	# in multilib, resulting in multiple sed replacements of headers
 	# and thus error like "Flag not listed in wrapper template."
 	# Using MULTILIB_ABI_FLAG="${ABI}", the corresponding header
 	# is ignored.
-	if [[ ${MULTIBUILD_VARIANT##*_} == ${NUMERIC_INT32_SUFFIX} ]] ; then
-		local -r MULTILIB_ABI_FLAG="${v%.*}"
-	else
-		local -r MULTILIB_ABI_FLAG="${ABI}"
-	fi
+	local MULTILIB_ABI_FLAG
+	case ${MULTIBUILD_VARIANT} in
+	*_${NUMERIC_STATIC_SUFFIX}*|*_${NUMERIC_INT64_SUFFIX})
+		MULTILIB_ABI_FLAG="${ABI}"
+		;;
+	*_${NUMERIC_INT32_SUFFIX})
+		MULTILIB_ABI_FLAG="${v%.*}"
+		;;
+	esac
 
 	multilib_toolchain_setup "${ABI}"
 	readonly ABI
