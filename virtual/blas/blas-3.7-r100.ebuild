@@ -26,7 +26,6 @@ RDEPEND="
 				|| (
 					>=dev-cpp/eigen-3.1.4[fortran]
 					sci-libs/atlas[fortran]
-					>=sci-libs/acml-4.4
 				)
 			)
 		)
