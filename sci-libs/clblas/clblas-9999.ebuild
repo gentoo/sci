@@ -29,7 +29,6 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 #	test? (
 #		>=dev-cpp/gtest-1.6.0
-#		>=sci-libs/acml-6.1.0.3
 #	)"
 
 # The tests only get compiled to an executable named Test, which is not recogniozed by cmake.
