@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -12,7 +12,7 @@ SRC_URI="pgilinux-2013-135.tar.gz"
 LICENSE="PGI"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="acml cuda java"
+IUSE="cuda java"
 
 RDEPEND="net-misc/curl"
 
@@ -62,15 +62,8 @@ src_install() {
 1
 ${ED}/opt/pgi"
 
-	if use acml; then
-		command="${command}
-y
-accept
-"
-	else
-		command="${command}
+	command="${command}
 n"
-	fi
 
 	if use cuda; then
 		command="${command}

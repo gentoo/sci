@@ -12,7 +12,6 @@
     <name>Gentoo Cluster Project</name>
   </maintainer>
   <use>
-	<flag name="acml">Install AMD's core math library.</flag>
 	<flag name="java">Install a PGI-tuned JRE.</flag>
 	<flag name="cuda">Install PGI's CUDA components (e.g. for OpenACC)</flag>
   </use>
