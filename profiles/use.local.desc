@@ -29,7 +29,6 @@ dev-lang/path64:assembler - Build PathAS assembler
 dev-lang/path64:debugger - Build PathDB debugger
 dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
 dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
-dev-lang/pgi:acml - Install AMD's core math library.
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
 dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
@@ -121,11 +120,6 @@ sci-electronics/player:festival - Automatically generated description for festiv
 sci-electronics/player:openssl - Automatically generated description for openssl
 sci-electronics/player:sphinx2 - Automatically generated description for sphinx2
 sci-geosciences/qgis:grass - Add support for sci-geosciences/grass
-sci-libs/acml:gfortran - Fetch and install acml compiled with GNU FORTRAN compiler
-sci-libs/acml:ifort - Fetch and install acml compiled with the Intel FORTRAN compiler
-sci-libs/acml:int64 - Install the 64 bits integer library
-sci-libs/acml:open64 - Fetch and install acml compiled with the Open64 FORTRAN Compiler
-sci-libs/acml:pgi - Fetch and install acml compiled with the Portland Group FORTRAN compiler
 sci-libs/armadillo:arpack - Link with sci-libs/arpack libraries for eigen decomposition
 sci-libs/armadillo:atlas - Link with sci-libs/atlas libraries for cblas and clapack
 sci-libs/armadillo:mkl - Use matrix allocation from the Intel MKL sci-libs/mkl

@@ -138,12 +138,6 @@ tree:
    routines. Claims to be the fastest BLAS.
   </li>
   <li>
-    <uri link="http://developer.amd.com/acml.jsp">ACML</uri>: AMD Core Math
-    Library is a closed-source but free package containing BLAS (FORTRAN 77
-    only) and LAPACK for x86 and amd64 architectures, but also other math tools
-    such as statistical libraries and FFTs.
-  </li>
-  <li>
     <uri link="http://developer.intel.com/software/products/mkl/">MKL</uri>:
     Intel® Math Kernel Library is a closed-source but free package for
     non-commercial use containing BLAS (FORTRAN 77 and C), LAPACK optimized for
@@ -238,8 +232,6 @@ profile combinations that have been used successfully in the past:
   </li>
   <li> AMD based CPUs:
     <ul>
-      <li>blas,lapack: acml-gfortran (or acml-gfortran-openmp with
-	multi-processors) </li>
       <li>cblas: reference</li>
     </ul>
   </li>
@@ -292,8 +284,6 @@ compatible. For example:
 </p>
 
 <pre caption="Incompatible combinations">
-# <i>F77=ifort FFLAGS="-O2 -mp" USE="openmp" emerge =acml-3.6.0-r1</i>
-# <i>eselect blas set acml-ifort-openmp</i>
 # <i>F77=gfortran FFLAGS="-O2" emerge lapack-reference</i>
 </pre>
 
@@ -408,12 +398,6 @@ virtuals:
   <th>virtual/blas</th>
   <th>virtual/cblas</th>
   <th>virtual/lapack</th>
-</tr>
-<tr>
-  <ti><c>sci-libs/acml</c></ti>
-  <ti>*</ti>
-  <ti></ti>
-  <ti>*</ti>
 </tr>
 <tr>
   <ti><c>sci-libs/blas-atlas</c></ti>
