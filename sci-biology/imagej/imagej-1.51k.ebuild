@@ -14,7 +14,7 @@ MY_PV=$(delete_all_version_separators)
 # version has been released.
 # see https://bugs.gentoo.org/show_bug.cgi?id=112275
 # https://github.com/imagej/imagej1/issues/28
-IJ_PV=$(expr ${MY_PV::3} - 1)
+IJ_PV=$((${MY_PV::3}-1))
 
 DESCRIPTION="Image Processing and Analysis in Java"
 HOMEPAGE="http://rsb.info.nih.gov/ij/"
