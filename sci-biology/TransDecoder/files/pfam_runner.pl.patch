@@ -1,5 +1,5 @@
---- util/pfam_runner.pl	2015-01-09 11:22:55.000000000 +0100
-+++ util/pfam_runner.pl	2015-01-09 14:25:43.385838579 +0100
+--- a/util/pfam_runner.pl
++++ b/util/pfam_runner.pl
 @@ -24,7 +24,7 @@
  my $workdir;
  my $verbose;
