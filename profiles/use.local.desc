@@ -149,6 +149,7 @@ sci-libs/clblas:performance - Copy performance scripts that can measure and grap
 sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
+sci-libs/dealii:adolc - Adds support for ADOL-C (sci-libs/adolc)
 sci-libs/dealii:arpack - Adds support for ARPACK (sci-libs/arpack)
 sci-libs/dealii:c++11 - Compile the library with -std=c++11
 sci-libs/dealii:debug - Build an additional debug library with extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see <http://www.gentoo.org/proj/en/qa/backtraces.xml>
@@ -156,6 +157,7 @@ sci-libs/dealii:mesh_converter - Build and install the mesh_converter executable
 sci-libs/dealii:metis - Add support for metis (sci-libs/metis)
 sci-libs/dealii:mumps - Add support for mumps (sci-libs/mumps)
 sci-libs/dealii:muparser - Add support for muparser (dev-cpp/muParser)
+sci-libs/dealii:nanoflann - Adds support for nanoflann (sci-libs/nanoflann)
 sci-libs/dealii:opencascade - Add support for opencascade (sci-libs/opencascade)
 sci-libs/dealii:p4est - Add support for p4est (sci-mathematics/p4est)
 sci-libs/dealii:parameter_gui - Build and install the parameter_gui executable
