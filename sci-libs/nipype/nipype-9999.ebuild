@@ -20,7 +20,7 @@ IUSE="test"
 
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
-	dev-python/prov[${PYTHON_USEDEP}]
+	=dev-python/prov-1.5.0[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.0.1[${PYTHON_USEDEP}]
