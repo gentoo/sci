@@ -51,7 +51,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}"/${P}-trilinos-superlu.patch
+	"${FILESDIR}"/${PN}-2016.2.0-trilinos-superlu.patch
 )
 
 pkg_setup() {
