@@ -1,3 +1,7 @@
+# Adapt hard-coded paths to the directory structure of Gentoo (including Prefix)
+# From: Francois Bissey <frp.bissey@gmail.com>
+# Signed-off-by: Horea Christian <horea.christ@gmail.com>
+
 diff -Naur fsl.orig/src/fast4/fast_two.cc fsl/src/fast4/fast_two.cc
 --- fsl.orig/src/fast4/fast_two.cc	2015-03-30 11:54:10.522550233 +1300
 +++ fsl/src/fast4/fast_two.cc		2015-03-30 11:54:18.412569892 +1300

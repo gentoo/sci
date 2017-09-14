@@ -1,3 +1,8 @@
+# Include zlib header directly.
+# From: Francois Bissey <frp.bissey@gmail.com>
+# Signed-off-by: Horea Christian <horea.christ@gmail.com>
+# Submitted upstream: https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=ind1709&L=FSL&F=&S=&X=95C10F0B7D62EAAE7A&P=169254
+
 --- fsl/src/miscvis/writepng.c.orig	2013-10-19 00:18:32.415203592 +1300
 +++ fsl/src/miscvis/writepng.c	2013-10-19 00:19:05.414255132 +1300
 @@ -32,6 +32,7 @@
