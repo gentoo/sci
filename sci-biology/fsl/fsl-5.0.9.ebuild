@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit eutils toolchain-funcs prefix
+inherit toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
@@ -29,13 +29,16 @@ RDEPEND="${COMMON_DEPEND}
 	"
 
 S=${WORKDIR}/${PN}
+UPSTREAM_FSLDIR="/usr/share/fsl"
+
+PATCHES=(
+	"${FILESDIR}/${PN}"-5.0.9-setup.patch
+	"${FILESDIR}/${PN}"-5.0.9-headers.patch
+	"${FILESDIR}/${PN}"-5.0.9-fsldir_redux.patch
+)
 
 src_prepare(){
-	epatch \
-		"${FILESDIR}/${PN}"-5.0.8-setup.patch \
-		"${FILESDIR}/${PN}"-5.0.8-headers.patch \
-		"${FILESDIR}/${PN}"-5.0.8-fsldir_redux.patch
-
+	default
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
 		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \
@@ -57,36 +60,28 @@ src_prepare(){
 		-e "s:-L\${LIB_ZLIB}::" \
 		${makefilelist} || die
 
-	sed -i "s:\${FSLDIR}/bin/::g" \
-		$(grep -rl "\${FSLDIR}/bin" src/*) \
-		$(grep -rl "\${FSLDIR}/bin" etc/matlab/*)
-	sed -i "s:\$FSLDIR/bin/::g" \
-		$(grep -rl "\$FSLDIR/bin" src/*) \
-		$(grep -rl "\$FSLDIR/bin" etc/matlab/*)
+	sed -e "s:\${FSLDIR}/bin/::g" \
+		-e "s:\$FSLDIR/bin/::g" \
+		-i $(grep -rl "\${FSLDIR}/bin" src/*) \
+		$(grep -rl "\${FSLDIR}/bin" etc/matlab/*) || die
 
-	sed -i "s:\$FSLDIR/data:${EPREFIX}/usr/share/fsl/data:g" \
-		$(grep -rl "\$FSLDIR/data" src/*)
+	sed -e "s:\$FSLDIR/data:${EPREFIX}/usr/share/fsl/data:g" \
+		-e "s:\${FSLDIR}/data:${EPREFIX}/usr/share/fsl/data:g" \
+		-i $(grep -rl "\$FSLDIR/data" src/*) \
+		$(grep -rl "\${FSLDIR}/data" src/*) || die
 
-	sed -i "s:\${FSLDIR}/data:${EPREFIX}/usr/share/fsl/data:g" \
-		$(grep -rl "\${FSLDIR}/data" src/*)
+	sed -e "s:\$FSLDIR/doc:${EPREFIX}/usr/share/fsl/doc:g" \
+		-e "s:\${FSLDIR}/doc:${EPREFIX}/usr/share/fsl/doc:g" \
+		-i $(grep -rl "\$FSLDIR/doc" src/*) \
+		$(grep -rl "\${FSLDIR}/doc" src/*) || die
 
-	sed -i "s:\$FSLDIR/etc:${EPREFIX}/etc:g" \
-		$(grep -rl "\$FSLDIR/etc" src/*)
+	sed -e "s:/usr/share/fsl/doc:${EPREFIX}/usr/share/fsl/doc:g" \
+		$(grep -rl "/usr/share/fsl/doc" src/*) || die
 
-	sed -i "s:\${FSLDIR}/etc:${EPREFIX}/etc:g" \
-		$(grep -rl "\${FSLDIR}/etc" src/*)
-
-	sed -i "s:\$FSLDIR/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		$(grep -rl "\$FSLDIR/doc" src/*)
-
-	sed -i "s:\${FSLDIR}/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		$(grep -rl "\${FSLDIR}/doc" src/*)
-
-	sed -i "s:\'\${FSLDIR}\'/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
-
-	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
-	default
+	sed -e "s:\$FSLDIR/etc:${EPREFIX}/etc:g" \
+		-e "s:\${FSLDIR}/etc:${EPREFIX}/etc:g" \
+		-i $(grep -rlI "\$FSLDIR/etc" *) \
+		-i $(grep -rlI "\${FSLDIR}/etc" *) || die
 }
 
 src_compile() {
@@ -128,14 +123,13 @@ src_install() {
 	#fi
 
 	#the following is needed for FSL and depending programs to be able
-	#to find its files, since FSL uses an uncommon:
+	#to find its files, since FSL uses an uncommon installation path:
 	#https://github.com/gentoo-science/sci/pull/612#r60289295
-	dosym /etc /usr/share/fsl/etc
-	dosym /usr/share/doc/${P} /usr/share/fsl/doc
+	dosym /etc ${UPSTREAM_FSLDIR}/etc
+	dosym /usr/share/doc/${PF} ${UPSTREAM_FSLDIR}/doc
+	dosym /usr/bin ${UPSTREAM_FSLDIR}/bin
 
-	cp "${FILESDIR}"/99fsl "${TMPDIR}"/99fsl || die
-	eprefixify "${TMPDIR}"/99fsl
-	doenvd "${TMPDIR}"/99fsl
+	doenvd "$(prefixify_ro "${FILESDIR}"/99fsl)"
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
 }
 

@@ -1,0 +1,115 @@
+diff -Naur fsl.orig/build fsl/build
+--- fsl.orig/build	2015-03-29 00:10:39.845936000 +1300
++++ fsl/build	2015-03-29 00:12:37.160487000 +1300
+@@ -11,9 +11,8 @@
+ ifit load_varian load_dicom misc_scripts fdt first possum sgeutils \
+ flameo oxford_asl relax qboot topup ptx2 lesions eddy dwssfp verbena";
+ fi
+ 
+-echo "Building projects - see build.log file for progress..."
+-./config/common/buildproj $PROJECTS > ./build.log 2>&1
+-echo "Finished build : end of log file shows ..."
+-tail -10 build.log
++echo "Building projects"
++./config/common/buildproj $PROJECTS
++echo "Finished build"
+ 
+diff -Naur fsl.orig/config/common/buildproj fsl/config/common/buildproj
+--- fsl.orig/config/common/buildproj	2015-03-29 00:11:47.130998000 +1300
++++ fsl/config/common/buildproj	2015-03-29 00:12:37.164319000 +1300
+@@ -11,10 +11,10 @@
+ fi
+ PROJECTS="$@" ; export PROJECTS ;
+ 
+-FSLDIR=`pwd`
++#FSLDIR=`pwd`
+ FSLDEVDIR=${FSLDIR}
+ FSLCONFDIR=${FSLDIR}/config
+-FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
++#FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
+ export FSLDIR FSLDEVDIR FSLCONFDIR FSLMACHTYPE
+ 
+ buildmessages="" ; export buildmessages ;
+@@ -66,7 +66,7 @@
+ 	  if [ -x fslconfig ] ; then
+ 	    ./fslconfig ;
+ 	  fi
+-	  if ${MAKE} -k ${MAKEOPTIONS} ; then 
++	  if ${MAKE} ${MAKEOPTIONS} ${MAKEOPTS} ; then 
+ 	    if ${MAKE} install ; then
+ 	      installok=true;
+ 	      # Clean up after ourselves
+diff -Naur fsl.orig/config/common/vars.mk fsl/config/common/vars.mk
+--- fsl.orig/config/common/vars.mk	2015-03-29 00:11:47.183520000 +1300
++++ fsl/config/common/vars.mk	2015-03-29 00:18:53.151222000 +1300
+@@ -24,15 +24,15 @@
+ USRCFLAGS = 
+ USRCXXFLAGS =
+ 
+-LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR}
++LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR} ${USERLDFLAGS}
+ 
+-AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR}
++AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR} ${CPPFLAGS}
+ 
+ CFLAGS = ${ANSI_FLAGS} ${ANSI_CFLAGS} ${DBGFLAGS} ${USEDCSTATICFLAGS} ${USRCFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCFLAGS}
+ 
+ CXXFLAGS = ${ANSI_FLAGS} ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCXXFLAGS}
+ 
+ HFILES = *.h
+ AFILES = *.a
+diff -Naur fsl.orig/config/generic/systemvars.mk fsl/config/generic/systemvars.mk
+--- fsl.orig/config/generic/systemvars.mk	2015-03-29 00:11:47.534246000 +1300
++++ fsl/config/generic/systemvars.mk	2015-03-29 00:12:37.162129000 +1300
+@@ -4,20 +4,20 @@
+ 
+ # System dependent commands (NB: the first two are the most platform dependent)
+ 
+-INSTALL = ginstall -p
+-RANLIB = ranlib
++INSTALL = install -p
++RANLIB = @@GENTOO_RANLIB@@
+ 
+ RM = /bin/rm
+ CP = /bin/cp
+ MV = /bin/mv
+ CHMOD = /bin/chmod
+ MKDIR = /bin/mkdir
+-TCLSH = ${FSLDIR}/bin/fsltclsh
++TCLSH = tclsh
+ 
+ # Compiler dependent variables
+ 
+-CC = gcc
+-CXX = c++
++CC = @@GENTOO_CC@@
++CXX = @@GENTOO_CXX@@
+ CSTATICFLAGS = -static
+ CXXSTATICFLAGS = -static
+ 
+@@ -25,7 +25,7 @@
+ 
+ DEPENDFLAGS = -MM
+ 
+-OPTFLAGS =  -O3 -fexpensive-optimizations ${ARCHFLAGS}
++OPTFLAGS =
+ MACHDBGFLAGS =
+ GNU_ANSI_FLAGS = -Wall -ansi -pedantic
+ SGI_ANSI_FLAGS = -ansi -fullwarn
+diff -Naur fsl.orig/extras/build fsl/extras/build
+--- fsl.orig/extras/build	2015-03-29 00:11:15.080236000 +1300
++++ fsl/extras/build	2015-03-29 00:15:53.170496000 +1300
+@@ -104,8 +104,8 @@
+ if [ ${BUILDICONV} -eq 1 ]; then
+   PROJECTS="${PROJECTS} libiconv"
+ fi
+-PROJECTS="${PROJECTS} libgd libgdc libprob libcprob newmat cprob newran fftw"
++PROJECTS="libgdc libprob libcprob newmat cprob newran"
+ PROJECTS="${PROJECTS} boost libxml2-2.9.2 libxml++-2.34.0"
+ for projname in $PROJECTS; do
+ 
+     if [ -d $FSLESRCDIR/$projname ] ; then
