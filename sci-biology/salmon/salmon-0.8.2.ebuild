@@ -3,16 +3,18 @@
 
 EAPI=6
 
-inherit cmake-utils git-r3
+inherit cmake-utils
 
 DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
 HOMEPAGE="https://github.com/COMBINE-lab/salmon"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/COMBINE-lab/salmon.git"
+SRC_URI="https://github.com/COMBINE-lab/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
+
+#PATCHES=( "${FILESDIR}"/${PN}-0.3.2-no-boost-static.patch )
 
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc
