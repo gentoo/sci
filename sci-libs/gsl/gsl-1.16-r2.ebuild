@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,7 +9,7 @@ MULTILIB_COMPAT=( abi_x86_{32,64} )
 inherit alternatives-2 autotools-multilib eutils toolchain-funcs
 
 DESCRIPTION="GNU Scientific Library"
-HOMEPAGE="http://www.gnu.org/software/gsl/"
+HOMEPAGE="https://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"

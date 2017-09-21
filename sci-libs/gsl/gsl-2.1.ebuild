@@ -6,7 +6,7 @@ EAPI=6
 inherit alternatives-2 autotools multilib-build numeric toolchain-funcs
 
 DESCRIPTION="GNU Scientific Library"
-HOMEPAGE="http://www.gnu.org/software/gsl/"
+HOMEPAGE="https://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"

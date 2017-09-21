@@ -3,14 +3,14 @@
 
 EAPI=6
 
-inherit alternatives-2 autotools multilib-build numeric toolchain-funcs
+inherit alternatives-2 autotools flag-o-matic multilib-build numeric toolchain-funcs
 
 DESCRIPTION="GNU Scientific Library"
 HOMEPAGE="https://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
-SLOT="0/19"
+SLOT="0/23"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="cblas-external static-libs"
 
@@ -36,6 +36,10 @@ src_configure() {
 		fi
 		econf $(use_with cblas-external)
 	}
+	# fma flags, which can be enabled by -march=native, cause some tests to fail.
+	# https://github.com/gentoo/sci/pull/815
+	append-cflags $(test-flags-CC -mno-fma -mno-fma4)
+
 	multilib_foreach_abi run_in_build_dir gsl_configure
 }
 
