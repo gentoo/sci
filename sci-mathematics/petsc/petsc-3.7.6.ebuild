@@ -111,6 +111,8 @@ src_configure() {
 	# mitigate because it happens in libpciaccess.so called by libhwloc.so,
 	# which is used by libmpi.so.
 	addpredict /proc/mtrr
+	# if mpi is built with knem support it needs /dev/knem too
+	addpredict /dev/knem
 
 	# configureMPITypes with openmpi-2* insists on accessing the scaling
 	# governor rw.
