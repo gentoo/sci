@@ -43,7 +43,7 @@ RDEPEND="
 	mumps? ( sci-libs/mumps[mpi?] sci-libs/scalapack )
 	scotch? ( sci-libs/scotch[mpi?] )
 	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
-	superlu? ( sci-libs/superlu )
+	superlu? ( >=sci-libs/superlu-5 )
 	X? ( x11-libs/libX11 )
 "
 
