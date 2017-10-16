@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -16,7 +16,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/V${PV//./_}.tar.gz -> ${P}.tar.g
 LICENSE="Apache-2.0"
 SLOT="0"
 #KEYWORDS="~amd64 ~x86"
-IUSE="boinc cgroup contrib curl dmtcp doc kerberos libvirt management minimal postgres python soap ssl test X xml"
+IUSE="boinc cgroup contrib curl dmtcp doc kerberos libvirt minimal postgres python soap ssl test X xml"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -31,7 +31,6 @@ CDEPEND="sys-libs/zlib
 	libvirt? ( >=app-emulation/libvirt-0.6.2 )
 	kerberos? ( virtual/krb5 )
 	X? ( x11-libs/libX11 )
-	management? ( net-libs/qmf )
 	postgres? ( >=dev-db/postgresql-8.2.4:= )
 	python? ( ${PYTHON_DEPS} )
 	soap? ( >=net-libs/gsoap-2.7.11[ssl?] )
@@ -44,19 +43,17 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	virtual/mailx"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-shadow_dlopen.patch
+	"${FILESDIR}"/${P}-condor_config.generic.patch
+	"${FILESDIR}"/${P}-Apply-the-users-condor_config-last-rather-than-first.patch
+	"${FILESDIR}"/${P}-packaging_directories.patch
+	"${FILESDIR}"/fix_sandbox_violations-8.0.0.patch
+)
+
 pkg_setup() {
 	enewgroup condor
 	enewuser condor -1 "${ROOT}"bin/bash "${ROOT}var/lib/condor" condor
-}
-
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-shadow_dlopen.patch \
-		"${FILESDIR}"/${P}-condor_config.generic.patch \
-		"${FILESDIR}"/${P}-Apply-the-users-condor_config-last-rather-than-first.patch \
-		"${FILESDIR}"/${P}-packaging_directories.patch \
-		"${FILESDIR}"/fix_sandbox_violations-8.0.0.patch
-	cmake-utils_src_prepare
 }
 
 src_configure() {
@@ -77,6 +74,7 @@ src_configure() {
 		-DWITH_UNICOREGAHP=OFF
 		-DWITH_VOMS=OFF
 		-DWITH_WSO2=OFF
+		-DWITH_MANAGEMENT=OFF
 		$(cmake-utils_use_has boinc BACKFILL)
 		$(cmake-utils_use_has boinc)
 		$(cmake-utils_use_with cgroup LIBCGROUP)
@@ -88,7 +86,6 @@ src_configure() {
 		$(cmake-utils_use_with kerberos KRB5)
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with python PYTHON_BINDINGS)
-		$(cmake-utils_use_with management)
 		$(cmake-utils_use minimal CLIPPED)
 		$(cmake-utils_use_with soap AVIARY)
 		$(cmake-utils_use_with soap GSOAP)

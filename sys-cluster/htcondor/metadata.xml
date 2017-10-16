@@ -25,7 +25,6 @@
     <flag name="contrib">Build contrib modules</flag>
     <flag name="dmtcp">Use <pkg>sys-apps/dmtcp</pkg> for checkpointing</flag>
     <flag name="libvirt">Use <pkg>app-emulation/libvirt</pkg> for virtualisation</flag>
-    <flag name="management">Use <pkg>net-libs/qmf</pkg> for management</flag>
     <flag name="minimal">Don't support standard universe jobs</flag>
     <flag name="X">Enable the HTCondor Keyboard Daemon to monitor logged in X users for activity</flag>
   </use>
