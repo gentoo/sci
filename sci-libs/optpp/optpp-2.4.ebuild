@@ -3,7 +3,10 @@
 
 EAPI=6
 
-inherit toolchain-funcs
+
+BLAS_COMPAT=( refblas openblas mkl  )
+
+inherit toolchain-funcs blas
 
 DESCRIPTION="C++ library for non-linear optimization"
 HOMEPAGE="https://software.sandia.gov/opt++/"
@@ -15,10 +18,13 @@ SLOT="0"
 IUSE="doc mpi static-libs"
 
 RDEPEND="
+	$BLAS_DEPS
 	virtual/blas
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
+	
+REQUIRED_USE="$BLAS_REQ_USE"
 
 src_configure() {
 	local myeconfargs=(
