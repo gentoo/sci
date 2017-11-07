@@ -106,8 +106,8 @@ function _blas_set_globals(){
 	
 	BLAS_USEDEP="$(_blas_usedep)"
 	BLAS_DEPS="$(_blas_get_depends)"
-	BLAS_REQ_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
-	
+	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
+
 }
 
 _blas_set_globals
