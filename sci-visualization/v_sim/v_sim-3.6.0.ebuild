@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit eutils multilib
+BLAS_COMPAT_ALL=1
+BLAS_CONDITIONAL_FLAG="blas"
+
+inherit eutils multilib blas
 
 DESCRIPTION="Displays atomic structures such as crystals, gain boudaries, molecules"
 HOMEPAGE="http://www-drfmc.cea.fr/sp2m/L_Sim/V_Sim/index.en.html"
@@ -25,8 +28,7 @@ RDEPEND="
 	media-libs/libpng:0=
 	virtual/opengl"
 DEPEND="${RDEPEND}
-	abinit? ( sci-physics/abinit sci-libs/etsf_io )
-	blas? ( virtual/blas )
+	abinit? ( sci-physics/abinit[${BLAS_USEDEP}] sci-libs/etsf_io )
 	netcdf? ( sci-libs/netcdf )
 	openbabel? ( sci-chemistry/openbabel )
 	doc?  ( >=dev-util/gtk-doc-1.4-r1 )"
