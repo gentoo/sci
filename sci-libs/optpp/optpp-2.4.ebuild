@@ -4,8 +4,7 @@
 EAPI=6
 
 
-BLAS_COMPAT=( refblas openblas mkl  )
-
+BLAS_COMPAT_ALL=1
 inherit toolchain-funcs blas
 
 DESCRIPTION="C++ library for non-linear optimization"
@@ -18,14 +17,11 @@ SLOT="0"
 IUSE="doc mpi static-libs"
 
 RDEPEND="
-	$BLAS_DEPS
-	virtual/blas
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 	
-REQUIRED_USE="$BLAS_REQ_USE"
-
+	
 src_configure() {
 	local myeconfargs=(
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
