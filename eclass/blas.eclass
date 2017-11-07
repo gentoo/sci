@@ -7,6 +7,79 @@
 # compatible and implementations in the USE-flags
 # The implementation is then enforced upon every dependency of the package
 
+# @ECLASS-VARIABLE: BLAS_COMPAT
+# @REQUIRED
+# @DESCRIPTION:
+# This variable contains a list of BLAS implementations the package
+# supports. It has to be an array. Either it or BLAS_COMPAT_ALL must be
+# set before the `inherit' call. BLAS_COMPAT_ALL overrides BLAS_COMPAT.
+#
+# Example:
+# @CODE
+# BLAS_COMPAT=( refblas openblas gotoblas mkl )
+# @CODE
+
+# @ECLASS-VARIABLE: BLAS_COMPAT_ALL
+# @REQUIRED
+# @DESCRIPTION:
+# This variable marks that the package is compatible with all (standard)
+# BLAS implementations. Set it to a non-empty value to make your package
+# compatible with any BLAS version. Either it or BLAS_COMPAT must be set
+# before the `inherit' call. BLAS_COMPAT_ALL overrides BLAS_COMPAT.
+#
+# Example:
+# @CODE
+# BLAS_COMPAT_ALL=1
+# @CODE
+
+# @ECLASS-VARIABLE: BLAS_USEDEP
+# @DESCRIPTION:
+# This is an eclass-generated USE-dependency string which has to be used
+# to propagate the chosen BLAS-implementation down the dependency graph
+#
+# Example use:
+# @CODE
+# RDEPEND="sci-libs/foo[${BLAS_USEDEP}]"
+# @CODE
+#
+# Example value:
+# @CODE
+# refblas?,openblas?
+# @CODE
+
+
+# @ECLASS-VARIABLE: BLAS_CONDITIONAL_FLAG
+# @DESCRIPTION:
+# This variable contains the USE-flag that selects whether the package
+# should depend on BLAS or not.
+# If non-empty, it gets prepended to REQUIRED_USE, DEPEND and RDEPEND.
+#
+# If, for example, set to
+# @CODE
+# BLAS_CONDITIONAL_FLAG="blas"
+# @CODE
+#
+# Then the eclasses REQUIRED_USE and DEPENDs look like this:
+# @CODE
+# DEPEND="blas? ( blas_refblas? ( sci-libs/blas-reference ))"
+# RDEPEND="${DEPEND}"
+# REQUIRED_USE="blas? ( ^^ ( blas_refblas blas_openblas ) )"
+# @CODE
+
+# @ECLASS-VARIABLE: BLAS_USE_CBLAS
+# @DESCRIPTION:
+# This variable sets whether your package depends on BLAS C-headers.
+# If non-empty, additional packages will be added to the DEPEND and 
+# RDEPEND variable.
+# This variable must be set before the call to inherit
+#
+# Example usage:
+# @CODE
+# BLAS_USE_CBLAS=1
+# @CODE
+
+
+
 BLAS_IMPLS=(refblas openblas gotoblas mkl)
 BLAS_SUPP_IMPLS=()
 
