@@ -5,7 +5,10 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs versionator
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs versionator blas lapack
 
 MY_P="${PN}-$(replace_version_separator _ -)"
 
@@ -33,18 +36,16 @@ REQUIRED_USE="
 #	imagemagick? ( X )
 
 RDEPEND="
-	virtual/blas
-	virtual/lapack
 	afterimage? ( media-libs/libafterimage )
 	boost? ( dev-libs/boost )
 	fftw? ( sci-libs/fftw:3.0[mpi?] )
 	hdf5? ( sci-libs/hdf5[mpi?] )
-	hypre? ( >=sci-libs/hypre-2.8.0b[mpi?] )
+	hypre? ( >=sci-libs/hypre-2.8.0b[${BLAS_USEDEP},${LAPACK_USEDEP},mpi?] )
 	mpi? ( virtual/mpi[cxx?,fortran?] )
-	mumps? ( sci-libs/mumps[mpi?] sci-libs/scalapack )
+	mumps? ( sci-libs/mumps[${BLAS_USEDEP},${LAPACK_USEDEP},mpi?] sci-libs/scalapack[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	scotch? ( sci-libs/scotch[mpi?] )
-	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
-	superlu? ( sci-libs/superlu )
+	sparse? ( sci-libs/suitesparse[${LAPACK_USEDEP}] >=sci-libs/cholmod-1.7.0[${BLAS_USEDEP},${LAPACK_USEDEP}] )
+	superlu? ( >=sci-libs/superlu-5[${BLAS_USEDEP}] )
 	X? ( x11-libs/libX11 )
 "
 #	metis? ( sci-libs/parmetis )
