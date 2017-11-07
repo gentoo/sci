@@ -79,20 +79,29 @@ function _blas_get_depends(){
 function _blas_set_globals(){
 	local impl
 	
-	if [ "${#BLAS_COMPAT[@]}" -eq 0 ]
+	if [[ ${BLAS_COMPAT_ALL} ]]
 	then
-		die "No BLAS implementations set in BLAS_COMPAT"
-	fi
-	
-	for impl in "${BLAS_COMPAT[@]}"
-	do
-		if _blas_impl_valid "$impl"
+		BLAS_SUPP_IMPLS=( "${BLAS_IMPLS[@]}" )
+	else
+		if [ "${#BLAS_COMPAT[@]}" -eq 0 ]
 		then
-			BLAS_SUPP_IMPLS+=( "$impl" )
-		else
-			die "Unknown BLAS implementation ${impl}"
+			die "No BLAS implementations set in BLAS_COMPAT"
 		fi
-	done
+		
+		for impl in "${BLAS_COMPAT[@]}"
+		do
+			if [ "$impl" == "*" ]
+			then
+			
+				break
+			elif _blas_impl_valid "$impl"
+			then
+				BLAS_SUPP_IMPLS+=( "$impl" )
+			else
+				die "Unknown BLAS implementation ${impl}"
+			fi
+		done
+	fi
 	IUSE="${IUSE[@]} $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}")"
 	
 	BLAS_USEDEP="$(_blas_usedep)"
