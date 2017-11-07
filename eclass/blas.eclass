@@ -78,6 +78,23 @@
 # BLAS_USE_CBLAS=1
 # @CODE
 
+# @ECLASS-VARIABLE: BLAS_REQ_USE
+# @DESCRIPTION:
+# Adds a USE-flag requirement to every BLAS-implementation we depend on
+# (mainly useful for multilib, since the implementations share nearly no
+# other flags)
+# This must be set before the call to inherit blas
+#
+# Example usage:
+# @CODE
+# BLAS_REQ_USE="int64"
+# @CODE
+# 
+# Will result in DEPENDs like.
+# @CODE
+# DEPEND="blas_refblas? ( sci-libs/blas-reference[int64] )
+# @CODE
+
 
 
 BLAS_IMPLS=(refblas openblas gotoblas mkl)
@@ -137,15 +154,22 @@ function _blas_usedep(){
 function _blas_get_depends(){
 	local impl
 	local cblas
+	local requse
 	for impl in "${BLAS_SUPP_IMPLS[@]}"
 	do
+		if [[ $BLAS_REQ_USE ]]
+		then
+			requse="[${BLAS_REQ_USE}]"
+		else
+			requse=""
+		fi
 		if [[ $BLAS_USE_CBLAS ]]
 		then
 			eval "cblas=\$_cblas_provider_$impl"
 		else
 			cblas=""
 		fi
-		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \$_blas_provider_$impl $cblas )\""
+		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \${_blas_provider_$impl}${requse} ${cblas}${requse} )\""
 	done
 }
 
