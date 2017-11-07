@@ -3,7 +3,12 @@
 
 EAPI=5
 
-inherit autotools eutils flag-o-matic mpi versionator toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+
+LAPACK_COMPAT_ALL=1
+
+inherit autotools eutils flag-o-matic mpi versionator toolchain-funcs blas lapack
 
 MY_PV=$(replace_version_separator 2 '-')
 
@@ -18,10 +23,8 @@ IUSE="doc examples mpi opengl X"
 
 RDEPEND="
 	sci-libs/fftw:3.0
-	virtual/cblas
-	virtual/lapack
-	sci-libs/umfpack
-	sci-libs/arpack
+	sci-libs/umfpack[${BLAS_USEDEP}]
+	sci-libs/arpack[${BLAS_USEDEP},${LAPACK_USEDEP}]
 	mpi? ( $(mpi_pkg_deplist) )
 	opengl? (
 		media-libs/freeglut
