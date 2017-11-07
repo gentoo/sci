@@ -15,6 +15,11 @@ _blas_provider_openblas="sci-libs/openblas"
 _blas_provider_gotoblas="sci-libs/gotoblas2"
 _blas_provider_mkl="sci-libs/mkl"
 
+_cblas_provider_refblas="sci-libs/cblas-reference"
+_cblas_provider_openblas=""
+_cblas_provider_gotoblas=""
+_cblas_provider_mkl=""
+
 function _blas_impl_valid(){
 	local impl
 	for impl in "${BLAS_IMPLS[@]}"
@@ -58,9 +63,16 @@ function _blas_usedep(){
 
 function _blas_get_depends(){
 	local impl
+	local cblas
 	for impl in "${BLAS_SUPP_IMPLS[@]}"
 	do
-		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \$_blas_provider_$impl )\""
+		if [[ $BLAS_USE_CBLAS ]]
+		then
+			eval "cblas=\$_cblas_provider_$impl"
+		else
+			cblas=""
+		fi
+		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \$_blas_provider_$impl $cblas )\""
 	done
 }
 
