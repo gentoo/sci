@@ -108,6 +108,15 @@ function _blas_set_globals(){
 	BLAS_DEPS="$(_blas_get_depends)"
 	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
 
+	if [[ ${BLAS_CONDITIONAL_FLAG} ]]
+	then
+		REQUIRED_USE="${BLAS_CONDITIONAL_FLAG}? ( ${BLAS_REQUIRED_USE} )"
+		RDEPEND="${BLAS_CONDITIONAL_FLAG}? ( ${BLAS_DEPS} )"
+	else
+		REQUIRED_USE="${BLAS_REQUIRED_USE}"
+		RDEPEND="${BLAS_DEPS}"
+	fi
+	DEPEND="${RDEPEND}"
 }
 
 _blas_set_globals
