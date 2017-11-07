@@ -8,8 +8,11 @@ RESTRICT="test"
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
-	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx
+	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx blas lapack
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
@@ -33,11 +36,10 @@ CDEPEND="
 	dev-libs/libpcre
 	dev-libs/libxml2:2
 	sci-libs/hdf5[mpi=]
-	>=sci-libs/arpack-3
+	>=sci-libs/arpack-3[${BLAS_USEDEP},${LAPACK_USEDEP}]
 	sys-devel/gettext
 	sys-libs/ncurses:0=
 	sys-libs/readline:0=
-	virtual/lapack
 	emf? (
 		dev-java/freehep-graphicsio:0
 		dev-java/freehep-graphicsio-emf:0
@@ -68,7 +70,7 @@ CDEPEND="
 		)
 	matio? ( >=sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk:0= )
-	umfpack? ( sci-libs/umfpack )"
+	umfpack? ( sci-libs/umfpack[${BLAS_USEDEP}] )"
 
 RDEPEND="${CDEPEND}
 	gui? ( >=virtual/jre-1.5 )"
