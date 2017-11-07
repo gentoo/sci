@@ -7,7 +7,11 @@ AUTOTOOLS_AUTORECONF=true
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools-utils distutils-r1 subversion
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="lapack"
+LAPACK_USE_LAPACKE=1
+
+inherit autotools-utils distutils-r1 subversion lapack
 
 DESCRIPTION="General Hidden Markov Model library"
 HOMEPAGE="http://ghmm.sourceforge.net/"
@@ -24,7 +28,6 @@ RDEPEND="
 	gsl? ( sci-libs/gsl )
 	lapack? (
 		sci-libs/clapack
-		virtual/lapack
 		)"
 DEPEND="${RDEPEND}"
 
