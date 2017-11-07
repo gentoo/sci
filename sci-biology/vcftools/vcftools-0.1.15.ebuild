@@ -3,7 +3,10 @@
 
 EAPI=6
 
-inherit flag-o-matic perl-functions toolchain-funcs
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="lapack"
+
+inherit flag-o-matic perl-functions toolchain-funcs lapack
 
 MY_PV=${PV/_pre/}
 S="${WORKDIR}/${PN}-${MY_PV}"
@@ -19,8 +22,7 @@ IUSE="lapack"
 
 RDEPEND="
 	sys-libs/zlib
-	dev-lang/perl:=
-	lapack? ( virtual/lapack )"
+	dev-lang/perl:="
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
