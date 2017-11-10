@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit cmake-utils toolchain-funcs multilib toolchain-funcs
+LAPACK_COMPAT_ALL=1
+BLAS_COMPAT_ALL=1
+
+inherit cmake-utils toolchain-funcs multilib toolchain-funcs blas lapack
 
 DESCRIPTION="Scientific library collection for large scale problems"
 HOMEPAGE="http://trilinos.sandia.gov/"
@@ -16,7 +19,7 @@ SLOT="0"
 
 IUSE="
 	adolc arprec boost clp cppunit cuda eigen glpk gtest hdf5 hwloc hypre
-	matio metis mkl mumps netcdf petsc qd qt4 scalapack scotch sparse
+	matio metis mumps netcdf petsc qd qt4 scalapack scotch sparse
 	superlu taucs tbb test threads tvmet yaml zlib
 "
 
@@ -25,8 +28,6 @@ RESTRICT="test"
 
 RDEPEND="
 	sys-libs/binutils-libs
-	virtual/blas
-	virtual/lapack
 	virtual/mpi
 	adolc? ( sci-libs/adolc )
 	arprec? ( sci-libs/arprec )
@@ -36,21 +37,20 @@ RDEPEND="
 	eigen? ( dev-cpp/eigen:3 )
 	gtest? ( dev-cpp/gtest )
 	hdf5? ( sci-libs/hdf5[mpi] )
-	hypre? ( sci-libs/hypre )
+	hypre? ( sci-libs/hypre[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	hwloc? ( sys-apps/hwloc )
 	matio? ( sci-libs/matio )
-	mkl? ( sci-libs/mkl )
 	metis? ( || ( sci-libs/parmetis sci-libs/metis ) )
-	mumps? ( sci-libs/mumps )
+	mumps? ( sci-libs/mumps[${BLAS_USEDEP}] )
 	netcdf? ( sci-libs/netcdf )
-	petsc? ( sci-mathematics/petsc )
+	petsc? ( sci-mathematics/petsc[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	qd? ( sci-libs/qd )
 	qt4? ( dev-qt/qtgui:4 )
-	scalapack? ( virtual/scalapack )
+	scalapack? ( virtual/scalapack[${LAPACK_USEDEP}] )
 	scotch? ( sci-libs/scotch )
-	sparse? ( sci-libs/cxsparse sci-libs/umfpack )
-	superlu? ( sci-libs/superlu )
-	taucs? ( sci-libs/taucs )
+	sparse? ( sci-libs/cxsparse sci-libs/umfpack[${BLAS_USEDEP}] )
+	superlu? ( sci-libs/superlu[${BLAS_USEDEP}] )
+	taucs? ( sci-libs/taucs[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	tbb? ( dev-cpp/tbb )
 	tvmet? ( dev-libs/tvmet )
 	yaml? ( dev-cpp/yaml-cpp )
@@ -121,8 +121,8 @@ src_configure() {
 		$(trilinos_enable hypre)
 		$(trilinos_enable matio)
 		$(trilinos_enable metis)
-		$(trilinos_enable mkl)
-		$(trilinos_enable mkl PARDISO_MKL)
+		$(trilinos_enable blas_mkl)
+		$(trilinos_enable blas_mkl PARDISO_MKL)
 		$(trilinos_enable mumps)
 		$(trilinos_enable netcdf Netcdf)
 		$(trilinos_enable petsc)
