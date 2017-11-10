@@ -3,7 +3,12 @@
 
 EAPI=5
 
-inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="lapack"
+BLAS_CONDITIONAL_FLAG="lapack"
+
+inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs blas lapack
 
 DESCRIPTION="All-electron full-potential linearised augmented-plane wave (FP-LAPW)"
 HOMEPAGE="http://elk.sourceforge.net/"
@@ -15,9 +20,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE="-debug lapack libxc mpi openmp perl test"
 
 RDEPEND="
-	lapack? (
-		virtual/blas
-		virtual/lapack )
 	libxc? ( >=sci-libs/libxc-1.2.0-r1[fortran] )
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
@@ -44,6 +46,11 @@ pkg_setup() {
 	fortran-2_pkg_setup
 
 	use openmp && append-flags -fopenmp
+	if use lapack
+	then
+		blas_pkg_setup
+		lapack_pkg_setup
+	fi
 }
 
 src_prepare() {

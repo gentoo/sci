@@ -5,7 +5,12 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs python-single-r1
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="lapack"
+BLAS_CONDITIONAL_FLAG="lapack"
+
+inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs python-single-r1 blas lapack
 
 DESCRIPTION="All-electron full-potential linearised augmented-plane wave (FP-LAPW)"
 HOMEPAGE="http://elk.sourceforge.net/"
@@ -19,9 +24,6 @@ IUSE="-debug lapack libxc mpi openmp perl python test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
-	lapack? (
-		virtual/blas
-		virtual/lapack )
 	libxc? ( >=sci-libs/libxc-1.2.0-r1[fortran] )
 	perl? ( dev-lang/perl )
 	python? ( ${PYTHON_DEPS} )
@@ -68,6 +70,11 @@ pkg_setup() {
 		popd
 
 		append-flags "${openmp}"
+	fi
+	if use lapack
+	then
+		blas_pkg_setup
+		lapack_pkg_setup
 	fi
 }
 
