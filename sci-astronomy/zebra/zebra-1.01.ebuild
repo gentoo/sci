@@ -3,7 +3,11 @@
 
 EAPI=5
 
-inherit autotools-utils toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools-utils toolchain-funcs blas lapack
 
 DESCRIPTION="Galaxy redhift Bayesian analyzer"
 HOMEPAGE="http://www.astro.phys.ethz.ch/exgal_ocosm/zebra/index.html"
@@ -16,10 +20,7 @@ IUSE="doc examples"
 
 RDEPEND="
 	sci-libs/gsl
-	sci-libs/lapackpp
-	virtual/blas
-	virtual/cblas
-	virtual/lapack"
+	sci-libs/lapackpp"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
