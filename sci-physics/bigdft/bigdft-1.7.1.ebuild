@@ -5,7 +5,10 @@ EAPI=5
 
 PYTHON_COMPAT=(  python2_7 )
 
-inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs blas lapack
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://bigdft.org/"
@@ -19,9 +22,7 @@ IUSE="cuda doc etsf_io glib mpi netcdf openmp opencl scalapack test"
 RDEPEND="
 	( >=sci-libs/libxc-1.2.0-r1[fortran]
 		<sci-libs/libxc-2.2 )
-	virtual/blas
 	virtual/fortran
-	virtual/lapack
 	dev-libs/libyaml
 	mpi? ( virtual/mpi )
 	cuda? ( dev-util/nvidia-cuda-sdk )
@@ -33,7 +34,7 @@ RDEPEND="
 				sci-libs/netcdf-fortran
 				)
 			)
-	scalapack? ( virtual/scalapack )"
+	scalapack? ( virtual/scalapack[${LAPACK_USEDEP}] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
@@ -86,6 +87,8 @@ pkg_setup() {
 	fi
 
 	python-any-r1_pkg_setup
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {
