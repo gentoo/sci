@@ -5,7 +5,10 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools-utils eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools-utils eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs blas lapack
 
 DESCRIPTION="Total energy, charge density and electronic structure using DFT"
 HOMEPAGE="http://www.abinit.org/"
@@ -19,10 +22,9 @@ IUSE="atompaw bigdft cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox g
 REQUIRED_USE="scripts? ( ${PYTHON_REQUIRED_USE} )
 	test? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND="virtual/blas
-	virtual/lapack
-	atompaw? ( >=sci-physics/atompaw-3.0.1.9-r1[libxc?] )
-	bigdft? ( ~sci-libs/bigdft-abi-1.0.4 )
+RDEPEND="
+	atompaw? ( >=sci-physics/atompaw-3.0.1.9-r1[${BLAS_USEDEP},${LAPACK_USEDEP},libxc?] )
+	bigdft? ( ~sci-libs/bigdft-abi-1.0.4[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	cuda? ( dev-util/nvidia-cuda-sdk )
 	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	fftw? (
@@ -32,7 +34,7 @@ RDEPEND="virtual/blas
 	fox? ( >=sci-libs/fox-4.1.2-r2[sax] )
 	gsl? ( sci-libs/gsl )
 	hdf5? ( sci-libs/hdf5[fortran] )
-	levmar? ( sci-libs/levmar )
+	levmar? ( sci-libs/levmar[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	libxc? ( >=sci-libs/libxc-2.0[fortran]
 			<sci-libs/libxc-2.2 )
 	netcdf? (
@@ -48,7 +50,7 @@ RDEPEND="virtual/blas
 	scripts? ( ${PYTHON_DEPS}
 		dev-python/numpy
 		dev-python/PyQt4 )
-	wannier? ( >=sci-libs/wannier90-1.2-r1 )"
+	wannier? ( >=sci-libs/wannier90-1.2-r1[${BLAS_USEDEP},${LAPACK_USEDEP}] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	dev-perl/Text-Markdown
@@ -170,7 +172,9 @@ pkg_setup() {
 	if use scripts || use test; then
 		python-single-r1_pkg_setup
 	fi
-
+	
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {
