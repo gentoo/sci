@@ -4,8 +4,10 @@
 EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
 
-inherit cmake-utils fortran-2 python-any-r1
+inherit cmake-utils fortran-2 python-any-r1 blas lapack
 
 MYP=lapack-${PV}
 
@@ -20,9 +22,7 @@ IUSE="static-libs test"
 
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND="
-	virtual/blas
-	virtual/lapack"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	test? ( ${PYTHON_DEPS} )
 	virtual/pkgconfig"
