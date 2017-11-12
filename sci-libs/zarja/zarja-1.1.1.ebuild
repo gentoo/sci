@@ -3,6 +3,10 @@
 
 EAPI=5
 
+LAPACK_COMPAT_ALL=1
+
+inherit lapack
+
 DESCRIPTION="Scientific multi-agent simulation library"
 HOMEPAGE="http://sourceforge.net/projects/zarja/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
@@ -14,7 +18,6 @@ IUSE="doc"
 
 RDEPEND="
 	sci-libs/gsl
-	virtual/lapack
 	sci-libs/fftw:3.0
 	dev-libs/boost
 	dev-cpp/tclap"
