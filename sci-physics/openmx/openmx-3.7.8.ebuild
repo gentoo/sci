@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit eutils multilib toolchain-funcs fortran-2
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils multilib toolchain-funcs blas lapack
 
 PATCHDATE="14Feb17"
 
@@ -19,8 +22,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE="-debug mpi openmp test"
 
 RDEPEND="
-	virtual/blas
-	virtual/lapack
 	sci-libs/fftw:3.0[mpi?,openmp?]
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
@@ -105,6 +106,8 @@ pkg_setup() {
 		fi
 	fi
 
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {

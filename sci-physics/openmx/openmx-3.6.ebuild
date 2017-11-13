@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit eutils multilib toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils multilib toolchain-funcs blas lapack
 
 DESCRIPTION="Material eXplorer"
 HOMEPAGE="http://www.openmx-square.org/"
@@ -17,8 +20,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE="-debug mpi openmp test"
 
 RDEPEND="
-	virtual/blas
-	virtual/lapack
 	sci-libs/fftw:3.0[mpi?,openmp?]
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
@@ -40,6 +41,8 @@ pkg_setup() {
 			die "Please switch to an openmp compatible compiler"
 		fi
 	fi
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {
