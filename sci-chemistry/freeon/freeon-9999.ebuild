@@ -6,8 +6,10 @@ EAPI=5
 AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=( python{2_7,3_4} )
+BLAS_COMPAT_ALL=1
+lAPACK_COMPAT_ALL=1
 
-inherit autotools-utils fortran-2 git-r3 python-any-r1
+inherit autotools-utils fortran-2 git-r3 python-any-r1 blas lapack
 
 DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry"
 HOMEPAGE="http://www.freeon.org"
@@ -21,9 +23,7 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND="
-	sci-libs/hdf5
-	virtual/blas
-	virtual/lapack"
+	sci-libs/hdf5"
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}"
 
