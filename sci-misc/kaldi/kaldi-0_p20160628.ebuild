@@ -3,7 +3,12 @@
 
 EAPI=6
 
-inherit toolchain-funcs cuda flag-o-matic
+BLAS_COMPAT=(atlas mkl openblas)
+LAPACK_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+LAPACK_USE_LAPACKE=1
+
+inherit toolchain-funcs cuda flag-o-matic blas lapack
 
 COMMIT_ID="16e69f1aacce8ad0665d2b6666c053b1421a9e91"
 DESCRIPTION="A toolkit for speech recognition"
@@ -19,9 +24,6 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	speex? ( media-libs/speex )
-	virtual/cblas
-	virtual/lapack
-	virtual/lapacke
 	<sci-misc/openfst-1.5.0
 	cuda? ( dev-util/nvidia-cuda-toolkit )"
 DEPEND="${RDEPEND}
@@ -31,14 +33,6 @@ DEPEND="${RDEPEND}
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
 RESTRICT="cuda? ( userpriv )"
-
-pkg_pretend() {
-	local cblas_provider=$(eselect cblas show)
-
-	if [[ ! ${cblas_provider} =~ (atlas|mkl|openblas) ]]; then
-		die "Build with '${cblas_provider}' CBLAS is not supported"
-	fi
-}
 
 src_prepare() {
 	eapply \
