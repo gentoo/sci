@@ -3,7 +3,11 @@
 
 EAPI=5
 
-inherit autotools-utils eutils fortran-2 multilib toolchain-funcs
+
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils fortran-2 multilib toolchain-funcs blas lapack
 
 DESCRIPTION="Calculates maximally localized Wannier functions (MLWFs)"
 HOMEPAGE="http://www.wannier.org/"
@@ -16,8 +20,6 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="doc mpi perl test"
 
 RDEPEND="
-	virtual/blas
-	virtual/lapack
 	perl? ( dev-lang/perl )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
@@ -43,6 +45,8 @@ pkg_setup() {
 	append-fflags -ffree-line-length-none
 
 	fortran-2_pkg_setup
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {
