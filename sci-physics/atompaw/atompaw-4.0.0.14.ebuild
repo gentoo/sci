@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit autotools-utils eutils fortran-2 multilib toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools-utils eutils fortran-2 multilib toolchain-funcs blas lapack
 
 DESCRIPTION="PAW atomic data generator"
 HOMEPAGE="http://www.wfu.edu/~natalie/papers/pwpaw/man.html"
@@ -19,8 +22,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc libxc longplot test"
 
 RDEPEND="
-	virtual/blas
-	virtual/lapack
 	libxc? ( >=sci-libs/libxc-2.0.1[fortran] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
