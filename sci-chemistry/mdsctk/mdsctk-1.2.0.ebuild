@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit cmake-utils db-use toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit cmake-utils db-use toolchain-funcs blas lapack
 
 DESCRIPTION="Molecular Dynamics Spectral Clustering Toolkit"
 HOMEPAGE="https://github.com/douradopalmares/mdsctk"
@@ -16,12 +19,10 @@ IUSE="examples R"
 
 DEPEND="
 	=sci-chemistry/gromacs-4.6*:=
-	sci-libs/gsl
+	sci-libs/gsl[${BLAS_USEDEP}]
 	sys-libs/db:=[cxx]
-	virtual/blas
-	virtual/lapack
-	sci-libs/arpack
-	R? ( dev-lang/R )
+	sci-libs/arpack[${BLAS_USEDEP},${LAPACK_USEDEP}]
+	R? ( dev-lang/R[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	"
 RDEPEND="${DEPEND}"
 
