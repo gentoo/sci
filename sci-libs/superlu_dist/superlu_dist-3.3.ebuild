@@ -3,7 +3,9 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs
+BLAS_COMPAT_ALL=1
+
+inherit eutils toolchain-funcs blas
 
 MYPN=SuperLU_DIST
 
