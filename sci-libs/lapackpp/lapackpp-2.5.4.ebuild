@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit toolchain-funcs blas lapack
 
 DESCRIPTION="C++ wrapper for LAPACK libraries"
 HOMEPAGE="http://lapackpp.sourceforge.net"
@@ -15,9 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc static-libs"
 
-RDEPEND="
-	virtual/blas
-	virtual/lapack"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen[latex] )"
