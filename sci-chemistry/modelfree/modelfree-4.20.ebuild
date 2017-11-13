@@ -3,7 +3,9 @@
 
 EAPI=5
 
-inherit fortran-2 multilib
+BLAS_COMPAT=(refblas)
+
+inherit fortran-2 multilib blas
 
 DESCRIPTION="Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data"
 HOMEPAGE="http://www.palmer.hs.columbia.edu/software/modelfree.html"
@@ -15,7 +17,6 @@ KEYWORDS=""
 IUSE="doc examples"
 
 RDEPEND="
-	sci-libs/blas-reference
 	=sys-devel/gcc-4.1*"
 DEPEND="dev-util/patchelf"
 
