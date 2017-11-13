@@ -169,7 +169,11 @@ function _blas_get_depends(){
 		else
 			cblas=""
 		fi
-		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \${_blas_provider_$impl}${requse} ${cblas}${requse} )\""
+		if [ -n "$cblas" ]
+		then
+			cblas="${cblas}${requse}"
+		fi
+		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \${_blas_provider_$impl}${requse} ${cblas} )\""
 	done
 }
 
@@ -204,7 +208,6 @@ function _blas_set_globals(){
 	BLAS_USEDEP="$(_blas_usedep)"
 	BLAS_DEPS="$(_blas_get_depends)"
 	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
-
 	if [[ ${BLAS_CONDITIONAL_FLAG} ]]
 	then
 		REQUIRED_USE="${BLAS_CONDITIONAL_FLAG}? ( ${BLAS_REQUIRED_USE} )"
