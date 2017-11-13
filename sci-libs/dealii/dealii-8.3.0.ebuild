@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit cmake-utils eutils multilib
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="lapack"
+
+inherit cmake-utils eutils multilib lapack
 
 # deal.II uses its own FindLAPACK.cmake file that calls into the system
 # FindLAPACK.cmake module and does additional internal setup. Do not remove
@@ -48,20 +51,19 @@ REQUIRED_USE="
 RDEPEND="dev-libs/boost
 	app-arch/bzip2
 	sys-libs/zlib
-	arpack? ( sci-libs/arpack[mpi=] )
+	arpack? ( sci-libs/arpack[${LAPACK_USEDEP},mpi=] )
 	hdf5? ( sci-libs/hdf5[mpi=] )
-	lapack? ( virtual/lapack )
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
 	muparser? ( dev-cpp/muParser )
 	netcdf? ( sci-libs/netcdf-cxx:0 )
 	opencascade? ( sci-libs/opencascade:* )
-	p4est? ( sci-libs/p4est[mpi] )
+	p4est? ( sci-libs/p4est[${LAPACK_USEDEP},mpi] )
 	parameter_gui? ( dev-qt/qtgui:4 )
-	petsc? ( sci-mathematics/petsc[mpi=] )
+	petsc? ( sci-mathematics/petsc[${LAPACK_USEDEP},mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
-	trilinos? ( sci-libs/trilinos )"
+	trilinos? ( sci-libs/trilinos[${LAPACK_USEDEP}] )"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
