@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
-inherit eutils toolchain-funcs versionator alternatives-2 multilib
+
+BLAS_COMPAT_ALL=1
+
+inherit eutils toolchain-funcs versionator alternatives-2 multilib blas
 
 DESCRIPTION="Basic Linear Algebra Communication Subprograms with MPI"
 HOMEPAGE="http://www.netlib.org/blacs/"
@@ -16,7 +19,6 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
 RDEPEND="virtual/mpi[fortran]
-	virtual/blas
 	!>sci-libs/scalapack-2"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
