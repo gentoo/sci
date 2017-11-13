@@ -5,7 +5,10 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils flag-o-matic
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools-utils flag-o-matic blas lapack
 
 DESCRIPTION="Structure based prediction of protein chemical shifts"
 HOMEPAGE="http://www-vendruscolo.ch.cam.ac.uk/camshift/camshift.php"
@@ -16,9 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="cpu_flags_x86_sse"
 
-RDEPEND="
-	virtual/blas
-	virtual/lapack"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
