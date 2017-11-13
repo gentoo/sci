@@ -15,7 +15,10 @@ fi
 
 PYTHON_COMPAT=( python{2_7,3_{4,5}} )
 
-inherit fortran-2 flag-o-matic python-single-r1 toolchain-funcs ${_ECLASS}
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit fortran-2 flag-o-matic python-single-r1 toolchain-funcs ${_ECLASS} blas lapack
 
 DESCRIPTION="Spherical harmonic transforms and reconstructions, rotations"
 HOMEPAGE="http://shtools.ipgp.fr"
@@ -26,11 +29,9 @@ KEYWORDS="~amd64"
 IUSE="static-libs"
 
 RDEPEND="
-	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP},${BLAS_USEDEP},${LAPACK_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	sci-libs/fftw:3.0=
-	virtual/lapack
-	virtual/blas
 	${PYTHON_DEPS}"
 
 DEPEND="${RDEPEND}
