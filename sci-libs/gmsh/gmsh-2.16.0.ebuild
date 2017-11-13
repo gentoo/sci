@@ -5,7 +5,12 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_CONDITIONAL_FLAG="blas"
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="blas"
+
+inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs blas lapack
 
 DESCRIPTION="A three-dimensional finite element mesh generator"
 HOMEPAGE="http://www.geuz.org/gmsh/"
@@ -21,17 +26,23 @@ IUSE="blas cgns chaco doc examples jpeg lua med metis mpi netgen opencascade pet
 RDEPEND="
 	virtual/fortran
 	X? ( x11-libs/fltk:1 )
-	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
+	blas? ( sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( virtual/jpeg:0 )
 	lua? ( dev-lang/lua:0 )
 	med? ( sci-libs/med )
 	opencascade? ( sci-libs/opencascade:* )
 	png? ( media-libs/libpng:0 )
-	petsc? ( sci-mathematics/petsc )
+	blas? (
+		petsc? ( sci-mathematics/petsc[${BLAS_USEDEP},${LAPACK_USEDEP}] )
+		taucs? ( sci-libs/taucs[${BLAS_USEDEP},${LAPACK_USEDEP}] )
+	)
+	!blas? (
+		petsc? ( sci-mathematics/petsc )
+		taucs? ( sci-libs/taucs )
+	)
 	zlib? ( sys-libs/zlib )
-	mpi? ( virtual/mpi[cxx] )
-	taucs? ( sci-libs/taucs )"
+	mpi? ( virtual/mpi[cxx] )"
 
 REQUIRED_USE="
 	taucs? ( || ( metis ) )
@@ -47,6 +58,8 @@ S=${WORKDIR}/${P}-source
 
 pkg_setup() {
 	fortran-2_pkg_setup
+	use blas && blas_pkg_setup
+	use blas && lapack_pkg_setup
 }
 
 src_configure() {
