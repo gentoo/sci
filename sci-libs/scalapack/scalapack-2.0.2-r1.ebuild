@@ -3,7 +3,9 @@
 
 EAPI=5
 
-inherit alternatives-2 cmake-utils eutils fortran-2
+LAPACK_COMPAT_ALL=1
+
+inherit alternatives-2 cmake-utils eutils fortran-2 lapack
 
 DESCRIPTION="Subset of LAPACK routines redesigned for heterogenous computing"
 HOMEPAGE="http://www.netlib.org/scalapack/"
@@ -15,7 +17,6 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
 RDEPEND="
-	virtual/lapack
 	virtual/mpi
 	!sci-libs/mpiblacs"
 DEPEND="${RDEPEND}
