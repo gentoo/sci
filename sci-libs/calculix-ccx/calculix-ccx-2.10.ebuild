@@ -3,7 +3,10 @@
 
 EAPI=6
 
-inherit eutils toolchain-funcs flag-o-matic fortran-2
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils toolchain-funcs flag-o-matic fortran-2 blas lapack
 
 MY_P=ccx_${PV/_/}
 
@@ -20,10 +23,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="arpack doc examples openmp threads"
 
 RDEPEND="
-	arpack? ( >=sci-libs/arpack-3.1.3 )
-	>=sci-libs/spooles-2.2[threads=]
-	virtual/lapack
-	virtual/blas"
+	arpack? ( >=sci-libs/arpack-3.1.3[${BLAS_USEDEP},${LAPACK_USEDEP}] )
+	>=sci-libs/spooles-2.2[threads=]"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-text/ghostscript-gpl )"
