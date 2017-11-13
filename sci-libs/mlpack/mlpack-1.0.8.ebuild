@@ -3,7 +3,10 @@
 
 EAPI=5
 
-inherit cmake-utils eutils toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit cmake-utils eutils toolchain-funcs blas lapack
 
 DESCRIPTION="Scalable c++ machine learning library"
 HOMEPAGE="http://www.mlpack.org/"
@@ -17,7 +20,7 @@ IUSE="debug doc"
 RDEPEND="
 	dev-libs/boost
 	dev-libs/libxml2
-	>=sci-libs/armadillo-3.6.0[lapack]"
+	>=sci-libs/armadillo-3.6.0[lapack,${BLAS_USEDEP},${LAPACK_USEDEP}]"
 
 DEPEND="${DEPEND}
 	app-text/txt2man
