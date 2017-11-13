@@ -3,7 +3,14 @@
 
 EAPI=6
 
-inherit cmake-utils multilib
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+LAPACK_USE_LAPACKE=1
+BLAS_CONDITIONAL_FLAG=(cpu opencl)
+LAPACK_CONDITIONAL_FLAG=(cpu opencl)
+
+inherit cmake-utils multilib blas lapack
 
 GTEST_PV="1.7.0"
 
@@ -28,16 +35,10 @@ RDEPEND="
 		dev-libs/boost
 	)
 	cpu? (
-		virtual/blas
-		virtual/cblas
-		virtual/lapacke
 		sci-libs/fftw:3.0
 	)
 	opencl? (
-		virtual/blas
-		virtual/cblas
-		virtual/lapacke
-		>=sci-libs/clblas-2.4
+		>=sci-libs/clblas-2.4[${BLAS_USEDEP}]
 		>=sci-libs/clfft-2.6.1
 		dev-libs/boost
 		|| ( dev-libs/boost-compute >=dev-libs/boost-1.61.0 )
