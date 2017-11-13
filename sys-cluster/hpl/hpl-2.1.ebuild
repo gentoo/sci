@@ -3,7 +3,10 @@
 
 EAPI=6
 
-inherit eutils mpi multilib
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils mpi multilib blas lapack
 
 DESCRIPTION="High-Performance Linpack Benchmark for Distributed-Memory Computers"
 HOMEPAGE="http://www.netlib.org/benchmark/hpl/"
@@ -15,9 +18,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 
 RDEPEND="
-	$(mpi_pkg_deplist)
-	virtual/blas
-	virtual/lapack"
+	$(mpi_pkg_deplist)"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
