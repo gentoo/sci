@@ -3,7 +3,11 @@
 
 EAPI=6
 
-inherit subversion autotools
+LAPACK_COMPAT=(atlas)
+LAPACK_REQ_USE="threads="
+LAPACK_CONDITIONAL_FLAG="modelfit"
+
+inherit subversion autotools lapack
 
 ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 ESVN_OPTIONS="--trust-server-cert-failures=unknown-ca"
@@ -19,7 +23,7 @@ SLOT="0"
 IUSE="doc modelfit test threads"
 
 RDEPEND="
-	modelfit? ( sci-libs/atlas[lapack,threads=] sci-libs/fftw:3.0 )"
+	modelfit? ( sci-libs/fftw:3.0 )"
 DEPEND="${RDEPEND}"
 
 REQUIRED_USE="test? ( modelfit )"
