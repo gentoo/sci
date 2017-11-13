@@ -5,7 +5,10 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_CONDITIONAL_FLAG="blas"
+
+inherit eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs blas
 
 DATE="2013-10-17"
 
@@ -71,6 +74,7 @@ pkg_setup() {
 	fi
 
 	use python && python-single-r1_pkg_setup
+	use blas && blas_pkg_setup
 }
 
 src_unpack() {
