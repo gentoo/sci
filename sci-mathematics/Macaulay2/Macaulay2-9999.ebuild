@@ -5,7 +5,10 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools elisp-common eutils flag-o-matic git-r3 python-single-r1 toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools elisp-common eutils flag-o-matic git-r3 python-single-r1 toolchain-funcs blas lapack
 
 FACTORY="factory-4.0.0+m4"
 FACTORY_GFTABLES="factory.4.0.1-gftables"
@@ -50,8 +53,6 @@ RDEPEND="${PYTHON_DEPS}
 	sci-libs/cdd+
 	sci-libs/cddlib
 	sci-libs/lrslib[gmp]
-	virtual/blas
-	virtual/lapack
 	dev-util/ctags
 	sys-libs/ncurses
 	>=dev-libs/boehm-gc-7.2_alpha6[threads]
@@ -79,6 +80,8 @@ pkg_setup () {
 	append-cppflags "-I/usr/include/frobby"
 	# gtest needs python:2
 	python-single-r1_pkg_setup
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {
