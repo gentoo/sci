@@ -3,7 +3,9 @@
 
 EAPI=6
 
-inherit eutils fortran-2 flag-o-matic pax-utils toolchain-funcs
+BLAS_COMPAT_ALL=1
+
+inherit eutils fortran-2 flag-o-matic pax-utils toolchain-funcs blas
 
 DESCRIPTION="A powerful quantum chemistry package"
 HOMEPAGE="http://www.msg.chem.iastate.edu/GAMESS/GAMESS.html"
@@ -23,8 +25,7 @@ IUSE="mpi neo pax_kernel qmmm-tinker"
 
 CDEPEND="
 	app-shells/tcsh
-	mpi? ( virtual/mpi )
-	virtual/blas"
+	mpi? ( virtual/mpi )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
@@ -91,6 +92,7 @@ pkg_setup() {
 		ewarn "because deafult one will not work"
 		ewarn ""
 	fi
+	blas_pkg_setup
 }
 
 src_unpack() {
