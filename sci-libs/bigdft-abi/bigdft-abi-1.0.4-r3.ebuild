@@ -5,7 +5,10 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs blas lapack
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://www.abinit.org/downloads/plug-in-sources"
@@ -21,9 +24,7 @@ IUSE="cuda doc etsf_io glib mpi netcdf openmp opencl scalapack test"
 
 RDEPEND="
 	>=sci-libs/libxc-1.2.0-r1[fortran]
-	virtual/blas
 	virtual/fortran
-	virtual/lapack
 	dev-libs/libyaml
 	mpi? ( virtual/mpi )
 	cuda? ( dev-util/nvidia-cuda-sdk )
