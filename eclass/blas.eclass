@@ -53,6 +53,8 @@
 # This variable contains the USE-flag that selects whether the package
 # should depend on BLAS or not.
 # If non-empty, it gets prepended to REQUIRED_USE, DEPEND and RDEPEND.
+# If it is an array, we will depend on BLAS when at least one of the 
+# USE-flags is activated (logical OR)
 #
 # If, for example, set to
 # @CODE
@@ -208,10 +210,15 @@ function _blas_set_globals(){
 	BLAS_USEDEP="$(_blas_usedep)"
 	BLAS_DEPS="$(_blas_get_depends)"
 	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
+	REQUIRED_USE=""
+	RDEPEND=""
 	if [[ ${BLAS_CONDITIONAL_FLAG} ]]
 	then
-		REQUIRED_USE="${BLAS_CONDITIONAL_FLAG}? ( ${BLAS_REQUIRED_USE} )"
-		RDEPEND="${BLAS_CONDITIONAL_FLAG}? ( ${BLAS_DEPS} )"
+		for flag in "${BLAS_CONDITIONAL_FLAG[@]}"
+		do
+			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${BLAS_REQUIRED_USE} )"
+			RDEPEND="${RDEPEND} ${flag}? ( ${BLAS_DEPS} )"
+		done
 	else
 		REQUIRED_USE="${BLAS_REQUIRED_USE}"
 		RDEPEND="${BLAS_DEPS}"

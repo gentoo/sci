@@ -53,6 +53,8 @@
 # This variable contains the USE-flag that selects whether the package
 # should depend on LAPACK or not.
 # If non-empty, it gets prepended to REQUIRED_USE, DEPEND and RDEPEND.
+# If it is an array, we will depend on Lapack when at least one of the 
+# USE-flags is activated (logical OR)
 #
 # If, for example, set to
 # @CODE
@@ -203,10 +205,15 @@ function _lapack_set_globals(){
 	LAPACK_USEDEP="$(_lapack_usedep)"
 	LAPACK_DEPS="$(_lapack_get_depends)"
 	LAPACK_REQUIRED_USE="^^ ( $(_lapack_useflag_by_impl "${LAPACK_SUPP_IMPLS[@]}") )"
+	REQUIRED_USE=""
+	RDEPEND=""
 	if [[ ${LAPACK_CONDITIONAL_FLAG} ]]
 	then
-		REQUIRED_USE="${LAPACK_CONDITIONAL_FLAG}? ( ${LAPACK_REQUIRED_USE} )"
-		RDEPEND="${LAPACK_CONDITIONAL_FLAG}? ( ${LAPACK_DEPS} )"
+		for flag in "${LAPACK_CONDITIONAL_FLAG[@]}"
+		do
+			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${LAPACK_REQUIRED_USE} )"
+			RDEPEND="${RDEPEND} ${flag}? ( ${LAPACK_DEPS} )"
+		done
 	else
 		REQUIRED_USE="${LAPACK_REQUIRED_USE}"
 		RDEPEND="${LAPACK_DEPS}"
