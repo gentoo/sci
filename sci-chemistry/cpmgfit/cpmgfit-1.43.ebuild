@@ -3,7 +3,9 @@
 
 EAPI=5
 
-inherit fortran-2 multilib
+BLAS_COMPAT=(refblas)
+
+inherit fortran-2 multilib blas
 
 DESCRIPTION="non-linear least squares fitting of CPMG relaxation dispersion curves"
 HOMEPAGE="http://biochemistry.hs.columbia.edu/labs/palmer/software/cpmgfit.html"
@@ -15,7 +17,6 @@ KEYWORDS=""
 IUSE="examples"
 
 RDEPEND="
-	sci-libs/blas-reference
 	=sys-devel/gcc-4.1*"
 DEPEND="dev-util/patchelf"
 
