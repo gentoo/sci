@@ -3,7 +3,11 @@
 
 EAPI=5
 
-inherit eutils fortran-2 multilib multiprocessing toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+LAPACK_COMPAT_ALL=1
+
+inherit eutils fortran-2 multilib multiprocessing toolchain-funcs blas lapack
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -19,10 +23,8 @@ IUSE="openmp X"
 RESTRICT="fetch"
 
 RDEPEND="
-	virtual/cblas
-	virtual/lapack
 	sci-libs/clapack
-	sci-libs/arpack
+	sci-libs/arpack[${BLAS_USEDEP},${LAPACK_USEDEP}]
 	sci-libs/cifparse-obj
 	sci-chemistry/mopac7
 	sci-libs/netcdf
@@ -49,6 +51,8 @@ pkg_setup() {
 			die "Please select an openmp capable compiler like gcc[openmp]"
 	fi
 	export AMBERHOME="${S}"
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {

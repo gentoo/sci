@@ -5,7 +5,11 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit fortran-2 python-r1 toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+LAPACK_COMPAT_ALL=1
+
+inherit fortran-2 python-r1 toolchain-funcs blas lapack
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -20,10 +24,8 @@ IUSE="X"
 RESTRICT="fetch"
 
 RDEPEND="${PYTHON_DEPS}
-	virtual/cblas
-	virtual/lapack
 	sci-libs/clapack
-	sci-libs/arpack
+	sci-libs/arpack[${BLAS_USEDEP},${LAPACK_USEDEP}]
 	sci-chemistry/mopac7
 	sci-libs/netcdf
 	sci-libs/netcdf-fortran
@@ -45,6 +47,8 @@ pkg_nofetch() {
 pkg_setup() {
 	fortran-2_pkg_setup
 	export AMBERHOME="${S}"
+	blas_pkg_setup
+	lapack_pkg_setup
 }
 
 src_prepare() {
