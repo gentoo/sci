@@ -3,7 +3,11 @@
 
 EAPI=6
 
-inherit subversion autotools
+LAPACK_COMPAT=(atlas)
+LAPACK_REQ_USE="threads="
+
+inherit subversion autotools lapack
+
 
 ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 ESVN_OPTIONS="--trust-server-cert-failures=unknown-ca"
@@ -19,7 +23,6 @@ IUSE="doc plplot threads"
 
 RDEPEND="
 	net-misc/curl:=
-	sci-libs/atlas[lapack,threads=]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot:= )"
 DEPEND="${RDEPEND}"
