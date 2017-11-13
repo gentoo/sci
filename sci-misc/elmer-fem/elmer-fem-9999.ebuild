@@ -5,8 +5,10 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 FORTRAN_STANDARD=90
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
 
-inherit autotools-utils fortran-2 multilib subversion
+inherit autotools-utils fortran-2 multilib blas lapack
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
@@ -23,11 +25,9 @@ KEYWORDS=""
 IUSE="mpi debug"
 
 RDEPEND="
-	virtual/blas
-	virtual/lapack
-	sci-libs/arpack
+	sci-libs/arpack[${BLAS_USEDEP},${LAPACK_USEDEP}]
 	sci-libs/matc
-	sci-libs/elmer-hutiter
+	sci-libs/elmer-hutiter[${BLAS_USEDEP}]
 	sci-libs/elmer-eio
 	mpi?     ( sys-cluster/mpich2 )"
 DEPEND="${RDEPEND}"
