@@ -4,8 +4,10 @@
 EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
 
-inherit distutils-r1 flag-o-matic fortran-2 mercurial toolchain-funcs
+inherit distutils-r1 flag-o-matic fortran-2 mercurial toolchain-funcs blas lapack
 
 IUSE=""
 SRC_URI=""
@@ -18,11 +20,10 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
 
-RDEPEND="virtual/blas
-	virtual/lapack
-	dev-python/numpy[${PYTHON_USEDEP},lapack]
+RDEPEND="
+	dev-python/numpy[${PYTHON_USEDEP},lapack,${BLAS_USEDEP},${LAPACK_USEDEP}]
 	sci-libs/k3match[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	sci-libs/scipy[${PYTHON_USEDEP},${BLAS_USEDEP},${LAPACK_USEDEP}]"
 
 DEPEND="${RDEPEND}"
 
