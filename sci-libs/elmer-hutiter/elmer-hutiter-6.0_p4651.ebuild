@@ -4,8 +4,9 @@
 EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
+BLAS_COMPAT_ALL=1
 
-inherit autotools-utils toolchain-funcs
+inherit autotools-utils toolchain-funcs blas
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
@@ -19,7 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug static-libs"
 
-RDEPEND="virtual/blas"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
