@@ -8,6 +8,20 @@ MULTILIB_COMPAT=( abi_x86_{32,64} )
 
 inherit alternatives-2 autotools-multilib eutils toolchain-funcs
 
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+BLAS_CONDITIONAL_FLAG="cblas-external"
+BLAS_REQ_USE="${MULTILIB_USEDEP}"
+
+inherit blas
+
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+BLAS_REQ_USE="${MULTILIB_USEDEP}"
+BLAS_CONDITIONAL_FLAG="cblas-external"
+
+inherit blas
+
 DESCRIPTION="GNU Scientific Library"
 HOMEPAGE="https://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
@@ -17,7 +31,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="cblas-external static-libs"
 
-RDEPEND="cblas-external? ( >=virtual/cblas-2.0-r3[${MULTILIB_USEDEP}] )"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]"
 
