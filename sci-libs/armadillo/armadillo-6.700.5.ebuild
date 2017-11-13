@@ -5,7 +5,12 @@ EAPI=6
 
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake-utils toolchain-funcs
+BLAS_COMPAT_ALL=1
+BLAS_CONDITIONAL_FLAG="blas"
+LAPACK_COMPAT_ALL=1
+LAPACK_CONDITIONAL_FLAG="lapack"
+
+inherit cmake-utils toolchain-funcs blas lapack
 
 DESCRIPTION="Streamlined C++ linear algebra library"
 HOMEPAGE="http://arma.sourceforge.net/"
@@ -15,15 +20,13 @@ LICENSE="MPL-2.0"
 SLOT="0/6"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="arpack atlas blas debug doc examples hdf5 lapack mkl superlu tbb test"
-REQUIRED_USE="test? ( lapack )"
+REQUIRED_USE="test? ( lapack ) blas_atlas? ( lapack_atlas ) lapack_atlas? ( blas_atlas )"
 
 RDEPEND="
 	dev-libs/boost
-	arpack? ( sci-libs/arpack )
+	arpack? ( sci-libs/arpack[${BLAS_USEDEP},${LAPACK_USEDEP}] )
 	atlas? ( sci-libs/atlas[lapack] )
-	blas? ( virtual/blas )
-	lapack? ( virtual/lapack )
-	superlu? ( sci-libs/superlu )
+	superlu? ( sci-libs/superlu[${BLAS_USEDEP}] )
 "
 DEPEND="${RDEPEND}
 	arpack? ( virtual/pkgconfig )
@@ -57,7 +60,7 @@ src_configure() {
 			-DARPACK_LIBRARY="$($(tc-getPKG_CONFIG) --libs arpack)"
 		)
 	fi
-	if use atlas; then
+	if use blas_atlas; then
 		local c=atlas-cblas l=atlas-clapack
 		$(tc-getPKG_CONFIG) --exists ${c}-threads && c+=-threads
 		$(tc-getPKG_CONFIG) --exists ${l}-threads && l+=-threads
