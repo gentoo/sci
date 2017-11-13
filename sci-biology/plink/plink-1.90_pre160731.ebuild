@@ -3,7 +3,13 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+BLAS_CONDITIONAL_FLAG="lapack"
+LAPACK_CONDITIONAL_FLAG="lapack"
+
+inherit eutils toolchain-funcs blas lapack
 
 DESCRIPTION="Whole genome association analysis toolset"
 HOMEPAGE="http://pngu.mgh.harvard.edu/~purcell/plink
@@ -19,9 +25,7 @@ DEPEND="
 	app-arch/unzip
 	virtual/pkgconfig"
 RDEPEND="
-	sys-libs/zlib
-	lapack? ( virtual/lapack
-		virtual/cblas )"
+	sys-libs/zlib"
 
 S="${WORKDIR}/"
 
