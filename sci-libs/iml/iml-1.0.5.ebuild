@@ -5,7 +5,10 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=yes
 
-inherit autotools-utils
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+
+inherit autotools-utils blas
 
 DESCRIPTION="Integer Matrix Library"
 HOMEPAGE="http://www.cs.uwaterloo.ca/~astorjoh/iml.html"
@@ -18,7 +21,7 @@ IUSE="static-libs"
 
 RESTRICT="mirror"
 
-DEPEND="virtual/cblas"
+DEPEND=""
 RDEPEND="${DEPEND}"
 
 AT_M4DIR="config"
