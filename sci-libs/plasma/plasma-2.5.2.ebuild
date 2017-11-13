@@ -2,7 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
-inherit eutils fortran-2 toolchain-funcs versionator multilib flag-o-matic
+
+BLAS_COMPAT_ALL=1
+BLAS_USE_CBLAS=1
+LAPACK_COMPAT_ALL=1
+LAPACK_USE_LAPACKE=1
+
+inherit eutils fortran-2 toolchain-funcs versionator multilib flag-o-matic blas lapack
 
 MYP=${PN}_${PV}
 
@@ -16,11 +22,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples fortran static-libs test"
 
 RDEPEND="
-	sys-apps/hwloc
-	virtual/blas
-	virtual/cblas
-	virtual/lapack
-	virtual/lapacke"
+	sys-apps/hwloc"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	test? ( sci-libs/lapacke-reference[tmg] )"
