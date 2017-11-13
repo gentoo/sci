@@ -3,7 +3,11 @@
 
 EAPI=6
 
-inherit subversion autotools
+BLAS_COMPAT=(atlas)
+BLAS_USE_CBLAS=1
+BLAS_REQ_USE="threads="
+
+inherit subversion autotools blas
 
 ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 ESVN_OPTIONS="--trust-server-cert-failures=unknown-ca"
@@ -18,7 +22,6 @@ SLOT="0"
 IUSE="doc threads plplot"
 
 RDEPEND="
-	sci-libs/atlas[lapack,threads=]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot:= )"
 DEPEND="${RDEPEND}"
