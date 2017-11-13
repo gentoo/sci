@@ -5,7 +5,10 @@ EAPI=5
 
 OASIS_BUILD_DOCS=1
 
-inherit oasis toolchain-funcs
+BLAS_COMPAT_ALL=1
+LAPACK_COMPAT_ALL=1
+
+inherit oasis toolchain-funcs blas lapack
 
 DESCRIPTION="BLAS/LAPACK interface for OCaml"
 HOMEPAGE="http://forge.ocamlcore.org/projects/lacaml"
@@ -16,9 +19,7 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-RDEPEND="
-	virtual/blas
-	virtual/lapack"
+RDEPEND=""
 DEPEND="${DEPEND}
 	virtual/pkgconfig"
 
