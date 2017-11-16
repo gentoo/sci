@@ -37,7 +37,7 @@ RDEPEND="${PYTHON_DEPS}
 	|| ( sci-biology/ncbi-tools++ sci-biology/sra_sdk )
 	gnutls? ( net-libs/gnutls )
 	hdf5? ( sci-libs/hdf5 )
-	sys-fs/fuse
+	sys-fs/fuse:=
 	berkdb? ( >=sys-libs/db-4.3:* )
 	glut? ( virtual/glu )
 	opengl? ( virtual/opengl
