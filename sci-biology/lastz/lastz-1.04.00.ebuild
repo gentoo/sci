@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -25,8 +25,15 @@ src_prepare() {
 	tc-export CC
 }
 
+src_compile(){
+	emake
+	emake lastz_32
+}
+
 src_install(){
-	dobin src/lastz src/lastz_D
+	emake install
+	emake install_32
+	dobin src/lastz src/lastz_D src/lastz_32
 	dodoc README.lastz.html
 	dohtml lav_format.html
 }

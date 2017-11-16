@@ -1,5 +1,5 @@
---- src/Makefile.old	2015-05-02 15:07:56.169136255 +0200
-+++ src/Makefile	2015-05-02 15:10:02.249137955 +0200
+--- lastz-distrib-1.04.00/src/Makefile.ori	2017-11-16 16:09:47.232140878 +0100
++++ lastz-distrib-1.04.00/src/Makefile	2017-11-16 16:14:12.589271305 +0100
 @@ -1,7 +1,7 @@
  include ../make-include.mak
  include version.mak
@@ -9,16 +9,28 @@
  
  # default targets
  
-@@ -71,7 +71,7 @@
+@@ -54,7 +54,8 @@
+ #
+ #---------
+ 
+-definedForAll = -Wall -Wextra -Werror -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
++mycflags = -O3 -Wall -Wextra -Werror
++definedForAll = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+ flagsFor32    = -Dmax_sequence_index=32 -Dmax_malloc_index=40 -Ddiag_hash_size=4194304
+ 
+ allowBackToBackGaps ?= 0                       # by default allowBackToBackGaps
+@@ -70,8 +71,8 @@
+ 	-DREVISION_DATE="\"${REVISION_DATE}"\" \
  	-DSUBVERSION_REV="\"${SUBVERSION_REV}"\"
  
- 
+-
 -CFLAGS = -O3 ${definedForAll} ${VERSION_FLAGS}
++CFLAGS ?= ${mycflags}
 +CFLAGS += ${definedForAll} ${VERSION_FLAGS}
  
  
  srcFiles = lastz infer_scores \
-@@ -101,13 +101,13 @@
+@@ -101,13 +102,13 @@
  
  
  lastz: $(foreach part,${srcFiles},${part}.o)
