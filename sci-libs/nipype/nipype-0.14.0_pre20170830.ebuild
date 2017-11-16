@@ -6,16 +6,17 @@ EAPI=6
 PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 PYTHON_REQ_USE="threads(+),sqlite"
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
+
+COMMIT="7055313c91de52bf65518284b42df446466fe581"
 
 DESCRIPTION="Neuroimaging in Python: Pipelines and Interfaces"
 HOMEPAGE="http://nipy.sourceforge.net/nipype/"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/nipy/nipype"
+SRC_URI="https://github.com/nipy/nipype/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 DEPEND="
@@ -43,6 +44,8 @@ RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	"
+
+S="${WORKDIR}/${PN}-${COMMIT}"
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
