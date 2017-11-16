@@ -19,5 +19,6 @@ IUSE=""
 RDEPEND="
 	sci-biology/pyfaidx[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
-	dev-python/argh[${PYTHON_USEDEP}]"
+	dev-python/argh[${PYTHON_USEDEP}]
+	dev-python/argcomplete[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
