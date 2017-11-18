@@ -15,12 +15,8 @@
     Quadro™ GPUs.
   </longdescription>
   <use>
-    <flag name="healthmon">
-			Install nvidia-healthmon.
-		</flag>
-    <flag name="nvml">
-			Install the NVIDIA Managment Library.
-		</flag>
+    <flag name="healthmon">Install nvidia-healthmon.</flag>
+    <flag name="nvml">Install the NVIDIA Managment Library.</flag>
     <flag name="nvvs">
       Install the NVIDIA Validation Suite.
     </flag>

@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -32,7 +32,8 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
 
-QA_PREBUILT="/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
+QA_PREBUILT=(
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
 	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/gpu_rdma_bw
 	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/ibv_rdma_bw
 	/opt/cuda/gdk/nvml/lib/libnvidia-ml.so.1
@@ -46,7 +47,7 @@ QA_PREBUILT="/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
 	/opt/cuda/gdk/nvvs/plugins/libSmPerformance.so
 	/opt/cuda/gdk/nvvs/plugins/libPower.so
 	/opt/cuda/gdk/nvvs/nvvs
-	"
+)
 
 src_unpack() {
 	unpacker
@@ -183,8 +184,7 @@ src_install() {
 			dosym libPower.so.1 /opt/cuda/gdk/nvvs/plugins/libPower.so
 			dosym libSmPerformance.so.1 /opt/cuda/gdk/nvvs/plugins/libSmPerformance.so
 
-			dosym /opt/cuda/gdk/nvvs/nvvs /opt/bin/nvidia-vs
-			cd "${S}/" || die
+			dosym ../cuda/gdk/nvvs/nvvs /opt/bin/nvidia-vs
 		eend
 	fi
 }
