@@ -1,9 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
+EAPI=6
 
 DESCRIPTION="PGI compiler suite"
 HOMEPAGE="http://www.pgroup.com/"
@@ -46,13 +44,11 @@ QA_PREBUILT="
 
 S="${WORKDIR}"
 
+PATCHES=( "${FILESDIR}"/${P}-terminal.patch )
+
 pkg_nofetch() {
 	einfo "PGI doesn't provide direct download links. Please download"
 	einfo "${ARCHIVE} from ${HOMEPAGE}"
-}
-
-src_prepare() {
-	epatch "${FILESDIR}/${P}-terminal.patch"
 }
 
 src_install() {
@@ -97,11 +93,13 @@ EOF
 	epatch "${FILESDIR}/${P}-glibc.patch"
 
 	# java symlink might be broken if useflag is disabled:
-	use java || rm opt/pgi/linux86-64/13.5/jre
+	if ! use java; then
+		rm opt/pgi/linux86-64/13.5/jre || die
+	fi
 
 	# replace PGI's curl with the stock version:
 	dodir /opt/pgi/linux86-64/13.5/etc/pgi_license_tool
-	dosym /usr/bin/curl /opt/pgi/linux86-64/13.5/etc/pgi_license_tool/curl
+	dosym ../../../../../../usr/bin/curl /opt/pgi/linux86-64/13.5/etc/pgi_license_tool/curl
 	dodir /opt/pgi/linux86/13.5/etc/pgi_license_tool
-	dosym /usr/bin/curl /opt/pgi/linux86/13.5/etc/pgi_license_tool/curl
+	dosym ../../../../../../usr/bin/curl /opt/pgi/linux86/13.5/etc/pgi_license_tool/curl
 }

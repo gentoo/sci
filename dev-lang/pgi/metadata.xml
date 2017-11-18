@@ -2,7 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <longdescription>
-	PGI is the C/C++/Fortran compiler suite of the Portland Group.
+    PGI is the C/C++/Fortran compiler suite of the Portland Group.
   </longdescription>
   <maintainer type="person">
     <email>gentryx@gmx.de</email>
@@ -12,7 +12,7 @@
     <name>Gentoo Cluster Project</name>
   </maintainer>
   <use>
-	<flag name="java">Install a PGI-tuned JRE.</flag>
-	<flag name="cuda">Install PGI's CUDA components (e.g. for OpenACC)</flag>
+    <flag name="java">Install a PGI-tuned JRE.</flag>
+    <flag name="cuda">Install PGI's CUDA components (e.g. for OpenACC)</flag>
   </use>
 </pkgmetadata>
