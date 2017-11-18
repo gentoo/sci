@@ -28,14 +28,13 @@ RDEPEND="
 
 S="${WORKDIR}/RepeatMasker"
 
-src_prepare(){
-	epatch "${FILESDIR}"/"${P}"__configure.patch
-	default
-}
+PATCHES=( "${FILESDIR}"/"${P}"__configure.patch )
 
 src_configure() {
-	sed -e "s#/usr/bin/which#which#g" -i "${S}"/configure || die
-	sed -e "s#/usr/bin/perl#perl#g" -i "${S}"/configure || die
+	sed \
+		-e "s#/usr/bin/which#which#g" \
+		-e "s#/usr/bin/perl#perl#g" \
+		-i "${S}"/configure || die
 	perl_set_version
 	insinto ${VENDOR_LIB}
 	sed -e "s#/usr/perl5/lib/#${VENDOR_LIB}/#g" -i "${S}"/configure || die
@@ -76,7 +75,7 @@ src_install() {
 	exeinto /usr/share/${PN}
 	for i in DateRepeats ProcessRepeats RepeatMasker DupMasker RepeatProteinMask; do
 		doexe $i
-		dosym /usr/share/${PN}/$i /usr/bin/$i
+		dosym ../share/${PN}/$i /usr/bin/$i
 	done
 
 	perl_set_version
