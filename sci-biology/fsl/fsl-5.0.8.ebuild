@@ -130,8 +130,8 @@ src_install() {
 	#the following is needed for FSL and depending programs to be able
 	#to find its files, since FSL uses an uncommon:
 	#https://github.com/gentoo-science/sci/pull/612#r60289295
-	dosym /etc /usr/share/fsl/etc
-	dosym /usr/share/doc/${P} /usr/share/fsl/doc
+	dosym ../../../etc /usr/share/fsl/etc
+	dosym ../doc/${P} /usr/share/fsl/doc
 
 	cp "${FILESDIR}"/99fsl "${TMPDIR}"/99fsl || die
 	eprefixify "${TMPDIR}"/99fsl

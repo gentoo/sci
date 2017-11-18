@@ -125,9 +125,9 @@ src_install() {
 	#the following is needed for FSL and depending programs to be able
 	#to find its files, since FSL uses an uncommon installation path:
 	#https://github.com/gentoo-science/sci/pull/612#r60289295
-	dosym /etc ${UPSTREAM_FSLDIR}/etc
-	dosym /usr/share/doc/${PF} ${UPSTREAM_FSLDIR}/doc
-	dosym /usr/bin ${UPSTREAM_FSLDIR}/bin
+	dosym ../../../etc ${UPSTREAM_FSLDIR}/etc
+	dosym ../doc/${PF} ${UPSTREAM_FSLDIR}/doc
+	dosym ../../bin ${UPSTREAM_FSLDIR}/bin
 
 	doenvd "$(prefixify_ro "${FILESDIR}"/99fsl)"
 	mv "${ED}"/usr/bin/{,fsl_}cluster || die
