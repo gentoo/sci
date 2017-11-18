@@ -1,16 +1,16 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription>
     A lightweight pure-Python derivative of Enthought Traits,
     used for configuring Python objects. This package powers
     the config system of IPython and Jupyter.
   </longdescription>
-  <upstream>
-    <remote-id type="github">ipython/traitlets</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="github">ipython/traitlets</remote-id>
+	</upstream>
 </pkgmetadata>

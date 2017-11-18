@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
   JEuclid is a complete MathML rendering solution, consisting of:
  * A MathViewer application
  * Command line converters from MathML to other formats
@@ -15,7 +15,7 @@
   This package contains the basic JEuclid rendering and document
   handling classes.
   </longdescription>
-  <upstream>
-    <remote-id type="sourceforge">jeuclid</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="sourceforge">jeuclid</remote-id>
+	</upstream>
 </pkgmetadata>

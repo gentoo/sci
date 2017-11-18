@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-biology@gentoo.org</email>
-    <name>Gentoo Biology Project</name>
-  </maintainer>
-  <use>
-    <flag name="boost">Undocumented USE</flag>
-    <flag name="cppunit">Undocumented USE</flag>
-    <flag name="freetype">Undocumented USE</flag>
-    <flag name="mesa">Undocumented USE</flag>
-    <flag name="muparser">Undocumented USE</flag>
-    <flag name="sablotron">Undocumented USE</flag>
-    <flag name="xerces">Undocumented USE</flag>
-    <flag name="xalan">Undocumented USE</flag>
-    <flag name="xslt">Undocumented USE</flag>
-  </use>
+	<maintainer type="project">
+		<email>sci-biology@gentoo.org</email>
+		<name>Gentoo Biology Project</name>
+	</maintainer>
+	<use>
+		<flag name="boost">Undocumented USE</flag>
+		<flag name="cppunit">Undocumented USE</flag>
+		<flag name="freetype">Undocumented USE</flag>
+		<flag name="mesa">Undocumented USE</flag>
+		<flag name="muparser">Undocumented USE</flag>
+		<flag name="sablotron">Undocumented USE</flag>
+		<flag name="xerces">Undocumented USE</flag>
+		<flag name="xalan">Undocumented USE</flag>
+		<flag name="xslt">Undocumented USE</flag>
+	</use>
 </pkgmetadata>

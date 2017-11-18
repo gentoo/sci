@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="project">
-  <email>sci@gentoo.org</email>
-  <name>Gentoo Science Project</name>
-</maintainer>
-<use>
-  <flag name="dom">Compile the W3C document object model module</flag>
-  <flag name="fast">Compile with best known optimization flags</flag>
-  <flag name="sax">Compile the streaming, validating parser based on java's Simple API for XML</flag>
-  <flag name="wcml">Compile the module for a subset of the Chemical Markup Language</flag>
-  <flag name="wkml">Compile the module for the creation of KML documents used by applications such as Google Earth</flag>
-  <flag name="wxml">Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements</flag>
-  </use>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<use>
+		<flag name="dom">Compile the W3C document object model module</flag>
+		<flag name="fast">Compile with best known optimization flags</flag>
+		<flag name="sax">Compile the streaming, validating parser based on java's Simple API for XML</flag>
+		<flag name="wcml">Compile the module for a subset of the Chemical Markup Language</flag>
+		<flag name="wkml">Compile the module for the creation of KML documents used by applications such as Google Earth</flag>
+		<flag name="wxml">Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements</flag>
+	</use>
 </pkgmetadata>

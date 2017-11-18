@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>cjk34@cam.ac.uk</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="person">
+		<email>cjk34@cam.ac.uk</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
   Quantitative estimate of elemental composition by spectroscopic and imaging
   techniques using X-ray fluorescence requires the availability of accurate data
   of X-ray interaction with matter. Although a wide number of computer codes
@@ -36,9 +36,9 @@
   interactions. Recent developments", Spectrochimica Acta B 66 (2011) 776-784 
   ( doi: http://dx.doi.org/10.1016/j.sab.2011.09.011 )
   </longdescription>
-  <use>
+	<use>
   </use>
-  <upstream>
-    <remote-id type="github">tschoonj/xraylib</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="github">tschoonj/xraylib</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-chemistry@gentoo.org</email>
-    <name>Gentoo Chemistry Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<longdescription>
 OASA is a python library for manipulation of chemical formats that forms the base of BKChem. It is in separate package, because there are other programs using it (e.g. Pybel in <pkg>sci-chemistry/openbabel-python</pkg>).
 </longdescription>
-  <use>
-    <flag name="cairo">Add support for Cairo graphics library using <pkg>dev-python/pycairo</pkg></flag>
-  </use>
+	<use>
+		<flag name="cairo">Add support for Cairo graphics library using <pkg>dev-python/pycairo</pkg></flag>
+	</use>
 </pkgmetadata>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>jlec@gentoo.org</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-chemistry@gentoo.org</email>
-    <name>Gentoo Chemistry Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="person">
+		<email>jlec@gentoo.org</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<longdescription>
 Rapid Software Prototyping can significantly reduce development times in the 
 field of Computational Molecular Biology and Molecular Modeling. 
 BALL (Biochemical Algorithms Library) is an application framework in C++ that 
@@ -27,9 +27,9 @@ Based on BALL we have developed a stand-alone tool for molecular visualization,
 BALLView . BALLView makes the broad functionality available through an 
 integrated user-friendly GUI.
 </longdescription>
-  <use>
-    <flag name="sql">Include SQL database support</flag>
-    <flag name="cuda">Include cuda support</flag>
-    <flag name="webkit">Uses <pkg>dev-qt/qt-webkit</pkg> for drawing</flag>
-  </use>
+	<use>
+		<flag name="sql">Include SQL database support</flag>
+		<flag name="cuda">Include cuda support</flag>
+		<flag name="webkit">Uses <pkg>dev-qt/qt-webkit</pkg> for drawing</flag>
+	</use>
 </pkgmetadata>

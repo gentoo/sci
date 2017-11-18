@@ -1,15 +1,15 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-biology@gentoo.org</email>
-    <name>Gentoo Biology Project</name>
-  </maintainer>
-  <maintainer type="person">
-    <email>mschu.dev@gmail.com</email>
-    <name>Michael Schubert</name>
-  </maintainer>
-  <upstream>
-    <remote-id type="github">COMBINE-lab/salmon</remote-id>
-  </upstream>
+	<maintainer type="project">
+		<email>sci-biology@gentoo.org</email>
+		<name>Gentoo Biology Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>mschu.dev@gmail.com</email>
+		<name>Michael Schubert</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">COMBINE-lab/salmon</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>flammie@gentoo.org</email>
-  </maintainer>
-  <longdescription>
+	<maintainer type="person">
+		<email>flammie@gentoo.org</email>
+	</maintainer>
+	<longdescription>
 NLTK is collection of natural language tools written in python language. It
 also contains huge corpora.
   </longdescription>
-  <upstream>
-    <remote-id type="github">nltk/nltk</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="github">nltk/nltk</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,11 +1,11 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-physics@gentoo.org</email>
-    <name>Gentoo Physics Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription lang="en">
   GENFIT is an experiment-independent framework for track reconstruction for
   particle and nuclear physics. It consists of three modular components:
   - Track fitting algorithms
@@ -31,7 +31,7 @@
   FAIR, Darmstadt, Germany. 
   It is also used in the Belle-2, Fopi, and GEM-TPC experiments.
   </longdescription>
-  <upstream>
-    <remote-id type="sourceforge">genfit</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="sourceforge">genfit</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-mathematics@gentoo.org</email>
-    <name>Gentoo Mathematics Project</name>
-  </maintainer>
-  <use>
-    <flag name="opencascade"> Enable OpenCASCADE support</flag>
-  </use>
-  <upstream>
-    <remote-id type="sourceforge">netgen-mesher</remote-id>
-  </upstream>
+	<maintainer type="project">
+		<email>sci-mathematics@gentoo.org</email>
+		<name>Gentoo Mathematics Project</name>
+	</maintainer>
+	<use>
+		<flag name="opencascade"> Enable OpenCASCADE support</flag>
+	</use>
+	<upstream>
+		<remote-id type="sourceforge">netgen-mesher</remote-id>
+	</upstream>
 </pkgmetadata>

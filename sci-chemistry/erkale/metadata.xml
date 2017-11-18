@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>rei4dan@gmail.com</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-chemistry@gentoo.org</email>
-    <name>Gentoo Chemistry Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="person">
+		<email>rei4dan@gmail.com</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<longdescription lang="en">
     ERKALE is a quantum chemistry program used to solve the electronic
     structure of atoms, molecules and molecular clusters. It was developed at
     the University of Helsinki, and is currently developed at Aalto University.

@@ -1,19 +1,19 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>AstroFloyd@gmail.com</email>
-    <name>AstroFloyd</name>
-  </maintainer>
-  <maintainer type="person">
-    <email>xarthisius@gentoo.org</email>
-    <name>Kacper Kowalik</name>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <upstream>
-    <remote-id type="sourceforge">libsufr</remote-id>
-  </upstream>
+	<maintainer type="person">
+		<email>AstroFloyd@gmail.com</email>
+		<name>AstroFloyd</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>xarthisius@gentoo.org</email>
+		<name>Kacper Kowalik</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="sourceforge">libsufr</remote-id>
+	</upstream>
 </pkgmetadata>

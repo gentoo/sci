@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-chemistry@gentoo.org</email>
-    <name>Gentoo Chemistry Project</name>
-  </maintainer>
-  <use>
-    <flag name="boinc">compile rosetta as a rosetta@home client</flag>
-    <flag name="boost">compile rosetta with boost supported code</flag>
-    <flag name="float">Build with floats rather than doubles</flag>
-    <flag name="lange">Apply patches from www.csrosetta.org</flag>
-  </use>
-  <upstream>
-    <bugs-to>mailto:general-support@mail.rosettacommons.org</bugs-to>
-  </upstream>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<use>
+		<flag name="boinc">compile rosetta as a rosetta@home client</flag>
+		<flag name="boost">compile rosetta with boost supported code</flag>
+		<flag name="float">Build with floats rather than doubles</flag>
+		<flag name="lange">Apply patches from www.csrosetta.org</flag>
+	</use>
+	<upstream>
+		<bugs-to>mailto:general-support@mail.rosettacommons.org</bugs-to>
+	</upstream>
 </pkgmetadata>

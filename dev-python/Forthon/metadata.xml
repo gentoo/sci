@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>xarthisius@gentoo.org</email>
-    <name>Kacper Kowalik</name>
-  </maintainer>
-<longdescription>
+	<maintainer type="person">
+		<email>xarthisius@gentoo.org</email>
+		<name>Kacper Kowalik</name>
+	</maintainer>
+	<longdescription>
   Forthon generates links between Fortran95 and Python. Python is a high
   level, object oriented, interactive and scripting language that allows
   a flexible and versatile interface to computational tools. The Forthon

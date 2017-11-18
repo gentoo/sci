@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>mmokrejs@fold.natur.cuni.cz</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-biology@gentoo.org</email>
-    <name>Gentoo Biology Project</name>
-  </maintainer>
-  <upstream>
-    <remote-id type="sourceforge">bamview</remote-id>
-  </upstream>
+	<maintainer type="person">
+		<email>mmokrejs@fold.natur.cuni.cz</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-biology@gentoo.org</email>
+		<name>Gentoo Biology Project</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="sourceforge">bamview</remote-id>
+	</upstream>
 </pkgmetadata>

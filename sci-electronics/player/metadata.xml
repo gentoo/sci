@@ -1,17 +1,17 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-electronics@gentoo.org</email>
-    <name>Gentoo Electronics Project</name>
-  </maintainer>
-  <use>
-    <flag name="sphinx2">Automatically generated description for sphinx2</flag>
-    <flag name="boost">Automatically generated description for boost</flag>
-    <flag name="openssl">Automatically generated description for openssl</flag>
-    <flag name="festival">Automatically generated description for festival</flag>
-  </use>
-  <upstream>
-    <remote-id type="sourceforge">playerstage</remote-id>
-  </upstream>
+	<maintainer type="project">
+		<email>sci-electronics@gentoo.org</email>
+		<name>Gentoo Electronics Project</name>
+	</maintainer>
+	<use>
+		<flag name="sphinx2">Automatically generated description for sphinx2</flag>
+		<flag name="boost">Automatically generated description for boost</flag>
+		<flag name="openssl">Automatically generated description for openssl</flag>
+		<flag name="festival">Automatically generated description for festival</flag>
+	</use>
+	<upstream>
+		<remote-id type="sourceforge">playerstage</remote-id>
+	</upstream>
 </pkgmetadata>

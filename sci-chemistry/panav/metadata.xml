@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>jlec@gentoo.org</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-chemistry@gentoo.org</email>
-    <name>Gentoo Chemistry Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="person">
+		<email>jlec@gentoo.org</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<longdescription>
 It has been estimated that more than 20% of the proteins in the BMRB are 
 improperly referenced and that about 1% of all chemical shift assignments are 
 mis-assigned. These statistics also reflect the likelihood that any newly 

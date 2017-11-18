@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>jlec@gentoo.org</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-chemistry@gentoo.org</email>
-    <name>Gentoo Chemistry Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="person">
+		<email>jlec@gentoo.org</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<longdescription>
 	EZ-Viz was developed as an assistance tool for the difficult to 
 	understand user interface of PyMOL. The standard interface is 
 	very complex takes a long time to learn, especially for students 

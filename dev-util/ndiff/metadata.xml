@@ -5,7 +5,7 @@
 		<email>AstroFloyd@gmail.com</email>
 		<name>AstroFloyd</name>
 	</maintainer>
-<maintainer type="project">
+	<maintainer type="project">
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>

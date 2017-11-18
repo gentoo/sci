@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-<email>tomka@gentoo.org</email>
-<name>Thomas Kahle</name>
-</maintainer>
-<maintainer type="project">
-<email>sci@gentoo.org</email>
-<name>Gentoo Science Project</name>
-</maintainer>
-<longdescription lang="en">
+	<maintainer type="person">
+		<email>tomka@gentoo.org</email>
+		<name>Thomas Kahle</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
   GNU libmatheval is a library (callable from C and Fortran) to parse
   and evaluate symbolic expressions input as text. It supports
   expressions in any number of variables of arbitrary names, decimal

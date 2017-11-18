@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>bryan.d.green@nasa.gov</email>
-    <name>Bryan Green</name>
-  </maintainer>
-  <longdescription>Growler-Math provides a set of math-related classes and functionality</longdescription>
+	<maintainer type="person">
+		<email>bryan.d.green@nasa.gov</email>
+		<name>Bryan Green</name>
+	</maintainer>
+	<longdescription>Growler-Math provides a set of math-related classes and functionality</longdescription>
 </pkgmetadata>

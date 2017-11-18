@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>dongxuli2011@gmail.com</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <use>
-    <flag name="abinit">Add support for ABINIT file formats <pkg>sci-physics/abinit</pkg></flag>
-    <flag name="cube">Add support plug-in support for Cube files (densities and structures)</flag>
-    <flag name="openbabel">Add support for ABINIT file formats <pkg>sci-chemistry/openbabel</pkg></flag>
-    <flag name="xsf">plug-in support for files that follow the XCrysDen format for structural positions and densities</flag>
-  </use>
+	<maintainer type="person">
+		<email>dongxuli2011@gmail.com</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<use>
+		<flag name="abinit">Add support for ABINIT file formats <pkg>sci-physics/abinit</pkg></flag>
+		<flag name="cube">Add support plug-in support for Cube files (densities and structures)</flag>
+		<flag name="openbabel">Add support for ABINIT file formats <pkg>sci-chemistry/openbabel</pkg></flag>
+		<flag name="xsf">plug-in support for files that follow the XCrysDen format for structural positions and densities</flag>
+	</use>
 </pkgmetadata>

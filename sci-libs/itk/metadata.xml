@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>maintainer-wanted@gentoo.org</email>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-biology@gentoo.org</email>
-    <name>Gentoo Biology Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="project">
+		<email>maintainer-wanted@gentoo.org</email>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-biology@gentoo.org</email>
+		<name>Gentoo Biology Project</name>
+	</maintainer>
+	<longdescription lang="en">
   Insight Segmentation and Registration Toolkit (ITK) is a library
   that provides developers with an extensive suite of tools for image
   analysis.
   </longdescription>
-  <use>
-    <flag name="itkv3compat">Enable compatibility with ITK version 3</flag>
-    <flag name="review">Enable compilation of methods under review</flag>
-    <flag name="vtkglue">PLEASE FIX MY DESCRIPTION</flag>
-  </use>
-  <upstream>
-    <remote-id type="sourceforge">itk</remote-id>
-  </upstream>
+	<use>
+		<flag name="itkv3compat">Enable compatibility with ITK version 3</flag>
+		<flag name="review">Enable compilation of methods under review</flag>
+		<flag name="vtkglue">PLEASE FIX MY DESCRIPTION</flag>
+	</use>
+	<upstream>
+		<remote-id type="sourceforge">itk</remote-id>
+	</upstream>
 </pkgmetadata>

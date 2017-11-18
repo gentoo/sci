@@ -1,19 +1,19 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>AstroFloyd@gmail.com</email>
-    <name>AstroFloyd</name>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="person">
+		<email>AstroFloyd@gmail.com</email>
+		<name>AstroFloyd</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription>
   PG2PLplot is code intended to help the transition from Fortran code
   linked against PGPlot to linking it against PLplot.
   </longdescription>
-  <upstream>
-    <remote-id type="sourceforge">pg2plplot</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="sourceforge">pg2plplot</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -1,16 +1,16 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-astronomy@gentoo.org</email>
-    <name>Gentoo Astronomy Project</name>
-  </maintainer>
-  <use>
-    <flag name="nlopt">Use nlopt, a non-linear optimization library</flag>
-    <flag name="ipopt">Use ipopt, a interior-point optimizer</flag>
-    <flag name="eigen">Use eigen, a c++ linear algebra library, for algorithms like CAMES</flag>
-  </use>
-  <upstream>
-    <remote-id type="github">esa/pagmo2</remote-id>
-  </upstream>
+	<maintainer type="project">
+		<email>sci-astronomy@gentoo.org</email>
+		<name>Gentoo Astronomy Project</name>
+	</maintainer>
+	<use>
+		<flag name="nlopt">Use nlopt, a non-linear optimization library</flag>
+		<flag name="ipopt">Use ipopt, a interior-point optimizer</flag>
+		<flag name="eigen">Use eigen, a c++ linear algebra library, for algorithms like CAMES</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">esa/pagmo2</remote-id>
+	</upstream>
 </pkgmetadata>

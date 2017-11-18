@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>bryan.d.green@nasa.gov</email>
-    <name>Bryan Green</name>
-  </maintainer>
-  <longdescription>Growler-Arch is the set growler libraries and utilities that provide a distributed object architecture and environment.</longdescription>
+	<maintainer type="person">
+		<email>bryan.d.green@nasa.gov</email>
+		<name>Bryan Green</name>
+	</maintainer>
+	<longdescription>Growler-Arch is the set growler libraries and utilities that provide a distributed object architecture and environment.</longdescription>
 </pkgmetadata>

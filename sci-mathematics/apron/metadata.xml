@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-mathematics@gentoo.org</email>
-    <name>Gentoo Mathematics Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="project">
+		<email>sci-mathematics@gentoo.org</email>
+		<name>Gentoo Mathematics Project</name>
+	</maintainer>
+	<longdescription>
   The APRON library is dedicated to the static analysis of the numerical
   variables of a program by Abstract Interpretation. The aim of such an
   analysis is to infer invariants about these variables. The APRON library

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>tom111@gmx.de</email>
-    <name>Thomas Kahle</name>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-mathematics@gentoo.org</email>
-    <name>Gentoo Mathematics Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="person">
+		<email>tom111@gmx.de</email>
+		<name>Thomas Kahle</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-mathematics@gentoo.org</email>
+		<name>Gentoo Mathematics Project</name>
+	</maintainer>
+	<longdescription lang="en">
 Macaulay2 is a research tool for algraic geometry and commutative
 algebra. 
 </longdescription>

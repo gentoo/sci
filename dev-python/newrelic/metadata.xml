@@ -1,15 +1,15 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription>
     Python agent for the New Relic web application performance
     monitoring service.
   </longdescription>
-  <upstream>
-    <remote-id type="pypi">newrelic</remote-id>
-  </upstream>
+	<upstream>
+		<remote-id type="pypi">newrelic</remote-id>
+	</upstream>
 </pkgmetadata>

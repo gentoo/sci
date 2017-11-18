@@ -1,17 +1,17 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>andyspiros@gmail.com</email>
-    <name>Andrea Arteaga</name>
-    <description>Bench Template Library</description>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci@gentoo.org</email>
-    <name>Gentoo Science Project</name>
-  </maintainer>
-  <longdescription>This package contains a modified copy of the BTL.</longdescription>
-  <upstream>
-    <remote-id type="bitbucket">spiros/btl</remote-id>
-  </upstream>
+	<maintainer type="person">
+		<email>andyspiros@gmail.com</email>
+		<name>Andrea Arteaga</name>
+		<description>Bench Template Library</description>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription>This package contains a modified copy of the BTL.</longdescription>
+	<upstream>
+		<remote-id type="bitbucket">spiros/btl</remote-id>
+	</upstream>
 </pkgmetadata>

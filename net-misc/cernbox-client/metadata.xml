@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="project">
-    <email>sci-physics@gentoo.org</email>
-    <name>Gentoo Physics Project</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription lang="en">
   This service provides a cloud synchronisation service for all CERN users between personal devices (like a laptop) and a centrally-managed data storage.
 
   Available to all CERN users. This service provides synchronisation capabilities:
@@ -16,12 +16,12 @@
 
   The service is not suitable for critical-path activities like data acquisition, world-wide data distribution and massive batch processing.
   </longdescription>
-  <use>
-    <flag name="dolphin">Install the <pkg>kde-apps/dolphin</pkg> extension</flag>
-    <flag name="nautilus">Install the <pkg>gnome-base/nautilus</pkg> extension</flag>
-    <flag name="sftp">Enable sftp transfer support via <pkg>net-libs/libssh</pkg></flag>
-  </use>
-  <upstream>
-    <doc>http://cernbox.web.cern.ch/cernbox/00_getting_started/index.html</doc>
-  </upstream>
+	<use>
+		<flag name="dolphin">Install the <pkg>kde-apps/dolphin</pkg> extension</flag>
+		<flag name="nautilus">Install the <pkg>gnome-base/nautilus</pkg> extension</flag>
+		<flag name="sftp">Enable sftp transfer support via <pkg>net-libs/libssh</pkg></flag>
+	</use>
+	<upstream>
+		<doc>http://cernbox.web.cern.ch/cernbox/00_getting_started/index.html</doc>
+	</upstream>
 </pkgmetadata>

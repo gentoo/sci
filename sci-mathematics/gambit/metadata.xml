@@ -1,20 +1,20 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>dongxuli2011@gmail.com</email>
-    <name>Dongxu Li</name>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-mathematics@gentoo.org</email>
-    <name>Gentoo Mathematics Project</name>
-  </maintainer>
-  <use>
-    <flag name="X">
+	<maintainer type="person">
+		<email>dongxuli2011@gmail.com</email>
+		<name>Dongxu Li</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-mathematics@gentoo.org</email>
+		<name>Gentoo Mathematics Project</name>
+	</maintainer>
+	<use>
+		<flag name="X">
   Enable gui support using wxWidgets.
     </flag>
-  </use>
-  <upstream>
-    <remote-id type="sourceforge">gambit</remote-id>
-  </upstream>
+	</use>
+	<upstream>
+		<remote-id type="sourceforge">gambit</remote-id>
+	</upstream>
 </pkgmetadata>

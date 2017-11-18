@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>johnhommer@gmail.com</email>
-    <name>Andrei Zavada</name>
-  </maintainer>
-  <maintainer type="project">
-    <email>sci-biology@gentoo.org</email>
-    <name>Gentoo Biology Project</name>
-  </maintainer>
-  <longdescription>
+	<maintainer type="person">
+		<email>johnhommer@gmail.com</email>
+		<name>Andrei Zavada</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-biology@gentoo.org</email>
+		<name>Gentoo Biology Project</name>
+	</maintainer>
+	<longdescription>
     Aghermann is a program designed around a common workflow in
     sleep-research, complete with scoring facility; cairo subpixel
     drawing on screen or to file; conventional PSD and EEG Micrcontinuity
