@@ -11,8 +11,9 @@ MY_P="trf${MY_PV}"
 
 DESCRIPTION="Tandem Repeats Finder"
 HOMEPAGE="http://tandem.bu.edu/trf/trf.html"
-SRC_URI="x86? ( http://tandem.bu.edu/trf/downloads/${MY_P}.linux32 )
-	amd64? ( http://tandem.bu.edu/trf/downloads/${MY_P}.linux64 )"
+SRC_URI="
+	amd64? ( http://tandem.bu.edu/trf/downloads/${MY_P}.linux64 )
+	x86? ( http://tandem.bu.edu/trf/downloads/${MY_P}.linux32 )"
 # trf: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by trf)
 
 LICENSE="trf"	# http://tandem.bu.edu/trf/trf.license.html
@@ -38,7 +39,7 @@ src_unpack() {
 src_install() {
 	exeinto /opt/"${MY_PN}"/bin
 	doexe "${MY_PN}"
-	dosym /opt/"${MY_PN}"/bin/"${MY_PN}" /opt/bin/"${MY_PN}"
+	dosym ../"${MY_PN}"/bin/"${MY_PN}" /opt/bin/"${MY_PN}"
 	# GTK version (http://tandem.bu.edu/trf/downloads/trf400.linuxgtk.exe) has broken linking
 	#if use gtk; then
 	#	doexe trf400.linuxgtk.exe
