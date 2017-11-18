@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/jeuclid/jeuclid-parent-${PV}-src.zip"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 COMMON_DEPEND="dev-java/ant-core
