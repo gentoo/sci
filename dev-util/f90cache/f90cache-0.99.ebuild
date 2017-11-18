@@ -5,7 +5,7 @@ EAPI=6
 
 inherit fortran-2 multilib toolchain-funcs
 
-DESCRIPTION="a compiler cache for fortran"
+DESCRIPTION="Compiler cache for fortran"
 HOMEPAGE="http://people.irisa.fr/Edouard.Canot/f90cache/"
 SRC_URI="http://people.irisa.fr/Edouard.Canot/${PN}/${P}.tar.bz2"
 
@@ -27,7 +27,7 @@ src_install() {
 
 	#we depend on ccache, put links in there so that portage find it
 	#TODO improve this
-	dosym "/usr/bin/f90cache" "${ROOT}/usr/$(get_libdir)/ccache/bin/gfortran"
+	dosym ../../../bin/f90cache "${ROOT}/usr/$(get_libdir)/ccache/bin/gfortran"
 }
 
 pkg_postinst() {
