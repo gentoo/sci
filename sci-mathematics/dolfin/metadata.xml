@@ -7,7 +7,7 @@
 	</maintainer>
 	<longdescription lang="en">
 DOLFIN is the C++/Python interface of FEniCS, providing a consistent PSE (Problem Solving Environment) for ordinary and partial differential equations.
-  </longdescription>
+</longdescription>
 	<use>
 		<flag name="cgal">Adds support for geometric algorithms with <pkg>sci-mathematics/cgal</pkg></flag>
 		<flag name="cholmod">Adds support for sparse Cholesky factorization with <pkg>sci-libs/cholmod</pkg></flag>

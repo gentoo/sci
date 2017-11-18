@@ -6,7 +6,7 @@
 	</maintainer>
 	<longdescription>
 Pywordnet contains python bindings to handle wordnet databases.
-  </longdescription>
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">pywordnet</remote-id>
 	</upstream>

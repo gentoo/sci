@@ -19,5 +19,5 @@ features are: (1) Bisulfite mapping and methylation calling in one single step;
 and gapped alignments; (4) Alignment seed length, number of mismatches etc. are
 adjustable; (5) Output discriminates between cytosine methylation in CpG, CHG
 and CHH context.
-  </longdescription>
+</longdescription>
 </pkgmetadata>

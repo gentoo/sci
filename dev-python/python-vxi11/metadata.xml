@@ -10,10 +10,10 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    Python VXI-11 is a Python implementation of the VXI-11 Ethernet
-    instrument control protocol. It is compatible with VXI-11,
-    LXI instruments and VXI-11 to GPIB bridges (HP E2050A, etc.).
-  </longdescription>
+Python VXI-11 is a Python implementation of the VXI-11 Ethernet
+instrument control protocol. It is compatible with VXI-11,
+LXI instruments and VXI-11 to GPIB bridges (HP E2050A, etc.).
+</longdescription>
 	<upstream>
 		<remote-id type="github">python-ivi/python-vxi11</remote-id>
 	</upstream>

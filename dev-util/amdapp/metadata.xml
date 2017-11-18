@@ -2,9 +2,9 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<longdescription>
-	AMD Accelerated Parallel Processing (APP) is an SDK which includes
-	the Bolt libraries and an OpenCL implementation for AMD's CPUs and GPUs.
-  </longdescription>
+AMD Accelerated Parallel Processing (APP) is an SDK which includes
+the Bolt libraries and an OpenCL implementation for AMD's CPUs and GPUs.
+</longdescription>
 	<maintainer type="person">
 		<email>gentryx@gmx.de</email>
 	</maintainer>

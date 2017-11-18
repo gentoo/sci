@@ -6,14 +6,14 @@
 		<name>Gentoo Mathematics Project</name>
 	</maintainer>
 	<longdescription>
-  Locally Weighted Projection Regression (LWPR) is a recent algorithm
-  that achieves nonlinear function approximation in high dimensional spaces
-  with redundant and irrelevant input dimensions. At its core, it uses
-  locally linear models, spanned by a small number of univariate
-  regressions in selected directions in input space. A locally
-  weighted variant of Partial Least Squares (PLS) is employed for
-  doing the dimensionality reduction.
-  </longdescription>
+Locally Weighted Projection Regression (LWPR) is a recent algorithm
+that achieves nonlinear function approximation in high dimensional spaces
+with redundant and irrelevant input dimensions. At its core, it uses
+locally linear models, spanned by a small number of univariate
+regressions in selected directions in input space. A locally
+weighted variant of Partial Least Squares (PLS) is employed for
+doing the dimensionality reduction.
+</longdescription>
 	<use>
 		<flag name="octave">Add <pkg>sci-mathematics/octave</pkg> support</flag>
 	</use>

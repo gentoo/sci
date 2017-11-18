@@ -6,10 +6,10 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		photutils is a python package for determining photometric properties
-		of sources in astronomical images. This includes source detection,
-		centroid and shape parameters, and performing photometry.
-	</longdescription>
+photutils is a python package for determining photometric properties
+of sources in astronomical images. This includes source detection,
+centroid and shape parameters, and performing photometry.
+</longdescription>
 	<upstream>
 		<remote-id type="github">astropy/photutils</remote-id>
 	</upstream>

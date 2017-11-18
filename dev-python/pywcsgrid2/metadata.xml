@@ -6,9 +6,9 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		pywcsgrid2 provides a custom Axes class (derived from matplotlib's
-		original Axes class) suitable for displaying fits images. Its main
-		functionality is to draw ticks, ticklabels, and grids in an
-		appropriate sky coordinates.
-	</longdescription>
+pywcsgrid2 provides a custom Axes class (derived from matplotlib's
+original Axes class) suitable for displaying fits images. Its main
+functionality is to draw ticks, ticklabels, and grids in an
+appropriate sky coordinates.
+</longdescription>
 </pkgmetadata>

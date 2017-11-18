@@ -6,12 +6,12 @@
 		<name>Gentoo Geosciences Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Quantum GIS (QGIS) is a user friendly Open Source Geographic
-  Information System (GIS). QGIS supports vector, raster, and database
-  formats. QGIS lets you browse and create map data on your
-  computer. It supports many common spatial data formats (e.g. ESRI
-  ShapeFile, geotiff). QGIS supports plugins to do things like display
-  tracks from your GPS. 
+Quantum GIS (QGIS) is a user friendly Open Source Geographic
+Information System (GIS). QGIS supports vector, raster, and database
+formats. QGIS lets you browse and create map data on your
+computer. It supports many common spatial data formats (e.g. ESRI
+ShapeFile, geotiff). QGIS supports plugins to do things like display
+tracks from your GPS. 
 </longdescription>
 	<use>
 		<flag name="grass">Add support for <pkg>sci-geosciences/grass</pkg></flag>

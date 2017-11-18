@@ -12,7 +12,7 @@
 		<flag name="cma">Enable the CMA (Cross Memory Attach) MCA</flag>
 		<flag name="cuda">Add GPU direct support</flag>
 		<flag name="heterogeneous">Enable features required for heterogeneous
-		platform support</flag>
+platform support</flag>
 		<flag name="romio">Build the ROMIO MPI-IO component</flag>
 		<flag name="mpi-threads">Enable MPI_THREAD_MULTIPLE</flag>
 		<flag name="numa">Enable numactl to allow binding processes to CPUs</flag>

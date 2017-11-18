@@ -6,11 +6,11 @@
 		<name>Gentoo Chemistry Project</name>
 	</maintainer>
 	<longdescription>
-    Open Babel is a chemical toolbox designed to speak the many languages of
-    chemical data. It's an open, collaborative project allowing anyone to
-    search, convert, analyze, or store data from molecular modeling, chemistry,
-    solid-state materials, biochemistry, or related areas.
-  </longdescription>
+Open Babel is a chemical toolbox designed to speak the many languages of
+chemical data. It's an open, collaborative project allowing anyone to
+search, convert, analyze, or store data from molecular modeling, chemistry,
+solid-state materials, biochemistry, or related areas.
+</longdescription>
 	<use>
 		<flag name="doc">Install API dicumentation.</flag>
 		<flag name="openmp">Enable parallelization using OpenMP.</flag>

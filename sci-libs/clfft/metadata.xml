@@ -10,20 +10,20 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    clFFT is a software library containing FFT functions written in
-    OpenCL. In addition to GPU devices, the libraries also support
-    running on CPU devices to facilitate debugging and multicore
-    programming.
-    clFFT is part of the clMath sofware library, which is the
-    successor of APPML.
-  </longdescription>
+clFFT is a software library containing FFT functions written in
+OpenCL. In addition to GPU devices, the libraries also support
+running on CPU devices to facilitate debugging and multicore
+programming.
+clFFT is part of the clMath sofware library, which is the
+successor of APPML.
+</longdescription>
 	<use>
 		<flag name="callback_client">
-      Build a command line clFFT client program that tests callback functionality.
-    </flag>
+Build a command line clFFT client program that tests callback functionality.
+</flag>
 		<flag name="client">
-      Build a command line clFFT client program.
-    </flag>
+Build a command line clFFT client program.
+</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">clMathLibraries/clFFT</remote-id>

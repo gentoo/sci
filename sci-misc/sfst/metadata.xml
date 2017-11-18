@@ -6,8 +6,8 @@
 		<description>N.B. This is used in my master’s thesis project</description>
 	</maintainer>
 	<longdescription>
-  SFST is open source package for compiling and using Finite State
-  Transducers, mainly for linguistic uses, made in university of
-  Stuttgart, Germany.
+SFST is open source package for compiling and using Finite State
+Transducers, mainly for linguistic uses, made in university of
+Stuttgart, Germany.
 </longdescription>
 </pkgmetadata>

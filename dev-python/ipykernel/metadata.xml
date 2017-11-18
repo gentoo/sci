@@ -6,8 +6,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    This package provides the IPython kernel for Jupyter.
-  </longdescription>
+This package provides the IPython kernel for Jupyter.
+</longdescription>
 	<upstream>
 		<remote-id type="github">ipython/ipykernel</remote-id>
 	</upstream>

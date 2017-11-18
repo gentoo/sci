@@ -9,9 +9,9 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		The OVIS project addresses scalable, real-time statistical analysis of
-		very large data sets. It contains tools for intelligent, real-time
-		monitoring of large	computational clusters and lossless, deterministic
-		log message clustering.
+The OVIS project addresses scalable, real-time statistical analysis of
+very large data sets. It contains tools for intelligent, real-time
+monitoring of large	computational clusters and lossless, deterministic
+log message clustering.
 </longdescription>
 </pkgmetadata>

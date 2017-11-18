@@ -6,8 +6,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Intel(R) Integrated Performance Primitives (Intel(R) IPP) is a
-  library of multi-core-ready, optimized software functions for
-  multimedia data processing, and communications applications.
+Intel(R) Integrated Performance Primitives (Intel(R) IPP) is a
+library of multi-core-ready, optimized software functions for
+multimedia data processing, and communications applications.
 </longdescription>
 </pkgmetadata>

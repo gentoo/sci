@@ -9,13 +9,13 @@
 		<name>Gentoo Chemistry Project</name>
 	</maintainer>
 	<longdescription lang="en">
-    ERKALE is a quantum chemistry program used to solve the electronic
-    structure of atoms, molecules and molecular clusters. It was developed at
-    the University of Helsinki, and is currently developed at Aalto University.
+ERKALE is a quantum chemistry program used to solve the electronic
+structure of atoms, molecules and molecular clusters. It was developed at
+the University of Helsinki, and is currently developed at Aalto University.
 
-    The main use of ERKALE is the computation of x-ray properties, such as
-    ground-state electron momentum densities and Compton profiles, and core
-    (x-ray absorption and x-ray Raman scattering) and valence electron
-    excitation spectra of atoms and molecules.
-  </longdescription>
+The main use of ERKALE is the computation of x-ray properties, such as
+ground-state electron momentum densities and Compton profiles, and core
+(x-ray absorption and x-ray Raman scattering) and valence electron
+excitation spectra of atoms and molecules.
+</longdescription>
 </pkgmetadata>

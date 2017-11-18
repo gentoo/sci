@@ -26,8 +26,8 @@ protocol, which is based on using residue-specific and secondary
 structure-specific chemical shift distributions calculated over 
 small (3–6 residue) fragments to identify mis-assigned resonances. The method 
 is also able to identify and re-reference mis-referenced chemical shift 
- assignments. Comparisons against existing re-referencing or mis-assignment 
- detection programs show that the method is as good or superior to existing 
- approaches.
+assignments. Comparisons against existing re-referencing or mis-assignment 
+detection programs show that the method is as good or superior to existing 
+approaches.
 </longdescription>
 </pkgmetadata>

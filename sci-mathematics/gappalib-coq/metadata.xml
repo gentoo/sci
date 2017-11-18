@@ -6,8 +6,8 @@
 		<name>Gentoo Mathematics Project</name>
 	</maintainer>
 	<longdescription>
-  While Gappa is intended to be used directly, it can also act as a
-  backend prover for the Why software verification plateform or as an
-  automatic tactic for the Coq proof assistant.
+While Gappa is intended to be used directly, it can also act as a
+backend prover for the Why software verification plateform or as an
+automatic tactic for the Coq proof assistant.
 </longdescription>
 </pkgmetadata>

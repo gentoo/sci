@@ -9,7 +9,7 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription>
-  tau decay Monte Carlo generator
+tau decay Monte Carlo generator
 </longdescription>
 	<use>
 		<flag name="hepmc">Compile <pkg>sci-physics/hepmc</pkg> interface</flag>

@@ -6,7 +6,7 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Bayesian Photometric Redshifts is a method to infere photometric
-  redshifts of galaxies.
+Bayesian Photometric Redshifts is a method to infere photometric
+redshifts of galaxies.
 </longdescription>
 </pkgmetadata>

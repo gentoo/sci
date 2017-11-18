@@ -13,31 +13,31 @@
 		<name>Honza Macháček</name>
 	</maintainer>
 	<longdescription lang="en">
-		An utility for Projectors Augmented Waves dataset generation.
+An utility for Projectors Augmented Waves dataset generation.
 
-		PAW calculations require, for each atomic species, a set of basis (partial-waves) and
-		projectors functions plus some additional atomic data stored in a PAW dataset. A PAW
-		dataset has to be generated in order to reproduce atomic behavior as accurately as possible
-		while requiring minimal CPU and memory resources in executing the DFT code for the
-		crystal simulations. These two constraints are conflicting.
+PAW calculations require, for each atomic species, a set of basis (partial-waves) and
+projectors functions plus some additional atomic data stored in a PAW dataset. A PAW
+dataset has to be generated in order to reproduce atomic behavior as accurately as possible
+while requiring minimal CPU and memory resources in executing the DFT code for the
+crystal simulations. These two constraints are conflicting.
 
-		The code, originally written by N. A. W. Holzwarth, A. R. Tackett, and G. E. Matthews,
-		is described in the publication A Projector Augmented Wave (PAW) code for electronic
-		structure calculations, Part I: atompaw for generating atom-centered functions, Computer
-		Physics Communications 135 329-347 (2001). With the help of several collaborators
-		at Wake Forest University as well as several international collaborators, the code
-		has been continually updated and adapted for use with various electronic structure codes
-		including abinit, quantum-espresso, socorro, and pwpaw.
-	</longdescription>
+The code, originally written by N. A. W. Holzwarth, A. R. Tackett, and G. E. Matthews,
+is described in the publication A Projector Augmented Wave (PAW) code for electronic
+structure calculations, Part I: atompaw for generating atom-centered functions, Computer
+Physics Communications 135 329-347 (2001). With the help of several collaborators
+at Wake Forest University as well as several international collaborators, the code
+has been continually updated and adapted for use with various electronic structure codes
+including abinit, quantum-espresso, socorro, and pwpaw.
+</longdescription>
 	<upstream>
 		<doc>http://users.wfu.edu/natalie/papers/pwpaw/man.html</doc>
 	</upstream>
 	<use>
 		<flag name="libxc">Enable support for libxc, an exchange-correlation potentials library</flag>
 		<flag name="longplot">
-                  Patch the sources to plot functions all over the space considered,
-                  not just up to the matching radius plus 50 grid points. May be useless
-                  or even harmful.
-        </flag>
+Patch the sources to plot functions all over the space considered,
+not just up to the matching radius plus 50 grid points. May be useless
+or even harmful.
+</flag>
 	</use>
 </pkgmetadata>

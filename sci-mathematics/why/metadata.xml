@@ -6,15 +6,15 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-  Why is a software verification platform. It contains a general-purpose
-  verification condition generator (VCG) which is used as a back-end
-  by other verification tools but it can also be used directly to verify
-  programs. It also provides Krakatoa, a tool or the verification of Java
-  programs and Caduceus, a tool for the verification of C programs.
+Why is a software verification platform. It contains a general-purpose
+verification condition generator (VCG) which is used as a back-end
+by other verification tools but it can also be used directly to verify
+programs. It also provides Krakatoa, a tool or the verification of Java
+programs and Caduceus, a tool for the verification of C programs.
 </longdescription>
 	<use>
 		<flag name="apron">Use <pkg>sci-mathematics/apron</pkg> library for
-  abstract interpretation</flag>
+abstract interpretation</flag>
 		<flag name="coq">Add <pkg>sci-mathematics/coq</pkg> support</flag>
 		<flag name="float">Add <pkg>sci-mathematics/flocq</pkg> support</flag>
 		<flag name="gappa">Add <pkg>sci-mathematics/gappalib-coq</pkg> support</flag>

@@ -6,8 +6,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    A Python kernel for Jupyter/IPython, based on MetaKernel.
-  </longdescription>
+A Python kernel for Jupyter/IPython, based on MetaKernel.
+</longdescription>
 	<upstream>
 		<remote-id type="github">Calysto/metakernel</remote-id>
 		<remote-id type="pypi">metakernel_python</remote-id>

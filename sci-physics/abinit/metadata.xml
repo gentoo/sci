@@ -22,39 +22,39 @@ ABINIT code, different utility programs are provided.
 		<flag name="bigdft">Enable support for BigDFT, DFT package using wavelet basis set</flag>
 		<flag name="cuda">Enable support for nVidia CUDA</flag>
 		<flag name="cuda-double">
-     Enable support for double precision nVidia CUDA
-  </flag>
+Enable support for double precision nVidia CUDA
+</flag>
 		<flag name="etsf_io">
-      Enable support for reading and writing the European Theoretical
-      Spectroscopy facility (ETSF) file format.
-    </flag>
+Enable support for reading and writing the European Theoretical
+Spectroscopy facility (ETSF) file format.
+</flag>
 		<flag name="fftw-threads">
-   Use the threaded (openMP or pthreads) version of <pkg>sci-libs/fftw</pkg>
-  </flag>
+Use the threaded (openMP or pthreads) version of <pkg>sci-libs/fftw</pkg>
+</flag>
 		<flag name="fftw-mpi">
-   Use the MPI version of <pkg>sci-libs/fftw</pkg> (always with either openMP or pthreads too)
-  </flag>
+Use the MPI version of <pkg>sci-libs/fftw</pkg> (always with either openMP or pthreads too)
+</flag>
 		<flag name="fox">Enable support for FoX Fortran XML library</flag>
 		<flag name="levmar">
-      Enable support for <pkg>sci-libs/levmar</pkg>,
-      the Levenberg-Marquardt least-squares optimisation
-    </flag>
+Enable support for <pkg>sci-libs/levmar</pkg>,
+the Levenberg-Marquardt least-squares optimisation
+</flag>
 		<flag name="libabinit">
-   Build the libabinit used by <pkg>sci-libs/bigdft</pkg>
-   (usage not tested yet, circular dependency not resolved)
-  </flag>
+Build the libabinit used by <pkg>sci-libs/bigdft</pkg>
+(usage not tested yet, circular dependency not resolved)
+</flag>
 		<flag name="libxc">Enable support for libxc, an exchange-correlation potentials library</flag>
 		<flag name="lotf">Activate the Learn on The Fly method (LOTF) for Molecular Dynamics</flag>
 		<flag name="scalapack">
-      Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
-    </flag>
+Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
+</flag>
 		<flag name="scripts">Install helper scripts, mostly Python</flag>
 		<flag name="vdwxc">
-      Activate van der Waals exchange-correlation correction. Since 7.4.0
-      no longer optional
-    </flag>
+Activate van der Waals exchange-correlation correction. Since 7.4.0
+no longer optional
+</flag>
 		<flag name="wannier">
-      Enable support for wannier90, a maximally localized Wannier functions (MLWFs) calculator
-    </flag>
+Enable support for wannier90, a maximally localized Wannier functions (MLWFs) calculator
+</flag>
 	</use>
 </pkgmetadata>

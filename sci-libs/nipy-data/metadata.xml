@@ -10,6 +10,6 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-	Nipy-data is a package containing data files needed for many nipy demo tutorials.
+Nipy-data is a package containing data files needed for many nipy demo tutorials.
 </longdescription>
 </pkgmetadata>

@@ -10,9 +10,9 @@
 		<name>Gentoo Geosciences Project</name>
 	</maintainer>
 	<longdescription lang="en">
-	Pydap is a pure Python library implementing the Data Access Protocol.
-	pydap_handlers_proxy allows Pydap server to serve data from other web sites.
-  </longdescription>
+Pydap is a pure Python library implementing the Data Access Protocol.
+pydap_handlers_proxy allows Pydap server to serve data from other web sites.
+</longdescription>
 	<upstream>
 		<remote-id type="pypi">pydap.handlers.proxy</remote-id>
 	</upstream>

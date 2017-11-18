@@ -5,9 +5,9 @@
 		<email>flammie@gentoo.org</email>
 	</maintainer>
 	<longdescription>
-  Java based programming interface for accessing wordnet style dictionary
-  data.
-  </longdescription>
+Java based programming interface for accessing wordnet style dictionary
+data.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">jwordnet</remote-id>
 	</upstream>

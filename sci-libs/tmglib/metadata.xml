@@ -6,7 +6,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  This is a library to generate matrices to test LAPACK
-  implementations.
+This is a library to generate matrices to test LAPACK
+implementations.
 </longdescription>
 </pkgmetadata>

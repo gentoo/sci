@@ -6,8 +6,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-    MRIcron is a simple medical imaging visualization tool written in Lazarus.
-  </longdescription>
+MRIcron is a simple medical imaging visualization tool written in Lazarus.
+</longdescription>
 	<upstream>
 		<remote-id type="github">neurolabusc/MRIcron</remote-id>
 	</upstream>

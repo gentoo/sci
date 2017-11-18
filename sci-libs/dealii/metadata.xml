@@ -14,7 +14,7 @@ deal.II is a C++ program library targeted at the computational solution
 of partial differential equations using adaptive finite elements. It uses
 state-of-the-art programming techniques to offer you a modern interface
 to the complex data structures and algorithms required.
-	</longdescription>
+</longdescription>
 	<use>
 		<flag name="adolc">Adds support for ADOL-C (<pkg>sci-libs/adolc</pkg>)</flag>
 		<flag name="arpack">Adds support for ARPACK (<pkg>sci-libs/arpack</pkg>)</flag>

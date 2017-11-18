@@ -10,9 +10,9 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    A PyVISA backend that implements a large part of the "Virtual
-    Instrument Software Architecture" (VISA) in pure Python.
-  </longdescription>
+A PyVISA backend that implements a large part of the "Virtual
+Instrument Software Architecture" (VISA) in pure Python.
+</longdescription>
 	<upstream>
 		<remote-id type="github">hgrecco/pyvisa-py</remote-id>
 		<remote-id type="pypi">PyVISA-py</remote-id>

@@ -6,10 +6,10 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Zarja is open-source library that allows to make multi-agent
-  simulations on graphs. Its functionality was proved in Classical or
-  Quantum mechanical models.
-  </longdescription>
+Zarja is open-source library that allows to make multi-agent
+simulations on graphs. Its functionality was proved in Classical or
+Quantum mechanical models.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">zarja</remote-id>
 	</upstream>

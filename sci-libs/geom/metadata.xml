@@ -6,7 +6,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<use>
-	</use>
+</use>
 	<upstream>
 		<remote-id type="sourceforge">salomegeometry</remote-id>
 	</upstream>

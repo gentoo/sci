@@ -6,10 +6,10 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		imageutils is a collection of image processing utilities that are generally
-		useful to astronomers. These will likely become part of the core AstroPy
-		package before the 1.0 release.
-	</longdescription>
+imageutils is a collection of image processing utilities that are generally
+useful to astronomers. These will likely become part of the core AstroPy
+package before the 1.0 release.
+</longdescription>
 	<upstream>
 		<remote-id type="github">astropy/imageutils</remote-id>
 	</upstream>

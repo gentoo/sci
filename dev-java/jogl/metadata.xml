@@ -8,7 +8,7 @@
 	<longdescription lang="en">
 JOGL provides Java with a Binding for the OpenGL® API (JSR-231), and is designed
 to provide hardware-supported 3D graphics to applications written in Java.
-  </longdescription>
+</longdescription>
 	<use>
 		<flag name="cg">Enable NVidia Cg binding.</flag>
 	</use>

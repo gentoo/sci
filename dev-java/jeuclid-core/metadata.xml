@@ -6,15 +6,15 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  JEuclid is a complete MathML rendering solution, consisting of:
- * A MathViewer application
- * Command line converters from MathML to other formats
- * An ant task for automated conversion
- * Display components for AWT and Swing
- * A component for Apache Cocoon
-  This package contains the basic JEuclid rendering and document
-  handling classes.
-  </longdescription>
+JEuclid is a complete MathML rendering solution, consisting of:
+* A MathViewer application
+* Command line converters from MathML to other formats
+* An ant task for automated conversion
+* Display components for AWT and Swing
+* A component for Apache Cocoon
+This package contains the basic JEuclid rendering and document
+handling classes.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">jeuclid</remote-id>
 	</upstream>

@@ -10,12 +10,12 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    matlab_wrapper allows you to use MATLAB in a convenient way in
-    Python. You can call MATLAB functions and access workspace
-    variables directly from your Python scripts and interactive
-    shell. MATLAB session is started in the background and appears
-    as a regular Python module.
-  </longdescription>
+matlab_wrapper allows you to use MATLAB in a convenient way in
+Python. You can call MATLAB functions and access workspace
+variables directly from your Python scripts and interactive
+shell. MATLAB session is started in the background and appears
+as a regular Python module.
+</longdescription>
 	<upstream>
 		<remote-id type="github">mrkrd/matlab_wrapper</remote-id>
 		<remote-id type="pypi">matlab_wrapper</remote-id>

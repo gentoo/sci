@@ -6,7 +6,7 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  SWarp takes astronomical FITS images with a WCS-like projection,
-  resample and stack them all.
+SWarp takes astronomical FITS images with a WCS-like projection,
+resample and stack them all.
 </longdescription>
 </pkgmetadata>

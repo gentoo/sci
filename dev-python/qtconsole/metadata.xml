@@ -6,7 +6,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    A rich Qt-based console for working with Jupyter kernels,
-    supporting rich media output, session export, and more.
-  </longdescription>
+A rich Qt-based console for working with Jupyter kernels,
+supporting rich media output, session export, and more.
+</longdescription>
 </pkgmetadata>

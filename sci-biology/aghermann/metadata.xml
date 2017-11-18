@@ -10,10 +10,10 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<longdescription>
-    Aghermann is a program designed around a common workflow in
-    sleep-research, complete with scoring facility; cairo subpixel
-    drawing on screen or to file; conventional PSD and EEG Micrcontinuity
-    profiles; Independent Component Analysis; artifact detection; and
-    Process S simulation following Achermann et al, 1993.
-  </longdescription>
+Aghermann is a program designed around a common workflow in
+sleep-research, complete with scoring facility; cairo subpixel
+drawing on screen or to file; conventional PSD and EEG Micrcontinuity
+profiles; Independent Component Analysis; artifact detection; and
+Process S simulation following Achermann et al, 1993.
+</longdescription>
 </pkgmetadata>

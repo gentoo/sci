@@ -5,9 +5,9 @@
 		<email>flammie@gentoo.org</email>
 	</maintainer>
 	<longdescription lang="en">
-	Praat is a phonetic program for computer. It includes speech synthesis,
-	analysis and other tools.
-  </longdescription>
+Praat is a phonetic program for computer. It includes speech synthesis,
+analysis and other tools.
+</longdescription>
 	<upstream>
 		<remote-id type="github">praat/praat</remote-id>
 	</upstream>

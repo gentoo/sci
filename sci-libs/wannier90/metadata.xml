@@ -10,11 +10,11 @@
 		<name>Honza Macháček</name>
 	</maintainer>
 	<longdescription lang="en">
-	Wannier90 is an electronic-structure software computing maximally-localized Wannier functions (MLWF).
-	It works on top of other electronic-structure software, such as Abinit, FLEUR, and PwSCF.
-	The project and associated repository on Launchpad only deal with patches over the official release,
-	as well as its packaging into the Debian and Ubuntu distributions.
-	</longdescription>
+Wannier90 is an electronic-structure software computing maximally-localized Wannier functions (MLWF).
+It works on top of other electronic-structure software, such as Abinit, FLEUR, and PwSCF.
+The project and associated repository on Launchpad only deal with patches over the official release,
+as well as its packaging into the Debian and Ubuntu distributions.
+</longdescription>
 	<upstream>
 		<doc>http://www.wannier.org/</doc>
 		<remote-id type="launchpad">wannier90</remote-id>

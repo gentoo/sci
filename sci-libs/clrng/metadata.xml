@@ -7,8 +7,8 @@
 	</maintainer>
 	<use>
 		<flag name="client">
-      Build a command line clRNG client program.
-    </flag>
+Build a command line clRNG client program.
+</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">clMathLibraries/clRNG</remote-id>

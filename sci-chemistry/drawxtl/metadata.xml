@@ -6,7 +6,7 @@
 		<name>Gentoo Chemistry Project</name>
 	</maintainer>
 	<longdescription lang="en">
-	This software can be used to produce crystal structure drawings from structural
-	data.
+This software can be used to produce crystal structure drawings from structural
+data.
 </longdescription>
 </pkgmetadata>

@@ -6,19 +6,19 @@
 		<name>Pavel Denisov</name>
 	</maintainer>
 	<longdescription lang="en">
-    Kaldi is a toolkit for speech recognition written
-    in C++ and licensed under the Apache License v2.0.
-    Kaldi is intended for use by speech recognition researchers.
-  </longdescription>
+Kaldi is a toolkit for speech recognition written
+in C++ and licensed under the Apache License v2.0.
+Kaldi is intended for use by speech recognition researchers.
+</longdescription>
 	<upstream>
 		<remote-id type="github">kaldi-asr/kaldi</remote-id>
 	</upstream>
 	<use>
 		<flag name="cuda">
-      Build with CUDA support.
-    </flag>
+Build with CUDA support.
+</flag>
 		<flag name="double-precision">
-      Build in double precision mode.
-    </flag>
+Build in double precision mode.
+</flag>
 	</use>
 </pkgmetadata>

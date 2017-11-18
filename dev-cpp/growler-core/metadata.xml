@@ -6,8 +6,8 @@
 		<name>Bryan Green</name>
 	</maintainer>
 	<longdescription>
-		Growler-Core provides a large set of mainly general-purpose classes and
-		functionality for developing and using the Growler Distributed Component
-		Architecture.
-	</longdescription>
+Growler-Core provides a large set of mainly general-purpose classes and
+functionality for developing and using the Growler Distributed Component
+Architecture.
+</longdescription>
 </pkgmetadata>

@@ -7,7 +7,7 @@
 	</maintainer>
 	<longdescription>
 Templating system for parametric modeling.
-  </longdescription>
+</longdescription>
 	<upstream>
 		<remote-id type="pypi">pyslice</remote-id>
 		<remote-id type="sourceforge">pyslice</remote-id>

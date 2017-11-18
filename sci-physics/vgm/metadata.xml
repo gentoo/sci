@@ -6,8 +6,8 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  The Virtual Geometry Model (VGM) is an
-  abstraction layer between the Geant4 and ROOT software.
+The Virtual Geometry Model (VGM) is an
+abstraction layer between the Geant4 and ROOT software.
 </longdescription>
 	<use>
 		<flag name="geant4">Enable interaction with Geant4(<pkg>sci-physics/geant</pkg>:4) </flag>

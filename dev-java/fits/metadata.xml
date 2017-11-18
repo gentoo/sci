@@ -6,9 +6,9 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Java library which provides I/O for FITS images and binary tables. The Java
-  libraries support all basic FITS formats and gzip compressed
-  files. Support for access to data subsets is included and the
-  HIERARCH convention may be used.
+Java library which provides I/O for FITS images and binary tables. The Java
+libraries support all basic FITS formats and gzip compressed
+files. Support for access to data subsets is included and the
+HIERARCH convention may be used.
 </longdescription>
 </pkgmetadata>

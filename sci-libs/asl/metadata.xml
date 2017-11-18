@@ -27,7 +27,7 @@ fields: computational fluid dynamics, virtual sensing, industrial
 process data validation and reconciliation, image-guided surgery,
 computer-aided engineering, design space exploration, crystallography,
 etc.
-  </longdescription>
+</longdescription>
 	<use>
 		<flag name="matlab">Matlab support with <pkg>sci-libs/matio</pkg></flag>
 	</use>

@@ -5,7 +5,7 @@
 		<email>flammie@gentoo.org</email>
 	</maintainer>
 	<longdescription>
-  University of Stanford’s Natural language pos tagger. Uses log linear
-  pos taggers such as Maximum Entropy model tagging.
+University of Stanford’s Natural language pos tagger. Uses log linear
+pos taggers such as Maximum Entropy model tagging.
 </longdescription>
 </pkgmetadata>

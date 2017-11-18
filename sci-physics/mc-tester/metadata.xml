@@ -9,7 +9,7 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription>
-  A universal tool for comparisons of Monte Carlo predictions in High Energy Physics
+A universal tool for comparisons of Monte Carlo predictions in High Energy Physics
 </longdescription>
 	<use>
 		<flag name="hepmc">Compile <pkg>sci-physics/hepmc</pkg> interface</flag>

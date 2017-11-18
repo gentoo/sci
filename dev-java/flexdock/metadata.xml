@@ -6,6 +6,6 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Java docking framework for use in cross-platform Swing applications.
+Java docking framework for use in cross-platform Swing applications.
 </longdescription>
 </pkgmetadata>

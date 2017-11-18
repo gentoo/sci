@@ -5,12 +5,12 @@
 		<email>pavel.a.denisov@gmail.com</email>
 	</maintainer>
 	<longdescription lang="en">
-	The MIT Language Modeling (MITLM) toolkit is a set of tools
-	designed for the efficient estimation of statistical n-gram
-	language models involving iterative parameter estimation.
-	It achieves much of its efficiency through the use of a compact
-	vector representation of n-grams.
-  </longdescription>
+The MIT Language Modeling (MITLM) toolkit is a set of tools
+designed for the efficient estimation of statistical n-gram
+language models involving iterative parameter estimation.
+It achieves much of its efficiency through the use of a compact
+vector representation of n-grams.
+</longdescription>
 	<upstream>
 		<remote-id type="github">mitlm/mitlm</remote-id>
 	</upstream>

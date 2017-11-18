@@ -10,6 +10,6 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-	Nipy-templates is a package containing template files needed by some nipy functions.
+Nipy-templates is a package containing template files needed by some nipy functions.
 </longdescription>
 </pkgmetadata>

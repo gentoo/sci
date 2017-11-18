@@ -6,8 +6,8 @@
 		<name>Bryan Green</name>
 	</maintainer>
 	<longdescription>
-		Growler-Link is the lowest-level Growler package.  It provides basic support for
-		dynamic linking, components and modules, as well as several other of Growler's
-		commonly used API's, such as Clogger.
-	</longdescription>
+Growler-Link is the lowest-level Growler package.  It provides basic support for
+dynamic linking, components and modules, as well as several other of Growler's
+commonly used API's, such as Clogger.
+</longdescription>
 </pkgmetadata>

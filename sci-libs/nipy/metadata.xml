@@ -10,8 +10,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		NIPY is a python project for analysis of structural and functional neuroimaging data.
-	</longdescription>
+NIPY is a python project for analysis of structural and functional neuroimaging data.
+</longdescription>
 	<upstream>
 		<remote-id type="pypi">nipy</remote-id>
 	</upstream>

@@ -6,10 +6,10 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		specutils is a package to implement utilities and data structures to
-		analyse astronomical spectra within python. It extends NDData from Astropy
-		into a class with special handling of 1D spectra.
-	</longdescription>
+specutils is a package to implement utilities and data structures to
+analyse astronomical spectra within python. It extends NDData from Astropy
+into a class with special handling of 1D spectra.
+</longdescription>
 	<upstream>
 		<remote-id type="github">astropy/specutils</remote-id>
 	</upstream>

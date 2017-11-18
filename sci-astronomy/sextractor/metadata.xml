@@ -6,17 +6,17 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  SExtractor (Source Extractor) is a program that builds a catalogue of
-  objects from an astronomical image. Although it is particularly
-  oriented towards reduction of large scale galaxy-survey data, it
-  performs rather well on moderately crowded star fields. It has the
-  ability to automatically separate stars and galaxy using neural
-  networks.
+SExtractor (Source Extractor) is a program that builds a catalogue of
+objects from an astronomical image. Although it is particularly
+oriented towards reduction of large scale galaxy-survey data, it
+performs rather well on moderately crowded star fields. It has the
+ability to automatically separate stars and galaxy using neural
+networks.
 </longdescription>
 	<use>
 		<flag name="modelfit">
-  Enable profile model fitting, needs <pkg>sci-libs/atlas</pkg>
-  and <pkg>sci-libs/fftw</pkg>
+Enable profile model fitting, needs <pkg>sci-libs/atlas</pkg>
+and <pkg>sci-libs/fftw</pkg>
 </flag>
 	</use>
 </pkgmetadata>

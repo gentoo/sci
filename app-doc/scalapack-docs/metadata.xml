@@ -6,13 +6,13 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  The ScaLAPACK (or Scalable LAPACK) library includes a subset of
-  LAPACK routines redesigned for distributed memory MIMD parallel
-  computers. It is currently written in a Single-Program-Multiple-Data
-  style using explicit message passing for interprocessor
-  communication. It assumes matrices are laid out in a two-dimensional
-  block cyclic decomposition.
-  This package contains manual pages for the routines, and quick
-  reference guides.
+The ScaLAPACK (or Scalable LAPACK) library includes a subset of
+LAPACK routines redesigned for distributed memory MIMD parallel
+computers. It is currently written in a Single-Program-Multiple-Data
+style using explicit message passing for interprocessor
+communication. It assumes matrices are laid out in a two-dimensional
+block cyclic decomposition.
+This package contains manual pages for the routines, and quick
+reference guides.
 </longdescription>
 </pkgmetadata>

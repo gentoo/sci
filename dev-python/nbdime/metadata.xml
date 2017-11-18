@@ -10,11 +10,11 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    nbdime provides tools for diffing and merging of Jupyter Notebooks.
-  </longdescription>
+nbdime provides tools for diffing and merging of Jupyter Notebooks.
+</longdescription>
 	<use>
 		<flag name="webtools">
-      Install web-based diff and merge tools.
-    </flag>
+Install web-based diff and merge tools.
+</flag>
 	</use>
 </pkgmetadata>

@@ -6,7 +6,7 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Le Photometric Analysis for Redshift Estimate is a set of commands
-  to compute photometric redshifts and to perform SED fitting.
+Le Photometric Analysis for Redshift Estimate is a set of commands
+to compute photometric redshifts and to perform SED fitting.
 </longdescription>
 </pkgmetadata>

@@ -10,12 +10,12 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    This Python package provides high level utilities to read/write a
-    variety of Python types to/from HDF5 (Heirarchal Data Format)
-    formatted files. This package also provides support for MATLAB MAT
-    v7.3 formatted files, which are just HDF5 files with a different
-    extension and some extra meta-data.
-  </longdescription>
+This Python package provides high level utilities to read/write a
+variety of Python types to/from HDF5 (Heirarchal Data Format)
+formatted files. This package also provides support for MATLAB MAT
+v7.3 formatted files, which are just HDF5 files with a different
+extension and some extra meta-data.
+</longdescription>
 	<upstream>
 		<remote-id type="github">frejanordsiek/hdf5storage</remote-id>
 		<remote-id type="pypi">hdf5storage</remote-id>

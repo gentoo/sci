@@ -6,16 +6,16 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  This service provides a cloud synchronisation service for all CERN users between personal devices (like a laptop) and a centrally-managed data storage.
+This service provides a cloud synchronisation service for all CERN users between personal devices (like a laptop) and a centrally-managed data storage.
 
-  Available to all CERN users. This service provides synchronisation capabilities:
-  everyone having a CERN computing account can use box to synchronise data (files and directories) across a series of (mobile) devices (smartphones, tablet, laptop, desktop).
-  Major software distributions are supported (notably recent Mac, Linux and Windows).
+Available to all CERN users. This service provides synchronisation capabilities:
+everyone having a CERN computing account can use box to synchronise data (files and directories) across a series of (mobile) devices (smartphones, tablet, laptop, desktop).
+Major software distributions are supported (notably recent Mac, Linux and Windows).
 
-  The service provides off-line eventually synchronised access to data and it is also meant for data sharing across collaborators (for example to share presentations or text documents).
+The service provides off-line eventually synchronised access to data and it is also meant for data sharing across collaborators (for example to share presentations or text documents).
 
-  The service is not suitable for critical-path activities like data acquisition, world-wide data distribution and massive batch processing.
-  </longdescription>
+The service is not suitable for critical-path activities like data acquisition, world-wide data distribution and massive batch processing.
+</longdescription>
 	<use>
 		<flag name="dolphin">Install the <pkg>kde-apps/dolphin</pkg> extension</flag>
 		<flag name="nautilus">Install the <pkg>gnome-base/nautilus</pkg> extension</flag>

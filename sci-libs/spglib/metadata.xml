@@ -10,8 +10,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		Spglib is a C library for finding and handling crystal symmetries.
-	</longdescription>
+Spglib is a C library for finding and handling crystal symmetries.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">downloads</remote-id>
 	</upstream>

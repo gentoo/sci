@@ -6,8 +6,8 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription>
-		CASA, the Common Astronomy Software Applications package, is being developed
-		with the primary goal of supporting the data post-processing needs of the
-		next generation of radio astronomical telescopes such as ALMA and VLA.
-	</longdescription>
+CASA, the Common Astronomy Software Applications package, is being developed
+with the primary goal of supporting the data post-processing needs of the
+next generation of radio astronomical telescopes such as ALMA and VLA.
+</longdescription>
 </pkgmetadata>

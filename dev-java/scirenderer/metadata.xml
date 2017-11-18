@@ -6,6 +6,6 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
- 		A rendering library for scilab based on JoGL
-	</longdescription>
+A rendering library for scilab based on JoGL
+</longdescription>
 </pkgmetadata>

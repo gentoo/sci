@@ -10,10 +10,10 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    A Python package for support of the "Virtual Instrument Software
-    Architecture" (VISA), in order to control measurement devices and
-    test equipment via GPIB, RS232, Ethernet or USB.
-  </longdescription>
+A Python package for support of the "Virtual Instrument Software
+Architecture" (VISA), in order to control measurement devices and
+test equipment via GPIB, RS232, Ethernet or USB.
+</longdescription>
 	<upstream>
 		<remote-id type="github">hgrecco/pyvisa-py</remote-id>
 		<remote-id type="pypi">PyVISA</remote-id>

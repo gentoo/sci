@@ -5,10 +5,10 @@
 		<email>witold.pilat@gmail.com</email>
 	</maintainer>
 	<longdescription>
-  Pynomo is a program to create (pdf) nomographs
-  (nomograms) using Python interpreter. A nomograph (nomogram) is a
-  graphical solution to an equation.
-  </longdescription>
+Pynomo is a program to create (pdf) nomographs
+(nomograms) using Python interpreter. A nomograph (nomogram) is a
+graphical solution to an equation.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">pynomo</remote-id>
 	</upstream>

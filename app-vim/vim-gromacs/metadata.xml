@@ -6,8 +6,8 @@
 		<name>Gentoo Chemistry Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  VIM syntax plugin which provides syntax highlighting for the gromacs files.
-  </longdescription>
+VIM syntax plugin which provides syntax highlighting for the gromacs files.
+</longdescription>
 	<upstream>
 		<remote-id type="github">HubLot/vim-gromacs</remote-id>
 	</upstream>

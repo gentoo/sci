@@ -9,15 +9,15 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		Mathics—to be pronounced like “Mathematics” without the “emat”—is a general-purpose computer algebra system (CAS).
-		It is meant to be a free, light-weight alternative to Mathematica®. It is free both as in “free beer” and as in “freedom”.
-		There are various online mirrors running Mathics but it is also possible to run Mathics locally. A list of mirrors
-		can be found at the Mathics homepage, http://mathics.github.io.
+Mathics—to be pronounced like “Mathematics” without the “emat”—is a general-purpose computer algebra system (CAS).
+It is meant to be a free, light-weight alternative to Mathematica®. It is free both as in “free beer” and as in “freedom”.
+There are various online mirrors running Mathics but it is also possible to run Mathics locally. A list of mirrors
+can be found at the Mathics homepage, http://mathics.github.io.
 
-		The programming language of Mathics is meant to resemble Wolfram's famous Mathematica® as much as possible.
-		However, Mathics is in no way affiliated or supported by Wolfram. Mathics will probably never have the power to
-		compete with Mathematica® in industrial applications; yet, it might be an interesting alternative for educational purposes.
-	</longdescription>
+The programming language of Mathics is meant to resemble Wolfram's famous Mathematica® as much as possible.
+However, Mathics is in no way affiliated or supported by Wolfram. Mathics will probably never have the power to
+compete with Mathematica® in industrial applications; yet, it might be an interesting alternative for educational purposes.
+</longdescription>
 	<upstream>
 		<remote-id type="github">mathics/Mathics</remote-id>
 	</upstream>

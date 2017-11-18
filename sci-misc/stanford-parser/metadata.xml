@@ -5,7 +5,7 @@
 		<email>flammie@gentoo.org</email>
 	</maintainer>
 	<longdescription>
-  Stanford parser is a natural language parser implemented in Java and using
-  statistical methods. It includes PCFG and dependency parsers.
+Stanford parser is a natural language parser implemented in Java and using
+statistical methods. It includes PCFG and dependency parsers.
 </longdescription>
 </pkgmetadata>

@@ -6,12 +6,12 @@
 		<name>Gentoo Chemistry Project</name>
 	</maintainer>
 	<longdescription>
-    Open Babel is a chemical toolbox designed to speak the many languages of
-    chemical data. It's an open, collaborative project allowing anyone to
-    search, convert, analyze, or store data from molecular modeling, chemistry,
-    solid-state materials, biochemistry, or related areas. This package enables
-    to access Open Babel library from Ruby programs.
-  </longdescription>
+Open Babel is a chemical toolbox designed to speak the many languages of
+chemical data. It's an open, collaborative project allowing anyone to
+search, convert, analyze, or store data from molecular modeling, chemistry,
+solid-state materials, biochemistry, or related areas. This package enables
+to access Open Babel library from Ruby programs.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">openbabel</remote-id>
 	</upstream>

@@ -7,7 +7,7 @@
 	</maintainer>
 	<longdescription lang="en">
 BLAS/LAPACK-interface for OCaml
-  </longdescription>
+</longdescription>
 	<upstream>
 		<remote-id type="bitbucket">mmottl/lacaml</remote-id>
 	</upstream>

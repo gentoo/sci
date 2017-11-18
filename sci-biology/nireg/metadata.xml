@@ -10,6 +10,6 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		Nireg is a package for nytive-python image registration.
-	</longdescription>
+Nireg is a package for nytive-python image registration.
+</longdescription>
 </pkgmetadata>

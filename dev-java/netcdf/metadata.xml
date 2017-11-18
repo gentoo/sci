@@ -6,7 +6,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  The NetCDF-Java Library is a Java interface to NetCDF files,
-  as well as to many other types of scientific data formats.
+The NetCDF-Java Library is a Java interface to NetCDF files,
+as well as to many other types of scientific data formats.
 </longdescription>
 </pkgmetadata>

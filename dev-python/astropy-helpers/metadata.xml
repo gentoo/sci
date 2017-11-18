@@ -6,9 +6,9 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		astropy-helpers is a collection of build tools used by astropy
-		that may be used by other projects.
-	</longdescription>
+astropy-helpers is a collection of build tools used by astropy
+that may be used by other projects.
+</longdescription>
 	<upstream>
 		<remote-id type="github">astropy/astropy-helpers</remote-id>
 	</upstream>

@@ -10,9 +10,9 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  This package contains the automatically generated ROOT class
-  documentation.
-  </longdescription>
+This package contains the automatically generated ROOT class
+documentation.
+</longdescription>
 	<use>
 		<flag name="api">Generate html API documentation</flag>
 		<flag name="http">Build HttpServer documentation</flag>

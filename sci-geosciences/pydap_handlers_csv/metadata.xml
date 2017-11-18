@@ -10,9 +10,9 @@
 		<name>Gentoo Geosciences Project</name>
 	</maintainer>
 	<longdescription lang="en">
-	Pydap is a pure Python library implementing the Data Access Protocol.
-	pydap_handlers_csv allows Pydap server to serve CSV formatted files.
-  </longdescription>
+Pydap is a pure Python library implementing the Data Access Protocol.
+pydap_handlers_csv allows Pydap server to serve CSV formatted files.
+</longdescription>
 	<upstream>
 		<remote-id type="pypi">pydap.handlers.csv</remote-id>
 	</upstream>

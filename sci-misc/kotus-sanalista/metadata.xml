@@ -5,8 +5,8 @@
 		<email>flammie@gentoo.org</email>
 	</maintainer>
 	<longdescription lang="en">
-  Kotus-sanalista is an XML list of Finnish words dictionary forms and
-  morphological data. It was released by Research Institute of Languages in
-  Finland.
+Kotus-sanalista is an XML list of Finnish words dictionary forms and
+morphological data. It was released by Research Institute of Languages in
+Finland.
 </longdescription>
 </pkgmetadata>

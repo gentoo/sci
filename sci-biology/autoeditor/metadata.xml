@@ -10,16 +10,16 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<longdescription>AutoEditor is a program that can automatically correct discrepancies in a
-        multiple alignment by reanalyzing the chromatograms of the discrepant bases.
-        The input to AutoEditor is the multiple alignment in contig form, the sequence
-        and quality values in FASTA format, and the base call positions in
-        "SEQNAME basecallpositions\n" format where the basecall positions are written
-        in hex (4 nibbles per basecall position) concatentated together. The path
-        to the chromatograms for the sequences should be specified with the -c option.
-        More help is available with -h.
+multiple alignment by reanalyzing the chromatograms of the discrepant bases.
+The input to AutoEditor is the multiple alignment in contig form, the sequence
+and quality values in FASTA format, and the base call positions in
+"SEQNAME basecallpositions\n" format where the basecall positions are written
+in hex (4 nibbles per basecall position) concatentated together. The path
+to the chromatograms for the sequences should be specified with the -c option.
+More help is available with -h.
 
-        The output is to a timestamped autoEditor directory that has the input files
-        edited along with other TIGR specific file formats. Sample input data is
-        provided with the distribution in the sample directory.
-    </longdescription>
+The output is to a timestamped autoEditor directory that has the input files
+edited along with other TIGR specific file formats. Sample input data is
+provided with the distribution in the sample directory.
+</longdescription>
 </pkgmetadata>

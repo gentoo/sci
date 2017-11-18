@@ -10,9 +10,9 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-  PG2PLplot is code intended to help the transition from Fortran code
-  linked against PGPlot to linking it against PLplot.
-  </longdescription>
+PG2PLplot is code intended to help the transition from Fortran code
+linked against PGPlot to linking it against PLplot.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">pg2plplot</remote-id>
 	</upstream>

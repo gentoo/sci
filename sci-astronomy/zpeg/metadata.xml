@@ -6,10 +6,10 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Z-PEG is a software anybody can use to compute photometric
-  redshifts. In short, Z-PEG performs a chi square minimization of the
-  distance between observed photometric bands and synthetic photometry
-  from galaxies simulated by the evolutionary code PEGASE.
+Z-PEG is a software anybody can use to compute photometric
+redshifts. In short, Z-PEG performs a chi square minimization of the
+distance between observed photometric bands and synthetic photometry
+from galaxies simulated by the evolutionary code PEGASE.
 </longdescription>
 	<use>
 		<flag name="gdl">Install GDL/IDL plotting routines</flag>

@@ -13,7 +13,7 @@
 NodeMon is a distributed visualization tool for monitoring system resource
 utilization.  It is primarily intended for clusters and large-scale NUMA
 systems.
-	</longdescription>
+</longdescription>
 	<use>
 		<flag name="pbs">Enable support for the Portable Batch System.</flag>
 	</use>

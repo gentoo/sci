@@ -6,8 +6,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  GUI for ffnet - feed forward neural network for python
-  </longdescription>
+GUI for ffnet - feed forward neural network for python
+</longdescription>
 	<upstream>
 		<remote-id type="pypi">ffnetui</remote-id>
 		<remote-id type="sourceforge">ffnet</remote-id>

@@ -6,7 +6,7 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  GALFIT is a data analysis algorithm that fits 2-D analytic functions
-  to galaxies and point sources directly to digital images.
+GALFIT is a data analysis algorithm that fits 2-D analytic functions
+to galaxies and point sources directly to digital images.
 </longdescription>
 </pkgmetadata>

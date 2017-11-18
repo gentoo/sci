@@ -10,7 +10,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-    Nistats is a Python module for fast and easy modeling and statistical analysis of 
-    functional Magnetic Resonance Imaging data.
+Nistats is a Python module for fast and easy modeling and statistical analysis of 
+functional Magnetic Resonance Imaging data.
 </longdescription>
 </pkgmetadata>

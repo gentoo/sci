@@ -6,6 +6,6 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription lang="en">
-  Gentoo virtual package for GEANT-3 implementation
+Gentoo virtual package for GEANT-3 implementation
 </longdescription>
 </pkgmetadata>

@@ -5,7 +5,7 @@
 		<email>flammie@gentoo.org</email>
 	</maintainer>
 	<longdescription lang="en">
-    Omorfi is a free open source implementation of Finnish word form
-    morphology.
+Omorfi is a free open source implementation of Finnish word form
+morphology.
 </longdescription>
 </pkgmetadata>

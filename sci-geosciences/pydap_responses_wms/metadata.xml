@@ -10,10 +10,10 @@
 		<name>Gentoo Geosciences Project</name>
 	</maintainer>
 	<longdescription lang="en">
-	Pydap is a pure Python library implementing the Data Access Protocol.
-	pydap_responses_wms allows Pydap server to deliver maps via Web Mapping
-	Service protocol.
-  </longdescription>
+Pydap is a pure Python library implementing the Data Access Protocol.
+pydap_responses_wms allows Pydap server to deliver maps via Web Mapping
+Service protocol.
+</longdescription>
 	<upstream>
 		<remote-id type="pypi">pydap.responses.wms</remote-id>
 	</upstream>

@@ -6,9 +6,9 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-    An interface to the Pluggable Authentication Modules (PAM) library,
-    written in pure Python (using ctypes).
-  </longdescription>
+An interface to the Pluggable Authentication Modules (PAM) library,
+written in pure Python (using ctypes).
+</longdescription>
 	<upstream>
 		<remote-id type="github">minrk/pamela</remote-id>
 		<remote-id type="pypi">pamela</remote-id>

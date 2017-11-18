@@ -6,10 +6,10 @@
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		Gammapy is a package for simulating and analysing gamma-ray sky data.
-		It is currently designed to support users of telescopes such as Fermi,
-		H.E.S.S, and CTA in primarily Galactic plane survey studies.
-	</longdescription>
+Gammapy is a package for simulating and analysing gamma-ray sky data.
+It is currently designed to support users of telescopes such as Fermi,
+H.E.S.S, and CTA in primarily Galactic plane survey studies.
+</longdescription>
 	<upstream>
 		<remote-id type="github">gammapy/gammapy</remote-id>
 	</upstream>

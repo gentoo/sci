@@ -11,9 +11,9 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>Libraries and tools for the NeXus data format, developed
-  collaboratively by scientists from major scientific facilities to facilitate
-  analysis and visualisation of neutron, x-ray and muon data.
-  NeXus is based on HDF5.</longdescription>
+collaboratively by scientists from major scientific facilities to facilitate
+analysis and visualisation of neutron, x-ray and muon data.
+NeXus is based on HDF5.</longdescription>
 	<use>
 		<flag name="xml">Allow using the verbose XML representation of NeXus data</flag>
 		<flag name="hdf4">Support the old HDF4 representation</flag>

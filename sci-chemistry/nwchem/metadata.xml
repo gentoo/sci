@@ -11,24 +11,24 @@
 	</maintainer>
 	<use>
 		<flag name="blas">
-      Use external BLAS library instead of the internal routines
-    </flag>
+Use external BLAS library instead of the internal routines
+</flag>
 		<flag name="cuda">
-      Enable CUDA GPU support for the Tensor Contraction Engine generated
-      methods (CI, MBPT, CC)
-    </flag>
+Enable CUDA GPU support for the Tensor Contraction Engine generated
+methods (CI, MBPT, CC)
+</flag>
 		<flag name="int64">
-      Use 64 bits integers
-    </flag>
+Use 64 bits integers
+</flag>
 		<flag name="lapack">
-      Use external LAPACK library instead of the internal routines
-    </flag>
+Use external LAPACK library instead of the internal routines
+</flag>
 		<flag name="mrcc">
-      Compile the routines for Multi Reference Coupled Clusters theory
-    </flag>
+Compile the routines for Multi Reference Coupled Clusters theory
+</flag>
 		<flag name="nwchem-tests">Install qa tests data</flag>
 		<flag name="scalapack">
-      Use external SCALAPACK library
-    </flag>
+Use external SCALAPACK library
+</flag>
 	</use>
 </pkgmetadata>

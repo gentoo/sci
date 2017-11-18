@@ -10,11 +10,11 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<longdescription>
-    Atlas2 is a next-generation sequencing suite of variant analysis
-    tools specializing in the separation of true SNPs and insertions
-    and deletions (indels) from sequencing and mapping errors in Whole
-    Exome Capture Sequencing (WECS) data.
-  </longdescription>
+Atlas2 is a next-generation sequencing suite of variant analysis
+tools specializing in the separation of true SNPs and insertions
+and deletions (indels) from sequencing and mapping errors in Whole
+Exome Capture Sequencing (WECS) data.
+</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">downloads</remote-id>
 	</upstream>

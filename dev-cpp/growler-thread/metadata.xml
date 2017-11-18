@@ -6,7 +6,7 @@
 		<name>Bryan Green</name>
 	</maintainer>
 	<longdescription>
-		Growler-Thread is a pthread wrapper library used by Growler. It provides
-		support for creating threads, and for common multithreading tasks
-	</longdescription>
+Growler-Thread is a pthread wrapper library used by Growler. It provides
+support for creating threads, and for common multithreading tasks
+</longdescription>
 </pkgmetadata>
