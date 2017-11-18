@@ -1,9 +1,0 @@
-#!/bin/bash
-
-export CCPNMR_TOP_DIR=gentoo_sitedir
-export PYTHONPATH=.:${CCPNMR_TOP_DIR}/specView/python
-export LD_LIBRARY_PATH=gentoolibdir
-export TCL_LIBRARY=gentootcl
-export TK_LIBRARY=gentootk
-export PSIPRED_DIR=gentoousr
-gentoopython -O ${CCPNMR_TOP_DIR}/specView/python/ccpnmr/specView/SpecView.py $@
