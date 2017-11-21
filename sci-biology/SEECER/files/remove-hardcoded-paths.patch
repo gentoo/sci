@@ -1,5 +1,5 @@
---- bin/run_jellyfish.sh	2015-11-13 18:40:01.595807104 +0100
-+++ bin/run_jellyfish.sh	2015-11-13 18:51:45.655818838 +0100
+--- SEECER-0.1.3/bin/run_jellyfish.sh	2015-11-13 18:40:01.595807104 +0100
++++ SEECER-0.1.3/bin/run_jellyfish.sh	2015-11-13 18:51:45.655818838 +0100
 @@ -3,22 +3,27 @@
  LCOUNT=$4
  TMPDIR=$5
@@ -33,8 +33,8 @@
 -$JF dump --lower-count=$LCOUNT -o $2 -c $TMPDIR/jf_merged_$3
 +$JF dump --lower-count=$LCOUNT -o $2 -c $TMPDIR/jf_merged_$3 || exit 255
  rm $TMPDIR/jf_merged_$3
---- bin/run_seecer.sh	2015-11-13 18:40:16.215807347 +0100
-+++ bin/run_seecer.sh	2015-11-13 18:53:03.695820138 +0100
+--- SEECER-0.1.3/bin/run_seecer.sh	2015-11-13 18:40:16.215807347 +0100
++++ SEECER-0.1.3/bin/run_seecer.sh	2015-11-13 18:53:03.695820138 +0100
 @@ -25,8 +25,8 @@
  #
  
