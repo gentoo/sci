@@ -5,7 +5,7 @@ EAPI=6
 
 inherit eutils
 
-DESCRIPTION="SEquencing Error Corrector for RNA-Seq reads"
+DESCRIPTION="SEquence Error Corrector for RNA-Seq reads"
 HOMEPAGE="http://sb.cs.cmu.edu/seecer/"
 SRC_URI="
 	http://sb.cs.cmu.edu/seecer/downloads/"${P}".tar.gz
@@ -22,12 +22,15 @@ DEPEND="
 	sci-libs/gsl:0=
 	sci-biology/seqan:0="
 RDEPEND="${DEPEND}
-	=sci-biology/jellyfish-1.1.11"
+	=sci-biology/jellyfish-1.1.11-r1"
 
 S="${S}"/SEECER
 
 PATCHES=(
 	"${FILESDIR}"/remove-hardcoded-paths.patch
+	"${FILESDIR}"/run_seecer.sh.patch
+	"${FILESDIR}"/run_jellyfish.sh.patch
+	"${FILESDIR}"/rename_jellyfish_binary.patch
 )
 
 src_prepare(){

@@ -1,0 +1,11 @@
+--- SEECER/bin/run_seecer.sh.ori	2017-11-21 16:56:28.808767468 +0100
++++ SEECER/bin/run_seecer.sh	2017-11-21 16:57:07.469835728 +0100
+@@ -26,7 +26,7 @@
+ 
+ 
+ BINDIR='' #this can be hardcoded to /absolute/path/to/SEECER/bin/
+-JF="jellyfish"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/
++JF="jellyfish1"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/jellyfish
+ 
+ K=17
+ SEECER_PARAMS=""

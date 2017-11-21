@@ -1,0 +1,42 @@
+--- SEECER/bin/run_seecer.sh.old	2013-10-02 18:55:24.000000000 +0200
++++ SEECER/bin/run_seecer.sh	2017-11-21 16:24:24.065584149 +0100
+@@ -33,6 +33,7 @@
+ SeecerStep=1
+ LCOUNT=3
+ TMPDIR=''
++THREADS=32
+ 
+ usage=$(cat << EOF
+    # This script runs the SEECER pipeline of 4 steps:
+@@ -54,11 +55,12 @@
+       -j <v> : specify the location of JELLYFISH binary (default = $JF).
+       -p <v> : specify extra SEECER parameters (default = '').
+       -s <v> : specify the starting step ( default = 1). Values = 1,2,3,4.
++      -c <v> : number of threads (default = 32).
+       -h : help message
+ EOF
+ );
+ 
+-while getopts ":j:p:k:s:t:h" opt; do
++while getopts ":j:p:k:s:t:c:h" opt; do
+   case $opt in
+     t)
+       TMPDIR=$OPTARG
+@@ -75,6 +77,8 @@
+     s)
+       SeecerStep=$OPTARG
+       ;;
++    c)
++      THREADS=$OPTARG
+     \?)
+       echo "Invalid option: -$OPTARG" >&2
+       echo "$usage"
+@@ -170,7 +177,7 @@
+ then
+     echo "++ Step 2: Running JELLYFISH to count kmers ..."
+     echo
+-    bash "${BINDIR}"run_jellyfish.sh $JF $TMPDIR/counts_${K}_${LCOUNT} $K $LCOUNT $TMPDIR $Read1_N $Read2_N || exit 255
++    bash "${BINDIR}"run_jellyfish.sh $JF $TMPDIR/counts_${K}_${LCOUNT} $K $LCOUNT $TMPDIR $Read1_N $Read2_N $THREADS || exit 255
+ fi;
+ 
+ if [ ! -r $TMPDIR/counts_${K}_${LCOUNT} ];
