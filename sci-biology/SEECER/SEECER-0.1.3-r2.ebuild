@@ -33,6 +33,7 @@ PATCHES=(
 src_prepare(){
 	# http://seecer-rna-read-error-correction-mailing-list.21961.x6.nabble.com/Segmentation-fault-in-step-4-td41.html
 	cp -p "${FILESDIR}"/replace_ids.cc "${S}"/src/ || die
+	rm -f bin/.run*.swp || die
 	default
 }
 
