@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -34,6 +34,8 @@ src_prepare(){
 }
 
 src_install(){
+	# install the binary under jellyfish1 name like Debian/Ubuntu to avoid name clash with jellyfish2 and allow simultaneous installs
+	mv bin/jellyfish bin/jellyfish1 || die
 	default
 	sed -e "s#jellyfish-${PV}#jellyfish#" -i "${ED}/usr/$(get_libdir)"/pkgconfig/jellyfish-1.1.pc || die
 	mkdir -p "${ED}/usr/include/${PN}" || die
