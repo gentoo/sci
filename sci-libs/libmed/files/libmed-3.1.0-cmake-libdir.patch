@@ -1,0 +1,95 @@
+diff -Naur med-3.1.0_SRC/src/CMakeLists.txt med-3.1.0_SRC-patched/src/CMakeLists.txt
+--- med-3.1.0_SRC/src/CMakeLists.txt	2015-09-07 11:24:04.000000000 -0500
++++ med-3.1.0_SRC-patched/src/CMakeLists.txt	2017-11-28 22:54:19.677235182 -0600
+@@ -19,6 +19,8 @@
+ INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include 
+     ${PROJECT_SOURCE_DIR}/include)
+ 
++INCLUDE(GNUInstallDirs)
++
+ # Get pure C intermediary targets:
+ ADD_SUBDIRECTORY(hdfi)
+ ADD_SUBDIRECTORY(ci)
+@@ -80,7 +82,7 @@
+   TARGET_LINK_LIBRARIES(medC ${HDF5_LIBRARIES} ${MPI_LIBS})
+   MED_SET_DEFINITIONS(medC NOGDI)
+   
+-  INSTALL(TARGETS medC EXPORT ${_export_group} DESTINATION lib)  
++  INSTALL(TARGETS medC EXPORT ${_export_group} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})  
+ ENDIF()
+ 
+ ######### Static Libraries ##########
+@@ -94,7 +96,7 @@
+   TARGET_LINK_LIBRARIES(medC_static ${HDF5_LIBRARIES} ${MPI_LIBS})
+   MED_SET_DEFINITIONS(medC_static NOGDI)
+   
+-  INSTALL(TARGETS medC_static EXPORT ${_export_group} DESTINATION lib)
++  INSTALL(TARGETS medC_static EXPORT ${_export_group} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+ ENDIF()
+ 
+ ########################### Fortran stuff ###################################
+@@ -107,14 +109,14 @@
+     ## if we want the Fortran wrapper to build correctly under win.
+     ADD_LIBRARY(medfwrap STATIC ${medfort_wrap_SOURCES})
+     TARGET_LINK_LIBRARIES(medfwrap medC)
+-    INSTALL(TARGETS medfwrap EXPORT medfileTargetsF DESTINATION lib)
++    INSTALL(TARGETS medfwrap EXPORT medfileTargetsF DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+ 
+     # Add Shared MED library
+     ADD_LIBRARY(med SHARED MEDiterators.c)
+     TARGET_LINK_LIBRARIES(med medfwrap)    
+    
+     # Install only the resulting library:
+-    INSTALL(TARGETS med EXPORT medTargetsF DESTINATION lib)
++    INSTALL(TARGETS med EXPORT medTargetsF DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+   ENDIF()
+ 
+   ######### Static Libraries ##########
+@@ -127,7 +129,7 @@
+     ADD_LIBRARY(medfwrap_static STATIC ${medfort_wrap_SOURCES})
+     SET_TARGET_PROPERTIES(medfwrap_static PROPERTIES OUTPUT_NAME medfwrap)
+     TARGET_LINK_LIBRARIES(medfwrap_static medC_static)
+-    INSTALL(TARGETS medfwrap_static EXPORT medfileTargetsF DESTINATION lib)
++    INSTALL(TARGETS medfwrap_static EXPORT medfileTargetsF DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+     
+     # Add Static MED library
+     ADD_LIBRARY(med_static STATIC MEDiterators.c)
+@@ -135,7 +137,7 @@
+     TARGET_LINK_LIBRARIES(med_static medfwrap_static)
+ 
+     # Install only the resulting library:  
+-    INSTALL(TARGETS med_static EXPORT medfileTargetsF DESTINATION lib)
++    INSTALL(TARGETS med_static EXPORT medfileTargetsF DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+   ENDIF()
+   
+ ENDIF(CMAKE_Fortran_COMPILER_WORKS)
+diff -Naur med-3.1.0_SRC/tools/medimport/CMakeLists.txt med-3.1.0_SRC-patched/tools/medimport/CMakeLists.txt
+--- med-3.1.0_SRC/tools/medimport/CMakeLists.txt	2015-10-08 05:04:55.000000000 -0500
++++ med-3.1.0_SRC-patched/tools/medimport/CMakeLists.txt	2017-11-28 22:55:34.026976836 -0600
+@@ -15,6 +15,8 @@
+ INCLUDE_DIRECTORIES("${PROJECT_BINARY_DIR}/include"
+     "${PROJECT_SOURCE_DIR}/include")
+ 
++INCLUDE(GNUInstallDirs)
++
+ ADD_SUBDIRECTORY("2.3.6")
+ ADD_SUBDIRECTORY("3.0.0")
+ 
+@@ -47,7 +49,7 @@
+   ENDIF()
+   TARGET_LINK_LIBRARIES(medimportengine medC)
+   SET_TARGET_PROPERTIES(medimportengine PROPERTIES OUTPUT_NAME medimport)
+-  INSTALL(TARGETS medimportengine DESTINATION lib)
++  INSTALL(TARGETS medimportengine DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+   SET(_lib_to_link "medimportengine")
+ ENDIF()
+ 
+@@ -57,7 +59,7 @@
+   TARGET_LINK_LIBRARIES(medimportengine_static medC_static)
+   MED_SET_DEFINITIONS(medimportengine_static MED3_USESTATIC)
+   SET_TARGET_PROPERTIES(medimportengine_static PROPERTIES OUTPUT_NAME medimport)
+-  INSTALL(TARGETS medimportengine_static DESTINATION lib)
++  INSTALL(TARGETS medimportengine_static DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+   # Give precendence to the shared object for the linking of 
+   # the executable medimport:
+   IF(NOT _lib_to_link)
