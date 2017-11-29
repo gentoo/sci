@@ -34,6 +34,7 @@ S=${WORKDIR}/${MY_P}_SRC
 
 PATCHES=(
 	"${FILESDIR}/${P}-cmake-fortran.patch"
+	"${FILESDIR}/${P}-cmake-libdir.patch"
 	"${FILESDIR}/${P}-fix-swig-build.patch"
 )
 
