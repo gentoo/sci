@@ -1,32 +1,38 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 inherit toolchain-funcs cuda flag-o-matic
 
-COMMIT_ID="16e69f1aacce8ad0665d2b6666c053b1421a9e91"
+COMMIT_ID="5e7deb91abca27b8a837660a0a04d1e991a3f49c"
 DESCRIPTION="A toolkit for speech recognition"
 HOMEPAGE="http://kaldi-asr.org/"
 SRC_URI="https://github.com/kaldi-asr/kaldi/archive/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
 
-S=${WORKDIR}/${PN}-${COMMIT_ID}/src
-
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="cuda doc speex test"
 KEYWORDS="~amd64"
+IUSE="cuda doc double-precision speex test"
+REQUIRED_USE="double-precision? ( !speex )"
 
 RDEPEND="
-	speex? ( media-libs/speex )
+	>=sci-misc/openfst-1.6.5
 	virtual/cblas
 	virtual/lapack
 	virtual/lapacke
-	<sci-misc/openfst-1.5.0
-	cuda? ( dev-util/nvidia-cuda-toolkit )"
+	cuda? ( dev-util/nvidia-cuda-toolkit )
+	speex? ( media-libs/speex )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"
+
+S=${WORKDIR}/${PN}-${COMMIT_ID}/src
+
+PATCHES=(
+	"${FILESDIR}"/Makefile.7af2128.patch
+	"${FILESDIR}"/default_rules.mk.96eec2b.patch
+)
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
@@ -35,69 +41,74 @@ RESTRICT="cuda? ( userpriv )"
 pkg_pretend() {
 	local cblas_provider=$(eselect cblas show)
 
-	if [[ ! ${cblas_provider} =~ (atlas|mkl|openblas) ]]; then
+	if [[ ! ${cblas_provider} =~ (atlas|openblas) ]]; then
 		die "Build with '${cblas_provider}' CBLAS is not supported"
 	fi
 }
 
 src_prepare() {
-	eapply \
-		"${FILESDIR}"/Makefile.patch \
-		"${FILESDIR}"/default_rules.mk.a7d9824.patch
-	eapply_user
-
+	default
 	use cuda && cuda_src_prepare
 }
 
 src_configure() {
+	cat <<-EOF > base/version.h
+		#define KALDI_VERSION "${PV}-${COMMIT_ID:0:5}"
+		#define KALDI_GIT_HEAD "${COMMIT_ID}"
+	EOF
+
+	echo "true" > base/get_version.sh
+
 	append-cxxflags \
-		-DHAVE_EXECINFO_H=1 \
-		-DHAVE_CXXABI_H \
-		-DHAVE_OPENFST_GE_10400 \
-		-std=c++11 \
-		-Wall \
-		-I.. \
-		-pthread \
-		-Wno-sign-compare \
-		-Wno-unused-local-typedefs \
-		-Winit-self \
-		-rdynamic \
-		-fPIC \
 		$($(tc-getPKG_CONFIG) --cflags cblas) \
 		$($(tc-getPKG_CONFIG) --cflags lapack)
 
 	append-libs \
-		-lfst \
-		-lm \
-		-lpthread \
-		-ldl \
 		$($(tc-getPKG_CONFIG) --libs cblas) \
 		$($(tc-getPKG_CONFIG) --libs lapack)
 
-	local cblas_provider=$(eselect cblas show)
-
-	if [[ ${cblas_provider} =~ atlas ]]; then
-		append-cxxflags -DHAVE_ATLAS
-	elif [[ ${cblas_provider} =~ mkl ]]; then
-		append-cxxflags -DHAVE_MKL
-	elif [[ ${cblas_provider} =~ openblas ]]; then
-		append-cxxflags -DHAVE_OPENBLAS $($(tc-getPKG_CONFIG) --cflags lapacke)
-	fi
-
-	use test || append-cxxflags -DNDEBUG
+	use test || append-cppflags -DNDEBUG
 
 	if use speex; then
-		append-cxxflags -DHAVE_SPEEX
+		append-cppflags -DHAVE_SPEEX
 		append-libs -lspeex
 	fi
 
 	cat <<-EOF > kaldi.mk
 		KALDI_FLAVOR := dynamic
 		KALDILIBDIR := "${S}"/lib
-		CC = $(tc-getCXX)
+		CXX = $(tc-getCXX)
+		AR = $(tc-getAR)
+		AS = $(tc-getAS)
 		RANLIB = $(tc-getRANLIB)
-		LDLIBS = ${LIBS}
-		DOUBLE_PRECISION = 0
+		DOUBLE_PRECISION = $(usex double-precision 1 0)
+		OPENFSTINC = "."
+		OPENFSTLIBS = -lfst
+	EOF
+
+	local cblas_provider=$(eselect cblas show)
+
+	if [[ ${cblas_provider} =~ atlas ]]; then
+		cat <<-EOF >> kaldi.mk
+			ATLASINC = "."
+			ATLASLIBS = -L.
+		EOF
+
+		cat makefiles/linux_atlas.mk >> kaldi.mk
+	elif [[ ${cblas_provider} =~ openblas ]]; then
+		append-cxxflags $($(tc-getPKG_CONFIG) --cflags lapacke)
+
+		cat <<-EOF >> kaldi.mk
+			OPENBLASINC = "."
+			OPENBLASLIBS = -L.
+		EOF
+
+		cat makefiles/linux_openblas.mk >> kaldi.mk
+	fi
+
+	cat <<-EOF >> kaldi.mk
+		CXXFLAGS += ${CXXFLAGS}
+		LDLIBS += ${LIBS}
 	EOF
 
 	if use cuda; then
@@ -110,6 +121,7 @@ src_configure() {
 		cat makefiles/cuda_64bit.mk >> kaldi.mk
 		sed -i \
 			-e "s:CUDA_FLAGS = -g:CUDA_FLAGS = ${NVCCFLAGS}:" \
+			-e "s:-ccbin \$(CXX)::" \
 			kaldi.mk || die "sed unix/kaldi.mk failed"
 	fi
 }
