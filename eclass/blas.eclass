@@ -4,51 +4,44 @@
 # @BLURB: Selects a proper BLAS implementation to build the package
 # @DESCRIPTION:
 # Here a BLAS-implementation is chosen from the cutset of available,
-# compatible and implementations in the USE-flags
-# The implementation is then enforced upon every dependency of the package
+# compatible and implementations in the USE flags
+# If inherited, it automatically adds the dependencies to the right
+# implementation to RDEPEND and DEPEND, and adds the USE flags corresponding
+# to the compatible implementations to IUSE
+# Additionally it provides a pkg_setup that does the actual heavy-lifting
+# by forcing pkg-config to resolve the right parameters.
 
 # @ECLASS-VARIABLE: BLAS_COMPAT
-# @REQUIRED
 # @DESCRIPTION:
 # This variable contains a list of BLAS implementations the package
-# supports. It has to be an array. Either it or BLAS_COMPAT_ALL must be
-# set before the `inherit' call. BLAS_COMPAT_ALL overrides BLAS_COMPAT.
+# supports.
+# It _must_ be set prior to inheriting the eclass.
+# Its format has the following grammar:
+# 
+# @CODE
+# COMPAT <- HEADER_SPECIFIER " " IMPLEMENTATIONS | IMPLEMENTATIONS
+# HEADER_SPECIFIER <- "fortran:" | "c:"
+# IMPLEMENTATIONS <- IMPLEMENTATION | IMPLEMENTATIONS " " IMPLEMENTATIONS
+# IMPLEMENTATION <- [a-zA-Z_\-]+ | "*"
+# @CODE
+# 
+# Since packages can depend on BLAS either in Fortran or in C, the package
+# may add a header specifier in front of the compatibility-list, e.g.
+# "c: <list>". By default, "fortran:" is assumed.
+# 
+# If a package is compatible with any BLAS implementation, "<list>" can
+# be expressed with an asterisk ("*")
+# 
+# This variable defaults to "fortran: *"
 #
 # Example:
 # @CODE
-# BLAS_COMPAT=( refblas openblas gotoblas mkl )
+# BLAS_COMPAT=( c: refblas )
 # @CODE
-
-# @ECLASS-VARIABLE: BLAS_COMPAT_ALL
-# @REQUIRED
-# @DESCRIPTION:
-# This variable marks that the package is compatible with all (standard)
-# BLAS implementations. Set it to a non-empty value to make your package
-# compatible with any BLAS version. Either it or BLAS_COMPAT must be set
-# before the `inherit' call. BLAS_COMPAT_ALL overrides BLAS_COMPAT.
-#
-# Example:
-# @CODE
-# BLAS_COMPAT_ALL=1
-# @CODE
-
-# @ECLASS-VARIABLE: BLAS_USEDEP
-# @DESCRIPTION:
-# This is an eclass-generated USE-dependency string which has to be used
-# to propagate the chosen BLAS-implementation down the dependency graph
-#
-# Example use:
-# @CODE
-# RDEPEND="sci-libs/foo[${BLAS_USEDEP}]"
-# @CODE
-#
-# Example value:
-# @CODE
-# refblas?,openblas?
-# @CODE
-
+# This forces linking against sci-libs/cblas-reference
 
 # @ECLASS-VARIABLE: BLAS_CONDITIONAL_FLAG
+# @DEFAULT_UNSET
 # @DESCRIPTION:
 # This variable contains the USE-flag that selects whether the package
 # should depend on BLAS or not.
@@ -68,19 +61,8 @@
 # REQUIRED_USE="blas? ( ^^ ( blas_refblas blas_openblas ) )"
 # @CODE
 
-# @ECLASS-VARIABLE: BLAS_USE_CBLAS
-# @DESCRIPTION:
-# This variable sets whether your package depends on BLAS C-headers.
-# If non-empty, additional packages will be added to the DEPEND and 
-# RDEPEND variable.
-# This variable must be set before the call to inherit
-#
-# Example usage:
-# @CODE
-# BLAS_USE_CBLAS=1
-# @CODE
-
 # @ECLASS-VARIABLE: BLAS_REQ_USE
+# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Adds a USE-flag requirement to every BLAS-implementation we depend on
 # (mainly useful for multilib, since the implementations share nearly no
@@ -97,24 +79,104 @@
 # DEPEND="blas_refblas? ( sci-libs/blas-reference[int64] )
 # @CODE
 
+BLAS_COMPAT="${BLAS_COMPAT:-fortran: *}"
 
+# @ECLASS-VARIABLE: BLAS_IMPLS
+# @INTERNAL
+# @DESCRIPTION:
+# A list of all available BLAS implementations providing fortran bindings
+BLAS_IMPLS=(refblas openblas gotoblas mkl atlas eigen)
 
-BLAS_IMPLS=(refblas openblas gotoblas mkl)
+# @ECLASS-VARIABLE: CBLAS_IMPLS
+# @INTERNAL
+# @DESCRIPTION:
+# A list of all available BLAS implementations providing C bindings
+CBLAS_IMPLS=(refblas openblas gsl gotoblas mkl atlas)
+
+# @ECLASS-VARIABLE: BLAS_SUPP_IMPLS
+# @INTERNAL
+# @DESCRIPTION:
+# An ordered list of all the ebuild-supported implementations
+# The order is the same as in BLAS_IMPLS
 BLAS_SUPP_IMPLS=()
 
+# @ECLASS-VARIABLE: BLAS_USE_CBLAS
+# @INTERNAL
+# @DESCRIPTION:
+# Contains whether we depend on the C or the Fortran header.
+BLAS_USE_CBLAS=false
+
+# @ECLASS-VARIABLE: _blas_provider_*
+# @INTERNAL
+# @DESCRIPTION:
+# Sets the package that provides the fortran bindings to the corresponding
+# implementation
 _blas_provider_refblas="sci-libs/blas-reference"
 _blas_provider_openblas="sci-libs/openblas"
 _blas_provider_gotoblas="sci-libs/gotoblas2"
+_blas_provider_eigen="sci-libs/eigen[fortran]"
+_blas_provider_atlas="sci-libs/atlas[fortran]"
 _blas_provider_mkl="sci-libs/mkl"
 
+# @ECLASS-VARIABLE: _cblas_provider_*
+# @INTERNAL
+# @DESCRIPTION:
+# Sets the package that provides the fortran bindings to the corresponding
+# implementation
 _cblas_provider_refblas="sci-libs/cblas-reference"
-_cblas_provider_openblas=""
-_cblas_provider_gotoblas=""
-_cblas_provider_mkl=""
+_cblas_provider_openblas="sci-libs/openblas"
+_cblas_provider_gotoblas="sci-libs/gotoblas2"
+_cblas_provider_gsl="sci-libs/gsl[-cblas-external]"
+_cblas_provider_mkl="sci-libs/mkl"
+_cblas_provider_atlas="sci-libs/atlas"
 
+
+# @ECLASS-VARIABLE: _blas_special_pkgconfig_*
+# @INTERNAL
+# @DESCRIPTION:
+# An array of size two containing the base-names for the package-config
+# files installed by the implementation. The first one is for the 
+# Fortran-headers the second one for the C-headers
+_blas_special_pkgconfig_refblas=(refblas refcblas)
+
+# @FUNCTION:  _blas_impl_valid
+# @INTERNAL
+# @USAGE: <Implementation>
+# @RETURN: Echos the pkgconfig-file for the given BLAS implementation
+# @DESCRIPTION:
+# Echos the pkgconfig-file for the given BLAS implementation
+function _blas_impl_get_pkgconfig(){
+	local var
+	eval "var=(\"\${_blas_special_pkgconfig_${1}[@]}\")"
+	if [ -z "${var[*]}" ]
+	then
+		echo "$1"
+	fi
+	
+	if $BLAS_USE_CBLAS
+	then
+		echo "${var[1]}"
+	else
+		echo "${var[0]}"
+	fi
+}
+
+# @FUNCTION:  _blas_impl_valid
+# @INTERNAL
+# @USAGE: <Implementation>
+# @RETURN: 0 if valid, 1 if invalid
+# @DESCRIPTION:
+# Checks whether the given implementation is in the set BLAS_IMPLS
 function _blas_impl_valid(){
 	local impl
-	for impl in "${BLAS_IMPLS[@]}"
+	local impls
+	if $BLAS_USE_CBLAS
+	then
+		impls=( "${CBLAS_IMPLS[@]}" )
+	else
+		impls=( "${BLAS_IMPLS[@]}" )
+	fi
+	for impl in "${impls[@]}"
 	do
 		if [ "$1" == "$impl" ]
 		then
@@ -124,6 +186,13 @@ function _blas_impl_valid(){
 	return 1
 }
 
+# @FUNCTION:  _blas_best_impl
+# @INTERNAL
+# @USAGE:
+# @RETURN: Echos the name of the best allowed implementation
+# @DESCRIPTION:
+# This function returns the highest-ranked (as in BLAS_IMPLS) implementation
+# whose use-flag is set (i.e. the "best" implementation)
 function _blas_best_impl(){
 	local impl
 	
@@ -139,88 +208,107 @@ function _blas_best_impl(){
 	die "No matching implementation found"
 }
 
+# @FUNCTION:  _blas_useflag_by_impl
+# @INTERNAL
+# @USAGE: <Implementation> [Implementation,...]
+# @RETURN: Echos the USE flag corresponding to the implementations
+# @DESCRIPTION:
+# This function echos the USE flag corresponding to the given implementation(s)
 function _blas_useflag_by_impl(){
 	echo "${@/#/blas_}"
 }
 
-function _blas_name_by_impl(){
-	eval "echo \"\${_blas_name_$1}\""
-}
-
-function _blas_usedep(){
-	local tmp
-	tmp=("$(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]/%/?}" )" )
-	echo "${tmp// /,}"
-}
-
+# @FUNCTION:  _blas_useflag_by_impl
+# @INTERNAL
+# @USAGE: <Implementation> [Implementation,...]
+# @RETURN: Echos the USE flag corresponding to the implementations
+# @DESCRIPTION:
+# This function echos the USE flag corresponding to the given implementation(s)
 function _blas_get_depends(){
 	local impl
-	local cblas
-	local requse
+	local blas
+	local provider
+	if $BLAS_USE_CBLAS
+	then
+		blas="cblas"
+	else
+		blas="blas"
+	fi
+	local i=${#BLAS_SUPP_IMPLS[@]}
 	for impl in "${BLAS_SUPP_IMPLS[@]}"
 	do
+		eval "provider=\"\${_${blas}_provider_${impl}}\""
 		if [[ $BLAS_REQ_USE ]]
 		then
-			requse="[${BLAS_REQ_USE}]"
-		else
-			requse=""
+			#Does the provider also have USE flag constraints?
+			if [ "${provider: -1}" == "]" ]
+			then
+				provider="${provider:0:-1},${BLAS_REQ_USE}]"
+			else
+				provider="${provider}[${BLAS_REQ_USE}]"
+			fi
 		fi
-		if [[ $BLAS_USE_CBLAS ]]
+		
+		echo "$(_blas_useflag_by_impl $impl)? ( ${provider} )"
+		if [ "$i" -gt 1 ]
 		then
-			eval "cblas=\$_cblas_provider_$impl"
-		else
-			cblas=""
+			echo "!$(_blas_useflag_by_impl $impl)? ("
 		fi
-		if [ -n "$cblas" ]
-		then
-			cblas="${cblas}${requse}"
-		fi
-		eval "echo \"$(_blas_useflag_by_impl $impl)? ( \${_blas_provider_$impl}${requse} ${cblas} )\""
+		i=$((i-1))
+	done
+	i=1
+	while [ "$i" -lt "${#BLAS_SUPP_IMPLS[@]}" ]
+	do
+		echo ")"
+		i=$((i+1))
 	done
 }
 
 function _blas_set_globals(){
 	local impl
 	
-	if [[ ${BLAS_COMPAT_ALL} ]]
-	then
-		BLAS_SUPP_IMPLS=( "${BLAS_IMPLS[@]}" )
-	else
-		if [ "${#BLAS_COMPAT[@]}" -eq 0 ]
+	#Prevent shell-expansion by prepending a \ to ever *
+	local blas_array=(${BLAS_COMPAT[*]//\*/\\*})
+	
+	case "${blas_array[0]}" in
+		"c:")
+			BLAS_USE_CBLAS=true
+			blas_array=("${blas_array[@]:1}")
+			;;
+		"fortran:")
+			blas_array=("${blas_array[@]:1}")
+			;;
+	esac
+	
+	for impl in "${blas_array[@]}"
+	do
+		if [ "$impl" == '\*' ]
 		then
-			die "No BLAS implementations set in BLAS_COMPAT"
-		fi
-		
-		for impl in "${BLAS_COMPAT[@]}"
-		do
-			if [ "$impl" == "*" ]
+			if $BLAS_USE_CBLAS
 			then
-			
-				break
-			elif _blas_impl_valid "$impl"
-			then
-				BLAS_SUPP_IMPLS+=( "$impl" )
+				BLAS_SUPP_IMPLS=( "${CBLAS_IMPLS[@]}" )
 			else
-				die "Unknown BLAS implementation ${impl}"
+				BLAS_SUPP_IMPLS=( "${BLAS_IMPLS[@]}" )
 			fi
-		done
-	fi
+		elif _blas_impl_valid "$impl"
+		then
+			BLAS_SUPP_IMPLS+=( "$impl" )
+		else
+			die "Unknown BLAS implementation ${impl}"
+		fi
+	done
+	
 	IUSE="${IUSE[@]} $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}")"
 	
-	BLAS_USEDEP="$(_blas_usedep)"
 	BLAS_DEPS="$(_blas_get_depends)"
-	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
-	REQUIRED_USE=""
 	RDEPEND=""
 	if [[ ${BLAS_CONDITIONAL_FLAG} ]]
 	then
 		for flag in "${BLAS_CONDITIONAL_FLAG[@]}"
 		do
-			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${BLAS_REQUIRED_USE} )"
 			RDEPEND="${RDEPEND} ${flag}? ( ${BLAS_DEPS} )"
 		done
 	else
-		REQUIRED_USE="${BLAS_REQUIRED_USE}"
 		RDEPEND="${BLAS_DEPS}"
 	fi
 	DEPEND="${RDEPEND}"
@@ -230,11 +318,32 @@ _blas_set_globals
 unset -f _blas_set_globals
 
 
+# @FUNCTION: blas_pkg_setup
+# @USAGE:
+# @DESCRIPTION:
+# This function adds a temporary directory to the environment variable 
+# PKG_CONFIG_PATH, and exports it.
+# This directory contains a blas.pc (or cblas.pc, if BLAS_COMPAT specifies
+# the C-headers), that is linked to the pkgconfig-file installed by the 
+# corresponding provider.
+# Hence, any subsequent call to "pkg-config blas" will yield the correct
+# result.
+# Note: If you override the default pkg_setup, make sure to call blas_pkg_setup.
 function blas_pkg_setup(){
-	BLAS_IMPL="$(_blas_best_impl)"
+	debug-print-function ${FUNCNAME} "${@}"
+	
+	local BLAS_IMPL="$(_blas_best_impl)"
+	local PKGCONFIG="$(_blas_impl_get_pkgconfig $BLAS_IMPL)"
+	local PKGCONFIG_LOCAL
+	if $BLAS_USE_CBLAS
+	then
+		PKGCONFIG_LOCAL=cblas
+	else
+		PKGCONFIG_LOCAL=blas
+	fi
 	mkdir "${T}/pkg-config/"
 	local NORMAL_PKGCONFIG="${EROOT}/usr/lib/pkgconfig"
-	ln -s "${EROOT}/usr/lib/pkgconfig/$BLAS_IMPL.pc" "${T}/pkg-config/blas.pc"
+	ln -s "${EROOT}/usr/lib/pkgconfig/${PKGCONFIG}.pc" "${T}/pkg-config/${PKGCONFIG_LOCAL}.pc"
 	export PKG_CONFIG_PATH="${T}/pkg-config/:${PKG_CONFIG_PATH:-${NORMAL_PKGCONFIG}}"
 }
 
