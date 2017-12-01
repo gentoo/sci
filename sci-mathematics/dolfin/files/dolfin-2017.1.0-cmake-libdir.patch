@@ -1,0 +1,21 @@
+diff -Naur dolfin-2017.1.0/CMakeLists.txt dolfin-2017.1.0-patched/CMakeLists.txt
+--- dolfin-2017.1.0/CMakeLists.txt	2017-05-09 10:01:18.000000000 -0500
++++ dolfin-2017.1.0-patched/CMakeLists.txt	2017-12-01 16:00:05.815502160 -0600
+@@ -73,6 +73,8 @@
+ # Make sure CMake uses the correct DOLFINConfig.cmake for tests and demos
+ set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${CMAKE_CURRENT_BINARY_DIR}/dolfin)
+ 
++INCLUDE(GNUInstallDirs)
++
+ #------------------------------------------------------------------------------
+ # Configurable options for how we want to build
+ 
+@@ -797,7 +799,7 @@
+ 
+ # Set DOLFIN install sub-directories
+ set(DOLFIN_BIN_DIR "bin" CACHE PATH "Binary installation directory.")
+-set(DOLFIN_LIB_DIR "lib" CACHE PATH "Library installation directory.")
++set(DOLFIN_LIB_DIR ${CMAKE_INSTALL_FULL_LIBDIR} CACHE PATH "Library installation directory.")
+ set(DOLFIN_INCLUDE_DIR "include" CACHE PATH "C/C++ header installation directory.")
+ set(DOLFIN_PKGCONFIG_DIR "lib/pkgconfig" CACHE PATH "pkg-config file installation directory.")
+ set(DOLFIN_SHARE_DIR "share/dolfin" CACHE PATH "Shared data installation directory.")
