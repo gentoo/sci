@@ -52,6 +52,7 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-2016.2.0-trilinos-superlu.patch
+	"${FILESDIR}"/${PN}-2017.1.0-cmake-libdir.patch
 )
 
 pkg_setup() {
