@@ -6,8 +6,10 @@
 # Here a BLAS-implementation is chosen from the cutset of available,
 # compatible and implementations in the USE flags
 # If inherited, it automatically adds the dependencies to the right
-# implementation to RDEPEND and DEPEND, and adds the USE flags corresponding
-# to the compatible implementations to IUSE
+# implementation to RDEPEND and DEPEND, adds the USE flags corresponding
+# to the compatible implementations to IUSE and adds a XOR constraint
+# on the implementations to REQUIRED_USE to allow only a single implementation
+# to be set.
 # Additionally it provides a pkg_setup that does the actual heavy-lifting
 # by forcing pkg-config to resolve the right parameters.
 
@@ -234,7 +236,6 @@ function _blas_get_depends(){
 	else
 		blas="blas"
 	fi
-	local i=${#BLAS_SUPP_IMPLS[@]}
 	for impl in "${BLAS_SUPP_IMPLS[@]}"
 	do
 		eval "provider=\"\${_${blas}_provider_${impl}}\""
@@ -250,17 +251,6 @@ function _blas_get_depends(){
 		fi
 		
 		echo "$(_blas_useflag_by_impl $impl)? ( ${provider} )"
-		if [ "$i" -gt 1 ]
-		then
-			echo "!$(_blas_useflag_by_impl $impl)? ("
-		fi
-		i=$((i-1))
-	done
-	i=1
-	while [ "$i" -lt "${#BLAS_SUPP_IMPLS[@]}" ]
-	do
-		echo ")"
-		i=$((i+1))
 	done
 }
 
@@ -302,14 +292,18 @@ function _blas_set_globals(){
 	
 	BLAS_DEPS="$(_blas_get_depends)"
 	RDEPEND=""
+	REQUIRED_USE=""
+	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
 	if [[ ${BLAS_CONDITIONAL_FLAG} ]]
 	then
 		for flag in "${BLAS_CONDITIONAL_FLAG[@]}"
 		do
 			RDEPEND="${RDEPEND} ${flag}? ( ${BLAS_DEPS} )"
+			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${BLAS_REQUIRED_USE} )"
 		done
 	else
 		RDEPEND="${BLAS_DEPS}"
+		REQUIRED_USE="${BLAS_REQUIRED_USE}"
 	fi
 	DEPEND="${RDEPEND}"
 }

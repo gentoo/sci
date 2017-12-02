@@ -6,8 +6,10 @@
 # Here a LAPACK-implementation is chosen from the cutset of available,
 # compatible and implementations in the USE flags
 # If inherited, it automatically adds the dependencies to the right
-# implementation to RDEPEND and DEPEND, and adds the USE flags corresponding
-# to the compatible implementations to IUSE
+# implementation to RDEPEND and DEPEND, adds the USE flags corresponding
+# to the compatible implementations to IUSE and adds a XOR constraint
+# on the implementations to REQUIRED_USE to allow only a single implementation
+# to be set.
 # Additionally it provides a pkg_setup that does the actual heavy-lifting
 # by forcing pkg-config to resolve the right parameters.
 
@@ -227,7 +229,7 @@ function _lapack_get_depends(){
 	else
 		lapack="lapack"
 	fi
-	local i=${#LAPACK_SUPP_IMPLS[@]}
+
 	for impl in "${LAPACK_SUPP_IMPLS[@]}"
 	do
 		eval "provider=\"\${_${lapack}_provider_${impl}}\""
@@ -241,19 +243,6 @@ function _lapack_get_depends(){
 				provider="${provider}[${LAPACK_REQ_USE}]"
 			fi
 		fi
-		
-		echo "$(_lapack_useflag_by_impl $impl)? ( ${provider} )"
-		if [ "$i" -gt 1 ]
-		then
-			echo "!$(_lapack_useflag_by_impl $impl)? ("
-		fi
-		i=$((i-1))
-	done
-	i=1
-	while [ "$i" -lt "${#LAPACK_SUPP_IMPLS[@]}" ]
-	do
-		echo ")"
-		i=$((i+1))
 	done
 }
 
@@ -295,14 +284,18 @@ function _lapack_set_globals(){
 	
 	LAPACK_DEPS="$(_lapack_get_depends)"
 	RDEPEND=""
+	REQUIRED_USE=""
+	LAPACK_REQUIRED_USE="^^ ( $(_lapack_useflag_by_impl "${LAPACK_SUPP_IMPLS[@]}") )"
 	if [[ ${LAPACK_CONDITIONAL_FLAG} ]]
 	then
 		for flag in "${LAPACK_CONDITIONAL_FLAG[@]}"
 		do
 			RDEPEND="${RDEPEND} ${flag}? ( ${LAPACK_DEPS} )"
+			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${LAPACK_REQUIRED_USE} )"
 		done
 	else
 		RDEPEND="${LAPACK_DEPS}"
+		REQUIRED_USE="${LAPACK_REQUIRED_USE}"
 	fi
 	DEPEND="${RDEPEND}"
 }
