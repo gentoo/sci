@@ -140,16 +140,14 @@ _lapack_special_pkgconfig_reflapack=(reflapack reflapacke)
 # @RETURN: Echos the pkgconfig-file for the given LAPACK implementation
 # @DESCRIPTION:
 # Echos the pkgconfig-file for the given LAPACK implementation
-function _lapack_impl_get_pkgconfig(){
+_lapack_impl_get_pkgconfig() {
 	local var
 	eval "var=(\"\${_lapack_special_pkgconfig_${1}[@]}\")"
-	if [ -z "${var[*]}" ]
-	then
+	if [[ -z "${var[*]}" ]]; then
 		echo "$1"
 	fi
 	
-	if $LAPACK_USE_LAPACKE
-	then
+	if ${LAPACK_USE_LAPACKE}; then
 		echo "${var[1]}"
 	else
 		echo "${var[0]}"
@@ -162,19 +160,16 @@ function _lapack_impl_get_pkgconfig(){
 # @RETURN: 0 if valid, 1 if invalid
 # @DESCRIPTION:
 # Checks whether the given implementation is in the set LAPACK_IMPLS
-function _lapack_impl_valid(){
+_lapack_impl_valid() {
 	local impl
 	local impls
-	if $LAPACK_USE_LAPACKE
-	then
+	if ${LAPACK_USE_LAPACKE}; then
 		impls=( "${LAPACKE_IMPLS[@]}" )
 	else
 		impls=( "${LAPACK_IMPLS[@]}" )
 	fi
-	for impl in "${impls[@]}"
-	do
-		if [ "$1" == "$impl" ]
-		then
+	for impl in "${impls[@]}"; do
+		if [[ "$1" == "${impl}" ]]; then
 			return 0
 		fi
 	done
@@ -188,14 +183,12 @@ function _lapack_impl_valid(){
 # @DESCRIPTION:
 # This function returns the highest-ranked (as in LAPACK_IMPLS) implementation
 # whose use-flag is set (i.e. the "best" implementation)
-function _lapack_best_impl(){
+_lapack_best_impl() {
 	local impl
 	
-	for impl in "${LAPACK_SUPP_IMPLS[@]}"
-	do
-		if use "$(_lapack_useflag_by_impl $impl)"
-		then
-			echo $impl
+	for impl in "${LAPACK_SUPP_IMPLS[@]}"; do
+		if use "$(_lapack_useflag_by_impl ${impl})"; then
+			echo ${impl}
 			return
 		fi
 	done
@@ -209,7 +202,7 @@ function _lapack_best_impl(){
 # @RETURN: Echos the USE flag corresponding to the implementations
 # @DESCRIPTION:
 # This function echos the USE flag corresponding to the given implementation(s)
-function _lapack_useflag_by_impl(){
+_lapack_useflag_by_impl() {
 	echo "${@/#/lapack_}"
 }
 
@@ -219,25 +212,22 @@ function _lapack_useflag_by_impl(){
 # @RETURN: Echos the USE flag corresponding to the implementations
 # @DESCRIPTION:
 # This function echos the USE flag corresponding to the given implementation(s)
-function _lapack_get_depends(){
+_lapack_get_depends() {
 	local impl
 	local lapack
 	local provider
-	if $LAPACK_USE_LAPACKE
-	then
+	if ${LAPACK_USE_LAPACKE}; then
 		lapack="lapacke"
 	else
 		lapack="lapack"
 	fi
 
-	for impl in "${LAPACK_SUPP_IMPLS[@]}"
-	do
+	local i=${#LAPACK_SUPP_IMPLS[@]}
+	for impl in "${LAPACK_SUPP_IMPLS[@]}"; do
 		eval "provider=\"\${_${lapack}_provider_${impl}}\""
-		if [[ $LAPACK_REQ_USE ]]
-		then
+		if [[ ${LAPACK_REQ_USE} ]]; then
 			#Does the provider also have USE flag constraints?
-			if [ "${provider: -1}" == "]" ]
-			then
+			if [[ "${provider: -1}" == "]" ]]; then
 				provider="${provider:0:-1},${LAPACK_REQ_USE}]"
 			else
 				provider="${provider}[${LAPACK_REQ_USE}]"
@@ -246,7 +236,7 @@ function _lapack_get_depends(){
 	done
 }
 
-function _lapack_set_globals(){
+_lapack_set_globals() {
 	local impl
 	
 	#Prevent shell-expansion by prepending a \ to ever *
@@ -262,19 +252,15 @@ function _lapack_set_globals(){
 			;;
 	esac
 	
-	for impl in "${lapack_array[@]}"
-	do
-		if [ "$impl" == '\*' ]
-		then
-			if $LAPACK_USE_LAPACKE
-			then
+	for impl in "${lapack_array[@]}"; do
+		if [[ "${impl}" == '\*' ]]; then
+			if ${LAPACK_USE_LAPACKE}; then
 				LAPACK_SUPP_IMPLS=( "${LAPACKE_IMPLS[@]}" )
 			else
 				LAPACK_SUPP_IMPLS=( "${LAPACK_IMPLS[@]}" )
 			fi
-		elif _lapack_impl_valid "$impl"
-		then
-			LAPACK_SUPP_IMPLS+=( "$impl" )
+		elif _lapack_impl_valid "${impl}"; then
+			LAPACK_SUPP_IMPLS+=( "${impl}" )
 		else
 			die "Unknown LAPACK implementation ${impl}"
 		fi
@@ -286,10 +272,8 @@ function _lapack_set_globals(){
 	RDEPEND=""
 	REQUIRED_USE=""
 	LAPACK_REQUIRED_USE="^^ ( $(_lapack_useflag_by_impl "${LAPACK_SUPP_IMPLS[@]}") )"
-	if [[ ${LAPACK_CONDITIONAL_FLAG} ]]
-	then
-		for flag in "${LAPACK_CONDITIONAL_FLAG[@]}"
-		do
+	if [[ ${LAPACK_CONDITIONAL_FLAG} ]]; then
+		for flag in "${LAPACK_CONDITIONAL_FLAG[@]}"; do
 			RDEPEND="${RDEPEND} ${flag}? ( ${LAPACK_DEPS} )"
 			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${LAPACK_REQUIRED_USE} )"
 		done
@@ -315,14 +299,13 @@ unset -f _lapack_set_globals
 # Hence, any subsequent call to "pkg-config lapack" will yield the correct
 # result.
 # Note: If you override the default pkg_setup, make sure to call lapack_pkg_setup.
-function lapack_pkg_setup(){
+lapack_pkg_setup() {
 	debug-print-function ${FUNCNAME} "${@}"
 	
 	local LAPACK_IMPL="$(_lapack_best_impl)"
-	local PKGCONFIG="$(_lapack_impl_get_pkgconfig $LAPACK_IMPL)"
+	local PKGCONFIG="$(_lapack_impl_get_pkgconfig ${LAPACK_IMPL})"
 	local PKGCONFIG_LOCAL
-	if $LAPACK_USE_LAPACKE
-	then
+	if ${LAPACK_USE_LAPACKE}; then
 		PKGCONFIG_LOCAL=lapacke
 	else
 		PKGCONFIG_LOCAL=lapack

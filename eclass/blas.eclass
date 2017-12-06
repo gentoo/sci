@@ -147,16 +147,14 @@ _blas_special_pkgconfig_refblas=(refblas refcblas)
 # @RETURN: Echos the pkgconfig-file for the given BLAS implementation
 # @DESCRIPTION:
 # Echos the pkgconfig-file for the given BLAS implementation
-function _blas_impl_get_pkgconfig(){
+_blas_impl_get_pkgconfig() {
 	local var
 	eval "var=(\"\${_blas_special_pkgconfig_${1}[@]}\")"
-	if [ -z "${var[*]}" ]
-	then
+	if [[ -z "${var[*]}" ]]; then
 		echo "$1"
 	fi
 	
-	if $BLAS_USE_CBLAS
-	then
+	if ${BLAS_USE_CBLAS}; then
 		echo "${var[1]}"
 	else
 		echo "${var[0]}"
@@ -169,19 +167,16 @@ function _blas_impl_get_pkgconfig(){
 # @RETURN: 0 if valid, 1 if invalid
 # @DESCRIPTION:
 # Checks whether the given implementation is in the set BLAS_IMPLS
-function _blas_impl_valid(){
+_blas_impl_valid() {
 	local impl
 	local impls
-	if $BLAS_USE_CBLAS
-	then
+	if ${BLAS_USE_CBLAS}; then
 		impls=( "${CBLAS_IMPLS[@]}" )
 	else
 		impls=( "${BLAS_IMPLS[@]}" )
 	fi
-	for impl in "${impls[@]}"
-	do
-		if [ "$1" == "$impl" ]
-		then
+	for impl in "${impls[@]}"; do
+		if [[ "$1" == "${impl}" ]]; then
 			return 0
 		fi
 	done
@@ -195,14 +190,12 @@ function _blas_impl_valid(){
 # @DESCRIPTION:
 # This function returns the highest-ranked (as in BLAS_IMPLS) implementation
 # whose use-flag is set (i.e. the "best" implementation)
-function _blas_best_impl(){
+_blas_best_impl() {
 	local impl
 	
-	for impl in "${BLAS_SUPP_IMPLS[@]}"
-	do
-		if use "$(_blas_useflag_by_impl $impl)"
-		then
-			echo $impl
+	for impl in "${BLAS_SUPP_IMPLS[@]}"; do
+		if use "$(_blas_useflag_by_impl ${impl})"; then
+			echo ${impl}
 			return
 		fi
 	done
@@ -216,7 +209,7 @@ function _blas_best_impl(){
 # @RETURN: Echos the USE flag corresponding to the implementations
 # @DESCRIPTION:
 # This function echos the USE flag corresponding to the given implementation(s)
-function _blas_useflag_by_impl(){
+_blas_useflag_by_impl() {
 	echo "${@/#/blas_}"
 }
 
@@ -226,35 +219,31 @@ function _blas_useflag_by_impl(){
 # @RETURN: Echos the USE flag corresponding to the implementations
 # @DESCRIPTION:
 # This function echos the USE flag corresponding to the given implementation(s)
-function _blas_get_depends(){
+_blas_get_depends() {
 	local impl
 	local blas
 	local provider
-	if $BLAS_USE_CBLAS
-	then
+	if ${BLAS_USE_CBLAS}; then
 		blas="cblas"
 	else
 		blas="blas"
 	fi
-	for impl in "${BLAS_SUPP_IMPLS[@]}"
-	do
+	for impl in "${BLAS_SUPP_IMPLS[@]}"; do
 		eval "provider=\"\${_${blas}_provider_${impl}}\""
-		if [[ $BLAS_REQ_USE ]]
-		then
+		if [[ ${BLAS_REQ_USE} ]]; then
 			#Does the provider also have USE flag constraints?
-			if [ "${provider: -1}" == "]" ]
-			then
+			if [[ "${provider: -1}" == "]" ]]; then
 				provider="${provider:0:-1},${BLAS_REQ_USE}]"
 			else
 				provider="${provider}[${BLAS_REQ_USE}]"
 			fi
 		fi
 		
-		echo "$(_blas_useflag_by_impl $impl)? ( ${provider} )"
+		echo "$(_blas_useflag_by_impl ${impl})? ( ${provider} )"
 	done
 }
 
-function _blas_set_globals(){
+_blas_set_globals() {
 	local impl
 	
 	#Prevent shell-expansion by prepending a \ to ever *
@@ -270,19 +259,15 @@ function _blas_set_globals(){
 			;;
 	esac
 	
-	for impl in "${blas_array[@]}"
-	do
-		if [ "$impl" == '\*' ]
-		then
-			if $BLAS_USE_CBLAS
-			then
+	for impl in "${blas_array[@]}"; do
+		if [[ "${impl}" == '\*' ]]; then
+			if ${BLAS_USE_CBLAS}; then
 				BLAS_SUPP_IMPLS=( "${CBLAS_IMPLS[@]}" )
 			else
 				BLAS_SUPP_IMPLS=( "${BLAS_IMPLS[@]}" )
 			fi
-		elif _blas_impl_valid "$impl"
-		then
-			BLAS_SUPP_IMPLS+=( "$impl" )
+		elif _blas_impl_valid "${impl}"; then
+			BLAS_SUPP_IMPLS+=( "${impl}" )
 		else
 			die "Unknown BLAS implementation ${impl}"
 		fi
@@ -294,10 +279,8 @@ function _blas_set_globals(){
 	RDEPEND=""
 	REQUIRED_USE=""
 	BLAS_REQUIRED_USE="^^ ( $(_blas_useflag_by_impl "${BLAS_SUPP_IMPLS[@]}") )"
-	if [[ ${BLAS_CONDITIONAL_FLAG} ]]
-	then
-		for flag in "${BLAS_CONDITIONAL_FLAG[@]}"
-		do
+	if [[ ${BLAS_CONDITIONAL_FLAG} ]]; then
+		for flag in "${BLAS_CONDITIONAL_FLAG[@]}"; do
 			RDEPEND="${RDEPEND} ${flag}? ( ${BLAS_DEPS} )"
 			REQUIRED_USE="${REQUIRED_USE} ${flag}? ( ${BLAS_REQUIRED_USE} )"
 		done
@@ -323,14 +306,13 @@ unset -f _blas_set_globals
 # Hence, any subsequent call to "pkg-config blas" will yield the correct
 # result.
 # Note: If you override the default pkg_setup, make sure to call blas_pkg_setup.
-function blas_pkg_setup(){
+blas_pkg_setup() {
 	debug-print-function ${FUNCNAME} "${@}"
 	
 	local BLAS_IMPL="$(_blas_best_impl)"
-	local PKGCONFIG="$(_blas_impl_get_pkgconfig $BLAS_IMPL)"
+	local PKGCONFIG="$(_blas_impl_get_pkgconfig ${BLAS_IMPL})"
 	local PKGCONFIG_LOCAL
-	if $BLAS_USE_CBLAS
-	then
+	if ${BLAS_USE_CBLAS}; then
 		PKGCONFIG_LOCAL=cblas
 	else
 		PKGCONFIG_LOCAL=blas
