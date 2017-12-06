@@ -335,7 +335,7 @@ function blas_pkg_setup(){
 	else
 		PKGCONFIG_LOCAL=blas
 	fi
-	mkdir "${T}/pkg-config/"
+	mkdir "${T}/pkg-config/" die "Could not create the pkgconfig overlay directory"
 	local NORMAL_PKGCONFIG="${EROOT}/usr/lib/pkgconfig"
 	ln -s "${EROOT}/usr/lib/pkgconfig/${PKGCONFIG}.pc" "${T}/pkg-config/${PKGCONFIG_LOCAL}.pc"
 	export PKG_CONFIG_PATH="${T}/pkg-config/:${PKG_CONFIG_PATH:-${NORMAL_PKGCONFIG}}"
