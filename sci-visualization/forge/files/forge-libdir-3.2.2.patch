@@ -1,0 +1,11 @@
+--- CMakeModules/FGInstallDirs.cmake    2015-12-29 02:38:22.000000000 +0600
++++ CMakeModules/FGInstallDirs.patched.cmake    2017-12-07 16:35:49.286401379 +0700
+@@ -11,7 +11,7 @@
+ 
+ # Libraries
+ if(NOT DEFINED FG_INSTALL_LIB_DIR)
+-    set(FG_INSTALL_LIB_DIR "lib" CACHE PATH "Installation path for libraries")
++    set(FG_INSTALL_LIB_DIR  $(get_libdir) CACHE PATH "Installation path for libraries")
+ endif()
+ 
+ # Header files
