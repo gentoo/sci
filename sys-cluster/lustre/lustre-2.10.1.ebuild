@@ -71,17 +71,19 @@ src_prepare() {
 		epatch ${PATCHES[@]}
 	fi
 	eapply_user
+	if [[ ${PV} == "9999" ]]; then
 	# replace upstream autogen.sh by our src_prepare()
-	local DIRS="libcfs lnet lustre snmp"
-	local ACLOCAL_FLAGS
-	for dir in $DIRS ; do
-		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
-	done
-	_elibtoolize -q
-	eaclocal -I config $ACLOCAL_FLAGS
-	eautoheader
-	eautomake
-	eautoconf
+		local DIRS="libcfs lnet lustre snmp"
+		local ACLOCAL_FLAGS
+		for dir in $DIRS ; do
+			ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
+		done
+		_elibtoolize -q
+		eaclocal -I config $ACLOCAL_FLAGS
+		eautoheader
+		eautomake
+		eautoconf
+	fi
 }
 
 src_configure() {
