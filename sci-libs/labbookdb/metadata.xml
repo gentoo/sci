@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@yandex.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<longdescription lang="en">
+		A relational database standard for life science research, including a 
+		number of functions to conveniently add and retrieve information - and
+		generate summaries.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">TheChymera/LabbookDB</remote-id>
+	</upstream>
+</pkgmetadata>
