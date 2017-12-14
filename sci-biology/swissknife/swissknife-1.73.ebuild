@@ -1,11 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 inherit perl-module
-
-MY_PV="${PV/./_}"
 
 DESCRIPTION="Perl library of modules to manipulate SwissProt flatfiles"
 HOMEPAGE="http://swissknife.sourceforge.net/"
@@ -24,4 +22,4 @@ RDEPEND="${DEPEND}
 
 SRC_TEST=no
 
-S="${WORKDIR}"/Swissknife_${MY_PV}
+S="${WORKDIR}"/Swissknife_${PV}
