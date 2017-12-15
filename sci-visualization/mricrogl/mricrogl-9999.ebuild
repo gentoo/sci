@@ -20,7 +20,7 @@ DEPEND="dev-lang/fpc
 	"
 
 src_compile() {
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" simplelaz.lpi || die
+	lazbuild -B --lazarusdir="${EPREFIX}/usr/share/lazarus/" simplelaz.lpi || die
 }
 
 src_install() {
