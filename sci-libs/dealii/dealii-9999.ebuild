@@ -15,7 +15,7 @@ HOMEPAGE="http://www.dealii.org/"
 
 if [[ ${PV} = *9999* ]]; then
 	inherit git-r3
-	EGIT_REPO_URI="git://github.com/dealii/dealii.git"
+	EGIT_REPO_URI="https://github.com/dealii/dealii.git"
 	SRC_URI=""
 	KEYWORDS=""
 else
