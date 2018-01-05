@@ -100,6 +100,10 @@ CDEPEND="
 		ssl? ( dev-libs/openssl:0= )
 		xml? ( dev-libs/libxml2:2= )
 		xrootd? ( >=net-libs/xrootd-3.3.5:0= )
+		R? (
+		  sci-misc/Rcpp
+		  sci-misc/RInside
+		)
 	)"
 
 # TODO: ruby is not yet ported to ROOT-6, reenable when (if?) ready
