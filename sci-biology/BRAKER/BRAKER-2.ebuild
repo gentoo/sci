@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -10,7 +10,7 @@ DESCRIPTION="Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS"
 # http://bioinf.uni-greifswald.de/bioinf/publications/pag2015.pdf
 HOMEPAGE="http://bioinf.uni-greifswald.de/bioinf/braker
 	http://bioinf.uni-greifswald.de/augustus/downloads"
-SRC_URI=" http://bioinf.uni-greifswald.de/augustus/binaries/BRAKER1_v"${PV}".tar.gz -> ${P}.tar.gz"
+SRC_URI="http://bioinf.uni-greifswald.de/augustus/binaries/BRAKER"${PV}".tar.gz -> ${P}.tar.gz"
 # Download BRAKER1 from http://bioinf.uni-greifswald.de/augustus/binaries/BRAKER1.tar.gz.
 # The most recent release is version 1.8, from December 15th 2015.
 # Example data for testing the BRAKER1 pipeline is available at
@@ -31,7 +31,7 @@ RDEPEND="${DEPEND}
 # this causes:
 # [blocks B      ] <perl-core/Scalar-List-Utils-1.380.0 ("<perl-core/Scalar-List-Utils-1.380.0" is blocking virtual/perl-Scalar-List-Utils-1.380.0)
 
-S="${WORKDIR}"/BRAKER_v"${PV}"
+S="${WORKDIR}"/BRAKER_v"${PV}".0
 
 src_prepare(){
 	sed -e 's/^use helpMod/use BRAKER::helpMod/' -i braker.pl || die
