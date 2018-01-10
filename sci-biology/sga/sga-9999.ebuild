@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}
 src_configure(){
 	cd src || die
 	./autogen.sh || die
-	econf --with-bamtools=/usr
+	econf --with-bamtools="${EPREFIX}"/usr
 }
 
 src_compile(){
