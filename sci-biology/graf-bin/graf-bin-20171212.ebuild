@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}"
 
 src_prepare(){
-	sed -e 's#/usr/local/bin/perl#/usr/bin/perl#' -i PlotGraf.pl || die # there is not perl_fix_shebang
+	sed -e 's#/usr/local/bin/perl#/usr/bin/env perl#' -i *.pl || die # there is not perl_fix_shebang
 }
 
 src_install(){
