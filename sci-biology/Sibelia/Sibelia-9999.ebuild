@@ -3,6 +3,8 @@
 
 EAPI=6
 
+PYTHON_COMPAT=( python2_7 )
+
 inherit cmake-utils git-r3
 
 DESCRIPTION="Draw synteny plots using circos"
@@ -15,6 +17,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
+	dev-lang/perl
 	dev-libs/boost:0
 	dev-cpp/tclap
 	>=dev-libs/libdivsufsort-2.0.1
