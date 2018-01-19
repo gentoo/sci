@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -31,6 +31,7 @@ S="${WORKDIR}"/vague-${PV}
 
 src_prepare(){
 	epatch "${FILESDIR}"/vague.patch
+	sed -e "s#-jar /usr/share#-jar ${EPREFIX}/usr/share#" -i vague || die
 }
 
 src_install(){
