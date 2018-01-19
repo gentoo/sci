@@ -24,6 +24,7 @@ DEPEND="
 	sci-biology/seqan:*
 	sci-biology/lagan
 	sci-biology/SnpEff"
+# https://github.com/bioinf/Sibelia/issues/181
 # it contains bundled copies of all the above
 # we would need to create also a Gentoo package for D3.js
 #   (BSD License) http://d3js.org
