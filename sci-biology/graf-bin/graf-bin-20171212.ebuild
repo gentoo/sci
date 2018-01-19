@@ -26,7 +26,7 @@ src_prepare(){
 
 src_install(){
 	dobin graf graf_dups *.pl
-	dodoc GRAF_ReadMe_.docx GRAF-popDocumentation*.docx
+	dodoc GRAF_ReadMe_*.docx GRAF-popDocumentation*.docx
 	insinto /usr/share/"${PN}"
 	doins *.txt *.bed *.bim *.fam
 }
