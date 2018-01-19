@@ -23,7 +23,7 @@ DEPEND="
 	>=dev-libs/libdivsufsort-2.0.1
 	sci-biology/seqan:*
 	sci-biology/lagan
-	sci-biology/SnpEff"
+	>=sci-biology/SnpEff-3.3"
 # https://github.com/bioinf/Sibelia/issues/181
 # it contains bundled copies of all the above
 # we would need to create also a Gentoo package for D3.js
