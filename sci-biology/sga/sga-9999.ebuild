@@ -7,7 +7,7 @@ inherit eutils git-r3
 
 DESCRIPTION="String Graph OLC Assembler for short reads (overlap-layout-consensus)"
 HOMEPAGE="https://github.com/jts/sga"
-EGIT_REPO_URI="git://github.com/jts/sga"
+EGIT_REPO_URI="https://github.com/jts/sga"
 
 LICENSE="GPL-3"
 SLOT="0"
