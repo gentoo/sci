@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit cmake-utils git-r3 multilib
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="http://stnava.github.io/ANTs/"
 SRC_URI=""
-EGIT_REPO_URI="git://github.com/stnava/ANTs.git"
+EGIT_REPO_URI="https://github.com/stnava/ANTs.git"
 
 SLOT="0"
 LICENSE="BSD"
