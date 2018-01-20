@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -12,7 +12,7 @@ inherit autotools-utils git-r3
 DESCRIPTION="Whole genome assembler, Hawkeye and AMOScmp to compare multiple assemblies"
 HOMEPAGE="http://sourceforge.net/projects/amos"
 SRC_URI=""
-EGIT_REPO_URI="git://amos.git.sourceforge.net/gitroot/amos/amos"
+EGIT_REPO_URI="https://amos.git.sourceforge.net/gitroot/amos/amos"
 
 LICENSE="Artistic"
 SLOT="0"
