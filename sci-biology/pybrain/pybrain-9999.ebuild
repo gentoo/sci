@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 DESCRIPTION="The Python Machine Learning Library"
 HOMEPAGE="http://pybrain.org/"
 SRC_URI=""
-EGIT_REPO_URI="git://github.com/pybrain/pybrain.git"
+EGIT_REPO_URI="https://github.com/pybrain/pybrain.git"
 
 LICENSE="BSD"
 SLOT="0"
