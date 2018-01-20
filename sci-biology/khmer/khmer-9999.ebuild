@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 DESCRIPTION="In-memory K-mer counting in DNA/RNA/protein sequences"
 HOMEPAGE="https://github.com/ged-lab/khmer"
 #SRC_URI=""
-EGIT_REPO_URI="git://github.com/ged-lab/khmer"
+EGIT_REPO_URI="https://github.com/ged-lab/khmer"
 
 LICENSE="BSD"
 SLOT="0"
