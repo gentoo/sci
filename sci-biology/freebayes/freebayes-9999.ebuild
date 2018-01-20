@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}
 	sci-biology/bamtools
 	sci-biology/samtools:*"
 
-# $ git clone --recursive git://github.com/ekg/freebayes.git
+# $ git clone --recursive https://github.com/ekg/freebayes.git
 # Cloning into 'freebayes'...
 # remote: Counting objects: 4942, done.
 # remote: Total 4942 (delta 0), reused 0 (delta 0), pack-reused 4942
