@@ -12,7 +12,7 @@ inherit autotools-utils git-r3
 DESCRIPTION="Whole genome assembler, Hawkeye and AMOScmp to compare multiple assemblies"
 HOMEPAGE="http://sourceforge.net/projects/amos"
 SRC_URI=""
-EGIT_REPO_URI="https://amos.git.sourceforge.net/gitroot/amos/amos"
+EGIT_REPO_URI="git://amos.git.sourceforge.net/gitroot/amos/amos"
 
 LICENSE="Artistic"
 SLOT="0"
