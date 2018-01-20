@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit cmake-utils
 DESCRIPTION="Compare BAM files from normal and tumor samples and report somatic SNPs"
 HOMEPAGE="http://gmt.genome.wustl.edu"
 SRC_URI="https://github.com/genome/somatic-sniper/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-# git clone git://github.com/genome/somatic-sniper.git
+# git clone https://github.com/genome/somatic-sniper.git
 
 LICENSE="MIT"
 SLOT="0"
