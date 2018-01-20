@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 DESCRIPTION="Fast and easy statistical learning on NeuroImaging data"
 HOMEPAGE="http://nilearn.github.io/"
 SRC_URI=""
-EGIT_REPO_URI="git://github.com/nilearn/nilearn"
+EGIT_REPO_URI="https://github.com/nilearn/nilearn"
 
 LICENSE="BSD"
 SLOT="0"
