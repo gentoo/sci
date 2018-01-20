@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 DESCRIPTION="Computational neuroanatomy project focusing on diffusion MRI"
 HOMEPAGE="http://nipy.org/dipy"
 SRC_URI=""
-EGIT_REPO_URI="git://github.com/nipy/dipy"
+EGIT_REPO_URI="https://github.com/nipy/dipy"
 
 LICENSE="BSD"
 SLOT="0"
