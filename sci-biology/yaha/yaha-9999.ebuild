@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,7 +7,7 @@ inherit flag-o-matic git-r3 toolchain-funcs
 
 DESCRIPTION="DNA mapper for single-end reads to detect structural variants (SV)"
 HOMEPAGE="https://github.com/GregoryFaust/yaha"
-EGIT_REPO_URI="git://github.com/GregoryFaust/yaha.git"
+EGIT_REPO_URI="https://github.com/GregoryFaust/yaha.git"
 
 LICENSE="MIT"
 SLOT="0"
