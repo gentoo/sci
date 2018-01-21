@@ -16,8 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="dev-java/sbt
-	>=virtual/jdk-1.7:*"
+DEPEND=">=virtual/jdk-1.7:*"
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.7:*
 	>=dev-java/htsjdk-1.130"
