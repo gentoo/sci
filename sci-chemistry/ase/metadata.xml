@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+  <email>bugs.gentoo.org@v6y.net</email>
+  <name>Justin Keogh</name>
+</maintainer>
+<maintainer type="project">
+  <email>sci-physics@gentoo.org</email>
+  <name>Gentoo Physics Project</name>
+</maintainer>
+<longdescription lang="en">
+  A Python library for working with atoms
+</longdescription>
+<use>
+  <flag name="matplotlib">Add support for <pkg>dev-python/matplotlib</pkg></flag>
+  <flag name="scipy">Add support for <pkg>dev-python/scipy</pkg></flag>
+</use>
+<upstream>
+  <remote-id type="pypi">ase</remote-id>
+</upstream>
+</pkgmetadata>
