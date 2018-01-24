@@ -24,3 +24,5 @@ RDEPEND="${DEPEND}"
 src_compile(){
 	emake -C python develop-user HDF5_DIR="${EPREFIX}"/usr HDF5_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
 }
+
+# BUG: python stuff and binaries get installed into "${IMAGEDIR}"/homedir/.local/
