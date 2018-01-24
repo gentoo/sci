@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -21,7 +21,7 @@ IUSE=""
 # The bundled version of htslib in is 1.2.1 as of now although 1.5.1 already exists
 DEPEND=">=sci-libs/hdf5-1.8.14[threads]
 	>=dev-cpp/eigen-3.2.5
-	sci-libs/htslib:0
+	>=sci-libs/htslib-1.4:0
 	sci-libs/fast5"
 RDEPEND="${DEPEND}
 	sci-biology/biopython"
@@ -34,7 +34,7 @@ src_prepare(){
 src_compile(){
 	# >=gcc-4.8 but <gcc-7 is needed
 	# https://github.com/jts/nanopolish/issues/145
-	emake HDF5="noinstall" EIGEN="nofetch" HTS_LIB=-lhts HTS_INCLUDE=-I/usr/include/htslib EIGEN_INCLUDE=-I/usr/include/eigen3 # TODO: FAST5_INCLUDE=-I/usr/include/fast5
+	emake HDF5="noinstall" EIGEN="noinstall" HTS="noinstall" HTS_LIB=-lhts HTS_INCLUDE=-I/usr/include/htslib EIGEN_INCLUDE=-I/usr/include/eigen3 # TODO: FAST5_INCLUDE=-I/usr/include/fast5
 }
 
 src_install(){
