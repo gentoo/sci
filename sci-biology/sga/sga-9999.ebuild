@@ -19,6 +19,7 @@ DEPEND="dev-cpp/sparsehash
 	sys-libs/zlib
 	jemalloc? ( dev-libs/jemalloc )"
 RDEPEND="${DEPEND}
+	sci-biology/abyss
 	python? ( sci-biology/pysam
 			sci-biology/ruffus )"
 
@@ -30,7 +31,14 @@ src_configure(){
 }
 
 src_compile(){
-	cd src || die
+	# https://github.com/AlgoLab/FastStringGraph/issues/1#issuecomment-345999596
+	# https://github.com/jts/sga/issues/106
+	# https://github.com/jts/sga/pull/110
+	# https://github.com/jts/sga/issues/108
+	#
+	# other unreviewed patches:
+	# https://github.com/jts/sga/issues/96
+	cd src || die "Try -atd=g++-98, try gcc-5 or -std=c++03"
 	default
 }
 
