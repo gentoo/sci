@@ -5,7 +5,7 @@ EAPI=6
 
 inherit java-pkg-2 java-ant-2 eutils git-r3
 
-DESCRIPTION="Manipulate and analyze SAM/BAM/VCF files"
+DESCRIPTION="Manipulate and analyze VCF files"
 HOMEPAGE="https://github.com/RealTimeGenomics/rtg-tools"
 EGIT_REPO_URI="https://github.com/RealTimeGenomics/rtg-tools.git"
 
