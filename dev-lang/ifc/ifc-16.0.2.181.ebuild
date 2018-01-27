@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -12,11 +12,11 @@ DESCRIPTION="Intel FORTRAN Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 LINGUAS="ja"
-IUSE="doc examples linguas_ja"
+IUSE="doc examples l10n_ja"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
-DEPEND="!dev-lang/ifc[linguas_ja]"
-RDEPEND="${DEPEND}
+# avoid file collision with icc #476330
+RDEPEND="l10n_ja? ( !dev-lang/icc[l10n_ja(-)] !dev-lang/icc[linguas_ja(-)] )
 	~dev-libs/intel-common-${PV}[compiler]"
 
 CHECKREQS_DISK_BUILD=400M
@@ -37,7 +37,7 @@ pkg_setup() {
 			"fcompxe-doc-2016.2-062.noarch.rpm"
 			"ifort-ps-doc-16.0.2-181.noarch.rpm")
 
-		if use linguas_ja; then
+		if use l10n_ja; then
 			INTEL_DIST_DAT_RPMS+=(
 				"ifort-ps-doc-jp-16.0.2-181.noarch.rpm")
 		fi
@@ -48,7 +48,7 @@ pkg_setup() {
 			"fcomp-doc-2016.2-062.noarch.rpm")
 	fi
 
-	if use linguas_ja; then
+	if use l10n_ja; then
 		INTEL_DIST_BIN_RPMS+=(
 			"ifort-l-ps-jp")
 	fi
