@@ -30,10 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher <jlec@gentoo.org> (24 April 2016)
-# rev dep absent
-sci-mathematics/scilab
-
 # Sebasien Fabbro <bicatali@gentoo.org> (10 Mar 2012)
 # incompatible API with previous versions of metis (4)
 # masked until reverse depedencies are fixed
