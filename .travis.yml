@@ -7,7 +7,7 @@ cache: pip
 python:
     - pypy
 env:
-    - PORTAGE_VER="2.3.14"
+    - PORTAGE_VER="2.3.20"
 before_install:
     - sudo apt-get -qq update
     - pip install lxml
