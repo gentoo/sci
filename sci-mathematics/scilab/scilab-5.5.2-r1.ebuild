@@ -1,15 +1,13 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-RESTRICT="test"
+EAPI=6
 
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
-inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
-	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx
+inherit autotools bash-completion-r1 check-reqs eutils flag-o-matic \
+	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx xdg-utils
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
@@ -22,12 +20,29 @@ IUSE="bash-completion debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
-LINGUAS="fr_FR zh_CN zh_TW ru_RU ca_ES de_DE es_ES pt_BR ja_JP it_IT uk_UA pl_PL cs_CZ"
-LINGUAS_DOC="fr_FR pt_BR ja_JP ru_RU"
+RESTRICT="test"
 
-for l in ${LINGUAS}; do
-	IUSE="${IUSE} linguas_${l}"
+IUSE_L10N="fr zh zh ru ca de es pt ja it uk pl cs"
+L10N_DOC="fr pt ja ru"
+
+map_lang() {
+	local lang=${1/_/-}
+	case $1 in
+		# Retain the following, which have a specific subtag
+		de_*|en_*|pt_*|zh_*) ;;
+		# Consider all other xx_XX as duplicates of the generic xx tag
+		*_*) lang=${1%%_*} ;;
+	esac
+	echo ${lang}
+}
+
+prev_l=
+for l in ${IUSE_L10N}; do
+	l=$(map_lang ${l})
+	[[ ${l} != "${prev_l}" ]] && IUSE+=" l10n_${l}"
+	prev_l=${l}
 done
+unset l prev_l
 
 CDEPEND="
 	dev-libs/libpcre
@@ -89,6 +104,18 @@ DEPEND="${CDEPEND}
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
+PATCHES=(
+	"${FILESDIR}/${P}-followlinks.patch"
+	"${FILESDIR}/${P}-gluegen.patch"
+	"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
+	"${FILESDIR}/${P}-accessviolation.patch"
+	"${FILESDIR}/${P}-missinglib.patch"
+	"${FILESDIR}/${P}-batik-1.8.patch"
+	"${FILESDIR}/${P}-fop-2.0.patch"
+	"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch"
+	"${FILESDIR}/${P}-freehep.patch"
+)
+
 pkg_pretend() {
 	use doc && CHECKREQS_MEMORY="512M" check-reqs_pkg_pretend
 }
@@ -107,37 +134,28 @@ pkg_setup() {
 	unset F77
 	java-pkg-opt-2_pkg_setup
 
-	ALL_LINGUAS="en_US"
-	ALL_LINGUAS_DOC="en_US"
-	for l in ${LINGUAS}; do
-		use linguas_${l} && ALL_LINGUAS="${ALL_LINGUAS} ${l}"
+	ALL_L10N="en_US"
+	ALL_L10N_DOC="en_US"
+	for l in ${IUSE_L10N}; do
+		use l10n_${l} && ALL_L10N="${ALL_L10N} ${l}"
 	done
-	for l in ${LINGUAS_DOC}; do
-		use linguas_${l} && ALL_LINGUAS_DOC="${ALL_LINGUAS_DOC} ${l}"
+	for l in ${L10N_DOC}; do
+		use l10n_${l} && ALL_L10N_DOC="${ALL_L10N_DOC} ${l}"
 	done
-	export ALL_LINGUAS ALL_LINGUAS_DOC
+	export ALL_L10N ALL_L10N_DOC
 }
 
 src_prepare() {
-	epatch \
-		"${FILESDIR}/${P}-followlinks.patch" \
-		"${FILESDIR}/${P}-gluegen.patch" \
-		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
-		"${FILESDIR}/${P}-accessviolation.patch" \
-		"${FILESDIR}/${P}-missinglib.patch" \
-		"${FILESDIR}/${P}-batik-1.8.patch" \
-		"${FILESDIR}/${P}-fop-2.0.patch" \
-		"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch" \
-		"${FILESDIR}/${P}-freehep.patch"
+	default
 
 	# works for me on x86, but users are having
 	# trouble without see #282 on github
 	append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
-	use doc && epatch "${FILESDIR}/${P}-java-heap.patch"
+	use doc && eapply "${FILESDIR}/${P}-java-heap.patch"
 
-	# use the LINGUAS variable that we set
+	# use the L10N variable that we set
 	sed -i -e "/^ALL_LINGUAS=/d" -e "/^ALL_LINGUAS_DOC=/d" -i configure.ac ||die
 
 	# make sure the DOCBOOK_ROOT variable is set
@@ -260,7 +278,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	fdo-mime_mime_database_update
+	xdg_mimeinfo_database_update
 	einfo "If you are using the NVIDIA binary drivers, and run into graphics"
 	einfo "crashes, you may try to run scilab as follows:"
 	einfo "EGL_DRIVER=egl_glx scilab"
@@ -268,5 +286,5 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	fdo-mime_mime_database_update
+	xdg_mimeinfo_database_update
 }

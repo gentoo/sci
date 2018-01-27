@@ -7,8 +7,8 @@ with SAXSVGDocumentFactory being moved.  This is not tested beyond "yes Scilab
 still links to Batik to export SVGs," as I'm not sure of a good test case, and
 it's awaiting upstream review.
 
---- a/scilab/configure
-+++ b/scilab/configure
+--- a/configure
++++ b/configure
 @@ -16600,8 +16600,8 @@ $as_echo "$as_me: WARNING: Could not find or use the Java package/jar batik used
                  fi
  
@@ -74,8 +74,8 @@ it's awaiting upstream review.
              fi
  
      fi
---- a/scilab/configure.ac
-+++ b/scilab/configure.ac
+--- a/configure.ac
++++ b/configure.ac
 @@ -1038,7 +1038,7 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                     BATIK=$PACKAGE_JAR_FILE
                  fi
@@ -85,8 +85,8 @@ it's awaiting upstream review.
  
                  # Commons I/O library
                  AC_JAVA_CHECK_PACKAGE([commons-io],[org.apache.commons.io.output.CountingOutputStream],[Commons I/O library])
---- a/scilab/modules/graph/src/java/org/scilab/modules/graph/utils/ScilabGraphUtils.java
-+++ b/scilab/modules/graph/src/java/org/scilab/modules/graph/utils/ScilabGraphUtils.java
+--- a/modules/graph/src/java/org/scilab/modules/graph/utils/ScilabGraphUtils.java
++++ b/modules/graph/src/java/org/scilab/modules/graph/utils/ScilabGraphUtils.java
 @@ -28,7 +28,7 @@ import org.apache.batik.bridge.DocumentLoader;
  import org.apache.batik.bridge.GVTBuilder;
  import org.apache.batik.bridge.UserAgent;
@@ -96,3 +96,4 @@ it's awaiting upstream review.
  import org.apache.batik.gvt.GraphicsNode;
  import org.apache.batik.util.XMLResourceDescriptor;
  import org.scilab.forge.jlatexmath.ParseException;
+

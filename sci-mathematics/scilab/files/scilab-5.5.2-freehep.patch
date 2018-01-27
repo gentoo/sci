@@ -1,6 +1,6 @@
 diff -uNr scilab-5.5.2-orig/configure.ac scilab-5.5.2/configure.ac
---- scilab-5.5.2-orig/configure.ac	2016-06-05 12:30:06.582735449 -0400
-+++ scilab-5.5.2/configure.ac	2016-06-05 12:31:29.706708157 -0400
+--- a/configure.ac	2016-06-05 12:30:06.582735449 -0400
++++ b/configure.ac	2016-06-05 12:31:29.706708157 -0400
 @@ -1024,7 +1024,7 @@
                      AC_SUBST(FREEHEP_IO)
  

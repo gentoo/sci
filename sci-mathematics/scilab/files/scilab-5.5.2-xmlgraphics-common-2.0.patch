@@ -7,8 +7,8 @@ tested, as I'm not sure of a test case, and a similar patch (where the
 super.processShape calls are passed cached=true) is already awaiting upstream
 review.
 
---- a/scilab/modules/graphic_export/src/java/org/scilab/modules/graphic_export/Export.java
-+++ b/scilab/modules/graphic_export/src/java/org/scilab/modules/graphic_export/Export.java
+--- a/modules/graphic_export/src/java/org/scilab/modules/graphic_export/Export.java
++++ b/modules/graphic_export/src/java/org/scilab/modules/graphic_export/Export.java
 @@ -857,7 +857,7 @@ public class Export {
                      }
  

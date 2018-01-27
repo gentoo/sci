@@ -1,6 +1,6 @@
 diff -urN scilab-5.5.0-orig/bin/scilab scilab-5.5.0/bin/scilab
---- scilab-5.5.0-orig/bin/scilab	2014-07-12 15:24:17.105686656 -0400
-+++ scilab-5.5.0/bin/scilab	2014-07-12 15:25:29.307725409 -0400
+--- a/bin/scilab	2014-07-12 15:24:17.105686656 -0400
++++ b/bin/scilab	2014-07-12 15:25:29.307725409 -0400
 @@ -647,17 +647,6 @@
  GTK_MODULES=$(echo $GTK_MODULES | sed s/gnomebreakpad//g)
  export GTK_MODULES

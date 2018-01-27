@@ -5,8 +5,8 @@ Gentoo-Bug-URL: https://github.com/gentoo-science/sci/pull/456
 Updates Scilab to build against FOP >=2.0.  This is not tested, as I'm not sure
 of a test case, and it's awaiting upstream review.
 
---- a/scilab/modules/helptools/src/java/org/scilab/modules/helptools/FopConverter.java
-+++ b/scilab/modules/helptools/src/java/org/scilab/modules/helptools/FopConverter.java
+--- a/modules/helptools/src/java/org/scilab/modules/helptools/FopConverter.java
++++ b/modules/helptools/src/java/org/scilab/modules/helptools/FopConverter.java
 @@ -43,10 +43,10 @@ public class FopConverter extends ContainerConverter {
          String fileName = outputDirectory + "/" + baseName + "." + format.name().toLowerCase();
  
@@ -20,8 +20,8 @@ of a test case, and it's awaiting upstream review.
  
              // Step 3: Construct fop with desired output format
              OutputStream out = new BufferedOutputStream(new FileOutputStream(fileName));
---- a/scilab/modules/scinotes/src/java/org/scilab/modules/scinotes/utils/CodeExporter.java
-+++ b/scilab/modules/scinotes/src/java/org/scilab/modules/scinotes/utils/CodeExporter.java
+--- a/modules/scinotes/src/java/org/scilab/modules/scinotes/utils/CodeExporter.java
++++ b/modules/scinotes/src/java/org/scilab/modules/scinotes/utils/CodeExporter.java
 @@ -114,11 +114,11 @@ public class CodeExporter extends FOCodeConverter {
       * @param format the page format
       */

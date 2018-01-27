@@ -1,6 +1,6 @@
 diff -urN scilab-5.5.1-orig/Makefile.am scilab-5.5.1/Makefile.am
---- scilab-5.5.1-orig/Makefile.am	2014-10-09 18:22:21.994610695 -0400
-+++ scilab-5.5.1/Makefile.am	2014-10-09 18:24:28.208333575 -0400
+--- a/Makefile.am	2014-10-09 18:22:21.994610695 -0400
++++ b/Makefile.am	2014-10-09 18:24:28.208333575 -0400
 @@ -74,6 +74,7 @@
  if NEED_JAVA
  scilab_bin_LDADD += \
