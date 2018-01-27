@@ -513,7 +513,7 @@ intel-sdp-r1_src_install() {
 	eend
 
 	# remove remaining japanese stuff
-	if ! use linguas_ja; then
+	if ! use l10n_ja; then
 		ebegin "Cleaning out japanese language directories"
 		while IFS='\n' read -r -d '' i; do
 			rm -r "${i}" || die
