@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -12,11 +12,11 @@ DESCRIPTION="Intel C/C++ Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 LINGUAS="ja"
-IUSE="doc examples linguas_ja"
+IUSE="doc examples l10n_ja"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
-DEPEND="!dev-lang/ifc[linguas_ja]"
-RDEPEND="${DEPEND}
+# avoid file collision with ifc #476330
+RDEPEND="l10n_ja? ( !dev-lang/ifc[l10n_ja(-)] !dev-lang/ifc[linguas_ja(-)] )
 	~dev-libs/intel-common-${PV}[compiler]"
 
 CHECKREQS_DISK_BUILD=500M
@@ -44,7 +44,7 @@ pkg_setup() {
 			"icc-ps-doc-16.0.2-181.noarch.rpm"
 			"icc-ps-ss-doc-16.0.2-181.noarch.rpm")
 
-		if use linguas_ja; then
+		if use l10n_ja; then
 			INTEL_DIST_DAT_RPMS+=(
 				"icc-ps-doc-jp-16.0.2-181.noarch.rpm")
 		fi
