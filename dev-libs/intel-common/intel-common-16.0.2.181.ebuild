@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -11,7 +11,7 @@ inherit intel-sdp-r1
 DESCRIPTION="Common libraries and utilities needed for Intel compilers and libraries"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-compilers/"
 
-IUSE="+compiler doc examples mic mpi openmp linguas_ja"
+IUSE="+compiler doc examples mic mpi openmp l10n_ja"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 REQUIRED_USE="mic? ( openmp )"
 
@@ -34,7 +34,7 @@ pkg_setup() {
 		INTEL_DIST_DAT_RPMS+=(
 			"ccompxe-doc-2016.2-062.noarch.rpm")
 
-		if use linguas_ja; then
+		if use l10n_ja; then
 			INTEL_DIST_DAT_RPMS+=(
 				"comp-ps-doc-jp-16.0.2-181.noarch.rpm")
 		fi
@@ -85,7 +85,7 @@ pkg_setup() {
 				"openmp-l-ps-devel"
 				"openmp-l-ps-ss-devel")
 
-			if use linguas_ja; then
+			if use l10n_ja; then
 				INTEL_DIST_AMD64_RPMS+=(
 					"openmp-l-ps-devel-jp")
 
@@ -101,7 +101,7 @@ pkg_setup() {
 			fi
 		fi
 
-		if use linguas_ja; then
+		if use l10n_ja; then
 			INTEL_DIST_X86_RPMS+=(
 				"openmp-l-ps-jp")
 		fi
