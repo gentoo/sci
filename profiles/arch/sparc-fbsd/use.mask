@@ -1,9 +1,0 @@
-# Copyright 1999-2017 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-
-# Unmask the flag which corresponds to ARCH.
--sparc-fbsd
-
-# Mark Wright <gienah@gentoo.org> (26 Apr 2014)
-# mask int64 flag for 32 bits arches
-int64
