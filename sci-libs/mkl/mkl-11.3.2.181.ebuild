@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -14,7 +14,7 @@ inherit alternatives-2 intel-sdp-r1 numeric-int64-multibuild
 DESCRIPTION="Intel Math Kernel Library: linear algebra, fft, math functions"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-mkl/"
 
-IUSE="doc examples linguas_ja mic"
+IUSE="doc examples l10n_ja mic"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 DEPEND=""
@@ -53,7 +53,7 @@ pkg_setup() {
 			"mkl-doc-11.3.2-181.noarch.rpm"
 			"mkl-ps-doc-11.3.2-181.noarch.rpm")
 
-		if use linguas_ja; then
+		if use l10n_ja; then
 			INTEL_DIST_DAT_RPMS+=(
 				"mkl-ps-doc-jp-11.3.2-181.noarch.rpm")
 		fi
@@ -67,7 +67,7 @@ pkg_setup() {
 			"mkl-ps-tbb-mic-devel")
 	fi
 
-	if use linguas_ja; then
+	if use l10n_ja; then
 		INTEL_DIST_BIN_RPMS+=(
 			"mkl-ps-jp")
 
