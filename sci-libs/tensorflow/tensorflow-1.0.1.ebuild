@@ -8,7 +8,8 @@ PYTHON_COMPAT=( python2_7 python3_{3,4,5,6} )
 inherit distutils-r1 eutils
 
 DESCRIPTION="Library for numerical computation using data flow graphs"
-HOMEPAGE="https://github.com/tensorflow/tensorflow"
+HOMEPAGE="https://www.tensorflow.org
+	https://github.com/tensorflow/tensorflow"
 SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
