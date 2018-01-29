@@ -17,6 +17,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=""
+DEPEND="=sci-libs/tensorflow-1.0.1"
 RDEPEND="${DEPEND}
 	dev-python/h5py"
