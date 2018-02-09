@@ -52,7 +52,7 @@ src_install() {
 	doexe bin/*
 
 	insinto /opt/${PN}
-	doins lib/*/atsas/{libqwt*.so*,libsaxsdocument*.so*}
+	doins lib/*/atsas/{libqwt*.so*,libsaxsdocument*.so*,libsaxsplot*.so*}
 
 	python_foreach_impl python_domodule lib/*/atsas/python*/dist-packages/*
 
