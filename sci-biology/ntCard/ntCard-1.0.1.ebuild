@@ -12,7 +12,7 @@ SRC_URI="https://github.com/bcgsc/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="openmp"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -20,4 +20,10 @@ RDEPEND="${DEPEND}"
 src_prepare(){
 	sh ./autogen.sh || die
 	default
+}
+
+src_configure() {
+	local myconf=()
+	use openmp || myconf+=( --disable-openmp )
+	econf ${myconf[@]}
 }

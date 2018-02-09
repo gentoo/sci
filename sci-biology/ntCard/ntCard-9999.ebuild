@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/bcgsc/ntCard.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="openmp"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -20,4 +20,10 @@ RDEPEND="${DEPEND}"
 src_prepare(){
 	sh ./autogen.sh || die
 	default
+}
+
+src_configure() {
+	local myconf=()
+	use openmp || myconf+=( --disable-openmp )
+	econf ${myconf[@]}
 }
