@@ -1,0 +1,1069 @@
+diff --git a/commonTools/gtest/CMakeLists.txt b/commonTools/gtest/CMakeLists.txt
+index 4b96030..34aef5f 100644
+--- a/commonTools/gtest/CMakeLists.txt
++++ b/commonTools/gtest/CMakeLists.txt
+@@ -36,7 +36,7 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ #install gtest header into the correct subdir.
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${Trilinos_INSTALL_INCLUDE_DIR}/gtest/)
++INSTALL(FILES ${HEADERS} DESTINATION ${Trilinos_INSTALL_INCLUDE_DIR}/gtest/)
+ 
+ 
+ 
+diff --git a/packages/rol/adapters/arrayfire/src/CMakeLists.txt b/packages/rol/adapters/arrayfire/src/CMakeLists.txt
+index 2c6b4b0..6184d3d 100644
+--- a/packages/rol/adapters/arrayfire/src/CMakeLists.txt
++++ b/packages/rol/adapters/arrayfire/src/CMakeLists.txt
+@@ -36,4 +36,4 @@ IF (ROL_ENABLE_ArrayFireCPU)
+  )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/belos/src/CMakeLists.txt b/packages/rol/adapters/belos/src/CMakeLists.txt
+index 109f28e..3749b75 100644
+--- a/packages/rol/adapters/belos/src/CMakeLists.txt
++++ b/packages/rol/adapters/belos/src/CMakeLists.txt
+@@ -39,4 +39,4 @@ IF (ROL_ENABLE_Belos)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/epetra/src/CMakeLists.txt b/packages/rol/adapters/epetra/src/CMakeLists.txt
+index f2b329b..d96b18d 100644
+--- a/packages/rol/adapters/epetra/src/CMakeLists.txt
++++ b/packages/rol/adapters/epetra/src/CMakeLists.txt
+@@ -42,4 +42,4 @@ IF (ROL_ENABLE_Epetra)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/minitensor/src/CMakeLists.txt b/packages/rol/adapters/minitensor/src/CMakeLists.txt
+index 0da2642..d91a4a7 100644
+--- a/packages/rol/adapters/minitensor/src/CMakeLists.txt
++++ b/packages/rol/adapters/minitensor/src/CMakeLists.txt
+@@ -67,4 +67,4 @@ IF (ROL_ENABLE_Boost AND ROL_ENABLE_MiniTensor)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/sacado/src/CMakeLists.txt b/packages/rol/adapters/sacado/src/CMakeLists.txt
+index 1ac1a19..a808d63 100644
+--- a/packages/rol/adapters/sacado/src/CMakeLists.txt
++++ b/packages/rol/adapters/sacado/src/CMakeLists.txt
+@@ -37,4 +37,4 @@ IF (ROL_ENABLE_Sacado)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/teuchos/src/CMakeLists.txt b/packages/rol/adapters/teuchos/src/CMakeLists.txt
+index 802760c..34aae17 100644
+--- a/packages/rol/adapters/teuchos/src/CMakeLists.txt
++++ b/packages/rol/adapters/teuchos/src/CMakeLists.txt
+@@ -42,4 +42,4 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/function)
+ )
+ 
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/thyra/src/CMakeLists.txt b/packages/rol/adapters/thyra/src/CMakeLists.txt
+index 725cad8..357e799 100644
+--- a/packages/rol/adapters/thyra/src/CMakeLists.txt
++++ b/packages/rol/adapters/thyra/src/CMakeLists.txt
+@@ -49,4 +49,4 @@ IF (ROL_ENABLE_Thyra)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/tpetra/src/CMakeLists.txt b/packages/rol/adapters/tpetra/src/CMakeLists.txt
+index 1367681..65d0cb3 100644
+--- a/packages/rol/adapters/tpetra/src/CMakeLists.txt
++++ b/packages/rol/adapters/tpetra/src/CMakeLists.txt
+@@ -46,4 +46,4 @@ IF (ROL_ENABLE_Tpetra)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/rol/adapters/trikota/src/CMakeLists.txt b/packages/rol/adapters/trikota/src/CMakeLists.txt
+index 37d3c0e..bca4b82 100644
+--- a/packages/rol/adapters/trikota/src/CMakeLists.txt
++++ b/packages/rol/adapters/trikota/src/CMakeLists.txt
+@@ -45,4 +45,4 @@ IF (ROL_ENABLE_TriKota)
+   )
+ ENDIF()
+ 
+-INSTALL(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++INSTALL(FILES ${HEADERS} DESTINATION ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/seacas/libraries/exoIIv2for32/CMakeLists.txt b/packages/seacas/libraries/exoIIv2for32/CMakeLists.txt
+index d967154..987e207 100644
+--- a/packages/seacas/libraries/exoIIv2for32/CMakeLists.txt
++++ b/packages/seacas/libraries/exoIIv2for32/CMakeLists.txt
+@@ -25,7 +25,7 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "SEACASProj")
+       ${CMAKE_CURRENT_SOURCE_DIR}/src/exo_jack_32.c
+     )
+     set_target_properties(exoIIv2for32_static PROPERTIES OUTPUT_NAME exoIIv2for32)
+-    INSTALL(TARGETS exoIIv2for32_static DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
++    INSTALL(TARGETS exoIIv2for32_static DESTINATION lib)
+   endif()
+ endif()
+ 
+diff --git a/packages/seacas/libraries/exodus/CMakeLists.txt b/packages/seacas/libraries/exodus/CMakeLists.txt
+index b0fcc59..69aca93 100644
+--- a/packages/seacas/libraries/exodus/CMakeLists.txt
++++ b/packages/seacas/libraries/exodus/CMakeLists.txt
+@@ -47,7 +47,7 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "SEACASProj")
+               ${SOURCES} ${DEP_SOURCES}
+       )
+       set_target_properties(exodus_static PROPERTIES OUTPUT_NAME exodus)
+-      INSTALL(TARGETS exodus_static DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
++      INSTALL(TARGETS exodus_static DESTINATION lib)
+    endif(BUILD_SHARED_LIBS)
+ 
+    # For backwards compatability, the C exodus library was called libexoIIv2c.a
+diff --git a/packages/seacas/libraries/exodus_for/CMakeLists.txt b/packages/seacas/libraries/exodus_for/CMakeLists.txt
+index 3b9d270..5660c72 100644
+--- a/packages/seacas/libraries/exodus_for/CMakeLists.txt
++++ b/packages/seacas/libraries/exodus_for/CMakeLists.txt
+@@ -29,7 +29,7 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "SEACASProj")
+       ${SOURCES}
+     )
+     set_target_properties(exodus_for_static PROPERTIES OUTPUT_NAME exodus_for)
+-    INSTALL(TARGETS exodus_for_static DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
++    INSTALL(TARGETS exodus_for_static DESTINATION lib)
+   endif()
+ 
+   # For backwards compatability, the Fortran exodus library was called libexoIIv2for.a
+diff --git a/packages/trios/libraries/support/CMakeLists.txt b/packages/trios/libraries/support/CMakeLists.txt
+index 3b8c4fd..175f736 100644
+--- a/packages/trios/libraries/support/CMakeLists.txt
++++ b/packages/trios/libraries/support/CMakeLists.txt
+@@ -168,6 +168,6 @@ TRIBITS_ADD_LIBRARY(
+ 
+ ########### install targets ###############
+ 
+-# INSTALL(FILES ${MODULES} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
++# INSTALL(FILES ${MODULES} DESTINATION include)
+ 
+ TRIBITS_SUBPACKAGE_POSTPROCESS()
+diff --git a/packages/zoltan/src/CMakeLists.txt b/packages/zoltan/src/CMakeLists.txt
+index 84f1e82..10a8a89 100644
+--- a/packages/zoltan/src/CMakeLists.txt
++++ b/packages/zoltan/src/CMakeLists.txt
+@@ -681,5 +681,5 @@ TRIBITS_ADD_LIBRARY(
+   IMPORTEDLIBS ${IMPORTEDLIBS}
+   )
+ 
+-INSTALL(FILES ${MODULES} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
++INSTALL(FILES ${MODULES} DESTINATION include)
+ 
+diff --git a/packages/zoltan/src/fdriver/CMakeLists.txt b/packages/zoltan/src/fdriver/CMakeLists.txt
+index 32913f3..8dd9cba 100644
+--- a/packages/zoltan/src/fdriver/CMakeLists.txt
++++ b/packages/zoltan/src/fdriver/CMakeLists.txt
+@@ -33,6 +33,6 @@ IF(${PROJECT_NAME}_ENABLE_Fortran AND BUILD_ZOLTAN_F90_INTERFACE)
+ 
+ #  What is a good location for executables zdrive and zCPPdrive?
+ #  When should they be moved there?  During install?  Or build?
+-#INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/zfdrive.exe DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
++#INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/zfdrive.exe DESTINATION bin)
+ 
+ ENDIF()
+diff --git a/packages/ForTrilinos/docs/CMakeLists.txt b/packages/ForTrilinos/docs/CMakeLists.txt
+index 0ea4b83..a4b2aae 100644
+--- a/packages/ForTrilinos/docs/CMakeLists.txt
++++ b/packages/ForTrilinos/docs/CMakeLists.txt
+@@ -9,5 +9,5 @@ ADD_CUSTOM_TARGET(docs ALL
+ )
+ 
+ INSTALL(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/html"
+-    DESTINATION "${CMAKE_INSTALL_PREFIX}/docs"
++    DESTINATION " docs"
+ )
+diff --git a/packages/kokkos-kernels/src/CMakeLists.txt b/packages/kokkos-kernels/src/CMakeLists.txt
+index 8db1b51..78deb76 100644
+--- a/packages/kokkos-kernels/src/CMakeLists.txt
++++ b/packages/kokkos-kernels/src/CMakeLists.txt
+@@ -4,7 +4,7 @@ TRIBITS_CONFIGURE_FILE(${PACKAGE_NAME}_config.h)
+ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/kokkos/cmake/kokkos.cmake b/packages/kokkos/cmake/kokkos.cmake
+index 235b7ea..52477cb 100644
+--- a/packages/kokkos/cmake/kokkos.cmake
++++ b/packages/kokkos/cmake/kokkos.cmake
+@@ -985,14 +985,6 @@ ENDIF()
+ SET(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
+     "Installation directory for CMake files")
+ 
+-# Make relative paths absolute (needed later on)
+-FOREACH(p LIB BIN INCLUDE CMAKE)
+-  SET(var INSTALL_${p}_DIR)
+-  IF(NOT IS_ABSOLUTE "${${var}}")
+-    SET(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
+-  ENDIF()
+-ENDFOREACH()
+-
+ # set up include-directories
+ SET (Kokkos_INCLUDE_DIRS
+     ${Kokkos_SOURCE_DIR}/core/src
+@@ -1022,9 +1014,9 @@ IF(KOKKOS_SEPARATE_LIBS)
+ 
+   # Install the kokkoscore library
+   INSTALL (TARGETS kokkoscore
+-           ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
++    ARCHIVE DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    LIBRARY DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    RUNTIME DESTINATION bin
+   )
+ 
+   # Install the kokkoscore headers
+@@ -1059,9 +1051,10 @@ IF(KOKKOS_SEPARATE_LIBS)
+ 
+   # Install the kokkocontainers library
+   INSTALL (TARGETS kokkoscontainers
+-           ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
++    ARCHIVE DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    LIBRARY DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    RUNTIME DESTINATION bin
++    )
+ 
+   # Install the kokkoscontainers headers
+   INSTALL (DIRECTORY
+@@ -1088,9 +1081,10 @@ IF(KOKKOS_SEPARATE_LIBS)
+ 
+   # Install the kokkoalgorithms library
+   INSTALL (TARGETS kokkosalgorithms
+-           ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
++    ARCHIVE DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    LIBRARY DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    RUNTIME DESTINATION bin
++    )
+ 
+   # Install the kokkosalgorithms headers
+   INSTALL (DIRECTORY
+@@ -1128,9 +1122,10 @@ ELSE()
+   # Install the kokkos library
+   INSTALL (TARGETS kokkos
+            EXPORT KokkosTargets
+-           ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-           RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
++    ARCHIVE DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    LIBRARY DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
++    RUNTIME DESTINATION bin
++    )
+ 
+ 
+   # Install the kokkos headers
+diff --git a/packages/kokkos/containers/src/CMakeLists.txt b/packages/kokkos/containers/src/CMakeLists.txt
+index da5a791..65a7c76 100644
+--- a/packages/kokkos/containers/src/CMakeLists.txt
++++ b/packages/kokkos/containers/src/CMakeLists.txt
+@@ -15,7 +15,7 @@ FILE(GLOB HEADERS *.hpp)
+ FILE(GLOB HEADERS_IMPL impl/*.hpp)
+ FILE(GLOB SOURCES impl/*.cpp)
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ INSTALL(FILES ${HEADERS_IMPL} DESTINATION ${TRILINOS_INCDIR}/impl/)
+ 
+diff --git a/packages/kokkos/core/src/CMakeLists.txt b/packages/kokkos/core/src/CMakeLists.txt
+index 492470d..3c8eeea 100644
+--- a/packages/kokkos/core/src/CMakeLists.txt
++++ b/packages/kokkos/core/src/CMakeLists.txt
+@@ -40,7 +40,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/kokkos/core/src/impl/CMakeLists.txt b/packages/kokkos/core/src/impl/CMakeLists.txt
+index c543194..1021f42 100644
+--- a/packages/kokkos/core/src/impl/CMakeLists.txt
++++ b/packages/kokkos/core/src/impl/CMakeLists.txt
+@@ -12,7 +12,7 @@ TRIBITS_ADD_LIBRARY(
+     DEPLIBS 
+     )
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION ${TRILINOS_INCDIR}/impl/)
+ 
+diff --git a/packages/seacas/libraries/exodus/CMakeLists.txt b/packages/seacas/libraries/exodus/CMakeLists.txt
+index 69aca93..9d80c9c 100644
+--- a/packages/seacas/libraries/exodus/CMakeLists.txt
++++ b/packages/seacas/libraries/exodus/CMakeLists.txt
+@@ -52,7 +52,7 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "SEACASProj")
+ 
+    # For backwards compatability, the C exodus library was called libexoIIv2c.a
+    # Create a symbolic link from libexodus.a to libexoIIv2c.a -- do only for static lib
+-   InstallSymLink(libexodus.a ${CMAKE_INSTALL_PREFIX}/lib/libexoIIv2c.a)
++   InstallSymLink(libexodus.a  lib/libexoIIv2c.a)
+ endif()
+ 
+ TRIBITS_ADD_TEST_DIRECTORIES(test)
+diff --git a/packages/seacas/libraries/exodus_for/CMakeLists.txt b/packages/seacas/libraries/exodus_for/CMakeLists.txt
+index 5660c72..f9c0511 100644
+--- a/packages/seacas/libraries/exodus_for/CMakeLists.txt
++++ b/packages/seacas/libraries/exodus_for/CMakeLists.txt
+@@ -34,7 +34,7 @@ if (${CMAKE_PROJECT_NAME} STREQUAL "SEACASProj")
+ 
+   # For backwards compatability, the Fortran exodus library was called libexoIIv2for.a
+   # Create a symbolic link from libexodus_for.a to libexoIIv2for.a -- do only for static lib
+-  InstallSymLink(libexodus_for.a ${CMAKE_INSTALL_PREFIX}/lib/libexoIIv2for.a)
++  InstallSymLink(libexodus_for.a  lib/libexoIIv2for.a)
+ endif()
+ 
+ TRIBITS_ADD_TEST_DIRECTORIES(test)
+diff --git a/packages/seacas/libraries/ioss/src/visualization/ParaViewCatalystIossAdapter/CMakeLists.txt b/packages/seacas/libraries/ioss/src/visualization/ParaViewCatalystIossAdapter/CMakeLists.txt
+index f4704d3..0b4d7c6 100644
+--- a/packages/seacas/libraries/ioss/src/visualization/ParaViewCatalystIossAdapter/CMakeLists.txt
++++ b/packages/seacas/libraries/ioss/src/visualization/ParaViewCatalystIossAdapter/CMakeLists.txt
+@@ -23,11 +23,11 @@ endif()
+ 
+ SET(CMAKE_SKIP_BUILD_RPATH FALSE)
+ SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib" ${PARAVIEW_PYTHON_LIBRARY_RPATH_DIRECTORY})
++SET(CMAKE_INSTALL_RPATH " lib" ${PARAVIEW_PYTHON_LIBRARY_RPATH_DIRECTORY})
+ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+-LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
++LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES " lib" isSystemDir)
+ IF("${isSystemDir}" STREQUAL "-1")
+-   SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
++   SET(CMAKE_INSTALL_RPATH " lib")
+ ENDIF("${isSystemDir}" STREQUAL "-1")
+ 
+ include_directories("include")
+diff --git a/packages/shylu/basker/src/CMakeLists.txt b/packages/shylu/basker/src/CMakeLists.txt
+index b52c4a3..671ca7b 100644
+--- a/packages/shylu/basker/src/CMakeLists.txt
++++ b/packages/shylu/basker/src/CMakeLists.txt
+@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/shylu/bddc/src/CMakeLists.txt b/packages/shylu/bddc/src/CMakeLists.txt
+index bcb8f2e..bfece1a 100644
+--- a/packages/shylu/bddc/src/CMakeLists.txt
++++ b/packages/shylu/bddc/src/CMakeLists.txt
+@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/shylu/fastilu/src/CMakeLists.txt b/packages/shylu/fastilu/src/CMakeLists.txt
+index 9ad8846..e226b30 100644
+--- a/packages/shylu/fastilu/src/CMakeLists.txt
++++ b/packages/shylu/fastilu/src/CMakeLists.txt
+@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/shylu/hts/src/CMakeLists.txt b/packages/shylu/hts/src/CMakeLists.txt
+index d8ec572..c7807f8 100644
+--- a/packages/shylu/hts/src/CMakeLists.txt
++++ b/packages/shylu/hts/src/CMakeLists.txt
+@@ -18,7 +18,7 @@ TRIBITS_CONFIGURE_FILE(${PACKAGE_NAME}_config.h)
+ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ SET(SOURCES shylu_hts.cpp)
+ SET(HEADERS_PUBLIC shylu_hts.hpp shylu_hts_decl.hpp shylu_hts_impl.hpp shylu_hts_impl_def.hpp)
+diff --git a/packages/shylu/tacho/core/src/CMakeLists.txt b/packages/shylu/tacho/core/src/CMakeLists.txt
+index 1e44b1e..b24e994 100644
+--- a/packages/shylu/tacho/core/src/CMakeLists.txt
++++ b/packages/shylu/tacho/core/src/CMakeLists.txt
+@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/shylu/tacho/deprecated/src/CMakeLists.txt b/packages/shylu/tacho/deprecated/src/CMakeLists.txt
+index 54ce6d8..7697514 100644
+--- a/packages/shylu/tacho/deprecated/src/CMakeLists.txt
++++ b/packages/shylu/tacho/deprecated/src/CMakeLists.txt
+@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/shylu/tacho/refactor/src/CMakeLists.txt b/packages/shylu/tacho/refactor/src/CMakeLists.txt
+index e3dd6d1..83abb98 100644
+--- a/packages/shylu/tacho/refactor/src/CMakeLists.txt
++++ b/packages/shylu/tacho/refactor/src/CMakeLists.txt
+@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ #-----------------------------------------------------------------------------
+ 
+diff --git a/packages/stk/stk_classic/stk_adapt/stk_adapt/CMakeLists.txt b/packages/stk/stk_classic/stk_adapt/stk_adapt/CMakeLists.txt
+index 695b21d..4a24142 100644
+--- a/packages/stk/stk_classic/stk_adapt/stk_adapt/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_adapt/stk_adapt/CMakeLists.txt
+@@ -46,7 +46,7 @@ TRIBITS_ADD_LIBRARY(
+ )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_adapt/)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_adapt/)
+ 
+ ADD_SUBDIRECTORY(main)
+ 
+diff --git a/packages/stk/stk_classic/stk_adapt/stk_adapt/sierra_element/CMakeLists.txt b/packages/stk/stk_classic/stk_adapt/stk_adapt/sierra_element/CMakeLists.txt
+index db930be..50fbe8b 100644
+--- a/packages/stk/stk_classic/stk_adapt/stk_adapt/sierra_element/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_adapt/stk_adapt/sierra_element/CMakeLists.txt
+@@ -34,5 +34,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_adapt/sierra_element/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_adapt/sierra_element/)
+ 
+diff --git a/packages/stk/stk_classic/stk_algsup/stk_algsup/CMakeLists.txt b/packages/stk/stk_classic/stk_algsup/stk_algsup/CMakeLists.txt
+index e4b4503..16411f9 100644
+--- a/packages/stk/stk_classic/stk_algsup/stk_algsup/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_algsup/stk_algsup/CMakeLists.txt
+@@ -21,5 +21,5 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_algsup/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_algsup/)
+ 
+diff --git a/packages/stk/stk_classic/stk_expreval/stk_expreval/CMakeLists.txt b/packages/stk/stk_classic/stk_expreval/stk_expreval/CMakeLists.txt
+index ef47a26..c83420b 100644
+--- a/packages/stk/stk_classic/stk_expreval/stk_expreval/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_expreval/stk_expreval/CMakeLists.txt
+@@ -46,4 +46,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_expreval)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_expreval)
+diff --git a/packages/stk/stk_classic/stk_io/stk_io/CMakeLists.txt b/packages/stk/stk_classic/stk_io/stk_io/CMakeLists.txt
+index cf6032d..2d04b5b 100644
+--- a/packages/stk/stk_classic/stk_io/stk_io/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_io/stk_io/CMakeLists.txt
+@@ -49,7 +49,7 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/)
+ 
+ # AGS: I moved this to the bottom so that the link order was correct
+ # with  -lstk_io_uti before -lstk_io.  I think the DEPLIBS added in
+diff --git a/packages/stk/stk_classic/stk_io/stk_io/util/CMakeLists.txt b/packages/stk/stk_classic/stk_io/stk_io/util/CMakeLists.txt
+index e5befd0..da4fac6 100644
+--- a/packages/stk/stk_classic/stk_io/stk_io/util/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_io/stk_io/util/CMakeLists.txt
+@@ -45,4 +45,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/util/)
+diff --git a/packages/stk/stk_classic/stk_mesh/stk_mesh/base/CMakeLists.txt b/packages/stk/stk_classic/stk_mesh/stk_mesh/base/CMakeLists.txt
+index fc50a5b..cc2cf5b 100644
+--- a/packages/stk/stk_classic/stk_mesh/stk_mesh/base/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_mesh/stk_mesh/base/CMakeLists.txt
+@@ -54,7 +54,7 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/base/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/base/)
+ 
+ INSTALL(FILES ${HEADERS_IMPL} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/baseImpl/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/baseImpl/)
+diff --git a/packages/stk/stk_classic/stk_mesh/stk_mesh/fem/CMakeLists.txt b/packages/stk/stk_classic/stk_mesh/stk_mesh/fem/CMakeLists.txt
+index 54ef03e..c1d67db 100644
+--- a/packages/stk/stk_classic/stk_mesh/stk_mesh/fem/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_mesh/stk_mesh/fem/CMakeLists.txt
+@@ -48,5 +48,5 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/fem/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/fem/)
+ 
+diff --git a/packages/stk/stk_classic/stk_mesh/stk_mesh/fixtures/CMakeLists.txt b/packages/stk/stk_classic/stk_mesh/stk_mesh/fixtures/CMakeLists.txt
+index 18e8e08..f0e2a4d 100644
+--- a/packages/stk/stk_classic/stk_mesh/stk_mesh/fixtures/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_mesh/stk_mesh/fixtures/CMakeLists.txt
+@@ -54,4 +54,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/fixtures/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/fixtures/)
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/CMakeLists.txt
+index 854268d..4357edc 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/CMakeLists.txt
+@@ -68,5 +68,5 @@ TRIBITS_ADD_LIBRARY(
+ )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/fixtures/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/fixtures/CMakeLists.txt
+index 10868c3..3fa5425 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/fixtures/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/fixtures/CMakeLists.txt
+@@ -35,5 +35,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/fixtures/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/fixtures/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/function/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/function/CMakeLists.txt
+index a60a1a8..40e0d03 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/function/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/function/CMakeLists.txt
+@@ -37,5 +37,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/function/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/function/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/function/internal/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/function/internal/CMakeLists.txt
+index ebea648..698207f 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/function/internal/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/function/internal/CMakeLists.txt
+@@ -36,5 +36,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/function/internal/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/function/internal/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/math/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/math/CMakeLists.txt
+index 2b256f1..417eebb 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/math/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/math/CMakeLists.txt
+@@ -35,5 +35,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/math/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/math/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/mesh/gen/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/mesh/gen/CMakeLists.txt
+index 2acb307..5680bb1 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/mesh/gen/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/mesh/gen/CMakeLists.txt
+@@ -35,5 +35,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/mesh/gen/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/mesh/gen/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/norm/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/norm/CMakeLists.txt
+index e9c2a8c..9509d0a 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/norm/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/norm/CMakeLists.txt
+@@ -35,5 +35,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/norm/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/norm/)
+ 
+diff --git a/packages/stk/stk_classic/stk_percept/stk_percept/util/CMakeLists.txt b/packages/stk/stk_classic/stk_percept/stk_percept/util/CMakeLists.txt
+index 63ae85d..cb496d0 100644
+--- a/packages/stk/stk_classic/stk_percept/stk_percept/util/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_percept/stk_percept/util/CMakeLists.txt
+@@ -35,5 +35,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_percept/util/)
+ 
+diff --git a/packages/stk/stk_classic/stk_rebalance/stk_rebalance/CMakeLists.txt b/packages/stk/stk_classic/stk_rebalance/stk_rebalance/CMakeLists.txt
+index 9a6f4cc..1248233 100644
+--- a/packages/stk/stk_classic/stk_rebalance/stk_rebalance/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_rebalance/stk_rebalance/CMakeLists.txt
+@@ -46,4 +46,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_rebalance/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_rebalance/)
+diff --git a/packages/stk/stk_classic/stk_rebalance/stk_rebalance_utils/CMakeLists.txt b/packages/stk/stk_classic/stk_rebalance/stk_rebalance_utils/CMakeLists.txt
+index e13d37c..e817940 100644
+--- a/packages/stk/stk_classic/stk_rebalance/stk_rebalance_utils/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_rebalance/stk_rebalance_utils/CMakeLists.txt
+@@ -18,4 +18,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-  ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_rebalance_utils)
++   ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_rebalance_utils)
+diff --git a/packages/stk/stk_classic/stk_search/stk_search/CMakeLists.txt b/packages/stk/stk_classic/stk_search/stk_search/CMakeLists.txt
+index 62e9b60..2c27272 100644
+--- a/packages/stk/stk_classic/stk_search/stk_search/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_search/stk_search/CMakeLists.txt
+@@ -62,4 +62,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search)
+diff --git a/packages/stk/stk_classic/stk_search/stk_search/diag/CMakeLists.txt b/packages/stk/stk_classic/stk_search/stk_search/diag/CMakeLists.txt
+index 63d60b9..a4309d1 100644
+--- a/packages/stk/stk_classic/stk_search/stk_search/diag/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_search/stk_search/diag/CMakeLists.txt
+@@ -34,5 +34,5 @@ ENDIF()
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search/diag/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search/diag/)
+ 
+diff --git a/packages/stk/stk_classic/stk_search_util/stk_search_util/stk_mesh/CMakeLists.txt b/packages/stk/stk_classic/stk_search_util/stk_search_util/stk_mesh/CMakeLists.txt
+index 925daf5..2d42fef 100644
+--- a/packages/stk/stk_classic/stk_search_util/stk_search_util/stk_mesh/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_search_util/stk_search_util/stk_mesh/CMakeLists.txt
+@@ -54,4 +54,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ #INSTALL(FILES ${HEADERS} DESTINATION
+-#    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search)
++#     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search)
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/CMakeLists.txt
+index 4a91d34..956f411 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/CMakeLists.txt
+@@ -16,6 +16,6 @@ ENDIF()
+ TRIBITS_CONFIGURE_FILE(${PACKAGE_NAME}_config.h)
+ 
+ INSTALL(FILES stk_config.h DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/)
+ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/STKClassic_config.h DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/diag/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/diag/CMakeLists.txt
+index 2c0dea4..ea16b39 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/diag/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/diag/CMakeLists.txt
+@@ -82,5 +82,5 @@ TRIBITS_ADD_LIBRARY(
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/diag/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/diag/)
+ 
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/environment/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/environment/CMakeLists.txt
+index 93fc5a9..5965b25 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/environment/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/environment/CMakeLists.txt
+@@ -80,4 +80,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-        ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/environment/)
++         ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/environment/)
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/parallel/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/parallel/CMakeLists.txt
+index 1640ef5..d979eed 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/parallel/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/parallel/CMakeLists.txt
+@@ -61,4 +61,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/parallel/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/parallel/)
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/unit_test_support/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/unit_test_support/CMakeLists.txt
+index 769bd69..76cb55e 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/unit_test_support/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/unit_test_support/CMakeLists.txt
+@@ -50,4 +50,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/unit_test_support/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/unit_test_support/)
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/use_cases/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/use_cases/CMakeLists.txt
+index 4585b22..9177777 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/use_cases/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/use_cases/CMakeLists.txt
+@@ -49,4 +49,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ #INSTALL(FILES ${HEADERS} DESTINATION
+-#    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/use_cases/)
++#     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/use_cases/)
+diff --git a/packages/stk/stk_classic/stk_util/stk_util/util/CMakeLists.txt b/packages/stk/stk_classic/stk_util/stk_util/util/CMakeLists.txt
+index b49c92e..76fab68 100644
+--- a/packages/stk/stk_classic/stk_util/stk_util/util/CMakeLists.txt
++++ b/packages/stk/stk_classic/stk_util/stk_util/util/CMakeLists.txt
+@@ -46,4 +46,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/util/)
+diff --git a/packages/stk/stk_expreval/stk_expreval/CMakeLists.txt b/packages/stk/stk_expreval/stk_expreval/CMakeLists.txt
+index 66e4eb8..806f453 100644
+--- a/packages/stk/stk_expreval/stk_expreval/CMakeLists.txt
++++ b/packages/stk/stk_expreval/stk_expreval/CMakeLists.txt
+@@ -77,4 +77,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_expreval)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_expreval)
+diff --git a/packages/stk/stk_io/stk_io/CMakeLists.txt b/packages/stk/stk_io/stk_io/CMakeLists.txt
+index eac6ed0..d587e6c 100644
+--- a/packages/stk/stk_io/stk_io/CMakeLists.txt
++++ b/packages/stk/stk_io/stk_io/CMakeLists.txt
+@@ -78,7 +78,7 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/)
+ 
+ # AGS: I moved this to the bottom so that the link order was correct
+ # with  -lstk_io_uti before -lstk_io.  I think the DEPLIBS added in
+diff --git a/packages/stk/stk_io/stk_io/util/CMakeLists.txt b/packages/stk/stk_io/stk_io/util/CMakeLists.txt
+index 687821f..0fa165e 100644
+--- a/packages/stk/stk_io/stk_io/util/CMakeLists.txt
++++ b/packages/stk/stk_io/stk_io/util/CMakeLists.txt
+@@ -76,4 +76,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_io/util/)
+diff --git a/packages/stk/stk_mesh/stk_mesh/base/CMakeLists.txt b/packages/stk/stk_mesh/stk_mesh/base/CMakeLists.txt
+index 67bab20..868f7dd 100644
+--- a/packages/stk/stk_mesh/stk_mesh/base/CMakeLists.txt
++++ b/packages/stk/stk_mesh/stk_mesh/base/CMakeLists.txt
+@@ -84,14 +84,14 @@ TRIBITS_ADD_LIBRARY(
+ TRIBITS_CONFIGURE_FILE(${PACKAGE_NAME}_config.h)
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/base/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/base/)
+ 
+ INSTALL(FILES ${HEADERS_IMPL} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/baseImpl/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/baseImpl/)
+ 
+ INSTALL(FILES ${HEADERS_ELEMGRAPH} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/baseImpl/elementGraph)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_mesh/baseImpl/elementGraph)
+ 
+ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}_config.h DESTINATION
+-        ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++         ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+diff --git a/packages/stk/stk_search/stk_search/CMakeLists.txt b/packages/stk/stk_search/stk_search/CMakeLists.txt
+index ae6cc04..2db70c5 100644
+--- a/packages/stk/stk_search/stk_search/CMakeLists.txt
++++ b/packages/stk/stk_search/stk_search/CMakeLists.txt
+@@ -69,4 +69,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search)
+diff --git a/packages/stk/stk_search_util/stk_search_util/CMakeLists.txt b/packages/stk/stk_search_util/stk_search_util/CMakeLists.txt
+index ca6e439..6f3e687 100644
+--- a/packages/stk/stk_search_util/stk_search_util/CMakeLists.txt
++++ b/packages/stk/stk_search_util/stk_search_util/CMakeLists.txt
+@@ -68,5 +68,5 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search_util)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_search_util)
+     
+diff --git a/packages/stk/stk_simd/stk_math/CMakeLists.txt b/packages/stk/stk_simd/stk_math/CMakeLists.txt
+index 2c5028c..73dd3cf 100644
+--- a/packages/stk/stk_simd/stk_math/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_math/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_math)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_math)
+ 
+diff --git a/packages/stk/stk_simd/stk_simd/CMakeLists.txt b/packages/stk/stk_simd/stk_simd/CMakeLists.txt
+index 68dee72..5eea375 100644
+--- a/packages/stk/stk_simd/stk_simd/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_simd/CMakeLists.txt
+@@ -69,5 +69,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/)
+ 
+diff --git a/packages/stk/stk_simd/stk_simd/avx/CMakeLists.txt b/packages/stk/stk_simd/stk_simd/avx/CMakeLists.txt
+index 1cf5b6a..78cccf2 100644
+--- a/packages/stk/stk_simd/stk_simd/avx/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_simd/avx/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/avx)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/avx)
+ 
+diff --git a/packages/stk/stk_simd/stk_simd/avx512/CMakeLists.txt b/packages/stk/stk_simd/stk_simd/avx512/CMakeLists.txt
+index adc5405..7caf056 100644
+--- a/packages/stk/stk_simd/stk_simd/avx512/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_simd/avx512/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/avx512)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/avx512)
+ 
+diff --git a/packages/stk/stk_simd/stk_simd/no_simd/CMakeLists.txt b/packages/stk/stk_simd/stk_simd/no_simd/CMakeLists.txt
+index 7baf709..c200f4f 100644
+--- a/packages/stk/stk_simd/stk_simd/no_simd/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_simd/no_simd/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/no_simd)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/no_simd)
+ 
+diff --git a/packages/stk/stk_simd/stk_simd/sse/CMakeLists.txt b/packages/stk/stk_simd/stk_simd/sse/CMakeLists.txt
+index 970cbc6..9c45e37 100644
+--- a/packages/stk/stk_simd/stk_simd/sse/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_simd/sse/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/sse)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd/sse)
+ 
+diff --git a/packages/stk/stk_simd/stk_simd_view/CMakeLists.txt b/packages/stk/stk_simd/stk_simd_view/CMakeLists.txt
+index b1b5c34..0b73634 100644
+--- a/packages/stk/stk_simd/stk_simd_view/CMakeLists.txt
++++ b/packages/stk/stk_simd/stk_simd_view/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd_view)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_simd_view)
+ 
+diff --git a/packages/stk/stk_topology/stk_topology/CMakeLists.txt b/packages/stk/stk_topology/stk_topology/CMakeLists.txt
+index 6898eea..ec418db 100644
+--- a/packages/stk/stk_topology/stk_topology/CMakeLists.txt
++++ b/packages/stk/stk_topology/stk_topology/CMakeLists.txt
+@@ -71,7 +71,7 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_topology/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_topology/)
+ 
+ INSTALL(FILES ${DETAIL_HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_topology/topology_detail)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_topology/topology_detail)
+diff --git a/packages/stk/stk_transfer/stk_transfer/CMakeLists.txt b/packages/stk/stk_transfer/stk_transfer/CMakeLists.txt
+index e9d96ef..ed20e03 100644
+--- a/packages/stk/stk_transfer/stk_transfer/CMakeLists.txt
++++ b/packages/stk/stk_transfer/stk_transfer/CMakeLists.txt
+@@ -5,7 +5,7 @@
+ FILE(GLOB HEADERS *.hpp)
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_transfer/)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_transfer/)
+ 
+ FILE(GLOB HEADERS_IMPL ${CMAKE_CURRENT_SOURCE_DIR}/copy_by_id/*.hpp)
+ FILE(GLOB SOURCES_IMPL  ${CMAKE_CURRENT_SOURCE_DIR}/copy_by_id/*.cpp)
+diff --git a/packages/stk/stk_unit_test_utils/CMakeLists.txt b/packages/stk/stk_unit_test_utils/CMakeLists.txt
+index 91d6527..42be71d 100644
+--- a/packages/stk/stk_unit_test_utils/CMakeLists.txt
++++ b/packages/stk/stk_unit_test_utils/CMakeLists.txt
+@@ -12,7 +12,7 @@ FILE(GLOB SOURCES *.cpp)
+ LIST(REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/unittestMeshUtils.cpp")
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_unit_test_utils/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_unit_test_utils/)
+     
+ TRIBITS_ADD_LIBRARY(
+   stk_unit_test_utils
+diff --git a/packages/stk/stk_unit_test_utils/comparison/CMakeLists.txt b/packages/stk/stk_unit_test_utils/comparison/CMakeLists.txt
+index 175fe19..196ea02 100644
+--- a/packages/stk/stk_unit_test_utils/comparison/CMakeLists.txt
++++ b/packages/stk/stk_unit_test_utils/comparison/CMakeLists.txt
+@@ -64,5 +64,5 @@ FILE(GLOB HEADERS *.hpp)
+ #
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_unit_test_utils/comparison)
++ ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_unit_test_utils/comparison)
+ 
+diff --git a/packages/stk/stk_unit_tests/stk_mesh_fixtures/CMakeLists.txt b/packages/stk/stk_unit_tests/stk_mesh_fixtures/CMakeLists.txt
+index 650aa7d..88372c8 100644
+--- a/packages/stk/stk_unit_tests/stk_mesh_fixtures/CMakeLists.txt
++++ b/packages/stk/stk_unit_tests/stk_mesh_fixtures/CMakeLists.txt
+@@ -71,4 +71,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_unit_tests/stk_mesh_fixtures)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_unit_tests/stk_mesh_fixtures)
+diff --git a/packages/stk/stk_util/stk_util/CMakeLists.txt b/packages/stk/stk_util/stk_util/CMakeLists.txt
+index 2107505..5027d4e 100644
+--- a/packages/stk/stk_util/stk_util/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/CMakeLists.txt
+@@ -18,6 +18,6 @@ TRIBITS_CONFIGURE_FILE(STK_Trilinos_config.h)
+ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+ 
+ INSTALL(FILES stk_config.h stk_kokkos_macros.h DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/)
+ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/STK_Trilinos_config.h DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/)
+diff --git a/packages/stk/stk_util/stk_util/diag/CMakeLists.txt b/packages/stk/stk_util/stk_util/diag/CMakeLists.txt
+index 3a86247..289aeee 100644
+--- a/packages/stk/stk_util/stk_util/diag/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/diag/CMakeLists.txt
+@@ -75,5 +75,5 @@ TRIBITS_ADD_LIBRARY(
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/diag/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/diag/)
+ 
+diff --git a/packages/stk/stk_util/stk_util/environment/CMakeLists.txt b/packages/stk/stk_util/stk_util/environment/CMakeLists.txt
+index 50c9e86..bae352b 100644
+--- a/packages/stk/stk_util/stk_util/environment/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/environment/CMakeLists.txt
+@@ -73,4 +73,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-        ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/environment/)
++         ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/environment/)
+diff --git a/packages/stk/stk_util/stk_util/parallel/CMakeLists.txt b/packages/stk/stk_util/stk_util/parallel/CMakeLists.txt
+index b6b4635..536172d 100644
+--- a/packages/stk/stk_util/stk_util/parallel/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/parallel/CMakeLists.txt
+@@ -90,4 +90,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/parallel/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/parallel/)
+diff --git a/packages/stk/stk_util/stk_util/registry/CMakeLists.txt b/packages/stk/stk_util/stk_util/registry/CMakeLists.txt
+index 0708dfc..4449b56 100644
+--- a/packages/stk/stk_util/stk_util/registry/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/registry/CMakeLists.txt
+@@ -70,5 +70,5 @@ TRIBITS_ADD_LIBRARY(
+ 
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/registry/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/registry/)
+ 
+diff --git a/packages/stk/stk_util/stk_util/unit_test_support/CMakeLists.txt b/packages/stk/stk_util/stk_util/unit_test_support/CMakeLists.txt
+index 6b92b6b..07ac185 100644
+--- a/packages/stk/stk_util/stk_util/unit_test_support/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/unit_test_support/CMakeLists.txt
+@@ -78,4 +78,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/unit_test_support/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/unit_test_support/)
+diff --git a/packages/stk/stk_util/stk_util/util/CMakeLists.txt b/packages/stk/stk_util/stk_util/util/CMakeLists.txt
+index b90c66b..3a83bb3 100644
+--- a/packages/stk/stk_util/stk_util/util/CMakeLists.txt
++++ b/packages/stk/stk_util/stk_util/util/CMakeLists.txt
+@@ -75,4 +75,4 @@ TRIBITS_ADD_LIBRARY(
+   )
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION
+-    ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/util/)
++     ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR}/stk_util/util/)
+diff --git a/packages/teuchos/kokkoscompat/src/CMakeLists.txt b/packages/teuchos/kokkoscompat/src/CMakeLists.txt
+index 030a7c6..c0d49dc 100644
+--- a/packages/teuchos/kokkoscompat/src/CMakeLists.txt
++++ b/packages/teuchos/kokkoscompat/src/CMakeLists.txt
+@@ -27,7 +27,7 @@ TRIBITS_ADD_LIBRARY(
+ # FIXME (mfh 19 Dec 2014) We should rely on TriBITS to handle
+ # installation.
+ 
+-SET(TRILINOS_INCDIR ${CMAKE_INSTALL_PREFIX}/${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
++SET(TRILINOS_INCDIR ${${PROJECT_NAME}_INSTALL_INCLUDE_DIR})
+ 
+ INSTALL(FILES ${HEADERS} DESTINATION ${TRILINOS_INCDIR}/)
+ 

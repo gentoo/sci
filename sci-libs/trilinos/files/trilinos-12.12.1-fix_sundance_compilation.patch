@@ -1,0 +1,33 @@
+diff --git a/packages/Sundance/Playa/src/NOX_Playa_Vector.cpp b/packages/Sundance/Playa/src/NOX_Playa_Vector.cpp
+index 637936e..3dbf1a9 100644
+--- a/packages/Sundance/Playa/src/NOX_Playa_Vector.cpp
++++ b/packages/Sundance/Playa/src/NOX_Playa_Vector.cpp
+@@ -191,6 +191,14 @@ NOX::Abstract::Vector& NOX::NOXPlaya::Vector::init(double value)
+   return *this;
+ }
+ 
++NOX::Abstract::Vector& NOX::NOXPlaya::Vector::random(bool useSeed, int seed)
++{
++  if (useSeed)
++    Playa::Rand::setLocalSeed(x.comm(), seed);
++  x.randomize();
++  return *this;
++}
++
+ 
+ NOX::Abstract::Vector& NOX::NOXPlaya::Vector::abs(
+ 					     const NOX::Abstract::Vector& base)
+diff --git a/packages/Sundance/Playa/src/NOX_Playa_Vector.hpp b/packages/Sundance/Playa/src/NOX_Playa_Vector.hpp
+index bdf70e2..3143059 100644
+--- a/packages/Sundance/Playa/src/NOX_Playa_Vector.hpp
++++ b/packages/Sundance/Playa/src/NOX_Playa_Vector.hpp
+@@ -116,6 +116,9 @@ public:
+   /** Initialize all elements to a constant */
+   NOX::Abstract::Vector& init(double value);
+ 
++  /** Initialize all elements of this vector with a random value */
++  NOX::Abstract::Vector& random(bool useSeed = false, int seed = 1);
++
+   /** Assignment operator */
+   NOX::Abstract::Vector& operator=(const NOX::NOXPlaya::Vector& y);
+   /** Assignment operator */
