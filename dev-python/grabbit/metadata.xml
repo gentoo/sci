@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		Grabbit is a lightweight Python 3 package for simple queries over filenames
+		within a project. It's geared towards projects or applications with highly
+		structured filenames that allow useful queries to be performed without having
+		to inspect the file metadata or contents.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">grabbles/grabbit</remote-id>
+	</upstream>
+</pkgmetadata>
