@@ -1,0 +1,13 @@
+--- src/Bambus/Bundler/Makefile.am.old	2018-07-03 12:52:17.306095693 +0200
++++ src/Bambus/Bundler/Makefile.am	2018-07-03 12:52:19.506101530 +0200
+@@ -78,8 +78,8 @@
+ ##-- libBundler.a
+ libBundler_a_CPPFLAGS = \
+ 	$(BOOST_CXXFLAGS)  \
+-	-I$(top_builddir)/src/GNU \
+-	-I$(top_builddir)/src/AMOS
++	-I$(top_srcdir)/src/GNU \
++	-I$(top_srcdir)/src/AMOS
+ 	## because some system headers will be built if necessary
+ libBundler_a_LIBADD = \
+ 	$(LIBOBJS:%=$(top_builddir)/src/GNU/%) \

@@ -3,8 +3,10 @@
 
 EAPI=5
 
+PYTHON_COMPAT=( python2_7 )
+
 PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module eutils toolchain-funcs
+inherit perl-module eutils toolchain-funcs autotools flag-o-matic python-single-r1 qmake-utils
 
 AUTOTOOLS_AUTORECONF=true
 inherit autotools-utils git-r3
@@ -36,6 +38,16 @@ RDEPEND="${DEPEND}
 # $ gap-links
 # ERROR:  Could not open file  LIBGUESTFS_PATH=/usr/share/guestfs/appliance/
 # $
+
+src_prepare() {
+	epatch "${FILESDIR}"/"${P}"-fix-include-paths.patch
+	default
+	eautoreconf
+
+	# prevent GCC 6 log pollution due
+	# to hash_map deprecation in C++11
+	append-cxxflags -Wno-cpp
+}
 
 src_install() {
 	default
