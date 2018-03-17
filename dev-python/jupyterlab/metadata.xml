@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>saih792@outlook.com</email>
+		<name>Sora Lee</name>
+		<description>Please assign bugs here</description>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+An extensible environment for interactive and reproducible computing, based on the Jupyter Notebook and Architecture. JupyterLab is the next-generation user interface for Project Jupyter. It offers all the familiar building blocks of the classic Jupyter Notebook (notebook, terminal, text editor, file browser, rich outputs, etc.) in a flexible and powerful user inteface that can be extended through third party extensions. Eventually, JupyterLab will replace the classic Jupyter Notebook after JupyterLab reaches 1.0. JupyterLab is currently in beta. The beta releases are suitable for general usage. For JupyterLab extension developers, the extension APIs will continue to evolve until the 1.0 release.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">jupyterlab</remote-id>
+		<remote-id type="github">jupyterlab/jupyterlab</remote-id>
+	</upstream>
+</pkgmetadata>
