@@ -23,6 +23,7 @@ Build an additional debug library with extra debug codepaths, like asserts
 and extra output. If you want to get meaningful backtraces see
 &lt;http://www.gentoo.org/proj/en/qa/backtraces.xml&gt;</flag>
 		<flag name="c++11">Compile the library with -std=c++11</flag>
+		<flag name="gmsh">Add support for gmsh (<pkg>sci-libs/gmsh</pkg>)</flag>
 		<flag name="mesh_converter">Build and install the mesh_converter executable</flag>
 		<flag name="metis">Add support for metis (<pkg>sci-libs/metis</pkg>)</flag>
 		<flag name="mumps">Add support for mumps (<pkg>sci-libs/mumps</pkg>)</flag>
@@ -32,6 +33,7 @@ and extra output. If you want to get meaningful backtraces see
 		<flag name="p4est">Add support for p4est (<pkg>sci-mathematics/p4est</pkg>)</flag>
 		<flag name="parameter_gui">Build and install the parameter_gui executable</flag>
 		<flag name="petsc">Add support for petsc (<pkg>sci-mathematics/petsc</pkg>)</flag>
+		<flag name="scalapack">Add support for ScaLAPACK (<pkg>sci-libs/scalapack</pkg>)</flag>
 		<flag name="slepc">Add support for slepc (<pkg>sci-mathematics/slepc</pkg>)</flag>
 		<flag name="sparse">Add support for suitesparse (<pkg>sci-libs/suitesparse</pkg>)</flag>
 		<flag name="tbb">Add threading support with the help of the tbb library (<pkg>dev-cpp/tbb</pkg>)</flag>

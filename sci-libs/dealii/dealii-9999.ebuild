@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -34,9 +34,9 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
 	adolc assimp arpack cpu_flags_x86_avx cpu_flags_x86_sse2 cuda +debug
-	doc +examples +gsl hdf5 +lapack metis mpi muparser nanoflann
-	opencascade netcdf p4est petsc slepc +sparse static-libs sundials +tbb
-	trilinos
+	doc +examples gmsh +gsl hdf5 +lapack metis mpi muparser nanoflann
+	opencascade netcdf p4est petsc scalapack slepc +sparse static-libs
+	sundials +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -52,6 +52,7 @@ RDEPEND="dev-libs/boost
 	arpack? ( sci-libs/arpack[mpi=] )
 	assimp? ( media-libs/assimp )
 	cuda? ( dev-util/nvidia-cuda-sdk )
+	gmsh? ( sci-libs/gmsh )
 	gsl? ( sci-libs/gsl )
 	hdf5? ( sci-libs/hdf5[mpi=] )
 	lapack? ( virtual/lapack )
@@ -63,6 +64,7 @@ RDEPEND="dev-libs/boost
 	opencascade? ( sci-libs/opencascade:* )
 	p4est? ( sci-libs/p4est[mpi] )
 	petsc? ( sci-mathematics/petsc[mpi=] )
+	scalapack? ( sci-libs/scalapack )
 	slepc? ( sci-mathematics/slepc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	sundials? ( sci-libs/sundials )
@@ -100,6 +102,7 @@ src_configure() {
 		-DDEAL_II_HAVE_SSE2="$(usex cpu_flags_x86_sse2)"
 		-DDEAL_II_COMPONENT_DOCUMENTATION="$(usex doc)"
 		-DDEAL_II_COMPONENT_EXAMPLES="$(usex examples)"
+		-DDEAL_II_WITH_GMSH="$(usex gmsh)"
 		-DDEAL_II_WITH_GSL="$(usex gsl)"
 		-DDEAL_II_WITH_HDF5="$(usex hdf5)"
 		-DDEAL_II_WITH_LAPACK="$(usex lapack)"
@@ -112,6 +115,7 @@ src_configure() {
 		-DDEAL_II_WITH_OPENCASCADE="$(usex opencascade)"
 		-DDEAL_II_WITH_P4EST="$(usex p4est)"
 		-DDEAL_II_WITH_PETSC="$(usex petsc)"
+		-DDEAL_II_WITH_SCALAPACK="$(usex scalapack)"
 		-DDEAL_II_WITH_SLEPC="$(usex slepc)"
 		-DDEAL_II_WITH_SUNDIALS="$(usex sundials)"
 		-DDEAL_II_WITH_UMFPACK="$(usex sparse)"
