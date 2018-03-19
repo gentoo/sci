@@ -23,11 +23,12 @@ IUSE="afterimage boost complex-scalars cxx debug doc fftw
 # if both are enabled
 REQUIRED_USE="
 	afterimage? ( X )
+	complex-scalars? ( !hypre !superlu )
 	hdf5? ( mpi )
-	hypre? ( cxx mpi )
+	hypre? ( cxx mpi !superlu )
 	mumps? ( mpi scotch )
 	scotch? ( mpi )
-	^^ ( hypre superlu )
+	superlu? ( !hypre )
 "
 
 RDEPEND="
