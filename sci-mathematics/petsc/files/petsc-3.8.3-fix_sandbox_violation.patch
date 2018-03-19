@@ -1,0 +1,17 @@
+diff --git a/config/PETSc/options/installDir.py b/config/PETSc/options/installDir.py
+index 975dc8a..c216941 100644
+--- a/config/PETSc/options/installDir.py
++++ b/config/PETSc/options/installDir.py
+@@ -39,12 +39,6 @@ class Configure(config.base.Configure):
+     if self.framework.argDB['prefix']:
+       self.dir = os.path.abspath(os.path.expanduser(self.framework.argDB['prefix']))
+       self.addMakeMacro('PREFIXDIR',self.dir)
+-      try:
+-        os.makedirs(os.path.join(self.dir,'PETScTestDirectory'))
+-        os.rmdir(os.path.join(self.dir,'PETScTestDirectory'))
+-      except:
+-        self.installSudoMessage = 'You do not have write permissions to the --prefix directory '+self.dir+'\nYou will be prompted for the sudo password for any external package installs'
+-        self.installSudo = 'sudo '
+     else:
+       self.dir = os.path.abspath(os.path.join(self.petscdir.dir, self.arch.arch))
+     self.confDir = os.path.abspath(os.path.join(self.petscdir.dir, self.arch.arch))
