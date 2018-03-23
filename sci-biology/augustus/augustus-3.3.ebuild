@@ -30,6 +30,10 @@ src_prepare() {
 	# epatch "${FILESDIR}"/${P}-sane-build.patch
 	tc-export CC CXX
 	sed -e 's/ -O3//g' -i src/Makefile || die
+	# enable comparative gene prediction (needs c++11 compiler)
+	sed -e 's/^# COMPGENEPRED/COMPGENEPRED/' -i common.mk || die
+	# respect $EPREFIX
+	sed -e 's#^INCLUDES = /usr/include/bamtools#INCLUDES = ${EPREFIX}/usr/include/bamtools#' -i auxprogs/bam2hints/Makefile || die
 }
 
 src_compile() {
