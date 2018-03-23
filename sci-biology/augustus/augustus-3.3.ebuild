@@ -17,7 +17,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
+# TODO: provide USE for mysql and sqlite, edit src/Makefile to reflect paths
+#       and common.mk 
 RDEPEND="
+	sci-mathematics/lpsolve
 	sci-libs/gsl
 	dev-libs/boost
 	sys-libs/zlib"
@@ -30,10 +33,13 @@ src_prepare() {
 	# epatch "${FILESDIR}"/${P}-sane-build.patch
 	tc-export CC CXX
 	sed -e 's/ -O3//g' -i src/Makefile || die
-	# enable comparative gene prediction (needs c++11 compiler)
+	# enable comparative gene prediction (needs c++11 compiler),
+	#    this needs sci-mathematics/lpsolve
 	sed -e 's/^# COMPGENEPRED/COMPGENEPRED/' -i common.mk || die
-	# respect $EPREFIX
-	sed -e 's#^INCLUDES = /usr/include/bamtools#INCLUDES = ${EPREFIX}/usr/include/bamtools#' -i auxprogs/bam2hints/Makefile || die
+	# respect $EPREFIX at src/Makefile, auxprogs/bam2hints/Makefile, more?
+	find . -name Makefile | while read f; do \
+		sed -s 's#/usr/include#${EPREFIX}/usr/include#' -i $f || die;
+	done
 }
 
 src_compile() {
