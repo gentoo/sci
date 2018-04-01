@@ -6,8 +6,8 @@ EAPI=6
 inherit cmake-utils
 
 DESCRIPTION="Population genetics analysis"
-HOMEPAGE="http://genepop.curtin.edu.au/ http://kimura.univ-montp2.fr/~rousset/Genepop.htm"
-SRC_URI="http://kimura.univ-montp2.fr/%7Erousset/GenepopV4.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://genepop.curtin.edu.au/ https://kimura.univ-montp2.fr/~rousset/Genepop.htm"
+SRC_URI="https://kimura.univ-montp2.fr/%7Erousset/GenepopV4.tar.gz -> ${P}.tar.gz"
 
 LICENSE="CeCILL-2"
 SLOT="0"
