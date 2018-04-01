@@ -5,6 +5,8 @@ EAPI=6
 
 [ "$PV" == "9999" ] && inherit git-r3
 
+inherit perl-functions toolchain-funcs
+
 DESCRIPTION="Error correct PacBio subreads using Illumina reads"
 HOMEPAGE="https://github.com/BioInf-Wuerzburg/proovread"
 if [ "$PV" == "9999" ]; then
@@ -39,6 +41,8 @@ src_install(){
 	dobin bin/SeqFilter
 	cd ../../util/SeqChunker || die
 	dobin bin/*
+	cd ../../lib || die
+	perl_domodule -r -C ${PN} *
 	# cd ../util/blasr-1.3.1 || die
 	# dobin blasr
 	# dodoc LICENSE.txt
