@@ -1,13 +1,13 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
 inherit java-pkg-2
 
 DESCRIPTION="Fix assembled reference using BAM-aligned reads, call SNPs"
-HOMEPAGE="https://github.com/broadinstitute/pilon
+HOMEPAGE="
+	https://github.com/broadinstitute/pilon
 	https://github.com/broadinstitute/pilon/wiki"
 SRC_URI="https://github.com/broadinstitute/pilon/releases/download/v${PV}/pilon-${PV}.jar"
 
