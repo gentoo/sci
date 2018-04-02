@@ -1,11 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 inherit cmake-utils rpm
-
-DESCRIPTION="Synchronize files from CERNbox EOS with your computer"
 
 # Origin is classic owncloud-client, branded for CERN during compilation.
 ORIGIN_P="owncloudclient"
@@ -13,8 +11,10 @@ BRANDED_P="cernbox"
 BRANDED_PV="2.2.4"
 BRANDED_REL="1.1"
 
+DESCRIPTION="Synchronize files from CERNbox EOS with your computer"
 HOMEPAGE="https://cernbox.cern.ch/"
-SRC_URI="http://download.owncloud.com/desktop/stable/${ORIGIN_P}-${PV}.tar.xz
+SRC_URI="
+	http://download.owncloud.com/desktop/stable/${ORIGIN_P}-${PV}.tar.xz
 	https://cernbox.cern.ch/cernbox/doc/Linux/repo/CentOS_7/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm"
 
 LICENSE="CC-BY-3.0 GPL-2"
@@ -22,8 +22,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc dolphin nautilus samba +sftp test"
 
-COMMON_DEPEND=">=dev-db/sqlite-3.4:3
-	dev-libs/qtkeychain[qt5]
+COMMON_DEPEND="
+	>=dev-db/sqlite-3.4:3
+	dev-libs/qtkeychain
 	dev-qt/qtconcurrent:5
 	dev-qt/qtcore:5
 	dev-qt/qtdbus:5
