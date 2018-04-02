@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -35,9 +35,8 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
 	app-text/dos2unix
-	>=virtual/jdk-1.8"
-RDEPEND="${DEPEND}
-		>=virtual/jre-1.8"
+	>=virtual/jdk-1.8:*"
+RDEPEND="${DEPEND}"
 # contains bundled sqlite-jdbc-3.8.6.jar, samtools-linux64.jar, picard.jar
 # sqlite-jdbc-3.8.6.jar is not dev-db/sqlite:3 and samtools-linux64.jar is not sci-biology/samtools either
 # replacing picard.jar with a symlink to picard.jar from sci-biology.picard does not help either
