@@ -17,7 +17,7 @@ else
 	KEYWORDS="~amd64 ~x86" # issue #125
 fi
 
-LICENSE="proovread" # Artistic-2.0 or GPL-3 but not for commercial
+LICENSE="Artistic-2 GPL-3"
 SLOT="0"
 IUSE=""
 
