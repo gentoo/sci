@@ -16,7 +16,7 @@ SLOT="0"
 
 IUSE="
 	adolc arprec boost clp cppunit cuda eigen glpk gtest hdf5 hwloc hypre
-	matio metis mkl mumps netcdf petsc qd qt scalapack scotch sparse
+	matio metis mkl mumps netcdf petsc qd qt5 scalapack scotch sparse
 	superlu taucs tbb test threads tvmet yaml zlib X
 "
 
@@ -45,7 +45,7 @@ RDEPEND="
 	netcdf? ( sci-libs/netcdf )
 	petsc? ( sci-mathematics/petsc )
 	qd? ( sci-libs/qd )
-	qt? ( dev-qt/qtgui )
+	qt5? ( dev-qt/qtgui:5= )
 	scalapack? ( virtual/scalapack )
 	scotch? ( sci-libs/scotch )
 	sparse? ( sci-libs/cxsparse sci-libs/umfpack )
@@ -128,7 +128,7 @@ src_configure() {
 		-DTPL_ENABLE_PETSC="$(usex petsc)"
 		-DTPL_ENABLE_Pthread="$(usex threads)"
 		-DTPL_ENABLE_QD="$(usex qd)"
-		-DTPL_ENABLE_QT="$(usex qt)"
+		-DTPL_ENABLE_QT="$(usex qt5)"
 		-DTPL_ENABLE_SCALAPACK="$(usex scalapack)"
 		-DTPL_ENABLE_Scotch="$(usex scotch)"
 		-DTPL_ENABLE_SuperLU="$(usex superlu)"
