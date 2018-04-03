@@ -11,7 +11,7 @@ inherit intel-sdp-r1
 DESCRIPTION="Common libraries and utilities needed for Intel compilers and libraries"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-compilers/"
 
-IUSE="+compiler doc mpi openmp l10n_ja"
+IUSE="+compiler doc +mpi +openmp"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 CHECKREQS_DISK_BUILD=750M
