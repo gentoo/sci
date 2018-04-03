@@ -11,7 +11,7 @@ inherit intel-sdp-r1
 DESCRIPTION="Intel C/C++ Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
-IUSE="doc examples l10n_ja"
+IUSE="doc"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 # avoid file collision with ifc #476330
