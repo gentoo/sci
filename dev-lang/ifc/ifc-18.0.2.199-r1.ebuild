@@ -11,7 +11,7 @@ inherit intel-sdp-r1
 DESCRIPTION="Intel FORTRAN Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
-IUSE="doc l10n_ja"
+IUSE="doc"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="~dev-libs/intel-common-${PV}[compiler]"
