@@ -15,6 +15,5 @@ license. Please see license terms and home page for proper use.
 </longdescription>
 	<use>
 		<flag name="int64">Build the 64 bits integer library</flag>
-		<flag name="mic">Install the libraries needed for supporting Intel Many Integrated Core (Xeon Phi)</flag>
 	</use>
 </pkgmetadata>
