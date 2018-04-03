@@ -11,6 +11,5 @@ compilers and libraries. Probably useless if installed standalone.
 </longdescription>
 	<use>
 		<flag name="compiler">Install the libraries needed for the icc and ifort compilers</flag>
-		<flag name="mic">Install the libraries needed for supporting Intel Many Integrated Core (Xeon Phi)</flag>
 	</use>
 </pkgmetadata>
