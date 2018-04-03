@@ -21,17 +21,6 @@ case "${EAPI}" in
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
-# @ECLASS-VARIABLE: INTEL_DIST_SKU
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# The package download ID from Intel.
-# To determine its value, see the links to download in
-# https://registrationcenter.intel.com/RegCenter/MyProducts.aspx
-#
-# e.g. 8365
-#
-# Must be defined before inheriting the eclass.
-
 # @ECLASS-VARIABLE: INTEL_DIST_NAME
 # @DESCRIPTION:
 # The package name to download from Intel.
@@ -85,13 +74,6 @@ esac
 # Main subdirectory which contains the rpms to extract.
 : ${INTEL_RPMS_DIR:=rpm}
 
-# @ECLASS-VARIABLE: INTEL_X86
-# @DESCRIPTION:
-# 32bit arch in rpm names
-#
-# e.g. i486
-: ${INTEL_X86:=i486}
-
 # @ECLASS-VARIABLE: INTEL_DIST_BIN_RPMS
 # @DESCRIPTION:
 # Functional name of rpm without any version/arch tag.
@@ -136,23 +118,6 @@ esac
 # the combined tarball.
 : ${INTEL_DIST_SPLIT_ARCH:=false}
 
-# @FUNCTION: _isdp_get-sdp-full-pv
-# @INTERNAL
-# @DESCRIPTION:
-# Gets the full internal Intel version specifier.
-_isdp_get-sdp-full-pv() {
-	local _intel_pv=($(get_version_components))
-	case ${#_intel_pv[@]} in
-		3)
-			local _intel_pv_full="${_intel_pv[0]}.${_intel_pv[1]}-${_intel_pv[2]}"
-			;;
-		4)
-			local _intel_pv_full="${_intel_pv[3]}-${_intel_pv[0]}.${_intel_pv[1]}.${_intel_pv[2]}-${_intel_pv[3]}"
-			;;
-	esac
-	echo "${_intel_pv_full}"
-}
-
 # @FUNCTION: _isdp_get-sdp-year
 # @INTERNAL
 # @DESCRIPTION:
@@ -170,8 +135,9 @@ _isdp_get-sdp-year() {
 # Gets the full rootless path to the installation directory
 #
 #     e.g. opt/intel/compilers_and_libraries_2016.1.150
+#          opt/intel/vtune_amplifier_2018.2.0.551022
 isdp_get-sdp-dir() {
-	local _intel_sdp_dir="opt/intel/${INTEL_SUBDIR}_$(_isdp_get-sdp-year).$(get_version_component_range 3-4)"
+	local _intel_sdp_dir="opt/intel/${INTEL_SUBDIR}_$(_isdp_get-sdp-year).$(get_version_component_range 3-)"
 	echo "${_intel_sdp_dir}"
 }
 
@@ -185,22 +151,13 @@ isdp_get-sdp-edir() {
 	echo "${_intel_sdp_edir}"
 }
 
-_INTEL_URI="http://registrationcenter-download.intel.com/akdlm/irc_nas/${INTEL_DIST_SKU}/${INTEL_DIST_NAME}"
-if [[ "${INTEL_DIST_SPLIT_ARCH}" != true ]]; then
-	SRC_URI="${_INTEL_URI}_${INTEL_DIST_PV}.${INTEL_DIST_TARX}"
-else
-	SRC_URI="
-		abi_x86_32? ( ${_INTEL_URI}_${INTEL_DIST_PV}_ia32.${INTEL_DIST_TARX} )
-		abi_x86_64? ( ${_INTEL_URI}_${INTEL_DIST_PV}_intel64.${INTEL_DIST_TARX} )"
-fi
-unset _INTEL_URI
-
+SRC_URI="${INTEL_DIST_NAME}_${INTEL_DIST_PV}.${INTEL_DIST_TARX}"
 LICENSE="Intel-SDP"
 # TODO: Proper slotting
 # Future work, #394411
 SLOT="0"
 
-RESTRICT="mirror"
+RESTRICT="mirror fetch"
 
 RDEPEND=""
 DEPEND="app-arch/rpm2targz"
@@ -252,78 +209,41 @@ isdp_get-sdp-installed-arches() {
 	echo "${arch[*]}"
 }
 
-# @FUNCTION: _isdp_get-sdp-source-rpm-arches
-# @INTERNAL
-# @DESCRIPTION:
-# Returns a space separated list of the arch suffixes used in the RPM filenames, e.g.
-#
-#    intel-openmp-l-all-150-16.0.1-150.i486.rpm
-#    intel-openmp-l-all-150-16.0.1-150.x86_64.rpm
-#
-# the result would consist of "i486 x86_64".
-_isdp_get-sdp-source-rpm-arches() {
-	local arch=()
-	use abi_x86_64 && arch+=("x86_64")
-	use abi_x86_32 && arch+=("${INTEL_X86}")
-	echo "${arch[*]}"
-}
-
 # @FUNCTION: _isdp_generate-list-install-rpms
 # @INTERNAL
 # @DESCRIPTION:
 # Generates the list of fully expanded RPMs to be extracted.
 _isdp_generate-list-install-rpms() {
-	debug-print-function ${FUNCNAME} "${@}" 
+	debug-print-function ${FUNCNAME} "${@}"
 
 	# Expand components into full RPM filenames
 	expand_component_into_full_rpm() {
 		local deref_var="${1}[@]"
-		local arch="${2}"
-		local p a rpm_prefix rpm_suffix expanded_full_rpms=()
+		local p rpm_prefix expanded_full_rpms=()
 
 		for p in "${!deref_var}"; do
-			for a in ${arch}; do
-				# check if a directory is prefixed
-				if [[ "${p}" == "${p##*/}" ]]; then
-					rpm_prefix="${INTEL_RPMS_DIR}/intel-"
-				else
-					rpm_prefix=""
-				fi
-
-				# check for variables ending in ".rpm"
-				# these are excluded from version expansion, due to Intel's
-				# idiosyncratic versioning scheme beginning with their 2016
-				# suite of tools. For instance
-				#
-				#     intel-ccompxe-2016.1-056.noarch.rpm
-				#
-				# which is completely unpredictable using versions
-				if [[ "${p}" == *.rpm ]]; then
-					rpm_suffix=""
-				else
-					rpm_suffix="-$(_isdp_get-sdp-full-pv).${a}.rpm"
-				fi
-
-				expanded_full_rpms+=( "${rpm_prefix}${p}${rpm_suffix}" )
-			done
+			# check if a directory is prefixed
+			if [[ "${p}" == "${p##*/}" ]]; then
+				rpm_prefix="${INTEL_RPMS_DIR}/intel-"
+			else
+				rpm_prefix=""
+			fi
+			expanded_full_rpms+=( "${rpm_prefix}${p}" )
 		done
 		echo ${expanded_full_rpms[*]}
 	}
 
 	local vars_to_expand=("INTEL_DIST_BIN_RPMS" "INTEL_DIST_DAT_RPMS")
-	local vars_to_expand_suffixes=("$(_isdp_get-sdp-source-rpm-arches)" "noarch")
 	if use abi_x86_32; then
 		vars_to_expand+=("INTEL_DIST_X86_RPMS")
-		vars_to_expand_suffixes+=("${INTEL_X86}")
 	fi
 	if use abi_x86_64; then
 		vars_to_expand+=("INTEL_DIST_AMD64_RPMS")
-		vars_to_expand_suffixes+=("x86_64")
 	fi
 
 	local i fully_expanded_intel_rpms=()
 	for ((i=0; i<${#vars_to_expand[@]}; i++)); do
-		fully_expanded_intel_rpms+=($(expand_component_into_full_rpm "${vars_to_expand[i]}" "${vars_to_expand_suffixes[i]}"))
+		fully_expanded_intel_rpms+=($(expand_component_into_full_rpm "${vars_to_expand[i]}"))
 	done
 	echo ${fully_expanded_intel_rpms[*]}
 }
@@ -352,11 +272,6 @@ _isdp_big-warning() {
 	ewarn "To receive a non-commercial license, you need to register at:"
 	ewarn "https://software.intel.com/en-us/qualify-for-free-software"
 	ewarn "Install the license file into ${EPREFIX}/opt/intel/licenses"
-	ewarn
-	ewarn "Beginning with the 2016 suite of tools, license files are keyed"
-	ewarn "to the MAC address of the eth0 interface. In order to retrieve"
-	ewarn "a personalized license file, follow the instructions at"
-	ewarn "https://software.intel.com/en-us/articles/how-do-i-get-my-license-file-for-intel-parallel-studio-xe-2016"
 
 	case ${1} in
 		pre-check )
@@ -471,6 +386,17 @@ intel-sdp-r1_pkg_pretend() {
 	fi
 }
 
+# @FUNCTION: intel-sdp-r1_pkg_nofetch
+# @DESCRIPTION:
+# Advice user to download the parallel studio tarball
+pkg_nofetch() {
+	einfo "Please download"
+	einfo "    ${SRC_URI}"
+	einfo "from"
+	einfo "    https://registrationcenter.intel.com/RegCenter/MyProducts.aspx"
+	einfo "and place the tarball in your DISTDIR directory."
+}
+
 # @FUNCTION: intel-sdp-r1_src_unpack
 # @DESCRIPTION:
 # Unpacking necessary rpms from tarball, extract them and rearrange the output.
@@ -511,15 +437,6 @@ intel-sdp-r1_src_install() {
 		rm -r "${i}" || die
 	done < <(find opt -regextype posix-extended -regex '.*(uninstall|uninstall.sh)$' -print0)
 	eend
-
-	# remove remaining japanese stuff
-	if ! use l10n_ja; then
-		ebegin "Cleaning out japanese language directories"
-		while IFS='\n' read -r -d '' i; do
-			rm -r "${i}" || die
-		done < <(find opt -type d -regextype posix-extended -regex '.*(ja|ja_JP)$' -print0)
-		eend
-	fi
 
 	# handle documentation
 	if path_exists "opt/intel/documentation_$(_isdp_get-sdp-year)"; then
