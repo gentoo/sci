@@ -5,7 +5,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{3,4,5,6} )
 
-inherit distutils-r1 eutils
+inherit python-r1 distutils-r1 eutils
 
 DESCRIPTION="Library for numerical computation using data flow graphs"
 HOMEPAGE="https://www.tensorflow.org
@@ -27,6 +27,7 @@ DEPEND="dev-util/bazel
 	dev-python/wheel
 	dev-python/numpy
 	dev-libs/protobuf-c
+	dev-python/absl-py
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-7.0[profiler] >=dev-libs/cudnn-3 )
 	mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
@@ -39,5 +40,40 @@ src_configure(){
 	# https://www.tensorflow.org/install/install_linux#InstallingNativePip
 	#
 	# usage: configure.py [-h] [--workspace WORKSPACE]
-	./configure || die
+		python_configure() {
+		export PYTHON_BIN_PATH=${PYTHON}
+		export PYTHON_LIB_PATH=${PYTHON_SITEDIR}
+		export TF_NEED_JEMALLOC=1
+		export TF_NEED_GCP=0
+		export TF_NEED_HDFS=0
+		export TF_NEED_S3=0
+		export TF_NEED_KAFKA=0
+		export TF_ENABLE_XLA=0
+		export TF_NEED_GDR=0
+		export TF_NEED_VERBS=0
+		export TF_NEED_OPENCL=0
+		export TF_NEED_CUDA=0
+		export TF_NEED_MPI=0
+		export TF_NEED_OPENCL_SYCL=0
+		export CC_OPT_FLAGS=${CFLAGS}
+		export JAVA_HOME=$(java-config -O)
+		# TODO: protect by a USE flag test --config=mkl
+		./configure || die
+	}
+	python_foreach_impl python_configure
+}
+
+
+src_compile() {
+	python_compile() {
+		# huh, by default tensorflow links static libs? See BUILD file
+		# set framework_shared_object=true somehow
+		bazel build --config=opt /tensorflow/tools/pip_package:build_pip_package || die
+		bazel-bin/tensorflow/tools/pip_package/build_pip_package tensorflow_pkg || die
+		unzip -o -d tensorflow_pkg tensorflow_pkg/${P}-cp35-cp35m-linux_x86_64.whl || die
+		python_domodule tensorflow_pkg/${P}.data/purelib/tensorflow
+		bazel test || die
+		bazel shutdown || die
+	}
+	python_foreach_impl python_compile
 }
