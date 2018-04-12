@@ -1,15 +1,15 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-DESCRIPTION="Tools for bioinformatics (notably Tallymer, Readjoiner, gff3validator)"
+DESCRIPTION="Tools for bioinformatics (Tallymer, Readjoiner, gff3validator, ...)"
 HOMEPAGE="http://genometools.org"
 SRC_URI="http://genometools.org/pub/${P}.tar.gz"
 
 LICENSE="ICS"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
