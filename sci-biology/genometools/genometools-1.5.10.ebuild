@@ -18,7 +18,7 @@ DEPEND="
 	cairo? ( x11-libs/cairo )
 	sci-biology/samtools:0.1-legacy
 	dev-db/sqlite:3
-	dev-lang/lua
+	dev-lang/lua:*
 	dev-lua/lpeg
 	dev-lua/luafilesystem
 	dev-libs/tre"
