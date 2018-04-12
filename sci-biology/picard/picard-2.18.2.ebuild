@@ -46,7 +46,8 @@ src_compile(){
 	# work around gradle writing $HOME/.gradle, requiring $HOME/.git and $HOME/.m2/
 	# https://github.com/samtools/htsjdk/issues/660#issuecomment-232155965
 	# make jure SDK-1.8 is available, JRE-1.8 is not enough
-	GRADLE_USER_HOME="${WORKDIR}" ./gradlew --stacktrace --debug || die
+	# see more gradlew arg options in build.xml, especially jar versus shadowJar
+	GRADLE_USER_HOME="${WORKDIR}" ./gradlew --stacktrace --debug compileJava jar || die
 }
 
 src_install() {
