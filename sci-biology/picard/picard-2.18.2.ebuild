@@ -12,7 +12,7 @@ DESCRIPTION="Java-based command-line utilities that manipulate SAM/BAM/CRAM/VCF 
 HOMEPAGE="http://picard.sourceforge.net
 	http://broadinstitute.github.io/picard"
 EGIT_REPO_URI="https://github.com/broadinstitute/picard.git"
-EGIT_BRANCH="${PV}"
+EGIT_COMMIT="${PV}"
 # building outside of git is not possible,
 # see https://github.com/broadinstitute/picard/issues/605
 #SRC_URI="https://github.com/broadinstitute/picard/archive/${PV}.tar.gz -> ${P}.tar.gz"
