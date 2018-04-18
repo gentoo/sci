@@ -77,9 +77,9 @@ src_compile() {
 		# huh, by default tensorflow links static libs? See BUILD file
 		# set framework_shared_object=true somehow
 		if use cuda; then
-			opt="--config=cuda"
+			local opt="--config=cuda"
 		else
-			opt=""
+			local opt=""
 		fi
 		bazel build --config=opt ${opt} /tensorflow/tools/pip_package:build_pip_package || die
 		bazel-bin/tensorflow/tools/pip_package/build_pip_package tensorflow_pkg || die
@@ -97,8 +97,14 @@ src_test() {
 
 src_install() {
 	python_install() {
-		python_copy_sources tensorflow_pkg/${P}.data/purelib/tensorflow/
-		python_copy_sources tensorflow_pkg/${P}.dist-info
+		# steal site-package path determination from sci-mathematics/z3
+		local PYTHON_SITEDIR
+		python_export PYTHON_SITEDIR
+		cp -av tensorflow_pkg/"${P}".data/purelib/tensorflow/ "$PYTHON_SITEDIR" || die
+		cp -av tensorflow_pkg/"${P}".dist-info "$PYTHON_SITEDIR" || die
+		# mkdir -p "${D}/usr/$(get_libdir)/python3.6/site-packages" || die
+		# cp -av tensorflow_pkg/"${P}".data/purelib/tensorflow/ "${ED}/usr/$(get_libdir)/python3.6/site-packages/" || die
+		# cp -av tensorflow_pkg/"${P}".dist-info "${ED}/usr/$(get_libdir)/python3.6/site-packages/" || die
 	}
 	python_foreach_impl python_install
 	einstalldocs
