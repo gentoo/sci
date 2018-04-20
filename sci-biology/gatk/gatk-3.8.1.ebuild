@@ -5,11 +5,12 @@ EAPI=5
 
 inherit java-pkg-2 git-r3 # building from tar.gz snapshots is unsupported
 
-# fetch -3.8-1.tar.gz
-MY_PV=${PV/.1/-1}
+MY_PV=${PV/.1/-1} # convert 3.8.1 to 3.8-1
 DESCRIPTION="The Genome Analysis Toolkit"
 HOMEPAGE="http://www.broadinstitute.org/gsa/wiki/index.php/The_Genome_Analysis_Toolkit"
-EGIT_REPO_URI="https://github.com/broadgsa/gatk.git"
+EGIT_REPO_URI="https://github.com/broadgsa/gatk.git" # git tree for <=gatk-3
+# check out 3.8-1 branch but using a proper commit, not ${MY_PV}
+# https://github.com/broadinstitute/gatk/issues/4685#issuecomment-383188772
 EGIT_COMMIT="41147a655594c2aae6e2cad8462bd1648570b32b"
 # building outside of git is not possible,
 # see https://github.com/broadinstitute/picard/issues/605
