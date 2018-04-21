@@ -21,7 +21,7 @@ IUSE=""
 DEPEND="
 	!sci-biology/artemis"
 RDEPEND="${DEPEND}
-	>=virtual/jre-1.6:*"
+	>=virtual/jre-1.8:*"
 
 S="${WORKDIR}"
 
