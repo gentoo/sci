@@ -42,7 +42,7 @@
 -BINDIR='bin/' #this can be hardcoded to /absolute/path/to/SEECER/bin/
 -JF="../jellyfish-1.1.11/bin/jellyfish"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/
 +BINDIR='' #this can be hardcoded to /absolute/path/to/SEECER/bin/
-+JF="jellyfish"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/
++JF="jellyfish1"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/
  
  K=17
  SEECER_PARAMS=""

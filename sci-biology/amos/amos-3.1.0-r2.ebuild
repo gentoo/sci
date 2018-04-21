@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -24,7 +24,7 @@ DEPEND="
 	qt4? ( dev-qt/qtcore:4[qt3support]
 		dev-qt/qt3support:4 )
 	sci-biology/blat
-	sci-biology/jellyfish"
+	sci-biology/jellyfish:1"
 RDEPEND="${DEPEND}
 	dev-lang/perl
 	dev-perl/DBI

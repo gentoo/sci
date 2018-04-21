@@ -1,0 +1,69 @@
+--- src/AS_PBR/PBcR.pl.ori	2015-05-20 23:28:27.000000000 +0200
++++ src/AS_PBR/PBcR.pl	2018-04-21 16:24:14.189313208 +0200
+@@ -1259,12 +1259,12 @@
+   setGlobal("mhap", undef);
+ }
+ 
+-if (! -e "$JELLYFISH/jellyfish") {
+-   if (-e "$CA/jellyfish") {
++if (! -e "$JELLYFISH/jellyfish2") {
++   if (-e "$CA/jellyfish2") {
+       $JELLYFISH = $CA;
+    } else {
+       # try to use path
+-      my $amosPath = `which jellyfish`;
++      my $amosPath = `which jellyfish2`;
+       chomp $amosPath;
+       my @t = split '/', "$amosPath";
+       pop @t;                      #  blasr
+@@ -1698,7 +1698,7 @@
+ }
+  
+ my $ignore = "";
+-if (!defined(getGlobal("bowtie")) && $cutoffSpecified == 0 && !(defined(getGlobal("mhap")) && -e "$JELLYFISH/jellyfish")) {
++if (!defined(getGlobal("bowtie")) && $cutoffSpecified == 0 && !(defined(getGlobal("mhap")) && -e "$JELLYFISH/jellyfish2")) {
+    # run correction up thorough meryl
+    if (! -e "$wrk/temp$libraryname/0-mercounts/$asm.nmers.ovl.fasta") {
+       $cmd  = "$CA/runCA ";
+@@ -1740,20 +1740,20 @@
+     $inFile = `ls $wrk/*.$inMer.ignore |wc -l |awk '{print \$1}'`;
+ }
+ chomp $inFile;
+-if ($inFile == 0 && !-e "$wrk/temp$libraryname/$asm.ignore" &&  -e "$JELLYFISH/jellyfish" && defined(getGlobal("mhap"))) {
++if ($inFile == 0 && !-e "$wrk/temp$libraryname/$asm.ignore" &&  -e "$JELLYFISH/jellyfish2" && defined(getGlobal("mhap"))) {
+    my $f = makeAbsolute($fastqFile);
+    if ($f =~ /\.bz2$/i || $f =~ /\.zip$/i || $f =~ /\.gz$/i) {
+       die "Input fastq file $f is compressed. This is currently not supported, please uncompress the file and try again.";
+    }
+-   $cmd  = "$JELLYFISH/jellyfish count ";
++   $cmd  = "$JELLYFISH/jellyfish2 count ";
+    $cmd .= " -m " . getGlobal("merSize") . " -s 120000000 -t " . getGlobal("merylThreads") . " -o $wrk/temp$libraryname/$asm.mers " . makeAbsolute($fastqFile);
+    runCommand("$wrk/temp$libraryname", $cmd);
+    if ( -e "$wrk/temp$libraryname/$asm.mers_0") {
+-      $cmd = "$JELLYFISH/jellyfish merge -s 120000000 -o $wrk/temp$libraryname/$asm.mers $wrk/temp$libraryname/$asm.mers_*";
++      $cmd = "$JELLYFISH/jellyfish2 merge -s 120000000 -o $wrk/temp$libraryname/$asm.mers $wrk/temp$libraryname/$asm.mers_*";
+       runCommand("$wrk/temp$libraryname", $cmd);
+    } 
+ 
+-   $cmd =  "$JELLYFISH/jellyfish histo -t " . getGlobal("merylThreads") . " -f $wrk/temp$libraryname/$asm.mers > $wrk/temp$libraryname/$asm.hist";
++   $cmd =  "$JELLYFISH/jellyfish2 histo -t " . getGlobal("merylThreads") . " -f $wrk/temp$libraryname/$asm.mers > $wrk/temp$libraryname/$asm.hist";
+    runCommand("$wrk/temp$libraryname", $cmd);
+    my $total = 0;
+    my $runningSum = 0;
+@@ -1763,7 +1763,7 @@
+    chomp $cut;
+    $cut++;
+ 
+-   $cmd = "$JELLYFISH/jellyfish dump -c -t -L $cut $wrk/temp$libraryname/$asm.mers |awk -v TOTAL=$sum '{printf(\"\%s\\t\%0.10f\\t\%d\\t\%d\\n\", \$1, \$2/TOTAL, \$2, TOTAL)}' |sort -T . -rnk2> $wrk/temp$libraryname/$asm.ignore";
++   $cmd = "$JELLYFISH/jellyfish2 dump -c -t -L $cut $wrk/temp$libraryname/$asm.mers |awk -v TOTAL=$sum '{printf(\"\%s\\t\%0.10f\\t\%d\\t\%d\\n\", \$1, \$2/TOTAL, \$2, TOTAL)}' |sort -T . -rnk2> $wrk/temp$libraryname/$asm.ignore";
+    runCommand("$wrk/temp$libraryname", $cmd);
+    runCommand("$wrk/temp$libraryname", "rm $wrk/temp$libraryname/$asm.mers*");
+ } elsif (!-e "$wrk/temp$libraryname/$asm.ignore" &&  defined(getGlobal("mhap"))) {
+--- src/AS_PBR/Makefile.ori	2015-02-20 23:54:49.000000000 +0100
++++ src/AS_PBR/Makefile	2018-04-21 16:24:50.730272421 +0200
+@@ -222,4 +222,4 @@
+ 	@echo "!!!!!!! WARNING pbutgcns     not supplied for $(LOCAL_NAME).  Please add to your PATH if installed."
+ 
+ jellyfish_missing:
+-	@echo "!!!!!!! WARNING jellyfish    not supplied for $(LOCAL_NAME).  Please add to your PATH if installed."
++	@echo "!!!!!!! WARNING jellyfish2    not supplied for $(LOCAL_NAME).  Please add to your PATH if installed."

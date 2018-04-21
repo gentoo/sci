@@ -1,0 +1,36 @@
+--- Makefile.ori	2018-04-21 17:47:38.017147315 +0200
++++ Makefile	2018-04-21 17:48:29.038679685 +0200
+@@ -2,14 +2,14 @@
+ CXXFLAGS= -O2 -pipe -mpclmul -mpopcnt -march=native -ftree-vectorize -std=c++0x
+ LINKFLAGS = -I . -lpthread -lz 
+ DEBUG=
+-jellyfishPath = `which jellyfish`
+-jellyfishVersion = `jellyfish --version | cut -f2 -d' ' | cut -f1 -d'.'`
++jellyfishPath = `which jellyfish2`
++jellyfishVersion = `jellyfish2 --version | cut -f2 -d' ' | cut -f1 -d'.'`
+ OBJECTS = KmerCode.o ErrorCorrection.o
+ all: main.o $(OBJECTS)
+ 	$(CXX) -o rcorrector $(CXXFLAGS) $(OBJECTS) main.o $(LINKFLAGS)
+ 	if [ ! $(jellyfishPath) ] || [ $(jellyfishVersion) -ne 2 ] ; \
+ 	then \
+-		if [ ! -f ./jellyfish/bin/jellyfish ] ; \
++		if [ ! -f ./jellyfish/bin/jellyfish2 ] ; \
+ 		then \
+ 			wget -O jellyfish.tar.gz https://github.com/gmarcais/Jellyfish/releases/download/v2.2.4/jellyfish-2.2.4.tar.gz ;\
+ 			tar -xzf jellyfish.tar.gz ; mv jellyfish-2.2.4 jellyfish ; rm jellyfish.tar.gz ; cd jellyfish && ./configure && make ;\
+--- run_rcorrector.pl.ori	2018-04-21 17:48:43.459112787 +0200
++++ run_rcorrector.pl	2018-04-21 17:49:18.070152287 +0200
+@@ -42,10 +42,10 @@
+ 	die "$usage\n" ;
+ }
+ 
+-my $jellyfishBin = "jellyfish" ;
+-if ( -e "$WD/jellyfish/bin/jellyfish" )
++my $jellyfishBin = "jellyfish2" ;
++if ( -e "$WD/jellyfish/bin/jellyfish2" )
+ {
+-	$jellyfishBin = "$WD/jellyfish/bin/jellyfish" ;
++	$jellyfishBin = "$WD/jellyfish/bin/jellyfish2" ;
+ }
+ 
+ my $fileArguments ;

@@ -27,7 +27,7 @@ DEPEND="
 	qt4? ( dev-qt/qtcore:4[qt3support]
 		dev-qt/qt3support:4 )
 	sci-biology/blat
-	sci-biology/jellyfish"
+	sci-biology/jellyfish:1"
 RDEPEND="${DEPEND}
 	dev-perl/DBI
 	dev-perl/Statistics-Descriptive

@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -23,13 +23,13 @@ DEPEND="
 	!x11-terms/terminator"
 RDEPEND="${DEPEND}
 	app-shells/tcsh
-	dev-perl/Log-Log4perl"
+	dev-perl/Log-Log4perl
+	sci-biology/jellyfish:2"
 
 S="${WORKDIR}/wgs-${MY_PV}"
 
 src_prepare() {
-	# epatch \
-	# 	"${FILESDIR}"/${P}-build.patch
+	epatch "${FILESDIR}"/${P}-rename-jellyfish.patch
 	tc-export CC CXX
 }
 
@@ -69,6 +69,6 @@ src_install() {
 	use static-libs && dolib.a ${MY_S}/lib/*
 	dodoc README
 
-	# avoid file collision
-	rm -f "${D}"/usr/bin/jellyfish || die
+	# drop bundled jellyfish-2.0.0
+	rm "${ED}"/usr/bin/jellyfish || die
 }

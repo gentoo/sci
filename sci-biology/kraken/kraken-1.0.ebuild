@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -20,7 +20,8 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 	dev-lang/perl
-	net-misc/wget"
+	net-misc/wget
+	sci-biology/jellyfish:1"
 
 src_prepare(){
 	sed -e 's/^CXX = /CXX ?= /' -e 's/^CXXFLAGS = /CXXFLAGS ?= /' -i src/Makefile || die
@@ -32,7 +33,7 @@ src_compile(){
 }
 
 src_install(){
-	dohtml "${DISTDIR}"/${P}_MANUAL.html
+	dodoc "${DISTDIR}"/${P}_MANUAL.html
 	perl_set_version
 	insinto ${VENDOR_LIB}/${PN}
 	doins destdir/*.pm

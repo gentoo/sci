@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -22,7 +22,7 @@ DEPEND="
 	sci-libs/gsl:0=
 	sci-biology/seqan:0="
 RDEPEND="${DEPEND}
-	=sci-biology/jellyfish-1.1.11-r1"
+	sci-biology/jellyfish:1"
 
 S="${S}"/SEECER
 

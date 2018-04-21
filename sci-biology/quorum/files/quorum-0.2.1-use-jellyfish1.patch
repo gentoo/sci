@@ -1,0 +1,74 @@
+--- src/error_correct_reads.cc	2018-04-21 14:25:41.310473159 +0200
++++ src/error_correct_reads.cc	2018-04-21 14:26:58.262493179 +0200
+@@ -25,9 +25,9 @@
+ #endif
+ 
+ //#define DEBUG 1
+-#include <jellyfish/dbg.hpp>
+-#include <jellyfish/atomic_gcc.hpp>
+-#include <jellyfish/mer_counting.hpp>
++#include <jellyfish1/dbg.hpp>
++#include <jellyfish1/atomic_gcc.hpp>
++#include <jellyfish1/mer_counting.hpp>
+ 
+ #include <jflib/multiplexed_io.hpp>
+ #include <gzip_stream.hpp>
+--- src/combine_jf_dbs.cc	2018-04-21 14:25:50.220707057 +0200
++++ src/combine_jf_dbs.cc	2018-04-21 14:27:04.652660923 +0200
+@@ -1,9 +1,9 @@
+-#include <jellyfish/err.hpp>
+-#include <jellyfish/misc.hpp>
+-#include <jellyfish/mer_counting.hpp>
+-#include <jellyfish/compacted_hash.hpp>
+-#include <jellyfish/thread_exec.hpp>
+-#include <jellyfish/misc.hpp>
++#include <jellyfish1/err.hpp>
++#include <jellyfish1/misc.hpp>
++#include <jellyfish1/mer_counting.hpp>
++#include <jellyfish1/compacted_hash.hpp>
++#include <jellyfish1/thread_exec.hpp>
++#include <jellyfish1/misc.hpp>
+ #include <src/combine_jf_dbs.hpp>
+ 
+ int main(int argc, char *argv[])
+--- src/error_correct_reads.hpp	2018-04-21 14:26:10.091228666 +0200
++++ src/error_correct_reads.hpp	2018-04-21 14:27:09.792795853 +0200
+@@ -2,12 +2,12 @@
+ #define __ERROR_CORRECT_READS_HPP__
+ 
+ #include <config.h>
+-#include <jellyfish/err.hpp>
+-#include <jellyfish/mapped_file.hpp>
+-#include <jellyfish/invertible_hash_array.hpp>
+-#include <jellyfish/allocators_mmap.hpp>
+-#include <jellyfish/parse_read.hpp>
+-#include <jellyfish/thread_exec.hpp>
++#include <jellyfish1/err.hpp>
++#include <jellyfish1/mapped_file.hpp>
++#include <jellyfish1/invertible_hash_array.hpp>
++#include <jellyfish1/allocators_mmap.hpp>
++#include <jellyfish1/parse_read.hpp>
++#include <jellyfish1/thread_exec.hpp>
+ #include <iostream>
+ #include <fstream>
+ #include <assert.h>
+--- configure.ac.ori	2018-04-21 15:00:35.225439196 +0200
++++ configure.ac	2018-04-21 15:01:37.977086449 +0200
+@@ -28,7 +28,7 @@
+ JELLYFISH_VERSION=$(pkg-config --modversion jellyfish-1.1)
+ AC_SUBST([JELLYFISH_VERSION])
+ AC_ARG_VAR([JELLYFISH], [Jellyfish executable absolute path (default to looking in PATH)])
+-AS_IF([test "x$JELLYFISH" = "x"], [AC_PATH_PROG([JELLYFISH], [jellyfish], [false])])
++AS_IF([test "x$JELLYFISH" = "x"], [AC_PATH_PROG([JELLYFISH], [jellyfish1], [false])])
+ 
+ AC_ARG_VAR([JF_LIB_PATH], [Append this path to LD_LIBRARY_PATH in quorum])
+ 
+@@ -47,7 +47,7 @@
+ # --with-relative-jf-path
+ AC_ARG_WITH([relative-jf-path],
+             [AC_HELP_STRING([--with-relative-jf-path], [relative path from quorum to jellyfish (use an absolute path if not given. default to "." if given with no argument)])],
+-            [case "$withval" in (yes) with_relative_jf_path="jellyfish" ;; (no) with_relative_jf_path= ;; (*) with_relative_jf_path=$withval/jellyfish ;; esac],
++            [case "$withval" in (yes) with_relative_jf_path="jellyfish1" ;; (no) with_relative_jf_path= ;; (*) with_relative_jf_path=$withval/jellyfish1 ;; esac],
+             [with_relative_jf_path= ])
+ AC_SUBST([RELATIVE_JF_PATH], $with_relative_jf_path)
+ AM_CONDITIONAL([HAVE_RELATIVE_JF_PATH], [test x$with_relative_jf_path != x])

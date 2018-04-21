@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
-inherit git-r3
+inherit git-r3 eutils
 
 DESCRIPTION="Error correction for Illumina RNA-seq reads"
 HOMEPAGE="https://github.com/mourisl/Rcorrector"
@@ -15,14 +15,16 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=">=sci-biology/jellyfish-2.1.3"
+DEPEND=">=sci-biology/jellyfish-2.1.3:2"
 RDEPEND="${DEPEND}
 	dev-lang/perl"
 
 src_prepare(){
+	default
+	epatch "${FILESDIR}"/Rcorrector-rename-jellyfish.patch
 	# prevent building of jellyfish from bundled sources
-	mkdir -p jellyfish-2.1.3/bin
-	touch jellyfish-2.1.3/bin/jellyfish
+	mkdir -p ./jellyfish/bin/ || die
+	touch ./jellyfish/bin/jellyfish2 || die
 	sed -e "s#-Wall -O3#${CXXFLAGS}#" -i Makefile || die
 }
 

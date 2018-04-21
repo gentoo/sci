@@ -4,7 +4,7 @@
  
  
  BINDIR='' #this can be hardcoded to /absolute/path/to/SEECER/bin/
--JF="jellyfish"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/
+-JF="jellyfish1"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/
 +JF="jellyfish1"    #this may be hardcoded to /absolute/path/to/jellyfish/bin/jellyfish
  
  K=17
