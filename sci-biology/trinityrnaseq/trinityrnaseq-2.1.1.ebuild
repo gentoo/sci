@@ -36,7 +36,7 @@ RDEPEND="${DEPEND}
 # optionally install https://github.com/HpcGridRunner/HpcGridRunner/releases
 
 src_prepare(){
-	epatch "${FILESDIR}"/disable_some_plugins.patch
+	epatch "${FILESDIR}"/trinityrnaseq-2.1.1-disable_some_plugins.patch
 }
 
 #src_compile(){
