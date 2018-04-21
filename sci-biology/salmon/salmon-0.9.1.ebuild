@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -13,8 +13,6 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
-
-PATCHES=( "${FILESDIR}"/${PN}-0.3.2-no-boost-static.patch )
 
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc
