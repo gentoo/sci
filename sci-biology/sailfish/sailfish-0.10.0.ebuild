@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-PATCHES=( "${FILESDIR}"/${P}-no-boost-static.patch )
+PATCHES=( "${FILESDIR}"/${PN}-0.9.2-no-boost-static.patch )
 
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc
@@ -28,7 +28,7 @@ RDEPEND="${DEPEND}"
 # contains bundled RapMap
 # contains bundled libdivsufsort
 # contains bundled libgff
-# contains bundled jellyfish-2.2.3
+# contains bundled jellyfish-2.2.5
 # contains bundled sparsehash-2.0.2
 
 src_install() {

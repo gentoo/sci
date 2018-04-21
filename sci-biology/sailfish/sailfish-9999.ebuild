@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}"
 # contains bundled RapMap
 # contains bundled libdivsufsort-master
 # contains bundled libgff
-# contains bundled jellyfish-2.2.3
+# contains bundled jellyfish-2.2.5
 # contains bundled sparsehash-2.0.2
 
 src_install() {
