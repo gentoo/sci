@@ -77,7 +77,9 @@ src_install() {
 	cd build/libs || die
 	java-pkg_dojar "${PN}".jar
 	java-pkg_dojar "${PN}"-*-SNAPSHOT.jar
-	java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
+	#java-pkg_dolauncher ${PN} --main picard.cmdline.PicardCommandLine
 	#use source && java-pkg_dosrc "${S}"/src/java/*
 	#use doc && java-pkg_dojavadoc "${S}"/javadoc
+	#
+	# install a bash-completion script gatk-completion.sh into proper place
 }
