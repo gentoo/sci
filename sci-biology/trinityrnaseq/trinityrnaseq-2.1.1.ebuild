@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -20,7 +20,7 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/parafly
-	>=sci-biology/jellyfish-2.1.4
+	>=sci-biology/jellyfish-2.1.4:2
 	>=sci-libs/htslib-1.2.1
 	sci-biology/samtools:0.1-legacy
 	>=sci-biology/trimmomatic-0.32

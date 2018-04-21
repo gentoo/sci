@@ -1,0 +1,23 @@
+--- trinity-plugins/Makefile	2018-04-21 20:01:58.389880915 +0200
++++ trinity-plugins/Makefile	2018-04-21 20:03:31.752684954 +0200
+@@ -7,7 +7,7 @@
+ 
+ 
+ 
+-trinity_essentials: seqtk_target parafly_target trimmomatic_target
++trinity_essentials: parafly_target
+ 
+ trimmomatic_target:
+ 	ln -sf ${TRIMMOMATIC_CODE} Trimmomatic
+@@ -39,11 +39,9 @@
+ 	cd COLLECTL && tar xvf ${COLLECTL_CODE}.src.tar.gz && ln -sf ${COLLECTL_CODE} collectl
+ 
+ clean:
+-	rm -rf ./seqtk-trinity-0.0.2
+ 	cd scaffold_iworm_contigs && $(MAKE) clean
+ 	cd parafly-code && $(MAKE) clean
+ 	rm -f ./parafly # rm symlink
+-	rm -f ./Trimmomatic # rm symlink
+ 	cd slclust && $(MAKE) clean
+ 	cd COLLECTL && rm -rf ${COLLECTL_CODE} && rm -f collectl
+ 	@echo "\n\n** Done cleaning plugins area **"
