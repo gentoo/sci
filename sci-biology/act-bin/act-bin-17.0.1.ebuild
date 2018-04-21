@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,10 +7,11 @@ inherit java-pkg-2
 
 DESCRIPTION="DNA contig sequence comparison tool supplementing Artemis"
 HOMEPAGE="http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/act/v13/sact_v13.jar
-	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v13/act_v13.jar
+SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/act/v17/v${PV}/sact-v${PV}.jar
+	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v17/v${PV}/act-v${PV}.jar
 	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v13/act_manual_complete.pdf -> ${P}.manual.pdf
-	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v13/act_html_build.zip -> ${P}.html_build.zip"
+	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v13/act_html_build.zip -> ${P}.html_build.zip
+	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v17/v${PV}/release_notes.txt"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -36,7 +37,7 @@ src_prepare(){
 
 src_install(){
 	java-pkg_dojar "${DISTDIR}"/*.jar
-	dodoc "${DISTDIR}"/${P}.manual.pdf
+	dodoc "${DISTDIR}"/${P}.manual.pdf "${DISTDIR}"/release_notes.txt
 	insinto /usr/share/doc/"${PN}"/html
 	doins act_html_build/*
 }
