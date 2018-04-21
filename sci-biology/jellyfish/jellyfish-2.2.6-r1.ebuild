@@ -48,4 +48,5 @@ src_install(){
 	mv "${ED}"/usr/include/"${P}"/"${PN}"/* "${ED}/usr/include/${PN}${SLOT}/" || die
 	rm -r "${ED}/usr/include/${P}" || die
 	mv "${ED}"/usr/share/man/man1/jellyfish.1 "${ED}"/usr/share/man/man1/jellyfish"${SLOT}".1 || die
+	dodoc "${DISTDIR}"/JellyfishUserGuide.pdf
 }
