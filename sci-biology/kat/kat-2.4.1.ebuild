@@ -6,15 +6,15 @@ EAPI=6
 PYTHON_COMPAT=( python3_{5,6} ) # requires python >= 3.1 but more features with >=3.5
 # https://github.com/Ensembl/Bio-DB-HTS/issues/30
 
-inherit python-r1 eutils flag-o-matic
+inherit eutils flag-o-matic autotools distutils-r1
 
 DESCRIPTION="K-mer Analysis Toolkit (histogram, filter, compare sets, plot)"
 HOMEPAGE="https://github.com/TGAC/KAT"
-SRC_URI="https://github.com/TGAC/KAT/archive/Release-${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/TGAC/KAT/archive/Release-2.4.1.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse doc tex"
 
 DEPEND="
@@ -26,32 +26,44 @@ DEPEND="
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	tex? ( dev-tex/latexmk dev-texlive/texlive-formatsextra )"
 RDEPEND="${DEPEND}"
-# contains bundled *modified* version of jellyfish-2.2 which should install under different filenames
+# contains bundled a *modified* version of jellyfish-2.2.0 (libkat_jellyfish.{a,so})
 # contains embedded sci-biology/seqan
 
 S="${WORKDIR}"/KAT-Release-"${PV}"
 
 src_prepare(){
 	default
-	# autogen.sh
-	test -n "$srcdir" || local srcdir=`dirname "$0"`
-	test -n "$srcdir" || local srcdir=.
-	eautoreconf --force --install --verbose "$srcdir"
+	# keep bundled seqan-library-2.0.0 jellyfish-2.2.0
+	# seqan header do not hurt
+	# jellyfish-2.2.0 is a modified version, "kat_" prefixes are added to all binaries
+	# https://github.com/TGAC/KAT/issues/93#issuecomment-383377666
+	rm -rf deps/boost || die "Failed to zap bundled boost"
+	epatch "${FILESDIR}"/kat-2.4.1-ignore-bundled-deps.patch
+	epatch "${FILESDIR}"/kat-2.4.1-do-not-run-setup.py.patch
+	eautoreconf
+	pushd scripts >/dev/null || die
+	distutils-r1_src_prepare
+	popd > /dev/null || die
 }
 
 src_configure(){
 	local myconf=()
 	myconf+=( --disable-gnuplot ) # python3 does better image rendering, no need for gnuplot
 	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.2.0/configure
-	PYTHON_VERSION=3 econf ${myconf[@]}
+	econf ${myconf[@]}
 }
 
 src_compile(){
-	# build_boost.sh
-	cd deps/boost || die
-	./bootstrap.sh --prefix=build --with-libraries=chrono,exception,program_options,timer,filesystem,system,stacktrace || die
-	# https://github.com/TGAC/KAT/issues/92#issuecomment-383373418
-	./b2 headers --ignore-site-config || die
-	./b2 install --ignore-site-config || die
-	cd ../.. || die
+	emake
+	cd doc && make latexpdf && cd .. || die
+	pushd scripts >/dev/null || die
+	distutils-r1_src_compile
+	popd > /dev/null || die
+}
+
+src_install(){
+	default
+	pushd scripts >/dev/null || die
+	distutils-r1_src_install
+	popd > /dev/null || die
 }
