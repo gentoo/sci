@@ -33,9 +33,6 @@ src_prepare(){
 	rm -rf deps || die "Failed to zap bundled seqan-library-2.0.0 jellyfish-2.2.0 boost"
 	epatch "${FILESDIR}"/kat-2.4.1-ignore-bundled-deps.patch
 	epatch "${FILESDIR}"/kat-2.4.1-rename-jellyfish.patch
-	# autogen.sh
-	#test -n "$srcdir" || local srcdir=`dirname "$0"`
-	#test -n "$srcdir" || local srcdir=.
 	eautoreconf --force --install --verbose "$srcdir"
 }
 
@@ -45,12 +42,3 @@ src_configure(){
 	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.20/configure
 	PYTHON_VERSION=3 econf ${myconf[@]}
 }
-
-#src_compile(){
-#	# build_boost.sh
-#	cd deps/boost || die
-#	./bootstrap.sh --prefix=build --with-libraries=chrono,exception,program_options,timer,filesystem,system,stacktrace || die
-#	./b2 headers --prefix=build || die
-#	./b2 install --prefix=build || die
-#	cd ../.. || die
-#}
