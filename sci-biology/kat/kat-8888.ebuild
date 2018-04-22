@@ -24,7 +24,7 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
-	tex? ( dev-tex/latexmk )"
+	tex? ( dev-tex/latexmk dev-texlive/texlive-formatsextra )"
 RDEPEND="${DEPEND}"
 # contains bundled a *modified* version of jellyfish-2.2.0 (libkat_jellyfish.{a,so})
 # contains embedded sci-biology/seqan

@@ -15,7 +15,7 @@ SRC_URI="https://github.com/TGAC/KAT/archive/Release-${PV}.tar.gz -> ${P}.tar.gz
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
-IUSE="cpu_flags_x86_sse doc"
+IUSE="cpu_flags_x86_sse doc tex"
 
 DEPEND="
 	>=dev-libs/boost-1.52[${PYTHON_USEDEP}]
@@ -23,7 +23,8 @@ DEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	tex? ( dev-tex/latexmk dev-texlive/texlive-formatsextra )"
 RDEPEND="${DEPEND}"
 # contains bundled *modified* version of jellyfish-2.2 which should install under different filenames
 # contains embedded sci-biology/seqan

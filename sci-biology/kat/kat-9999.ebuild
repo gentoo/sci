@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/TGAC/KAT.git"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
-IUSE="cpu_flags_x86_sse doc"
+IUSE="cpu_flags_x86_sse doc tex"
 
 DEPEND="
 	>=dev-libs/boost-1.52
@@ -23,7 +23,8 @@ DEPEND="
 	dev-python/matplotlib
 	dev-python/numpy
 	sci-libs/scipy
-	doc? ( dev-python/sphinx )"
+	doc? ( dev-python/sphinx )
+	tex? ( dev-tex/latexmk dev-texlive/texlive-formatsextra )"
 RDEPEND="${DEPEND}"
 # contains bundled a *modified* version of jellyfish-2.2.0 (libkat_jellyfish.{a,so})
 # contains embedded sci-biology/seqan
