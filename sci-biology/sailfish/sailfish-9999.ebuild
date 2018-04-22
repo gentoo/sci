@@ -24,9 +24,9 @@ RDEPEND="${DEPEND}"
 
 # TODO: disable running wget/curl during src_compile
 # https://github.com/kingsfordgroup/sailfish/issues/80
-# contains bundled RapMap
-# contains bundled libdivsufsort-master
-# contains bundled libgff
+# contains bundled RapMap https://github.com/COMBINE-lab/RapMap
+# contains bundled libdivsufsort
+# contains bundled libgff https://github.com/COMBINE-lab/libgff
 # contains bundled jellyfish-2.2.5
 # contains bundled sparsehash-2.0.2
 
