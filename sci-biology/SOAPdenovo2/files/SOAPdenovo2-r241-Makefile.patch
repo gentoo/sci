@@ -1,0 +1,204 @@
+--- sparsePregraph/Makefile.ori	2017-01-03 21:34:59.000000000 +0100
++++ sparsePregraph/Makefile	2018-04-22 22:07:47.303546845 +0200
+@@ -1,28 +1,28 @@
+-CC=            g++
++CXX ?= g++
+ ifdef debug
+-CFLAGS=         -O0 -g -fomit-frame-pointer
++CXXFLAGS ?= -O0 -g -fomit-frame-pointer
+ else
+-CFLAGS=         -O3 -fomit-frame-pointer -w
++CXXFLAGS ?= -O3 -fomit-frame-pointer -w
+ endif
+ 
+-DFLAGS=         
+-OBJS=		build_graph.o build_edge.o multi_threads.o \
+-			build_preArc.o pregraph_sparse.o io_func.o\
+-			global.o convert_soapdenovo.o
+-PROG=           
+-INCLUDES=	-I./inc
+-SUBDIRS=    . 
+-LIBPATH=	-L/usr/lib64
+-LIBS=       -pthread -lz -L./inc
++DFLAGS =         
++OBJS = build_graph.o build_edge.o multi_threads.o \
++	build_preArc.o pregraph_sparse.o io_func.o\
++	global.o convert_soapdenovo.o
++PROG =           
++INCLUDES = -I./inc
++SUBDIRS = . 
++LIBPATH = -L/usr/lib64
++LIBS = -pthread -lz -L./inc
+ EXTRA_FLAGS=
+-VERSION =    1.0.3
++VERSION = 1.0.3
+ 
+ ifdef 127mer
+-CFLAGS += -D_127MER_
++CXXFLAGS += -D_127MER_
+ PROG = pregraph_sparse_127mer.v$(VERSION)
+ 
+ else
+-CFLAGS += -D_63MER_
++CXXFLAGS += -D_63MER_
+ PROG = pregraph_sparse_63mer.v$(VERSION)
+ endif
+ 
+@@ -38,22 +38,22 @@
+ endif
+ 
+ ifneq (,$(findstring $(shell uname -m), x86_64))
+-CFLAGS += -m64
++CXXFLAGS += -m64
+ endif
+ 
+ ifneq (,$(findstring $(shell uname -m), ia64))
+-CFLAGS += 
++CXXFLAGS += 
+ endif
+ 
+ ifneq (,$(findstring $(shell uname -m), ppc64))
+-CFLAGS += -mpowerpc64
++CXXFLAGS += -mpowerpc64
+ endif
+ 
+ .SUFFIXES:.cpp .o
+ 
+ .cpp.o:
+ 		@printf "Compiling $<...                               \r"
+-		@$(CC) -c $(CFLAGS) $(DFLAGS) $(INCLUDES) $< || echo "Error in command: $(CC) -c $(CFLAGS) $(DFLAGS) $(INCLUDES) $<"
++		@$(CXX) -c $(CXXFLAGS) $(DFLAGS) $(INCLUDES) $< || echo "Error in command: $(CXX) -c $(CXXFLAGS) $(DFLAGS) $(INCLUDES) $<"
+ 
+ all:		$(OBJS) 
+ 		@printf "$(PROG) objects generated.                    \n"
+@@ -66,7 +66,7 @@
+ 
+ pregraph_sparse: clean envTest $(OBJS)
+ 		@printf "Linking...                                     \r"
+-		@$(CC) $(CFLAGS)$(INCLUDES) -o $(PROG)  $(OBJS) $(LIBPATH) $(LIBS) $(ENTRAFLAGS)
++		@$(CXX) $(CXXFLAGS)$(INCLUDES) -o $(PROG)  $(OBJS) $(LIBPATH) $(LIBS) $(ENTRAFLAGS)
+ 		@printf "$(PROG) compilation done.                      \n"
+ 
+ clean:
+--- Makefile.ori	2017-01-03 21:34:59.000000000 +0100
++++ Makefile	2018-04-22 22:09:16.526124921 +0200
+@@ -1,17 +1,17 @@
+ MAKEFLAGS += --no-print-directory
+-CC = g++
++CXX ?= g++
+ ifdef debug
+-CFLAGS=         -O0 -g -fomit-frame-pointer
++CXXFLAGS ?= -O0 -g -fomit-frame-pointer
+ else
+-CFLAGS=         -O3 -fomit-frame-pointer
++CXXFLAGS ?= -O3 -fomit-frame-pointer
+ endif
+ 
+ SUBDIRS = sparsePregraph standardPregraph fusion
+-PROG=       SOAPdenovo-63mer SOAPdenovo-127mer SOAPdenovo-fusion
+-INCLUDES=   -I./sparsePregraph/inc -I./standardPregraph/inc
++PROG = SOAPdenovo-63mer SOAPdenovo-127mer SOAPdenovo-fusion
++INCLUDES = -I./sparsePregraph/inc -I./standardPregraph/inc
+ 
+-LIBPATH=    -L/lib64 -L/usr/lib64 -L./sparsePregraph/inc -L./standardPregraph/inc
+-LIBS=       -pthread -lz -lm
++LIBPATH = -L./sparsePregraph/inc -L./standardPregraph/inc
++LIBS = -pthread -lz -lm
+ EXTRA_FLAGS= 
+ 
+ BIT_ERR = 0
+@@ -25,15 +25,15 @@
+ endif
+ 
+ ifneq (,$(findstring $(shell uname -m), x86_64))
+-CFLAGS += -m64
++CXXFLAGS += -m64
+ endif
+ 
+ ifneq (,$(findstring $(shell uname -m), ia64))
+-CFLAGS +=
++CXXFLAGS +=
+ endif
+ 
+ ifneq (,$(findstring $(shell uname -m), ppc64))
+-CFLAGS += -mpowerpc64
++CXXFLAGS += -mpowerpc64
+ endif
+ 
+ 
+@@ -46,20 +46,20 @@
+ SOAPdenovo-63mer:
+ 	@cd sparsePregraph;make 63mer=1 debug=1;cd ..;
+ 	@cd standardPregraph;make 63mer=1 debug=1;cd ..;
+-	@$(CC) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-63mer
++	@$(CXX) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-63mer
+ SOAPdenovo-127mer:
+ 	@cd sparsePregraph;make 127mer=1 debug=1;cd ..;
+ 	@cd standardPregraph;make 127mer=1 debug=1;cd ..;
+-	@$(CC) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-127mer
++	@$(CXX) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-127mer
+ else
+ SOAPdenovo-63mer:
+ 	@cd sparsePregraph;make 63mer=1;cd ..;
+ 	@cd standardPregraph;make 63mer=1;cd ..;
+-	@$(CC) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-63mer
++	@$(CXX) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-63mer
+ SOAPdenovo-127mer:
+ 	@cd sparsePregraph;make 127mer=1;cd ..;
+ 	@cd standardPregraph;make 127mer=1;cd ..;
+-	@$(CC) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-127mer
++	@$(CXX) sparsePregraph/*.o standardPregraph/*.o $(LIBPATH) $(LIBS) $(EXTRA_FLAGS) -o SOAPdenovo-127mer
+ endif
+ 
+ clean:
+--- standardPregraph/Makefile.ori	2017-01-03 21:34:59.000000000 +0100
++++ standardPregraph/Makefile	2018-04-22 22:10:33.108337752 +0200
+@@ -5,13 +5,13 @@
+ #
+ ###################################
+ 
+-CC=             gcc
++CC ?= gcc
+ GCCVERSIONMAJOR := $(shell expr `$(CC) -dumpversion | cut -f1 -d.` \>= 4)
+ GCCVERSIONMINOR := $(shell expr `$(CC) -dumpversion | cut -f2 -d.` \>= 4)
+ ifdef debug
+-CFLAGS=         -O0 -g -fomit-frame-pointer #-msse4.2
++CFLAGS ?= -O0 -g -fomit-frame-pointer #-msse4.2
+ else
+-CFLAGS=         -O3 -fomit-frame-pointer -w #-msse4.2
++CFLAGS ?= -O3 -fomit-frame-pointer -w #-msse4.2
+ endif
+ DFLAGS=         
+ OBJS=		arc.o attachPEinfo.o bubble.o check.o compactEdge.o \
+@@ -24,12 +24,12 @@
+ 		prlRead2path.o prlReadFillGap.o read2scaf.o readInterval.o stack.o\
+ 		readseq1by1.o scaffold.o searchPath.o seq.o splitReps.o \
+ 		cutTip_graph2.o linearEdge.o kmerhash.o read2edge.o iterate.o
+-PROG=       SOAPdenovo-63mer
+-INCLUDES=   -Iinc
+-SUBDIRS=    .
+-LIBPATH=    -L/lib64 -L/usr/lib64 -L./inc
+-LIBS=       -pthread -lz -lm 
+-EXTRA_FLAGS=
++PROG = SOAPdenovo-63mer
++INCLUDES = -Iinc
++SUBDIRS = .
++LIBPATH = -L./inc
++LIBS = -pthread -lz -lm 
++EXTRA_FLAGS =
+ 
+ BIT_ERR = 0
+ ifeq (,$(findstring $(shell uname -m), x86_64 ppc64 ia64))
+--- fusion/Makefile.ori	2017-01-03 21:34:59.000000000 +0100
++++ fusion/Makefile	2018-04-22 22:11:21.209727636 +0200
+@@ -6,8 +6,8 @@
+ libdir = 
+ mandir = 
+ 
+-CC = gcc
+-CCOPT = -O3 -fprefetch-loop-arrays -funroll-loops -fomit-frame-pointer -w 
++CC ?= gcc
++CCOPT ?= -O3 -fprefetch-loop-arrays -funroll-loops -fomit-frame-pointer -w 
+ LIBS = -lm -lpthread
+ INCDIRS = -Iinc/
+ CFLAGS = ${CCOPT} ${INCDIRS}
