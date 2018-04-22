@@ -18,12 +18,12 @@ KEYWORDS=""
 IUSE="cpu_flags_x86_sse doc"
 
 DEPEND="
-	>=dev-libs/boost-1.52
-	dev-python/tabulate
-	dev-python/matplotlib
-	dev-python/numpy
-	sci-libs/scipy
-	doc? ( dev-python/sphinx )"
+	>=dev-libs/boost-1.52[${PYTHON_USEDEP}]
+	dev-python/tabulate[${PYTHON_USEDEP}]
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 # contains bundled *modified* version of jellyfish-2.2 which should install under different filenames
 # contains embedded sci-biology/seqan

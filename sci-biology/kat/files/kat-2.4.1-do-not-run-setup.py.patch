@@ -1,0 +1,30 @@
+--- scripts/Makefile.am.ori	2018-04-22 16:02:12.829046527 +0200
++++ scripts/Makefile.am	2018-04-22 16:05:31.444532061 +0200
+@@ -1,27 +1,6 @@
+ AUTOMAKE_OPTIONS = subdir-objects
+ 
+ 
+-if MAKE_PYKAT_INSTALL
+-
+-install-exec-hook:
+-	export PYTHONPATH=$(prefix)/lib/python$(PYTHON_VERSION)/site-packages && \
+-	mkdir -p $(prefix)/lib/python$(PYTHON_VERSION)/site-packages/ && \
+-	python3 setup.py install --prefix=$(prefix) --record install_files.txt
+-
+-uninstall-hook:
+-	cat install_files.txt | xargs rm -rf
+-
+-else
+-
+-install-exec-hook:
+-	mkdir -p $(prefix)/lib/python$(PYTHON_VERSION)/local/ && \
+-	cp -r kat $(prefix)/lib/python$(PYTHON_VERSION)/local
+-
+-uninstall-hook:
+-	rm -rf $(prefix)/lib/python$(PYTHON_VERSION)/local
+-
+-endif
+-
+ EXTRA_DIST = \
+ 	kat/distanalysis.py \
+ 	kat/plot/__init__.py \

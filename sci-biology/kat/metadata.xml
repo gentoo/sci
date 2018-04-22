@@ -12,4 +12,8 @@
 	<upstream>
 		<remote-id type="github">TGAC/KAT</remote-id>
 	</upstream>
+	<use>
+		<flag name="doc">Enable building of .html from .rst documentation</flag>
+		<flag name="tex">Enable building of .pdf documentation from .rst via .tex intermediate</flag>
+	</use>
 </pkgmetadata>
