@@ -41,7 +41,7 @@ src_prepare(){
 src_configure(){
 	local myconf=()
 	myconf+=( --disable-gnuplot ) # python3 does better image rendering, no need for gnuplot
-	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.20/configure
+	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.2.0/configure
 	PYTHON_VERSION=3 econf ${myconf[@]}
 }
 
@@ -49,7 +49,8 @@ src_compile(){
 	# build_boost.sh
 	cd deps/boost || die
 	./bootstrap.sh --prefix=build --with-libraries=chrono,exception,program_options,timer,filesystem,system,stacktrace || die
-	./b2 headers || die
-	./b2 install || die
+	# https://github.com/TGAC/KAT/issues/92#issuecomment-383373418
+	./b2 headers --ignore-site-config || die
+	./b2 install --ignore-site-config || die
 	cd ../.. || die
 }
