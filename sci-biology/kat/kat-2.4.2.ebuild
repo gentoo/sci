@@ -6,12 +6,11 @@ EAPI=6
 PYTHON_COMPAT=( python3_{5,6} )
 # https://github.com/Ensembl/Bio-DB-HTS/issues/30
 
-inherit flag-o-matic autotools distutils-r1 git-r3
+inherit flag-o-matic autotools distutils-r1
 
 DESCRIPTION="K-mer Analysis Toolkit (histogram, filter, compare sets, plot)"
 HOMEPAGE="https://github.com/TGAC/KAT"
-EGIT_REPO_URI="https://github.com/TGAC/KAT.git"
-EGIT_CHECKOUT_DIR="${WORKDIR}"/KAT-Release-"${PV}"
+SRC_URI="https://github.com/TGAC/KAT/archive/Release-${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
