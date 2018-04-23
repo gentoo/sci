@@ -1,29 +1,28 @@
---- configure.ac.ori	2018-04-22 12:19:37.318794996 +0200
-+++ configure.ac	2018-04-22 12:20:43.310663598 +0200
-@@ -172,8 +172,8 @@
- 
- 
- AC_CONFIG_HEADERS([config.h])
--AC_CONFIG_FILES([Makefile doc/Makefile doc/source/conf.py lib/kat.pc lib/Makefile src/Makefile tests/Makefile tests/compat.sh deps/seqan-library-2.0.0/Makefile scripts/setup.py scripts/kat/__init__.py scripts/Makefile])
--AC_CONFIG_SUBDIRS([deps/jellyfish-2.2.0])
-+AC_CONFIG_FILES([Makefile doc/Makefile doc/source/conf.py lib/kat.pc lib/Makefile src/Makefile tests/Makefile tests/compat.sh deps/seqan-library-2.0.0/Makefile scripts/setup.py scripts/kat/__init__.py scripts/Makefile])
-+AC_CONFIG_SUBDIRS([deps/jellyfish-2.2.0])
- AC_OUTPUT
- 
- pystr="detected ${PYTHON_VERSION}.  Plotting and downstream analysis enabled."
---- lib/Makefile.am.ori	2018-04-22 15:30:34.983653065 +0200
-+++ lib/Makefile.am	2018-04-22 15:30:46.143961300 +0200
-@@ -7,8 +7,7 @@
+diff --git a/lib/Makefile.am b/lib/Makefile.am
+index 74ccded..12e84c2 100644
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -6,9 +6,16 @@ pkgconfig_DATA = kat.pc
+ lib_LTLIBRARIES = libkat.la
  
  libkat_la_LDFLAGS = \
- 	-version-info 2:4:0 \
+-	-version-info 2:4:0 \
 -	-L../deps/jellyfish-2.2.0 \
 -	-L../deps/boost/build/lib
-+	-L../deps/jellyfish-2.2.0
++	-version-info 2:4:0
++
++LIBS= \
++	$(top_builddir)/deps/jellyfish-2.2.0/libkat_jellyfish.la \
++	-lboost_timer \
++	-lboost_chrono \
++	-lboost_filesystem \
++	-lboost_program_options \
++	-lboost_system \
++	@AM_LIBS@
  
  libkat_la_SOURCES = \
  	src/matrix_metadata_extractor.cc \
-@@ -31,7 +30,6 @@
+@@ -31,7 +38,6 @@ library_include_HEADERS =   $(KI)/distance_metrics.hpp \
  
  libkat_la_CPPFLAGS = \
  	-I$(top_srcdir)/deps/jellyfish-2.2.0/include \
@@ -31,9 +30,11 @@
  	-I$(top_srcdir)/lib/include \
  	-DKAT_SITE_PKGS='"$(libdir)/python$(PYTHON_VERSION)/site-packages"' \
  	@AM_CPPFLAGS@
---- src/Makefile.am.ori	2018-04-22 15:30:46.203962959 +0200
-+++ src/Makefile.am	2018-04-22 15:31:41.385487008 +0200
-@@ -14,7 +14,6 @@
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 76ca61d..a2ae071 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -14,26 +14,22 @@ kat_CXXFLAGS = \
  kat_CPPFLAGS = \
  	-I$(top_srcdir)/deps/seqan-library-2.0.0/include \
  	-I$(top_srcdir)/deps/jellyfish-2.2.0/include \
@@ -41,21 +42,24 @@
  	-I$(top_srcdir)/lib/include \
  	-DKAT_SITE_PKGS='"$(libdir)/python$(PYTHON_VERSION)/site-packages"' \
  	@AM_CPPFLAGS@
-@@ -23,17 +22,16 @@
+ 
+ kat_LDFLAGS = \
  	-static \
- 	-L../lib \
- 	-L../deps/jellyfish-2.2.0 \
+-	-L../lib \
+-	-L../deps/jellyfish-2.2.0 \
 -	-L../deps/boost/build/lib \
  	@AM_LDFLAGS@
  
  kat_LDADD = \
- 	-lkat \
- 	-lkat_jellyfish \
+-	-lkat \
+-	-lkat_jellyfish \
 -	../deps/boost/build/lib/libboost_timer.a \
 -	../deps/boost/build/lib/libboost_chrono.a \
 -	../deps/boost/build/lib/libboost_filesystem.a \
 -	../deps/boost/build/lib/libboost_program_options.a \
 -	../deps/boost/build/lib/libboost_system.a \
++	$(top_builddir)/lib/libkat.la \
++	$(top_builddir)/deps/jellyfish-2.2.0/libkat_jellyfish.la \
 +	-lboost_timer \
 +	-lboost_chrono \
 +	-lboost_filesystem \
@@ -64,9 +68,11 @@
  	@AM_LIBS@
  
  noinst_HEADERS = \
---- tests/Makefile.am.ori	2018-04-22 15:31:41.505490322 +0200
-+++ tests/Makefile.am	2018-04-22 15:32:37.787044756 +0200
-@@ -31,7 +31,6 @@
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index c9ee29e..6db6999 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -31,7 +31,6 @@ AM_CPPFLAGS = \
  	-I$(top_srcdir)/lib/include \
  	-I$(top_srcdir)/deps/seqan-library-2.0.0/include \
  	-I$(top_srcdir)/deps/jellyfish-2.2.0/include \
@@ -74,7 +80,7 @@
  	-DDATADIR=\"$(srcdir)/data\" \
  	-DKAT_SITE_PKGS='"$(libdir)/python$(PYTHON_VERSION)/site-packages"' \
  	@AM_CPPFLAGS@
-@@ -61,7 +60,6 @@
+@@ -61,7 +60,6 @@ check_unit_tests_LDFLAGS = \
  	-L. \
  	-L../lib \
  	-L../deps/jellyfish-2.2.0 \
@@ -82,7 +88,7 @@
  	@AM_LDFLAGS@
  
  check_unit_tests_LDADD = \
-@@ -69,11 +67,11 @@
+@@ -69,11 +67,11 @@ check_unit_tests_LDADD = \
  	-lgtest \
  	-lkat \
  	-lkat_jellyfish \
