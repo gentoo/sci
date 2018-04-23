@@ -54,15 +54,6 @@ DEPEND="${RDEPEND}
 	dev-util/cmake
 "
 
-#
-# PETSc does not want its Makefiles to be invoked with anything higher than
-# -j1. The underlying build system does automatically invoke a parallel
-# build. This might not be what you want, but *hey* not your choice.
-#
-# V=1 enables verbose output with full compiler and linker invocation
-#
-MAKEOPTS="${MAKEOPTS} -j1 V=1"
-
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
