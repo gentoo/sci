@@ -181,7 +181,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}/usr/$(get_libdir)/petsc" install
+	emake DESTDIR="${ED}" install
 
 	# add PETSC_DIR to environmental variables
 	cat >> 99petsc <<- EOF
