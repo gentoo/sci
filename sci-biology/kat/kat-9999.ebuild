@@ -11,6 +11,8 @@ inherit flag-o-matic autotools distutils-r1 git-r3
 DESCRIPTION="K-mer Analysis Toolkit (histogram, filter, compare sets, plot)"
 HOMEPAGE="https://github.com/TGAC/KAT"
 EGIT_REPO_URI="https://github.com/TGAC/KAT.git"
+EGIT_BRANCH=develop
+EGIT_CHECKOUT_DIR="${WORKDIR}"/KAT-Release-"${PV}"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -31,8 +33,7 @@ RDEPEND="${CDEPEND}"
 # contains embedded sci-biology/seqan
 
 PATCHES=(
-	"${FILESDIR}"/kat-2.4.1-ignore-bundled-deps.patch
-	"${FILESDIR}"/kat-2.4.1-parallel_doc.patch
+	"${FILESDIR}"/kat-2.4.2-ignore-bundled-deps.patch
 	)
 
 S="${WORKDIR}"/KAT-Release-"${PV}"
@@ -53,7 +54,6 @@ src_configure(){
 	myconf+=(
 		--disable-gnuplot
 		--disable-pykat
-		--disable-pykat-install
 		$(use_enable static-libs static)
 		) # python3 does better image rendering, no need for gnuplot
 	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.2.0/configure
