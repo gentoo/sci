@@ -54,8 +54,10 @@ src_configure(){
 		--disable-gnuplot
 		--disable-pykat
 		--disable-pykat-install
+		--with-zlib="${EPREFIX}"/usr
 		$(use_enable static-libs static)
 		) # python3 does better image rendering, no need for gnuplot
+		# ax_check_zlib is used so system zlib would be selected on prefix if an hint is not provided
 	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.2.0/configure
 	econf ${myconf[@]}
 }
