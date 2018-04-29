@@ -19,6 +19,7 @@ IUSE="cpu_flags_x86_sse static-libs test"
 
 CDEPEND="
 	>=dev-libs/boost-1.52[${PYTHON_USEDEP}]
+	sys-libs/zlib
 	dev-python/tabulate[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
