@@ -27,7 +27,7 @@ CDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"
 DEPPEND="${CDEPEND}
-	dev-python/sphinx[${PYTHON_USEDEP}]
+	dev-python/sphinx
 	test? ( sys-process/time )"
 RDEPEND="${CDEPEND}"
 # contains bundled a *modified* version of jellyfish-2.2.0 (libkat_jellyfish.{a,so})
@@ -35,6 +35,7 @@ RDEPEND="${CDEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/kat-2.4.2-ignore-bundled-deps.patch
+	"${FILESDIR}"/kat-2.4.2-no_static_build.patch
 	)
 
 S="${WORKDIR}"/KAT-Release-"${PV}"
@@ -54,7 +55,7 @@ src_configure(){
 	local myconf=()
 	myconf+=(
 		--disable-gnuplot
-		--disable-pykat
+		--disable-pykat-install
 		$(use_enable static-libs static)
 		) # python3 does better image rendering, no need for gnuplot
 	use cpu_flags_x86_sse && myconf+=( $(use_with cpu_flags_x86_sse sse) ) # pass down to jellyfish-2.2.0/configure

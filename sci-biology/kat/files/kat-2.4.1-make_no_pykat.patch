@@ -1,0 +1,15 @@
+diff --git a/Makefile.am b/Makefile.am
+index 5f0f42e..4da6c05 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -21,10 +21,6 @@ dist_noinst_SCRIPTS = autogen.sh antigen.sh build_boost.sh
+ # SRC DIRS
+ make_dirs=deps/jellyfish-2.2.0 deps/seqan-library-2.0.0 lib src tests
+ 
+-if MAKE_PYKAT
+-    make_dirs += scripts
+-endif
+-
+ if MAKE_DOCS
+     make_dirs += doc
+ endif

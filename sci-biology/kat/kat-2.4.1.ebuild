@@ -25,7 +25,7 @@ CDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"
 DEPEND="${CDEPEND}
-	dev-python/sphinx[${PYTHON_USEDEP}]
+	dev-python/sphinx
 	test? ( sys-process/time )"
 RDEPEND="${CDEPEND}"
 # contains bundled a *modified* version of jellyfish-2.2.0 (libkat_jellyfish.{a,so})
@@ -33,6 +33,8 @@ RDEPEND="${CDEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/kat-2.4.1-ignore-bundled-deps.patch
+	"${FILESDIR}"/kat-2.4.1-no_static_build.patch
+	"${FILESDIR}"/kat-2.4.1-make_no_pykat.patch
 	"${FILESDIR}"/kat-2.4.1-parallel_doc.patch
 	)
 
@@ -53,7 +55,6 @@ src_configure(){
 	local myconf=()
 	myconf+=(
 		--disable-gnuplot
-		--disable-pykat
 		--disable-pykat-install
 		--with-zlib="${EPREFIX}"/usr
 		$(use_enable static-libs static)

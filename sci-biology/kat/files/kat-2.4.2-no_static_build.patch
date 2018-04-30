@@ -1,0 +1,56 @@
+diff --git a/configure.ac b/configure.ac
+index 9acc141..24a4b14 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -178,8 +178,6 @@ define([PC_FILE], lib/kat-2.2.pc)
+ 
+ AM_CXXFLAGS="-g -O2 -std=c++11"
+ AC_SUBST([AM_CXXFLAGS])
+-AM_LDFLAGS="-static-libstdc++"
+-AC_SUBST([AM_LDFLAGS])
+ 
+ if [[ "${make_pykat}" == "yes" ]]; then
+     AM_CPPFLAGS="${PYTHON_CPPFLAGS}"
+diff --git a/deps/jellyfish-2.2.0/Makefile.am b/deps/jellyfish-2.2.0/Makefile.am
+index 83192d9..e3b1694 100644
+--- a/deps/jellyfish-2.2.0/Makefile.am
++++ b/deps/jellyfish-2.2.0/Makefile.am
+@@ -7,7 +7,7 @@ man1_MANS = doc/kat_jellyfish.man
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = kat_jellyfish.pc
+ 
+-AM_LDFLAGS = -lz -lpthread -static-libstdc++ # $(VALGRIND_LIBS)
++AM_LDFLAGS = -lz -lpthread # $(VALGRIND_LIBS)
+ AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/include # $(VALGRIND_CFLAGS)
+ AM_CXXFLAGS = $(ALL_CXXFLAGS) -Wall -Wnon-virtual-dtor -Wno-deprecated-declarations
+ 
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 2d5cd72..cb5cb0e 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -18,10 +18,6 @@ kat_CPPFLAGS = \
+ 	-DKAT_SCRIPTS='"$(datadir)/scripts"' \
+ 	@AM_CPPFLAGS@
+ 
+-kat_LDFLAGS = \
+-	-static \
+-	@AM_LDFLAGS@
+-
+ kat_LDADD = \
+ 	$(top_builddir)/lib/libkat.la \
+ 	$(top_builddir)/deps/jellyfish-2.2.0/.libs/libkat_jellyfish.la \
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index d96363a..90e4f61 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -54,10 +54,6 @@ check_unit_tests_SOURCES = \
+ 	check_compcounters.cc \
+ 	check_main.cc
+ 
+-check_unit_tests_LDFLAGS = \
+-	-static \
+-	@AM_LDFLAGS@
+-
+ check_unit_tests_LDADD = \
+ 	libgtest.la \
+ 	$(top_builddir)/lib/libkat.la \
