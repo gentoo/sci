@@ -52,6 +52,7 @@ src_prepare(){
 }
 
 src_configure(){
+	python_setup
 	local myconf=()
 	myconf+=(
 		--disable-gnuplot
