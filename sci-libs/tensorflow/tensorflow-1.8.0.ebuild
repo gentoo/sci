@@ -141,10 +141,9 @@ src_install() {
 	insinto /usr/include/${PN}/${PN}/c
 	doins ${PN}/c/c_api.h
 	if use cxx; then
-		for i in $(find ${PN}/cc ${PN}/core third_party/eigen3/unsupported \
-						third_party/eigen3/Eigen \( -path third_party \
-						-prune -o -type f -name \*.h -print \) -o \
-						\( -path ${PN} -prune -o -type f -print \) ); do
+		for i in $(find ${PN}/cc ${PN}/core third_party/eigen3 -type f \
+						\( -name \*.h -o \
+						-wholename third_party/eigen3/Eigen/\* \) -print); do
 			dodir $(dirname /usr/include/${PN}/${i})
 			insinto $(dirname /usr/include/${PN}/${i})
 			doins ${i}
