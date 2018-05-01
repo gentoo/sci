@@ -7,8 +7,7 @@ inherit eutils flag-o-matic
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.cbcb.umd.edu/software/jellyfish"
-SRC_URI="http://www.cbcb.umd.edu/software/jellyfish/jellyfish-1.1.11.tar.gz
-	http://www.cbcb.umd.edu/software/jellyfish/jellyfish-manual-1.1.pdf"
+SRC_URI="https://github.com/gmarcais/Jellyfish/releases/download/v${PV}/${P}.tar.gz"
 
 # older version is hidden in trinityrnaseq_r20140413p1/trinity-plugins/jellyfish-1.1.11
 # also was bundled in quorum-0.2.1 and MaSuRca-2.1.0
@@ -45,4 +44,5 @@ src_install(){
 	mv "${ED}"/usr/include/"${P}"/"${PN}"/* "${ED}/usr/include/${PN}${SLOT}/" || die
 	rm -r "${ED}/usr/include/${P}" || die
 	mv "${ED}"/usr/share/man/man1/jellyfish.1 "${ED}"/usr/share/man/man1/jellyfish"${SLOT}".1 || die
+	newdoc doc/jellyfish.pdf jellyfish"${SLOT}".pdf
 }
