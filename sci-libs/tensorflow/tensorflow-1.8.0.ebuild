@@ -37,13 +37,13 @@ IUSE="cuda cxx mpi"
 # 	dev-python/gast
 DEPEND="
 	cxx? ( dev-libs/protobuf )
-	dev-python/absl-py
-	dev-python/astor
-	dev-python/numpy
-	dev-python/protobuf-python
-	dev-python/six
-	dev-python/termcolor
-	dev-python/wheel
+	dev-python/absl-py[${PYTHON_USEDEP}]
+	dev-python/astor[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/protobuf-python[${PYTHON_USEDEP}]
+	dev-python/six[${PYTHON_USEDEP}]
+	dev-python/termcolor[${PYTHON_USEDEP}]
+	dev-python/wheel[${PYTHON_USEDEP}]
 	dev-libs/jemalloc
 	dev-libs/protobuf-c
 	dev-util/bazel
@@ -109,17 +109,43 @@ src_compile() {
 	addpredict /proc
 
 	local opt=$(usex cuda "--config=cuda" "")
+	local fs=""
+	for i in ${CXXFLAGS}; do
+		[[ -n "${fs}" ]] && fs+=" "
+		fs+="--cxxopt=${i}"
+	done
+	for i in ${CPPFLAGS}; do
+		[[ -n "${fs}" ]] && fs+=" "
+		fs+="--copt=${i}"
+		fs+="--cxxopt=${i}"
+	done
+	for i in ${LDFLAGS}; do
+		[[ -n "${fs}" ]] && fs+=" "
+		fs+="--linkopt=${i}"
+	done
 	einfo ">>> Compiling ${PN} C"$(usex cxx " and C++" "")
+	einfo "	bazel build \\"
+	einfo "	  --config=opt ${opt} \\"
+	einfo "	  ${fs} \\"
+	einfo "	  //tensorflow:libtensorflow.so \\"
+	einfo "   //tensorflow:libtensorflow_framework.so \\"
+	einfo "	  "$(usex cxx "//tensorflow:libtensorflow_cc.so" "")
 	bazel build \
 		  --config=opt ${opt} \
+		  ${fs} \
 		  //tensorflow:libtensorflow.so \
 		  //tensorflow:libtensorflow_framework.so \
 		  $(usex cxx "//tensorflow:libtensorflow_cc.so" "") || die
 
 	python_compile() {
 		einfo ">>> Compiling ${PN} ${MULTIBUILD_VARIANT}"
+		einfo "	bazel build \\"
+		einfo "	  --config=opt ${opt} \\"
+		einfo "	  ${fs} \\"
+		einfo "   //tensorflow/tools/pip_package:build_pip_package"
 		bazel build \
 			  --config=opt ${opt} \
+			  ${fs} \
 			  //tensorflow/tools/pip_package:build_pip_package || die
 		bazel-bin/tensorflow/tools/pip_package/build_pip_package tensorflow_pkg || die
 		unzip -o -d ${PN}_pkg_${MULTIBUILD_VARIANT} ${PN}_pkg/${P}-*.whl || die
