@@ -99,16 +99,7 @@ src_configure(){
 	python_foreach_impl python_configure
 }
 
-src_compile() {
-	# F: fopen_wr
-	# S: deny
-	# P: /proc/self/setgroups
-	# A: /proc/self/setgroups
-	# R: /proc/7712/setgroups
-	# C: unable to read /proc/1/cmdline
-	addpredict /proc
-
-	local opt=$(usex cuda "--config=cuda" "")
+bazel-get-flags() {
 	local fs=""
 	for i in ${CXXFLAGS}; do
 		[[ -n "${fs}" ]] && fs+=" "
@@ -123,16 +114,29 @@ src_compile() {
 		[[ -n "${fs}" ]] && fs+=" "
 		fs+="--linkopt=${i}"
 	done
+	echo "${fs}"
+}
+
+src_compile() {
+	# F: fopen_wr
+	# S: deny
+	# P: /proc/self/setgroups
+	# A: /proc/self/setgroups
+	# R: /proc/7712/setgroups
+	# C: unable to read /proc/1/cmdline
+	addpredict /proc
+
+	local opt=$(usex cuda "--config=cuda" "")
 	einfo ">>> Compiling ${PN} C"$(usex cxx " and C++" "")
 	einfo "	bazel build \\"
 	einfo "	  --config=opt ${opt} \\"
-	einfo "	  ${fs} \\"
+	einfo "	  $(bazel-get-flags) \\"
 	einfo "	  //tensorflow:libtensorflow.so \\"
 	einfo "   //tensorflow:libtensorflow_framework.so \\"
 	einfo "	  "$(usex cxx "//tensorflow:libtensorflow_cc.so" "")
 	bazel build \
 		  --config=opt ${opt} \
-		  ${fs} \
+		  $(bazel-get-flags) \
 		  //tensorflow:libtensorflow.so \
 		  //tensorflow:libtensorflow_framework.so \
 		  $(usex cxx "//tensorflow:libtensorflow_cc.so" "") || die
@@ -141,11 +145,11 @@ src_compile() {
 		einfo ">>> Compiling ${PN} ${MULTIBUILD_VARIANT}"
 		einfo "	bazel build \\"
 		einfo "	  --config=opt ${opt} \\"
-		einfo "	  ${fs} \\"
+		einfo "	  $(bazel-get-flags) \\"
 		einfo "   //tensorflow/tools/pip_package:build_pip_package"
 		bazel build \
 			  --config=opt ${opt} \
-			  ${fs} \
+			  $(bazel-get-flags) \
 			  //tensorflow/tools/pip_package:build_pip_package || die
 		bazel-bin/tensorflow/tools/pip_package/build_pip_package tensorflow_pkg || die
 		unzip -o -d ${PN}_pkg_${MULTIBUILD_VARIANT} ${PN}_pkg/${P}-*.whl || die
