@@ -114,6 +114,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-fop-2.0.patch"
 	"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch"
 	"${FILESDIR}/${P}-freehep.patch"
+	"${FILESDIR}/${P}-fix-argsize.patch"
 )
 
 pkg_pretend() {
