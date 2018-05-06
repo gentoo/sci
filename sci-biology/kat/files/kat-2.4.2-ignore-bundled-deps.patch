@@ -1,0 +1,79 @@
+diff --git a/lib/Makefile.am b/lib/Makefile.am
+index ac23917..0ca4be9 100644
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -6,7 +6,6 @@ pkgconfig_DATA = kat.pc
+ lib_LTLIBRARIES = libkat.la
+ 
+ libkat_la_LDFLAGS = \
+-	-L$(top_builddir)/deps/boost/build/lib/ \
+ 	-version-info 2:4:2
+ 
+ LIBS = \
+@@ -41,7 +40,6 @@ library_include_HEADERS =   $(KI)/distance_metrics.hpp \
+ 
+ libkat_la_CPPFLAGS = \
+ 	-I$(top_srcdir)/deps/jellyfish-2.2.0/include \
+-	-I$(top_srcdir)/deps/boost/build/include \
+ 	-I$(top_srcdir)/lib/include \
+ 	-DKAT_SITE_PKGS='"$(prefix)/lib/python$(PYTHON_VERSION)/site-packages"' \
+ 	@AM_CPPFLAGS@
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 1cdf7e0..dfa878b 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -14,7 +14,6 @@ kat_CXXFLAGS = \
+ kat_CPPFLAGS = \
+ 	-I$(top_srcdir)/deps/seqan-library-2.0.0/include \
+ 	-I$(top_srcdir)/deps/jellyfish-2.2.0/include \
+-	-I$(top_srcdir)/deps/boost/build/include \
+ 	-I$(top_srcdir)/lib/include \
+ 	-DKAT_SCRIPTS='"$(datarootdir)/scripts"' \
+ 	-DKAT_SITE_PKGS='"$(prefix)/lib/python$(PYTHON_VERSION)/site-packages"' \
+@@ -25,13 +24,13 @@ kat_LDFLAGS = \
+ 	@AM_LDFLAGS@
+ 
+ kat_LDADD = \
+-	$(top_builddir)/deps/boost/build/lib/libboost_timer.a \
+-	$(top_builddir)/deps/boost/build/lib/libboost_chrono.a \
+-	$(top_builddir)/deps/boost/build/lib/libboost_filesystem.a \
+-	$(top_builddir)/deps/boost/build/lib/libboost_program_options.a \
+-	$(top_builddir)/deps/boost/build/lib/libboost_system.a \
+-	$(top_builddir)/deps/jellyfish-2.2.0/.libs/libkat_jellyfish.la \
+ 	$(top_builddir)/lib/libkat.la \
++	$(top_builddir)/deps/jellyfish-2.2.0/.libs/libkat_jellyfish.la \
++	-lboost_timer \
++	-lboost_chrono \
++	-lboost_filesystem \
++	-lboost_program_options \
++	-lboost_system \
+ 	@AM_LIBS@
+ 
+ noinst_HEADERS = \
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index eee4e8b..dec2a5f 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -31,7 +31,6 @@ AM_CPPFLAGS = \
+ 	-I$(top_srcdir)/lib/include \
+ 	-I$(top_srcdir)/deps/seqan-library-2.0.0/include \
+ 	-I$(top_srcdir)/deps/jellyfish-2.2.0/include \
+-	-I$(top_srcdir)/deps/boost/build/include \
+ 	-DDATADIR=\"$(srcdir)/data\" \
+ 	-DKAT_SITE_PKGS='"$(prefix)/lib/python$(PYTHON_VERSION)/site-packages"' \
+ 	@AM_CPPFLAGS@
+@@ -58,13 +57,11 @@ check_unit_tests_SOURCES = \
+ 
+ check_unit_tests_LDFLAGS = \
+ 	-static \
+-	-L$(top_builddir)/deps/boost/build/lib \
+-	-Wl,-rpath $(top_builddir)/deps/boost/build/lib \
+ 	@AM_LDFLAGS@
+ 
+ check_unit_tests_LDADD = \
+ 	libgtest.la \
+-    $(top_builddir)/lib/libkat.la \
++	$(top_builddir)/lib/libkat.la \
+ 	-lboost_timer \
+ 	-lboost_chrono \
+ 	-lboost_filesystem \
