@@ -24,9 +24,7 @@ and extra output. If you want to get meaningful backtraces see
 &lt;http://www.gentoo.org/proj/en/qa/backtraces.xml&gt;</flag>
 		<flag name="c++11">Compile the library with -std=c++11</flag>
 		<flag name="gmsh">Add support for gmsh (<pkg>sci-libs/gmsh</pkg>)</flag>
-		<flag name="mesh_converter">Build and install the mesh_converter executable</flag>
 		<flag name="metis">Add support for metis (<pkg>sci-libs/metis</pkg>)</flag>
-		<flag name="mumps">Add support for mumps (<pkg>sci-libs/mumps</pkg>)</flag>
 		<flag name="muparser">Add support for muparser (<pkg>dev-cpp/muParser</pkg>)</flag>
 		<flag name="nanoflann">Adds support for nanoflann (<pkg>sci-libs/nanoflann</pkg>)</flag>
 		<flag name="opencascade">Add support for opencascade (<pkg>sci-libs/opencascade</pkg>)</flag>
