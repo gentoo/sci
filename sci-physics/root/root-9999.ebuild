@@ -196,7 +196,9 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
 		"${FILESDIR}"/${PN}-6.06.00-nobyte-compile.patch \
-		"${FILESDIR}"/${PN}-6.00.01-llvm.patch
+#		"${FILESDIR}"/${PN}-6.00.01-llvm.patch
+
+	eapply_user
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
