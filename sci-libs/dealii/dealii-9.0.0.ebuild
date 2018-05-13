@@ -21,7 +21,7 @@ if [[ ${PV} = *9999* ]]; then
 else
 	MY_PV="${PV//0_rc/rc}"
 	MY_P="${PN}-${MY_PV}"
-	SRC_URI="https://github.com/dealii/dealii/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz
+	SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${MY_P}.tar.gz
 		doc? (
 			https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${MY_P}-offline_documentation.tar.gz
 			-> ${P}-offline_documentation.tar.gz
