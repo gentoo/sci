@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		Pynrrd is a pure-Python module for reading and writing nrrd
+		(Nearly Raw Raster Data, a file format for storing N-dimensional
+		raster data and often used for DTI data) files into and from 
+		numpy arrays.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">mhe/pynrrd</remote-id>
+	</upstream>
+</pkgmetadata>
