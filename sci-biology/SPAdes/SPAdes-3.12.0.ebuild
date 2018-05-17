@@ -10,11 +10,14 @@ inherit eutils toolchain-funcs
 DESCRIPTION="De novo de Bruijn genome assembler overcoming uneven coverage"
 HOMEPAGE="http://cab.spbu.ru/software/spades"
 SRC_URI="
-	http://spades.bioinf.spbau.ru/release${PV}/SPAdes-${PV}.tar.gz
-	http://spades.bioinf.spbau.ru/release${PV}/manual.html -> ${P}_manual.html
-	http://spades.bioinf.spbau.ru/release${PV}/dipspades_manual.html -> ${P}_dipspades_manual.html
-	http://spades.bioinf.spbau.ru/release${PV}/rnaspades_manual.html -> ${P}_rnaspades_manual.html
-	http://spades.bioinf.spbau.ru/release${PV}/truspades_manual.html -> ${P}_truspades_manual.html"
+	https://github.com/ablab/spades/releases/download/v${PV}/${P}.tar.gz
+	http://cab.spbu.ru/files/release${PV}/manual.html -> ${P}_manual.html
+	http://cab.spbu.ru/files/release${PV}/manual.md -> ${P}_manual.md
+	http://cab.spbu.ru/files/release${PV}/rnaspades_manual.html -> ${P}_rnaspades_manual.html
+	http://cab.spbu.ru/files/release${PV}/truspades_manual.html -> ${P}_truspades_manual.html
+	http://spades.bioinf.spbau.ru/release3.11.1/dipspades_manual.html -> ${P}_dipspades_manual.html"
+# DEPRECATED in 3.12.0: dipSPAdes pipeline for highly polymorphic diploid genomes
+#	(still present in the release but no longer supported)
 
 LICENSE="GPL-2"
 SLOT="0"
