@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		PyBIDS is a Python library to centralize interactions with datasets
+		conforming BIDS (Brain Imaging Data Structure) format. For more
+		information about BIDS visit http://bids.neuroimaging.io.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">INCF/pybids</remote-id>
+	</upstream>
+</pkgmetadata>
