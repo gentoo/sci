@@ -92,7 +92,6 @@ src_configure() {
 		-DDEAL_II_EXAMPLES_RELDIR="share/doc/${P}/examples"
 		-DDEAL_II_LIBRARY_RELDIR="$(get_libdir)"
 		-DDEAL_II_SHARE_RELDIR="share/${PN}"
-		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
 		-DDEAL_II_WITH_ADOLC="$(usex adolc)"
 		-DDEAL_II_WITH_ASSIMP="$(usex assimp)"
