@@ -48,6 +48,7 @@ REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
 
 MPI_UNCLASSED_DEP_STR="
 	!>=dev-libs/intel-common-16[mpi]
+	!sys-cluster/pmix
 "
 
 CDEPEND="

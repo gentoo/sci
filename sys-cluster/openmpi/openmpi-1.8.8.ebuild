@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -49,6 +49,7 @@ REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
 
 MPI_UNCLASSED_DEP_STR="
 	!>=dev-libs/intel-common-16[mpi]
+	!sys-cluster/pmix
 	vt? (
 		!dev-libs/libotf
 		!app-text/lcdf-typetools
