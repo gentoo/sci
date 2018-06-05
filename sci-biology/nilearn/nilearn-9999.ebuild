@@ -18,10 +18,14 @@ KEYWORDS=""
 IUSE="+plot test"
 
 DEPEND="
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )
+	test? (
+		${RDEPEND}
+		dev-python/nose[${PYTHON_USEDEP}]
+		)
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="
+	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scikits_learn[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
