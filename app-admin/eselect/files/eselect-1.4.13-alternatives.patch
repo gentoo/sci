@@ -1,12 +1,12 @@
  bin/Makefile.am                  |   1 +
  bin/eselect.in                   | 150 +++++++++++-
  libs/Makefile.am                 |   7 +-
- libs/alternatives-common.bash.in | 510 +++++++++++++++++++++++++++++++++++++++
+ libs/alternatives-common.bash.in | 509 +++++++++++++++++++++++++++++++++++++++
  libs/alternatives.bash.in        | 316 ++++++++++++++++++++++++
  modules/Makefile.am              |   1 +
  modules/alternatives.eselect     | 178 ++++++++++++++
  modules/modules.eselect          | 288 ++++++++++++++--------
- 8 files changed, 1343 insertions(+), 108 deletions(-)
+ 8 files changed, 1342 insertions(+), 108 deletions(-)
 
 diff --git a/bin/Makefile.am b/bin/Makefile.am
 index 20902c1..ad08867 100644
@@ -21,7 +21,7 @@ index 20902c1..ad08867 100644
  
  % : %.in
 diff --git a/bin/eselect.in b/bin/eselect.in
-index 934a10a..5242ed3 100755
+index 432f4e8..840eb94 100755
 --- a/bin/eselect.in
 +++ b/bin/eselect.in
 @@ -22,10 +22,18 @@ ESELECT_DATA_PATH="@DATADIR@/eselect"
@@ -46,7 +46,7 @@ index 934a10a..5242ed3 100755
  
  # Look in this place for libraries
  ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
-@@ -64,12 +72,27 @@ fi
+@@ -66,12 +74,27 @@ fi
  # Load core functions
  source "${ESELECT_CORE_PATH}/core.bash" || exit 255
  # Load necessary functions for the main script
@@ -75,7 +75,7 @@ index 934a10a..5242ed3 100755
  # es_do_usage
  # Display eselect usage
  es_do_usage() {
-@@ -81,14 +104,10 @@ es_do_usage() {
+@@ -83,14 +106,10 @@ es_do_usage() {
  es_do_help() {
  	es_do_usage
  	echo
@@ -92,7 +92,7 @@ index 934a10a..5242ed3 100755
  }
  
  # es_do_version
-@@ -100,6 +119,114 @@ es_do_version() {
+@@ -102,6 +121,114 @@ es_do_version() {
  	echo "Distributed under the terms of the GNU GPL version 2 or later."
  }
  
@@ -207,7 +207,7 @@ index 934a10a..5242ed3 100755
  ### main code ###
  
  # figure out what the action is. we need to know whether we're
-@@ -141,6 +268,9 @@ while [[ ${1##--} != "$1" ]]; do
+@@ -143,6 +270,9 @@ while [[ ${1##--} != "$1" ]]; do
  				*) die -q "Invalid argument for ${1%%=*} option" ;;
  			esac
  			;;
@@ -218,7 +218,7 @@ index 934a10a..5242ed3 100755
  			[[ -z ${action} ]] || die -q "Too many parameters"
  			action=${1##--}
 diff --git a/libs/Makefile.am b/libs/Makefile.am
-index 027ef73..a5fe373 100644
+index 6ebd08e..c19f173 100644
 --- a/libs/Makefile.am
 +++ b/libs/Makefile.am
 @@ -1,6 +1,8 @@
@@ -239,22 +239,22 @@ index 027ef73..a5fe373 100644
  	config.bash.in \
  	core.bash.in \
  	default.eselect.in \
-@@ -30,7 +34,8 @@ dosed = @SED@ \
- 	-e 's%\@SED\@%@SED@%g' \
+@@ -31,7 +35,8 @@ dosed = @SED@ \
  	-e 's%\@PORTAGEQ\@%@PORTAGEQ@%g' \
  	-e 's%\@ENV_UPDATE\@%@ENV_UPDATE@%g' \
--	-e 's%\@CANONICALISE\@%@CANONICALISE@%g'
-+	-e 's%\@CANONICALISE\@%@CANONICALISE@%g' \
+ 	-e 's%\@CANONICALISE\@%@CANONICALISE@%g' \
+-	-e 's%\@libdir\@%@libdir@%g'
++	-e 's%\@libdir\@%@libdir@%g' \
 +	-e 's%\@sysconfdir\@%@sysconfdir@%g'
  
  %.bash : %.bash.in
  	@$(dosed) $< > $@
 diff --git a/libs/alternatives-common.bash.in b/libs/alternatives-common.bash.in
 new file mode 100644
-index 0000000..8753b89
+index 0000000..024d41e
 --- /dev/null
 +++ b/libs/alternatives-common.bash.in
-@@ -0,0 +1,510 @@
+@@ -0,0 +1,509 @@
 +# Copyright (c) 2005-2015 Gentoo Foundation
 +# Copyright (c) 2008 Mike Kelly
 +# Copyright (c) 2009-2013 David Leverton
@@ -277,8 +277,7 @@ index 0000000..8753b89
 +inherit config output path-manipulation tests
 +
 +: "${ALTERNATIVESDIR_ROOTLESS:=@sysconfdir@/env.d/alternatives}"
-+: "${ALTERNATIVESDIR_ROOT:=${ROOT%/}}"
-+ALTERNATIVESDIR="${ALTERNATIVESDIR_ROOT}${ALTERNATIVESDIR_ROOTLESS}"
++ALTERNATIVESDIR="${EROOT%/}${ALTERNATIVESDIR_ROOTLESS}"
 +
 +get_current_provider() {
 +	local dieprefix="Could not determine current provider for ${ALTERNATIVE}"
@@ -468,7 +467,7 @@ index 0000000..8753b89
 +				old_i+=1
 +
 +			else
-+				local target=${ALTERNATIVESDIR_ROOTLESS#${EPREFIX}/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
++				local target=${ALTERNATIVESDIR_ROOTLESS#/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
 +				while [[ -n ${dir} ]]; do
 +					target=../${target}
 +					dir=${dir%/*}
@@ -547,7 +546,7 @@ index 0000000..8753b89
 +	elif [[ ! -d "${provider_dir}" ]]; then
 +		die "${provider_dir} exists but is a file"
 +	else
-+		die "${provider_dir} already present. You need to remove it before adding it again"
++		die "${provider_dir} already present. You need ot remove it before adding it again"
 +	fi
 +
 +	# Make sure importance is a signed integer
@@ -564,7 +563,7 @@ index 0000000..8753b89
 +		if [[ ${src} != /* ]]; then
 +			die "Source path must be absolute, but got ${src}"
 +		else
-+			local reltarget= dir=${provider_dir#${ALTERNATIVESDIR_ROOT}${EPREFIX}}${src%/*}
++			local reltarget= dir=${provider_dir}${src%/*}
 +			while [[ -n ${dir} ]]; do
 +				reltarget+=../
 +				dir=${dir%/*}
@@ -1284,11 +1283,11 @@ index 0000000..840b9c5
 +	alternatives_options_remove
 +}
 diff --git a/modules/modules.eselect b/modules/modules.eselect
-index 038f630..78dcbab 100644
+index 5bc78ca..23c1e59 100644
 --- a/modules/modules.eselect
 +++ b/modules/modules.eselect
 @@ -2,7 +2,7 @@
- # Copyright 2006-2015 Gentoo Foundation
+ # Copyright 2006-2018 Gentoo Foundation
  # Distributed under the terms of the GNU GPL version 2 or later
  
 -inherit config
