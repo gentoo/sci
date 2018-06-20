@@ -1,12 +1,15 @@
  bin/Makefile.am                  |   1 +
  bin/eselect.in                   | 150 +++++++++++-
  libs/Makefile.am                 |   7 +-
- libs/alternatives-common.bash.in | 509 +++++++++++++++++++++++++++++++++++++++
+ libs/alternatives-common.bash.in | 510 +++++++++++++++++++++++++++++++++++++++
  libs/alternatives.bash.in        | 316 ++++++++++++++++++++++++
  modules/Makefile.am              |   1 +
  modules/alternatives.eselect     | 178 ++++++++++++++
- modules/modules.eselect          | 288 ++++++++++++++--------
- 8 files changed, 1342 insertions(+), 108 deletions(-)
+ modules/modules.eselect          | 282 ++++++++++++++--------
+ 8 files changed, 1340 insertions(+), 105 deletions(-)
+ create mode 100644 libs/alternatives-common.bash.in
+ create mode 100644 libs/alternatives.bash.in
+ create mode 100644 modules/alternatives.eselect
 
 diff --git a/bin/Makefile.am b/bin/Makefile.am
 index 20902c1..ad08867 100644
@@ -251,10 +254,10 @@ index 6ebd08e..c19f173 100644
  	@$(dosed) $< > $@
 diff --git a/libs/alternatives-common.bash.in b/libs/alternatives-common.bash.in
 new file mode 100644
-index 0000000..024d41e
+index 0000000..79b6eb5
 --- /dev/null
 +++ b/libs/alternatives-common.bash.in
-@@ -0,0 +1,509 @@
+@@ -0,0 +1,510 @@
 +# Copyright (c) 2005-2015 Gentoo Foundation
 +# Copyright (c) 2008 Mike Kelly
 +# Copyright (c) 2009-2013 David Leverton
@@ -277,7 +280,8 @@ index 0000000..024d41e
 +inherit config output path-manipulation tests
 +
 +: "${ALTERNATIVESDIR_ROOTLESS:=@sysconfdir@/env.d/alternatives}"
-+ALTERNATIVESDIR="${EROOT%/}${ALTERNATIVESDIR_ROOTLESS}"
++: "${ALTERNATIVESDIR_ROOT:=${EROOT%/}}"
++ALTERNATIVESDIR="${ALTERNATIVESDIR_ROOT}${ALTERNATIVESDIR_ROOTLESS}"
 +
 +get_current_provider() {
 +	local dieprefix="Could not determine current provider for ${ALTERNATIVE}"
@@ -467,7 +471,7 @@ index 0000000..024d41e
 +				old_i+=1
 +
 +			else
-+				local target=${ALTERNATIVESDIR_ROOTLESS#/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
++				local target=${ALTERNATIVESDIR_ROOTLESS#${EPREFIX}/}/${ALTERNATIVE}/_current${newsymlinks[new_i]} dir=${newsymlinks[new_i]%/*}
 +				while [[ -n ${dir} ]]; do
 +					target=../${target}
 +					dir=${dir%/*}
@@ -563,7 +567,7 @@ index 0000000..024d41e
 +		if [[ ${src} != /* ]]; then
 +			die "Source path must be absolute, but got ${src}"
 +		else
-+			local reltarget= dir=${provider_dir}${src%/*}
++			local reltarget= dir=${provider_dir#${ALTERNATIVESDIR_ROOT}${EPREFIX}}${src%/*}
 +			while [[ -n ${dir} ]]; do
 +				reltarget+=../
 +				dir=${dir%/*}
@@ -1307,49 +1311,6 @@ index 5bc78ca..23c1e59 100644
  do_list() {
 -	local only_names path file module name desc
 -	local -a extra_modules
--
--	if [[ ${1#--} = only-names ]]; then
--		only_names=1
--		shift
--	fi
--	[[ $# -gt 0 ]] && die -q "Too many parameters"
--
--	for path in "${ESELECT_MODULES_PATH[@]}" ; do
--		[[ -d ${path} ]] || continue
--		for file in "${path}"/*.eselect ; do
--			[[ -f ${file} ]] || continue
--			extra_modules=( "${extra_modules[@]}" "${file}" )
--		done
--	done
--
--	if [[ -n ${only_names} ]]; then
--		# This is mainly intended for bash completion
--		echo "help"
--		echo "usage"
--		echo "version"
--		for module in "${extra_modules[@]}" ; do
--			name=${module##*/}
--			echo "${name%%.eselect}"
--		done
--	else
--		write_list_start "Built-in modules:"
--		write_kv_list_entry "help"			"Display a help message"
--		write_kv_list_entry "usage"			"Display a usage message"
--		write_kv_list_entry "version"		"Display version information"
--
--		if [[ ${#extra_modules[@]} -gt 0 ]] ; then
--			echo
--			write_list_start "Extra modules:"
--			for module in "${extra_modules[@]}" ; do
--				name=${module##*/}
--				name=${name%%.eselect}
--				desc=$(ESELECT_MODULE_NAME=${name} \
--					load_config "${module}" DESCRIPTION)
--				desc=${desc:-No description available}
--				write_kv_list_entry "${name}" "${desc}"
--			done
--		fi
--	fi
 +    local path file module name desc group groups Extra_modules
 +
 +    write_list_start "Built-in modules:"
@@ -1390,9 +1351,50 @@ index 5bc78ca..23c1e59 100644
 +        fi
 +    done
 +}
-+
+ 
+-	if [[ ${1#--} = only-names ]]; then
+-		only_names=1
+-		shift
+-	fi
+-	[[ $# -gt 0 ]] && die -q "Too many parameters"
+-
+-	for path in "${ESELECT_MODULES_PATH[@]}" ; do
+-		[[ -d ${path} ]] || continue
+-		for file in "${path}"/*.eselect ; do
+-			[[ -f ${file} ]] || continue
+-			extra_modules=( "${extra_modules[@]}" "${file}" )
+-		done
+-	done
 +### group action
-+
+ 
+-	if [[ -n ${only_names} ]]; then
+-		# This is mainly intended for bash completion
+-		echo "help"
+-		echo "usage"
+-		echo "version"
+-		for module in "${extra_modules[@]}" ; do
+-			name=${module##*/}
+-			echo "${name%%.eselect}"
+-		done
+-	else
+-		write_list_start "Built-in modules:"
+-		write_kv_list_entry "help"			"Display a help message"
+-		write_kv_list_entry "usage"			"Display a usage message"
+-		write_kv_list_entry "version"		"Display version information"
+-
+-		if [[ ${#extra_modules[@]} -gt 0 ]] ; then
+-			echo
+-			write_list_start "Extra modules:"
+-			for module in "${extra_modules[@]}" ; do
+-				name=${module##*/}
+-				name=${name%%.eselect}
+-				desc=$(ESELECT_MODULE_NAME=${name} \
+-					load_config "${module}" DESCRIPTION)
+-				desc=${desc:-No description available}
+-				write_kv_list_entry "${name}" "${desc}"
+-			done
+-		fi
+-	fi
 +describe_group() {
 +    echo "Lists all available modules belonging to a specified group."
 +}
@@ -1450,12 +1452,6 @@ index 5bc78ca..23c1e59 100644
  do_has() {
 -	[[ -z $1 ]] && die -q "Required option (module name) missing"
 -	[[ $# -gt 1 ]] && die -q "Too many parameters"
--
--	local modname=$1 modpath
--	for modpath in "${ESELECT_MODULES_PATH[@]}" ; do
--		[[ -f ${modpath}/${modname}.eselect ]] && return 0
--	done
--	return 1
 +    [[ -z $1 ]] && die -q "Required option (module name) missing"
 +    [[ $# -gt 1 ]] && die -q "Too many parameters"
 +    local modname="$1" modpath
@@ -1464,52 +1460,17 @@ index 5bc78ca..23c1e59 100644
 +        [[ -f "${modpath}/${modname}.eselect" ]] && return 0
 +    done
 +    return 1
- }
- 
- ### add action
--# *** Commented out. Do we really want to have an eselect module that is
--# *** installing other modules in a system directory? Also, this should
--# *** go together with a "remove" action.
--
--# describe_add() {
--# 	echo "Install the given module file somewhere that eselect can find it."
--# 	echo "By default, install to \$HOME/.eselect/modules/, unless running as "
--# 	echo "root. Then, install to ${ESELECT_DATA_PATH}/modules/."
--# }
--
--# describe_add_parameters() {
--# 	echo "<module_file>"
--# }
--
--# do_add() {
--# 	local local_path="${ROOT}${HOME}/.eselect/modules/" module_file
--# 	local force_default=0
--#
--# 	if [[ $1 = "--force-default-location" ]] ; then
--# 		force_default=1
--# 		shift
--# 	fi
--# 	module_file=$1
--#
--# 	[[ -z ${module_file} ]] && die -q "Required option (module file) missing"
--#
--# 	# TODO: Don't install the module "somewhere", depending on write access.
--# 	# Add an option to control if it goes to the user's or to the system dir.
--# 	if ! cp "${module_file}" "${ESELECT_DEFAULT_MODULES_PATH}" &> /dev/null ; then
--# 		[[ ${force_default} == 1 ]] \
--# 			&& die -q "Failed to install module file to default modules path"
--#
--# 		mkdir -p "${local_path}" \
--# 			|| die -q "Failed to create module install directory"
--# 		cp "${module_file}" "${local_path}" \
--# 			|| die -q "Failed to install module file"
--# 	fi
--# }
++}
++
++### add action
 +
 +describe_add() {
 +    echo "Install a module file"
 +}
-+
+ 
+-	local modname=$1 modpath
+-	for modpath in "${ESELECT_MODULES_PATH[@]}" ; do
+-		[[ -f ${modpath}/${modname}.eselect ]] && return 0
 +describe_add_options() {
 +    echo "--default : install as global module (default if root)"
 +    echo "--user : install as user's module"
@@ -1594,9 +1555,50 @@ index 5bc78ca..23c1e59 100644
 +	for module_path in "${ESELECT_MODULES_PATH[@]}" ; do
 +	    rm "${module_path}/${module_name}.eselect" &> /dev/null
 +	    ret=$?
-+	done
+ 	done
+-	return 1
 +    fi
 +    [[ ${ret} != 0 ]] && die -q "Failed to remove module ${module_name}"
-+}
-+
+ }
+ 
+-### add action
+-# *** Commented out. Do we really want to have an eselect module that is
+-# *** installing other modules in a system directory? Also, this should
+-# *** go together with a "remove" action.
+-
+-# describe_add() {
+-# 	echo "Install the given module file somewhere that eselect can find it."
+-# 	echo "By default, install to \$HOME/.eselect/modules/, unless running as "
+-# 	echo "root. Then, install to ${ESELECT_DATA_PATH}/modules/."
+-# }
+-
+-# describe_add_parameters() {
+-# 	echo "<module_file>"
+-# }
+-
+-# do_add() {
+-# 	local local_path="${ROOT}${HOME}/.eselect/modules/" module_file
+-# 	local force_default=0
+-#
+-# 	if [[ $1 = "--force-default-location" ]] ; then
+-# 		force_default=1
+-# 		shift
+-# 	fi
+-# 	module_file=$1
+-#
+-# 	[[ -z ${module_file} ]] && die -q "Required option (module file) missing"
+-#
+-# 	# TODO: Don't install the module "somewhere", depending on write access.
+-# 	# Add an option to control if it goes to the user's or to the system dir.
+-# 	if ! cp "${module_file}" "${ESELECT_DEFAULT_MODULES_PATH}" &> /dev/null ; then
+-# 		[[ ${force_default} == 1 ]] \
+-# 			&& die -q "Failed to install module file to default modules path"
+-#
+-# 		mkdir -p "${local_path}" \
+-# 			|| die -q "Failed to create module install directory"
+-# 		cp "${module_file}" "${local_path}" \
+-# 			|| die -q "Failed to install module file"
+-# 	fi
+-# }
 +# vim: set ft=eselect sw=4 sts=4 ts=4 et tw=80 :
+
