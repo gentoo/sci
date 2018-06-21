@@ -31,6 +31,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${LPN}-${LPV}"
 
 src_prepare() {
+	cmake-utils_src_prepare
 	# rename library to avoid collision with other blas implementations
 	# ${LIBNAME} and ${PROFNAME} are not defined here, they are in single
 	# quotes in the following seds.  They are later set by defining cmake
