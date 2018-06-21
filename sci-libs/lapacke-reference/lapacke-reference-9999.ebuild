@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 FORTRAN_NEEDED=test
 
@@ -57,9 +57,9 @@ src_configure() {
 			-DLAPACKE=ON
 			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs blas)"
 			-DLAPACK_LIBRARIES="$($(tc-getPKG_CONFIG) --libs lapack)"
-			$(cmake-utils_use tmg LAPACKE_WITH_TMG)
-			$(cmake-utils_use_build test TESTING)
-			$(cmake-utils_use_use xblas XBLAS)
+			-DLAPACKE_WITH_TMG=$(usex tmg)
+			-DBUILD_TESTING=$(usex test)
+			-DUSE_XBLAS=$(usex xblas)
 			$@
 		)
 		cmake-utils_src_configure
