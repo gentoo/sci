@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -17,7 +17,7 @@ KEYWORDS="~amd64"
 IUSE="test"
 
 DEPEND="
-	sys-devel/clang:0=
+	sys-devel/clang:=
 	dev-lang/luajit:2"
 RDEPEND="${DEPEND}"
 
@@ -32,6 +32,5 @@ src_install() {
 	dobin terra
 	dolib.so libterra.so
 	dodoc README.md
-	cd include || die
-	doheader terra.h *.t
+	doheader include/{terra.h,*.t}
 }
