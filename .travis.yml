@@ -11,7 +11,7 @@ env:
 before_install:
     - sudo apt-get -qq update
 install:
-    - pip install "lxml<4.2"
+    - pip install lxml PyYAML
 before_script:
     - sudo chmod a+rwX /etc/passwd /etc/group /etc /usr
     - mkdir -p travis-overlay /etc/portage /usr/portage/distfiles
@@ -25,7 +25,7 @@ before_script:
     - echo "portage::250:portage,travis" >> /etc/group
     - wget "https://www.gentoo.org/dtd/metadata.dtd" -O /usr/portage/distfiles/metadata.dtd
     - ln -s $TRAVIS_BUILD_DIR/portage-portage-${PORTAGE_VER}/cnf/repos.conf /etc/portage/repos.conf
-    - ln -s /usr/portage/profiles/default/linux/amd64/17.0 /etc/portage/make.profile
+    - ln -s /usr/portage/profiles/default/linux/amd64/17.1 /etc/portage/make.profile
     - cd travis-overlay
 script:
     - ./../spinner.sh "python ../portage-portage-${PORTAGE_VER}/repoman/bin/repoman full -d"
