@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 JAVA_PKG_IUSE="doc examples source test"
 inherit eutils java-pkg-2 java-ant-2
@@ -27,7 +27,7 @@ CDEPEND="
 	dev-java/joda-time
 	dev-java/log4j
 	dev-java/slf4j-api
-	dev-libs/protobuf[java]"
+	dev-java/protobuf-java"
 
 RDEPEND="${CDEPEND}
 	>=virtual/jre-1.5"
