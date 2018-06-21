@@ -35,7 +35,7 @@ S="${WORKDIR}/${MYP}"
 src_prepare() {
 	numeric-int64_ensure_blas_int_support
 
-	default
+	cmake-utils_src_prepare
 
 	# rename library to avoid collision with other lapack implementations
 	# ${PROFNAME}, ${LIBNAME} and ${BLAS_REQUIRES} are not defined here, they
