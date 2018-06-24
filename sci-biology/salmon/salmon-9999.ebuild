@@ -3,11 +3,10 @@
 
 EAPI=6
 
-inherit cmake-utils git-r3
+inherit multilib cmake-utils git-r3
 
 DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
 HOMEPAGE="https://github.com/COMBINE-lab/salmon"
-SRC_URI=""
 EGIT_REPO_URI="https://github.com/COMBINE-lab/salmon.git"
 
 LICENSE="GPL-3"
@@ -24,7 +23,7 @@ RDEPEND="${DEPEND}"
 # https://github.com/gabime/spdlog
 # https://github.com/efficient/libcuckoo
 # https://github.com/greg7mdp/sparsepp
-# https://github.com/COMBINE-lab/RapMap
+# https://github.com/COMBINE-lab/RapMap , actually runs curl to fetch it
 # https://github.com/Kingsford-Group/libgff
 # sci-libs/io_lib
 #
@@ -35,11 +34,12 @@ RDEPEND="${DEPEND}"
 
 src_configure(){
 	local mycmakeargs=(
-		"-DBOOST_ROOT=${EPREFIX}/usr"
+		"-DBOOST_INCLUDEDIR=${EPREFIX}/usr/include/"
+		"-DBOOST_LIBRARYDIR=${EPREFIX}/usr/$(get_libdir)/"
 		"-DTBB_INSTALL_DIR=${EPREFIX}/usr"
 		"-DCMAKE_INSTALL_PREFIX=${EPREFIX}/usr"
 	)
-	# BUG: the configure step run automatically curl download of 3rd-party stuff
+	# BUG: the configure step runs automatically curl download of 3rd-party stuff
 	# https://github.com/COMBINE-lab/salmon/issues/19
 	cmake-utils_src_configure
 }

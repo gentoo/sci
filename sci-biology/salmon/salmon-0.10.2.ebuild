@@ -14,8 +14,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-PATCHES=( "${FILESDIR}"/${PN}-0.3.2-no-boost-static.patch )
-
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc
 		dev-cpp/tbb"
