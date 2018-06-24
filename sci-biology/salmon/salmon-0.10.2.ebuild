@@ -16,7 +16,7 @@ IUSE=""
 
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc
-		dev-cpp/tbb"
+		>=dev-cpp/tbb-2018.20180312"
 RDEPEND="${DEPEND}"
 
 src_install() {

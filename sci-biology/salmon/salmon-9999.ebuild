@@ -15,7 +15,7 @@ IUSE=""
 
 DEPEND="dev-libs/boost:0
 		dev-libs/jemalloc
-		dev-cpp/tbb"
+		>=dev-cpp/tbb-2018.20180312"
 RDEPEND="${DEPEND}"
 # https://github.com/COMBINE-lab/salmon/issues/19
 #
@@ -35,7 +35,7 @@ RDEPEND="${DEPEND}"
 # See https://github.com/COMBINE-lab/salmon/issues/236 for Cmake tweaks needed by Debian
 src_configure(){
 	local mycmakeargs=(
-		"-DBOOST_INCLUDEDIR=${EPREFIX}/usr/include/"
+		"-DBOOST_INCLUDEDIR=${EPREFIX}/usr/include/boost/"
 		"-DBOOST_LIBRARYDIR=${EPREFIX}/usr/$(get_libdir)/"
 		"-DTBB_INSTALL_DIR=${EPREFIX}/usr"
 		"-DCMAKE_INSTALL_PREFIX=${EPREFIX}/usr"
