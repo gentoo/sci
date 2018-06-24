@@ -32,6 +32,7 @@ RDEPEND="${DEPEND}"
 #
 # and maybe more
 
+# See https://github.com/COMBINE-lab/salmon/issues/236 for Cmake tweaks needed by Debian
 src_configure(){
 	local mycmakeargs=(
 		"-DBOOST_INCLUDEDIR=${EPREFIX}/usr/include/"
