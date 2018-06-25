@@ -1,0 +1,122 @@
+--- stringtie-1.2.2/Makefile	2018-06-25 23:28:55.558150677 +0200
++++ stringtie-1.2.2/Makefile	2018-06-25 23:29:55.819798846 +0200
+@@ -1,13 +1,15 @@
+-BAM := ./samtools-0.1.18
++BAM_INC = $(EPREFIX)/usr/include/bam-0.1-legacy
++BAM_LIB =  # or -L/some/path
++BAM_LIBS = -lbam-0.1-legacy
+ #path to the directory where the samtools package was built (in place)
+ #so libbam.a and *.h files MUST be in here
+ 
+ GDIR :=./gclib
+ 
+-INCDIRS := -I. -I${GDIR} -I${BAM}
++INCDIRS := -I. -I${GDIR} -I${BAM_INC}
+ 
+-#CC := clang++
+-CC      := g++
++#CXX := clang++
++CXX      ?= g++
+ 
+ 
+ ifneq (,$(findstring nothreads,$(MAKECMDGOALS)))
+@@ -15,12 +17,12 @@
+ endif
+ 
+ #detect MinGW (Windows environment)
+-ifneq (,$(findstring mingw,$(shell ${CC} -dumpmachine)))
++ifneq (,$(findstring mingw,$(shell ${CXX} -dumpmachine)))
+  WINDOWS=1
+ endif
+ 
+ LFLAGS = 
+-# MinGW32 GCC 4.5 link problem fix
++# MinGW32 GCXX 4.5 link problem fix
+ #ifdef WINDOWS
+ ifneq (,$(findstring 4.5.,$(shell g++ -dumpversion)))
+  LFLAGS += -static-libstdc++ -static-libgcc
+@@ -50,7 +52,7 @@
+ #LINKER := clang++
+ LINKER  := g++
+ 
+-LIBS := -lbam -lz
++LIBS := ${BAM_LIBS} -lz
+ 
+ # Non-windows systems need pthread
+ ifndef WINDOWS
+@@ -68,27 +70,27 @@
+ #ifneq (,$(findstring release,$(MAKECMDGOALS)))
+ ifneq (,$(filter %release %static, $(MAKECMDGOALS)))
+   # -- release build
+-  CFLAGS := -O3 -DNDEBUG -g $(BASEFLAGS)
+-  LDFLAGS := -g -L${BAM} ${LFLAGS}
++  CXXFLAGS += -DNDEBUG -g $(BASEFLAGS)
++  LDFLAGS += ${BAM_LIB} ${LFLAGS}
+   ifneq (,$(findstring static,$(MAKECMDGOALS)))
+     LDFLAGS += -static-libstdc++ -static-libgcc
+   endif
+ else
+   ifneq (,$(filter %memcheck %memdebug, $(MAKECMDGOALS)))
+      #make memcheck : use the statically linked address sanitizer in gcc 4.9.x
+-     GCCVER49 := $(shell expr `g++ -dumpversion | cut -f1,2 -d.` \>= 4.9)
+-     ifeq "$(GCCVER49)" "0"
++     GCXXVER49 := $(shell expr `g++ -dumpversion | cut -f1,2 -d.` \>= 4.9)
++     ifeq "$(GCXXVER49)" "0"
+        $(error gcc version 4.9 or greater is required for this build target)
+      endif
+-     CFLAGS := -fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address $(BASEFLAGS)
+-     GCCVER5 := $(shell expr `g++ -dumpversion | cut -f1 -d.` \>= 5)
+-     ifeq "$(GCCVER5)" "1"
+-       CFLAGS += -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=vptr
+-       CFLAGS += -fsanitize=float-cast-overflow -fsanitize=object-size
+-       #CFLAGS += -fcheck-pointer-bounds -mmpx
++     CXXFLAGS := -fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address $(BASEFLAGS)
++     GCXXVER5 := $(shell expr `g++ -dumpversion | cut -f1 -d.` \>= 5)
++     ifeq "$(GCXXVER5)" "1"
++       CXXFLAGS += -fsanitize=bounds -fsanitize=float-divide-by-zero -fsanitize=vptr
++       CXXFLAGS += -fsanitize=float-cast-overflow -fsanitize=object-size
++       #CXXFLAGS += -fcheck-pointer-bounds -mmpx
+      endif
+-     CFLAGS := -g -DDEBUG -D_DEBUG -DGDEBUG -fno-common -fstack-protector $(CFLAGS)
+-     LDFLAGS := -g -L${BAM}
++     CXXFLAGS += -DDEBUG -D_DEBUG -DGDEBUG -fno-common -fstack-protector $(CXXFLAGS)
++     LDFLAGS += ${BAM_LIB}
+      #LIBS := -Wl,-Bstatic -lasan -lubsan -Wl,-Bdynamic -ldl $(LIBS)
+      LIBS := -lasan -lubsan -ldl $(LIBS)
+   else
+@@ -97,13 +99,13 @@
+        GMEMTRACE=1
+    endif
+    #just plain debug build
+-    CFLAGS := -g -DDEBUG -D_DEBUG -DGDEBUG $(BASEFLAGS)
+-    LDFLAGS := -g -L${BAM}
++    CXXFLAGS += -DDEBUG -D_DEBUG -DGDEBUG $(BASEFLAGS)
++    LDFLAGS += ${BAM_LIB}
+   endif
+ endif
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ OBJS := ${GDIR}/GBase.o ${GDIR}/GArgs.o ${GDIR}/GStr.o ${GDIR}/GBam.o \
+  ${GDIR}/gdna.o ${GDIR}/codons.o ${GDIR}/GFaSeqGet.o ${GDIR}/gff.o 
+@@ -130,9 +132,7 @@
+ rlink.o : rlink.h tablemaker.h $(GDIR)/GBam.h $(GDIR)/GBitVec.h
+ tmerge.o : rlink.h tmerge.h
+ tablemaker.o : tablemaker.h rlink.h
+-${BAM}/libbam.a: 
+-	cd ${BAM} && make lib
+-stringtie: ${BAM}/libbam.a $(OBJS) stringtie.o
++stringtie: $(OBJS) stringtie.o
+ 	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LIBS}
+ 
+ .PHONY : clean cleanall cleanAll allclean
+@@ -143,7 +143,6 @@
+ 	@${RM} stringtie stringtie.o* stringtie.exe $(OBJS)
+ 	@${RM} core.*
+ allclean cleanAll cleanall:
+-	cd ${BAM} && make clean
+ 	@${RM} stringtie stringtie.o* stringtie.exe $(OBJS)
+ 	@${RM} core.*
+ 

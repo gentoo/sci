@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,6 +16,13 @@ IUSE=""
 # contains bundled gclib
 DEPEND="sci-biology/samtools:0.1-legacy" # bundled samtools-0.1.18
 RDEPEND="${DEPEND}"
+
+PATCHES=( "${FILESDIR}"/Makefile.patch )
+
+src_prepare(){
+	default
+	rm -r samtools-0.1.18 || die
+}
 
 src_compile(){
 	emake release
