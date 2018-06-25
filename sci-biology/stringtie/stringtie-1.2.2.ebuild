@@ -13,8 +13,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-# contains bundled gclib
-DEPEND="sci-biology/samtools:0.1-legacy" # bundled samtools-0.1.18
+# contains bundled gclib (0.9.8?), well they are just headers
+DEPEND="
+	sci-biology/gclib
+	sci-biology/samtools:0.1-legacy" # bundled samtools-0.1.18
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}"/Makefile.patch )
@@ -22,6 +24,7 @@ PATCHES=( "${FILESDIR}"/Makefile.patch )
 src_prepare(){
 	default
 	rm -r samtools-0.1.18 || die
+	# TODO: `rm -rf ./gclib' and fix Makefile
 }
 
 src_compile(){
