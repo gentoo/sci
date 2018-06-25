@@ -29,7 +29,8 @@ PATCHES=( "${FILESDIR}"/${P}-no-boost-static.patch
 #
 # dev-libs/spdlog-0.16.1
 # cereal-1.2.2
-DEPEND="sys-libs/zlib
+DEPEND="net-misc/curl
+		sys-libs/zlib
 		app-arch/bzip2
 		app-arch/xz-utils
 		dev-libs/boost:0[threads]
@@ -53,6 +54,10 @@ RDEPEND="${DEPEND}"
 # and maybe more
 
 # See https://github.com/COMBINE-lab/salmon/issues/236 for Cmake tweaks needed by Debian
+
+# see the many curl executions:
+# salmon-0.10.2$ find . -type f | xargs grep curl 2>/dev/null
+#
 src_configure(){
 	local mycmakeargs=(
 		"-DBOOST_INCLUDEDIR=${EPREFIX}/usr/include/boost/"
@@ -67,5 +72,5 @@ src_configure(){
 
 src_install() {
 	cmake-utils_src_install
-	rm -r "${ED}"/usr/tests || die
+	rm -rf "${ED}"/usr/tests || die
 }

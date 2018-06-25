@@ -1,0 +1,22 @@
+--- salmon-0.10.2/src/CMakeLists.txt	2018-06-25 13:35:45.723519730 +0200
++++ salmon-0.10.2/src/CMakeLists.txt	2018-06-25 13:44:01.326139539 +0200
+@@ -296,6 +296,8 @@
+     )
+ ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+ 
++include(GNUInstallDirs)
++
+ set(INSTALL_LIB_DIR lib )
+ set(INSTALL_BIN_DIR bin )
+ set(INSTALL_INCLUDE_DIR include )
+@@ -311,8 +313,8 @@
+ 
+ install(TARGETS salmon salmon_core
+                 RUNTIME DESTINATION bin
+-                LIBRARY DESTINATION lib
+-                ARCHIVE DESTINATION lib
++                LIBRARY DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}"
++                ARCHIVE DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}"
+         )
+ 
+ add_custom_command(TARGET unitTests POST_BUILD
