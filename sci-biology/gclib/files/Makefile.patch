@@ -1,0 +1,41 @@
+--- gclib-0.10.2/Makefile	2018-06-25 23:54:30.901037579 +0200
++++ gclib-0.10.2/Makefile	2018-06-25 23:58:26.757488304 +0200
+@@ -38,7 +38,7 @@
+ EXE =
+ endif
+ 
+-CC      := g++
++CXX      ?= g++
+ 
+ BASEFLAGS  := -Wall -Wextra ${SEARCHDIRS} $(MARCH) \
+  -D_REENTRANT -fno-exceptions -fno-rtti
+@@ -54,23 +54,24 @@
+ GCC45OPTMAIN :=
+ 
+ ifeq ($(findstring nodebug,$(MAKECMDGOALS)),)
+-  CFLAGS := -g -DDEBUG $(BASEFLAGS)
++  CXXFLAGS += -DDEBUG $(BASEFLAGS)
+   LDFLAGS += -g
+ else
+-  CFLAGS := -O2 -DNDEBUG $(BASEFLAGS)
++  CXXFLAGS ?= -O2
++  CXXFLAGS += -DNDEBUG $(BASEFLAGS)
+   ifeq ($(shell expr $(GCC_MAJOR).$(GCC_MINOR) '>=' 4.5),1)
+-    CFLAGS += -flto
++    CXXFLAGS += -flto
+     GCC45OPTS := -flto
+     GCC45OPTMAIN := -fwhole-program
+   endif
+ endif
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ # C/C++ linker
+ 
+-LINKER  := g++
++LINKER  ?= g++
+ LIBS := 
+ OBJS := GBase.o GStr.o GArgs.o
+ 
