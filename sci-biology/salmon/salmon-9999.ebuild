@@ -37,6 +37,7 @@ PATCHES=( "${FILESDIR}"/salmon-0.10.2-no-boost-static.patch
 # dev-libs/spdlog-0.16.1
 # cereal-1.2.2
 DEPEND="net-misc/curl
+		app-arch/unzip
 		sys-libs/zlib
 		app-arch/bzip2
 		app-arch/xz-utils

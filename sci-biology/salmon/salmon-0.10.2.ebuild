@@ -43,6 +43,7 @@ RDEPEND="${DEPEND}"
 # salmon-0.10.2$ find . -type f | xargs grep curl 2>/dev/null
 #
 DEPEND="net-misc/curl
+		app-arch/unzip
 		sys-libs/zlib
 		app-arch/bzip2
 		app-arch/xz-utils
