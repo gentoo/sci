@@ -30,6 +30,13 @@
 
 #--- END OF EXAMPLES ---
 
+# Horea Christian <horea.christ@gmail.com> (10 Mar 2012)
+# Serious bundling issues, upstream does not support Gentoo
+# or more generally unbundling. Masked until unbundling
+# efforts ( https://github.com/afni/afni/pull/60 ) come to
+# fruition.
+=sci-biology/afni-18.1.04
+
 # Sebasien Fabbro <bicatali@gentoo.org> (10 Mar 2012)
 # incompatible API with previous versions of metis (4)
 # masked until reverse depedencies are fixed
