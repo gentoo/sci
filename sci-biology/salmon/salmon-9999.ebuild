@@ -8,14 +8,21 @@ inherit multilib cmake-utils git-r3
 DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
 HOMEPAGE="https://github.com/COMBINE-lab/salmon"
 EGIT_REPO_URI="https://github.com/COMBINE-lab/salmon.git"
-# SRC_URI="https://github.com/COMBINE-lab/RapMap/archive/salmon-v0.10.2.zip -> ${PN}-0.10.2_RapMap.zip"
+#SRC_URI="https://github.com/COMBINE-lab/RapMap/archive/salmon-v0.10.2.zip -> ${P}_RapMap.zip
+#    https://github.com/USCiLab/cereal/archive/v1.2.2.tar.gz -> cereal-1.2.2.tar.gz
+#    https://github.com/COMBINE-lab/bwa/archive/v0.7.12.5.tar.gz -> bwa-0.7.12.5.tar.gz
+#    https://github.com/COMBINE-lab/libgff/archive/v1.1.tar.gz -> libgff-1.1.tgz
+#    https://github.com/COMBINE-lab/staden-io_lib/archive/v1.14.8.1.tar.gz -> staden-io_lib-1.14.8.tar.gz
+#    https://github.com/COMBINE-lab/spdlog/archive/v0.16.1.tar.gz -> spdlog-0.16.1.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
-PATCHES=( "${FILESDIR}"/${P}-no-boost-static.patch
-		"${FILESDIR}"/salmon-0.10.2_remove_curl_call.patch )
+PATCHES=( "${FILESDIR}"/salmon-0.10.2-no-boost-static.patch
+	"${FILESDIR}"/salmon-0.10.2_remove_curl_call.patch
+	"${FILESDIR}"/salmon-0.10.2_remove_curl_calls.patch
+	"${FILESDIR}"/salmon-0.10.2_fix_lib_dir.patch )
 
 # budled copies of:
 # sci-biology/bwa-0.7.12.5
@@ -57,20 +64,3 @@ RDEPEND="${DEPEND}"
 
 # see the many curl executions:
 # salmon-0.10.2$ find . -type f | xargs grep curl 2>/dev/null
-#
-src_configure(){
-	local mycmakeargs=(
-		"-DBOOST_INCLUDEDIR=${EPREFIX}/usr/include/boost/"
-		"-DBOOST_LIBRARYDIR=${EPREFIX}/usr/$(get_libdir)/"
-		"-DTBB_INSTALL_DIR=${EPREFIX}/usr"
-		"-DCMAKE_INSTALL_PREFIX=${EPREFIX}/usr"
-	)
-	# BUG: the configure step runs automatically curl download of 3rd-party stuff
-	# https://github.com/COMBINE-lab/salmon/issues/19
-	cmake-utils_src_configure
-}
-
-src_install() {
-	cmake-utils_src_install
-	rm -rf "${ED}"/usr/tests || die
-}
