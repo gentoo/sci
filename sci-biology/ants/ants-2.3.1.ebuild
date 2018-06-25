@@ -3,24 +3,25 @@
 
 EAPI=6
 
-inherit cmake-utils git-r3 multilib
+inherit cmake-utils multilib
 
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="http://stnava.github.io/ANTs/"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/stnava/ANTs.git"
+SRC_URI="https://github.com/ANTsX/ANTs/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND=">=dev-util/cmake-3.10.3"
 RDEPEND=""
 
+S="${WORKDIR}/ANTs-${PV}"
+
 src_install() {
 	cd "${WORKDIR}/${P}_build/ANTS-build" || die "build dir not found"
 	default
-	cd "${WORKDIR}/ANTs-${PV}/Scripts" || die "scripts dir not found"
+	cd "${S}/Scripts" || die "scripts dir not found"
 	dobin *.sh
 	dodir /usr/$(get_libdir)/ants
 	install -t "${D}"usr/$(get_libdir)/ants *
