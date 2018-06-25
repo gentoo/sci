@@ -1,0 +1,18 @@
+--- salmon-0.10.2/CMakeLists.txt	2018-06-25 10:51:47.179712781 +0200
++++ salmon-0.10.2/CMakeLists.txt	2018-06-25 10:52:47.951289159 +0200
+@@ -213,15 +213,6 @@
+     set (CMAKE_LIBRARY_PATH ${CUSTOM_BOOST_PATH}/lib ${CMAKE_LIBRARY_PATH})
+ endif ( DEFINED CUSTOM_BOOST_PATH )
+ 
+-##
+-# We want static, multithreaded boost libraries
+-##
+-if(CONDA_BUILD)
+-  set (Boost_USE_STATIC_LIBS OFF)
+-else ()
+-  set (Boost_USE_STATIC_LIBS ON)
+-endif(CONDA_BUILD)
+-
+ set (Boost_USE_MULTITHREADED ON)
+ #set (Boost_USE_STATIC_RUNTIME OFF)
+ 
