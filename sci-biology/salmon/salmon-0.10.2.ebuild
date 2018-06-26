@@ -23,7 +23,8 @@ IUSE=""
 PATCHES=( "${FILESDIR}"/${P}-no-boost-static.patch
 		"${FILESDIR}"/salmon-0.10.2_remove_curl_call.patch
 		"${FILESDIR}"/salmon-0.10.2_remove_curl_calls.patch
-		"${FILESDIR}"/salmon-0.10.2_fix_lib_dir.patch )
+		"${FILESDIR}"/salmon-0.10.2_fix_lib_dir.patch
+		"${FILESDIR}"/salmon-0.10.2_fix_tests.patch )
 
 RDEPEND="${DEPEND}"
 # budled copies of:
