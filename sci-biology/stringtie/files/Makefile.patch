@@ -2,9 +2,9 @@
 +++ stringtie-1.2.2/Makefile	2018-06-26 00:46:43.406712302 +0200
 @@ -1,13 +1,15 @@
 -BAM := ./samtools-0.1.18
-+BAM_INC = -I$(EPREFIX)/usr/include/bam-0.1-legacy
-+BAM_LIB =  # or -L/some/path
-+BAM_LIBS = -lbam-0.1-legacy
++BAM_INC = -I./samtools-0.1.18
++BAM_LIB = -L./samtools-0.1.18
++BAM_LIBS = -lbam
  #path to the directory where the samtools package was built (in place)
  #so libbam.a and *.h files MUST be in here
  

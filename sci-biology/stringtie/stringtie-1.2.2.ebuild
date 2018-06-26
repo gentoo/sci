@@ -8,24 +8,20 @@ HOMEPAGE="https://ccb.jhu.edu/software/stringtie
 	https://github.com/gpertea/stringtie"
 SRC_URI="http://ccb.jhu.edu/software/stringtie/dl/${P}.tar.gz"
 
-LICENSE="Artistic-2"
+LICENSE="Artistic-2 MIT" # MIT from bundled samtools-0.1.18
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-# contains bundled gclib (0.9.8?), well they are just headers
-DEPEND="
-	sci-biology/gclib
-	sci-biology/samtools:0.1-legacy" # bundled samtools-0.1.18
+# contains bundled and modified samtools-0.1.18
+# https://github.com/gpertea/stringtie/issues/185#issuecomment-400128090
+#
+# contains bundled gclib (0.9.8?), a modified version?
+# https://github.com/gpertea/stringtie/issues/186#issuecomment-400131844
+DEPEND=""
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}"/Makefile.patch )
-
-src_prepare(){
-	default
-	rm -r samtools-0.1.18 || die
-	# TODO: `rm -rf ./gclib' and fix Makefile
-}
 
 src_compile(){
 	emake release
