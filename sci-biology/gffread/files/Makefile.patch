@@ -1,8 +1,8 @@
---- gffread-0.9.12/Makefile	2018-06-26 00:05:05.298388489 +0200
-+++ gffread-0.9.12/Makefile	2018-06-26 00:07:07.461729681 +0200
+--- gffread-0.9.12/Makefile	2018-06-26 09:52:26.024747027 +0200
++++ gffread-0.9.12/Makefile	2018-06-26 09:52:41.845177021 +0200
 @@ -1,4 +1,4 @@
 -GCLDIR := ../gclib
-+GCLDIR := $(EPREFIX)/usr/include/gclib
++GCLDIR := ../gclib-0.10.2
  SEARCHDIRS := -I. -I${GCLDIR}
  
  SYSTYPE :=     $(shell uname)
