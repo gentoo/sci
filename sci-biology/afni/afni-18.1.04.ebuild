@@ -11,7 +11,7 @@ SRC_URI="https://github.com/afni/afni/archive/AFNI_${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-libs/expat
