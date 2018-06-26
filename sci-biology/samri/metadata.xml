@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<longdescription lang="en">
+		SAMRI provides fMRI preprocessing, metadata parsing, and data analysis functions
+		and pipelines. SAMRI integrates functionalities from a number of other packages
+		to create higher-level tools.
+	</longdescription>
+	<use>
+		<flag name="atlases">Include dependency on compatible anatomica atlases.</flag>
+		<flag name="labbookdb">Pipe data from LabbookDB databases.</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">IBT-FMI/SAMRI</remote-id>
+	</upstream>
+</pkgmetadata>

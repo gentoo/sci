@@ -31,6 +31,10 @@
 #--- END OF EXAMPLES ---
 
 # Horea Christian <horea.christ@gmail.com> (10 Mar 2012)
+# All versions depend on hard-masked sci-biology/afni.
+sci-biology/samri
+
+# Horea Christian <horea.christ@gmail.com> (10 Mar 2012)
 # Serious bundling issues, upstream does not support Gentoo
 # or more generally unbundling. Masked until unbundling
 # efforts ( https://github.com/afni/afni/pull/60 ) come to
