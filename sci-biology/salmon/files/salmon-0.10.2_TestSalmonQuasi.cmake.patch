@@ -1,0 +1,11 @@
+--- salmon-0.10.2/cmake/TestSalmonQuasi.cmake	2018-06-26 10:39:51.061971241 +0200
++++ salmon-0.10.2/cmake/TestSalmonQuasi.cmake	2018-06-26 10:40:22.372822258 +0200
+@@ -5,7 +5,7 @@
+                 )
+ 
+ if (SALMON_QUASI_INDEX_RESULT)
+-    message(FATAL_ERROR "Error running ${SALMON_QUASI_INDEX_COMMAND}")
++    message(FATAL_ERROR "Error running ${SALMON_QUASI_INDEX_CMD}")
+ endif()
+ 
+ set(SALMON_QUANT_COMMAND ${CMAKE_BINARY_DIR}/salmon quant -i sample_salmon_quasi_index -l IU -1 reads_1.fastq -2 reads_2.fastq -o sample_salmon_quasi_quant)
