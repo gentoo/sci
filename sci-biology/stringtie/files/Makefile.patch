@@ -1,26 +1,41 @@
---- stringtie-1.2.2/Makefile	2018-06-26 00:36:17.119583211 +0200
-+++ stringtie-1.2.2/Makefile	2018-06-26 00:46:43.406712302 +0200
-@@ -1,13 +1,15 @@
+--- stringtie-1.3.4d/Makefile	2018-06-26 00:36:17.119583211 +0200
++++ stringtie-1.3.4d/Makefile	2018-06-26 00:46:43.406712302 +0200
+@@ -1,28 +1,32 @@
 -BAM := ./samtools-0.1.18
-+BAM_INC = -I./samtools-0.1.18
-+BAM_LIB = -L./samtools-0.1.18
-+BAM_LIBS = -lbam
- #path to the directory where the samtools package was built (in place)
- #so libbam.a and *.h files MUST be in here
+-#path to the directory where the samtools package was built (in place)
+-#so libbam.a and *.h files MUST be in here
++#-- for now these MUST point to the included samtools-0.x.x and gclib subdirectories
++BAM  := ./samtools-0.1.18
++GDIR := ./gclib
++#--
  
- GDIR :=./gclib
+-GDIR      :=./gclib
++INCDIRS := -I. -I${GDIR} -I${BAM}
  
--INCDIRS := -I. -I${GDIR} -I${BAM}
-+INCDIRS := -I. -I${GDIR} ${BAM_INC}
+-INCDIRS   := -I. -I${GDIR} -I${BAM}
+-
+-CC        := g++
++#CXX  ?= g++
++CXX   := $(if $(CXX),$(CXX),g++)
  
--#CC := clang++
--CC      := g++
-+#CXX := clang++
-+CXX      ?= g++
+ BASEFLAGS := -Wall -Wextra ${INCDIRS} -fsigned-char -D_FILE_OFFSET_BITS=64 \
+ -D_LARGEFILE_SOURCE -fno-strict-aliasing -fno-exceptions -fno-rtti
++#for gcc 8+ add: -Wno-class-memaccess
++
++
++LINKER  := $(if $(LINKER),$(LINKER),g++)
  
+-LINKER    := g++
++LDFLAGS := $(if $(LDFLAGS),$(LDFLAGS),-g)
+ 
+-LDFLAGS   := -g -L${BAM} $(LDFLAGS)
++LDFLAGS += -L${BAM}
+ 
+-LIBS      := -lbam -lz
++LIBS    := -lbam -lz
  
  ifneq (,$(findstring nothreads,$(MAKECMDGOALS)))
-@@ -15,7 +17,7 @@
+  NOTHREADS=1
  endif
  
  #detect MinGW (Windows environment)
@@ -29,36 +44,22 @@
   WINDOWS=1
  endif
  
-@@ -48,9 +50,9 @@
- # C/C++ linker
- 
- #LINKER := clang++
--LINKER  := g++
-+LINKER  ?= g++
- 
--LIBS := -lbam -lz
-+LIBS := ${BAM_LIBS} -lz
- 
- # Non-windows systems need pthread
- ifndef WINDOWS
-@@ -68,8 +70,10 @@
- #ifneq (,$(findstring release,$(MAKECMDGOALS)))
+@@ -63,7 +67,8 @@ endif
  ifneq (,$(filter %release %static, $(MAKECMDGOALS)))
    # -- release build
--  CFLAGS := -O3 -DNDEBUG -g $(BASEFLAGS)
--  LDFLAGS := -g -L${BAM} ${LFLAGS}
-+  CXXFLAGS ?= -O3 -g
+   RELEASE_BUILD=1
+-  CFLAGS := -DNDEBUG -g $(BASEFLAGS) $(CFLAGS) -O3
++  CXXFLAGS := $(if $(CXXFLAGS),$(CXXFLAGS),-g -O3)
 +  CXXFLAGS += -DNDEBUG $(BASEFLAGS)
-+  LDFLAGS ?= -g
-+  LDFLAGS += ${BAM_LIB} ${LFLAGS}
-   ifneq (,$(findstring static,$(MAKECMDGOALS)))
-     LDFLAGS += -static-libstdc++ -static-libgcc
-   endif
-@@ -80,15 +84,16 @@
+ else
+   ifneq (,$(filter %memcheck %memdebug, $(MAKECMDGOALS)))
+      #use sanitizer in gcc 4.9+
+@@ -72,21 +77,21 @@ else
       ifeq "$(GCCVER49)" "0"
         $(error gcc version 4.9 or greater is required for this build target)
       endif
 -     CFLAGS := -fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address $(BASEFLAGS)
++     CXXFLAGS := $(if $(CXXFLAGS),$(CXXFLAGS),-g -O0)
 +     CXXFLAGS += -fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address $(BASEFLAGS)
       GCCVER5 := $(shell expr `g++ -dumpversion | cut -f1 -d.` \>= 5)
       ifeq "$(GCCVER5)" "1"
@@ -70,47 +71,42 @@
 +       #CXXFLAGS += -fcheck-pointer-bounds -mmpx
       endif
 -     CFLAGS := -g -DDEBUG -D_DEBUG -DGDEBUG -fno-common -fstack-protector $(CFLAGS)
--     LDFLAGS := -g -L${BAM}
-+     CXXFLAGS ?= -g
 +     CXXFLAGS += -DDEBUG -D_DEBUG -DGDEBUG -fno-common -fstack-protector
-+     LDFLAGS += -g ${BAM_LIB}
-      #LIBS := -Wl,-Bstatic -lasan -lubsan -Wl,-Bdynamic -ldl $(LIBS)
       LIBS := -lasan -lubsan -ldl $(LIBS)
    else
-@@ -97,13 +102,14 @@
-        GMEMTRACE=1
-    endif
-    #just plain debug build
--    CFLAGS := -g -DDEBUG -D_DEBUG -DGDEBUG $(BASEFLAGS)
--    LDFLAGS := -g -L${BAM}
-+   CXXFLAGS ?= -g
-+   CXXFLAGS += -DDEBUG -D_DEBUG -DGDEBUG $(BASEFLAGS)
-+   LDFLAGS += ${BAM_LIB}
+-    ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+      #just plain debug build
+      DEBUG_BUILD=1
+-     CFLAGS := -g -DDEBUG -D_DEBUG -DGDEBUG $(BASEFLAGS)
+-    endif
++     CXXFLAGS := $(if $(CXXFLAGS),$(CXXFLAGS),-g -O0)
++     CXXFLAGS += -DDEBUG -D_DEBUG -DGDEBUG $(BASEFLAGS)
    endif
  endif
  
+@@ -106,23 +111,20 @@ ifdef DEBUG_BUILD
+   DBG_WARN+='WARNING: built DEBUG version [much slower], use "make clean release" for a faster, optimized version of the program.'
+ endif
+ 
+-
+ OBJS := ${GDIR}/GBase.o ${GDIR}/GArgs.o ${GDIR}/GStr.o ${GDIR}/GBam.o \
+  ${GDIR}/gdna.o ${GDIR}/codons.o ${GDIR}/GFaSeqGet.o ${GDIR}/gff.o 
+ 
+-
+ ifneq (,$(filter %memtrace %memusage %memuse, $(MAKECMDGOALS)))
+-    CFLAGS += -DGMEMTRACE
++    CXXFLAGS += -DGMEMTRACE
+     OBJS += ${GDIR}/proc_mem.o
+ endif
+ 
+ ifndef NOTHREADS
+  OBJS += ${GDIR}/GThreads.o 
+ endif
+ 
+-
  %.o : %.cpp
 -	${CC} ${CFLAGS} -c $< -o $@
 +	${CXX} ${CXXFLAGS} -c $< -o $@
  
- OBJS := ${GDIR}/GBase.o ${GDIR}/GArgs.o ${GDIR}/GStr.o ${GDIR}/GBam.o \
-  ${GDIR}/gdna.o ${GDIR}/codons.o ${GDIR}/GFaSeqGet.o ${GDIR}/gff.o 
-@@ -130,9 +136,7 @@
- rlink.o : rlink.h tablemaker.h $(GDIR)/GBam.h $(GDIR)/GBitVec.h
- tmerge.o : rlink.h tmerge.h
- tablemaker.o : tablemaker.h rlink.h
--${BAM}/libbam.a: 
--	cd ${BAM} && make lib
--stringtie: ${BAM}/libbam.a $(OBJS) stringtie.o
-+stringtie: $(OBJS) stringtie.o
- 	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LIBS}
- 
- .PHONY : clean cleanall cleanAll allclean
-@@ -143,7 +147,6 @@
- 	@${RM} stringtie stringtie.o* stringtie.exe $(OBJS)
- 	@${RM} core.*
- allclean cleanAll cleanall:
--	cd ${BAM} && make clean
- 	@${RM} stringtie stringtie.o* stringtie.exe $(OBJS)
- 	@${RM} core.*
+ OBJS += rlink.o tablemaker.o tmerge.o
  

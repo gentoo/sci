@@ -10,8 +10,7 @@ SRC_URI="http://ccb.jhu.edu/software/stringtie/dl/${P}.tar.gz"
 
 LICENSE="Artistic-2 MIT" # MIT from bundled samtools-0.1.18
 SLOT="0"
-KEYWORDS="" # gclib/GThreads.h:804:19: error: conflicting declaration 
-#                                             'typedef long long int __intmax_t'
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 # contains bundled and modified samtools-0.1.18
