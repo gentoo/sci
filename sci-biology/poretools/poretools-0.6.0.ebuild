@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -12,7 +12,7 @@ HOMEPAGE="https://poretools.readthedocs.io
 	https://github.com/arq5x/poretools"
 SRC_URI="https://github.com/arq5x/poretools/archive/v0.6.0.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-2" # https://github.com/arq5x/poretools/issues/136
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
@@ -23,4 +23,5 @@ RDEPEND="${DEPEND}
 	>=dev-python/h5py-2.2[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/seaborn[${PYTHON_USEDEP}]
-	dev-python/pandas[${PYTHON_USEDEP}]"
+	dev-python/pandas[${PYTHON_USEDEP}]
+	dev-python/python-dateutil[${PYTHON_USEDEP}]"
