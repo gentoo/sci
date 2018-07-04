@@ -7,7 +7,7 @@ inherit check-reqs
 
 DESCRIPTION="A collection of mouse brain atlases in NIfTI format"
 HOMEPAGE="http://imaging.org.au/AMBMC/Model"
-SRC_URI="http://chymera.eu/pkgdata/${P}.zip"
+SRC_URI="http://chymera.eu/distfiles/${P}.zip"
 
 LICENSE="fairuse"
 SLOT="0"
