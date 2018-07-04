@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Mouse brain atlasses for SAMRI."
 HOMEPAGE="https://github.com/IBT-FMI/SAMRI"
-SRC_URI="http://chymera.eu/pkgdata/${P}.zip"
+SRC_URI="http://chymera.eu/distfiles/${P}.zip"
 
 LICENSE="GPL-3"
 SLOT="0"
