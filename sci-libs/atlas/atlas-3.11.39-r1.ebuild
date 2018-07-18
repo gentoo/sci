@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -27,6 +27,7 @@ S="${WORKDIR}/ATLAS"
 
 PATCHES=(
 	"${FILESDIR}"/${P}-dolastcomp.patch
+	"${FILESDIR}"/${P}-getdoublearr.patch
 )
 
 pkg_setup() {
@@ -112,7 +113,7 @@ src_configure() {
 		fi
 		# generic stuff found by make make xprint_enums in atlas build dir
 		# basically assuming sse2+sse1 and 2 threads max
-		use generic && use x86   && myconf+=( "-V 384 -A 13")
+		use generic && use x86	 && myconf+=( "-V 384 -A 13")
 		use generic && use amd64 && myconf+=( "-V 384 -A 24")
 
 		local confdir="${S}_${1}"; shift

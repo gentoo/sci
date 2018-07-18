@@ -1,0 +1,28 @@
+Fix misparsing of double array in case CFLAGS contains commas
+
+--- ATLAS/include/atlas_genparse.h	2015-10-10 07:14:37.000000000 +0200
++++ ATLAS/include/atlas_genparse.h	2015-12-25 11:05:52.283348877 +0100
+@@ -224,21 +224,22 @@
+ /* procedure 11 */
+ static int GetDoubleArr(char *str, int N, double *d)
+ /*
+  * Reads in a list with form "%le,%le...,%le"; N-length d recieves doubles.
+  * RETURNS: the number of doubles found, or N, whichever is less
+  */
+ {
+    int i=1;
++   char *end = strstr(str, " ");  /* Stop parsing after a space */
+    assert(sscanf(str, "%le", d) == 1);
+    while (i < N)
+    {
+       str = strstr(str, ",");
+-      if (!str)
++      if (!str || (end && str >= end))
+          break;
+       str++;
+       assert(sscanf(str, "%le", d+i) == 1);
+       i++;
+    }
+    return(i);
+ }
+ 
