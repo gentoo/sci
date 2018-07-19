@@ -6,7 +6,7 @@ EAPI=6
 inherit check-reqs
 
 DESCRIPTION="A collection of mouse brain atlases in NIfTI format"
-HOMEPAGE="http://imaging.org.au/AMBMC/Model"
+HOMEPAGE="https://github.com/IBT-FMI/mouse-brain-atlases"
 SRC_URI="http://chymera.eu/distfiles/${P}.zip"
 
 LICENSE="fairuse"
