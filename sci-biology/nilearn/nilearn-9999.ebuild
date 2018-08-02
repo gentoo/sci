@@ -32,9 +32,11 @@ RDEPEND="
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
-# upstream is reluctant to *not* depend on bundled scikits_learn:
-# https://github.com/nilearn/nilearn/pull/1398
+PATCHES=( "${FILESDIR}/0.4.1-bundled_joblib_test.patch" )
+
 python_prepare_all() {
+	# upstream is reluctant to *not* depend on bundled scikits_learn:
+	# https://github.com/nilearn/nilearn/pull/1398
 	local f
 	for f in nilearn/{*/*/,*/,}*.py; do
 		sed -r \
