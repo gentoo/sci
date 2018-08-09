@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 PYTHON_REQ_USE="threads(+),sqlite"
 
 inherit distutils-r1
@@ -21,7 +21,7 @@ IUSE="test"
 
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
-	=dev-python/prov-1.5.0[${PYTHON_USEDEP}]
+	~dev-python/prov-1.5.0[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.0.1[${PYTHON_USEDEP}]
