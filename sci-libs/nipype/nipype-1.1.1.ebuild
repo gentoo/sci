@@ -26,6 +26,7 @@ DEPEND="
 	test? (
 		dev-python/mock[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
+		dev-python/pytest-xdist[${PYTHON_USEDEP}]
 		${RDEPEND}
 		)
 	$(python_gen_cond_dep 'dev-python/configparser[${PYTHON_USEDEP}]' python2_7)

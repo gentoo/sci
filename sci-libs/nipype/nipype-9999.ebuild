@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -27,6 +27,7 @@ DEPEND="
 	test? (
 		dev-python/mock[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
+		dev-python/pytest-xdist[${PYTHON_USEDEP}]
 	)
 	$(python_gen_cond_dep 'dev-python/configparser[${PYTHON_USEDEP}]' python2_7)
 	"
