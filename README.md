@@ -26,7 +26,7 @@ rm -rf /var/lib/overlays/science
 ## Support
 
 You can ask for help on [Freenode IRC](https://www.gentoo.org/get-involved/irc-channels/) in `#gentoo-science`.
-Alternatively you can report bugs bugs on the [GitHub issues page](https://github.com/gentoo/sci/issues).
+Alternatively you can report bugs on the [GitHub issues page](https://github.com/gentoo/sci/issues).
 
 ## Contribute
 
