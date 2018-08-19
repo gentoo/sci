@@ -21,8 +21,8 @@ A fix [is being considered](https://github.com/gentoo/sci/issues/805), bit is st
 In the mean time, the most automated and up-to-date solution (building on [the original one](https://wiki.gentoo.org/wiki/User_talk:Houseofsuns)) is to run:
 
 ```
-wget https://raw.githubusercontent.com/IBT-FMI/NeuroGentooProject/master/SharedPrefix/sci-lapack
-wget https://raw.githubusercontent.com/IBT-FMI/NeuroGentooProject/master/SharedPrefix/lapack-migration.sh
+wget https://gitweb.gentoo.org/proj/sci.git/plain/scripts/sci-lapack
+wget https://gitweb.gentoo.org/proj/sci.git/plain/scripts/lapack-migration.sh
 ./lapack-migration.sh
 ```
 
