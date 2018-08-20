@@ -18,11 +18,10 @@ To start using the overlay you now only need to get the ebuilds, via `emerge --s
 
 There is a long-standing BLAS and LAPACK stack incompatibility between the Science Overlay and the Base Gentoo Overlay.
 A fix [is being considered](https://github.com/gentoo/sci/issues/805), bit is still not scheduled for implementation.
-In the mean time, the most automated and up-to-date solution (building on [the original one](https://wiki.gentoo.org/wiki/User_talk:Houseofsuns)) is to run:
+In the mean time, the most automated and up-to-date solution (building on [the original one](https://wiki.gentoo.org/wiki/User_talk:Houseofsuns)) is to run (as root, and after having installed the overlay):
 
 ```
-wget https://gitweb.gentoo.org/proj/sci.git/plain/scripts/sci-lapack
-wget https://gitweb.gentoo.org/proj/sci.git/plain/scripts/lapack-migration.sh
+cd ${EPREFIX}/var/lib/overlays/science/scripts
 ./lapack-migration.sh
 ```
 
