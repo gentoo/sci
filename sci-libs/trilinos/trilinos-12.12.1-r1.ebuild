@@ -64,6 +64,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch \
 	"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch
 	"${FILESDIR}"/${P}-fix_sundance_compilation.patch
+	"${FILESDIR}"/${P}-superlu-5.patch
 )
 
 trilinos_conf() {

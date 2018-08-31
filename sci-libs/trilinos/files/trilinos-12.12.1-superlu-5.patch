@@ -1,0 +1,161 @@
+From 83bec239ac6a63ed895a52567eab18925dd6a8cb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Nico=20Schl=C3=B6mer?= <nico.schloemer@gmail.com>
+Date: Wed, 1 Jun 2016 19:38:01 +0200
+Subject: [PATCH] compatibility with SuperLU 5
+
+Thanks to Eric Bavier <bavier@cray.com>.
+---
+ cmake/TPLs/FindTPLSuperLU.cmake          | 42 +++++++++++++++++++++++-
+ packages/amesos/cmake/Amesos_config.h.in |  3 ++
+ packages/amesos/src/Amesos_Superlu.cpp   | 15 ++++++---
+ packages/ifpack/cmake/Ifpack_config.h.in |  3 ++
+ packages/ifpack/src/Ifpack_SILU.cpp      |  6 +++-
+ packages/ifpack/src/Ifpack_SILU.h        |  2 ++
+ 6 files changed, 65 insertions(+), 6 deletions(-)
+
+diff --git a/cmake/TPLs/FindTPLSuperLU.cmake b/cmake/TPLs/FindTPLSuperLU.cmake
+index fae2db230b0..f2321ba93dc 100644
+--- a/cmake/TPLs/FindTPLSuperLU.cmake
++++ b/cmake/TPLs/FindTPLSuperLU.cmake
+@@ -56,5 +56,45 @@
+ 
+ TRIBITS_TPL_FIND_INCLUDE_DIRS_AND_LIBRARIES( SuperLU
+   REQUIRED_HEADERS supermatrix.h slu_ddefs.h
+-  REQUIRED_LIBS_NAMES "superlu superlu_3.0 superlu_4.0 superlu_4.1 superlu_4.2 superlu_4.3"
++  REQUIRED_LIBS_NAMES "superlu superlu_3.0 superlu_4.0 superlu_4.1 superlu_4.2 superlu_4.3 superlu_5.0"
+   )
++
++include(CheckCSourceCompiles)
++include(MultilineSet)
++
++# API change in SuperLU 5.0 requires a 'GlobalLU_t' parameter for
++# *gssvx, *gsisx, *gstrf, and *gsitrf routines.  Check whether these
++# parameters are needed.
++
++FUNCTION(CHECK_SUPERLU_GLOBALLU_T_ARG  VARNAME)
++  SET(SOURCE
++  "
++#include <slu_ddefs.h>
++
++int main()
++{
++  GlobalLU_t lu;
++  superlu_options_t opt;
++  SuperMatrix M;
++  int *i;
++  double *d;
++  void *v;
++  char *c;
++  SuperLUStat_t stat;
++  mem_usage_t mem;
++
++  dgsisx(&opt,&M,i,i,i,c,d,d,&M,&M,v,*i,&M,&M,d,d,&lu,&mem,&stat,i);
++  return 0;
++}
++"
++  )
++
++  SET(CMAKE_REQUIRED_INCLUDES ${TPL_SuperLU_INCLUDE_DIRS})
++  SET(CMAKE_REQUIRED_LIBRARIES ${TPL_SuperLU_LIBRARIES} ${TPL_METIS_LIBRARIES} ${TPL_BLAS_LIBRARIES})
++  SET(CMAKE_REQUIRED_FLAGS ${CMAKE_EXE_LINKER_FLAGS})
++  CHECK_C_SOURCE_COMPILES("${SOURCE}" ${VARNAME})
++ENDFUNCTION()
++
++IF (TPL_ENABLE_SuperLU)
++  CHECK_SUPERLU_GLOBALLU_T_ARG(HAVE_SUPERLU_GLOBALLU_T_ARG)
++ENDIF(TPL_ENABLE_SuperLU)
+diff --git a/packages/amesos/cmake/Amesos_config.h.in b/packages/amesos/cmake/Amesos_config.h.in
+index bc4967e3433..6150ed80d2f 100644
+--- a/packages/amesos/cmake/Amesos_config.h.in
++++ b/packages/amesos/cmake/Amesos_config.h.in
+@@ -93,3 +93,6 @@
+ 
+ /* Define to 1 if SuperLU_DIST's LUstructInit is declared with 2 arguments. */
+ #cmakedefine HAVE_SUPERLUDIST_LUSTRUCTINIT_2ARG
++
++/* Define to 1 if SuperLU's *gssvx and *gsisx routines need a GlobalLU_t argument. */
++#cmakedefine HAVE_SUPERLU_GLOBALLU_T_ARG
+diff --git a/packages/amesos/src/Amesos_Superlu.cpp b/packages/amesos/src/Amesos_Superlu.cpp
+index 3651b65f4da..7adf0dff62d 100644
+--- a/packages/amesos/src/Amesos_Superlu.cpp
++++ b/packages/amesos/src/Amesos_Superlu.cpp
+@@ -55,6 +55,7 @@ class SLUData {
+ #endif
+   SLU::superlu_options_t SLU_options;
+   SLU::mem_usage_t mem_usage;
++  SLU::GlobalLU_t lu;	     // Use for gssvx and gsisx in SuperLU 5.0
+   SLU::fact_t refactor_option ;         //  SamePattern or SamePattern_SameRowPerm
+ 
+   SLUData() {
+@@ -480,8 +481,11 @@ int Amesos_Superlu::NumericFactorization()
+             &perm_c_[0], &perm_r_[0], &etree_[0], &equed_, &R_[0],
+             &C_[0], &(data_->L), &(data_->U), NULL, 0,
+             &(data_->B), &(data_->X), &rpg, &rcond, &ferr_[0],
+-            &berr_[0], &(data_->mem_usage), &SLU_stat,
+-            &Ierr[0] );
++            &berr_[0],
++#ifdef HAVE_SUPERLU_GLOBALLU_T_ARG
++            &(data_->lu),
++#endif
++            &(data_->mem_usage), &SLU_stat, &Ierr[0] );
+     SLU::StatFree( &SLU_stat ) ;
+   }
+ 
+@@ -611,8 +615,11 @@ int Amesos_Superlu::Solve()
+             &perm_c_[0], &perm_r_[0], &etree_[0], &equed_, &R_[0],
+             &C_[0], &(data_->L), &(data_->U), NULL, 0,
+             &(data_->B), &(data_->X), &rpg, &rcond, &ferr_[0],
+-            &berr_[0], &(data_->mem_usage), &SLU_stat,
+-            &Ierr);
++            &berr_[0],
++#ifdef HAVE_SUPERLU_GLOBALLU_T_ARG
++            &(data_->lu),
++#endif
++            &(data_->mem_usage), &SLU_stat, &Ierr);
+     //    assert( equed_ == 'N' ) ;
+     StatFree( &SLU_stat ) ;
+   }
+diff --git a/packages/ifpack/cmake/Ifpack_config.h.in b/packages/ifpack/cmake/Ifpack_config.h.in
+index 81fba21a99f..91f11101f87 100644
+--- a/packages/ifpack/cmake/Ifpack_config.h.in
++++ b/packages/ifpack/cmake/Ifpack_config.h.in
+@@ -53,6 +53,9 @@
+ /* Define if Ifpack_DynamicFactory is enabled */
+ #cmakedefine HAVE_IFPACK_DYNAMIC_FACTORY
+ 
++/* Define to 1 if SuperLU's dgsitrf routine needs a GlobalLU_t argument. */
++#cmakedefine HAVE_SUPERLU_GLOBALLU_T_ARG
++
+ /* Add macros for declaring functions deprecated */
+ @IFPACK_DEPRECATED_DECLARATIONS@
+ 
+diff --git a/packages/ifpack/src/Ifpack_SILU.cpp b/packages/ifpack/src/Ifpack_SILU.cpp
+index e69f32b1277..32b58e1a60b 100644
+--- a/packages/ifpack/src/Ifpack_SILU.cpp
++++ b/packages/ifpack/src/Ifpack_SILU.cpp
+@@ -297,7 +297,11 @@ int Ifpack_SILU::Compute()
+   int panel_size = sp_ienv(1);
+   int relax      = sp_ienv(2);
+   int info=0;
+-  dgsitrf(&options_,&SAc_,relax,panel_size,etree_,NULL,0,perm_c_,perm_r_,&SL_,&SU_,&stat_,&info);
++  dgsitrf(&options_,&SAc_,relax,panel_size,etree_,NULL,0,perm_c_,perm_r_,&SL_,&SU_,
++#ifdef HAVE_SUPERLU_GLOBALLU_T_ARG
++          &lu_,
++#endif
++          &stat_,&info);
+   if(info<0) IFPACK_CHK_ERR(info);
+ 
+   IsComputed_ = true;
+diff --git a/packages/ifpack/src/Ifpack_SILU.h b/packages/ifpack/src/Ifpack_SILU.h
+index a1c7b1a86f0..0a7a7d8dc63 100644
+--- a/packages/ifpack/src/Ifpack_SILU.h
++++ b/packages/ifpack/src/Ifpack_SILU.h
+@@ -428,6 +428,8 @@ class Ifpack_SILU: public Ifpack_Preconditioner {
+   mutable double ApplyInverseTime_;
+   //! Used for timing issues
+   mutable Epetra_Time Time_;
++  //! SuperLU global LU data
++  mutable GlobalLU_t lu_;
+   //! SuperLU stats
+   mutable SuperLUStat_t stat_;
+   //! SuperLU options
