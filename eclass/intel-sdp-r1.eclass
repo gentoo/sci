@@ -118,6 +118,40 @@ esac
 # the combined tarball.
 : ${INTEL_DIST_SPLIT_ARCH:=false}
 
+# @FUNCTION: _isdp_path_exists
+# @INTERNAL
+# @USAGE: [-a|-o] <paths>
+# @DESCRIPTION:
+# Check if the specified paths exist.  Works for all types of paths
+# (files/dirs/etc...).  The -a and -o flags control the requirements
+# of the paths.  They correspond to "and" and "or" logic.  So the -a
+# flag means all the paths must exist while the -o flag means at least
+# one of the paths must exist.  The default behavior is "and".  If no
+# paths are specified, then the return value is "false".
+_isdp_path_exists() {
+       local opt=$1
+       [[ ${opt} == -[ao] ]] && shift || opt="-a"
+
+       # no paths -> return false
+       # same behavior as: [[ -e "" ]]
+       [[ $# -eq 0 ]] && return 1
+
+       local p r=0
+       for p in "$@" ; do
+               [[ -e ${p} ]]
+               : $(( r += $? ))
+       done
+
+       case ${opt} in
+               -a) return $(( r != 0 )) ;;
+               -o) return $(( r == $# )) ;;
+       esac
+       eerror "path_exists has been removed.  Please see the following post"
+       eerror "for a replacement snippet:"
+       eerror "https://blogs.gentoo.org/mgorny/2018/08/09/inlining-path_exists/"
+       die "path_exists is banned"
+}
+
 # @FUNCTION: _isdp_get-sdp-year
 # @INTERNAL
 # @DESCRIPTION:
@@ -373,7 +407,7 @@ intel-sdp-r1_pkg_pretend() {
 			)
 		for dir in "${dirs[@]}" ; do
 			ebegin "Checking for a license in: ${dir}"
-			path_exists "${dir}"/*lic && warn=0
+			_isdp_path_exists "${dir}"/*lic && warn=0
 			eend ${warn} && break
 		done
 		if [[ ${warn} == 1 ]]; then
@@ -439,9 +473,9 @@ intel-sdp-r1_src_install() {
 	eend
 
 	# handle documentation
-	if path_exists "opt/intel/documentation_$(_isdp_get-sdp-year)"; then
+	if _isdp_path_exists "opt/intel/documentation_$(_isdp_get-sdp-year)"; then
 		# normal man pages
-		if path_exists "opt/intel/documentation_$(_isdp_get-sdp-year)/en/man/common/man1"; then
+		if _isdp_path_exists "opt/intel/documentation_$(_isdp_get-sdp-year)/en/man/common/man1"; then
 			doman opt/intel/documentation_"$(_isdp_get-sdp-year)"/en/man/common/man1/*
 			rm -r opt/intel/documentation_"$(_isdp_get-sdp-year)"/en/man || die
 		fi
@@ -455,24 +489,24 @@ intel-sdp-r1_src_install() {
 	fi
 
 	# MPI man pages
-	if path_exists "$(isdp_get-sdp-dir)/linux/mpi/man/man3"; then
+	if _isdp_path_exists "$(isdp_get-sdp-dir)/linux/mpi/man/man3"; then
 		doman "$(isdp_get-sdp-dir)"/linux/mpi/man/man3/*
 		rm -r "$(isdp_get-sdp-dir)"/linux/mpi/man || die
 	fi
 
 	# licensing docs
-	if path_exists "$(isdp_get-sdp-dir)/licensing/documentation"; then
+	if _isdp_path_exists "$(isdp_get-sdp-dir)/licensing/documentation"; then
 		dodoc -r "$(isdp_get-sdp-dir)/licensing/documentation"/*
 		rm -rf "$(isdp_get-sdp-dir)/licensing/documentation" || die
 	fi
 
-	if path_exists opt/intel/"${INTEL_DIST_NAME}"*/licensing; then
+	if _isdp_path_exists opt/intel/"${INTEL_DIST_NAME}"*/licensing; then
 		dodoc -r opt/intel/"${INTEL_DIST_NAME}"*/licensing
 		rm -rf opt/intel/"${INTEL_DIST_NAME}"* || die
 	fi
 
 	# handle examples
-	if path_exists "opt/intel/samples_$(_isdp_get-sdp-year)"; then
+	if _isdp_path_exists "opt/intel/samples_$(_isdp_get-sdp-year)"; then
 		use examples && dodoc -r opt/intel/samples_"$(_isdp_get-sdp-year)"/*
 
 		ebegin "Cleaning out examples"
