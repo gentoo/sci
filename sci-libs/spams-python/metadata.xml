@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		SPAMS (SPArse Modeling Software) is an optimization toolbox for solving
+		various sparse estimation problems, such as: Dictionary learning and
+		matrix factorization (NMF, sparse PCA, ...); solving sparse decomposition
+		problems with LARS, coordinate descent, OMP, SOMP, proximal methods; and 
+		Solving structured sparse decomposition problems (l1/l2, l1/linf, sparse
+		group lasso, tree-structured regularization, structured sparsity with
+		overlapping groups,...). 
+	</longdescription>
+	<upstream>
+		<remote-id type="github">samuelstjean/spams-python</remote-id>
+	</upstream>
+</pkgmetadata>
