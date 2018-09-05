@@ -53,3 +53,7 @@ python_prepare_all() {
 	sed -i -e "s|libdirs = \[\]|libdirs = [${MY_LIBDIRS}]|g" setup.py || die
 	distutils-r1_python_prepare_all
 }
+
+python_test() {
+	${EPYTHON} test_spams.py
+}
