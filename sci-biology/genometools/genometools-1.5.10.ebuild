@@ -24,7 +24,6 @@ DEPEND="
 	dev-lua/lua-md5
 	dev-lang/luajit
 	dev-libs/tre"
-# http://keplerproject.org/cgilua
 RDEPEND="${DEPEND}"
 
 src_prepare(){
