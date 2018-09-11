@@ -16,13 +16,12 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="mpi qt4"
+IUSE="mpi qt5"
 
 DEPEND="
 	mpi? ( virtual/mpi )
 	dev-libs/boost
-	qt4? ( dev-qt/qtcore:4[qt3support]
-		dev-qt/qt3support:4 )
+	qt5? ( dev-qt/qtcore:5 )
 	sci-biology/blat
 	sci-biology/jellyfish:1"
 RDEPEND="${DEPEND}
@@ -36,13 +35,24 @@ MAKEOPTS+=" -j1"
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-gcc-4.7.patch \
-		"${FILESDIR}"/${P}-goBambus2.py-indent-and-cleanup.patch
+		"${FILESDIR}"/${P}-goBambus2.py-indent-and-cleanup.patch \
+		"${FILESDIR}"/${P}-rename_to_jellyfish1.patch
 	# $ gap-links
 	# ERROR:  Could not open file  LIBGUESTFS_PATH=/usr/share/guestfs/appliance/
 	# $
+	sh ./bootstrap || die
+	default
+	eautoreconf
+	# prevent GCC 6 log pollution due to hash_map deprecation in C++11
+	# shutdown gcc-8.2.0 messages too
+	append-cxxflags -Wno-cpp -Wno-narrowing
 }
 
-#  --with-jellyfish        location of Jellyfish headers
+src_configure() {
+	local myconf
+	use X && myconf+=( --with-x )
+	econf ${myconf[@]} --with-jellyfish="${EPREFIX}"/usr/include --with-Boost-dir="${EPREFIX}"/usr/include --with-qmake-qt4=qmake --enable-all
+}
 
 src_install() {
 	default

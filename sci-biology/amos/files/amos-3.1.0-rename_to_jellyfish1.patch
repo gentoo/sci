@@ -1,0 +1,43 @@
+--- config/amos.m4	2018-09-11 13:23:14.478444129 +0200
++++ config/amos.m4	2018-09-11 13:36:36.697612245 +0200
+@@ -695,15 +695,15 @@
+ else
+ 	jellyfish_unspecified=no
+ fi
+-if ! test -f "$jellyfish_dir/jellyfish/mer_counting.hpp"; then
++if ! test -f "$jellyfish_dir/jellyfish1/mer_counting.hpp"; then
+ 	if test $jellyfish_unspecified = no; then
+-		AC_MSG_ERROR([Could not find the file "$jellyfish_dir/jellyfish/compacted_hash.hpp"])
++		AC_MSG_ERROR([Could not find the file "$jellyfish_dir/jellyfish1/compacted_hash.hpp"])
+ 	fi
+ 	JELLYFISH_LDADD=
+ 	JELLYFISH_CPPFLAGS=
+ 	AC_MSG_RESULT([not found])
+ else
+-	JELLYFISH_LDADD="-ljellyfish -lpthread"
++	JELLYFISH_LDADD="-ljellyfish-1.1 -lpthread"
+ 	JELLYFISH_CPPFLAGS="-I $jellyfish_dir"
+ 	AC_DEFINE([WITH_JELLYFISH], [1], [Define to 1 if using Jellyfish])
+ 	cppflags_save="$CPPFLAGS"
+@@ -715,7 +715,7 @@
+ 	AC_LANG_PUSH([C++])
+ 	AC_LINK_IFELSE([
+ 		AC_LANG_PROGRAM([
+-#include <jellyfish/mer_counting.hpp>
++#include <jellyfish1/mer_counting.hpp>
+ #include <string>
+ 	], [
+ std::string s;
+--- src/Align/kmer-cov-plot.cc	2018-09-11 13:23:15.079443556 +0200
++++ src/Align/kmer-cov-plot.cc	2018-09-11 13:36:36.831612096 +0200
+@@ -388,8 +388,8 @@
+ 
+ #ifdef WITH_JELLYFISH
+ 
+-#include <jellyfish/compacted_hash.hpp>
+-#include <jellyfish/mer_counting.hpp>
++#include <jellyfish1/compacted_hash.hpp>
++#include <jellyfish1/mer_counting.hpp>
+ 
+ // Assert that jellyfish is using the expected kmer representation
+ static void jellyfish_check()
