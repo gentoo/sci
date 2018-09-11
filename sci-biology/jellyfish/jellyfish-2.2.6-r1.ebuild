@@ -33,7 +33,7 @@ src_configure(){
 	#  --with-int128           enable int128
 	local myconf
 	use cpu_flags_x86_sse && myconf+=( --with-sse )
-	econf econf ${myconf[@]}
+	econf ${myconf[@]}
 }
 
 src_install(){
