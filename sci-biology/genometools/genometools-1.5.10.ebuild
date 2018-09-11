@@ -21,8 +21,9 @@ DEPEND="
 	>=dev-lang/lua-5.1:=
 	dev-lua/lpeg
 	dev-lua/luafilesystem
+	dev-lua/lua-md5
+	dev-lang/luajit
 	dev-libs/tre"
-# http://keplerproject.github.io/md5/
 # http://keplerproject.org/cgilua
 RDEPEND="${DEPEND}"
 
