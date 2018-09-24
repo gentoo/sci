@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -18,7 +18,10 @@ DEPEND="dev-lang/fpc
 	>=dev-lang/lazarus-1.6.2"
 
 src_compile() {
-	lazbuild -B --lazarusdir="/usr/share/lazarus/" surfice.lpi || die
+	# Python support will only be vaialable for the default implementation:
+	# https://github.com/neurolabusc/MRIcroGL/issues/30#issuecomment-423216197
+	cp -rf /etc/lazarus system-lazarus-config
+	lazbuild -B --lazarusdir="/usr/share/lazarus/" --pcp="system-lazarus-config" surfice.lpi || die
 }
 
 src_install() {
