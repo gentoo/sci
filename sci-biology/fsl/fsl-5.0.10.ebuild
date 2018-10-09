@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -15,6 +15,8 @@ KEYWORDS="~amd64"
 IUSE=""
 
 COMMON_DEPEND="
+	dev-cpp/libxmlpp:2.6
+	dev-libs/libxml2
 	dev-libs/boost
 	media-gfx/graphviz
 	media-libs/gd
@@ -26,10 +28,12 @@ DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
 	dev-lang/tcl:0=
 	dev-lang/tk:0=
+	dev-python/fslpy
 	"
 
 S=${WORKDIR}/${PN}
 UPSTREAM_FSLDIR="/usr/share/fsl"
+MAKEOPTS+=" -j1"
 
 PATCHES=(
 	"${FILESDIR}/${PN}"-5.0.10-setup.patch
