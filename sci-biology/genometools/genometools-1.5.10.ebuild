@@ -14,8 +14,7 @@ IUSE="cairo"
 
 DEPEND="
 	dev-libs/glib
-	x11-libs/pango
-	cairo? ( x11-libs/cairo )
+	cairo? ( x11-libs/cairo x11-libs/pango )
 	sci-biology/samtools:0.1-legacy
 	dev-db/sqlite:3
 	>=dev-lang/lua-5.1:=
