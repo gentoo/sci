@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit toolchain-funcs prefix
+inherit flag-o-matic toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
@@ -43,6 +43,9 @@ PATCHES=(
 
 src_prepare(){
 	default
+	append-flags "$($(tc-getPKG_CONFIG) --cflags libxml++-2.6)"
+	append-ldflags "$($(tc-getPKG_CONFIG) --libs-only-l libxml++-2.6)"
+	#append-ldflags "$($(tc-getPKG_CONFIG) --libs-only-l libxml++-2.6)"
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
 		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \
