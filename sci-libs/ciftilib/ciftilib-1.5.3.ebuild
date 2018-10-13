@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -14,11 +14,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sys-libs/zlib"
 DEPEND="
-	dev-cpp/libxmlpp
+	dev-cpp/libxmlpp:2.6
 	dev-libs/boost
+	sys-libs/zlib
 	"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/CiftiLib-${PV}"
 
