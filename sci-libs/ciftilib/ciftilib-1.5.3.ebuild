@@ -25,7 +25,14 @@ S="${WORKDIR}/CiftiLib-${PV}"
 
 src_configure() {
 	local mycmakeargs=(
-		-DIGNORE_QT=FALSE
+		-DIGNORE_QT=TRUE
 	)
 	cmake-utils_src_configure
+}
+
+src_test(){
+	local myctestargs=(
+				-j1
+		)
+	cmake-utils_src_test
 }
