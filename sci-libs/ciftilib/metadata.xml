@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<name>Horea Christian</name>
+		<email>horea.christian@gmail.com</email>
+	</maintainer>
+	<maintainer type="person">
+		<email>slis@gentoo.org</email>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">Washington-University/CiftiLib</remote-id>
+	</upstream>
+</pkgmetadata>
