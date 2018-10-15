@@ -22,6 +22,7 @@ COMMON_DEPEND="
 	media-libs/gd
 	media-libs/glu
 	media-libs/libpng:0=
+	sci-libs/ciftilib
 	sys-libs/zlib
 	"
 DEPEND="${COMMON_DEPEND}"
