@@ -16,6 +16,7 @@ IUSE=""
 
 COMMON_DEPEND="
 	dev-cpp/libxmlpp:2.6
+	dev-db/sqlite
 	dev-libs/libxml2
 	dev-libs/boost
 	media-gfx/graphviz
@@ -23,6 +24,7 @@ COMMON_DEPEND="
 	media-libs/glu
 	media-libs/libpng:0=
 	sci-libs/ciftilib
+	sci-libs/nlopt
 	sys-libs/zlib
 	"
 DEPEND="${COMMON_DEPEND}"
@@ -44,7 +46,10 @@ PATCHES=(
 
 src_prepare(){
 	default
+	#append-flags "$($(tc-getPKG_CONFIG) --cflags boost)"
 	append-flags "$($(tc-getPKG_CONFIG) --cflags CiftiLib)"
+	#append-flags "$($(tc-getPKG_CONFIG) --cflags sqlite)"
+	append-flags "$($(tc-getPKG_CONFIG) --cflags nlopt)"
 	sed -i -e "s:-lcifti:-lCifti:g" `grep -lr lcifti src/`
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
@@ -83,7 +88,7 @@ src_prepare(){
 		$(grep -rl "\${FSLDIR}/doc" src/*) || die
 
 	sed -e "s:/usr/share/fsl/doc:${EPREFIX}/usr/share/fsl/doc:g" \
-		$(grep -rl "/usr/share/fsl/doc" src/*) || die
+		-i $(grep -rl "/usr/share/fsl/doc" src/*) || die
 
 	sed -e "s:\$FSLDIR/etc:${EPREFIX}/etc:g" \
 		-e "s:\${FSLDIR}/etc:${EPREFIX}/etc:g" \
