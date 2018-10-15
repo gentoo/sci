@@ -44,6 +44,8 @@ PATCHES=(
 
 src_prepare(){
 	default
+	append-flags "$($(tc-getPKG_CONFIG) --cflags CiftiLib)"
+	sed -i -e "s:-lcifti:-lCifti:g" `grep -lr lcifti src/`
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
 		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \

@@ -1,6 +1,15 @@
 diff -Naur fsl.orig/build fsl/build
 --- fsl.orig/build	2015-03-29 00:10:39.845936000 +1300
 +++ fsl/build	2015-03-29 00:12:37.160487000 +1300
+@@ -3,7 +3,7 @@
+ if [ $# -ge 1 ] ; then
+   PROJECTS="$@";
+ else
+-  MASTERPROJECTS="CiftiLib-master utils znzlib NewNifti niftiio fslio giftiio miscmaths newimage libhfunc libvis first_lib \ 
++  MASTERPROJECTS="utils znzlib NewNifti niftiio fslio giftiio miscmaths newimage libhfunc libvis first_lib \ 
+ meshclass fslvtkio misc_tcl basisfield warpfns bint shapeModel MVdisc fslvtkconv fslsurface libmeshutils newmesh \
+ DiscreteOpt FastPDlib MSMRegLib \
+ misc_c avwutils basil bet2 cluster dpm copain tissue fast4 feat5 film filmbabe flirt fabber baycest \
 @@ -26,5 +26,5 @@
  fi
  
