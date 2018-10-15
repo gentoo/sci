@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,7 +7,7 @@ inherit flag-o-matic toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
-SRC_URI="https://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-feeds.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz -> ${P}.tar.gz"
 
 LICENSE="FSL BSD-2 newmat"
 SLOT="0"
@@ -43,9 +43,6 @@ PATCHES=(
 
 src_prepare(){
 	default
-	append-flags "$($(tc-getPKG_CONFIG) --cflags libxml++-2.6)"
-	append-ldflags "$($(tc-getPKG_CONFIG) --libs-only-l libxml++-2.6)"
-	#append-ldflags "$($(tc-getPKG_CONFIG) --libs-only-l libxml++-2.6)"
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
 		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \
