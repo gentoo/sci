@@ -39,6 +39,7 @@ UPSTREAM_FSLDIR="/usr/share/fsl"
 MAKEOPTS+=" -j1"
 
 PATCHES=(
+	"${FILESDIR}/${PN}"-5.0.11-logging.patch
 	"${FILESDIR}/${PN}"-5.0.10-setup.patch
 	"${FILESDIR}/${PN}"-5.0.9-headers.patch
 	"${FILESDIR}/${PN}"-5.0.9-fsldir_redux.patch
@@ -46,9 +47,7 @@ PATCHES=(
 
 src_prepare(){
 	default
-	#append-flags "$($(tc-getPKG_CONFIG) --cflags boost)"
 	append-flags "$($(tc-getPKG_CONFIG) --cflags CiftiLib)"
-	#append-flags "$($(tc-getPKG_CONFIG) --cflags sqlite)"
 	append-flags "$($(tc-getPKG_CONFIG) --cflags nlopt)"
 	sed -i -e "s:-lcifti:-lCifti:g" `grep -lr lcifti src/`
 	sed -i \
