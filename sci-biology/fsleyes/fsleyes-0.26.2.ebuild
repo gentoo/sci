@@ -44,11 +44,3 @@ RDEPEND="
 "
 
 S="${WORKDIR}/${P}-af42b7efba43f60b9cc6d63009d9819dda8979d8"
-
-src_compile() {
-	python setup.py build
-}
-
-src_install() {
-	python setup.py install --root "${D}"
-}
