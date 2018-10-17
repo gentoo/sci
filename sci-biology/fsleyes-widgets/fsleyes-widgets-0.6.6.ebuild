@@ -29,11 +29,3 @@ RDEPEND="
 	dev-python/sphinx
 "
 S="${WORKDIR}/${MY_P}-a5ca27c2aba66606040896026626c3afea8ae87e"
-
-src_compile() {
-	python setup.py build
-}
-
-src_install() {
-	python setup.py install --root "${D}"
-}
