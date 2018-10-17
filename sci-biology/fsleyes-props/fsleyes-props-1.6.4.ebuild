@@ -33,11 +33,3 @@ RDEPEND="
 	<sci-biology/fslpy-2
 "
 S="${WORKDIR}/${MY_P}-93b5cadc15da10a2e6ffacf1304edbb1c9a8355a"
-
-src_compile() {
-	python setup.py build
-}
-
-src_install() {
-	python setup.py install --root "${D}"
-}
