@@ -26,11 +26,3 @@ RDEPEND="
 	<dev-python/wxpython-4.1
 "
 S="${WORKDIR}/${P}-2575a60d0ba08c5cddc0eff83cbe6040b3efa994"
-
-src_compile() {
-	python setup.py build
-}
-
-src_install() {
-	python setup.py install --root "${D}"
-}
