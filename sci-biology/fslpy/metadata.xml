@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+<email>paul.polak@med-image.info</email>
+<name>Paul Polak</name>
+</maintainer>
+<longdescription lang="en">
+The FSL Python library
+</longdescription>
+</pkgmetadata>
