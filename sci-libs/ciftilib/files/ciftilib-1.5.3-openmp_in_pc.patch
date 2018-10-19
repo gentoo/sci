@@ -1,0 +1,12 @@
+diff --git a/CiftiLib.pc.in b/CiftiLib.pc.in
+index 13cd78c..8db6c46 100644
+--- a/CiftiLib.pc.in
++++ b/CiftiLib.pc.in
+@@ -5,6 +5,6 @@ Name: CiftiLib
+ Description: C++ Library for reading and writing CIFTI-2 and CIFTI-1 files
+ Version: @CIFTILIB_VERSION@
+ URL: https://github.com/Washington-University/CiftiLib
+-Cflags: -I${includedir}/CiftiLib @CIFTILIB_PKGCONFIG_DEFINE@
++Cflags: -I${includedir}/CiftiLib @CIFTILIB_PKGCONFIG_DEFINE@ @OpenMP_CXX_FLAGS@
+ Libs: -L${libdir} -lCifti
+ @CIFTILIB_PKGCONFIG_REQUIRES_LINE@
