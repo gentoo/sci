@@ -1,0 +1,14 @@
+diff --git a/src/fslsurface/Makefile b/src/fslsurface/Makefile
+index 37f459c..008f443 100644
+--- a/src/fslsurface/Makefile
++++ b/src/fslsurface/Makefile
+@@ -57,7 +57,7 @@ fslsurfacegl.a: fslsurfacegl.o fslsurface.a
+ 	${AR} -r libfslsurfacegl.a fslsurfacegl.o
+ fslsurface_backcompat.a: fslsurface_first.o fslsurface_dataconv.o fslsurface.a
+ 	${AR} -r libfslsurface_backcompat.a fslsurface_first.o fslsurface_dataconv.o
+-fslsurfacemaths: fslsurface.a fslsurfacemaths.o
++fslsurfacemaths: fslsurface.a fslsurfacemaths.o fslsurfaceio.o fslsurfacefns.o fslsurface_first.o fslsurface.o
+ 	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ fslsurfacemaths.o fslsurfaceio.o fslsurfacefns.o fslsurface_first.o fslsurface.o ${LIBS} ${FMLIBS}
+-marching_cubes: fslsurface.a marching_cubes.o
++marching_cubes: fslsurface.a marching_cubes.o fslsurfaceio.o fslsurfacefns.o
+ 	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ marching_cubes.o fslsurfaceio.o fslsurfacefns.o ${LIBS} ${FMLIBS}

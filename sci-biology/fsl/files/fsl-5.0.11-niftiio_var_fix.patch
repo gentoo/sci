@@ -1,0 +1,24 @@
+diff --git a/src/fslio/dbh.h b/src/fslio/dbh.h
+index eff0a50a..fbce1770 100644
+--- a/src/fslio/dbh.h
++++ b/src/fslio/dbh.h
+@@ -79,19 +79,6 @@ struct dsr                              /*      dsr              */
+         struct data_history hist;               /* 148 + 200 */
+     };                                          /* total=348 */
+         
+-/* Acceptable values for hdr.dime.datatype */
+-
+-#define DT_NONE                         0
+-#define DT_UNKNOWN                      0
+-#define DT_BINARY                       1
+-#define DT_UNSIGNED_CHAR                2
+-#define DT_SIGNED_SHORT                 4
+-#define DT_SIGNED_INT                   8
+-#define DT_FLOAT                        16
+-#define DT_COMPLEX                      32
+-#define DT_DOUBLE                       64
+-#define DT_RGB                          128
+-#define DT_ALL                          255
+ 
+ typedef struct 
+         {

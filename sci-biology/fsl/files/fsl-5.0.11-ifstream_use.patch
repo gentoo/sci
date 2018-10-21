@@ -1,0 +1,13 @@
+diff --git a/src/melodic/meldata.cc b/src/melodic/meldata.cc
+index f310dc7..03fe8bb 100644
+--- a/src/melodic/meldata.cc
++++ b/src/melodic/meldata.cc
+@@ -1015,7 +1015,7 @@ namespace Melodic{
+       Resels = 1.0;
+       
+       in.open(logger.appendDir("smoothest").c_str(), ios::in);
+-      if(in>0){
++      if(in.is_open()){
+ 				for(int ctr=1; ctr<7; ctr++)
+ 					in >> str;
+ 				in.close();
