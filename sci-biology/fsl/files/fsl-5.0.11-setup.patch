@@ -1,0 +1,158 @@
+diff --git a/build b/build
+index 6827443..19b2002 100755
+--- a/build
++++ b/build
+@@ -3,7 +3,7 @@
+ if [ $# -ge 1 ] ; then
+   PROJECTS="$@";
+ else
+-  MASTERPROJECTS="CiftiLib-master utils znzlib NewNifti niftiio fslio giftiio miscmaths newimage libhfunc libvis first_lib \ 
++  MASTERPROJECTS="utils znzlib NewNifti niftiio fslio giftiio miscmaths newimage libhfunc libvis first_lib \ 
+ meshclass fslvtkio misc_tcl basisfield warpfns bint shapeModel MVdisc fslvtkconv fslsurface libmeshutils newmesh \
+ DiscreteOpt FastPDlib MSMRegLib \
+ misc_c avwutils basil bet2 cluster dpm copain tissue fast4 feat5 film filmbabe flirt fabber baycest \
+@@ -25,8 +25,8 @@ flameo oxford_asl relax qboot topup ptx2 lesions eddy dwssfp verbena MSM bianca
+   done
+ fi
+ 
+-echo "Building projects - see build.log file for progress..."
+-./config/common/buildproj $PROJECTS > ./build.log 2>&1
++echo "Building projects"
++./config/common/buildproj $PROJECTS
+ finalStatus=$?
+ if [ $finalStatus -eq 0 ]; then
+     echo "Build completed successfully.";
+diff --git a/config/common/buildproj b/config/common/buildproj
+index 3450bda..ec3edc1 100755
+--- a/config/common/buildproj
++++ b/config/common/buildproj
+@@ -11,10 +11,10 @@ if [ X$1 = X-strict ] ; then
+ fi
+ PROJECTS="$@" ; export PROJECTS ;
+ 
+-FSLDIR=`pwd`
++#FSLDIR=`pwd`
+ FSLDEVDIR=${FSLDIR}
+ FSLCONFDIR=${FSLDIR}/config
+-FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
++#FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
+ export FSLDIR FSLDEVDIR FSLCONFDIR FSLMACHTYPE
+ 
+ buildmessages="" ; export buildmessages ;
+@@ -66,7 +66,7 @@ for projname in $PROJECTS; do
+ 	  if [ -x ./fslconfig ] ; then
+ 	    . ./fslconfig ;
+ 	  fi
+-	  if ${MAKE} -k ${MAKEOPTIONS} ; then 
++	  if ${MAKE} ${MAKEOPTIONS} ${MAKEOPTS} ; then 
+ 	    if ${MAKE} ${MAKEOPTIONS} install ; then
+ 	      installok=true;
+ 	      # Clean up after ourselves
+@@ -81,6 +81,7 @@ for projname in $PROJECTS; do
+ 	    if [ $installok = false ]  ; then
+ 	      echo " "
+ 	      echo "ERROR::Could not install $projname successfully" ;
++	      exit 1
+ 	    fi
+ 	  else
+ 	    echo " "
+@@ -89,6 +90,7 @@ for projname in $PROJECTS; do
+ 	    echo " "
+ 	    echo " "
+ 	    errorprojs="$errorprojs $projname" ; export errorprojs ;
++	    exit 1
+ 	  fi
+     fi
+ done
+diff --git a/config/common/vars.mk b/config/common/vars.mk
+index 53754be..ff7a117 100755
+--- a/config/common/vars.mk
++++ b/config/common/vars.mk
+@@ -24,15 +24,15 @@ USRINCFLAGS =
+ USRCFLAGS = 
+ USRCXXFLAGS =
+ 
+-LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR}
++LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR} ${USERLDFLAGS}
+ 
+-AccumulatedIncFlags = -I${INC_BOOST} ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR}
++AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR} ${CPPFLAGS}
+ 
+ CFLAGS = ${ANSI_FLAGS} ${ANSI_CFLAGS} ${DBGFLAGS} ${USEDCSTATICFLAGS} ${USRCFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCFLAGS}
+ 
+-CXXFLAGS = ${ANSI_FLAGS} ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++CXXFLAGS = ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
++	${AccumulatedIncFlags} ${USERCXXFLAGS}
+ 
+ HFILES = *.h
+ AFILES = *.a
+diff --git a/config/generic/systemvars.mk b/config/generic/systemvars.mk
+index e40e3d6..ddb5bfe 100755
+--- a/config/generic/systemvars.mk
++++ b/config/generic/systemvars.mk
+@@ -4,20 +4,20 @@ SHELL = /bin/sh
+ 
+ # System dependent commands (NB: the first two are the most platform dependent)
+ 
+-INSTALL = ginstall -p
+-RANLIB = ranlib
++INSTALL = install -p
++RANLIB = @@GENTOO_RANLIB@@
+ 
+ RM = /bin/rm
+ CP = /bin/cp
+ MV = /bin/mv
+ CHMOD = /bin/chmod
+ MKDIR = /bin/mkdir
+-TCLSH = ${FSLDIR}/bin/fsltclsh
++TCLSH = tclsh
+ 
+ # Compiler dependent variables
+ 
+-CC = gcc
+-CXX = c++
++CC = @@GENTOO_CC@@
++CXX = @@GENTOO_CXX@@
+ CSTATICFLAGS = -static
+ CXXSTATICFLAGS = -static
+ 
+@@ -25,7 +25,7 @@ ARCHFLAGS =
+ 
+ DEPENDFLAGS = -MM
+ 
+-OPTFLAGS =  -O3 -fexpensive-optimizations ${ARCHFLAGS}
++OPTFLAGS =
+ MACHDBGFLAGS =
+ GNU_ANSI_FLAGS = -Wall -ansi -pedantic
+ SGI_ANSI_FLAGS = -ansi -fullwarn
+diff --git a/extras/build b/extras/build
+index 6133a1b..caeae2d 100755
+--- a/extras/build
++++ b/extras/build
+@@ -104,8 +104,8 @@ PROJECTS="${PROJECTS} libpng"
+ if [ ${BUILDICONV} -eq 1 ]; then
+   PROJECTS="${PROJECTS} libiconv"
+ fi
+-PROJECTS="${PROJECTS} libgd libgdc libprob libcprob newmat cprob newran fftw"
+-PROJECTS="${PROJECTS} boost libxml2-2.9.2 libxml++-2.34.0 libsqlite libnlopt ../include/armawrap/dummy_newmat"
++PROJECTS="libgdc libprob libcprob newmat cprob newran"
++PROJECTS="${PROJECTS} ../include/armawrap/dummy_newmat"
+ for projname in $PROJECTS; do
+     if [ -d $FSLESRCDIR/$projname ] ; then
+        buildIt $FSLESRCDIR $projname 1 
+diff --git a/src/mist-clean/Makefile b/src/mist-clean/Makefile
+index b3a32fc..e949ba1 100755
+--- a/src/mist-clean/Makefile
++++ b/src/mist-clean/Makefile
+@@ -52,7 +52,7 @@ installpython:
+ 		cp -r python/* ${DESTDIR}/python/mist
+ 
+ clean:
+-			rm ${OBJS} mist/mist.o mist/mist
++			rm -f ${OBJS} mist/mist.o mist/mist || echo "CLEAN could not locate some files scheduled for deletion."
+ 
+ .PHONY:		all clean installdata
+ 
