@@ -10,8 +10,11 @@
 		<name>Gentoo Chemistry Project</name>
 	</maintainer>
 	<use>
+		<flag name="msucc">Build Michigan State University CCT3 and CCSD3A methods.
+			This will increase build time and memory requirements by multiple times</flag>
 		<flag name="neo">Enable NEO for nuclear basis support</flag>
 		<flag name="pax_kernel">Make this package work on PAX kernels</flag>
 		<flag name="qmmm-tinker">Enable tinker qmmm code</flag>
+		<flag name="vb2000">Enable Valence Bond method using VB2000 code</flag>
 	</use>
 </pkgmetadata>

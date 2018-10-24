@@ -1,0 +1,185 @@
+diff -Naurd gamess.orig/comp gamess/comp
+--- gamess.orig/comp	2018-10-01 06:45:26.000000000 +0300
++++ gamess/comp	2018-10-23 17:24:42.094888310 +0300
+@@ -1585,7 +1585,7 @@
+ #
+    case gfortran:
+ #
+-      set OPT='-O2'
++      set gentoo-OPT='-O2'
+       if ($MODULE == zheev)  set OPT='-O0'  # defensive compiling
+ 
+       set EXTRAOPT=" "
+@@ -1698,7 +1698,7 @@
+ #    optimizations in 32 bit mode, as a function of the ifort version.
+ #
+    case ifort:
+-   set OPT = '-O3'
++   set gentoo-OPT = '-O2'
+    if ($MODULE == delocl) set OPT='-O0'  # from Cheol
+    if ($MODULE == prpamm) set OPT='-O0'  # for exam13
+    if ($MODULE == zheev)  set OPT='-O0'
+@@ -1944,7 +1944,7 @@
+ #
+ #         first, initialize OPT and EXTRAOPT
+ #
+-      set OPT='-O2'
++      set gentoo-OPT='-O2'
+       if ($MODULE == zheev)  set OPT='-O0'  # defensive compiling
+ 
+       set EXTRAOPT=" "
+@@ -2109,7 +2109,7 @@
+ #     -WB means warn but don't fail on out-of-bounds array references
+ #     -ftz flushes underflow results to zero
+ #
+-      set OPT = '-O2'
++      set gentoo-OPT = '-O2'
+       if (".$GMS_DEBUG_FLAGS" != .) set OPT="$GMS_DEBUG_FLAGS"
+ #       alas, I'm so tired of hearing about so many versions failing to
+ #       diagonalize, that this time critical code is run w/o optimization.
+@@ -2331,6 +2331,10 @@
+          case 5.1:
+          case 5.2:
+          case 5.3:
++	 case 5.4:
++	 case 6.0:
++	 case 6.1:
++	 case 6.2:
+             if ($MODULE == cosmo)  set OPT='-O0'
+             if ($MODULE == dcscf)  set OPT='-O0'
+             if ($MODULE == tddgrd) set OPT='-O0'
+diff -Naurd gamess.orig/ddi/compddi gamess/ddi/compddi
+--- gamess.orig/ddi/compddi	2018-08-07 10:23:20.000000000 +0300
++++ gamess/ddi/compddi	2018-10-23 17:14:31.801671875 +0300
+@@ -696,7 +696,7 @@
+ 
+      set FORTRAN=$GMS_FORTRAN   # might be g77, gfortran, ifort, pgf77, f2c
+ 
+-     set CC = 'gcc'
++     set gentoo-CC = 'gcc'
+      set CFLAGS = "-DLINUX -O3 -fstrict-aliasing -I./"
+      set CLIBS  = "-lpthread"
+ 
+@@ -751,7 +751,7 @@
+      if (`uname -p` == ia64) set ARCH=''
+      if (`uname -p` == aarch64) set ARCH='-mcpu=native'
+ 
+-     set CC = 'gcc'
++     set gentoo-CC = 'gcc'
+      set CFLAGS = "-DLINUX $ARCH -O3 -fstrict-aliasing -I./"
+      set CLIBS  = "-lpthread"
+ 
+diff -Naurd gamess.orig/ddi/kickoff/ddikick.c gamess/ddi/kickoff/ddikick.c
+--- gamess.orig/ddi/kickoff/ddikick.c	2018-02-08 00:15:23.000000000 +0300
++++ gamess/ddi/kickoff/ddikick.c	2018-10-23 17:14:31.801671875 +0300
+@@ -105,7 +105,7 @@
+           remoteshell = argv[++i];
+        } else {
+           if((remoteshell = getenv("DDI_RSH")) == NULL) {
+-              remoteshell = (char *) strdup("rsh");
++              remoteshell = (char *) strdup("ssh");
+           }
+        }
+ 
+diff -Naurd gamess.orig/gms-files.csh gamess/gms-files.csh
+--- gamess.orig/gms-files.csh	2018-10-01 06:45:26.000000000 +0300
++++ gamess/gms-files.csh	2018-10-23 17:14:31.802671840 +0300
+@@ -28,7 +28,7 @@
+ #     to see all the file definitions (one is just below).
+ #
+ #---quiet---set echo
+-setenv AUXDATA $GMSPATH/auxdata
++setenv AUXDATA /usr/share/gamess
+ setenv  EXTBAS /dev/null
+ setenv  NUCBAS /dev/null
+ setenv  EXTCAB /dev/null
+diff -Naurd gamess.orig/lked gamess/lked
+--- gamess.orig/lked	2018-10-01 06:45:26.000000000 +0300
++++ gamess/lked	2018-10-23 17:28:20.981434120 +0300
+@@ -368,12 +368,12 @@
+    switch ($GMS_FORTRAN)
+      case gfortran:
+         set LDR='gfortran'
+-        set LDOPTS=' '
++        set gentoo-LDOPTS=' '
+         set FORTLIBS=' '
+         breaksw
+      case ifort:
+         set LDR='ifort'
+-        set LDOPTS=' '  # add '-Wl,-M' to see load map
++        set gentoo-LDOPTS=' '  # add '-Wl,-M' to see load map
+         set FORTLIBS='-Vaxlib'
+         breaksw
+      case pgfortran:
+@@ -432,12 +432,7 @@
+       #     Otherwise, attempt a link against shared object libs.
+       #     See the 64 bit Atlas below for a way to fix the linker's
+       #     not being able to locate -lf77blas, if that happens.
+-      if (-e $GMS_MATHLIB_PATH/libf77blas.a) then
+-         set MATHLIBS="$GMS_MATHLIB_PATH/libf77blas.a"
+-         set MATHLIBS="$MATHLIBS $GMS_MATHLIB_PATH/libatlas.a"
+-      else
+-         set MATHLIBS="-L$GMS_MATHLIB_PATH -lf77blas -latlas"
+-      endif
++      set MATHLIBS=`${PKG_CONFIG} --libs blas`
+       set BLAS=' '
+       breaksw
+ 
+@@ -506,13 +501,13 @@
+    switch ($GMS_FORTRAN)
+       case gfortran:
+          set LDR='gfortran'
+-         set LDOPTS=' '
++         set gentoo-LDOPTS=' '
+          set FORTLIBS=' '
+          if ($GMS_OPENMP == true)    set LDOPTS="$LDOPTS -fopenmp"
+          breaksw
+       case ifort:
+          set LDR='ifort'
+-         set LDOPTS='-i8'  # -Wl,-M generates a load map
++         set gentoo-LDOPTS=' '  # -Wl,-M generates a load map
+ #            this auxiliary library seems to have disappeared in ifort 10
+          set FORTLIBS=' '
+          if ($GMS_IFORT_VERNO < 10) set FORTLIBS='-Vaxlib'
+@@ -672,12 +667,7 @@
+       #          ln -s liblapack_atlas.so.3.0 liblapack.so
+       #          ln -s liblapack.so.3.0       liblapack.so
+       #     It is strange the RPM's don't do these soft links for us.
+-      if (-e $GMS_MATHLIB_PATH/libf77blas.a) then
+-         set MATHLIBS="$GMS_MATHLIB_PATH/libf77blas.a"
+-         set MATHLIBS="$MATHLIBS $GMS_MATHLIB_PATH/libatlas.a"
+-      else
+-         set MATHLIBS="-L$GMS_MATHLIB_PATH -lf77blas -latlas"
+-      endif
++      set MATHLIBS=`${PKG_CONFIG} --libs blas`
+       if ($CCHEM == true) then
+         set MATHLIBS="-L$GMS_MATHLIB_PATH -Wl,--start-group -lf77blas -latlas -lcblas -llapack -Wl,--end-group"
+       endif
+diff -Naurd gamess.orig/runall gamess/runall
+--- gamess.orig/runall	2018-02-08 00:15:24.000000000 +0300
++++ gamess/runall	2018-10-23 17:14:31.802671840 +0300
+@@ -46,7 +46,7 @@
+      xgms -v $VERNO -q $QUEUE -l exam$NUM.log exam$NUM
+      sleep 2
+   else
+-     ./rungms exam$NUM $VERNO 1  >&  exam$NUM.log
++     rungms exam$NUM $VERNO 1  >&  exam$NUM.log
+   endif
+   @ i++
+ end
+diff -Naurd gamess.orig/rungms gamess/rungms
+--- gamess.orig/rungms	2018-10-01 06:45:26.000000000 +0300
++++ gamess/rungms	2018-10-23 17:29:37.732820347 +0300
+@@ -61,9 +61,9 @@
+ #       See also a very old LoadLeveler "ll-gms" for some IBM systems.
+ #
+ set TARGET=sockets
+-set SCR=/scr1/$USER
+-set USERSCR=~/gamess-devv
+-set GMSPATH=~/gamess-devv
++set SCR=`pwd`
++set USERSCR=`pwd`
++set GMSPATH=/usr/bin
+ #
+ set JOB=$1      # name of the input file xxx.inp, give only the xxx part
+ set VERNO=$2    # revision number of the executable created by 'lked' step
