@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit fortran-2 flag-o-matic pax-utils toolchain-funcs
+inherit check-reqs fortran-2 flag-o-matic pax-utils toolchain-funcs
 
 DESCRIPTION="A powerful quantum chemistry package"
 HOMEPAGE="http://www.msg.chem.iastate.edu/GAMESS/GAMESS.html"
@@ -40,6 +40,17 @@ RESTRICT="fetch"
 GAMESS_DOWNLOAD="http://www.msg.ameslab.gov/GAMESS/License_Agreement.html"
 GAMESS_VERSION="September 30, 2018 R3"
 
+pre_build_checks() {
+	if use msucc; then
+		CHECKREQS_MEMORY=6G
+		check-reqs_pkg_setup
+	fi
+}
+
+pkg_pretend() {
+	pre_build_checks
+}
+
 pkg_nofetch() {
 	echo
 	elog "Please download ${PN}-current.tar.gz from"
@@ -66,6 +77,7 @@ get_fcomp() {
 }
 
 pkg_setup() {
+	pre_build_checks
 	fortran-2_pkg_setup
 	get_fcomp
 	# currently amd64 is only supported with gfortran
