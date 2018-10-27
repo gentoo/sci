@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -23,10 +23,7 @@ RDEPEND="
 	>=dev-util/nvidia-cuda-toolkit-7.5
 	media-libs/freeglut
 	examples? ( >=x11-drivers/nvidia-drivers-352.79[uvm] )
-	nvvs? (
-		>=x11-drivers/nvidia-drivers-352.79[uvm]
-		<x11-drivers/nvidia-drivers-355.00[uvm]
-	)
+	nvvs? (	>=x11-drivers/nvidia-drivers-352.79[uvm] )
 	"
 DEPEND="${RDEPEND}"
 
