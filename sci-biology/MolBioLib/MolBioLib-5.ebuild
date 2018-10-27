@@ -9,7 +9,7 @@ SRC_URI="https://sourceforge.net/projects/molbiolib/files/MolBioLib_public.versi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="" # does not build
+KEYWORDS=""
 IUSE="doc"
 
 # contains bundled samtools-0.1.18 and bamtools (pezmaster31-bamtools-d553a62) which contains jsoncpp

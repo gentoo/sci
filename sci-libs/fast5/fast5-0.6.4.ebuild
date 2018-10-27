@@ -13,7 +13,7 @@ SRC_URI="https://github.com/mateidavid/fast5/archive/v${PV}.tar.gz -> ${P}.tar.g
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="" # the install step is broken (python modules integration, upstream binary code)
+KEYWORDS=""
 IUSE=""
 
 DEPEND="

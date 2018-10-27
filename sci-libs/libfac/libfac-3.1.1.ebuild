@@ -13,7 +13,7 @@ SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${PN}-${MY_PV}.
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="singular"
 
 DEPEND=">=sci-libs/factory-${PV}[singular=]"

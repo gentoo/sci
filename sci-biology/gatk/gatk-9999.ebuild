@@ -21,7 +21,7 @@ EGIT_CLONE_TYPE="mirror"
 LICENSE="BSD-3" # since gatk-4
 SLOT="0"
 IUSE=""
-KEYWORDS="" # 148.19 MB git download and 134MB "${W}"/.m2 download
+KEYWORDS=""${W} # 134MB 148.19 MB and download git"
 
 COMMON_DEPS=""
 # gatk-4 needs java-1.8

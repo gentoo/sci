@@ -14,7 +14,7 @@ SRC_URI="https://github.com/trinityrnaseq/trinityrnaseq/archive/Trinity-v${PV}.t
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
-KEYWORDS="" # PERL5INC path is wrong when /usr/bin/Trinity is executed
+KEYWORDS=""
 IUSE=""
 
 DEPEND=""

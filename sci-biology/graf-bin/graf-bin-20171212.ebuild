@@ -12,7 +12,7 @@ SRC_URI="http://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/GetZip.cgi?zip_name=GR
 
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64" # 64bit exe only
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=""

@@ -20,7 +20,7 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="estscan"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="icc ifc"
 
 DEPEND="

@@ -15,7 +15,7 @@ SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.
 
 LICENSE="ECL-2.0"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="blas mpi doc examples nwchem-tests openmp mrcc python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"

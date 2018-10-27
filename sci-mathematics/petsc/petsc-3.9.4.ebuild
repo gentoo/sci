@@ -15,7 +15,7 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="afterimage boost complex-scalars cxx debug doc fftw
 	fortran hdf5 hypre mpi metis mumps scotch sparse superlu threads X"
 

@@ -16,7 +16,7 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="" # src_install is wrong somehow, TreeView.jar does not start
+KEYWORDS=""
 IUSE=""
 
 DEPEND="

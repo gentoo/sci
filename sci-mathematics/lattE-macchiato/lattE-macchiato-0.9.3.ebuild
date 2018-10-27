@@ -12,7 +12,7 @@ SRC_URI="http://www.math.ucdavis.edu/~mkoeppe/latte/download/latte-for-tea-too-1
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="

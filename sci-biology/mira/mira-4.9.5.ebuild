@@ -21,7 +21,7 @@ S="${WORKDIR}"/"${PN}"-"${MY_PV}"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+KEYWORDS="~amd64 ~x86 ~x86-macos ~amd64-linux ~x86-linux"
 IUSE="doc"
 
 CDEPEND="

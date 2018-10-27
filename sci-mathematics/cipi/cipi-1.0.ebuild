@@ -11,7 +11,7 @@ SRC_URI="https://github.com/tom111/cipi/archive/1.0.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 DEPEND="

@@ -15,7 +15,7 @@ S="${WORKDIR}/Mathics-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	~dev-python/sympy-1.0[${PYTHON_USEDEP}]

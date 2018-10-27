@@ -14,7 +14,7 @@ SRC_URI="https://github.com/samtools/htsjdk/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 IUSE=""
-KEYWORDS="" # SANDBOX VIOLATION
+KEYWORDS=""
 
 CDEPEND="dev-java/commons-jexl:2
 	dev-java/commons-compress:0

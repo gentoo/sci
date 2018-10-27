@@ -13,7 +13,7 @@ SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/${PN}/${P}-sources.jar/5c3589d4
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="

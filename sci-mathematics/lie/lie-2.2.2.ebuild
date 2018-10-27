@@ -14,7 +14,7 @@ RESTRICT="mirror"
 LICENSE="LGPL-2.1"
 ##### See http://packages.debian.org/changelogs/pool/main/l/lie/lie_2.2.2+dfsg-1/lie.copyright
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 DEPEND="

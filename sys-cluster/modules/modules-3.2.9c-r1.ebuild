@@ -11,7 +11,7 @@ SRC_URI="http://sourceforge.net/projects/modules/files/Modules/${P%[a-z]}/${P}.t
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="X"
 
 DEPEND="

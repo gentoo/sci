@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/samtools/htsjdk.git"
 LICENSE="MIT"
 SLOT="0"
 IUSE=""
-KEYWORDS="" # SANDBOX VIOLATION
+KEYWORDS=""
 
 CDEPEND="dev-java/commons-jexl:2
 	dev-java/commons-compress:0

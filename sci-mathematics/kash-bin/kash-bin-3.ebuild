@@ -13,7 +13,7 @@ SRC_URI="
 
 LICENSE="kash"
 SLOT="0"
-KEYWORDS="~x86 ~amd64 ~x86-linux ~amd64-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 MY_P="kash3"

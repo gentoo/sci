@@ -11,7 +11,7 @@ SRC_URI="http://www.netlib.org/benchmark/hpl/hpl-${PV}.tar.gz"
 
 SLOT="0"
 LICENSE="HPL"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 RDEPEND="

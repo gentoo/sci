@@ -12,7 +12,7 @@ SRC_URI="https://github.com/broadinstitute/oncotator/archive/v${PV}.tar.gz -> ${
 
 LICENSE="oncotator"
 SLOT="0"
-KEYWORDS="~amd64 ~x86" # breaks silently during install because of python syntax errors
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RESTRICT="fetch"

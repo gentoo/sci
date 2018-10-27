@@ -9,7 +9,7 @@ SRC_URI="https://github.com/dpryan79/libBigWig/archive/${PV}.tar.gz -> ${P}.tar.
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86" # https://github.com/dpryan79/libBigWig/issues/30
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="net-misc/curl"

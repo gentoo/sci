@@ -11,7 +11,7 @@ LICENSE="freedist HPND"
 # There is no clear license specified. But according to Docs/Readme_Fp_Suite.txt
 # those two seem to be appropriate.
 SLOT="0"
-KEYWORDS="~x86 ~amd64 -*"
+KEYWORDS="-* ~amd64 ~x86"
 IUSE="+doc +examples +X"
 
 RDEPEND="X? ( x11-libs/motif:0 )"

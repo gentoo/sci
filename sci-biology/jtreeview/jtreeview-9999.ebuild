@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://bitbucket.org/TreeView3Dev/treeview3.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="" # builds and executes fines
+KEYWORDS=""
 IUSE=""
 
 DEPEND=">virtual/jdk-1.7:*"

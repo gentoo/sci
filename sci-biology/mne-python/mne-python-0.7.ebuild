@@ -15,7 +15,7 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="test"
 #IUSE="cuda test"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]

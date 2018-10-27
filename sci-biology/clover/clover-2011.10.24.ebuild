@@ -16,7 +16,7 @@ SRC_URI="
 LICENSE="freedist"
 SLOT="0"
 IUSE=""
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}/${PN}-${MY_PV}"
 

@@ -10,7 +10,7 @@ SRC_URI="http://www.bcgsc.ca/platform/bioinfo/software/trans-abyss/releases/${PV
 # http://www.bcgsc.ca/platform/bioinfo/license/bcca_2010
 LICENSE="bcca_2010"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 # perl and python

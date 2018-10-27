@@ -11,7 +11,7 @@ SRC_URI="${HOMEPAGE}/download/mvapich2/mvapich2-${PV/_/-}.tgz"
 
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug fortran large-cluster medium-cluster romio threads"
 
 RDEPEND="
