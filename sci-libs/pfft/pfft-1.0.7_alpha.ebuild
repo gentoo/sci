@@ -15,7 +15,7 @@ if [[ $PV = *9999 ]] ; then
 	AUTOTOOLS_AUTORECONF=1
 else
 	SRC_URI="https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software/${P//_/-}.tar.gz"
-	KEYWORDS="~x86 ~amd64"
+	KEYWORDS="~amd64 ~x86"
 	S="${WORKDIR}/${P//_/-}"
 fi
 
