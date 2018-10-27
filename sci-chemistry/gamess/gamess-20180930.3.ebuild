@@ -78,6 +78,7 @@ get_fcomp() {
 
 pkg_setup() {
 	pre_build_checks
+	use openmp && FORTRAN_NEED_OPENMP=1
 	fortran-2_pkg_setup
 	get_fcomp
 	# currently amd64 is only supported with gfortran
@@ -105,10 +106,6 @@ pkg_setup() {
 		ewarn "You should adjust rungms script for your mpi implentation"
 		ewarn "because deafult one will not work"
 		ewarn ""
-	fi
-
-	if use openmp; then
-		tc-has-openmp || die "Please use an openmp capable compiler like gcc[openmp]"
 	fi
 }
 
