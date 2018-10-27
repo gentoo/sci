@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -68,7 +68,7 @@ RDEPEND="
 	dev-python/pygobject:2[${PYTHON_USEDEP}]
 	dev-python/pygtk:2[${PYTHON_USEDEP}]
 	>=net-misc/curl-7.19.6
-	net-dns/libidn
+	net-dns/libidn:0
 	sys-libs/readline:0=
 	"
 DEPEND="${RDEPEND}
