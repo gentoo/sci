@@ -14,7 +14,7 @@ LICENSE="all-rights-reserved" # temporarily placed value
 # Availability
 # Phusion is undergoing a rewrite of the code to make this a portable package. It will be made available free of charge to academic sites, but requires licensing for commercial use. For more information please contact the authors.
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="" # compile process does not exit upon errors
 # one file does not compile
 # x86_64-pc-linux-gnu-gcc  -O2 -pipe -maes -mpclmul -mpopcnt -mavx -march=native  -o contigoverlap  contigoverlap.o  -lm
 # contigoverlap.o: In function `HashFasta':

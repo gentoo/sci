@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/bio-bwa/${P}.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64 ~x64-macos ~x86"
+KEYWORDS="~amd64 ~x86 ~x64-macos"
 
 RDEPEND="dev-lang/perl"
 

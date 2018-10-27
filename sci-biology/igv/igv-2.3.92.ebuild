@@ -26,7 +26,7 @@ HOMEPAGE="http://www.broadinstitute.org/igv/"
 LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE=""
-KEYWORDS=""
+KEYWORDS="" # see upstream issue #332
 
 # actually more exactly the COMMON_DEPS should contain:
 #   >=dev-java/commons-compress-1.11 # use bundled library until dev-java/commons-compress is bumped, see bug #591696

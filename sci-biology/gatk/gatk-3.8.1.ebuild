@@ -18,7 +18,7 @@ EGIT_COMMIT="41147a655594c2aae6e2cad8462bd1648570b32b"
 LICENSE="MIT"
 SLOT="0"
 IUSE=""
-KEYWORDS=""${W} # 134MB 608.21 MiB and download git ~amd64""
+KEYWORDS="~amd64" # 608.21 MiB git download and 134MB "${W}"/.m2 download
 
 COMMON_DEPS=""
 DEPEND="

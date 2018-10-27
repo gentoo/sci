@@ -17,7 +17,7 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="" # resulting java binary does not execute for me
 IUSE=""
 
 DEPEND=">virtual/jdk-1.5:*

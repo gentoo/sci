@@ -14,7 +14,7 @@ SRC_URI="mirror://pypi/p/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="" # needs working pysam, see bug #645060
 IUSE=""
 
 DEPEND="dev-python/cython
