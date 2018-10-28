@@ -19,7 +19,7 @@ if [[ ! ${_NUMERIC_INT64_MULTILIB_ECLASS} ]]; then
 case ${EAPI:-0} in
 	5)
 		inherit multilib ;;
-	6) ;;
+	6|7) ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 

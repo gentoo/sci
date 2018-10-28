@@ -14,7 +14,7 @@ if [[ ! ${_NUMERIC_ECLASS} ]]; then
 case ${EAPI:-0} in
 	0|1|2|3|4|5)
 		inherit multilib ;;
-	6) ;;
+	6|7) ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
