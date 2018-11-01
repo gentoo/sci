@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -34,8 +34,9 @@ PATCHES=( "${FILESDIR}/lapack-reference-${LPV}-fix-build-system.patch" )
 MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/cblas/cblas.h
 )
+
 src_prepare() {
-	default
+	cmake-utils_src_prepare
 
 	# rename library to avoid collision with other blas implementations
 	# ${LIBNAME} and ${PROFNAME} are not defined here, they are in single
