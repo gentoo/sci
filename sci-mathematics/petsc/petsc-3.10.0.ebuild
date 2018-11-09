@@ -1,17 +1,15 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs versionator
-
-MY_P="${PN}-$(replace_version_separator _ -)"
+inherit flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
 DESCRIPTION="Portable, Extensible Toolkit for Scientific Computation"
 HOMEPAGE="http://www.mcs.anl.gov/petsc/"
-SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
+SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
@@ -53,8 +51,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	dev-util/cmake
 "
-
-S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.7.0-disable-rpath.patch \
@@ -143,7 +139,7 @@ src_configure() {
 		--with-petsc-arch=${PETSC_ARCH} \
 		--with-precision=double \
 		--with-gnu-compilers \
-		--with-blas-lapack-lib="$($(tc-getPKG_CONFIG) --libs lapack)" \
+		--with-blas-lapack-lib="$($(tc-getPKG_CONFIG) --libs blas lapack)" \
 		$(petsc_enable debug debugging) \
 		$(petsc_enable mpi) \
 		$(petsc_select mpi cc mpicc $(tc-getCC)) \
@@ -154,7 +150,7 @@ src_configure() {
 		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
-		--with-cmake=cmake \
+		--with-cmake:BOOL=1 \
 		$(petsc_enable threads pthread) \
 		$(petsc_with afterimage afterimage \
 			/usr/include/libAfterImage -lAfterImage) \
