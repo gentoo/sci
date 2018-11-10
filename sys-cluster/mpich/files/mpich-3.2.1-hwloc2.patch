@@ -1,0 +1,42 @@
+From ab59467c51206ac72546e4b734a1b41bf3d0345d Mon Sep 17 00:00:00 2001
+From: Kavitha Tiptur Madhu <kmadhu@anl.gov>
+Date: Fri, 19 Jan 2018 10:44:56 -0600
+Subject: [PATCH] hydra: remove replicate membind option
+
+The "replicate" option of membind is not well supported on a number of
+operating systems, and has been removed from hwloc (in v2.0) as well.
+This patch gets rid of that option in Hydra, in preparation for an
+upgrade to hwloc-2.0.
+
+Signed-off-by: Pavan Balaji <balaji@anl.gov>
+---
+ src/pm/hydra/tools/topo/hwloc/topo_hwloc.c | 3 ---
+ src/pm/hydra/ui/mpich/utils.c              | 1 -
+ 2 files changed, 4 deletions(-)
+
+diff --git a/src/pm/hydra/tools/topo/hwloc/topo_hwloc.c b/src/pm/hydra/tools/topo/hwloc/topo_hwloc.c
+index ce15fe7702..74029fad61 100644
+--- a/src/pm/hydra/tools/topo/hwloc/topo_hwloc.c
++++ b/src/pm/hydra/tools/topo/hwloc/topo_hwloc.c
+@@ -424,9 +424,6 @@ HYD_status HYDT_topo_hwloc_init(const char *binding, const char *mapping, const
+     else if (!strncmp(membind, "interleave:", strlen("interleave:"))) {
+         HYDT_topo_hwloc_info.membind = HWLOC_MEMBIND_INTERLEAVE;
+     }
+-    else if (!strncmp(membind, "replicate:", strlen("replicate:"))) {
+-        HYDT_topo_hwloc_info.membind = HWLOC_MEMBIND_REPLICATE;
+-    }
+     else {
+         HYDU_ERR_SETANDJUMP(status, HYD_INTERNAL_ERROR,
+                             "unrecognized membind policy \"%s\"\n", membind);
+diff --git a/src/pm/hydra/ui/mpich/utils.c b/src/pm/hydra/ui/mpich/utils.c
+index 9e18a754b5..a9c9dde015 100644
+--- a/src/pm/hydra/ui/mpich/utils.c
++++ b/src/pm/hydra/ui/mpich/utils.c
+@@ -940,7 +940,6 @@ static void bind_to_help_fn(void)
+     printf("            nexttouch         -- closest to process that next touches memory\n");
+     printf("            bind:<list>       -- bind to memory node list\n");
+     printf("            interleave:<list> -- interleave among memory node list\n");
+-    printf("            replicate:<list>  -- replicate among memory node list\n");
+ }
+ 
+ static HYD_status bind_to_fn(char *arg, char ***argv)
