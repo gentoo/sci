@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Manipulate FASTA and FASTQ files"
 HOMEPAGE="https://github.com/lh3/seqtk"
-SRC_URI="https://github.com/lh3/seqtk/archive/v1.3.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/lh3/seqtk/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
