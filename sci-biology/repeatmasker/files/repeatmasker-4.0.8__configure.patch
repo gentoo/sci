@@ -1,0 +1,118 @@
+--- RepeatMasker/configure.ori	2018-11-30 16:50:39.918872258 +0100
++++ RepeatMasker/configure	2018-11-30 17:00:33.255400144 +0100
+@@ -78,11 +78,10 @@
+ ## unqualified from another installation directory.
+ ##
+ if ( cwd() ne $FindBin::RealBin ) {
+-  print "\n    The RepeatMasker configure script must be run from\n"
++  die "\n    The RepeatMasker configure script must be run from\n"
+       . "    inside the RepeatMasker installation directory:\n\n"
+       . "       $FindBin::RealBin\n\n"
+       . "    Perhaps this is not the \"configure\" you are looking for?\n\n";
+-  exit;
+ }
+ 
+ ##
+@@ -228,12 +227,12 @@
+ print "\n  -- Building FASTA database...";
+ system(
+ "$rmLocation/util/buildRMLibFromEMBL.pl $rmLocation/Libraries/RepeatMaskerLib.embl > $rmLocation/Libraries/RepeatMasker.lib 2>/dev/null"
+-);
++) and die "$rmLocation/util/buildRMLibFromEMBL.pl $rmLocation/Libraries/RepeatMaskerLib.embl command filed with: $!";
+ 
+ ## Uncompress taxonomy.dat
+ if ( -s "$rmLocation/Libraries/taxonomy.dat.gz" ) {
+   print "\n  -- Uncompressing taxonomy.dat...";
+-  system( "gunzip $rmLocation/Libraries/taxonomy.dat.gz" );
++  system( "gunzip $rmLocation/Libraries/taxonomy.dat.gz" ) and die "gunzip $rmLocation/Libraries/taxonomy.dat.gz failed with: $!";
+ }
+ 
+ ##
+@@ -278,7 +277,7 @@
+ } while ( $goodParam != 1 );
+ 
+ # Initialize config from template.
+-system( "cp RepeatMaskerConfig.tmpl RepeatMaskerConfig.pm" );
++system( "cp RepeatMaskerConfig.tmpl RepeatMaskerConfig.pm" ) and die "cp RepeatMaskerConfig.tmpl RepeatMaskerConfig.pm failed with: $!";
+ 
+ # Make changes to file.
+ my $configFile = "RepeatMaskerConfig.pm";
+@@ -290,7 +289,7 @@
+ }
+ close IN;
+ close OUT;
+-system( "mv $configFile.tmp $configFile" );
++system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+ 
+ ##
+ ## Search Engine Configuration
+@@ -452,7 +451,7 @@
+     }
+     close IN;
+     close OUT;
+-    system( "mv $configFile.tmp $configFile" );
++    system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+   }
+ 
+ }
+@@ -590,9 +589,9 @@
+   my $rmLocation = "$FindBin::Bin";
+   print "Building RMBlast frozen libraries..\n";
+   system(   "$pgLocation/makeblastdb -dbtype nucl -in "
+-          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" ) and die "$pgLocation/makeblastdb -dbtype nucl -in $rmLocation/Libraries/RepeatMasker.lib failed: $!";
+   system(   "$pgLocation/makeblastdb -dbtype prot -in "
+-          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" ) and die "$pgLocation/makeblastdb -dbtype prot -in $rmLocation/Libraries/RepeatPeps.lib failed with: $!";
+ 
+   my $pgDefault = &promptScreen(
+     "",
+@@ -665,9 +664,9 @@
+   my $rmLocation = "$FindBin::Bin";
+   print "Building WUBlast/ABBlast frozen libraries..\n";
+   system(   "$wuLocation/xdformat -n -I "
+-          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatMasker.lib > /dev/null 2>&1" ) and die "$wuLocation/xdformat -n -I $rmLocation/Libraries/RepeatMasker.lib failed with: $!";
+   system(   "$wuLocation/xdformat -p -I "
+-          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" );
++          . "$rmLocation/Libraries/RepeatPeps.lib > /dev/null 2>&1" ) and die "$wuLocation/xdformat -p -I $rmLocation/Libraries/RepeatPeps.lib failed with: $!";
+ 
+   my $wuDefault = &promptScreen(
+     "",
+@@ -733,7 +732,7 @@
+       }
+     }
+     else {
+-      print "ERROR: Could not find nhmmer program in this directory!\n";
++      print "ERROR: Could not find nhmmer program in '$location' directory!\n";
+     }
+   }
+ 
+@@ -753,7 +752,7 @@
+   }
+   close IN;
+   close OUT;
+-  system( "mv $configFile.tmp $configFile" );
++  system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+ 
+   my $default = &promptScreen(
+     "",
+@@ -807,7 +806,7 @@
+   }
+   close IN;
+   close OUT;
+-  system( "mv $configFile.tmp $configFile" );
++  system( "mv $configFile.tmp $configFile" ) and die "mv $configFile.tmp $configFile failed with: $!";
+ 
+   my $deDefault = &promptScreen(
+     "",
+@@ -843,9 +842,6 @@
+ 
+   my $answer = undef;
+ 
+-  # Clear the screen
+-  system( "clear" );
+-
+   print "\n\n\n";
+   print $screenText;
+   my $numLines = ( $screenText =~ s/(\n)/$1/g );
