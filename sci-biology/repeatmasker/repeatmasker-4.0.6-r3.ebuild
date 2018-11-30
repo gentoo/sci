@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -20,7 +20,7 @@ DEPEND=">=dev-lang/perl-5.8"
 RDEPEND="
 	dev-perl/Text-Soundex
 	sci-biology/phrap
-	sci-biology/repeatmasker-libraries
+	<=sci-biology/repeatmasker-libraries-20160829
 	sci-biology/rmblast
 	!sci-biology/trf
 	>=sci-biology/trf-bin-4.0.4
@@ -106,4 +106,6 @@ pkg_postinst(){
 	optfeature "rmblast" sci-biology/rmblast
 	optfeature "nhmmer" >=sci-biology/hmmer-3.1
 	einfo "abblast/wublast from http://blast.advbiocomp.com/licensing"
+	einfo "repeatmasker-libraries-20160829 (RepBase 21.12) is the last"
+	einfo "version compatible with <repeatmasker-4.0.7"
 }
