@@ -26,7 +26,7 @@ pkg_nofetch() {
 	einfo "Download repeatmaskerlibraries-${PV}.tar.gz and place it in '${DISTDIR}"
 	einfo "Older releases can be found in archive:"
 	einfo "https://www.girinst.org/repbase/update"
-	einfo "This one at https://www.girinst.org/server/archive/RepBase20.08"
+	einfo "This one at https://www.girinst.org/server/archive/RepBase21.12"
 }
 
 src_install() {
