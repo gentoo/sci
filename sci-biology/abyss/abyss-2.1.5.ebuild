@@ -50,5 +50,5 @@ src_configure() {
 	# unless request by user: bug #534412
 	use misc-haskell || export ac_cv_prog_ac_ct_GHC=
 
-	econf $(use_enable openmp)
+	econf $(use_enable openmp) --enable-maxk=256
 }
