@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="A desktop genome browser using GFF inputs"
 HOMEPAGE="http://www.sanger.ac.uk/science/tools/zmap"
@@ -20,6 +20,6 @@ DEPEND="
 	curl? ( net-misc/curl )
 	dev-db/sqlite:3
 	virtual/mysql
-	dev-libs/openssl:="
+	dev-libs/openssl:0="
 RDEPEND="${DEPEND}
 	sci-biology/seqtools"
