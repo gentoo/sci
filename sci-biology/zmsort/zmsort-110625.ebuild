@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Merge-sort utility for compressed alignment files, with multi-file output"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
@@ -18,12 +18,13 @@ IUSE=""
 
 S=${WORKDIR}/${PN}
 
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-build.patch
+PATCHES=( "${FILESDIR}"/${P}-build.patch )
+
+src_configure() {
 	tc-export CC CXX
 }
 
 src_install() {
 	dobin ${PN}
-	dodoc README
+	einstalldocs
 }
