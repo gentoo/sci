@@ -23,3 +23,7 @@ DEPEND="
 	dev-libs/openssl:0="
 RDEPEND="${DEPEND}
 	sci-biology/seqtools"
+
+pkg_postinst(){
+	einfo "Optionally also install sci-biology/seqtools"
+}
