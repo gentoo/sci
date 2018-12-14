@@ -3,11 +3,11 @@
 
 EAPI=7
 
-inherit autotools git-r3
+inherit autotools
 
 DESCRIPTION="Library for biobambam2"
 HOMEPAGE="https://github.com/gt1/libmaus"
-EGIT_REPO_URI="https://github.com/gt1/libmaus2.git"
+SRC_URI="https://github.com/gt1/libmaus2/archive/2.0.499-release-20180606122508.tar.gz"
 
 LICENSE="BSD-2 GPL-2 GPL-3 MIT ZLIB" # BUG: incomplete list of licenses, see AUTHORS
 SLOT="0"
@@ -25,11 +25,7 @@ DEPEND="
 	dev-libs/nettle"
 # --with-daligner
 # --with-irods
-
-src_prepare() {
-	eautoreconf
-	eapply_user
-}
+S="${WORKDIR}"/libmaus2-2.0.499-release-20180606122508
 
 src_configure(){
 	local CONFIG_OPTS
