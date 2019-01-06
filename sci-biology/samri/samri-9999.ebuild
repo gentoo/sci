@@ -1,9 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 
 inherit distutils-r1 git-r3
 
@@ -48,10 +48,9 @@ python_test() {
 	export MPLBACKEND="agg"
 	export PATH=${TEST_DIR}/scripts:$PATH
 	export PYTHONIOENCODING=utf-8
-	pytest || die
-	for i in examples/*.py; do
-		echo "Executing ${EPYTHON} ${i}"
-		${EPYTHON} "$i" || die "Example Python script $i failed with ${EPYTHON}"
-	done
 	./test_scripts.sh || die "Test scripts failed."
+	sed -i -e \
+		"/def test_bru2bids():/i@pytest.mark.skip('Removed in full test suite, as this is already tested in `test_scripts.sh`')" \
+		samri/pipelines/tests/test_repos.py || die
+	pytest -vv || die
 }
