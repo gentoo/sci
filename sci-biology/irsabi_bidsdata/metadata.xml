@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		BIDS-formatted MRI data recorded at the ETH/UZH Animal Imaging Center
+		and first associated with the IRSABI publication. The data represents
+		f/MRI mouse brain scans with both BOLD and CBV contrasts, and acquired
+		during optogenetic stimulation over multiple sessions including acute
+		(i.v.) and chronic (s.c.) fluoxetine administration sessions.
+	</longdescription>
+</pkgmetadata>
