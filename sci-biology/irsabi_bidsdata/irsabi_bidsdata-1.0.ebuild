@@ -5,7 +5,7 @@ EAPI=7
 
 inherit check-reqs
 
-DESCRIPTION="Raw data files released with the IRSABI publication"
+DESCRIPTION="BIDS data files released with the IRSABI publication"
 HOMEPAGE="http://www.aic-fmi.ethz.ch/"
 SRC_URI="http://chymera.eu/distfiles/${P}.tar.xz"
 
