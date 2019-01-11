@@ -3,11 +3,14 @@ set -e
 
 EPREFIX=${1}
 
-#Link to the workaroud we reproduce in this section : https://wiki.gentoo.org/wiki/User_talk:Houseofsuns#Migration_to_science_overlay_from_main_tree
+#Link to the workaround automated by this script: https://wiki.gentoo.org/wiki/User_talk:Houseofsuns#Migration_to_science_overlay_from_main_tree
 #Efforts to more permanently address the issue: https://github.com/gentoo/sci/issues/805
 echo ""
 echo "Setting Up Eselect for Gentoo Science:"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+if [ ! -d ${EPREFIX}/etc/portage/package.mask/ ]; then
+	mkdir -p ${EPREFIX}/etc/portage/package.mask/;
+fi
 cp "sci-lapack" "${EPREFIX}/etc/portage/package.mask/"
 emerge --oneshot --verbose dev-util/cmake >> /dev/null
 emerge --oneshot --verbose app-admin/eselect::science >> /dev/null
