@@ -19,7 +19,13 @@ KEYWORDS=""
 
 # Numpy dependency to circumvent scikits_learn dependency bug:
 # https://bugs.gentoo.org/653052
-DEPEND="test? ( sci-biology/samri_bindata )"
+DEPEND="
+	test? (
+		dev-python/pytest[${PYTHON_USEDEP}]
+		sci-biology/samri_bidsdata
+		sci-biology/samri_bindata
+		)
+	"
 RDEPEND="
 	dev-python/argh[${PYTHON_USEDEP}]
 	dev-python/joblib[${PYTHON_USEDEP}]
