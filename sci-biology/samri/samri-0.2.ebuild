@@ -13,7 +13,7 @@ SRC_URI="https://github.com/IBT-FMI/SAMRI/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="atlases labbookdb test"
+IUSE="+atlases labbookdb test"
 KEYWORDS="~amd64 ~x86"
 
 # Numpy dependency to circumvent scikits_learn dependency bug:
@@ -46,6 +46,8 @@ RDEPEND="
 	sci-biology/afni
 	sci-biology/nilearn[${PYTHON_USEDEP}]
 	"
+
+REQUIRED_USE="test? ( atlases )"
 
 S="${WORKDIR}/SAMRI-${PV}"
 

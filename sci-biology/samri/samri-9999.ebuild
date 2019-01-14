@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/IBT-FMI/SAMRI"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="atlases labbookdb test"
+IUSE="+atlases labbookdb test"
 KEYWORDS=""
 
 # Numpy dependency to circumvent scikits_learn dependency bug:
@@ -47,6 +47,8 @@ RDEPEND="
 	sci-biology/afni
 	sci-biology/nilearn[${PYTHON_USEDEP}]
 	"
+
+REQUIRED_USE="test? ( atlases )"
 
 python_test() {
 	distutils_install_for_testing
