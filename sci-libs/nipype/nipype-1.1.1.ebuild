@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -29,7 +29,9 @@ DEPEND="
 		dev-python/pytest-xdist[${PYTHON_USEDEP}]
 		${RDEPEND}
 		)
-	$(python_gen_cond_dep 'dev-python/configparser[${PYTHON_USEDEP}]' python2_7)
+	$(python_gen_cond_dep '
+		dev-python/futures[${PYTHON_USEDEP}]
+		dev-python/configparser[${PYTHON_USEDEP}]' python2_7)
 	"
 RDEPEND="
 	>=dev-python/click-6.6[${PYTHON_USEDEP}]
