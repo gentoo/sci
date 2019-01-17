@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1 git-r3 prefix
 
 DESCRIPTION="Small Animal Magnetic Resonance Imaging"
 HOMEPAGE="https://github.com/IBT-FMI/SAMRI"
@@ -50,14 +50,24 @@ RDEPEND="
 
 REQUIRED_USE="test? ( atlases )"
 
+src_prepare() {
+	distutils-r1_src_prepare
+	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI \'/usr/ *`
+	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI \"/usr/ *`
+	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI /usr/ test_scripts.sh`
+	eprefixify $(grep -rl GENTOO_PORTAGE_EPREFIX samri/* test_scripts.sh)
+}
+
 python_test() {
 	distutils_install_for_testing
 	export MPLBACKEND="agg"
 	export PATH=${TEST_DIR}/scripts:$PATH
 	export PYTHONIOENCODING=utf-8
 	./test_scripts.sh || die "Test scripts failed."
-	sed -i -e \
-		"/def test_bru2bids():/i@pytest.mark.skip('Removed in full test suite, as this is already tested in `test_scripts.sh`')" \
-		samri/pipelines/tests/test_repos.py || die
+	sed -i \
+		-e '1s/^/import pytest \n/' \
+		-e "/def test_bru2bids():/i@pytest.mark.skip('Skipped by Portage, as this was already tested in test_scripts.sh')" \
+		samri/pipelines/tests/test_reposit.py || die
+	cd "${BUILD_DIR}" || die
 	pytest -vv || die
 }
