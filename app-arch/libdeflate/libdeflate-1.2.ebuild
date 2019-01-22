@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit multilib
+
 DESCRIPTION="Heavily optimized DEFLATE/zlib/gzip (de)compression"
 HOMEPAGE="https://github.com/ebiggers/libdeflate"
 SRC_URI="https://github.com/ebiggers/libdeflate/archive/v1.2.tar.gz -> ${P}.tar.gz"
@@ -18,6 +20,7 @@ BDEPEND=""
 
 src_prepare(){
 	sed -e 's/ -O2 / /' -i Makefile || die
+	sed -e "s#${DESTDIR}${PREFIX}/lib#${ED}/usr/$(get_libdir)#" -i Makefile || die
 	default
 }
 
