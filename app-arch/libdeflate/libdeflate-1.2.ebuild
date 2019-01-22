@@ -18,15 +18,12 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-src_prepare(){
-	sed -e 's/ -O2 / /' -i Makefile || die
-	sed -e "s#${DESTDIR}${PREFIX}/lib#${ED}/usr/$(get_libdir)#" -i Makefile || die
-	default
-}
+PATCHES=( "${FILESDIR}"/libdeflate-1.2-respect_EPREFIX.patch )
 
 src_install() {
-	default
 	if ! use static-libs; then
 		find "${ED}" -name '*.a' -delete || die
 	fi
+	emake install DESTDIR="${ED}" LIBDIR=/usr/"$(get_libdir)"
+	dodoc NEWS README.md
 }
