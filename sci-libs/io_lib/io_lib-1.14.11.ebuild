@@ -14,7 +14,7 @@ SRC_URI="https://github.com/jkbonfield/io_lib/archive/${PN}-${MY_PV}.tar.gz -> $
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="+bzip2 curl +lzma static-libs" # maybe introduce libdeflate USE flag?
+IUSE="+bzip2 curl +libdeflate lzma static-libs"
 
 S="${WORKDIR}"/"${PN}-${PN}-${MY_PV}"
 
@@ -36,7 +36,7 @@ BUILD_DIR="${S}"
 # versions 1.8.11 and 1.8.12 will work with the BioPerl Staden extensions.)
 #DEPEND="!sci-biology/bioperl"
 DEPEND="
-	app-arch/libdeflate
+	libdeflate? ( app-arch/libdeflate )
 	lzma? ( app-arch/xz-utils:= app-arch/lzma )
 	bzip2? ( app-arch/bzip2 )
 	curl? ( net-misc/curl )
