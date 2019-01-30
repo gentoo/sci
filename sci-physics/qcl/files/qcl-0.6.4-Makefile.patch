@@ -1,0 +1,69 @@
+diff --git a/Makefile b/Makefile
+index 2735f71..80f9b30 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,11 +14,11 @@ VERSION=0.6.4
+ 
+ # Directory for Standard .qcl files
+ 
+-QCLDIR = /usr/local/lib/qcl
++QCLDIR = /usr/lib/qcl
+ 
+ # Path for qcl binaries
+ 
+-QCLBIN = /usr/local/bin
++QCLBIN = /usr/bin
+ 
+ ARCH = `g++ -dumpmachine || echo bin`
+ 
+@@ -32,7 +32,7 @@ ARCH = `g++ -dumpmachine || echo bin`
+ 
+ #DEBUG = -g -pg -DQCL_DEBUG -DQC_DEBUG
+ #DEBUG = -g -DQCL_DEBUG -DQC_DEBUG
+-DEBUG = -O2 -g -DQCL_DEBUG -DQC_DEBUG
++DEBUG = -DQCL_DEBUG -DQC_DEBUG
+ #DEBUG = -O2
+ 
+ # Plotting support 
+@@ -81,8 +81,8 @@ QCLINC = lib
+ 
+ #CXX = g++
+ #CPP = $(CC) -E
+-CXXFLAGS = -c $(ARCHOPT) $(DEBUG) $(PLOPT) $(RLOPT) $(IRQOPT) $(ENCOPT) -I$(QCDIR) -DDEF_INCLUDE_PATH="\"$(QCLDIR)\""
+-LDFLAGS = $(ARCHOPT) -L$(QCDIR) $(DEBUG) $(PLLIB) -lm -lfl -lqc $(RLLIB) 
++CXXFLAGS += -c $(DEBUG) $(PLOPT) $(RLOPT) $(IRQOPT) $(ENCOPT) -I$(QCDIR) -DDEF_INCLUDE_PATH="\"$(QCLDIR)\""
++LIBS = -L$(QCDIR) $(PLLIB) -lm -lfl -lqc $(RLLIB)
+ 
+ FILESCC = $(wildcard *.cc)
+ FILESH = $(wildcard *.h)
+@@ -127,7 +127,7 @@ $(QCLIB):
+ build: qcl $(QCLINC)/default.qcl
+ 
+ qcl: $(OBJECTS) qcl.o $(QCLIB)
+-	$(CXX) $(OBJECTS) qcl.o $(LDFLAGS) -o qcl
++	$(CXX) $(LDFLAGS) $(OBJECTS) qcl.o $(LIBS) -o qcl
+ 
+ $(QCLINC)/default.qcl: extern.cc
+ 	grep "^//!" extern.cc | cut -c5- > $(QCLINC)/default.qcl
+diff --git a/qc/Makefile b/qc/Makefile
+index 191ffe5..79724a9 100644
+--- a/qc/Makefile
++++ b/qc/Makefile
+@@ -16,7 +16,7 @@
+ 
+ # Debugging options
+ 
+-DEBUG = -g -O2 -DQC_DEBUG
++#DEBUG = -g -O2 -DQC_DEBUG
+ #DEBUG = -g -pg -DQC_DEBUG
+ #DEBUG = -O2
+ 
+@@ -25,7 +25,7 @@ DEBUG = -g -O2 -DQC_DEBUG
+ 
+ #PRGOPT = -DQC_USE_RAND48
+ 
+-CXXFLAGS = $(ARCHOPT) -c -pedantic -Wall $(DEBUG) $(PRGOPT)
++CXXFLAGS += $(ARCHOPT) -c -pedantic -Wall $(DEBUG) $(PRGOPT)
+ 
+ LDFLAGS = $(ARCHOPT) -L. -lm -lqc
+ 
