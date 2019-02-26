@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -51,7 +51,7 @@ CDEPEND="
 	dev-libs/libltdl:0[${MULTILIB_USEDEP}]
 	>=sys-apps/hwloc-2.0.2[${MULTILIB_USEDEP},numa?]
 	>=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}]
-	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1 )
+	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1:= )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
 	openmpi_fabrics_ofed? ( sys-fabric/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
@@ -111,7 +111,7 @@ multilib_src_configure() {
 		--enable-mpi-fortran=$(usex fortran all no) \
 		$(use_enable cxx mpi-cxx) \
 		$(use_with cma) \
-		$(use_with cuda cuda "${EPREFIX}"/opt/cuda) \
+		$(multilib_native_use_with cuda cuda "${EPREFIX}"/opt/cuda) \
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
 		$(use_enable ipv6) \
