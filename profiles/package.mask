@@ -39,6 +39,7 @@ sci-biology/samri
 # or more generally unbundling. Masked until unbundling
 # efforts ( https://github.com/afni/afni/pull/60 ) come to
 # fruition.
+=sci-biology/afni-19.0.21
 =sci-biology/afni-18.1.04
 
 # Sebastien Fabbro <bicatali@gentoo.org> (23 Aug 2011)
