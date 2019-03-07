@@ -7,11 +7,11 @@ inherit eutils toolchain-funcs
 
 DESCRIPTION="Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates"
 HOMEPAGE="https://code.google.com/p/kaks-calculator
-	http://bigd.big.ac.cn/tools/kaks"
+	https://sourceforge.net/projects/kakscalculator2/
+	https://www.sciencedirect.com/science/article/pii/S1672022910600083"
 SRC_URI="
-	https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/kaks-calculator/KaKs_Calculator"${PV}".tar.gz -> ${P}.tar.gz
-	https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/kaks-calculator/parseFastaIntoAXT.pl
-	https://raw.githubusercontent.com/WilsonSayresLab/AlignmentProcessor/master/KaKs_Calculator/${PN}${PV}/KaKs_CalculatorDOC.pdf -> ${P}_manual.pdf
+	https://netcologne.dl.sourceforge.net/project/kakscalculator2/${PN}${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/WilsonSayresLab/AlignmentProcessor/blob/master/KaKs_Calculator/${PN}${PV}/${PN}${PV}_manual.pdf -> ${P}_manual.pdf
 	https://s3.amazonaws.com/fumba.me/share+files/1-s2.0-S1672022907600072-main.pdf -> ${PN}-Zhang_et_al_2006.pdf"
 
 LICENSE="GPL-3"
@@ -43,7 +43,6 @@ src_compile(){
 }
 
 src_install(){
-	dobin "${DISTDIR}"/parseFastaIntoAXT.pl
 	dobin src/{KaKs_Calculator,AXTConvertor,ConPairs}
 	dodoc "${DISTDIR}"/${P}_manual.pdf "${DISTDIR}"/${PN}-Zhang_et_al_2006.pdf
 }

@@ -1,0 +1,11 @@
+--- KaKs_Calculator1.2/src/base.h	2006-05-17 14:45:52.000000000 +0200
++++ KaKs_Calculator1.2/src/base.h	2019-03-07 17:55:08.663688693 +0100
+@@ -39,6 +39,8 @@
+ #define max2(a,b) ((a)>(b)?(a):(b))
+ #define SIGN(a,b) ((b) >= 0.0 ? fabs(a) : -fabs(a))
+ 
++#include <string.h>
++
+ /* Stanard lib of C++ */
+ #include<string>
+ #include<iostream>
