@@ -21,6 +21,7 @@ S="${WORKDIR}/${PN}${PV}"
 
 src_prepare(){
 	rm -f ._Epal2nal.pl ._ParaAT.pl
+	default
 }
 
 src_install(){
