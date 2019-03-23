@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://github.com/BoutrosLaboratory/bamql.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="static-libs"
 
 DEPEND="
 	sys-devel/llvm:=
@@ -25,4 +25,11 @@ RDEPEND="${DEPEND}"
 src_prepare(){
 	eautoreconf
 	default
+}
+
+src_configure(){
+	local mycmakeargs=()
+	use static-libs && mycmakeargs+=( "--enable-static=yes" "--enable-static-llvm=yes" ) || \
+		mycmakeargs+=( "--enable-static=no" "--enable-static-llvm=no" )
+	econf ${mycmakeargs[@]}
 }
