@@ -8,6 +8,7 @@ inherit toolchain-funcs
 DESCRIPTION="Popular short read aligner for Next-generation sequencing data"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/bowtie2/"
 SRC_URI="mirror://sourceforge/project/${PN}-bio/${PN}2/${PV}/${PN}2-${PV}-source.zip"
+SRC_URI="https://github.com/BenLangmead/${PN}2/releases/download/v${PV}/${PN}2-${PV}-source.zip"
 
 LICENSE="GPL-3"
 SLOT="2"
