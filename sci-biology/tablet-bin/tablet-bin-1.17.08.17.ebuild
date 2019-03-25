@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit java-pkg-2 python-r1
 
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments"
-HOMEPAGE="http://ics.hutton.ac.uk/tablet/"
+HOMEPAGE="https://ics.hutton.ac.uk/tablet"
 SRC_URI="
 	x86? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
 	amd64? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
