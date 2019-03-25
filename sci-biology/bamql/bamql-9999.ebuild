@@ -22,14 +22,16 @@ DEPEND="
 	dev-libs/libpcre"
 RDEPEND="${DEPEND}"
 
+PATCHES=( "${FILESDIR}"/bamql-1.6.1_drop_enable_static_llvm.patch )
+
 src_prepare(){
-	eautoreconf
 	default
+	eautoreconf
 }
 
 src_configure(){
-	local mycmakeargs=()
-	use static-libs && mycmakeargs+=( "--enable-static=yes" "--enable-static-llvm=yes" ) || \
-		mycmakeargs+=( "--enable-static=no" "--enable-static-llvm=no" )
-	econf ${mycmakeargs[@]}
+	local myeconfargs=()
+	use static-libs && myeconfargs+=( "--enable-static=yes" ) || \
+		myeconfargs+=( "--enable-static=no" )
+	econf ${myeconfargs[@]}
 }

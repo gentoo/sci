@@ -1,0 +1,23 @@
+--- bamql-1.6.1/m4/ax_llvm.m4.old	2019-03-25 23:17:05.190272994 +0100
++++ bamql-1.6.1/m4/ax_llvm.m4	2019-03-25 23:16:10.698775171 +0100
+@@ -28,7 +28,6 @@
+ 
+ AC_DEFUN([AX_LLVM],
+ [
+-AC_ARG_ENABLE([static-llvm], AS_HELP_STRING([--enable-static-llvm], [compiled against the static LLVM libraries, instead of the shared library.]), [enable_static_llvm=yes])
+ AC_ARG_WITH([llvm-config],
+ 	AS_HELP_STRING([--with-llvm-config@<:@=FILE@:>@], [ the name or or complete path to the llvm-config script for llvm (optional)]),
+ 	[
+@@ -53,11 +52,7 @@
+ 		[$1]_LIBDIR="$($ac_llvm_config_path --libdir)"
+ 		LLVM_VERSION="$($ac_llvm_config_path --version | cut -f 1-2 -d .)"
+ 		LLVM_COMPONENTS="$2"
+-		if test "x$enable_static_llvm" != "xyes" ; then
+-			[$1]_LIBS="$($ac_llvm_config_path --libs --system-libs --link-static $LLVM_COMPONENTS | tr '\n' ' ')"
+-		else
+-			[$1]_LIBS="$($ac_llvm_config_path --libs --link-shared $LLVM_COMPONENTS | tr '\n' ' ')"
+-		fi
++		[$1]_LIBS="$($ac_llvm_config_path --libs $LLVM_COMPONENTS | tr '\n' ' ')"
+ 
+ 		AC_REQUIRE([AC_PROG_CXX])
+ 		CPPFLAGS_SAVED="$CPPFLAGS"
