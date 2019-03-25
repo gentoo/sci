@@ -14,19 +14,7 @@ SRC_URI="
 	amd64? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
 	http://bioinf.hutton.ac.uk/tablet/additional/coveragestats.py"
 
-# Upstream says regarding source code unavailability:
-# Tablet uses a modified version of the BSD License which has been edited to
-# remove references to distribution and use in source forms. This means that
-# we are happy for you to distribute and use Tablet however you please, but we
-# do not (yet) want to make the source code publicly available.
-
-# The licence file itself is in the installer, and ends up on disk after
-# installation at /opt/Tablet/docs/tablet.html
-# The original BSD licence was modified to remove references to distribution
-# and use in source forms, because we cannot make the source code available
-# for Tablet.
-
-LICENSE="Tablet"
+LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
