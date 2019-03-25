@@ -1,13 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
 inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 
-MY_PV="2.2.30"
 MY_P="ncbi-blast-${PV}+-src"
 # workdir/ncbi-blast-2.2.30+-src
 # ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-src.tar.gz
@@ -137,6 +136,7 @@ src_prepare() {
 	# Temporarily disabling eautoconf because we patch configure via ${P}-support-autoconf-2.60.patch
 	# eautoconf # keep it disabled until we can ensure 2.59 is installed
 	# beware 12.0.0. and previous required autoconf-2.59, a patch for 12.0.0 brings autoconf-2.60 support
+	default
 }
 
 # possibly place modified contents of ${W}/src/build-system/config.site.ncbi and {W}/src/build-system/config.site.ex into ${W}/src/build-system/config.site
@@ -282,7 +282,7 @@ src_configure() {
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
 		--with-flat-makefile \
-		${myconf[@]} || die
+		${myconf[@]} || die "gcc 7 or newer were not used by upstream hence unsupported"
 #--without-debug \
 #		--with-bin-release \
 #		--with-bincopy \

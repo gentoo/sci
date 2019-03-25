@@ -66,7 +66,8 @@ DEPEND="
 	xpm? ( x11-libs/libXpm )
 	dev-libs/lzo
 	app-arch/bzip2
-	dev-libs/libpcre"
+	dev-libs/libpcre
+	dev-db/lmdb"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 # Intentionally omitted USE flags:
 #   ftds? ( dev-db/freetds ) # support for outside FreeTDS installations is currently broken.
