@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,8 +10,8 @@ inherit java-pkg-2 python-r1
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments"
 HOMEPAGE="http://ics.hutton.ac.uk/tablet/"
 SRC_URI="
-	x86? ( http://bioinf.hutton.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
-	amd64? ( http://bioinf.hutton.ac.uk/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
+	x86? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
+	amd64? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
 	http://bioinf.hutton.ac.uk/tablet/additional/coveragestats.py"
 
 # Upstream says regarding source code unavailability:
@@ -36,7 +36,8 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 DEPEND="${PYTHON_DEPS}
 	app-text/dos2unix
 	>=virtual/jdk-1.8:*"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	>=virtual/jre-1.8:*"
 # contains bundled sqlite-jdbc-3.8.6.jar, samtools-linux64.jar, picard.jar
 # sqlite-jdbc-3.8.6.jar is not dev-db/sqlite:3 and samtools-linux64.jar is not sci-biology/samtools either
 # replacing picard.jar with a symlink to picard.jar from sci-biology.picard does not help either
