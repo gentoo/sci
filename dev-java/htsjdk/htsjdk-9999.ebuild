@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 JAVA_PKG_IUSE="doc source"
 
@@ -18,7 +18,8 @@ KEYWORDS=""
 
 CDEPEND="dev-java/commons-jexl:2
 	dev-java/commons-compress:0
-	dev-java/commons-logging:0"
+	dev-java/commons-logging:0
+	dev-java/gradle-bin:*"
 
 DEPEND=">=virtual/jdk-1.8
 	${CDEPEND}"
