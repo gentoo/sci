@@ -30,8 +30,6 @@ src_prepare(){
 }
 
 src_configure(){
-	local myeconfargs=()
-	use static-libs && myeconfargs+=( "--enable-static=yes" ) || \
-		myeconfargs+=( "--enable-static=no" )
-	econf ${myeconfargs[@]}
+	econf \
+		$(use_enable static-libs static)
 }
