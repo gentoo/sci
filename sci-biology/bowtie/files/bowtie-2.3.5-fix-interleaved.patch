@@ -1,0 +1,13 @@
+diff --git bowtie-2.3.5/bt2_search.cpp b/bt2_search.cpp
+index 1d53741..c59e39c 100644
+--- bowtie-2.3.5/bt2_search.cpp
++++ bowtie-2.3.5/bt2_search.cpp
+@@ -1673,7 +1673,7 @@ static void parseOptions(int argc, const char **argv) {
+ 		     << "sequences must be specified with -1 and -2." << endl;
+ 		throw 1;
+ 	}
+-	if(interleaved && (format != FASTA || format != FASTQ)) {
++	if(interleaved && (format != FASTA && format != FASTQ)) {
+ 		cerr << "Error: --interleaved only works in combination with FASTA (-f) and FASTQ (-q) formats." << endl;
+ 		throw 1;
+ 	}

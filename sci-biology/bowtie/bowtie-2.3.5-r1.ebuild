@@ -12,7 +12,7 @@ SRC_URI="https://github.com/BenLangmead/${PN}2/releases/download/v${PV}/${PN}2-$
 
 LICENSE="GPL-3"
 SLOT="2"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 IUSE="examples cpu_flags_x86_sse2 +tbb"
 
@@ -27,6 +27,7 @@ S="${WORKDIR}/${PN}2-${PV}"
 DOCS=( AUTHORS NEWS TUTORIAL )
 HTML_DOCS=( doc/{manual.html,style.css} )
 #PATCHES=( "${FILESDIR}/${P}-fix-c++14.patch" ) # needs 2.3.4.3 update
+PATCHES=( "${FILESDIR}"/bowtie-2.3.5-fix-interleaved.patch )
 
 pkg_pretend() {
 	if ! use cpu_flags_x86_sse2 ; then
@@ -40,8 +41,6 @@ src_compile() {
 		CC="$(tc-getCC)" \
 		CPP="$(tc-getCXX)" \
 		CXX="$(tc-getCXX)" \
-		CFLAGS="" \
-		CXXFLAGS="" \
 		EXTRA_FLAGS="${LDFLAGS}" \
 		RELEASE_FLAGS="${CXXFLAGS} -msse2" \
 		WITH_TBB="$(usex tbb 1 0)"
