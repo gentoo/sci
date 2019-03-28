@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="A thin wrapper around FFmpeg"
 HOMEPAGE="http://avbin.github.io/"
@@ -15,13 +15,14 @@ KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
 
 pkg_setup(){
-	if use amd64; then
+	if [ "${ABI}" == "amd64" ]; then
 		S="${WORKDIR}"/avbin-linux-x86-64-v${PV}
-	elif use x86; then
+	elif [ "${ABI}" == "x86" ]; then
 		S="${WORKDIR}"/avbin-linux-x86-32-v${PV}
 	fi
 }
+
 src_install() {
 	ln -s libavbin.so.${PV} libavbin.so || die
-	dolib libavbin.so*
+	dolib.so libavbin.so*
 }
