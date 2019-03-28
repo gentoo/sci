@@ -288,7 +288,7 @@ src_configure() {
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
 		--with-flat-makefile \
-		${myconf[@]} || die
+		${myconf[@]} || die "Maybe try new src/build-system/cmake/cmake-configure instead?"
 #--without-debug \
 #		--with-bin-release \
 #		--with-bincopy \
