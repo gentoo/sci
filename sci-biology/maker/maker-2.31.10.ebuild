@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -21,6 +21,10 @@ IUSE="mpi"
 
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks.pm             # bug #566360
 # http://search.cpan.org/~rybskej/forks-0.36/lib/forks/shared.pm
+#
+# MAKER does not work with MVAPICH2.
+# It can work with Intel MPI and OpenMPI with some command line modification.
+# It always works with MPICH, but MPICH may not be able to scale to more than ~100 CPUs.
 DEPEND="
 	mpi? ( sys-cluster/mpich2 || ( sys-cluster/openmpi ) )
 	dev-perl/DBI
@@ -104,12 +108,14 @@ pkg_nofetch() {
 src_compile(){
 	perl Build.PL || die
 	./Build install || die
+	./Build installdeps || die
 }
 
-# If you move it, then the executables won’t be able to locate dependencies in the …/maker/data,
-# …/maker/lib, and …/maker/perl directories. You should really either add the location of
-# …/maker/bin to you PATH environmental variable or at most soft link the executables somewhere
-# else using the ‘ln -s’ command.
+# If you move it, then the executables won't able to locate dependencies
+# in the /maker/data, /maker/lib, /maker/perl directories. You should
+# really either add the location of /maker/bin to you PATH environmental
+# variable or at most soft link the executables somewhere
+# else using the 'ln -s' command.
 src_install(){
 	cd "${WORKDIR}"/maker || die
 	rm -f bin/fasta_tool # is part of sci-biology/GAL
@@ -121,11 +127,25 @@ src_install(){
 	insinto "${VENDOR_LIB}"/MAKER # uppercase, not "${PN}"
 	doins perl/lib/MAKER/*.pm
 	doman perl/man/*.3pm
+	#
+	# FIXME: find equivalent perl packages for lib/* contents, for example lib/GI.pm
+	# You do not have write access to install missing Modules.
+	# I can try and install these locally (i.e. only for MAKER)
+	# in the .../maker/perl/lib directory, or you can run
+	# './Build installdeps' as root or using sudo and try again.
+	# Do want MAKER to try and build a local installation? [N ]N 
+	# 
+	# 
+	# WARNING: You do not appear to have write access to install missing
+	# Modules. Please run './Build installdeps' as root or using sudo.
+	# 
+	# Do you want to continue anyway? [N ]N 
+	# 
+	doins -r lib/*
 	insinto "${VENDOR_LIB}"/Parallel/Application
 	doins perl/lib/Parallel/Application/*.pm
 	insinto /usr/share/"${PN}"/data
 	doins data/*
-	# FIXME: find equivalent perl packages for lib/* contents, for example lib/GI.pm
 	dodoc README INSTALL
 	insinto /usr/share/"${PN}"/GMOD/Apollo
 	doins GMOD/Apollo/gff3.tiers
