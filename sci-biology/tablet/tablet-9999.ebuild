@@ -51,7 +51,7 @@ src_install() {
 		java-pkg_dojar lib/samtools-linux64.jar
 	fi
 	if [ "${ABI}" == "x86" ]; then
-	java-pkg_dojar lib/samtools-linux32.jar
+		java-pkg_dojar lib/samtools-linux32.jar
 	fi
 	java-pkg_dojar lib/htsjdk*.jar # is htsjdk-2.11.0 in tablet-1.17.08.17
 	java-pkg_dojar lib/sqlite-jdbc*.jar
