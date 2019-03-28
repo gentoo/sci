@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: intel-sdp-r1.eclass
@@ -10,14 +10,14 @@
 
 MULTILIB_COMPAT=( abi_x86_{32,64} )
 
-inherit check-reqs eutils multilib-build versionator
+inherit check-reqs eutils multilib-build
 
 EXPORT_FUNCTIONS src_unpack src_install pkg_postinst pkg_postrm pkg_pretend
 
 if [[ ! ${_INTEL_SDP_R1_ECLASS_} ]]; then
 
 case "${EAPI}" in
-	6) ;;
+	7) ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
 
@@ -171,7 +171,7 @@ _isdp_get-sdp-year() {
 #     e.g. opt/intel/compilers_and_libraries_2016.1.150
 #          opt/intel/vtune_amplifier_2018.2.0.551022
 isdp_get-sdp-dir() {
-	local _intel_sdp_dir="opt/intel/${INTEL_SUBDIR}_$(_isdp_get-sdp-year).$(get_version_component_range 3-)"
+	local _intel_sdp_dir="opt/intel/${INTEL_SUBDIR}_$(_isdp_get-sdp-year).$(ver_cut 3-)"
 	echo "${_intel_sdp_dir}"
 }
 
