@@ -1,0 +1,5 @@
+*bids-validator-1.2.2 (29 Mar 2019)
+
+  29 Mar 2019;  <chymera@gentoo.org> +bids-validator-1.2.2.ebuild,
+  +metadata.xml:
+  sci-libs/bids-validator: new package ahead of Gentoo Science
