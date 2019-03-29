@@ -27,7 +27,8 @@ S="${WORKDIR}/${PN}2-${PV}"
 DOCS=( AUTHORS NEWS TUTORIAL )
 HTML_DOCS=( doc/{manual.html,style.css} )
 #PATCHES=( "${FILESDIR}/${P}-fix-c++14.patch" ) # needs 2.3.4.3 update
-PATCHES=( "${FILESDIR}"/bowtie-2.3.5-fix-interleaved.patch )
+PATCHES=( "${FILESDIR}"/bowtie-2.3.5-fix-interleaved.patch
+	"${FILESDIR}"/bowtie-2.3.5-fix-fifo.patch )
 
 pkg_pretend() {
 	if ! use cpu_flags_x86_sse2 ; then
