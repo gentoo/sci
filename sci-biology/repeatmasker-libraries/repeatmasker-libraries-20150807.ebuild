@@ -33,5 +33,5 @@ src_install() {
 	insinto /usr/share/repeatmasker/Libraries
 	doins "${S}"/RepeatMaskerLib.embl
 	dodoc README
-	dohtml README.html
+	dodoc README.html
 }
