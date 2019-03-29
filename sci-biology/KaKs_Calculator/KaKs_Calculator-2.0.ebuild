@@ -11,7 +11,7 @@ HOMEPAGE="https://code.google.com/p/kaks-calculator
 	https://www.sciencedirect.com/science/article/pii/S1672022910600083"
 SRC_URI="
 	https://netcologne.dl.sourceforge.net/project/kakscalculator2/${PN}${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/WilsonSayresLab/AlignmentProcessor/blob/master/KaKs_Calculator/${PN}${PV}/${PN}${PV}_manual.pdf -> ${P}_manual.pdf
+	https://raw.githubusercontent.com/WilsonSayresLab/AlignmentProcessor/master/"{$PN}"/"{$PN}${PV}"/"{$PN}${PV}"_manual.pdf -> ${P}_manual.pdf
 	https://s3.amazonaws.com/fumba.me/share+files/1-s2.0-S1672022907600072-main.pdf -> ${PN}-Zhang_et_al_2006.pdf"
 
 LICENSE="GPL-3"
