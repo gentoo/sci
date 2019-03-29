@@ -8,12 +8,12 @@ inherit eutils toolchain-funcs
 DESCRIPTION="Eukaryotic gene predictor"
 HOMEPAGE="http://bioinf.uni-greifswald.de/augustus
 	https://github.com/Gaius-Augustus/Augustus"
-SRC_URI="https://github.com/Gaius-Augustus/Augustus/archive/3.3.2.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Gaius-Augustus/Augustus/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-3"
+# LICENSE="GPL-3"
 # temporary drop in licensing scheme, see http://stubber.math-inf.uni-greifswald.de/bioinf/augustus/binaries/HISTORY.TXT
 # http://stubber.math-inf.uni-greifswald.de/bioinf/augustus/binaries/LICENCE.TXT
-# LICENSE="Artistic"
+LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="bam2wig examples man mysql sqlite"
