@@ -103,7 +103,7 @@ src_install() {
 
 	use man && doman mansrc/*.1
 
-	# install stuff not compiled but not written into bin/
+	# install stuff compiled but not written into bin/
 	# https://github.com/Gaius-Augustus/Augustus/issues/14
 	dobin auxprogs/utrrnaseq/Debug/utrrnaseq
 	dodoc auxprogs/utrrnaseq/doc/reference.pdf
