@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -35,11 +35,12 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # sys-libs/db should be compiled with USE=cxx
+# dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
 DEPEND="
 	!sci-biology/sra_sdk
 	app-arch/cpio
 	berkdb? ( sys-libs/db:4.3[cxx] )
-	boost? ( dev-libs/boost )
+	boost? ( dev-libs/boost[tools] )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
