@@ -11,7 +11,6 @@ DESCRIPTION="CastXML is a C-family abstract syntax tree XML output tool."
 HOMEPAGE="https://github.com/CastXML/CastXML"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/gerddie/CastXML"
-EGIT_COMMIT="6b3d3f985f4607430d0e7ecd835ee80b29f3ae96"
 
 LICENSE="Apache-2.0"
 SLOT="0"
