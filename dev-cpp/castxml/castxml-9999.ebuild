@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/gerddie/CastXML"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 DEPEND="${RDEPEND}"
 RDEPEND="
