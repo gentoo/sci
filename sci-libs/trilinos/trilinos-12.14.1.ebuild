@@ -1,13 +1,14 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit cmake-utils toolchain-funcs multilib toolchain-funcs
 
 DESCRIPTION="Scientific library collection for large scale problems"
 HOMEPAGE="http://trilinos.sandia.gov/"
-SRC_URI="http://trilinos.org/oldsite/download/files/${P}-Source.tar.gz"
+MY_PV=${PV//\./-}
+SRC_URI="https://github.com/${PN}/Trilinos/archive/${PN}-release-${MY_PV}.tar.gz -> ${P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
@@ -58,13 +59,11 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
-S="${WORKDIR}/${P}-Source"
+S="${WORKDIR}/Trilinos-${PN}-release-${MY_PV}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-11.14.1-fix-install-paths.patch
 	"${FILESDIR}"/${P}-fix_install_paths_for_destdir.patch
-	"${FILESDIR}"/${P}-fix_sundance_compilation.patch
-	"${FILESDIR}"/${P}-superlu-5.patch
 )
 
 trilinos_conf() {
@@ -139,6 +138,7 @@ src_configure() {
 		-DTPL_ENABLE_X11="$(usex X)"
 		-DTPL_ENABLE_yaml-cpp="$(usex yaml)"
 		-DTPL_ENABLE_Zlib="$(usex zlib)"
+		-DML_ENABLE_SuperLU:BOOL=OFF
 	)
 
 	use eigen && \
