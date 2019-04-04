@@ -5,7 +5,7 @@ EAPI=6
 
 FORTRAN_NEEDED=fortran
 
-inherit cuda eapi7-ver flag-o-matic fortran-2 java-pkg-opt-2 toolchain-funcs multilib-minimal mpi
+inherit cuda eapi7-ver flag-o-matic fortran-2 java-pkg-opt-2 toolchain-funcs multilib multilib-minimal mpi
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -106,8 +106,10 @@ multilib_src_configure() {
 		--enable-pretty-print-stacktrace \
 		--enable-orterun-prefix-by-default \
 		--with-hwloc="${EPREFIX}/usr" \
+		--with-hwloc-libdir="${EPREFIX}/usr/$(get_libdir)" \
 		--with-libltdl="${EPREFIX}/usr" \
 		--with-libevent="${EPREFIX}/usr" \
+		--with-libevent-libdir="${EPREFIX}/usr/$(get_libdir)" \
 		--enable-mpi-fortran=$(usex fortran all no) \
 		$(use_enable cxx mpi-cxx) \
 		$(use_with cma) \
@@ -144,8 +146,6 @@ multilib_src_install() {
 		rm \
 			"${ED}"/$(mpi_root)/usr/include/mpif* \
 			"${ED}"/$(mpi_root)/usr/bin/mpif* \
-			"${ED}"/$(mpi_root)/usr/bin/oshfort \
-			"${ED}"/$(mpi_root)/usr/bin/shmemfort \
 			|| die
 	fi
 }
