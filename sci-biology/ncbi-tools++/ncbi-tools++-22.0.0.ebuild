@@ -289,11 +289,11 @@ src_configure() {
 	# copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
 	# otherwise your -O2 will be dropped in some subdirectories and replaced by e.g. -O9
 
-	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}/usr" --libdir=/usr/lib64 ${myconf[@]}"
+	einfo "LDFLAGS=-Wl,-rpath-link,"${S}"_build/lib bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}/usr" --libdir=/usr/lib64 ${myconf[@]}"
 
 #	ECONF_SOURCE="src/build-system" \
 #		econf \
-	bash \
+	LDFLAGS=-Wl,-rpath-link,"${S}"_build/lib bash \
 		./src/build-system/configure \
 		--srcdir="${S}" \
 		--prefix="${EPREFIX}/usr" \
@@ -342,7 +342,7 @@ src_compile() {
 	# .../status/.dbapi_driver.dep or .../build/Makefile.flat.)
 	#
 	# To take full advantage of --with-flat-makefile, you'll need the following (instead of 'emake all_p -C "${S}"_build/build') and call configure --with-flat-makefile:
-	emake -C "${S}"_build/build -f Makefile.flat
+	LDFLAGS=-Wl,-rpath-link,"${S}"_build/lib emake -C "${S}"_build/build -f Makefile.flat
 	#
 	# >=gcc-5.3.0 is not supported, see also bug #579248#c8
 	# configure: error: Do not know how to build MT-safe with compiler /usr/bin/x86_64-pc-linux-gnu-g++  5.3.0
@@ -351,6 +351,11 @@ src_compile() {
 src_install() {
 	rm -rvf "${S}"_build/lib/ncbi || die
 	emake install prefix="${ED}/usr" libdir="${ED}/usr/$(get_libdir)/${PN}"
+	#
+	#if [ ! use static-libs -a ! use static ]; then
+	#	rm -f "${ED}/usr/$(get_libdir)/${PN}"/*.a \
+	#		"${ED}/usr/$(get_libdir)/${PN}"/*-static.a || die
+	#fi
 
 #	dobin "${S}"_build/bin/*
 #	dolib.so "${S}"_build/lib/*so*
