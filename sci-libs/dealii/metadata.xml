@@ -33,6 +33,7 @@ and extra output. If you want to get meaningful backtraces see
 		<flag name="scalapack">Add support for ScaLAPACK (<pkg>sci-libs/scalapack</pkg>)</flag>
 		<flag name="slepc">Add support for slepc (<pkg>sci-mathematics/slepc</pkg>)</flag>
 		<flag name="sparse">Add support for suitesparse (<pkg>sci-libs/suitesparse</pkg>)</flag>
+		<flag name="symengine">Add support for symengine (<pkg>sci-libs/symengine</pkg>)</flag>
 		<flag name="tbb">Add threading support with the help of the tbb library (<pkg>dev-cpp/tbb</pkg>)</flag>
 		<flag name="trilinos">Add support for trilinos (<pkg>sci-libs/trilinos</pkg>)</flag>
 		<flag name="assimp">Add support for assimp (<pkg>media-libs/assimp</pkg>)</flag>

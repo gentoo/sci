@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit cmake-utils eutils multilib
 
@@ -21,7 +21,7 @@ if [[ ${PV} = *9999* ]]; then
 else
 	MY_PV="${PV//0_rc/rc}"
 	MY_P="${PN}-${MY_PV}"
-	SRC_URI="https://github.com/dealii/dealii/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz
+	SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${MY_P}.tar.gz -> ${P}.tar.gz
 		doc? (
 			https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${MY_P}-offline_documentation.tar.gz
 			-> ${P}-offline_documentation.tar.gz
@@ -36,7 +36,7 @@ IUSE="
 	adolc assimp arpack cpu_flags_x86_avx cpu_flags_x86_sse2 cuda +debug
 	doc +examples gmsh +gsl hdf5 +lapack metis mpi muparser nanoflann
 	opencascade netcdf p4est petsc scalapack slepc +sparse static-libs
-	sundials +tbb trilinos
+	sundials symengine +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -68,6 +68,7 @@ RDEPEND="dev-libs/boost
 	slepc? ( sci-mathematics/slepc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	sundials? ( sci-libs/sundials )
+	symengine? ( >=sci-libs/symengine-0.4:= )
 	tbb? ( dev-cpp/tbb )
 	trilinos? ( sci-libs/trilinos )"
 
@@ -117,6 +118,7 @@ src_configure() {
 		-DDEAL_II_WITH_SCALAPACK="$(usex scalapack)"
 		-DDEAL_II_WITH_SLEPC="$(usex slepc)"
 		-DDEAL_II_WITH_SUNDIALS="$(usex sundials)"
+		-DDEAL_II_WITH_SYMENGINE="$(usex symengine)"
 		-DDEAL_II_WITH_UMFPACK="$(usex sparse)"
 		-DBUILD_SHARED_LIBS="$(usex !static-libs)"
 		-DDEAL_II_PREFER_STATIC_LIBS="$(usex static-libs)"
