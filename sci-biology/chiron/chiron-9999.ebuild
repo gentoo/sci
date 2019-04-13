@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 pypy )
 
@@ -17,6 +17,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="=sci-libs/tensorflow-1.0.1"
+DEPEND="~sci-libs/tensorflow-1.0.1"
 RDEPEND="${DEPEND}
 	dev-python/h5py"
