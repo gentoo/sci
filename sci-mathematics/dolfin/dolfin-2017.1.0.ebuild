@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -23,7 +23,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 DEPEND="
 	${PYTHON_DEPS}
 	dev-cpp/eigen:3
-	dev-lang/swig:0=
+	dev-lang/swig
 	dev-libs/boost:=
 	dev-libs/libxml2:2
 	~dev-python/dijitso-${PV}[${PYTHON_USEDEP}]
