@@ -15,6 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-libs/expat
+	media-libs/glu
 	media-libs/netpbm
 	media-libs/qhull
 	media-video/mpeg-tools
