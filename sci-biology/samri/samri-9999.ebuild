@@ -69,5 +69,7 @@ python_test() {
 		-e "/def test_bru2bids():/i@pytest.mark.skip('Skipped by Portage, as this was already tested in test_scripts.sh')" \
 		samri/pipelines/tests/test_reposit.py || die
 	cd "${BUILD_DIR}" || die
+	sed -i -e "s:'/tmp/:'$T/:g" `grep -rl "'/tmp/"`
 	pytest -vv || die
+	sed -i -e "s:'$T/:'/tmp/:g" `grep -rl "'$T/"`
 }
