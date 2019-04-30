@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -23,8 +23,7 @@ SLOT="0"
 
 RDEPEND="
 	>=virtual/jre-1.5:*
-	sci-biology/velvet
-	sci-biology/velvetk"
+	sci-biology/velvet"
 DEPEND=">=virtual/jdk-1.5:*"
 
 S="${WORKDIR}"/vague-${PV}
