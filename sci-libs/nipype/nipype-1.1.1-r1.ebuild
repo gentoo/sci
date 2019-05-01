@@ -47,6 +47,14 @@ RDEPEND="
 	virtual/python-funcsigs[${PYTHON_USEDEP}]
 	"
 
+src_prepare() {
+	sed -i\
+		-e "/'pytest>=%s' % PYTEST_MIN_VERSION,/d"\
+		-e "/'pytest-xdist',$/d"\
+		nipype/info.py || die
+	default
+}
+
 python_test() {
 	py.test -v --cov nipype\
 		--cov-config .coveragerc\
