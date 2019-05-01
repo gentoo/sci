@@ -7,7 +7,10 @@ inherit check-reqs
 
 DESCRIPTION="BIDS data files released with the IRSABI publication"
 HOMEPAGE="http://www.aic-fmi.ethz.ch/"
-SRC_URI="http://chymera.eu/distfiles/${P}.tar.xz"
+SRC_URI="
+	http://chymera.eu/distfiles/${P}.tar.xz
+	https://zenodo.org/record/2651640/files/${P}.tar.xz
+	"
 
 LICENSE="CC-BY-SA-4.0"
 SLOT="0"
