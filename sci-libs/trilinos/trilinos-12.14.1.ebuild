@@ -191,7 +191,7 @@ src_install() {
 	cmake-utils_src_install
 
 	# Clean up the mess:
-	rm -r "${ED}"/TrilinosRepoVersion.txt "${ED}"/lib || die "rm failed"
+	rm "${ED}"/TrilinosRepoVersion.txt
 	mv "${ED}"/bin "${ED}/usr/$(get_libdir)"/trilinos || die "mv failed"
 
 	#
