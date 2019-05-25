@@ -93,6 +93,7 @@ src_configure() {
 		-DTrilinos_ENABLE_ALL_PACKAGES=ON
 		-DTrilinos_ENABLE_CTrilinos=OFF
 		-DTrilinos_ENABLE_PyTrilinos=OFF
+		-DTrilinos_ENABLE_SEACASChaco=OFF
 		-DTrilinos_ENABLE_SEACASExodiff="$(usex netcdf)"
 		-DTrilinos_ENABLE_SEACASExodus="$(usex netcdf)"
 		-DTrilinos_ENABLE_TESTS="$(usex test)"
