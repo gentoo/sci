@@ -3,9 +3,12 @@
 
 EAPI=7
 
-DESCRIPTION="BIDS-formatted example mouse brain data for SAMRI."
+DESCRIPTION="BIDS-formatted example mouse brain data for SAMRI"
 HOMEPAGE="https://github.com/IBT-FMI/SAMRI"
-SRC_URI="http://chymera.eu/distfiles/${P}.tar.xz"
+SRC_URI="
+	https://zenodo.org/record/3233056/files/${P}.tar.xz
+	http://chymera.eu/distfiles/${P}.tar.xz
+	"
 
 LICENSE="GPL-3"
 SLOT="0"
