@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>chr@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		BIDS-formatted MRI data recorded at the ETH/UZH Animal Imaging Center
+		and first associated with the OPFVTA publication. The data represents
+		f/MRI mouse brain scans with both BOLD and CBV contrasts, using block
+		and phasic stimulation protocols delivered via a laser to the VTA,
+		which is rendered sensitive by channelrhodopsin expression under
+		the dopamine transporter promoter.
+	</longdescription>
+</pkgmetadata>
