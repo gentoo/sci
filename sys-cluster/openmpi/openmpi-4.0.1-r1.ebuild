@@ -31,7 +31,7 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v$(ver_cut 1-2)/downloads/${MY_P}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="cma cuda cxx elibc_FreeBSD fortran heterogeneous ipv6 java numa romio
+IUSE="cma cuda cxx elibc_FreeBSD fortran heterogeneous ipv6 java romio
 	${IUSE_OPENMPI_FABRICS} ${IUSE_OPENMPI_RM} ${IUSE_OPENMPI_OFED_FEATURES}"
 
 REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
@@ -49,7 +49,7 @@ MPI_UNCLASSED_DEP_STR="
 CDEPEND="
 	>=dev-libs/libevent-2.0.22[${MULTILIB_USEDEP},threads]
 	dev-libs/libltdl:0[${MULTILIB_USEDEP}]
-	>=sys-apps/hwloc-2.0.2[${MULTILIB_USEDEP},numa?]
+	>=sys-apps/hwloc-2.0.2[${MULTILIB_USEDEP}]
 	>=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}]
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1:= )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
