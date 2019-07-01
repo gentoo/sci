@@ -119,8 +119,6 @@ src_compile(){
 src_install(){
 	cd "${WORKDIR}"/maker || die
 	rm -f bin/fasta_tool # is part of sci-biology/GAL
-	# drop development related accessory script requiring Parallel/MPIcar.pm
-	find . -name mpi_evaluator | xargs rm || die
 	mv bin/compare bin/compare_gff3_to_chado # rename as agreed by upstream, will be in maker-3 as well
 	dobin bin/*
 	perl_set_version
