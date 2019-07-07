@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>chr@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		MRI template and 120-region atlas for the mouse lemur primate Microcebus
+		murinus. Generated from 34 animals aged 15-58 months old scanned at 7T
+		using a T2-weighted sequence, resolution 115 × 115 × 230 µm. The template
+		was up-sampled to 91 µm isotropic for hand-segmentation of structures,
+		and also used to create probability maps of grey matter, white matter and
+		cerebro-spinal fluid.
+	</longdescription>
+</pkgmetadata>
