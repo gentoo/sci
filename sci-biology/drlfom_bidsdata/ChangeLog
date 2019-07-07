@@ -1,0 +1,7 @@
+  28 Jun 2019;  <chymera@gentoo.org> drlfom_bidsdata-1.0.ebuild:
+  sci-biology/drlfom_bidsdata: alternative download link
+
+*drlfom_bidsdata-1.0 (28 Jun 2019)
+
+  28 Jun 2019;  <chymera@gentoo.org> +drlfom_bidsdata-1.0.ebuild, +metadata.xml:
+  sci-biology/drlfom_bidsdata: new package ahead of Gentoo Science
