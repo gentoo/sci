@@ -5,13 +5,11 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs versionator
-
-MY_P="${PN}-$(replace_version_separator _ -)"
+inherit flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
 DESCRIPTION="Portable, Extensible Toolkit for Scientific Computation"
 HOMEPAGE="http://www.mcs.anl.gov/petsc/"
-SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
+SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
@@ -54,8 +52,6 @@ DEPEND="${RDEPEND}
 	dev-util/cmake
 "
 
-S="${WORKDIR}/${MY_P}"
-
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.7.0-disable-rpath.patch \
 	"${FILESDIR}"/${PN}-3.9.0-fix_sandbox_violation.patch
@@ -83,7 +79,7 @@ petsc_with() {
 			shift 3
 			myuse="${myuse} --with-${p}-lib=$@"
 		else
-			myuse="${myuse}"
+			myuse="${myuse} --with-${p}-dir=${EPREFIX}${3:-/usr}"
 		fi
 	else
 		myuse="--with-${p}=0"
@@ -143,7 +139,7 @@ src_configure() {
 		--with-petsc-arch=${PETSC_ARCH} \
 		--with-precision=double \
 		--with-gnu-compilers \
-		--with-blas-lapack-lib="$($(tc-getPKG_CONFIG) --libs lapack)" \
+		--with-blas-lapack-lib="$($(tc-getPKG_CONFIG) --libs blas lapack)" \
 		$(petsc_enable debug debugging) \
 		$(petsc_enable mpi) \
 		$(petsc_select mpi cc mpicc $(tc-getCC)) \
@@ -154,7 +150,7 @@ src_configure() {
 		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
-		--with-cmake=true \
+		--with-cmake:BOOL=1 \
 		$(petsc_enable threads pthread) \
 		$(petsc_with afterimage afterimage \
 			/usr/include/libAfterImage -lAfterImage) \
