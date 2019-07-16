@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -22,7 +22,7 @@ RDEPEND="
 # was only tested with sci-libs/libsvm-2.84
 
 src_install(){
-	sed -e 's///' -i *.pl || die "Failed to convert from DOS line endings to Unix"
+	sed -e 's/\r//' -i *.pl || die "Failed to convert from DOS line endings to Unix"
 	sed -e 's#/home/rtarrial/prog#/usr/bin#' -i *.pl
 	dobin *.pl
 	dodoc README.txt
