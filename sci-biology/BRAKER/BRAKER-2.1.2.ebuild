@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,9 +8,10 @@ inherit perl-module
 
 DESCRIPTION="Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS"
 # http://bioinf.uni-greifswald.de/bioinf/publications/pag2015.pdf
-HOMEPAGE="http://bioinf.uni-greifswald.de/bioinf/braker
+HOMEPAGE="https://github.com/Gaius-Augustus/BRAKER
+	http://bioinf.uni-greifswald.de/bioinf/braker
 	http://bioinf.uni-greifswald.de/augustus/downloads"
-SRC_URI="http://bioinf.uni-greifswald.de/augustus/binaries/BRAKER_v"${PV}".tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Gaius-Augustus/BRAKER/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 # Example data for testing the BRAKER2 pipeline is available at
 # http://bioinf.uni-greifswald.de/augustus/binaries/BRAKER2examples.tar.gz (1.1 GB).
 
@@ -29,14 +30,12 @@ RDEPEND="${DEPEND}
 	sci-biology/augustus"
 	#>=sci-biology/GeneMark_ET-bin-4.29"
 
-S="${WORKDIR}"/BRAKER_v"${PV}"
-
 src_install(){
 	perl_set_version
-	dobin *.pl
+	dobin scripts/*.pl
 	insinto ${VENDOR_LIB}/${PN}
-	doins *.pm
-	dodoc userguide.pdf
+	doins scripts/*.pm
+	dodoc docs/userguide.pdf
 }
 
 pkg_postinst(){
