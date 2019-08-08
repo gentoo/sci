@@ -55,7 +55,6 @@
   <subproject ref="/proj/en/science/physics/index.xml" />
   -->
 
-  <resource link="blas-lapack.xml">Guide on using BLAS/LAPACK</resource>
   <resource link="contrib.xml">Guide on contributing to the science project</resource>
   <resource link="http://overlays.gentoo.org/proj/science">Official overlay</resource>
   <resource link="http://news.gmane.org/gmane.linux.gentoo.science/">Mailing list archives</resource>
