@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,7 +9,7 @@ DESCRIPTION="Assembly By Short Sequences - a de novo, parallel, paired-end seque
 HOMEPAGE="http://www.bcgsc.ca/platform/bioinfo/software/abyss/"
 SRC_URI="https://github.com/bcgsc/abyss/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="abyss"
+LICENSE="GPL-3"
 SLOT="0"
 IUSE="+mpi openmp misc-haskell"
 KEYWORDS="~amd64 ~x86"
