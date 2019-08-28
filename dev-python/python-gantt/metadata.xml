@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>chr@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		Python-Gantt makes it possible to easily draw gantt charts from Python
+		and export outputs as scalable vector graphics (SVG).
+	</longdescription>
+</pkgmetadata>
