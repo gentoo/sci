@@ -1,0 +1,45 @@
+Disable automatic git clone attempt for modules:
+https://github.com/InsightSoftwareConsortium/ITK/issues/1157
+
+--- a/CMake/ITKModuleRemote.cmake	2019-08-13 18:10:33.385472767 +0200
++++ b/CMake/ITKModuleRemote.cmake	2019-08-13 18:12:04.020198966 +0200
+@@ -165,39 +165,4 @@
+     set(Module_${_name} ON CACHE FORCE "${_description}")
+   endif()
+ 
+-  if(Module_${_name})
+-    itk_download_attempt_check(Module_${_name})
+-    include(CMakeParseArguments)
+-    cmake_parse_arguments(_fetch_options "" "GIT_REPOSITORY;GIT_TAG" "" ${ARGN})
+-    find_package(Git)
+-    if(NOT GIT_EXECUTABLE)
+-      message(FATAL_ERROR "error: could not find git for clone of ${_name}")
+-    endif()
+-    execute_process(
+-      COMMAND "${GIT_EXECUTABLE}" --version
+-      OUTPUT_VARIABLE ov
+-      OUTPUT_STRIP_TRAILING_WHITESPACE
+-      )
+-    string(REGEX REPLACE "^git version (.+)$" "\\1" _version "${ov}")
+-    if("${_version}" VERSION_LESS 1.6.6)
+-      message(FATAL_ERROR "Git version 1.6.6 or later is required.")
+-    endif()
+-
+-    set(REMOTE_GIT_TAG "${_fetch_options_GIT_TAG}")
+-
+-    if( DEFINED REMOTE_GIT_TAG_${_name} AND NOT "${REMOTE_GIT_TAG_${_name}}" STREQUAL "${_fetch_options_GIT_TAG}")
+-      set(REMOTE_GIT_TAG "${REMOTE_GIT_TAG_${_name}}")
+-      message(STATUS "NOTE: Using override 'REMOTE_GIT_TAG_${_name}=${REMOTE_GIT_TAG}'\n"
+-                     "      instead of value 'GIT_TAG=${_fetch_options_GIT_TAG}'\n"
+-                     "      specified in file ${ITK_SOURCE_DIR}/Modules/Remote/${_name}.remote.cmake'")
+-    endif()
+-    set(REMOTE_GIT_TAG_${_name} "${REMOTE_GIT_TAG}" CACHE STRING "Override default GIT_TAG value for remote module ${_name}")
+-    mark_as_advanced(REMOTE_GIT_TAG_${_name})
+-
+-    _fetch_with_git("${GIT_EXECUTABLE}"
+-      "${_fetch_options_GIT_REPOSITORY}"
+-      "${REMOTE_GIT_TAG}"
+-      "${ITK_SOURCE_DIR}/Modules/Remote/${_name}"
+-      )
+-  endif()
+ endfunction()

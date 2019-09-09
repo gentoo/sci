@@ -1,29 +1,40 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_7 python3_{5,6,7} )
 
-inherit eutils toolchain-funcs cmake-utils python-single-r1
+inherit toolchain-funcs cmake-utils python-single-r1
 
-MYPN=InsightToolkit
-MYP=${MYPN}-${PV}
-DOC_PV=4.5.0
+MY_PN="InsightToolkit"
+MY_P="${MY_PN}-${PV}"
+GLI_HASH="187ab99b7d42718c99e5017f0acd3900d7469bd1"
+GLI_TEST_HASH="57b5d5de8d777f10f269445a"
 
 DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
-SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.xz
-	doc? ( mirror://sourceforge/${PN}/Doxygen${MYPN}-${DOC_PV}.tar.gz )"
+SRC_URI="
+	https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/${MY_P}.tar.gz
+	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/${GLI_HASH}.zip -> ITKGenericLabelInterpolator-${PV}.zip
+	test? (
+		https://data.kitware.com/api/v1/folder/${GLI_TEST_HASH}/download -> ITKGenericLabelInterpolator_test-${PV}.zip
+		https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/InsightData-${PV}.tar.gz
+		)
+	"
 RESTRICT="primaryuri"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debug doc examples fftw itkv3compat python review cpu_flags_x86_sse2 test vtkglue"
+IUSE="debug doc examples fftw python review test vtkglue"
+# python will not work, this is a know issue upstream:
+# https://github.com/InsightSoftwareConsortium/ITK/issues/1229
+# https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/issues/10
 
 RDEPEND="
 	dev-libs/double-conversion:0=
+	media-libs/openjpeg:2
 	media-libs/libpng:0=
 	media-libs/tiff:0=
 	sci-libs/dcmtk:0=
@@ -31,28 +42,24 @@ RDEPEND="
 	sys-libs/zlib:0=
 	virtual/jpeg:0=
 	fftw? ( sci-libs/fftw:3.0= )
-	vtkglue? ( sci-libs/vtk:0=[python?] )
+	vtkglue? ( sci-libs/vtk:0=[rendering,python?] )
 "
 DEPEND="${RDEPEND}
+	sys-apps/coreutils
 	python? (
-		${PYTHON_DEPS}
 		>=dev-lang/swig-2.0:0
-		>=dev-cpp/gccxml-0.9.0_pre20120309
+		dev-cpp/castxml
 	)
 	doc? ( app-doc/doxygen )
 "
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-S="${WORKDIR}/${MYP}"
+S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}"/0001-BUG-Wrap-TransformFileReader-TransformFileWriter.patch
-	"${FILESDIR}"/0002-COMP-Fixed-itkQuasiNewtonOptimizerv4-wrapping-warnin.patch
-	"${FILESDIR}"/0003-COMP-Fixed-itkGradientDescentOptimizerv4-wrapping-wa.patch
-	"${FILESDIR}"/0004-COMP-Warp-OptimizerParameterScalesEstimatorTemplate.patch
-	"${FILESDIR}"/0005-make-gdcm-helper-library-static.patch
-	"${FILESDIR}"/nrrdio-linking.patch
+	"${FILESDIR}"/ITKModuleRemote.patch
+	"${FILESDIR}"/tests.patch
 )
 
 pkg_pretend() {
@@ -69,33 +76,47 @@ pkg_pretend() {
 	fi
 }
 
-src_configure() {
-	sed -i \
-		-e '/find_package/d' \
-		Modules/ThirdParty/DoubleConversion/CMakeLists.txt || die
+src_prepare() {
+	sed -i -e "s/find_package(OpenJPEG 2.0.0/find_package(OpenJPEG/g"\
+		Modules/ThirdParty/GDCM/src/gdcm/CMakeLists.txt
+	ln -sr ../ITKGenericLabelInterpolator-* Modules/Remote/ITKGenericLabelInterpolator || die
+	if use test; then
+		for filename in ../GenericLabelInterpolator/test/*/*mha; do
+			MD5=$(md5sum $filename) || die
+			MD5=${MD5%  *} || die
+			cp "$filename" ".ExternalData/MD5/${MD5}" || die
+		done
+	fi
+	cmake-utils_src_prepare
+}
 
+src_configure() {
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
+		-DGDCM_USE_SYSTEM_OPENJPEG=ON
+		-DITK_FORBID_DOWNLOADS:BOOL=OFF
 		-DITK_USE_SYSTEM_DCMTK=ON
 		-DITK_USE_SYSTEM_DOUBLECONVERSION=ON
-		-DITK_USE_SYSTEM_GCCXML=ON
+		-DITK_USE_SYSTEM_CASTXML=ON
 		-DITK_USE_SYSTEM_HDF5=ON
 		-DITK_USE_SYSTEM_JPEG=ON
 		-DITK_USE_SYSTEM_PNG=ON
 		-DITK_USE_SYSTEM_SWIG=ON
 		-DITK_USE_SYSTEM_TIFF=ON
 		-DITK_USE_SYSTEM_ZLIB=ON
+		-DITK_USE_KWSTYLE=OFF
 		-DITK_BUILD_DEFAULT_MODULES=ON
 		-DITK_COMPUTER_MEMORY_SIZE="${ITK_COMPUTER_MEMORY_SIZE:-1}"
 		-DWRAP_ITK_JAVA=OFF
 		-DWRAP_ITK_TCL=OFF
 		-Ddouble-conversion_INCLUDE_DIRS="${EPREFIX}/usr/include/double-conversion"
-		-Ddouble-conversion_LIBRARIES="-ldouble-conversion"
-		$(cmake-utils_use_build test TESTING)
-		$(cmake-utils_use_build examples EXAMPLES)
-		$(cmake-utils_use review ITK_USE_REVIEW)
-		$(cmake-utils_use itkv3compat ITKV3_COMPATIBILITY)
-		$(cmake-utils_use cpu_flags_x86_sse2 VNL_CONFIG_ENABLE_SSE2)
+		-DExternalData_OBJECT_STORES="${WORKDIR}/InsightToolkit-${PV}/.ExternalData"
+		-DModule_GenericLabelInterpolator:BOOL=ON
+		-DModule_ITKReview:BOOL=ON
+		-DBUILD_TESTING="$(usex test ON OFF)"
+		-DBUILD_EXAMPLES="$(usex examples ON OFF)"
+		-DITK_USE_REVIEW="$(usex review ON OFF)"
+		-DITK_INSTALL_LIBRARY_DIR=$(get_libdir)
 	)
 	if use fftw; then
 		mycmakeargs+=(
