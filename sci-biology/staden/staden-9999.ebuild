@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,8 +9,7 @@ inherit autotools-utils flag-o-matic fortran-2 multilib subversion
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="http://sourceforge.net/projects/staden/"
-SRC_URI=""
-ESVN_REPO_URI="https://staden.svn.sourceforge.net/svnroot/staden/staden/trunk/src"
+ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/${PN}/trunk"
 
 LICENSE="staden"
 SLOT="0"
@@ -42,6 +41,7 @@ RDEPEND="${DEPEND}
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
 src_prepare() {
+	cd "${WORKDIR}"/"${P}"/src || die
 	sed \
 		-e 's:svnversion:false:' \
 		-i configure.in || die
@@ -50,6 +50,8 @@ src_prepare() {
 }
 
 src_configure() {
+	cd "${WORKDIR}"/"${P}"/src || die
+	S="${WORKDIR}"/"${P}"/src
 	local myeconfargs=()
 	use X && myeconfargs+=( --with-x )
 	myeconfargs+=(
@@ -62,7 +64,15 @@ src_configure() {
 	sed -e "s/^SVNVERS.*/SVNVERS = "${ESVN_REVISION}"/" -i system.mk || die
 }
 
+src_compile(){
+	cd "${WORKDIR}"/"${P}"/src || die
+	S="${WORKDIR}"/"${P}"/src
+	default
+}
+
 src_install() {
+	cd "${WORKDIR}"/"${P}"/src || die
+	S="${WORKDIR}"/"${P}"/src
 	autotools-utils_src_install SVN_VERSION="${ESVN_REVISION}"
 	cat >> "${T}"/99staden <<- EOF
 	STADENROOT="${EPREFIX}"/usr/share/staden
