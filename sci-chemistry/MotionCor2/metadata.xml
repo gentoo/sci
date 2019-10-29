@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci-chemistry@gentoo.org</email>
+		<name>Gentoo Chemistry Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexxy@gentoo.org</email>
+		<name>Alexey Shvetsov</name>
+	</maintainer>
+	<use>
+		<flag name="cuda92">Install cuda-9.2 version</flag>
+		<flag name="cuda101">Install cuda-10.1 version</flag>
+	</use>
+</pkgmetadata>
