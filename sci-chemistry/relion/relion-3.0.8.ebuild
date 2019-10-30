@@ -29,13 +29,8 @@ RDEPEND="
 "
 BDEPEND="${DEPEND}"
 
-src_prepare() {
-	# hack build type =D
-	sed 's:release:gentoo:g' -i CMakeLists.txt
-	cmake-utils_src_prepare
-}
-
 src_configure() {
+	CMAKE_BUILD_TYPE=Release
 	mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
 		-DALTCPU=$(usex !cuda)
