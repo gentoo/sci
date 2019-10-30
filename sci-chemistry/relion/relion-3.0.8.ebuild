@@ -38,7 +38,7 @@ src_prepare() {
 src_configure() {
 	mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
-		-DALTCPU=ON
+		-DALTCPU=$(usex !cuda)
 		-DFORCE_OWN_FFTW=OFF
 		-DFORCE_OWN_FLTK=OFF
 		-DFORCE_OWN_TBB=OFF
