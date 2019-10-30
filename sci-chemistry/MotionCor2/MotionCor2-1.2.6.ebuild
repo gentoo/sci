@@ -35,7 +35,7 @@ pkg_nofetch() {
 		elog "${HOMEPAGE}."
 		elog "Be sure to select the version ${VERSION} tarball!!"
 		elog "Then move the tarball to"
-		elog "${DISTDIR}/${P}.tar.gz"
+		elog "${DISTDIR}/${PN}_${PV}.zip"
 		echo
 }
 
