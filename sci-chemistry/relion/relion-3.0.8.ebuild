@@ -22,7 +22,11 @@ DEPEND="
 		virtual/mpi
 		cuda? ( dev-util/nvidia-cuda-toolkit )
 		"
-RDEPEND="${DEPEND}"
+RDEPEND="
+	${DEPEND}
+	sci-chemistry/ctffind
+	cuda? ( sci-chemistry/MotionCor2 )
+"
 BDEPEND="${DEPEND}"
 
 src_prepare() {
