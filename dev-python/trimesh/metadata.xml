@@ -16,4 +16,7 @@
 		allows for easy manipulation and analysis, in the style of the Polygon
 		object in the Shapely library.
 	</longdescription>
+	<use>
+		<flag name="extra">Extra functionality for advanced mesh preparation</flag>
+	</use>
 </pkgmetadata>
