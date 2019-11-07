@@ -1,0 +1,10 @@
+--- a/setup.py	2019-11-04 18:56:47.407791008 +0100
++++ b/setup.py	2019-11-04 20:00:24.844224851 +0100
+@@ -29,6 +29,6 @@
+ 
+ packages = find_packages(
+-    exclude=('doc', 'tests', 'dist', 'build', 'fslpy.egg-info'))
++    exclude=('doc', 'tests', 'tests.*', 'dist', 'build', 'fslpy.egg-info'))
+ 
+ # Figure out the current fslpy version, as defined in fsl/version.py. We
+ # don't want to import the fsl package,  as this may cause build problems.
