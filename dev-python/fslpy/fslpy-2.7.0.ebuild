@@ -22,7 +22,7 @@ DEPEND="
 		dev-python/pytest-cov[${PYTHON_USEDEP}]
 	)
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	"
+"
 RDEPEND="
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/indexed_gzip[${PYTHON_USEDEP}]
@@ -34,7 +34,7 @@ RDEPEND="
 	=sci-libs/Rtree-0.8.3*[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.3.1[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	"
+"
 
 python_test() {
 	virtx pytest -m "not (dicomtest or fsltest)" --verbose || die
