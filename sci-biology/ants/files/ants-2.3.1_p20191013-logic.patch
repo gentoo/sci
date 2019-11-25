@@ -1,0 +1,37 @@
+From b2c828ff8e5ce537d7096af04b086e965fede9e8 Mon Sep 17 00:00:00 2001
+From: "Gabriel A. Devenyi" <gdevenyi@gmail.com>
+Date: Mon, 7 Oct 2019 22:01:51 -0400
+Subject: [PATCH] Fix install logic
+
+---
+ ANTS.cmake       | 3 ++-
+ SuperBuild.cmake | 2 ++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/ANTS.cmake b/ANTS.cmake
+index a1baf845..95ffdc74 100644
+--- a/ANTS.cmake
++++ b/ANTS.cmake
+@@ -172,7 +172,8 @@ install(PROGRAMS Scripts/ANTSpexec.sh
+                 COMPONENT SCRIPTS
+         )
+ 
+-if(BUILD_SHARED_LIBS AND NOT (USE_SYSTEM_ITK AND USE_SYSTEM_VTK))
++#Only install ITK/VTK libraries if shared build and superbuild is used
++if(BUILD_SHARED_LIBS AND ((NOT USE_SYSTEM_ITK) OR ((NOT USE_SYSTEM_VTK) AND USE_VTK)))
+   install(DIRECTORY ${CMAKE_BINARY_DIR}/../staging/lib/
+           DESTINATION lib)
+ endif()
+diff --git a/SuperBuild.cmake b/SuperBuild.cmake
+index f4630e64..32b930c2 100644
+--- a/SuperBuild.cmake
++++ b/SuperBuild.cmake
+@@ -207,6 +207,8 @@ list(APPEND ${CMAKE_PROJECT_NAME}_SUPERBUILD_EP_VARS
+   CMAKE_C_COMPILER_LAUNCHER:STRING
+   CMAKE_CXX_COMPILER_LAUNCHER:STRING
+   CMAKE_CUDA_COMPILER_LAUNCHER:STRING
++  USE_SYSTEM_ITK:BOOL
++  USE_SYSTEM_VTK:BOOL
+   )
+ 
+ _expand_external_project_vars()
