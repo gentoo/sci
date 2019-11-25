@@ -2,7 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>horea.christ@gmail.com</email>
+		<email>chr@chymera.eu</email>
 		<name>Horea Christian</name>
 	</maintainer>
 	<maintainer type="project">
@@ -18,4 +18,7 @@
 		image analysis. ANTs depends on the Insight ToolKit (ITK), a widely used
 		medical image processing library to which ANTs developers contribute.
 	</longdescription>
+	<use>
+		<flag name="vtk">Optional support for a number of surface enabled tools (via sci-libs/vtk).</flag>
+	</use>
 </pkgmetadata>
