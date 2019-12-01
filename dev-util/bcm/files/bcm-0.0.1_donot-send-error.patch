@@ -1,0 +1,13 @@
+Index: bcm-0.0.1_p20191110/share/bcm/cmake/BCMExport.cmake
+===================================================================
+--- bcm-0.0.1_p20191110.orig/share/bcm/cmake/BCMExport.cmake
++++ bcm-0.0.1_p20191110/share/bcm/cmake/BCMExport.cmake
+@@ -12,7 +12,7 @@ function(bcm_get_target_package_source O
+         if(TARGET_IMPORTED OR TARGET_ALIAS)
+             get_property(TARGET_FIND_PACKAGE_NAME TARGET ${TARGET} PROPERTY INTERFACE_FIND_PACKAGE_NAME)
+             if(NOT TARGET_FIND_PACKAGE_NAME)
+-                message(SEND_ERROR "The target ${TARGET_FIND_PACKAGE_NAME} does not have information about find_package() call.")
++                message(AUTHOR_WARNING "The target ${TARGET_FIND_PACKAGE_NAME} does not have information about find_package() call.")
+             endif()
+             set(PKG_NAME ${TARGET_FIND_PACKAGE_NAME})
+             get_property(TARGET_FIND_PACKAGE_VERSION TARGET ${TARGET} PROPERTY INTERFACE_FIND_PACKAGE_VERSION)
