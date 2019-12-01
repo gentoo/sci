@@ -17,5 +17,5 @@ SLOT="0"
 
 src_install() {
 	doheader -r include/${PN}
-	dodoc README.md LICENSE
+	dodoc README.md
 }
