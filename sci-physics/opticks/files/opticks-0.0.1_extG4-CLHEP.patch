@@ -1,0 +1,20 @@
+Index: opticks-0.0.1_p20191110/extg4/CMakeLists.txt
+===================================================================
+--- opticks-0.0.1_p20191110.orig/extg4/CMakeLists.txt
++++ opticks-0.0.1_p20191110/extg4/CMakeLists.txt
+@@ -27,6 +27,7 @@ very focussed converter classes.
+ 
+ set(G4_VERBOSE ON)
+ find_package(G4         REQUIRED MODULE)
++find_package(CLHEP      REQUIRED)
+ find_package(GGeo       REQUIRED CONFIG)   
+ 
+ # just for X4GDMLWrite
+@@ -143,6 +144,7 @@ set(HEADERS
+ add_library( ${name}  SHARED ${SOURCES} ${HEADERS} )
+ target_link_libraries( ${name} PUBLIC 
+     Opticks::G4
++    CLHEP
+     Opticks::GGeo
+     Opticks::OpticksXercesC
+ )

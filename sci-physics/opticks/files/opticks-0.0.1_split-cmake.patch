@@ -1,0 +1,29 @@
+Index: opticks-0.0.1_p20191110/CMakeLists.txt
+===================================================================
+--- opticks-0.0.1_p20191110.orig/CMakeLists.txt
++++ opticks-0.0.1_p20191110/CMakeLists.txt
+@@ -56,12 +56,11 @@ project(${name} VERSION 0.1.0)
+ include(OpticksBuildOptions)   
+ 
+ set(INTEGRATED_SUBDIRS
+-  okconf
+   sysrap
+-#[=[
+   boostrap
+   npy
+   optickscore
++  yoctoglrap
+   ggeo 
+   assimprap
+   openmeshrap 
+@@ -73,9 +72,9 @@ set(INTEGRATED_SUBDIRS
+   oglrap  
+   opticksgl
+   ok
++  extg4
+   cfg4
+   okg4
+-#]=]
+ )
+ 
+ 

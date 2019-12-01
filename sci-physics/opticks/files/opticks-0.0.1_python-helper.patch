@@ -1,0 +1,48 @@
+Index: opticks-0.0.1_p20191110/ana/base.py
+===================================================================
+--- opticks-0.0.1_p20191110.orig/ana/base.py
++++ opticks-0.0.1_p20191110/ana/base.py
+@@ -27,7 +27,7 @@ Mostly Non-numpy basics, just numpy conf
+ import numpy as np
+ import os, logging, json, ctypes, subprocess, datetime, re
+ from collections import OrderedDict as odict 
+-from opticks.ana.enum import Enum 
++from enum import Enum
+ 
+ log = logging.getLogger(__name__) 
+ 
+Index: opticks-0.0.1_p20191110/ana/OpticksFlags.py
+===================================================================
+--- opticks-0.0.1_p20191110.orig/ana/OpticksFlags.py
++++ opticks-0.0.1_p20191110/ana/OpticksFlags.py
+@@ -7,7 +7,7 @@ Used from optickscore/CMakeLists.txt
+ 
+ """
+ import os, re, logging, argparse
+-from opticks.ana.base import json_save_
++from base import json_save_
+ 
+ log = logging.getLogger(__name__) 
+ 
+Index: opticks-0.0.1_p20191110/optickscore/CMakeLists.txt
+===================================================================
+--- opticks-0.0.1_p20191110.orig/optickscore/CMakeLists.txt
++++ opticks-0.0.1_p20191110/optickscore/CMakeLists.txt
+@@ -153,7 +153,7 @@ add_custom_command(
+    OUTPUT 
+          ${PYINI}
+    COMMAND 
+-          enum.py ${HDR} --quiet --inipath ${PYINI}
++         python2 ${CMAKE_CURRENT_SOURCE_DIR}/../ana/enum.py ${HDR} --quiet --inipath ${PYINI}
+    DEPENDS 
+          ${HDR}
+ )
+@@ -167,7 +167,7 @@ add_custom_command(
+    OUTPUT 
+          ${PYJS}
+    COMMAND 
+-          OpticksFlags.py ${CCFL} --quiet --jsonpath ${PYJS}
++         python2 ${CMAKE_CURRENT_SOURCE_DIR}/../ana/OpticksFlags.py ${CCFL} --quiet --jsonpath ${PYJS}
+    DEPENDS 
+          ${CCFL}
+ )
