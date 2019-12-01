@@ -1,0 +1,33 @@
+Index: DualContouringSample-0_p20191111/CMakeLists.txt
+===================================================================
+--- DualContouringSample-0_p20191111.orig/CMakeLists.txt
++++ DualContouringSample-0_p20191111/CMakeLists.txt
+@@ -3,18 +3,11 @@ set(name DualContouringSample)
+ project(${name} VERSION 0.1.0)
+ 
+ include(CTest)
+-include(OpticksBuildOptions)
+-
+-include(GNUInstallDirs)
+-set(CMAKE_INSTALL_INCLUDEDIR "externals/include/${name}")
+-set(CMAKE_INSTALL_LIBDIR     "externals/lib")
+-set(CMAKE_INSTALL_BINDIR     "lib")
+-#set(CMAKE_INSTALL_RPATH      "${CMAKE_INSTALL_FULL_LIBDIR}")
+ 
+ find_package(BCM REQUIRED)
+ include(BCMDeploy)
+ 
+-find_package(GLM    REQUIRED)
++find_package(glm REQUIRED)
+ 
+ 
+ set(SOURCES
+@@ -37,7 +30,7 @@ set(HEADERS
+ )
+ 
+ add_library(${name} SHARED ${SOURCES})
+-target_link_libraries(${name} PUBLIC Opticks::GLM)
++target_link_libraries(${name} PUBLIC glm)
+ 
+ # needed for tests that use non-installed headers
+ target_include_directories(${name} PUBLIC
