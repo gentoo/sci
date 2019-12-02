@@ -26,7 +26,7 @@ To uninstall the overlay run (again, as root):
 
 ```
 rm /etc/portage/repos.conf/science
-rm -rf /var/lib/overlays/science
+rm /var/db/repos/science -rf
 ```
 
 ## Support
