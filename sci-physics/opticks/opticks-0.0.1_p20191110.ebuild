@@ -25,7 +25,8 @@ RDEPEND="dev-util/nvidia-cuda-sdk
 	media-libs/glfw
 	media-libs/glew:0
 	media-libs/glm"
-DEPEND="dev-libs/boost
+DEPEND="sci-physics/opticks-okconf
+	dev-libs/boost
 	dev-util/bcm
 	dev-util/plog
 	${PYTHON_DEPS}
