@@ -1,0 +1,27 @@
+Index: yocto-gl-0_p20191111/CMakeLists.txt
+===================================================================
+--- yocto-gl-0_p20191111.orig/CMakeLists.txt
++++ yocto-gl-0_p20191111/CMakeLists.txt
+@@ -3,7 +3,8 @@ set(name YoctoGL)
+ project(${name} VERSION 0.1.0)
+ 
+ include(CTest)
+-include(OpticksBuildOptions)
++find_package(BCM)
++include(BCMDeploy)
+ #[=[
+ YoctoGL
+ ========
+@@ -14,12 +15,6 @@ Opticks currently uses only glTF 2.0 rea
+ 
+ #]=]
+ 
+-include(GNUInstallDirs)
+-set(CMAKE_INSTALL_INCLUDEDIR "externals/include/${name}")
+-set(CMAKE_INSTALL_LIBDIR     "externals/lib")
+-set(CMAKE_INSTALL_BINDIR     "lib")
+-
+-
+ set(SOURCES
+      yocto/yocto_img.cpp
+      yocto/yocto_gltf.cpp
