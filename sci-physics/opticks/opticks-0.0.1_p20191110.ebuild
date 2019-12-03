@@ -24,7 +24,9 @@ RDEPEND="dev-util/nvidia-cuda-sdk
 	media-libs/assimp
 	media-libs/glfw
 	media-libs/glew:0
-	media-libs/glm"
+	media-libs/glm
+	media-libs/yocto-gl
+	media-libs/imgui"
 DEPEND="sci-physics/opticks-okconf
 	dev-libs/boost
 	dev-util/bcm
