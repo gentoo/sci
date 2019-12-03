@@ -23,6 +23,13 @@ S="${WORKDIR}"
 
 CMAKE_USE_DIR=${S}/SDK
 
+pkg_nofetch() {
+	einfo "Please download ${SRC_URI} from:"
+	einfo "  ${HOMEPAGE}"
+	einfo "and move it to your DISTDIR directory."
+	einfo 'DISTDIR value is available from `emerge --info`'
+}
+
 src_unpack() {
 	tail -n +218 "${DISTDIR}"/${A} | tar -zx || die
 }
