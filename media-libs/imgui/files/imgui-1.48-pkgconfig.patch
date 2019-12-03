@@ -1,0 +1,65 @@
+Index: imgui-1.73/CMakeLists.txt
+===================================================================
+--- imgui-1.73.orig/CMakeLists.txt
++++ imgui-1.73/CMakeLists.txt
+@@ -7,24 +7,18 @@ but has now been moved into my ImGui for
+ 
+ set(name ImGui)
+ project(${name} VERSION 0.1.0)
+-include(OpticksBuildOptions)
++include(FindPkgConfig)
++pkg_check_modules(OpticksGLEW REQUIRED glew)
++message(STATUS "ImGui.OpticksGLEW_INCLUDE_DIRS : ${OpticksGLEW_INCLUDE_DIRS}")
++message(STATUS "ImGui.OpticksGLEW_LIBRARIES     : ${OpticksGLEW_LIBRARIES}")
+ 
+-set(OpticksGLEW_VERBOSE ON)
+-find_package(OpticksGLEW REQUIRED MODULE)
+-message(STATUS "ImGui.OpticksGLEW_INCLUDE_DIR : ${OpticksGLEW_INCLUDE_DIR}")
+-message(STATUS "ImGui.OpticksGLEW_LIBRARY     : ${OpticksGLEW_LIBRARY}")
++find_package(glfw3 REQUIRED Config)
+ 
+-find_package(OpticksGLFW REQUIRED MODULE)
+-message(STATUS "ImGui.OpticksGLFW_INCLUDE_DIR : ${OpticksGLFW_INCLUDE_DIR}")
+-message(STATUS "ImGui.OpticksGLFW_LIBRARY     : ${OpticksGLFW_LIBRARY}")
+-
+-
+-set(IMGUI_DEFINITIONS
+-)
++set(IMGUI_DEFINITIONS)
+ 
+ set(LIBRARIES
+-   ${OpticksGLEW_LIBRARY} 
+-   ${OpticksGLFW_LIBRARY}
++   ${OpticksGLEW_LIBRARIES}
++   glfw
+ )
+ 
+ if(APPLE)
+@@ -92,13 +86,13 @@ set(INCLUDE_DIRS
+    ${CMAKE_CURRENT_BINARY_DIR}
+ 
+    ${ImGui_SOURCE_DIR}/examples/opengl3_example
+-   ${OpticksGLEW_INCLUDE_DIR} 
+-   ${OpticksGLFW_INCLUDE_DIR} 
++   ${OpticksGLEW_INCLUDE_DIRS}
++   ${GLFW_INCLUDE_DIR}
+ )
+ 
+ set(DEFINITIONS
+    ${OpticksGLEW_DEFINITIONS}
+-   ${OpticksGLFW_DEFINITIONS}
++   ${GLFW_DEFINITIONS}
+    ${IMGUI_DEFINITIONS}
+ )
+ 
+@@ -139,8 +133,8 @@ endif(WIN32)
+ 
+ target_link_libraries(${name} ${LIBRARIES})
+ 
+-install(TARGETS ${name}  DESTINATION externals/lib)
+-install(FILES ${HEADERS} DESTINATION externals/include/${name})
++install(TARGETS ${name}  DESTINATION ${LIBDIR})
++install(FILES ${HEADERS} DESTINATION include/${name})
+ 
+ 
+ #[=[
