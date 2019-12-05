@@ -26,7 +26,8 @@ RDEPEND="dev-util/nvidia-cuda-sdk
 	media-libs/glew:0
 	media-libs/glm
 	media-libs/yocto-gl
-	media-libs/imgui"
+	media-libs/imgui
+	sci-physics/geant[gdml]"
 DEPEND="sci-physics/opticks-okconf
 	dev-libs/boost
 	dev-util/bcm
