@@ -88,7 +88,6 @@ src_prepare() {
 	done
 }
 
-# om-make-one
 src_configure() {
 	local mycmakeargs=(
 		-DCMAKE_MODULE_PATH="${S}"/cmake/Modules
@@ -96,6 +95,7 @@ src_configure() {
 		-DCUDA_SDK_ROOT_DIR="${EPREFIX}/opt/cuda/sdk"
 		-DCOMPUTE_CAPABILITY=61
 		-DCUDA_NVCC_FLAGS="${NVCCFLAGS}"
+		-DBoost_NO_BOOST_CMAKE=ON
 		--target all
 	)
 	cmake-utils_src_configure
