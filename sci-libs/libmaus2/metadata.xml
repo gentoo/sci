@@ -15,6 +15,6 @@ BAM sequence alignment files input/output (simple and collating)
 and many lower level support classes.
 </longdescription>
 	<upstream>
-		<remote-id type="github">gt1/libmaus</remote-id>
+		<remote-id type="gitlab">german.tischler/libmaus2</remote-id>
 	</upstream>
 </pkgmetadata>
