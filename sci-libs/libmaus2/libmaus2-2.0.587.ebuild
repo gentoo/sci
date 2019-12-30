@@ -5,9 +5,10 @@ EAPI=7
 
 inherit autotools
 
+release_data="20190122104826"
 DESCRIPTION="Library for biobambam2"
 HOMEPAGE="https://github.com/gt1/libmaus"
-SRC_URI="https://gitlab.com/german.tischler/libmaus2/-/archive/master/${P}.tar.gz"
+SRC_URI="https://gitlab.com/german.tischler/${PN}/-/archive/${PV}-release-${release_data}/${P}-release-${release_data}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-2 GPL-2 GPL-3 MIT ZLIB" # BUG: incomplete list of licenses, see AUTHORS
 SLOT="0"
@@ -24,7 +25,10 @@ DEPEND="
 	dev-libs/nettle"
 # --with-daligner
 # --with-irods
-S="${WORKDIR}"/libmaus2-master-27828cd78121d5e4b19c263c5527e462360f5901
+# old github.com release tarballs
+# S="${WORKDIR}"/libmaus2-master-27828cd78121d5e4b19c263c5527e462360f5901
+# current gitlab.com release tarballs
+S="${WORKDIR}/${P}-release-${release_data}"
 
 src_configure(){
 	local CONFIG_OPTS
