@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit mercurial cmake-utils
+inherit mercurial cmake-utils cuda
 
 EHG_REPO_URI="https://bitbucket.org/simoncblyth/${PN//-*}"
 EHG_REVISION="a580e704afe9d2c138072835e986542c835c29fc"
@@ -22,6 +22,10 @@ DEPEND="dev-util/cmake
 	dev-util/bcm
 	dev-util/plog
 	${RDEPEND}"
+
+PATCHES=(
+	"${FILESDIR}"/${PN}-0.0.1_p20191110-no_lib_install.patch
+)
 
 src_prepare() {
 	cmake-utils_src_prepare

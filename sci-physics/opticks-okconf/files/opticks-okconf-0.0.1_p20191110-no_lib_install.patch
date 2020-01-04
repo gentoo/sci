@@ -1,0 +1,12 @@
+Index: opticks-okconf-0.0.1_p20191110/okconf/tests/CMakeLists.txt
+===================================================================
+--- opticks-okconf-0.0.1_p20191110.orig/okconf/tests/CMakeLists.txt
++++ opticks-okconf-0.0.1_p20191110/okconf/tests/CMakeLists.txt
+@@ -46,7 +46,6 @@ foreach(TEST_SOURCE ${TEST_SOURCES})
+     )         
+ 
+ 
+-    install(TARGETS ${TGT} DESTINATION lib)
+ endforeach()
+ 
+ 
