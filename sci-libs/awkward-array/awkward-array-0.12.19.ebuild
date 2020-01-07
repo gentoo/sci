@@ -15,4 +15,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
+DEPEND="dev-python/pytest-runner"
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
+
+distutils_enable_tests pytest
