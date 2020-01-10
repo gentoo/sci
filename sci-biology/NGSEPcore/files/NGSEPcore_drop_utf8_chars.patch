@@ -1,0 +1,81 @@
+From 5161e22e7730e2637376402718ed7048f838054a Mon Sep 17 00:00:00 2001
+From: jorge <jorge@jorge-0420006391>
+Date: Thu, 28 Mar 2019 16:24:24 -0500
+Subject: [PATCH] Fixed encoding and manual compilation issues
+
+---
+ makefile                                                 | 2 +-
+ src/ngsep/discovery/TillingPoolsIndividualGenotyper.java | 5 ++---
+ src/ngsep/simulation/TillingPopulationSimulator.java     | 2 +-
+ src/ngsep/variants/CalledSNV.java                        | 2 +-
+ 4 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/makefile b/makefile
+index 517895d..0532725 100755
+--- a/makefile
++++ b/makefile
+@@ -11,7 +11,7 @@ compile:
+ copy: 
+ 	cp -f src/ngsep/transcriptome/ProteinTranslatorDefaultBundle.properties bin/ngsep/transcriptome/
+ 	cp -f src/ngsep/main/CommandsDescriptor.xml bin/ngsep/main/
+-	cp -f src/ngsep/assembly/GenomesAlignerLinearVisualizer.js bin/ngsep/assembly/
++	cp -f src/ngsep/genome/GenomesAlignerLinearVisualizer.js bin/ngsep/genome/
+ 
+ jar: 
+ 	mkdir dist
+diff --git a/src/ngsep/discovery/TillingPoolsIndividualGenotyper.java b/src/ngsep/discovery/TillingPoolsIndividualGenotyper.java
+index c8c3d42..2e7a7bf 100644
+--- a/src/ngsep/discovery/TillingPoolsIndividualGenotyper.java
++++ b/src/ngsep/discovery/TillingPoolsIndividualGenotyper.java
+@@ -19,7 +19,6 @@
+ import ngsep.main.CommandsDescriptor;
+ import ngsep.main.ProgressNotifier;
+ import ngsep.sequences.QualifiedSequenceList;
+-import ngsep.simulation.TillingPopulationSimulator;
+ import ngsep.variants.CalledGenomicVariant;
+ import ngsep.variants.CalledGenomicVariantImpl;
+ import ngsep.variants.GenomicVariant;
+@@ -31,7 +30,7 @@
+ 
+ public class TillingPoolsIndividualGenotyper {
+ 
+-	private Logger log = Logger.getLogger(TillingPopulationSimulator.class.getName());
++	private Logger log = Logger.getLogger(TillingPoolsIndividualGenotyper.class.getName());
+ 	private ProgressNotifier progressNotifier=null;
+ 	
+ 	private static HashMap<String,ArrayList<Integer>> poolConfiguration;
+@@ -111,7 +110,7 @@ public void loadPools(String poolsDescriptor, int num_columnPools, int num_rowPo
+ 		while (line != null) {
+ 
+ 			String[] indInfo = line.split(";");
+-			ArrayList<Integer> pools = new ArrayList();
++			ArrayList<Integer> pools = new ArrayList<>();
+ 			pools.add(Integer.parseInt(indInfo[1]));
+ 			pools.add(Integer.parseInt(indInfo[2]));
+ 			pools.add(Integer.parseInt(indInfo[3]));
+diff --git a/src/ngsep/simulation/TillingPopulationSimulator.java b/src/ngsep/simulation/TillingPopulationSimulator.java
+index ea44db2..37f9d3b 100644
+--- a/src/ngsep/simulation/TillingPopulationSimulator.java
++++ b/src/ngsep/simulation/TillingPopulationSimulator.java
+@@ -56,7 +56,7 @@
+ /**
+  * 
+  * @author Juanita
+- * @author Juan Sebastián Andrade
++ * @author Juan Sebastian Andrade
+  *
+  */
+ public class TillingPopulationSimulator {
+diff --git a/src/ngsep/variants/CalledSNV.java b/src/ngsep/variants/CalledSNV.java
+index a40c8ac..773abe7 100755
+--- a/src/ngsep/variants/CalledSNV.java
++++ b/src/ngsep/variants/CalledSNV.java
+@@ -241,7 +241,7 @@ public void setGenotypeQuality(short genotypeQuality) {
+ 	/**
+ 	 * Changes the number of As, Cs, Gs and Ts observed in the sample
+ 	 * @param allCounts Array of length 4 with the number of times that each allele appears. 
+-	 * The order must be the cu¡ount for A, the count for C, the count for G, and the count for T 
++	 * The order must be the count for A, the count for C, the count for G, and the count for T 
+ 	 */
+ 	public void setAllBaseCounts(int [] allCounts) {
+ 		this.countA = allCounts[0];
