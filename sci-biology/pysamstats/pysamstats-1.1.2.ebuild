@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -17,6 +17,9 @@ SLOT="0"
 KEYWORDS="" # needs working pysam, see bug #645060
 IUSE=""
 
-DEPEND="dev-python/cython
-	>=sci-biology/pysam-0.8.4"
+DEPEND="
+	dev-python/cython
+	dev-python/numpy
+	dev-python/pytables
+	>=sci-biology/pysam-0.15.1"
 RDEPEND="${DEPEND}"
