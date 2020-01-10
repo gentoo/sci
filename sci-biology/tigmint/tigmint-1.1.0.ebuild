@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}
 	sci-biology/bwa
 	sci-biology/bedtools
 	sci-biology/samtools:0
-	sci-biology/seqtools
+	sci-biology/seqtk
 	dev-util/makefile2graph
 	media-gfx/graphviz
 	dev-vcs/git
