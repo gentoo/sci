@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -38,7 +38,7 @@ src_compile(){
 	#
 	# other unreviewed patches:
 	# https://github.com/jts/sga/issues/96
-	cd src || die "Try -atd=g++-98, try gcc-5 or -std=c++03"
+	cd src || die "Try -std=g++-98, try gcc-5 or -std=c++03"
 	default
 }
 
