@@ -8,7 +8,7 @@ inherit java-pkg-2 java-ant-2
 DESCRIPTION="NGSEP with Eclipse Plugin (CNV and indel discovery)"
 HOMEPAGE="https://sourceforge.net/p/ngsep/wiki/Home
 	https://github.com/NGSEP/NGSEPplugin"
-SRC_URI="https://sourceforge.net/projects/ngsep/files/SourceCode/NGSEPplugin_${PV}.tar.gz"
+SRC_URI="https://sourceforge.net/projects/ngsep/files/OnlyPlugin/NGSEPplugin_3.3.1.201903140636.jar"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -17,20 +17,12 @@ IUSE=""
 
 DEPEND="
 	>=virtual/jdk-1.7:*
-	dev-java/jcommon
-	dev-util/eclipse-sdk
-	dev-java/htsjdk
-	sci-biology/NGSEPcore"
+	sci-biology/NGSEPcore-bin"
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.7:*"
 
-S="${WORKDIR}/${PN}_${PV}"
-
-src_prepare(){
-	rm -f lib/NGSEPcore_3.3.1.jar lib/SortSam.jar lib/jcommon-1.0.17.jar lib/xchart-2.4.2.jar || die
-	default
-}
+S="${WORKDIR}"
 
 src_install(){
-	java-pkg_dojar *.jar
+	java-pkg_dojar "${DISTDIR}"/*.jar
 }
