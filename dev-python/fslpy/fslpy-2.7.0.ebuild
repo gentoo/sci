@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{5,6} )
+PYTHON_COMPAT=( python3_6 )
 
 inherit distutils-r1 virtualx
 
@@ -19,7 +19,6 @@ IUSE="test"
 DEPEND="
 	test? (
 		dev-python/pytest[${PYTHON_USEDEP}]
-		dev-python/pytest-cov[${PYTHON_USEDEP}]
 	)
 	dev-python/setuptools[${PYTHON_USEDEP}]
 "
@@ -35,6 +34,8 @@ RDEPEND="
 	>=sci-libs/nibabel-2.3.1[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
 "
+
+PATCHES=( "${FILESDIR}/fslpy-2.7.0-coverage.patch" )
 
 python_test() {
 	virtx pytest -m "not (dicomtest or fsltest)" --verbose || die

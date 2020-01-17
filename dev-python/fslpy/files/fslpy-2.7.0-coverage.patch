@@ -1,0 +1,16 @@
+diff --git a/setup.cfg b/setup.cfg
+index 9ea1ddb..00eb59b 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -18,8 +18,8 @@ markers =
+ 
+ 
+ testpaths = tests
+-addopts   = -v --niters=50 --cov=fsl -m "not longtest"
++addopts   = -v --niters=50 -m "not longtest"
+ 
+ 
+ [flake8]
+-ignore = E127,E201,E203,E221,E222,E241,E271,E272,E301,E302,E303,E701,W504
+\ No newline at end of file
++ignore = E127,E201,E203,E221,E222,E241,E271,E272,E301,E302,E303,E701,W504
