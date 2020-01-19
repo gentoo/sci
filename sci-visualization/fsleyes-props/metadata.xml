@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>chr@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		FSLeyes-props is a library which is used by FSLeyes, and which allows you to
+		listen for change to attributes on a python object, automatically generate
+		wxpython widgets which are bound to attributes of a python object, and
+		automatically generate a command line interface to set values of the attributes
+		of a Python object.
+	</longdescription>
+</pkgmetadata>

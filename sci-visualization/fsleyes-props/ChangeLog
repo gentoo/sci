@@ -1,0 +1,9 @@
+  08 Oct 2018; Horea Christian <h.chr@mail.ru> fsleyes-props-1.6.3.ebuild:
+  sci-visualization/fsleyes-props: python3 compatibility
+
+*fsleyes-props-1.6.3 (08 Oct 2018)
+
+  08 Oct 2018; Horea Christian <h.chr@mail.ru> +fsleyes-props-1.6.3.ebuild,
+  +metadata.xml:
+  sci-visualization/fsleyes-props: new ebuild  Ahead of inclusion in science
+  overlay (unsubmitted)

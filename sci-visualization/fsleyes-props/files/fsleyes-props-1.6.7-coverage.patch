@@ -1,0 +1,10 @@
+diff --git a/setup.cfg b/setup.cfg
+index 2b66974..9929adf 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -10,4 +10,4 @@ ignore = E127,E201,E203,E221,E222,E241,E271,E272,E301,E302,E303,E701
+
+ [tool:pytest]
+ testpaths = tests
+-addopts   = -v --cov=fsleyes_props
++addopts   = -v

@@ -1,0 +1,45 @@
+diff --git a/tests/test_widget_number.py b/tests/test_widget_number.py
+index 1c5cadc..9d8067a 100644
+--- a/tests/test_widget_number.py
++++ b/tests/test_widget_number.py
+@@ -14,6 +14,7 @@ import fsleyes_props               as props
+ import fsleyes_widgets.floatspin   as floatspin
+ import fsleyes_widgets.floatslider as floatslider
+ 
++import pytest
+ 
+ def setup_module():
+     props.initGUI()
+@@ -28,6 +29,9 @@ class MyObj(props.HasProperties):
+     myrealc = props.Real(minval=0.0, maxval=1.0, clamped=True)
+ 
+ 
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-props/issues/1"
++    )
+ def  test_widget_number(): run_with_wx(_test_widget_number)
+ def _test_widget_number(parent):
+ 
+diff --git a/tests/test_widget_point.py b/tests/test_widget_point.py
+index cc21226..d83aa48 100644
+--- a/tests/test_widget_point.py
++++ b/tests/test_widget_point.py
+@@ -11,6 +11,7 @@ import numpy as np
+ import fsleyes_props               as props
+ import fsleyes_widgets.floatslider as floatslider
+ 
++import pytest
+ 
+ from . import (run_with_wx, simtext, simclick, addall, realYield)
+ 
+@@ -24,7 +25,9 @@ class MyObj(props.HasProperties):
+     mypointi = props.Point(ndims=2, real=False)
+     mypointf = props.Point(ndims=2)
+ 
+-
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-props/issues/1"
++    )
+ def  test_widget_point(): run_with_wx(_test_widget_point)
+ def _test_widget_point(parent):
+ 
