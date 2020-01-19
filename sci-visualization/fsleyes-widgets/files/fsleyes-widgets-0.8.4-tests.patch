@@ -1,0 +1,69 @@
+diff --git a/tests/test_floatslider.py b/tests/test_floatslider.py
+index 87a2477..6bbedb7 100644
+--- a/tests/test_floatslider.py
++++ b/tests/test_floatslider.py
+@@ -140,8 +140,14 @@ def _test_FloatSlider_changeRange():
+     _test_widget_changeRange(slider)
+
+
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-widgets/issues/1"
++    )
+ def test_FloatSlider_mouse_non_gtk():
+     run_with_wx(_test_FloatSlider_mouse)
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-widgets/issues/1"
++    )
+ def test_FloatSlider_mouse_gtk():
+     with mock.patch('fsleyes_widgets.floatslider.wx.Platform', '__WXGTK__'):
+         run_with_wx(_test_FloatSlider_mouse)
+@@ -322,7 +328,9 @@ def _test_SliderSpinPanel_show_edit_limits():
+             if shouldEv: assert result[0] == expected
+             else:        assert result[0] is None
+
+-
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-widgets/issues/1"
++    )
+ def test_SliderSpinPanel_events():
+     run_with_wx(_test_SliderSpinPanel_events)
+ def _test_SliderSpinPanel_events():
+diff --git a/tests/test_notebook.py b/tests/test_notebook.py
+index a02226c..74e8f63 100644
+--- a/tests/test_notebook.py
++++ b/tests/test_notebook.py
+@@ -190,6 +190,9 @@ def _test_enable_disable_show_hide(side, ornt):
+     assert notebook.GetSelection() == 1
+
+
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-widgets/issues/1"
++    )
+ def test_event():
+     nb_run_with_wx(_test_event)
+ def _test_event(side, ornt):
+diff --git a/tests/test_rangeslider.py b/tests/test_rangeslider.py
+index 7ddbed6..51267b3 100644
+--- a/tests/test_rangeslider.py
++++ b/tests/test_rangeslider.py
+@@ -103,6 +103,9 @@ def _test_RangePanel_logic_spin():
+     _test_RangePanel_logic(panel)
+
+
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-widgets/issues/1"
++    )
+ def test_RangePanel_events_slider():
+     run_with_wx(_test_RangePanel_events_slider)
+ def _test_RangePanel_events_slider():
+@@ -236,6 +239,9 @@ def _test_RangeSliderSpinPanel_logic():
+     _test_RangePanel_logic(panel)
+
+
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes-widgets/issues/1"
++    )
+ def test_RangeSliderSpinPanel_onchange():
+     run_with_wx(_test_RangeSliderSpinPanel_onchange)
+ def _test_RangeSliderSpinPanel_onchange():
+

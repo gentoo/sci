@@ -1,0 +1,7 @@
+*fsleyes-widgets-0.8.4 (16 Jan 2020)
+
+  16 Jan 2020;  <chymera@gentoo.org>
+  +files/fsleyes-widgets-0.8.4-coverage.patch,
+  +files/fsleyes-widgets-0.8.4-tests.patch, +fsleyes-widgets-0.8.4.ebuild,
+  +metadata.xml, -fsleyes-widgets-0.6.5.ebuild, -manifest.xml:
+  sci-visualization/fsleyes-widgets: version bump 0.8.4 ahead of Gentoo Science
