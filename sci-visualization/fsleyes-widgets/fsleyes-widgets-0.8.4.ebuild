@@ -9,7 +9,7 @@ inherit distutils-r1 virtualx
 
 MY_P="widgets-${PV}"
 
-DESCRIPTION="The new FSL image viewer, first released with FSL 5.0.10"
+DESCRIPTION="GUI widgets and utilities for the FSLeyes viewer"
 HOMEPAGE="https://git.fmrib.ox.ac.uk/fsl/fsleyes/fsleyes/tree/master"
 SRC_URI="https://git.fmrib.ox.ac.uk/fsl/fsleyes/widgets/-/archive/${PV}/${MY_P}.tar.gz -> ${P}.tar.gz"
 

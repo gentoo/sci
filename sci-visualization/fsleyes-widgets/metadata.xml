@@ -10,9 +10,8 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		FSLeyes is a viewer for 3D and 4D neuroimaging data. It is intended as a
-		replacement for the much loved FSLView. FSLeyes offers similar functionality
-		to FSLView, and aims to improve and expand upon this functionality in many
-		ways.
+		The fsleyes-widgets package contains a collection of GUI widgets and
+		utilities, based on wxPython, which are These widgets are used by
+		fsleyes-props and FSLeyes.
 	</longdescription>
 </pkgmetadata>
