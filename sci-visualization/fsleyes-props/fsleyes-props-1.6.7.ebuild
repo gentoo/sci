@@ -9,7 +9,7 @@ inherit distutils-r1 virtualx
 
 MY_PN="props"
 
-DESCRIPTION="The new FSL image viewer, released with FSL 5.0.10"
+DESCRIPTION="Object attribute management for the FSLeyes viewer"
 HOMEPAGE="https://git.fmrib.ox.ac.uk/fsl/fsleyes/fsleyes/tree/master"
 SRC_URI="https://git.fmrib.ox.ac.uk/fsl/fsleyes/${MY_PN}/-/archive/${PV}/${MY_PN}-${PV}.tar.gz"
 
