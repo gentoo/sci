@@ -1,0 +1,5 @@
+*scikits_video-1.1.11_p20200114 (20 Jan 2020)
+
+  20 Jan 2020;  <chymera@gentoo.org> +metadata.xml,
+  +scikits_video-1.1.11_p20200114.ebuild:
+  sci-libs/scikits_video: new package
