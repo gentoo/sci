@@ -3,17 +3,17 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit distutils-r1 
+inherit distutils-r1
 
-DESCRIPTION="Needleman-Wunsch global sequence alignment in python2"
-HOMEPAGE="https://pypi.python.org/pypi/nwalign"
+DESCRIPTION="Needleman-Wunsch global sequence alignment in python3"
+HOMEPAGE="https://github.com/briney/nwalign3"
 SRC_URI="mirror://pypi/n/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="
