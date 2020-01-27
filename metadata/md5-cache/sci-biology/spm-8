@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=>=sci-mathematics/octave-3.6.4 app-arch/unzip
+DESCRIPTION=Analysis of brain imaging data sequences for Octave or Matlab
+EAPI=5
+HOMEPAGE=http://www.fil.ion.ucl.ac.uk/spm/
+KEYWORDS=~amd64
+LICENSE=GPL-2+
+RDEPEND=>=sci-mathematics/octave-3.6.4
+SLOT=0
+SRC_URI=http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/spm8.zip
+_md5_=d534a7954ad2f7c95f767e39c9b4a817

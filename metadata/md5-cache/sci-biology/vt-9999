@@ -1,0 +1,12 @@
+DEFINED_PHASES=install prepare unpack
+DEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=A tool set for short variant discovery in genetic sequence data
+EAPI=5
+HOMEPAGE=https://github.com/atks/vt http://genome.sph.umich.edu/wiki/vt
+IUSE=pdf
+LICENSE=MIT
+PROPERTIES=live
+RDEPEND=pdf? ( dev-texlive/texlive-latex || ( dev-texlive/texlive-basic ) )
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=d74f81417146b5a80c018b3075624167

@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install
+DEPEND=x11-libs/fltk:1 media-libs/libpng:0=
+DESCRIPTION=Program to solve assembly and interlocking puzzles
+EAPI=5
+HOMEPAGE=http://burrtools.sourceforge.net/
+IUSE=doc examples
+KEYWORDS=~x86
+LICENSE=GPL-2
+RDEPEND=x11-libs/fltk:1 media-libs/libpng:0= app-text/htmldoc
+SLOT=0
+SRC_URI=mirror://sourceforge/burrtools/burrtools-0.5.2.tar.gz doc? ( mirror://sourceforge/burrtools/burrtools-0.5.2-A4.pdf )
+_md5_=2ee7f6025670dafeb0480f5fbf012c6f

@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure
+DEPEND=foma? ( >sci-misc/foma-0.9.13 ) glib? ( dev-libs/glib:2 ) openfst? ( >sci-misc/openfst-1.2 ) sfst? ( >sci-misc/sfst-1.3 ) xml? ( dev-libs/libxml2:2= dev-cpp/libxmlpp:3.0= ) >=sys-devel/flex-2.5.35 sys-devel/bison
+DESCRIPTION=Helsinki Finite State Transducer API and tools
+EAPI=6
+HOMEPAGE=http://hfst.sourceforge.net/
+IUSE=+openfst sfst foma xml +glib
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=foma? ( >sci-misc/foma-0.9.13 ) glib? ( dev-libs/glib:2 ) openfst? ( >sci-misc/openfst-1.2 ) sfst? ( >sci-misc/sfst-1.3 ) xml? ( dev-libs/libxml2:2= dev-cpp/libxmlpp:3.0= )
+SLOT=0
+SRC_URI=mirror://sourceforge/hfst/hfst-3.3.12.tar.gz
+_md5_=1b2c805a50d5a277e63d584f5784c8a4

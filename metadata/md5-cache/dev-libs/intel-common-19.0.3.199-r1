@@ -1,0 +1,14 @@
+DEFINED_PHASES=install nofetch postinst postrm pretend setup unpack
+DEPEND=app-arch/rpm2targz
+DESCRIPTION=Common libraries and utilities needed for Intel compilers and libraries
+EAPI=7
+HOMEPAGE=http://software.intel.com/en-us/articles/intel-compilers/
+IUSE=+compiler doc +mpi +openmp abi_x86_32 abi_x86_64
+KEYWORDS=-* ~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=Intel-SDP
+REQUIRED_USE=|| ( abi_x86_32 abi_x86_64 )
+RESTRICT=mirror fetch
+SLOT=0
+SRC_URI=parallel_studio_xe_2019_update3_professional_edition.tgz
+_eclasses_=check-reqs	5e40a693d9c828e8f3655184116e8b73	eutils	fcb2aa98e1948b835b5ae66ca52868c5	intel-sdp-r1	155be593642e5fb254b6ffdd591fef24	multibuild	40fe59465edacd730c644ec2bc197809	multilib	1d91b03d42ab6308b5f4f6b598ed110e	multilib-build	02d2553a7a1865bb34733f40f54b9491	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=c593478c83ef8eb05b0a8c640ef9f0c3

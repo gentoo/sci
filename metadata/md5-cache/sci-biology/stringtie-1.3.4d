@@ -1,0 +1,9 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=Transcriptome assembler and RNA-Seq analysis on BAM files aka cufflinks
+EAPI=6
+HOMEPAGE=https://ccb.jhu.edu/software/stringtie https://github.com/gpertea/stringtie
+KEYWORDS=~amd64 ~x86
+LICENSE=Artistic-2 MIT
+SLOT=0
+SRC_URI=http://ccb.jhu.edu/software/stringtie/dl/stringtie-1.3.4d.tar.gz
+_md5_=ea2f391fd1a27302da5dc22d8ba9192c

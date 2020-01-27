@@ -1,0 +1,11 @@
+DEFINED_PHASES=configure
+DEPEND=dev-libs/libxml2 dev-lang/lua:* sci-libs/gsl
+DESCRIPTION=A NeuroML-enabled, precise but slow neuronal network simulator
+EAPI=6
+HOMEPAGE=http://johnhommer.com/academic/code/cnrun
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2+
+RDEPEND=dev-libs/libxml2 dev-lang/lua:* sci-libs/gsl
+SLOT=0
+SRC_URI=http://alfinston.dlinkddns.com/johnhommer.com/code/cnrun/source/cnrun-2.1.0.tar.xz
+_md5_=5a4d8a2f9c6e7bbeedb0d4ff0b90cbda

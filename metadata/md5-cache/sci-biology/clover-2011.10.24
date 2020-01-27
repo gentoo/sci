@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst prepare
+DESCRIPTION=Cis-eLement OVERrepresentation: Detection of functional DNA motifs
+EAPI=5
+HOMEPAGE=http://zlab.bu.edu/clover/
+KEYWORDS=~amd64 ~x86
+LICENSE=freedist
+SLOT=0
+SRC_URI=http://zlab.bu.edu/~mfrith/downloads/clover-2011-10-24.tar.gz http://zlab.bu.edu/clover/jaspar2009core
+_eclasses_=estack	686eaab303305a908fd57b2fd7617800	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c	versionator	2352c3fc97241f6a02042773c8287748
+_md5_=0a942769e7bd24b90eef4cb8d8b75510

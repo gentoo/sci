@@ -1,0 +1,15 @@
+DEFINED_PHASES=compile configure install prepare setup test unpack
+DEPEND=>=dev-ruby/hoe-2.8.0 >=dev-ruby/rdoc-3.10 dev-ruby/bundler ruby_targets_ruby24? ( dev-lang/ruby:2.4 ) ruby_targets_ruby24? ( test? ( dev-ruby/rake[ruby_targets_ruby24(-)] ) ) ruby_targets_ruby24? ( virtual/rubygems[ruby_targets_ruby24(-)] ) test? ( ruby_targets_ruby24? ( virtual/rubygems[ruby_targets_ruby24(-)] ) )
+DESCRIPTION=Classify assembled transcripts and fix frameshifts in ORFs
+EAPI=6
+HOMEPAGE=http://www.rubydoc.info/gems/full_lengther_next http://www.scbi.uma.es/site/scbi/downloads/313-full-lengthernext
+IUSE=ruby_targets_ruby24 test test
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=dev-ruby/hoe-2.8.0 >=dev-ruby/rdoc-3.10 dev-ruby/bundler sci-biology/bioruby >=sci-biology/bio-cd-hit-report-0.1.0 >=sci-biology/scbi_blast-0.0.37 >=sci-biology/scbi_fasta-0.1.7 >=sci-biology/scbi_zcat-0.0.2 >=sci-biology/scbi_mapreduce-0.0.29 >=sci-biology/scbi_plot-0.0.6 >=dev-ruby/xml-simple-1.0.12 >=dev-ruby/gnuplot-2.3.0 ruby_targets_ruby24? ( dev-lang/ruby:2.4 ) ruby_targets_ruby24? ( virtual/rubygems[ruby_targets_ruby24(-)] )
+REQUIRED_USE=|| ( ruby_targets_ruby24 )
+RESTRICT=!test? ( test ) !test? ( test )
+SLOT=0
+SRC_URI=https://rubygems.org/gems/full_lengther_next-0.6.2.gem
+_eclasses_=estack	686eaab303305a908fd57b2fd7617800	multilib	1d91b03d42ab6308b5f4f6b598ed110e	ruby-fakegem	cca036a1477f29b926bf994faddf4099	ruby-ng	a1c89995f9f6dd045e93d13a92ca81a9	ruby-utils	cdb4c1e4283adb7707b7dd48ccaa7ad2	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=34c977266d5095e7b430fce082991803

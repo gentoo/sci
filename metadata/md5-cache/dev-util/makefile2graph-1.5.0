@@ -1,0 +1,9 @@
+DEFINED_PHASES=prepare
+DESCRIPTION=Create a graph of dependencies from GNU Make
+EAPI=6
+HOMEPAGE=https://github.com/lindenb/makefile2graph
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/lindenb/makefile2graph/archive/v1.5.0.tar.gz -> makefile2graph-1.5.0.tar.gz
+_md5_=11617e7bcaa56084153f626c43a0194e

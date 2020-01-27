@@ -1,0 +1,9 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=Pipeline to generate phylogenetic tree from SNP data
+EAPI=5
+HOMEPAGE=http://chibba.pgml.uga.edu/snphylo
+LICENSE=GPL-2
+RDEPEND=sci-biology/fastdnaml sci-biology/muscle sci-biology/phylip
+SLOT=0
+SRC_URI=http://chibba.pgml.uga.edu/snphylo/snphylo.tar.gz -> snphylo-20140701.tar.gz
+_md5_=891744db2df6949ff58568cbf673f1fd

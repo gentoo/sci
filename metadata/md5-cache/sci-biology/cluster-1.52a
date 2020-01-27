@@ -1,0 +1,13 @@
+DEFINED_PHASES=configure install nofetch postinst prepare
+DEPEND=X? ( x11-libs/motif:0= )
+DESCRIPTION=Hierarchical, k-means, k-medians clustering for expression/microarray analysis
+EAPI=5
+HOMEPAGE=http://bonsai.hgc.jp/~mdehoon/software/cluster http://bonsai.hgc.jp/~mdehoon/software/cluster/software.htm#ctv
+IUSE=X
+KEYWORDS=~amd64 ~x86
+LICENSE=Eisen
+RDEPEND=X? ( x11-misc/xdg-utils app-text/mupdf )
+RESTRICT=fetch
+SLOT=0
+SRC_URI=cluster-1.52a.tar.gz
+_md5_=810466b12b29e1d9c4786dad3367bbe2

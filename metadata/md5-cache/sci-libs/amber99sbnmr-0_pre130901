@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
+EAPI=5
+HOMEPAGE=https://research.chemistry.ohio-state.edu/bruschweiler/protein-force-field/
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=all-rights-reserved
+RESTRICT=strip binchecks
+SLOT=0
+SRC_URI=http://research.chemistry.ohio-state.edu/bruschweiler/files/2013/09/nmr1.tar -> amber99sbnmr-0_pre130901.tar
+_md5_=1922d66c8183b04769299a2759bd3397

@@ -1,0 +1,10 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=Secondary structure propensities
+EAPI=5
+HOMEPAGE=http://abragam.med.utoronto.ca/software.html
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=all-rights-reserved
+RDEPEND=dev-lang/perl
+SLOT=0
+SRC_URI=http://pound.med.utoronto.ca/ssp-Nov09.tar.gz
+_md5_=42465845db7163b9fced70be6b49a764

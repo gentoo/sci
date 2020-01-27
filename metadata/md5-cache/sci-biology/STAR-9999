@@ -1,0 +1,10 @@
+DEFINED_PHASES=compile install prepare unpack
+DEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=STAR aligner: align RNA-seq reads to reference genome uncompressed suffix arrays
+EAPI=5
+HOMEPAGE=http://code.google.com/p/rna-star/
+LICENSE=GPL-3
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=f28e122070731a003469ba930d444682

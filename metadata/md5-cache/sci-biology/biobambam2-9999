@@ -1,0 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl] >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.1:1.16 >=sys-devel/automake-1.15.1:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DEFINED_PHASES=configure prepare unpack
+DEPEND=!sci-biology/biobambam >=sci-libs/libmaus2-2.0.555
+DESCRIPTION=Tools for bam file processing (using libmaus2)
+EAPI=7
+HOMEPAGE=https://gitlab.com/german.tischler/biobambam2 https://github.com/gt1/biobambam2
+LICENSE=GPL-3 MIT
+PROPERTIES=live
+RDEPEND=!sci-biology/biobambam >=sci-libs/libmaus2-2.0.555
+SLOT=0
+_eclasses_=autotools	ea7865c8fba1ea8d3639f355fffe1a3c	git-r3	809e27702c573cbba31c08ed00bbad33	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=d977620b6a61c9940addb7d1c99a878a

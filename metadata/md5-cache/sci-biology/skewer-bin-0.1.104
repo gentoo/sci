@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Adaptor and MID removal / trimming tool
+EAPI=5
+HOMEPAGE=http://sourceforge.net/projects/skewer
+KEYWORDS=~amd64
+LICENSE=Artistic
+RDEPEND=dev-lang/perl
+SLOT=0
+SRC_URI=http://sourceforge.net/projects/skewer/files/Binaries/skewer-0.1.104-linux-x86_64 http://sourceforge.net/projects/skewer/files/Scripts/srna-scripts-0.1.2.tar.gz
+_md5_=c247a31fc3ecf3205efc7aeb934ff459

@@ -1,0 +1,10 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=Primers design for standard PCR, bisulphite PCR and Real-time PCR
+EAPI=5
+HOMEPAGE=http://perlprimer.sourceforge.net/
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=dev-perl/Tk dev-perl/libwww-perl >=sci-biology/rebase-904
+SLOT=0
+SRC_URI=mirror://sourceforge/perlprimer/perlprimer-1.1.21.tar.bz2
+_md5_=42bd8fbd28e971ed88d84de49f3780a9

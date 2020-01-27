@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure install setup
+DEPEND=mpi? ( virtual/mpi ) mpi-compat? ( virtual/mpi )
+DESCRIPTION=The Berkeley UPC Runtime/driver
+EAPI=5
+HOMEPAGE=http://upc.lbl.gov/
+IUSE=mpi mpi-compat pshm +segment-fast segment-large +single +sptr-packed sptr-struct sptr-symmetric threads +udp
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD-4
+REQUIRED_USE=^^ ( segment-fast segment-large ) ^^ ( sptr-packed sptr-struct sptr-symmetric )
+SLOT=0
+SRC_URI=http://upc.lbl.gov/download/release/berkeley_upc-2.20.0.tar.gz
+_md5_=1c87c2a9bf43311d762b8854cacdbbec

@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Scripts for ncbi-tools++ and SRA postprocessing using taxonomy
+EAPI=5
+HOMEPAGE=ftp://ftp.ncbi.nih.gov/blast/WGS_TOOLS http://www.ncbi.nlm.nih.gov/books/NBK279690/ http://www.ncbi.nlm.nih.gov/genbank/wgs
+KEYWORDS=~amd64 ~x86
+LICENSE=all-rights-reserved
+RDEPEND=dev-lang/perl
+SLOT=0
+SRC_URI=ftp://ftp.ncbi.nih.gov/blast/WGS_TOOLS/taxid2tsa.pl ftp://ftp.ncbi.nih.gov/blast/WGS_TOOLS/taxid2wgs.pl
+_md5_=bb606aa7fad0388703c05e293f58d45b

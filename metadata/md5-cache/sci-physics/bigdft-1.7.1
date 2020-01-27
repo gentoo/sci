@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare setup test
+DEPEND=( >=sci-libs/libxc-1.2.0-r1[fortran] <sci-libs/libxc-2.2 ) virtual/blas virtual/fortran virtual/lapack dev-libs/libyaml mpi? ( virtual/mpi ) cuda? ( dev-util/nvidia-cuda-sdk ) opencl? ( virtual/opencl ) glib? ( >=dev-libs/glib-2.22 ) etsf_io? ( >=sci-libs/etsf_io-1.0.4[pic] ) netcdf? ( || ( sci-libs/netcdf[fortran] sci-libs/netcdf-fortran ) ) scalapack? ( virtual/scalapack ) virtual/pkgconfig >=sys-devel/autoconf-2.59 doc? ( virtual/latex-base ) || ( >=dev-lang/python-2.7.5-r2:2.7 ) dev-python/pyyaml[libyaml] dev-util/gdbus-codegen app-arch/tar app-arch/gzip >=app-portage/elt-patches-20170815 virtual/fortran
+DESCRIPTION=A DFT electronic structure code using a wavelet basis set
+EAPI=5
+HOMEPAGE=http://bigdft.org/
+IUSE=cuda doc etsf_io glib mpi netcdf openmp opencl scalapack test
+KEYWORDS=~amd64 ~x86 ~amd64-linux
+LICENSE=GPL-3
+RDEPEND=( >=sci-libs/libxc-1.2.0-r1[fortran] <sci-libs/libxc-2.2 ) virtual/blas virtual/fortran virtual/lapack dev-libs/libyaml mpi? ( virtual/mpi ) cuda? ( dev-util/nvidia-cuda-sdk ) opencl? ( virtual/opencl ) glib? ( >=dev-libs/glib-2.22 ) etsf_io? ( >=sci-libs/etsf_io-1.0.4[pic] ) netcdf? ( || ( sci-libs/netcdf[fortran] sci-libs/netcdf-fortran ) ) scalapack? ( virtual/scalapack ) virtual/fortran
+SLOT=0
+SRC_URI=http://launchpad.net/bigdft/1.7/1.7.1/+download/bigdft-1.7.1.tar.bz2
+_eclasses_=autotools	ea7865c8fba1ea8d3639f355fffe1a3c	autotools-utils	95db0904ad0f62535e18e5ccb67cce5e	desktop	b1d22ac8bdd4679ab79c71aca235009d	epatch	a1bf4756dba418a7238f3be0cb010c54	estack	686eaab303305a908fd57b2fd7617800	eutils	fcb2aa98e1948b835b5ae66ca52868c5	flag-o-matic	dc34234e8c43343da45853da22dcf14b	fortran-2	216ce6fa0e81c0c91667aee598c792dd	libtool	f143db5a74ccd9ca28c1234deffede96	ltprune	2729691420b6deeda2a90b1f1183fb55	multilib	1d91b03d42ab6308b5f4f6b598ed110e	preserve-libs	ef207dc62baddfddfd39a164d9797648	python-any-r1	b6db354660033efd06cd6d7f4905ccea	python-utils-r1	611c493a4cfef5254350fabc04b606f5	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf
+_md5_=e1928b75b77cf8c59aae29a75f76a3fc

@@ -1,0 +1,9 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=Tool to generate command line parsers for C++ (aka Gengetopt)
+EAPI=6
+HOMEPAGE=https://github.com/gmarcais/yaggo
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+SLOT=0
+SRC_URI=https://github.com/gmarcais/yaggo/archive/v1.5.10.tar.gz -> yaggo-1.5.10.tar.gz
+_md5_=67ead88b1f77d3dcd568fcf89db80d6d

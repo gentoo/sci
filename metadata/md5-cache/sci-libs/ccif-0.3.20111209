@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare setup test
+DEPEND=virtual/fortran >=app-portage/elt-patches-20170815 virtual/fortran
+DESCRIPTION=CCP4 ccif lib
+EAPI=5
+HOMEPAGE=http://www.ccp4.ac.uk/
+IUSE=static-libs
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=LGPL-3
+RDEPEND=virtual/fortran virtual/fortran
+SLOT=0
+SRC_URI=ftp://ftp.ccp4.ac.uk/opensource/ccif-0.3.20111209.tar.gz
+_eclasses_=autotools	ea7865c8fba1ea8d3639f355fffe1a3c	autotools-utils	95db0904ad0f62535e18e5ccb67cce5e	desktop	b1d22ac8bdd4679ab79c71aca235009d	epatch	a1bf4756dba418a7238f3be0cb010c54	estack	686eaab303305a908fd57b2fd7617800	eutils	fcb2aa98e1948b835b5ae66ca52868c5	fortran-2	216ce6fa0e81c0c91667aee598c792dd	libtool	f143db5a74ccd9ca28c1234deffede96	ltprune	2729691420b6deeda2a90b1f1183fb55	multilib	1d91b03d42ab6308b5f4f6b598ed110e	preserve-libs	ef207dc62baddfddfd39a164d9797648	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf
+_md5_=caad1b0dafc5274008fd3fabe5e2c7de

@@ -1,0 +1,13 @@
+DEFINED_PHASES=configure install postinst preinst prepare unpack
+DEPEND=modelfit? ( sci-libs/atlas[lapack,threads=] sci-libs/fftw:3.0 ) || ( dev-vcs/subversion[http] dev-vcs/subversion[webdav-neon] dev-vcs/subversion[webdav-serf] ) net-misc/rsync >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.1:1.16 >=sys-devel/automake-1.15.1:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DESCRIPTION=Extract catalogs of sources from astronomical FITS images
+EAPI=6
+HOMEPAGE=http://www.astromatic.net/software/sextractor
+IUSE=doc modelfit test threads
+LICENSE=GPL-3
+PROPERTIES=live
+RDEPEND=modelfit? ( sci-libs/atlas[lapack,threads=] sci-libs/fftw:3.0 )
+REQUIRED_USE=test? ( modelfit )
+SLOT=0
+_eclasses_=autotools	ea7865c8fba1ea8d3639f355fffe1a3c	estack	686eaab303305a908fd57b2fd7617800	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	1d91b03d42ab6308b5f4f6b598ed110e	subversion	1086a6c20b5a06e9f05f3128525fa694	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=ca4c84c862d1bdd2fd89de9c28981126

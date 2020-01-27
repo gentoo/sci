@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Documentation reference and man pages for ScaLAPACK implementations
+EAPI=6
+HOMEPAGE=http://www.netlib.org/scalapack/
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=BSD
+SLOT=0
+SRC_URI=http://dev.gentoo.org/~bicatali/distfiles/scalapack-docs-2.0.tar.bz2
+_md5_=dd4d314ad2e80d2ff15fb22f95c29756

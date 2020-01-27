@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
+EAPI=5
+HOMEPAGE=https://research.chemistry.ohio-state.edu/bruschweiler/protein-force-field/
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=all-rights-reserved
+RESTRICT=strip binchecks
+SLOT=0
+SRC_URI=http://research.chemistry.ohio-state.edu/bruschweiler/files/2013/09/cmap.itp_.tar -> amber99sb_phipsi-0_pre130901.tar
+_md5_=b4db64e2372e7c03095bb61a541c0179

@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=sci-biology/ParaAT
+DESCRIPTION=Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates
+EAPI=7
+HOMEPAGE=https://code.google.com/p/kaks-calculator https://sourceforge.net/projects/kakscalculator2/ https://www.sciencedirect.com/science/article/pii/S1672022910600083
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=dev-lang/perl sci-biology/paml sci-biology/ParaAT
+SLOT=0
+SRC_URI=https://netcologne.dl.sourceforge.net/project/kakscalculator2/KaKs_Calculator2.0.tar.gz -> KaKs_Calculator-2.0.tar.gz https://raw.githubusercontent.com/WilsonSayresLab/AlignmentProcessor/master/KaKs_Calculator/KaKs_Calculator2.0/KaKs_Calculator2.0_manual.pdf -> KaKs_Calculator-2.0_manual.pdf https://s3.amazonaws.com/fumba.me/share+files/1-s2.0-S1672022907600072-main.pdf -> KaKs_Calculator-Zhang_et_al_2006.pdf
+_eclasses_=eutils	fcb2aa98e1948b835b5ae66ca52868c5	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=485a3910f6ed45627036a13ce24b9d37

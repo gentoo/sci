@@ -1,0 +1,11 @@
+DEFINED_PHASES=configure postinst
+DEPEND=dev-libs/xerces-c doc? ( virtual/latex-base app-text/dvipsk )
+DESCRIPTION=Whole genome shotgun OLC assembler for Sanger reads (overlap-layout-contig)
+EAPI=5
+HOMEPAGE=https://www.broadinstitute.org/crd/wiki http://genome.cshlp.org/content/12/1/177.abstract
+IUSE=doc openmp
+LICENSE=MIT
+RDEPEND=dev-libs/xerces-c doc? ( virtual/latex-base app-text/dvipsk )
+SLOT=0
+SRC_URI=ftp://ftp.broadinstitute.org/pub/crd/ARACHNE/latest_source_code/arachne-46233.tar.gz
+_md5_=2344f517dfeff7e937225714f0a1c54d

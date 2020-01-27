@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install
+DEPEND=dev-lang/fpc gui? ( dev-lang/lazarus )
+DESCRIPTION=Converts Bruker ParaVision MRI data to the NIfTI file format
+EAPI=6
+HOMEPAGE=https://github.com/neurolabusc/Bru2Nii
+IUSE=gui
+KEYWORDS=~amd64
+LICENSE=|| ( Artistic GPL-1+ )
+SLOT=0
+SRC_URI=https://github.com/neurolabusc/Bru2Nii/archive/v1.0.20161212b.tar.gz -> bru2nii-1.0.20161212b.tar.gz
+_md5_=5063ff459e0e384667e50a9e9fe85149

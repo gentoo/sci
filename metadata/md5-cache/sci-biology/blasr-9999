@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install unpack
+DEPEND=sci-biology/pbbam dev-libs/boost:=[threads] hdf5? ( >=sci-libs/hdf5-1.8.12[cxx] ) >=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=The PacBio long read aligner
+EAPI=5
+HOMEPAGE=http://www.smrtcommunity.com/SMRT-Analysis/Algorithms/BLASR
+IUSE=hdf5
+LICENSE=blasr
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33
+_md5_=7b0a33073d69d94583067a33785005cc

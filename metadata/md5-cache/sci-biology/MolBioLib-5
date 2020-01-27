@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=dev-lang/perl sys-devel/gcc:* sys-devel/clang:* >=sci-biology/samtools-0.1.18:0.1-legacy <sci-biology/samtools-1:0.1-legacy
+DESCRIPTION=C++11 framework for bioinformatics tasks
+EAPI=7
+HOMEPAGE=https://sourceforge.net/projects/molbiolib
+IUSE=doc
+LICENSE=GPL-3
+RDEPEND=dev-lang/perl sys-devel/gcc:* sys-devel/clang:* >=sci-biology/samtools-0.1.18:0.1-legacy <sci-biology/samtools-1:0.1-legacy
+SLOT=0
+SRC_URI=https://sourceforge.net/projects/molbiolib/files/MolBioLib_public.version5.tar.gz
+_md5_=57aa2b89546e5c7bc7c9825013ba0a4f

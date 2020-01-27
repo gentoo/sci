@@ -1,0 +1,11 @@
+DEFINED_PHASES=install prepare unpack
+DEPEND=sys-libs/zlib dev-libs/protobuf !sci-biology/fsl >=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=C/C++ library for working with human genetic variation data
+EAPI=5
+HOMEPAGE=http://atgu.mgh.harvard.edu/plinkseq
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=sys-libs/zlib dev-libs/protobuf !sci-biology/fsl
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=18b511b1ab1f66daaa41c89d1f36f3e5

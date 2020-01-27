@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install postinst preinst prepare setup test unpack
+DEPEND=app-arch/xz-utils dev-lang/tk:0= dev-tcltk/tklib media-libs/libpng:0 sci-biology/samtools:0 >=sci-libs/io_lib-1.13.8 sys-libs/zlib >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.1:1.16 >=sys-devel/automake-1.15.1:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 virtual/fortran || ( dev-vcs/subversion[http] dev-vcs/subversion[webdav-neon] dev-vcs/subversion[webdav-serf] ) net-misc/rsync
+DESCRIPTION=DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
+EAPI=5
+HOMEPAGE=http://sourceforge.net/projects/staden/
+IUSE=debug doc fortran png tcl tk X zlib
+LICENSE=staden
+PROPERTIES=live
+RDEPEND=app-arch/xz-utils dev-lang/tk:0= dev-tcltk/tklib media-libs/libpng:0 sci-biology/samtools:0 >=sci-libs/io_lib-1.13.8 sys-libs/zlib >=dev-tcltk/iwidgets-4.0 tcl? ( >=dev-tcltk/itcl-3.2 ) tk? ( >=dev-tcltk/itk-3.2 ) net-misc/curl doc? ( sci-biology/staden_doc ) virtual/fortran
+SLOT=0
+_eclasses_=autotools	ea7865c8fba1ea8d3639f355fffe1a3c	autotools-utils	95db0904ad0f62535e18e5ccb67cce5e	desktop	b1d22ac8bdd4679ab79c71aca235009d	epatch	a1bf4756dba418a7238f3be0cb010c54	estack	686eaab303305a908fd57b2fd7617800	eutils	fcb2aa98e1948b835b5ae66ca52868c5	flag-o-matic	dc34234e8c43343da45853da22dcf14b	fortran-2	216ce6fa0e81c0c91667aee598c792dd	libtool	f143db5a74ccd9ca28c1234deffede96	ltprune	2729691420b6deeda2a90b1f1183fb55	multilib	1d91b03d42ab6308b5f4f6b598ed110e	preserve-libs	ef207dc62baddfddfd39a164d9797648	subversion	1086a6c20b5a06e9f05f3128525fa694	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf
+_md5_=8a40aee649ea27cdb59bc05df2526196

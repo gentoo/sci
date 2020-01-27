@@ -1,0 +1,15 @@
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=>=sci-biology/pysam-0.9.0 >=dev-python/bcbio-gff-0.6.2 >=dev-python/pyvcf-0.6.8 >=dev-python/pandas-0.18.0 >=sci-biology/biopython-1.66 >=dev-python/numpy-1.11.0 >=dev-python/cython-0.24 >=dev-python/shove-0.6.6 >=dev-python/sqlalchemy-1.0.12 >=dev-python/nose-1.3.7 >=dev-python/python-memcached-1.57 >=dev-python/natsort-4.0.4 >=dev-python/more-itertools-2.2 >=dev-python/enum34-1.1.2 dev-python/ngslib python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/python-exec-2:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] dev-python/setuptools[python_targets_python2_7(-)?,-python_single_target_python2_7(-)]
+DESCRIPTION=Annotate genetic variants in VCF
+EAPI=6
+HOMEPAGE=https://github.com/broadinstitute/oncotator
+IUSE=python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=oncotator
+RDEPEND=>=sci-biology/pysam-0.9.0 >=dev-python/bcbio-gff-0.6.2 >=dev-python/pyvcf-0.6.8 >=dev-python/pandas-0.18.0 >=sci-biology/biopython-1.66 >=dev-python/numpy-1.11.0 >=dev-python/cython-0.24 >=dev-python/shove-0.6.6 >=dev-python/sqlalchemy-1.0.12 >=dev-python/nose-1.3.7 >=dev-python/python-memcached-1.57 >=dev-python/natsort-4.0.4 >=dev-python/more-itertools-2.2 >=dev-python/enum34-1.1.2 dev-python/ngslib python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/python-exec-2:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)]
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=fetch
+SLOT=0
+SRC_URI=https://github.com/broadinstitute/oncotator/archive/v1.9.2.0.tar.gz -> oncotator-1.9.2.0.tar.gz
+_eclasses_=desktop	b1d22ac8bdd4679ab79c71aca235009d	distutils-r1	c576838cd67e384002a18edd54be710e	epatch	a1bf4756dba418a7238f3be0cb010c54	estack	686eaab303305a908fd57b2fd7617800	eutils	fcb2aa98e1948b835b5ae66ca52868c5	ltprune	2729691420b6deeda2a90b1f1183fb55	multibuild	40fe59465edacd730c644ec2bc197809	multilib	1d91b03d42ab6308b5f4f6b598ed110e	multiprocessing	cac3169468f893670dac3e7cb940e045	preserve-libs	ef207dc62baddfddfd39a164d9797648	python-r1	4eed5e0c72d4544a2291ae46515f5d79	python-utils-r1	611c493a4cfef5254350fabc04b606f5	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf	xdg-utils	ff2ff954e6b17929574eee4efc5152ba
+_md5_=9eb61c5f515782dfcc285d11d617b3d0

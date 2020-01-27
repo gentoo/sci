@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Documentation reference and man pages for LAPACK implementations
+EAPI=6
+HOMEPAGE=http://www.netlib.org/lapack/
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=BSD
+SLOT=0
+SRC_URI=http://dev.gentoo.org/~bicatali/lapack-man-3.3.tar.gz http://www.netlib.org/lapack/lapackqref.ps
+_md5_=a6893d4dfa6a95c9d1111180e48bb2d4

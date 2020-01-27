@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=bam2wig? ( sci-biology/samtools:0.1-legacy ) sci-biology/bamtools >=sci-mathematics/lpsolve-5.5 sci-libs/gsl sci-libs/suitesparse sqlite? ( dev-db/sqlite:3 ) mysql? ( dev-db/mysql++ ) >=dev-libs/boost-1.49.0 sys-libs/zlib sys-devel/flex
+DESCRIPTION=Eukaryotic gene predictor
+EAPI=7
+HOMEPAGE=http://bioinf.uni-greifswald.de/augustus https://github.com/Gaius-Augustus/Augustus
+IUSE=bam2wig examples man mysql sqlite
+KEYWORDS=~amd64 ~x86
+LICENSE=Artistic
+RDEPEND=bam2wig? ( sci-biology/samtools:0.1-legacy ) sci-biology/bamtools >=sci-mathematics/lpsolve-5.5 sci-libs/gsl sci-libs/suitesparse sqlite? ( dev-db/sqlite:3 ) mysql? ( dev-db/mysql++ ) >=dev-libs/boost-1.49.0 sys-libs/zlib
+SLOT=0
+SRC_URI=https://github.com/Gaius-Augustus/Augustus/archive/3.3.2.tar.gz -> augustus-3.3.2.tar.gz
+_eclasses_=eutils	fcb2aa98e1948b835b5ae66ca52868c5	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=63f75eea844ac52d3d0ef10cb5ff5daf

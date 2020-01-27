@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile configure install unpack
+DEPEND=virtual/pkgconfig x11-libs/libdrm[video_cards_nouveau] x11-misc/envytools >=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=Gdev is open-source GPGPU runtime
+EAPI=5
+HOMEPAGE=https://github.com/shinpei0208/gdev
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=x11-libs/libdrm[video_cards_nouveau] x11-misc/envytools
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=f6b2f1c512936b95d3fbdc9206e6a71c

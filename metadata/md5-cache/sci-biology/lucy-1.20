@@ -1,0 +1,9 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=DNA sequence quality and vector trimming tool
+EAPI=5
+HOMEPAGE=http://lucy.sourceforge.net/
+KEYWORDS=~amd64 ~x86
+LICENSE=Artistic
+SLOT=0
+SRC_URI=http://sourceforge.net/projects/lucy/files/lucy/lucy%201.20/lucy1.20.tar.gz
+_md5_=6f748ff84b5f1308ff3b17edfa4a63db

@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=ace to gap4 converter
+EAPI=6
+HOMEPAGE=http://genome.imb-jena.de/software/roche454ace2caf
+LICENSE=FLI-Jena
+RDEPEND=sci-biology/align_to_scf sci-biology/sff_dump sci-biology/caftools sci-biology/staden dev-lang/perl app-shells/ksh
+SLOT=0
+SRC_URI=http://genome.imb-jena.de/software/roche454ace2caf/download/src/roche454ace2gap-2010-12-08.tgz
+_md5_=bfb72dabf709a23751a38951aee00d77

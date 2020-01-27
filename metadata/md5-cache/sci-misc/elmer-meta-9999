@@ -1,0 +1,8 @@
+DEFINED_PHASES=postinst
+DEPEND=~sci-libs/matc-9999 ~sci-misc/elmer-elmergrid-9999 ~sci-misc/elmer-meshgen2d-9999 ~sci-libs/elmer-eio-9999 ~sci-libs/elmer-hutiter-9999 ~sci-misc/elmer-fem-9999 ~sci-misc/elmer-post-9999 ~sci-misc/elmer-front-9999
+DESCRIPTION=Collection of finite element programs, libraries, and visualization tools
+EAPI=6
+HOMEPAGE=http://www.csc.fi/english/pages/elmer
+LICENSE=GPL-2
+SLOT=0
+_md5_=a2b191073c267c0fed108d584c5b8cb0

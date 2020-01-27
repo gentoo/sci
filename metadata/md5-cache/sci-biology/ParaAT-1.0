@@ -1,0 +1,11 @@
+DEFINED_PHASES=install prepare
+DEPEND=dev-lang/perl
+DESCRIPTION=Create multiple protein-coding DNA alignments and back-Translation
+EAPI=6
+HOMEPAGE=https://code.google.com/p/paraat http://cbb.big.ac.cn/software https://www.sciencedirect.com/science/article/pii/S0006291X12003518
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=dev-lang/perl
+SLOT=0
+SRC_URI=https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/paraat/ParaAT1.0.tar.gz -> ParaAT-1.0.tar.gz
+_md5_=3c63712a38ddd7e8b74ea7d56cbf569f

@@ -1,0 +1,11 @@
+DEFINED_PHASES=install prepare
+DEPEND=net-misc/curl
+DESCRIPTION=C library for handling bigWig files (functionally replacing Jim Kent's lib)
+EAPI=6
+HOMEPAGE=https://github.com/dpryan79/libBigWig
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+RDEPEND=net-misc/curl
+SLOT=0
+SRC_URI=https://github.com/dpryan79/libBigWig/archive/0.4.0.tar.gz -> libBigWig-0.4.0.tar.gz
+_md5_=2b615e6d510b672a03fab4dbe5ba3e09

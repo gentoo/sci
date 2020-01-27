@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=>=sci-mathematics/octave-3.8 app-arch/unzip
+DESCRIPTION=Analysis of brain imaging data sequences for Octave or Matlab
+EAPI=7
+HOMEPAGE=http://www.fil.ion.ucl.ac.uk/spm/
+KEYWORDS=~amd64
+LICENSE=GPL-2+
+RDEPEND=>=sci-mathematics/octave-3.8
+SLOT=0
+SRC_URI=https://github.com/spm/spm12/archive/r6470.tar.gz -> spm-12_p6470.tar.gz
+_md5_=15f619876515f8786b7b9f6e829443fa

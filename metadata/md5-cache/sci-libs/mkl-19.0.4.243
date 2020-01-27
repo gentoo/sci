@@ -1,0 +1,15 @@
+DEFINED_PHASES=install nofetch postinst postrm prerm pretend setup unpack
+DEPEND=>=app-admin/eselect-1.4.13-r101 app-arch/rpm2targz >=app-admin/eselect-1.4.13-r101 virtual/fortran
+DESCRIPTION=Intel Math Kernel Library: linear algebra, fft, math functions
+EAPI=7
+HOMEPAGE=http://software.intel.com/en-us/articles/intel-mkl/
+IUSE=doc int64 abi_x86_32 abi_x86_64 int64
+KEYWORDS=-* ~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=Intel-SDP
+RDEPEND=~dev-libs/intel-common-19.0.4.243[compiler] >=app-admin/eselect-1.4.13-r101 !app-eselect/eselect-blas !app-eselect/eselect-cblas !app-eselect/eselect-lapack >=app-admin/eselect-1.4.13-r101 !app-eselect/eselect-blas !app-eselect/eselect-cblas !app-eselect/eselect-lapack virtual/fortran
+REQUIRED_USE=|| ( abi_x86_32 abi_x86_64 )
+RESTRICT=mirror fetch
+SLOT=0
+SRC_URI=parallel_studio_xe_2019_update4_professional_edition.tgz
+_eclasses_=alternatives-2	8f6e3469da5a1b39b5a8e648299cdee5	check-reqs	5e40a693d9c828e8f3655184116e8b73	eutils	fcb2aa98e1948b835b5ae66ca52868c5	fortran-2	216ce6fa0e81c0c91667aee598c792dd	intel-sdp-r1	155be593642e5fb254b6ffdd591fef24	multibuild	40fe59465edacd730c644ec2bc197809	multilib	1d91b03d42ab6308b5f4f6b598ed110e	multilib-build	02d2553a7a1865bb34733f40f54b9491	numeric	6f7db4431f634823c48b80cb104e1d6b	numeric-int64-multibuild	ffe39bbbeda8bb698812d69484ca4011	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=c1b5af22c74d17641b9d8978fe7a1546

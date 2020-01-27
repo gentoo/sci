@@ -1,0 +1,11 @@
+DEFINED_PHASES=-
+DEPEND=sci-libs/libmaus
+DESCRIPTION=Tools for bam file processing
+EAPI=5
+HOMEPAGE=https://github.com/gt1/biobambam
+KEYWORDS=~x86
+LICENSE=GPL-3
+RDEPEND=sci-libs/libmaus
+SLOT=0
+SRC_URI=https://github.com/gt1/biobambam/archive/0.0.183-release-20141208165400.tar.gz
+_md5_=ea5abe02769860d979cf6e5ca3a419c6

@@ -1,0 +1,9 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=software package for algebraic number theory
+EAPI=5
+HOMEPAGE=http://page.math.tu-berlin.de/~kant/kash.html
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=kash
+SLOT=0
+SRC_URI=ftp://ftp.math.tu-berlin.de/pub/algebra/Kant/Kash_3/KASH3-Linux-i686-2008-07-31.tar.bz2 ftp://ftp.math.tu-berlin.de/pub/algebra/Kant/Kash_3/KASH3-lib-archindep-2008-07-31.tar.bz2
+_md5_=8091280623df15a36fb2bd2036757b43

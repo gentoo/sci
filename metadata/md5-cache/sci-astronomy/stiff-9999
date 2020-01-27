@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure install preinst prepare unpack
+DEPEND=media-libs/tiff:0= virtual/jpeg:0 sys-libs/zlib:0= || ( dev-vcs/subversion[http] dev-vcs/subversion[webdav-neon] dev-vcs/subversion[webdav-serf] ) net-misc/rsync
+DESCRIPTION=Converts astronomical FITS images to the TIFF format
+EAPI=6
+HOMEPAGE=http://www.astromatic.net/software/stiff
+IUSE=doc threads
+LICENSE=GPL-3
+PROPERTIES=live
+RDEPEND=media-libs/tiff:0= virtual/jpeg:0 sys-libs/zlib:0=
+SLOT=0
+_eclasses_=estack	686eaab303305a908fd57b2fd7617800	subversion	1086a6c20b5a06e9f05f3128525fa694
+_md5_=e5fda540160ed6b10a56e3caead1a917

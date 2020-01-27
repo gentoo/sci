@@ -1,0 +1,13 @@
+DEFINED_PHASES=configure install prepare
+DEPEND=media-libs/glew:0= media-libs/mesa x11-libs/wxGTK:3.0[X,opengl] flash? ( media-libs/ming ) virtual/pkgconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.1:1.16 >=sys-devel/automake-1.15.1:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DESCRIPTION=Chemical 3D graphics program with GAMESS input builder
+EAPI=6
+HOMEPAGE=http://brettbode.github.io/wxmacmolplt/
+IUSE=flash
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=media-libs/glew:0= media-libs/mesa x11-libs/wxGTK:3.0[X,opengl] flash? ( media-libs/ming )
+SLOT=0
+SRC_URI=https://github.com/brettbode/wxmacmolplt/archive/v7.6.2.tar.gz -> wxmacmolplt-7.6.2.tar.gz
+_eclasses_=autotools	ea7865c8fba1ea8d3639f355fffe1a3c	desktop	b1d22ac8bdd4679ab79c71aca235009d	epatch	a1bf4756dba418a7238f3be0cb010c54	estack	686eaab303305a908fd57b2fd7617800	eutils	fcb2aa98e1948b835b5ae66ca52868c5	flag-o-matic	dc34234e8c43343da45853da22dcf14b	libtool	f143db5a74ccd9ca28c1234deffede96	ltprune	2729691420b6deeda2a90b1f1183fb55	multilib	1d91b03d42ab6308b5f4f6b598ed110e	preserve-libs	ef207dc62baddfddfd39a164d9797648	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf	wxwidgets	e1e6e1eb5b3d911b3abd712f611e2312
+_md5_=bb500c7707f983484a1741f3dfd2ae61

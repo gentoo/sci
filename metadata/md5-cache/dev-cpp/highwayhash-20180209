@@ -1,0 +1,10 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=Fast strong hash functions: SipHash/HighwayHash
+EAPI=6
+HOMEPAGE=https://github.com/google/highwayhash
+IUSE=static-libs
+KEYWORDS=~amd64 ~x86
+LICENSE=Apache-2.0
+SLOT=0
+SRC_URI=https://github.com/google/highwayhash/archive/14dedecd1de87cb662f7a882ea1578d2384feb2f.tar.gz -> highwayhash-20180209.tar.gz
+_md5_=d7e613177da9b826fc189531691afc60

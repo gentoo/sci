@@ -1,0 +1,10 @@
+DEFINED_PHASES=compile install unpack
+DEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=Provide random access to text files BGZF compressed with bgzip
+EAPI=6
+HOMEPAGE=https://github.com/arq5x/grabix
+LICENSE=MIT
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=b0ac53126977c6106e9a68b76ca2ef17

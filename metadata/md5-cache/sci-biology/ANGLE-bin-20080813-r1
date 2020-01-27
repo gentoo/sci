@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=CDS prediction overcoming sequencing errors in unfinished cDNA
+EAPI=6
+HOMEPAGE=http://bioinformatics.cenargen.embrapa.br/portrait/download
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD
+SLOT=0
+SRC_URI=http://bioinformatics.cenargen.embrapa.br/portrait/download/angle.tar.gz -> ANGLE-bin-20080813.tar.gz
+_md5_=0dc0a27604a6e0ff6a5d89500664e197

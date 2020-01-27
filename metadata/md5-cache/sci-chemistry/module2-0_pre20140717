@@ -1,0 +1,11 @@
+DEFINED_PHASES=install nofetch
+DEPEND=x11-libs/motif:2.2[abi_x86_32(-)] x11-libs/libX11[abi_x86_32(-)] x11-libs/libXext[abi_x86_32(-)] x11-libs/libXpm[abi_x86_32(-)] x11-libs/libXt[abi_x86_32(-)]
+DESCRIPTION=Residual dipolar coupling and residual chemical shift analysis software
+EAPI=5
+HOMEPAGE=http://www.ibs.fr/science-213/scientific-output/software/module/?lang=en
+LICENSE=all-rights-reserved
+RDEPEND=x11-libs/motif:2.2[abi_x86_32(-)] x11-libs/libX11[abi_x86_32(-)] x11-libs/libXext[abi_x86_32(-)] x11-libs/libXpm[abi_x86_32(-)] x11-libs/libXt[abi_x86_32(-)]
+RESTRICT=fetch splitdebug
+SLOT=0
+SRC_URI=MODULE2.tar.gz
+_md5_=2876d3b662b23928c639c657f18e5b15

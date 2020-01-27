@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install test
+DEPEND=sci-physics/root:= >=sci-physics/geant-4.9.6[opengl,geant3,examples?] vgm? ( sci-physics/vgm ) doc? ( app-doc/doxygen )
+DESCRIPTION=Virtual Monte Carlo Geant4 implementation
+EAPI=5
+HOMEPAGE=http://root.cern.ch/root/vmc/VirtualMC.html
+IUSE=doc examples vgm
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=GPL-2
+RDEPEND=sci-physics/root:= >=sci-physics/geant-4.9.6[opengl,geant3,examples?] vgm? ( sci-physics/vgm )
+SLOT=4
+SRC_URI=http://root.cern.ch/download/vmc/geant4_vmc.2.15a.tar.gz
+_eclasses_=estack	686eaab303305a908fd57b2fd7617800	versionator	2352c3fc97241f6a02042773c8287748
+_md5_=395469dbdcd27b268b6b1e91b5e687f8

@@ -1,0 +1,10 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=Tandem Repeats Finder
+EAPI=6
+HOMEPAGE=http://tandem.bu.edu/trf/trf.html
+KEYWORDS=~amd64 ~x86
+LICENSE=trf
+RESTRICT=mirror bindist
+SLOT=0
+SRC_URI=http://tandem.bu.edu/trf/downloads/trf404.linux http://tandem.bu.edu/trf/trf.unix.help.html http://tandem.bu.edu/trf/trf.definitions.html http://tandem.bu.edu/trf/trf.whatnew.html
+_md5_=713446fdfcfa306a804b5d0f7d7f7acc

@@ -1,0 +1,11 @@
+DEFINED_PHASES=install nofetch
+DESCRIPTION=Visualisation and analysis of processed NMR data
+EAPI=5
+HOMEPAGE=http://www.onemoonscientific.com/nmrview/
+KEYWORDS=-* ~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=all-rights-reserved
+RDEPEND=x11-libs/libX11
+RESTRICT=fetch
+SLOT=0
+SRC_URI=nmrview5.2.2.lib.tar.gz nmrview5_2_2_01_linux.gz
+_md5_=6b64c98d2ccebb272c2c04f627c3db5f
