@@ -15,7 +15,7 @@ Architecture" (VISA), in order to control measurement devices and
 test equipment via GPIB, RS232, Ethernet or USB.
 </longdescription>
 	<upstream>
-		<remote-id type="github">hgrecco/pyvisa-py</remote-id>
+		<remote-id type="github">pyvisa/pyvisa</remote-id>
 		<remote-id type="pypi">PyVISA</remote-id>
 	</upstream>
 </pkgmetadata>
