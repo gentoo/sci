@@ -1,0 +1,198 @@
+From baae97cc3c8d0cadcabb7ed16559f4e4de26ddbe Mon Sep 17 00:00:00 2001
+From: François Bissey <frp.bissey@gmail.com>
+Date: Mon, 20 Jan 2020 11:54:37 +1300
+Subject: [PATCH] Adjust the build system so it doesnt build packages
+ externally provided by portage. Make the compilation flags more generic and
+ easily adjustable. Make the build system stop at the first fault.
+
+---
+ build                   |  6 +++---
+ config/buildSettings.mk | 20 ++++++++++----------
+ config/common/buildproj |  8 +++++---
+ config/common/vars.mk   | 10 +++++-----
+ extras/build            |  8 ++++----
+ src/mist-clean/Makefile |  2 +-
+ 6 files changed, 28 insertions(+), 26 deletions(-)
+
+diff --git a/build b/build
+index 05dac06c..d90e407b 100755
+--- a/build
++++ b/build
+@@ -3,7 +3,7 @@
+ if [ $# -ge 1 ] ; then
+   PROJECTS="$@";
+ else
+-  MASTERPROJECTS="CiftiLib-master utils znzlib NewNifti niftiio fslio giftiio miscmaths newimage libhfunc libvis first_lib \
++  MASTERPROJECTS="utils znzlib NewNifti niftiio fslio giftiio miscmaths newimage libhfunc libvis first_lib \
+ meshclass fslvtkio misc_tcl basisfield warpfns bint shapeModel MVdisc fslvtkconv fslsurface libmeshutils newmesh \
+ DiscreteOpt FastPDlib MSMRegLib misc_c dpm topup \
+ asl_mfree \
+@@ -80,8 +80,8 @@ xtract";
+   done
+ fi
+ 
+-echo "Building projects - see build.log file for progress..."
+-./config/common/buildproj $PROJECTS > ./build.log 2>&1
++echo "Building projects"
++./config/common/buildproj $PROJECTS
+ finalStatus=$?
+ if [ $finalStatus -eq 0 ]; then
+     echo "Build completed successfully.";
+diff --git a/config/buildSettings.mk b/config/buildSettings.mk
+index b2e1f150..04532fc2 100644
+--- a/config/buildSettings.mk
++++ b/config/buildSettings.mk
+@@ -18,7 +18,7 @@ MV = /bin/mv
+ CHMOD = /bin/chmod
+ MKDIR = /bin/mkdir
+ INSTALL = install -p 
+-TCLSH = ${FSLDIR}/bin/fsltclsh
++TCLSH = tclsh
+ DEPENDFLAGS = -MM
+ MACHDBGFLAGS = -g
+ #####################################################################
+@@ -124,19 +124,19 @@ endif # if Darwin
+ #####################################################################
+ ifeq ($(SYSTYPE), Linux)
+ ###############   System Vars   #####################################
+-CC = gcc
+-CXX = c++
+-CXX11 = c++
++CC = @@GENTOO_CC@@
++CXX = @@GENTOO_CXX@@
++CXX11 = @@GENTOO_CXX@@
+ CSTATICFLAGS = -static
+ CXXSTATICFLAGS = -static
+-ARCHFLAGS = -m64
+-ARCHLDFLAGS = -Wl,-rpath,'$$ORIGIN/../lib'
++ARCHFLAGS =
++ARCHLDFLAGS =
+ PARALLELFLAGS = -fopenmp
+-OPTFLAGS = -g -O3 -fexpensive-optimizations ${ARCHFLAGS}
++OPTFLAGS =
+ GNU_ANSI_FLAGS = -Wall -ansi -pedantic -Wno-long-long
+ SGI_ANSI_FLAGS = -ansi -fullwarn
+ ANSI_FLAGS = ${GNU_ANSI_FLAGS}
+-RANLIB = echo
++RANLIB = @@GENTOO_RANLIB@@
+ FSLML = ${FSLDIR}/bin/fslml
+ # CUDA development environment
+ CUDAVER := $(or $(CUDAVER),9.1)
+@@ -148,8 +148,8 @@ INC_CUDA = ${CUDA_INSTALLATION}/include
+ NVCC = ${CUDA_INSTALLATION}/bin/nvcc
+ ###############   External Libs   #####################################
+ # ZLIB library
+-LIB_ZLIB = /lib64
+-INC_ZLIB = /usr/include
++#LIB_ZLIB = /lib64
++#INC_ZLIB = /usr/include
+ # QT library
+ QTDIR = /usr/lib/qt3
+ LIB_QT = ${QTDIR}/lib
+diff --git a/config/common/buildproj b/config/common/buildproj
+index 2f0f2b8f..48624a1f 100755
+--- a/config/common/buildproj
++++ b/config/common/buildproj
+@@ -11,10 +11,10 @@ if [ X$1 = X-strict ] ; then
+ fi
+ PROJECTS="$@" ; export PROJECTS ;
+ 
+-FSLDIR=`pwd`
++#FSLDIR=`pwd`
+ FSLDEVDIR=${FSLDIR}
+ FSLCONFDIR=${FSLDIR}/config
+-FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
++#FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
+ FSLMASTERBUILD=1
+ export FSLDIR FSLDEVDIR FSLCONFDIR FSLMACHTYPE FSLMASTERBUILD
+ 
+@@ -67,7 +67,7 @@ for projname in $PROJECTS; do
+ 	  if [ -x ./fslconfig ] ; then
+ 	    . ./fslconfig ;
+ 	  fi
+-	  if ${MAKE} -k ${MAKEOPTIONS} ; then 
++	  if ${MAKE} ${MAKEOPTIONS} ; then 
+ 	    if ${MAKE} ${MAKEOPTIONS} install ; then
+ 	      installok=true;
+ 	      # Clean up after ourselves
+@@ -82,6 +82,7 @@ for projname in $PROJECTS; do
+ 	    if [ $installok = false ]  ; then
+ 	      echo " "
+ 	      echo "ERROR::Could not install $projname successfully" ;
++	      exit 1
+ 	    fi
+ 	  else
+ 	    echo " "
+@@ -90,6 +91,7 @@ for projname in $PROJECTS; do
+ 	    echo " "
+ 	    echo " "
+ 	    errorprojs="$errorprojs $projname" ; export errorprojs ;
++	    exit 1
+ 	  fi
+     fi
+ done
+diff --git a/config/common/vars.mk b/config/common/vars.mk
+index b027b010..aeeae67c 100755
+--- a/config/common/vars.mk
++++ b/config/common/vars.mk
+@@ -24,15 +24,15 @@ USRINCFLAGS =
+ USRCFLAGS = 
+ USRCXXFLAGS =
+ 
+-LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR}
++LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR} ${USERLDFLAGS}
+ 
+-AccumulatedIncFlags = -I${INC_BOOST} ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR}
++AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR} ${CPPFLAGS}
+ 
+ CFLAGS = ${ANSI_FLAGS} ${ANSI_CFLAGS} ${DBGFLAGS} ${USEDCSTATICFLAGS} ${USRCFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCFLAGS}
+ 
+-CXXFLAGS = ${ANSI_FLAGS} ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++CXXFLAGS = ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
++	${AccumulatedIncFlags} ${USERCXXFLAGS}
+ 
+ HFILES = *.h
+ AFILES = *.a
+diff --git a/extras/build b/extras/build
+index 59e7a2ed..0d68232e 100755
+--- a/extras/build
++++ b/extras/build
+@@ -96,16 +96,16 @@ if [ X"${OS}" = "XDarwin" ]; then
+ 	BUILDICONV=1
+     fi
+ fi
+-PROJECTS="tcl tk"
++#PROJECTS="tcl tk"
+ if [ ${BUILDZLIB} -eq 1 ]; then
+   PROJECTS="${PROJECTS} zlib"
+ fi
+-PROJECTS="${PROJECTS} libpng"
++#PROJECTS="${PROJECTS} libpng"
+ if [ ${BUILDICONV} -eq 1 ]; then
+   PROJECTS="${PROJECTS} libiconv"
+ fi
+-PROJECTS="${PROJECTS} libgd libgdc libprob libcprob newmat cprob newran fftw"
+-PROJECTS="${PROJECTS} boost libxml2-2.9.2 libxmlpp libsqlite libnlopt ../include/armawrap/dummy_newmat"
++PROJECTS="${PROJECTS} libgdc libprob libcprob newmat cprob newran"
++PROJECTS="${PROJECTS} ../include/armawrap/dummy_newmat"
+ for projname in $PROJECTS; do
+     if [ -d $FSLESRCDIR/$projname ] ; then
+        buildIt $FSLESRCDIR $projname 1
+diff --git a/src/mist-clean/Makefile b/src/mist-clean/Makefile
+index 20402cca..6918bee4 100755
+--- a/src/mist-clean/Makefile
++++ b/src/mist-clean/Makefile
+@@ -52,6 +52,6 @@ installpython:
+ 		cp -r python/* ${DESTDIR}/python/mist
+ 
+ clean:
+-			rm -f ${OBJS} mist/mist.o mist/mist
++			rm -f ${OBJS} mist/mist.o mist/mist || echo "CLEAN could not locate some files scheduled for deletion."
+ 
+ .PHONY:		all clean installdata
+-- 
+2.24.1
+

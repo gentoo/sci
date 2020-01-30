@@ -1,0 +1,63 @@
+From 5a5ab3c80eaaea1fe9a43659e2ea5b773b587bb0 Mon Sep 17 00:00:00 2001
+From: François Bissey <frp.bissey@gmail.com>
+Date: Mon, 20 Jan 2020 11:51:52 +1300
+Subject: [PATCH] Because we use qstrings in ciftilib, calls to ciftilib file
+ function have to be made into compatible c strings.
+
+---
+ src/flameo/gsa.cc      | 4 ++--
+ src/melodic/meldata.cc | 2 +-
+ src/melodic/meldata.h  | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/flameo/gsa.cc b/src/flameo/gsa.cc
+index 70f8f385..16167abe 100644
+--- a/src/flameo/gsa.cc
++++ b/src/flameo/gsa.cc
+@@ -74,7 +74,7 @@ namespace GSA {
+     sourceType=mode;
+     if ( sourceType.compare("CIFTI") == 0 ) {
+       cifti::CiftiFile inputCifti;
+-      inputCifti.openFile(make_basename(filename)+".nii");
++      inputCifti.openFile((make_basename(filename)+".nii").c_str());
+       ciftiExemplar=inputCifti.getCiftiXML();
+       cerr << "ndim " << ciftiExemplar.getNumberOfDimensions() << endl;
+       cerr << "type1 " << ciftiExemplar.getMappingType(0) << endl;
+@@ -194,7 +194,7 @@ namespace GSA {
+       scalarsMap.setLength(data.Nrows());
+       ciftiExemplar.setMap(0, scalarsMap);
+       CiftiFile outputFile;
+-      outputFile.setWritingFile(make_basename(filename)+extension+".nii");//sets up on-disk writing with default writing version
++      outputFile.setWritingFile((make_basename(filename)+extension+".nii").c_str());//sets up on-disk writing with default writing version
+       outputFile.setCiftiXML(ciftiExemplar,false);	    
+       vector<float> scratchRow(data.Nrows());//read/write a row at a time
+       for (int64_t row=0;row<data.Ncols();row++) {	    
+diff --git a/src/melodic/meldata.cc b/src/melodic/meldata.cc
+index c4ad2349..1515e702 100644
+--- a/src/melodic/meldata.cc
++++ b/src/melodic/meldata.cc
+@@ -118,7 +118,7 @@ namespace Melodic{
+     	tmpData = RawData.matrix(Mask);
+ 		memmsg(" after reshape ");	  
+ 	} else { //Read in Cifti
+-	  inputCifti.openFile(fname+".nii");
++	  inputCifti.openFile((fname+".nii").c_str());
+ 	  const vector<int64_t>& dims = inputCifti.getDimensions();
+ 	  tmpData.ReSize(dims[0],dims[1]); //swapped compared to cifti
+ 	  vector<float> scratchRow(dims[0]);//read/write a row at a time
+diff --git a/src/melodic/meldata.h b/src/melodic/meldata.h
+index 49774003..f5326bdd 100644
+--- a/src/melodic/meldata.h
++++ b/src/melodic/meldata.h
+@@ -109,7 +109,7 @@ namespace Melodic{
+ 	  message("  " << logger.appendDir(fname) << endl);
+ 	} else { //Process CIFTI save ICs as float
+ 	  cifti::CiftiFile outputFile;
+-	  outputFile.setWritingFile(logger.appendDir(fname)+".nii");//sets up on-disk writing with default writing version
++	  outputFile.setWritingFile((logger.appendDir(fname)+".nii").c_str());//sets up on-disk writing with default writing version
+ 	  cifti::CiftiXML xml(inputCifti.getCiftiXML());
+ 	  cifti::CiftiScalarsMap scalarsMap;
+ 	  std::vector<char> foo = xml.writeXMLToVector();
+-- 
+2.24.1
+
