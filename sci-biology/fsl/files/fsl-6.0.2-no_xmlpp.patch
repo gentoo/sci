@@ -1,0 +1,58 @@
+From 9de29e5141afa43c06f347ca158b67168fbb0031 Mon Sep 17 00:00:00 2001
+From: François Bissey <frp.bissey@gmail.com>
+Date: Mon, 20 Jan 2020 11:46:52 +1300
+Subject: [PATCH] Build without xmlpp since we use an external ciftilib that
+ doesnt require it. Replace it and other ciftilib flags with CIFTICFLAGS.
+
+---
+ src/flameo/Makefile  | 4 ++--
+ src/melodic/Makefile | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/flameo/Makefile b/src/flameo/Makefile
+index d22eb965..e967e682 100644
+--- a/src/flameo/Makefile
++++ b/src/flameo/Makefile
+@@ -2,7 +2,7 @@ include ${FSLCONFDIR}/default.mk
+ 
+ PROJNAME = flame
+ 
+-USRINCFLAGS = -I${INC_NEWMAT} -I${INC_PROB} -I${INC_ZLIB} -DCIFTILIB_USE_XMLPP -I${FSLEXTINC} -I${INC_XML2} -I${INC_XML++} -I${INC_XML++CONF} -I${INC_BOOST} -I${FSLDIR}/include/ciftiio
++USRINCFLAGS = -fPIC -I${INC_NEWMAT} -I${INC_PROB} -I${INC_ZLIB} -I${FSLEXTINC} ${CIFTICFLAGS} -I${INC_BOOST} -I${FSLDIR}/include/ciftiio
+ USRLDFLAGS = -L${LIB_NEWMAT} -L${LIB_PROB} -L${LIB_ZLIB}
+ 
+ UNAME := $(shell uname)
+@@ -10,7 +10,7 @@ ifeq (${UNAME},Darwin)
+         LIBS = -liconv
+ endif
+ 
+-LIBS += -lutils -lnewimage -lmiscmaths -lm -lnewmat -lNewNifti -lcifti -lxml++-2.6 -lxml2 -lboost_filesystem -lboost_system -lznz -lprob -lz 
++LIBS += -lutils -lnewimage -lmiscmaths -lm -lnewmat -lNewNifti ${CIFTILIBS} -lboost_filesystem -lboost_system -lznz -lprob -lz 
+ 
+ XFILES = flameo
+ 
+diff --git a/src/melodic/Makefile b/src/melodic/Makefile
+index 50666517..0c356a2d 100644
+--- a/src/melodic/Makefile
++++ b/src/melodic/Makefile
+@@ -7,7 +7,7 @@ OPTFLAGS_alphaev6-dec-osf5.0-gcc2.95.2 = -O3 -mieee -mfp-trap-mode=sui
+ 
+ PROJNAME = melodic
+ 
+-USRINCFLAGS = -I${INC_NEWMAT} -I${INC_PROB} -I${INC_GD} -I${INC_GDC} -I${INC_PNG} -I${INC_ZLIB} -DCIFTILIB_USE_XMLPP -I${FSLEXTINC} -I${INC_XML2} -I${INC_XML++} -I${INC_XML++CONF} -I${INC_BOOST} -I${FSLDIR}/include/ciftiio
++USRINCFLAGS = -fPIC -I${INC_NEWMAT} -I${INC_PROB} -I${INC_GD} -I${INC_GDC} -I${INC_PNG} -I${INC_ZLIB} -I${FSLEXTINC} ${CIFTICFLAGS} -I${INC_BOOST} -I${FSLDIR}/include/ciftiio
+ USRLDFLAGS = -L${LIB_NEWMAT} -L${LIB_PROB} -L${LIB_GD} -L${LIB_GDC} -L${LIB_PNG} -L${LIB_ZLIB}
+ 
+ UNAME := $(shell uname)
+@@ -15,7 +15,7 @@ ifeq (${UNAME},Darwin)
+         LIBS = -liconv
+ endif
+ 
+-LIBS += -lutils -lnewimage -lmiscplot -lmiscpic -lmiscmaths -lNewNifti -lcifti -lxml++-2.6 -lxml2 -lboost_filesystem -lboost_system -lznz -lnewmat -lprob -lm  -lgdc -lgd -lpng -lz
++LIBS += -lutils -lnewimage -lmiscplot -lmiscpic -lmiscmaths -lNewNifti ${CIFTILIBS} -lboost_filesystem -lboost_system -lznz -lnewmat -lprob -lm  -lgdc -lgd -lpng -lz
+ 
+ TEST_OBJS = test.o 
+ 
+-- 
+2.24.1
+
