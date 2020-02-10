@@ -6,7 +6,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<use>
-		<flag name="highlighting">PLEASE FIX MY DESCRIPTION</flag>
+		<flag name="highlighting">enable code highlight</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">gpoore/pythontex</remote-id>

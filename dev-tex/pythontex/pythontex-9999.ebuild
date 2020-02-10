@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 python3_{3,4} )
+PYTHON_COMPAT=( python3_{6,7} )
 
 inherit latex-package python-r1 git-r3
 
@@ -41,11 +41,7 @@ src_install() {
 	cd ${PN} || die
 
 	installation() {
-		if python_is_python3; then
-			python_domodule {de,}${PN}3.py
-		else
-			python_domodule {de,}${PN}2.py
-		fi
+		python_domodule {de,}${PN}3.py
 		python_domodule ${PN}_{engines,utils}.py
 		python_doscript {de,}${PN}.py syncpdb.py
 		python_optimize
