@@ -1,0 +1,28 @@
+Index: nccl-7c72dee660e4d055b81721dd6b03e4e1c0a983cf/makefiles/common.mk
+===================================================================
+--- nccl-7c72dee660e4d055b81721dd6b03e4e1c0a983cf.orig/makefiles/common.mk
++++ nccl-7c72dee660e4d055b81721dd6b03e4e1c0a983cf/makefiles/common.mk
+@@ -46,7 +46,7 @@ endif
+ CXXFLAGS   := -DCUDA_MAJOR=$(CUDA_MAJOR) -DCUDA_MINOR=$(CUDA_MINOR) -fPIC -fvisibility=hidden
+ CXXFLAGS   += -Wall -Wno-unused-function -Wno-sign-compare -std=c++11 -Wvla
+ CXXFLAGS   += -I $(CUDA_INC)
+-NVCUFLAGS  := -ccbin $(CXX) $(NVCC_GENCODE) -lineinfo -std=c++11 -Xptxas -maxrregcount=96 -Xfatbin -compress-all
++NVCUFLAGS  := $(NVCCFLAGS) $(NVCC_GENCODE) -lineinfo -std=c++11 -Xptxas -maxrregcount=96 -Xfatbin -compress-all
+ # Use addprefix so that we can specify more than one path
+ NVLDFLAGS  := -L${CUDA_LIB} -lcudart -lrt
+ 
+@@ -60,14 +60,6 @@ NVLDFLAGS   += ${GCOV_FLAGS:%=-Xcompiler
+ # $(warning GCOV_FLAGS=${GCOV_FLAGS})
+ ########## GCOV ##########
+ 
+-ifeq ($(DEBUG), 0)
+-NVCUFLAGS += -O3
+-CXXFLAGS  += -O3 -g
+-else
+-NVCUFLAGS += -O0 -G -g
+-CXXFLAGS  += -O0 -g -ggdb3
+-endif
+-
+ ifneq ($(VERBOSE), 0)
+ NVCUFLAGS += -Xptxas -v -Xcompiler -Wall,-Wextra,-Wno-unused-parameter
+ CXXFLAGS  += -Wall -Wextra
