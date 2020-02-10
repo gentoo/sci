@@ -171,6 +171,7 @@ dev-python/widgetsnbextension 1.2.2: IPython HTML widgets for Jupyter
 dev-python/xopen 0.1.1: Open compressed files transparently
 dev-tcltk/img_rotate 1.1: Image rotation package
 dev-tcltk/togl 1.7-r1: A Tk widget for OpenGL rendering
+dev-tex/pythontex 0.17 9999: Fast Access to Python from within LaTeX
 dev-util/VampirTrace 5.14.3 5.14.4: Library for detailed logging of program execution for parallel applications
 dev-util/amdapp 3.0-r1 3.0-r2: AMD Accelerated Parallel Processing (APP) SDK
 dev-util/bazel 0.13.0: Fast and correct automated build system

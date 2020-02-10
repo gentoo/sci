@@ -28,7 +28,7 @@ dev-python/ffnet:matplotlib - Use matplotlib for drawing
 dev-python/nbdime:webtools - Install web-based diff and merge tools.
 dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
-dev-tex/pythontex:highlighting - PLEASE FIX MY DESCRIPTION
+dev-tex/pythontex:highlighting - enable code highlight
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
 dev-util/amdapp:examples - Build the OpenCL example programs
 dev-util/bazel:tools - Install extra bazel tools to build from sources
