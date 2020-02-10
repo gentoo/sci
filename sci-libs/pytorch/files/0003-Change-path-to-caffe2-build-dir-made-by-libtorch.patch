@@ -1,0 +1,46 @@
+From dbb0bac77986016217cdfe779499a2ccd0e10570 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Wed, 6 Nov 2019 00:16:24 +0300
+Subject: [PATCH 3/4] Change path to `caffe2` build dir made by `libtorch`
+
+Setup and use properly `caffe2` build dir made while
+`libtorch` building with CMake, so that it was used
+by the Python installation.
+---
+ setup.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index f4bfdc99cd..60502b6add 100644
+--- a/setup.py
++++ b/setup.py
+@@ -236,7 +236,7 @@ else:
+ cwd = os.path.dirname(os.path.abspath(__file__))
+ lib_path = os.path.join(cwd, "torch", "lib")
+ third_party_path = os.path.join(cwd, "third_party")
+-caffe2_build_dir = os.path.join(cwd, "build")
++caffe2_build_dir = os.environ.get("CMAKE_BUILD_DIR", os.path.join(cwd, "build"))
+ # lib/pythonx.x/site-packages
+ rel_site_packages = distutils.sysconfig.get_python_lib(prefix='')
+ # full absolute path to the dir above
+@@ -279,7 +279,7 @@ elif sha != 'Unknown':
+     version += '+' + sha[:7]
+ report("Building wheel {}-{}".format(package_name, version))
+ 
+-cmake = CMake()
++cmake = CMake(caffe2_build_dir)
+ 
+ # all the work we need to do _before_ setup runs
+ def build_deps():
+@@ -445,7 +445,7 @@ class build_ext(setuptools.command.build_ext.build_ext):
+             filename = self.get_ext_filename(fullname)
+             report("\nCopying extension {}".format(ext.name))
+ 
+-            src = os.path.join("torch", rel_site_packages, filename)
++            src = os.path.join(caffe2_build_dir, filename)
+             if not os.path.exists(src):
+                 report("{} does not exist".format(src))
+                 del self.extensions[i]
+-- 
+2.23.0
+

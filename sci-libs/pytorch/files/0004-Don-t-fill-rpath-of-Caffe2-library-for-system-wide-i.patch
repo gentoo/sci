@@ -1,0 +1,104 @@
+From a0ace7295b6895954d2a0f8d6fe311a34a7c4e85 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Tue, 12 Nov 2019 02:01:36 +0300
+Subject: [PATCH 4/4] Don't fill rpath of Caffe2 library for system-wide
+ install
+
+Don't fill in runtime path of Caffe2 library for the case of
+building for system-wide installation.
+---
+ CMakeLists.txt           |  3 +++
+ caffe2/CMakeLists.txt    | 18 +++++++++++++++---
+ cmake/Dependencies.cmake | 19 +++++++++++--------
+ 3 files changed, 29 insertions(+), 11 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 20923c0544..45a882ae0e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -193,6 +193,9 @@ option(USE_TBB "Use TBB" OFF)
+ # Used when building Caffe2 through setup.py
+ option(BUILDING_WITH_TORCH_LIBS "Tell cmake if Caffe2 is being built alongside torch libs" ON)
+ 
++# Used when building Caffe2 for further system-wide installation
++option(BUILDING_SYSTEM_WIDE "Tell cmake if Caffe2 is being built for system-wide installation" OFF)
++
+ # /Z7 override option
+ # When generating debug symbols, CMake default to use the flag /Zi.
+ # However, it is not compatible with sccache. So we rewrite it off.
+diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
+index 1f7d037243..30d5615cdb 100644
+--- a/caffe2/CMakeLists.txt
++++ b/caffe2/CMakeLists.txt
+@@ -1235,7 +1235,11 @@ if (BUILD_PYTHON)
+   if (MSVC AND BUILD_SHARED_LIBS)
+     install(FILES $<TARGET_PDB_FILE:caffe2_pybind11_state> DESTINATION "${PYTHON_LIB_REL_PATH}/caffe2/python" OPTIONAL)
+   endif()
+-  set_target_properties(caffe2_pybind11_state PROPERTIES INSTALL_RPATH "${caffe2_pybind11_rpath}")
++  if (NOT BUILDING_SYSTEM_WIDE)
++    set_target_properties(caffe2_pybind11_state PROPERTIES INSTALL_RPATH "${caffe2_pybind11_rpath}")
++else()
++    set_target_properties(caffe2_pybind11_state PROPERTIES SKIP_BUILD_RPATH ON)
++  endif()
+ 
+   if(USE_CUDA)
+     add_library(caffe2_pybind11_state_gpu MODULE ${Caffe2_GPU_PYTHON_SRCS})
+@@ -1261,7 +1265,11 @@ if (BUILD_PYTHON)
+     if (MSVC AND BUILD_SHARED_LIBS)
+       install(FILES $<TARGET_PDB_FILE:caffe2_pybind11_state_gpu> DESTINATION "${PYTHON_LIB_REL_PATH}/caffe2/python" OPTIONAL)
+     endif()
+-    set_target_properties(caffe2_pybind11_state_gpu PROPERTIES INSTALL_RPATH "${caffe2_pybind11_rpath}")
++    if (NOT BUILDING_SYSTEM_WIDE)
++      set_target_properties(caffe2_pybind11_state_gpu PROPERTIES INSTALL_RPATH "${caffe2_pybind11_rpath}")
++    else()
++      set_target_properties(caffe2_pybind11_state_gpu PROPERTIES SKIP_BUILD_RPATH ON)
++    endif()
+   endif()
+ 
+   if(USE_ROCM)
+@@ -1284,7 +1292,11 @@ if (BUILD_PYTHON)
+         caffe2_pybind11_state_hip PROPERTIES LIBRARY_OUTPUT_DIRECTORY
+         ${CMAKE_BINARY_DIR}/caffe2/python)
+     install(TARGETS caffe2_pybind11_state_hip DESTINATION "${PYTHON_LIB_REL_PATH}/caffe2/python")
+-    set_target_properties(caffe2_pybind11_state_hip PROPERTIES INSTALL_RPATH "${caffe2_pybind11_rpath}")
++    if (NOT BUILDING_SYSTEM_WIDE)
++      set_target_properties(caffe2_pybind11_state_hip PROPERTIES INSTALL_RPATH "${caffe2_pybind11_rpath}")
++  else()
++      set_target_properties(caffe2_pybind11_state_hip PROPERTIES SKIP_BUILD_RPATH ON)
++    endif()
+   endif()
+ 
+   if (MSVC AND CMAKE_GENERATOR MATCHES "Visual Studio")
+diff --git a/cmake/Dependencies.cmake b/cmake/Dependencies.cmake
+index a8e9769536..6ef9d7b0e2 100644
+--- a/cmake/Dependencies.cmake
++++ b/cmake/Dependencies.cmake
+@@ -6,14 +6,17 @@ if (APPLE)
+ else()
+   set(_rpath_portable_origin $ORIGIN)
+ endif(APPLE)
+-# Use separate rpaths during build and install phases
+-set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+-# Don't use the install-rpath during the build phase
+-set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+-set(CMAKE_INSTALL_RPATH "${_rpath_portable_origin}")
+-# Automatically add all linked folders that are NOT in the build directory to
+-# the rpath (per library?)
+-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
++
++if (NOT BUILDING_SYSTEM_WIDE)
++  # Use separate rpaths during build and install phases
++  set(CMAKE_SKIP_BUILD_RPATH  FALSE)
++  # Don't use the install-rpath during the build phase
++  set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
++  set(CMAKE_INSTALL_RPATH "${_rpath_portable_origin}")
++  # Automatically add all linked folders that are NOT in the build directory to
++  # the rpath (per library?)
++  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
++endif()
+ 
+  # UBSAN triggers when compiling protobuf, so we need to disable it.
+ set(UBSAN_FLAG "-fsanitize=undefined")
+-- 
+2.23.0
+

@@ -1,0 +1,28 @@
+From dcda8edc3fd06ccb01f2cb873024127d9af90308 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Sat, 16 Nov 2019 01:15:48 +0300
+Subject: [PATCH] Control support of ffmpeg
+
+Don't rely on auto-detection only.
+---
+ setup.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 86597ed..42b5b94 100644
+--- a/setup.py
++++ b/setup.py
+@@ -122,8 +122,9 @@ def get_extensions():
+     include_dirs = [extensions_dir]
+     tests_include_dirs = [test_dir, models_dir]
+ 
++    enable_ffmpeg = os.environ.get("ENABLE_FFMPEG", '0')
+     ffmpeg_exe = distutils.spawn.find_executable('ffmpeg')
+-    has_ffmpeg = ffmpeg_exe is not None
++    has_ffmpeg = enable_ffmpeg == '1' and ffmpeg_exe is not None
+     if has_ffmpeg:
+         ffmpeg_bin = os.path.dirname(ffmpeg_exe)
+         ffmpeg_root = os.path.dirname(ffmpeg_bin)
+-- 
+2.23.0
+

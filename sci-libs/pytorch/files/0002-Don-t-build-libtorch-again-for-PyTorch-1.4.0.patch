@@ -1,0 +1,33 @@
+From e5003b88ad3a504eb04c0ba66c2f439149de2ee3 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Tue, 5 Nov 2019 00:58:17 +0300
+Subject: [PATCH 2/7] Don't build `libtorch` again for PyTorch
+
+If starting with building of `libtorch` using CMake,
+don't build it again for the sake of running `setup.py`
+to build Python version (PyTorch).
+---
+ setup.py | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 01fee0e3a5..3db5073598 100644
+--- a/setup.py
++++ b/setup.py
+@@ -308,13 +308,6 @@ def build_deps():
+     check_pydep('yaml', 'pyyaml')
+     check_pydep('typing', 'typing')
+ 
+-    build_caffe2(version=version,
+-                 cmake_python_library=cmake_python_library,
+-                 build_python=True,
+-                 rerun_cmake=RERUN_CMAKE,
+-                 cmake_only=CMAKE_ONLY,
+-                 cmake=cmake)
+-
+     version_path = os.path.join(cwd, 'torch', 'version.py')
+     with open(version_path, 'w') as f:
+         f.write("__version__ = '{}'\n".format(version))
+-- 
+2.24.1
+

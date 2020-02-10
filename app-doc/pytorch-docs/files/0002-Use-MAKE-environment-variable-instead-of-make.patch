@@ -1,0 +1,25 @@
+From 62baf3b6fb86fd7097d8e30e81f394c0bcca6f9e Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Sat, 4 Jan 2020 03:54:00 +0300
+Subject: [PATCH 2/2] Use `MAKE` environment variable instead of `make`
+
+---
+ docs/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/docs/Makefile b/docs/Makefile
+index 61b80ae09e..298ebebf02 100644
+--- a/docs/Makefile
++++ b/docs/Makefile
+@@ -28,7 +28,7 @@ html-stable:
+ 	# 1) The stable logo is used instead of the unstable logo
+ 	# 2) There will not be a link to the stable docs.
+ 	# See conf.py for more details.
+-	RELEASE=1 make html
++	RELEASE=1 $(MAKE) html
+ 
+ .PHONY: help Makefile docset
+ 
+-- 
+2.24.1
+

@@ -1,0 +1,388 @@
+From 38c68fc7259160581171eb721cd6f8197274daff Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Tue, 5 Nov 2019 00:40:01 +0300
+Subject: [PATCH 1/7] Use FHS-compliant paths from `GNUInstallDirs` module
+
+Use paths provided by `GNUInstallDirs` CMake module, so
+that paths of the installed pieces were FHS-compliant and
+root filesystem friendly.
+
+Signed-off by: Alexey Chernov <4ernov@gmail.com>
+---
+ CMakeLists.txt                        |  3 +++
+ aten/CMakeLists.txt                   |  6 +++---
+ aten/src/ATen/CMakeLists.txt          |  8 ++++----
+ aten/src/ATen/cpu/tbb/CMakeLists.txt  | 10 ++++++----
+ c10/CMakeLists.txt                    |  6 +++---
+ c10/cuda/CMakeLists.txt               |  6 +++---
+ c10/hip/CMakeLists.txt                |  6 +++---
+ caffe2/CMakeLists.txt                 |  6 +++---
+ caffe2/proto/CMakeLists.txt           |  2 +-
+ modules/detectron/CMakeLists.txt      |  6 +++---
+ modules/module_test/CMakeLists.txt    |  2 +-
+ modules/observers/CMakeLists.txt      |  3 +--
+ modules/rocksdb/CMakeLists.txt        |  2 +-
+ test/cpp/api/CMakeLists.txt           |  2 +-
+ test/cpp/dist_autograd/CMakeLists.txt |  2 +-
+ test/cpp/jit/CMakeLists.txt           |  2 +-
+ torch/CMakeLists.txt                  |  2 +-
+ torch/lib/c10d/CMakeLists.txt         |  4 ++--
+ torch/lib/libshm/CMakeLists.txt       | 10 ++++++----
+ 19 files changed, 47 insertions(+), 41 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7d1ee67eac..62b7e62902 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -98,6 +98,9 @@ if(NOT LINUX)
+   endif()
+ endif()
+ 
++# Make installation paths FHS-compliant as much, as possible
++include(GNUInstallDirs)
++
+ # ---[ Options.
+ # Note to developers: if you add an option below, make sure you also add it to
+ # cmake/Summary.cmake so that the summary prints out the option values.
+diff --git a/aten/CMakeLists.txt b/aten/CMakeLists.txt
+index 944491cf21..ece88663f8 100644
+--- a/aten/CMakeLists.txt
++++ b/aten/CMakeLists.txt
+@@ -33,9 +33,9 @@ set(ATen_CUDA_DEPENDENCY_LIBS)
+ set(ATen_HIP_DEPENDENCY_LIBS)
+ set(ATen_PUBLIC_CUDA_DEPENDENCY_LIBS)
+ set(ATen_PUBLIC_HIP_DEPENDENCY_LIBS)
+-SET(ATEN_INSTALL_BIN_SUBDIR "bin" CACHE PATH "ATen install binary subdirectory")
+-SET(ATEN_INSTALL_LIB_SUBDIR "lib" CACHE PATH "ATen install library subdirectory")
+-SET(ATEN_INSTALL_INCLUDE_SUBDIR "include" CACHE PATH "ATen install include subdirectory")
++SET(ATEN_INSTALL_BIN_SUBDIR ${CMAKE_INSTALL_BINDIR} CACHE PATH "ATen install binary subdirectory")
++SET(ATEN_INSTALL_LIB_SUBDIR ${CMAKE_INSTALL_LIBDIR} CACHE PATH "ATen install library subdirectory")
++SET(ATEN_INSTALL_INCLUDE_SUBDIR ${CMAKE_INSTALL_INCLUDEDIR} CACHE PATH "ATen install include subdirectory")
+ 
+ if(USE_CUDA)
+   list(APPEND ATen_CUDA_INCLUDE ${CUDA_INCLUDE_DIRS})
+diff --git a/aten/src/ATen/CMakeLists.txt b/aten/src/ATen/CMakeLists.txt
+index cbed81ae50..0e1d385885 100644
+--- a/aten/src/ATen/CMakeLists.txt
++++ b/aten/src/ATen/CMakeLists.txt
+@@ -10,10 +10,10 @@ ENDIF(NOT MSVC)
+ 
+ # Can be compiled standalone
+ IF(NOT AT_INSTALL_BIN_DIR OR NOT AT_INSTALL_LIB_DIR OR NOT AT_INSTALL_INCLUDE_DIR OR NOT AT_INSTALL_SHARE_DIR)
+-  SET(AT_INSTALL_BIN_DIR "bin" CACHE PATH "AT install binary subdirectory")
+-  SET(AT_INSTALL_LIB_DIR "lib" CACHE PATH "AT install library subdirectory")
+-  SET(AT_INSTALL_INCLUDE_DIR "include" CACHE PATH "AT install include subdirectory")
+-  SET(AT_INSTALL_SHARE_DIR "share" CACHE PATH "AT install include subdirectory")
++  SET(AT_INSTALL_BIN_DIR ${CMAKE_INSTALL_BINDIR} CACHE PATH "AT install binary subdirectory")
++  SET(AT_INSTALL_LIB_DIR ${CMAKE_INSTALL_LIBDIR} CACHE PATH "AT install library subdirectory")
++  SET(AT_INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_INCLUDEDIR} CACHE PATH "AT install include subdirectory")
++  SET(AT_INSTALL_SHARE_DIR ${CMAKE_INSTALL_DATAROOTDIR} CACHE PATH "AT install include subdirectory")
+ ENDIF()
+ 
+ # this flag is used in Config but set externally, we must normalize it
+diff --git a/aten/src/ATen/cpu/tbb/CMakeLists.txt b/aten/src/ATen/cpu/tbb/CMakeLists.txt
+index ac12545663..dcfaa32b85 100644
+--- a/aten/src/ATen/cpu/tbb/CMakeLists.txt
++++ b/aten/src/ATen/cpu/tbb/CMakeLists.txt
+@@ -7,6 +7,8 @@ project (tbb CXX)
+ include(CheckCXXCompilerFlag)
+ include(CheckCXXSourceRuns)
+ 
++include(GNUInstallDirs)
++
+ if(POLICY CMP0058)
+   cmake_policy(SET CMP0058 NEW)
+ endif()
+@@ -25,16 +27,16 @@ if(NOT TBB_INSTALL_EXPORT_NAME)
+   set(TBB_INSTALL_EXPORT_NAME "Caffe2Targets")
+ endif()
+ if(NOT TBB_INSTALL_EXPORT_DESTINATION)
+-  set(TBB_INSTALL_EXPORT_DESTINATION lib)
++  set(TBB_INSTALL_EXPORT_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ if(NOT TBB_INSTALL_RUNTIME_DIR)
+-  set(TBB_INSTALL_RUNTIME_DIR bin)
++  set(TBB_INSTALL_RUNTIME_DIR ${CMAKE_INSTALL_BINDIR})
+ endif()
+ if(NOT TBB_INSTALL_LIBRARY_DIR)
+-  set(TBB_INSTALL_LIBRARY_DIR lib)
++  set(TBB_INSTALL_LIBRARY_DIR ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ if(NOT TBB_INSTALL_ARCHIVE_DIR)
+-  set(TBB_INSTALL_ARCHIVE_DIR lib)
++  set(TBB_INSTALL_ARCHIVE_DIR ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ if(NOT TBB_INSTALL_INCLUDE_DIR)
+   set(TBB_INSTALL_INCLUDE_DIR "${TBB_ROOT_DIR}/include")
+diff --git a/c10/CMakeLists.txt b/c10/CMakeLists.txt
+index 8eed130fd4..9dd15326c1 100644
+--- a/c10/CMakeLists.txt
++++ b/c10/CMakeLists.txt
+@@ -94,12 +94,12 @@ endif()
+ # Note: for now, we will put all export path into one single Caffe2Targets group
+ # to deal with the cmake deployment need. Inside the Caffe2Targets set, the
+ # individual libraries like libc10.so and libcaffe2.so are still self-contained.
+-install(TARGETS c10 EXPORT Caffe2Targets DESTINATION lib)
++install(TARGETS c10 EXPORT Caffe2Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+-        DESTINATION include
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+         FILES_MATCHING PATTERN "*.h")
+ install(FILES ${CMAKE_BINARY_DIR}/c10/macros/cmake_macros.h
+-        DESTINATION include/c10/macros)
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/c10/macros)
+ 
+ if (MSVC AND C10_BUILD_SHARED_LIBS)
+   install(FILES $<TARGET_PDB_FILE:c10> DESTINATION lib OPTIONAL)
+diff --git a/c10/cuda/CMakeLists.txt b/c10/cuda/CMakeLists.txt
+index e992a4e1bf..09e6699495 100644
+--- a/c10/cuda/CMakeLists.txt
++++ b/c10/cuda/CMakeLists.txt
+@@ -61,13 +61,13 @@ add_subdirectory(test)
+ # Note: for now, we will put all export path into one single Caffe2Targets group
+ # to deal with the cmake deployment need. Inside the Caffe2Targets set, the
+ # individual libraries like libc10.so and libcaffe2.so are still self-contained.
+-install(TARGETS c10_cuda EXPORT Caffe2Targets DESTINATION lib)
++install(TARGETS c10_cuda EXPORT Caffe2Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ foreach(file ${C10_CUDA_HEADERS})
+   get_filename_component( dir ${file} DIRECTORY )
+-  install( FILES ${file} DESTINATION include/c10/cuda/${dir} )
++  install( FILES ${file} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/c10/cuda/${dir} )
+ endforeach()
+ install(FILES ${CMAKE_BINARY_DIR}/c10/cuda/impl/cuda_cmake_macros.h
+-  DESTINATION include/c10/cuda/impl)
++  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/c10/cuda/impl)
+ 
+ if (MSVC AND C10_CUDA_BUILD_SHARED_LIBS)
+   install(FILES $<TARGET_PDB_FILE:c10_cuda> DESTINATION lib OPTIONAL)
+diff --git a/c10/hip/CMakeLists.txt b/c10/hip/CMakeLists.txt
+index 328d21470c..4febb00de7 100644
+--- a/c10/hip/CMakeLists.txt
++++ b/c10/hip/CMakeLists.txt
+@@ -55,9 +55,9 @@ target_include_directories(
+ add_subdirectory(test)
+ 
+ # ---[ Installation
+-install(TARGETS c10_hip EXPORT Caffe2Targets DESTINATION lib)
++install(TARGETS c10_hip EXPORT Caffe2Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+-        DESTINATION include
++        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+         FILES_MATCHING PATTERN "*.h")
+ install(FILES ${CMAKE_BINARY_DIR}/c10/hip/impl/hip_cmake_macros.h
+-  DESTINATION include/c10/hip/impl)
++  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/c10/hip/impl)
+diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
+index 007ad3de34..cf0bd341fc 100644
+--- a/caffe2/CMakeLists.txt
++++ b/caffe2/CMakeLists.txt
+@@ -208,15 +208,15 @@ set(TORCH_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../torch")
+ set(TORCH_ROOT "${TORCH_SRC_DIR}/..")
+ 
+ if(NOT TORCH_INSTALL_BIN_DIR)
+-  set(TORCH_INSTALL_BIN_DIR bin)
++  set(TORCH_INSTALL_BIN_DIR ${CMAKE_INSTALL_BINDIR})
+ endif()
+ 
+ if(NOT TORCH_INSTALL_INCLUDE_DIR)
+-  set(TORCH_INSTALL_INCLUDE_DIR include)
++  set(TORCH_INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_INCLUDEDIR})
+ endif()
+ 
+ if(NOT TORCH_INSTALL_LIB_DIR)
+-  set(TORCH_INSTALL_LIB_DIR lib)
++  set(TORCH_INSTALL_LIB_DIR ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ 
+ 
+diff --git a/caffe2/proto/CMakeLists.txt b/caffe2/proto/CMakeLists.txt
+index 7a84f10848..d74c7b1d18 100644
+--- a/caffe2/proto/CMakeLists.txt
++++ b/caffe2/proto/CMakeLists.txt
+@@ -16,4 +16,4 @@ endif()
+ target_compile_definitions(
+     Caffe2_PROTO PRIVATE ${Caffe2_API_DEFINE})
+ 
+-install(FILES ${Caffe2_PROTO_HEADERS} DESTINATION include/caffe2/proto)
++install(FILES ${Caffe2_PROTO_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/caffe2/proto)
+diff --git a/modules/detectron/CMakeLists.txt b/modules/detectron/CMakeLists.txt
+index e8d3268ee5..5d16aa6e93 100644
+--- a/modules/detectron/CMakeLists.txt
++++ b/modules/detectron/CMakeLists.txt
+@@ -16,7 +16,7 @@ if (BUILD_CAFFE2_OPS)
+         ${Detectron_GPU_SRCS})
+ 
+     target_link_libraries(caffe2_detectron_ops_gpu torch ${OpenMP_link})
+-    install(TARGETS caffe2_detectron_ops_gpu DESTINATION lib)
++    install(TARGETS caffe2_detectron_ops_gpu DESTINATION ${CMAKE_INSTALL_LIBDIR})
+     if (MSVC)
+       install(FILES $<TARGET_PDB_FILE:caffe2_detectron_ops_gpu> DESTINATION lib OPTIONAL)
+     endif()
+@@ -29,11 +29,11 @@ if (BUILD_CAFFE2_OPS)
+         ${Detectron_HIP_SRCS})
+     target_compile_options(caffe2_detectron_ops_hip PRIVATE ${HIP_CXX_FLAGS})
+     target_link_libraries(caffe2_detectron_ops_hip torch)
+-    install(TARGETS caffe2_detectron_ops_hip DESTINATION lib)
++    install(TARGETS caffe2_detectron_ops_hip DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   elseif(NOT IOS_PLATFORM)
+     add_library(caffe2_detectron_ops SHARED ${Detectron_CPU_SRCS})
+     target_link_libraries(caffe2_detectron_ops torch ${OpenMP_link})
+-    install(TARGETS caffe2_detectron_ops DESTINATION lib)
++    install(TARGETS caffe2_detectron_ops DESTINATION ${CMAKE_INSTALL_LIBDIR})
+     if (MSVC)
+       install(FILES $<TARGET_PDB_FILE:caffe2_detectron_ops> DESTINATION lib OPTIONAL)
+     endif()
+diff --git a/modules/module_test/CMakeLists.txt b/modules/module_test/CMakeLists.txt
+index 653bd9062c..b7c2ac2dc7 100644
+--- a/modules/module_test/CMakeLists.txt
++++ b/modules/module_test/CMakeLists.txt
+@@ -12,7 +12,7 @@ if (BUILD_TEST)
+       ${CMAKE_CURRENT_SOURCE_DIR}/module_test_dynamic.cc)
+ 
+   target_link_libraries(caffe2_module_test_dynamic torch_library)
+-  install(TARGETS caffe2_module_test_dynamic DESTINATION lib)
++  install(TARGETS caffe2_module_test_dynamic DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   if (MSVC AND BUILD_SHARED_LIBS)
+     install(FILES $<TARGET_PDB_FILE:caffe2_module_test_dynamic> DESTINATION lib OPTIONAL)
+   endif()
+diff --git a/modules/observers/CMakeLists.txt b/modules/observers/CMakeLists.txt
+index 92f5c2c8d8..40d44cc46e 100644
+--- a/modules/observers/CMakeLists.txt
++++ b/modules/observers/CMakeLists.txt
+@@ -17,7 +17,7 @@ add_library(caffe2_observers
+ target_link_libraries(caffe2_observers PUBLIC torch_library)
+ target_include_directories(caffe2_observers PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+ target_compile_options(caffe2_observers PRIVATE "-DCAFFE2_BUILD_OBSERVER_LIB")
+-install(TARGETS caffe2_observers DESTINATION lib)
++install(TARGETS caffe2_observers DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ caffe2_interface_library(caffe2_observers caffe2_observers_library)
+ if (MSVC AND BUILD_SHARED_LIBS)
+   install(FILES $<TARGET_PDB_FILE:caffe2_observers> DESTINATION lib OPTIONAL)
+@@ -26,4 +26,3 @@ endif()
+ if (CAFFE2_CMAKE_BUILDING_WITH_MAIN_REPO)
+   set(Caffe2_MODULES ${Caffe2_MODULES} caffe2_observers_library PARENT_SCOPE)
+ endif()
+-
+diff --git a/modules/rocksdb/CMakeLists.txt b/modules/rocksdb/CMakeLists.txt
+index 3eb81d51c2..42bd05f9f2 100644
+--- a/modules/rocksdb/CMakeLists.txt
++++ b/modules/rocksdb/CMakeLists.txt
+@@ -59,7 +59,7 @@ add_library(caffe2_rocksdb ${CMAKE_CURRENT_SOURCE_DIR}/rocksdb.cc)
+ target_link_libraries(caffe2_rocksdb PUBLIC torch_library)
+ target_link_libraries(caffe2_rocksdb PRIVATE ${RocksDB_LIBRARIES})
+ target_include_directories(caffe2_rocksdb PRIVATE ${RocksDB_INCLUDE_DIR})
+-install(TARGETS caffe2_rocksdb DESTINATION lib)
++install(TARGETS caffe2_rocksdb DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ # ---[ Last, Append the library to Caffe2_MAIN_LIBS, if we are building with
+ # the main repo.
+diff --git a/test/cpp/api/CMakeLists.txt b/test/cpp/api/CMakeLists.txt
+index 0b29685c8e..1cb1ac22b4 100644
+--- a/test/cpp/api/CMakeLists.txt
++++ b/test/cpp/api/CMakeLists.txt
+@@ -65,7 +65,7 @@ if (NOT MSVC)
+ endif()
+ 
+ if (INSTALL_TEST)
+-  install(TARGETS test_api DESTINATION bin)
++  install(TARGETS test_api DESTINATION ${CMAKE_INSTALL_BINDIR})
+   # Install PDB files for MSVC builds
+   if (MSVC AND BUILD_SHARED_LIBS)
+     install(FILES $<TARGET_PDB_FILE:test_api> DESTINATION bin OPTIONAL)
+diff --git a/test/cpp/dist_autograd/CMakeLists.txt b/test/cpp/dist_autograd/CMakeLists.txt
+index d66d7afd27..f2326eade3 100644
+--- a/test/cpp/dist_autograd/CMakeLists.txt
++++ b/test/cpp/dist_autograd/CMakeLists.txt
+@@ -20,7 +20,7 @@ if (USE_DISTRIBUTED)
+   endif()
+ 
+   if (INSTALL_TEST)
+-    install(TARGETS test_dist_autograd DESTINATION bin)
++    install(TARGETS test_dist_autograd DESTINATION ${CMAKE_INSTALL_BINDIR})
+     # Install PDB files for MSVC builds
+     if (MSVC AND BUILD_SHARED_LIBS)
+       install(FILES $<TARGET_PDB_FILE:test_dist_autograd> DESTINATION bin OPTIONAL)
+diff --git a/test/cpp/jit/CMakeLists.txt b/test/cpp/jit/CMakeLists.txt
+index 2bb1945a57..d16343ccef 100644
+--- a/test/cpp/jit/CMakeLists.txt
++++ b/test/cpp/jit/CMakeLists.txt
+@@ -31,7 +31,7 @@ elseif (USE_ROCM)
+ endif()
+ 
+ if (INSTALL_TEST)
+-  install(TARGETS test_jit DESTINATION bin)
++  install(TARGETS test_jit DESTINATION ${CMAKE_INSTALL_BINDIR})
+   # Install PDB files for MSVC builds
+   if (MSVC AND BUILD_SHARED_LIBS)
+     install(FILES $<TARGET_PDB_FILE:test_jit> DESTINATION bin OPTIONAL)
+diff --git a/torch/CMakeLists.txt b/torch/CMakeLists.txt
+index 9402341bb1..303b441c86 100644
+--- a/torch/CMakeLists.txt
++++ b/torch/CMakeLists.txt
+@@ -21,7 +21,7 @@ set(TORCH_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+ set(TORCH_ROOT "${TORCH_SRC_DIR}/..")
+ 
+ if(NOT TORCH_INSTALL_LIB_DIR)
+-  set(TORCH_INSTALL_LIB_DIR lib)
++  set(TORCH_INSTALL_LIB_DIR ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ 
+ if (MSVC)
+diff --git a/torch/lib/c10d/CMakeLists.txt b/torch/lib/c10d/CMakeLists.txt
+index a391354f34..9cfe0108ec 100644
+--- a/torch/lib/c10d/CMakeLists.txt
++++ b/torch/lib/c10d/CMakeLists.txt
+@@ -141,7 +141,7 @@ endif()
+ 
+ target_link_libraries(c10d PUBLIC ${C10D_LIBS})
+ 
+-install(TARGETS c10d DESTINATION lib)
++install(TARGETS c10d DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ option(BUILD_EXAMPLES "Build examples" OFF)
+ if(BUILD_EXAMPLES)
+@@ -155,4 +155,4 @@ if(BUILD_TEST)
+ endif()
+ 
+ # Install all header files that were prepared in the build directory
+-install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION include)
++install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+diff --git a/torch/lib/libshm/CMakeLists.txt b/torch/lib/libshm/CMakeLists.txt
+index 69381d026f..6651a23640 100644
+--- a/torch/lib/libshm/CMakeLists.txt
++++ b/torch/lib/libshm/CMakeLists.txt
+@@ -2,11 +2,13 @@ project(libshm C CXX)
+ CMAKE_MINIMUM_REQUIRED(VERSION 2.6 FATAL_ERROR)
+ CMAKE_POLICY(VERSION 2.6)
+ 
++include(GNUInstallDirs)
++
+ set(TORCH_ROOT ${CMAKE_CURRENT_LIST_DIR}/../../../)
+ include(${TORCH_ROOT}/cmake/public/threads.cmake)
+ 
+ IF(NOT LIBSHM_INSTALL_LIB_SUBDIR)
+-  SET(LIBSHM_INSTALL_LIB_SUBDIR "lib" CACHE PATH "libshm install library directory")
++  SET(LIBSHM_INSTALL_LIB_SUBDIR ${CMAKE_INSTALL_LIBDIR} CACHE PATH "libshm install library directory")
+ ENDIF()
+ 
+ # Flags
+@@ -32,7 +34,7 @@ target_include_directories(shm PUBLIC
+ 
+ ADD_EXECUTABLE(torch_shm_manager manager.cpp)
+ target_link_libraries(torch_shm_manager shm)
+-set_target_properties(torch_shm_manager PROPERTIES INSTALL_RPATH "${_rpath_portable_origin}/../lib")
++set_target_properties(torch_shm_manager PROPERTIES INSTALL_RPATH "${_rpath_portable_origin}/../${CMAKE_INSTALL_LIBDIR}")
+ ### Torch packages supposes libraries prefix is "lib"
+ SET_TARGET_PROPERTIES(shm PROPERTIES
+   PREFIX "lib"
+@@ -77,5 +79,5 @@ endif()
+ 
+ 
+ INSTALL(TARGETS shm LIBRARY DESTINATION ${LIBSHM_INSTALL_LIB_SUBDIR})
+-INSTALL(FILES libshm.h DESTINATION "include")
+-INSTALL(TARGETS torch_shm_manager DESTINATION "bin")
++INSTALL(FILES libshm.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
++INSTALL(TARGETS torch_shm_manager DESTINATION ${CMAKE_INSTALL_BINDIR})
+-- 
+2.24.1
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>4ernov@gmail.com</email>
+		<name>Alexey Chernov</name>
+	</maintainer>
+	<use>
+		<flag name="cuda">Enable support for nVidia CUDA</flag>
+	</use>
+</pkgmetadata>

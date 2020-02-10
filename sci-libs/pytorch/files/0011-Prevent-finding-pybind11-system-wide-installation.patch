@@ -1,0 +1,31 @@
+From d37c896d75cee9ba5c8df2efb8e3c0eaac6584cf Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Fri, 24 Jan 2020 20:51:40 +0300
+Subject: [PATCH 8/8] Prevent finding `pybind11` system-wide installation
+
+Use local copy instead. Otherwise the whole content of the include
+directory in the `pybind11` installation prefix is copied. In case
+of `/usr/include` it looks really huge.
+---
+ cmake/Dependencies.cmake | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/cmake/Dependencies.cmake b/cmake/Dependencies.cmake
+index 50fdbf71ee..cc4798f5c7 100644
+--- a/cmake/Dependencies.cmake
++++ b/cmake/Dependencies.cmake
+@@ -795,10 +795,7 @@ if(BUILD_PYTHON)
+ endif()
+ 
+ # ---[ pybind11
+-find_package(pybind11 CONFIG)
+-if(NOT pybind11_FOUND)
+-  find_package(pybind11)
+-endif()
++# Don't try to find system pybind11, because otherwise complete content of the system include directory is copied in depend on what prefix it's installed (e.g. all the files in `/usr/include`)
+ 
+ if(pybind11_FOUND)
+     message(STATUS "System pybind11 found")
+-- 
+2.24.1
+

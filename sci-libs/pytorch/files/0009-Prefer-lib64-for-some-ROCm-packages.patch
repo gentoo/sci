@@ -1,0 +1,51 @@
+From 287bc5ccfb6d68b25861a1a5b23198d7aec3ea28 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Fri, 10 Jan 2020 01:11:22 +0300
+Subject: [PATCH 2/3] Prefer `lib64` for some ROCm packages
+
+---
+ cmake/public/LoadHIP.cmake | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/cmake/public/LoadHIP.cmake b/cmake/public/LoadHIP.cmake
+index 414b2be3af..cbcee68139 100644
+--- a/cmake/public/LoadHIP.cmake
++++ b/cmake/public/LoadHIP.cmake
+@@ -139,15 +139,16 @@ IF(HIP_FOUND)
+   set(CMAKE_HCC_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+   ### Remove setting of Flags when FindHIP.CMake PR #558 is accepted.###
+ 
+-  set(rocrand_DIR ${ROCRAND_PATH}/lib/cmake/rocrand)
+-  set(hiprand_DIR ${HIPRAND_PATH}/lib/cmake/hiprand)
+-  set(rocblas_DIR ${ROCBLAS_PATH}/lib/cmake/rocblas)
+-  set(miopen_DIR ${MIOPEN_PATH}/lib/cmake/miopen)
+-  set(rocfft_DIR ${ROCFFT_PATH}/lib/cmake/rocfft)
+-  set(hipsparse_DIR ${HIPSPARSE_PATH}/lib/cmake/hipsparse)
+-  set(rocprim_DIR ${ROCPRIM_PATH}/lib/cmake/rocprim)
+-  set(hipcub_DIR ${HIPCUB_PATH}/lib/cmake/hipcub)
+-  set(rocthrust_DIR ${ROCTHRUST_PATH}/lib/cmake/rocthrust)
++  set(rocrand_DIR ${ROCRAND_PATH}/lib64/cmake/rocrand)
++  set(hiprand_DIR ${HIPRAND_PATH}/lib64/cmake/hiprand)
++  set(rocblas_DIR ${ROCBLAS_PATH}/lib64/cmake/rocblas)
++  set(miopen_DIR ${MIOPEN_PATH}/lib64/cmake/miopen)
++  set(rocfft_DIR ${ROCFFT_PATH}/lib64/cmake/rocfft)
++  set(hipsparse_DIR ${HIPSPARSE_PATH}/lib64/cmake/hipsparse)
++  set(rocprim_DIR ${ROCPRIM_PATH}/lib64/cmake/rocprim)
++  set(hipcub_DIR ${HIPCUB_PATH}/lib64/cmake/hipcub)
++  set(rocthrust_DIR ${ROCTHRUST_PATH}/lib64/cmake/rocthrust)
++  set(hcc_DIR ${HCC_PATH}/lib/cmake/hcc)
+ 
+   find_package_and_print_version(rocrand REQUIRED) 
+   find_package_and_print_version(hiprand REQUIRED)
+@@ -166,7 +167,7 @@ IF(HIP_FOUND)
+   FIND_LIBRARY(PYTORCH_HIP_HCC_LIBRARIES hip_hcc HINTS ${HIP_PATH}/lib)
+   # TODO: miopen_LIBRARIES should return fullpath to the library file,
+   # however currently it's just the lib name
+-  FIND_LIBRARY(PYTORCH_MIOPEN_LIBRARIES ${miopen_LIBRARIES} HINTS ${MIOPEN_PATH}/lib)
++  FIND_LIBRARY(PYTORCH_MIOPEN_LIBRARIES ${miopen_LIBRARIES} HINTS ${MIOPEN_PATH}/lib64)
+   # hiprtc is part of HIP
+   FIND_LIBRARY(ROCM_HIPRTC_LIB hiprtc HINTS ${HIP_PATH}/lib)
+ 
+-- 
+2.24.1
+

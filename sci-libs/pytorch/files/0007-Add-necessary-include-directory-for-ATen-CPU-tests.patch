@@ -1,0 +1,27 @@
+From 81647a6067df20a5d279c11e8f8de662a179659d Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Mon, 18 Nov 2019 20:59:31 +0300
+Subject: [PATCH 7/7] Add necessary include directory for ATen CPU tests
+
+Add necessary `${CMAKE_BINARY_DIR}/include` build time created
+directory for ATen CPU tests, which otherwise would fail to
+compile.
+---
+ caffe2/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
+index 30d5615cdb..ee8f7ee346 100644
+--- a/caffe2/CMakeLists.txt
++++ b/caffe2/CMakeLists.txt
+@@ -1095,6 +1095,7 @@ if (BUILD_TEST)
+     target_link_libraries(${test_name} ${Caffe2_MAIN_LIBS} gtest_main)
+     target_include_directories(${test_name} PRIVATE $<INSTALL_INTERFACE:include>)
+     target_include_directories(${test_name} PRIVATE ${Caffe2_CPU_INCLUDE})
++    target_include_directories(${test_name} PRIVATE $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>)
+     add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
+     if (INSTALL_TEST)
+       install(TARGETS ${test_name} DESTINATION test)
+-- 
+2.23.0
+

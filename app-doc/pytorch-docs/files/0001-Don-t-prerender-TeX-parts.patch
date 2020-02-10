@@ -1,0 +1,28 @@
+From 17530464c37c1e7831b83400939dc43d2b505db9 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Mon, 9 Dec 2019 20:41:14 +0300
+Subject: [PATCH] Don't prerender TeX parts
+
+As it requires `Katex` available in build time, while
+it's very difficult to install it locally during the building process
+in the Gentoo ebuild.
+---
+ docs/source/conf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/docs/source/conf.py b/docs/source/conf.py
+index 0aad60c7e8..30bfb1f414 100644
+--- a/docs/source/conf.py
++++ b/docs/source/conf.py
+@@ -61,7 +61,7 @@ extensions = [
+ #
+ #
+ 
+-katex_prerender = True
++katex_prerender = False
+ 
+ napoleon_use_ivar = True
+ 
+-- 
+2.23.0
+

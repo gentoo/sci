@@ -1,0 +1,38 @@
+From b0aa35474777183604f05f2e71a63ff3994f4d02 Mon Sep 17 00:00:00 2001
+From: Alexey Chernov <4ernov@gmail.com>
+Date: Thu, 14 Nov 2019 21:21:52 +0300
+Subject: [PATCH 6/6] Change `torch_path` part for cpp extensions
+
+Replace ad-hoc `torch_path` to absolute one especially for
+system-wide installation.
+---
+ torch/utils/cpp_extension.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/torch/utils/cpp_extension.py b/torch/utils/cpp_extension.py
+index 98ad0f4f7d..5d7fdd236a 100644
+--- a/torch/utils/cpp_extension.py
++++ b/torch/utils/cpp_extension.py
+@@ -509,7 +509,7 @@ def include_paths(cuda=False):
+         A list of include path strings.
+     '''
+     here = os.path.abspath(__file__)
+-    torch_path = os.path.dirname(os.path.dirname(here))
++    torch_path = "/usr"
+     lib_include = os.path.join(torch_path, 'include')
+     paths = [
+         lib_include,
+@@ -545,8 +545,8 @@ def library_paths(cuda=False):
+ 
+     if IS_WINDOWS:
+         here = os.path.abspath(__file__)
+-        torch_path = os.path.dirname(os.path.dirname(here))
+-        lib_path = os.path.join(torch_path, 'lib')
++        torch_path = "/usr"
++        lib_path = os.path.join(torch_path, 'lib64')
+ 
+         paths.append(lib_path)
+ 
+-- 
+2.23.0
+
