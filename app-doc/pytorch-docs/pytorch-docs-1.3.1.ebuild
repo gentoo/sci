@@ -37,18 +37,18 @@ PATCHES=(
 
 src_unpack() {
 	unpack ${A}
-	mv "${WORKDIR}/${PYTORCH_NAME}-${PV}" "${S}"
+	mv "${WORKDIR}/${PYTORCH_NAME}-${PV}" "${S}" || die
 }
 
 src_compile() {
 	local doc_build_dir="${S}/docs"
-	cd "${doc_build_dir}"
+	cd "${doc_build_dir}" || die
 	emake html-stable
 }
 
 src_install() {
 	local doc_build_dir="${S}/docs"
 
-	mkdir -p "${D}/usr/share/doc/${P}"
-	cp -a "${doc_build_dir}/build/html" "${D}/usr/share/doc/${P}/html"
+	mkdir -p "${D}/usr/share/doc/${P}" || die
+	cp -a "${doc_build_dir}/build/html" "${D}/usr/share/doc/${P}/html" || die
 }
