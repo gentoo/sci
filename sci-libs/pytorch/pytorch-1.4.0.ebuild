@@ -92,7 +92,7 @@ src_prepare() {
 	cmake-utils_src_prepare
 
 	if use rocm; then
-		python "${S}/tools/amd_build/build_amd.py"
+		${EPYTHON} "${S}/tools/amd_build/build_amd.py"
 	fi
 }
 
