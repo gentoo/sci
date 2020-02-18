@@ -19,5 +19,4 @@ RDEPEND="
 
 DEPEND="
 	${RDEPEND}
-	${PDEPEND}
 	dev-python/setuptools"
