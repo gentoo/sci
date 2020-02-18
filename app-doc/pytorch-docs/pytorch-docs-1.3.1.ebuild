@@ -21,13 +21,13 @@ KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	${PYTHON_DEPS}
-	dev-python/numpy
-	dev-python/matplotlib
-	>=sci-libs/pytorch-${PV}
-	sci-libs/torchvision
-	dev-python/sphinxcontrib-katex
-	dev-python/javasphinx
-	dev-python/pytorch-sphinx-theme
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	>=sci-libs/pytorch-${PV}[${PYTHON_USEDEP}]
+	sci-libs/torchvision[${PYTHON_USEDEP}]
+	dev-python/sphinxcontrib-katex[${PYTHON_USEDEP}]
+	dev-python/javasphinx[${PYTHON_USEDEP}]
+	dev-python/pytorch-sphinx-theme[${PYTHON_USEDEP}]
 "
 
 PATCHES=(
