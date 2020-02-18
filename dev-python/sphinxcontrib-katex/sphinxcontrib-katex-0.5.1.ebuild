@@ -15,15 +15,15 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-solaris"
 
 RDEPEND="
-	dev-python/namespace-sphinxcontrib"
+	dev-python/namespace-sphinxcontrib[${PYTHON_USEDEP}]"
 
 # avoid circular dependency with sphinx
 PDEPEND="
-	>=dev-python/sphinx-1.6"
+	>=dev-python/sphinx-1.6[${PYTHON_USEDEP}]"
 DEPEND="
 	${RDEPEND}
 	${PDEPEND}
-	dev-python/setuptools"
+	dev-python/setuptools[${PYTHON_USEDEP}]"
 
 python_install_all() {
 	distutils-r1_python_install_all

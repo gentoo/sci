@@ -15,4 +15,4 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 
 DEPEND="
-	dev-python/setuptools"
+	dev-python/setuptools[${PYTHON_USEDEP}]"

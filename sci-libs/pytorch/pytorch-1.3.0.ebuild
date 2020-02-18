@@ -40,11 +40,11 @@ REQUIRED_USE="
 
 DEPEND="
 	dev-libs/protobuf
-	dev-python/pyyaml
-	dev-python/typing
+	dev-python/pyyaml[${PYTHON_USEDEP}]
+	dev-python/typing[${PYTHON_USEDEP}]
 	atlas? ( sci-libs/atlas )
 	cuda? ( dev-util/nvidia-cuda-toolkit:0= )
-	doc? ( dev-python/pytorch-sphinx-theme )
+	doc? ( dev-python/pytorch-sphinx-theme[${PYTHON_USEDEP}] )
 	ffmpeg? ( virtual/ffmpeg )
 	gflags? ( dev-cpp/gflags )
 	glog? ( dev-cpp/glog )
@@ -52,7 +52,7 @@ DEPEND="
 	lmdb? ( dev-db/lmdb )
 	mkl? ( sci-libs/mkl )
 	mpi? ( virtual/mpi )
-	numpy? ( dev-python/numpy )
+	numpy? ( dev-python/numpy[${PYTHON_USEDEP}] )
 	openblas? ( sci-libs/openblas )
 	opencl? ( dev-libs/clhpp virtual/opencl )
 	opencv? ( media-libs/opencv )

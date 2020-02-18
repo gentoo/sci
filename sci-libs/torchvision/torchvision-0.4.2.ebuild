@@ -27,7 +27,7 @@ DEPEND="
 	python? (
 		dev-python/setuptools[${PYTHON_USEDEP}]
 		sci-libs/scipy
-		>=dev-python/pillow-4.1.1
+		>=dev-python/pillow-4.1.1[${PYTHON_USEDEP}]
 	)
 	sci-libs/pytorch[python?,cuda?]
 "
