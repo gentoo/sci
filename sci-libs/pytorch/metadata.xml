@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>4ernov@gmail.com</email>
+		<name>Alexey Chernov</name>
+	</maintainer>
+	<use>
+		<flag name="asan">Build with address sanitizer (ASAN)</flag>
+		<flag name="atlas">Use ATLAS as BLAS implementation</flag>
+		<flag name="cuda">Enable support for nVidia CUDA</flag>
+		<flag name="eigen">Use Eigen as BLAS implementation</flag>
+		<flag name="fbgemm">Enable FBGEMM (Facebook GEneral Matrix Multiplication) support</flag>
+		<flag name="gflags">Build with gflags</flag>
+		<flag name="glog">Build with glog support</flag>
+		<flag name="gloo">Build gloo distributed communication backend support</flag>
+		<flag name="leveldb">Enable support for LevelDB</flag>
+		<flag name="lmdb">Enable support for LMDB</flag>
+		<flag name="mkl">Use Intel MKL as BLAS implementation</flag>
+		<flag name="mkldnn">Build with Intel MKL-DNN support</flag>
+		<flag name="namedtensor">Enable support for named tensors</flag>
+		<flag name="nnpack">Enable NNPACK support</flag>
+		<flag name="numa">Enable support for NUMA</flag>
+		<flag name="numpy">Enable NumPy support</flag>
+		<flag name="observers">Build observers</flag>
+		<flag name="openblas">Use OpenBLAS as BLAS implementation</flag>
+		<flag name="opencv">Enable support for OpenCV</flag>
+		<flag name="opencl">Enable support for OpenCL</flag>
+		<flag name="qnnpack">Enable QNNPACK support</flag>
+		<flag name="redis">Enable support for Redis</flag>
+		<flag name="tbb">Build with Intel TBB enabled</flag>
+		<flag name="tools">Build binary tools</flag>
+		<flag name="zeromq">Enable support for ZeroMQ</flag>
+	</use>
+</pkgmetadata>
