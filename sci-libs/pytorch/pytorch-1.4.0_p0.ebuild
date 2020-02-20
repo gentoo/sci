@@ -39,7 +39,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="asan atlas cuda doc eigen +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkl mkldnn mpi namedtensor +nnpack numa +numpy +observers +openblas opencl opencv +openmp +python +qnnpack redis static tbb test tools zeromq"
+IUSE="asan atlas cuda eigen +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkl mkldnn mpi namedtensor +nnpack numa +numpy +observers +openblas opencl opencv +openmp +python +qnnpack redis static tbb test tools zeromq"
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
@@ -52,8 +52,8 @@ DEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	virtual/python-typing[${PYTHON_USEDEP}]
 	atlas? ( sci-libs/atlas )
-	cuda? ( dev-util/nvidia-cuda-toolkit:0= )
-	doc? ( dev-python/pytorch-sphinx-theme[${PYTHON_USEDEP}] )
+	cuda? ( dev-libs/cudnn
+		dev-cpp/eigen[cuda] )
 	ffmpeg? ( virtual/ffmpeg )
 	gflags? ( dev-cpp/gflags )
 	glog? ( dev-cpp/glog )
@@ -70,13 +70,10 @@ DEPEND="
 	)
 	redis? ( dev-db/redis )
 	zeromq? ( net-libs/zeromq )
-	eigen? ( dev-cpp/eigen
-		   cuda? ( dev-cpp/eigen[cuda] ) )
+	eigen? ( dev-cpp/eigen )
 "
 RDEPEND="${DEPEND}"
-BDEPEND="
-	doc? ( app-doc/doxygen )
-"
+BDEPEND=""
 
 DEPEND="
 	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
@@ -91,7 +88,6 @@ DEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.2.0-setup.patch
-	"${FILESDIR}"/${PN}-1.4.0-eigen.patch
 	"${FILESDIR}"/${PN}-1.4.0-sleef.patch
 	"${FILESDIR}"/${PN}-1.4.0-skip-tests.patch
 	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.4.0.patch
@@ -155,13 +151,13 @@ src_configure() {
 		-DTORCH_INSTALL_LIB_DIR=$(get_libdir)
 		-DBUILD_BINARY=$(usex tools ON OFF)
 		-DBUILD_CUSTOM_PROTOBUF=OFF
-		-DBUILD_DOCS=$(usex doc ON OFF)
 		-DBUILD_PYTHON=$(usex python ON OFF)
 		-DBUILD_SHARED_LIBS=$(usex static OFF ON)
 		-DBUILD_TEST=$(usex test ON OFF)
 		-DUSE_ASAN=$(usex asan ON OFF)
 		-DUSE_CUDA=$(usex cuda ON OFF)
 		-DUSE_NCCL=$(usex cuda ON OFF)
+		-DUSE_SYSTEM_NCCL=OFF
 		-DUSE_ROCM=OFF
 		-DUSE_FBGEMM=$(usex fbgemm ON OFF)
 		-DUSE_FFMPEG=$(usex ffmpeg ON OFF)
@@ -173,7 +169,6 @@ src_configure() {
 		-DCAFFE2_USE_MKL=$(usex mkl ON OFF)
 		-DUSE_MKLDNN=$(usex mkldnn ON OFF)
 		-DUSE_MKLDNN_CBLAS=OFF
-		-DUSE_NCCL=OFF
 		-DUSE_NNPACK=$(usex nnpack ON OFF)
 		-DUSE_NUMPY=$(usex numpy ON OFF)
 		-DUSE_NUMA=$(usex numa ON OFF)
@@ -189,9 +184,9 @@ src_configure() {
 		-DUSE_ZMQ=$(usex zeromq ON OFF)
 		-DUSE_MPI=$(usex mpi ON OFF)
 		-DUSE_GLOO=$(usex gloo ON OFF)
+		-DUSE_SYSTEM_EIGEN_INSTALL=ON
 		-DBUILD_NAMEDTENSOR=$(usex namedtensor ON OFF)
 		-DBLAS=${blas}
-		-DBUILDING_SYSTEM_WIDE=ON # to remove insecure DT_RUNPATH header
 	)
 
 	cmake-utils_src_configure
@@ -212,19 +207,9 @@ src_compile() {
 src_install() {
 	cmake-utils_src_install
 
-	local multilib_failing_files=(
-		libc10.so
-		libtbb.so
-		libcaffe2_observers.so
-		libshm.so
-		libcaffe2_detectron_ops.so
-	)
-
 	local LIB=$(get_libdir)
 	if [[ ${LIB} != lib ]]; then
-		for file in ${multilib_failing_files[@]}; do
-			mv -fv "${ED}/usr/lib/$file" "${ED}/usr/${LIB}"
-		done
+		mv -fv "${ED}"/usr/lib/*.so "${ED}"/usr/${LIB}/ || die
 	fi
 
 	rm -rfv "${ED}/torch"
@@ -244,8 +229,6 @@ src_install() {
 
 	rm -fv "${ED}/usr/lib64/libtbb.so"
 	rm -rfv "${ED}/usr/lib64/cmake"
-
-	rm -rfv "${ED}/usr/share/doc/mkldnn"
 
 	if use python; then
 		install_shm_manager() {
