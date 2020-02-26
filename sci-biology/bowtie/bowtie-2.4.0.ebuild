@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -8,7 +8,7 @@ inherit toolchain-funcs
 DESCRIPTION="Popular short read aligner for Next-generation sequencing data"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/bowtie2/"
 SRC_URI="mirror://sourceforge/project/${PN}-bio/${PN}2/${PV}/${PN}2-${PV}-source.zip"
-SRC_URI="https://github.com/BenLangmead/${PN}2/releases/download/v${PV}/${PN}2-${PV}-source.zip"
+SRC_URI="https://github.com/BenLangmead/${PN}2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="2"
@@ -26,9 +26,6 @@ S="${WORKDIR}/${PN}2-${PV}"
 
 DOCS=( AUTHORS NEWS TUTORIAL )
 HTML_DOCS=( doc/{manual.html,style.css} )
-#PATCHES=( "${FILESDIR}/${P}-fix-c++14.patch" ) # needs 2.3.4.3 update
-PATCHES=( "${FILESDIR}"/bowtie-2.3.5-fix-interleaved.patch
-	"${FILESDIR}"/bowtie-2.3.5-fix-fifo.patch )
 
 pkg_pretend() {
 	if ! use cpu_flags_x86_sse2 ; then
