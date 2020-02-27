@@ -168,6 +168,7 @@ dev-python/trimesh 3.3.5 3.5.14: Python library for loading and using triangular
 dev-python/ufl 1.4.0 2016.2.0 2017.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualization module
 dev-python/widgetsnbextension 1.2.2: IPython HTML widgets for Jupyter
+dev-python/xgboost 1.0.1: XGBoost Python Package
 dev-python/xopen 0.1.1: Open compressed files transparently
 dev-tcltk/img_rotate 1.1: Image rotation package
 dev-tcltk/togl 1.7-r1: A Tk widget for OpenGL rendering
