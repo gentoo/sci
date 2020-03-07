@@ -1,0 +1,15 @@
+diff -Naur a/setup.py b/setup.py
+--- a/setup.py	2020-03-07 14:28:12.935708034 -0300
++++ b/setup.py	2020-03-07 15:07:42.258164580 -0300
+@@ -125,7 +125,10 @@
+ 
+     sources = [os.path.join(extensions_dir, s) for s in sources]
+ 
+-    include_dirs = [extensions_dir]
++    c_include_dir = os.path.join('/usr/include','torch','csrc','api','include')
++    c_include_local_dir = os.path.join('/usr/local/include','torch','csrc','api','include')
++
++    include_dirs = [extensions_dir, c_include_dir, c_include_local_dir]
+ 
+     ffmpeg_exe = distutils.spawn.find_executable('ffmpeg')
+     has_ffmpeg = ffmpeg_exe is not None
