@@ -12,18 +12,12 @@ S=${WORKDIR}/${PN}-${MYPV}
 
 DESCRIPTION="Helpers for Astropy and Affiliated packages"
 HOMEPAGE="https://github.com/astropy/astropy-helpers"
-
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/astropy/${PN}.git"
-else
-	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${PN}-${MYPV}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-fi
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${PN}-${MYPV}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 IUSE=""
+KEYWORDS="~amd64 ~x86"
 
 python_prepare_all() {
 	sed -e '/import ah_bootstrap/d' \
