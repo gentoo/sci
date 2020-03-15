@@ -18,7 +18,6 @@ dev-cpp/growler-math 0.3.4.1: Math-related classes and functionality
 dev-cpp/growler-thread 0.3.4: Pthread wrapper library
 dev-cpp/highwayhash 20180209: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/icnc 9999: Intel Concurrent Collections for C++ - Parallelism without the Pain
-dev-cpp/kokkos 2.7.00: Kokkos C++ Performance Portability Programming EcoSystem
 dev-java/fits 1.11.0-r1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 1_p20080421 2.0_rc8 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
