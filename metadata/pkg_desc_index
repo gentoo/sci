@@ -114,7 +114,6 @@ dev-python/ipywidgets 4.1.1 9999: IPython HTML widgets for Jupyter
 dev-python/jupyter_client 9999: Jupyter protocol implementation and client libraries
 dev-python/jupyter_console 9999: A terminal-based console frontend for Jupyter kernels
 dev-python/jupyter_core 9999: Core common functionality of Jupyter projects
-dev-python/lasagne 0.1_p20180608 9999: Lightweight library to build and train neural networks in Theano
 dev-python/matlab_wrapper 0.9.6 9999: MATLAB wrapper for Python
 dev-python/matplotlib-venn 0.11 9999: Routines for plotting area-weighted two- and three-circle venn diagrams
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
