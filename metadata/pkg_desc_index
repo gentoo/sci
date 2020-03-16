@@ -130,14 +130,13 @@ dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static H
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
 dev-python/notebook 4.0.6 9999: Jupyter Interactive Notebook
-dev-python/num2words 0.5.6: Modules to convert numbers to words.
+dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
 dev-python/omniorbpy 3.4: A robust high-performance CORBA ORB for Python
 dev-python/opal-client 2.4.1: Python Opal Web Service Client
 dev-python/pamela 0.2.1 9999: PAM interface using ctypes
 dev-python/photutils 9999: Affiliated package for image photometry utilities
 dev-python/pickleshare 9999: A small 'shelve' like datastore with concurrency support
 dev-python/prettyplotlib 0.1.7 9999: Painlessly create beautiful matplotlib plots
-dev-python/prov 1.4.0: W3C provenance data dodel library
 dev-python/psubprocess 0.1.2: Execute tasks in parallel
 dev-python/ptyprocess 9999: Run a subprocess in a pseudo terminal
 dev-python/py2bit 0.2.1: Python library for accessing 2bit files
