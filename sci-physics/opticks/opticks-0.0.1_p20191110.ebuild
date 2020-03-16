@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -86,6 +86,12 @@ src_prepare() {
 		sed '/OpticksBuildOptions/d' -i ${f}
 		eend $?
 	done
+
+	# include/Opticks instead of OpticksCore
+	sed -e 's,include/OpticksCore,include/Opticks,' -i optickscore/OpticksFlags.cc \
+		-i npy/Types.cpp \
+		-i ana/base.py \
+		-i ana/enum.py
 }
 
 src_configure() {
