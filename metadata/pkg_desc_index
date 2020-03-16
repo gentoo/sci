@@ -95,6 +95,7 @@ dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD 
 dev-python/coards 1.0.5: Converts COARDS between time specification and a Python datetime object
 dev-python/coords 0.37: Managing astronomical coordinate systems
 dev-python/cosmocalc 0.1.2-r1: Simple cosmology python module
+dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
 dev-python/dimensionful 9999: A simple library for making your data dimensionful
 dev-python/ffc 1.4.0 2016.2.0 2017.1.0: Compiler for multilinear forms by generating C or C++ code
