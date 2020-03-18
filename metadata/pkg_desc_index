@@ -145,7 +145,7 @@ dev-python/pydotplus 2.0.2: Improved version of the old pydot project
 dev-python/pyhdf 0.8.3: Python interface to NCSA HDF4 library
 dev-python/pylibconfig2 0.2.5 9999: Pure python library for libconfig syntax
 dev-python/pynomo 0.2.2: PyNomo is a program to create nomographs (nomograms) using Python interpreter
-dev-python/pynrrd 0.2.2: Simple pure-python module for reading and writing nrrd files
+dev-python/pynrrd 0.2.2 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.5: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/python-gantt 0.6.0: Draw Gantt charts from Python
 dev-python/python-ivi 0.14.9 9999: Python-based interpretation of the Interchangeable Virtual Instrument standard
