@@ -1,0 +1,11 @@
+--- lib2bit-0.2.1/test/test.py.ori	2020-03-19 11:28:53.301344896 +0000
++++ lib2bit-0.2.1/test/test.py	2020-03-19 11:28:11.968283978 +0000
+@@ -14,7 +14,7 @@
+     p2 = Popen(["md5sum"], stdin=p1.stdout, stdout=PIPE)
+ except:
+     p2 = Popen(["md5"], stdin=p1.stdout, stdout=PIPE)
+-md5sum = p2.communicate()[0].strip().split()[0]
++md5sum = p2.communicate()[0].strip().split()[0].decode('utf-8')
+ assert(md5sum == "0274c32c7f3dd75e8991f6107dca6a5f")
+ 
+ print("Passed!")
