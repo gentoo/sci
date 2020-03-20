@@ -1,0 +1,11 @@
+--- lib2bit-0.2.1/Makefile.ori	2020-03-19 11:41:21.896527937 +0000
++++ lib2bit-0.2.1/Makefile	2020-03-19 11:41:00.339977405 +0000
+@@ -4,7 +4,7 @@
+ CFLAGS ?= -g -Wall -O3
+ LIBS =
+ EXTRA_CFLAGS_PIC = -fpic
+-LDFLAGS =
++LDFLAGS ?=
+ LDLIBS =
+ INCLUDES = 
+ 
