@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
+	<maintainer type="person">
+		<email>davidroman96@gmail.com</email>
+		<name>David Roman</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>gentoo@lotz.li</email>
+		<name>Linus Lotz</name>
+	</maintainer>
 	<maintainer type="project">
 		<email>sci-astronomy@gentoo.org</email>
 		<name>Gentoo Astronomy Project</name>
