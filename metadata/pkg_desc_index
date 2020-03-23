@@ -86,7 +86,7 @@ dev-python/RecSQL 9999: Simple SQL analysis of python records
 dev-python/absl-py 0.1.13: Abseil Python Common Libraries
 dev-python/arrayfire-python 3.1.20151111 3.2.20151224 3.3.20160624 3.4.20161126 3.4.20170222 9999: Python bindings for ArrayFire
 dev-python/astropy 9999: Core functionality for performing astrophysics with Python
-dev-python/astropy-helpers 9999: Helpers for Astropy and Affiliated packages
+dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated packages
 dev-python/astropysics 9999: General purpose python library for professional astronomers/astrophysicists
 dev-python/astroquery 9999: A collection of packages to access online astronomical resources
 dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Biopython
@@ -197,6 +197,7 @@ perl-core/encoding-warnings 0.11: Warn on implicit encoding conversions
 sci-astronomy/bpz 1.99.3: Bayesian Photometric Redshifts
 sci-astronomy/casapy-bin 4.2.1.29047.001_p1 4.2.2.30986_p1 4.4.0: Software package to calibrate, image, and analyze radioastronomical data
 sci-astronomy/eazy 1.00: Photometric redshift estimator for galaxies
+sci-astronomy/erfa 1.7.0: Essential Routines for Fundamental Astronomy
 sci-astronomy/eye 9999: Enhance astronomical object extraction with neural network filters
 sci-astronomy/galfit-bin 3.0.5: Galaxy morphology fitting program
 sci-astronomy/lephare 2.2: Photometric Analysis for Redshift Estimate for galaxies
@@ -212,6 +213,7 @@ sci-astronomy/stilts 2.5.1: Command line tools to process astronomical tables
 sci-astronomy/stuff 9999: Tool for automatic generation of astronomical catalogs
 sci-astronomy/swarp 9999: Resample and coadd astronomical FITS images
 sci-astronomy/topcat 4.0.1: Interactive graphical viewer and editor for astronomical tables
+sci-astronomy/wcslib 6.4: Astronomical World Coordinate System transformations library
 sci-astronomy/weightwatcher 9999: Combine weight maps and polygon for astronomical images weighting
 sci-astronomy/zebra 1.01: Galaxy redhift Bayesian analyzer
 sci-astronomy/zpeg 5.23: Galaxy photometric redshifts from evolutionary synthesis
