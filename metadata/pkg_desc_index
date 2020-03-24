@@ -726,7 +726,7 @@ sci-libs/ipp 18.0.2.199 19.0.4.243: Intel Integrated Performance Primitive libra
 sci-libs/itk 5.0.1: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/k3match 1.1: Fast matching of large sets of points in 3D space, in O(N log N) time
-sci-libs/labbookdb 0.0.2 9999: Lab Book Database Framework
+sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lapackpp 2.5.4: C++ wrapper for LAPACK libraries
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genetic programs
@@ -750,7 +750,6 @@ sci-libs/nexus 4.4.1: Data format for neutron and x-ray scattering data
 sci-libs/ni-visa 0.0.1: Placeholder for an NI-VISA library ebuild
 sci-libs/nibabel 2.3.0 2.3.1 2.5.1 3.0.2 9999: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
-sci-libs/nipy-data 0.2: Demo Data for Python Neuroimaging
 sci-libs/nipy-templates 0.2: Normalization templates for Python Neuroimaging
 sci-libs/nipype 1.1.0 1.1.1-r1 9999: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/o2scl 0.915: Object-oriented Scientific Computing Library
