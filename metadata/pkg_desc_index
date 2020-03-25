@@ -857,6 +857,7 @@ sci-physics/uproot 3.11.0: Manipulate arrays of complex data structures as easil
 sci-physics/uproot-methods 0.7.2: Manipulate arrays of complex data structures as easily as Numpy.
 sci-physics/vgm 3.06 4.3 9999: Virtual Geometry Model for High Energy Physics Experiments
 sci-visualization/forge 0.9.0-r1 0.9.2-r1 3.1.2 3.2.2 9999: High Performance Visualizations for ArrayFire
+sci-visualization/fsleyes 0.32.0 0.32.3: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLeyes viewer
 sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20170401 1.0.20170714 1.0.20180402 1.0.20180623 9999: A simple medical imaging visualization tool
