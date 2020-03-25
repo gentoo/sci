@@ -1,0 +1,62 @@
+diff --git a/tests/actions/test_copyoverlay.py b/tests/actions/test_copyoverlay.py
+index 3509ba6..371813e 100644
+--- a/tests/actions/test_copyoverlay.py
++++ b/tests/actions/test_copyoverlay.py
+@@ -19,7 +19,11 @@ import fsleyes.actions.copyoverlay as copyoverlay
+ 
+ from .. import run_with_orthopanel, realYield
+ 
++import pytest
+ 
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_copyImage_3d():
+     run_with_orthopanel(_test_copyImage_3d)
+ def _test_copyImage_3d(panel, overlayList, displayCtx):
+@@ -103,7 +107,9 @@ def _test_copyImage_3d(panel, overlayList, displayCtx):
+     assert np.all(copy[5:25, 5:25, 5:25] == img3d[:, :, :])
+     overlayList.remove(copy)
+ 
+-
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_copyImage_4d():
+     run_with_orthopanel(_test_copyImage_4d)
+ def _test_copyImage_4d(panel, overlayList, displayCtx):
+@@ -220,6 +226,9 @@ def make_rgb():
+     return fslimage.Image(rgb, xform=np.eye(4))
+ 
+ 
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_copyImage_multiValued():
+     run_with_orthopanel(_test_copyImage_multiValued)
+ def _test_copyImage_multiValued(panel, overlayList, displayCtx):
+@@ -281,6 +290,9 @@ def _test_copyImage_multiValued(panel, overlayList, displayCtx):
+     overlayList.remove(copy)
+ 
+ 
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_CopyOverlayAction():
+     run_with_orthopanel(_test_CopyOverlayAction)
+ def _test_CopyOverlayAction(panel, overlayList, displayCtx):
+diff --git a/tests/actions/test_newimage.py b/tests/actions/test_newimage.py
+index cfd6b5a..e9c2ff8 100644
+--- a/tests/actions/test_newimage.py
++++ b/tests/actions/test_newimage.py
+@@ -82,6 +82,9 @@ def test_newImage():
+     assert        img.name          == 'whaa'
+ 
+ 
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_NewImageAction():
+     run_with_orthopanel(_test_NewImageAction)
+ 
+
