@@ -1,0 +1,61 @@
+diff --git a/tests/actions/test_newimage.py b/tests/actions/test_newimage.py
+index a7d159e4..7bc76fb0 100644
+--- a/tests/actions/test_newimage.py
++++ b/tests/actions/test_newimage.py
+@@ -16,6 +16,7 @@ import fsl.transform.affine as fslaffine
+ import fsleyes.actions.newimage as newimage
+ from .. import run_with_fsleyes, run_with_orthopanel, realYield
+ 
++import pytest
+ 
+ class MockNewImageDialog(object):
+     initOverride = False
+@@ -121,7 +122,9 @@ def _test_NewImageAction(panel, overlayList, displayCtx):
+             overlayList.clear()
+             realYield()
+ 
+-
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_NewImageAction_existing():
+     run_with_orthopanel(_test_NewImageAction_existing)
+
+@@ -156,7 +156,9 @@ def _test_NewImageAction_existing(panel, overlayList, displayCtx):
+         assert old.sameSpace(new)
+         assert new.dtype == np.int32
+
+-
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_NewImageDialog():
+     run_with_fsleyes(_test_NewImageDialog)
+
+diff --git a/tests/actions/test_resample.py b/tests/actions/test_resample.py
+index e883002c..ae1741cc 100644
+--- a/tests/actions/test_resample.py
++++ b/tests/actions/test_resample.py
+@@ -25,7 +25,11 @@ from .. import (run_with_fsleyes,
+                 simtext,
+                 simclick)
+
++import pytest
+
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_resample():
+     run_with_orthopanel(_test_resample)
+
+@@ -132,6 +136,9 @@ def _test_resample(panel, overlayList, displayCtx):
+
+
+
++@pytest.mark.skip(reason="Known to fail on Gentoo:"
++    "https://github.com/pauldmccarthy/fsleyes/issues/38"
++    )
+ def test_ResampleDialog():
+     run_with_fsleyes(_test_ResampleDialog)
+
+

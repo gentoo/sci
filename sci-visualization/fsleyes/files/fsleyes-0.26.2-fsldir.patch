@@ -1,0 +1,14 @@
+--- a/fsleyes/main.py	2018-09-24 17:46:07.756686411 +0200
++++ b/fsleyes/main.py	2018-10-06 14:36:53.328135230 +0200
+@@ -325,11 +325,6 @@
+         app.SetTopWindow(frame)
+         frame.Show()
+ 
+-        # Check that $FSLDIR is set, complain
+-        # to the user if it isn't
+-        if not namespace[0].skipfslcheck:
+-            wx.CallAfter(fslDirWarning, frame)
+-
+         # Check for updates. Ignore point
+         # releases, otherwise users might
+         # get swamped with update notifications.

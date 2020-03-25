@@ -1,0 +1,10 @@
+*fsleyes-0.32.0 (24 Jan 2020)
+
+  24 Jan 2020;  <chymera@gentoo.org> +files/fsleyes-0.32.0-coverage.patch,
+  +files/fsleyes-0.32.0-tests_fail.patch,
+  +files/fsleyes-0.32.0-tests_timeout.patch, +fsleyes-0.32.0.ebuild,
+  -fsleyes-0.26.2.ebuild, -fsleyes-0.27.3.ebuild, metadata.xml:
+  sci-visualization/fsleyes: new package
+
+  15 Apr 2019;  <chymera@gentoo.org> fsleyes-0.27.3.ebuild:
+  sci-visualization/fsleyes:
