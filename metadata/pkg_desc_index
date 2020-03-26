@@ -182,7 +182,7 @@ dev-util/nvidia-cuda-gdk 352.79: NVIDIA GPU Deployment Kit
 dev-util/plog 1.1.4_p20191110: Portable, simple and extensible C++ logging library
 media-gfx/PhiloGL 1.4.3: WebGL Framework for Data Vis, Creative Coding and Game Development
 media-gfx/brlcad 7.22.0 7.24.0 7.24.2 9999: Constructive solid geometry modeling system
-media-libs/DualContouringSample 0_p20191111: A sample Dual Contouring implementation
+media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
 media-libs/avbin-bin 8.1: A thin wrapper around FFmpeg
 media-libs/glbinding 2.1.1: Cross-platform C++ binding for the OpenGL API
 media-libs/imgui 1.48_p20191119: Bloat-free graphical user interface library for C++
