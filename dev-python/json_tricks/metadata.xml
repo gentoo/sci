@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<longdescription lang="en">
+		The json-tricks package brings several pieces of functionality to
+		Python handling of json files: (1) Store and load numpy arrays in
+		human-readable format; (2) Store and load class instances both
+		generic and customized; (3) Store and load date/times as a
+		dictionary (including timezone); (4) Preserve map order {} using
+		OrderedDict; (5) Allow for comments in json files by starting lines
+		with #; (6) Sets, complex numbers, Decimal, Fraction, enums,
+		compression, duplicate keys, pathlib Paths ...
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">json-tricks</remote-id>
+	</upstream>
+</pkgmetadata>
+
