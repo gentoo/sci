@@ -112,6 +112,7 @@ dev-python/instant 1.4.0 2016.2.0 2017.1.0: Instant inlining of C and C++ code i
 dev-python/ipyparallel 9999: Interactive Parallel Computing with IPython
 dev-python/ipython_genutils 9999: Vestigial utilities from IPython
 dev-python/ipywidgets 4.1.1 9999: IPython HTML widgets for Jupyter
+dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/jupyter_client 9999: Jupyter protocol implementation and client libraries
 dev-python/jupyter_console 9999: A terminal-based console frontend for Jupyter kernels
 dev-python/jupyter_core 9999: Core common functionality of Jupyter projects
