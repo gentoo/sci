@@ -751,7 +751,7 @@ sci-libs/nexus 4.4.1: Data format for neutron and x-ray scattering data
 sci-libs/ni-visa 0.0.1: Placeholder for an NI-VISA library ebuild
 sci-libs/nibabel 2.3.0 2.3.1 2.5.1 3.0.2 9999: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
-sci-libs/nipype 1.1.0 1.1.1-r1 9999: Neuroimaging in Python: Pipelines and Interfaces
+sci-libs/nipype 1.1.1-r1: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/o2scl 0.915: Object-oriented Scientific Computing Library
 sci-libs/oasa 0.13.1: Python library for manipulation of chemical structures
 sci-libs/omalloc 0.9.6: omalloc is the memory management of the Singular algebra system
