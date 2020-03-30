@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python{3_4,3_5,3_6} )
+PYTHON_COMPAT=( python3_{6,7} )
 PYTHON_REQ_USE="threads(+),sqlite"
 
 inherit distutils-r1
@@ -20,19 +20,18 @@ IUSE="test"
 DEPEND="
 	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	~dev-python/prov-1.5.0[${PYTHON_USEDEP}]
+	dev-python/prov[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	test? (
 		dev-python/mock[${PYTHON_USEDEP}]
-		dev-python/pytest[${PYTHON_USEDEP}]
-		dev-python/pytest-xdist[${PYTHON_USEDEP}]
+		<=dev-python/pytest-4.6.9[${PYTHON_USEDEP}]
 		${RDEPEND}
 		)
-	$(python_gen_cond_dep '
-		dev-python/futures[${PYTHON_USEDEP}]
-		dev-python/configparser[${PYTHON_USEDEP}]' python2_7)
-	"
+"
+# Dependency disabled as upstream test configuration which requires it fails
+#dev-python/pytest-xdist[${PYTHON_USEDEP}]
+
 RDEPEND="
 	>=dev-python/click-6.6[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
@@ -44,8 +43,7 @@ RDEPEND="
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
-	virtual/python-funcsigs[${PYTHON_USEDEP}]
-	"
+"
 
 src_prepare() {
 	sed -i\
@@ -56,10 +54,12 @@ src_prepare() {
 }
 
 python_test() {
-	py.test -v --cov nipype\
-		--cov-config .coveragerc\
-		--cov-report xml:cov.xml\
-		-c nipype/pytest.ini\
-		--doctest-modules nipype\
+	pytest -vv\
 		|| die
+	# Upstream test configuration fails
+		#-c nipype/pytest.ini\
+		#--doctest-modules nipype\
+		#--cov nipype\
+		#--cov-config .coveragerc\
+		#--cov-report xml:cov.xml\
 }
