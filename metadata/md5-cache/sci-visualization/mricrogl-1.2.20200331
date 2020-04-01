@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install
+DEPEND=dev-lang/fpc >=dev-lang/lazarus-1.6.2
+DESCRIPTION=A simple medical imaging visualization tool
+EAPI=7
+HOMEPAGE=https://github.com/neurolabusc/MRIcroGL
+IUSE=dicom python
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD
+RDEPEND=dicom? ( sci-biology/dcm2niix )
+SLOT=0
+SRC_URI=https://github.com/rordenlab/MRIcroGL12/archive/v1.2.20200331.tar.gz -> mricrogl-1.2.20200331.tar.gz https://github.com/neurolabusc/Metal-Demos/archive/d07815f31093f28b47731f87f3f5ba5543f12d11.tar.gz -> Metal-Demos-d07815f31093f28b47731f87f3f5ba5543f12d11.tar.gz python? ( https://github.com/Alexey-T/Python-for-Lazarus/archive/8dc41685b547f0982755b90115d9a43a2d2b358c.tar.gz -> Python-for-Lazarus-.tar.gz )
+_eclasses_=desktop	7fd20552ce4cc97e8acb132a499a7dd8	eutils	fcb2aa98e1948b835b5ae66ca52868c5
+_md5_=cc5e32317a03d89164b69ca728a06fcc
