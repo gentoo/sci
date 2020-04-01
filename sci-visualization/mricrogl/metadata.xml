@@ -11,6 +11,9 @@
 		interactive rendering. It includes scripts to show you some of
 		the many effects.
 	</longdescription>
+	<use>
+		<flag name="dicom">Adds limited read support for the DICOM imaging format.</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">neurolabusc/MRIcroGL</remote-id>
 	</upstream>
