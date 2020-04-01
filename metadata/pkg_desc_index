@@ -862,7 +862,6 @@ sci-visualization/fsleyes 0.32.0 0.32.3: The new FSL image viewer, released with
 sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLeyes viewer
 sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
-sci-visualization/mricron 9999: A simple medical imaging visualization tool
 sci-visualization/nodemon 0.3.5: Distributed visualization tool for monitoring system resource utilization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
 sci-visualization/yt 2.6 9999: Astrophysical Simulation Analysis and Vizualization package
