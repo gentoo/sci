@@ -6,10 +6,10 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-This is a simple tool for converting Bruker ParaVision MRI data to
-the NIfTI file format. It includes both a drag-and-drop graphical
-interface (Bru2Nii) as well as a command line tool (Bru2).
-</longdescription>
+		This is a simple tool for converting Bruker ParaVision MRI data to
+		the NIfTI file format. It includes both a drag-and-drop graphical
+		interface (Bru2Nii) as well as a command line tool (Bru2).
+	</longdescription>
 	<upstream>
 		<remote-id type="github">neurolabusc/Bru2Nii</remote-id>
 	</upstream>
