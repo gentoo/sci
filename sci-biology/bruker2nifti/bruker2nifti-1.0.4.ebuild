@@ -3,6 +3,7 @@
 
 EAPI=7
 
+DISTUTILS_USE_SETUPTOOLS="rdepend"
 PYTHON_COMPAT=( python3_{6,7} )
 
 inherit distutils-r1
@@ -19,8 +20,6 @@ RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	"
-
-#S="${WORKDIR}/Bru2Nii-${PV}"
 
 python_prepare_all() {
 	sed -i -e "s/packages=find_packages()/packages=find_packages(exclude=('test',))/g"\
