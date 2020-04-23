@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="cuda test"
 
-DEPEND="
+COMMON_DEPEND="
 	dev-python/av[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
@@ -25,16 +25,15 @@ DEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	sci-libs/pytorch[cuda?,${PYTHON_USEDEP}]
 	virtual/ffmpeg
+"
+DEPEND="
 	test? (
 		dev-python/pytest[${PYTHON_USEDEP}]
 		dev-python/mock[${PYTHON_USEDEP}]
-	)
-"
-RDEPEND="${DEPEND}"
+	)"
+RDEPEND="${COMMON_DEPEND}"
 BDEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	dev-qt/qtcore:5
-"
+	dev-qt/qtcore:5"
 
 S="${WORKDIR}/vision-${PV}"
 
