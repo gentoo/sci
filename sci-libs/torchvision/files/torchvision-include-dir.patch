@@ -1,3 +1,10 @@
+As Torch was installed in Gentoo with an alternate include directory,
+it couldn't find the default path, so I had to create this patch
+to find the necessary files in /include/path/torch/csrc/api/include
+or it will fail.
+
+---
+
 diff -Naur a/setup.py b/setup.py
 --- a/setup.py	2020-03-07 14:28:12.935708034 -0300
 +++ b/setup.py	2020-03-07 15:07:42.258164580 -0300
