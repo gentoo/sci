@@ -19,4 +19,7 @@ aliases over a variety of shells.
 	<upstream>
 		<remote-id type="sourceforge">modules</remote-id>
 	</upstream>
+	<use>
+		<flag name="compat">Build Modules version 3 compat support</flag>
+	</use>
 </pkgmetadata>
