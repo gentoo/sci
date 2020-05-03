@@ -775,7 +775,6 @@ sci-libs/spglib 1.6.0 1.9.0: Spglib is a C library for finding and handling crys
 sci-libs/spyking-circus 0.9.6: Fast and scalable spike sorting in Python
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 3.3: MPI distributed sparse LU factorization library
-sci-libs/symengine 0.1.0 9999: Fast symbolic manipulation library, written in C++
 sci-libs/symmetrica 2.0 2.0-r1: A collection of routine to handle a variety of topics
 sci-libs/tensorflow 1.0.1 1.5.0 1.7.0 1.8.0: Library for numerical computation using data flow graphs
 sci-libs/tmglib 3.5.0 3.6.0: Test Matrix Generator library for LAPACK
