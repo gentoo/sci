@@ -34,17 +34,17 @@ dev-java/scirenderer 1.1.0: A rendering library based on JoGL
 dev-lang/berkeley_upc 2.16.2 2.18.0 2.18.2 2.20.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.16.2 2.18.0 2.18.2: The Berkeley UPC-to-C translator
 dev-lang/conceptual 1.4: A Network Correctness and Performance Testing Language
-dev-lang/icc 18.0.2.199-r1 19.0.4.243: Intel C/C++ Compiler
-dev-lang/ifc 18.0.2.199-r1 19.0.4.243: Intel FORTRAN Compiler
+dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
+dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/path64 9999: Path64 Compiler Suite Community Edition
 dev-lang/pgi 13.5: PGI compiler suite
 dev-lang/terra 2015.03.12: A low-level counterpart to Lua
-dev-lang/vtune 18.0.2.0.551022 19.0.4.0.597835: Intel VTune Amplifier XE
+dev-lang/vtune 18.0.2.0.551022 19.0.4.0.597835 2020.1.0.607630: Intel VTune Profiler
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
 dev-libs/asmjit 1.0_beta4: complete x86/x64 JIT-Assembler for C++ language
 dev-libs/boost-compute 0.4-r1 0.5 9999: A header-only C++ Computing Library for OpenCL
 dev-libs/fortrancl 0.1_alpha3: OpenCL interface for Fortran 90
-dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243: Common libraries and utilities needed for Intel compilers and libraries
+dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/libconfig 9999: Libconfig is a simple library for manipulating structured configuration files
 dev-libs/libcuda 9999: Gdev is open-source GPGPU runtime
 dev-libs/libflatarray 9999: Struct of arrays library with object oriented interface for C++
@@ -724,7 +724,7 @@ sci-libs/gsl 1.16-r2 2.1 2.3 2.4 2.5: GNU Scientific Library
 sci-libs/htslib-plugins 201609: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.0: Integrated Rule Oriented Data System, a data management software
 sci-libs/io_lib 1.14.9 1.14.11: General purpose trace and experiment file reading/writing interface
-sci-libs/ipp 18.0.2.199 19.0.4.243: Intel Integrated Performance Primitive library
+sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.0.1: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/k3match 1.1: Fast matching of large sets of points in 3D space, in O(N log N) time
@@ -743,7 +743,7 @@ sci-libs/libsufr 0.5.4 0.6.3 0.6.4: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/matc 6.0_p4651 8.0 9999: Finite element programs, libraries, and visualization tools - math C library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
-sci-libs/mkl 18.0.2.199 19.0.4.243: Intel Math Kernel Library: linear algebra, fft, math functions
+sci-libs/mkl 18.0.2.199 19.0.4.243 2020.1.217: Intel Math Kernel Library: linear algebra, fft, math functions
 sci-libs/mlpack 1.0.8: Scalable c++ machine learning library
 sci-libs/modglue 1.19: C++ library for handling of multiple co-processes
 sci-libs/mpiblacs 1.1-r1: Basic Linear Algebra Communication Subprograms with MPI
