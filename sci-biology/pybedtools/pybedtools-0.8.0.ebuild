@@ -29,3 +29,9 @@ src_compile(){
 	default
 	use doc && cd docs && emake html
 }
+
+src_install(){
+	default
+	insinto /usr/share/doc/"${PN}"
+	doins -r docs/build/html
+}
