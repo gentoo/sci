@@ -14,15 +14,18 @@ SRC_URI="https://github.com/daler/pybedtools/archive/v${PV}.tar.gz -> ${P}.tar.g
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE=""
+IUSE="doc minimal"
 
 RDEPEND="
 	sci-biology/bedtools
-	sci-biology/pysam"
+	sci-biology/pysam
+	!minimal? ( sci-libs/htslib )
+	doc? ( dev-python/sphinx )"
 DEPEND="${RDEPEND}
 	dev-python/cython[${PYTHON_USEDEP}]"
 
 src_compile(){
 	python setup.py cythonize
 	default
+	use doc && cd docs && emake html
 }
