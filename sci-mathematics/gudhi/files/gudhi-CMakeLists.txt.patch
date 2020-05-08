@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 561aa04..d086a23 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,8 +57,6 @@ foreach(GUDHI_MODULE ${GUDHI_MODULES})
+   endforeach()
+ endforeach()
+ 
+-add_subdirectory(GudhUI)
+-
+ if (WITH_GUDHI_PYTHON)
+   # specific for cython module
+   add_subdirectory(${GUDHI_PYTHON_PATH})
