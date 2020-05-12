@@ -436,7 +436,7 @@ sci-biology/mira 4.9.5: Whole Genome Shotgun and EST Sequence Assembler
 sci-biology/miranda 3.3a: An algorithm for finding genomic targets for microRNAs
 sci-biology/mne-python 0.7 9999: Python package for MEG and EEG data analysis
 sci-biology/mothur 1.36.1: A suite of algorithms for ecological bioinformatics
-sci-biology/mouse-brain-atlases 0.3 0.4 0.5 0.5.1 0.5.2 0.5.3: A collection of mouse brain atlases in NIfTI format
+sci-biology/mouse-brain-atlases 0.5.3: A collection of mouse brain atlases in NIfTI format
 sci-biology/mreps 2.5: Identification of serial/tandem repeats in DNA sequences
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
 sci-biology/mrsfast 2.6.0.4: Micro Read Fast Alignment Search Tool
@@ -509,8 +509,8 @@ sci-biology/sailfish 0.10.0 9999: Rapid Mapping-based Isoform Quantification fro
 sci-biology/salmon 0.10.2 9999: Transcript-level quantification from RNA-seq reads using lightweight alignments
 sci-biology/sambamba 0.6.5 9999: Parallell process SAM/BAM/CRAM files faster than samtools
 sci-biology/samri 0.4.1 9999: Small Animal Magnetic Resonance Imaging
-sci-biology/samri_bidsdata 0.2 0.2.1 0.3: BIDS-formatted example mouse brain data for SAMRI
-sci-biology/samri_bindata 0.1.1 0.1.2 0.2 0.3: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
+sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
+sci-biology/samri_bindata 0.3: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scaffold_builder 20131122-r1: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
