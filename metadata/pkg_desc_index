@@ -510,7 +510,7 @@ sci-biology/salmon 0.10.2 9999: Transcript-level quantification from RNA-seq rea
 sci-biology/sambamba 0.6.5 9999: Parallell process SAM/BAM/CRAM files faster than samtools
 sci-biology/samri 0.4.1 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
-sci-biology/samri_bindata 0.3: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
+sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scaffold_builder 20131122-r1: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
