@@ -402,7 +402,7 @@ sci-biology/hydra-sv 0.5.3: Detection of structural variation breakpoints
 sci-biology/idba 1.1.1 9999: De novo De Bruijn graph assembler iteratively using multimple k-mers
 sci-biology/igv 2.3.47 2.3.81 2.3.88 2.3.92: Integrative Genomics Viewer
 sci-biology/imagej 1.51k: Image Processing and Analysis in Java
-sci-biology/irsabi_bidsdata 1.0 1.2 1.4: BIDS data files released with the IRSABI publication
+sci-biology/irsabi_bidsdata 1.4: BIDS data files released with the IRSABI publication
 sci-biology/jannovar 0.17: Exome annotation tool
 sci-biology/jannovar-bin 0.17: Exome annotation tool (upstream jar binaries)
 sci-biology/jellyfish 1.1.12 2.1.3-r1 2.1.4-r1 2.2.10 2.3.0: k-mer counter within reads for assemblies
