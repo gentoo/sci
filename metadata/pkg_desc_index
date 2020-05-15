@@ -264,7 +264,7 @@ sci-biology/Ray 2.3.0: Assembler for metagenomes, genomes and transcriptomes usi
 sci-biology/Rcorrector 9999: Error correction for Illumina RNA-seq reads
 sci-biology/SEECER 0.1.3-r2: SEquence Error Corrector for RNA-Seq reads
 sci-biology/SOAPdenovo2 241: Whole genome shotgun assembler (sparse de Bruijn graph) (now MEGAHIT)
-sci-biology/SPAdes 3.13.0 3.14.0: De novo de Bruijn genome assembler overcoming uneven coverage
+sci-biology/SPAdes 3.13.0 3.14.1: De novo de Bruijn genome assembler overcoming uneven coverage
 sci-biology/SSAKE 3.8.2: Short-read trimmer, OLC assembler, scaffolder in PERL using the 3'-most k-mers
 sci-biology/STAR 9999: STAR aligner: align RNA-seq reads to reference genome uncompressed suffix arrays
 sci-biology/Scaffolder-evaluation 9999: Scripts to run genome assembly scaffolding tools and analyse output for accuracy
