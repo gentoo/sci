@@ -217,8 +217,8 @@ sci-astronomy/wcslib 6.4: Astronomical World Coordinate System transformations l
 sci-astronomy/weightwatcher 9999: Combine weight maps and polygon for astronomical images weighting
 sci-astronomy/zebra 1.01: Galaxy redhift Bayesian analyzer
 sci-astronomy/zpeg 5.23: Galaxy photometric redshifts from evolutionary synthesis
-sci-biology/ABI-connectivity-data 0.1-r1: Connectivity data from the Allen Mouse Brain data portal
-sci-biology/ABI-expression-data 0.1.1: Gene expression data form the Allen Mouse Brain data portal
+sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
+sci-biology/ABI-expression-data 0.1.1-r1 0.2: Gene expression data form the Allen Mouse Brain data portal
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
 sci-biology/AlignGraph 9999: Reference-genome-assisted asssembly of contigs/scaffolds using PE reads
 sci-biology/Atlas 2005: Atlas Whole Genome Assembly Suite

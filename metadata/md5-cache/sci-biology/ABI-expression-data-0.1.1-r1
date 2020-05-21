@@ -1,0 +1,10 @@
+DEFINED_PHASES=install pretend setup
+DESCRIPTION=Gene expression data form the Allen Mouse Brain data portal
+EAPI=7
+HOMEPAGE=https://github.com/IBT-FMI/ABI-geneexpression-data
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=fairuse
+SLOT=0
+SRC_URI=http://chymera.eu/distfiles/ABI-expression-data-0.1.1.tar.xz
+_eclasses_=check-reqs	7e3fd1855a5e1b50bb9e80827b3f672d
+_md5_=c5e8f2a3a8dd8e5a548fa5a9c2b5565d
