@@ -6,5 +6,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=Artistic
 SLOT=0
 SRC_URI=ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/zmsort.tar.gz -> zmsort-110625.tar.gz ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/gclib.tar.gz -> gclib-110625.tar.gz
-_eclasses_=multilib	797cda3549becfe50afdfa35192ca137	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_eclasses_=multilib	ac7989ababbeabdef6fdc6e465b21644	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
 _md5_=ab6eb5fdb6ac5aa3fb7d26667b3911e8
