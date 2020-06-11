@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>chr@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		BIDS data selection encompassing the wildtype mouse group form the
+		"Dysfunctional Autism Risk Genes Cause Circuit-Specific Connectivity
+		Deficits With Distinct Developmental Trajectories" publication, with
+		DOI: 10.1093/cercor/bhy046 .
+	</longdescription>
+</pkgmetadata>
