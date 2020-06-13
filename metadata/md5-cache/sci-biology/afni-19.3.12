@@ -8,5 +8,5 @@ LICENSE=GPL-3+
 RDEPEND=dev-libs/expat media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* virtual/jpeg:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif[-static-libs]
 SLOT=0
 SRC_URI=https://github.com/afni/afni/archive/AFNI_19.3.12.tar.gz -> afni-19.3.12.tar.gz
-_eclasses_=eutils	fcb2aa98e1948b835b5ae66ca52868c5	multilib	0914eab919f4f11dd9e0407b92af4726	pax-utils	a41d1fd1c111289ffa04490de6ee79d7	toolchain-funcs	d3e75048a89c0445838d2f44e5c65d97
+_eclasses_=eutils	fcb2aa98e1948b835b5ae66ca52868c5	multilib	ba693a7065ee4edc78b3ea02a015bcad	pax-utils	a41d1fd1c111289ffa04490de6ee79d7	toolchain-funcs	d3e75048a89c0445838d2f44e5c65d97
 _md5_=a358bb66ca263c6c9786889e1d7283c1
