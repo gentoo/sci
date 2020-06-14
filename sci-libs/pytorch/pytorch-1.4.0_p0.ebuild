@@ -194,6 +194,9 @@ src_configure() {
 	if use python; then
 		CMAKE_BUILD_DIR=${BUILD_DIR} distutils-r1_src_configure
 	fi
+
+	# do not rerun cmake and the build process in src_install
+	sed '/RERUN/,+1d' -i ${BUILD_DIR}/build.ninja || die
 }
 
 src_compile() {
