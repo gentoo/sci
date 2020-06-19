@@ -375,7 +375,7 @@ sci-biology/fgap-bin 1.8.1: Tool to close gaps in de novo assembled contigs or s
 sci-biology/flexbar 2.7.0 3.0.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
-sci-biology/fsl 5.0.8 5.0.9 5.0.11 6.0.2: Analysis of functional, structural, and diffusion MRI brain imaging data
+sci-biology/fsl 6.0.2: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/full_lengther_next 0.6.2: Classify assembled transcripts and fix frameshifts in ORFs
 sci-biology/gap2caf 2.1.0: GAP4 file format to CAF v2 format converter for genomic assembly data
 sci-biology/gatk 3.8.1 9999: The Genome Analysis Toolkit
