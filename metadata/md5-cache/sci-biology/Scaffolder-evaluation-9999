@@ -7,5 +7,5 @@ LICENSE=GPL-3
 PROPERTIES=live
 RDEPEND=dev-lang/perl dev-lang/python dev-lang/R media-gfx/graphviz sci-biology/mummer sci-biology/bowtie sci-biology/samtools sci-biology/ncbi-tools sci-biology/Fastaq
 SLOT=0
-_eclasses_=git-r3	86a0188f2ad9eb3d65e4d031ab8a0422
+_eclasses_=git-r3	8ec5b53812bce105ae7943930e4660f8
 _md5_=169530c7426dee49066b149808b58c96
