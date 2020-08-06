@@ -1,0 +1,14 @@
+Disable expected test failures.
+
+Reference: https://github.com/pytorch/pytorch/issues/13746
+Reference: https://github.com/pytorch/pytorch/issues/21873
+
+Index: pytorch-1.4.0_p0/caffe2/share/contrib/depthwise/CMakeLists.txt
+===================================================================
+--- pytorch-1.4.0_p0.orig/caffe2/share/contrib/depthwise/CMakeLists.txt
++++ pytorch-1.4.0_p0/caffe2/share/contrib/depthwise/CMakeLists.txt
+@@ -6,4 +6,3 @@ set(Caffe2_CONTRIB_DEPTHWISE3x3_TEST_CPU
+ )
+ 
+ set(Caffe2_CPU_SRCS ${Caffe2_CPU_SRCS} ${Caffe2_CONTRIB_DEPTHWISE3x3_CPU_SRC} PARENT_SCOPE)
+-set(Caffe2_CPU_TEST_SRCS ${Caffe2_CPU_TEST_SRCS} ${Caffe2_CONTRIB_DEPTHWISE3x3_TEST_CPU_SRC} PARENT_SCOPE)
