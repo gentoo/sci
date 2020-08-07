@@ -147,7 +147,7 @@ src_prepare() {
 
 	if use cuda; then
 		cd ../nccl || die
-		eapply "${FILESDIR}"/${PN}-1.4.0-nccl-nvccflags.patch
+		eapply "${FILESDIR}"/${PN}-1.6.0-nccl-nvccflags.patch
 		ln -s . nccl || die
 
 		cuda_src_prepare
