@@ -1,9 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{6,7,8} )
 
 inherit python-r1
 
@@ -11,7 +11,7 @@ DESCRIPTION="Align DNA reads to a population of genomes"
 HOMEPAGE="
 	https://ccb.jhu.edu/software/hisat2
 	https://github.com/infphilo/hisat2"
-SRC_URI="ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/${P}-source.zip"
+SRC_URI="https://cloud.biohpc.swmed.edu/index.php/s/fE9QCsX3NH4QwBi/download -> ${P}.zip"
 
 LICENSE="GPL-3+"
 SLOT="0"
