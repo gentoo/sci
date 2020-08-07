@@ -397,7 +397,7 @@ sci-biology/graf-bin 20171212: Find closely related subjects using SNP genotype 
 sci-biology/grappa 2.0: Genome Rearrangements Analysis under Parsimony and other Phylogenetic Algorithms
 sci-biology/grass 9999: Scaffold next-generation sequencing assemblies
 sci-biology/hexamer 19990330: Predict CDS using 6mers without deriving information from base composition
-sci-biology/hisat2 2.0.5: Align DNA reads to a population of genomes
+sci-biology/hisat2 2.2.1: Align DNA reads to a population of genomes
 sci-biology/hts-python 9999: Pythonic wrapper for htslib C-API using python cffi (unlike pysam)
 sci-biology/hydra-sv 0.5.3: Detection of structural variation breakpoints
 sci-biology/idba 1.1.1 9999: De novo De Bruijn graph assembler iteratively using multimple k-mers
