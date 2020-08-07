@@ -1,18 +1,6 @@
---- hisat2-2.0.5/Makefile.ori	2017-03-01 11:35:36.430368298 +0100
-+++ hisat2-2.0.5/Makefile	2017-03-01 11:43:42.974034697 +0100
-@@ -23,9 +23,8 @@
- INC =
- GCC_PREFIX = $(shell dirname `which gcc`)
- GCC_SUFFIX =
--CC = $(GCC_PREFIX)/gcc$(GCC_SUFFIX)
--CPP = $(GCC_PREFIX)/g++$(GCC_SUFFIX)
--CXX = $(CPP)
-+CXX ?= $(GCC_PREFIX)/g++$(GCC_SUFFIX)
-+CXXFLAGS ?= "-O3"
- HEADERS = $(wildcard *.h)
- BOWTIE_MM = 1
- BOWTIE_SHARED_MEM = 0
-@@ -134,30 +133,30 @@
+--- hisat2-2.2.1/Makefile.ori	2020-08-07 13:12:25.393396171 +0200
++++ hisat2-2.2.1/Makefile	2020-08-07 13:15:56.845080223 +0200
+@@ -152,30 +152,30 @@
  VERSION = $(shell cat VERSION)
  
  # Convert BITS=?? to a -m flag
@@ -43,8 +31,8 @@
 -SSE_FLAG=-msse2
 +SSE_FLAG?=-msse2
  
--DEBUG_FLAGS    = -O0 -g3 $(BIToS_FLAG) $(SSE_FLAG)
-+DEBUG_FLAGS    = -g3 -O0 $(CXXFLAGS) $(BIToS_FLAG) $(SSE_FLAG)
+-DEBUG_FLAGS    = -O0 -g3 $(BITS_FLAG) $(SSE_FLAG)
++DEBUG_FLAGS    = -g3 -O0 $(CXXFLAGS) $(BITS_FLAG) $(SSE_FLAG)
  DEBUG_DEFS     = -DCOMPILER_OPTIONS="\"$(DEBUG_FLAGS) $(EXTRA_FLAGS)\""
 -RELEASE_FLAGS  = -O3 $(BITS_FLAG) $(SSE_FLAG) -funroll-loops -g3
 +RELEASE_FLAGS  = $(CXXFLAGS) $(BITS_FLAG) $(SSE_FLAG) -funroll-loops
