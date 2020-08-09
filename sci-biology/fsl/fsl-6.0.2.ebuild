@@ -37,6 +37,7 @@ UPSTREAM_FSLDIR="/usr/share/fsl"
 PATCHES=(
 	"${FILESDIR}/${PN}"-6.0.2-gcc10_include.patch
 	"${FILESDIR}/${PN}"-6.0.2-setup.patch
+	"${FILESDIR}/${PN}"-6.0.2-template.patch
 	"${FILESDIR}/${PN}"-6.0.2-no_xmlpp.patch
 	"${FILESDIR}/${PN}"-5.0.11-niftiio_var_fix.patch
 	"${FILESDIR}/${PN}"-5.0.11-ifstream_use.patch
