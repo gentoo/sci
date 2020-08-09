@@ -1,0 +1,55 @@
+Subject: as discussed in https://github.com/gentoo/sci/issues/963
+
+--- a/src/newimage/generalio.cc	2019-09-11 09:24:32.000000000 -0400
++++ b/src/newimage/generalio.cc §2020-08-07 20:30:20.037494201 -0400
+@@ -308,6 +308,41 @@
+   return 0;
+ }
+
++template
++int readGeneralVolume<double>(volume<double>& target, const string& filename,
++		  short& dtype, const bool swap2radiological,
++		  int64_t x0, int64_t y0, int64_t z0, int64_t t0, int64_t d50, int64_t d60, int64_t d70,
++		  int64_t x1, int64_t y1, int64_t z1, int64_t t1, int64_t d51, int64_t d61, int64_t d71,
++		  const bool readAs4D);
++
++template
++int readGeneralVolume<float>(volume<float>& target, const string& filename,
++		  short& dtype, const bool swap2radiological,
++		  int64_t x0, int64_t y0, int64_t z0, int64_t t0, int64_t d50, int64_t d60, int64_t d70,
++		  int64_t x1, int64_t y1, int64_t z1, int64_t t1, int64_t d51, int64_t d61, int64_t d71,
++		  const bool readAs4D);
++
++template
++int readGeneralVolume<short>(volume<short>& target, const string& filename,
++		  short& dtype, const bool swap2radiological,
++		  int64_t x0, int64_t y0, int64_t z0, int64_t t0, int64_t d50, int64_t d60, int64_t d70,
++		  int64_t x1, int64_t y1, int64_t z1, int64_t t1, int64_t d51, int64_t d61, int64_t d71,
++		  const bool readAs4D);
++
++template
++int readGeneralVolume<char>(volume<char>& target, const string& filename,
++		  short& dtype, const bool swap2radiological,
++		  int64_t x0, int64_t y0, int64_t z0, int64_t t0, int64_t d50, int64_t d60, int64_t d70,
++		  int64_t x1, int64_t y1, int64_t z1, int64_t t1, int64_t d51, int64_t d61, int64_t d71,
++		  const bool readAs4D);
++
++template
++int readGeneralVolume<int>(volume<int>& target, const string& filename,
++		  short& dtype, const bool swap2radiological,
++		  int64_t x0, int64_t y0, int64_t z0, int64_t t0, int64_t d50, int64_t d60, int64_t d70,
++		  int64_t x1, int64_t y1, int64_t z1, int64_t t1, int64_t d51, int64_t d61, int64_t d71,
++		  const bool readAs4D);
++
+ template int read_volumeROI(volume<char>& target, const string& filename,
+ 			      short& dtype,
+ 			      int64_t x0, int64_t y0, int64_t z0, int64_t t0,
+
+--- a/src/fslsurface/fslsurfaceio.cc	2019-09-11 09:23:11.000000000 -0400
++++ b/src/fslsurface/fslsurfaceio.cc	2020-08-08 04:17:55.917387550 -0400
+@@ -1055,6 +1055,7 @@
+ 	  return 0;
+ 	}
+
++  template int readGIFTI<float, unsigned int>( fslSurface<float, unsigned int> & surf, const string & filename);
+   template int writeGIFTI<float, unsigned int>( const fslSurface<float, unsigned int> & surf, const std::string & filename, int enc);
