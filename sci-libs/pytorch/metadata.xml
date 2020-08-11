@@ -5,6 +5,10 @@
 		<email>4ernov@gmail.com</email>
 		<name>Alexey Chernov</name>
 	</maintainer>
+	<maintainer type="person">
+		<email>heroxbd@gentoo.org</email>
+		<name>Benda Xu</name>
+	</maintainer>
 	<use>
 		<flag name="asan">Build with address sanitizer (ASAN)</flag>
 		<flag name="atlas">Use ATLAS as BLAS implementation</flag>
