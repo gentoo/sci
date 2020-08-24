@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>malfatti@disroot.org</email>
+		<name>T Malfatti</name>
+	</maintainer>
+	<longdescription lang="en">
+		Software for processing, recording, and visualizing multichannel electrophysiological data.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">open-ephys/plugin-GUI</remote-id>
+	</upstream>
+</pkgmetadata>
