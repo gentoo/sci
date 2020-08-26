@@ -1,0 +1,105 @@
+diff --git a/configure.ac b/configure.ac
+index 4d46a573..609cbc32 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -152,7 +152,7 @@ m4_define([TOOL_DISABLE],
+         AC_SUBST([TOOL_COMPILE_$1],ifelse($3,,$1,$3))
+         AC_SUBST([TOOL_DYLIB_$1],$2)
+ 		ifelse($4,,[ff_download_lib="$1 $ff_download_lib"])
+-	    ifelse($4,,[enable_$1_download=yes])
++	    ifelse($4,,[enable_$1_download=yes])
+ 	   fi
+      fi
+
+@@ -659,7 +659,7 @@ AC_DEFINE_UNQUOTED(VersionFreeFem,$ff_numver,FreeFEM version as a float)
+ # date is only useful for config-version.h
+
+ test "$prefix" = NONE && prefix="$ac_default_prefix"
+-ff_prefix_dir="${prefix}/lib/ff++/$VERSION"
++ff_prefix_dir="${libdir}/freefem++"
+ AC_MSG_CHECKING(prefix dir freefem++  )
+ AC_MSG_RESULT($ff_prefix_dir)
+
+@@ -993,7 +993,7 @@ if test "$with_petsc" != no -a $ff_mpi = yes; then
+ 		    PETSC_MPIRUN=`echo "$PETSC_MPIRUN" | awk '{gsub(" --oversubscribe", ""); print}'`	#remove --oversubscribe
+ 		    AC_MSG_NOTICE([ find real ( $PETSC_SCALAR )  petsc in $ffconfpetsc]);
+                     WPETSC_MPIRUN=`which "$PETSC_MPIRUN"`
+-                    WMPIRUN=`which "$MPIRUN"`
++                    WMPIRUN=`which "$MPIRUN"`
+ 		    test  "$PETSC_SCALAR" = "real" && test "$ff_win32" = yes -o  "$PETSC_MPIRUN" = "$MPIRUN" ||  cmp -s "$WPETSC_MPIRUN" "$WMPIRUN"
+ 		    if test "$?"  -eq 0 ; then
+ 	                AC_SUBST([FF_conf_petsc_real],"$ffconfpetsc")
+@@ -1060,14 +1060,14 @@ if test "$with_petsc_complex" != no -a  $ff_mpi = yes; then
+ 		    PETSC_COMPLEX_SCALAR=`awk -F' *= *' '"PETSC_SCALAR"==$1 {print $2}' "$ffconfpetscc"`
+ 		    PETSC_COMPLEX_MPIRUN=`awk -F' *= *' '"MPIEXEC"==$1 {print $2}' "$ffconfpetscc"`
+ 		    PETSC_COMPLEX_PREFIXDIR=`awk -F' *= *' '"PREFIXDIR"==$1 {print $2}' "$ffconfpetscc"`
+-
++
+ 			PETSC_COMPLEX_MPIRUN=`echo "$PETSC_COMPLEX_MPIRUN" | awk '{print $1}'`	#remove --oversubscribe
+ 			AC_MSG_NOTICE([ find complex ($PETSC_COMPLEX_SCALAR) petsc in $ffconfpetscc]);
+ 		    test  "$PETSC_COMPLEX_SCALAR" = "complex" &&  test  "$ff_win32" = yes -o  "$PETSC_COMPLEX_MPIRUN" = "$MPIRUN" ||  cmp -s `which "$PETSC_COMPLEX_MPIRUN"` `which "$MPIRUN"`
+ 		   	if test "$?"  -eq 0 ; then
+             AC_SUBST([FF_prefix_petsc_complex],"$PETSC_COMPLEX_PREFIXDIR")
+             AC_SUBST([FF_conf_petsc_complex],"$ffconfpetscc")
+-
++
+             AC_FF_PETSC_WHERELIB_BASIC(petsccomplex,$ffconfpetscc)
+             AC_FF_PETSC_WHERELIB(parmetis,PARMETIS_LIB,PARMETIS_INCLUDE,$ffconfpetscc)
+             AC_FF_PETSC_WHERELIB(metis,METIS_LIB,METIS_INCLUDE,$ffconfpetscc)
+@@ -1340,9 +1340,9 @@ then
+ 		mkl_piomp5=$(realpath $ff_mkl_libpath/../../compiler/lib/)
+ 		ff_mkl_inc=$(realpath $ff_mkl_libpath/../include)
+ 		ff_blas_inc="-I$ff_mkl_inc"
+-
++
+ 		if test -d "$mkl_piomp5" ; then mkl_l="$mkl_l -Wl,-rpath,$mkl_piomp5 -L$mkl_piomp5" ; fi
+-#		echo " ################### $mkl_l $ff_blas_inc "
++#		echo " ################### $mkl_l $ff_blas_inc "
+ 	    if test  -f "$ff_mkl_libpath/libmkl_rt.$ff_suffix_dylib" ; then
+ 		 mkl_blas=rt
+ 		 mkl_lapack=rt
+@@ -1759,7 +1759,7 @@ then
+     # standard #define produced by autoconf in config.h.in.
+
+     LIBS="$ff_blas_libs $LIBS"
+-    if test "$ff_umfpack_header" != yes;
++    if test "$freefem++" != yes;
+     then
+ 	AC_CHECK_HEADER(UMFPACK/umfpack.h,
+ 	    ff_umfpack_header=yes
+@@ -1787,7 +1787,7 @@ then
+ 	    ff_umfpack_ok=yes,,$ff_umfpack_libs)
+     fi
+
+-    if test "$ff_umfpack_header" != yes -o "$ff_umfpack_ok" != yes; then
++    if test "$ff_umfpack_header" = yes -o "$ff_umfpack_ok" != yes; then
+         ff_umfpack_ok=no
+ 	AC_MSG_WARN([Sorry, we could not find the UMFPACK lib or the UMFPACK headers])
+ 	ff_umfpack_incs=""
+@@ -2247,7 +2247,7 @@ if test "$ff_with_gsl" = "yes"; then
+   AC_SUBST([TOOL_COMPILE_gsl],ifelse(,,gsl,))
+   AC_SUBST([TOOL_DYLIB_gsl],gsl.$DYLIB_SUFFIX)
+   ifelse(nodownload,,[ff_download_lib="gsl $ff_download_lib"])
+-  ifelse(nodownload,,[enable_gsl_download=yes])
++  ifelse(nodownload,,[enable_gsl_download=yes])
+ else
+   enable_gsl=no
+ fi
+@@ -2270,7 +2270,7 @@ test "$enable_download" = yes -a "$enable_boost" != no && enable_boost=yes
+
+ test "$ff_cxx11" != yes -o  "$ff_mpi" != yes  -o \( "$ff_umfpack_ok" != "yes" -a "$ff_mumps_ok" != "yes" \) &&  enable_hpddm=no
+ test "$ff_cxx11" != yes -o  "$ff_mpi" != yes   &&  enable_htool=no
+-test "$ff_cxx11" != yes -o  "$ff_mpi" != yes  -o \( "$enable_bemtool" != "yes" -a "$enable_boost" != "yes" \) &&  enable_bemtool=no
++test "$ff_cxx11" != yes -o  "$ff_mpi" != yes  -o \( "$enable_bemtool" != "yes" -a "$enable_boost" != "yes" \) &&  enable_bemtool=no
+
+ FF_PETSC_DYLIB=""
+ if test "$ff_petsc_ok" != no ;   then
+@@ -2498,7 +2498,7 @@ if test "$enable_summary" = yes; then
+   else
+     ff_pthread_ok=no
+   fi
+-
++
+
+   AC_MSG_NOTICE([ Activated libraries ])
+   AC_MSG_NOTICE([ - ARPACK: $ff_arpack_ok])
