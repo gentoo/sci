@@ -110,7 +110,7 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.6.0-setup.patch
 	"${FILESDIR}"/${PN}-1.6.0-skip-tests.patch
-	"${FILESDIR}"/${PN}-pytorch-1.6.0-global-dlopen.patch
+	"${FILESDIR}"/${PN}-1.6.0-global-dlopen.patch
 	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.4.0.patch
 	"${FILESDIR}"/0003-Change-path-to-caffe2-build-dir-made-by-libtorch.patch
 	"${FILESDIR}"/0005-Change-library-directory-according-to-CMake-build.patch
