@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_6 )
+PYTHON_COMPAT=( python3_{6,7,8} )
 
 inherit distutils-r1
 
@@ -15,7 +15,11 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND="dev-python/pytest-runner"
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 
 distutils_enable_tests pytest
+
+python_prepare_all() {
+	sed -i -e '/pytest-runner/d' setup.py || die
+	distutils-r1_python_prepare_all
+}
