@@ -6,5 +6,5 @@ HOMEPAGE=https://github.com/arq5x/lumpy-sv
 LICENSE=MIT
 PROPERTIES=live
 SLOT=0
-_eclasses_=git-r3	8ec5b53812bce105ae7943930e4660f8
+_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
 _md5_=86de8636e94d8ec4b3c7788520faf2c6

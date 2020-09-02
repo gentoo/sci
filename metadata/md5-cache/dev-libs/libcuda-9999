@@ -7,5 +7,5 @@ LICENSE=GPL-2
 PROPERTIES=live
 RDEPEND=dev-libs/libgdev x11-libs/libdrm[video_cards_nouveau] x11-misc/envytools
 SLOT=0
-_eclasses_=git-r3	8ec5b53812bce105ae7943930e4660f8
+_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
 _md5_=71f3c509549bfedd7232a56ba7acceca
