@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -14,16 +14,13 @@ EGIT_CLONE_TYPE="mirror"
 # building outside of git is not possible,
 # see https://github.com/broadinstitute/picard/issues/605
 #
-# 
+#
 # must run 'git clone https://github.com/broadinstitute/gatk.git gatk'
 # see https://github.com/broadinstitute/gatk/issues/4687
 
-LICENSE="BSD-3" # since gatk-4
+LICENSE="BSD" # since gatk-4
 SLOT="0"
-IUSE=""
-KEYWORDS="" # 148.19 MB git download and 134MB "${W}"/.m2 download
 
-COMMON_DEPS=""
 # gatk-4 needs java-1.8
 DEPEND="
 	>=virtual/jdk-1.8
@@ -31,12 +28,12 @@ DEPEND="
 	>=dev-vcs/git-lfs-1.1.0
 	>=dev-java/maven-bin-3.1:* || ( dev-java/netbeans-java )
 	dev-java/cofoja
-	${COMMON_DEPS}"
+	"
 RDEPEND="
 	>=virtual/jre-1.8
 	>=sci-biology/SnpEff-2.0.5
 	>=dev-lang/R-3.2.5
-	${COMMON_DEPS}"
+	"
 
 #S="${WORKDIR}/${PN}-${MY_PV}"
 
