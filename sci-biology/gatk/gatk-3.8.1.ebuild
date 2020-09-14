@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -17,19 +17,17 @@ EGIT_COMMIT="41147a655594c2aae6e2cad8462bd1648570b32b"
 
 LICENSE="MIT"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64" # 608.21 MiB git download and 134MB "${W}"/.m2 download
 
-COMMON_DEPS=""
 DEPEND="
 	>=virtual/jdk-1.6
 	dev-java/maven-bin:* || ( dev-java/netbeans-java )
 	dev-java/cofoja
-	${COMMON_DEPS}"
+	"
 RDEPEND="
 	>=virtual/jre-1.6
 	>=sci-biology/SnpEff-2.0.5
-	${COMMON_DEPS}"
+	"
 
 #S="${WORKDIR}/${PN}-${MY_PV}"
 
