@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_6 )
+PYTHON_COMPAT=( python3_{6,7,8} )
 
 inherit distutils-r1 cmake-utils cuda
 
@@ -94,7 +94,9 @@ RDEPEND="
 	eigen? ( dev-cpp/eigen )
 	dev-libs/libuv
 "
-BDEPEND=""
+
+#ATen code generation
+BDEPEND="dev-python/pyyaml"
 
 DEPEND="${RDEPEND}
 	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
@@ -110,7 +112,7 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.6.0-setup.patch
 	"${FILESDIR}"/${PN}-1.6.0-skip-tests.patch
-	"${FILESDIR}"/${PN}-pytorch-1.6.0-global-dlopen.patch
+	"${FILESDIR}"/${PN}-1.6.0-global-dlopen.patch
 	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.4.0.patch
 	"${FILESDIR}"/0003-Change-path-to-caffe2-build-dir-made-by-libtorch.patch
 	"${FILESDIR}"/0005-Change-library-directory-according-to-CMake-build.patch
