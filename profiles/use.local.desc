@@ -60,6 +60,7 @@ sci-biology/discrover:rmathlib - Link to the standalone Rmathlib for statistical
 sci-biology/estscan:icc - Undocumented USE
 sci-biology/estscan:ifc - Undocumented USE
 sci-biology/exonerate-gff3:utils - Unknown
+sci-biology/fsl:cuda - Add support for CUDA
 sci-biology/imagej:plugins - Install additional plugins
 sci-biology/megahit:cuda - Enable NVIDIA GTX680 (4G memory) and Tesla K40c (12G memory) with CUDA 5.5, 6.0 and 6.5
 sci-biology/mouse-brain-atlases:hires - Also install high-resolution atlases.
