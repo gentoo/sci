@@ -1,0 +1,12 @@
+diff --git a/source/CMakeLists.txt b/source/CMakeLists.txt
+index 757217b..19da804 100644
+--- a/source/CMakeLists.txt
++++ b/source/CMakeLists.txt
+@@ -13,7 +13,6 @@ configure_file(version.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/${META_PROJECT_N
+ 
+ # 3rdParties
+ set(IDE_FOLDER "3rdparty")
+-add_subdirectory("3rdparty/KHR")
+ 
+ # Libraries
+ set(IDE_FOLDER "")

@@ -1,0 +1,41 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 45f9981..2c71349 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -143,8 +143,8 @@ if(UNIX AND SYSTEM_DIR_INSTALL)
+     set(INSTALL_EXAMPLES  "share/${project}")       # /usr/[local]/share/<project>
+     set(INSTALL_DATA      "share/${project}")       # /usr/[local]/share/<project>
+     set(INSTALL_BIN       "bin")                    # /usr/[local]/bin
+-    set(INSTALL_SHARED    "lib")                    # /usr/[local]/lib
+-    set(INSTALL_LIB       "lib")                    # /usr/[local]/lib
++    set(INSTALL_SHARED    "${CMAKE_INSTALL_LIBDIR}")                    # /usr/[local]/lib
++    set(INSTALL_LIB       "${CMAKE_INSTALL_LIBDIR}")                    # /usr/[local]/lib
+     set(INSTALL_INCLUDE   "include")                # /usr/[local]/include
+     set(INSTALL_DOC       "share/doc/${project}")   # /usr/[local]/share/doc/<project>
+     set(INSTALL_SHORTCUTS "share/applications")     # /usr/[local]/share/applications
+@@ -157,8 +157,8 @@ else()
+     set(INSTALL_EXAMPLES  ".")                      # ./
+     set(INSTALL_DATA      ".")                      # ./
+     set(INSTALL_BIN       ".")                      # ./
+-    set(INSTALL_SHARED    "lib")                    # ./lib
+-    set(INSTALL_LIB       "lib")                    # ./lib
++    set(INSTALL_SHARED    "${CMAKE_INSTALL_LIBDIR}")                    # ./lib
++    set(INSTALL_LIB       "${CMAKE_INSTALL_LIBDIR}")                    # ./lib
+     set(INSTALL_INCLUDE   "include")                # ./include
+     set(INSTALL_DOC       "doc")                    # ./doc
+     set(INSTALL_SHORTCUTS "misc")                   # ./misc
+@@ -210,3 +210,14 @@ install(FILES README.md DESTINATION ${INSTALL_ROOT} COMPONENT runtime)
+ if (TARGET cubescape OR TARGET cubescape-log OR TARGET cubescape-qt)
+     install(DIRECTORY ${PROJECT_SOURCE_DIR}/data DESTINATION ${INSTALL_DATA} COMPONENT examples_data)
+ endif()
++
++MESSAGE(STATUS "<<< Gentoo configuration >>>
++Build type      ${CMAKE_BUILD_TYPE}
++Install path    ${CMAKE_INSTALL_PREFIX}
++Compiler flags:
++C               ${CMAKE_C_FLAGS}
++C++             ${CMAKE_CXX_FLAGS}
++Linker flags:
++Executable      ${CMAKE_EXE_LINKER_FLAGS}
++Module          ${CMAKE_MODULE_LINKER_FLAGS}
++Shared          ${CMAKE_SHARED_LINKER_FLAGS}\n")
