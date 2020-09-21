@@ -109,9 +109,6 @@ dev-python/hdf5storage 0.1.13 0.1.14 9999: Read/write Python types to/from HDF5 
 dev-python/imageutils 9999: Image processing utilities for Astropy
 dev-python/inference 0.4: Collection of Python modules for statistical inference
 dev-python/instant 1.4.0 2016.2.0 2017.1.0: Instant inlining of C and C++ code in Python
-dev-python/ipyparallel 9999: Interactive Parallel Computing with IPython
-dev-python/ipython_genutils 9999: Vestigial utilities from IPython
-dev-python/ipywidgets 4.1.1 9999: IPython HTML widgets for Jupyter
 dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/matlab_wrapper 0.9.6 9999: MATLAB wrapper for Python
 dev-python/matplotlib-venn 0.11 9999: Routines for plotting area-weighted two- and three-circle venn diagrams
@@ -127,7 +124,6 @@ dev-python/nbformat 9999: Reference implementation of the Jupyter Notebook forma
 dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static HTML)
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
-dev-python/notebook 4.0.6 9999: Jupyter Interactive Notebook
 dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
 dev-python/omniorbpy 3.4: A robust high-performance CORBA ORB for Python
 dev-python/opal-client 2.4.1: Python Opal Web Service Client
