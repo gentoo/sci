@@ -192,6 +192,8 @@ sci-mathematics/htk:hlmtools - Install the tools for manipulation of language mo
 sci-mathematics/htk:hslab - Install HSLab a label editor for speech label manipulation
 sci-mathematics/htk:htkbook - Build the HTK documentation (HTK Book)
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
+sci-mathematics/ripser:progress - print progress of calculations in console
+sci-mathematics/ripser:sparsehash - use google sparsehash for storage
 sci-mathematics/scilab:emf - Add suport for exporting to emf files
 sci-mathematics/scilab:gui - Build the Java base graphical interface
 sci-mathematics/scilab:matio - Enable support for MATLAB file through sci-libs/matio
