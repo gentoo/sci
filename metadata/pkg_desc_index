@@ -116,18 +116,15 @@ dev-python/omniorbpy 3.4: A robust high-performance CORBA ORB for Python
 dev-python/opal-client 2.4.1: Python Opal Web Service Client
 dev-python/pamela 0.2.1 9999: PAM interface using ctypes
 dev-python/photutils 9999: Affiliated package for image photometry utilities
-dev-python/prettyplotlib 0.1.7 9999: Painlessly create beautiful matplotlib plots
 dev-python/psubprocess 0.1.2: Execute tasks in parallel
 dev-python/py2bit 0.2.1: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.4 9999: Python extension written in C for quick access to and creation of bigWig files
 dev-python/pydotplus 2.0.2: Improved version of the old pydot project
 dev-python/pyhdf 0.8.3: Python interface to NCSA HDF4 library
 dev-python/pylibconfig2 0.2.5 9999: Pure python library for libconfig syntax
-dev-python/pynomo 0.2.2: PyNomo is a program to create nomographs (nomograms) using Python interpreter
-dev-python/pynrrd 0.2.2 0.4.2: Simple pure-python module for reading and writing nrrd files
-dev-python/pysolar 0.5: Collection of Python libraries for simulating the irradiation by the sun
+dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
+dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/python-gantt 0.6.0: Draw Gantt charts from Python
-dev-python/python-ivi 0.14.9 9999: Python-based interpretation of the Interchangeable Virtual Instrument standard
 dev-python/python-vxi11 0.8 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pythoncgns 2009.10.30: Python language bindings for the CGNS library
 dev-python/pyvcf 0.6.8: Work with VCF files in python
