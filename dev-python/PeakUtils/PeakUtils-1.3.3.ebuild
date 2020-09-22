@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_6 )
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit distutils-r1
-
-MY_PN="pyFFTW"
 
 DESCRIPTION="Peak detection utilities for 1D data"
 HOMEPAGE="https://bitbucket.org/lucashnegri/peakutils"
@@ -21,3 +19,10 @@ RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}"
+BDEPEND="
+	test? (
+		dev-python/pandas
+	)
+"
+
+distutils_enable_tests pytest
