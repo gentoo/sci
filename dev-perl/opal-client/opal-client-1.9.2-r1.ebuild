@@ -1,11 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
-
-inherit perl-module python-single-r1
+inherit perl-module
 
 MY_PN="${PN/client/perl}"
 MY_P="${MY_PN}-${PV}"
@@ -17,20 +15,17 @@ SRC_URI="mirror://sourceforge/opaltoolkit/${MY_P}.tar.gz"
 LICENSE="opal"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 RDEPEND="
 	dev-perl/SOAP-Lite
-	dev-lang/perl
-	dev-python/opal-client[${PYTHON_USEDEP}]"
-DEPEND="${RDEPEND}"
+	dev-python/opal-client
+"
 
 S="${WORKDIR}"/${MY_P}
 
 src_install() {
-	insinto ${SITE_LIB}
+	insinto ${VENDOR_ARCH}
 	doins *.pm
 	dodoc README etc/* pdb2pqrclient.pl
-	docinto html
 	dodoc docs/*
 }
