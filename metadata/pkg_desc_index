@@ -1,13 +1,10 @@
 app-admin/eselect 1.4.13-r101 9999: Gentoo's multi-purpose configuration and management tool
-app-arch/libdeflate 1.2: Heavily optimized DEFLATE/zlib/gzip (de)compression
-app-benchmarks/btl 9999: Bench Template Library
-app-benchmarks/numbench 0.2 9999: Automated benchmarks suite
+app-arch/libdeflate 1.2 1.6: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-doc/blacs-docs 1.1: Documentation reference for BLACS implementations
 app-doc/blas-docs 3.3: Documentation reference and man pages for blas implementations
 app-doc/lapack-docs 3.3-r1: Documentation reference and man pages for LAPACK implementations
 app-doc/scalapack-docs 2.0: Documentation reference and man pages for ScaLAPACK implementations
 app-forensics/vine 1.0: The BitBlaze Static Analysis Component
-app-portage/g-octave 9999: A tool that generates and installs ebuilds for Octave-Forge
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/castxml 0.0.0_pre9 0.2.0 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/growler 0.3.8.2: Distributed object architecture and environment
@@ -44,12 +41,9 @@ dev-libs/asmjit 1.0_beta4: complete x86/x64 JIT-Assembler for C++ language
 dev-libs/boost-compute 0.4-r1 0.5 9999: A header-only C++ Computing Library for OpenCL
 dev-libs/fortrancl 0.1_alpha3: OpenCL interface for Fortran 90
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
-dev-libs/libconfig 9999: Libconfig is a simple library for manipulating structured configuration files
 dev-libs/libcuda 9999: Gdev is open-source GPGPU runtime
-dev-libs/libflatarray 9999: Struct of arrays library with object oriented interface for C++
 dev-libs/libgdev 9999: Gdev is open-source GPGPU runtime
 dev-libs/libunzip 5.52: libunzip.so
-dev-libs/mxml 2.9: Mini-XML: A lightweight ANSI C XML library
 dev-libs/optix 6.0.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/utf8proc 1.1.6 1.2-r1: library for processing UTF-8 encoded Unicode strings
