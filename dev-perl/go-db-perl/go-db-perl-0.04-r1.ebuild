@@ -1,23 +1,23 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-MODULE_AUTHOR=SJCARBON
+DIST_VERSION=0.04
+DIST_AUTHOR=SJCARBON
 
 inherit perl-module
 
 DESCRIPTION="Gene Ontology Database perl API"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE=""
+KEYWORDS="~amd64"
 
-DEPEND=""
-RDEPEND="${DEPEND}
-	dev-perl/FreezeThaw
-	dev-perl/XML-LibXSLT
+RDEPEND="
 	>=dev-perl/DBIx-DBStag-0.06
-	dev-perl/go-perl"
+	dev-perl/FreezeThaw
+	dev-perl/go-perl
+	dev-perl/XML-LibXSLT
+"
 
 SRC_TEST=do
