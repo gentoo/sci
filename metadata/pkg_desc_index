@@ -65,7 +65,7 @@ dev-perl/Text-Graph 0.83: Perl module for generating simple text-based graphs
 dev-perl/Text-ParseWords 3.27: Parse strings containing shell-style quoting
 dev-perl/Text-RecordParser 1.6.5: Perl module to read record-oriented files
 dev-perl/Time-Progress 1.7: Elapsed and estimated finish time reporting
-dev-perl/go-db-perl 0.04: Gene Ontology Database perl API
+dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-perl/opal-client 1.9.2-r1: Perl Opal Web Service Client
 dev-python/Forthon 0.8.13: Python interface generator for Fortran based codes
 dev-python/GOGrapher 9999: A Gene Ontology Programming Library
@@ -701,7 +701,6 @@ sci-libs/spyking-circus 0.9.6: Fast and scalable spike sorting in Python
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 3.3: MPI distributed sparse LU factorization library
 sci-libs/tensorflow 1.0.1 1.5.0 1.7.0 1.8.0: Library for numerical computation using data flow graphs
-sci-libs/tmglib 3.5.0 3.6.0: Test Matrix Generator library for LAPACK
 sci-libs/vxl 9999: C++ computer vision research libraries
 sci-libs/wannier90 1.2-r3 2.0.1 2.0.1.1: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
