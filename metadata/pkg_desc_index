@@ -82,7 +82,6 @@ dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Bio
 dev-python/brewer2mpl 1.4.1 9999: Connect colorbrewer2.org color maps to Python and matplotlib
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/coards 1.0.5: Converts COARDS between time specification and a Python datetime object
-dev-python/coords 0.37: Managing astronomical coordinate systems
 dev-python/cosmocalc 0.1.2-r1: Simple cosmology python module
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
@@ -102,8 +101,6 @@ dev-python/matlab_wrapper 0.9.6 9999: MATLAB wrapper for Python
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2013.1.2 2014.1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/metakernel_bash 0.11.3-r1: A Bash kernel for Jupyter/IPython
-dev-python/metakernel_python 0.11.3-r1: A Python kernel for Jupyter/IPython
 dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static HTML)
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
