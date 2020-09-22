@@ -2,17 +2,17 @@ diff --git a/Makefile b/Makefile
 index ab410bd..cb0a1c1 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,18 +1,37 @@
+@@ -1,15 +1,35 @@
 -build: ripser
 +TARGET	=	ripser
- 
+
 +DESTDIR	?=
- 
+
 -all: ripser ripser-coeff ripser-debug
 +prefix	?= /usr/local
 +exec_prefix	?= $(prefix)
 +bindir	?= $(exec_prefix)/bin
- 
+
 +CFLAGS	+= -std=c++11 -Wall -Wextra -Wpedantic -Wstrict-overflow
 +
 +ifeq ($(INDICATE_PROGRESS),1)
@@ -30,21 +30,22 @@ index ab410bd..cb0a1c1 100644
 +build: all
 +
 +all: ripser ripser-coeff
- 
+
  ripser: ripser.cpp
 -	c++ -std=c++11 -Wall ripser.cpp -o ripser -Ofast -D NDEBUG
 +	$(CXX) $(CFLAGS) $(CXXFLAGS) ripser.cpp -o ripser
- 
+
  ripser-coeff: ripser.cpp
 -	c++ -std=c++11 -Wall ripser.cpp -o ripser-coeff -Ofast -D NDEBUG -D USE_COEFFICIENTS
 -
 -ripser-debug: ripser.cpp
 -	c++ -std=c++11 -Wall ripser.cpp -o ripser-debug -g
 +	$(CXX) $(CFLAGS) $(CXXFLAGS) -D USE_COEFFICIENTS ripser.cpp -o ripser-coeff
- 
+
 +install: all
-+	install -m 755 ripser ripser-coeff $(bindir)
- 
++	install -d ${DESTDIR}${bindir}
++	install -m 755 ripser ripser-coeff ${DESTDIR}$(bindir)
+
  clean:
 -	rm -f ripser ripser-coeff ripser-debug
 +	rm -f ripser ripser-coeff

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-DESCRIPTION="efficient computation of vietoris-rips persistence barcodes"
+DESCRIPTION="efficient computation of Vietoris-Rips persistence barcodes"
 HOMEPAGE="https://ripser.org"
 SRC_URI="https://github.com/Ripser/ripser/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
@@ -26,4 +26,8 @@ src_compile() {
 		  INDICATE_PROGRESS=$(usex progress 1 0) \
 		  NDEBUG=$(usex debug 0 1)\
 		  all
+}
+
+src_install() {
+	emake prefix="/usr" DESTDIR="${D}" install
 }
