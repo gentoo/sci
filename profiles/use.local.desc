@@ -105,11 +105,6 @@ sci-electronics/player:boost - Automatically generated description for boost
 sci-electronics/player:festival - Automatically generated description for festival
 sci-electronics/player:openssl - Automatically generated description for openssl
 sci-electronics/player:sphinx2 - Automatically generated description for sphinx2
-sci-libs/armadillo:arpack - Link with sci-libs/arpack libraries for eigen decomposition
-sci-libs/armadillo:atlas - Link with sci-libs/atlas libraries for cblas and clapack
-sci-libs/armadillo:mkl - Use matrix allocation from the Intel MKL sci-libs/mkl
-sci-libs/armadillo:superlu - Use SuperLU for sparse linear equation solving sci-libs/superlu
-sci-libs/armadillo:tbb - Use matrix allocation from the Threads Building Blocks dev-cpp/tbb
 sci-libs/arrayfire:cpu - Build CPU backend.
 sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:graphics - Build with Forge graphics.
@@ -117,18 +112,12 @@ sci-libs/arrayfire:nonfree - Build ArrayFire nonfree algorithms.
 sci-libs/arrayfire:opencl - Build OpenCL backend.
 sci-libs/arrayfire:unified - Build Backend-Independent API.
 sci-libs/asl:matlab - Matlab support with sci-libs/matio
-sci-libs/atlas:deprecated - Build deprecated routines
-sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
-sci-libs/atlas:ifko - Use iFKO to improve ATLAS performance (ATTENTION!!! Increases builtime enormously)
 sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA
 sci-libs/bigdft-abi:etsf_io - Enable support for reading and writing the European Theoretical Spectroscopy facility (ETSF) file format
 sci-libs/bigdft-abi:glib - Compile with GLib Object System support
 sci-libs/bigdft-abi:opencl - Enable support for OpenCL GPU acceleration
 sci-libs/bigdft-abi:scalapack - Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
-sci-libs/clblas:client - Build a command line clBLAS client program.
-sci-libs/clblas:ktest - A command line tool for testing single clBLAS kernel.
-sci-libs/clblas:performance - Copy performance scripts that can measure and graph performance.
 sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
@@ -142,8 +131,6 @@ sci-libs/fox:wkml - Compile the module for the creation of KML documents used by
 sci-libs/fox:wxml - Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements
 sci-libs/gotoblas2:incblas - Build the CBLAS interface
 sci-libs/gotoblas2:int64 - Build the 64 bits integer library
-sci-libs/gsl:cblas-external - Link gsl with external cblas provided by (virtual/cblas) instead of shipped internal version
-sci-libs/io_lib:libdeflate - Use libdeflate for faster decompression than zlib
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/libfac:singular - Automatically generated description for singular
