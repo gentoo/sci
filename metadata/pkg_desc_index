@@ -522,7 +522,6 @@ sci-biology/wgs_tools 9999: Scripts for ncbi-tools++ and SRA postprocessing usin
 sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural variants (SV)
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
-sci-chemistry/GromacsWrapper 9999: Python framework for Gromacs
 sci-chemistry/MotionCor2 1.2.6: Correction of electron beam-induced sample motion
 sci-chemistry/acpype 0.1.0: AnteChamber PYthon Parser interfacE
 sci-chemistry/ambertools 12_p38-r1 15_p6: A suite for carrying out complete molecular mechanics investigations
@@ -542,7 +541,6 @@ sci-chemistry/dssp2pdb 0.03: convert dssp to pdb
 sci-chemistry/erkale 9999: Quantum chemistry program for atoms and molecules
 sci-chemistry/freeon 9999: An experimental suite of programs for linear scaling quantum chemistry
 sci-chemistry/gamess 20180930.3: A powerful quantum chemistry package
-sci-chemistry/gnome-chemistry-utils 0.14.2-r1 9999: Programs and library containing GTK widgets and C++ classes related to chemistry
 sci-chemistry/hydronmr 7c: Calculation of NMR relaxation of small, quasirigid macromolecules
 sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to be created
 sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
@@ -586,15 +584,12 @@ sci-chemistry/nMOLDYN 3.0.10: nMOLDYN is an interactive analysis program for Mol
 sci-chemistry/nmrpipe 8.7.2015.320.15.26: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/nwchem 6.3_p2-r1 6.5_p26243-r7 6.6_p27746-r2: Delivering High-Performance Computational Chemistry to Science
-sci-chemistry/openbabel 9999: Interconverts file formats used in molecular modeling
 sci-chemistry/openbabel-java 9999: Java bindings for OpenBabel
-sci-chemistry/openbabel-perl 9999: Perl bindings for OpenBabel
 sci-chemistry/openbabel-python 9999: Python bindings for OpenBabel (including Pybel)
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/pesto 9999: Potential Energy Surface Tools
 sci-chemistry/polygon 0612: shows qualitatively if some models parameters are over- or under-refined
-sci-chemistry/pymol 9999: A Python-extensible molecular graphics system
 sci-chemistry/pymol-plugins-ezviz 1.0.2005-r1: Assistance tool for the difficult to understand user interface of PyMOL
 sci-chemistry/pymol-plugins-psico 9999: Pymol ScrIpt COllection
 sci-chemistry/pyquante 1.6.3-r1 1.6.4: Quantum chemistry package written in Python
@@ -609,7 +604,6 @@ sci-chemistry/talosn 4.01.2013.148.15.55-r3 4.12.2015.147.15.40: Prediction of P
 sci-chemistry/trajng 0.6.1: TrajNG - Trajectory compression library
 sci-chemistry/unio 2.0.3-r1: Automated NMR Data Analysis
 sci-chemistry/usf-tools 9999: The USF program suite
-sci-chemistry/wxmacmolplt 7.6.2: Chemical 3D graphics program with GAMESS input builder
 sci-chemistry/xplor-nih 2.38: Structure determination program which builds on the X-PLOR program
 sci-electronics/minipro 9999: A free and open TL866XX programmer
 sci-electronics/player 2.0.4: A network server for robot control
@@ -627,7 +621,6 @@ sci-geosciences/pydap_responses_matlab 0.2.1: MatLab response for Pydap Data Acc
 sci-geosciences/pydap_responses_netcdf 0.1.4.1: NetCDF responses for Pydap Data Access Protocol server
 sci-geosciences/pydap_responses_wms 0.5.4: WMS responses for Pydap Data Access Protocol server
 sci-geosciences/pydap_responses_xls 0.1.2: Excel responses for Pydap Data Access Protocol server
-sci-libs/Cgraph 2.04: C functions that generate PostScript for publication quality scientific plots
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
