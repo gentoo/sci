@@ -166,10 +166,9 @@ net-ftp/bbftp-server 3.2.1: Secure file transfer optimized for files larger than
 net-misc/bbscp 1.0.6: SCP-like interface to bbFTP
 net-misc/cernbox-client 2.3.2: Synchronize files from CERNbox EOS with your computer
 perl-core/encoding-warnings 0.11: Warn on implicit encoding conversions
-sci-astronomy/bpz 1.99.3: Bayesian Photometric Redshifts
 sci-astronomy/casapy-bin 4.2.1.29047.001_p1 4.2.2.30986_p1 4.4.0: Software package to calibrate, image, and analyze radioastronomical data
 sci-astronomy/eazy 1.00: Photometric redshift estimator for galaxies
-sci-astronomy/erfa 1.7.0: Essential Routines for Fundamental Astronomy
+sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/eye 9999: Enhance astronomical object extraction with neural network filters
 sci-astronomy/galfit-bin 3.0.5: Galaxy morphology fitting program
 sci-astronomy/lephare 2.2: Photometric Analysis for Redshift Estimate for galaxies
