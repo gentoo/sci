@@ -23,7 +23,6 @@ dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
 dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
 dev-ml/mlgmpidl:mpfr - Add support for dev-libs/mpfr
-dev-python/ffnet:matplotlib - Use matplotlib for drawing
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
 dev-util/amdapp:examples - Build the OpenCL example programs

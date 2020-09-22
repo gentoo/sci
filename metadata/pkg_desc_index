@@ -66,7 +66,6 @@ dev-perl/Text-ParseWords 3.27: Parse strings containing shell-style quoting
 dev-perl/Text-RecordParser 1.6.5: Perl module to read record-oriented files
 dev-perl/Time-Progress 1.7: Elapsed and estimated finish time reporting
 dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
-dev-perl/opal-client 1.9.2-r1: Perl Opal Web Service Client
 dev-python/Forthon 0.8.13: Python interface generator for Fortran based codes
 dev-python/GOGrapher 9999: A Gene Ontology Programming Library
 dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
@@ -90,8 +89,6 @@ dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time
 dev-python/dimensionful 9999: A simple library for making your data dimensionful
 dev-python/dnaio 0.4.2: efficient reader for FASTA and FASTQ files
 dev-python/ffc 1.4.0 2016.2.0 2017.1.0: Compiler for multilinear forms by generating C or C++ code
-dev-python/ffnet 0.7.1 0.8.3: Feed-forward neural network for python
-dev-python/ffnetui 0.8.3.2: GUI for ffnet - feed forward neural network for python
 dev-python/fiat 1.4.0 2016.2.0 2017.1.0: FInite element Automatic Tabulator
 dev-python/fslpy 2.6.2 2.7.0 2.8.4: The FSL Python Library
 dev-python/gammapy 9999: A Python package for gamma-ray astronomy
@@ -102,7 +99,6 @@ dev-python/inference 0.4: Collection of Python modules for statistical inference
 dev-python/instant 1.4.0 2016.2.0 2017.1.0: Instant inlining of C and C++ code in Python
 dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/matlab_wrapper 0.9.6 9999: MATLAB wrapper for Python
-dev-python/matplotlib-venn 0.11 9999: Routines for plotting area-weighted two- and three-circle venn diagrams
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2013.1.2 2014.1: Quality triangular and tetrahedral mesh generation for Python
@@ -112,8 +108,6 @@ dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static H
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
 dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
-dev-python/omniorbpy 3.4: A robust high-performance CORBA ORB for Python
-dev-python/opal-client 2.4.1: Python Opal Web Service Client
 dev-python/pamela 0.2.1 9999: PAM interface using ctypes
 dev-python/photutils 9999: Affiliated package for image photometry utilities
 dev-python/psubprocess 0.1.2: Execute tasks in parallel
