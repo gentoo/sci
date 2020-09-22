@@ -65,7 +65,6 @@ dev-perl/Bio-DB-HTS 2.3: Enable rapid access to bgzipped FASTA files
 dev-perl/Bio-EnsEMBL 9999: EnsEMBL Perl API aka ensembl-api exposing Bio::EnsEMBL::Registry
 dev-perl/Config-Std 0.901: Load and save configuration files in a standard format
 dev-perl/DBIx-DBStag 0.12: Relational Database to Hierarchical (Stag/XML) Mapping
-dev-perl/Data-Types 0.09: Validate and convert data types
 dev-perl/Lab-VISA 2.06: Perl interface to National Instrument's VISA library
 dev-perl/Log-Cabin 0.06: Partial implementation of Log::Log4perl with reduced disk IO
 dev-perl/Scalar-Util-Numeric 0.40: Wrappers around perl's builtin looks_like_number function
@@ -75,7 +74,6 @@ dev-perl/Text-ParseWords 3.27: Parse strings containing shell-style quoting
 dev-perl/Text-RecordParser 1.6.5: Perl module to read record-oriented files
 dev-perl/Time-Progress 1.7: Elapsed and estimated finish time reporting
 dev-perl/go-db-perl 0.04: Gene Ontology Database perl API
-dev-perl/go-perl 0.13: GO::Parser parses all GO files formats and types
 dev-perl/opal-client 1.9.2: Perl Opal Web Service Client
 dev-python/Forthon 0.8.13: Python interface generator for Fortran based codes
 dev-python/GOGrapher 9999: A Gene Ontology Programming Library
@@ -115,12 +113,8 @@ dev-python/matplotlib-venn 0.11 9999: Routines for plotting area-weighted two- a
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2013.1.2 2014.1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/metakernel 0.12.2 0.12.6 0.18.4: Metakernel for Jupyter
 dev-python/metakernel_bash 0.11.3-r1: A Bash kernel for Jupyter/IPython
 dev-python/metakernel_python 0.11.3-r1: A Python kernel for Jupyter/IPython
-dev-python/nbconvert 9999: Converting Jupyter Notebooks
-dev-python/nbdime 9999: Diff and merge of Jupyter Notebooks
-dev-python/nbformat 9999: Reference implementation of the Jupyter Notebook format
 dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static HTML)
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
@@ -129,10 +123,8 @@ dev-python/omniorbpy 3.4: A robust high-performance CORBA ORB for Python
 dev-python/opal-client 2.4.1: Python Opal Web Service Client
 dev-python/pamela 0.2.1 9999: PAM interface using ctypes
 dev-python/photutils 9999: Affiliated package for image photometry utilities
-dev-python/pickleshare 9999: A small 'shelve' like datastore with concurrency support
 dev-python/prettyplotlib 0.1.7 9999: Painlessly create beautiful matplotlib plots
 dev-python/psubprocess 0.1.2: Execute tasks in parallel
-dev-python/ptyprocess 9999: Run a subprocess in a pseudo terminal
 dev-python/py2bit 0.2.1: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.4 9999: Python extension written in C for quick access to and creation of bigWig files
 dev-python/pydotplus 2.0.2: Improved version of the old pydot project
@@ -147,18 +139,13 @@ dev-python/python-vxi11 0.8 9999: Provides a pure Python VXI-11 driver for contr
 dev-python/pythoncgns 2009.10.30: Python language bindings for the CGNS library
 dev-python/pyvcf 0.6.8: Work with VCF files in python
 dev-python/pywcsgrid2 9999: Custom Matplotlib Axes class for displaying astronomical fits images
-dev-python/qtconsole 9999: Qt-based console for Jupyter with support for rich media output
 dev-python/shove 0.6.6: Object storage frontend to DBM/fs/mem/sqlite backends
 dev-python/snakemake 5.10.0: Make-like task language
 dev-python/specutils 9999: Affiliated package for 1D spectral operations
-dev-python/symengine 9999: Python wrappers to the symengine C++ library
-dev-python/testpath 9999: Test utilities for code working with files and commands
-dev-python/traitlets 9999: A configuration system for Python applications
 dev-python/traits 4.5.0 4.6.0 5.0.0 5.1.0 6.0.0: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/trimesh 3.3.5 3.5.14 3.6.13: Python library for loading and using triangular meshes.
 dev-python/ufl 1.4.0 2016.2.0 2017.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualization module
-dev-python/widgetsnbextension 1.2.2: IPython HTML widgets for Jupyter
 dev-python/xgboost 1.0.1: XGBoost Python Package
 dev-python/xopen 0.1.1: Open compressed files transparently
 dev-tcltk/img_rotate 1.1: Image rotation package
