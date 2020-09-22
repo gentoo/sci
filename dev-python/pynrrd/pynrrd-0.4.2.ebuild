@@ -14,11 +14,13 @@ SRC_URI="https://github.com/mhe/pynrrd/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="test"
 
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="test? ( ${RDEPEND} )"
 
+distutils_enable_tests unittest
+
 python_test() {
-	${EPYTHON} -m unittest discover -v nrrd/tests || die
+	${EPYTHON} -m unittest discover -v nrrd/tests || \
+		die "unittests failed for ${EPYTHON}"
 }

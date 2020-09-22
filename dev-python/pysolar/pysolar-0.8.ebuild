@@ -1,0 +1,32 @@
+# Copyright 1999-2020 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=7
+
+PYTHON_COMPAT=( python3_{6..9} )
+
+AUTHOR=pingswept
+
+inherit distutils-r1
+
+DESCRIPTION="Collection of Python libraries for simulating the irradiation by the sun"
+HOMEPAGE="http://pysolar.org/"
+SRC_URI="https://github.com/${AUTHOR}/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+
+LICENSE="GPL-3"
+SLOT="0"
+KEYWORDS="~amd64 ~x86"
+
+RDEPEND="
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/pytz[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
+"
+
+python_prepare_all() {
+	sed \
+		-e "s:'testsolar', ::" \
+		-e "s:'shade_test', ::" \
+		-i setup.py || die # don't install tests
+	distutils-r1_python_prepare_all
+}
