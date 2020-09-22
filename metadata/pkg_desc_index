@@ -530,7 +530,6 @@ sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical sh
 sci-chemistry/chimera-bin 1.11.2: An extensible Molecular Modelling System
 sci-chemistry/chooch 5.0.2-r1: Automatically determine values of the anomalous scattering factors
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
-sci-chemistry/coot 9999: Crystallographic Object-Oriented Toolkit
 sci-chemistry/cpmgfit 1.43: non-linear least squares fitting of CPMG relaxation dispersion curves
 sci-chemistry/cs-rosetta 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
 sci-chemistry/ctffind 4.1.13: CTF estimation (ctffind, ctftilt)
