@@ -266,7 +266,6 @@ sci-physics/tauola:tau-spinner - Compile with TauSpinner library
 sci-physics/vgm:geant4 - Enable interaction with Geant4(sci-physics/geant:4)
 sci-physics/vgm:root - Enable interactions with ROOT (sci-physics/root)
 sci-visualization/mricrogl:dicom - Adds limited read support for the DICOM imaging format.
-sci-visualization/nodemon:pbs - Enable support for the Portable Batch System.
 sys-cluster/htcondor:X - Enable the HTCondor Keyboard Daemon to monitor logged in X users for activity
 sys-cluster/htcondor:boinc - Enable backfill with BOINC jobs when the cluster is not being used
 sys-cluster/htcondor:cgroup - Use dev-libs/libcgroup for kernel control groups
