@@ -173,19 +173,10 @@ sci-astronomy/eye 9999: Enhance astronomical object extraction with neural netwo
 sci-astronomy/galfit-bin 3.0.5: Galaxy morphology fitting program
 sci-astronomy/lephare 2.2: Photometric Analysis for Redshift Estimate for galaxies
 sci-astronomy/libthesky 0.3.2: Fortran library to compute positions of celestial bodies
-sci-astronomy/missfits 9999: Performs basic maintenance and packaging tasks on FITS files
-sci-astronomy/psfex 9999: Extracts models of the Point Spread Function from FITS images
-sci-astronomy/scamp 9999: Astrometric and photometric solutions for astronomical images
-sci-astronomy/sextractor 9999: Extract catalogs of sources from astronomical FITS images
-sci-astronomy/skymaker 9999: Program that simulates astronomical images
 sci-astronomy/starlink-bin 20130413: Astronomical data processing software suite
-sci-astronomy/stiff 9999: Converts astronomical FITS images to the TIFF format
 sci-astronomy/stilts 2.5.1: Command line tools to process astronomical tables
-sci-astronomy/stuff 9999: Tool for automatic generation of astronomical catalogs
-sci-astronomy/swarp 9999: Resample and coadd astronomical FITS images
 sci-astronomy/topcat 4.0.1: Interactive graphical viewer and editor for astronomical tables
 sci-astronomy/wcslib 6.4: Astronomical World Coordinate System transformations library
-sci-astronomy/weightwatcher 9999: Combine weight maps and polygon for astronomical images weighting
 sci-astronomy/zebra 1.01: Galaxy redhift Bayesian analyzer
 sci-astronomy/zpeg 5.23: Galaxy photometric redshifts from evolutionary synthesis
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
