@@ -42,8 +42,6 @@ sci-astronomy/wcslib:tools - Builds and installs extra command line utilities fo
 sci-astronomy/zpeg:gdl - Install GDL/IDL plotting routines
 sci-biology/abyss:misc-haskell - build abyss-samtobreak tool, pull in haskell toolchain
 sci-biology/ants:vtk - Optional support for a number of surface enabled tools (via sci-libs/vtk).
-sci-biology/augustus:bam2wig - compile and install bam2wig conversion utility
-sci-biology/augustus:man - install preformatted manual pages
 sci-biology/behaviopy:evaluation - Installs evaluation submodule.
 sci-biology/bowtie:tbb - Enables building bowtie with the Intel Threading Building Blocks from dev-cpp/tbb. This flag is recommended.
 sci-biology/bru2nii:gui - Build graphical user interface
@@ -78,10 +76,6 @@ sci-biology/ncbi-tools++:xalan - Undocumented USE
 sci-biology/ncbi-tools++:xerces - Undocumented USE
 sci-biology/ncbi-tools++:xslt - Undocumented USE
 sci-biology/nilearn:plot - Adds optional dependency needed for plotting function subset.
-sci-biology/repeatmasker:hmmer - Use HMMER search engine as default
-sci-biology/repeatmasker:phrap - Use cross_match search engine as default
-sci-biology/repeatmasker:rmblast - Use RM-BLAST search engine as default
-sci-biology/repeatmasker:wublast - Use wublast or abblast search engine as default
 sci-biology/samri:atlases - Include dependency on compatible anatomica atlases.
 sci-biology/samri:labbookdb - Pipe data from LabbookDB databases.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
