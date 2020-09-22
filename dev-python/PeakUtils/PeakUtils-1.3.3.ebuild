@@ -19,5 +19,10 @@ RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}"
+BDEPEND="
+	test? (
+		dev-python/pandas
+	)
+"
 
 distutils_enable_tests pytest
