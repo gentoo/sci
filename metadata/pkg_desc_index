@@ -759,10 +759,8 @@ sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
 sci-mathematics/Macaulay2 9999: Research tool for commutative algebra and algebraic geometry
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/acl2 7.1: Industrial strength theorem prover
-sci-mathematics/alt-ergo 0.95.2: Alt-Ergo is an automatic theorem prover
 sci-mathematics/apron 0.9.10-r1: Static analysis of the numerical variables by Abstract Interpretation
 sci-mathematics/aribas 1.63: Interpreter for big integer and multi-precision floating point arithmetic
-sci-mathematics/axiom 201408: Axiom is a general purpose Computer Algebra system
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/dolfin 0.9.9 2016.2.0-r2 2017.1.0: C++/Python interface of FEniCS
@@ -789,7 +787,6 @@ sci-mathematics/tisean 3.0.1: Time series analytics with theory of non-liner det
 sci-mathematics/ufc 1.4.2 2.3.0: Unified framework for finite element assembly
 sci-mathematics/why 2.34: Why is a software verification platform
 sci-mathematics/why3 0.83: Why3 is a platform for deductive program verification
-sci-mathematics/z3 4.3.1 9999: An efficient theorem prover
 sci-misc/elmer-elmergrid 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmergrid
 sci-misc/elmer-fem 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - main fem
 sci-misc/elmer-front 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmer frontend
@@ -818,7 +815,6 @@ sci-physics/atompaw 4.0.0.14: PAW atomic data generator
 sci-physics/bigdft 1.7.1 1.7.6: A DFT electronic structure code using a wavelet basis set
 sci-physics/elk 1.4.22 2.1.25: All-electron full-potential linearised augmented-plane wave (FP-LAPW)
 sci-physics/fullprof-bin 20313.04: Crystallographic tools mainly for Rietveld analysis
-sci-physics/geant-vmc 3.1.15a 4.2.15a 4.3.3 9999: Virtual Monte Carlo Geant4 implementation
 sci-physics/genfit 02.00.00 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
 sci-physics/openmx 3.6 3.7.8: Material eXplorer
@@ -829,7 +825,6 @@ sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.5 9999: Tau decay Monte Carlo generator
 sci-physics/uproot 3.11.0 3.12.0: Manipulate arrays of complex data structures as easily as Numpy.
 sci-physics/uproot-methods 0.7.2 0.7.4: Manipulate arrays of complex data structures as easily as Numpy.
-sci-physics/vgm 3.06 4.3 9999: Virtual Geometry Model for High Energy Physics Experiments
 sci-visualization/forge 0.9.0-r1 0.9.2-r1 3.1.2 3.2.2 9999: High Performance Visualizations for ArrayFire
 sci-visualization/fsleyes 0.32.0 0.32.3: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLeyes viewer
