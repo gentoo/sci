@@ -95,6 +95,7 @@ dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 file
 dev-python/imageutils 9999: Image processing utilities for Astropy
 dev-python/instant 1.4.0 2016.2.0 2017.1.0: Instant inlining of C and C++ code in Python
 dev-python/json_tricks 3.14.0: Extra features for Python's JSON
+dev-python/kmapper 1.4.0: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2013.1.2 2014.1: Quality triangular and tetrahedral mesh generation for Python
