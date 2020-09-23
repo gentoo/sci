@@ -113,6 +113,7 @@ dev-python/pylibconfig2 0.2.5 9999: Pure python library for libconfig syntax
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/python-gantt 0.6.0: Draw Gantt charts from Python
+dev-python/python-igraph 0.8.2: Python interface for igraph
 dev-python/python-vxi11 0.8 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pythoncgns 2009.10.30: Python language bindings for the CGNS library
 dev-python/pyvcf 0.6.8: Work with VCF files in python
