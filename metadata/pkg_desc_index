@@ -103,6 +103,7 @@ dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static H
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
 dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
+dev-python/numba 0.51.2: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/pamela 0.2.1 9999: PAM interface using ctypes
 dev-python/photutils 9999: Affiliated package for image photometry utilities
