@@ -197,13 +197,6 @@ sci-mathematics/scilab:gui - Build the Java base graphical interface
 sci-mathematics/scilab:matio - Enable support for MATLAB file through sci-libs/matio
 sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/umfpack
 sci-mathematics/scilab:xcos - Enable building hybrid dynamic systems modeler and simulator Xcos
-sci-mathematics/why:apron - Use sci-mathematics/apron library for abstract interpretation
-sci-mathematics/why:coq - Add sci-mathematics/coq support
-sci-mathematics/why:float - Add sci-mathematics/flocq support
-sci-mathematics/why:frama-c - Add sci-mathematics/frama-c support
-sci-mathematics/why:gappa - Add sci-mathematics/gappalib-coq support
-sci-mathematics/why:pff - Add sci-mathematics/pff support
-sci-mathematics/why:why3 - Add sci-mathematics/why3 support
 sci-mathematics/why3:float - Add sci-mathematics/flocq support
 sci-mathematics/why3:frama-c - Enable Frama-C plugin
 sci-misc/hfst:foma - Add optional support for foma backend library (sci-misc/foma)

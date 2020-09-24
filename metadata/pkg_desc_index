@@ -39,7 +39,6 @@ dev-libs/libunzip 5.52: libunzip.so
 dev-libs/optix 6.0.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/utf8proc 1.1.6 1.2-r1: library for processing UTF-8 encoded Unicode strings
-dev-lua/lua-md5 1.2: Basic cryptographic facilities for Lua 5.0, 5.1 or 5.2
 dev-ml/lacaml 7.0.3: BLAS/LAPACK interface for OCaml
 dev-ml/mlgmpidl 1.1: OCaml interface to the GMP and MPFR libraries
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*
@@ -324,7 +323,6 @@ sci-biology/gemini 9999: Lightweight VCF to DB framework for disease and populat
 sci-biology/geneid 1.4.4: An ab initio exon/gene finding program
 sci-biology/genepop 4.2.1 4.7: Population genetics analysis
 sci-biology/generecon 1.2.1-r1: Disequilibrium gene mapping based on coalescent theory using Bayesian MC methods
-sci-biology/genometools 1.5.10: Tools for bioinformatics (Tallymer, Readjoiner, gff3validator, ...)
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.1 1.5.2: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.10.5: Compare, classify, merge, track, annotate GFF files
@@ -721,7 +719,6 @@ sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence b
 sci-mathematics/scilab 5.5.2-r1: Scientific software package for numerical computations
 sci-mathematics/tisean 3.0.1: Time series analytics with theory of non-liner deterministic dynamical systems
 sci-mathematics/ufc 1.4.2 2.3.0: Unified framework for finite element assembly
-sci-mathematics/why 2.34: Why is a software verification platform
 sci-mathematics/why3 0.83: Why3 is a platform for deductive program verification
 sci-misc/elmer-elmergrid 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmergrid
 sci-misc/elmer-fem 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - main fem
