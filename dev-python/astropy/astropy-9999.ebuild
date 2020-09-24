@@ -39,7 +39,7 @@ DEPEND="${RDEPEND}
 		dev-python/h5py[${PYTHON_USEDEP}]
 		dev-python/matplotlib[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
-		sci-libs/scipy[${PYTHON_USEDEP}]
+		dev-python/scipy[${PYTHON_USEDEP}]
 	)"
 
 python_prepare_all() {

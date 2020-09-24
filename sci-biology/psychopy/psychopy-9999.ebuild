@@ -33,7 +33,7 @@ RDEPEND="
 	dev-python/wxpython:*[${PYTHON_USEDEP}]
 	media-libs/avbin-bin
 	media-libs/opencv[python,${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 
 python_install_all() {

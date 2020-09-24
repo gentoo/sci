@@ -23,7 +23,7 @@ CDEPEND="
 	dev-python/tabulate[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	dev-python/scipy[${PYTHON_USEDEP}]"
 DEPEND="${CDEPEND}
 	dev-python/sphinx
 	test? ( sys-process/time )"

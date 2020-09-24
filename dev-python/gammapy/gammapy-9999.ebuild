@@ -60,7 +60,7 @@ pkg_postinst() {
 	elog "To get additional features, a number of optional runtime"
 	elog "dependencies may be installed:"
 	elog ""
-	optfeature "Numerical Methods" sci-libs/scipy
+	optfeature "Numerical Methods" dev-python/scipy
 	optfeature "Plotting" dev-python/matplotlib
 	optfeature "Plotting Astronomical Images" dev-python/aplpy
 	optfeature "Read/write CVS files" dev-python/pandas

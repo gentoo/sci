@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="test"
 
-RDEPEND="sci-libs/scipy[${PYTHON_USEDEP}]"
+RDEPEND="dev-python/scipy[${PYTHON_USEDEP}]"
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? ( ${RDEPEND} )

@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~x86"
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pytz[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 "
 
 python_prepare_all() {

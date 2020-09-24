@@ -41,7 +41,7 @@ RDEPEND="
 		dev-python/svg-path[${PYTHON_USEDEP}]
 		dev-python/sympy[${PYTHON_USEDEP}]
 		sci-libs/scikits_image[${PYTHON_USEDEP}]
-		sci-libs/scipy[${PYTHON_USEDEP}]
+		dev-python/scipy[${PYTHON_USEDEP}]
 		sci-libs/Shapely[${PYTHON_USEDEP}]
 		sci-libs/Rtree[${PYTHON_USEDEP}]
 	)

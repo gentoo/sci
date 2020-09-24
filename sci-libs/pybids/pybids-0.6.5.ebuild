@@ -27,7 +27,7 @@ RDEPEND="
 	dev-python/patsy[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 
 RESTRICT="test"

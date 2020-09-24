@@ -25,7 +25,7 @@ DEPEND="${COMMONDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	"
 RDEPEND="${COMMONDEPEND}
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/sympy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	dev-python/pandas[${PYTHON_USEDEP}]

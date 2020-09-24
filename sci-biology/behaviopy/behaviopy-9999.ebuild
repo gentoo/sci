@@ -24,7 +24,7 @@ RDEPEND="
 	dev-python/pandas[${PYTHON_USEDEP}]
 	dev-python/seaborn[${PYTHON_USEDEP}]
 	dev-python/statsmodels[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 	#evaluation? ( sci-biology/psychopy[${PYTHON_USEDEP}] )
 

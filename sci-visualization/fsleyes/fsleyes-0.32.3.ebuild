@@ -39,7 +39,7 @@ RDEPEND="
 	=dev-python/pyparsing-2*[${PYTHON_USEDEP}]
 	=dev-python/six-1*[${PYTHON_USEDEP}]
 	>=dev-python/wxpython-3.0.2.0[${PYTHON_USEDEP}]
-	>=sci-libs/scipy-0.18[${PYTHON_USEDEP}]
+	>=dev-python/scipy-0.18[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	sci-visualization/fsleyes-widgets[${PYTHON_USEDEP}]
 	sci-visualization/fsleyes-props[${PYTHON_USEDEP}]
