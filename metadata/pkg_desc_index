@@ -7,13 +7,7 @@ app-doc/scalapack-docs 2.0: Documentation reference and man pages for ScaLAPACK 
 app-forensics/vine 1.0: The BitBlaze Static Analysis Component
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/castxml 0.0.0_pre9 0.2.0 9999: CastXML is a C-family abstract syntax tree XML output tool.
-dev-cpp/growler 0.3.8.2: Distributed object architecture and environment
-dev-cpp/growler-arch 0.3.7.1: Growler libraries and utilities
-dev-cpp/growler-core 0.3.7: General-purpose classes and functionality
-dev-cpp/growler-link 0.3.7: The lowest-level Growler library
-dev-cpp/growler-math 0.3.4.1: Math-related classes and functionality
-dev-cpp/growler-thread 0.3.4: Pthread wrapper library
-dev-cpp/highwayhash 20180209: Fast strong hash functions: SipHash/HighwayHash
+dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-java/fits 1.11.0-r1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 1_p20080421 2.0_rc8 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
@@ -41,8 +35,6 @@ dev-libs/asmjit 1.0_beta4: complete x86/x64 JIT-Assembler for C++ language
 dev-libs/boost-compute 0.4-r1 0.5 9999: A header-only C++ Computing Library for OpenCL
 dev-libs/fortrancl 0.1_alpha3: OpenCL interface for Fortran 90
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
-dev-libs/libcuda 9999: Gdev is open-source GPGPU runtime
-dev-libs/libgdev 9999: Gdev is open-source GPGPU runtime
 dev-libs/libunzip 5.52: libunzip.so
 dev-libs/optix 6.0.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6: SimCList is a high quality C (C++ embeddable) library for handling lists
