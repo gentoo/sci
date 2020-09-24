@@ -17,7 +17,7 @@ IUSE=""
 
 DEPEND="
 	sci-chemistry/gromacs
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	"
 RDEPEND="${DEPEND}"

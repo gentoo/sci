@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/sqlalchemy[${PYTHON_USEDEP}]
 	sci-libs/bids-validator[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 
 #RESTRICT="test"

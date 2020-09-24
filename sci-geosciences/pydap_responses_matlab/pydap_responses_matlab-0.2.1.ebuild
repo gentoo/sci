@@ -24,7 +24,7 @@ DEPEND="
 	>=dev-python/paver-1.0.4[${PYTHON_USEDEP}]"
 RDEPEND="
 	>=sci-geosciences/pydap-3.0_rc10[${PYTHON_USEDEP}]
-	>=sci-libs/scipy-0.7.2-r1[${PYTHON_USEDEP}]"
+	>=dev-python/scipy-0.7.2-r1[${PYTHON_USEDEP}]"
 
 S="$WORKDIR/$MY_P"
 

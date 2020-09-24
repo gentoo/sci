@@ -22,7 +22,7 @@ RDEPEND="virtual/blas
 	virtual/lapack
 	dev-python/numpy[${PYTHON_USEDEP},lapack]
 	sci-libs/k3match[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	dev-python/scipy[${PYTHON_USEDEP}]"
 
 DEPEND="${RDEPEND}"
 

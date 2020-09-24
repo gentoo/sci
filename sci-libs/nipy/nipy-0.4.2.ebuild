@@ -18,7 +18,7 @@ IUSE=""
 
 RDEPEND="
 	dev-python/prov[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/sympy[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]

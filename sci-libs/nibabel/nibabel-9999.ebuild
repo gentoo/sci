@@ -19,7 +19,7 @@ KEYWORDS=""
 
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/mock[${PYTHON_USEDEP}]
 	dicom? (
 		sci-libs/pydicom[${PYTHON_USEDEP}]

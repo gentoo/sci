@@ -28,7 +28,7 @@ RDEPEND="
 	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scikits_learn[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 

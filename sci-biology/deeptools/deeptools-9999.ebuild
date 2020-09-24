@@ -21,7 +21,7 @@ LICENSE="GPL-3"
 SLOT="0"
 
 DEPEND=">=dev-python/numpy-1.8.0
-		>=sci-libs/scipy-0.17.0
+		>=dev-python/scipy-0.17.0
 		>=dev-python/py2bit-0.1.0
 		>=dev-python/pyBigWig-0.2.1
 		>=sci-biology/pysam-0.8

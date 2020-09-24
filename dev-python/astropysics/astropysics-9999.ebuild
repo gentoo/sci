@@ -27,7 +27,7 @@ RDEPEND="
 	dev-python/atpy[${PYTHON_USEDEP}]
 	sci-astronomy/sextractor
 	sci-visualization/mayavi[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	dev-python/scipy[${PYTHON_USEDEP}]"
 
 python_compile_all() {
 	use doc && emake -C docs html

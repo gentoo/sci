@@ -26,7 +26,7 @@ RDEPEND="
 	>=dev-python/astropy-0.4[${PYTHON_USEDEP}]
 	dev-python/astropy-helpers[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	dev-python/scipy[${PYTHON_USEDEP}]"
 
 DEPEND="${RDEPEND}"
 

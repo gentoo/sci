@@ -26,6 +26,6 @@ RDEPEND="
 	sci-biology/pysam[${PYTHON_USEDEP}]
 	sci-biology/pybedtools[${PYTHON_USEDEP}]
 	sci-biology/samtools:0[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}"

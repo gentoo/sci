@@ -22,7 +22,7 @@ DEPEND="
 	virtual/lapack
 	"
 RDEPEND="${DEPEND}
-	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 
 pc_libdir() {
