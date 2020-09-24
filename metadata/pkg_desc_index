@@ -75,6 +75,7 @@ dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Bio
 dev-python/bokeh 2.2.1: Statistical and interactive HTML plots for Python
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/coards 1.0.5: Converts COARDS between time specification and a Python datetime object
+dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/cosmocalc 0.1.2-r1: Simple cosmology python module
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
