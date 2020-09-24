@@ -80,6 +80,7 @@ dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated 
 dev-python/astropysics 9999: General purpose python library for professional astronomers/astrophysicists
 dev-python/astroquery 9999: A collection of packages to access online astronomical resources
 dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Biopython
+dev-python/bokeh 2.2.1: Statistical and interactive HTML plots for Python
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/coards 1.0.5: Converts COARDS between time specification and a Python datetime object
 dev-python/cosmocalc 0.1.2-r1: Simple cosmology python module
