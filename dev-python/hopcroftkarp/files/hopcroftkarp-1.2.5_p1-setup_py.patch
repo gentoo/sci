@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index 552ab4e..022b5d3 100644
+--- a/setup.py
++++ b/setup.py
+@@ -10,7 +10,7 @@ setup(
+ 	url='https://github.com/sofiat-olaosebikan/hopcroftkarp',
+ 	license = 'GPL',
+ 	keywords = 'hopcroftkarp algorithm, maximum cardinality matching, bipartite graphs',
+-	packages=find_packages(),
++	packages=[ 'hopcroftkarp' ],
+ 	zip_safe=True,
+ 	package_dir={'hopcroftkarp': 'hopcroftkarp'},
+ 	test_suite='test',
