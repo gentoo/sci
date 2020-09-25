@@ -608,7 +608,7 @@ sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen 
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amdlibm 3.1: Optimized libm replacement from AMD for x86_64 architectures
-sci-libs/arrayfire 3.1.3-r1 3.2.2 3.3.2 3.4.2-r1 9999: A general purpose GPU library
+sci-libs/arrayfire 3.7.2: general purpose GPU library
 sci-libs/asl 0.1.6 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/awkward-array 0.13.0: Manipulate arrays of complex data structures as easily as Numpy.
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure

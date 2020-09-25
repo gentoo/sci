@@ -102,12 +102,12 @@ sci-electronics/player:boost - Automatically generated description for boost
 sci-electronics/player:festival - Automatically generated description for festival
 sci-electronics/player:openssl - Automatically generated description for openssl
 sci-electronics/player:sphinx2 - Automatically generated description for sphinx2
-sci-libs/arrayfire:cpu - Build CPU backend.
+sci-libs/arrayfire:cache - cache kernals to disk.
 sci-libs/arrayfire:cuda - Build CUDA backend.
-sci-libs/arrayfire:graphics - Build with Forge graphics.
-sci-libs/arrayfire:nonfree - Build ArrayFire nonfree algorithms.
-sci-libs/arrayfire:opencl - Build OpenCL backend.
-sci-libs/arrayfire:unified - Build Backend-Independent API.
+sci-libs/arrayfire:mkl - Build against static MKL.
+sci-libs/arrayfire:nonfree - build.
+sci-libs/arrayfire:opencl - build OpenCL backend.
+sci-libs/arrayfire:trace - enable additional traces during logging.
 sci-libs/asl:matlab - Matlab support with sci-libs/matio
 sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA
 sci-libs/bigdft-abi:etsf_io - Enable support for reading and writing the European Theoretical Spectroscopy facility (ETSF) file format
