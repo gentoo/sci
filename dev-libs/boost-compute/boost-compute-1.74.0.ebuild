@@ -19,7 +19,7 @@ fi
 
 LICENSE="Boost-1.0"
 SLOT="0"
-IUSE="benchmark bolt cache cuda eigen examples opencv qt tbb test threads vtk"
+IUSE="benchmark bolt cache cpp11 cuda eigen examples opencv qt tbb test threads vtk"
 
 RDEPEND="
 	dev-libs/boost
@@ -27,9 +27,12 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+PATCHES=( "${FILESDIR}"/${P}-libdir.patch )
+
 src_configure() {
 	local mycmakeargs=(
 		-DBOOST_COMPUTE_USE_OFFLINE_CACHE=$(usex cache)
+		-DBOOST_COMPUTE_USE_CPP11=$(usex cpp11)
 		-DBOOST_COMPUTE_THREAD_SAFE=$(usex threads)
 		-DBOOST_COMPUTE_HAVE_EIGEN=$(usex eigen)
 		-DBOOST_COMPUTE_HAVE_OPENCV=$(usex opencv)
