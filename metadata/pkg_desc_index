@@ -8,7 +8,6 @@ app-forensics/vine 1.0: The BitBlaze Static Analysis Component
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/castxml 0.0.0_pre9 0.2.0 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
-dev-cpp/thrust 1.10.0: C++ parallel agorithms library
 dev-java/fits 1.11.0-r1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
@@ -63,7 +62,7 @@ dev-python/PyVISA 1.8 9999: Python VISA bindings for GPIB, RS232, and USB instru
 dev-python/PyVISA-py 0.3.1 9999: Python VISA bindings for GPIB, RS232, and USB instruments
 dev-python/RecSQL 9999: Simple SQL analysis of python records
 dev-python/absl-py 0.1.13: Abseil Python Common Libraries
-dev-python/arrayfire-python 3.1.20151111 3.2.20151224 3.3.20160624 3.4.20161126 3.4.20170222 9999: Python bindings for ArrayFire
+dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
 dev-python/astropy 9999: Core functionality for performing astrophysics with Python
 dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated packages
 dev-python/astropysics 9999: General purpose python library for professional astronomers/astrophysicists
@@ -148,7 +147,6 @@ net-ftp/bbftp-client 3.2.1: Secure file transfer optimized for files larger than
 net-ftp/bbftp-server 3.2.1: Secure file transfer optimized for files larger than 2GB
 net-misc/bbscp 1.0.6: SCP-like interface to bbFTP
 net-misc/cernbox-client 2.3.2: Synchronize files from CERNbox EOS with your computer
-perl-core/encoding-warnings 0.11: Warn on implicit encoding conversions
 sci-astronomy/casapy-bin 4.2.1.29047.001_p1 4.2.2.30986_p1 4.4.0: Software package to calibrate, image, and analyze radioastronomical data
 sci-astronomy/eazy 1.00: Photometric redshift estimator for galaxies
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
