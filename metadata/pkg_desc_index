@@ -11,14 +11,14 @@ dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/thrust 1.10.0: C++ parallel agorithms library
 dev-java/fits 1.11.0-r1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
-dev-java/gluegen 1_p20080421 2.0_rc8 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
+dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
 dev-java/hdf-java 2.9: Java interface to the HDF5 library
 dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
 dev-java/jeuclid-core 3.1.9-r1: Core module of MathML rendering solution
 dev-java/jgraphx 1.4.1.0 1.8.0.6 2.5.0.3: Open-source graph component for Java
 dev-java/jlatexmath 1.0.3: A Java API to render LaTeX
 dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
-dev-java/jogl 1.1.1a 2.0_rc8-r1 2.1.4 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
+dev-java/jogl 2.1.4 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
 dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-java/scirenderer 1.1.0: A rendering library based on JoGL
@@ -638,7 +638,7 @@ sci-libs/gotoblas2 1.13-r1: Fast implementations of the Basic Linear Algebra Sub
 sci-libs/htslib-plugins 201609: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.0: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
-sci-libs/itk 5.0.1: NLM Insight Segmentation and Registration Toolkit
+sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/k3match 1.1: Fast matching of large sets of points in 3D space, in O(N log N) time
 sci-libs/labbookdb 0.1: Lab Book Database Framework
