@@ -6,9 +6,13 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription>
-SimCList is a high quality C (C++ embeddable) library for handling
-lists. It exploits several advanced techniques for improving
-performance, including freelists, sentinels, automatic sort algorithm
-selection, sort randomization, mid pointer and optional multithreading.
-</longdescription>
+		SimCList is a high quality C (C++ embeddable) library for handling
+		lists. It exploits several advanced techniques for improving
+		performance, including freelists, sentinels, automatic sort algorithm
+		selection, sort randomization, mid pointer and optional multithreading.
+	</longdescription>
+	<use>
+		<flag name="dump">Disable building of dump and restore functionalities</flag>
+		<flag name="hash">Allow list_hash() to work exclusively on memory locations</flag>
+	</use>
 </pkgmetadata>
