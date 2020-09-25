@@ -29,8 +29,12 @@ RDEPEND="
 	virtual/lapacke
 	sci-libs/fftw:3.0
 	cuda? (
+		dev-libs/cudnn
 		>=dev-util/nvidia-cuda-toolkit-9.0.0
-		dev-libs/boost
+		>=dev-libs/boost-1.70.0
+	)
+	mkl? (
+	     sci-libs/mkl
 	)
 	opencl? (
 		>=dev-libs/boost-1.70.0
@@ -93,6 +97,5 @@ src_install() {
 	dodoc -r "${ED}"/usr/LICENSES
 	rm -r "${ED}"/usr/LICENSES || die
 
-	dodir /usr/bin
 	dobin "${BUILD_DIR}"/bin2cpp
 }
