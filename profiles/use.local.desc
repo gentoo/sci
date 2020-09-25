@@ -21,6 +21,7 @@ dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
 dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
+dev-libs/asmjit:natvis - build natvis files
 dev-libs/boost-compute:benchmark - build benchmark examples
 dev-libs/boost-compute:bolt - build bolt examples and tests
 dev-libs/boost-compute:cache - use offline cache for opencl binaries in examples and tests
