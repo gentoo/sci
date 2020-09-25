@@ -38,6 +38,7 @@ dev-libs/libunzip 5.52: libunzip.so
 dev-libs/optix 6.0.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/utf8proc 1.1.6 1.2-r1: library for processing UTF-8 encoded Unicode strings
+dev-libs/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-ml/lacaml 7.0.3: BLAS/LAPACK interface for OCaml
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*
 dev-perl/BTLib 0.19: Perl part of the estscan package
@@ -611,7 +612,6 @@ sci-libs/awkward-array 0.13.0: Manipulate arrays of complex data structures as e
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/bigdft-abi 1.0.4-r3: A DFT electronic structure code using a wavelet basis set
 sci-libs/blastdb 9999: The BLAST NR database
-sci-libs/bloom 9999: C++ Bloom Filter Library
 sci-libs/calculix-ccx 2.10: A Free Software Three-Dimensional Structural Finite Element Program
 sci-libs/calculix-cgx 2.10: A Free Software Three-Dimensional Structural Finite Element Program
 sci-libs/ccif 0.3.20111209: CCP4 ccif lib

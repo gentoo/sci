@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install test
+DESCRIPTION=single header library for fast XOR filters
+EAPI=7
+HOMEPAGE=https://github.com/FastFilter/xor_singleheader
+IUSE=test
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/FastFilter/xor_singleheader/archive/6cea6a4dcf2f18a0e3b9b9e0b94d6012b804ffa1.tar.gz -> xor_singleheader-0_p20012020.tar.gz
+_md5_=36c5491bcdda076d33e7e78cbc496408
