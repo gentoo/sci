@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=emacs? ( virtual/emacs )
 SLOT=0
 SRC_URI=ftp://ftp.mathematik.uni-muenchen.de/pub/forster/aribas/UNIX_LINUX/aribas-1.63.tar.gz
-_eclasses_=eapi7-ver	f9ec87e93172b25ce65a85303dc06964	elisp-common	848a95b01913ff6374bcb5eae09c52ba	estack	686eaab303305a908fd57b2fd7617800	versionator	2352c3fc97241f6a02042773c8287748
+_eclasses_=eapi7-ver	f9ec87e93172b25ce65a85303dc06964	elisp-common	34cc2b6f6d8914019a353fe39cff43ce	estack	686eaab303305a908fd57b2fd7617800	versionator	2352c3fc97241f6a02042773c8287748
 _md5_=fbc7ccb7af8e0c37b04fad54c2f1f130
