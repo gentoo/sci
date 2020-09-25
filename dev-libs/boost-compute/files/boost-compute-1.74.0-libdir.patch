@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d0327ca..e52a62a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -122,7 +122,7 @@ configure_file(
+ # install cmake config file
+ install(
+   FILES ${BoostCompute_BINARY_DIR}/BoostComputeConfig.cmake
+-  DESTINATION lib/cmake/BoostCompute
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BoostCompute
+ )
+ 
+ # install header files
