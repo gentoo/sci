@@ -36,7 +36,7 @@ dev-libs/fortrancl 0.1_alpha3: OpenCL interface for Fortran 90
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/libunzip 5.52: libunzip.so
 dev-libs/optix 6.0.0: NVIDIA Ray Tracing Engine
-dev-libs/simclist 1.6: SimCList is a high quality C (C++ embeddable) library for handling lists
+dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/utf8proc 2.5.0: library for processing UTF-8 encoded Unicode strings
 dev-ml/lacaml 7.0.3: BLAS/LAPACK interface for OCaml
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*

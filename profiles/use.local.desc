@@ -33,6 +33,8 @@ dev-libs/boost-compute:tbb - build examples and tests using tbb backend
 dev-libs/boost-compute:threads - build thread safe examples and tests
 dev-libs/boost-compute:vtk - build vtk examples and tests
 dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
+dev-libs/simclist:dump - Disable building of dump and restore functionalities
+dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locations
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
 dev-util/amdapp:examples - Build the OpenCL example programs
