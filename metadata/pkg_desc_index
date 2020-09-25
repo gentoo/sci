@@ -21,7 +21,6 @@ dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
 dev-java/jogl 2.1.4 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
 dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
-dev-java/scirenderer 1.1.0: A rendering library based on JoGL
 dev-lang/berkeley_upc 2.16.2 2.18.0 2.18.2 2.20.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.16.2 2.18.0 2.18.2: The Berkeley UPC-to-C translator
 dev-lang/conceptual 1.4: A Network Correctness and Performance Testing Language
@@ -87,7 +86,6 @@ dev-python/grabbit 0.1.1 0.2.6: Get grabby with file trees
 dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 9999: Image processing utilities for Astropy
-dev-python/instant 1.4.0 2016.2.0 2017.1.0: Instant inlining of C and C++ code in Python
 dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/kmapper 1.4.0: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
