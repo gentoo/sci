@@ -8,6 +8,7 @@ app-forensics/vine 1.0: The BitBlaze Static Analysis Component
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/castxml 0.0.0_pre9 0.2.0 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
+dev-cpp/thrust 1.10.0: C++ parallel agorithms library
 dev-java/fits 1.11.0-r1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 1_p20080421 2.0_rc8 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
