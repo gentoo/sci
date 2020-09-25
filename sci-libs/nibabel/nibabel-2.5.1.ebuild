@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_6 )
+PYTHON_COMPAT=( python3_{6,7,8} )
 
 inherit distutils-r1
 
@@ -22,7 +22,7 @@ RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/mock[${PYTHON_USEDEP}]
 	dicom? (
-		sci-libs/pydicom[${PYTHON_USEDEP}]
+		sci-libs/pydicom
 		dev-python/pillow[${PYTHON_USEDEP}]
 		)
 "
