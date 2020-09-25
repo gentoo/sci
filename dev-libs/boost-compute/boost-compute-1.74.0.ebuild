@@ -20,6 +20,7 @@ fi
 LICENSE="Boost-1.0"
 SLOT="0"
 IUSE="benchmark bolt cache cpp11 cuda eigen examples opencv qt tbb test threads vtk"
+RESTRICT="!test? ( test )"
 
 RDEPEND="
 	dev-libs/boost
