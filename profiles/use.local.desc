@@ -21,6 +21,17 @@ dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
 dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
+dev-libs/boost-compute:benchmark - build benchmark examples
+dev-libs/boost-compute:bolt - build bolt examples and tests
+dev-libs/boost-compute:cache - use offline cache for opencl binaries in examples and tests
+dev-libs/boost-compute:cpp11 - enable C++11 features in examples and tests
+dev-libs/boost-compute:cuda - build cuda examples and tests
+dev-libs/boost-compute:eigen - build eigen examples and tests
+dev-libs/boost-compute:opencv - build opencv examples and tests
+dev-libs/boost-compute:qt - build qt examples and tests
+dev-libs/boost-compute:tbb - build examples and tests using tbb backend
+dev-libs/boost-compute:threads - build thread safe examples and tests
+dev-libs/boost-compute:vtk - build vtk examples and tests
 dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
