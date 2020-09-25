@@ -1,15 +1,15 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python3_4 python3_5 python3_6 )
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 
 inherit distutils-r1
 
 DESCRIPTION="FInite element Automatic Tabulator"
-HOMEPAGE="https://bitbucket.org/fenics-project/fiat"
-SRC_URI="https://bitbucket.org/fenics-project/fiat/downloads/${P}.tar.gz"
+HOMEPAGE="https://github.com/FEniCS/fiat"
+SRC_URI="https://github.com/FEniCS/fiat/archive/2019.1.0.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

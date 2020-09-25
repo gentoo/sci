@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python{2_7,3_6,3_7} )
+PYTHON_COMPAT=( python3_{4,6,7,8} )
 
 inherit distutils-r1
 
@@ -17,11 +17,8 @@ KEYWORDS="~amd64"
 IUSE="test"
 
 DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? ( >=dev-python/pytest-3.4.1[${PYTHON_USEDEP}] )
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
 	"
 RDEPEND=""
 
-python_test() {
-	py.test -v || die
-}
+distutils_enable_tests pytest
