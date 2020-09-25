@@ -18,10 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 DEPEND="
-	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/prov[${PYTHON_USEDEP}]
-	dev-python/setuptools[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	test? (
 		dev-python/mock[${PYTHON_USEDEP}]
@@ -34,31 +32,30 @@ DEPEND="
 
 RDEPEND="
 	>=dev-python/click-6.6[${PYTHON_USEDEP}]
+	dev-python/filelock[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pydot[${PYTHON_USEDEP}]
 	dev-python/pydotplus[${PYTHON_USEDEP}]
-	dev-python/pygraphviz[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
-	dev-python/scipy[${PYTHON_USEDEP}]
 "
+#etelemetry and neurdflib
 
 src_prepare() {
-	sed -i\
-		-e "/'pytest>=%s' % PYTEST_MIN_VERSION,/d"\
-		-e "/'pytest-xdist',$/d"\
-		-e "/'prov==%s' % PROV_VERSION,/d"\
-		nipype/info.py || die
-	sed -i\
-		-e "s/prov==1\.5\.0/prov/g"\
-		requirements.txt rtd_requirements.txt || die
+	sed -i \
+		-e "/def test_no_et(tmp_path):/i@pytest.mark.skip('Known to fail by upstream: https://github.com/nipy/nipype/issues/3196#issuecomment-606003186')" \
+		nipype/tests/test_nipype.py || die
+	sed -i \
+		-e "/def test_fslversion():/i@pytest.mark.skip('Known to fail by upstream: https://github.com/nipy/nipype/issues/3196#issuecomment-605997462')" \
+		nipype/interfaces/fsl/tests/test_base.py || die
 	default
 }
 
 python_test() {
-	pytest -vv\
+	NIPYPE_NO_ET=1 pytest -vv\
 		|| die
 	# Upstream test configuration fails
 		#-c nipype/pytest.ini\
