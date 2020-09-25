@@ -1,7 +1,0 @@
-DEFINED_PHASES=-
-DESCRIPTION=Virtual for encoding-warnings
-EAPI=6
-KEYWORDS=~amd64 ~x86
-RDEPEND=~perl-core/encoding-warnings-0.11
-SLOT=0
-_md5_=41dc04c098de7be1df0bb66ea70f3e79
