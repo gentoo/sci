@@ -112,10 +112,6 @@ sci-chemistry/rosetta:boost - compile rosetta with boost supported code
 sci-chemistry/rosetta:float - Build with floats rather than doubles
 sci-chemistry/rosetta:lange - Apply patches from www.csrosetta.org
 sci-chemistry/shiftx2:debug - Enables debug output in the shiftx2 java part
-sci-electronics/player:boost - Automatically generated description for boost
-sci-electronics/player:festival - Automatically generated description for festival
-sci-electronics/player:openssl - Automatically generated description for openssl
-sci-electronics/player:sphinx2 - Automatically generated description for sphinx2
 sci-libs/arrayfire:cache - cache kernals to disk.
 sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:mkl - Build against static MKL.

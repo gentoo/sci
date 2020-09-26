@@ -574,10 +574,7 @@ sci-chemistry/trajng 0.6.1: TrajNG - Trajectory compression library
 sci-chemistry/unio 2.0.3-r1: Automated NMR Data Analysis
 sci-chemistry/usf-tools 9999: The USF program suite
 sci-chemistry/xplor-nih 2.38: Structure determination program which builds on the X-PLOR program
-sci-electronics/minipro 9999: A free and open TL866XX programmer
-sci-electronics/player 2.0.4: A network server for robot control
-sci-electronics/stage 2.0.3: 2D multiple-robot simulator
-sci-electronics/tnt 1.2.2: MoM 2.5 D stripline simulator
+sci-electronics/minipro 0.4: A free and open TL866XX programmer
 sci-geosciences/pydap 3.1 3.1.1: Data Access Protocol client and server
 sci-geosciences/pydap_handlers_csv 0.1.1: Comma Separated Values (CSV) handler for Pydap server
 sci-geosciences/pydap_handlers_hdf5 0.1.7: HDF5 file handler for Pydap Data Access Protocol server
