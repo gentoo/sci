@@ -100,6 +100,7 @@ dev-python/py2bit 0.2.1: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.4 9999: Python extension written in C for quick access to and creation of bigWig files
 dev-python/pydotplus 2.0.2: Improved version of the old pydot project
 dev-python/pylibconfig2 0.2.5 9999: Pure python library for libconfig syntax
+dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/python-gantt 0.6.0: Draw Gantt charts from Python
@@ -516,33 +517,6 @@ sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
 sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
 sci-chemistry/mddnmr 2.4-r1: Program for processing of NUS multidimensional NMR spectra
 sci-chemistry/mdsctk 1.2.0: Molecular Dynamics Spectral Clustering Toolkit
-sci-chemistry/mgltools 1.5.6: Software to visualization and analysis of molecular structures
-sci-chemistry/mgltools-autodocktools 1.5.6: MGLTools Plugin -- AutoDockTools
-sci-chemistry/mgltools-bhtree 1.5.6: MGLTools Plugin -- bhtree
-sci-chemistry/mgltools-cadd 1.5.6: MGLTools Plugin -- CADD
-sci-chemistry/mgltools-cmolkit 1.5.6: MGLTools Plugin -- cMolKit
-sci-chemistry/mgltools-dejavu 1.5.6-r1: MGLTools Plugin -- DejaVu
-sci-chemistry/mgltools-geomutils 1.5.6: MGLTools Plugin -- geomutils
-sci-chemistry/mgltools-gle 1.5.6: MGLTools Plugin -- gle
-sci-chemistry/mgltools-mglutil 1.5.6-r1: MGLTools Plugin -- mglutil
-sci-chemistry/mgltools-molkit 1.5.6: MGLTools Plugin -- MolKit
-sci-chemistry/mgltools-networkeditor 1.5.6: MGLTools Plugin -- NetworkEditor
-sci-chemistry/mgltools-opengltk 1.5.6: MGLTools Plugin -- opengltk
-sci-chemistry/mgltools-pmv 1.5.6: MGLTools Plugin -- Pmv
-sci-chemistry/mgltools-pyautodock 1.5.6: MGLTools Plugin -- PyAutoDock
-sci-chemistry/mgltools-pybabel 1.5.6: MGLTools Plugin -- PyBabel
-sci-chemistry/mgltools-pyglf 1.5.6: MGLTools Plugin -- pyglf
-sci-chemistry/mgltools-qslimlib 1.5.6: MGLTools Plugin -- QSlimLib
-sci-chemistry/mgltools-scenario2 1.5.6: MGLTools Plugin -- Scenario2
-sci-chemistry/mgltools-sff 1.5.6: MGLTools Plugin -- sff
-sci-chemistry/mgltools-support 1.5.6: MGLTools Plugin -- Support
-sci-chemistry/mgltools-symserv 1.5.6: MGLTools Plugin -- symserv
-sci-chemistry/mgltools-utpackages 1.5.6: MGLTools Plugin -- UTpackages
-sci-chemistry/mgltools-viewer-framework 1.5.6: MGLTools Plugin -- ViewerFramework
-sci-chemistry/mgltools-vision 1.5.6: MGLTools Plugin -- Vision
-sci-chemistry/mgltools-visionlib 1.5.6: MGLTools Plugin -- VisionLibraries
-sci-chemistry/mgltools-volume 1.5.6: MGLTools Plugin -- Volume
-sci-chemistry/mgltools-webservices 1.5.6: MGLTools Plugin -- WebServices
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
 sci-chemistry/modelfree 4.20: Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data
 sci-chemistry/modeller 9.12-r3 9.19: Homology or comparative modeling of protein three-dimensional structures
