@@ -88,7 +88,7 @@ dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/kmapper 1.4.0: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
-dev-python/meshpy 2013.1.2 2014.1: Quality triangular and tetrahedral mesh generation for Python
+dev-python/meshpy 2014.1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static HTML)
 dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
