@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>horea.christ@gmail.com</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		This package provides a Python module and a Bash interface which can
+		compute the probability of a 2-choice popular election being decided by
+		one vote. Predictions are based on either a series of forecasts, a beta
+		(or normal) probability density function for outcomes, or a fixed
+		outcome probability.
+	</longdescription>
+</pkgmetadata>
