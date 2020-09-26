@@ -89,8 +89,6 @@ dev-python/kmapper 1.4.0: Python implementation of Mapper algorithm for Topologi
 dev-python/matplotlib2tikz 9999: Convert matplotlib figures into TikZ/PGFPlots
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2014.1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/nbviewer 9999: Nbconvert as a webservice (rendering ipynb to static HTML)
-dev-python/newrelic 2.44.0.36 2.50.0.39: New Relic Python Agent
 dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
 dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
 dev-python/numba 0.51.2: NumPy aware dynamic Python compiler using LLVM
@@ -367,7 +365,6 @@ sci-biology/mgblast 0.1: Customized version of megablast from TIGR Gene Indices 
 sci-biology/minced 9999: Short Palindromic Repeat finder tool (for CRISPRs)
 sci-biology/mip-scaffolder 0.6: Scaffold contigs using ABI Solid or Illumina mate pair info
 sci-biology/miranda 3.3a: An algorithm for finding genomic targets for microRNAs
-sci-biology/mne-python 0.7 9999: Python package for MEG and EEG data analysis
 sci-biology/mouse-brain-atlases 0.5.3: A collection of mouse brain atlases in NIfTI format
 sci-biology/mreps 2.5: Identification of serial/tandem repeats in DNA sequences
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
