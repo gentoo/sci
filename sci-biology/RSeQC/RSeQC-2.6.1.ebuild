@@ -1,16 +1,16 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_6 )
 
 inherit distutils-r1
 
 DESCRIPTION="Utilities for RNA-seq data quality control"
-HOMEPAGE="http://rseqc.sourceforge.net"
-SRC_URI="http://sourceforge.net/projects/rseqc/files/RSeQC-2.6.1.tar.gz
-	http://sourceforge.net/projects/rseqc/files/other/fetchChromSizes"
+HOMEPAGE="https://rseqc.sourceforge.net"
+SRC_URI="https://sourceforge.net/projects/rseqc/files/RSeQC-2.6.1.tar.gz
+	https://sourceforge.net/projects/rseqc/files/other/fetchChromSizes"
 
 LICENSE="GPL-3"
 SLOT="0"
