@@ -665,7 +665,6 @@ sci-libs/spams-python 2.6: Optimization toolbox for solving various sparse estim
 sci-libs/spyking-circus 0.9.6: Fast and scalable spike sorting in Python
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 3.3: MPI distributed sparse LU factorization library
-sci-libs/tensorflow 1.0.1 1.5.0 1.7.0 1.8.0: Library for numerical computation using data flow graphs
 sci-libs/vxl 9999: C++ computer vision research libraries
 sci-libs/wannier90 1.2-r3 2.0.1 2.0.1.1: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
