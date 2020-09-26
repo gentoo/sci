@@ -15,8 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 python_install_all() {
-	dodoc -r {example,simpleexample}
-	dohtml docs/index.html
+	dodoc -r example simpleexample docs
 
 	distutils-r1_python_install_all
 }
