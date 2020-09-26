@@ -136,8 +136,6 @@ sci-libs/fox:sax - Compile the streaming, validating parser based on java's Simp
 sci-libs/fox:wcml - Compile the module for a subset of the Chemical Markup Language
 sci-libs/fox:wkml - Compile the module for the creation of KML documents used by applications such as Google Earth
 sci-libs/fox:wxml - Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements
-sci-libs/gotoblas2:incblas - Build the CBLAS interface
-sci-libs/gotoblas2:int64 - Build the 64 bits integer library
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/libfac:singular - Automatically generated description for singular
