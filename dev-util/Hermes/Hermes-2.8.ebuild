@@ -22,7 +22,6 @@ src_compile() {
 src_install() {
 	dodir /opt/hermes
 	cp -r "${S}"/* "${ED}"/opt/hermes/ || die
-	for binary in "${S}"/bin/* ; do
-		dosym /opt/hermes/bin/$(basename ${binary}) /usr/bin/$(basename ${binary})
-	done
+
+	doenvd "${FILESDIR}"/00hermes
 }
