@@ -497,7 +497,6 @@ sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.2.6: Correction of electron beam-induced sample motion
 sci-chemistry/acpype 0.1.0: AnteChamber PYthon Parser interfacE
-sci-chemistry/ambertools 12_p38-r1 15_p6: A suite for carrying out complete molecular mechanics investigations
 sci-chemistry/burrow-owl 9999: Visualize multidimensional nuclear magnetic resonance (NMR) spectra
 sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical shifts
 sci-chemistry/chimera-bin 1.11.2: An extensible Molecular Modelling System
