@@ -50,14 +50,14 @@ src_unpack() {
 src_configure() {
 	local mycmakeargs=(
 		-DUSE_SYSTEM_ITK=ON
-		-DITK_DIR="${EROOT}/usr/include/ITK-5.1/"
+		-DITK_DIR="${EPREFIX}/usr/include/ITK-5.1/"
 		-DBUILD_TESTING="$(usex test ON OFF)"
 		-DUSE_VTK=$(usex vtk ON OFF)
 		-DUSE_SYSTEM_VTK=$(usex vtk ON OFF)
 		-DANTS_SNAPSHOT_VERSION:STRING=${PV}
 	)
 	use vtk && mycmakeargs+=(
-		-DVTK_DIR="${EROOT}/usr/include/vtk-8.1/"
+		-DVTK_DIR="${EPREFIX}/usr/include/vtk-8.1/"
 	)
 	use test && mycmakeargs+=(
 		-DExternalData_OBJECT_STORES="${S}/.ExternalData/MD5"
