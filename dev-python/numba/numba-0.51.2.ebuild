@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 IUSE="openmp threads"
 
-DEPEND="
+RDEPEND="${PYTHON_DEPS}
 	>=dev-python/llvmlite-0.34.0[${PYTHON_USEDEP}]
 	<dev-python/llvmlite-0.35.0
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -26,9 +26,7 @@ DEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	threads? ( dev-cpp/tbb )
 "
-RDEPEND="${DEPEND}
-	${PYTHON_DEPS}
-"
+DEPEND="${RDEPEND}"
 
 DISTUTILS_IN_SOURCE_BUILD=1
 distutils_enable_tests unittest
@@ -39,12 +37,12 @@ PATCHES=(
 )
 
 pkg_setup() {
-	if ! usex openmp; then
+	if ! use openmp; then
 		export NUMBA_DISABLE_OPENMP=1
 	else
 		unset NUMBA_DISABLE_OPENMP
 	fi
-	if ! usex threads; then
+	if ! use threads; then
 		export NUMBA_DISABLE_TBB=1
 	else
 		unset NUMBA_DISABLE_TBB
