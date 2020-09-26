@@ -1,5 +1,5 @@
 # [Gentoo Science](https://wiki.gentoo.org/wiki/Project:Science/Overlay) Overlay
-[![Build Status](https://travis-ci.org/gentoo/sci.svg?branch=master)](https://travis-ci.org/gentoo/sci)
+[![Build Status](https://travis-ci.com/gentoo/sci.svg?branch=master)](https://travis-ci.com/gentoo/sci)
 
 This is a Gentoo Linux [ebuild repository](https://wiki.gentoo.org/wiki/Ebuild_repository) which provides numerous scientific software packages.
 
