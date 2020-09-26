@@ -496,11 +496,9 @@ sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural vari
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.2.6: Correction of electron beam-induced sample motion
-sci-chemistry/acpype 0.1.0: AnteChamber PYthon Parser interfacE
 sci-chemistry/burrow-owl 9999: Visualize multidimensional nuclear magnetic resonance (NMR) spectra
 sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical shifts
 sci-chemistry/chimera-bin 1.11.2: An extensible Molecular Modelling System
-sci-chemistry/chooch 5.0.2-r1: Automatically determine values of the anomalous scattering factors
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/cpmgfit 1.43: non-linear least squares fitting of CPMG relaxation dispersion curves
 sci-chemistry/cs-rosetta 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
