@@ -281,7 +281,7 @@ sci-biology/cutadapt 2.10: Remove adapter sequences from high-throughput sequenc
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
 sci-biology/dawg 1.1.2: DNA Assembly With Gaps: Phylogenetic aligner for sequence evolution simulation
 sci-biology/dcm2niix 1.0.20200331: DICOM to NIfTI converter
-sci-biology/dcmstack 9999: DICOM to Nifti coversion
+sci-biology/dcmstack 0.8: DICOM to Nifti coversion
 sci-biology/deeptools 2.5.0 9999: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
 sci-biology/diamond 0.9.19: Alternative of blastp/blastx searches using DNA short reads through protein db
 sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
