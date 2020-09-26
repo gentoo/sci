@@ -5,16 +5,15 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{6,7} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1 virtualx
 
 DESCRIPTION="Time-series analysis of neuroscience data"
 HOMEPAGE="http://nipy.org/nitime/index.html"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/nipy/nitime"
+SRC_URI="https://github.com/nipy/nitime/archive/rel/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 COMMON_DEPEND="
@@ -23,8 +22,8 @@ COMMON_DEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 DEPEND="
-	test? ( dev-python/nose[${PYTHON_USEDEP}] )
-	dev-python/setuptools[${PYTHON_USEDEP}]
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
+	dev-python/cython[${PYTHON_USEDEP}]
 	"
 RDEPEND="
 	${COMMON_DEPEND}
@@ -32,6 +31,8 @@ RDEPEND="
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	"
 
+S="${WORKDIR}/${PN}-rel-${PV}"
+
 python_test() {
-	nosetests -v || die
+	virtx pytest -v || die
 }
