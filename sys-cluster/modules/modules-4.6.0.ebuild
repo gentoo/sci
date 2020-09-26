@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit autotools python-single-r1
 
@@ -16,6 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="compat test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	${PYTHON_DEPS}
@@ -43,6 +44,9 @@ src_prepare() {
 src_configure() {
 	local myconf=(
 		--disable-versioning
+		--with-initconf-in=etcdir
+		--enable-multilib-support
+		--disable-set-shell-startup
 		--prefix="${EPREFIX}/usr/share/Modules"
 		--mandir="${EPREFIX}/usr/share/man"
 		--docdir="${EPREFIX}/usr/share/doc/${P}"
@@ -51,9 +55,19 @@ src_configure() {
 		--modulefilesdir="${EPREFIX}/etc/modulefiles"
 		--with-tcl="${EPREFIX}/usr/$(get_libdir)"
 		--with-python="${PYTHON}"
+		--with-quarantine-vars="LD_LIBRARY_PATH LD_PRELOAD"
 		$(use_enable compat compat-version)
 	)
-	./configure "${myconf[@]}" ${EXTRA_ECONF[@]} || die "configure failed"
+	econf "${myconf[@]}" "${EXTRA_ECONF[@]}" || die "configure failed"
+}
+
+src_test() {
+	# Remove known-broken tests
+	# These test fine, but fail for random differences in the gentoo environment
+	rm "${S}"/testsuite/modules.70-maint/210-clear.exp || die "rm failed"
+	rm "${S}"/testsuite/modules.00-init/110-quar.exp || die "rm failed"
+
+	RUNTESTARGS=-v emake test
 }
 
 src_install() {
