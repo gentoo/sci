@@ -239,7 +239,7 @@ sci-biology/bambino 1.02 1.06: display SAM/BAM files and for SNP/indel detection
 sci-biology/bambus 2.33: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
 sci-biology/bamql 1.6.1 9999: Extract reads from BAM files
 sci-biology/barnacle 1.0.4: Check de novo assembly for chimeric contigs/transcripts
-sci-biology/barrnap 0.3 0.4: Predict Bacterial and Archaeal rRNA genes and output in GFF3 format
+sci-biology/barrnap 0.9: Predict Bacterial and Archaeal rRNA genes and output in GFF3 format
 sci-biology/beagle 4.0: Genotype calling/phasing, imputation of ungenotyped markers
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
 sci-biology/bedops 2.4.26: Manipulate BED file (alternative to bedtools)
@@ -320,7 +320,7 @@ sci-biology/germline 1.5.1 1.5.2: Find shared segments of Identity by Descent (I
 sci-biology/gffcompare 0.10.5: Compare, classify, merge, track, annotate GFF files
 sci-biology/gffread 0.11.0: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
 sci-biology/gfftools 0.98d: gff2ps can render features annotated in GFF file format into PostScript figures
-sci-biology/gffutils 0.8.7.1: GFF and GTF file manipulation and interconversion
+sci-biology/gffutils 0.8.7.1 0.10.1: GFF and GTF file manipulation and interconversion
 sci-biology/glean 1.0.1: Merge various gene prediction into one (unsupervised learning system)
 sci-biology/grabix 9999: Provide random access to text files BGZF compressed with bgzip
 sci-biology/graf-bin 20171212: Find closely related subjects using SNP genotype data, validate pedigree file
@@ -359,7 +359,6 @@ sci-biology/manatee-jcvi 2.4.3: Genome annotation tool
 sci-biology/mavid 2.0.4: Multiple alignment of large DNA sequences
 sci-biology/megahit 9999: Metagenome assembler using succinct de Bruijn graph approach with CUDA
 sci-biology/merlin 1.1.2: Statistical analysis of gene flow in pedigrees
-sci-biology/metaseq 0.5.3: Framework for integrated analysis and plotting of ChIP/RIP/RNA/*-seq data
 sci-biology/mgblast 0.1: Customized version of megablast from TIGR Gene Indices project
 sci-biology/minced 9999: Short Palindromic Repeat finder tool (for CRISPRs)
 sci-biology/mip-scaffolder 0.6: Scaffold contigs using ABI Solid or Illumina mate pair info
@@ -373,7 +372,6 @@ sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing
 sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1: A subset of NCBI C++ Toolkit containing just the NCBI BLAST+
 sci-biology/ncbi-genome-download 0.2.2: Download genomes from the NCBI FTP servers
 sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI BLAST+
-sci-biology/nesoni 0.128: Analysis package for next-generation sequencing data and prepare for IGV display
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/ngs_backbone 1.4.0 9999: Assembly & annotation pipeline with web interface for EST/chromosomal sequences
 sci-biology/nilearn 0.5.0 0.5.2 0.6.2 9999: Fast and easy statistical learning on NeuroImaging data
