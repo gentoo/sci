@@ -98,7 +98,6 @@ dev-python/photutils 9999: Affiliated package for image photometry utilities
 dev-python/psubprocess 0.1.2: Execute tasks in parallel
 dev-python/py2bit 0.2.1: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.4 9999: Python extension written in C for quick access to and creation of bigWig files
-dev-python/pylibconfig2 0.2.5 9999: Pure python library for libconfig syntax
 dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
