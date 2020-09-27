@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit distutils-r1 git-r3
 
@@ -14,8 +14,8 @@ EGIT_REPO_URI="https://github.com/nipy/nibabel.git"
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="dicom doc test"
 KEYWORDS=""
+IUSE="dicom doc test"
 
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -25,8 +25,7 @@ RDEPEND="
 		sci-libs/pydicom
 		dev-python/pillow[${PYTHON_USEDEP}]
 		)
-	"
-
+"
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? (
@@ -34,10 +33,9 @@ DEPEND="
 		dev-python/nose[${PYTHON_USEDEP}]
 		)
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
-	"
+"
 
 python_test() {
-	distutils-r1_install_for_testing
 	cd "${BUILD_DIR}" || die
 	echo "backend: Agg" > matplotlibrc
 	MPLCONFIGDIR=. nosetests || die

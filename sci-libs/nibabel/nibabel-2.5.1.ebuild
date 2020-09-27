@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit distutils-r1
 
@@ -11,10 +11,9 @@ DESCRIPTION="Access a cacophony of neuro-imaging file formats"
 HOMEPAGE="http://nipy.org/nibabel/"
 SRC_URI="https://github.com/nipy/nibabel/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
-KEYWORDS="~amd64 ~x86"
-
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="dicom doc test"
 
 RDEPEND="
