@@ -618,7 +618,7 @@ sci-libs/mpiblacs 1.1-r1: Basic Linear Algebra Communication Subprograms with MP
 sci-libs/msms 1.5.6: MSMS library python extension module
 sci-libs/nexus 4.4.1: Data format for neutron and x-ray scattering data
 sci-libs/ni-visa 0.0.1: Placeholder for an NI-VISA library ebuild
-sci-libs/nibabel 2.3.1 2.5.1 3.0.2 9999: Access a cacophony of neuro-imaging file formats
+sci-libs/nibabel 2.5.1 3.0.2 9999: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
 sci-libs/nipype 1.1.1-r2 1.4.2 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/oasa 0.13.1: Python library for manipulation of chemical structures
@@ -630,7 +630,7 @@ sci-libs/pg2plplot 0.2.0 0.3.1: Assist the transition from PGPlot to PLplot in F
 sci-libs/plasma 2.5.2 2.6.0: Parallel Linear Algebra for Scalable Multi-core Architecture
 sci-libs/pmx 9999: Python library to read PDB, GRO or Gromacs XTC files
 sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
-sci-libs/pydicom 0.9.9 1.1.0 1.4.2 9999: A pure python package for parsing DICOM files
+sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
 sci-libs/pytorch 1.4.0_p0 1.6.0: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2015.03.1 9999: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikits_video 1.1.11_p20200114: Video processing in Python
