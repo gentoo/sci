@@ -136,7 +136,6 @@ dev-util/plog 1.1.4_p20191110: Portable, simple and extensible C++ logging libra
 media-gfx/PhiloGL 1.4.3: WebGL Framework for Data Vis, Creative Coding and Game Development
 media-gfx/brlcad 7.22.0 7.24.0 7.24.2 9999: Constructive solid geometry modeling system
 media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
-media-libs/avbin-bin 8.1: A thin wrapper around FFmpeg
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/imgui 1.48_p20191119: Bloat-free graphical user interface library for C++
 media-libs/implicitmesher 0_p20191111: Real-time implicit surface polygonization
@@ -400,7 +399,6 @@ sci-biology/prokka 1.11: Prokaryotic whole genome annotation pipeline
 sci-biology/proovread 9999: Error correct PacBio subreads using Illumina reads
 sci-biology/prot4EST 3.1b: Predict proteins from EST sequences overcoming frameshifts
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
-sci-biology/psychopy 1.84.2: Python experimental psychology toolkit
 sci-biology/pvmsx 0.1: Parallel multi-FASTA file processing tool
 sci-biology/pybedtools 0.8.0: Use BED and GFF files from python using BEDtools
 sci-biology/pyfaidx 0.5.9.1: Efficient pythonic random access to fasta subsequences
