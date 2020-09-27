@@ -647,8 +647,6 @@ sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
 sci-mathematics/Macaulay2 9999: Research tool for commutative algebra and algebraic geometry
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/acl2 7.1: Industrial strength theorem prover
-sci-mathematics/apron 0.9.10-r1: Static analysis of the numerical variables by Abstract Interpretation
-sci-mathematics/aribas 1.63: Interpreter for big integer and multi-precision floating point arithmetic
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/dolfin 0.9.9 2016.2.0-r2 2017.1.0: C++/Python interface of FEniCS
