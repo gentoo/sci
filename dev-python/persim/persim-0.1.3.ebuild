@@ -3,6 +3,7 @@
 
 EAPI=7
 
+# bump on plotly bump merge
 PYTHON_COMPAT=( python3_{6..7} )
 
 inherit distutils-r1
@@ -16,8 +17,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="${PYTHON_DEPS}
+	dev-python/hopcroftkarp[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/plotly[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/scikits_learn[${PYTHON_USEDEP}]
 "
+
+distutils_enable_tests pytest
