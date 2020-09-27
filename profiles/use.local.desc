@@ -38,7 +38,6 @@ dev-libs/simclist:dump - Disable building of dump and restore functionalities
 dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locations
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
-dev-util/amdapp:examples - Build the OpenCL example programs
 dev-util/bazel:tools - Install extra bazel tools to build from sources
 dev-util/nvidia-cuda-gdk:healthmon - Install nvidia-healthmon.
 dev-util/nvidia-cuda-gdk:nvml - Install the NVIDIA Managment Library.
@@ -199,11 +198,6 @@ sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/u
 sci-mathematics/scilab:xcos - Enable building hybrid dynamic systems modeler and simulator Xcos
 sci-mathematics/why3:float - Add sci-mathematics/flocq support
 sci-mathematics/why3:frama-c - Enable Frama-C plugin
-sci-misc/hfst:foma - Add optional support for foma backend library (sci-misc/foma)
-sci-misc/hfst:glib - Parse UTF-8 and collate unicode using glib instead of homebrewn methods
-sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-misc/openfst)
-sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
-sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
 sci-misc/kaldi:cuda - Build with CUDA support.
 sci-misc/kaldi:double-precision - Build in double precision mode.
 sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation potentials library
