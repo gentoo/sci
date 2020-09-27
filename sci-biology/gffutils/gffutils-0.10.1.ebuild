@@ -17,8 +17,24 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="
-	sci-biology/pyfaidx[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	dev-python/argh[${PYTHON_USEDEP}]
-	dev-python/argcomplete[${PYTHON_USEDEP}]"
+	dev-python/argcomplete[${PYTHON_USEDEP}]
+	sci-biology/biopython[${PYTHON_USEDEP}]
+	sci-biology/pybedtools[${PYTHON_USEDEP}]
+	sci-biology/pyfaidx[${PYTHON_USEDEP}]
+"
 DEPEND="${RDEPEND}"
+
+python_prepare_all() {
+	if use test; then
+		sed -i -e "s:/tmp/gffutils-test:${T}:g" gffutils/test/test.py || die
+	fi
+	distutils-r1_python_prepare_all
+}
+
+distutils_enable_tests nose
+python_test() {
+	distutils_install_for_testing
+	nosetests -v -x --with-doctest -a '!slow' || die
+}
