@@ -145,19 +145,9 @@ net-ftp/bbftp-client 3.2.1: Secure file transfer optimized for files larger than
 net-ftp/bbftp-server 3.2.1: Secure file transfer optimized for files larger than 2GB
 net-misc/bbscp 1.0.6: SCP-like interface to bbFTP
 net-misc/cernbox-client 2.3.2: Synchronize files from CERNbox EOS with your computer
-sci-astronomy/casapy-bin 4.2.1.29047.001_p1 4.2.2.30986_p1 4.4.0: Software package to calibrate, image, and analyze radioastronomical data
-sci-astronomy/eazy 1.00: Photometric redshift estimator for galaxies
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
-sci-astronomy/eye 9999: Enhance astronomical object extraction with neural network filters
-sci-astronomy/galfit-bin 3.0.5: Galaxy morphology fitting program
-sci-astronomy/lephare 2.2: Photometric Analysis for Redshift Estimate for galaxies
-sci-astronomy/libthesky 0.3.2: Fortran library to compute positions of celestial bodies
-sci-astronomy/starlink-bin 20130413: Astronomical data processing software suite
-sci-astronomy/stilts 2.5.1: Command line tools to process astronomical tables
-sci-astronomy/topcat 4.0.1: Interactive graphical viewer and editor for astronomical tables
+sci-astronomy/libthesky 0.4.1: Fortran library to compute positions of celestial bodies
 sci-astronomy/wcslib 6.4: Astronomical World Coordinate System transformations library
-sci-astronomy/zebra 1.01: Galaxy redhift Bayesian analyzer
-sci-astronomy/zpeg 5.23: Galaxy photometric redshifts from evolutionary synthesis
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
 sci-biology/ABI-expression-data 0.1.1-r1 0.2: Gene expression data form the Allen Mouse Brain data portal
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
@@ -594,7 +584,7 @@ sci-libs/libmatheval 1.1.10: library to parse and evaluate symbolic expressions
 sci-libs/libmaus 0.0.185: Library for biobambam
 sci-libs/libmaus2 2.0.587 2.0.689 9999: Library for biobambam2
 sci-libs/libmed 3.1.0: A library to store and exchange meshed data or computation results
-sci-libs/libsufr 0.5.4 0.6.3 0.6.4: LIBrary of Some Useful Fortran Routines
+sci-libs/libsufr 0.7.5: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/matc 6.0_p4651 8.0 9999: Finite element programs, libraries, and visualization tools - math C library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
