@@ -23,8 +23,5 @@ RDEPEND="${PYTHON_DEPS}
 	<=sci-libs/scikits_learn-0.24.0[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}"
-BDEPEND="
-	test? ( dev-python/nose )
-"
 
-distutils_enable_tests pytest
+distutils_enable_tests nose
