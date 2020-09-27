@@ -236,25 +236,6 @@ sys-cluster/htcondor:contrib - Build contrib modules
 sys-cluster/htcondor:dmtcp - Use sys-apps/dmtcp for checkpointing
 sys-cluster/htcondor:libvirt - Use app-emulation/libvirt for virtualisation
 sys-cluster/htcondor:minimal - Don't support standard universe jobs
-sys-cluster/lustre:client - Enable kernel client modules
-sys-cluster/lustre:dlc - Enable Dynamic LNET Configuration
-sys-cluster/lustre:server - Enable kernels server modules
-sys-cluster/lustre:tests - Enable installation of tests
-sys-cluster/lustre:utils - Enable lustre utils
 sys-cluster/modules:compat - Build Modules version 3 compat support
-sys-cluster/mpich:mpi-threads - Enable MPI_THREAD_MULTIPLE
-sys-cluster/mpich:romio - Build the ROMIO MPI-IO component
-sys-cluster/mpich2:mpi-threads - Enable MPI_THREAD_MULTIPLE
-sys-cluster/mpich2:romio - Build the ROMIO MPI-IO component
-sys-cluster/mvapich2:large-cluster - Automatically generated description for large-cluster
-sys-cluster/mvapich2:medium-cluster - Automatically generated description for medium-cluster
-sys-cluster/mvapich2:romio - Automatically generated description for romio
-sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
-sys-cluster/openmpi:cuda - Add GPU direct support
-sys-cluster/openmpi:heterogeneous - Enable features required for heterogeneous platform support
-sys-cluster/openmpi:mpi-threads - Enable MPI_THREAD_MULTIPLE
-sys-cluster/openmpi:numa - Enable numactl to allow binding processes to CPUs
-sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
-sys-cluster/openmpi:vt - Enable bundled VampirTrace support
 virtual/blacs:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
 virtual/scalapack:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
