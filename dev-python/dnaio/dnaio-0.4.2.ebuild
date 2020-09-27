@@ -18,3 +18,5 @@ RDEPEND="
 	${PYTHON_DEPS}
 	dev-python/xopen
 "
+
+# no tests in package
