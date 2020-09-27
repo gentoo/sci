@@ -21,3 +21,9 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/numpy[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}"
+
+distutils_enable_tests pytest
+
+python_test() {
+	pytest -c /dev/null -vv || die "tests failed for ${EPYTHON}"
+}
