@@ -14,6 +14,8 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
+# no tests in package
+
 python_install_all() {
 	dodoc -r example simpleexample docs
 
