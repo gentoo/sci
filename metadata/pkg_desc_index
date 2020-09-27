@@ -287,7 +287,6 @@ sci-biology/dcmstack 0.8: DICOM to Nifti coversion
 sci-biology/deeptools 2.5.0 9999: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
 sci-biology/diamond 0.9.19: Alternative of blastp/blastx searches using DNA short reads through protein db
 sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
-sci-biology/discrover 1.6.0 9999: A sequence motif discovery tool that uses discriminative learning
 sci-biology/dna2pep 1.1: Translate DNA sequence into protein (with STOP codon read-through)
 sci-biology/drlfom_bidsdata 1.1: BIDS data files released with the DRLFOM publication
 sci-biology/ePCR 2.3.12: Search for sub-sequences matching PCR primers

@@ -56,11 +56,6 @@ sci-biology/ants:vtk - Optional support for a number of surface enabled tools (v
 sci-biology/behaviopy:evaluation - Installs evaluation submodule.
 sci-biology/bowtie:tbb - Enables building bowtie with the Intel Threading Building Blocks from dev-cpp/tbb. This flag is recommended.
 sci-biology/bru2nii:gui - Build graphical user interface
-sci-biology/discrover:cairo - Use Cairo for sequence logo plotting capabilities
-sci-biology/discrover:dreme - Enable usage of DREME from the MEME package for seeding
-sci-biology/discrover:lto - Compile with link-time optimization (LTO)
-sci-biology/discrover:misc_scripts - Install miscellaneous scripts
-sci-biology/discrover:rmathlib - Link to the standalone Rmathlib for statistical routines
 sci-biology/estscan:icc - Undocumented USE
 sci-biology/estscan:ifc - Undocumented USE
 sci-biology/exonerate-gff3:utils - Unknown
