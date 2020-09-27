@@ -150,10 +150,6 @@ sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen M
 sci-biology/ABI-expression-data 0.1.1-r1 0.2: Gene expression data form the Allen Mouse Brain data portal
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
 sci-biology/AlignGraph 9999: Reference-genome-assisted asssembly of contigs/scaffolds using PE reads
-sci-biology/Atlas 2005: Atlas Whole Genome Assembly Suite
-sci-biology/Atlas-Link 0.01-r1: Link and orient genome sequence contigs using mate-pair information
-sci-biology/Atlas2 1.4.3: Variant analysis tools from whole exome capture sequencing (WECS)
-sci-biology/Atlas_GapFill 2.2: Close gaps using BWA-identified reads and reassemble
 sci-biology/BBmap 34.97 35.92 36.02 36.86 37.67: Short read aligner, K-mer-based error-correct and normalize, FASTA/Q tool
 sci-biology/BG7 9999: Bacterial genome annotation system
 sci-biology/BRAKER 2.1.2: Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS
@@ -406,9 +402,6 @@ sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scaffold_builder 20131122-r1: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
-sci-biology/scbi_mapreduce 0.0.45: Run parallel and distributed computing jobs
-sci-biology/scbi_plot 0.0.7: Wrapper to create plots with gnuplot
-sci-biology/scbi_zcat 0.0.2: Read files from a zcat pipe of a gz file
 sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
 sci-biology/screed 0.9: Short read sequence utilities
 sci-biology/scythe 0.992: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
