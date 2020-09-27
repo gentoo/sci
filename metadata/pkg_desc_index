@@ -98,7 +98,6 @@ dev-python/photutils 9999: Affiliated package for image photometry utilities
 dev-python/psubprocess 0.1.2: Execute tasks in parallel
 dev-python/py2bit 0.2.1: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.4 9999: Python extension written in C for quick access to and creation of bigWig files
-dev-python/pydotplus 2.0.2: Improved version of the old pydot project
 dev-python/pylibconfig2 0.2.5 9999: Pure python library for libconfig syntax
 dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
@@ -283,7 +282,6 @@ sci-biology/erpin 5.5b: Easy RNA Profile IdentificatioN, an RNA motif search pro
 sci-biology/est2assembly 1.08 9999: EST assembly and annotation pipeline for chado/gbrowse2 display
 sci-biology/estscan 3.0.3: Prediction of coding regions in DNA/RNA sequences
 sci-biology/eval 2.2.8: Validate, compare and draw summary statistics for GTF files
-sci-biology/exomiser-bin 7.2.1: Annotate VCF files and prioritize genome/exome mutations
 sci-biology/exonerate-gff3 9999: exonerate-2.2.0 with patches to add GFF3 formatted output
 sci-biology/fastdnaml 1.2.2_p10: Maximum likelihood phylogenetic tree builder for DNA sequences
 sci-biology/fastqc 0.11.3: Quality control FASTA/FASTQ sequence files
@@ -292,7 +290,6 @@ sci-biology/flexbar 2.7.0 3.0.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
-sci-biology/full_lengther_next 0.6.2: Classify assembled transcripts and fix frameshifts in ORFs
 sci-biology/gap2caf 2.1.0: GAP4 file format to CAF v2 format converter for genomic assembly data
 sci-biology/gatk 3.8.1 9999: The Genome Analysis Toolkit
 sci-biology/gemini 9999: Lightweight VCF to DB framework for disease and population genetics
