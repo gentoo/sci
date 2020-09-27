@@ -525,18 +525,6 @@ sci-chemistry/unio 2.0.3-r1: Automated NMR Data Analysis
 sci-chemistry/usf-tools 9999: The USF program suite
 sci-chemistry/xplor-nih 2.38: Structure determination program which builds on the X-PLOR program
 sci-electronics/minipro 0.4: A free and open TL866XX programmer
-sci-geosciences/pydap 3.1 3.1.1: Data Access Protocol client and server
-sci-geosciences/pydap_handlers_csv 0.1.1: Comma Separated Values (CSV) handler for Pydap server
-sci-geosciences/pydap_handlers_hdf5 0.1.7: HDF5 file handler for Pydap Data Access Protocol server
-sci-geosciences/pydap_handlers_nca 0.1.3: Aggregated NetCDF handler for Pydap Data Access Protocol server
-sci-geosciences/pydap_handlers_netcdf 0.6.4: NetCDF handler for Pydap Data Access Protocol server
-sci-geosciences/pydap_handlers_proxy 0.1.1: Proxy handler for Pydap server that can serve data from other web sites
-sci-geosciences/pydap_handlers_sqlite 0.1.0: Handler for Pydap server that allows serving data from SQLite files
-sci-geosciences/pydap_responses_kml 0.4.6: KML responses for Pydap Data Access Protocol server
-sci-geosciences/pydap_responses_matlab 0.2.1: MatLab response for Pydap Data Access Protocol server
-sci-geosciences/pydap_responses_netcdf 0.1.4.1: NetCDF responses for Pydap Data Access Protocol server
-sci-geosciences/pydap_responses_wms 0.5.4: WMS responses for Pydap Data Access Protocol server
-sci-geosciences/pydap_responses_xls 0.1.2: Excel responses for Pydap Data Access Protocol server
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
