@@ -229,7 +229,6 @@ sci-biology/beagle 4.0: Genotype calling/phasing, imputation of ungenotyped mark
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
 sci-biology/bedops 2.4.26: Manipulate BED file (alternative to bedtools)
 sci-biology/behaviopy 0.1 9999: Neuroimaging tools for Python
-sci-biology/bio-cd-hit-report 0.1.0: Ruby library for reading CD-HIT cluster reports
 sci-biology/biobambam 0.0.183: Tools for bam file processing
 sci-biology/biobambam2 2.0.89 2.0.146 9999: Tools for bam file processing (using libmaus2)
 sci-biology/bismark 0.13.0: Map bisulfite converted sequence reads and cytosine methylation states
@@ -407,9 +406,6 @@ sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scaffold_builder 20131122-r1: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
-sci-biology/scbi_blast 0.0.43: Handle blast+ executions using pipes instead of files
-sci-biology/scbi_fasta 0.1.9: Read FASTA and QUAL files
-sci-biology/scbi_fastq 0.0.22: Read/write FASTQ files
 sci-biology/scbi_mapreduce 0.0.45: Run parallel and distributed computing jobs
 sci-biology/scbi_plot 0.0.7: Wrapper to create plots with gnuplot
 sci-biology/scbi_zcat 0.0.2: Read files from a zcat pipe of a gz file
@@ -583,7 +579,6 @@ sci-libs/nipype 1.1.1-r2 1.4.2 1.5.0: Neuroimaging in Python: Pipelines and Inte
 sci-libs/oasa 0.13.1: Python library for manipulation of chemical structures
 sci-libs/omalloc 0.9.6: omalloc is the memory management of the Singular algebra system
 sci-libs/optpp 2.4: C++ library for non-linear optimization
-sci-libs/pagmo 9999: Parallelization engine for optimization problems
 sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 0.2.0 0.3.1: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/plasma 2.5.2 2.6.0: Parallel Linear Algebra for Scalable Multi-core Architecture

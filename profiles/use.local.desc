@@ -143,9 +143,6 @@ sci-libs/nexus:utils - Build optional utility applications
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
 sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
-sci-libs/pagmo:eigen - Use eigen, a c++ linear algebra library, for algorithms like CAMES
-sci-libs/pagmo:ipopt - Use ipopt, a interior-point optimizer
-sci-libs/pagmo:nlopt - Use nlopt, a non-linear optimization library
 sci-libs/pytorch:asan - Build with address sanitizer (ASAN)
 sci-libs/pytorch:atlas - Use ATLAS as BLAS implementation
 sci-libs/pytorch:cuda - Enable support for nVidia CUDA
