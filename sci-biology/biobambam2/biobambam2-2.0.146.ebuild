@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=">=sci-libs/libmaus2-2.0.683"
+DEPEND="sci-libs/libmaus2"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P}-release-${release_data}"

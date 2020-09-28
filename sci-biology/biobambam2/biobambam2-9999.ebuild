@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND=">=sci-libs/libmaus2-2.0.555"
+DEPEND="sci-libs/libmaus2"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
