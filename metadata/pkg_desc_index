@@ -284,7 +284,6 @@ sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymor
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/gap2caf 2.1.0: GAP4 file format to CAF v2 format converter for genomic assembly data
-sci-biology/gatk 3.8.1 9999: The Genome Analysis Toolkit
 sci-biology/gemini 9999: Lightweight VCF to DB framework for disease and population genetics
 sci-biology/geneid 1.4.4: An ab initio exon/gene finding program
 sci-biology/genepop 4.2.1 4.7: Population genetics analysis
@@ -457,7 +456,7 @@ sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, wi
 sci-chemistry/MotionCor2 1.2.6: Correction of electron beam-induced sample motion
 sci-chemistry/burrow-owl 9999: Visualize multidimensional nuclear magnetic resonance (NMR) spectra
 sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical shifts
-sci-chemistry/chimera-bin 1.11.2: An extensible Molecular Modelling System
+sci-chemistry/chimera-bin 1.11.2 1.14: An extensible Molecular Modelling System
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/cpmgfit 1.43: non-linear least squares fitting of CPMG relaxation dispersion curves
 sci-chemistry/cs-rosetta 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
@@ -479,9 +478,6 @@ sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs 
 sci-chemistry/modelfree 4.20: Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data
 sci-chemistry/modeller 9.12-r3 9.19: Homology or comparative modeling of protein three-dimensional structures
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
-sci-chemistry/mtz2hkl 0.3: Facilitate the transition from refmac5 refinement to shelxh or shelxl refinement
-sci-chemistry/mtz2sca 0.3: Converts CCP4 mtz-files containing anomalous data to Scalepack format
-sci-chemistry/nMOLDYN 3.0.10: nMOLDYN is an interactive analysis program for Molecular Dynamics simulations
 sci-chemistry/nmrpipe 8.7.2015.320.15.26: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/nwchem 6.3_p2-r1 6.5_p26243-r7 6.6_p27746-r2: Delivering High-Performance Computational Chemistry to Science
