@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -12,7 +12,7 @@ SRC_URI="http://wannier.org/code/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="doc examples perl static-libs test"
+IUSE="examples perl static-libs test"
 
 RDEPEND="
 	virtual/blas
@@ -20,10 +20,7 @@ RDEPEND="
 	perl? ( dev-lang/perl )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	doc? ( virtual/latex-base
-		dev-texlive/texlive-latexextra
-		dev-tex/revtex
-	)"
+"
 
 src_configure() {
 	cat <<- EOF >> "${S}"/make.sys
@@ -37,10 +34,6 @@ src_configure() {
 src_compile() {
 	emake -j1 wannier
 	emake -j1 lib
-	if use doc; then
-		VARTEXFONTS="${T}/fonts"
-		emake -j1 doc
-	fi
 }
 
 src_test() {
@@ -59,6 +52,4 @@ src_install() {
 		insinto /usr/share/${PN}
 		doins -r examples
 	fi
-	use doc && dodoc doc/*.pdf
-	dodoc README README.install CHANGE.log
 }
