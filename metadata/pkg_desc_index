@@ -518,8 +518,6 @@ sci-libs/awkward-array 0.13.0: Manipulate arrays of complex data structures as e
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/bigdft-abi 1.0.4-r3: A DFT electronic structure code using a wavelet basis set
 sci-libs/blastdb 9999: The BLAST NR database
-sci-libs/calculix-ccx 2.10: A Free Software Three-Dimensional Structural Finite Element Program
-sci-libs/calculix-cgx 2.10: A Free Software Three-Dimensional Structural Finite Element Program
 sci-libs/ccif 0.3.20111209: CCP4 ccif lib
 sci-libs/cgnstools 2.5.4-r1: The CFD General Notation System (CGNS) tools
 sci-libs/ciftilib 1.5.3-r1: C++ Library for reading and writing CIFTI-2 and CIFTI-1 files
@@ -543,7 +541,6 @@ sci-libs/iRODS 4.2.0: Integrated Rule Oriented Data System, a data management so
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
-sci-libs/k3match 1.1: Fast matching of large sets of points in 3D space, in O(N log N) time
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lapackpp 2.5.4: C++ wrapper for LAPACK libraries
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files

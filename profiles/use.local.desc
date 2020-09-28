@@ -117,7 +117,6 @@ sci-libs/bigdft-abi:etsf_io - Enable support for reading and writing the Europea
 sci-libs/bigdft-abi:glib - Compile with GLib Object System support
 sci-libs/bigdft-abi:opencl - Enable support for OpenCL GPU acceleration
 sci-libs/bigdft-abi:scalapack - Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
-sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
 sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
