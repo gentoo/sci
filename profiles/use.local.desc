@@ -133,15 +133,11 @@ sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/libfac:singular - Automatically generated description for singular
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
 sci-libs/mkl:int64 - Build the 64 bits integer library
-sci-libs/nexus:doc - Generate library documentation with app-doc/doxygen
-sci-libs/nexus:fortran - Build the Fortran bindings
 sci-libs/nexus:hdf4 - Support the old HDF4 representation
 sci-libs/nexus:hdf5 - Support the standard representation (HDF5)
 sci-libs/nexus:java - Build the Java bindings
-sci-libs/nexus:utils - Build optional utility applications
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
-sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
 sci-libs/pytorch:asan - Build with address sanitizer (ASAN)
 sci-libs/pytorch:atlas - Use ATLAS as BLAS implementation
 sci-libs/pytorch:cuda - Enable support for nVidia CUDA
