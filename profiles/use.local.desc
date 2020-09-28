@@ -100,11 +100,6 @@ sci-libs/arrayfire:nonfree - build.
 sci-libs/arrayfire:opencl - build OpenCL backend.
 sci-libs/arrayfire:trace - enable additional traces during logging.
 sci-libs/asl:matlab - Matlab support with sci-libs/matio
-sci-libs/bigdft-abi:cuda - Enable support for nVidia CUDA
-sci-libs/bigdft-abi:etsf_io - Enable support for reading and writing the European Theoretical Spectroscopy facility (ETSF) file format
-sci-libs/bigdft-abi:glib - Compile with GLib Object System support
-sci-libs/bigdft-abi:opencl - Enable support for OpenCL GPU acceleration
-sci-libs/bigdft-abi:scalapack - Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
 sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
@@ -182,11 +177,6 @@ sci-misc/kaldi:cuda - Build with CUDA support.
 sci-misc/kaldi:double-precision - Build in double precision mode.
 sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation potentials library
 sci-physics/atompaw:longplot - Patch the sources to plot functions all over the space considered, not just up to the matching radius plus 50 grid points. May be useless or even harmful.
-sci-physics/bigdft:cuda - Enable support for nVidia CUDA GPU acceleration
-sci-physics/bigdft:etsf_io - Enable support for reading and writing the European Theoretical Spectroscopy facility (ETSF) file format.
-sci-physics/bigdft:glib - Compile with GLib Object System support
-sci-physics/bigdft:opencl - Enable support for OpenCL GPU acceleration
-sci-physics/bigdft:scalapack - Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
 sci-physics/elk:libxc - Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
 sci-physics/elk:perl - Install perl scripts.
 sci-physics/elk:python - Install python scripts.

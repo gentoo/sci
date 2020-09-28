@@ -490,7 +490,6 @@ sci-chemistry/pymol-plugins-psico 9999: Pymol ScrIpt COllection
 sci-chemistry/pyquante 1.6.3-r1 1.6.4: Quantum chemistry package written in Python
 sci-chemistry/relion 3.0.8: Image-processing software for cryo-electron microscopy
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
-sci-chemistry/shiftx 1.1: Prediction of 1H, 13C and 15N chemical shifts for proteins
 sci-chemistry/smmp 3.0.5: Simple Molecular Mechanics for Proteins
 sci-chemistry/ssp 09.11: Secondary structure propensities
 sci-chemistry/talosn 4.01.2013.148.15.55-r3 4.12.2015.147.15.40: Prediction of Protein bb and sc Torsion Angles from NMR Chemical Shifts
@@ -506,7 +505,6 @@ sci-libs/arrayfire 3.7.2: general purpose GPU library
 sci-libs/asl 0.1.6 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/awkward-array 0.13.0: Manipulate arrays of complex data structures as easily as Numpy.
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
-sci-libs/bigdft-abi 1.0.4-r3: A DFT electronic structure code using a wavelet basis set
 sci-libs/blastdb 9999: The BLAST NR database
 sci-libs/ccif 0.3.20111209: CCP4 ccif lib
 sci-libs/cgnstools 2.5.4-r1: The CFD General Notation System (CGNS) tools
@@ -562,15 +560,14 @@ sci-libs/pmx 9999: Python library to read PDB, GRO or Gromacs XTC files
 sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
 sci-libs/pytorch 1.4.0_p0 1.6.0: Tensors and Dynamic neural networks in Python with strong GPU acceleration
-sci-libs/rdkit 2015.03.1 9999: Cheminformatics and machine-learning software written in C++ and Python
+sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikits_video 1.1.11_p20200114: Video processing in Python
-sci-libs/shtools 4.0: Spherical harmonic transforms and reconstructions, rotations
 sci-libs/spams-python 2.6: Optimization toolbox for solving various sparse estimation problems
 sci-libs/spyking-circus 0.9.6: Fast and scalable spike sorting in Python
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 3.3: MPI distributed sparse LU factorization library
 sci-libs/vxl 9999: C++ computer vision research libraries
-sci-libs/wannier90 1.2-r3 2.0.1 2.0.1.1: Calculates maximally localized Wannier functions (MLWFs)
+sci-libs/wannier90 2.0.1 2.0.1.1: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 2.16.0 3.1.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
@@ -622,7 +619,6 @@ sci-misc/pywordnet 2.0.1: Python bindings for wordnet
 sci-misc/stanford-parser 1.6: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 20060521: Stanfords log linear POS taggers
 sci-physics/atompaw 4.0.0.14: PAW atomic data generator
-sci-physics/bigdft 1.7.1 1.7.6: A DFT electronic structure code using a wavelet basis set
 sci-physics/elk 1.4.22 2.1.25: All-electron full-potential linearised augmented-plane wave (FP-LAPW)
 sci-physics/fullprof-bin 20313.04: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00 9999: Generic toolkit for track reconstruction in physics experiments
