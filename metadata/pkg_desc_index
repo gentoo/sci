@@ -480,28 +480,23 @@ sci-chemistry/modeller 9.12-r3 9.19: Homology or comparative modeling of protein
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
 sci-chemistry/nmrpipe 8.7.2015.320.15.26: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
-sci-chemistry/nwchem 6.3_p2-r1 6.5_p26243-r7 6.6_p27746-r2: Delivering High-Performance Computational Chemistry to Science
 sci-chemistry/openbabel-java 9999: Java bindings for OpenBabel
 sci-chemistry/openbabel-python 9999: Python bindings for OpenBabel (including Pybel)
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/pesto 9999: Potential Energy Surface Tools
 sci-chemistry/polygon 0612: shows qualitatively if some models parameters are over- or under-refined
-sci-chemistry/pymol-plugins-ezviz 1.0.2005-r1: Assistance tool for the difficult to understand user interface of PyMOL
 sci-chemistry/pymol-plugins-psico 9999: Pymol ScrIpt COllection
 sci-chemistry/pyquante 1.6.3-r1 1.6.4: Quantum chemistry package written in Python
 sci-chemistry/relion 3.0.8: Image-processing software for cryo-electron microscopy
-sci-chemistry/rosetta 3.4: Prediction of protein structures and protein-protein interactions
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/shiftx 1.1: Prediction of 1H, 13C and 15N chemical shifts for proteins
-sci-chemistry/shiftx2 1.07_p20120106: Predicts of backbone and side chain 1H, 13C and 15N CS for proteins
 sci-chemistry/smmp 3.0.5: Simple Molecular Mechanics for Proteins
 sci-chemistry/ssp 09.11: Secondary structure propensities
 sci-chemistry/talosn 4.01.2013.148.15.55-r3 4.12.2015.147.15.40: Prediction of Protein bb and sc Torsion Angles from NMR Chemical Shifts
 sci-chemistry/trajng 0.6.1: TrajNG - Trajectory compression library
 sci-chemistry/unio 2.0.3-r1: Automated NMR Data Analysis
 sci-chemistry/usf-tools 9999: The USF program suite
-sci-chemistry/xplor-nih 2.38: Structure determination program which builds on the X-PLOR program
 sci-electronics/minipro 0.4: A free and open TL866XX programmer
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)

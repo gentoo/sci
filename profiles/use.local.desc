@@ -91,20 +91,8 @@ sci-chemistry/gamess:pax_kernel - Make this package work on PAX kernels
 sci-chemistry/gamess:qmmm-tinker - Enable tinker qmmm code
 sci-chemistry/gamess:vb2000 - Enable Valence Bond method using VB2000 code
 sci-chemistry/mdsctk:R - Install dev-lang/R scripts as well
-sci-chemistry/nwchem:blas - Use external BLAS library instead of the internal routines
-sci-chemistry/nwchem:cuda - Enable CUDA GPU support for the Tensor Contraction Engine generated methods (CI, MBPT, CC)
-sci-chemistry/nwchem:int64 - Use 64 bits integers
-sci-chemistry/nwchem:lapack - Use external LAPACK library instead of the internal routines
-sci-chemistry/nwchem:mrcc - Compile the routines for Multi Reference Coupled Clusters theory
-sci-chemistry/nwchem:nwchem-tests - Install qa tests data
-sci-chemistry/nwchem:scalapack - Use external SCALAPACK library
 sci-chemistry/relion:cuda - Enable CUDA support
 sci-chemistry/relion:gui - Enable relion gui
-sci-chemistry/rosetta:boinc - compile rosetta as a rosetta@home client
-sci-chemistry/rosetta:boost - compile rosetta with boost supported code
-sci-chemistry/rosetta:float - Build with floats rather than doubles
-sci-chemistry/rosetta:lange - Apply patches from www.csrosetta.org
-sci-chemistry/shiftx2:debug - Enables debug output in the shiftx2 java part
 sci-libs/arrayfire:cache - cache kernals to disk.
 sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:mkl - Build against static MKL.
