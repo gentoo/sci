@@ -224,7 +224,6 @@ sci-biology/beagle 4.0: Genotype calling/phasing, imputation of ungenotyped mark
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
 sci-biology/bedops 2.4.26: Manipulate BED file (alternative to bedtools)
 sci-biology/behaviopy 0.1 9999: Neuroimaging tools for Python
-sci-biology/biobambam 0.0.183: Tools for bam file processing
 sci-biology/biobambam2 2.0.89 2.0.146 9999: Tools for bam file processing (using libmaus2)
 sci-biology/bismark 0.13.0: Map bisulfite converted sequence reads and cytosine methylation states
 sci-biology/blasr 9999: The PacBio long read aligner
@@ -548,7 +547,6 @@ sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genet
 sci-libs/libcgnsoo 1728: Object-oriented interface to the CGNS Mid-level library
 sci-libs/libfac 3.1.1: libfac is an extension of Singular-factory to finite fields
 sci-libs/libmatheval 1.1.10: library to parse and evaluate symbolic expressions
-sci-libs/libmaus 0.0.185: Library for biobambam
 sci-libs/libmaus2 2.0.587 2.0.689 9999: Library for biobambam2
 sci-libs/libmed 3.1.0: A library to store and exchange meshed data or computation results
 sci-libs/libsufr 0.7.5: LIBrary of Some Useful Fortran Routines
