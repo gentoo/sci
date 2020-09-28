@@ -2,26 +2,23 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>c.kerr@embl-hamburg.de</email>
-		<name>Chris Kerr</name>
-		<description>I occasionally submit patches to NeXus</description>
+		<email>gentoo@aisha.cc</email>
+		<name>Aisha Tammy</name>
 	</maintainer>
 	<maintainer type="project">
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription>Libraries and tools for the NeXus data format, developed
-collaboratively by scientists from major scientific facilities to facilitate
-analysis and visualisation of neutron, x-ray and muon data.
-NeXus is based on HDF5.</longdescription>
+	<longdescription>
+		Libraries and tools for the NeXus data format, developed
+		collaboratively by scientists from major scientific facilities to facilitate
+		analysis and visualisation of neutron, x-ray and muon data.
+		NeXus is based on HDF5.</longdescription>
 	<use>
 		<flag name="xml">Allow using the verbose XML representation of NeXus data</flag>
 		<flag name="hdf4">Support the old HDF4 representation</flag>
 		<flag name="hdf5">Support the standard representation (HDF5)</flag>
-		<flag name="doc">Generate library documentation with <pkg>app-doc/doxygen</pkg></flag>
-		<flag name="fortran">Build the Fortran bindings</flag>
 		<flag name="java">Build the Java bindings</flag>
-		<flag name="utils">Build optional utility applications</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">nexusformat/code</remote-id>
