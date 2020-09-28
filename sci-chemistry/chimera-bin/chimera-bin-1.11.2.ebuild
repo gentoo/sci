@@ -1,16 +1,13 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit eutils
 
 DESCRIPTION="An extensible Molecular Modelling System"
 HOMEPAGE="http://www.cgl.ucsf.edu/chimera"
-SRC_URI="
-	amd64? ( chimera-${PV}-linux_x86_64.bin )
-	x86? ( chimera-${PV}-linux.bin )"
-
+SRC_URI="chimera-${PV}-linux_x86_64.bin"
 SLOT="0"
 LICENSE="chimera"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -28,9 +25,8 @@ RDEPEND="
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/ftgl
-	media-libs/libpng:1.2
+	media-libs/libpng
 	media-libs/tiff
-	media-libs/tiff:3
 	sci-libs/hdf5
 	sci-libs/xdrfile
 	sys-devel/gcc[openmp,fortran]
@@ -59,7 +55,7 @@ pkg_nofetch() {
 	elog "http://www.cgl.ucsf.edu/chimera/download.html"
 	elog "or"
 	elog "http://www.cgl.ucsf.edu/chimera/olddownload.html"
-	elog "and download ${A} into ${DISTDIR}"
+	elog "and download ${A} into your DISTDIR"
 }
 
 src_unpack() {
