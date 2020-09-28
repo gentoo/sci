@@ -558,7 +558,6 @@ sci-libs/omalloc 0.9.6: omalloc is the memory management of the Singular algebra
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 0.2.0 0.3.1: Assist the transition from PGPlot to PLplot in Fortran programs
-sci-libs/plasma 2.5.2 2.6.0: Parallel Linear Algebra for Scalable Multi-core Architecture
 sci-libs/pmx 9999: Python library to read PDB, GRO or Gromacs XTC files
 sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
