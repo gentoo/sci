@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,9 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="
-	!sci-biology/biobambam
-	>=sci-libs/libmaus2-2.0.489"
+DEPEND=">=sci-libs/libmaus2-2.0.489"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/biobambam2-2.0.89-release-20180518145034
