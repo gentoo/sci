@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c86ddca..8653311 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -102,8 +102,8 @@ set_target_properties(clip-cli PROPERTIES OUTPUT_NAME clip)
+ 
+ # Installation
+ # -----------------------------------------------------------------------------
+-install(TARGETS clip-lib-a ARCHIVE DESTINATION lib PUBLIC_HEADER DESTINATION include/clip)
+-install(TARGETS clip-lib-so LIBRARY DESTINATION lib PUBLIC_HEADER DESTINATION include/clip)
++install(TARGETS clip-lib-a ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} PUBLIC_HEADER DESTINATION include/clip)
++install(TARGETS clip-lib-so LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} PUBLIC_HEADER DESTINATION include/clip)
+ install(TARGETS clip-cli DESTINATION bin)
+ 
+ 
