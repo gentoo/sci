@@ -631,6 +631,7 @@ sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.5 9999: Tau decay Monte Carlo generator
 sci-physics/uproot 3.11.0 3.12.0: Manipulate arrays of complex data structures as easily as Numpy.
 sci-physics/uproot-methods 0.7.2 0.7.4: Manipulate arrays of complex data structures as easily as Numpy.
+sci-visualization/clip 0.7: command line chart creator
 sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFire
 sci-visualization/fsleyes 0.32.0 0.32.3: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLeyes viewer
