@@ -637,7 +637,6 @@ sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLey
 sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
-sci-visualization/yt 2.6 9999: Astrophysical Simulation Analysis and Vizualization package
 sys-cluster/Lmod 8.4.5: Environment Module System based on Lua
 sys-cluster/hpl 2.0-r1 2.1: High-Performance Linpack Benchmark for Distributed-Memory Computers
 sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
