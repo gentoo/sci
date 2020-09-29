@@ -1,17 +1,18 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 CMAKE_MIN_VERSION=2.8
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit cmake-utils python-single-r1 user
 
 DESCRIPTION="Workload management system for compute-intensive jobs"
 HOMEPAGE="http://www.cs.wisc.edu/htcondor/"
-SRC_URI="condor_src-${PV}-all-all.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/archive/V${PV//./_}.tar.gz -> ${P}.tar.gz"
+#SRC_URI="condor_src-${PV}-all-all.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -23,7 +24,9 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 CDEPEND="
 	sys-libs/zlib
 	>=dev-libs/libpcre-7.6
-	>=dev-libs/boost-1.49.0[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '
+		dev-libs/boost[${PYTHON_USEDEP}]
+	')
 	net-nds/openldap
 	boinc? ( sci-misc/boinc )
 	cgroup? ( >=dev-libs/libcgroup-0.37 )
@@ -42,8 +45,6 @@ DEPEND="${CDEPEND}
 
 RDEPEND="${CDEPEND}
 	mail-client/mailx"
-
-RESTRICT=fetch
 
 S="${WORKDIR}/condor-${PV}"
 PATCHES=(
