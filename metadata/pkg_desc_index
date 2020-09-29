@@ -576,7 +576,6 @@ sci-mathematics/Oid 4.0: An interactive, extensible software system for experime
 sci-mathematics/acl2 7.1: Industrial strength theorem prover
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
 sci-mathematics/cipi 1.0: Computing information projections iteratively
-sci-mathematics/dolfin 0.9.9 2016.2.0-r2 2017.1.0: C++/Python interface of FEniCS
 sci-mathematics/dsfmt 2.2: Double precision SIMD-oriented Fast Mersenne Twister library
 sci-mathematics/flocq 2.3.0: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 20140301: Framework for analysis of source codes written in C
