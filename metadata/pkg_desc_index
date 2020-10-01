@@ -138,7 +138,6 @@ media-libs/imgui 1.48_p20191119: Bloat-free graphical user interface library for
 media-libs/implicitmesher 0_p20191111: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0: Simplify the creation of computer graphics software
 media-libs/yocto-gl 0_p20191111: Single File Libraries for Physically-Based Graphics
-net-misc/bbscp 1.0.6: SCP-like interface to bbFTP
 net-misc/cernbox-client 2.3.2: Synchronize files from CERNbox EOS with your computer
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/libthesky 0.4.1: Fortran library to compute positions of celestial bodies
@@ -528,7 +527,6 @@ sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Prim
 sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/labbookdb 0.1: Lab Book Database Framework
-sci-libs/lapackpp 2.5.4: C++ wrapper for LAPACK libraries
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genetic programs
 sci-libs/libcgnsoo 1728: Object-oriented interface to the CGNS Mid-level library
