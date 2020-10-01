@@ -191,7 +191,7 @@ LICENSE="Intel-SDP"
 # Future work, #394411
 SLOT="0"
 
-RESTRICT="mirror fetch"
+RESTRICT="bindist mirror fetch"
 
 RDEPEND=""
 DEPEND="app-arch/rpm2targz"
