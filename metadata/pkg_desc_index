@@ -156,7 +156,6 @@ sci-biology/BRANCH 9999: Extend partial transcripts with sequence from other rea
 sci-biology/BamView 1.2.11: Display read alignments in BAM files, is a part of Artemis
 sci-biology/BlastToSam 1.1: Convert NCBI BLAST+ Pairwise/XML (-outfmt 0 or 5) output to SAM v1.4
 sci-biology/CAT 1.3: Codon usage bias (composition) and its statistical significance
-sci-biology/DisEMBL 1.4: Intrinsic Protein Disorder Prediction
 sci-biology/EBARDenovo 1.2.2: Transcriptome de novo assembler with chimera detection
 sci-biology/ESTate 0.5: ORF finding despite frameshifts, EST clustering
 sci-biology/FLASH 1.2.9: Paired-end mates merge from fragments
@@ -595,7 +594,6 @@ sci-mathematics/pff 8.4: Library for reasoning about floating point numbers in c
 sci-mathematics/pulp 1.5.6-r1: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
 sci-mathematics/scilab 5.5.2-r1: Scientific software package for numerical computations
-sci-mathematics/tisean 3.0.1: Time series analytics with theory of non-liner deterministic dynamical systems
 sci-mathematics/why3 0.83: Why3 is a platform for deductive program verification
 sci-misc/elmer-elmergrid 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmergrid
 sci-misc/elmer-fem 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - main fem
