@@ -572,7 +572,7 @@ sci-libs/xraylib 2.16.0 3.1.0: X-ray matter interaction cross sections for X-ray
 sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
 sci-mathematics/Macaulay2 9999: Research tool for commutative algebra and algebraic geometry
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
-sci-mathematics/acl2 7.1: Industrial strength theorem prover
+sci-mathematics/acl2 7.1 8.3: Industrial strength theorem prover
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/dsfmt 2.2: Double precision SIMD-oriented Fast Mersenne Twister library
