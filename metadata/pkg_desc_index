@@ -5,6 +5,8 @@ app-doc/lapack-docs 3.3-r1: Documentation reference and man pages for LAPACK imp
 app-doc/scalapack-docs 2.0: Documentation reference and man pages for ScaLAPACK implementations
 app-forensics/vine 1.0: The BitBlaze Static Analysis Component
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
+dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
+dev-cpp/blitz 1.0.2_p20200524 9999: multi-dimensional array library for C++
 dev-cpp/castxml 0.0.0_pre9 0.2.0 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters

@@ -1,0 +1,10 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DESCRIPTION=light-weight high performance tensor algebra framework
+EAPI=7
+HOMEPAGE=https://github.com/romeric/Fastor
+LICENSE=MIT
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
+_md5_=c2550ca1f030ff96f51c290660d6edaf
