@@ -2,12 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>AstroFloyd@gmail.com</email>
-		<name>AstroFloyd</name>
-	</maintainer>
-	<maintainer type="person">
-		<email>xarthisius@gentoo.org</email>
-		<name>Kacper Kowalik</name>
+		<email>git@vandersluys.nl</email>
+		<name>MarcvdSluys</name>
 	</maintainer>
 	<maintainer type="project">
 		<email>sci@gentoo.org</email>
