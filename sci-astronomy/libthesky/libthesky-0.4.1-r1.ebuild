@@ -5,6 +5,7 @@ EAPI=7
 
 CMAKE_BUILD_TYPE=Release
 inherit cmake fortran-2
+CMAKE_MAKEFILE_GENERATOR="emake"
 
 DESCRIPTION="Fortran library to compute positions of celestial bodies"
 HOMEPAGE="http://libthesky.sourceforge.net/"
