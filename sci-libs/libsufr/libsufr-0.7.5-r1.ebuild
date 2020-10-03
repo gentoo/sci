@@ -5,6 +5,7 @@ EAPI=7
 
 CMAKE_BUILD_TYPE=Release
 inherit cmake fortran-2
+CMAKE_MAKEFILE_GENERATOR="emake"
 
 DESCRIPTION="LIBrary of Some Useful Fortran Routines"
 HOMEPAGE="http://libsufr.sourceforge.net/"
