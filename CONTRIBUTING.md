@@ -151,11 +151,11 @@ Finally use the script **merge-dualHEAD** from the *scripts* directory to merge 
 
 
 ---
-#### Contribution to the document
+#### Contribution To the Document
 Sebastien Fabbro <bicatali@gentoo.org>
 
 Justin Lecher <jlec@gentoo.org>
 
-This document is available under [Creative Commons Attribution ShareAlike 4.0](http://creativecommons.org/licenses/by-sa/4.0)
+This document is available under. [Creative Commons Attribution ShareAlike 4.0](http://creativecommons.org/licenses/by-sa/4.0)
 
 ![ccsa-4 icon](http://i.creativecommons.org/l/by-sa/4.0/88x31.png)
