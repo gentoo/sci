@@ -141,7 +141,7 @@ media-libs/imgui 1.48_p20191119: Bloat-free graphical user interface library for
 media-libs/implicitmesher 0_p20191111: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0: Simplify the creation of computer graphics software
 media-libs/yocto-gl 0_p20191111: Single File Libraries for Physically-Based Graphics
-net-misc/cernbox-client 2.3.2: Synchronize files from CERNbox EOS with your computer
+net-misc/cernbox-client 2.6.3.14058: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/libthesky 0.4.1: Fortran library to compute positions of celestial bodies
 sci-astronomy/wcslib 6.4: Astronomical World Coordinate System transformations library
