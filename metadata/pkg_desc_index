@@ -61,7 +61,6 @@ dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
 dev-python/PyVISA 1.8 9999: Python VISA bindings for GPIB, RS232, and USB instruments
 dev-python/PyVISA-py 0.3.1 9999: Python VISA bindings for GPIB, RS232, and USB instruments
 dev-python/RecSQL 9999: Simple SQL analysis of python records
-dev-python/absl-py 0.1.13: Abseil Python Common Libraries
 dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
 dev-python/astropy 9999: Core functionality for performing astrophysics with Python
 dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated packages
@@ -69,12 +68,9 @@ dev-python/astroquery 9999: A collection of packages to access online astronomic
 dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1: Statistical and interactive HTML plots for Python
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
-dev-python/coards 1.0.5: Converts COARDS between time specification and a Python datetime object
 dev-python/colorlover 0.3.0: color scales in python for humans
-dev-python/cosmocalc 0.1.2-r1: Simple cosmology python module
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
-dev-python/dimensionful 9999: A simple library for making your data dimensionful
 dev-python/dnaio 0.4.2: efficient reader for FASTA and FASTQ files
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
@@ -89,15 +85,11 @@ dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/kmapper 1.4.0: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matrix2latex 1.0.0 9999: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/ngslib 1.1.19: Work with BED, WIG, BigWIG, 2bit files in python
 dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
 dev-python/numba 0.51.2: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
-dev-python/pamela 0.2.1 9999: PAM interface using ctypes
 dev-python/persim 0.1.3: Distances and representations of persistence diagrams
 dev-python/photutils 9999: Affiliated package for image photometry utilities
-dev-python/psubprocess 0.1.2: Execute tasks in parallel
-dev-python/py2bit 0.2.1: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.4 9999: Python extension written in C for quick access to and creation of bigWig files
 dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
