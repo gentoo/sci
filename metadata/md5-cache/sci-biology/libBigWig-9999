@@ -1,11 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=install prepare unpack
-DEPEND=net-misc/curl >=dev-vcs/git-1.8.2.1[curl]
+DEPEND=net-misc/curl
 DESCRIPTION=C library for handling bigWig files (functionally replacing Jim Kent's lib)
-EAPI=5
+EAPI=7
 HOMEPAGE=https://github.com/dpryan79/libBigWig
 LICENSE=MIT
 PROPERTIES=live
 RDEPEND=net-misc/curl
 SLOT=0
 _eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
-_md5_=71f0c975ae766a83e9ec689c6f4a6fbd
+_md5_=5c0c1aeedd183750b03fbc792cf2f4a0
