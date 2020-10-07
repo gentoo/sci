@@ -90,6 +90,7 @@ dev-python/numba 0.51.2: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/persim 0.1.3: Distances and representations of persistence diagrams
 dev-python/photutils 9999: Affiliated package for image photometry utilities
+dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
@@ -97,7 +98,6 @@ dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradi
 dev-python/python-gantt 0.6.0: Draw Gantt charts from Python
 dev-python/python-igraph 0.8.2: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
-dev-python/pyvcf 0.6.8: Work with VCF files in python
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pywcsgrid2 9999: Custom Matplotlib Axes class for displaying astronomical fits images
 dev-python/ripser 0.5.4: python frontend for the fast ripser tda tool
