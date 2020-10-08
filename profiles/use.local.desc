@@ -99,6 +99,10 @@ sci-libs/arrayfire:nonfree - build.
 sci-libs/arrayfire:opencl - build OpenCL backend.
 sci-libs/arrayfire:trace - enable additional traces during logging.
 sci-libs/asl:matlab - Matlab support with sci-libs/matio
+sci-libs/blis-amd:64bit-index - Enable 64bit array indexing, incompatible with runtime switching
+sci-libs/blis-amd:eselect-ldso - Enable runtime library switching by eselect and ld.so
+sci-libs/blis-amd:openmp - Use openmp threadding model
+sci-libs/blis-amd:pthread - Use pthread threadding model
 sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
@@ -113,6 +117,8 @@ sci-libs/fox:wxml - Compile the XML writer used to sequentially create arbitrary
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/libfac:singular - Automatically generated description for singular
+sci-libs/libflame-amd:scc - Enable code that takes advantage of the SCC multicore architecture, recommended to use supermatrix if scc is enabled.
+sci-libs/libflame-amd:supermatrix - Enable Ernie Chan's dependency-aware task scheduling and parallel execution system.
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
 sci-libs/mkl:int64 - Build the 64 bits integer library
 sci-libs/mlpack:R - build R bindings
