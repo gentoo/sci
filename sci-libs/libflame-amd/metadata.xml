@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@aisha.cc</email>
+		<name>Aisha Tammy</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">amd/libflame</remote-id>
+	</upstream>
+	<use>
+		<flag name="scc">Enable code that takes advantage of the SCC multicore architecture, recommended to use supermatrix if scc is enabled.</flag>
+		<flag name="supermatrix">Enable Ernie Chan's dependency-aware task scheduling and parallel execution system.</flag>
+	</use>
+</pkgmetadata>
