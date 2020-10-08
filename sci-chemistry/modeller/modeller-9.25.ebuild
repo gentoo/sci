@@ -1,15 +1,15 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 
-inherit distutils-r1 eutils multilib versionator
+inherit distutils-r1 eutils multilib
 
 DESCRIPTION="Homology or comparative modeling of protein three-dimensional structures"
-HOMEPAGE="http://salilab.org/modeller/"
-SRC_URI="http://salilab.org/${PN}/${PV}/${P}.tar.gz"
+HOMEPAGE="https://salilab.org/modeller/"
+SRC_URI="https://salilab.org/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="modeller"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -25,6 +25,8 @@ INPATH="${EPREFIX}"/opt/modeller${ver}
 
 QA_PREBUILT="/opt/*"
 
+PATCHES=( "${FILESDIR}/${P}-convert2to3.patch" )
+
 pkg_setup() {
 	case ${ARCH} in
 		x86)
@@ -38,6 +40,8 @@ pkg_setup() {
 
 python_prepare_all(){
 	sed "s:i386-intel8:${EXECTYPE}:g" -i src/swig/setup.py || die
+	rm -rf modlib/modeller/python_library || die
+	sed -i '1 i\#!/usr/bin/python' bin/modslave.py
 	distutils-r1_python_prepare_all
 }
 
