@@ -117,7 +117,6 @@ dev-util/bcm 0.0.1_p20191110: Boost cmake modules
 dev-util/f90cache 0.99: Compiler cache for fortran
 dev-util/mad-numdiff 9999 20150724: compare unformatted text files with numerical content
 dev-util/makefile2graph 1.5.0: Create a graph of dependencies from GNU Make
-dev-util/ndctl 70 9999: utility for managing the nvdimm sub-system in the linux kernel
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/nvidia-cuda-gdk 352.79: NVIDIA GPU Deployment Kit
 dev-util/plog 1.1.4_p20191110: Portable, simple and extensible C++ logging library
@@ -625,6 +624,7 @@ sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLey
 sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
+sys-apps/ndctl 70 9999: utility for managing the nvdimm sub-system in the linux kernel
 sys-cluster/Lmod 8.4.5: Environment Module System based on Lua
 sys-cluster/hpl 2.0-r1 2.1: High-Performance Linpack Benchmark for Distributed-Memory Computers
 sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
