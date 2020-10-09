@@ -1,11 +1,11 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 PYTHON_COMPAT=( python2_7 python3_{5,6,7} )
 
-inherit toolchain-funcs cmake-utils python-single-r1
+inherit toolchain-funcs cmake python-single-r1
 
 MY_PN="InsightToolkit"
 MY_P="${MY_PN}-${PV}"
@@ -22,7 +22,6 @@ SRC_URI="
 		https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/InsightData-${PV}.tar.gz
 		)
 	"
-RESTRICT="primaryuri"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -87,7 +86,7 @@ src_prepare() {
 			cp "$filename" ".ExternalData/MD5/${MD5}" || die
 		done
 	fi
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
@@ -144,11 +143,11 @@ src_configure() {
 			-DITK_WRAP_PYTHON=OFF
 		)
 	fi
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
