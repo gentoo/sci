@@ -32,7 +32,6 @@ SRC_URI="
 		${GLI_TEST_SRC}
 		)
 	"
-RESTRICT="primaryuri"
 
 LICENSE="Apache-2.0"
 SLOT="0"
