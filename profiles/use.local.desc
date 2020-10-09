@@ -41,7 +41,6 @@ dev-libs/simclist:dump - Disable building of dump and restore functionalities
 dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locations
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
 dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
-dev-util/bazel:tools - Install extra bazel tools to build from sources
 dev-util/nvidia-cuda-gdk:healthmon - Install nvidia-healthmon.
 dev-util/nvidia-cuda-gdk:nvml - Install the NVIDIA Managment Library.
 dev-util/nvidia-cuda-gdk:nvvs - Install the NVIDIA Validation Suite.
