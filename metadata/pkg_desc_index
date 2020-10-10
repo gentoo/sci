@@ -50,9 +50,9 @@ dev-perl/Log-Cabin 0.06: Partial implementation of Log::Log4perl with reduced di
 dev-perl/Scalar-Util-Numeric 0.40: Wrappers around perl's builtin looks_like_number function
 dev-perl/Set-IntSpan-Fast 1.15: Fast handling of sets containing integer spans
 dev-perl/Text-Graph 0.83: Perl module for generating simple text-based graphs
-dev-perl/Text-ParseWords 3.27: Parse strings containing shell-style quoting
+dev-perl/Text-ParseWords 3.30: Parse strings containing shell-style quoting
 dev-perl/Text-RecordParser 1.6.5: Perl module to read record-oriented files
-dev-perl/Time-Progress 1.7: Elapsed and estimated finish time reporting
+dev-perl/Time-Progress 2.12: Elapsed and estimated finish time reporting
 dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-python/Forthon 0.8.49: Python interface generator for Fortran based codes
 dev-python/POT 0.7.0: Python Optimal Transport Library
