@@ -622,7 +622,7 @@ sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLey
 sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
-sys-apps/ndctl 70 9999: utility for managing the nvdimm sub-system in the linux kernel
+sys-apps/ndctl 70 70.1 9999: utility for managing the nvdimm sub-system in the linux kernel
 sys-cluster/Lmod 8.4.5 8.4.9: Environment Module System based on Lua
 sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
