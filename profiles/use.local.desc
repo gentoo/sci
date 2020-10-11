@@ -45,6 +45,8 @@ dev-util/nvidia-cuda-gdk:healthmon - Install nvidia-healthmon.
 dev-util/nvidia-cuda-gdk:nvml - Install the NVIDIA Managment Library.
 dev-util/nvidia-cuda-gdk:nvvs - Install the NVIDIA Validation Suite.
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
+media-libs/mmg:scotch - Use SCOTCH TOOL for renumbering
+media-libs/mmg:vtk - Use VTK I/O
 net-misc/cernbox-client:dolphin - Install the kde-apps/dolphin extension
 net-misc/cernbox-client:nautilus - Install the gnome-base/nautilus extension
 sci-astronomy/wcslib:fits - Enable support for the FITS format through sci-libs/cfitsio
