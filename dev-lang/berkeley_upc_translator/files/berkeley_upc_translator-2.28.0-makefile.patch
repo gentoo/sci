@@ -1,0 +1,70 @@
+diff --git a/Makefile b/Makefile
+index 551228d..b494da7 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,51 +1,27 @@
+-# C and C++ compilers to use for building the translator
+-CC = gcc
+-CXX = g++
+-
+-# Default location for installation
+-PREFIX = /usr/local/bupc_translator
+-
+-# override default build directory (empty for auto-detect)
+-BUILDDIR=
+-
+ # override if your version of copy doesn't like these flags
+ CPYDIR = cp -R -p
+ 
+ # override if your filesystem has course-grained utimes
+ TOUCHDELAY = 2
+ 
+-# include overrides from configure, if any
+--include Makefile.local
+-
+ #-------------------------------------------------------
+ # You should not need to modify anything below this line
+ 
+ all clean install update-nodist-list:
+-	@echo "------------------------------------------------------------" ; \
+-	if test "$(BUILDDIR)" ; then			\
+-	  echo "WARNING: forcing BUILDDIR=$(BUILDDIR)"; \
+-	  builddir="$(BUILDDIR)" ;			\
+-	else						\
+-	  CC="$(CC)"; export CC;			\
+-	  CXX="$(CXX)"; export CXX;			\
+-	  builddir=`config-aux/config-builddir` ;	\
+-	fi ; 						\
+-	if test "$$builddir" ; then			\
+-	  echo "Making $@ in BUILDDIR=$$builddir" ;	\
+-	  echo " $(CC) is: `$(CC) --version 2>&1 | head -1`" ; \
+-	  echo " $(CXX) is: `$(CXX) --version 2>&1 | head -1`" ; \
+-	  echo " $(MAKE) is: `$(MAKE) --version 2>&1 | head -1`" ; \
+-	  echo "------------------------------------------------------------" ; \
+-	  if test "$$builddir" = "targ_ilp32_osx" -o "$$builddir" = "targ_lp64_osx"; then   \
+-	    strip=NOSTRIP=1 ; export strip ;            \
+-	  fi ;                                          \
+-	  if test -n "$${CFLAGS+set}"; then             \
+-	    echo "WARNING: unsetting CFLAGS" ;          \
+-	    unset CFLAGS ;                              \
+-	  fi ;                                          \
+-	  $(MAKE) BUILDDIR="$$builddir" $$strip $@-internal ;	\
+-	else						\
+-	  exit 1;					\
++	@echo "------------------------------------------------------------" ;	\
++	if test -d "open64/osprey1.0/$(BUILDDIR)" ; then			\
++	  echo "Making $@ in BUILDDIR=$(BUILDDIR)" ;				\
++	  echo " $(CC) is: `$(CC) --version 2>&1 | head -1`" ; 			\
++	  echo " $(CXX) is: `$(CXX) --version 2>&1 | head -1`" ; 		\
++	  echo " $(MAKE) is: `$(MAKE) --version 2>&1 | head -1`" ; 		\
++	  echo "------------------------------------------------------------" ;	\
++	  if test -n "$${CFLAGS+set}"; then					\
++	    echo "WARNING: unsetting CFLAGS" ;					\
++	    unset CFLAGS ;							\
++	  fi ;									\
++	  $(MAKE) BUILDDIR="$(BUILDDIR)" NOSTRIP=1 $@-internal ;		\
++	else									\
++	  exit 1;								\
+ 	fi
+ 
+ all-internal:
