@@ -1,0 +1,11 @@
+BDEPEND=app-shells/tcsh sys-devel/bison
+DEFINED_PHASES=compile configure install prepare
+DESCRIPTION=The Berkeley UPC-to-C translator
+EAPI=7
+HOMEPAGE=https://upc.lbl.gov/
+KEYWORDS=~amd64
+LICENSE=BSD-4
+SLOT=0
+SRC_URI=https://upc.lbl.gov/download/release/berkeley_upc_translator-2.28.0.tar.gz
+_eclasses_=multilib	98584e405e2b0264d37e8f728327fed1	toolchain-funcs	605c126bed8d87e4378d5ff1645330cb
+_md5_=631746c75ebc11afeead37cf327197f6
