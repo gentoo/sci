@@ -29,3 +29,14 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Aisha Tammy <gentoo@aisha.cc> (14 Oct 2020)
+# Mask packages depending on sci-libs/rtree
+# as rtree got dropped from ::gentoo
+dev-python/fslpy
+dev-python/trimesh
+sci-biology/fsl
+sci-biology/samri
+sci-visualization/fsleyes-props
+sci-visualization/fsleyes-widgets
+sci-visualization/fsleyes
