@@ -90,6 +90,7 @@ dev-python/persim 0.1.3: Distances and representations of persistence diagrams
 dev-python/photutils 9999: Affiliated package for image photometry utilities
 dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
+dev-python/pybind11-stubgen 0.8.6: PEP 561 type stubs generator for pybind11 modules
 dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
@@ -107,8 +108,7 @@ dev-python/unyt 2.7.2: package for handling numpy arrays with units
 dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualization module
 dev-python/xgboost 1.0.1: XGBoost Python Package
 dev-python/xopen 0.9.0: Open compressed files transparently
-dev-tcltk/img_rotate 1.1: Image rotation package
-dev-tcltk/togl 1.7-r1: A Tk widget for OpenGL rendering
+dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
 dev-util/Hermes 2.8: Lua based testing manager
 dev-util/VampirTrace 5.14.3 5.14.4: Library for detailed logging of program execution for parallel applications
 dev-util/bcm 0.0.1_p20191110: Boost cmake modules
