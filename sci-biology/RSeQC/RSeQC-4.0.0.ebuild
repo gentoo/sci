@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Utilities for RNA-seq data quality control"
 HOMEPAGE="https://rseqc.sourceforge.net"
-SRC_URI="https://sourceforge.net/projects/rseqc/files/RSeQC-2.6.1.tar.gz
+SRC_URI="https://sourceforge.net/projects/rseqc/files/RSeQC-${PV}.tar.gz
 	https://sourceforge.net/projects/rseqc/files/other/fetchChromSizes"
 
 LICENSE="GPL-3"
