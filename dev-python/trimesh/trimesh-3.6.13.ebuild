@@ -42,8 +42,8 @@ RDEPEND="
 		dev-python/sympy[${PYTHON_USEDEP}]
 		sci-libs/scikits_image[${PYTHON_USEDEP}]
 		dev-python/scipy[${PYTHON_USEDEP}]
-		sci-libs/Shapely[${PYTHON_USEDEP}]
-		sci-libs/Rtree[${PYTHON_USEDEP}]
+		sci-libs/shapely[${PYTHON_USEDEP}]
+		sci-libs/rtree[${PYTHON_USEDEP}]
 	)
 "
 
