@@ -30,7 +30,7 @@ RDEPEND="
 	=dev-python/six-1*[${PYTHON_USEDEP}]
 	dev-python/trimesh[${PYTHON_USEDEP}]
 	=dev-python/wxpython-4*[${PYTHON_USEDEP}]
-	=sci-libs/Rtree-0.8.3*[${PYTHON_USEDEP}]
+	sci-libs/rtree[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.3.1[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 "
