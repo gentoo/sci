@@ -57,14 +57,14 @@ dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-python/Forthon 0.8.49: Python interface generator for Fortran based codes
 dev-python/POT 0.7.0: Python Optimal Transport Library
 dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
-dev-python/PyVISA 1.8 9999: Python VISA bindings for GPIB, RS232, and USB instruments
+dev-python/PyVISA 1.9.1 9999: Python VISA bindings for GPIB, RS232, and USB instruments
 dev-python/PyVISA-py 0.3.1 9999: Python VISA bindings for GPIB, RS232, and USB instruments
 dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
 dev-python/astropy 9999: Core functionality for performing astrophysics with Python
 dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated packages
 dev-python/astroquery 9999: A collection of packages to access online astronomical resources
 dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Biopython
-dev-python/bokeh 2.2.1 2.2.2: Statistical and interactive HTML plots for Python
+dev-python/bokeh 2.2.1-r1 2.2.2-r1: Statistical and interactive HTML plots for Python
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
