@@ -94,7 +94,7 @@ dev-python/pybind11-stubgen 0.8.6: PEP 561 type stubs generator for pybind11 mod
 dev-python/pynndescent 0.4.8: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
-dev-python/python-gantt 0.6.0: Draw Gantt charts from Python
+dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.8.2: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
