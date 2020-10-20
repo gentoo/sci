@@ -3,12 +3,11 @@
 
 EAPI=7
 
-DISTUTILS_USE_SETUPTOOLS=rdepend
-
 # upstream hasn't tested python 3.8 fully
-PYTHON_COMPAT=( python3_{6,7} )
-
-inherit distutils-r1 eutils
+PYTHON_COMPAT=( python3_{6..8} )
+DISTUTILS_USE_SETUPTOOLS=rdepend
+DISTUTILS_IN_SOURCE_BUILD=1
+inherit distutils-r1 optfeature
 
 DESCRIPTION="Statistical and interactive HTML plots for Python"
 HOMEPAGE="https://bokeh.org/
@@ -19,8 +18,6 @@ SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
-DISTUTILS_IN_SOURCE_BUILD=1
 
 # upstream authoritative dependencies
 # https://github.com/bokeh/bokeh/blob/master/conda.recipe/meta.yaml
