@@ -1,4 +1,0 @@
-*dargcc_bidsdata-1.0 (23 May 2020)
-
-  23 May 2020;  <chymera@gentoo.org> +dargcc_bidsdata-1.0.ebuild, +metadata.xml:
-  sci-biology/dargcc_bidsdata: new package ahead of Gentoo Science
