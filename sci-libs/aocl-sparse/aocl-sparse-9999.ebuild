@@ -34,3 +34,18 @@ src_prepare() {
 	    -i tests/test.sh || die
 	cmake_src_prepare
 }
+
+src_compile() {
+	cmake_src_compile
+
+	cd tests
+	emake -f - <<EOF
+test_aocl_sparse:
+	\$(CXX) -DNDEBUG -o test_aocl_sparse sample_csrmv.cpp -I../library/include -I${BUILD_DIR}/include -L${BUILD_DIR}/library -laoclsparse
+EOF
+}
+
+src_test() {
+	cd tests
+	LD_LIBRARY_PATH=${BUILD_DIR}/library ./test_aocl_sparse || die
+}
