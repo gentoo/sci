@@ -1,3 +1,28 @@
+This is Debian GNU/Linux's prepackaged version of Sun's xview/olwm/olvwm.
+Miscellaneous patches were contributed by:
+Kenneth Osterberg <lmfken@lmf.ericsson.se>
+Joern Lubkoll <lumpi@dobag.in-berlin.de>
+Oleg Kibirev <oleg@gd.cs.CSUFresno.EDU>
+Wolfram Gloger <Gloger@lrz.uni-muenchen.de>
+E. Zimmermann <edz@bsn.com>
+Rainer Wiesner <RainerRW@aol.com>
+Sven Rudolph <sr1@os.inf.tu-dresden.de>
+Sebastiano Suraci <suraci@uniud.it>
+Frodo Looijaard <frodol@dds.nl>
+Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+Martin Buck <mbuck@debian.org>
+
+This package was put together by Sven Rudolph <sr1@inf.tu-dresden.de>,
+from sources obtained from:
+sunsite.unc.edu:/pub/Linux/libs/X/xview/xview3.2p1-X11R6-LinuxELF.2.src.tar.gz
+
+Starting with xview-3.2p1.4-1, the XView packages are maintained by Martin
+Buck <mbuck@debian.org>, who also maintains the upstream version
+ftp://sunsite.unc.edu/pub/Linux/libs/X/xview/xview3.2p1.4.src.tar.gz at the
+moment.
+
+Copyright:
+
 	NOTICE TO USER: The source code, including the glyphs or icons 
 	forming a par of the OPEN LOOK TM Graphic User Interface, on this 
 	tape and in these files is copyrighted under U.S. and international
