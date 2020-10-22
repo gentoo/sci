@@ -6,12 +6,11 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 inherit autotools python-any-r1
 
-DESCRIPTION="Computational discrete algebra system - Core system of GAP"
+DESCRIPTION="Computational discrete algebra system - minimal GAP core system"
 HOMEPAGE="https://www.gap-system.org/"
-SRC_URI="https://github.com/gap-system/gap/releases/download/v${PV}/gap-${PV}-core.tar.bz2 -> ${P}.tar.bz2
-	https://github.com/gap-system/gap/releases/download/v${PV}/packages-required-v${PV}.tar.gz -> ${P}-packages.tar.gz
+SRC_URI="https://github.com/gap-system/gap/releases/download/v${PV}/gap-${PV}-core.tar.bz2
+	https://github.com/gap-system/gap/releases/download/v${PV}/packages-required-v${PV}.tar.gz -> ${P}-core-packages.tar.gz
 "
-S="${WORKDIR}"/gap-${PV}
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -68,6 +67,7 @@ src_prepare() {
 }
 
 src_configure() {
+	addwrite /proc/self
 	local myconf=(
 		--enable-shared
 		--disable-static
@@ -128,7 +128,7 @@ src_install() {
 		cp -a src/hpc/*.h "${ED}"/usr/include/gap/hpc || die
 	fi
 
-	cp -a doc grp lib libtool "${ED}"/usr/share/gap || die
+	cp -a doc grp lib libtool pkg "${ED}"/usr/share/gap || die
 
 	sed -e "s:${S}:${EPREFIX}/usr/share/gap:g" -i sysinfo.gap
 	insinto /usr/share/gap
