@@ -38,5 +38,5 @@ RDEPEND="
 PATCHES=( "${FILESDIR}/fslpy-2.7.0-coverage.patch" )
 
 python_test() {
-	virtx pytest -m "not (dicomtest or fsltest)" --verbose || die
+	virtx pytest --niters=50 -m "not (dicomtest or longtest or fsltest)" --verbose || die
 }
