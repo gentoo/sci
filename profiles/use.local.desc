@@ -164,13 +164,12 @@ sci-libs/pytorch:zeromq - Enable support for ZeroMQ
 sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/Macaulay2:optimization - Disable to build with -O0 for debugging.
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
-sci-mathematics/gap:xtom - Automatically generated description for xtom
-sci-mathematics/gap-core:boehm - Use dev-libs/boehm-gc as garbage collector
-sci-mathematics/gap-core:hpc - Build gap with multithreading and parallel process support
-sci-mathematics/gap-core:julia - Build julia bindings
-sci-mathematics/gap-core:julia-gc - Use the julia garbage collector
-sci-mathematics/gap-core:memcheck - Enable memory checking
-sci-mathematics/gap-core:valgrind - Build symbols to be used by valgrind
+sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
+sci-mathematics/gap:hpc - Build gap with multithreading and parallel process support
+sci-mathematics/gap:julia - Build julia bindings
+sci-mathematics/gap:julia-gc - Use the julia garbage collector
+sci-mathematics/gap:memcheck - Enable memory checking
+sci-mathematics/gap:valgrind - Build symbols to be used by valgrind
 sci-mathematics/htk:hdecode - Install HDecode, a large vocabulary word recogniser
 sci-mathematics/htk:hlmtools - Install the tools for manipulation of language models
 sci-mathematics/htk:hslab - Install HSLab a label editor for speech label manipulation
