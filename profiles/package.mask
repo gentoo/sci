@@ -30,3 +30,8 @@
 
 #--- END OF EXAMPLES ---
 
+# Aisha Tammy <gentoo@aisha.cc> (2020-10-21)
+# This ebuild is unmaintainable and the package
+# is going to be split subpackages
+# suggested replacement - sci-mathematics/gap-core
+sci-mathematics/gap
