@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 inherit autotools python-any-r1
 
-DESCRIPTION="System for computational discrete algebra"
+DESCRIPTION="Computational discrete algebra system - Core system of GAP"
 HOMEPAGE="https://www.gap-system.org/"
 SRC_URI="https://github.com/gap-system/gap/releases/download/v${PV}/gap-${PV}-core.tar.bz2 -> ${P}.tar.bz2
 	https://github.com/gap-system/gap/releases/download/v${PV}/packages-required-v${PV}.tar.gz -> ${P}-packages.tar.gz
@@ -16,7 +16,7 @@ S="${WORKDIR}"/gap-${PV}
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~amd64"
-# broken HPC
+# broken HPC and boehm
 IUSE="-boehm debug -hpc julia julia-gc memcheck valgrind"
 REQUIRED_USE="valgrind? ( memcheck ) julia-gc? ( julia ) hpc? ( boehm )"
 
@@ -114,7 +114,7 @@ src_install() {
 	doexe gap
 
 	cat <<-EOF > gap.sh || die
-	\#!/bin/sh
+	#!/bin/sh
 	exec "${EPREFIX}"/usr/share/gap/gap -l "${EPREFIX}"/usr/share/gap "\$@"
 	EOF
 	newbin gap.sh gap
@@ -128,7 +128,7 @@ src_install() {
 		cp -a src/hpc/*.h "${ED}"/usr/include/gap/hpc || die
 	fi
 
-	cp -a doc grp lib tst libtool "${ED}"/usr/share/gap || die
+	cp -a doc grp lib libtool "${ED}"/usr/share/gap || die
 
 	sed -e "s:${S}:${EPREFIX}/usr/share/gap:g" -i sysinfo.gap
 	insinto /usr/share/gap
