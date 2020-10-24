@@ -39,6 +39,10 @@ S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
 
+PATCHES=(
+	"${FILESDIR}/${P}-python.patch"
+)
+
 src_prepare() {
 	find -type f -exec sed -i -e "s/-lXp //g" {} +
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
@@ -56,7 +60,7 @@ src_prepare() {
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
 	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EROOT}/usr/~g;" -i
-	eapply_user
+	default
 }
 
 src_compile() {
