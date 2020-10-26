@@ -547,7 +547,7 @@ sci-libs/pg2plplot 0.2.0 0.3.1: Assist the transition from PGPlot to PLplot in F
 sci-libs/pmx 9999: Python library to read PDB, GRO or Gromacs XTC files
 sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
-sci-libs/pytorch 1.4.0_p0 1.6.0: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+sci-libs/pytorch 1.4.0_p0-r1 1.6.0-r1: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikits_video 1.1.11_p20200114: Video processing in Python
 sci-libs/spams-python 2.6: Optimization toolbox for solving various sparse estimation problems
