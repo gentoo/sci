@@ -35,6 +35,8 @@ BDEPEND+="
 	)
 "
 
+PATCHES=( "${FILESDIR}"/${PN}-8.4.11-ldflags.patch )
+
 pkg_setup() {
 	elog "There is a lot of options for this package,"
 	elog "especially for run time behaviour."
@@ -83,12 +85,18 @@ src_configure() {
 	econf ${myconf[@]} ${EXTRA_ECONF[@]}
 }
 
+src_compile() {
+	CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" \
+	default
+}
+
 src_test() {
 	local -x PATH="/opt/hermes/bin:${PATH}"
 	tm -vvv || die
 }
 
 src_install() {
+	CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
 	default
 
 	keepdir /var/lmod
