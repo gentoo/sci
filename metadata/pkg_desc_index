@@ -502,7 +502,7 @@ sci-libs/clrng 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
 sci-libs/elmer-eio 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmer I/O library
 sci-libs/elmer-hutiter 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - hutiter library
-sci-libs/ensmallen 2.14.2: header only C++ library for numerical optimization
+sci-libs/ensmallen 2.14.2 2.15.0: header only C++ library for numerical optimization
 sci-libs/etsf_io 1.0.3-r2 1.0.4-r1: A library of F90 routines to read/write the ETSF file format
 sci-libs/factory 3.1.1-r2: C++ library for representing multivariate polynomials
 sci-libs/fast5 0.6.4 9999: C++ header-only library for reading Oxford Nanopore Fast5 files
