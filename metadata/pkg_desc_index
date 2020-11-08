@@ -108,7 +108,7 @@ dev-python/umap-learn 0.4.6: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2: package for handling numpy arrays with units
 dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualization module
 dev-python/xgboost 1.0.1: XGBoost Python Package
-dev-python/xopen 0.9.0: Open compressed files transparently
+dev-python/xopen 0.9.0 1.0.0: Open compressed files transparently
 dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
 dev-util/Hermes 2.8: Lua based testing manager
 dev-util/VampirTrace 5.14.3 5.14.4: Library for detailed logging of program execution for parallel applications
