@@ -69,7 +69,7 @@ dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD 
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
-dev-python/dnaio 0.4.2: efficient reader for FASTA and FASTQ files
+dev-python/dnaio 0.4.2 0.4.3: efficient reader for FASTA and FASTQ files
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
 dev-python/fslpy 2.8.4: The FSL Python Library
