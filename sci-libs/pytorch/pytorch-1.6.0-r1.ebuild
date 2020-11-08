@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit distutils-r1 cmake-utils cuda
+inherit distutils-r1 cmake cuda
 
 MPV=${PV/_p/a}
 
@@ -153,6 +153,7 @@ src_prepare() {
 		eapply "${FILESDIR}"/${PN}-1.6.0-nccl-nvccflags.patch
 		ln -s . nccl || die
 
+		addpredict /dev/nvidiactl
 		cuda_src_prepare
 		export CUDAHOSTCXX=$(cuda_gccdir)/g++
 	fi
