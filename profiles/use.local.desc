@@ -122,7 +122,6 @@ sci-libs/libfac:singular - Automatically generated description for singular
 sci-libs/libflame-amd:scc - Enable code that takes advantage of the SCC multicore architecture, recommended to use supermatrix if scc is enabled.
 sci-libs/libflame-amd:supermatrix - Enable Ernie Chan's dependency-aware task scheduling and parallel execution system.
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
-sci-libs/mkl:int64 - Build the 64 bits integer library
 sci-libs/mlpack:R - build R bindings
 sci-libs/mlpack:arma-debug - build with armadillo dbug symbols
 sci-libs/mlpack:go - build go bindings
