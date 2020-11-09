@@ -131,7 +131,6 @@ media-libs/yocto-gl 0_p20191111: Single File Libraries for Physically-Based Grap
 net-misc/cernbox-client 2.6.3.14058: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/libthesky 0.4.1-r1: Fortran library to compute positions of celestial bodies
-sci-astronomy/wcslib 6.4: Astronomical World Coordinate System transformations library
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
 sci-biology/ABI-expression-data 0.1.1-r1 0.2: Gene expression data form the Allen Mouse Brain data portal
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
