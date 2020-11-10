@@ -1,0 +1,7 @@
+DEFINED_PHASES=-
+DESCRIPTION=Virtual for ScaLAPACK implementation
+EAPI=7
+KEYWORDS=~amd64 ~ia64 ~x86 ~amd64-linux ~x86-linux
+RDEPEND=|| ( sci-libs/scalapack sci-libs/mkl )
+SLOT=0
+_md5_=2ce715b963ef9bca05b3ee445729c95d

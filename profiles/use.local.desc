@@ -211,5 +211,3 @@ sys-cluster/htcondor:dmtcp - Use sys-apps/dmtcp for checkpointing
 sys-cluster/htcondor:libvirt - Use app-emulation/libvirt for virtualisation
 sys-cluster/htcondor:minimal - Don't support standard universe jobs
 sys-cluster/modules:compat - Build Modules version 3 compat support
-virtual/blacs:int64 - Add eselect module for blas libraries built with 64 bits integer ABI
-virtual/scalapack:int64 - Add eselect module for blas libraries built with 64 bits integer ABI

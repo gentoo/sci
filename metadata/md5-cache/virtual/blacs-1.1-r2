@@ -1,0 +1,7 @@
+DEFINED_PHASES=-
+DESCRIPTION=Virtual for BLACS implementation
+EAPI=7
+KEYWORDS=~amd64 ~ia64 ~x86 ~amd64-linux ~x86-linux
+RDEPEND=|| ( sci-libs/mkl >=sci-libs/mpiblacs-1.1 )
+SLOT=0
+_md5_=96aab3d2f2773015e7228d71ea9b5427
