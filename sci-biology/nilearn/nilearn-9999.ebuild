@@ -30,19 +30,19 @@ DEPEND="
 RDEPEND="
 	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-libs/scikits_learn[${PYTHON_USEDEP}]
+	sci-libs/scikit-learn[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
 
-# (Temporarily) commented out, since Gentoo sci-libs/scikits_learn decided it
+# (Temporarily) commented out, since Gentoo sci-libs/scikit-learn decided it
 # is a mess to maintain system joblib usage
 #PATCHES=( "${FILESDIR}/0.4.1-bundled_joblib_test.patch" )
 
 python_prepare_all() {
-	# upstream is reluctant to *not* depend on bundled scikits_learn:
+	# upstream is reluctant to *not* depend on bundled scikit-learn:
 	# https://github.com/nilearn/nilearn/pull/1398
-	# (Temporarily) commented out, since Gentoo sci-libs/scikits_learn decided it
+	# (Temporarily) commented out, since Gentoo sci-libs/scikit-learn decided it
 	# is a mess to maintain system joblib usage
 	#local f
 	#for f in nilearn/{*/*/,*/,}*.py; do

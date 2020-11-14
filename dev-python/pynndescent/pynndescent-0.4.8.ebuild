@@ -20,7 +20,7 @@ RDEPEND="${PYTHON_DEPS}
 	>=dev-python/numba-0.51.2[${PYTHON_USEDEP}]
 	>=dev-python/llvmlite-0.34[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	<=sci-libs/scikits_learn-0.24.0[${PYTHON_USEDEP}]
+	<=sci-libs/scikit-learn-0.24.0[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}"
 
