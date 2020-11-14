@@ -40,7 +40,7 @@ RDEPEND="
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/svg-path[${PYTHON_USEDEP}]
 		dev-python/sympy[${PYTHON_USEDEP}]
-		sci-libs/scikits_image[${PYTHON_USEDEP}]
+		sci-libs/scikit-image[${PYTHON_USEDEP}]
 		dev-python/scipy[${PYTHON_USEDEP}]
 		sci-libs/shapely[${PYTHON_USEDEP}]
 		sci-libs/rtree[${PYTHON_USEDEP}]
