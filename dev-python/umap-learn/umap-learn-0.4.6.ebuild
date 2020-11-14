@@ -21,7 +21,7 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/pynndescent[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
-	sci-libs/scikits_learn[${PYTHON_USEDEP}]
+	sci-libs/scikit-learn[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}"
 

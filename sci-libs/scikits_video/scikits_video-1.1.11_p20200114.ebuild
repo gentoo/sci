@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
-	sci-libs/scikits_learn[${PYTHON_USEDEP}]
+	sci-libs/scikit-learn[${PYTHON_USEDEP}]
 	media-video/mediainfo
 "
 DEPEND="${RDEPEND}
