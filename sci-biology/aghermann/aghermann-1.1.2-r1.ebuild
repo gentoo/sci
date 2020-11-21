@@ -5,7 +5,7 @@ EAPI=6
 
 DESCRIPTION="A sleep-research experiment manager, EDF viewer & Process S simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/aghermann"
-SRC_URI="http://alfinston.dlinkddns.com/johnhommer.com/code/aghermann/source/${P}.tar.xz"
+SRC_URI="http://johnhommer.com/code/aghermann/source/${P}.tar.xz"
 
 LICENSE="GPL-2+"
 SLOT="0"
