@@ -482,6 +482,7 @@ sci-chemistry/trajng 0.6.1: TrajNG - Trajectory compression library
 sci-chemistry/unio 2.0.3-r1: Automated NMR Data Analysis
 sci-chemistry/usf-tools 9999: The USF program suite
 sci-electronics/minipro 0.4: A free and open TL866XX programmer
+sci-libs/HDF5Plugin-Zstandard 0_pre20201121: ZSTD plugin for hdf5
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
