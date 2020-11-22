@@ -49,6 +49,7 @@ sci-biology/BBmap
 sci-biology/beagle
 sci-biology/blue
 sci-biology/cd-hit-auxtools
+sci-biology/cegma
 sci-biology/cgview-bin
 sci-biology/clover
 sci-biology/cnrun
@@ -90,11 +91,13 @@ sci-biology/mavid
 sci-biology/MeV
 sci-biology/MolBioLib
 sci-biology/mreps
+sci-biology/mRNAmarkup
 sci-biology/mrsfast
 sci-biology/MuSeqBox
 sci-biology/NGSEPcore-bin
 sci-biology/NGSEPplugin-bin
 sci-biology/OBO-Edit
+sci-biology/ONTO-PERL
 sci-biology/ORFcor
 sci-biology/pairagon
 sci-biology/polyphen
@@ -116,6 +119,7 @@ sci-biology/staden_doc
 sci-biology/subread
 sci-biology/swissknife
 sci-biology/tablet-bin
+sci-biology/TransDecoder
 sci-biology/trim_galore
 sci-biology/twinscan
 sci-biology/vague-bin
@@ -131,6 +135,7 @@ sci-chemistry/mddnmr
 sci-chemistry/modelfree
 sci-chemistry/nmrpipe
 sci-chemistry/polygon
+sci-chemistry/relion
 sci-chemistry/smmp
 sci-chemistry/talosn
 sci-chemistry/trajng
