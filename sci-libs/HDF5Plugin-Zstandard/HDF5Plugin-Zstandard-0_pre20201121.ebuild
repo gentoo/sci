@@ -21,13 +21,13 @@ S=${WORKDIR}/${PN}-${COMMIT}
 
 src_configure() {
 	local mycmakeargs=(
-		-DPLUGIN_INSTALL_PATH="${EPREFIX}/usr/lib64/hdf5/plugin"
+		-DPLUGIN_INSTALL_PATH="${EPREFIX}/usr/$(get_libdir)/hdf5/plugin"
 	)
 	cmake_src_configure
 }
 
 src_install() {
-	echo "HDF5_PLUGIN_PATH=${EPREFIX}/usr/lib64/hdf5/plugin" >> 99h5zstd || die
+	echo "HDF5_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/hdf5/plugin" >> 99h5zstd || die
 	doenvd 99h5zstd
 	cmake_src_install
 }
