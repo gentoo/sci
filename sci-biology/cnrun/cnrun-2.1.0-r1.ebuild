@@ -5,7 +5,7 @@ EAPI=6
 
 DESCRIPTION="A NeuroML-enabled, precise but slow neuronal network simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/cnrun"
-SRC_URI="http://alfinston.dlinkddns.com/johnhommer.com/code/cnrun/source/${P}.tar.xz"
+SRC_URI="http://johnhommer.com/code/cnrun/source/${P}.tar.xz"
 
 LICENSE="GPL-2+"
 SLOT="0"
