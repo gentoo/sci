@@ -503,7 +503,6 @@ sci-libs/elmer-eio 6.0_p4651 9999: Finite element programs, libraries, and visua
 sci-libs/elmer-hutiter 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - hutiter library
 sci-libs/ensmallen 2.14.2 2.15.0: header only C++ library for numerical optimization
 sci-libs/etsf_io 1.0.3-r2 1.0.4-r1: A library of F90 routines to read/write the ETSF file format
-sci-libs/factory 3.1.1-r2: C++ library for representing multivariate polynomials
 sci-libs/fast5 0.6.4 9999: C++ header-only library for reading Oxford Nanopore Fast5 files
 sci-libs/fdlibm 5.3: C math library supporting IEEE 754 floating-point arithmetic
 sci-libs/fgsl 0.9.4: A Fortran interface to the GNU Scientific Library
@@ -519,11 +518,9 @@ sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genetic programs
 sci-libs/libcgnsoo 1728: Object-oriented interface to the CGNS Mid-level library
-sci-libs/libfac 3.1.1: libfac is an extension of Singular-factory to finite fields
 sci-libs/libflame-amd 2.2 9999: AMD optimized high-performance object-based library for DLA computations
 sci-libs/libmatheval 1.1.10: library to parse and evaluate symbolic expressions
 sci-libs/libmaus2 2.0.689 9999: Library for biobambam2
-sci-libs/libmed 3.1.0: A library to store and exchange meshed data or computation results
 sci-libs/libsufr 0.7.5-r1: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/matc 6.0_p4651 8.0 9999: Finite element programs, libraries, and visualization tools - math C library
@@ -537,7 +534,6 @@ sci-libs/ni-visa 0.0.1: Placeholder for an NI-VISA library ebuild
 sci-libs/nibabel 2.5.1 3.0.2 9999: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
 sci-libs/nipype 1.1.1-r2 1.4.2 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
-sci-libs/omalloc 0.9.6: omalloc is the memory management of the Singular algebra system
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 0.2.0 0.3.1: Assist the transition from PGPlot to PLplot in Fortran programs

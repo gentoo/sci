@@ -109,7 +109,6 @@ sci-libs/clfft:callback_client - Build a command line clFFT client program that 
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
 sci-libs/etsf_io:pic - Compile Position Independent Code
-sci-libs/factory:singular - Enable support for sci-mathematics/singular
 sci-libs/fox:dom - Compile the W3C document object model module
 sci-libs/fox:fast - Compile with best known optimization flags
 sci-libs/fox:sax - Compile the streaming, validating parser based on java's Simple API for XML
@@ -118,7 +117,6 @@ sci-libs/fox:wkml - Compile the module for the creation of KML documents used by
 sci-libs/fox:wxml - Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
-sci-libs/libfac:singular - Automatically generated description for singular
 sci-libs/libflame-amd:scc - Enable code that takes advantage of the SCC multicore architecture, recommended to use supermatrix if scc is enabled.
 sci-libs/libflame-amd:supermatrix - Enable Ernie Chan's dependency-aware task scheduling and parallel execution system.
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
