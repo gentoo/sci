@@ -143,10 +143,8 @@ sci-libs/amber99sbnmr-ildn
 sci-libs/amber99sb_phipsi
 sci-libs/ccif
 sci-libs/etsf_io
-sci-libs/factory
 sci-libs/fdlibm
 sci-libs/fgsl
-sci-libs/libfac
 sci-libs/lwpr
 sci-libs/modglue
 sci-libs/superlu_dist
