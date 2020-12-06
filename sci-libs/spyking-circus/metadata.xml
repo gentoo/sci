@@ -5,6 +5,10 @@
 		<email>chr@chymera.eu</email>
 		<name>Horea Christian</name>
 	</maintainer>
+	<maintainer type="person">
+		<email>malfatti@disroot.org</email>
+		<name>T Malfatti</name>
+	</maintainer>
 	<longdescription lang="en">
 		SpyKING CIRCUS is a Python code to allow fast spike sorting on multi
 		channel recordings. A publication on the algorithm can be found at
