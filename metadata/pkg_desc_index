@@ -544,7 +544,7 @@ sci-libs/pytorch 1.4.0_p0-r1 1.6.0-r1: Tensors and Dynamic neural networks in Py
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikits_video 1.1.11_p20200114: Video processing in Python
 sci-libs/spams-python 2.6: Optimization toolbox for solving various sparse estimation problems
-sci-libs/spyking-circus 0.9.6: Fast and scalable spike sorting in Python
+sci-libs/spyking-circus 0.9.6 0.9.9: Fast spike sorting by template matching
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 3.3: MPI distributed sparse LU factorization library
 sci-libs/vxl 9999: C++ computer vision research libraries
