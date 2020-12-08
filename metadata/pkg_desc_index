@@ -131,7 +131,7 @@ net-misc/cernbox-client 2.6.3.14058: Synchronize files from CERNBox EOS with you
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/libthesky 0.4.1-r1: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
-sci-biology/ABI-expression-data 0.1.1-r1 0.2: Gene expression data form the Allen Mouse Brain data portal
+sci-biology/ABI-expression-data 0.2: Gene expression data form the Allen Mouse Brain data portal
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
 sci-biology/AlignGraph 9999: Reference-genome-assisted asssembly of contigs/scaffolds using PE reads
 sci-biology/BBmap 34.97 35.92 36.02 36.86 37.67: Short read aligner, K-mer-based error-correct and normalize, FASTA/Q tool
@@ -191,7 +191,7 @@ sci-biology/afni 19.3.12 20.1.16 9999: An open-source environment for processing
 sci-biology/aghermann 1.1.2-r1: A sleep-research experiment manager, EDF viewer & Process S simulator
 sci-biology/align_to_scf 1.06: View trace information at a given position missing from Roche .ace files
 sci-biology/angsd 9999: Population genetics analysis package
-sci-biology/ants 2.3.1_p20191013 2.3.4: Advanced Normalitazion Tools for neuroimaging
+sci-biology/ants 2.3.4: Advanced Normalitazion Tools for neuroimaging
 sci-biology/apollo 9999: Apollo genome editor
 sci-biology/arachne 46233: Whole genome shotgun OLC assembler for Sanger reads (overlap-layout-contig)
 sci-biology/argo 1.0.24: Production tool for visualizing and manually annotating whole genomes
