@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,13 +16,13 @@ IUSE=""
 
 DEPEND="
 		>=virtual/jdk-1.8:*
-		dev-java/ant-core
+		>=dev-java/ant-core-1.9
 		dev-java/jython"
 RDEPEND="${DEPEND}
 		>=virtual/jre-1.8:*"
 
 src_compile(){
-	ant runalltests || die
+	ant zip-nojre || die
 }
 
 # "${S}"/lib/sam-2.9.1.jar
@@ -42,3 +42,23 @@ src_compile(){
 # "${S}"/testLib/hamcrest-core-1.3.jar
 # "${S}"/testLib/junit.jar
 # "${S}"/testLib/spelling.jar
+
+src_install(){
+	dobin installer/rtg
+	insinto /usr/share/"${PN}"
+	doins build/rtg-tools.jar
+	doins lib/gzipfix.jar
+	dodoc installer/resources/tools/RTGOperationsManual.pdf
+	doins -r installer/resources/tools/RTGOperationsManual
+	dodoc installer/resources/tools/scripts/README.txt
+	dodoc installer/ReleaseNotes.txt
+	# TODO
+	# extract more files from the generated rtg-tools-3.11-39691f9f-base.zip
+	# file or better the installer/resources/ source directory
+	#
+	# install installer/resources/common/scripts/rtg-bash-completion
+}
+
+src_test(){
+	ant runalltests || die
+}
