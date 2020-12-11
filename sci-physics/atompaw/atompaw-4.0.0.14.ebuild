@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -44,7 +44,7 @@ src_configure() {
 	local myeconfargs=(
 		$(use_enable libxc)
 		--with-linalg-flavor=atlas
-		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs lapack)"
+		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs blas lapack)"
 		--with-libxc-incs="-I/usr/include $($(tc-getPKG_CONFIG) --cflags libxc)"
 		--with-libxc-libs="$($(tc-getPKG_CONFIG) --libs libxc)"
 		FC="$(tc-getFC)" FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}}"
