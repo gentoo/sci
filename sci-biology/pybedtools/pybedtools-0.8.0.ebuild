@@ -19,11 +19,18 @@ RESTRICT="test"
 # Tests reported to fail on Gentoo:
 # https://github.com/daler/pybedtools/issues/329
 
+# see requirements.txt
 RDEPEND="
 	sci-biology/bedtools
 	sci-biology/pysam
+	dev-python/numpy
+	dev-python/pandas
 	!minimal? ( sci-libs/htslib )
 	doc? ( dev-python/sphinx )"
+# optional-requirements.txt also lists:
+# ucsc-bigwigtobedgraph
+# ucsc-bedgraphtobigwig
+# ucsc-wigtobigwig
 DEPEND="${RDEPEND}
 	dev-python/cython[${PYTHON_USEDEP}]"
 
