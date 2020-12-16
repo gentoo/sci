@@ -6,5 +6,5 @@ KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
 LICENSE=CC-BY-SA-4.0
 SLOT=0
 SRC_URI=http://chymera.eu/distfiles/opfvta_bidsdata-2.0.tar.xz https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz
-_eclasses_=check-reqs	d94f8d08a20cf97d868fffdc3e0d14fe
+_eclasses_=check-reqs	38804be59703af0fbf462b3710024074
 _md5_=64a4570b9a820478c46f97e809a90a6e
