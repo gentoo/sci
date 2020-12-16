@@ -7,7 +7,7 @@ EAPI=7
 
 inherit rpm-extended
 
-DESCRIPTION="Provides the utility for creating INF files for PXI(e)/PCI(e) devices for use with NI-VISA"
+DESCRIPTION="Utility for creating INF files for PXI(e)/PCI(e) devices for NI-VISA"
 HOMEPAGE="http://www.ni.com/linux/"
 SRC_URI="https://download.ni.com/ni-linux-desktop/2020.07/rpm/ni/el8/ni-visa-ddw-20.0.0.49152-0+f0.x86_64.rpm"
 
