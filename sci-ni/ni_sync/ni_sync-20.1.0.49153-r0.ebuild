@@ -7,7 +7,7 @@ EAPI=7
 
 inherit rpm-extended
 
-DESCRIPTION="NI-Sync provides synchronization support for customers using PXI Synchronization Modules or any NI controller that supports real-time operating systems. (metapackage)"
+DESCRIPTION="Sync support for PXI Synchronization Modules or NI controller that support RTOS"
 HOMEPAGE="http://www.ni.com/linux/"
 SRC_URI="https://download.ni.com/ni-linux-desktop/2020.07/rpm/ni/el8/ni-sync-20.1.0.49153-0+f1.noarch.rpm"
 
