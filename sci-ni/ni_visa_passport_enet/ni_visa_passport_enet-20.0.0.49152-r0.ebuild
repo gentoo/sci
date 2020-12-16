@@ -7,7 +7,7 @@ EAPI=7
 
 inherit rpm-extended
 
-DESCRIPTION="Provides support for NI-VISA applications using LXI and other networked devices (TCP/IP, VXI-11, and HiSLIP)"
+DESCRIPTION="Support for NI-VISA applications using LXI, TCP/IP, VXI-11, and HiSLIP"
 HOMEPAGE="http://www.ni.com/linux/"
 SRC_URI="https://download.ni.com/ni-linux-desktop/2020.07/rpm/ni/el8/ni-visa-passport-enet-20.0.0.49152-0+f0.x86_64.rpm"
 
