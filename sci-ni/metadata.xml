@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<catmetadata>
+	<longdescription lang="en">
+		Drivers and libraries for National Instruments devices and LabVIEW.
+		Ebuilds are generated with the included script from the dedicated Red Hat Enterprise Linux rpm repository provided by National Instruments.
+		Fetch-restricted ebuilds are generated with a second included script and require paid access to LabVIEW for Linux.
+	</longdescription>
+</catmetadata>
