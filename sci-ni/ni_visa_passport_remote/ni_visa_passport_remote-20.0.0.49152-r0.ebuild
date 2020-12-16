@@ -7,7 +7,7 @@ EAPI=7
 
 inherit rpm-extended
 
-DESCRIPTION="Provides support for NI-VISA applications communicating to networked systems running NI-VISA Server"
+DESCRIPTION="Support for NI-VISA applications communicating to systems running NI-VISA Server"
 HOMEPAGE="http://www.ni.com/linux/"
 SRC_URI="https://download.ni.com/ni-linux-desktop/2020.07/rpm/ni/el8/ni-visa-passport-remote-20.0.0.49152-0+f0.x86_64.rpm"
 
