@@ -1,5 +1,5 @@
 From b4d57d7ca4359b0990636bbc6091c49706c6ff39 Mon Sep 17 00:00:00 2001
-From: Horea Christian <chr@chymera.eu>
+From: Horea Christian <gentoo@chymera.eu>
 Date: Fri, 7 Aug 2020 01:12:38 -0400
 Subject: [PATCH] ENH: no more auto-failing on misparsed versions
 
