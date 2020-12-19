@@ -156,5 +156,4 @@ sci-misc/kaldi
 sci-misc/kotus-sanalista
 sci-physics/fullprof-bin
 sci-physics/openmx
-sci-physics/uproot
 x11-libs/tr
