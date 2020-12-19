@@ -622,6 +622,7 @@ sys-cluster/Lmod 8.4.11 8.4.16: Environment Module System based on Lua
 sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
 sys-cluster/spack 0.15.4: flexible package manager supporting mutiple package version
+sys-kernel/dkms 2.8.4: Dynamic Kernel Module Support
 virtual/blacs 1.1-r2: Virtual for BLACS implementation
 virtual/scalapack 2.0.2-r1: Virtual for ScaLAPACK implementation
 x11-libs/qwt 5.2.3_p20200902: 2D plotting library for Qt5
