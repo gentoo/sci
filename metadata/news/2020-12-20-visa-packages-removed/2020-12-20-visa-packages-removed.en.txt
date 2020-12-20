@@ -1,0 +1,17 @@
+Title: national instrument packages moved to natinst overlay
+Author: Aisha Tammy <gentoo@aisha.cc>
+Posted: 2020-12-20
+Revision: 1
+News-Item-Format: 2.0
+
+The VISA packages have been removed from the science overlay
+and are now available in the natinst overlay which also
+maintains the packages from National Instruments:
+   https://github.com/AndrewAmmerlaan/natinst
+
+The following packages have been moved
+
+  dev-perl/Lab-VISA
+  dev-python/PyVISA
+  dev-python/PyVISA-py
+  sci-libs/ni-visa
