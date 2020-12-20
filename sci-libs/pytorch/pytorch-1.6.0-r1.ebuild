@@ -125,7 +125,8 @@ src_unpack() {
 }
 
 src_prepare() {
-	cmake-utils_src_prepare
+	cmake_src_prepare
+	eapply_user
 
 	mv -v third_party/miniz-* ../ || die
 	rm -r third_party || die
@@ -216,7 +217,7 @@ src_configure() {
 		-DBLAS=${blas}
 	)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 
 	if use python; then
 		CMAKE_BUILD_DIR="${BUILD_DIR}" distutils-r1_src_configure
@@ -227,7 +228,7 @@ src_configure() {
 }
 
 src_compile() {
-	cmake-utils_src_compile
+	cmake_src_compile
 
 	if use python; then
 		CMAKE_BUILD_DIR=${BUILD_DIR} distutils-r1_src_compile
@@ -235,7 +236,7 @@ src_compile() {
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 
 	local LIB=$(get_libdir)
 	if [[ ${LIB} != lib ]]; then
