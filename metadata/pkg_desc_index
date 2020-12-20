@@ -488,7 +488,6 @@ sci-libs/aocl-libm 3.6.0_p4: Optimized libm replacement from AMD for x86_64 arch
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
 sci-libs/arrayfire 3.7.2: general purpose GPU library
 sci-libs/asl 0.1.6 0.1.7 9999: Hardware accelerated multiphysics simulation platform
-sci-libs/awkward-array 0.13.0: Manipulate arrays of complex data structures as easily as Numpy.
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/blastdb 9999: The BLAST NR database
 sci-libs/blis-amd 2.2 9999: AMD optimized BLAS-like Library Instantiation Software Framework
@@ -607,8 +606,6 @@ sci-physics/opticks-okconf 0.0.1_p20191110: GPU Optical Photon Simulation for Pa
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.5 9999: Tau decay Monte Carlo generator
-sci-physics/uproot 3.11.0 3.12.0: Manipulate arrays of complex data structures as easily as Numpy.
-sci-physics/uproot-methods 0.7.2 0.7.4: Manipulate arrays of complex data structures as easily as Numpy.
 sci-visualization/clip 0.7: command line chart creator
 sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFire
 sci-visualization/fsleyes 0.32.0 0.32.3: The new FSL image viewer, released with FSL 5.0.10
