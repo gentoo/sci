@@ -1,5 +1,7 @@
 # The [Gentoo Science Project](https://wiki.gentoo.org/wiki/Project:Science) Repository    
-[![Build Status](https://travis-ci.com/gentoo/sci.svg?branch=master)](https://travis-ci.com/gentoo/sci)
+![pkgcheck](https://github.com/gentoo/sci/workflows/pkgcheck/badge.svg)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/gentoo/sci/issues)
+[![chat on freenode](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/#gentoo-science)
 
 <table>
 <tr>
