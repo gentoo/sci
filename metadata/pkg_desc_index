@@ -64,7 +64,7 @@ dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD 
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
-dev-python/dnaio 0.4.2 0.4.3: efficient reader for FASTA and FASTQ files
+dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
 dev-python/fslpy 2.8.4: The FSL Python Library
@@ -121,7 +121,7 @@ media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/imgui 1.48_p20191119: Bloat-free graphical user interface library for C++
 media-libs/implicitmesher 0_p20191111: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0: Simplify the creation of computer graphics software
-media-libs/mmg 5.4.3 5.4.3_p09102020 5.5.0 5.5.1: bidimensional and tridimensional remesher
+media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
 media-libs/yocto-gl 0_p20191111: Single File Libraries for Physically-Based Graphics
 net-misc/cernbox-client 2.6.3.14058: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
@@ -483,7 +483,7 @@ sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/aocl-libm 3.6.0_p4: Optimized libm replacement from AMD for x86_64 architectures
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
-sci-libs/arrayfire 3.7.2: general purpose GPU library
+sci-libs/arrayfire 3.7.2 3.7.3: general purpose GPU library
 sci-libs/asl 0.1.6 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/blastdb 9999: The BLAST NR database
