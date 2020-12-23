@@ -103,7 +103,7 @@ dev-python/umap-learn 0.4.6: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2: package for handling numpy arrays with units
 dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualization module
 dev-python/xgboost 1.0.1: XGBoost Python Package
-dev-python/xopen 0.9.0 1.0.0: Open compressed files transparently
+dev-python/xopen 0.9.0 1.0.0 1.0.1: Open compressed files transparently
 dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
 dev-util/Hermes 2.8: Lua based testing manager
 dev-util/VampirTrace 5.14.3 5.14.4: Library for detailed logging of program execution for parallel applications
@@ -610,7 +610,7 @@ sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLey
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
-sys-apps/ndctl 70 70.1 71 9999: utility for managing the nvdimm sub-system in the linux kernel
+sys-apps/ndctl 70.1 71 71.1 9999: utility for managing the nvdimm sub-system in the linux kernel
 sys-cluster/Lmod 8.4.11 8.4.16: Environment Module System based on Lua
 sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
