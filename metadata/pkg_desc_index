@@ -93,7 +93,7 @@ dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.8.2 0.8.3: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
-dev-python/ripser 0.5.4: python frontend for the fast ripser tda tool
+dev-python/ripser 0.5.4 0.6.0: python frontend for the fast ripser tda tool
 dev-python/snakemake 5.10.0: Make-like task language
 dev-python/specutils 9999: Affiliated package for 1D spectral operations
 dev-python/traits 5.1.0 6.0.0: Enthought Tool Suite: Explicitly typed attributes for Python
