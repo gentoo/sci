@@ -105,7 +105,6 @@ dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualizati
 dev-python/xgboost 1.0.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1: Open compressed files transparently
 dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
-dev-util/Hermes 2.8: Lua based testing manager
 dev-util/VampirTrace 5.14.3 5.14.4: Library for detailed logging of program execution for parallel applications
 dev-util/bcm 0.0.1_p20191110: Boost cmake modules
 dev-util/f90cache 0.99: Compiler cache for fortran
@@ -496,7 +495,7 @@ sci-libs/clrng 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
 sci-libs/elmer-eio 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmer I/O library
 sci-libs/elmer-hutiter 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - hutiter library
-sci-libs/ensmallen 2.14.2 2.15.0: header only C++ library for numerical optimization
+sci-libs/ensmallen 2.14.2 2.15.0 2.15.1: header only C++ library for numerical optimization
 sci-libs/etsf_io 1.0.3-r2 1.0.4-r1: A library of F90 routines to read/write the ETSF file format
 sci-libs/fast5 0.6.4 9999: C++ header-only library for reading Oxford Nanopore Fast5 files
 sci-libs/fdlibm 5.3: C math library supporting IEEE 754 floating-point arithmetic
