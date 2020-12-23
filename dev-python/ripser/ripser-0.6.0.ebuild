@@ -7,20 +7,26 @@ PYTHON_COMPAT=( python3_{6..9} )
 
 inherit distutils-r1
 
-DESCRIPTION="Distances and representations of persistence diagrams"
-HOMEPAGE="https://persim.scikit-tda.org/"
+DESCRIPTION="python frontend for the fast ripser tda tool"
+HOMEPAGE="https://ripser.scikit-tda.org/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
-	dev-python/hopcroftkarp[${PYTHON_USEDEP}]
+	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/plotly[${PYTHON_USEDEP}]
+	dev-python/persim[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/scikit-learn[${PYTHON_USEDEP}]
 "
-
+BDEPEND="
+	test? (
+		dev-python/hopcroftkarp[${PYTHON_USEDEP}]
+		dev-python/joblib[${PYTHON_USEDEP}]
+	)
+"
 distutils_enable_tests pytest
