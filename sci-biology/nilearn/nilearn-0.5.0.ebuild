@@ -15,6 +15,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+plot test"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	test? (
