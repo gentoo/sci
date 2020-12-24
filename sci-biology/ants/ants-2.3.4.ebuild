@@ -22,6 +22,7 @@ SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 IUSE="test vtk"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	vtk? (

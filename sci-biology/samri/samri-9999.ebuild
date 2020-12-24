@@ -16,6 +16,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="+atlases labbookdb test"
 KEYWORDS=""
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	test? (

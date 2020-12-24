@@ -16,6 +16,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="evaluation test"
 KEYWORDS=""
+RESTRICT="!test? ( test )"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="
