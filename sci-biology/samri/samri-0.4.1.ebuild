@@ -15,6 +15,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="labbookdb test"
 KEYWORDS="~amd64"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	test? (
