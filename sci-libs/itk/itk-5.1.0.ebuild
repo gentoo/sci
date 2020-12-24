@@ -63,6 +63,7 @@ DEPEND="${RDEPEND}
 	)
 	doc? ( app-doc/doxygen )
 "
+BDEPEND="app-arch/unzip"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
