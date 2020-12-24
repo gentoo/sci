@@ -16,6 +16,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
 IUSE="test"
+RESTRICT="!test? ( test )"
 
 COMMON_DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
