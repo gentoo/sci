@@ -16,6 +16,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
 IUSE="dicom doc test"
+RESTRICT="!test? ( test )"
 
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
