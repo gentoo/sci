@@ -133,7 +133,6 @@ sci-biology/BBmap 34.97 35.92 36.02 36.86 37.67: Short read aligner, K-mer-based
 sci-biology/BG7 9999: Bacterial genome annotation system
 sci-biology/BRAKER 2.1.2: Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS
 sci-biology/BRANCH 9999: Extend partial transcripts with sequence from other reads or genomic contigs
-sci-biology/BamView 1.2.11: Display read alignments in BAM files, is a part of Artemis
 sci-biology/BlastToSam 1.1: Convert NCBI BLAST+ Pairwise/XML (-outfmt 0 or 5) output to SAM v1.4
 sci-biology/CAT 1.3: Codon usage bias (composition) and its statistical significance
 sci-biology/EBARDenovo 1.2.2: Transcriptome de novo assembler with chimera detection
