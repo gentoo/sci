@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
+#PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module
 
 DESCRIPTION="Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS"
