@@ -178,8 +178,6 @@ sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/u
 sci-mathematics/scilab:xcos - Enable building hybrid dynamic systems modeler and simulator Xcos
 sci-mathematics/why3:float - Add sci-mathematics/flocq support
 sci-mathematics/why3:frama-c - Enable Frama-C plugin
-sci-misc/kaldi:cuda - Build with CUDA support.
-sci-misc/kaldi:double-precision - Build in double precision mode.
 sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation potentials library
 sci-physics/atompaw:longplot - Patch the sources to plot functions all over the space considered, not just up to the matching radius plus 50 grid points. May be useless or even harmful.
 sci-physics/elk:libxc - Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
