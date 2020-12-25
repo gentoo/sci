@@ -188,7 +188,6 @@ sci-biology/angsd 9999: Population genetics analysis package
 sci-biology/ants 2.3.4: Advanced Normalitazion Tools for neuroimaging
 sci-biology/apollo 9999: Apollo genome editor
 sci-biology/arachne 46233: Whole genome shotgun OLC assembler for Sanger reads (overlap-layout-contig)
-sci-biology/argo 1.0.24: Production tool for visualizing and manually annotating whole genomes
 sci-biology/argo-bin 1.0.31 2.0.3: Visualization and manually annotating whole genomes
 sci-biology/assembly-stats 9999: Assembly statistics (min, max, sum, N50, N90, count gaps and Ns)
 sci-biology/autoeditor 1.20: Automatic correct of discrepancies in multiple sequence alignments
