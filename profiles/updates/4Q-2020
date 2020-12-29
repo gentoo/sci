@@ -1,1 +1,2 @@
 move sci-libs/amdlibm sci-libs/aocl-libm
+move sys-cluster/Lmod sys-cluster/lmod
