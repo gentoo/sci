@@ -1,6 +1,5 @@
 app-arch/libdeflate 1.2 1.6: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-doc/blacs-docs 1.1: Documentation reference for BLACS implementations
-app-doc/scalapack-docs 2.0: Documentation reference and man pages for ScaLAPACK implementations
 app-forensics/vine 1.0: The BitBlaze Static Analysis Component
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
@@ -607,8 +606,8 @@ sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medi
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
 sys-apps/ndctl 70.1 71 71.1 9999: utility for managing the nvdimm sub-system in the linux kernel
-sys-cluster/Lmod 8.4.11 8.4.16: Environment Module System based on Lua
 sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
+sys-cluster/lmod 8.4.19 9999: Environment Module System based on Lua
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
 sys-cluster/spack 0.15.4: flexible package manager supporting mutiple package version
 sys-kernel/dkms 2.8.4: Dynamic Kernel Module Support
