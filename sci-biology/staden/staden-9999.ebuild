@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ AUTOTOOLS_AUTORECONF=yes
 inherit autotools-utils flag-o-matic fortran-2 multilib subversion
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
-HOMEPAGE="http://sourceforge.net/projects/staden/"
+HOMEPAGE="https://sourceforge.net/projects/staden/"
 ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/${PN}/trunk"
 
 LICENSE="staden"

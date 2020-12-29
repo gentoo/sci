@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,9 +6,8 @@ EAPI=5
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Ab initio- and ad hoc evidence-based (RNA-Seq, BLAST) gene/ORF predictor"
-HOMEPAGE="http://www.broadinstitute.org/annotation/conrad
-	http://sourceforge.net/projects/conradcrf"
-SRC_URI="http://www.broadinstitute.org/annotation/conrad/conradSrcV1.zip"
+HOMEPAGE="https://sourceforge.net/projects/conradcrf"
+SRC_URI="https://downloads.sourceforge.net/project/conradcrf/conradcrf/Version%201/conradSrc.zip -> ${P}.zip"
 
 LICENSE="LGPL-2.1"
 SLOT="0"

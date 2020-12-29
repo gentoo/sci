@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit autotools eutils
 
 DESCRIPTION="A complete OpenCascade - OCAF based CAD framework"
-HOMEPAGE="http://sourceforge.net/projects/salomegeometry/"
+HOMEPAGE="https://sourceforge.net/projects/salomegeometry/"
 SRC_URI="mirror://sourceforge/salomegeometry/${P}.tar.gz"
 
 LICENSE="LGPL-2"

@@ -1,11 +1,11 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="DNA sequence quality and vector trimming tool"
-HOMEPAGE="http://lucy.sourceforge.net/"
-SRC_URI="http://sourceforge.net/projects/lucy/files/lucy/lucy%201.20/lucy1.20.tar.gz"
+HOMEPAGE="http://lucy.sourceforge.net/" # no https
+SRC_URI="https://sourceforge.net/projects/lucy/files/lucy/lucy%201.20/lucy${PV}.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"

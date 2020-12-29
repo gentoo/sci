@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,12 +8,11 @@ inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle"
 HOMEPAGE="
-	http://sourceforge.net/apps/mediawiki/amos/index.php?title=AMOS
-	http://sourceforge.net/projects/amos/files/bambus
-	http://www.tigr.org/software/bambus"
+	https://sourceforge.net/apps/mediawiki/amos/index.php?title=AMOS
+	https://sourceforge.net/projects/amos/files/bambus"
 SRC_URI="
-	http://sourceforge.net/projects/amos/files/bambus/${PV}/${P}.tar.gz
-	http://mira-assembler.sourceforge.net/docs/scaffolding_MIRA_BAMBUS.pdf"
+	https://sourceforge.net/projects/amos/files/bambus/${PV}/${P}.tar.gz
+	http://mira-assembler.sourceforge.net/docs/scaffolding_MIRA_BAMBUS.pdf" # no https
 
 LICENSE="Artistic"
 SLOT="0"

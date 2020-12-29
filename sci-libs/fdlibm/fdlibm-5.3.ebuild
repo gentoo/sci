@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit toolchain-funcs flag-o-matic versionator multilib
 
 DESCRIPTION="C math library supporting IEEE 754 floating-point arithmetic"
-HOMEPAGE="http://www.netlib.org/fdlibm"
+HOMEPAGE="https://www.netlib.org/fdlibm"
 SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${P}.tar.bz2"
 
 LICENSE="freedist"

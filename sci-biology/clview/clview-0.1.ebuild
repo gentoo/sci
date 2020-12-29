@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="clview is an assembly .ace file viewer from TIGR Gene Indices project tools"
-HOMEPAGE="http://sourceforge.net/projects/clview"
+HOMEPAGE="https://sourceforge.net/projects/clview"
 SRC_URI="
-	http://sourceforge.net/projects/clview/files/source%20code/clview_src.tar.gz
+	https://sourceforge.net/projects/clview/files/source%20code/clview_src.tar.gz
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/clview/clview_src.tar.gz
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/clview/clview_linux_i386.tar.gz"
 
