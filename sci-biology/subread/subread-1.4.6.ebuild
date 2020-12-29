@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,12 +6,12 @@ EAPI=5
 [ "$PV" == "9999" ] && inherit subversion
 
 DESCRIPTION="NGS suite for analysis of mapped reads, summary of exon/intron/gene counts"
-HOMEPAGE="http://bioinf.wehi.edu.au/featureCounts/"
+HOMEPAGE="http://bioinf.wehi.edu.au/featureCounts/" # no https
 if [ "$PV" == "9999" ]; then
 	ESVN_REPO_URI="https://subread.svn.sourceforge.net/svnroot/subread/trunk"
 	#KEYWORDS="~amd64 ~x86"
 else
-	SRC_URI="http://sourceforge.net/projects/subread/files/"${P}"/"${P}"-source.tar.gz"
+	SRC_URI="https://sourceforge.net/projects/subread/files/"${P}"/"${P}"-source.tar.gz"
 	KEYWORDS="~amd64 ~x86"
 fi
 

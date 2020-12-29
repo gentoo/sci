@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -7,8 +7,8 @@ MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="DNA read mapper using k=20 (successor of ssaha2)"
-HOMEPAGE="http://www.sanger.ac.uk/resources/software/smalt/"
-SRC_URI="http://sourceforge.net/projects/${PN}/files/${P}.tar.gz"
+HOMEPAGE="https://sourceforge.net/projects/smalt/"
+SRC_URI="https://sourceforge.net/projects/${PN}/files/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

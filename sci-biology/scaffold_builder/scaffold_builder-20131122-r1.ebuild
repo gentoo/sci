@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,12 +9,12 @@ inherit python-r1
 
 DESCRIPTION="Combine FASTA contigs from a de novo assembly into scaffolds"
 HOMEPAGE="
-	http://sourceforge.net/projects/scaffold-b
-	http://edwards.sdsu.edu/scaffold_builder"
+	https://sourceforge.net/projects/scaffold-b
+	https://edwards.sdsu.edu/scaffold_builder"
 SRC_URI="
-	http://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2.1.zip
-	http://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2_help.doc
-	http://downloads.sourceforge.net/project/scaffold-b/Manual_v2.1.pdf"
+	https://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2.1.zip
+	https://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2_help.doc
+	https://downloads.sourceforge.net/project/scaffold-b/Manual_v2.1.pdf"
 
 #http://www.scfbm.org/content/8/1/23
 LICENSE="GPL-3"

@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit perl-module
 
 DESCRIPTION="Detect sequencing project contaminants by mapping reads to taxonomic groups"
 HOMEPAGE="http://ccb.jhu.edu/software/kraken
-	http://genomebiology.com/2014/15/3/R46"
+	https://genomebiology.com/2014/15/3/R46"
 SRC_URI="https://github.com/DerrickWood/kraken/archive/v1.0.tar.gz -> ${P}.tar.gz
 	http://ccb.jhu.edu/software/kraken/MANUAL.html -> ${P}_MANUAL.html"
 

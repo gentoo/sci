@@ -1,13 +1,13 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="Adaptor and MID removal / trimming tool"
-HOMEPAGE="http://sourceforge.net/projects/skewer"
+HOMEPAGE="https://sourceforge.net/projects/skewer"
 SRC_URI="
-	http://sourceforge.net/projects/skewer/files/Binaries/skewer-0.1.104-linux-x86_64
-	http://sourceforge.net/projects/skewer/files/Scripts/srna-scripts-0.1.2.tar.gz"
+	https://sourceforge.net/projects/skewer/files/Binaries/skewer-${PV}-linux-x86_64
+	https://sourceforge.net/projects/skewer/files/Scripts/srna-scripts-0.1.2.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"

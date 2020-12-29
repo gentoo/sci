@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,10 +9,10 @@ inherit java-pkg-2 java-ant-2 eutils perl-module
 S="${WORKDIR}"/TreeView-1.1.6r4-src
 
 DESCRIPTION="Viewer for Microarray Data in PCL or CDT formats"
-HOMEPAGE="http://jtreeview.sourceforge.net/"
+HOMEPAGE="http://jtreeview.sourceforge.net/" # no https
 SRC_URI="
-	http://sourceforge.net/projects/jtreeview/files/jtreeview/1.1.6r4/TreeView-1.1.6r4-src.tar.gz
-	http://sourceforge.net/projects/jtreeview/files/helper-scripts/0.0.2/helper-scripts-0.0.2.tar.gz"
+	https://sourceforge.net/projects/jtreeview/files/jtreeview/1.1.6r4/TreeView-1.1.6r4-src.tar.gz
+	https://sourceforge.net/projects/jtreeview/files/helper-scripts/0.0.2/helper-scripts-0.0.2.tar.gz"
 #http://sourceforge.net/projects/jtreeview/files/jtreeview/1.1.6r4/TreeView-1.1.6r4-bin.tar.gz
 
 LICENSE="GPL-2"

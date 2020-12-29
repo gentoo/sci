@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -7,8 +7,8 @@ PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Merge various gene prediction into one (unsupervised learning system)"
-HOMEPAGE="http://sourceforge.net/projects/glean-gene"
-SRC_URI="http://downloads.sourceforge.net/project/glean-gene/GLEAN/glean-1-0-1/glean-1-0-1.tar.gz"
+HOMEPAGE="https://sourceforge.net/projects/glean-gene"
+SRC_URI="https://downloads.sourceforge.net/project/glean-gene/GLEAN/glean-1-0-1/glean-1-0-1.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"

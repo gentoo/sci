@@ -1,14 +1,14 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 JAVA_PKG_IUSE="doc examples"
 
-inherit autotools eutils fdo-mime java-pkg-2
+inherit autotools eutils java-pkg-2 xdg-utils
 
 DESCRIPTION="Java interface to the HDF5 library"
-HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/index.html"
+HOMEPAGE="https://www.hdfgroup.org/"
 SRC_URI="https://www.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/${P}/src/${P}-src.tar"
 
 LICENSE="NCSA-HDF"
@@ -122,9 +122,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	use hdfview && fdo-mime_desktop_database_update
+	use hdfview && xdg_desktop_database_update
 }
 
 pkg_postrm() {
-	use hdfview && fdo-mime_desktop_database_update
+	use hdfview && xdg_desktop_database_update
 }

@@ -6,13 +6,13 @@ EAPI=6
 inherit eutils
 
 DESCRIPTION="Statistics of BAM/SAM files"
-HOMEPAGE="http://samstat.sourceforge.net"
-SRC_URI="http://sourceforge.net/projects/samstat/files/${P}.tar.gz"
+HOMEPAGE="http://samstat.sourceforge.net" # no https
+SRC_URI="https://sourceforge.net/projects/samstat/files/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="sci-biology/samtools"
+DEPEND="sci-biology/samtools:="
 RDEPEND="${DEPEND}"

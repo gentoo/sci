@@ -1,12 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 DESCRIPTION="IGS-modified version of the genome annotation tool using Chado database schema"
-HOMEPAGE="http://manatee.sourceforge.net/igs"
+HOMEPAGE="http://manatee.sourceforge.net/igs" # no https
 SRC_URI="
-	http://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/manatee-"${PV}"_linux.tgz
+	https://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/manatee-"${PV}"_linux.tgz
 	http://manatee.sourceforge.net/igs/docs/README_Linux.txt"
 
 LICENSE="Artistic-Manatee"
