@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils toolchain-funcs
 
 DESCRIPTION="A Computer algebra package for Lie group computations"
-HOMEPAGE="http://www-math.univ-poitiers.fr/~maavl/LiE/"
+HOMEPAGE="http://www-math.univ-poitiers.fr/~maavl/LiE/" # no https, invalid certificate
 SRC_URI="http://wwwmathlabo.univ-poitiers.fr/~maavl/LiE/conLiE.tar.gz -> ${P}.tar.gz"
 #### Remove the following line when moving this ebuild to the main tree!
 RESTRICT="mirror"

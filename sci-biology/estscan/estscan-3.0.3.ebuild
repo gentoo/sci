@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,17 +6,17 @@ EAPI=5
 inherit eutils fortran-2 perl-module toolchain-funcs
 
 DESCRIPTION="Prediction of coding regions in DNA/RNA sequences"
-HOMEPAGE="http://sourceforge.net/projects/${PN}/"
+HOMEPAGE="https://sourceforge.net/projects/${PN}/"
 SRC_URI="
-	http://downloads.sourceforge.net/${PN}/${P}.tar.gz
-	http://downloads.sourceforge.net/${PN}/At.smat.gz
-	http://downloads.sourceforge.net/${PN}/Dm.smat.gz
-	http://downloads.sourceforge.net/${PN}/Dr.smat.gz
-	http://downloads.sourceforge.net/${PN}/Hs.smat.gz
-	http://downloads.sourceforge.net/${PN}/Mm.smat.gz
-	http://downloads.sourceforge.net/${PN}/Rn.smat.gz
-	http://downloads.sourceforge.net/${PN}/user_guide_fev_07.pdf
-	http://downloads.sourceforge.net/${PN}/BTLib-0.19.tar.gz"
+	https://downloads.sourceforge.net/${PN}/${P}.tar.gz
+	https://downloads.sourceforge.net/${PN}/At.smat.gz
+	https://downloads.sourceforge.net/${PN}/Dm.smat.gz
+	https://downloads.sourceforge.net/${PN}/Dr.smat.gz
+	https://downloads.sourceforge.net/${PN}/Hs.smat.gz
+	https://downloads.sourceforge.net/${PN}/Mm.smat.gz
+	https://downloads.sourceforge.net/${PN}/Rn.smat.gz
+	https://downloads.sourceforge.net/${PN}/user_guide_fev_07.pdf
+	https://downloads.sourceforge.net/${PN}/BTLib-0.19.tar.gz"
 
 SLOT="0"
 LICENSE="estscan"

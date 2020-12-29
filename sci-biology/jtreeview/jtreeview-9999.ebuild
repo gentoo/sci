@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,7 +7,7 @@ inherit java-pkg-2 git-r3
 
 DESCRIPTION="Viewer for Microarray Data in PCL or CDT formats"
 HOMEPAGE="http://jtreeview.sourceforge.net
-	https://bitbucket.org/TreeView3Dev/treeview3"
+	https://bitbucket.org/TreeView3Dev/treeview3" # no https
 EGIT_REPO_URI="https://bitbucket.org/TreeView3Dev/treeview3.git"
 
 LICENSE="MIT"

@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -68,13 +68,13 @@ CDEPEND="
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
 		>=dev-java/fop-2.0:0
-		=dev-java/gluegen-2.2.4:2.2
+		~dev-java/gluegen-2.2.4:2.2
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.6
 		>=dev-java/jlatexmath-1.0.3:1
 		>=dev-java/jlatexmath-fop-1.0.3:1
-		=dev-java/jogl-2.2.4:2.2
+		~dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:2

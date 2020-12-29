@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit autotools-utils eutils
 
 DESCRIPTION="C++ library for handling of multiple co-processes"
-HOMEPAGE="http://cadabra.phi-sci.com"
+HOMEPAGE="https://cadabra.science"
 SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
 
 RESTRICT="mirror"

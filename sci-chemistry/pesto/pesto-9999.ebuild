@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -12,7 +12,7 @@ SRC_URI=""
 EHG_REPO_URI="http://hg.code.sf.net/p/pesto/code-1"
 
 DESCRIPTION="Potential Energy Surface Tools"
-HOMEPAGE="http://sourceforge.net/projects/pesto/"
+HOMEPAGE="https://sourceforge.net/projects/pesto/"
 
 LICENSE="BSD"
 SLOT="0"

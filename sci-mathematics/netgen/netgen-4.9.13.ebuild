@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils flag-o-matic multilib versionator
 
 DESCRIPTION="Automatic 3d tetrahedral mesh generator"
-HOMEPAGE="http://www.hpfem.jku.at/netgen/"
+HOMEPAGE="https://sourceforge.net/projects/netgen/"
 SRC_URI="mirror://sourceforge/netgen-mesher/${P}.tar.gz"
 
 SLOT="0"

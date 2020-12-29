@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -6,9 +6,9 @@ EAPI=6
 inherit perl-functions
 
 DESCRIPTION="Genotype variant discovery without reference sequence"
-HOMEPAGE="http://cortexassembler.sourceforge.net/index_cortex_var.html"
+HOMEPAGE="http://cortexassembler.sourceforge.net/index_cortex_var.html" # no https
 SRC_URI="
-	http://sourceforge.net/projects/cortexassembler/files/cortex_var/latest/CORTEX_release_v1.0.5.21.tgz
+	https://sourceforge.net/projects/cortexassembler/files/cortex_var/latest/CORTEX_release_v${PV}.tgz
 	http://cortexassembler.sourceforge.net/cortex_var_user_manual.pdf"
 
 LICENSE="GPL-3"
@@ -25,7 +25,7 @@ DEPEND="
 	dev-lang/perl"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/CORTEX_release_v1.0.5.21
+S="${WORKDIR}/CORTEX_release_v${PV}"
 
 src_prepare(){
 	default

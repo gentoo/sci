@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,8 +8,8 @@ PYTHON_COMPAT=( python2_7 )
 inherit python-r1
 
 DESCRIPTION="Compare quality of multiple genome assemblies to each other"
-HOMEPAGE="http://bioinf.spbau.ru/QUAST"
-SRC_URI="http://sourceforge.net/projects/quast/files/${P}.tar.gz"
+HOMEPAGE="http://bioinf.spbau.ru/QUAST" # no https
+SRC_URI="https://sourceforge.net/projects/quast/files/${P}.tar.gz"
 
 LICENSE="GPL-2" # and some other for the bundled copies, see http://quast.bioinf.spbau.ru/LICENSE
 SLOT="0"

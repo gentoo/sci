@@ -25,7 +25,7 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}_${PV}"
 
-PATCHES=( "${FILESDIR}"/NGSEPcore_drop_utf8_chars.patch "${FILESDIR}"/NGSEPcore_fix_compilation.patch )
+PATCHES=( "${FILESDIR}"/NGSEPcore_drop_utf8_chars.patch )
 
 src_prepare(){
 	rm lib/htsjdk-1.129.jar || die

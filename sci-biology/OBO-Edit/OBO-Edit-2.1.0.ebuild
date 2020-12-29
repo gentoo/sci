@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,10 +8,10 @@ inherit eutils toolchain-funcs versionator java-pkg-2
 MY_PV=$(replace_all_version_separators '-')
 
 DESCRIPTION="Java-based editor optimized for the OBO biological ontology file format"
-HOMEPAGE="http://www.oboedit.org/"
+HOMEPAGE="http://www.oboedit.org/" # no https, invalid certificate
 SRC_URI="
-	http://sourceforge.net/projects/geneontology/files/OBO-Edit%202%20%5BLatest%20versions%5D/OBO-Edit%20${PV}/${MY_PV}_unix_install4j.sh/download -> OBO-Edit_unix_install4j-${PV}.sh
-	http://sourceforge.net/projects/geneontology/files/OBO-Edit%202%20%5BLatest%20versions%5D/OBO-Edit%20${PV}/ReleaseNotes-${PV}.txt"
+	https://sourceforge.net/projects/geneontology/files/OBO-Edit%202%20%5BLatest%20versions%5D/OBO-Edit%20${PV}/${MY_PV}_unix_install4j.sh/download -> OBO-Edit_unix_install4j-${PV}.sh
+	https://sourceforge.net/projects/geneontology/files/OBO-Edit%202%20%5BLatest%20versions%5D/OBO-Edit%20${PV}/ReleaseNotes-${PV}.txt"
 
 LICENSE="OBO-Edit" # Artistic-like
 SLOT="0"

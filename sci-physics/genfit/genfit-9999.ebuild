@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -20,7 +20,7 @@ else
 fi
 
 DESCRIPTION="Generic toolkit for track reconstruction in physics experiments"
-HOMEPAGE="http://genfit.sourceforge.net/Main.html"
+HOMEPAGE="http://genfit.sourceforge.net/Main.html" # no https
 
 LICENSE="LGPL-3"
 SLOT="0"
