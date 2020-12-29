@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -7,7 +7,7 @@ DESCRIPTION="Verifying and proving properties on floating-point or fixed-point a
 HOMEPAGE="http://gappa.gforge.inria.fr/"
 SRC_URI="http://gforge.inria.fr/frs/download.php/33486/${P}.tar.gz"
 
-LICENSE="|| ( CeCILL-2.0 GPL-2 )"
+LICENSE="|| ( CeCILL-2 GPL-2 )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"

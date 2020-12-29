@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit cmake-utils
 
 DESCRIPTION="Population genetics analysis"
-HOMEPAGE="http://genepop.curtin.edu.au/ http://kimura.univ-montp2.fr/~rousset/Genepop.htm"
+HOMEPAGE="https://genepop.curtin.edu.au/ https://kimura.univ-montp2.fr/~rousset/Genepop.htm"
 SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tar.gz"
 
 LICENSE="CeCILL-2"
