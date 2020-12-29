@@ -1,8 +1,8 @@
 DEFINED_PHASES=-
 DESCRIPTION=Biological data warehouse integrating complex data
 EAPI=5
-HOMEPAGE=http://github.com/intermine/intermine
+HOMEPAGE=https://github.com/intermine/intermine
 KEYWORDS=~amd64
 LICENSE=LGPL-2.1+
 SLOT=0
-_md5_=19ce4f4ea2f90231c80a9feb32a755c3
+_md5_=1fb5c1879905f985b4e94f5e95db932d

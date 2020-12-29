@@ -10,6 +10,7 @@ dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-java/fits 1.11.0-r1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
+dev-java/hdf-java 2.9: Java interface to the HDF5 library
 dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
 dev-java/jeuclid-core 3.1.9-r1: Core module of MathML rendering solution
 dev-java/jgraphx 1.4.1.0 1.8.0.6 2.5.0.3: Open-source graph component for Java

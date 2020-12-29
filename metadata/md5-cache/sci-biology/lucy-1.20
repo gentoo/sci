@@ -5,5 +5,5 @@ HOMEPAGE=http://lucy.sourceforge.net/
 KEYWORDS=~amd64 ~x86
 LICENSE=Artistic
 SLOT=0
-SRC_URI=http://sourceforge.net/projects/lucy/files/lucy/lucy%201.20/lucy1.20.tar.gz
-_md5_=6f748ff84b5f1308ff3b17edfa4a63db
+SRC_URI=https://sourceforge.net/projects/lucy/files/lucy/lucy%201.20/lucy1.20.tar.gz
+_md5_=f5b1e1a655e7dc0a63537f1258b2b8de
