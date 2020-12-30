@@ -1,5 +1,3 @@
-acct-group/htcondor 0: Group for sys-cluster/htcondor
-acct-user/htcondor 0: User for sys-cluster/htcondor
 app-arch/libdeflate 1.2 1.6: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-doc/blacs-docs 1.1: Documentation reference for BLACS implementations
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
@@ -549,7 +547,7 @@ sci-mathematics/Oid 4.0: An interactive, extensible software system for experime
 sci-mathematics/acl2 7.1 8.3: Industrial strength theorem prover
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
 sci-mathematics/cipi 1.0: Computing information projections iteratively
-sci-mathematics/dsfmt 2.2: Double precision SIMD-oriented Fast Mersenne Twister library
+sci-mathematics/dsfmt 2.2.4: Double precision SIMD-oriented Fast Mersenne Twister library
 sci-mathematics/flocq 2.3.0: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 20140301: Framework for analysis of source codes written in C
 sci-mathematics/freefem++ 3.8: Solve PDEs using FEM on 2d and 3d domains
@@ -608,7 +606,6 @@ sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medi
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
 sys-apps/ndctl 70.1 71 71.1 9999: utility for managing the nvdimm sub-system in the linux kernel
-sys-cluster/htcondor 8.0.0 8.3.2: Workload management system for compute-intensive jobs
 sys-cluster/lmod 8.4.19 9999: Environment Module System based on Lua
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
 sys-kernel/dkms 2.8.4: Dynamic Kernel Module Support
