@@ -191,7 +191,7 @@ sys-cluster/htcondor:X - Enable the HTCondor Keyboard Daemon to monitor logged i
 sys-cluster/htcondor:boinc - Enable backfill with BOINC jobs when the cluster is not being used
 sys-cluster/htcondor:cgroup - Use dev-libs/libcgroup for kernel control groups
 sys-cluster/htcondor:contrib - Build contrib modules
-sys-cluster/htcondor:dmtcp - Use sys-apps/dmtcp for checkpointing
+sys-cluster/htcondor:dmtcp - Use dmtcp for checkpointing
 sys-cluster/htcondor:libvirt - Use app-emulation/libvirt for virtualisation
 sys-cluster/htcondor:minimal - Don't support standard universe jobs
 sys-cluster/lmod:auto-swap - enable auto swapping of compiler
