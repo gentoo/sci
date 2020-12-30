@@ -14,13 +14,15 @@ LICENSE="GPL-3"
 SLOT="2"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="examples cpu_flags_x86_sse2 +tbb"
+IUSE="examples cpu_flags_x86_sse2 +tbb" # sra
+# IUSE=sra Use sra-toolkit to download input datasets on the fly.
 
 RDEPEND="dev-lang/perl
 	tbb? ( dev-cpp/tbb )"
 DEPEND="${RDEPEND}
 	app-arch/unzip
 	sys-libs/readline"
+#	sra? ( sci-biology/sra_sdk )"
 
 S="${WORKDIR}/${PN}2-${PV}"
 
@@ -42,6 +44,7 @@ src_compile() {
 		EXTRA_FLAGS="${LDFLAGS}" \
 		RELEASE_FLAGS="${CXXFLAGS} -msse2" \
 		WITH_TBB="$(usex tbb 1 0)"
+		# USE_SRA="$(usex sra 1 0)"
 }
 
 src_install() {
@@ -57,4 +60,8 @@ src_install() {
 		insinto /usr/share/${PN}2
 		doins -r example
 	fi
+}
+
+src_test(){
+	emake test
 }
