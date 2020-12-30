@@ -140,7 +140,6 @@ sci-chemistry/modelfree
 sci-chemistry/nmrpipe
 sci-chemistry/polygon
 sci-chemistry/relion
-sci-chemistry/smmp
 sci-chemistry/talosn
 sci-chemistry/trajng
 sci-libs/amber99sbnmr-ildn
