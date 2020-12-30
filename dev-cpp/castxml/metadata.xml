@@ -12,7 +12,4 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription lang="en">
-		CastXML is a C-family abstract syntax tree XML output tool.
-	</longdescription>
 </pkgmetadata>
