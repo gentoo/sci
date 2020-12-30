@@ -1,0 +1,22 @@
+threading is always available in newer pythons
+
+https://github.com/nvawda/bz2file/issues/7
+
+--- a/test_bz2file.py
++++ b/test_bz2file.py
+@@ -496,15 +496,6 @@ class BZ2FileTest(BaseTest):
+             for t in threads:
+                 t.join()
+ 
+-    def testWithoutThreading(self):
+-        if not hasattr(support, "import_fresh_module"):
+-            return
+-        module = support.import_fresh_module("bz2file", blocked=("threading",))
+-        with module.BZ2File(self.filename, "wb") as f:
+-            f.write(b"abc")
+-        with module.BZ2File(self.filename, "rb") as f:
+-            self.assertEqual(f.read(), b"abc")
+-
+     def testMixedIterationAndReads(self):
+         self.createTempFile()
+         linelen = len(self.TEXT_LINES[0])
