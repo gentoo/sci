@@ -1,0 +1,15 @@
+BDEPEND=dev-util/ninja dev-util/cmake
+DEFINED_PHASES=compile configure install prepare setup test
+DEPEND=!!sys-devel/llvm:0
+DESCRIPTION=CastXML is a C-family abstract syntax tree XML output tool.
+EAPI=7
+HOMEPAGE=https://github.com/CastXML/CastXML
+IUSE=test
+KEYWORDS=~amd64 ~x86
+LICENSE=Apache-2.0
+RDEPEND=dev-libs/glib:2 dev-libs/libxml2 sys-devel/llvm:= sys-devel/clang:=
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/CastXML/CastXML/archive/v0.3.6.tar.gz -> castxml-0.3.6.tar.gz
+_eclasses_=cmake	ac7cb516f6a288b6a82bc0649ce49878	edos2unix	33e347e171066657f91f8b0c72ec8773	eutils	2d5b3f4b315094768576b6799e4f926e	flag-o-matic	09a8beb8e6a8e02dc1e1bd83ac353741	l10n	8cdd85e169b835d518bc2fd59f780d8e	llvm	21d8c0949a2693d7109cc6a25fabfcaf	multilib	d410501a125f99ffb560b0c523cd3d1e	multiprocessing	cac3169468f893670dac3e7cb940e045	ninja-utils	132cbb376048d079b5a012f5467c4e7f	toolchain-funcs	605c126bed8d87e4378d5ff1645330cb	wrapper	4251d4c84c25f59094fd557e0063a974	xdg-utils	ff2ff954e6b17929574eee4efc5152ba
+_md5_=58b2c830ec9d64f52b3598e25a514d51
