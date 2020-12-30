@@ -15,3 +15,9 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
+PATCHES=( "${FILESDIR}"/${P}-always-threading.patch )
+
+python_test() {
+	distutils_install_for_testing
+	${EPYTHON} test_bz2file.py || die "tests failed for ${EPYTHON}"
+}
