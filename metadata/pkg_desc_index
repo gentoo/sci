@@ -7,7 +7,7 @@ dev-cpp/blitz 1.0.2_p20200524 9999: multi-dimensional array library for C++
 dev-cpp/castxml 0.0.0_pre9 0.2.0 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
-dev-java/fits 1.11.0-r1: Java library for FITS input/output
+dev-java/fits 1.15.1: Java library for FITS input/output
 dev-java/flexdock 1.1.1 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
 dev-java/hdf-java 2.9: Java interface to the HDF5 library
