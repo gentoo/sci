@@ -60,6 +60,7 @@ dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated 
 dev-python/astroquery 9999: A collection of packages to access online astronomical resources
 dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3: Statistical and interactive HTML plots for Python
+dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
@@ -292,7 +293,7 @@ sci-biology/jtreeview 1.1.6.4 9999: Viewer for Microarray Data in PCL or CDT for
 sci-biology/jtreeview-bin 1.1.6.4: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/karect 1.0.0: Error-correct mismatches and InDels of raw reads incl. paired-end
 sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
-sci-biology/khmer 0.8 1.0.1 9999: In-memory K-mer counting in DNA/RNA/protein sequences
+sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
 sci-biology/kmergenie 1.6971: Estimate best k-mer length to be used in novo assemblies
 sci-biology/kraken 1.0: Detect sequencing project contaminants by mapping reads to taxonomic groups
 sci-biology/last 852: Genome-scale comparison of biological sequences
@@ -377,7 +378,7 @@ sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scaffold_builder 20131122-r1: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
 sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
-sci-biology/screed 0.9: Short read sequence utilities
+sci-biology/screed 1.0.4: Short read sequence utilities
 sci-biology/scythe 0.992: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
 sci-biology/seq_crumbs 0.1.9: Filter, split and trim NGS sequence data
 sci-biology/seqclean 110625: Trimpoly and mdust for trimming and validation of ESTs/DNA sequences
