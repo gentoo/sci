@@ -6,8 +6,8 @@
 		<name>Horea Christian</name>
 	</maintainer>
 	<maintainer type="project">
-		<email>proxy-maint@gentoo.org</email>
-		<name>Proxy Maintainers</name>
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
 		The json-tricks package brings several pieces of functionality to
