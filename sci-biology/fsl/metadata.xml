@@ -5,9 +5,6 @@
 		<email>sci-biology@gentoo.org</email>
 		<name>Gentoo Biology Project</name>
 	</maintainer>
-	<longdescription>
-FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data.
-</longdescription>
 	<use>
 		<flag name="cuda">Add support for CUDA</flag>
 	</use>

@@ -4,7 +4,7 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8,9} )
-
+DISTUTILS_USE_SETUPTOOLS=no
 inherit distutils-r1 eutils multilib
 
 DESCRIPTION="Homology or comparative modeling of protein three-dimensional structures"
@@ -24,7 +24,10 @@ INPATH="${EPREFIX}"/opt/modeller${ver}
 
 QA_PREBUILT="/opt/*"
 
-PATCHES=( "${FILESDIR}/${P}-convert2to3.patch" )
+PATCHES=(
+	"${FILESDIR}/${P}-convert2to3-p1.patch"
+	"${FILESDIR}/${P}-convert2to3-p2.patch"
+)
 
 pkg_setup() {
 	case ${ARCH} in
