@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8,9} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit distutils-r1 eutils multilib
 
@@ -12,14 +12,13 @@ HOMEPAGE="https://salilab.org/modeller/"
 SRC_URI="https://salilab.org/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="modeller"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples"
 SLOT="0"
 
 RESTRICT="mirror"
 
 DEPEND=">=dev-lang/swig-1.3"
-RDEPEND=""
 
 INPATH="${EPREFIX}"/opt/modeller${ver}
 
