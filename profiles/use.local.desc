@@ -80,7 +80,7 @@ sci-biology/nilearn:plot - Adds optional dependency needed for plotting function
 sci-biology/samri:atlases - Include dependency on compatible anatomica atlases.
 sci-biology/samri:labbookdb - Pipe data from LabbookDB databases.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
-sci-chemistry/MotionCor2:cuda101 - Install cuda-10.1 version
+sci-chemistry/MotionCor2:cuda102 - Install cuda-10.2 version
 sci-chemistry/MotionCor2:cuda92 - Install cuda-9.2 version
 sci-chemistry/gamess:msucc - Build Michigan State University CCT3 and CCSD3A methods. This will increase build time and memory requirements by ~10 times
 sci-chemistry/gamess:neo - Enable NEO for nuclear basis support

@@ -430,7 +430,7 @@ sci-biology/wgs_tools 9999: Scripts for ncbi-tools++ and SRA postprocessing usin
 sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural variants (SV)
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
-sci-chemistry/MotionCor2 1.2.6: Correction of electron beam-induced sample motion
+sci-chemistry/MotionCor2 1.4.0: Correction of electron beam-induced sample motion
 sci-chemistry/burrow-owl 9999: Visualize multidimensional nuclear magnetic resonance (NMR) spectra
 sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical shifts
 sci-chemistry/chimera-bin 1.11.2 1.14: An extensible Molecular Modelling System
