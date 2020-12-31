@@ -3,14 +3,15 @@
 
 EAPI=7
 
-inherit cmake git-r3
+inherit cmake
 
 DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
 HOMEPAGE="https://github.com/COMBINE-lab/salmon"
-EGIT_REPO_URI="https://github.com/COMBINE-lab/salmon.git"
+SRC_URI="https://github.com/COMBINE-lab/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-libs/boost:=[threads]
@@ -32,3 +33,8 @@ BDEPEND="
 	app-arch/unzip
 	net-misc/curl
 "
+
+PATCHES=(
+	"${FILESDIR}/${P}-do-not-fetch-pufferfish.patch"
+	"${FILESDIR}/${P}-allow-newer-boost.patch"
+)

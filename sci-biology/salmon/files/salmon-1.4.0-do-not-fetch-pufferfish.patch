@@ -1,0 +1,39 @@
+diff --git a/scripts/fetchPufferfish.sh b/scripts/fetchPufferfish.sh
+index 9b57f99..3378a4c 100755
+--- a/scripts/fetchPufferfish.sh
++++ b/scripts/fetchPufferfish.sh
+@@ -26,33 +26,10 @@ SVER=salmon-v1.4.0
+ #SVER=develop
+ #SVER=sketch-mode
+ 
+-EXPECTED_SHA256=059207e8d3134060ed70595e53f4189954c9e5edfaa6361b46304f55d1b71bc7
+-
+ mkdir -p ${EXTERNAL_DIR}
+-curl -k -L https://github.com/COMBINE-lab/pufferfish/archive/${SVER}.zip -o ${EXTERNAL_DIR}/pufferfish.zip
+-
+-hashcheck=""
+-if exists sha256sum; then
+-	hashcheck="sha256sum"
+-elif exists shasum; then
+-	hashcheck="shasum -a256"
+-else
+-	unset hashcheck
+-fi
+-
+-if [ -z "${hashcheck-}" ]; then
+-    echo "Couldn't find shasum command; can't verify contents of downloaded pufferfish";
+-else
+-    if [[ $SVER != develop ]]; then
+-        echo "${EXPECTED_SHA256}  ${EXTERNAL_DIR}/pufferfish.zip" | ${hashcheck} -c - || { echo "pufferfish.zip did not match expected SHA1! Exiting."; exit 1; }
+-    else
+-        echo "not testing sha since pulling from develop"
+-    fi
+-fi
+-
+ 
+ rm -fr ${EXTERNAL_DIR}/pufferfish
+-unzip ${EXTERNAL_DIR}/pufferfish.zip -d ${EXTERNAL_DIR}
++mv ${CURR_DIR}/../../pufferfish-${SVER} ${EXTERNAL_DIR}/pufferfish-${SVER}
+ mv ${EXTERNAL_DIR}/pufferfish-${SVER} ${EXTERNAL_DIR}/pufferfish
+ 
+ mkdir -p ${INSTALL_DIR}/include/pufferfish
