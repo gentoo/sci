@@ -3,17 +3,20 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6..8} )
+PYTHON_COMPAT=( python3_{7..9} )
 
 inherit distutils-r1
 
 DESCRIPTION="Fast spike sorting by template matching"
 HOMEPAGE="https://github.com/spyking-circus/spyking-circus/"
 SRC_URI="https://github.com/spyking-circus/spyking-circus/archive/${PV}.tar.gz"
-LICENSE="CeCILL-2"
 
+LICENSE="CeCILL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
+
+# TODO: Fix this
+RESTRICT="test"
 
 RDEPEND="
 	>=dev-python/blosc-1.8[${PYTHON_USEDEP}]
@@ -32,3 +35,6 @@ RDEPEND="
 	|| ( <=sys-cluster/openmpi-3.0.0 >=sys-cluster/mpich-2.0 )
 "
 DEPEND="${RDEPEND}"
+
+distutils_enable_sphinx docs_sphinx --no-autodoc
+distutils_enable_tests --install pytest

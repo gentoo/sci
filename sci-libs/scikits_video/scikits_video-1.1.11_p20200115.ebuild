@@ -3,12 +3,12 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit distutils-r1 eutils virtualx
+inherit distutils-r1 eutils
 
 MY_PN="scikit-video"
-MY_HASH="66919e0828410938a4d52f37987b07f7f5de96af"
+MY_HASH="87c7113a84b50679d9853ba81ba34b557f516b05"
 
 DESCRIPTION="Video processing in Python"
 HOMEPAGE="https://scikit-image.org/"
@@ -16,24 +16,17 @@ SRC_URI="https://github.com/scikit-video/scikit-video/archive/${MY_HASH}.tar.gz 
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="test"
-RESTRICT="!test? ( test )"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	|| ( media-video/ffmpeg media-video/libav )
+	media-video/ffmpeg
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
 	sci-libs/scikit-learn[${PYTHON_USEDEP}]
 	media-video/mediainfo
 "
-DEPEND="${RDEPEND}
-	test? (	dev-python/pytest[${PYTHON_USEDEP}] )
-"
 
 S="${WORKDIR}/${MY_PN}-${MY_HASH}"
 
-python_test() {
-	nosetests -v || die
-}
+distutils_enable_tests pytest
