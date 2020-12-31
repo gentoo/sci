@@ -1,4 +1,4 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2019-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,19 +6,18 @@ EAPI=7
 inherit wxwidgets
 
 DESCRIPTION="CTF estimation (ctffind, ctftilt)"
-HOMEPAGE="http://grigoriefflab.janelia.org/ctf"
-SRC_URI="http://grigoriefflab.janelia.org/sites/default/files/${P}.tar.gz"
+HOMEPAGE="https://grigoriefflab.umassmed.edu/"
+SRC_URI="https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${PV}.tar.gz&file=1&type=node&id=26 -> ${P}.tar.gz"
 
 LICENSE="Janelia-1.2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="
 	sci-libs/fftw:3.0
 	virtual/jpeg
 	media-libs/tiff
-	x11-libs/wxGTK:3.0
+	x11-libs/wxGTK:*
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
