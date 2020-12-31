@@ -51,7 +51,8 @@ PATCHES=(
 	"${FILESDIR}/${PN}"-5.0.11-fslsurface_parallel_make.patch
 	"${FILESDIR}/${PN}"-6.0.2-qstring_compat.patch
 	"${FILESDIR}/${PN}"-5.0.9-headers.patch
-	"${FILESDIR}/${PN}"-6.0.2-fsldir_redux.patch
+	"${FILESDIR}/${PN}"-6.0.2-fsldir_redux-p1.patch
+	"${FILESDIR}/${PN}"-6.0.2-fsldir_redux-p2.patch
 )
 
 src_prepare() {
