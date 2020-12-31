@@ -1,0 +1,339 @@
+--- modeller-9.25/modlib/modeller/__init__.py	(original)
++++ modeller-9.25/modlib/modeller/__init__.py	(refactored)
+@@ -48,7 +48,7 @@
+         return sys.maxsize > 2**32
+     # This works on older Pythons, but not in Python 3
+     else:
+-        return type(sys.dllhandle) == long
++        return type(sys.dllhandle) == int
+ 
+ # Special processing on Windows to find _modeller.pyd and Modeller DLLs:
+ if hasattr(config, 'install_dir') and hasattr(sys, 'dllhandle'):
+--- modeller-9.25/modlib/modeller/coordinates.py	(original)
++++ modeller-9.25/modlib/modeller/coordinates.py	(refactored)
+@@ -147,7 +147,7 @@
+         (startres, endres) = self._get_resind()
+         (startatm, endatm) = get_residue_atom_indices(self.seq, startres,
+                                                       endres)
+-        return (range(startatm+1, endatm+1), self.seq)
++        return (list(range(startatm+1, endatm+1)), self.seq)
+ 
+     atoms = property(__get_atoms, doc="List of all atoms in this chain")
+ 
+@@ -158,7 +158,7 @@
+     def get_atom_indices(self):
+         (startind, endind) = get_residue_atom_indices(self.mdl, self._num,
+                                                       self._num + 1)
+-        return range(startind + 1, endind + 1), self.mdl
++        return list(range(startind + 1, endind + 1)), self.mdl
+ 
+     def __repr__(self):
+         # Get residue number before we do anything else. For alignment
+@@ -252,7 +252,7 @@
+     def get_atom_indices(self):
+         (startind, endind) = get_residue_atom_indices(self.mdl, self.offset,
+                                                       self.offset + len(self))
+-        return range(startind + 1, endind + 1), self.mdl
++        return list(range(startind + 1, endind + 1)), self.mdl
+ 
+     def __getitem__(self, indx):
+         ret = modutil.handle_seq_indx(self, indx, self.mdl._indxres,
+@@ -398,7 +398,7 @@
+             return self.mdl.natm
+ 
+     def get_atom_indices(self):
+-        return range(self.offset + 1, self.offset + len(self) + 1), self.mdl
++        return list(range(self.offset + 1, self.offset + len(self) + 1)), self.mdl
+ 
+     def __getitem__(self, indx):
+         ret = modutil.handle_seq_indx(self, indx, self.mdl._indxatm,
+--- modeller-9.25/modlib/modeller/id_table.py	(original)
++++ modeller-9.25/modlib/modeller/id_table.py	(refactored)
+@@ -40,7 +40,7 @@
+ def write_seqid_matrix(fh, coder, mat):
+     """Write a sequence identity matrix to a file"""
+     nseq = len(mat)
+-    print(" " * 9 + "".join([ s[:8] for s in coder ]))
++    print((" " * 9 + "".join([ s[:8] for s in coder ])))
+     for n1 in range(nseq):
+         fh.write(coder[n1][:8] + " " + \
+                  "".join(["%8d" % (mat[n1][n2]+0.5) for n2 in range(nseq)]))
+--- modeller-9.25/modlib/modeller/libraries.py	(original)
++++ modeller-9.25/modlib/modeller/libraries.py	(refactored)
+@@ -32,7 +32,7 @@
+             return BytesIO(*args)
+     else:
+         def _make_bytes_io(self, *args):
+-            from cStringIO import StringIO
++            from io import StringIO
+             return StringIO(*args)
+ 
+     def __getstate__(self):
+--- modeller-9.25/modlib/modeller/model.py	(original)
++++ modeller-9.25/modlib/modeller/model.py	(refactored)
+@@ -121,7 +121,7 @@
+ 
+     def get_atom_indices(self):
+         """Get the indices of all atoms in this model"""
+-        return (range(1, self.natm+1), self)
++        return (list(range(1, self.natm+1)), self)
+ 
+     def read(self, file, model_format='PDB',
+              model_segment=('FIRST:@', 'LAST:'), io=None,
+@@ -340,7 +340,7 @@
+         dope_score = sel.assess_dope()
+         scorer = normalized_dope.DOPEScorer(self)
+         z_score = scorer.get_z_score(dope_score)
+-        print(">> Normalized DOPE z score: %.3f" % z_score)
++        print((">> Normalized DOPE z score: %.3f" % z_score))
+         return z_score
+ 
+     def assess_normalized_dopehr(self):
+@@ -351,7 +351,7 @@
+         dope_score = sel.assess_dopehr()
+         scorer = normalized_dope.DOPEHRScorer(self)
+         z_score = scorer.get_z_score(dope_score)
+-        print(">> Normalized DOPE-HR z score: %.3f" % z_score)
++        print((">> Normalized DOPE-HR z score: %.3f" % z_score))
+         return z_score
+ 
+     def get_normalized_dope_profile(self):
+--- modeller-9.25/modlib/modeller/model_topology.py	(original)
++++ modeller-9.25/modlib/modeller/model_topology.py	(refactored)
+@@ -50,7 +50,7 @@
+         self.check_args = args
+     def __iter__(self):
+         return self
+-    def next(self):
++    def __next__(self):
+         while True:
+             atoms = self.__int_next()
+             if self.check_func is None \
+@@ -82,7 +82,7 @@
+         self.check_args = args
+     def __iter__(self):
+         return self
+-    def next(self):
++    def __next__(self):
+         while True:
+             atoms = self.__int_next()
+             if self.check_func is None \
+--- modeller-9.25/modlib/modeller/physical.py	(original)
++++ modeller-9.25/modlib/modeller/physical.py	(refactored)
+@@ -31,7 +31,7 @@
+     def __init__(self, default=1.0, **keys):
+         self._default = default
+         self._dict = {}
+-        for (term,val) in keys.items():
++        for (term,val) in list(keys.items()):
+             term = eval("%s" % term)
+             self[term] = val
+ 
+--- modeller-9.25/modlib/modeller/salign.py	(original)
++++ modeller-9.25/modlib/modeller/salign.py	(refactored)
+@@ -38,8 +38,8 @@
+             return aln.salign(auto_overhang=True, overhang_auto_limit=5,
+                               overhang_factor=1, **keys)
+         except modeller.ModellerError:
+-            print("SALIGN with auto_overhang failed: %s" \
+-                  % str(sys.exc_info()[1]))
++            print(("SALIGN with auto_overhang failed: %s" \
++                  % str(sys.exc_info()[1])))
+             print("Retrying without auto_overhang")
+             return aln.salign(**keys)
+ 
+@@ -118,13 +118,13 @@
+                 self.qscore = res.qscorepct
+                 self.aln.write(file=output_aln_file, alignment_format='PIR')
+                 better = True
+-            print("Qlty scrs %g\t%g\t%g" % (open_penalty, extend_penalty,
+-                                            res.qscorepct))
++            print(("Qlty scrs %g\t%g\t%g" % (open_penalty, extend_penalty,
++                                            res.qscorepct)))
+         except modeller.ModellerError:
+-            print("Set of parameters %s %g %g resulted in the "
++            print(("Set of parameters %s %g %g resulted in the "
+                   "following error\t%s" % (str(weights), open_penalty,
+                                            extend_penalty,
+-                                           str(sys.exc_info()[1])))
++                                           str(sys.exc_info()[1]))))
+         return better
+ 
+ 
+@@ -181,7 +181,7 @@
+                 best.try_struc_align(opfile, opfile2, fw2, ogp3d, egp3d,
+                                      align_block)
+ 
+-    print("final max quality = %g" % best.qscore)
++    print(("final max quality = %g" % best.qscore))
+ 
+     if best.found_struc_align:
+         aln.clear()
+--- modeller-9.25/modlib/modeller/saxsdata.py	(original)
++++ modeller-9.25/modlib/modeller/saxsdata.py	(refactored)
+@@ -206,7 +206,7 @@
+         try:
+             fh = open(saxsfilename,'r')
+         except:
+-            print("file "+saxsfilename+" not found :(")
++            print(("file "+saxsfilename+" not found :("))
+             return
+         fh.close()
+         ns = 0
+@@ -225,8 +225,8 @@
+             s_low = s_min - .001
+         if (not s_hi):
+             s_hi = s_max + .001
+-        print("s_min=%s, s_max=%s" % (str(s_min), str(s_max)))
+-        print("s_low=%s, s_hi=%s" % (str(s_low), str(s_hi)))
++        print(("s_min=%s, s_max=%s" % (str(s_min), str(s_max))))
++        print(("s_low=%s, s_hi=%s" % (str(s_low), str(s_hi))))
+         self.ini_saxs(atmsel,
+                  filename=formfacfilename,
+                  s_min=s_min, s_max=s_max, maxs=ns, nmesh=ns, natomtyp=natomtyp,
+--- modeller-9.25/modlib/modeller/selection.py	(original)
++++ modeller-9.25/modlib/modeller/selection.py	(refactored)
+@@ -23,7 +23,7 @@
+             return self.mdl.atoms[obj - 1]
+     else:
+         def next(self):
+-            obj = self.seliter.next()
++            obj = next(self.seliter)
+             return self.mdl.atoms[obj - 1]
+ 
+ class selection(object):
+@@ -52,7 +52,7 @@
+            :rtype: list of ints
+         """
+         if sys.version_info[:2] == (2,3):
+-            keys = self.__selection.keys()
++            keys = list(self.__selection.keys())
+             keys.sort()
+         else:
+             keys = sorted(self.__selection.keys())
+@@ -722,9 +722,9 @@
+     def assess(self, assessor, output='SHORT NO_REPORT', **vars):
+         """Assess with the given assessor object
+            (e.g. :class:`soap_loop.Scorer`)."""
+-        print(">> Model assessment by %s" % assessor.name)
++        print((">> Model assessment by %s" % assessor.name))
+         molpdf, terms = assessor._assess(self, output=output, **vars)
+-        print("%s                     : %12.6f" % (assessor.name, molpdf))
++        print(("%s                     : %12.6f" % (assessor.name, molpdf)))
+         return molpdf
+ 
+     def _dope_energy(self, gprsr, name, output='SHORT NO_REPORT',
+@@ -733,7 +733,7 @@
+                                                     nonbond_spline=1.), **vars):
+         """Internal function to do DOPE or DOPE-HR assessment"""
+         mdl = self.__mdl
+-        print(">> Model assessment by %s potential" % name)
++        print((">> Model assessment by %s potential" % name))
+         edat = self.get_dope_energy_data()
+         old_gprsr = mdl.group_restraints
+         mdl.group_restraints = gprsr
+@@ -744,7 +744,7 @@
+                             **vars)
+         finally:
+             mdl.group_restraints = old_gprsr
+-        print("%s score               : %12.6f" % (name, molpdf))
++        print(("%s score               : %12.6f" % (name, molpdf)))
+         return molpdf
+ 
+     def debug_function(self, residue_span_range=(0, 99999),
+--- modeller-9.25/modlib/modeller/test.py	(original)
++++ modeller-9.25/modlib/modeller/test.py	(refactored)
+@@ -2,7 +2,7 @@
+ import modeller
+ import math
+ try:
+-    from cStringIO import StringIO
++    from io import StringIO
+ except ImportError:
+     from io import StringIO
+ import sys
+@@ -150,7 +150,7 @@
+         diff = abs(num1 - num2)
+         if msg is None:
+             msg = "%f != %f within %g" % (num1, num2, tolerance)
+-        self.assert_(diff < tolerance, msg)
++        self.assertTrue(diff < tolerance, msg)
+ 
+     def run_capture_stdout(self, method, *args, **keys):
+         """Run a method and capture its standard output. Returns both the
+--- modeller-9.25/modlib/modeller/automodel/automodel.py	(original)
++++ modeller-9.25/modlib/modeller/automodel/automodel.py	(refactored)
+@@ -203,13 +203,13 @@
+ 
+     def write_ok_summary(self, all, modeltyp):
+         """Print out a summary of all successfully generated models"""
+-        print("\n>> Summary of successfully produced %s:" % modeltyp)
+-        fields = [x for x in all[0].keys() if x.endswith(' score')]
++        print(("\n>> Summary of successfully produced %s:" % modeltyp))
++        fields = [x for x in list(all[0].keys()) if x.endswith(' score')]
+         fields.sort()
+         fields = ['molpdf'] + fields
+         header = '%-25s ' % 'Filename' + " ".join(['%14s' % x for x in fields])
+         print(header)
+-        print('-' * len(header))
++        print(('-' * len(header)))
+         for mdl in all:
+             text = '%-25s' % mdl['name']
+             for field in fields:
+@@ -222,9 +222,9 @@
+ 
+     def write_failure_summary(self, all, modeltyp):
+         """Print out a summary of all failed models"""
+-        print("\n>> Summary of failed %s:" % modeltyp)
++        print(("\n>> Summary of failed %s:" % modeltyp))
+         for mdl in all:
+-            print("%-25s %s" % (mdl['name'], mdl['failure']))
++            print(("%-25s %s" % (mdl['name'], mdl['failure'])))
+         print('')
+ 
+     def rd_restraints(self):
+@@ -692,8 +692,8 @@
+         elif atmsel.get_model() is not self:
+             raise ModellerError("selection is defined on the wrong model")
+         elif len(atmsel) < len(self.atoms):
+-            print("%d (of %d total) atoms selected for optimization" \
+-                  % (len(atmsel), len(self.atoms)))
++            print(("%d (of %d total) atoms selected for optimization" \
++                  % (len(atmsel), len(self.atoms))))
+         return atmsel
+ 
+     def mkhomcsr(self, atmsel, aln):
+@@ -774,9 +774,9 @@
+         selstd = selection(self).only_std_residues()
+         selca = selstd.only_atom_types('CA')
+ 
+-        print("%d atoms in HETATM/BLK residues constrained\n" % len(selhet) \
++        print(("%d atoms in HETATM/BLK residues constrained\n" % len(selhet) \
+               + "to protein atoms within %.2f angstroms\n" % bond_distance \
+-              + "and protein CA atoms within %.2f angstroms" % ca_distance)
++              + "and protein CA atoms within %.2f angstroms" % ca_distance))
+         # Build the bonds first; this avoids duplicated CA-ligand bonds since
+         # make_distance() will not build restraints that are already on the
+         # nonbond exclusion list
+@@ -823,8 +823,8 @@
+         selhet = selhet.only_no_topology()
+ 
+         # Intra-residue:
+-        print("%d atoms in residues without defined topology\n" % len(selhet) \
+-              + "constrained to be rigid bodies")
++        print(("%d atoms in residues without defined topology\n" % len(selhet) \
++              + "constrained to be rigid bodies"))
+         rsr = self.restraints
+         rsr.make_distance(selhet, selhet, aln=aln,
+                           distance_rsr_model=7, maximal_distance=10.0,
+@@ -898,8 +898,8 @@
+             print("\nThe following CHARMM atom type assignments were made:")
+             print("      Atom                 Old type        New type")
+             for atom, old_type, new_type in zip(sel, old_types, new_types):
+-                print("      %-20s %-15s %-15s"
+-                      % (str(atom), fmt_typ(old_type), fmt_typ(new_type)))
++                print(("      %-20s %-15s %-15s"
++                      % (str(atom), fmt_typ(old_type), fmt_typ(new_type))))
+ 
+     def select_atoms(self):
+         """Select atoms to be optimized in the model building procedure. By
