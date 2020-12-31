@@ -352,7 +352,7 @@ sci-biology/prot4EST 3.1b: Predict proteins from EST sequences overcoming frames
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
 sci-biology/pvmsx 0.1: Parallel multi-FASTA file processing tool
 sci-biology/pybedtools 0.8.0: Use BED and GFF files from python using BEDtools
-sci-biology/pyfaidx 0.5.9.1: Efficient pythonic random access to fasta subsequences
+sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequences
 sci-biology/pysam 0.15.3: Python interface for the SAM/BAM sequence alignment and mapping format
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
 sci-biology/quast 4.4: Compare quality of multiple genome assemblies to each other
