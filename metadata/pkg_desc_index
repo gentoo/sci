@@ -63,6 +63,7 @@ dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3: Statistical and interactive HTML plots
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorlover 0.3.0: color scales in python for humans
+dev-python/datrie 0.8.2: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
 dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
@@ -95,8 +96,11 @@ dev-python/python-igraph 0.8.2 0.8.3: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/ripser 0.5.4 0.6.0: python frontend for the fast ripser tda tool
-dev-python/snakemake 5.10.0: Make-like task language
+dev-python/snakemake 5.31.1: Make-like task language
 dev-python/specutils 9999: Affiliated package for 1D spectral operations
+dev-python/sphinx-argparse 0.2.5: Sphinx extension that automatically documents argparse commands and options
+dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
+dev-python/toposort 1.6: Implements a topological sort algorithm
 dev-python/traits 5.1.0 6.0.0: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/trimesh 3.5.14 3.6.13: Python library for loading and using triangular meshes.
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
@@ -526,7 +530,7 @@ sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
 sci-libs/nipype 1.1.1-r2 1.4.2 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
-sci-libs/pg2plplot 0.2.0 0.3.1: Assist the transition from PGPlot to PLplot in Fortran programs
+sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/pmx 9999: Python library to read PDB, GRO or Gromacs XTC files
 sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
