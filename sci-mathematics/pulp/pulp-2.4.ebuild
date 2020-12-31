@@ -13,7 +13,7 @@ HOMEPAGE="http://pulp-or.googlecode.com/"
 SRC_URI="https://github.com/coin-or/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-2"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
 RDEPEND="dev-python/amply[${PYTHON_USEDEP}]"
