@@ -1,6 +1,7 @@
 # The [Gentoo Science Project](https://wiki.gentoo.org/wiki/Project:Science) Repository    
-![pkgcheck](https://github.com/gentoo/sci/workflows/pkgcheck/badge.svg)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/gentoo/sci/issues)
+[![pkgcheck](https://github.com/gentoo/sci/workflows/pkgcheck/badge.svg)](https://github.com/gentoo/sci/actions?query=workflow%3Apkgcheck)
+[![repoman](https://github.com/gentoo/sci/workflows/repoman/badge.svg)](https://github.com/gentoo/sci/actions?query=workflow%3Arepoman)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/gentoo/sci#guide)
 [![chat on freenode](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/#gentoo-science)
 
 <table>
@@ -21,7 +22,7 @@ The Gentoo [developer manual](https://devmanual.gentoo.org/) take precedence ove
 1. [Installation and usage](#install)
   - [Manual](#install-manual)
   - [Layman](#install-layman)
-2. [Contributor guidelies](#guide)
+2. [Contributor guidelines](#guide)
 
 </td>
 </tr>
