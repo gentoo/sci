@@ -8,10 +8,10 @@ inherit eutils
 DESCRIPTION="An extensible Molecular Modelling System"
 HOMEPAGE="http://www.cgl.ucsf.edu/chimera"
 SRC_URI="chimera-${PV}-linux_x86_64.bin"
+
 SLOT="0"
 LICENSE="chimera"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="prefix? ( dev-util/patchelf )"
 RDEPEND="
