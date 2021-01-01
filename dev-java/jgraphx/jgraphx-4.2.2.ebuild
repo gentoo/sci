@@ -1,31 +1,26 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 JAVA_PKG_IUSE="doc source"
-
-inherit java-pkg-2 java-ant-2 versionator
-
-MY_PV=$(replace_all_version_separators '_')
+inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Open-source graph component for Java"
-HOMEPAGE="http://www.jgraph.com"
-SRC_URI="http://www.jgraph.com/downloads/jgraphx/archive/${PN}-${MY_PV}.zip -> ${P}.zip"
+HOMEPAGE="https://github.com/jgraph"
+SRC_URI="https://github.com/jgraph/jgraphx/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
-SLOT="0"
 LICENSE="BSD"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
+
 IUSE="doc examples source"
 
-DEPEND="
-	>=virtual/jdk-1.5
-	app-arch/unzip"
-RDEPEND=">=virtual/jre-1.5"
-
-S="${WORKDIR}/${PN}"
+DEPEND=">=virtual/jdk-1.7"
+RDEPEND=">=virtual/jre-1.7"
 
 src_prepare() {
+	default
 	# don't do javadoc always
 	sed -i \
 		-e 's/depends="doc"/depends="compile"/' \
