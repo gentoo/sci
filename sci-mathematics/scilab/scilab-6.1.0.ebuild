@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
@@ -13,14 +13,15 @@ DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
 SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
-LICENSE="CeCILL-2.1"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
+
 IUSE="bash-completion debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
-RESTRICT="test"
+#RESTRICT="test"
 
 IUSE_L10N="fr zh zh ru ca de es pt ja it uk pl cs"
 L10N_DOC="fr pt ja ru"
@@ -63,7 +64,7 @@ CDEPEND="
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
-		>=dev-java/batik-1.8-r2:1.8
+		>=dev-java/batik-1.8:=
 		dev-java/commons-io:1
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
@@ -76,10 +77,11 @@ CDEPEND="
 		>=dev-java/jlatexmath-fop-1.0.3:1
 		~dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
+		>dev-java/lucene-2:=[contrib]
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:2
 		virtual/opengl
-		xcos? ( dev-java/jgraphx:2.5 )
+		xcos? ( dev-java/jgraphx:= )
 		)
 	matio? ( >=sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk:0= )
@@ -100,6 +102,7 @@ DEPEND="${CDEPEND}
 		)
 	test? (
 		dev-java/junit:4
+		dev-java/ant-junit4:0
 		gui? ( ${VIRTUALX_DEPEND} ) )"
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
@@ -107,12 +110,8 @@ DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 PATCHES=(
 	"${FILESDIR}/${P}-followlinks.patch"
 	"${FILESDIR}/${P}-gluegen.patch"
-	"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
 	"${FILESDIR}/${P}-accessviolation.patch"
 	"${FILESDIR}/${P}-missinglib.patch"
-	"${FILESDIR}/${P}-batik-1.8.patch"
-	"${FILESDIR}/${P}-fop-2.0.patch"
-	"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch"
 	"${FILESDIR}/${P}-freehep.patch"
 )
 
@@ -147,10 +146,6 @@ pkg_setup() {
 
 src_prepare() {
 	default
-
-	# works for me on x86, but users are having
-	# trouble without see #282 on github
-	append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && eapply "${FILESDIR}/${P}-java-heap.patch"
@@ -190,7 +185,7 @@ src_prepare() {
 		java-pkg_jar-from fop fop.jar
 		java-pkg_jar-from javahelp jhall.jar
 		java-pkg_jar-from jlatexmath-fop-1
-		use xcos &&	java-pkg_jar-from jgraphx-2.5
+		use xcos &&	java-pkg_jar-from jgraphx
 		if use doc; then
 			java-pkg_jar-from --build-only batik-1.8 batik-all.jar
 			java-pkg_jar-from --build-only saxon-9 saxon.jar saxon9he.jar

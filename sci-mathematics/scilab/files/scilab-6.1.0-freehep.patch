@@ -1,11 +1,12 @@
-diff -uNr scilab-5.5.2-orig/configure.ac scilab-5.5.2/configure.ac
---- a/configure.ac	2016-06-05 12:30:06.582735449 -0400
-+++ b/configure.ac	2016-06-05 12:31:29.706708157 -0400
-@@ -1024,7 +1024,7 @@
+diff --git a/configure.ac b/configure.ac
+index f6018580..d783ca96 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1076,7 +1076,7 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                      AC_SUBST(FREEHEP_IO)
  
                      # Freehep Util
--                    AC_JAVA_CHECK_PACKAGE([freehep-util],[org.freehep.util.StringUtilities],[Freehep Util])
+-                    AC_JAVA_CHECK_JAR([freehep-util],[org.freehep.util.StringUtilities],[Freehep Util])
 +                    AC_JAVA_CHECK_PACKAGE([freehep-graphicsbase],[org.freehep.graphicsbase.util.UserProperties],[Freehep Util])
                      FREEHEP_UTIL=$PACKAGE_JAR_FILE
                      AC_SUBST(FREEHEP_UTIL)
