@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -10,10 +10,11 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="https://github.com/GenFit/GenFit.git"
 	KEYWORDS=""
 else
-	TAG_VER=${PN}-code-1688-tags-v${PV//./-}
-	SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${TAG_VER}.zip"
+	EGIT_COMMIT=""
+	MY_PN="GenFit"
+	SRC_URI="https://github.com/GenFit/GenFit/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86"
-	S=${WORKDIR}/${TAG_VER}
+	S="${WORKDIR}/${MY_PN}-${EGIT_COMMIT}"
 fi
 
 DESCRIPTION="Generic toolkit for track reconstruction in physics experiments"
