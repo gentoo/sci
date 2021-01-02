@@ -1,9 +1,10 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python3_4 python3_5 python3_6 )
+PYTHON_COMPAT=( python3_{7,8,9} )
+DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1
 
@@ -14,6 +15,12 @@ SRC_URI="https://bitbucket.org/fenics-project/dijitso/downloads/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-RDEPEND="dev-python/mpi4py"
+RDEPEND="
+	dev-python/mpi4py[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/six[${PYTHON_USEDEP}]
+"
+# TODO: fix this, seems to require self
+#distutils_enable_sphinx doc/sphinx/source
+distutils_enable_tests --install pytest
