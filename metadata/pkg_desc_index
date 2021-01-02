@@ -1,5 +1,4 @@
 app-arch/libdeflate 1.2 1.6: Heavily optimized DEFLATE/zlib/gzip (de)compression
-app-doc/blacs-docs 1.1: Documentation reference for BLACS implementations
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
 dev-cpp/blitz 1.0.2_p20200524 9999: multi-dimensional array library for C++
