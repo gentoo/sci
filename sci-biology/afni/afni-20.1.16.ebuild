@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -39,11 +39,8 @@ S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
 
-PATCHES=(
-	"${FILESDIR}/${P}-python.patch"
-)
-
 src_prepare() {
+	eapply "${FILESDIR}/${P}-python.patch" || die
 	find -type f -exec sed -i -e "s/-lXp //g" {} +
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
 	# Unbundle imcat
