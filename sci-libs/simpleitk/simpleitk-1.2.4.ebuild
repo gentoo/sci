@@ -1,0 +1,65 @@
+# Copyright 1999-2021 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=7
+
+PYTHON_COMPAT=( python3_{6..9} )
+LUA_COMPAT=( lua5-{1..3} )
+
+inherit lua-single toolchain-funcs cmake python-single-r1
+
+MY_PN="SimpleITK"
+
+DESCRIPTION="Layer on top of ITK for rapid prototyping, education and interpreted languages."
+HOMEPAGE="https://simpleitk.org/"
+SRC_URI="
+	https://github.com/SimpleITK/SimpleITK/releases/download/v${PV}/SimpleITK-${PV}.tar.gz
+	https://github.com/SimpleITK/SimpleITK/releases/download/v${PV}/SimpleITKData-${PV}.tar.gz
+"
+RESTRICT="primaryuri"
+
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="python"
+
+RDEPEND="
+	dev-lang/lua:0
+	dev-cpp/gtest
+	sci-libs/itk
+	dev-python/virtualenv
+"
+DEPEND="
+	${RDEPEND}
+	dev-lang/swig
+"
+
+PATCHES=(
+	"${FILESDIR}/${P}-module.patch"
+	"${FILESDIR}/${P}-int-cast.patch"
+)
+
+S="${WORKDIR}/${MY_PN}-${PV}"
+
+src_prepare() {
+	cmake_src_prepare
+	cp -rf "../${MY_PN}-${PV}/.ExternalData" "${BUILD_DIR}/" || die
+}
+
+src_configure() {
+	local mycmakeargs=(
+		-DUSE_SYSTEM_GTEST=ON
+		-DUSE_SYSTEM_ITK=ON
+		-DUSE_SYSTEM_LUA=ON
+		-DUSE_SYSTEM_SWIG=ON
+		-DUSE_SYSTEM_VIRTUALENV=ON
+		-DBUILD_TESTING:BOOL=OFF
+		-DSimpleITK_FORBID_DOWNLOADS=ON
+		-DSimpleITK_PYTHON_USE_VIRTUALENV:BOOL=OFF
+		-DSimpleITK_EXPLICIT_INSTANTIATION=OFF
+		-DModule_SimpleITKFilters:BOOL=ON
+		-DExternalData_OBJECT_STORES:STRING="${BUILD_DIR}/.ExternalData"
+		-DSimpleITK_INSTALL_LIBRARY_DIR=$(get_libdir)
+	)
+	cmake_src_configure
+}
