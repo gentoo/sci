@@ -241,7 +241,8 @@ sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DA
 sci-biology/dawg 1.1.2: DNA Assembly With Gaps: Phylogenetic aligner for sequence evolution simulation
 sci-biology/dcm2niix 1.0.20200331: DICOM to NIfTI converter
 sci-biology/dcmstack 0.8: DICOM to Nifti coversion
-sci-biology/deeptools 2.5.0 9999: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
+sci-biology/deeptools 3.5.0: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
+sci-biology/deeptools-intervals 0.1.9: Constructing interval trees with associated exon/annotation information
 sci-biology/diamond 0.9.19: Alternative of blastp/blastx searches using DNA short reads through protein db
 sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
 sci-biology/dna2pep 1.1: Translate DNA sequence into protein (with STOP codon read-through)
@@ -322,7 +323,7 @@ sci-biology/mrsfast 2.6.0.4: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
 sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1: A subset of NCBI C++ Toolkit containing just the NCBI BLAST+
-sci-biology/ncbi-genome-download 0.2.2: Download genomes from the NCBI FTP servers
+sci-biology/ncbi-genome-download 0.3.0: Download genomes from the NCBI FTP servers
 sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI BLAST+
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/nilearn 0.5.0 0.5.2 0.6.2 9999: Fast and easy statistical learning on NeuroImaging data
@@ -355,7 +356,6 @@ sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene In
 sci-biology/pvmsx 0.1: Parallel multi-FASTA file processing tool
 sci-biology/pybedtools 0.8.0: Use BED and GFF files from python using BEDtools
 sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequences
-sci-biology/pysam 0.15.3: Python interface for the SAM/BAM sequence alignment and mapping format
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
 sci-biology/quast 4.4: Compare quality of multiple genome assemblies to each other
 sci-biology/quicktree 1.1-r1: Rapid reconstruction of phylogenies by the Neighbor-Joining method
@@ -366,7 +366,7 @@ sci-biology/reptile 1.1: Illumina read corrector
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roche454ace2caf 20100812: ace to gap4 converter
 sci-biology/rtg-tools 9999: Manipulate and analyze VCF files
-sci-biology/ruffus 2.6.3 9999: Python module to support computational pipelines
+sci-biology/ruffus 2.8.4: Python module to support computational pipelines
 sci-biology/rum 2.0.5.5: RNA-Seq Unified Mapper (digital normalization)
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/sailfish 0.10.0 9999: Rapid Mapping-based Isoform Quantification from RNA-Seq Reads
@@ -466,7 +466,7 @@ sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NM
 sci-chemistry/pesto 9999: Potential Energy Surface Tools
 sci-chemistry/polygon 0612: shows qualitatively if some models parameters are over- or under-refined
 sci-chemistry/pymol-plugins-psico 9999: Pymol ScrIpt COllection
-sci-chemistry/pyquante 1.6.3-r1 1.6.4: Quantum chemistry package written in Python
+sci-chemistry/pyquante 2.1_p20190721: Quantum chemistry package written in Python
 sci-chemistry/relion 3.0.8: Image-processing software for cryo-electron microscopy
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/ssp 09.11: Secondary structure propensities
@@ -520,7 +520,6 @@ sci-libs/matc 6.0_p4651 8.0 9999: Finite element programs, libraries, and visual
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
 sci-libs/mlpack 3.4.1 3.4.2: scalable C++ machine learning library
 sci-libs/modglue 1.19: C++ library for handling of multiple co-processes
-sci-libs/msms 1.5.6: MSMS library python extension module
 sci-libs/nexus 4.4.3_p20200126: Data format for neutron and x-ray scattering data
 sci-libs/nibabel 2.5.1 3.0.2 9999: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
@@ -584,7 +583,6 @@ sci-misc/mitlm 0.4.1: Tools designed for efficient estimation of statistical n-g
 sci-misc/openfst 1.3.4 1.4.1 1.6.1: Finite State Transducer tools by Google et al
 sci-misc/opennlp-maxent 2.4.0: Maximum entropy model implementation for opennlp
 sci-misc/praat 6.0.26: Speech analysis and synthesis
-sci-misc/pywordnet 2.0.1: Python bindings for wordnet
 sci-misc/stanford-parser 1.6: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 20060521: Stanfords log linear POS taggers
 sci-physics/atompaw 4.0.0.14: PAW atomic data generator
