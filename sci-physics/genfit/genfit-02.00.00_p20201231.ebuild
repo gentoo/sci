@@ -1,24 +1,29 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-DOCS_BUILDER="doxygen"
-DOCS_DIR="doc"
+inherit cmake
 
-inherit cmake docs
-
-TAG_VER=${PN}-code-1688-tags-v${PV//./-}
+if [[ ${PV} == *9999* ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/GenFit/GenFit.git"
+	KEYWORDS=""
+else
+	EGIT_COMMIT="c3546c073e732abc942a08430b6ca3cb36f5339e"
+	MY_PN="GenFit"
+	SRC_URI="https://github.com/GenFit/GenFit/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86"
+	S="${WORKDIR}/${MY_PN}-${EGIT_COMMIT}"
+fi
 
 DESCRIPTION="Generic toolkit for track reconstruction in physics experiments"
-HOMEPAGE="http://genfit.sourceforge.net/Main.html" # no https
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${TAG_VER}.zip"
+HOMEPAGE="https://github.com/GenFit/GenFit"
 
 LICENSE="LGPL-3"
-KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
-IUSE="examples"
+IUSE="doc examples"
 
 RDEPEND="
 	sci-physics/root:=
@@ -26,18 +31,20 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-S=${WORKDIR}/${TAG_VER}
-
 src_compile() {
 	cmake_src_compile
-	docs_compile
+	use doc && cmake_src_compile doc
 	use examples && cmake_src_compile tests
 }
 
 src_install() {
 	cmake_src_install
+	if use doc; then
+		docinto html
+		dodoc -r doc/html/.
+	fi
 	if use examples; then
-		insinto /usr/share/doc/${PF}
+		insinto /usr/share/doc/${PF}/examples
 		doins -r "${BUILD_DIR}/bin"
 		doins test/makeGeom.C
 		doins test/README
