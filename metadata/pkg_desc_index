@@ -57,14 +57,14 @@ dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for Ar
 dev-python/astropy 9999: Core functionality for performing astrophysics with Python
 dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated packages
 dev-python/astroquery 9999: A collection of packages to access online astronomical resources
-dev-python/bcbio-gff 0.6.4: Read and write Generic Feature Format (GFF) with Biopython
+dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/ccdproc 9999: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/datrie 0.8.2: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
-dev-python/dijitso 2016.2.0 2017.1.0: Python module for distributed just-in-time shared library building
+dev-python/dijitso 2017.1.0: Python module for distributed just-in-time shared library building
 dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
@@ -77,9 +77,9 @@ dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 9999: Image processing utilities for Astropy
 dev-python/json_tricks 3.14.0: Extra features for Python's JSON
 dev-python/kmapper 1.4.0 1.4.1: Python implementation of Mapper algorithm for Topological Data Analysis
-dev-python/matrix2latex 1.0.0: A tool to create LaTeX tables from python lists and arrays
+dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/num2words 0.5.6 0.5.9: Modules to convert numbers to words.
+dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.51.2 0.52.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/persim 0.1.3: Distances and representations of persistence diagrams
@@ -105,7 +105,6 @@ dev-python/trimesh 3.5.14 3.6.13: Python library for loading and using triangula
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.4.6: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
-dev-python/viper 1.0.1: Minimalistic scientific plotter and run-time visualization module
 dev-python/xgboost 1.0.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1: Open compressed files transparently
 dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
