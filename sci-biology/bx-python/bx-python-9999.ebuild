@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6..9} )
+PYTHON_COMPAT=( python3_{7..9} )
 
 inherit distutils-r1 git-r3
 
@@ -15,10 +15,16 @@ EGIT_REPO_URI="https://github.com/bxlab/bx-python"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
-RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
-DEPEND="${RDEPEND}
-	dev-python/cython[${PYTHON_USEDEP}]"
+RDEPEND="
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/six[${PYTHON_USEDEP}]
+	!sci-biology/RSeQC
+"
+BDEPEND="dev-python/cython[${PYTHON_USEDEP}]"
 
 # has file collision with sci-biology/RSeQC
+
+# ToDo: fix doc building:
+# Reason: TemplateNotFound('i')
+#distutils_enable_sphinx doc/source

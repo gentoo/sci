@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6..9} )
+PYTHON_COMPAT=( python3_{7..9} )
 
 inherit distutils-r1
 
@@ -13,11 +13,17 @@ SRC_URI="https://github.com/bxlab/bx-python/archive/v${PV}.tar.gz -> ${P}.tar.gz
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE=""
+KEYWORDS="~amd64 ~x86"
 
-RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
-DEPEND="${RDEPEND}
-	dev-python/cython[${PYTHON_USEDEP}]"
+RDEPEND="
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/six[${PYTHON_USEDEP}]
+	!sci-biology/RSeQC
+"
+BDEPEND="dev-python/cython[${PYTHON_USEDEP}]"
 
 # has file collision with sci-biology/RSeQC
+
+# ToDo: fix doc building:
+# Reason: TemplateNotFound('i')
+#distutils_enable_sphinx doc/source
