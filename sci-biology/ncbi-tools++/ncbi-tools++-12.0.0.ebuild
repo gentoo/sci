@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -38,6 +38,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 # sys-libs/db should be compiled with USE=cxx
 # dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
 DEPEND="
+	<sys-devel/gcc-10:=
 	!sci-biology/sra_sdk
 	app-arch/cpio
 	berkdb? ( sys-libs/db:4.3[cxx] )
@@ -83,7 +84,21 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
 
+PATCHES=(
+		"${FILESDIR}"/${P}-conf-opts.patch
+		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
+		"${FILESDIR}"/${P}-linkage-tuneups.patch
+		"${FILESDIR}"/${P}-more-patches.patch
+		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
+		"${FILESDIR}"/${P}-configure.patch
+		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
+		"${FILESDIR}"/${P}-fix-install.patch
+		"${FILESDIR}"/${P}-bdb6.patch
+		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
+		)
+
 src_prepare() {
+	default
 #	filter-ldflags -Wl,--as-needed
 #	append-ldflags -Wl,--no-undefined
 #	sed -i -e 's/-print-file-name=libstdc++.a//' \
@@ -110,24 +125,11 @@ src_prepare() {
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
 
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
-	local PATCHES=(
-		"${FILESDIR}"/${P}-conf-opts.patch
-		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
-		"${FILESDIR}"/${P}-linkage-tuneups.patch
-		"${FILESDIR}"/${P}-more-patches.patch
-		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
-		"${FILESDIR}"/${P}-configure.patch
-		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
-		"${FILESDIR}"/${P}-fix-install.patch
-		"${FILESDIR}"/${P}-bdb6.patch
-		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
-		)
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch
 #       "${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
 #		)
 		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
-	epatch ${PATCHES[@]}
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 
