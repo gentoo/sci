@@ -1,0 +1,159 @@
+diff --git a//include/clRNG/private/Random123/features/compilerfeatures.h b//include/clRNG/private/Random123/features/compilerfeatures.h
+index a2a56bf..48d2ed2 100644
+--- a//include/clRNG/private/Random123/features/compilerfeatures.h
++++ b//include/clRNG/private/Random123/features/compilerfeatures.h
+@@ -253,7 +253,7 @@ added to each of the *features.h files, AND to examples/ut_features.cpp.
+ #endif
+ 
+ #ifndef R123_STATIC_ASSERT
+-#if R123_USE_CXX11_STATIC_ASSERT
++#ifdef R123_USE_CXX11_STATIC_ASSERT
+ #define R123_STATIC_ASSERT(expr, msg) static_assert(expr, msg)
+ #else
+     /* if msg always_looked_like_this, we could paste it into the name.  Worth it? */
+@@ -262,7 +262,7 @@ added to each of the *features.h files, AND to examples/ut_features.cpp.
+ #endif
+ 
+ #ifndef R123_CONSTEXPR
+-#if R123_USE_CXX11_CONSTEXPR
++#ifdef R123_USE_CXX11_CONSTEXPR
+ #define R123_CONSTEXPR constexpr
+ #else
+ #define R123_CONSTEXPR
+diff --git a//include/clRNG/private/Random123/features/sse.h b//include/clRNG/private/Random123/features/sse.h
+index 88efd65..d95cf67 100644
+--- a//include/clRNG/private/Random123/features/sse.h
++++ b//include/clRNG/private/Random123/features/sse.h
+@@ -32,36 +32,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ #ifndef _Random123_sse_dot_h__
+ #define _Random123_sse_dot_h__
+ 
+-#if R123_USE_SSE
++#ifdef R123_USE_SSE
+ 
+-#if R123_USE_X86INTRIN_H
++#ifdef R123_USE_X86INTRIN_H
+ #include <x86intrin.h>
+-#endif
+-#if R123_USE_IA32INTRIN_H
++#elif defined R123_USE_IA32INTRIN_H
+ #include <ia32intrin.h>
+ #endif
+-#if R123_USE_XMMINTRIN_H
++#ifdef R123_USE_XMMINTRIN_H
+ #include <xmmintrin.h>
+ #endif
+-#if R123_USE_EMMINTRIN_H
++#ifdef R123_USE_EMMINTRIN_H
+ #include <emmintrin.h>
+ #endif
+-#if R123_USE_SMMINTRIN_H
++#ifdef R123_USE_SMMINTRIN_H
+ #include <smmintrin.h>
+ #endif
+-#if R123_USE_WMMINTRIN_H
++#ifdef R123_USE_WMMINTRIN_H
+ #include <wmmintrin.h>
+ #endif
+-#if R123_USE_INTRIN_H
+-#include <intrin.h>
+-#endif
++
+ #ifdef __cplusplus
+ #include <iostream>
+ #include <limits>
+ #include <stdexcept>
+ #endif
+ 
+-#if R123_USE_ASM_GNU
++#ifdef R123_USE_ASM_GNU
+ 
+ /* bit25 of CX tells us whether AES is enabled. */
+ R123_STATIC_INLINE int haveAESNI(){
+@@ -147,7 +144,7 @@ R123_STATIC_INLINE __m128 _mm_castsi128_ps(__m128i si){
+ 
+ struct r123m128i{
+     __m128i m;
+-#if R123_USE_CXX11_UNRESTRICTED_UNIONS
++#ifdef R123_USE_CXX11_UNRESTRICTED_UNIONS
+     // C++98 forbids a union member from having *any* constructors.
+     // C++11 relaxes this, and allows union members to have constructors
+     // as long as there is a "trivial" default construtor.  So in C++11
+@@ -158,7 +155,7 @@ struct r123m128i{
+ #endif
+     r123m128i& operator=(const __m128i& rhs){ m=rhs; return *this;}
+     r123m128i& operator=(R123_ULONG_LONG n){ m = _mm_set_epi64x(0, n); return *this;}
+-#if R123_USE_CXX11_EXPLICIT_CONVERSIONS
++#ifdef R123_USE_CXX11_EXPLICIT_CONVERSIONS
+     // With C++0x we can attach explicit to the bool conversion operator
+     // to disambiguate undesired promotions.  For g++, this works
+     // only in 4.5 and above.
+@@ -171,7 +168,7 @@ struct r123m128i{
+     operator __m128i() const {return m;}
+ 
+ private:
+-#if R123_USE_SSE4_1
++#ifdef R123_USE_SSE4_1
+     bool _bool() const{ return !_mm_testz_si128(m,m); }
+ #else
+     bool _bool() const{ return 0xf != _mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(m, _mm_setzero_si128()))); }
+@@ -183,7 +180,7 @@ R123_STATIC_INLINE r123m128i& operator++(r123m128i& v){
+     __m128i zeroone = _mm_set_epi64x(R123_64BIT(0), R123_64BIT(1));
+     c = _mm_add_epi64(c, zeroone);
+     //return c;
+-#if R123_USE_SSE4_1
++#ifdef R123_USE_SSE4_1
+     __m128i zerofff = _mm_set_epi64x(0, ~(R123_64BIT(0)));
+     if( R123_BUILTIN_EXPECT(_mm_testz_si128(c,zerofff), 0) ){
+         __m128i onezero = _mm_set_epi64x(R123_64BIT(1), R123_64BIT(0));
+diff --git a//include/clRNG/private/Random123/philox.h b//include/clRNG/private/Random123/philox.h
+index 9c87384..96ebcc6 100644
+--- a//include/clRNG/private/Random123/philox.h
++++ b//include/clRNG/private/Random123/philox.h
+@@ -171,7 +171,7 @@ R123_STATIC_INLINE Word mulhilo##W(Word a, Word b, Word *hip){               \
+ // which *might* compile into better code than
+ // _mulhilo_dword_tpl 
+ */
+-#if R123_USE_MULHILO32_ASM
++#ifdef R123_USE_MULHILO32_ASM
+ #ifdef __powerpc__
+ _mulhilo_asm_tpl(32, uint32_t, "mulhwu")
+ #else
+@@ -181,8 +181,8 @@ _mulhilo_asm_tpl(32, uint32_t, "mull")
+ _mulhilo_dword_tpl(32, uint32_t, uint64_t)
+ #endif
+ 
+-#if R123_USE_PHILOX_64BIT
+-#if R123_USE_MULHILO64_ASM
++#ifdef R123_USE_PHILOX_64BIT
++#ifdef R123_USE_MULHILO64_ASM
+ #ifdef __powerpc64__
+ _mulhilo_asm_tpl(64, uint64_t, "mulhdu")
+ #else
+@@ -337,7 +337,7 @@ _philox4xWround_tpl(32, uint32_t)            /* philo4x32round */
+ /** \endcond */
+ _philoxNxW_tpl(2, 1, 32, uint32_t)    /* philox2x32bijection */
+ _philoxNxW_tpl(4, 2, 32, uint32_t)    /* philox4x32bijection */
+-#if R123_USE_PHILOX_64BIT
++#ifdef R123_USE_PHILOX_64BIT
+ /** \cond HIDDEN_FROM_DOXYGEN */
+ _philox2xWbumpkey_tpl(64)
+ _philox4xWbumpkey_tpl(64)
+@@ -350,7 +350,7 @@ _philoxNxW_tpl(4, 2, 64, uint64_t)    /* philox4x64bijection */
+ 
+ #define philox2x32(c,k) philox2x32_R(philox2x32_rounds, c, k)
+ #define philox4x32(c,k) philox4x32_R(philox4x32_rounds, c, k)
+-#if R123_USE_PHILOX_64BIT
++#ifdef R123_USE_PHILOX_64BIT
+ #define philox2x64(c,k) philox2x64_R(philox2x64_rounds, c, k)
+ #define philox4x64(c,k) philox4x64_R(philox4x64_rounds, c, k)
+ #endif /* R123_USE_PHILOX_64BIT */
+@@ -379,7 +379,7 @@ typedef Philox##N##x##W##_R<philox##N##x##W##_rounds> Philox##N##x##W; \
+ 
+ _PhiloxNxW_base_tpl(r123array2x32, r123array1x32, 2, 32) // Philox2x32_R<R>
+ _PhiloxNxW_base_tpl(r123array4x32, r123array2x32, 4, 32) // Philox4x32_R<R>
+-#if R123_USE_PHILOX_64BIT
++#ifdef R123_USE_PHILOX_64BIT
+ _PhiloxNxW_base_tpl(r123array2x64, r123array1x64, 2, 64) // Philox2x64_R<R>
+ _PhiloxNxW_base_tpl(r123array4x64, r123array2x64, 4, 64) // Philox4x64_R<R>
+ #endif

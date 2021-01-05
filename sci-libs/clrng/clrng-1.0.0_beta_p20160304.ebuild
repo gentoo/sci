@@ -19,9 +19,10 @@ if [ ${PV} == "9999" ] ; then
 	EGIT_REPO_URI="https://github.com/clMathLibraries/${MY_PN}.git"
 	S="${WORKDIR}/${P}/src"
 else
-	SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	COMMIT="4a16519ddf52ee0a5f0b7e6288b0803b9019c13b"
+	SRC_URI="https://github.com/clMathLibraries/${MY_PN}/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64"
-	S="${WORKDIR}/${MY_PN}-${PV}/src"
+	S="${WORKDIR}/${MY_PN}-${COMMIT}/src"
 fi
 
 LICENSE="BSD-2 BSD"
