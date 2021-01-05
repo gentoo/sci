@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -28,13 +28,14 @@ IUSE="
 	berkdb boost bzip2 cppunit curl expat fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 #KEYWORDS=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="
+	<sys-devel/gcc-10:=
 	!sci-biology/ncbi-tools++
 	!sci-biology/sra_sdk
 	berkdb? ( sys-libs/db:4.3[cxx] )
