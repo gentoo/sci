@@ -24,7 +24,6 @@ dev-lang/berkeley_upc_translator 2.16.2 2.18.2 2.28.0: The Berkeley UPC-to-C tra
 dev-lang/conceptual 1.4: A Network Correctness and Performance Testing Language
 dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
 dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
-dev-lang/path64 9999: Path64 Compiler Suite Community Edition
 dev-lang/pgi 13.5: PGI compiler suite
 dev-lang/terra 2015.03.12: A low-level counterpart to Lua
 dev-lang/vtune 18.0.2.0.551022 19.0.4.0.597835 2020.1.0.607630: Intel VTune Profiler
