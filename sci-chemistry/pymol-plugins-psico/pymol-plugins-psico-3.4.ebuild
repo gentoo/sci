@@ -1,25 +1,26 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{7,8,9} )
+DISTUTILS_USE_SETUPTOOLS=no
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 DESCRIPTION="Pymol ScrIpt COllection"
 HOMEPAGE="https://github.com/speleo3/pymol-psico/"
-SRC_URI=""
-EGIT_REPO_URI="git://github.com/speleo3/pymol-psico.git"
+SRC_URI="https://github.com/speleo3/pymol-psico/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 LICENSE="BSD-2"
 IUSE="minimal"
 
+S="${WORKDIR}/pymol-psico-${PV}"
+
 RDEPEND="
-	dev-python/numpy[${PYTHON_USEDEP}]
-	sci-biology/biopython[${PYTHON_USEDEP}]
+	sci-chemistry/pymol[${PYTHON_USEDEP}]
 	!minimal? (
 		media-libs/qhull
 		media-video/mplayer
