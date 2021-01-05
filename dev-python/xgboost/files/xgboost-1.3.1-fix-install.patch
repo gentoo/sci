@@ -1,0 +1,31 @@
+The BUILD_TEMP_DIR variable is set in the build phase but is no
+longer available in the install phase. We write the variable to
+a tmp file and read it later in the install phase as a workaround
+diff --git a/setup.py b/setup.py
+index 6244066..934e7cf 100644
+--- a/setup.py
++++ b/setup.py
+@@ -137,6 +137,11 @@ class BuildExt(build_ext.build_ext):  # pylint: disable=too-many-ancestors
+         build_dir = self.build_temp
+         global BUILD_TEMP_DIR  # pylint: disable=global-statement
+         BUILD_TEMP_DIR = build_dir
++        tmp_workdir = os.environ["WORKDIR"]
++        py_vers = os.environ["EPYTHON"]
++        f = open(tmp_workdir + f"/build-path-{py_vers}.txt", "w")
++        f.write(BUILD_TEMP_DIR)
++        f.close()
+         libxgboost = os.path.abspath(
+             os.path.join(CURRENT_DIR, os.path.pardir, 'lib', lib_name()))
+ 
+@@ -229,6 +234,11 @@ class InstallLib(install_lib.install_lib):
+         dst = os.path.join(self.install_dir, 'xgboost', 'lib', lib_name())
+ 
+         global BUILD_TEMP_DIR   # pylint: disable=global-statement
++        tmp_workdir = os.environ["WORKDIR"]
++        py_vers = os.environ["EPYTHON"]
++        f = open(tmp_workdir + f"/build-path-{py_vers}.txt", "r")
++        BUILD_TEMP_DIR = f.read()
++        f.close()
+         libxgboost_path = lib_name()
+ 
+         dft_lib_dir = os.path.join(CURRENT_DIR, os.path.pardir, 'lib')
