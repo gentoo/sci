@@ -466,7 +466,6 @@ sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chem
 sci-chemistry/nmrpipe 8.7.2015.320.15.26: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/openbabel-java 9999: Java bindings for OpenBabel
-sci-chemistry/openbabel-python 9999: Python bindings for OpenBabel (including Pybel)
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/polygon 0612: shows qualitatively if some models parameters are over- or under-refined
