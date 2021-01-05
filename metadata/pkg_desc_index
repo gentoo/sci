@@ -446,7 +446,6 @@ sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical sh
 sci-chemistry/chimera-bin 1.11.2 1.14: An extensible Molecular Modelling System
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/cpmgfit 1.43: non-linear least squares fitting of CPMG relaxation dispersion curves
-sci-chemistry/cs-rosetta 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
 sci-chemistry/ctffind 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/curvefit 1.40: Linear and non-linear least squares fitting
 sci-chemistry/dl_poly 1.9 4.05: a general purpose molecular dynamics simulation package
