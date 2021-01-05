@@ -6,5 +6,5 @@ KEYWORDS=~amd64
 LICENSE=all-rights-reserved
 SLOT=0
 SRC_URI=ftp://ftp.sanger.ac.uk/pub/users/rd/hexamer.tar.gz -> hexamer-19990330.tar.gz
-_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	605c126bed8d87e4378d5ff1645330cb
+_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
 _md5_=5677b2fd2ba821e6e901ce142e3b6703
