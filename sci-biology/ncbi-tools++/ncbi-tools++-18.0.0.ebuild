@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -30,13 +30,14 @@ IUSE="
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # sys-libs/db should be compiled with USE=cxx
 # dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
 DEPEND="
+	<sys-devel/gcc-10:=
 	!sci-biology/sra_sdk
 	app-arch/cpio
 	berkdb? ( sys-libs/db:4.3[cxx] )
@@ -82,7 +83,34 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
 
+PATCHES=(
+		"${FILESDIR}"/${P}-configure.patch
+		"${FILESDIR}"/${P}-fix-install.patch
+		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
+		"${FILESDIR}"/${P}-fix-annotwriter-linking.patch
+		"${FILESDIR}"/${P}-fix-undefined-xobjread.patch
+		"${FILESDIR}"/${P}-fix-apps-blast-linking.patch
+		"${FILESDIR}"/${P}-fix-sample-app-cgi-linking.patch
+		"${FILESDIR}"/${P}-fix-app-compartp-linking.patch
+		"${FILESDIR}"/${P}-fix-app-convert_seq-linking.patch
+		"${FILESDIR}"/${P}-fix-app-hfilter-linking.patch
+		"${FILESDIR}"/${P}-fix-app-igblast-linking.patch
+		"${FILESDIR}"/${P}-fix-ncfetch-linking.patch
+		"${FILESDIR}"/${P}-fix-netcache_cgi_sample-linking.patch
+		"${FILESDIR}"/${P}-fix-netstorage_gc-linking.patch
+		"${FILESDIR}"/${P}-fix-speedtest-linking.patch
+		"${FILESDIR}"/${P}-fix-splign-linking.patch
+		"${FILESDIR}"/${P}-fix-srcchk-linking.patch
+		"${FILESDIR}"/${P}-fix-app-rmblastn-linking.patch
+		"${FILESDIR}"/${P}-remove-old-symlinks.patch
+		"${FILESDIR}"/${P}-fix-app-table2asn-linking.patch
+		"${FILESDIR}"/${P}-fix-app-tls-linking.patch
+		"${FILESDIR}"/${P}-fix-app-vecscreen-linking.patch
+		"${FILESDIR}"/${P}-fix-app-blast_sample-linking.patch
+		)
+
 src_prepare() {
+	default
 #	filter-ldflags -Wl,--as-needed
 #	append-ldflags -Wl,--no-undefined
 #	sed -i -e 's/-print-file-name=libstdc++.a//' \
@@ -109,33 +137,7 @@ src_prepare() {
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
 
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
-	local PATCHES=(
-		"${FILESDIR}"/${P}-configure.patch
-		"${FILESDIR}"/${P}-fix-install.patch
-		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
-		"${FILESDIR}"/${P}-fix-annotwriter-linking.patch
-		"${FILESDIR}"/${P}-fix-undefined-xobjread.patch
-		"${FILESDIR}"/${P}-fix-apps-blast-linking.patch
-		"${FILESDIR}"/${P}-fix-sample-app-cgi-linking.patch
-		"${FILESDIR}"/${P}-fix-app-compartp-linking.patch
-		"${FILESDIR}"/${P}-fix-app-convert_seq-linking.patch
-		"${FILESDIR}"/${P}-fix-app-hfilter-linking.patch
-		"${FILESDIR}"/${P}-fix-app-igblast-linking.patch
-		"${FILESDIR}"/${P}-fix-ncfetch-linking.patch
-		"${FILESDIR}"/${P}-fix-netcache_cgi_sample-linking.patch
-		"${FILESDIR}"/${P}-fix-netstorage_gc-linking.patch
-		"${FILESDIR}"/${P}-fix-speedtest-linking.patch
-		"${FILESDIR}"/${P}-fix-splign-linking.patch
-		"${FILESDIR}"/${P}-fix-srcchk-linking.patch
-		"${FILESDIR}"/${P}-fix-app-rmblastn-linking.patch
-		"${FILESDIR}"/${P}-remove-old-symlinks.patch
-		"${FILESDIR}"/${P}-fix-app-table2asn-linking.patch
-		"${FILESDIR}"/${P}-fix-app-tls-linking.patch
-		"${FILESDIR}"/${P}-fix-app-vecscreen-linking.patch
-		"${FILESDIR}"/${P}-fix-app-blast_sample-linking.patch
-		)
 	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
-	epatch ${PATCHES[@]}
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 

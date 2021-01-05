@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 
@@ -30,13 +30,14 @@ IUSE="
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # sys-libs/db should be compiled with USE=cxx
 # dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
 DEPEND="
+	<sys-devel/gcc-10:=
 	!sci-biology/sra_sdk
 	app-arch/cpio
 	berkdb? ( sys-libs/db:4.3[cxx] )
@@ -83,6 +84,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
+	default
 #	filter-ldflags -Wl,--as-needed
 #	append-ldflags -Wl,--no-undefined
 #	sed -i -e 's/-print-file-name=libstdc++.a//' \
@@ -254,7 +256,7 @@ src_configure() {
 	$(use_with mesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
 	$(use_with opengl glew "${EPREFIX}/usr")
-	$(use_with opengl glew-mx)
+#	$(use_with opengl glew-mx) can't find this with any version of media-libs/glew installed: explicitly specified, but no usable version found.
 	$(use_with wxwidgets wxwidgets "${EPREFIX}/usr")
 	$(use_with wxwidgets wxwidgets-ucs)
 	$(use_with freetype freetype "${EPREFIX}/usr")
