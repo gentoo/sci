@@ -199,7 +199,6 @@ sci-biology/bam-readcount 0.8.0 9999: Count DNA sequence reads in BAM files and 
 sci-biology/bambino 1.02 1.06: display SAM/BAM files and for SNP/indel detection, report coverage in .wig files
 sci-biology/bambus 2.33: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
 sci-biology/bamql 1.6.1 9999: Extract reads from BAM files
-sci-biology/barnacle 1.0.4: Check de novo assembly for chimeric contigs/transcripts
 sci-biology/barrnap 0.9: Predict Bacterial and Archaeal rRNA genes and output in GFF3 format
 sci-biology/beagle 4.0: Genotype calling/phasing, imputation of ungenotyped markers
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
@@ -266,7 +265,7 @@ sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymor
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/gap2caf 2.1.0: GAP4 file format to CAF v2 format converter for genomic assembly data
-sci-biology/gemini 9999: Lightweight VCF to DB framework for disease and population genetics
+sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
 sci-biology/geneid 1.4.4: An ab initio exon/gene finding program
 sci-biology/genepop 4.2.1 4.7: Population genetics analysis
 sci-biology/generecon 1.2.1-r1: Disequilibrium gene mapping based on coalescent theory using Bayesian MC methods
@@ -283,7 +282,6 @@ sci-biology/grappa 2.0: Genome Rearrangements Analysis under Parsimony and other
 sci-biology/grass 9999: Scaffold next-generation sequencing assemblies
 sci-biology/hexamer 19990330: Predict CDS using 6mers without deriving information from base composition
 sci-biology/hisat2 2.2.1: Align DNA reads to a population of genomes
-sci-biology/hts-python 9999: Pythonic wrapper for htslib C-API using python cffi (unlike pysam)
 sci-biology/hydra-sv 0.5.3: Detection of structural variation breakpoints
 sci-biology/idba 1.1.1 9999: De novo De Bruijn graph assembler iteratively using multimple k-mers
 sci-biology/igv 2.3.47 2.3.81 2.3.88 2.3.92: Integrative Genomics Viewer
@@ -359,7 +357,7 @@ sci-biology/pvmsx 0.1: Parallel multi-FASTA file processing tool
 sci-biology/pybedtools 0.8.0: Use BED and GFF files from python using BEDtools
 sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequences
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
-sci-biology/quast 4.4: Compare quality of multiple genome assemblies to each other
+sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each other
 sci-biology/quicktree 1.1-r1: Rapid reconstruction of phylogenies by the Neighbor-Joining method
 sci-biology/quorum 1.1.1: Correct substitution errors in Illumina reads
 sci-biology/reaper 15348: Demultiplex, trim 3'-adapter/polyA and filter short read DNA sequences
@@ -383,7 +381,6 @@ sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka
 sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
 sci-biology/screed 1.0.4: Short read sequence utilities
 sci-biology/scythe 0.992: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
-sci-biology/seq_crumbs 0.1.9: Filter, split and trim NGS sequence data
 sci-biology/seqclean 110625: Trimpoly and mdust for trimming and validation of ESTs/DNA sequences
 sci-biology/seqtk 1.3: Manipulate FASTA and FASTQ files
 sci-biology/seqtools 4.44.1: Display alignments and GFF files, matrix dot plots (blixem, dotter, belvu)
@@ -414,7 +411,7 @@ sci-biology/tablet 1.17.08.17 9999: Viewer of next generation sequence assemblie
 sci-biology/tablet-bin 1.17.08.17: Viewer of next generation sequence assemblies and alignments
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
 sci-biology/tclust 110625: Transitive closure clustering tool with overlap filtering options
-sci-biology/tigmint 1.1.0: Correct misassemblies using linked reads from 10x Genomics Chromium
+sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
 sci-biology/tigr-foundation-libs 2.0-r1: TIGR Foundation for C++
 sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
 sci-biology/trans-abyss 1.4.8: Analyze and combine multiple assemblies from abyss
