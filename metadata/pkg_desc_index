@@ -459,7 +459,6 @@ sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to 
 sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
 sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
 sci-chemistry/mddnmr 2.4-r1: Program for processing of NUS multidimensional NMR spectra
-sci-chemistry/mdsctk 1.2.0: Molecular Dynamics Spectral Clustering Toolkit
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
 sci-chemistry/modelfree 4.20: Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data
 sci-chemistry/modeller 9.25: Homology or comparative modeling of protein three-dimensional structures
