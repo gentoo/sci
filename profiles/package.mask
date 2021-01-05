@@ -105,8 +105,6 @@ sci-biology/pairagon
 sci-biology/polyphen
 sci-biology/primerD
 sci-biology/prokka
-sci-biology/pysamstats
-sci-biology/quast
 sci-biology/reptile
 sci-biology/RSeQC
 sci-biology/scaffold_builder
