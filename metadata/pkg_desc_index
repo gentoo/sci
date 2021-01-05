@@ -56,9 +56,10 @@ dev-python/POT 0.7.0: Python Optimal Transport Library
 dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
 dev-python/amply 0.1.4: Allows you to load and manipulate AMPL/GLPK data as Python data structures
 dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
-dev-python/astropy 9999: Core functionality for performing astrophysics with Python
-dev-python/astropy-helpers 3.2.2 4.0.1 9999: Helpers for Astropy and Affiliated packages
-dev-python/astroquery 9999: A collection of packages to access online astronomical resources
+dev-python/astropy 4.2: Core functionality for performing astrophysics with Python
+dev-python/astropy-helpers 4.0.1: Helpers for Astropy and Affiliated packages
+dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated packages
+dev-python/astroquery 0.4.1: A collection of packages to access online astronomical resources
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
@@ -68,6 +69,7 @@ dev-python/datrie 0.8.2: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2017.1.0: Python module for distributed just-in-time shared library building
 dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
+dev-python/extension-helpers 0.1: Utilities for building and installing packages in the Astropy ecosystem
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
 dev-python/fslpy 2.8.4: The FSL Python Library
@@ -85,13 +87,15 @@ dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.51.2 0.52.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/persim 0.1.3: Distances and representations of persistence diagrams
-dev-python/photutils 9999: Affiliated package for image photometry utilities
+dev-python/photutils 1.0.1: Affiliated package for image photometry utilities
 dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.8.6: PEP 561 type stubs generator for pybind11 modules
+dev-python/pyerfa 1.7.1.1: Python bindings for ERFA
 dev-python/pynndescent 0.4.8 0.5.1: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
+dev-python/pytest-doctestplus 0.8.0: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.8.2 0.8.3: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
@@ -101,6 +105,8 @@ dev-python/ripser 0.5.4 0.6.0: python frontend for the fast ripser tda tool
 dev-python/snakemake 5.31.1: Make-like task language
 dev-python/specutils 9999: Affiliated package for 1D spectral operations
 dev-python/sphinx-argparse 0.2.5: Sphinx extension that automatically documents argparse commands and options
+dev-python/sphinx-astropy 1.3: Sphinx extensions and configuration specific to the Astropy project
+dev-python/sphinx-automodapi 0.13: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
 dev-python/toposort 1.6: Implements a topological sort algorithm
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
