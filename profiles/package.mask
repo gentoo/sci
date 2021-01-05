@@ -42,7 +42,6 @@ dev-lang/conceptual
 dev-lang/pgi
 dev-ml/lacaml
 dev-perl/Bio-EnsEMBL
-dev-python/xgboost
 dev-util/f90cache
 sci-biology/aghermann
 sci-biology/argo-bin
