@@ -1,14 +1,14 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # Versioning is output of nmrPipe -help
 
-EAPI=6
+EAPI=7
 
-inherit eutils virtualx
+inherit virtualx
 
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
-HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
+HOMEPAGE="https://www.ibbr.umd.edu/nmrpipe"
 #SRC_URI="
 #	NMRPipeX.tZ
 #	talos.tZ
@@ -16,12 +16,12 @@ HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
 #	binval.com
 #	install.com"
 SRC_URI="
-	http://spin.niddk.nih.gov/NMRPipe/install/download/install.com -> install-${PV}.com
-	http://spin.niddk.nih.gov/NMRPipe/install/download/binval.com -> binval-${PV}.com
-	http://spin.niddk.nih.gov/NMRPipe/install/download/NMRPipeX.tZ -> NMRPipeX-${PV}.tZ
-	http://spin.niddk.nih.gov/NMRPipe/install/download/plugin.smile.tZ -> plugin.smile-${PV}.tZ
-	http://spin.niddk.nih.gov/NMRPipe/install/download/talos.tZ -> talos-${PV}.tZ
-	http://spin.niddk.nih.gov/NMRPipe/install/download/dyn.tZ -> dyn-${PV}.tZ
+	https://www.ibbr.umd.edu/nmrpipe/install.com -> install-${PV}.com
+	https://www.ibbr.umd.edu/nmrpipe/binval.com -> binval-${PV}.com
+	https://www.ibbr.umd.edu/nmrpipe/NMRPipeX.tZ -> NMRPipeX-${PV}.tZ
+	https://www.ibbr.umd.edu/nmrpipe/plugin.smile.tZ -> plugin.smile-${PV}.tZ
+	https://www.ibbr.umd.edu/nmrpipe/talos.tZ -> talos-${PV}.tZ
+	https://www.ibbr.umd.edu/nmrpipe/dyn.tZ -> dyn-${PV}.tZ
 	"
 
 SLOT="0"
@@ -30,10 +30,9 @@ LICENSE="nmrpipe"
 # x86 architecture. The maintainer chose to keep the sources closed, but
 # says he will gladly provide precompiled executables for other platforms
 # if there are such requests.
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64 ~x86"
 
-RESTRICT="strip"
+RESTRICT="strip bindist mirror"
 
 DEPEND="app-shells/tcsh"
 RDEPEND="${DEPEND}
@@ -43,10 +42,10 @@ RDEPEND="${DEPEND}
 	media-fonts/font-sun-misc
 	!sci-chemistry/sparta+
 	!sci-chemistry/talos+
-	sys-libs/ncurses:5/5
+	sys-libs/ncurses-compat:5/5
 	x11-apps/xset
-	|| ( x11-libs/xview x11-libs/xview-bin )
-	!prefix? ( >=x11-libs/libX11-1.6.2[abi_x86_32(-)] )
+	x11-libs/xview-bin
+	!prefix? ( >=x11-libs/libX11-1.6.2 )
 	prefix? ( dev-util/patchelf )"
 
 S="${WORKDIR}/NMR"
@@ -69,7 +68,7 @@ src_unpack() {
 	# ... and make the installation scripts executable.
 	chmod +x *.com || die
 	VIRTUALX_COMMAND="csh"
-	virtualmake \
+	virtx \
 		./install.com \
 		+type $(usex x86 linux9 linux212_64) \
 		+src "${WORKDIR}" \
@@ -78,8 +77,8 @@ src_unpack() {
 }
 
 src_prepare() {
+	default
 	local bin i
-	epatch "${FILESDIR}"/${P}-lib.patch
 
 	mv nmrbin.$(usex x86 linux9 linux212_64)/nmr{W,w}ish || die
 
