@@ -1,0 +1,11 @@
+BDEPEND=>=app-arch/rpm2targz-9.0.0.3g
+DEFINED_PHASES=install unpack
+DESCRIPTION=The X Window-System-based Visual/Integrated Environment - binary package
+EAPI=7
+HOMEPAGE=https://archive.physionet.org/physiotools/xview/
+KEYWORDS=~amd64 ~x86
+LICENSE=XVIEW
+SLOT=0
+SRC_URI=https://archive.physionet.org/physiotools/xview/i386-Fedora/xview-3.2p1.4-21.1.fc8.i386.rpm
+_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	estack	055c42df72f76a4f45ec92b35e83cd56	eutils	2d5b3f4b315094768576b6799e4f926e	l10n	8cdd85e169b835d518bc2fd59f780d8e	multilib	d410501a125f99ffb560b0c523cd3d1e	rpm	760ff223c2c4299b68ea901e24c4cabd	toolchain-funcs	605c126bed8d87e4378d5ff1645330cb	wrapper	4251d4c84c25f59094fd557e0063a974
+_md5_=83f89c69930c89c7f91b091a21a88027

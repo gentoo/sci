@@ -1,0 +1,15 @@
+BDEPEND=test? ( x11-base/xorg-server[xvfb] x11-apps/xhost )
+DEFINED_PHASES=install prepare unpack
+DEPEND=app-shells/tcsh
+DESCRIPTION=Spectral visualisation, analysis and Fourier processing
+EAPI=7
+HOMEPAGE=https://www.ibbr.umd.edu/nmrpipe
+IUSE=test
+KEYWORDS=~amd64 ~x86
+LICENSE=nmrpipe
+RDEPEND=app-shells/tcsh app-editors/nedit dev-lang/tk dev-tcltk/blt media-fonts/font-sun-misc !sci-chemistry/sparta+ !sci-chemistry/talos+ sys-libs/ncurses-compat:5/5 x11-apps/xset x11-libs/xview-bin !prefix? ( >=x11-libs/libX11-1.6.2 ) prefix? ( dev-util/patchelf )
+RESTRICT=strip bindist mirror
+SLOT=0
+SRC_URI=https://www.ibbr.umd.edu/nmrpipe/install.com -> install-8.7.20200827.com https://www.ibbr.umd.edu/nmrpipe/binval.com -> binval-8.7.20200827.com https://www.ibbr.umd.edu/nmrpipe/NMRPipeX.tZ -> NMRPipeX-8.7.20200827.tZ https://www.ibbr.umd.edu/nmrpipe/plugin.smile.tZ -> plugin.smile-8.7.20200827.tZ https://www.ibbr.umd.edu/nmrpipe/talos.tZ -> talos-8.7.20200827.tZ https://www.ibbr.umd.edu/nmrpipe/dyn.tZ -> dyn-8.7.20200827.tZ
+_eclasses_=virtualx	7e60d3b10c791ab996f717bc1f30072f
+_md5_=5f53ccb0933e7d6c76c19b0480496d13

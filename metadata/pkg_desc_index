@@ -463,7 +463,7 @@ sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs 
 sci-chemistry/modelfree 4.20: Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data
 sci-chemistry/modeller 9.25: Homology or comparative modeling of protein three-dimensional structures
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
-sci-chemistry/nmrpipe 8.7.2015.320.15.26: Spectral visualisation, analysis and Fourier processing
+sci-chemistry/nmrpipe 8.7.20200827: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/openbabel-java 9999: Java bindings for OpenBabel
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
@@ -615,5 +615,5 @@ virtual/scalapack 2.0.2-r1: Virtual for ScaLAPACK implementation
 x11-libs/qwt 5.2.3_p20200902: 2D plotting library for Qt5
 x11-libs/qwtplot3d 0.2.7: 3D plotting library for Qt5
 x11-libs/tr 1.3: An OpenGL utility library for doing tiled rendering
-x11-libs/xview-bin 3.2_p1428: The X Window-System-based Visual/Integrated Environment - binary package
+x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 9999: Tools for people envious of nvidia's blob driver
