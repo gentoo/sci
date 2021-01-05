@@ -104,7 +104,7 @@ printf '*/*::science ~%s' "$(portageq envvar ARCH)" >> /etc/portage/package.acce
 Alternatively, and *only if you know what you are doing*, you can accept `~${ARCH}` packages globally:
 
 ```console
-printf 'ACCEPT_KEYWORDS="~%s"' "$(portageq envvar ARCH)" >> lala
+printf 'ACCEPT_KEYWORDS="~%s"' "$(portageq envvar ARCH)" >> /etc/portage/make.conf
 ```
 
 The downside of this approach is potentially higher instability, the advantage is that often `::science` packages require `~${ARCH}` packages from `::gentoo` as well.
