@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 
@@ -78,7 +78,7 @@ DEPEND="
 
 # seems muParser is required, also glew is required. configure exits otherwise if these are explicitly passed to it (due to USE flag enabled)
 
-RDEPEND="${DEPEND}"
+RDEPEND="${BDEPEND}"
 
 S="${WORKDIR}/${MY_P}/c++"
 # ncbi-blast-2.2.30+-src/c++
