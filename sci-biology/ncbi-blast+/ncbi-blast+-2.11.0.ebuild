@@ -3,21 +3,19 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 
-MY_TAG="Jun_15_2010"
-MY_Y="${MY_TAG/*_/}"
-MY_PV="12_0_0"
-MY_P="ncbi_cxx--${MY_PV}"
-#ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
+MY_P="ncbi-blast-${PV}+-src"
+# workdir/ncbi-blast-2.2.30+-src
+# ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-src.tar.gz
+# ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.3.0+-src.tar.gz
 
-# for example sci-biology/ncbi-tools++-12.0.0 contains blastn-2.2.28+
-DESCRIPTION="NCBI C++ Toolkit, including NCBI BLAST+"
+DESCRIPTION="A subset of NCBI C++ Toolkit containing just the NCBI BLAST+"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=toolkit"
 SRC_URI="
-	ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools++/ARCHIVE/${MY_PV}/ncbi_cxx--${MY_PV}.tar.gz"
+	ftp://ftp.ncbi.nih.gov/blast/executables/blast+/${PV}/${MY_P}.tar.gz"
 #	http://dev.gentoo.org/~jlec/distfiles/${PN}-${PV#0.}-asneeded.patch.xz"
 
 # should also install ftp://ftp.ncbi.nlm.nih.gov/blast/db/taxdb.tar.gz
@@ -27,22 +25,21 @@ SLOT="0"
 IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
-	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
+	berkdb boost bzip2 cppunit curl expat fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
-#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
+#KEYWORDS=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # sys-libs/db should be compiled with USE=cxx
-# dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
 DEPEND="
 	<sys-devel/gcc-10:=
+	!sci-biology/ncbi-tools++
 	!sci-biology/sra_sdk
-	app-arch/cpio
 	berkdb? ( sys-libs/db:4.3[cxx] )
-	boost? ( dev-libs/boost[tools] )
+	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
@@ -70,7 +67,8 @@ DEPEND="
 	xpm? ( x11-libs/libXpm )
 	dev-libs/lzo
 	app-arch/bzip2
-	dev-libs/libpcre"
+	dev-libs/libpcre
+	dev-db/lmdb"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 # Intentionally omitted USE flags:
 #   ftds? ( dev-db/freetds ) # support for outside FreeTDS installations is currently broken.
@@ -80,25 +78,12 @@ DEPEND="
 
 # seems muParser is required, also glew is required. configure exits otherwise if these are explicitly passed to it (due to USE flag enabled)
 
-RDEPEND="${DEPEND}"
+RDEPEND="${BDEPEND}"
 
-S="${WORKDIR}/${MY_P}"
-
-PATCHES=(
-		"${FILESDIR}"/${P}-conf-opts.patch
-		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
-		"${FILESDIR}"/${P}-linkage-tuneups.patch
-		"${FILESDIR}"/${P}-more-patches.patch
-		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
-		"${FILESDIR}"/${P}-configure.patch
-		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
-		"${FILESDIR}"/${P}-fix-install.patch
-		"${FILESDIR}"/${P}-bdb6.patch
-		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
-		)
+S="${WORKDIR}/${MY_P}/c++"
+# ncbi-blast-2.2.30+-src/c++
 
 src_prepare() {
-	default
 #	filter-ldflags -Wl,--as-needed
 #	append-ldflags -Wl,--no-undefined
 #	sed -i -e 's/-print-file-name=libstdc++.a//' \
@@ -125,22 +110,36 @@ src_prepare() {
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
 
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
-#       "${FILESDIR}"/${P}-as-needed.patch
-#       "${FILESDIR}"/${P}-fix-creaders-linking.patch
-#       "${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
-#		)
+##	local PATCHES=(
+##		"${FILESDIR}"/${P}-conf-opts.patch
+##		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
+##		"${FILESDIR}"/${P}-linkage-tuneups.patch
+##		"${FILESDIR}"/${P}-more-patches.patch
+##		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
+##		"${FILESDIR}"/${P}-configure.patch
+##		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
+##		"${FILESDIR}"/${P}-fix-install.patch
+##		)
 		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
+##	epatch ${PATCHES[@]}
+
+	# use a Debian patch from http://anonscm.debian.org/viewvc/debian-med/trunk/packages/ncbi-blast%2B/trunk/debian/patches/fix_lib_deps?revision=18535&view=markup
+	# the patches for 2.2.30+ do not apply to 2.2.31, mostly DLL_LIB is gone but somewhere
+	# it is still present, plus in a few places was something else patched
+	# staying without any patches for now and lets see is it works on Gentoo
+	# epatch "${FILESDIR}"/fix_lib_deps.patch
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 
 	tc-export CXX CC
 
-	cd src/build-system || die
+##	cd src/build-system || die
 #	eautoreconf
 
 	# Temporarily disabling eautoconf because we patch configure via ${P}-support-autoconf-2.60.patch
 	# eautoconf # keep it disabled until we can ensure 2.59 is installed
 	# beware 12.0.0. and previous required autoconf-2.59, a patch for 12.0.0 brings autoconf-2.60 support
+	default
 }
 
 # possibly place modified contents of ${W}/src/build-system/config.site.ncbi and {W}/src/build-system/config.site.ex into ${W}/src/build-system/config.site
@@ -223,12 +222,6 @@ src_configure() {
 	--without-sybase
 	--with-autodep
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
-	# --without-downloaded-vdb is not available in 12.0.0 release yet
-	# preventing executing git to checkout during configure phase ncbi-vdb sources
-	# resulting in 'checking for ncbi-vdb... no' and
-	# '^PACKAGES:'
-	# '^  disabled: ... VDB'
-	# --without-downloaded-vdb
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
@@ -248,12 +241,13 @@ src_configure() {
 	$(use_with mesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
 	$(use_with opengl glew "${EPREFIX}/usr")
-	$(use_with opengl glew-mx)
+	#
+	# GLEW 2.0 dropped support for this, see https://bugs.gentoo.org/show_bug.cgi?id=611302
+	# $(use_with opengl glew-mx)
 	$(use_with wxwidgets wxwidgets "${EPREFIX}/usr")
 	$(use_with wxwidgets wxwidgets-ucs)
 	$(use_with freetype freetype "${EPREFIX}/usr")
-	$(use_with fastcgi fastcgi "${EPREFIX}/usr")
-	$(use_with berkdb bdb "${EPREFIX}/usr")
+#	$(use_with berkdb bdb "${EPREFIX}/usr") # not in ncbi-blast+
 	$(usex odbc --with-odbc="${EPREFIX}/usr" "")
 	$(use_with python python "${EPREFIX}/usr")
 	$(use_with boost boost "${EPREFIX}/usr")
@@ -274,6 +268,8 @@ src_configure() {
 	$(use_with curl curl "${EPREFIX}/usr")
 #	$(use_with X x "${EPREFIX}/usr")
 #	$(use_with X x) # there is no --with-x option
+	# prevent downloading VDB sources from https://github.com/ncbi/ncbi-vdb.git during configure execution
+	--without-vdb
 	)
 
 	# http://www.ncbi.nlm.nih.gov/books/NBK7167/
@@ -293,7 +289,7 @@ src_configure() {
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
 		--with-flat-makefile \
-		${myconf[@]} || die
+		${myconf[@]} || die "Maybe try new src/build-system/cmake/cmake-configure instead?"
 #--without-debug \
 #		--with-bin-release \
 #		--with-bincopy \
@@ -337,9 +333,6 @@ src_compile() {
 	#
 	# To take full advantage of --with-flat-makefile, you'll need the following (instead of 'emake all_p -C "${S}"_build/build') and call configure --with-flat-makefile:
 	emake -C "${S}"_build/build -f Makefile.flat
-	#
-	# >=gcc-5.3.0 is not supported, see also bug #579248#c8
-	# configure: error: Do not know how to build MT-safe with compiler /usr/bin/x86_64-pc-linux-gnu-g++  5.3.0
 }
 
 src_install() {
