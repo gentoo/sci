@@ -6,16 +6,15 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 DESCRIPTION="Access a cacophony of neuro-imaging file formats"
 HOMEPAGE="http://nipy.org/nibabel/"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/nipy/nibabel.git"
+SRC_URI="https://github.com/nipy/nibabel/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="dicom"
 
 RDEPEND="
