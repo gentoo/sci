@@ -104,6 +104,7 @@ dev-python/pyvote 0.1: Estimate the probability of votes changing election outco
 dev-python/pyzotero 1.4.20: A Python client for the Zotero API
 dev-python/regions 0.4: Astropy affilated package for region handling
 dev-python/reproject 0.7.1: Reproject astronomical images
+dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
 dev-python/ripser 0.5.4 0.6.0: python frontend for the fast ripser tda tool
 dev-python/snakemake 5.31.1: Make-like task language
 dev-python/specutils 9999: Affiliated package for 1D spectral operations
@@ -123,7 +124,7 @@ dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
 dev-util/VampirTrace 5.14.3 5.14.4: Library for detailed logging of program execution for parallel applications
 dev-util/bcm 0.0.1_p20191110: Boost cmake modules
 dev-util/f90cache 0.99: Compiler cache for fortran
-dev-util/mad-numdiff 9999 20150724: compare unformatted text files with numerical content
+dev-util/mad-numdiff 9999 20180125: compare unformatted text files with numerical content
 dev-util/makefile2graph 1.5.0: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
@@ -465,7 +466,6 @@ sci-chemistry/modeller 9.25: Homology or comparative modeling of protein three-d
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
 sci-chemistry/nmrpipe 8.7.20200827: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
-sci-chemistry/openbabel-java 9999: Java bindings for OpenBabel
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/polygon 0612: shows qualitatively if some models parameters are over- or under-refined
