@@ -9,12 +9,10 @@ SRC_URI="https://github.com/TheChymera/repsep_utils/archive/${PV}.tar.gz -> ${P}
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
-RDEPEND=""
-
-#S=${WORKDIR}/${PN}-${MY_HASH}
+RDEPEND="dev-tex/pythontex"
 
 src_install() {
 	dobin "bin/repsep"
