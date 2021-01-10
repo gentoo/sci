@@ -1,11 +1,13 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
+
+COMMIT="d113f3f7ba119fecd9d946bced8d3dfe9456b933"
 
 DESCRIPTION="Symbolic and algebraic computations system"
-HOMEPAGE="http://www.open-axiom.org/"
-SRC_URI="mirror://sourceforge/project/${PN}/${PV}/${P}.tar.bz2"
+HOMEPAGE="https://github.com/GabrielDosReis/open-axiom http://www.open-axiom.org/"
+SRC_URI="https://github.com/GabrielDosReis/open-axiom/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -16,9 +18,12 @@ IUSE="X"
 RDEPEND="X? ( x11-libs/libXpm )"
 DEPEND="${RDEPEND}
 	app-text/noweb
-	>=dev-lisp/sbcl-1.0.22"
+	>=dev-lisp/sbcl-1.0.22
+"
 
 DOCS="MAINTAINERS TODO STYLES"
+
+S="${WORKDIR}/${PN}-${COMMIT}"
 
 src_configure() {
 	# There is an option to compile with other lisps. However:
@@ -27,10 +32,4 @@ src_configure() {
 	econf \
 		--with-lisp=sbcl \
 		$(use_with X x)
-}
-
-src_compile() {
-	# unfortunately could not track down the broken parallel build
-	# -j5 ok but -j30 sbcl stalled
-	emake -j1
 }
