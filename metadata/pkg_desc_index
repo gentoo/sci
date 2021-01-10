@@ -167,8 +167,8 @@ sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
 sci-biology/MochiView 1.45: Genome browser and analysis
 sci-biology/MolBioLib 5: C++11 framework for bioinformatics tasks
 sci-biology/MuSeqBox 5.4: Parse and filter BLAST output into tab-delimited file
-sci-biology/NGSEPcore 3.3.1: NGSEP (CNV and indel discovery)
-sci-biology/NGSEPcore-bin 3.3.1: NGSEP (CNV and indel discovery)
+sci-biology/NGSEPcore 4.0.3: NGSEP (CNV and indel discovery)
+sci-biology/NGSEPcore-bin 4.0.3: NGSEP (CNV and indel discovery)
 sci-biology/NGSEPplugin 3.3.1: NGSEP with Eclipse Plugin (CNV and indel discovery)
 sci-biology/NGSEPplugin-bin 3.3.1: NGSEP with Eclipse Plugin (CNV and indel discovery)
 sci-biology/OBO-Edit 2.1.0 2.1.1.6: Java-based editor optimized for the OBO biological ontology file format
