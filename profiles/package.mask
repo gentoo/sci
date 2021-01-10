@@ -95,7 +95,6 @@ sci-biology/mreps
 sci-biology/mRNAmarkup
 sci-biology/mrsfast
 sci-biology/MuSeqBox
-sci-biology/NGSEPcore-bin
 sci-biology/NGSEPplugin-bin
 sci-biology/OBO-Edit
 sci-biology/ONTO-PERL
