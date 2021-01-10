@@ -17,7 +17,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND=">=virtual/jdk-1.8"
+RDEPEND=">=virtual/jdk-1.8:="
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}_${PV}"
