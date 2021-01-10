@@ -32,6 +32,7 @@ IUSE="
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS="~amd64"
+RESTRICT="!test? ( test )"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
