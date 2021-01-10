@@ -175,7 +175,7 @@ sci-biology/ORFcor 20130507: Automated editor of protein-coding sequences
 sci-biology/ParaAT 1.0: Create multiple protein-coding DNA alignments and back-Translation
 sci-biology/RADtools 1.2.4 9999: Tools for processing RAD Sequencing Illumina reads
 sci-biology/RAILS 1.5.1: Cobbler and RAILS scaffolding tools acting on SAM streams
-sci-biology/RSeQC 4.0.0: Utilities for RNA-seq data quality control
+sci-biology/RSeQC 4.0.0-r1: Utilities for RNA-seq data quality control
 sci-biology/Rcorrector 9999: Error correction for Illumina RNA-seq reads
 sci-biology/SEECER 0.1.3-r2: SEquence Error Corrector for RNA-Seq reads
 sci-biology/SOAPdenovo2 241: Whole genome shotgun assembler (sparse de Bruijn graph) (now MEGAHIT)
