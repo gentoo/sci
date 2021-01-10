@@ -28,7 +28,7 @@ IUSE="
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
 KEYWORDS="~amd64 ~x86"
-#KEYWORDS=""
+RESTRICT="!test? ( test )"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
