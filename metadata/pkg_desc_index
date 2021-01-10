@@ -446,9 +446,7 @@ sci-chemistry/burrow-owl 9999: Visualize multidimensional nuclear magnetic reson
 sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical shifts
 sci-chemistry/chimera-bin 1.11.2 1.14: An extensible Molecular Modelling System
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
-sci-chemistry/cpmgfit 1.43: non-linear least squares fitting of CPMG relaxation dispersion curves
 sci-chemistry/ctffind 4.1.14: CTF estimation (ctffind, ctftilt)
-sci-chemistry/curvefit 1.40: Linear and non-linear least squares fitting
 sci-chemistry/dl_poly 1.9 4.05: a general purpose molecular dynamics simulation package
 sci-chemistry/drawxtl 45 55: Crystal structure drawings from structural data
 sci-chemistry/dssp2pdb 0.03: convert dssp to pdb
@@ -461,7 +459,6 @@ sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
 sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
 sci-chemistry/mddnmr 2.4-r1: Program for processing of NUS multidimensional NMR spectra
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
-sci-chemistry/modelfree 4.20: Optimizing Lipari-Szabo model free parameters to heteronuclear relaxation data
 sci-chemistry/modeller 9.25: Homology or comparative modeling of protein three-dimensional structures
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
 sci-chemistry/nmrpipe 8.7.20200827: Spectral visualisation, analysis and Fourier processing
