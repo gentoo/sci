@@ -3,15 +3,15 @@
 
 EAPI=7
 
-inherit git-r3 meson
+inherit meson
 
 DESCRIPTION="PacBio modified BAM file format"
 HOMEPAGE="https://pbbam.readthedocs.io/en/latest/index.html"
-EGIT_REPO_URI="https://github.com/PacificBiosciences/pbbam.git"
+SRC_URI="https://github.com/PacificBiosciences/pbbam/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="blasr"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 BDEPEND="
 	virtual/pkgconfig
