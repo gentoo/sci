@@ -1,9 +1,7 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-# inherit
+EAPI=7
 
 DESCRIPTION="Residual dipolar coupling and residual chemical shift analysis software"
 HOMEPAGE="http://www.ibs.fr/science-213/scientific-output/software/module/?lang=en"
@@ -12,10 +10,9 @@ SRC_URI="MODULE2.tar.gz"
 SLOT="0"
 LICENSE="all-rights-reserved"
 KEYWORDS=""
-IUSE=""
 
 RDEPEND="
-	x11-libs/motif:2.2[abi_x86_32(-)]
+	x11-libs/motif[abi_x86_32(-)]
 	x11-libs/libX11[abi_x86_32(-)]
 	x11-libs/libXext[abi_x86_32(-)]
 	x11-libs/libXpm[abi_x86_32(-)]
@@ -43,7 +40,7 @@ src_install() {
 	doexe module
 	dosym module /opt/bin/${PN}
 
-	dohtml -r MODULE2_manual_fichiers MODULE2_manual.htm
+	dodoc -r MODULE2_manual_fichiers MODULE2_manual.htm
 
 	insinto /usr/share/${PN}
 	doins sample*
