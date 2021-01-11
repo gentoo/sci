@@ -113,6 +113,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-accessviolation.patch"
 	"${FILESDIR}/${P}-missinglib.patch"
 	"${FILESDIR}/${P}-freehep.patch"
+	"${FILESDIR}/${P}-libxml.patch"
 )
 
 pkg_pretend() {
