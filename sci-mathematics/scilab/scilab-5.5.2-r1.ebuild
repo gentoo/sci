@@ -121,7 +121,6 @@ PATCHES=(
 	"${FILESDIR}/${P}-libxml-icu64.patch" # similar to https://bugzilla.scilab.org/show_bug.cgi?id=16588
 	"${FILESDIR}/${P}-hdf5-1.8.10.patch" # adapted from https://github.com/bartoszek/scilab
 	"${FILESDIR}/${P}-bug15449.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15449
-	"${FILESDIR}/${P}-bug15107.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15107
 	"${FILESDIR}/${P}-ocaml-4.0.4.patch" # https://github.com/bartoszek/scilab
 )
 
