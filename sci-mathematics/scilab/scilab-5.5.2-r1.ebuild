@@ -11,7 +11,8 @@ inherit autotools bash-completion-r1 check-reqs eutils flag-o-matic \
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
-SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
+SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz
+	https://raw.githubusercontent.com/gentoo/sci/4c2a07c4629c61395a998633ccfcb34d72569529/sci-mathematics/scilab/files/${P}-bug15107.patch"
 
 LICENSE="CeCILL-2.1"
 SLOT="0"
@@ -122,6 +123,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-hdf5-1.8.10.patch" # adapted from https://github.com/bartoszek/scilab
 	"${FILESDIR}/${P}-bug15449.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15449
 	"${FILESDIR}/${P}-ocaml-4.0.4.patch" # https://github.com/bartoszek/scilab
+	"${DISTDIR}/${P}-bug15107.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15107
 )
 
 pkg_pretend() {
