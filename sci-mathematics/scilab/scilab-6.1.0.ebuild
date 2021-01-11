@@ -17,7 +17,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
 
-IUSE="bash-completion debug doc emf fftw +gui +matio mpi nls openmp
+IUSE="debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
@@ -270,7 +270,7 @@ src_install() {
 	default
 	prune_libtool_files --all
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
-	use bash-completion && newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
+	newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
 	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
 		> 50-"${PN}"
 	insinto /etc/revdep-rebuild && doins "50-${PN}"
