@@ -88,7 +88,7 @@ CDEPEND="
 	umfpack? ( sci-libs/umfpack )"
 
 RDEPEND="${CDEPEND}
-	gui? ( >=virtual/jre-1.5 )"
+	gui? ( >=virtual/jre-1.8 )"
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
@@ -133,6 +133,9 @@ pkg_setup() {
 	#bug 8053
 	unset F77
 	java-pkg-opt-2_pkg_setup
+
+	# fails to compile in src/fortran/optml2.f:172:50 without this
+	append-fflags -fallow-argument-mismatch
 
 	ALL_L10N="en_US"
 	ALL_L10N_DOC="en_US"
