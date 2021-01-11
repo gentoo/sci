@@ -123,7 +123,6 @@ PATCHES=(
 	"${FILESDIR}/${P}-hdf5-1.8.10.patch" # adapted from https://github.com/bartoszek/scilab
 	"${FILESDIR}/${P}-bug15449.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15449
 	"${FILESDIR}/${P}-ocaml-4.0.4.patch" # https://github.com/bartoszek/scilab
-	"${DISTDIR}/${P}-bug15107.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15107
 )
 
 pkg_pretend() {
@@ -161,6 +160,12 @@ src_prepare() {
 	# works for me on x86, but users are having
 	# trouble without see #282 on github
 	append-ldflags $(no-as-needed)
+
+	# apply the patch moved into github storage because too big for repoman,
+	# patch taken from http://bugzilla.scilab.org/show_bug.cgi?id=15107
+	eapply "${DISTDIR}"/${P}-bug15107.patch # creates the patch ...
+	eapply sci-mathematics/scilab/files/scilab-5.5.2-bug15107.patch # ... and applies it
+	rm -rf sci-mathematics
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && eapply "${FILESDIR}/${P}-java-heap.patch"
