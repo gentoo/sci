@@ -17,7 +17,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
 
-IUSE="bash-completion debug doc emf fftw +gui +matio mpi nls openmp
+IUSE="debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
@@ -88,7 +88,7 @@ CDEPEND="
 	umfpack? ( sci-libs/umfpack )"
 
 RDEPEND="${CDEPEND}
-	gui? ( >=virtual/jre-1.5 )"
+	gui? ( >=virtual/jre-1.8 )"
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
@@ -133,6 +133,9 @@ pkg_setup() {
 	#bug 8053
 	unset F77
 	java-pkg-opt-2_pkg_setup
+
+	# fails to compile in src/fortran/optml2.f:172:50 without this
+	append-fflags -fallow-argument-mismatch
 
 	ALL_L10N="en_US"
 	ALL_L10N_DOC="en_US"
@@ -267,7 +270,7 @@ src_install() {
 	default
 	prune_libtool_files --all
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
-	use bash-completion && newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
+	newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
 	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
 		> 50-"${PN}"
 	insinto /etc/revdep-rebuild && doins "50-${PN}"
