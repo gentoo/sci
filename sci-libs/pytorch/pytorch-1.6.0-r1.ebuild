@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -263,7 +263,7 @@ src_install() {
 
 	if use python; then
 		install_shm_manager() {
-			TORCH_BIN_DIR="${ED}/usr/lib64/${EPYTHON}/site-packages/torch/bin"
+			TORCH_BIN_DIR="${ED}$(python_get_sitedir)/torch/bin"
 
 			mkdir -pv ${TORCH_BIN_DIR}
 			cp -v "${ED}/usr/bin/torch_shm_manager" "${TORCH_BIN_DIR}"
