@@ -1,67 +1,46 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_6 )
 
-inherit distutils-r1 cmake cuda
+inherit distutils-r1 cmake-utils cuda
 
 MPV=${PV/_p/a}
 
 DESCRIPTION="Tensors and Dynamic neural networks in Python with strong GPU acceleration"
 HOMEPAGE="https://pytorch.org/"
 SRC_URI="https://github.com/pytorch/${PN}/archive/v${MPV}.tar.gz -> ${P}.tar.gz
-https://github.com/google/benchmark/archive/505be96ab.tar.gz -> benchmark-505be96ab.tar.gz
-https://github.com/pytorch/cpuinfo/archive/63b254577.tar.gz -> cpuinfo-63b254577.tar.gz
-https://github.com/NVlabs/cub/archive/d106ddb99.tar.gz -> cub-d106ddb99.tar.gz
-https://github.com/pytorch/fbgemm/archive/87c378172.tar.gz -> fbgemm-87c378172.tar.gz
-https://github.com/fmtlib/fmt/archive/9bdd1596c.tar.gz -> fmt-9bdd1596c.tar.gz
-https://github.com/houseroad/foxi/archive/8015abb72.tar.gz -> foxi-8015abb72.tar.gz
-https://github.com/Maratyszcza/FP16/archive/4dfe081cf.tar.gz -> FP16-4dfe081cf.tar.gz
-https://github.com/Maratyszcza/FXdiv/archive/b408327ac.tar.gz -> FXdiv-b408327ac.tar.gz
-https://github.com/google/gemmlowp/archive/3fb5c176c.tar.gz -> gemmlowp-3fb5c176c.tar.gz
-https://github.com/facebookincubator/gloo/archive/3d08580f9.tar.gz -> gloo-3d08580f9.tar.gz
-https://github.com/google/googletest/archive/2fe3bd994.tar.gz -> googletest-2fe3bd994.tar.gz
-https://github.com/intel/ideep/archive/938cc6889.tar.gz -> ideep-938cc6889.tar.gz
-cuda? ( https://github.com/NVIDIA/nccl/archive/5949d96f3.tar.gz -> nccl-5949d96f3.tar.gz )
-https://github.com/Maratyszcza/NNPACK/archive/24b55303f.tar.gz -> NNPACK-24b55303f.tar.gz
-https://github.com/onnx/onnx/archive/a82c6a701.tar.gz -> onnx-a82c6a701.tar.gz
-https://github.com/onnx/onnx-tensorrt/archive/c15321141.tar.gz -> onnx-tensorrt-c15321141.tar.gz
-https://github.com/Maratyszcza/psimd/archive/072586a71.tar.gz -> psimd-072586a71.tar.gz
-https://github.com/Maratyszcza/pthreadpool/archive/029c88620.tar.gz -> pthreadpool-029c88620.tar.gz
-https://github.com/Maratyszcza/PeachPy/archive/07d8fde8a.tar.gz -> PeachPy-07d8fde8a.tar.gz
-https://github.com/pytorch/QNNPACK/archive/7d2a4e993.tar.gz -> QNNPACK-7d2a4e993.tar.gz
-https://github.com/shibatch/sleef/archive/7f523de65.tar.gz -> sleef-7f523de65.tar.gz
-https://github.com/pytorch/tensorpipe/archive/3b8089c9c.tar.gz -> tensorpipe-3b8089c9c.tar.gz
-https://github.com/google/XNNPACK/archive/1b354636b.tar.gz -> XNNPACK-1b354636b.tar.gz
-https://github.com/asmjit/asmjit/archive/9057aa30.tar.gz -> asmjit-9057aa30.tar.gz
+https://github.com/facebookincubator/gloo/archive/ca528e32.tar.gz -> gloo-ca528e32.tar.gz
+https://github.com/google/benchmark/archive/505be96a.tar.gz -> benchmark-505be96a.tar.gz
+https://github.com/google/gemmlowp/archive/3fb5c176.tar.gz -> gemmlowp-3fb5c176.tar.gz
+https://github.com/google/googletest/archive/2fe3bd99.tar.gz -> googletest-2fe3bd99.tar.gz
+https://github.com/houseroad/foxi/archive/8f74bc4d.tar.gz -> foxi-8f74bc4d.tar.gz
+https://github.com/intel/ideep/archive/78eafa5d.tar.gz -> ideep-78eafa5d.tar.gz
+https://github.com/Maratyszcza/FP16/archive/febbb1c1.tar.gz -> FP16-febbb1c1.tar.gz
+https://github.com/Maratyszcza/FXdiv/archive/b742d114.tar.gz -> FXdiv-b742d114.tar.gz
+https://github.com/Maratyszcza/NNPACK/archive/c039579a.tar.gz -> NNPACK-c039579a.tar.gz
+https://github.com/Maratyszcza/PeachPy/archive/07d8fde8.tar.gz -> PeachPy-07d8fde8.tar.gz
+https://github.com/Maratyszcza/psimd/archive/90a938f3.tar.gz -> psimd-90a938f3.tar.gz
+https://github.com/Maratyszcza/pthreadpool/archive/13da0b4c.tar.gz -> pthreadpool-13da0b4c.tar.gz
+cuda? ( https://github.com/NVIDIA/nccl/archive/7c72dee6.tar.gz -> nccl-7c72dee6.tar.gz )
+https://github.com/NVlabs/cub/archive/285aeeba.tar.gz -> cub-285aeeba.tar.gz
+https://github.com/onnx/onnx/archive/2891e145.tar.gz -> onnx-2891e145.tar.gz
+https://github.com/onnx/onnx-tensorrt/archive/cb3d8066.tar.gz -> onnx-tensorrt-cb3d8066.tar.gz
+https://github.com/pytorch/cpuinfo/archive/89fe1695.tar.gz -> cpuinfo-89fe1695.tar.gz
+https://github.com/pytorch/fbgemm/archive/82d259da.tar.gz -> fbgemm-82d259da.tar.gz
+https://github.com/pytorch/QNNPACK/archive/7d2a4e99.tar.gz -> QNNPACK-7d2a4e99.tar.gz
+https://github.com/shibatch/sleef/archive/7f523de6.tar.gz -> sleef-7f523de6.tar.gz
+https://github.com/asmjit/asmjit/archive/17556b2d.tar.gz -> asmjit-17556b2d.tar.gz
 	"
-
-# git clone git@github.com:pytorch/pytorch.git && cd pytorch
-# src_uri() {
-# join \
-#   <(git config --file .gitmodules --get-regexp url | sed -r -e 's/^submodule.(.*).url (.*)/\1 \2/' -e 's,NNPACK_deps/,,' -e 's/third-party/third_party/' | sort) \
-#   <(git submodule status | awk '{print $2 " " $1}' | sort) | \
-# while read path url hash; do
-#         [[ ${path} =~ (eigen|six|ios|neon2sse|protobuf|pybind11|enum34|tbb|zstd|fbjni) ]] && continue
-#         u=${url%.git}
-#         h=${hash#-}
-#         h=${h:0:8}
-#         echo "${u}/archive/${h}.tar.gz -> $(basename ${u})-${h}.tar.gz"
-# done
-# }
-# src_uri
-
-# git submodule update --init third_party/fbgemm && cd third_party/fbgemm
-# src_uri | grep asmjit
-# cd ../..
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="asan atlas cuda eigen +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkl mkldnn mpi namedtensor +nnpack numa +numpy +observers +openblas opencl opencv +openmp +python +qnnpack redis static test tools zeromq"
+IUSE="asan atlas cuda eigen +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkl mkldnn mpi namedtensor +nnpack numa +numpy +observers +openblas opencl opencv +openmp +python +qnnpack redis static tbb test tools zeromq"
+RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
@@ -69,7 +48,7 @@ REQUIRED_USE="
 	^^ ( atlas eigen mkl openblas )
 "
 
-RDEPEND="
+DEPEND="
 	dev-libs/protobuf
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	atlas? ( sci-libs/atlas )
@@ -92,13 +71,11 @@ RDEPEND="
 	redis? ( dev-db/redis )
 	zeromq? ( net-libs/zeromq )
 	eigen? ( dev-cpp/eigen )
-	dev-libs/libuv
 "
+RDEPEND="${DEPEND}"
+BDEPEND=""
 
-#ATen code generation
-BDEPEND="dev-python/pyyaml"
-
-DEPEND="${RDEPEND}
+DEPEND="
 	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-cpp/tbb
@@ -110,9 +87,9 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.6.0-setup.patch
-	"${FILESDIR}"/${PN}-1.6.0-skip-tests.patch
-	"${FILESDIR}"/${PN}-1.6.0-global-dlopen.patch
+	"${FILESDIR}"/${PN}-1.2.0-setup.patch
+	"${FILESDIR}"/${PN}-1.4.0-sleef.patch
+	"${FILESDIR}"/${PN}-1.4.0-skip-tests.patch
 	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.4.0.patch
 	"${FILESDIR}"/0003-Change-path-to-caffe2-build-dir-made-by-libtorch.patch
 	"${FILESDIR}"/0005-Change-library-directory-according-to-CMake-build.patch
@@ -121,12 +98,11 @@ PATCHES=(
 src_unpack() {
 	default
 
-	[[ -d ${P} ]] || mv -v ${PN}-${MPV} ${P} || die
+	mv -v ${PN}-${MPV} ${P} || die
 }
 
 src_prepare() {
-	cmake_src_prepare
-	eapply_user
+	cmake-utils_src_prepare
 
 	mv -v third_party/miniz-* ../ || die
 	rm -r third_party || die
@@ -151,16 +127,12 @@ src_prepare() {
 
 	if use cuda; then
 		cd ../nccl || die
-		eapply "${FILESDIR}"/${PN}-1.6.0-nccl-nvccflags.patch
+		eapply "${FILESDIR}"/${PN}-1.4.0-nccl-nvccflags.patch
 		ln -s . nccl || die
 
-		addpredict /dev/nvidiactl
 		cuda_src_prepare
 		export CUDAHOSTCXX=$(cuda_gccdir)/g++
 	fi
-
-	cd ../tensorpipe || die
-	eapply "${FILESDIR}"/${PN}-1.6.0-tensorpipe-unbundle-libuv.patch
 }
 
 src_configure() {
@@ -217,10 +189,10 @@ src_configure() {
 		-DBLAS=${blas}
 	)
 
-	cmake_src_configure
+	cmake-utils_src_configure
 
 	if use python; then
-		CMAKE_BUILD_DIR="${BUILD_DIR}" distutils-r1_src_configure
+		CMAKE_BUILD_DIR=${BUILD_DIR} distutils-r1_src_configure
 	fi
 
 	# do not rerun cmake and the build process in src_install
@@ -228,7 +200,7 @@ src_configure() {
 }
 
 src_compile() {
-	cmake_src_compile
+	cmake-utils_src_compile
 
 	if use python; then
 		CMAKE_BUILD_DIR=${BUILD_DIR} distutils-r1_src_compile
@@ -236,7 +208,7 @@ src_compile() {
 }
 
 src_install() {
-	cmake_src_install
+	cmake-utils_src_install
 
 	local LIB=$(get_libdir)
 	if [[ ${LIB} != lib ]]; then
@@ -263,7 +235,7 @@ src_install() {
 
 	if use python; then
 		install_shm_manager() {
-			TORCH_BIN_DIR="${ED}/usr/lib64/${EPYTHON}/site-packages/torch/bin"
+			TORCH_BIN_DIR="${D}$(python_get_sitedir)/torch/bin"
 
 			mkdir -pv ${TORCH_BIN_DIR}
 			cp -v "${ED}/usr/bin/torch_shm_manager" "${TORCH_BIN_DIR}"
@@ -277,7 +249,7 @@ src_install() {
 		python_foreach_impl python_optimize
 	fi
 
-	find "${ED}/usr/${LIB}" -name "*.a" -exec rm -fv {} \;
+	find "${ED}/usr/lib64" -name "*.a" -exec rm -fv {} \;
 
 	use test && rm -rfv "${ED}/usr/test" "${ED}"/usr/bin/test_{api,jit}
 
