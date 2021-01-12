@@ -62,6 +62,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 IUSE="asan atlas cuda eigen +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkl mkldnn mpi namedtensor +nnpack numa +numpy +observers +openblas opencl opencv +openmp +python +qnnpack redis static test tools zeromq"
+RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
@@ -263,7 +264,7 @@ src_install() {
 
 	if use python; then
 		install_shm_manager() {
-			TORCH_BIN_DIR="${ED}$(python_get_sitedir)/torch/bin"
+			TORCH_BIN_DIR="${D}$(python_get_sitedir)/torch/bin"
 
 			mkdir -pv ${TORCH_BIN_DIR}
 			cp -v "${ED}/usr/bin/torch_shm_manager" "${TORCH_BIN_DIR}"
