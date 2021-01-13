@@ -3,8 +3,6 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3{7,8,9} )
-
 DOCS_BUILDER="doxygen"
 DOCS_DIR="doc/webgen"
 DOCS_DEPEND="media-gfx/graphviz"
