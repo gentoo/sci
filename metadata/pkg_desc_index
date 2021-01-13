@@ -35,6 +35,7 @@ dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common 
 dev-libs/memkind 1.10.1 9999: user extensible heap manager built on top of jemalloc
 dev-libs/optix 6.0.0 7.0.0 7.1.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
+dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 7.0.3: BLAS/LAPACK interface for OCaml
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*
 dev-perl/BTLib 0.19: Perl part of the estscan package
@@ -130,6 +131,7 @@ dev-util/mad-numdiff 9999 20180125: compare unformatted text files with numerica
 dev-util/makefile2graph 1.5.0: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
+dev-util/waf 2.0.21: Piece of software used to help building software projects
 media-gfx/brlcad 7.22.0 7.24.0 7.24.2 9999: Constructive solid geometry modeling system
 media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
 media-libs/embree-bin 3.12.0 3.12.1: high-performance ray tracing kernels from intel
@@ -312,6 +314,7 @@ sci-biology/last 852: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.00: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
+sci-biology/libblasr 9999: Library for blasr
 sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 9999: Probabilistic framework for structural variant discovery
