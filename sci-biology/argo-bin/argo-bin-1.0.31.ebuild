@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,9 +6,9 @@ EAPI=5
 inherit java-utils-2 toolchain-funcs
 
 DESCRIPTION="Visualization and manually annotating whole genomes"
-HOMEPAGE="http://www.broadinstitute.org/annotation/argo2
-	http://www.broadinstitute.org/annotation/argo"
-SRC_URI="http://www.broadinstitute.org/annotation/argo/argo.jar"
+HOMEPAGE="https://www.broadinstitute.org/annotation/argo2
+	https://www.broadinstitute.org/annotation/argo"
+SRC_URI="https://www.broadinstitute.org/annotation/argo/argo.jar"
 #
 # Release Number: 1.0.31
 # Release Date:   2010-02-05
