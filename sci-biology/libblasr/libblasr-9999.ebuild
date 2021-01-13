@@ -5,10 +5,10 @@ EAPI=7
 
 inherit meson git-r3
 
-DESCRIPTION="The PacBio long read aligner"
+DESCRIPTION="Library for blasr"
 HOMEPAGE="http://www.smrtcommunity.com/SMRT-Analysis/Algorithms/BLASR"
-EGIT_REPO_URI="https://github.com/PacificBiosciences/blasr.git"
-#SRC_URI="https://github.com/PacificBiosciences/blasr/tarball/${PV} -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/PacificBiosciences/blasr_libcpp.git"
+#SRC_URI="https://github.com/PacificBiosciences/blasr_libcpp/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="blasr"
 SLOT="0"
@@ -19,8 +19,8 @@ BDEPEND="
 	virtual/pkgconfig
 "
 DEPEND="
-	sci-biology/pbbam
-	sci-biology/libblasr
-	dev-libs/boost:=[threads]
+	sci-libs/hdf5[cxx]
 "
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}/blasr_libcpp-${PV}"

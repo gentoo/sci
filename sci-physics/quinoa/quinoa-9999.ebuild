@@ -1,32 +1,45 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils git-r3
+DOCS_BUILDER="doxygen"
+DOCS_DIR="doc"
+DOCS_CONFIG_NAME="${PN}.doxy"
+
+inherit cmake docs git-r3
 
 DESCRIPTION="Adaptive computational fluid dynamics"
-HOMEPAGE="http://quinoacomputing.org/"
-EGIT_REPO_URI="git://github.com/quinoacomputing/${PN}.git https://github.com/quinoacomputing/${PN}.git"
+HOMEPAGE="https://quinoacomputing.org/"
+EGIT_REPO_URI="git://github.com/quinoacomputing/${PN}.git"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="test"
 
-DEPEND=">=sci-libs/trilinos-12.10.1[netcdf]
-	sci-libs/h5part
-	>=sys-cluster/charm-6.7.1[mpi]
+DEPEND="
+	dev-cpp/highwayhash
+	dev-cpp/pstreams
+	dev-cpp/random123
 	dev-libs/boost
 	dev-libs/boost-mpl-cartesian_product
-	dev-libs/tut
-	dev-libs/pugixml
-	dev-cpp/pstreams
-	sci-libs/hypre[mpi]
 	>=dev-libs/pegtl-2
-	dev-cpp/random123
+	dev-libs/pugixml
+	dev-libs/tut
+	dev-util/mad-numdiff
+	sci-libs/gmsh
+	sci-libs/h5part
+	sci-libs/hypre[mpi]
+	sci-libs/mkl
+	>=sci-libs/trilinos-12.10.1[netcdf]
+	>=sys-cluster/charm-6.7.1[mpi]
 	virtual/lapacke
-	dev-util/mad-numdiff"
+"
 RDEPEND="${DEPEND}"
 
 CMAKE_USE_DIR="${S}/src"
+
+src_compile() {
+	docs_compile
+	cmake_src_compile
+}
