@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,7 +9,7 @@ WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Java(TM) Binding fot the OpenGL(TM) API"
-HOMEPAGE="http://jogamp.org/jogl/www/"
+HOMEPAGE="https://jogamp.org/jogl/www/"
 SRC_URI="https://github.com/sgothel/jogl/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"

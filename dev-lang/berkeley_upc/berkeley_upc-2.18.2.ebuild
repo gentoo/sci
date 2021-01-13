@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="The Berkeley UPC Runtime/driver"
-HOMEPAGE="http://upc.lbl.gov/"
-SRC_URI="http://upc.lbl.gov/download/release/${P}.tar.gz"
+HOMEPAGE="https://upc.lbl.gov/"
+SRC_URI="https://upc.lbl.gov/download/release/${P}.tar.gz"
 LICENSE="BSD-4"
 
 SLOT="0"

@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils
 
 DESCRIPTION="Search for sub-sequences matching PCR primers"
-HOMEPAGE="http://www.ncbi.nlm.nih.gov/tools/epcr/"
+HOMEPAGE="https://www.ncbi.nlm.nih.gov/tools/epcr/"
 SRC_URI="ftp://ftp.ncbi.nlm.nih.gov/pub/schuler/e-PCR/e-PCR-"${PV}"-src.tar.gz"
 
 LICENSE="public-domain"

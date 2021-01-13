@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,7 +9,7 @@ WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Automatically generate the JNI code necessary to call C libraries"
-HOMEPAGE="http://jogamp.org/gluegen/www/"
+HOMEPAGE="https://jogamp.org/gluegen/www/"
 SRC_URI="https://github.com/sgothel/gluegen/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"

@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -8,8 +8,8 @@ PYTHON_COMPAT=( python3_{6..9} )
 inherit cmake python-single-r1 toolchain-funcs
 
 DESCRIPTION="scalable C++ machine learning library"
-HOMEPAGE="http://www.mlpack.org/"
-SRC_URI="http://www.mlpack.org/files/${P}.tar.gz"
+HOMEPAGE="https://www.mlpack.org/"
+SRC_URI="https://www.mlpack.org/files/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

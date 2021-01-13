@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,8 +6,8 @@ EAPI=5
 inherit fortran-2 multilib
 
 DESCRIPTION="A library of F90 routines to read/write the ETSF file format"
-HOMEPAGE="http://www.etsf.eu/resources/software/libraries_and_tools/"
-SRC_URI="http://www.etsf.eu/system/files/${P}.tar.gz"
+HOMEPAGE="https://www.etsf.eu/resources/software/libraries_and_tools/"
+SRC_URI="https://www.etsf.eu/system/files/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"

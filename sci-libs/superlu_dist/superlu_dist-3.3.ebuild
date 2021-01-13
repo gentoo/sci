@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs
 MYPN=SuperLU_DIST
 
 DESCRIPTION="MPI distributed sparse LU factorization library"
-HOMEPAGE="http://crd.lbl.gov/~xiaoye/SuperLU/"
+HOMEPAGE="https://crd.lbl.gov/~xiaoye/SuperLU/"
 SRC_URI="${HOMEPAGE}/${PN}_${PV}.tar.gz"
 
 LICENSE="BSD"

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit eutils
 DEB_PATCHLVL=10
 
 DESCRIPTION="Maximum likelihood phylogenetic tree builder for DNA sequences"
-HOMEPAGE="http://directory.fsf.org/project/fastDNAml/"
+HOMEPAGE="https://directory.fsf.org/wiki/FastDNAml"
 SRC_URI="
 	mirror://debian/pool/main/f/fastdnaml/${PN}_${PV%%_p${DEB_PATCHLVL}}.orig.tar.gz
 	mirror://debian/pool/main/f/fastdnaml/${PN}_${PV/_p/-}.debian.tar.gz"
