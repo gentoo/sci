@@ -9,7 +9,7 @@ DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Access a cacophony of neuro-imaging file formats"
-HOMEPAGE="http://nipy.org/nibabel/"
+HOMEPAGE="https://nipy.org/nibabel/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/nipy/nibabel.git"
 
