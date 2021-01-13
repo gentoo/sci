@@ -1,10 +1,10 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 DESCRIPTION="Speech analysis and synthesis"
-HOMEPAGE="http://www.fon.hum.uva.nl/praat/ https://github.com/praat/praat"
+HOMEPAGE="https://www.fon.hum.uva.nl/praat/ https://github.com/praat/praat"
 SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
