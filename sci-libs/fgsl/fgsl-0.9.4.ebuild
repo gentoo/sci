@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,8 +6,8 @@ EAPI=5
 inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="A Fortran interface to the GNU Scientific Library"
-HOMEPAGE="http://www.lrz.de/services/software/mathematik/gsl/fortran/"
-SRC_URI="http://www.lrz.de/services/software/mathematik/gsl/fortran/${P}.tar.gz"
+HOMEPAGE="https://www.lrz.de/services/software/mathematik/gsl/fortran/"
+SRC_URI="https://www.lrz.de/services/software/mathematik/gsl/fortran/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
