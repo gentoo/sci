@@ -1,11 +1,11 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 inherit cmake-utils eutils java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
-HOMEPAGE="http://brlcad.org/"
+HOMEPAGE="https://brlcad.org/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2 BSD"
