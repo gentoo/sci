@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit eutils
 W="${WORKDIR}"/"${P}"
 
 DESCRIPTION="NCBI Sequence Read Archive (SRA) sratoolkit"
-HOMEPAGE="http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_runs_v1&m=downloads&s=download_sra"
+HOMEPAGE="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_runs_v1&m=downloads&s=download_sra"
 SRC_URI="http://ftp-private.ncbi.nlm.nih.gov/sra/sdk/2.2.2a/sra_sdk-"${PV}".tar.gz"
 # http://ftp-private.ncbi.nlm.nih.gov/sra/sdk/2.2.2a/sratoolkit.2.2.2a-centos_linux64.tar.gz
 
