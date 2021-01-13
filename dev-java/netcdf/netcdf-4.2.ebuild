@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,7 +7,7 @@ JAVA_PKG_IUSE="doc examples source test"
 inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="Java Common Data Model (CDM) interface to to netCDF files"
-HOMEPAGE="http://www.unidata.ucar.edu/software/netcdf-java/"
+HOMEPAGE="https://www.unidata.ucar.edu/software/netcdf-java/"
 SRC_URI="ftp://ftp.unidata.ucar.edu/pub/${PN}-java/v${PV}/ncSrc-${PV}.zip"
 
 LICENSE="netCDF"
