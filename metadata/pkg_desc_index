@@ -604,7 +604,7 @@ sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medi
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
 sys-apps/ndctl 70.1 71 71.1 9999: utility for managing the nvdimm sub-system in the linux kernel
-sys-cluster/lmod 8.4.19 9999: Environment Module System based on Lua
+sys-cluster/lmod 8.4.19 8.4.20 9999: Environment Module System based on Lua
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
 sys-kernel/dkms 2.8.4: Dynamic Kernel Module Support
 virtual/scalapack 2.0.2-r1: Virtual for ScaLAPACK implementation
