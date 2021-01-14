@@ -57,6 +57,7 @@ dev-python/POT 0.7.0: Python Optimal Transport Library
 dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
 dev-python/amply 0.1.4: Allows you to load and manipulate AMPL/GLPK data as Python data structures
 dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
+dev-python/asdf 2.7.1: Python library for the Advanced Scientific Data Format
 dev-python/astropy 4.2: Core functionality for performing astrophysics with Python
 dev-python/astropy-healpix 0.5: HEALPix for Astropy
 dev-python/astropy-helpers 4.0.1: Helpers for Astropy and Affiliated packages
@@ -79,6 +80,7 @@ dev-python/fslpy 2.8.4: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/gmsh_interop 2019.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
+dev-python/gwcs 0.16.1: Generalized World Coordinate System
 dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
@@ -109,7 +111,7 @@ dev-python/reproject 0.7.1: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
 dev-python/ripser 0.5.4 0.6.0: python frontend for the fast ripser tda tool
 dev-python/snakemake 5.31.1: Make-like task language
-dev-python/specutils 9999: Affiliated package for 1D spectral operations
+dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
 dev-python/sphinx-argparse 0.2.5: Sphinx extension that automatically documents argparse commands and options
 dev-python/sphinx-astropy 1.3: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.13: Sphinx extension for auto-generating API documentation for entire modules
