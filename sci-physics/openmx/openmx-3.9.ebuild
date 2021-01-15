@@ -1,34 +1,29 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils multilib toolchain-funcs fortran-2
-
-PATCHDATE="14Feb17"
+inherit multilib toolchain-funcs flag-o-matic fortran-2
 
 DESCRIPTION="Material eXplorer"
-HOMEPAGE="http://www.openmx-square.org/"
-SRC_URI="
-	http://www.openmx-square.org/${PN}${PV%.[0-9]}.tar.gz
-	http://www.openmx-square.org/bugfixed/${PATCHDATE}/patch${PV}.tar.gz"
+HOMEPAGE="http://www.openmx-square.org/" # no https, SSL invalid
+SRC_URI="http://t-ozaki.issp.u-tokyo.ac.jp/${PN}${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="-debug mpi openmp test"
+KEYWORDS=""
+
+IUSE="debug openmp test"
 
 RDEPEND="
 	virtual/blas
 	virtual/lapack
-	sci-libs/fftw:3.0[mpi?,openmp?]
-	mpi? ( virtual/mpi )"
-DEPEND="${RDEPEND}
-	virtual/pkgconfig"
+	virtual/mpi
+	sci-libs/fftw:3.0[mpi,openmp?]"
+DEPEND="${RDEPEND}"
+BDEPEND="virtual/pkgconfig"
 
-S="${WORKDIR}/${PN}${PV%.[0-9]}"
-
-MAKEOPTS+=" -j1"
+S="${WORKDIR}/${PN}${PV}/source"
 
 FORTRAN_STANDARD=90
 
@@ -41,13 +36,8 @@ pkg_setup() {
 	fi
 	export FC_LIB
 
-	if use mpi; then
-		export CC="mpicc"
-		export FC="mpif90"
-	else
-		tc-export CC
-		tc-export FC
-	fi
+	export CC="mpicc"
+	export FC="mpif90"
 
 	if use openmp; then FORTRAN_NEED_OPENMP=1; fi
 
@@ -107,63 +97,54 @@ pkg_setup() {
 
 }
 
-src_prepare() {
-	cd "${WORKDIR}"
-	mv *.[hc] "${S}"/source
-	epatch "${FILESDIR}/3.7-fortran_objects.patch"
-}
-
 src_configure() {
 	local FFTW_FLAVOUR=fftw3
 	if use openmp; then
 	   FFTW_FLAVOUR=fftw3_omp
 	else
-	   export CFLAGS="${CFLAGS} -Dnoomp"
+	   append-cflag -Dnoomp
 	fi
-	if use mpi; then
-	   FFTW_FLAVOUR=fftw3_mpi
-	else
-	   export CFLAGS="${CFLAGS} -Dnompi"
-	fi
-	CFLAGS="${CFLAGS} $($(tc-getPKG_CONFIG) --cflags lapack)"
-	CFLAGS="${CFLAGS} $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})"
-	export CFLAGS
+	append-cflags $($(tc-getPKG_CONFIG) --cflags lapack)
+	append-cflags $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})
 
-	FCFLAGS="${FCFLAGS} -I/usr/include"
-	FCFLAGS="${FCFLAGS} $($(tc-getPKG_CONFIG) --cflags lapack)"
-	FCFLAGS="${FCFLAGS} $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})"
-	export FCFLAGS
+	append-fflags -I/usr/include
+	append-fflags $($(tc-getPKG_CONFIG) --cflags lapack)
+	append-fflags $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})
+
+	# otherwise we get Error: Rank mismatch between actual argument
+	# at (1) and actual argument at (2) (rank-1 and scalar)
+	append-fflags -fallow-argument-mismatch
 
 	local MX_LIB="$($(tc-getPKG_CONFIG) --static --libs lapack)"
 	MX_LIB="${MX_LIB} $($(tc-getPKG_CONFIG) --static --libs ${FFTW_FLAVOUR})"
-	if use mpi; then
-		MX_LIB="${MX_LIB} $(mpif90 -showme:link)"
-	fi
+	MX_LIB="${MX_LIB} $(mpif90 -showme:link)"
 
 	sed \
 		-e "s%^CC *=.*$%CC  = ${CC} ${CFLAGS}%" \
 		-e "s%^FC *=.*$%FC  = ${FC} ${FCFLAGS}%" \
 		-e "s%^LIB *=.*$%LIB = ${MX_LIB} ${FC_LIB}%" \
-		-i source/makefile || die
+		-i makefile || die
 }
 
 src_compile() {
-	emake -C source
+	# does not properly parallelize
+	# file 1 says can't find file 2
+	# and at the same time file 2 can't find file 3
+	emake -j1
 }
 
 src_test() {
-	cd work
+	cd ../work
 	../source/openmx -runtest || die
 }
 
 src_install() {
 	insinto /usr/share/${P}
-	doins -r DFT_DATA13
-	cd work
+	doins -r DFT_DATA19
+	cd ../work
 	insinto /usr/share/${P}/examples
 	doins -r *
 	cd ../source
-	dodir /usr/bin
 	emake DESTDIR="${D}/usr/bin" install
 	dodoc "${S}/${PN}${PV%.?}.pdf"
 	use test && dodoc "${S}"/work/runtest.result
