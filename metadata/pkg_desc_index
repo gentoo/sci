@@ -531,7 +531,7 @@ sci-libs/nipype 1.1.1-r2 1.4.2 1.5.0: Neuroimaging in Python: Pipelines and Inte
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
-sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
+sci-libs/pybids 0.6.5 0.10.2 0.11.1 0.12.4: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
 sci-libs/pytorch 1.6.0-r2: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
@@ -582,7 +582,6 @@ sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/foma 0.9.14_alpha 0.9.16_alpha: Finite state toolkit compatible with Xerox tools
 sci-misc/irstlm 6.00.05: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.3_rc3: Java interface to WordNet dictionary data
-sci-misc/kotus-sanalista 1-r1: Finnish dictionary word list
 sci-misc/mitlm 0.4.1: Tools designed for efficient estimation of statistical n-gram language models
 sci-misc/openfst 1.3.4 1.4.1 1.6.1: Finite State Transducer tools by Google et al
 sci-misc/opennlp-maxent 2.4.0: Maximum entropy model implementation for opennlp
