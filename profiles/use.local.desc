@@ -144,7 +144,6 @@ sci-libs/pytorch:opencl - Enable support for OpenCL
 sci-libs/pytorch:opencv - Enable support for OpenCV
 sci-libs/pytorch:qnnpack - Enable QNNPACK support
 sci-libs/pytorch:redis - Enable support for Redis
-sci-libs/pytorch:tbb - Build with Intel TBB enabled
 sci-libs/pytorch:tools - Build binary tools
 sci-libs/pytorch:zeromq - Enable support for ZeroMQ
 sci-libs/xblas:int64 - Build the 64 bits integer library

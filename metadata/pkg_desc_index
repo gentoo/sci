@@ -308,6 +308,7 @@ sci-biology/jigsaw 3.2.10: Combine results from external gene predictors into fi
 sci-biology/jtreeview 1.1.6.4 9999: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/jtreeview-bin 1.1.6.4: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/karect 1.0.0: Error-correct mismatches and InDels of raw reads incl. paired-end
+sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
 sci-biology/kmergenie 1.6971: Estimate best k-mer length to be used in novo assemblies
 sci-biology/kraken 1.0: Detect sequencing project contaminants by mapping reads to taxonomic groups
@@ -341,7 +342,7 @@ sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1 2.11.0: A subset of NCBI C++ T
 sci-biology/ncbi-genome-download 0.3.0: Download genomes from the NCBI FTP servers
 sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI BLAST+
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
-sci-biology/nilearn 0.5.0 0.5.2 0.6.2 9999: Fast and easy statistical learning on NeuroImaging data
+sci-biology/nilearn 0.6.2 9999: Fast and easy statistical learning on NeuroImaging data
 sci-biology/nitime 0.6 0.8.1 9999: Time-series analysis of neuroscience data
 sci-biology/nrcl 110625: Containment clustering and layout utility for processing pairwise alignments
 sci-biology/ntCard 1.1.0 9999: Estimate k-mer coverage histogram of genomics data
@@ -532,7 +533,7 @@ sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/pybids 0.5.0 0.6.5 0.10.2 0.11.1: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
-sci-libs/pytorch 1.4.0_p0-r2 1.6.0-r2: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+sci-libs/pytorch 1.6.0-r2: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikits_video 1.1.11_p20200115: Video processing in Python
 sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education and interpreted languages.
@@ -593,7 +594,7 @@ sci-physics/elk 1.4.22 2.1.25: All-electron full-potential linearised augmented-
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
-sci-physics/openmx 3.6 3.7.8: Material eXplorer
+sci-physics/openmx 3.9: Material eXplorer
 sci-physics/opticks 0.0.1_p20191110: GPU Optical Photon Simulation for Particle Physics
 sci-physics/opticks-okconf 0.0.1_p20191110: GPU Optical Photon Simulation for Particle Physics
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
