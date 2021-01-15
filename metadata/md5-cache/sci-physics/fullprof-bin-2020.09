@@ -1,0 +1,12 @@
+DEFINED_PHASES=install nofetch
+DEPEND=x11-libs/motif
+DESCRIPTION=Crystallographic tools mainly for Rietveld analysis
+EAPI=7
+HOMEPAGE=http://www.ill.eu/sites/fullprof/index.html
+KEYWORDS=-* ~amd64 ~x86
+LICENSE=freedist HPND
+RDEPEND=x11-libs/motif
+RESTRICT=fetch
+SLOT=0
+SRC_URI=FullProf_Suite_September2020_Linux64.tgz
+_md5_=ab6b80d625636dd64fcc67776b836305
