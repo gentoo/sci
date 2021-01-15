@@ -147,4 +147,3 @@ sci-mathematics/pff
 sci-misc/kotus-sanalista
 sci-physics/fullprof-bin
 sci-physics/openmx
-x11-libs/tr
