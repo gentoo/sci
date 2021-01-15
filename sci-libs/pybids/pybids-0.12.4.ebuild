@@ -1,9 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_6 )
+PYTHON_COMPAT=( python3_{7..9} )
+DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1
 
@@ -14,21 +15,21 @@ SRC_URI="https://github.com/INCF/pybids/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	"
+BDEPEND="dev-python/versioneer[${PYTHON_USEDEP}]
+	test? (	dev-python/mock[${PYTHON_USEDEP}] )
+"
+
 RDEPEND="
-	dev-python/grabbit[${PYTHON_USEDEP}]
+	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/num2words[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pandas[${PYTHON_USEDEP}]
 	dev-python/patsy[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]
+	dev-python/sqlalchemy[${PYTHON_USEDEP}]
+	sci-libs/bids-validator[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	"
+"
 
-# Tests are broken: https://github.com/INCF/pybids/issues/138
-RESTRICT="test"
+distutils_enable_tests --install pytest
