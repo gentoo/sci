@@ -1,21 +1,18 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 MODULE_AUTHOR=""
 inherit perl-module
 
 DESCRIPTION="EnsEMBL Perl API aka ensembl-api exposing Bio::EnsEMBL::Registry"
+HOMEPAGE="https://www.ensembl.org/index.html"
 SRC_URI="ftp://ftp.ensembl.org/pub/ensembl-api.tar.gz"
 
-#LICENSE="|| ( Artistic GPL-1+ )"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
-
-RDEPEND=""
-DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"
 
