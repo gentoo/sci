@@ -1,10 +1,10 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="PGI compiler suite"
-HOMEPAGE="http://www.pgroup.com/"
+HOMEPAGE="https://www.pgroup.com"
 SRC_URI="pgilinux-2013-135.tar.gz"
 
 LICENSE="PGI"
@@ -14,7 +14,7 @@ IUSE="cuda java"
 
 RDEPEND="net-misc/curl"
 
-RESTRICT="mirror strip"
+RESTRICT="mirror strip fetch"
 
 QA_PREBUILT="
 		opt/pgi/linux86/2013/cuda/4.2/lib/lib*.so.*
