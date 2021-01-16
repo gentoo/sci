@@ -1,20 +1,18 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Compiler cache for fortran"
-HOMEPAGE="http://people.irisa.fr/Edouard.Canot/f90cache/"
-SRC_URI="http://people.irisa.fr/Edouard.Canot/${PN}/${P}.tar.bz2"
+HOMEPAGE="https://perso.univ-rennes1.fr/edouard.canot//f90cache/"
+SRC_URI="https://perso.univ-rennes1.fr/edouard.canot//f90cache/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-DEPEND=""
 RDEPEND="dev-util/ccache"
 
 src_prepare() {
