@@ -567,7 +567,6 @@ sci-mathematics/lie 2.2.2: A Computer algebra package for Lie group computations
 sci-mathematics/ltl2ba 1.1: Fast LTL to Buechi Automata Translation
 sci-mathematics/netgen 4.9.13 5.0.0 5.3.1: Automatic 3d tetrahedral mesh generator
 sci-mathematics/open-axiom 1.4.2_p20180201: Symbolic and algebraic computations system
-sci-mathematics/pff 8.4: Library for reasoning about floating point numbers in coq
 sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
 sci-mathematics/scilab 6.1.0: Scientific software package for numerical computations
