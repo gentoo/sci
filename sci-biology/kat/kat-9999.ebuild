@@ -16,7 +16,7 @@ EGIT_CHECKOUT_DIR="${WORKDIR}"/KAT-Release-"${PV}"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="cpu_flags_x86_sse static-libs test"
 
 CDEPEND="
