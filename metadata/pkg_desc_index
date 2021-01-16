@@ -554,7 +554,7 @@ sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/dsfmt 2.2.4: Double precision SIMD-oriented Fast Mersenne Twister library
 sci-mathematics/flocq 2.3.0: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 20140301: Framework for analysis of source codes written in C
-sci-mathematics/freefem++ 3.8: Solve PDEs using FEM on 2d and 3d domains
+sci-mathematics/freefem++ 4.7.1: Solve PDEs using FEM on 2d and 3d domains
 sci-mathematics/gap 4.11.0: Computational discrete algebra system - minimal GAP core system
 sci-mathematics/gappa 1.1.1: Verifying and proving properties on floating-point or fixed-point arithmetic
 sci-mathematics/gappalib-coq 1.0.0: Allows the certificates Gappa generates to be imported by the Coq
