@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 JAVA_PKG_OPT_USE="gui"
@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD-2"
-IUSE="gui test"
+IUSE="gui"
 KEYWORDS="~amd64"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -22,7 +22,10 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="
 	virtual/mpi
 	${PYTHON_DEPS}
-	gui? ( virtual/jdk:* )"
+	gui? (
+		virtual/jdk:*
+		dev-java/jython
+	)"
 DEPEND="${RDEPEND}"
 
 src_compile() {
@@ -33,7 +36,8 @@ src_compile() {
 src_install () {
 	default
 	if use gui; then
-		java-pkg_newjar gui/ncptlGUI-1.4.jar ${PN}.jar
+		java-pkg_newjar gui/ncptlGUI-1.5.1b.jar ${PN}.jar
 		java-pkg_dolauncher
 	fi
+	python_optimize
 }
