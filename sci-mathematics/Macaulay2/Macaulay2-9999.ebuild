@@ -1,18 +1,18 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools elisp-common eutils flag-o-matic git-r3 python-single-r1 toolchain-funcs
+inherit autotools elisp-common flag-o-matic git-r3 python-single-r1 toolchain-funcs
 
 FACTORY="factory-4.0.0+m4"
 FACTORY_GFTABLES="factory.4.0.1-gftables"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
-HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
-BASE_URI="http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk"
+HOMEPAGE="https://faculty.math.illinois.edu/Macaulay2"
+BASE_URI="https://faculty.math.illinois.edu/Macaulay2/Downloads/OtherSourceCode/"
 SRC_URI="
 	${BASE_URI}/${FACTORY}.tar.gz
 	${BASE_URI}/${FACTORY_GFTABLES}.tar.gz
@@ -56,7 +56,7 @@ RDEPEND="${PYTHON_DEPS}
 	sys-libs/ncurses
 	>=dev-libs/boehm-gc-7.2_alpha6[threads]
 	dev-libs/libatomic_ops
-	emacs? ( virtual/emacs )"
+	emacs? ( app-editors/emacs )"
 
 SITEFILE=70Macaulay2-gentoo.el
 
@@ -89,10 +89,12 @@ src_prepare() {
 
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
-	epatch "${FILESDIR}"/${PV}-paths-of-external-programs.patch
+	eapply "${FILESDIR}"/${PV}-paths-of-external-programs.patch
 
 	# Shortcircuit lapack tests
-	epatch "${FILESDIR}"/${PV}-lapack.patch
+	eapply "${FILESDIR}"/${PV}-lapack.patch
+
+	eapply_user
 
 	# Factory is a statically linked library which (in this flavor) are not used by any
 	# other program. We build it internally and don't install it.
