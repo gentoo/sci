@@ -135,6 +135,5 @@ sci-libs/fgsl
 sci-libs/lwpr
 sci-libs/modglue
 sci-libs/superlu_dist
-sci-mathematics/lattE-macchiato
 sci-mathematics/Macaulay2
 sci-mathematics/pff
