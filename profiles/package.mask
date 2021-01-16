@@ -38,10 +38,6 @@ dev-java/hdf-java
 
 # Aisha Tammy <gentoo@aisha.cc> (2020-11-19)
 # mask unfetchable packages until someone fixes.
-dev-lang/pgi
-dev-ml/lacaml
-dev-perl/Bio-EnsEMBL
-dev-util/f90cache
 sci-biology/aghermann
 sci-biology/argo-bin
 sci-biology/bambino
