@@ -1,12 +1,12 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2019-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Image-processing software for cryo-electron microscopy"
-HOMEPAGE="http://www2.mrc-lmb.cam.ac.uk/relion"
+HOMEPAGE="https://www3.mrc-lmb.cam.ac.uk/relion/index.php/Main_Page"
 SRC_URI="https://github.com/3dem/relion/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -40,5 +40,5 @@ src_configure() {
 		-DCUDA=$(usex cuda)
 		-DGUI=$(usex gui)
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
