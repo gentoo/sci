@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -10,14 +10,13 @@ inherit java-pkg-2 python-r1
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments"
 HOMEPAGE="https://ics.hutton.ac.uk/tablet"
 SRC_URI="
-	x86? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
-	amd64? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
-	http://bioinf.hutton.ac.uk/tablet/additional/coveragestats.py"
+	x86? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x86_$(ver_rs 0-3 _).sh -> ${P}.sh )
+	amd64? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x64_$(ver_rs 0-3 _).sh -> ${P}.sh )
+	https://bioinf.hutton.ac.uk/tablet/additional/coveragestats.py"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE=""
+KEYWORDS=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
@@ -68,7 +67,7 @@ src_install() {
 		-e "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
 	else
 		sed \
-			-e 's#"$app_java_home/bin/java" -Dinstall4j.jvmDir# '"${EPREFIX}""/usr/bin/java -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
+		-e 's#"$app_java_home/bin/java" -Dinstall4j.jvmDir# '"${EPREFIX}""/usr/bin/java -Duser.home=${TMPDIR} -Dinstall4j.jvmDir -Djava.util.prefs.systemRoot=${TMPDIR}#" -i "${WORKDIR}"/${P}.sh || die
 	fi
 	sh \
 		"${WORKDIR}"/${P}.sh \
