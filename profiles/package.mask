@@ -125,4 +125,3 @@ sci-chemistry/nmrpipe
 sci-chemistry/polygon
 sci-chemistry/relion
 sci-chemistry/talosn
-sci-chemistry/trajng
