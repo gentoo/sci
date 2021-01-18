@@ -116,4 +116,3 @@ sci-biology/trim_galore
 sci-biology/twinscan
 sci-biology/vague-bin
 sci-biology/VelvetOptimiser
-sci-biology/wcd
