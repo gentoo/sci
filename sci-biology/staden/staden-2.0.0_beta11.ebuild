@@ -1,11 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-AUTOTOOLS_AUTORECONF=yes
-
-inherit autotools-utils eutils flag-o-matic fortran-2 multilib
+inherit flag-o-matic fortran-2 multilib
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="https://sourceforge.net/projects/staden"
@@ -41,31 +39,27 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}"/staden-${PV/_beta/b}-2016-src
 
-AUTOTOOLS_IN_SOURCE_BUILD=1
-
-PATCHES=("${FILESDIR}"/${P}-ldflags.patch)
+PATCHES=(
+	"${FILESDIR}"/${P}-ldflags.patch
+)
 
 src_prepare() {
+	default
 	sed \
 		-e 's:svnversion:false:' \
 		-i configure.in || die
-
-	AT_M4DIR=ac_stubs autotools-utils_src_prepare
 }
 
 src_configure(){
-	local myeconfargs=()
-	use X && myeconfargs+=( --with-x )
-	myeconfargs+=(
-		--with-tklib=/usr/$(get_libdir)/tklib
-		)
-	use amd64 && myeconfargs+=( --enable-64bit )
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
-	autotools-utils_src_configure
+	econf \
+		$(use_enable X x)
+		$(use_enable amd64 64bit)
+		--with-tklib=/usr/$(get_libdir)/tklib
 }
 
 src_install() {
-	autotools-utils_src_install
+	default
 	# install the LDPATH so that it appears in /etc/ld.so.conf after env-update
 	# subsequently, apps linked against /usr/lib/staden can be run because
 	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
