@@ -1,12 +1,11 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Simple index/database for huge amounts of small files"
-HOMEPAGE="http://www.splashground.de/~andy/programs/FFindex"
-#SRC_URI="http://downloads.sourceforge.net/project/transdecoder/TransDecoder_r20140704.tar.gz"
-SRC_URI="http://www.splashground.de/~andy/programs/FFindex/${P}.tar.gz"
+HOMEPAGE="https://github.com/ahcm/ffindex"
+SRC_URI="https://github.com/ahcm/ffindex/archive/${P}.tar.gz"
 
 LICENSE="CC-BY-3.0"
 SLOT="0"
@@ -16,7 +15,7 @@ IUSE="mpi"
 DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
 
-#S="${WORKDIR}"/TransDecoder_r20140704/3rd_party/ffindex-0.9.9.3
+S="${WORKDIR}/${PN}-${PN}-${PV}"
 
 src_compile(){
 	if use mpi; then
@@ -44,7 +43,7 @@ src_install(){
 	#  *  of the package in question and not hardened@g.o.
 	#  * RWX --- --- usr/lib64/libffindex.so.0.1
 	#
-	dolib libffindex.so.0.1 libffindex.so
+	dolib.so libffindex.so.0.1 libffindex.so
 
 	# make install INSTALL_DIR="${DESTDIR}" HAVE_MPI=1
 }
