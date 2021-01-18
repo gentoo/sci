@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install preinst prepare setup unpack
+DEPEND=python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/python-exec-2:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] app-text/dos2unix >=virtual/jdk-1.8:* >=dev-java/java-config-2.2.0-r3
+DESCRIPTION=Viewer of next generation sequence assemblies and alignments
+EAPI=7
+HOMEPAGE=https://ics.hutton.ac.uk/tablet
+IUSE=elibc_FreeBSD python_targets_python2_7
+LICENSE=BSD-2
+RDEPEND=python_targets_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 ) >=dev-lang/python-exec-2:=[python_targets_python2_7(-)?,-python_single_target_python2_7(-)] app-text/dos2unix >=virtual/jdk-1.8:* >=virtual/jre-1.8:* >=dev-java/java-config-2.2.0-r3
+REQUIRED_USE=|| ( python_targets_python2_7 )
+SLOT=0
+SRC_URI=x86? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x86_1_20_12_24.sh -> tablet-bin-1.20.12.24.sh ) amd64? ( https://ics.hutton.ac.uk/resources/tablet/installers/tablet_linux_x64_1_20_12_24.sh -> tablet-bin-1.20.12.24.sh ) https://bioinf.hutton.ac.uk/tablet/additional/coveragestats.py
+_eclasses_=java-pkg-2	c4e6af2574fd1dc79b43a6e27af4b5fb	java-utils-2	378e4cda228ea0231a0ac283cb2ad25c	multibuild	6b3d5ee849dafe6cdfd7b859c211fb01	multilib	d410501a125f99ffb560b0c523cd3d1e	python-r1	f1d4277b3ad100890cbd62e137f0a769	python-utils-r1	65bb60d137e5a51f58ada69bf3f366da	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
+_md5_=a3fbbc75524255af6ec6236d1704486e
