@@ -126,4 +126,3 @@ sci-chemistry/polygon
 sci-chemistry/relion
 sci-chemistry/talosn
 sci-chemistry/trajng
-sci-libs/ccif
