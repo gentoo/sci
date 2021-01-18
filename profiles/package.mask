@@ -123,4 +123,3 @@ sci-chemistry/dssp2pdb
 sci-chemistry/mddnmr
 sci-chemistry/nmrpipe
 sci-chemistry/polygon
-sci-chemistry/relion
