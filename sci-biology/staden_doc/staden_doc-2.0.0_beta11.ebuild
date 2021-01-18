@@ -1,24 +1,21 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
+EAPI=7
 
 DESCRIPTION="Documentation files for the staden package"
 HOMEPAGE="https://sourceforge.net/projects/staden"
 SRC_URI="https://sourceforge.net/projects/staden/files/staden/${PV/_beta/b}/staden_doc-${PV/_beta/b}-src.tar.gz"
-# https://sourceforge.net/p/staden/code/HEAD/tree/staden/trunk/doc/
 
 LICENSE="staden"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 DEPEND="dev-lang/perl
 	app-text/texlive
 	app-text/texi2html"
-RDEPEND="${DEPEND}"
+BDEPEND="app-editors/emacs"
+RDEPEND="${DEPEND} ${BDEPEND}"
 
 S="${WORKDIR}"/staden_doc-${PV/_beta/b}-src
 
