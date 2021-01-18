@@ -121,4 +121,3 @@ sci-biology/wgs_tools
 sci-chemistry/camshift
 sci-chemistry/dssp2pdb
 sci-chemistry/mddnmr
-sci-chemistry/nmrpipe
