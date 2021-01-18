@@ -124,4 +124,3 @@ sci-chemistry/mddnmr
 sci-chemistry/nmrpipe
 sci-chemistry/polygon
 sci-chemistry/relion
-sci-chemistry/talosn
