@@ -107,4 +107,3 @@ sci-biology/snphylo
 sci-biology/SPAdes
 sci-biology/sra_sdk
 sci-biology/staden_doc
-sci-biology/subread

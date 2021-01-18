@@ -1,23 +1,21 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-[ "$PV" == "9999" ] && inherit subversion
+EAPI=7
 
 DESCRIPTION="NGS suite for analysis of mapped reads, summary of exon/intron/gene counts"
 HOMEPAGE="http://bioinf.wehi.edu.au/featureCounts/" # no https
 if [ "$PV" == "9999" ]; then
+	inherit subversion
 	ESVN_REPO_URI="https://subread.svn.sourceforge.net/svnroot/subread/trunk"
-	#KEYWORDS="~amd64 ~x86"
+	KEYWORDS=""
 else
-	SRC_URI="https://sourceforge.net/projects/subread/files/"${P}"/"${P}"-source.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	SRC_URI="https://sourceforge.net/projects/subread/files/${P}/${P}-source.tar.gz"
+	KEYWORDS=""
 fi
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
 
 DEPEND="sys-libs/zlib"
 RDEPEND="${DEPEND}"
@@ -25,6 +23,7 @@ RDEPEND="${DEPEND}"
 S="${S}"-source
 
 src_prepare(){
+	default
 	sed -e "s/-mtune=core2//g" -e "s/-O9//g" -i src/Makefile.Linux || die
 }
 
