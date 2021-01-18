@@ -1,0 +1,14 @@
+DEFINED_PHASES=configure setup
+DEPEND=sci-libs/netcdf-fortran virtual/fortran virtual/fortran
+DESCRIPTION=A library of F90 routines to read/write the ETSF file format
+EAPI=7
+HOMEPAGE=https://github.com/ElectronicStructureLibrary/libetsf_io
+IUSE=examples pic
+KEYWORDS=~amd64 ~x86
+LICENSE=LGPL-2
+RDEPEND=sci-libs/netcdf-fortran virtual/fortran virtual/fortran
+RESTRICT=test
+SLOT=0
+SRC_URI=https://launchpad.net/etsf-io/1.0/1.0.4/+download/etsf_io-1.0.4.tar.gz
+_eclasses_=fortran-2	b4796813ccda91c9c0d3463fc90aa969	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
+_md5_=5ae887d63f104fca6f6d0a814e3864b5
