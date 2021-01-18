@@ -122,9 +122,3 @@ sci-chemistry/camshift
 sci-chemistry/dssp2pdb
 sci-chemistry/mddnmr
 sci-chemistry/nmrpipe
-sci-chemistry/polygon
-sci-chemistry/relion
-sci-chemistry/talosn
-sci-chemistry/trajng
-sci-libs/ccif
-sci-libs/etsf_io
