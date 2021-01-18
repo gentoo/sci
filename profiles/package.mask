@@ -131,4 +131,3 @@ sci-libs/etsf_io
 sci-libs/fdlibm
 sci-libs/fgsl
 sci-libs/lwpr
-sci-libs/modglue
