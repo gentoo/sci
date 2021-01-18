@@ -130,6 +130,3 @@ sci-libs/ccif
 sci-libs/etsf_io
 sci-libs/fdlibm
 sci-libs/fgsl
-sci-libs/lwpr
-sci-libs/modglue
-sci-libs/superlu_dist
