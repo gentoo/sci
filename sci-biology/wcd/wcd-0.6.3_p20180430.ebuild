@@ -43,6 +43,6 @@ src_compile() {
 
 src_install() {
 	use doc && HTML_DOCS=( doc/wcd.html doc/wcd.pdf doc/wcd.texi )
-	emake install PREFIX=/usr LIBDIR="${D}"usr/$(get_libdir)
+	emake install PREFIX=/usr LIBDIR="${D}"/usr/$(get_libdir)
 	dodoc "${DISTDIR}"/wcd.*
 }
