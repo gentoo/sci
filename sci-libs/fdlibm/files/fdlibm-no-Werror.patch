@@ -1,0 +1,25 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 74bd751..e9d6912 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,20 +1,6 @@
+ cmake_minimum_required(VERSION 3.10)
+ project (fdlibm)
+ 
+-#need to change optimization level to O1 in visual studio
+-#so intrinsics aren't included
+-if(MSVC)
+-    add_compile_options("/W4" "$<$<CONFIG:RELEASE>:/O1>")
+-else()
+-    add_compile_options("-Wall" "-Wextra" "-Werror" "$<$<CONFIG:RELEASE>:-O3>")
+-    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+-        add_compile_options("-stdlib=libc++")
+-    else()
+-        # nothing special for gcc at the moment
+-    endif()
+-endif()
+-
+-
+ #
+ #extlib - javascript
+ #
