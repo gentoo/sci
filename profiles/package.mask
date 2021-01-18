@@ -128,5 +128,3 @@ sci-chemistry/talosn
 sci-chemistry/trajng
 sci-libs/ccif
 sci-libs/etsf_io
-sci-libs/fdlibm
-sci-libs/fgsl
