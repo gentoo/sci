@@ -1,11 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-AUTOTOOLS_AUTORECONF=yes
-
-inherit autotools-utils flag-o-matic fortran-2 multilib subversion
+inherit flag-o-matic fortran-2 multilib subversion
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="https://sourceforge.net/projects/staden/"
@@ -38,42 +36,27 @@ RDEPEND="${DEPEND}
 	net-misc/curl
 	doc? ( sci-biology/staden_doc )"
 
-AUTOTOOLS_IN_SOURCE_BUILD=1
-
 src_prepare() {
-	cd "${WORKDIR}"/"${P}"/src || die
+	default
 	sed \
 		-e 's:svnversion:false:' \
 		-i configure.in || die
-
-	AT_M4DIR=ac_stubs autotools-utils_src_prepare
 }
 
-src_configure() {
-	cd "${WORKDIR}"/"${P}"/src || die
-	S="${WORKDIR}"/"${P}"/src
-	local myeconfargs=()
-	use X && myeconfargs+=( --with-x )
-	myeconfargs+=(
-		--with-tklib=/usr/$(get_libdir)/tklib
-		)
-	use amd64 && myeconfargs+=( --enable-64bit )
+src_configure(){
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
-		autotools-utils_src_configure
-	# edit system.mk to place there proper version number of the svn-controlled checkout
-	sed -e "s/^SVNVERS.*/SVNVERS = "${ESVN_REVISION}"/" -i system.mk || die
-}
-
-src_compile(){
-	cd "${WORKDIR}"/"${P}"/src || die
-	S="${WORKDIR}"/"${P}"/src
-	default
+	econf \
+		$(use_enable X x)
+		$(use_enable amd64 64bit)
+		--with-tklib=/usr/$(get_libdir)/tklib
 }
 
 src_install() {
-	cd "${WORKDIR}"/"${P}"/src || die
-	S="${WORKDIR}"/"${P}"/src
-	autotools-utils_src_install SVN_VERSION="${ESVN_REVISION}"
+	default
+	# install the LDPATH so that it appears in /etc/ld.so.conf after env-update
+	# subsequently, apps linked against /usr/lib/staden can be run because
+	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
+	# somehow for gap2caf, for example
 	cat >> "${T}"/99staden <<- EOF
 	STADENROOT="${EPREFIX}"/usr/share/staden
 	LDPATH="${EPREFIX}/usr/$(get_libdir)/staden"
