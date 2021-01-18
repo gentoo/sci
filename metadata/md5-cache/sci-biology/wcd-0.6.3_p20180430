@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile configure install
+DEPEND=mpi? ( sys-cluster/mpich2 )
+DESCRIPTION=EST sequence clustering: d2 function, edit distance, common word heuristics
+EAPI=7
+HOMEPAGE=https://shaze.github.io/wcdest/
+IUSE=doc mpi threads
+LICENSE=GPL-2
+SLOT=0
+SRC_URI=https://github.com/shaze/wcdest/archive/aee525029bb661b633097e989c6fe2eaa93d2def.tar.gz -> wcd-0.6.3_p20180430.tar.gz http://www.bioinf.wits.ac.za/~scott/wcd.html http://www.bioinf.wits.ac.za/~scott/wcd.pdf
+_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
+_md5_=418d05bff4c324397038000e85504766

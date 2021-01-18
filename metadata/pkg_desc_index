@@ -195,7 +195,7 @@ sci-biology/TransDecoder 2.1.0: Extract ORF/CDS regions from FASTA sequences
 sci-biology/Trinotate 2.0.1: Annotation and analysis pipeline for de novo assembled transcriptomes
 sci-biology/VarScan 2.4.2 2.4.3: Variant detection (germline, multi-sample, somatic mutations, CNA, SNP calls)
 sci-biology/VarScan-bin 2.4.2 2.4.3: Variant detection (germline, multi-sample, somatic mut., CNA), SNP
-sci-biology/VelvetOptimiser 2.2.5: Optimise Velvet sequence assembler
+sci-biology/VelvetOptimiser 2.2.6: Optimise Velvet sequence assembler
 sci-biology/YASRA 2.33: Yet Another Short Read Assembler aligning to a reference using LASTZ
 sci-biology/abacas 1.3.1: Order and orientate DNA contigs even via 6-frame protein alignments
 sci-biology/abyss 2.2.5: Assembly By Short Sequences - a de novo, parallel, paired-end sequence assembler
@@ -441,20 +441,18 @@ sci-biology/vague-bin 1.0.5: GUI for Velvet de novo assembler
 sci-biology/vcflib 9999: VCF/BED utils, Genotype Phenotype Association Toolkit (GPAT++)
 sci-biology/verifyBamID 1.1.3: Verify sample identity/mix and genotype concordance
 sci-biology/vt 9999: A tool set for short variant discovery in genetic sequence data
-sci-biology/wcd 0.6.3: EST sequence clustering: d2 function, edit distance, common word heuristics
+sci-biology/wcd 0.6.3_p20180430: EST sequence clustering: d2 function, edit distance, common word heuristics
 sci-biology/weblogo 3.7.5: generate consensus sequence logo figures
 sci-biology/wgs_tools 9999: Scripts for ncbi-tools++ and SRA postprocessing using taxonomy
 sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural variants (SV)
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.4.0: Correction of electron beam-induced sample motion
-sci-chemistry/camshift 1.35.0: Structure based prediction of protein chemical shifts
 sci-chemistry/chimera-bin 1.11.2 1.14: An extensible Molecular Modelling System
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/ctffind 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/dl_poly 1.9 4.05: a general purpose molecular dynamics simulation package
 sci-chemistry/drawxtl 45 55: Crystal structure drawings from structural data
-sci-chemistry/dssp2pdb 0.03: convert dssp to pdb
 sci-chemistry/erkale 9999: Quantum chemistry program for atoms and molecules
 sci-chemistry/freeon 9999: An experimental suite of programs for linear scaling quantum chemistry
 sci-chemistry/gamess 20180930.3: A powerful quantum chemistry package
@@ -462,7 +460,7 @@ sci-chemistry/hydronmr 7c: Calculation of NMR relaxation of small, quasirigid ma
 sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to be created
 sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
 sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
-sci-chemistry/mddnmr 2.4-r1: Program for processing of NUS multidimensional NMR spectra
+sci-chemistry/mddnmr 2.7: Program for processing of NUS multidimensional NMR spectra
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
 sci-chemistry/modeller 9.25: Homology or comparative modeling of protein three-dimensional structures
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
