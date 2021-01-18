@@ -113,4 +113,3 @@ sci-biology/swissknife
 sci-biology/tablet-bin
 sci-biology/TransDecoder
 sci-biology/trim_galore
-sci-biology/twinscan
