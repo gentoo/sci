@@ -1,7 +1,7 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -10,13 +10,14 @@ inherit python-single-r1
 MY_P="${PN}${PV}"
 
 DESCRIPTION="Program for processing of NUS multidimensional NMR spectra"
-HOMEPAGE="http://www.nmr.gu.se/~mdd/"
-SRC_URI="http://pc8.nmr.gu.se/~mdd/Downloads/${MY_P}.tgz"
+HOMEPAGE="http://mddnmr.spektrino.com/"
+SRC_URI="${MY_P}.tgz"
 
 SLOT="0"
 KEYWORDS=""
 LICENSE="mddnmr"
-IUSE=""
+
+RESTRICT="fetch"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
