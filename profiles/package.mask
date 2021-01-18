@@ -119,4 +119,3 @@ sci-biology/VelvetOptimiser
 sci-biology/wcd
 sci-biology/wgs_tools
 sci-chemistry/camshift
-sci-chemistry/dssp2pdb
