@@ -1,13 +1,13 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-opt-2
 
 DESCRIPTION="Prediction of Protein bb and sc Torsion Angles from NMR Chemical Shifts"
-HOMEPAGE="http://spin.niddk.nih.gov/bax/software/TALOS-N/"
-SRC_URI="http://spin.niddk.nih.gov/bax/software/TALOS-N/talosn.tZ -> ${P}.tgz"
+HOMEPAGE="https://spin.niddk.nih.gov/bax/software/TALOS-N/"
+SRC_URI="https://spin.niddk.nih.gov/bax/software/TALOS-N/talosn.tZ -> ${P}.tgz"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
@@ -24,6 +24,7 @@ S="${WORKDIR}"
 QA_PREBUILT="/opt/.*"
 
 src_prepare() {
+	default
 	local s64
 	use amd64 || s64="_x64"
 	rm -f bin/TALOSN.{linux,mac,static.*,winxp,linux9${s64}} || die
