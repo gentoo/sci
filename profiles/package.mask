@@ -126,8 +126,6 @@ sci-chemistry/polygon
 sci-chemistry/relion
 sci-chemistry/talosn
 sci-chemistry/trajng
-sci-libs/amber99sbnmr-ildn
-sci-libs/amber99sb_phipsi
 sci-libs/ccif
 sci-libs/etsf_io
 sci-libs/fdlibm
