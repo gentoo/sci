@@ -1,24 +1,26 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit perl-functions toolchain-funcs
 
 DESCRIPTION="Extract ORF/CDS regions from FASTA sequences"
-HOMEPAGE="http://transdecoder.github.io"
+HOMEPAGE="https://github.com/TransDecoder/TransDecoder/wiki"
 
 if [[ ${PV} == *9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/TransDecoder/TransDecoder.git"
 else
-	SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/TransDecoder-v${PV}.tar.gz"
 	KEYWORDS="~amd64"
+	S="${WORKDIR}/${PN}-${PN}-v${PV}"
 fi
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
-IUSE=""
+
+RESTRICT="test"
 
 DEPEND="dev-lang/perl:="
 RDEPEND="${DEPEND}
@@ -35,7 +37,6 @@ src_prepare() {
 		sed -e "s#use $p;#use TransDecoder::$p;#" \
 			-i PerlLib/*.pm util/*.pl TransDecoder.LongOrfs TransDecoder.Predict || die
 	done
-	eapply "${FILESDIR}"/"${P}"__fix_paths.patch
 	eapply "${FILESDIR}"/pfam_runner.pl.patch
 
 	eapply_user
