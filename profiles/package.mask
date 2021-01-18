@@ -109,4 +109,3 @@ sci-biology/sra_sdk
 sci-biology/staden_doc
 sci-biology/subread
 sci-biology/swissknife
-sci-biology/tablet-bin
