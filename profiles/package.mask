@@ -59,7 +59,6 @@ sci-biology/ePCR
 sci-biology/ESTate
 sci-biology/estscan
 sci-biology/eval
-sci-biology/ffindex
 sci-biology/FLASH
 sci-biology/fsa
 sci-biology/GAL
@@ -111,4 +110,3 @@ sci-biology/staden_doc
 sci-biology/subread
 sci-biology/swissknife
 sci-biology/tablet-bin
-sci-biology/TransDecoder
