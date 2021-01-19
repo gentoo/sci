@@ -59,4 +59,3 @@ sci-biology/ePCR
 sci-biology/ESTate
 sci-biology/eval
 sci-biology/FLASH
-sci-biology/fsa
