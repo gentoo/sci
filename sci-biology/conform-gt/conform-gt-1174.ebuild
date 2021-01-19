@@ -1,21 +1,23 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
+
+inherit java-pkg-2
 
 DESCRIPTION="Modify your Variant Call Format file to be consistent with reference VCF"
-HOMEPAGE="http://faculty.washington.edu/browning/conform-gt.html"
-SRC_URI="http://faculty.washington.edu/browning/conform-gt/conform-gt.r1174.zip"
+HOMEPAGE="https://faculty.washington.edu/browning/conform-gt.html"
+SRC_URI="https://faculty.washington.edu/browning/conform-gt/conform-gt.24May16.cee.jar"
 
-LICENSE="Apache-2.0"
+LICENSE="Apache-2.0 MIT"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64 ~x86"
 
-DEPEND=""
+DEPEND=">=virtual/jre-1.7:*"
 RDEPEND="${DEPEND}"
-# Some source files in the net.sf.samtools package are licensed under the MIT License.
 
-# http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase1_vcf/
+S="${WORKDIR}"
 
-S="${WORKDIR}"/src
+src_install() {
+	java-pkg_newjar "${DISTDIR}/conform-gt.24May16.cee.jar" "${PN}.jar"
+}
