@@ -77,4 +77,3 @@ sci-biology/jtreeview-bin
 sci-biology/kat
 sci-biology/KING
 sci-biology/kraken
-sci-biology/lucy
