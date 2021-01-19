@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -10,13 +10,12 @@ MY_HASH="2bdacef4d1f4d760f6c8b5397db56928ea223563"
 
 DESCRIPTION="Draw Gantt charts from Python"
 HOMEPAGE="https://pypi.org/project/python-gantt/"
-SRC_URI="https://github.com/stefanSchinkel/gantt/archive/${MY_HASH}.tar.gz"
+SRC_URI="https://github.com/stefanSchinkel/gantt/archive/${MY_HASH}.tar.gz -> ${P}.tar.gz"
 #SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
 
 DEPEND="test? ( >=dev-python/pytest-5.1.2[${PYTHON_USEDEP}] )"
 RDEPEND="

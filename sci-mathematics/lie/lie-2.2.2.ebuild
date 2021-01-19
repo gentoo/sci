@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -44,5 +44,5 @@ src_install() {
 pkg_postinst() {
 	elog "This version of the LiE ebuild is still under development."
 	elog "Help us improve the ebuild in:"
-	elog "http://bugs.gentoo.org/show_bug.cgi?id=194393"
+	elog "https://bugs.gentoo.org/show_bug.cgi?id=194393"
 }

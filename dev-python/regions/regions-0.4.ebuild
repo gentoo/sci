@@ -9,7 +9,7 @@ DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit distutils-r1
 
 DESCRIPTION="Astropy affilated package for region handling"
-HOMEPAGE="http://github.com/astropy/regions"
+HOMEPAGE="https://github.com/astropy/regions"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"

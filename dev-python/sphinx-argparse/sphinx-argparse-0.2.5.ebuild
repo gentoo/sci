@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,7 +15,6 @@ SRC_URI="https://github.com/alex-rudakov/${PN}/archive/${PV}.tar.gz -> ${P}.tar.
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND=""
 RDEPEND="
@@ -30,7 +29,7 @@ distutils_enable_sphinx docs dev-python/sphinx_rtd_theme dev-python/sphinx-argpa
 
 python_prepare_all() {
 	# test fails, skip it until a fix is found:
-	# AssertionError: assert [{'action_groups': [{'description': None,\n                     'options': [{'default': None,\n          
+	# AssertionError: assert [{'action_groups': [{'description': None,\n 'options': [{'default': None,\n
 	sed -i -e 's:test_parse_nested:_&:' \
 		-e 's:test_parse_nested_traversal:_&:' \
 			test/test_parser.py || die

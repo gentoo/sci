@@ -12,7 +12,7 @@ ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - main fem"
-HOMEPAGE="https://www.csc.fi/english/pages/elmer"
+HOMEPAGE="https://www.csc.fi/web/elmer"
 SRC_URI=""
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
 ESVN_PROJECT="${MY_PN}"

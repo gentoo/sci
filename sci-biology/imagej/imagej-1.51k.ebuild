@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -38,6 +38,7 @@ RDEPEND=">=virtual/jre-1.6:*
 	dev-java/jython"
 DEPEND=">=virtual/jdk-1.6:*
 	dev-java/ant-core
+	app-arch/unzip
 	${RDEPEND}"
 
 S=${WORKDIR}/source

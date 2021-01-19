@@ -18,6 +18,7 @@ KEYWORDS="~amd64"
 # nucmer smalt_x86_64 ssaha2 ssaha2Build velvetg velveth
 DEPEND=""
 RDEPEND="${DEPEND}"
+BDEPEND="app-arch/unzip"
 
 S="${WORKDIR}/${PN}_version2.4"
 

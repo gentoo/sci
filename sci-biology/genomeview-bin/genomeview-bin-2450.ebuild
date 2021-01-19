@@ -15,6 +15,7 @@ KEYWORDS="~amd64"
 
 DEPEND=">=virtual/jdk-1.7:*"
 RDEPEND=">=virtual/jre-1.7:*"
+BDEPEND="app-arch/unzip"
 
 S="${WORKDIR}/genomeview-${PV}"
 

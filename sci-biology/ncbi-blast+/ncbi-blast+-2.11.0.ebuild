@@ -78,7 +78,7 @@ DEPEND="
 
 # seems muParser is required, also glew is required. configure exits otherwise if these are explicitly passed to it (due to USE flag enabled)
 
-RDEPEND="${BDEPEND}"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}/c++"
 # ncbi-blast-2.2.30+-src/c++

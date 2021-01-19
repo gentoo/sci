@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -7,7 +7,7 @@ inherit eutils
 
 DESCRIPTION="View trace information at a given position missing from Roche .ace files"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
-SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/align_to_scf-1.06.tgz"
+SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/align_to_scf-${PV}.tgz"
 
 LICENSE="FLI-Jena"
 SLOT="0"
