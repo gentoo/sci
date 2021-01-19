@@ -1,9 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Population genetics analysis"
 HOMEPAGE="https://genepop.curtin.edu.au/ https://kimura.univ-montp2.fr/~rousset/Genepop.htm"
@@ -28,12 +28,11 @@ src_prepare() {
 	add_executable(Genepop GenepopS.cpp)
 	install(TARGETS Genepop DESTINATION bin)
 	EOF
-	cmake-utils_src_prepare
-	default
+	cmake_src_prepare
 }
 
 src_install(){
-	cmake-utils_src_install
+	cmake_src_install
 	mv "${ED}"/usr/bin/Genepop "${ED}"/usr/bin/genepop || die
 	newdoc Genepop.pdf genepop.pdf
 	insinto /usr/share/"${PN}"
