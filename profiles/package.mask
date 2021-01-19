@@ -64,15 +64,3 @@ sci-biology/GAL
 sci-biology/gap2caf
 sci-biology/geneid
 sci-biology/generecon
-sci-biology/genomeview-bin
-sci-biology/gfftools
-sci-biology/glean
-sci-biology/graf-bin
-sci-biology/hydra-sv
-sci-biology/ICC
-sci-biology/IMAGE
-sci-biology/jannovar
-sci-biology/jtreeview
-sci-biology/jtreeview-bin
-sci-biology/kat
-sci-biology/KING
