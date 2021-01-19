@@ -90,4 +90,3 @@ sci-biology/mRNAmarkup
 sci-biology/mrsfast
 sci-biology/MuSeqBox
 sci-biology/OBO-Edit
-sci-biology/ONTO-PERL
