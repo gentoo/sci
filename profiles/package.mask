@@ -73,4 +73,3 @@ sci-biology/ICC
 sci-biology/IMAGE
 sci-biology/jannovar
 sci-biology/jtreeview
-sci-biology/jtreeview-bin
