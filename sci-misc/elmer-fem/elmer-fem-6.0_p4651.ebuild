@@ -12,7 +12,7 @@ ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - main fem"
-HOMEPAGE="https://www.csc.fi/english/pages/elmer"
+HOMEPAGE="https://www.csc.fi/web/elmer"
 SRC_URI="http://elmerfem.svn.sourceforge.net/viewvc/${ELMER_ROOT}/release/${PV%_p*}/${MY_PN}/?view=tar&pathrev=4651 -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
