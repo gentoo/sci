@@ -21,13 +21,16 @@ RESTRICT="primaryuri"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+
 IUSE="python"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	dev-lang/lua:0
 	dev-cpp/gtest
 	sci-libs/itk
 	dev-python/virtualenv
+	python? ( ${PYTHON_DEPS} )
 "
 DEPEND="
 	${RDEPEND}
