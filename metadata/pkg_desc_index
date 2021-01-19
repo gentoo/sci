@@ -184,11 +184,11 @@ sci-biology/RSeQC 4.0.0-r1: Utilities for RNA-seq data quality control
 sci-biology/Rcorrector 9999: Error correction for Illumina RNA-seq reads
 sci-biology/SEECER 0.1.3-r2: SEquence Error Corrector for RNA-Seq reads
 sci-biology/SOAPdenovo2 241: Whole genome shotgun assembler (sparse de Bruijn graph) (now MEGAHIT)
-sci-biology/SPAdes 3.13.0 3.14.1: De novo de Bruijn genome assembler overcoming uneven coverage
+sci-biology/SPAdes 3.15.0: De novo de Bruijn genome assembler overcoming uneven coverage
 sci-biology/SSAKE 3.8.2: Short-read trimmer, OLC assembler, scaffolder in PERL using the 3'-most k-mers
 sci-biology/Scaffolder-evaluation 9999: Scripts to run genome assembly scaffolding tools and analyse output for accuracy
 sci-biology/Sibelia 9999: Draw synteny plots using circos
-sci-biology/SnpEff 4.3i: SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF
+sci-biology/SnpEff 4.3t: SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF
 sci-biology/SolexaQA 2.2: Analyze and trim single-end and paired-end reads, show quality statistics
 sci-biology/StarORF 9999: Java-based utility to show ORFs in a sequence
 sci-biology/TransDecoder 5.5.0: Extract ORF/CDS regions from FASTA sequences
@@ -408,11 +408,11 @@ sci-biology/skewer-bin 0.1.104: Adaptor and MID removal / trimming tool
 sci-biology/smalt 0.7.6: DNA read mapper using k=20 (successor of ssaha2)
 sci-biology/smalt-bin 0.7.4: Pairwise sequence alignment mapping DNA reads onto genomic reference
 sci-biology/snap 20131129: HMM-based prokaryotic and eukaryotic gene prediction tool
-sci-biology/snphylo 20140701: Pipeline to generate phylogenetic tree from SNP data
+sci-biology/snphylo 0_p20181005: Pipeline to generate phylogenetic tree from SNP data
 sci-biology/snpomatic 9999: Stringent short-read aligner supporting filters and various output formats
 sci-biology/somatic-sniper 1.0.4: Compare BAM files from normal and tumor samples and report somatic SNPs
 sci-biology/spm 8 12 12_p6470 12_p7219: Analysis of brain imaging data sequences for Octave or Matlab
-sci-biology/sra_sdk 2.2.2a: NCBI Sequence Read Archive (SRA) sratoolkit
+sci-biology/sra_sdk 2.10.9: NCBI Sequence Read Archive (SRA) sratoolkit
 sci-biology/ssaha2-bin 2.5.5: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
 sci-biology/stacks 1.44: Analyze restriction enzyme data, draw gen. maps, population genomics
 sci-biology/staden 2.0.0_beta11 9999: DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
