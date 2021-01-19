@@ -67,4 +67,3 @@ sci-biology/generecon
 sci-biology/genomeview-bin
 sci-biology/gfftools
 sci-biology/glean
-sci-biology/graf-bin
