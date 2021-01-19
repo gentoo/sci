@@ -57,7 +57,6 @@ sci-biology/EBARDenovo
 sci-biology/ensembl-tools
 sci-biology/ePCR
 sci-biology/ESTate
-sci-biology/estscan
 sci-biology/eval
 sci-biology/FLASH
 sci-biology/fsa
@@ -84,10 +83,3 @@ sci-biology/manatee-igs
 sci-biology/manatee-jcvi
 sci-biology/mavid
 sci-biology/MeV
-sci-biology/MolBioLib
-sci-biology/mreps
-sci-biology/mRNAmarkup
-sci-biology/mrsfast
-sci-biology/MuSeqBox
-sci-biology/OBO-Edit
-sci-biology/ONTO-PERL

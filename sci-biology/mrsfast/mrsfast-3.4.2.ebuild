@@ -1,20 +1,20 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Micro Read Fast Alignment Search Tool"
-HOMEPAGE="http://mrsfast.sourceforge.net/Home"
-SRC_URI="mirror://sourceforge/mrsfast/${PV}/${P}.zip"
+HOMEPAGE="https://sfu-compbio.github.io/mrsfast/"
+SRC_URI="https://github.com/sfu-compbio/mrsfast/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-IUSE=""
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 src_prepare() {
+	default
 	sed \
 		-e "s:gcc:$(tc-getCC) ${LDFLAGS}:g" \
 		-e '/^CFLAGS/d' \

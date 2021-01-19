@@ -1,24 +1,20 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit toolchain-funcs
 
 DESCRIPTION="Parse and filter BLAST output into tab-delimited file"
 HOMEPAGE="http://brendelgroup.org/bioinformatics2go/MuSeqBox.php"
-SRC_URI="http://www.brendelgroup.org/bioinformatics2go/Download/MuSeqBox-4-8-2015.tar.gz"
+SRC_URI="http://www.brendelgroup.org/bioinformatics2go/Download/MuSeqBox-${PV//./-}.tar.gz"
 # code will move to https://github.com/BrendelGroup
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
-S="${WORKDIR}/MUSEQBOX5.4"
+S="${WORKDIR}/MUSEQBOX5.5"
 
 src_compile(){
 	cd src || die
