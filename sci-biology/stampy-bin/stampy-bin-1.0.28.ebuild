@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -13,11 +13,12 @@ SRC_URI="stampy-${PV}.tar.gz"
 LICENSE="stampy-academic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RESTRICT="fetch"
 
-DEPEND=""
+DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/stampy-${PV}
