@@ -94,4 +94,3 @@ sci-biology/ONTO-PERL
 sci-biology/ORFcor
 sci-biology/pairagon
 sci-biology/polyphen
-sci-biology/primerD
