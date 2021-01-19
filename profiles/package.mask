@@ -91,14 +91,3 @@ sci-biology/mrsfast
 sci-biology/MuSeqBox
 sci-biology/OBO-Edit
 sci-biology/ONTO-PERL
-sci-biology/ORFcor
-sci-biology/pairagon
-sci-biology/polyphen
-sci-biology/primerD
-sci-biology/prokka
-sci-biology/reptile
-sci-biology/RSeQC
-sci-biology/scaffold_builder
-sci-biology/sgp2
-sci-biology/skewer-bin
-sci-biology/smalt

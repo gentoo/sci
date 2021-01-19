@@ -8,14 +8,13 @@ PYTHON_COMPAT=( python3_{7,8,9} )
 inherit distutils-r1
 
 DESCRIPTION="Utilities for RNA-seq data quality control"
-HOMEPAGE="https://rseqc.sourceforge.net"
+HOMEPAGE="https://sourceforge.net/projects/rseqc/"
 SRC_URI="https://sourceforge.net/projects/rseqc/files/RSeQC-${PV}.tar.gz
 	https://sourceforge.net/projects/rseqc/files/other/fetchChromSizes"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 BDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
