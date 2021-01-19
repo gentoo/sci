@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit perl-functions
 
@@ -14,7 +14,6 @@ SRC_URI="
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 # http://www.well.ox.ac.uk/project-stampy
 
@@ -35,7 +34,7 @@ src_prepare(){
 
 src_compile(){
 	rm -rf libs/htslib libs/gsl-1.15 || die
-	make NUM_COLS=1 MAXK=31 cortex_var || die
+	emake NUM_COLS=1 MAXK=31 cortex_var || die
 }
 
 src_install(){
