@@ -34,6 +34,7 @@ RDEPEND="${CDEPEND}
 
 DEPEND="${CDEPEND}
 	>=virtual/jdk-1.5
+	app-arch/unzip
 	test? (
 		dev-java/ant-junit4
 		dev-java/hamcrest-core
