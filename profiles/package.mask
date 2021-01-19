@@ -99,4 +99,3 @@ sci-biology/prokka
 sci-biology/reptile
 sci-biology/RSeQC
 sci-biology/scaffold_builder
-sci-biology/sgp2
