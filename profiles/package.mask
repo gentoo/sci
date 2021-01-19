@@ -71,4 +71,3 @@ sci-biology/graf-bin
 sci-biology/hydra-sv
 sci-biology/ICC
 sci-biology/IMAGE
-sci-biology/jannovar
