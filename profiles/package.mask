@@ -84,4 +84,3 @@ sci-biology/manatee-igs
 sci-biology/manatee-jcvi
 sci-biology/mavid
 sci-biology/MeV
-sci-biology/MolBioLib
