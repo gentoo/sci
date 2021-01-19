@@ -3,7 +3,7 @@
 
 EAPI=5
 
-inherit eutils eutils toolchain-funcs
+inherit eutils toolchain-funcs
 
 [ "$PV" == "9999" ] && inherit git-r3
 
