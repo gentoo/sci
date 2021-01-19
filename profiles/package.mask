@@ -42,4 +42,3 @@ sci-biology/aghermann
 sci-biology/argo-bin
 sci-biology/bambino
 sci-biology/BBmap
-sci-biology/beagle
