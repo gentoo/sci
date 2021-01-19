@@ -1,18 +1,15 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Transcript annotation workflow"
 HOMEPAGE="http://brendelgroup.org/bioinformatics2go/mRNAmarkup.php"
-SRC_URI="http://www.brendelgroup.org/bioinformatics2go/Download/mRNAmarkup-10-3-2013.tar.gz" # 215MB
-
-# 0README in version 20131003 says it is 1.0
+SRC_URI="http://www.brendelgroup.org/bioinformatics2go/Download/mRNAmarkup-${PV//./-}.tar.gz" # 184MB
 
 LICENSE="mRNAmarkup"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND="
 	sci-biology/ncbi-tools++
@@ -24,9 +21,10 @@ DEPEND="
 # has a slightly modified estscan copy in src/contributed
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/"${PN}"
+S="${WORKDIR}/${PN}"
 
 src_prepare(){
+	default
 	sed -e \
 		"s#configfile=$installdir/mRNAmarkup.conf#configfile=/usr/share/mRNAmarkup/etc/mRNAmarkup.conf#" \
 		-i bin/mRNAmarkup.orig || die
