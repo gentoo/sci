@@ -103,4 +103,3 @@ sci-biology/sgp2
 sci-biology/skewer-bin
 sci-biology/smalt
 sci-biology/SnpEff
-sci-biology/snphylo
