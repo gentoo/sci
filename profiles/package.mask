@@ -29,9 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Benda Xu <heroxbd@gentoo.org> (2020-12-27)
-# hdf-java is failing.  Upstream has splitted the software into
-# HDFView and HDF Java.  Mask for removal.
-# https://bugs.gentoo.org/761055
-dev-java/hdf-java
