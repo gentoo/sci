@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -9,8 +9,8 @@ FORTRAN_NEEDED=fortran
 inherit flag-o-matic fortran-2 numeric-int64-multibuild toolchain-funcs versionator
 
 DESCRIPTION="Extra Precise Basic Linear Algebra Subroutines"
-HOMEPAGE="http://www.netlib.org/xblas"
-SRC_URI="${HOMEPAGE}/${P}.tar.gz"
+HOMEPAGE="https://www.netlib.org/xblas/"
+SRC_URI="https://www.netlib.org/xblas/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
