@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -26,7 +26,7 @@ DEPEND="
 	gtk? (
 		>=x11-libs/gtksourceview-2.8:2.0
 		>=gnome-base/libgnomecanvas-2.26
-		>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?]
+		>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas(-),ocamlopt?]
 	)"
 RDEPEND="${DEPEND}"
 
