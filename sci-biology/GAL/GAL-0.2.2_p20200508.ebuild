@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -13,7 +13,9 @@ SRC_URI="https://github.com/The-Sequence-Ontology/GAL/archive/${COMMIT}.tar.gz -
 
 LICENSE="( GPL-1+ Artistic )"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
+
+RESTRICT="test"
 
 DEPEND="
 	>=dev-lang/perl-5.6.1
@@ -37,9 +39,4 @@ DEPEND="
 	dev-perl/URI"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}_${PV}"
-
-src_prepare(){
-	default
-	epatch "${FILESDIR}"/Build.PL.patch
-}
+S="${WORKDIR}/${PN}-${COMMIT}"
