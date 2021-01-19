@@ -101,4 +101,3 @@ sci-biology/RSeQC
 sci-biology/scaffold_builder
 sci-biology/sgp2
 sci-biology/skewer-bin
-sci-biology/smalt
