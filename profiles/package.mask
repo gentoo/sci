@@ -62,4 +62,3 @@ sci-biology/FLASH
 sci-biology/fsa
 sci-biology/GAL
 sci-biology/gap2caf
-sci-biology/geneid
