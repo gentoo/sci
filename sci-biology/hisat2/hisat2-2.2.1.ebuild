@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,9 +16,11 @@ SRC_URI="https://cloud.biohpc.swmed.edu/index.php/s/fE9QCsX3NH4QwBi/download -> 
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cpu_flags_x86_sse2"
 
-DEPEND="${PYTHON_DEPS}"
+IUSE="cpu_flags_x86_sse2"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+DEPEND="${PYTHON_DEPS} app-arch/unzip"
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}"/${P}-respect_CXXFLAGS.patch )
