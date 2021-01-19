@@ -36,8 +36,6 @@ V. A. Solé, C. Ferrero and L. Vincze, "The xraylib library for X-ray--matter
 interactions. Recent developments", Spectrochimica Acta B 66 (2011) 776-784 
 ( doi: http://dx.doi.org/10.1016/j.sab.2011.09.011 )
 </longdescription>
-	<use>
-</use>
 	<upstream>
 		<remote-id type="github">tschoonj/xraylib</remote-id>
 	</upstream>
