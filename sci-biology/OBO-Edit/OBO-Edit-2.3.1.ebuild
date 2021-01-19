@@ -46,7 +46,7 @@ src_prepare(){
 
 	# trick setting -Djava.util.prefs.systemRoot="${TMPDIR}" does not work
 	sed \
-		-e "s@/bin/java\" -Dinstall4j.jvmDir=\"\$app_java_home\"@/bin/java\" -Duser.home="${HOME}" -Dinstall4j.jvmDir="${HOME}" -Dsys.symlinkDir="${D}"usr/bin -Djava.util.prefs.systemRoot="${HOME}"@" \
+		-e "s@/bin/java\" -Dinstall4j.jvmDir=\"\$app_java_home\"@/bin/java\" -Duser.home="${HOME}" -Dinstall4j.jvmDir="${HOME}" -Dsys.symlinkDir=${D}/usr/bin -Djava.util.prefs.systemRoot="${HOME}"@" \
 		-i "${WORKDIR}"/"${PN}"_unix_install4j-"${PV}".sh \
 		|| die "failed to set userHome and jvmDir where JAVA .systemPrefs can be found"
 
