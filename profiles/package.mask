@@ -46,4 +46,3 @@ sci-biology/beagle
 sci-biology/blue
 sci-biology/cd-hit-auxtools
 sci-biology/cegma
-sci-biology/cgview-bin
