@@ -1,22 +1,15 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
-
-W="${WORKDIR}"/"${P}"
+EAPI=7
 
 DESCRIPTION="NCBI Sequence Read Archive (SRA) sratoolkit"
-HOMEPAGE="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_runs_v1&m=downloads&s=download_sra"
-SRC_URI="http://ftp-private.ncbi.nlm.nih.gov/sra/sdk/2.2.2a/sra_sdk-"${PV}".tar.gz"
-# http://ftp-private.ncbi.nlm.nih.gov/sra/sdk/2.2.2a/sratoolkit.2.2.2a-centos_linux64.tar.gz
+HOMEPAGE="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi https://github.com/ncbi/sra-tools"
+SRC_URI="https://github.com/ncbi/sra-tools/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="public-domain"
 SLOT="0"
-#KEYWORDS=""
-KEYWORDS="~amd64 ~x86"
-IUSE="static"
+KEYWORDS=""
 
 DEPEND="
 	app-shells/bash:*
@@ -25,32 +18,9 @@ DEPEND="
 	dev-libs/libxml2:2="
 RDEPEND="${DEPEND}"
 
-# upstream says:
-# icc, icpc are supported: tested with 11.0 (64-bit) and 10.1 (32-bit), 32-bit 11.0 does not work
-
-#src_prepare(){
-	# epatch "${FILESDIR}"/sra_sdk-destdir.patch || die
-	# epatch "${FILESDIR}"/tools_vdb-vcopy_Makefile.patch || die
-	# epatch "${FILESDIR}"/libs_sra_Makefile.patch || die
-	# mkdir -p /var/tmp/portage/sci-biology/"${P}"/image//var/tmp/portage/sci-biology/
-	# ln -s /var/tmp/portage/sci-biology/"${P}" /var/tmp/portage/sci-biology/"${P}"/image//var/tmp/portage/sci-biology/"${P}"
-
-#}
+S="${WORKDIR}/sra-tools-${PV}"
 
 src_compile(){
-	# # COMP env variable may have 'GCC' or 'ICC' values
-	#if use static; then
-	#	emake static LIBDIR=/usr/lib64 DESTDIR="${D}"
-	#else
-	#	emake dynamic LIBDIR=/usr/lib64 DESTDIR="${D}"
-	#fi
-
-	#LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out LIBDIR=/usr/lib64 DESTDIR="${D}" || die
-	#LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir LIBDIR=/usr/lib64 DESTDIR="${D}" || die
-
-	# preserve the libs written directly into $DESTDIR by ar/ld/gcc
-	#mkdir -p "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib
-	#mv "${D}"/usr/lib64/* "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib/
 	emake OUTDIR="${WORKDIR}"/objdir out
 	emake dynamic
 	emake release
