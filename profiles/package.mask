@@ -41,4 +41,3 @@ dev-java/hdf-java
 sci-biology/aghermann
 sci-biology/argo-bin
 sci-biology/bambino
-sci-biology/BBmap
