@@ -43,4 +43,3 @@ sci-biology/argo-bin
 sci-biology/bambino
 sci-biology/BBmap
 sci-biology/beagle
-sci-biology/blue
