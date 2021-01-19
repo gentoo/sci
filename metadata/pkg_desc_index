@@ -156,11 +156,9 @@ sci-biology/BRAKER 2.1.2: Gene prediction based on RNA-Seq using GeneMark-ET and
 sci-biology/BRANCH 9999: Extend partial transcripts with sequence from other reads or genomic contigs
 sci-biology/BlastToSam 1.1: Convert NCBI BLAST+ Pairwise/XML (-outfmt 0 or 5) output to SAM v1.4
 sci-biology/CAT 1.3: Codon usage bias (composition) and its statistical significance
-sci-biology/EBARDenovo 1.2.2: Transcriptome de novo assembler with chimera detection
-sci-biology/ESTate 0.5: ORF finding despite frameshifts, EST clustering
-sci-biology/FLASH 1.2.9: Paired-end mates merge from fragments
+sci-biology/FLASH 1.2.11: Paired-end mates merge from fragments
 sci-biology/Fastaq 9999: Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers
-sci-biology/GAL 0.2.2: Genome Annotation Library (incl. fasta_tool)
+sci-biology/GAL 0.2.2_p20200508: Genome Annotation Library (incl. fasta_tool)
 sci-biology/IMAGE 2.4.1: Iterative Mapping and Assembly for Gap Elimination using paired-end Illumina
 sci-biology/InterMine 0.98: Biological data warehouse integrating complex data
 sci-biology/KING 2.2.5: Check family relationship and infer population structure
@@ -251,7 +249,6 @@ sci-biology/cramtools 3.0: Java tools and APIs for efficient compression of sequ
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
 sci-biology/cutadapt 2.10: Remove adapter sequences from high-throughput sequencing data
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
-sci-biology/dawg 1.1.2: DNA Assembly With Gaps: Phylogenetic aligner for sequence evolution simulation
 sci-biology/dcm2niix 1.0.20200331: DICOM to NIfTI converter
 sci-biology/dcmstack 0.8: DICOM to Nifti coversion
 sci-biology/deeptools 3.5.0: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
@@ -260,13 +257,10 @@ sci-biology/diamond 0.9.19: Alternative of blastp/blastx searches using DNA shor
 sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
 sci-biology/dna2pep 1.1: Translate DNA sequence into protein (with STOP codon read-through)
 sci-biology/drlfom_bidsdata 1.1: BIDS data files released with the DRLFOM publication
-sci-biology/ePCR 2.3.12: Search for sub-sequences matching PCR primers
 sci-biology/edena 3.131028: De novo short read OLC assembler (overlap-layout-consensus)
-sci-biology/ensembl-tools 86: Variant Effect Predictor (VEP), AssemblyMapper, IDMapper, RegionReporter tools
 sci-biology/epga 9999: De novo assembler using distribution of reads and insert size
 sci-biology/erpin 5.5b: Easy RNA Profile IdentificatioN, an RNA motif search program
 sci-biology/estscan 3.0.3: Prediction of coding regions in DNA/RNA sequences
-sci-biology/eval 2.2.8: Validate, compare and draw summary statistics for GTF files
 sci-biology/exonerate-gff3 9999: exonerate-2.2.0 with patches to add GFF3 formatted output
 sci-biology/fastdnaml 1.2.2_p10: Maximum likelihood phylogenetic tree builder for DNA sequences
 sci-biology/fastqc 0.11.3: Quality control FASTA/FASTQ sequence files
@@ -275,11 +269,8 @@ sci-biology/flexbar 2.7.0 3.0.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
-sci-biology/gap2caf 2.1.0: GAP4 file format to CAF v2 format converter for genomic assembly data
 sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
-sci-biology/geneid 1.4.4: An ab initio exon/gene finding program
 sci-biology/genepop 4.2.1 4.7: Population genetics analysis
-sci-biology/generecon 1.2.1-r1: Disequilibrium gene mapping based on coalescent theory using Bayesian MC methods
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.1 1.5.2: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.10.5: Compare, classify, merge, track, annotate GFF files

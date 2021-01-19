@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Paired-end mates merge from fragments
+EAPI=7
+HOMEPAGE=https://sourceforge.net/projects/flashpage/
+KEYWORDS=~amd64
+LICENSE=GPL-3
+SLOT=0
+SRC_URI=https://downloads.sourceforge.net/project/flashpage/FLASH-1.2.11.tar.gz
+_md5_=dd5e248ab3b21929a143d164a82ed340
