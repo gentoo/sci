@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -7,7 +7,7 @@ inherit eutils
 
 DESCRIPTION="Error corrector for Illumina and Roche/454 reads using multiple alignment info"
 HOMEPAGE="http://www.cs.helsinki.fi/u/lmsalmel/coral"
-SRC_URI="http://www.cs.helsinki.fi/u/lmsalmel/coral/coral-1.4.tar.gz"
+SRC_URI="http://www.cs.helsinki.fi/u/lmsalmel/coral/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
