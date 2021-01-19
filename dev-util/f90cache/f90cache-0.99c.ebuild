@@ -29,7 +29,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "Please add F90CACHE_DIR=\"${ROOT%/}/var/tmp/f90cache\""
+	elog "Please add F90CACHE_DIR=\"${ROOT}/var/tmp/f90cache\""
 	elog "to your make.conf otherwise f90cache files end up in"
 	elog "home of the user executing portage"
 }
