@@ -108,12 +108,12 @@ DEPEND="${CDEPEND}
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
 PATCHES=(
-	"${FILESDIR}/${P}-followlinks.patch"
-	"${FILESDIR}/${P}-gluegen.patch"
-	"${FILESDIR}/${P}-accessviolation.patch"
-	"${FILESDIR}/${P}-missinglib.patch"
-	"${FILESDIR}/${P}-freehep.patch"
-	"${FILESDIR}/${P}-libxml.patch"
+	"${FILESDIR}/${PN}-6.1.0-followlinks.patch"
+	"${FILESDIR}/${PN}-6.1.0-gluegen.patch"
+	"${FILESDIR}/${PN}-6.1.0-accessviolation.patch"
+	"${FILESDIR}/${PN}-6.1.0-missinglib.patch"
+	"${FILESDIR}/${PN}-6.1.0-freehep.patch"
+	"${FILESDIR}/${PN}-6.1.0-libxml.patch"
 )
 
 pkg_pretend() {
@@ -131,7 +131,7 @@ pkg_setup() {
 	FORTRAN_STANDARD="77 90"
 	fortran-2_pkg_setup
 	#bug 8053
-	unset F77
+	#unset F77
 	java-pkg-opt-2_pkg_setup
 
 	# fails to compile in src/fortran/optml2.f:172:50 without this
@@ -150,6 +150,10 @@ pkg_setup() {
 
 src_prepare() {
 	default
+
+	# works for me on x86, but users are having
+	# trouble without see #282 on github
+	append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && eapply "${FILESDIR}/${P}-java-heap.patch"
