@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -12,15 +12,13 @@ HOMEPAGE="
 	https://sourceforge.net/projects/scaffold-b
 	https://edwards.sdsu.edu/scaffold_builder"
 SRC_URI="
-	https://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2.1.zip
+	https://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v${PV}.zip
 	https://sourceforge.net/projects/scaffold-b/files/scaffold_builder_v2_help.doc
 	https://downloads.sourceforge.net/project/scaffold-b/Manual_v2.1.pdf"
 
-#http://www.scfbm.org/content/8/1/23
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
