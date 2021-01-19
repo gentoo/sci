@@ -1,21 +1,20 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 MY_PN="${PN%-bin}"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="Pairwise sequence alignment mapping DNA reads onto genomic reference"
-HOMEPAGE="http://www.sanger.ac.uk/resources/software/smalt/"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/${MY_PN}/${MY_P}.tgz"
+HOMEPAGE="https://sourceforge.net/projects/smalt/"
+SRC_URI="https://sourceforge.net/projects/${MY_PN}/files/${MY_P}-bin.tar.gz"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-S="${WORKDIR}"/${MY_P}
+S="${WORKDIR}/${MY_P}-bin"
 
 QA_PREBUILT="/opt/.*"
 
