@@ -23,6 +23,7 @@ BDEPEND="doc? ( $(python_gen_cond_dep \
 	'dev-python/sphinx[${PYTHON_USEDEP}]' )
 )"
 DEPEND="${PYTHON_DEPS}"
+RDEPEND="${PYTHON_DEPS}"
 
 src_prepare() {
 	rm waf || die
