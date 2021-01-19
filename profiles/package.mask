@@ -40,4 +40,3 @@ dev-java/hdf-java
 # mask unfetchable packages until someone fixes.
 sci-biology/aghermann
 sci-biology/argo-bin
-sci-biology/bambino
