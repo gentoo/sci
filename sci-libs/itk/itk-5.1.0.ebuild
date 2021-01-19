@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -54,6 +54,7 @@ RDEPEND="
 	virtual/jpeg:0=
 	fftw? ( sci-libs/fftw:3.0= )
 	vtkglue? ( sci-libs/vtk:0=[rendering,python?] )
+	python? ( ${PYTHON_DEPS} )
 "
 DEPEND="${RDEPEND}
 	sys-apps/coreutils
@@ -169,11 +170,11 @@ src_install() {
 		doins -r "${S}"/Examples/*
 	fi
 
-	echo "ITK_DATA_ROOT=${EROOT%/}/usr/share/${PN}/data" > ${T}/40${PN}
-	local ldpath="${EROOT%/}/usr/$(get_libdir)/InsightToolkit"
+	echo "ITK_DATA_ROOT=${EROOT}/usr/share/${PN}/data" > ${T}/40${PN}
+	local ldpath="${EROOT}/usr/$(get_libdir)/InsightToolkit"
 	if use python; then
-		echo "PYTHONPATH=${EROOT%/}/usr/$(get_libdir)/InsightToolkit/WrapITK/Python" >> "${T}"/40${PN}
-		ldpath="${ldpath}:${EROOT%/}/usr/$(get_libdir)/InsightToolkit/WrapITK/lib"
+		echo "PYTHONPATH=${EROOT}/usr/$(get_libdir)/InsightToolkit/WrapITK/Python" >> "${T}"/40${PN}
+		ldpath="${ldpath}:${EROOT}/usr/$(get_libdir)/InsightToolkit/WrapITK/lib"
 	fi
 	echo "LDPATH=${ldpath}" >> "${T}"/40${PN}
 	doenvd "${T}"/40${PN}
