@@ -51,16 +51,3 @@ sci-biology/clover
 sci-biology/cnrun
 sci-biology/conrad
 sci-biology/cortex_var
-sci-biology/cross_genome
-sci-biology/dawg
-sci-biology/EBARDenovo
-sci-biology/ensembl-tools
-sci-biology/ePCR
-sci-biology/ESTate
-sci-biology/eval
-sci-biology/FLASH
-sci-biology/fsa
-sci-biology/GAL
-sci-biology/gap2caf
-sci-biology/geneid
-sci-biology/generecon

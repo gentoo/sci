@@ -1,18 +1,21 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils perl-module
+inherit perl-module
+
+COMMIT="94af39622aab5ba48eb693f2327f6e90f1d202ed"
 
 DESCRIPTION="Genome Annotation Library (incl. fasta_tool)"
-HOMEPAGE="http://www.sequenceontology.org/software/GAL.html"
-SRC_URI="http://www.sequenceontology.org/software/GAL_Code/${PN}_${PV}.tar.gz"
+HOMEPAGE="https://github.com/The-Sequence-Ontology/GAL"
+SRC_URI="https://github.com/The-Sequence-Ontology/GAL/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="( GPL-1+ Artistic )"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+
+RESTRICT="test"
 
 DEPEND="
 	>=dev-lang/perl-5.6.1
@@ -36,8 +39,4 @@ DEPEND="
 	dev-perl/URI"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}_${PV}"
-
-src_prepare(){
-	epatch "${FILESDIR}"/Build.PL.patch
-}
+S="${WORKDIR}/${PN}-${COMMIT}"

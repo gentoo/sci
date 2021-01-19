@@ -1,18 +1,15 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
+EAPI=7
 
 DESCRIPTION="Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot"
 HOMEPAGE="http://fsa.sourceforge.net"
-SRC_URI="http://downloads.sourceforge.net/project/fsa/"${P}".tar.gz"
+SRC_URI="https://downloads.sourceforge.net/project/fsa/${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 DEPEND="dev-java/java-config"
 RDEPEND="${DEPEND}"
