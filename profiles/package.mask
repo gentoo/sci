@@ -55,4 +55,3 @@ sci-biology/cross_genome
 sci-biology/dawg
 sci-biology/EBARDenovo
 sci-biology/ensembl-tools
-sci-biology/ePCR
