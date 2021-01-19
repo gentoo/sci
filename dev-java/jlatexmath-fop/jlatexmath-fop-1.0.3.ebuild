@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -20,6 +20,7 @@ CDEPEND="dev-java/jlatexmath:1
 	dev-java/xmlgraphics-commons:2
 	>=dev-java/fop-2.0-r1:0"
 DEPEND=">=virtual/jdk-1.5
+	app-arch/unzip
 	${CDEPEND}"
 RDEPEND=">=virtual/jre-1.5
 	${CDEPEND}"
