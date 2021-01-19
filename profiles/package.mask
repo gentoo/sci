@@ -72,4 +72,3 @@ sci-biology/hydra-sv
 sci-biology/ICC
 sci-biology/IMAGE
 sci-biology/jannovar
-sci-biology/jtreeview
