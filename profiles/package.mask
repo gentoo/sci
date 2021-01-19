@@ -44,4 +44,3 @@ sci-biology/bambino
 sci-biology/BBmap
 sci-biology/beagle
 sci-biology/blue
-sci-biology/cd-hit-auxtools
