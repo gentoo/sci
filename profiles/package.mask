@@ -35,7 +35,3 @@
 # HDFView and HDF Java.  Mask for removal.
 # https://bugs.gentoo.org/761055
 dev-java/hdf-java
-
-# Aisha Tammy <gentoo@aisha.cc> (2020-11-19)
-# mask unfetchable packages until someone fixes.
-sci-biology/aghermann
