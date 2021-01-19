@@ -68,4 +68,3 @@ sci-biology/genomeview-bin
 sci-biology/gfftools
 sci-biology/glean
 sci-biology/graf-bin
-sci-biology/hydra-sv
