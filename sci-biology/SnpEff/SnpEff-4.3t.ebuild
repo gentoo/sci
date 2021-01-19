@@ -1,24 +1,20 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit java-pkg-2 java-ant-2
-
-MY_PV=${PV/./_}
 
 DESCRIPTION="SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF"
 HOMEPAGE="https://pcingola.github.io/SnpEff/"
 SRC_URI="
-	https://sourceforge.net/projects/snpeff/files/snpEff_v${MY_PV}_core.zip
+	https://downloads.sourceforge.net/project/snpeff/snpEff_v${PV//./_}_core.zip
 	https://pcingola.github.io/SnpEff/index.html -> ${P}.html"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE=""
+KEYWORDS=""
 
-# https://github.com/pcingola/SnpEff/blob/master/README_release.txt
 RDEPEND="
 	>=virtual/jre-1.7:*
 	dev-java/maven-bin:*
@@ -26,12 +22,9 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	>=virtual/jdk-1.7:*
 	dev-java/ant-core"
+BDEPEND="app-arch/unzip"
 
 S="${WORKDIR}"
-
-#src_compile(){
-#	mvn || die
-#}
 
 src_install(){
 	cd .. || die
