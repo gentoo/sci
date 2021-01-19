@@ -176,7 +176,6 @@ sci-biology/NGSEPcore 4.0.3: NGSEP (CNV and indel discovery)
 sci-biology/NGSEPcore-bin 4.0.3: NGSEP (CNV and indel discovery)
 sci-biology/OBO-Edit 2.1.0 2.1.1.6: Java-based editor optimized for the OBO biological ontology file format
 sci-biology/ONTO-PERL 1.41: Manipulates OBO- and OWL-formatted ontologies (like the Gene Ontology)
-sci-biology/ORFcor 20130507: Automated editor of protein-coding sequences
 sci-biology/ParaAT 1.0: Create multiple protein-coding DNA alignments and back-Translation
 sci-biology/RADtools 1.2.4 9999: Tools for processing RAD Sequencing Illumina reads
 sci-biology/RAILS 1.5.1: Cobbler and RAILS scaffolding tools acting on SAM streams
@@ -366,7 +365,7 @@ sci-biology/portrait 1.1: Ab initio ncRNA prediction
 sci-biology/primerD 1.0.0: Design degenerate primers
 sci-biology/prinseq-lite 0.20.4: Describe, trim, reformat and convert to or form FASTA/FASTQ files
 sci-biology/proda 1.0: Multiple alignment of protein sequences with repeated and shuffled elements
-sci-biology/prokka 1.11: Prokaryotic whole genome annotation pipeline
+sci-biology/prokka 1.14.6: Prokaryotic whole genome annotation pipeline
 sci-biology/proovread 2.14.1 9999: Error correct PacBio subreads using Illumina reads
 sci-biology/prot4EST 3.1b: Predict proteins from EST sequences overcoming frameshifts
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
@@ -377,7 +376,6 @@ sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each o
 sci-biology/quicktree 1.1-r1: Rapid reconstruction of phylogenies by the Neighbor-Joining method
 sci-biology/quorum 1.1.1: Correct substitution errors in Illumina reads
 sci-biology/reaper 15348: Demultiplex, trim 3'-adapter/polyA and filter short read DNA sequences
-sci-biology/reptile 1.1: Illumina read corrector
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roche454ace2caf 20100812: ace to gap4 converter
 sci-biology/rtg-tools 9999: Manipulate and analyze VCF files
@@ -391,7 +389,7 @@ sci-biology/samri 0.4.1 0.5 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
-sci-biology/scaffold_builder 20131122-r1: Combine FASTA contigs from a de novo assembly into scaffolds
+sci-biology/scaffold_builder 2.2: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
 sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
 sci-biology/screed 1.0.4: Short read sequence utilities
@@ -401,12 +399,11 @@ sci-biology/seqtk 1.3: Manipulate FASTA and FASTQ files
 sci-biology/seqtools 4.44.1: Display alignments and GFF files, matrix dot plots (blixem, dotter, belvu)
 sci-biology/sff_dump 1.04: Convert Roche SFF files to FASTA file format
 sci-biology/sga 9999: String Graph OLC Assembler for short reads (overlap-layout-consensus)
-sci-biology/sgp2 1.1: Find ORFs by comparing two genomic/EST sequences
 sci-biology/sickle 1.33 9999: Windowed adaptive quality-based trimming tool for FASTQ data
 sci-biology/signalp 3.0: Prediction of signal peptide cleavage sites in amino acid sequences
-sci-biology/skewer-bin 0.1.104: Adaptor and MID removal / trimming tool
+sci-biology/skewer-bin 0.2.2: Adaptor and MID removal / trimming tool
 sci-biology/smalt 0.7.6: DNA read mapper using k=20 (successor of ssaha2)
-sci-biology/smalt-bin 0.7.4: Pairwise sequence alignment mapping DNA reads onto genomic reference
+sci-biology/smalt-bin 0.7.6: Pairwise sequence alignment mapping DNA reads onto genomic reference
 sci-biology/snap 20131129: HMM-based prokaryotic and eukaryotic gene prediction tool
 sci-biology/snphylo 0_p20181005: Pipeline to generate phylogenetic tree from SNP data
 sci-biology/snpomatic 9999: Stringent short-read aligner supporting filters and various output formats
