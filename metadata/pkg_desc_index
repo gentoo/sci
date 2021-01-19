@@ -41,7 +41,7 @@ dev-perl/BTLib 0.19: Perl part of the estscan package
 dev-perl/Bio-BigFile 1.07: BigWig and BigBed file perl-based interface for Gbrowse-2
 dev-perl/Bio-DB-Das-Chado 0.34: A Chado database interface for Gbrowse-2
 dev-perl/Bio-EnsEMBL 9999: EnsEMBL Perl API aka ensembl-api exposing Bio::EnsEMBL::Registry
-dev-perl/Config-Std 0.901 0.903: Load and save configuration files in a standard format
+dev-perl/Config-Std 0.903: Load and save configuration files in a standard format
 dev-perl/DBIx-DBStag 0.12: Relational Database to Hierarchical (Stag/XML) Mapping
 dev-perl/Log-Cabin 0.06: Partial implementation of Log::Log4perl with reduced disk IO
 dev-perl/Scalar-Util-Numeric 0.40: Wrappers around perl's builtin looks_like_number function
@@ -84,7 +84,7 @@ dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 file
 dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
 dev-python/json_tricks 3.14.0: Extra features for Python's JSON
-dev-python/kmapper 1.4.0 1.4.1: Python implementation of Mapper algorithm for Topological Data Analysis
+dev-python/kmapper 1.4.1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
@@ -263,7 +263,7 @@ sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymor
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
-sci-biology/genepop 4.2.1 4.7: Population genetics analysis
+sci-biology/genepop 4.7: Population genetics analysis
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.1 1.5.2: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.10.5: Compare, classify, merge, track, annotate GFF files
@@ -299,7 +299,7 @@ sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 9999: Probabilistic framework for structural variant discovery
 sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
-sci-biology/maker 2.31.10 3.01.02_beta: A genome annotation viewer and pipeline for small eukaryota and prokaryota
+sci-biology/maker 3.01.02_beta: A genome annotation viewer and pipeline for small eukaryota and prokaryota
 sci-biology/manatee-igs 2.23.1: IGS-modified version of the genome annotation tool using Chado database schema
 sci-biology/manatee-jcvi 2.4.3: Genome annotation tool
 sci-biology/mappy 2.17: Minimap2 python binding
