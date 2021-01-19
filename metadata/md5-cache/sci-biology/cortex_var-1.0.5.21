@@ -1,11 +1,11 @@
 DEFINED_PHASES=compile install prepare
 DEPEND=sci-biology/vcftools sci-libs/gsl sci-libs/htslib:0= dev-lang/perl
 DESCRIPTION=Genotype variant discovery without reference sequence
-EAPI=6
+EAPI=7
 HOMEPAGE=http://cortexassembler.sourceforge.net/index_cortex_var.html
 LICENSE=GPL-3
 RDEPEND=sci-biology/vcftools sci-libs/gsl sci-libs/htslib:0= dev-lang/perl
 SLOT=0
 SRC_URI=https://sourceforge.net/projects/cortexassembler/files/cortex_var/latest/CORTEX_release_v1.0.5.21.tgz http://cortexassembler.sourceforge.net/cortex_var_user_manual.pdf
 _eclasses_=perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b
-_md5_=14eaf55317e6dbdf9204e2d0d458785d
+_md5_=323790b074afb7ed8c621433b6bea7b3
