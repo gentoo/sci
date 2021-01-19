@@ -78,4 +78,3 @@ sci-biology/kat
 sci-biology/KING
 sci-biology/kraken
 sci-biology/lucy
-sci-biology/MagicViewer
