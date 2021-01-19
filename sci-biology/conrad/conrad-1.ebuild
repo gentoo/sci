@@ -31,6 +31,7 @@ DEPEND="${RDEPEND}
 	>=dev-java/jcommon-1.0.6
 	>=dev-java/commons-math-1.1
 	"
+BDEPEND="app-arch/unzip"
 S="${WORKDIR}"
 
 src_prepare(){
