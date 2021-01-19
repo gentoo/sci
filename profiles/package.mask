@@ -39,4 +39,3 @@ dev-java/hdf-java
 # Aisha Tammy <gentoo@aisha.cc> (2020-11-19)
 # mask unfetchable packages until someone fixes.
 sci-biology/aghermann
-sci-biology/argo-bin
