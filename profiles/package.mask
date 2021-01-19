@@ -104,4 +104,3 @@ sci-biology/skewer-bin
 sci-biology/smalt
 sci-biology/SnpEff
 sci-biology/snphylo
-sci-biology/SPAdes
