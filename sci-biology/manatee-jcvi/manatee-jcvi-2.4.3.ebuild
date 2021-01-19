@@ -1,17 +1,15 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Genome annotation tool"
 HOMEPAGE="http://manatee.sourceforge.net/jcvi/downloads.shtml"
-SRC_URI="http://downloads.sourceforge.net/project/manatee/manatee/manatee-2.4.3/manatee-2.4.3.tgz"
+SRC_URI="http://downloads.sourceforge.net/project/manatee/manatee/manatee-${PV}/manatee-2.4.3.tgz"
 
 LICENSE="Artistic-Manatee"
 SLOT="0"
 KEYWORDS=""
-#KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND=">=dev-libs/expat-1.95.8
 		>=media-libs/gd-2.0.34
