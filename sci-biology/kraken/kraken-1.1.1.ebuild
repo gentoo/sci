@@ -1,29 +1,30 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module
 
 DESCRIPTION="Detect sequencing project contaminants by mapping reads to taxonomic groups"
-HOMEPAGE="http://ccb.jhu.edu/software/kraken
-	https://genomebiology.com/2014/15/3/R46"
+HOMEPAGE="https://ccb.jhu.edu/software/kraken"
 SRC_URI="https://github.com/DerrickWood/kraken/archive/v1.0.tar.gz -> ${P}.tar.gz
-	http://ccb.jhu.edu/software/kraken/MANUAL.html -> ${P}_MANUAL.html"
+	https://ccb.jhu.edu/software/kraken/MANUAL.html -> ${P}_MANUAL.html"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
 	dev-lang/perl
 	net-misc/wget
-	sci-biology/jellyfish:1"
+	sci-biology/jellyfish:1
+"
+
+S="${WORKDIR}/${PN}-1.0"
 
 src_prepare(){
+	default
 	sed -e 's/^CXX = /CXX ?= /' -e 's/^CXXFLAGS = /CXXFLAGS ?= /' -i src/Makefile || die
 	echo "exit 0" >> install_kraken.sh || die
 }
@@ -47,7 +48,7 @@ src_install(){
 pkg_postinst(){
 	ewarn "Kraken may optionally need <=sci-biology/jellyfish-2 if you want to build your own dbs"
 	ewarn "Kraken needs high network bandwidth for its huge downloads, be sure to read"
-	ewarn "http://ccb.jhu.edu/software/kraken and prepare at least 160GB of disk space"
+	ewarn "https://ccb.jhu.edu/software/kraken and prepare at least 160GB of disk space"
 	ewarn "Consider placing the db files in ramfs (needs root permissions) taking >75GB RAM"
-	ewarn "Results can be visualized with http://sourceforge.net/p/krona/home/krona"
+	ewarn "Results can be visualized with https://sourceforge.net/p/krona/home/krona"
 }
