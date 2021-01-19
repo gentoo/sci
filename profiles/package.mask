@@ -88,4 +88,3 @@ sci-biology/MolBioLib
 sci-biology/mreps
 sci-biology/mRNAmarkup
 sci-biology/mrsfast
-sci-biology/MuSeqBox
