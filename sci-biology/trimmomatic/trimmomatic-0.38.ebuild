@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -19,7 +19,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=">=virtual/jdk-1.6:*
-	dev-java/ant-core"
+	dev-java/ant-core
+	app-arch/unzip"
 RDEPEND=">=virtual/jre-1.6:*"
 
 # somehow fails to build with oracle-jdk-bin-1.7 while ibm-jdk-bin-1.6 works

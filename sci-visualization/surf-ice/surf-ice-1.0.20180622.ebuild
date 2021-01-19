@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND=""
 DEPEND="dev-lang/fpc
-	>=dev-lang/lazarus-1.6.2[python]"
+	>=dev-lang/lazarus-1.6.2[python(-)]"
 
 src_compile() {
 	# Python support will only be vaialable for the default implementation:

@@ -1,11 +1,11 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="Trim multimers of various primers/adapter from Illumina datasets"
 HOMEPAGE="http://genome.gsc.riken.jp/osc/english/dataresource"
-SRC_URI="http://genome.gsc.riken.jp/osc/english/software/src/tagdust.tgz"
+SRC_URI="http://genome.gsc.riken.jp/osc/english/software/src/tagdust.tgz -> ${P}.tgz"
 
 LICENSE="GPL-3"
 SLOT="0"

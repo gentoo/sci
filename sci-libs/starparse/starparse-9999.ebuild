@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -14,7 +14,9 @@ EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/starparse
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
+
 IUSE="guile static-libs test"
+RESTRICT="!test? ( test )"
 
 REQUIRED_USE="test? ( guile )"
 

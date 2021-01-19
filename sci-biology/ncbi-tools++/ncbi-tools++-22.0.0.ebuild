@@ -14,7 +14,7 @@ MY_P="ncbi_cxx--${MY_PV}"
 
 # for example sci-biology/ncbi-tools++-12.0.0 contains blastn-2.2.28+
 DESCRIPTION="NCBI C++ Toolkit, including NCBI BLAST+"
-HOMEPAGE="https://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=toolkit"
+HOMEPAGE="https://ncbi.github.io/cxx-toolkit/"
 # https://ncbi.github.io/cxx-toolkit/pages/release_notes
 SRC_URI="
 	ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools++/ARCHIVE/2019/${MY_TAG}/ncbi_cxx--${MY_PV}.tar.gz"

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -20,6 +20,7 @@ IUSE=""
 
 COMMON_DEP="dev-java/commons-logging"
 DEPEND=">=virtual/jdk-1.4
+	app-arch/unzip
 	${COMMON_DEP}"
 RDEPEND=">=virtual/jre-1.4
 	${COMMON_DEP}"

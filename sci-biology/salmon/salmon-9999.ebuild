@@ -23,8 +23,6 @@ DEPEND="${RDEPEND}
 	>=dev-libs/jemalloc-5.0.1
 	>=dev-cpp/tbb-2018.20180312
 	sci-biology/pufferfish
-	sci-libs/staden-io
-	sci-libs/libgff
 	dev-libs/cereal
 "
 

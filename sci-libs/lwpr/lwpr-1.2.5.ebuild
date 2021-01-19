@@ -37,8 +37,8 @@ src_install() {
 	dodoc html/*
 	fi
 	if use examples ; then
-		insinto /usr/share/doc/${PF}/examples
-		doins example_c/cross.c example_cpp/cross.cc
+		docinto /usr/share/doc/${PF}/examples
+		dodoc example_c/cross.c example_cpp/cross.cc
 	fi
 	if use octave; then
 		insinto /usr/share/octave/packages/${P}

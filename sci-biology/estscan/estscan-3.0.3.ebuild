@@ -6,7 +6,7 @@ EAPI=7
 inherit fortran-2 perl-module toolchain-funcs
 
 DESCRIPTION="Prediction of coding regions in DNA/RNA sequences"
-HOMEPAGE="https://sourceforge.net/projects/${PN}/"
+HOMEPAGE="https://sourceforge.net/projects/estscan/"
 SRC_URI="
 	https://downloads.sourceforge.net/${PN}/${P}.tar.gz
 	https://downloads.sourceforge.net/${PN}/At.smat.gz

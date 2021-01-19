@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Common base for graphical component to build a graphical console"
-HOMEPAGE="http://dev.artenum.com/projects/jrosetta"
+HOMEPAGE="http://dev.artenum.com/projects/JRosetta"
 #currently down
 #SRC_URI="http://maven.artenum.com/content/groups/public/com/artenum/${PN}/${PV}/${P}-sources.jar"
 SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/${PN}/${P}-sources.jar/5c3589d4207f71bad6eeefd4857bce50/${P}-sources.jar"

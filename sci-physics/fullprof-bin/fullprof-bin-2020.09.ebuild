@@ -4,7 +4,7 @@
 EAPI=7
 
 DESCRIPTION="Crystallographic tools mainly for Rietveld analysis"
-HOMEPAGE="http://www.ill.eu/sites/fullprof/index.html"
+HOMEPAGE="https://www.ill.eu/sites/fullprof/index.html"
 # Does not fetch correctly with wget, we get the index.html file instead
 # their website seems to explicitly not want us to do this so we
 # add RESTRICT="fetch"

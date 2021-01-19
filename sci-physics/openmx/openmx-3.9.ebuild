@@ -14,6 +14,7 @@ SLOT="0"
 KEYWORDS=""
 
 IUSE="debug openmp test"
+RESTRICT="!test? ( test )"
 
 RDEPEND="
 	virtual/blas

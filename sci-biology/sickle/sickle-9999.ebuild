@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
-inherit eutils eutils toolchain-funcs
+inherit eutils toolchain-funcs
 
 [ "$PV" == "9999" ] && inherit git-r3
 
@@ -13,7 +13,7 @@ if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/najoshi/sickle"
 	KEYWORDS=""
 else
-	SRC_URI="https://github.com/najoshi/sickle/archive/v"${PV}".tar.gz"
+	SRC_URI="https://github.com/najoshi/sickle/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64"
 fi
 
