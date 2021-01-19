@@ -91,7 +91,7 @@ dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh 
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.51.2 0.52.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
-dev-python/persim 0.1.3: Distances and representations of persistence diagrams
+dev-python/persim 0.1.3 0.2.0: Distances and representations of persistence diagrams
 dev-python/photutils 1.0.1: Affiliated package for image photometry utilities
 dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
@@ -121,7 +121,7 @@ dev-python/toposort 1.6: Implements a topological sort algorithm
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/trimesh 3.5.14 3.6.13: Python library for loading and using triangular meshes.
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
-dev-python/umap-learn 0.4.6: Uniform Manifold Approximation and Projection
+dev-python/umap-learn 0.4.6 0.5.0: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
 dev-python/xgboost 1.3.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1: Open compressed files transparently
@@ -481,7 +481,7 @@ sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/aocl-libm 3.6.0_p4: Optimized libm replacement from AMD for x86_64 architectures
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
-sci-libs/arrayfire 3.7.2 3.7.3: general purpose GPU library
+sci-libs/arrayfire 3.7.2 3.7.3 3.8.0: general purpose GPU library
 sci-libs/asl 0.1.6 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/blastdb 9999: The BLAST NR database
