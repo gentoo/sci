@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="
-	sys-cluster/openmpi[java]
+	sys-cluster/openmpi[java(-)]
 	>=virtual/jdk-1.7:*
 	dev-java/ant-core"
 RDEPEND="${DEPEND}
