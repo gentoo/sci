@@ -17,6 +17,7 @@ KEYWORDS=""
 
 RDEPEND=">=virtual/jre-1.7:*"
 DEPEND="${RDEPEND}"
+BDEPEND="app-arch/unzip"
 
 S="${WORKDIR}"/${MY_PN}
 
