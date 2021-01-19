@@ -54,4 +54,3 @@ sci-biology/cortex_var
 sci-biology/cross_genome
 sci-biology/dawg
 sci-biology/EBARDenovo
-sci-biology/ensembl-tools
