@@ -58,4 +58,3 @@ sci-biology/ensembl-tools
 sci-biology/ePCR
 sci-biology/ESTate
 sci-biology/eval
-sci-biology/FLASH
