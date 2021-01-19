@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils fortran-2 perl-module toolchain-funcs
+inherit fortran-2 perl-module toolchain-funcs
 
 DESCRIPTION="Prediction of coding regions in DNA/RNA sequences"
 HOMEPAGE="https://sourceforge.net/projects/${PN}/"
@@ -32,6 +32,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}"
 
 src_prepare() {
+	default
 	sed \
 		-e 's/\\rm -f/rm -rf/' \
 		-e 's/^ LDFLAGS = -lm/LDFLAGS = -lm/' \
