@@ -49,5 +49,4 @@ sci-biology/cegma
 sci-biology/cgview-bin
 sci-biology/clover
 sci-biology/cnrun
-sci-biology/conrad
 
