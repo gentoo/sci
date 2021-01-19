@@ -1,18 +1,15 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="IGS-modified version of the genome annotation tool using Chado database schema"
 HOMEPAGE="http://manatee.sourceforge.net/igs" # no https
-SRC_URI="
-	https://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/manatee-"${PV}"_linux.tgz
-	http://manatee.sourceforge.net/igs/docs/README_Linux.txt"
+SRC_URI="https://downloads.sourceforge.net/project/manatee/igs_manatee/${PV}/manatee-${PV}_linux.tgz"
 
 LICENSE="Artistic-Manatee"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="
 	>=dev-libs/expat-1.95.8
@@ -45,26 +42,16 @@ RDEPEND="${DEPEND}
 	>=virtual/mysql-5:*
 	>=www-servers/apache-2.2"
 
-S="${WORKDIR}"/manatee-"${PV}"_linux
+S="${WORKDIR}/manatee-${PV}_linux"
 
 src_prepare(){
+	default
 	find "${S}" -name \*.cgi | while read f; do sed -e 's|#!/usr/local/bin/perl|#!/usr/bin/perl|' -i $f; done
 	find "${S}" -name \*.pl | while read f; do sed -e 's|#!/usr/local/bin/perl|#!/usr/bin/perl|' -i $f; done
 	find "${S}" -name \*.pm | while read f; do sed -e 's|#!/usr/local/bin/perl|#!/usr/bin/perl|' -i $f; done
 }
 
-#src_configure(){
-#	there used to be manateee-="${PV}".tgz file which contained configure script in the past
-#	now the layout is different, temporarily commenting out untill we find the current full sources back again
-#	econf HTTPD=/usr/sbin/httpd HTTPD_SCRIPT_HOME=/var/www/cgi-bin HTTPD_DOC_HOME=/var/www/htdocs MYSQLD=/usr/sbin/mysqld || die
-#}
-#
-#src_compile(){
-#	default
-#}
-
 src_install(){
-	dodoc ${DISTDIR}"/README_Linux.txt"
 	dodir /var/www/localhost/cgi-bin
 	cp -r src/cgi-bin/chado_prok_manatee "${D}"/var/www/localhost/cgi-bin
 	dodir /var/www/localhost/htdocs/manatee
@@ -72,7 +59,7 @@ src_install(){
 
 	einfo "Please read the "${S}"/databases/Makefile.PL and import the databases into your MySQL database"
 
-	einfo "You have to fetch the 1.1 GB large file from http://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/lookups-"${PV}"_linux.tgz"
+	einfo "You have to fetch the 1.1 GB large file from https://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/lookups-"${PV}"_linux.tgz"
 	einfo "You need to update it regularly."
-	einfo "Also fetch http://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/blastdb-"${PV}".tgz (about 2MB in size)"
+	einfo "Also fetch https://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/blastdb-"${PV}".tgz (about 2MB in size)"
 }

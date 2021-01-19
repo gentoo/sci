@@ -76,10 +76,3 @@ sci-biology/jtreeview
 sci-biology/jtreeview-bin
 sci-biology/kat
 sci-biology/KING
-sci-biology/kraken
-sci-biology/lucy
-sci-biology/MagicViewer
-sci-biology/manatee-igs
-sci-biology/manatee-jcvi
-sci-biology/mavid
-sci-biology/MeV
