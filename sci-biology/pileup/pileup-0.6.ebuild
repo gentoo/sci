@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="SSAHA2-based pipeline to align reads"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/ssaha2/"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/ssaha2/pileup.tgz"
+SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/ssaha2/pileup.tgz -> ${P}.tgz"
 
 # http://samtools.sourceforge.net/pileup.shtml
 #
