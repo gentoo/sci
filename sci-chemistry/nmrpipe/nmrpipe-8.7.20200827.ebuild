@@ -32,7 +32,7 @@ LICENSE="nmrpipe"
 # if there are such requests.
 KEYWORDS="~amd64 ~x86"
 
-RESTRICT="strip bindist mirror"
+RESTRICT="strip bindist mirror !test? ( test )"
 
 DEPEND="app-shells/tcsh"
 RDEPEND="${DEPEND}
