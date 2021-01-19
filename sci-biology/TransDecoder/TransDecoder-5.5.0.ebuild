@@ -57,7 +57,7 @@ src_install() {
 	insinto /usr/share/${PN}/util
 	doins util/*.pl
 
-	chmod -R a+rx "${ED%/}"/usr/share/${PN}/util || die
+	chmod -R a+rx "${ED}"/usr/share/${PN}/util || die
 	# zap the bundled cdhit binaries copied from transdecoder_plugins/cdhit/ to util/bin
 	rm -rf util/bin || die
 
