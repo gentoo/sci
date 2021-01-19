@@ -64,4 +64,3 @@ sci-biology/GAL
 sci-biology/gap2caf
 sci-biology/geneid
 sci-biology/generecon
-sci-biology/genomeview-bin
