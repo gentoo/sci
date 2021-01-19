@@ -1,9 +1,0 @@
-DEFINED_PHASES=install
-DESCRIPTION=gff2ps can render features annotated in GFF file format into PostScript figures
-EAPI=5
-HOMEPAGE=http://genome.crg.es/software/gfftools/GFF2PS.html
-KEYWORDS=~amd64
-LICENSE=GPL-2
-SLOT=0
-SRC_URI=ftp://genome.imim.es/pub/gff_tools/gff2ps/gff2ps_v0.98d.gz http://genome.imim.es/software/gfftools/gff2ps_docs/manual/MANUAL_GFF2PS_v0.96.ps.gz
-_md5_=49a30769ce3fa0c8e5a1fc959558d0fc

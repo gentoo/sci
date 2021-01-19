@@ -161,10 +161,9 @@ sci-biology/ESTate 0.5: ORF finding despite frameshifts, EST clustering
 sci-biology/FLASH 1.2.9: Paired-end mates merge from fragments
 sci-biology/Fastaq 9999: Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers
 sci-biology/GAL 0.2.2: Genome Annotation Library (incl. fasta_tool)
-sci-biology/ICC 2.0.1: Error corrector for Roche/454 and IonTorrent data
 sci-biology/IMAGE 2.4.1: Iterative Mapping and Assembly for Gap Elimination using paired-end Illumina
 sci-biology/InterMine 0.98: Biological data warehouse integrating complex data
-sci-biology/KING 20161017: Check family relationship and infer population structure
+sci-biology/KING 2.2.5: Check family relationship and infer population structure
 sci-biology/KaKs_Calculator 1.2 2.0: Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates
 sci-biology/MaSuRCA 3.2.2: de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore
 sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
@@ -285,26 +284,23 @@ sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.1 1.5.2: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.10.5: Compare, classify, merge, track, annotate GFF files
 sci-biology/gffread 0.11.0: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
-sci-biology/gfftools 0.98d: gff2ps can render features annotated in GFF file format into PostScript figures
 sci-biology/gffutils 0.8.7.1 0.10.1: GFF and GTF file manipulation and interconversion
 sci-biology/glean 1.0.1: Merge various gene prediction into one (unsupervised learning system)
 sci-biology/grabix 9999: Provide random access to text files BGZF compressed with bgzip
-sci-biology/graf-bin 20171212: Find closely related subjects using SNP genotype data, validate pedigree file
+sci-biology/graf-bin 2.4: Find closely related subjects using SNP genotype data, validate pedigree file
 sci-biology/grappa 2.0: Genome Rearrangements Analysis under Parsimony and other Phylogenetic Algorithms
 sci-biology/grass 9999: Scaffold next-generation sequencing assemblies
 sci-biology/hexamer 19990330: Predict CDS using 6mers without deriving information from base composition
 sci-biology/hisat2 2.2.1: Align DNA reads to a population of genomes
-sci-biology/hydra-sv 0.5.3: Detection of structural variation breakpoints
 sci-biology/idba 1.1.1 9999: De novo De Bruijn graph assembler iteratively using multimple k-mers
 sci-biology/igv 2.3.47 2.3.81 2.3.88 2.3.92: Integrative Genomics Viewer
 sci-biology/imagej 1.51k: Image Processing and Analysis in Java
 sci-biology/irsabi_bidsdata 1.4: BIDS data files released with the IRSABI publication
-sci-biology/jannovar 0.17: Exome annotation tool
-sci-biology/jannovar-bin 0.17: Exome annotation tool (upstream jar binaries)
+sci-biology/jannovar-bin 0.35: Exome annotation tool (upstream jar binaries)
 sci-biology/jellyfish 1.1.12 2.1.3-r1 2.1.4-r1 2.2.10 2.3.0: k-mer counter within reads for assemblies
 sci-biology/jigsaw 3.2.10: Combine results from external gene predictors into final gene models
-sci-biology/jtreeview 1.1.6.4 9999: Viewer for Microarray Data in PCL or CDT formats
-sci-biology/jtreeview-bin 1.1.6.4: Viewer for Microarray Data in PCL or CDT formats
+sci-biology/jtreeview 1.2.0 9999: Viewer for Microarray Data in PCL or CDT formats
+sci-biology/jtreeview-bin 1.2.0: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/karect 1.0.0: Error-correct mismatches and InDels of raw reads incl. paired-end
 sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
