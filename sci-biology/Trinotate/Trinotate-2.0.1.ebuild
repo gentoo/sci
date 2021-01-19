@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Annotation and analysis pipeline for de novo assembled transcriptomes"
 HOMEPAGE="http://trinotate.github.io"
-SRC_URI="https://github.com/Trinotate/Trinotate/archive/v${PV}.tar.gz"
+SRC_URI="https://github.com/Trinotate/Trinotate/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
