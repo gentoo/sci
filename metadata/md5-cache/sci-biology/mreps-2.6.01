@@ -1,10 +1,10 @@
 DEFINED_PHASES=install prepare
 DESCRIPTION=Identification of serial/tandem repeats in DNA sequences
-EAPI=5
-HOMEPAGE=http://bioinfo.lifl.fr/mreps/
+EAPI=7
+HOMEPAGE=https://mreps.univ-mlv.fr/
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 SLOT=0
-SRC_URI=http://bioinfo.lifl.fr/mreps/mreps-2.5.tar.gz
+SRC_URI=https://github.com/gregorykucherov/mreps/archive/2.6.01.tar.gz -> mreps-2.6.01.tar.gz
 _eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
-_md5_=f5763d74eebc2e372764edaae255b70b
+_md5_=7f6983b38c120e1fde82303a40d0e3f4

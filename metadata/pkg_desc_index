@@ -171,11 +171,11 @@ sci-biology/MagicViewer 1.2.1: Display short reads alignment
 sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
 sci-biology/MochiView 1.45: Genome browser and analysis
 sci-biology/MolBioLib 5: C++11 framework for bioinformatics tasks
-sci-biology/MuSeqBox 5.4: Parse and filter BLAST output into tab-delimited file
+sci-biology/MuSeqBox 3.4.2020: Parse and filter BLAST output into tab-delimited file
 sci-biology/NGSEPcore 4.0.3: NGSEP (CNV and indel discovery)
 sci-biology/NGSEPcore-bin 4.0.3: NGSEP (CNV and indel discovery)
-sci-biology/OBO-Edit 2.1.0 2.1.1.6: Java-based editor optimized for the OBO biological ontology file format
-sci-biology/ONTO-PERL 1.41: Manipulates OBO- and OWL-formatted ontologies (like the Gene Ontology)
+sci-biology/OBO-Edit 2.3.1: Java-based editor optimized for the OBO biological ontology file format
+sci-biology/ONTO-PERL 1.45: Manipulates OBO- and OWL-formatted ontologies (like the Gene Ontology)
 sci-biology/ParaAT 1.0: Create multiple protein-coding DNA alignments and back-Translation
 sci-biology/RADtools 1.2.4 9999: Tools for processing RAD Sequencing Illumina reads
 sci-biology/RAILS 1.5.1: Cobbler and RAILS scaffolding tools acting on SAM streams
@@ -319,7 +319,7 @@ sci-biology/libblasr 9999: Library for blasr
 sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 9999: Probabilistic framework for structural variant discovery
-sci-biology/mRNAmarkup 1.0 1.1: Transcript annotation workflow
+sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
 sci-biology/maker 2.31.10 3.01.02_beta: A genome annotation viewer and pipeline for small eukaryota and prokaryota
 sci-biology/manatee-igs 2.23.1: IGS-modified version of the genome annotation tool using Chado database schema
 sci-biology/manatee-jcvi 2.4.3: Genome annotation tool
@@ -332,9 +332,9 @@ sci-biology/minced 9999: Short Palindromic Repeat finder tool (for CRISPRs)
 sci-biology/mip-scaffolder 0.6: Scaffold contigs using ABI Solid or Illumina mate pair info
 sci-biology/miranda 3.3a: An algorithm for finding genomic targets for microRNAs
 sci-biology/mouse-brain-atlases 0.5.3: A collection of mouse brain atlases in NIfTI format
-sci-biology/mreps 2.5: Identification of serial/tandem repeats in DNA sequences
+sci-biology/mreps 2.6.01: Identification of serial/tandem repeats in DNA sequences
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
-sci-biology/mrsfast 2.6.0.4: Micro Read Fast Alignment Search Tool
+sci-biology/mrsfast 3.4.2: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
 sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1 2.11.0: A subset of NCBI C++ Toolkit containing just the NCBI BLAST+
