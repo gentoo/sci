@@ -92,4 +92,3 @@ sci-biology/MuSeqBox
 sci-biology/OBO-Edit
 sci-biology/ONTO-PERL
 sci-biology/ORFcor
-sci-biology/pairagon

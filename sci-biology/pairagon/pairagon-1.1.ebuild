@@ -1,18 +1,22 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit perl-functions toolchain-funcs
 
 DESCRIPTION="HMM-based cDNA to genome aligner"
-HOMEPAGE="http://mblab.wustl.edu/software.html"
-SRC_URI="http://mblab.wustl.edu/software/download/pairagon_.tar"
+HOMEPAGE="https://mblab.wustl.edu/software.html"
+#SRC_URI="http://mblab.wustl.edu/software/download/pairagon_.tar"
+# ERROR: cannot verify mblab.wustl.edu's certificate, issued by ‘CN=InCommon RSA Server CA,OU=InCommon,O=Internet2,L=Ann Arbor,ST=MI,C=US’:
+# Unable to locally verify the issuer's authority.
+# To connect to mblab.wustl.edu insecurely, use `--no-check-certificate'.
+RESTRICT="fetch"
+SRC_URI="pairagon_.tar"
 
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND="dev-lang/perl:="
 RDEPEND="${DEPEND}"
