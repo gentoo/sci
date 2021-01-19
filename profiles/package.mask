@@ -96,4 +96,3 @@ sci-biology/pairagon
 sci-biology/polyphen
 sci-biology/primerD
 sci-biology/prokka
-sci-biology/reptile
