@@ -6,7 +6,7 @@ EAPI=7
 inherit cmake multilib
 
 DESCRIPTION="general purpose GPU library"
-HOMEPAGE="https://www.arrayfire.com/"
+HOMEPAGE="https://arrayfire.com/"
 SRC_URI="https://github.com/arrayfire/arrayfire/releases/download/v${PV}/${PN}-full-${PV}.tar.bz2 -> ${P}.tar.bz2"
 S="${WORKDIR}"/${PN}-full-${PV}
 BUILD_DIR="${S}/build"
