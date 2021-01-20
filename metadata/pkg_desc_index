@@ -75,7 +75,7 @@ dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
 dev-python/extension-helpers 0.1: Utilities for building and installing packages in the Astropy ecosystem
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
-dev-python/fslpy 2.8.4: The FSL Python Library
+dev-python/fslpy 3.4.0: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/gmsh_interop 2019.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
@@ -83,7 +83,7 @@ dev-python/gwcs 0.16.1: Generalized World Coordinate System
 dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
-dev-python/json_tricks 3.14.0: Extra features for Python's JSON
+dev-python/json_tricks 3.15.5: Extra features for Python's JSON
 dev-python/kmapper 1.4.1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
@@ -108,7 +108,7 @@ dev-python/pyzotero 1.4.20: A Python client for the Zotero API
 dev-python/regions 0.4: Astropy affilated package for region handling
 dev-python/reproject 0.7.1: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
-dev-python/ripser 0.5.4 0.6.0: python frontend for the fast ripser tda tool
+dev-python/ripser 0.6.0: python frontend for the fast ripser tda tool
 dev-python/snakemake 5.31.1: Make-like task language
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
 dev-python/sphinx-argparse 0.2.5: Sphinx extension that automatically documents argparse commands and options
@@ -118,7 +118,7 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/texext 0.6.6: Sphinx extensions for working with LaTeX math
 dev-python/toposort 1.6: Implements a topological sort algorithm
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
-dev-python/trimesh 3.5.14 3.6.13: Python library for loading and using triangular meshes.
+dev-python/trimesh 3.9.1: Python library for loading and using triangular meshes.
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.4.6 0.5.0: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
@@ -320,7 +320,7 @@ sci-biology/ncbi-genome-download 0.3.0: Download genomes from the NCBI FTP serve
 sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI BLAST+
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/nilearn 0.6.2 9999: Fast and easy statistical learning on NeuroImaging data
-sci-biology/nitime 0.6 0.8.1 9999: Time-series analysis of neuroscience data
+sci-biology/nitime 0.9 9999: Time-series analysis of neuroscience data
 sci-biology/nrcl 110625: Containment clustering and layout utility for processing pairwise alignments
 sci-biology/ntCard 1.1.0 9999: Estimate k-mer coverage histogram of genomics data
 sci-biology/nwalign3 0.1.2: Needleman-Wunsch global sequence alignment in python3
@@ -337,7 +337,6 @@ sci-biology/phusion 2.1c: Whole genome shotgun assembler using phrap (for Sanger
 sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger-based reads)
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
 sci-biology/pilon-bin 1.23: Fix assembled reference using BAM-aligned reads, call SNPs
-sci-biology/plinkseq 0.10 9999: C/C++ library for working with human genetic variation data
 sci-biology/polyphen 2.2.2: Predict effect of aminoacid substitution on human protein function
 sci-biology/portrait 1.1: Ab initio ncRNA prediction
 sci-biology/primerD 1.0.0: Design degenerate primers
@@ -496,8 +495,8 @@ sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
 sci-libs/mlpack 3.4.1 3.4.2: scalable C++ machine learning library
 sci-libs/nexus 4.4.3_p20200126: Data format for neutron and x-ray scattering data
 sci-libs/nibabel 2.5.1 3.0.2 3.2.1 9999: Access a cacophony of neuro-imaging file formats
-sci-libs/nipy 0.4.1 0.4.2 9999: Neuroimaging tools for Python
-sci-libs/nipype 1.1.1-r2 1.4.2 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
+sci-libs/nipy 0.4.2 9999: Neuroimaging tools for Python
+sci-libs/nipype 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
@@ -507,7 +506,7 @@ sci-libs/pytorch 1.6.0-r2: Tensors and Dynamic neural networks in Python with st
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikits_video 1.1.11_p20200115: Video processing in Python
 sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education and interpreted languages.
-sci-libs/spams-python 2.6: Optimization toolbox for solving various sparse estimation problems
+sci-libs/spams-python 2.6.2: Optimization toolbox for solving various sparse estimation problems
 sci-libs/spyking-circus 1.0.6: Fast spike sorting by template matching
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 6.4.0: MPI distributed sparse LU factorization library
@@ -547,7 +546,6 @@ sci-misc/elmer-meshgen2d 6.0_p4651 9999: Finite element programs, libraries, and
 sci-misc/elmer-meta 6.0_p4651 9999: Collection of finite element programs, libraries, and visualization tools
 sci-misc/elmer-post 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmerpost
 sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
-sci-misc/foma 0.9.14_alpha 0.9.16_alpha: Finite state toolkit compatible with Xerox tools
 sci-misc/irstlm 6.00.05: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.3_rc3: Java interface to WordNet dictionary data
 sci-misc/mitlm 0.4.1: Tools designed for efficient estimation of statistical n-gram language models
@@ -569,9 +567,9 @@ sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.5 9999: Tau decay Monte Carlo generator
 sci-visualization/clip 0.7: command line chart creator
 sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFire
-sci-visualization/fsleyes 0.32.0 0.32.3: The new FSL image viewer, released with FSL 5.0.10
-sci-visualization/fsleyes-props 1.6.7: Object attribute management for the FSLeyes viewer
-sci-visualization/fsleyes-widgets 0.8.4: GUI widgets and utilities for the FSLeyes viewer
+sci-visualization/fsleyes 0.34.2: The new FSL image viewer, released with FSL 5.0.10
+sci-visualization/fsleyes-props 1.7.0: Object attribute management for the FSLeyes viewer
+sci-visualization/fsleyes-widgets 0.9.0: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data
@@ -583,4 +581,4 @@ virtual/scalapack 2.0.2-r1: Virtual for ScaLAPACK implementation
 x11-libs/qwt 5.2.3_p20200902: 2D plotting library for Qt5
 x11-libs/qwtplot3d 0.2.7: 3D plotting library for Qt5
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
-x11-misc/envytools 9999: Tools for people envious of nvidia's blob driver
+x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
