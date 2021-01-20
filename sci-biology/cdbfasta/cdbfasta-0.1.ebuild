@@ -4,7 +4,7 @@
 EAPI=5
 
 DESCRIPTION="FASTA record indexing/retrievieng utility"
-HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software"
+HOMEPAGE="https://github.com/gpertea/cdbfasta"
 SRC_URI="ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/cdbfasta/cdbfasta.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Artistic"
