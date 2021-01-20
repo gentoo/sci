@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7,8} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 
-inherit distutils-r1 desktop virtualx
+inherit xdg distutils-r1 desktop virtualx
 
 DESCRIPTION="The new FSL image viewer, released with FSL 5.0.10"
 HOMEPAGE="https://git.fmrib.ox.ac.uk/fsl/fsleyes/fsleyes/tree/master"
@@ -80,13 +80,6 @@ python_install_all() {
 		newicon -s ${size} assets/icons/app_icon/${PN}.iconset/icon_${size}x${size}.png "${PN}.png"
 	done
 	make_desktop_entry fsleyes FSLeyes "${PN}"
-}
-
-pkg_postinst() {
-	gnome2_icon_cache_update
-}
-pkg_postrm() {
-	gnome2_icon_cache_update
 }
 
 python_test() {
