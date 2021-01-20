@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,8 +6,7 @@ EAPI=7
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates"
-HOMEPAGE="https://code.google.com/p/kaks-calculator
-	http://bigd.big.ac.cn/tools/kaks"
+HOMEPAGE="https://bigd.big.ac.cn/tools/kaks"
 SRC_URI="
 	https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/kaks-calculator/KaKs_Calculator"${PV}".tar.gz -> ${P}.tar.gz
 	https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/kaks-calculator/parseFastaIntoAXT.pl

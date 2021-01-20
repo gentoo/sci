@@ -1,11 +1,10 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="Whole genome shotgun OLC assembler for Sanger reads (overlap-layout-contig)"
-HOMEPAGE="https://www.broadinstitute.org/crd/wiki
-	http://genome.cshlp.org/content/12/1/177.abstract"
+HOMEPAGE="https://genome.cshlp.org/content/12/1/177.abstract"
 SRC_URI="ftp://ftp.broadinstitute.org/pub/crd/ARACHNE/latest_source_code/${P}.tar.gz"
 
 LICENSE="MIT" # not exactly MIT ... hence no KEYWORDS

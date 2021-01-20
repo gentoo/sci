@@ -1,10 +1,10 @@
-# Copyright 2019-2020 Gentoo Authors
+# Copyright 2019-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 DESCRIPTION="efficient computation of Vietoris-Rips persistence barcodes"
-HOMEPAGE="https://ripser.org"
+HOMEPAGE="https://github.com/Ripser/ripser"
 SRC_URI="https://github.com/Ripser/ripser/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 KEYWORDS="~amd64"

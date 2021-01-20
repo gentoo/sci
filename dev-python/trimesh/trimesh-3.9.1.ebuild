@@ -1,9 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8} )
+DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1
 
@@ -14,17 +15,9 @@ SRC_URI="https://github.com/mikedh/trimesh/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test extra"
-RESTRICT="!test? ( test )"
+IUSE="extra"
 
-DEPEND="
-	test? (
-		${RDEPEND}
-		dev-python/pytest[${PYTHON_USEDEP}]
-		)
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	dev-python/numpy[${PYTHON_USEDEP}]
-"
+DEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 RDEPEND="
 	extra? (
 		dev-libs/xxhash
@@ -46,6 +39,8 @@ RDEPEND="
 		sci-libs/rtree[${PYTHON_USEDEP}]
 	)
 "
+
+distutils_enable_tests pytest
 
 python_test() {
 	if use extra; then
