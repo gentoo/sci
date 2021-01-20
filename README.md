@@ -112,8 +112,19 @@ The downside of this approach is potentially higher instability, the advantage i
 
 ## Contributing <a name="contributing"></a>
 
-*If you fork, we will merge!*
+*If you fork, we will merge!*   
 We welcome new contributors and are happy to include new packages.
+
+### Areas to contribute
+
+- [Current open issues](https://github.com/gentoo/sci/issues)
+- [Current open bugs](https://bugs.gentoo.org/buglist.cgi?no_redirect=1&quicksearch=[science+overlay])
+- EAPI 6 (or 5) ebuilds which need updating
+```
+find . -type f -name "*.ebuild" ! \( -wholename "*.git*" -o -wholename "*profile*" -o -wholename "*metadata*" \) | while read ff; do grep -lRE "EAPI.*6" /dev/null $ff; done
+```
+
+### Resources
 
 For a brief introduction please see our [contributing guide](CONTRIBUTING.md). Further helpful resources are:
 
