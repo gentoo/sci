@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -6,7 +6,7 @@ EAPI=6
 inherit cmake-utils flag-o-matic git-r3 multibuild toolchain-funcs
 
 DESCRIPTION="Quantum chemistry program for atoms and molecules"
-HOMEPAGE="https://code.google.com/p/erkale/"
+HOMEPAGE="https://github.com/susilehtola/erkale"
 EGIT_REPO_URI="https://github.com/susilehtola/erkale.git"
 
 SLOT="0"
