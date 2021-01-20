@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit distutils-r1 toolchain-funcs
 
@@ -13,12 +13,13 @@ SRC_URI="https://github.com/samuelstjean/${PN}/archive/v${PV}.tar.gz -> ${P}.tar
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64"
 
 DEPEND="
+	dev-python/distro[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	virtual/blas
+	dev-python/pillow[${PYTHON_USEDEP}]
+	sci-libs/openblas
 	virtual/lapack
 	"
 RDEPEND="${DEPEND}
