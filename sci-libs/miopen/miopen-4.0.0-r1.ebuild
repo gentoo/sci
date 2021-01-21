@@ -46,7 +46,7 @@ src_configure() {
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr"
 		-DCMAKE_BUILD_TYPE=Release
-		-DMIOPEN_BACKEND=$(usex opencl OpenCL HIP)
+		-DMIOPEN_BACKEND=HIP
 		-DBoost_USE_STATIC_LIBS=OFF
 	)
 
