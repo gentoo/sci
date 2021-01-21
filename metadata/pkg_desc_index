@@ -35,6 +35,7 @@ dev-libs/half 2.1.0: Half-precision floating-point library
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/memkind 1.10.1 9999: user extensible heap manager built on top of jemalloc
 dev-libs/optix 6.0.0 7.0.0 7.1.0: NVIDIA Ray Tracing Engine
+dev-libs/protobuf 3.11.4: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
@@ -94,6 +95,7 @@ dev-python/numba 0.51.2 0.52.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/persim 0.1.3 0.2.0: Distances and representations of persistence diagrams
 dev-python/photutils 1.0.1: Affiliated package for image photometry utilities
+dev-python/protobuf-python 3.11.4-r1: Google's Protocol Buffers - Python bindings
 dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.8.6: PEP 561 type stubs generator for pybind11 modules
