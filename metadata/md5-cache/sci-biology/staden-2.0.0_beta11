@@ -8,5 +8,5 @@ LICENSE=staden
 RDEPEND=app-arch/xz-utils dev-lang/tk:0= dev-tcltk/tklib media-libs/libpng:0 sci-biology/samtools:0 >=sci-libs/io_lib-1.13.8 sys-libs/zlib >=dev-tcltk/iwidgets-4.0 tcl? ( >=dev-tcltk/itcl-3.2 ) tk? ( >=dev-tcltk/itk-3.2 ) net-misc/curl doc? ( sci-biology/staden_doc ) virtual/fortran
 SLOT=0
 SRC_URI=https://downloads.sourceforge.net/staden/staden-2.0.0b11-2016-src.tar.gz -> staden-2.0.0_beta11-src.tar.gz
-_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	eutils	2d5b3f4b315094768576b6799e4f926e	flag-o-matic	09a8beb8e6a8e02dc1e1bd83ac353741	fortran-2	b4796813ccda91c9c0d3463fc90aa969	l10n	8cdd85e169b835d518bc2fd59f780d8e	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e	wrapper	4251d4c84c25f59094fd557e0063a974
+_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	eutils	2d5b3f4b315094768576b6799e4f926e	flag-o-matic	09a8beb8e6a8e02dc1e1bd83ac353741	fortran-2	b4796813ccda91c9c0d3463fc90aa969	l10n	8cdd85e169b835d518bc2fd59f780d8e	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	wrapper	4251d4c84c25f59094fd557e0063a974
 _md5_=76e32502cf51f10f0345427b482c8be2

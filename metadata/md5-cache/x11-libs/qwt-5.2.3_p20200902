@@ -9,5 +9,5 @@ LICENSE=qwt
 RDEPEND=dev-qt/designer:5 dev-qt/qtgui:5 svg? ( dev-qt/qtsvg:5 )
 SLOT=5
 SRC_URI=https://github.com/gbm19/qwt5-qt5/archive/0052f96fdd6d5f021f20a1cfc4d2fcfc605941da.tar.gz -> qwt-5.2.3_p20200902.tar.gz
-_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	qmake-utils	dc74fe3891abc25e80dad5cd3d7c6e47	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
+_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	qmake-utils	dc74fe3891abc25e80dad5cd3d7c6e47	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
 _md5_=fe6d89ea287e11698cefd2ff201fff79

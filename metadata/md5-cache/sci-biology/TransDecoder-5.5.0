@@ -9,5 +9,5 @@ RDEPEND=dev-lang/perl:= sci-biology/cd-hit sci-biology/parafly sci-biology/ffind
 RESTRICT=test
 SLOT=0
 SRC_URI=https://github.com/TransDecoder/TransDecoder/archive/TransDecoder-v5.5.0.tar.gz
-_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	toolchain-funcs	1a94dc06d324bd0dab754e11abe6d27e
+_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
 _md5_=067ef043f881be0c8201667e64814592
