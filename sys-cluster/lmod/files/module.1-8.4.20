@@ -31,7 +31,7 @@ The following
 are available:
 .Pp
 .Bl -tag -width Ds -compact
-.It Fl h , ? , H , -help
+.It Fl h , \&? , H , -help
 Show the help message.
 .Pp
 .It Fl -check_syntax , -checkSyntax

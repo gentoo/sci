@@ -9,6 +9,14 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
+	<longdescription>
+		Lmod is a lua based program to manage the user environment
+		under Unix systems, specifically designed to easily handle the MODULEPATH
+		Hierarchical problem.  Environment Modules provide a convenient way to
+		dynamically change the users' environment through modulefiles.  This
+		includes easily adding or removing directories to the PATH,
+		LD_LIBRARY_PATH and other environment variables.
+	</longdescription>
 	<use>
 		<flag name="auto-swap">enable auto swapping of compiler</flag>
 		<flag name="cache">enable caching of modules</flag>
