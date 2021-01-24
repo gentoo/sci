@@ -172,6 +172,9 @@ src_prepare() {
 	# make sure the DOCBOOK_ROOT variable is set
 	sed -i -e "s/xsl-stylesheets-\*/xsl-stylesheets/g" bin/scilab* || die
 
+	# fix QA for metainfo data installation path
+	sed -i.bkp -e "s:/appdata:/metainfo:" desktop/Makefile.in || die
+
 	# remove self closing <br /> (error our with javadoc8)
 	# already upstream commit 2103082c
 	find . -name '*.java' -exec sed -i "s|<br />|<BR>|" {} \; ||die
@@ -280,7 +283,7 @@ src_test() {
 
 src_install() {
 	default
-	prune_libtool_files --all
+	find "${ED}" -name '*.la' -delete || die
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
 	newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
 	bashcomp_alias ${PN} ${PN}-cli ${PN}-adv-cli
@@ -291,6 +294,7 @@ src_install() {
 
 pkg_postinst() {
 	xdg_mimeinfo_database_update
+	xdg_desktop_database_update
 	einfo "If you are using the NVIDIA binary drivers, and run into graphics"
 	einfo "crashes, you may try to run scilab as follows:"
 	einfo "EGL_DRIVER=egl_glx scilab"
@@ -299,4 +303,5 @@ pkg_postinst() {
 
 pkg_postrm() {
 	xdg_mimeinfo_database_update
+	xdg_desktop_database_update
 }
