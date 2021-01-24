@@ -83,6 +83,7 @@ CDEPEND="
 		xcos? ( dev-java/jgraphx:0 )
 		)
 	matio? ( >=sci-libs/matio-1.5 )
+	mpi? ( virtual/mpi[fortran] )
 	tk? ( dev-lang/tk:0= )
 	umfpack? ( sci-libs/umfpack )"
 
