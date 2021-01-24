@@ -1,26 +1,23 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit versionator toolchain-funcs
-
-MY_PV=$(replace_all_version_separators '-')
+inherit toolchain-funcs
 
 DESCRIPTION="Find shared segments of Identity by Descent (IBD) between pairs of individuals"
-HOMEPAGE="http://www.cs.columbia.edu/~gusev/germline
+HOMEPAGE="http://gusevlab.org/projects/germline/
 	http://genome.cshlp.org/content/19/2/318.full"
-SRC_URI="http://www.cs.columbia.edu/~gusev/${PN}/${PN}-${MY_PV}.tar.gz"
+SRC_URI="http://gusevlab.org/projects/${PN}/release/${PN}-${PV//./-}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="dev-libs/boost"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/${PN}-${MY_PV}
+S="${WORKDIR}"/${PN}-${PV//./-}
 
 src_prepare(){
 	sed -e "s/-O3 /${CXXFLAGS} /;s/g++/$(tc-getCXX)/" -i Makefile || die
@@ -31,4 +28,5 @@ src_prepare(){
 
 src_install(){
 	dobin germline parse_bmatch
+	dodoc README
 }
