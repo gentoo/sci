@@ -1,12 +1,13 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-inherit cmake-utils eutils java-pkg-2 flag-o-matic
+EAPI=7
+
+inherit cmake java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="https://brlcad.org/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/project/brlcad/BRL-CAD%20Source/${PV}/${P}.tar.gz"
 
 LICENSE="LGPL-2 BSD"
 SLOT="0"
@@ -15,7 +16,7 @@ IUSE="benchmarks debug doc examples java opengl smp"
 
 RDEPEND="
 	java? (
-		>=virtual/jre-1.5:*
+		>=virtual/jre-1.7:*
 	)
 	"
 
@@ -34,7 +35,7 @@ DEPEND="${RDEPEND}
 	x11-libs/libXi
 	java? (
 		sci-libs/jama
-		>=virtual/jre-1.5:*
+		>=virtual/jre-1.7:*
 	)
 	doc? (
 		dev-libs/libxslt
@@ -44,7 +45,7 @@ DEPEND="${RDEPEND}
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-cmake.patch"
+	cmake_src_prepare
 }
 
 src_configure() {
@@ -62,35 +63,34 @@ src_configure() {
 		-DBRLCAD_FLAGS_OPTIMIZATION=ON
 		-DBRLCAD_ENABLE_X11=ON
 		-DBRLCAD_ENABLE_VERBOSE_PROGRESS=ON
-		)
+	)
 
-			# use flag triggered options
+	# use flag triggered options
 	if use debug; then
-		mycmakeargs += "-DCMAKE_BUILD_TYPE=Debug"
+		mycmakeargs+="-DCMAKE_BUILD_TYPE=Debug"
 	else
-		mycmakeargs += "-DCMAKE_BUILD_TYPE=Release"
+		mycmakeargs+="-DCMAKE_BUILD_TYPE=Release"
 	fi
 	mycmakeargs+=(
-		$(cmake-utils_use opengl BRLCAD_ENABLE_OPENGL)
-#experimental RTGL support
-#		$(cmake-utils_use opengl BRLCAD_ENABLE_RTGL)
-		$(cmake-utils_use amd64 BRLCAD_ENABLE_64BIT)
-		$(cmake-utils_use smp BRLCAD_ENABLE_SMP)
-		$(cmake-utils_use java BRLCAD_ENABLE_RTSERVER)
-		$(cmake-utils_use examples BRLCAD_INSTALL_EXAMPLE_GEOMETRY)
-		$(cmake-utils_use doc BRLCAD_EXTRADOCS)
-		$(cmake-utils_use doc BRLCAD_EXTRADOCS_PDF)
-		$(cmake-utils_use doc BRLCAD_EXTRADOCS_MAN)
-		)
-	cmake-utils_src_configure
+		$(usex opengl BRLCAD_ENABLE_OPENGL)
+		$(usex opengl BRLCAD_ENABLE_RTGL)
+		$(usex amd64 BRLCAD_ENABLE_64BIT)
+		$(usex smp BRLCAD_ENABLE_SMP)
+		$(usex java BRLCAD_ENABLE_RTSERVER)
+		$(usex examples BRLCAD_INSTALL_EXAMPLE_GEOMETRY)
+		$(usex doc BRLCAD_EXTRADOCS)
+		$(usex doc BRLCAD_EXTRADOCS_PDF)
+		$(usex doc BRLCAD_EXTRADOCS_MAN)
+	)
+	cmake_src_configure
 }
 
 src_compile() {
-	cmake-utils_src_compile
+	cmake_src_compile
 }
 
 src_test() {
-	cmake-utils_src_test
+	cmake_src_test
 	emake check
 	if use benchmarks; then
 		emake benchmark
@@ -98,12 +98,14 @@ src_test() {
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 	rm -f "${D}"usr/share/brlcad/{README,NEWS,AUTHORS,HACKING,INSTALL,COPYING}
 	dodoc AUTHORS NEWS README HACKING TODO BUGS ChangeLog
 	echo "PATH=\"${BRLCAD_DIR}/bin\"" >  99brlcad
 	echo "MANPATH=\"${BRLCAD_DIR}/man\"" >> 99brlcad
 	doenvd 99brlcad
-	newicon misc/macosx/Resources/ReadMe.rtfd/brlcad_logo_tiny.png brlcad.png
-	make_desktop_entry mged "BRL-CAD" brlcad "Graphics;Engineering"
+	for size in 16,24,36,48,64,96,128,256; do
+		doicon misc/debian/${size}x${Size}/*
+	done
+	domenu misc/debian/*.desktop
 }
