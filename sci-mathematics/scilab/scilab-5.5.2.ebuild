@@ -159,10 +159,6 @@ pkg_setup() {
 src_prepare() {
 	default
 
-	# works for me on x86, but users are having
-	# trouble without see #282 on github
-	append-ldflags $(no-as-needed)
-
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && eapply "${FILESDIR}/${P}-java-heap.patch"
 
