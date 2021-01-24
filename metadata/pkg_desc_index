@@ -140,15 +140,15 @@ dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-util/rocm-clang-ocl 4.0.0-r1: OpenCL compilation with clang compiler
 dev-util/waf 2.0.21: Piece of software used to help building software projects
-media-gfx/brlcad 7.22.0 7.24.0 7.24.2 9999: Constructive solid geometry modeling system
+media-gfx/brlcad 7.32.0 9999: Constructive solid geometry modeling system
 media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
 media-libs/embree-bin 3.12.0 3.12.1: high-performance ray tracing kernels from intel
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
-media-libs/imgui 1.48_p20191119: Bloat-free graphical user interface library for C++
-media-libs/implicitmesher 0_p20191111: Real-time implicit surface polygonization
+media-libs/imgui 1.80: Bloat-free graphical user interface library for C++
+media-libs/implicitmesher 0_p20200413: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
-media-libs/yocto-gl 0_p20191111: Single File Libraries for Physically-Based Graphics
+media-libs/yocto-gl 3.3.0: Single File Libraries for Physically-Based Graphics
 net-misc/cernbox-client 2.7.4.2934: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/libthesky 0.4.1-r1: Fortran library to compute positions of celestial bodies
