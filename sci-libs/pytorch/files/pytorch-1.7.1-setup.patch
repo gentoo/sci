@@ -1,0 +1,12 @@
+diff --git a/setup.py b/setup.py
+index 2db381644c..01a2e57aea 100644
+--- a/setup.py
++++ b/setup.py
+@@ -294,7 +294,6 @@ def build_deps():
+ 
+     check_file(os.path.join(third_party_path, "gloo", "CMakeLists.txt"))
+     check_file(os.path.join(third_party_path, 'cpuinfo', 'CMakeLists.txt'))
+-    check_file(os.path.join(third_party_path, 'tbb', 'Makefile'))
+     check_file(os.path.join(third_party_path, 'onnx', 'CMakeLists.txt'))
+     check_file(os.path.join(third_party_path, 'foxi', 'CMakeLists.txt'))
+     check_file(os.path.join(third_party_path, 'QNNPACK', 'CMakeLists.txt'))
