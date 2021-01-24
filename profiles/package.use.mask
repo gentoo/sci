@@ -15,6 +15,11 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Benda Xu <heroxbd@gentoo.org> (24 Jan 2021)
+# It doesn't work, mask 30 days for removal, unless someone come up
+# with a fix. cf. https://github.com/gentoo/sci/issues/1011
+sci-libs/pytorch mkl
+
 # Andrew Savchenko <bircoph@gentoo.org> (02 Jun 2016)
 # doesn't link with plotutils-2.6
 sci-physics/qcl plotutils
