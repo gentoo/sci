@@ -1,0 +1,11 @@
+--- ./modules/xcos/sci_gateway/cpp/sci_xcosPalLoad.cpp	2015-03-31 11:31:43.000000000 +0200
++++ ./modules/xcos/sci_gateway/cpp/sci_xcosPalLoad.cpp.new	2021-01-10 15:47:49.011858918 +0100
+@@ -54,7 +54,7 @@
+     {
+         // FIXME #7266 workaround
+         // check category emptyness
+-        if (category == NULL || (lenCategory == 1 && *category == '\0'))
++        if (category == NULL || (lenCategory == 1 && **category == 0))
+         {
+             Palette::loadPal(getScilabJavaVM(), name);
+         }

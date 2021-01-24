@@ -11,12 +11,12 @@ inherit autotools bash-completion-r1 check-reqs eutils flag-o-matic \
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="https://www.scilab.org/"
-SRC_URI="https://www.scilab.org/download/${PV}/${P}-src.tar.gz"
+SRC_URI="https://www.scilab.org/download/${PV}/${P}-src.tar.gz
+	https://raw.githubusercontent.com/gentoo/sci/4c2a07c4629c61395a998633ccfcb34d72569529/sci-mathematics/scilab/files/${P}-bug15107.patch"
 
-LICENSE="GPL-2"
+LICENSE="CeCILL-2.1"
 SLOT="0"
-KEYWORDS=""
-
+KEYWORDS="~amd64"
 IUSE="debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
@@ -89,7 +89,7 @@ CDEPEND="
 	umfpack? ( sci-libs/umfpack )"
 
 RDEPEND="${CDEPEND}
-	gui? ( >=virtual/jre-1.8 )"
+	gui? ( >=virtual/jre-1.5 )"
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
@@ -114,12 +114,21 @@ DEPEND="${CDEPEND}
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
 PATCHES=(
-	"${FILESDIR}/${PN}-6.1.0-followlinks.patch"
-	"${FILESDIR}/${PN}-6.1.0-gluegen.patch"
-	"${FILESDIR}/${PN}-6.1.0-accessviolation.patch"
-	"${FILESDIR}/${PN}-6.1.0-missinglib.patch"
-	"${FILESDIR}/${PN}-6.1.0-freehep.patch"
-	"${FILESDIR}/${PN}-6.1.0-libxml.patch"
+	"${FILESDIR}/${P}-followlinks.patch"
+	"${FILESDIR}/${P}-gluegen.patch"
+	"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
+	"${FILESDIR}/${P}-accessviolation.patch"
+	"${FILESDIR}/${P}-missinglib.patch"
+	"${FILESDIR}/${P}-batik-1.9.patch"
+	"${FILESDIR}/${P}-fop-2.0.patch"
+	"${FILESDIR}/${P}-xmlgraphics-common-2.0.patch"
+	"${FILESDIR}/${P}-freehep.patch"
+	"${FILESDIR}/${P}-fortran-gcc8.patch" # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=232958
+	"${FILESDIR}/${P}-libxml-icu64.patch" # similar to https://bugzilla.scilab.org/show_bug.cgi?id=16588
+	"${FILESDIR}/${P}-hdf5-1.8.10.patch" # adapted from https://github.com/bartoszek/scilab
+	"${DISTDIR}/${P}-bug15107.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15107
+	"${FILESDIR}/${P}-bug15449.patch" # http://bugzilla.scilab.org/show_bug.cgi?id=15449
+	"${FILESDIR}/${P}-ocaml-4.0.4.patch" # https://github.com/bartoszek/scilab
 )
 
 pkg_pretend() {
