@@ -99,7 +99,7 @@ src_test() {
 
 src_install() {
 	cmake_src_install
-	rm -f "${D}"usr/share/brlcad/{README,NEWS,AUTHORS,HACKING,INSTALL,COPYING}
+	rm -f "${D}"/usr/share/brlcad/{README,NEWS,AUTHORS,HACKING,INSTALL,COPYING}
 	dodoc AUTHORS NEWS README HACKING TODO BUGS ChangeLog
 	echo "PATH=\"${BRLCAD_DIR}/bin\"" >  99brlcad
 	echo "MANPATH=\"${BRLCAD_DIR}/man\"" >> 99brlcad
