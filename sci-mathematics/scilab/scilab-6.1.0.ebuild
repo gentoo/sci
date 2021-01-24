@@ -10,8 +10,8 @@ inherit autotools bash-completion-r1 check-reqs eutils flag-o-matic \
 	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx xdg-utils
 
 DESCRIPTION="Scientific software package for numerical computations"
-HOMEPAGE="http://www.scilab.org/"
-SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
+HOMEPAGE="https://www.scilab.org/"
+SRC_URI="https://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -50,10 +50,10 @@ CDEPEND="
 	dev-libs/libxml2:2
 	sci-libs/hdf5[mpi=]
 	>=sci-libs/arpack-3
+	sci-libs/lapack[deprecated(-)]
 	sys-devel/gettext
 	sys-libs/ncurses:0=
 	sys-libs/readline:0=
-	virtual/lapack
 	emf? (
 		dev-java/freehep-graphicsio:0
 		dev-java/freehep-graphicsio-emf:0
@@ -64,7 +64,7 @@ CDEPEND="
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
-		>=dev-java/batik-1.8:=
+		>=dev-java/batik-1.9:1.9
 		dev-java/commons-io:1
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
@@ -81,9 +81,10 @@ CDEPEND="
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:2
 		virtual/opengl
-		xcos? ( dev-java/jgraphx:= )
+		xcos? ( dev-java/jgraphx:0 )
 		)
 	matio? ( >=sci-libs/matio-1.5 )
+	mpi? ( virtual/mpi[fortran] )
 	tk? ( dev-lang/tk:0= )
 	umfpack? ( sci-libs/umfpack )"
 
@@ -95,11 +96,16 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.6
-		doc? ( app-text/docbook-xsl-stylesheets
-			   dev-java/xml-commons-external:1.4
-			   dev-java/saxon:9 )
-		xcos? ( dev-lang/ocaml )
+		doc? (
+			app-text/docbook-xsl-stylesheets
+			dev-java/xml-commons-external:1.4
+			dev-java/saxon:9
 		)
+		xcos? (
+			>=dev-lang/ocaml-4.06
+			dev-ml/num
+		)
+	)
 	test? (
 		dev-java/junit:4
 		dev-java/ant-junit4:0
@@ -160,6 +166,9 @@ src_prepare() {
 	# make sure the DOCBOOK_ROOT variable is set
 	sed -i -e "s/xsl-stylesheets-\*/xsl-stylesheets/g" bin/scilab* || die
 
+	# fix QA for metainfo data installation path
+	sed -i.bkp -e "s:/appdata:/metainfo:" desktop/Makefile.in || die
+
 	# remove self closing <br /> (error our with javadoc8)
 	# already upstream commit 2103082c
 	find . -name '*.java' -exec sed -i "s|<br />|<BR>|" {} \; ||die
@@ -191,7 +200,7 @@ src_prepare() {
 		java-pkg_jar-from jlatexmath-fop-1
 		use xcos &&	java-pkg_jar-from jgraphx
 		if use doc; then
-			java-pkg_jar-from --build-only batik-1.8 batik-all.jar
+			java-pkg_jar-from --build-only batik-1.9 batik-all.jar
 			java-pkg_jar-from --build-only saxon-9 saxon.jar saxon9he.jar
 			java-pkg_jar-from --build-only xml-commons-external-1.4 xml-apis-ext.jar
 		fi
@@ -268,9 +277,10 @@ src_test() {
 
 src_install() {
 	default
-	prune_libtool_files --all
+	find "${ED}" -name '*.la' -delete || die
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
 	newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
+	bashcomp_alias ${PN} ${PN}-cli ${PN}-adv-cli
 	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
 		> 50-"${PN}"
 	insinto /etc/revdep-rebuild && doins "50-${PN}"
@@ -278,6 +288,7 @@ src_install() {
 
 pkg_postinst() {
 	xdg_mimeinfo_database_update
+	xdg_desktop_database_update
 	einfo "If you are using the NVIDIA binary drivers, and run into graphics"
 	einfo "crashes, you may try to run scilab as follows:"
 	einfo "EGL_DRIVER=egl_glx scilab"
@@ -286,4 +297,5 @@ pkg_postinst() {
 
 pkg_postrm() {
 	xdg_mimeinfo_database_update
+	xdg_desktop_database_update
 }

@@ -10,13 +10,13 @@ inherit autotools bash-completion-r1 check-reqs eutils flag-o-matic \
 	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx xdg-utils
 
 DESCRIPTION="Scientific software package for numerical computations"
-HOMEPAGE="http://www.scilab.org/"
-SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz
+HOMEPAGE="https://www.scilab.org/"
+SRC_URI="https://www.scilab.org/download/${PV}/${P}-src.tar.gz
 	https://raw.githubusercontent.com/gentoo/sci/4c2a07c4629c61395a998633ccfcb34d72569529/sci-mathematics/scilab/files/${P}-bug15107.patch"
 
 LICENSE="CeCILL-2.1"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
@@ -50,7 +50,7 @@ CDEPEND="
 	dev-libs/libxml2:2
 	sci-libs/hdf5[mpi=]
 	>=sci-libs/arpack-3
-	sci-libs/lapack[deprecated]
+	sci-libs/lapack[deprecated(-)]
 	sys-devel/gettext
 	sys-libs/ncurses:0=
 	sys-libs/readline:0=
@@ -77,6 +77,7 @@ CDEPEND="
 		>=dev-java/jlatexmath-fop-1.0.3:1
 		~dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
+		>dev-java/lucene-2:=[contrib(-)]
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:2
 		virtual/opengl
@@ -95,9 +96,11 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.6
-		doc? ( app-text/docbook-xsl-stylesheets
+		doc? (
+			app-text/docbook-xsl-stylesheets
 			dev-java/xml-commons-external:1.4
-			dev-java/saxon:9 )
+			dev-java/saxon:9
+		)
 		xcos? (
 			>=dev-lang/ocaml-4.06
 			dev-ml/num
@@ -105,6 +108,7 @@ DEPEND="${CDEPEND}
 	)
 	test? (
 		dev-java/junit:4
+		dev-java/ant-junit4:0
 		gui? ( ${VIRTUALX_DEPEND} ) )"
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
@@ -144,6 +148,9 @@ pkg_setup() {
 	#bug 8053
 	unset F77
 	java-pkg-opt-2_pkg_setup
+
+	# fails to compile in src/fortran/optml2.f:172:50 without this
+	append-fflags -fallow-argument-mismatch
 
 	ALL_L10N="en_US"
 	ALL_L10N_DOC="en_US"
