@@ -50,10 +50,10 @@ CDEPEND="
 	dev-libs/libxml2:2
 	sci-libs/hdf5[mpi=]
 	>=sci-libs/arpack-3
+	sci-libs/lapack[deprecated]
 	sys-devel/gettext
 	sys-libs/ncurses:0=
 	sys-libs/readline:0=
-	virtual/lapack
 	emf? (
 		dev-java/freehep-graphicsio:0
 		dev-java/freehep-graphicsio-emf:0
