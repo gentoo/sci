@@ -510,7 +510,7 @@ sci-libs/pfft 1.0.7_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/pybids 0.6.5 0.10.2 0.11.1 0.12.4: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
-sci-libs/pytorch 1.6.0-r2: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+sci-libs/pytorch 1.6.0-r2 1.7.1-r2: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/rocBLAS 4.0.0-r1: AMD's library for BLAS on ROCm.
 sci-libs/scikits_video 1.1.11_p20200115: Video processing in Python
