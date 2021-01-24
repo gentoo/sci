@@ -13,7 +13,7 @@ SRC_URI="
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 RDEPEND="
 	>=virtual/jre-1.7:*
@@ -31,8 +31,8 @@ src_install(){
 	mkdir -p "${ED}"/usr/share || die
 	# but portage does not install the .* files and subdirs, grr!
 	unzip \
-		"${DISTDIR}"/snpEff_v"${MY_PV}"_core.zip -d "${ED}"/usr/share \
-		|| die "failed to unzip ${DISTDIR}/snpEff_v${MY_PV}_core.zip"
+		"${DISTDIR}"/snpEff_v"${PV//./_}"_core.zip -d "${ED}"/usr/share \
+		|| die "failed to unzip ${DISTDIR}/snpEff_v${PV//./_}_core.zip"
 	sed \
 		-e "s#$HOME/tools/picard/#${ED}/usr/share/picard/lib/#" \
 		-i "${ED}"/usr/share/snpEff/scripts/annotate_demo_GATK.sh || die

@@ -1,0 +1,12 @@
+diff --git a/cmake/Dependencies.cmake b/cmake/Dependencies.cmake
+index b3a892cf88..2c8622870c 100644
+--- a/cmake/Dependencies.cmake
++++ b/cmake/Dependencies.cmake
+@@ -4,7 +4,6 @@ if(APPLE)
+   set(CMAKE_MACOSX_RPATH ON)
+   set(_rpath_portable_origin "@loader_path")
+ else()
+-  set(_rpath_portable_origin $ORIGIN)
+ endif(APPLE)
+ # Use separate rpaths during build and install phases
+ set(CMAKE_SKIP_BUILD_RPATH  FALSE)

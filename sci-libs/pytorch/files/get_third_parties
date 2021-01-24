@@ -1,0 +1,20 @@
+#!/bin/bash
+
+path_url() {
+	local dir=$(dirname $1)/
+	git config --file $1 --get-regexp '(path|url)' | sed -r -e "N;s,[^ ]* ([^ ]*)\n[^ ]* ([^ ]*),${dir#./}\1 \2,"
+}
+
+join \
+	<(for gm in $(find . -name '.gitmodules' | sort -r); do path_url $gm; done | sort -u) \
+	<(git submodule status --recursive | awk '{print $2 " " $1}' | sort -u) | \
+while read path url hash; do
+    [[ ${path} =~ (eigen|six|ios|neon2sse|protobuf|pybind11|python-enum|tbb|zstd|fbjni) ]] && continue
+    u=${url%.git}
+    hfull=${hash#-}
+    h=${hfull:0:8}
+    p=$(basename $u)
+    echo "${u}/archive/${h}.tar.gz -> ${p}-${h}.tar.gz" >> SRC_URI
+    [[ $p = fbgemm ]] && p=${p^^}
+    echo "rmdir ${path} && ln -sv \"\${WORKDIR}\"/${p}-${hfull} ${path}" >> src_prepare
+done
