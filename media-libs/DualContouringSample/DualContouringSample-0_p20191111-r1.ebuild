@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit cmake-utils git-r3
+inherit cmake git-r3
 
 DESCRIPTION="A sample Dual Contouring implementation"
 HOMEPAGE="https://github.com/simoncblyth/DualContouringSample"
@@ -25,5 +25,5 @@ src_configure() {
 		-DCMAKE_INSTALL_INCLUDEDIR=include/${PN}
 	)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }
