@@ -1,11 +1,11 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit cmake-utils git-r3
+inherit cmake git-r3
 
 DESCRIPTION="Draw synteny plots using circos"
 HOMEPAGE="http://bioinf.spbau.ru/en/sibelia"
@@ -14,7 +14,6 @@ EGIT_REPO_URI="https://github.com/bioinf/Sibelia.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 DEPEND="
 	dev-lang/perl
@@ -32,4 +31,4 @@ DEPEND="
 # it install stuff into /usr/lib/Sibelia/{lagan,snpEff}/
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/"${P}"/src
+S="${WORKDIR}/${P}/src"
