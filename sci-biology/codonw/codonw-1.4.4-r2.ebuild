@@ -1,15 +1,13 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit toolchain-funcs versionator
-
-MY_PV=$(replace_all_version_separators '_')
+inherit toolchain-funcs
 
 DESCRIPTION="Multivariate statistical analysis of codon and amino acid usage"
 HOMEPAGE="http://codonw.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/CodonWSourceCode_${MY_PV}.tar.gz
+SRC_URI="mirror://sourceforge/${PN}/CodonWSourceCode_${PV//./_}.tar.gz
 		http://codonw.sourceforge.net/JohnPedenThesisPressOpt_water.pdf"
 
 LICENSE="GPL-2"
@@ -17,13 +15,14 @@ SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-S=${WORKDIR}/codonW
+S="${WORKDIR}/codonW"
 
 src_prepare() {
 	sed \
 		-e 's/$(CC) -c/& -DBSD/' \
 		-e 's/$(CFLAGS)  $(objects)/$(CFLAGS) $(LDFLAGS) $(objects)/' \
 		-i Makefile || die
+	default
 }
 
 src_compile() {
