@@ -545,7 +545,7 @@ sci-mathematics/netgen 4.9.13 5.0.0 5.3.1: Automatic 3d tetrahedral mesh generat
 sci-mathematics/open-axiom 1.4.2_p20180201: Symbolic and algebraic computations system
 sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
-sci-mathematics/scilab 6.0.2 6.1.0: Scientific software package for numerical computations
+sci-mathematics/scilab 5.5.2 6.0.2 6.1.0: Scientific software package for numerical computations
 sci-mathematics/why3 0.83: Why3 is a platform for deductive program verification
 sci-misc/elmer-elmergrid 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmergrid
 sci-misc/elmer-fem 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - main fem
