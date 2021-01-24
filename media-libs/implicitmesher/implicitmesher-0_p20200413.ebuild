@@ -1,15 +1,15 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit mercurial cmake-utils
+inherit cmake
 
-EHG_REPO_URI="https://bitbucket.org/simoncblyth/${PN}"
-EHG_REVISION="a087394946d788bfd35a20b4b07909fa62f76a7a"
+COMMIT="4b7a47056074"
 
 DESCRIPTION="Real-time implicit surface polygonization"
 HOMEPAGE="https://bitbucket.org/simoncblyth/implicitmesher"
+SRC_URI="https://bitbucket.org/simoncblyth/implicitmesher/get/${COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -18,6 +18,8 @@ KEYWORDS="~amd64"
 RDEPEND="media-libs/glm"
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/simoncblyth-${PN}-${COMMIT}"
+
 PATCHES=( "${FILESDIR}"/implicitmesher-0_glm.patch )
 
 src_configure() {
@@ -25,5 +27,5 @@ src_configure() {
 		-DCMAKE_INSTALL_INCLUDEDIR=include/ImplicitMesher
 	)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }

@@ -27,7 +27,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/MIOpen-rocm-${PV}"
 
 src_prepare() {
-	sed -e "s:PATHS /opt/rocm/llvm:PATHS ${EPREFIX}/usr/lib/llvm/roc/ NO_DEFAULT_PATH:" \
+	sed -e "s:PATHS /opt/rocm/llvm:PATHS ""${EPREFIX}""/usr/lib/llvm/roc/ NO_DEFAULT_PATH:" \
 		-e '/set( MIOPEN_INSTALL_DIR/s:miopen:${CMAKE_INSTALL_PREFIX}:' \
 		-e '/set(MIOPEN_SYSTEM_DB_PATH/s:${CMAKE_INSTALL_PREFIX}/::' \
 		-e '/MIOPEN_TIDY_ERRORS ALL/d' \

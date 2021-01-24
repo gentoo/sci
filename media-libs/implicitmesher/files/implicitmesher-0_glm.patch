@@ -1,34 +1,38 @@
-Index: implicitmesher-0_p20191111/CMakeLists.txt
-===================================================================
---- implicitmesher-0_p20191111.orig/CMakeLists.txt
-+++ implicitmesher-0_p20191111/CMakeLists.txt
-@@ -3,19 +3,12 @@ set(name ImplicitMesher)
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d1a0cf3..f9013cb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,6 @@
+ cmake_minimum_required (VERSION 3.5)
+ set(name ImplicitMesher)
  project(${name} VERSION 0.1.0)
- 
- include(CTest)
 -include(OpticksBuildOptions)
--
--include(GNUInstallDirs)
--set(CMAKE_INSTALL_INCLUDEDIR "externals/include/${name}")
--set(CMAKE_INSTALL_LIBDIR     "externals/lib")
--set(CMAKE_INSTALL_BINDIR     "lib")
--set(CMAKE_INSTALL_RPATH      "${CMAKE_INSTALL_FULL_LIBDIR}")
  
- find_package(BCM REQUIRED)
- include(BCMDeploy)
- #include(EchoTarget)
+ #[=[
+ Hmm OpticksBuildOptions sets CMAKE_INSTALL_INCLUDEDIR to "include/${name}"
+@@ -14,7 +13,7 @@ set(CMAKE_INSTALL_LIBDIR     "externals/lib")
+ set(CMAKE_INSTALL_BINDIR     "lib")
+ 
  
 -find_package(GLM  REQUIRED)
-+find_package(glm REQUIRED)
++find_package(glm  REQUIRED)
  
  set(SOURCES
  
-@@ -45,7 +38,7 @@ set(HEADERS
+@@ -44,7 +43,7 @@ set(HEADERS
  )
  
  add_library(${name} SHARED ${SOURCES})
 -target_link_libraries(${name} PUBLIC Opticks::GLM)
 +target_link_libraries(${name} PUBLIC glm)
  
- # needed for tests that use non-installed headers
- target_include_directories(${name} PUBLIC
+ if(UNIX AND NOT APPLE)
+ message(STATUS "adding stdc++ m for UNIX AND NOT APPLE")
+@@ -74,7 +73,6 @@ if(PC_VERBOSE)
+ endif()
+ 
+ 
+-bcm_deploy(TARGETS ${name} NAMESPACE Opticks:: SKIP_HEADER_INSTALL) 
+ install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ 
+ add_subdirectory(tests)
