@@ -1,9 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Barcode, MID tag and adapter sequence removal"
 HOMEPAGE="https://github.com/seqan/flexbar"
@@ -12,7 +12,6 @@ SRC_URI="https://github.com/seqan/flexbar/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 CDEPEND="
 	dev-cpp/tbb
@@ -28,14 +27,13 @@ src_configure() {
 	append-cppflags `pkg-config --cflags seqan-2.2`
 	local CXXFLAGS="${CXXFLAGS}"
 	append-cxxflags "-std=c++14"
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 # SeqAn requires C++14! You must compile your application with -std=c++14, -std=gnu++14 or -std=c++1y
 # https://github.com/seqan/flexbar/issues/8
 
 src_install(){
-	elog `pwd`
 	dobin ../"${P}"_build/flexbar
 	dodoc ../"${P}"/README.md
 }
