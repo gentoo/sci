@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -117,10 +117,9 @@ src_test() {
 
 src_install() {
 	default
-
+	newman "${FILESDIR}"/module.1-8.4.20 module.1
 	insinto /etc/profile.d
 	newins "${ED}"/usr/share/Lmod/init/profile lmod.sh
 	newins "${ED}"/usr/share/Lmod/init/profile.fish lmod.fish
-
 	keepdir /etc/modulefiles
 }
