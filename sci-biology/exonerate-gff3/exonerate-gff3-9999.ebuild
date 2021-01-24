@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/hotdogee/exonerate-gff3.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 IUSE="utils test threads"
 RESTRICT="!test? ( test )"
