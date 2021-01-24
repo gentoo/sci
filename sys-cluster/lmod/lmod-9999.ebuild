@@ -66,7 +66,7 @@ pkg_pretend() {
 src_prepare() {
 	default
 	rm -rf pkgs/{luafilesystem,term} || die
-	rm -rf rt/{colorize,end2end,help,ifur,settarg} || die
+	rm -rf rt/{ck_mtree_syntax,colorize,end2end,help,ifur,settarg} || die
 	eautoreconf
 }
 
