@@ -225,7 +225,6 @@ sci-biology/bowtie 1.2.2_beta20190219 2.4.2: Popular short read aligner for Next
 sci-biology/brat 1.2.4: Bisulfite-treated Reads Analysis Tool (short read mapper)
 sci-biology/brat_bw 2.0.1: Bisulfite-aware short read mapper, FM-index, no InDel support
 sci-biology/brat_nova 20160103: Bisulfite-aware short read mapper, FM-index, accepts 1 InDel/read, local align
-sci-biology/breakdancer 9999: Genome-wide detection of structural variants from paired-end sequencing reads
 sci-biology/bru2nii 1.0.20180303: Converts Bruker ParaVision MRI data to the NIfTI file format
 sci-biology/bruker2nifti 1.0.4: Medical image converter, from raw Bruker ParaVision to NIfTI
 sci-biology/bx-python 0.8.9 9999: Library for rapid implementation of genome scale analyses
@@ -249,11 +248,11 @@ sci-biology/cramtools 3.0: Java tools and APIs for efficient compression of sequ
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
 sci-biology/cutadapt 2.10: Remove adapter sequences from high-throughput sequencing data
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
-sci-biology/dcm2niix 1.0.20200331: DICOM to NIfTI converter
+sci-biology/dcm2niix 1.0.20201102: DICOM to NIfTI converter
 sci-biology/dcmstack 0.8: DICOM to Nifti coversion
 sci-biology/deeptools 3.5.0: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
 sci-biology/deeptools-intervals 0.1.9: Constructing interval trees with associated exon/annotation information
-sci-biology/diamond 0.9.19: Alternative of blastp/blastx searches using DNA short reads through protein db
+sci-biology/diamond 2.0.6: Alternative of blastp/blastx searches using DNA short reads through protein db
 sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
 sci-biology/dna2pep 1.1: Translate DNA sequence into protein (with STOP codon read-through)
 sci-biology/drlfom_bidsdata 1.1: BIDS data files released with the DRLFOM publication
@@ -265,14 +264,14 @@ sci-biology/exonerate-gff3 9999: exonerate-2.2.0 with patches to add GFF3 format
 sci-biology/fastdnaml 1.2.2_p10: Maximum likelihood phylogenetic tree builder for DNA sequences
 sci-biology/fastqc 0.11.3: Quality control FASTA/FASTQ sequence files
 sci-biology/ffindex 1.0: Simple index/database for huge amounts of small files
-sci-biology/flexbar 2.7.0 3.0.0: Barcode, MID tag and adapter sequence removal
+sci-biology/flexbar 3.5.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 9999: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
 sci-biology/genepop 4.7: Population genetics analysis
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
-sci-biology/germline 1.5.1 1.5.2: Find shared segments of Identity by Descent (IBD) between pairs of individuals
+sci-biology/germline 1.5.3: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.10.5: Compare, classify, merge, track, annotate GFF files
 sci-biology/gffread 0.11.0: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
 sci-biology/gffutils 0.8.7.1 0.10.1: GFF and GTF file manipulation and interconversion
