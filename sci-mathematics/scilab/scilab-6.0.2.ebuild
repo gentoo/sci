@@ -141,7 +141,7 @@ pkg_setup() {
 	java-pkg-opt-2_pkg_setup
 
 	# fails to compile in src/fortran/optml2.f:172:50 without this
-	append-fflags -fallow-argument-mismatch
+	test-flag-FC -fallow-argument-mismatch && append-fflags -fallow-argument-mismatch
 
 	ALL_L10N="en_US"
 	ALL_L10N_DOC="en_US"
