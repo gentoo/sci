@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
 HOMEPAGE="https://github.com/COMBINE-lab/salmon"
@@ -44,12 +44,16 @@ RDEPEND="${DEPEND}"
 # see the many curl executions:
 # salmon-0.10.2$ find . -type f | xargs grep curl 2>/dev/null
 #
-DEPEND="net-misc/curl
-		app-arch/unzip
-		sys-libs/zlib
-		app-arch/bzip2
-		app-arch/xz-utils
-		dev-libs/boost:0[threads]
-		>=dev-libs/jemalloc-5.0.1
-		>=dev-cpp/tbb-2018.20180312"
+DEPEND="
+	sys-libs/zlib
+	app-arch/bzip2
+	app-arch/xz-utils
+	dev-libs/boost:0[threads]
+	>=dev-libs/jemalloc-5.0.1
+	>=dev-cpp/tbb-2018.20180312
+"
 RDEPEND="${DEPEND}"
+BDEPEND="
+	net-misc/curl
+	app-arch/unzip
+"
