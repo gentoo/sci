@@ -391,7 +391,6 @@ sci-biology/smalt-bin 0.7.6: Pairwise sequence alignment mapping DNA reads onto 
 sci-biology/snap 20131129: HMM-based prokaryotic and eukaryotic gene prediction tool
 sci-biology/snphylo 0_p20181005: Pipeline to generate phylogenetic tree from SNP data
 sci-biology/snpomatic 9999: Stringent short-read aligner supporting filters and various output formats
-sci-biology/somatic-sniper 1.0.4: Compare BAM files from normal and tumor samples and report somatic SNPs
 sci-biology/spm 8 12 12_p6470 12_p7219: Analysis of brain imaging data sequences for Octave or Matlab
 sci-biology/sra_sdk 2.10.9: NCBI Sequence Read Archive (SRA) sratoolkit
 sci-biology/ssaha2-bin 2.5.5: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
