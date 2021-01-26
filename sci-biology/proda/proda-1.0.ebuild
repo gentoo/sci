@@ -1,11 +1,11 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils flag-o-matic toolchain-funcs versionator
+inherit flag-o-matic toolchain-funcs
 
-MY_PV=$(replace_all_version_separators '_')
+MY_PV=${PV//./_}
 
 DESCRIPTION="Multiple alignment of protein sequences with repeated and shuffled elements"
 HOMEPAGE="http://proda.stanford.edu/"
@@ -13,7 +13,8 @@ SRC_URI="http://proda.stanford.edu/proda_${MY_PV}.tar.gz"
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="debug "
+IUSE="debug"
+
 KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}"/${PN}
@@ -24,7 +25,7 @@ PATCHES=(
 	)
 
 src_prepare() {
-	epatch ${PATCHES[@]}
+	default
 	use debug || append-flags -DNDEBUG
 	tc-export CXX
 }

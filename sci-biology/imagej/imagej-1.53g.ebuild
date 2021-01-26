@@ -1,47 +1,41 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit java-pkg-2 java-ant-2 eutils versionator
+inherit java-pkg-2 java-ant-2 desktop
 
 MY_PN="ij"
-MY_PV=$(delete_all_version_separators)
-
-# NOTE:
-# as plugins are regularly lagging behind, we use the pack released for previous
-# version instead. Change to present version locally if you are sure proper
-# version has been released.
-# see https://bugs.gentoo.org/show_bug.cgi?id=112275
-# https://github.com/imagej/imagej1/issues/28
-IJ_PV=$((${MY_PV::3}-1))
+MY_PV=${PV//.}
+IJ_PV=${MY_PV::-1}
 
 DESCRIPTION="Image Processing and Analysis in Java"
-HOMEPAGE="http://rsb.info.nih.gov/ij/"
+HOMEPAGE="https://imagej.nih.gov/ij/"
 
-SRC_URI="http://imagej.nih.gov/ij/download/src/${MY_PN}${MY_PV}-src.zip
-	http://rsb.info.nih.gov/ij/images/ImageJ.png
-	plugins? ( http://wsr.imagej.net/distros/cross-platform/${MY_PN}${IJ_PV}.zip )"
+SRC_URI="https://imagej.nih.gov/ij/download/src/${MY_PN}${MY_PV}-src.zip
+	https://rsb.info.nih.gov/ij/images/ImageJ.png
+	plugins? ( https://wsr.imagej.net/distros/cross-platform/${MY_PN}${IJ_PV}.zip )"
 # plugins are under a different licenses and can be installed into user's $IJ_HOME/plugins
 #	plugins? ( http://rsb.info.nih.gov/ij/download/zips/${MY_PN}${IJ_PV}.zip )"
 
-RESTRICT=""
 LICENSE="public-domain" # http://imagej.net/disclaimer.html
 SLOT="0"
 
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 IUSE="doc plugins debug"
 
-RDEPEND=">=virtual/jre-1.6:*
+RDEPEND="
+	>=virtual/jre-1.7:*
 	dev-java/java-config
-	dev-java/jython"
-DEPEND=">=virtual/jdk-1.6:*
+"
+DEPEND="${RDEPEND}
+	>=virtual/jdk-1.7:*
 	dev-java/ant-core
 	app-arch/unzip
-	${RDEPEND}"
+"
 
-S=${WORKDIR}/source
+S="${WORKDIR}/source"
 IJ_S=${WORKDIR}/ImageJ
 
 src_prepare() {
@@ -50,15 +44,8 @@ src_prepare() {
 	if ! use debug ; then
 		sed -i 's: debug="on">: debug="off">:' "${S}"/build.xml || die
 	fi
-	epatch "${FILESDIR}"/AutoThresholder.java.patch
-	eapply_user
+	default
 }
-
-# in src_compile we get: !!! ERROR: Package jython was not found!
-# TODO: overwrite calls to jython ? See
-#   ij/plugin/frame/Editor.java
-#   plugin/PlugInInterpreter.java
-#   plugin/Macro_Runner.java
 
 src_compile() {
 	local antflags="build"
@@ -115,7 +102,7 @@ src_install() {
 
 	insinto /usr/share/pixmaps
 	doins "${WORKDIR}/${PN}".png
-	make_desktop_entry "${PN}" ImageJ "${PN}".png Graphics
+	make_desktop_entry "${PN}" ImageJ "${PN}" Graphics
 }
 
 pkg_postinst() {
