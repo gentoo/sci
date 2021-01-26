@@ -1,25 +1,27 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils multilib
+inherit cmake multilib
 
 DESCRIPTION="Rapid Mapping-based Isoform Quantification from RNA-Seq Reads"
-HOMEPAGE="http://www.cs.cmu.edu/~ckingsf/software/sailfish/"
-SRC_URI="https://github.com/kingsfordgroup/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://www.cs.cmu.edu/~ckingsf/software/sailfish/"
+SRC_URI="https://github.com/kingsfordgroup/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/COMBINE-lab/RapMap/archive/quasi-mph.zip"
 
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
-PATCHES=( "${FILESDIR}"/${PN}-0.9.2-no-boost-static.patch )
-
-DEPEND="dev-libs/boost:0
-		dev-libs/jemalloc
-		dev-cpp/tbb
-		sci-biology/jellyfish:2"
+DEPEND="
+	dev-libs/boost:0
+	dev-libs/jemalloc
+	dev-libs/libdivsufsort
+	dev-cpp/tbb
+	dev-cpp/sparsehash
+	sci-biology/jellyfish:2
+"
 RDEPEND="${DEPEND}"
 # a C++-11 compliant compiler is needs, aka >=gcc-4.7
 
@@ -31,8 +33,41 @@ RDEPEND="${DEPEND}"
 # contains bundled jellyfish-2.2.5
 # contains bundled sparsehash-2.0.2
 
+PATCHES=(
+	"${FILESDIR}/${PN}-0.9.2-no-boost-static.patch"
+	"${FILESDIR}/${PN}-no-curl.patch"
+	"${FILESDIR}/${PN}-allow-newer-boost.patch"
+)
+
+src_unpack() {
+	default
+	mkdir -p "${S}/external"
+	cp "${DISTDIR}/quasi-mph.zip" "${S}/external/rapmap.zip" || die
+	mv "${WORKDIR}/RapMap-quasi-mph" "${S}/external/RapMap" || die
+	mkdir -p "${S}/external/install/lib"
+	cp "${EPREFIX}/usr/$(get_libdir)/libdivsufsort.so" "${S}/external/install/lib/" || die
+	cp "${EPREFIX}/usr/$(get_libdir)/libdivsufsort64.so" "${S}/external/install/lib/" || die
+	cp "${EPREFIX}/usr/$(get_libdir)/libjellyfish-2.0.so" "${S}/external/install/lib/" || die
+}
+
+src_prepare() {
+	cmake_src_prepare
+	# use the dynamic library
+	sed -i -e 's/libdivsufsort.a/libdivsufsort.so/g' \
+		-e 's/libdivsufsort64.a/libdivsufsort64.so/g' \
+		-e 's/libjellyfish-2.0.a/libjellyfish-2.0.so/g' \
+		src/CMakeLists.txt || die
+}
+
+src_configure() {
+	JELLYFISH_INCLUDE_DIR="/usr/include/jellyfish2" cmake_src_configure
+	# jellyfish2 instead of jellyfish
+	find -type f -name "*.hpp" -exec sed -i -e 's/#include \"jellyfish\//#include \"jellyfish2\//g' {} + || die
+	find -type f -name "*.hpp" -exec sed -i -e 's/#include <jellyfish\//#include <jellyfish2\//g' {} + || die
+}
+
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 	rm -r "${ED}"/usr/tests || die
 	rm -f "${ED}"/usr/bin/jellyfish "${ED}"/usr/$(get_libdir)/libjellyfish || die
 }
