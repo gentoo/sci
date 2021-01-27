@@ -41,7 +41,6 @@ dev-libs/memkind:tls - Enable thread local storage
 dev-libs/simclist:dump - Disable building of dump and restore functionalities
 dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locations
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
-dev-util/VampirTrace:cuda - Enable tracing of CUDA calls and GPU kernels.
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
 media-libs/mmg:scotch - Use SCOTCH TOOL for renumbering
 media-libs/mmg:vtk - Use VTK I/O
