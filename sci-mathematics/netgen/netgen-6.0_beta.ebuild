@@ -6,11 +6,11 @@ EAPI=7
 inherit autotools flag-o-matic multilib xdg
 
 MY_PN=${PN}-mesher
-MY_PV=$(ver_cut 1-2)
+MY_PV=${PV//_/-}
 
 DESCRIPTION="Automatic 3d tetrahedral mesh generator"
 HOMEPAGE="https://sourceforge.net/projects/netgen/"
-SRC_URI="mirror://sourceforge/project/${MY_PN}/${MY_PN}/${MY_PV}/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/project/${MY_PN}/${MY_PN}/$(ver_cut 1-2)/${PN}-${MY_PV}.tar.gz"
 
 SLOT="0"
 LICENSE="LGPL-2.1"
@@ -36,17 +36,17 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	# Adapted from http://sourceforge.net/projects/netgen-mesher/forums/forum/905307/topic/5422824
-	"${FILESDIR}"/${PN}-5.x-missing-define.patch
+
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_metis.patch
 	"${FILESDIR}"/${PN}-5.x-metis-fixes.patch
 	"${FILESDIR}"/${PN}-5.x-occ-stl-api-change.patch
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.1_build.patch
-	"${FILESDIR}"/${PN}-5.x-makefiles-fixes.patch
 	# Adapted from http://pkgs.fedoraproject.org/cgit/rpms/netgen-mesher.git/tree/netgen-5.3.0_fixes.patch
-	"${FILESDIR}"/${PN}-5.x-fedora-fixes.patch
 	"${FILESDIR}"/${PN}-5.x-includes-fixes.patch
 	"${FILESDIR}"/${PN}-5.x-parallelmetis4-fix.patch
 )
+
+S="${WORKDIR}/${PN}-${MY_PV}"
 
 src_prepare() {
 	default
