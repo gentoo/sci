@@ -1,47 +1,26 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
-PYTHON_COMPAT=( python{2_7,3_4} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit autotools-utils fortran-2 git-r3 python-any-r1
+inherit cmake fortran-2 git-r3 python-any-r1 multilib
 
 DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry"
-HOMEPAGE="http://www.freeon.org"
-SRC_URI=""
+HOMEPAGE="https://www.freeon.org"
 EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
 EGIT_BRANCH="master"
 
 LICENSE="GPL-3"
-SLOT="live"
+SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 RDEPEND="
 	sci-libs/hdf5
 	virtual/blas
-	virtual/lapack"
+	virtual/lapack
+"
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}"
-
-src_prepare() {
-	bash fix_localversion.sh || die
-	autotools-utils_src_prepare
-}
-
-src_configure() {
-	local myeconfargs=(
-		"--enable-git-tag"
-		"--prefix=/opt/freeon"
-		"--mandir=/opt/freeon/share/man"
-		"--infodir=/opt/freeon/share/info"
-		"--datadir=/opt/freeon/share"
-		"--sysconfdir=/opt/freeon/etc"
-		"--libdir=/opt/freeon/lib64"
-		"--docdir=/opt/freeon/share/doc"
-	)
-	autotools-utils_src_configure
-}
