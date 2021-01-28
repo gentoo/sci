@@ -9,5 +9,5 @@ LICENSE=GPL-3
 RDEPEND=dev-lang/perl sys-devel/gcc:* sys-devel/clang:* >=sci-biology/samtools-0.1.18:0.1-legacy <sci-biology/samtools-1:0.1-legacy
 SLOT=0
 SRC_URI=https://sourceforge.net/projects/molbiolib/files/MolBioLib_public.version5.tar.gz
-_eclasses_=docs	96928b5b33de2dbadb4741c31b71b595
+_eclasses_=docs	ab81eebd98db486ca36ad1e30ac2b7c5
 _md5_=bf7971199bf2b69128a9d95c659f75fa
