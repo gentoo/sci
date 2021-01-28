@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils flag-o-matic git-r3 multibuild toolchain-funcs
+inherit cmake flag-o-matic git-r3 multibuild toolchain-funcs
 
 DESCRIPTION="Quantum chemistry program for atoms and molecules"
 HOMEPAGE="https://github.com/susilehtola/erkale"
@@ -22,16 +22,19 @@ RDEPEND="
 "
 DEPEND="
 	>=sci-libs/armadillo-4[blas,lapack]
-	virtual/pkgconfig
 	${RDEPEND}
 "
+BDEPEND="virtual/pkgconfig"
 
 MULTIBUILD_VARIANTS=( serial )
 
 src_prepare() {
 	use openmp && MULTIBUILD_VARIANTS+=( omp )
 	append-cxxflags "-DARMA_DONT_USE_ATLAS -DARMA_DONT_USE_WRAPPER"
-	cmake-utils_src_prepare
+	cmake_src_prepare
+	# libint has renamed things
+	find -type f -name "*.h" -exec sed -i -e 's/#include <libint\/libint.h>/#include <libint2.h>/g' {} + || die
+	find -type f -name "*.h" -exec sed -i -e 's/#include <libderiv\/libderiv.h>/#include <libint2\/deriv_iter.h>/g' {} + || die
 }
 
 src_configure() {
@@ -44,13 +47,13 @@ src_configure() {
 			-DERKALE_SYSTEM_LIBRARY="${basis/\/\///}"
 			-DLAPACK_INCLUDE_DIRS="$($(tc-getPKG_CONFIG) lapack --cflags-only-I | sed 's/-I//')"
 		)
-		cmake-utils_src_configure
+		cmake_src_configure
 	}
 	multibuild_foreach_variant my_configure
 }
 
 src_compile() {
-	multibuild_foreach_variant cmake-utils_src_compile
+	multibuild_foreach_variant cmake_src_compile
 }
 
 src_test() {
@@ -66,5 +69,5 @@ src_install() {
 	insinto "/usr/share/${PN}"
 	doins -r "${S}/basis"
 
-	multibuild_foreach_variant cmake-utils_src_install
+	multibuild_foreach_variant cmake_src_install
 }
