@@ -559,7 +559,7 @@ sci-misc/opennlp-maxent 2.4.0: Maximum entropy model implementation for opennlp
 sci-misc/praat 6.0.26: Speech analysis and synthesis
 sci-misc/stanford-parser 1.6: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 20060521: Stanfords log linear POS taggers
-sci-physics/atompaw 4.0.0.14: PAW atomic data generator
+sci-physics/atompaw 4.1.1.0: PAW atomic data generator
 sci-physics/elk 1.4.22 2.1.25: All-electron full-potential linearised augmented-plane wave (FP-LAPW)
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
