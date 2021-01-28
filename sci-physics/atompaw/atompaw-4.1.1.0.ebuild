@@ -9,16 +9,15 @@ DESCRIPTION="PAW atomic data generator"
 HOMEPAGE="https://users.wfu.edu/natalie/papers/pwpaw/man.html"
 SRC_URI="
 	http://users.wfu.edu/natalie/papers/pwpaw/${P}.tar.gz
-	doc? (
-		http://users.wfu.edu/natalie/papers/pwpaw/atompaw.pdf
-		http://users.wfu.edu/natalie/papers/pwpaw/notes/atompaw/atompawEqns.pdf
-)"
+	http://users.wfu.edu/natalie/papers/pwpaw/atompaw.pdf
+	http://users.wfu.edu/natalie/papers/pwpaw/notes/atompaw/atompawEqns.pdf
+"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="doc libxc longplot"
+IUSE="libxc longplot"
 
 RDEPEND="
 	virtual/blas
@@ -32,9 +31,7 @@ FORTRAN_STANDARD=90
 
 src_unpack() {
 	unpack ${P}.tar.gz
-	if use doc; then
-		cp "${DISTDIR}"/atompaw.pdf "${DISTDIR}"/atompawEqns.pdf "${S}"/doc/ || die
-	fi
+	cp "${DISTDIR}"/atompaw.pdf "${DISTDIR}"/atompawEqns.pdf "${S}"/doc/ || die
 }
 
 src_prepare() {
