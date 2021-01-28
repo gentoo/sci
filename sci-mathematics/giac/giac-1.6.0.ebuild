@@ -1,27 +1,30 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="A free C++ CAS (Computer Algebra System) library and its interfaces"
-HOMEPAGE="http://www-fourier.ujf-grenoble.fr/~parisse/giac.html"
-SRC_URI="http://www-fourier.ujf-grenoble.fr/~parisse/${PN}/${P}.tar.bz2"
-LICENSE="GPL-2"
+HOMEPAGE="https://www-fourier.ujf-grenoble.fr/~parisse/giac.html"
+SRC_URI="https://www-fourier.ujf-grenoble.fr/~parisse/giac/${P}.tar.gz"
 
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+
 IUSE="doc examples fltk"
 
-AUTOTOOLS_IN_SOURCE_BUILD=true
-inherit autotools-utils flag-o-matic pax-utils
+inherit flag-o-matic pax-utils xdg
 
-RDEPEND=">=dev-libs/gmp-3
-		>=sys-libs/readline-4.2
-		fltk? ( >=x11-libs/fltk-1.1.9 )
-		dev-libs/mpfr
-		sci-libs/gsl
-		>=sci-mathematics/pari-2.3
-		>=dev-libs/ntl-5.2"
+RDEPEND="
+	>=dev-libs/gmp-3
+	>=sys-libs/readline-4.2
+	fltk? ( >=x11-libs/fltk-1.1.9 )
+	dev-libs/mpfr
+	sci-libs/gsl
+	>=sci-mathematics/pari-2.3
+	>=dev-libs/ntl-5.2
+"
+BDEPEND="dev-tex/hevea"
 
 src_prepare(){
 	sed -e "s:\$(prefix)/share:\$(DESTDIR)\$(prefix)/share:g" \
@@ -32,6 +35,7 @@ src_prepare(){
 	if use !fltk; then
 		sed -e "s: gl2ps\.[chlo]*::g" -i src/Makefile.* || die
 	fi
+	default
 }
 
 src_configure(){
@@ -41,10 +45,7 @@ src_configure(){
 		append-lfs-flags
 		append-libs $(fltk-config --ldflags | sed -e 's/\(-L\S*\)\s.*/\1/') || die
 	fi
-	local myeconfargs=(
-		$(use_enable fltk gui)
-	)
-	autotools-utils_src_configure
+	econf $(use_enable fltk gui)
 }
 
 src_install() {
