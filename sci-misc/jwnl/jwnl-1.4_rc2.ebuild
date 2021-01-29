@@ -43,6 +43,6 @@ src_compile() {
 src_install() {
 	java-pkg_dojar ${PN}.jar
 	insinto /usr/share/${PN}
-	doins -r sql config/*
+	doins -r sql config
 	dodoc changes.txt
 }
