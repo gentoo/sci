@@ -24,8 +24,10 @@ KEYWORDS="~amd64"
 # jave now uses the gradle build system which is not supported by portage
 IUSE="examples fortran lua perl php python ruby"
 
-REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
-REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
+REQUIRED_USE="
+	python? ( ${PYTHON_REQUIRED_USE} )
+	lua? ( ${LUA_REQUIRED_USE} )
+"
 
 RDEPEND="
 	lua? ( ${LUA_DEPS} )
