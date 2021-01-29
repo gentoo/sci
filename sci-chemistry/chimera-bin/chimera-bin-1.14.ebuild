@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit desktop xdg python-any-r1
+inherit desktop xdg python-r1
 
 DESCRIPTION="An extensible Molecular Modelling System"
 HOMEPAGE="https://www.cgl.ucsf.edu/chimera/"
