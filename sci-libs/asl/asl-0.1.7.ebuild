@@ -1,13 +1,12 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 MY_PN=ASL
-CMAKE_MIN_VERSION=3.0.2
 CMAKE_MAKEFILE_GENERATOR="${CMAKE_MAKEFILE_GENERATOR:-ninja}"
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Hardware accelerated multiphysics simulation platform"
 HOMEPAGE="http://asl.org.il/"
@@ -15,8 +14,9 @@ SRC_URI="https://github.com/AvtechScientific/${MY_PN}/archive/v${PV}.tar.gz -> $
 
 LICENSE="AGPL-3"
 SLOT="0"
-IUSE="doc examples matlab"
 KEYWORDS="~amd64 ~x86"
+
+IUSE="doc examples matlab"
 
 RDEPEND="
 	>=dev-libs/boost-1.53:=
@@ -24,11 +24,17 @@ RDEPEND="
 	>=virtual/opencl-0-r2
 "
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen[dot] )
 	matlab? ( >=sci-libs/matio-1.5.2 )
 "
+BDEPEND="doc? ( app-doc/doxygen[dot] )"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
+
+src_prepare() {
+	cmake_src_prepare
+	# allow use of vtk 8.2
+	sed -i -e 's/find_package(VTK 7.0/find_package(VTK 8.2/g' CMakeLists.txt || die
+}
 
 src_configure() {
 	local mycmakeargs=(
@@ -38,5 +44,5 @@ src_configure() {
 		-DWITH_EXAMPLES="$(usex examples)"
 		-DWITH_MATIO="$(usex matlab)"
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
