@@ -78,15 +78,15 @@ src_install() {
 	use python && python_optimize
 
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
-		doins example/*.c example/*.cpp
-		use fortran && doins example/*.f90
-		use lua && doins example/*.lua
-		use perl && doins example/*.pl
-		use php && doins example/*.php
-		use python && doins example/*.py
-		use ruby && doins example/*.rb
-		# use java && doins example/*.java
+		docinto /usr/share/doc/${PF}/examples
+		dodoc example/*.c example/*.cpp
+		use fortran && dodoc example/*.f90
+		use lua && dodoc example/*.lua
+		use perl && dodoc example/*.pl
+		use php && dodoc example/*.php
+		use python && dodoc example/*.py
+		use ruby && dodoc example/*.rb
+		# use java && dodoc example/*.java
 		docompress -x /usr/share/doc/${PF}/examples # Don't compress examples
 	fi
 
