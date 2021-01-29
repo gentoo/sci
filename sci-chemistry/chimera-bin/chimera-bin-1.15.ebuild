@@ -15,6 +15,8 @@ SLOT="0"
 LICENSE="chimera"
 KEYWORDS="~amd64 ~x86"
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 DEPEND="prefix? ( dev-util/patchelf )"
 RDEPEND="
 	dev-lang/tcl
