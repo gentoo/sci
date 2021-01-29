@@ -519,7 +519,7 @@ sci-libs/superlu_dist 6.4.0: MPI distributed sparse LU factorization library
 sci-libs/vxl 9999: C++ computer vision research libraries
 sci-libs/wannier90 2.0.1 2.0.1.1: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
-sci-libs/xraylib 2.16.0 3.1.0: X-ray matter interaction cross sections for X-ray fluorescence library
+sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
 sci-mathematics/Macaulay2 9999: Research tool for commutative algebra and algebraic geometry
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
