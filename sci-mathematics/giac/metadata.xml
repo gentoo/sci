@@ -6,10 +6,15 @@
 		<name>Gentoo Mathematics Project</name>
 	</maintainer>
 	<longdescription>
-Giac is a free computer algebra system that can be used to perform
-computer algebra, function graphs, interactive geometry (2-d and 3-d),
-spreadsheet and statistics, programmation. It may be used as a replacement
-for high end graphic calculators for example on netbooks (for about
-the same price as a calculator but with much more performances).
-</longdescription>
+		Giac is a free computer algebra system that can be used to perform
+		computer algebra, function graphs, interactive geometry (2-d and 3-d),
+		spreadsheet and statistics, programmation. It may be used as a replacement
+		for high end graphic calculators for example on netbooks (for about
+		the same price as a calculator but with much more performances).
+	</longdescription>
+	<use>
+		<flag name="glpk">Enable the use of <pkg>sci-mathematics/glpk</pkg></flag>
+		<flag name="ecm">Enable the use of <pkg>sci-mathematics/gmp-ecm</pkg></flag>
+		<flag name="gc">Enable garbage collection support via <pkg>dev-libs/boehm-gc</pkg></flag>
+	</use>
 </pkgmetadata>
