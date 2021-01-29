@@ -30,4 +30,4 @@ jobs:
         sudo ln -s /var/db/repos/gentoo/profiles/default/linux/amd64/17.0 /etc/portage/make.profile        
     - name: Test with pkgcheck
       run: |
-        pkgcheck scan --exit --checks=-RedundantVersionCheck,-VisibilityCheck
+        pkgcheck scan --exit --checks=-RedundantVersionCheck --keywords=-VisibleVcsPkg
