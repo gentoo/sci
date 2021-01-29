@@ -461,7 +461,7 @@ sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen e
 sci-libs/aocl-libm 3.6.0_p4: Optimized libm replacement from AMD for x86_64 architectures
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
 sci-libs/arrayfire 3.7.2 3.7.3 3.8.0: general purpose GPU library
-sci-libs/asl 0.1.6 0.1.7 9999: Hardware accelerated multiphysics simulation platform
+sci-libs/asl 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/blastdb 9999: The BLAST NR database
 sci-libs/blis-amd 2.2 9999: AMD optimized BLAS-like Library Instantiation Software Framework
