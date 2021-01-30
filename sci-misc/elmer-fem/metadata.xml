@@ -8,4 +8,9 @@
 	<upstream>
 		<remote-id type="sourceforge">svn</remote-id>
 	</upstream>
+	<use>
+		<flag name="gui">Build the ElmerGUI</flag>
+		<flag name="matc">Build the Elmer matc library</flag>
+		<flag name="ice">Build ElmerICE</flag>
+	</use>
 </pkgmetadata>
