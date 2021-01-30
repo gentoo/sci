@@ -12,5 +12,6 @@
 		<flag name="gui">Build the ElmerGUI</flag>
 		<flag name="matc">Build the Elmer matc library</flag>
 		<flag name="ice">Build ElmerICE</flag>
+		<flag name="post">Build ElmerPOST</flag>
 	</use>
 </pkgmetadata>

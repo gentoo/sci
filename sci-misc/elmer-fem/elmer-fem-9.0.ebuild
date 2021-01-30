@@ -18,7 +18,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="ice gui matc mpi test"
+IUSE="ice gui matc mpi post test"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -26,6 +26,10 @@ RDEPEND="
 	virtual/lapack
 	!sci-libs/arpack
 	mpi? ( sys-cluster/openmpi )
+	post? (
+		dev-lang/tcl:0=
+		dev-lang/tk:0=
+	)
 	gui? ( x11-libs/qwt:6 )
 "
 DEPEND="${RDEPEND}"
@@ -57,6 +61,7 @@ src_configure() {
 		-DWITH_OpenMP="$(usex mpi)"
 		-DWITH_MATC="$(usex matc)"
 		-DWITH_ElmerIce="$(usex ice)"
+		-DWITH_ELMERPOST="$(usex post)"
 		-DWITH_ELMERGUI="$(usex gui)"
 		-DWITH_QT5="$(usex gui)"
 		-DWITH_QWT="$(usex gui)"
