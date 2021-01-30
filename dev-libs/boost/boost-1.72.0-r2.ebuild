@@ -30,8 +30,6 @@ REQUIRED_USE="
 RESTRICT="test"
 
 RDEPEND="
-	!app-admin/eselect-boost
-	!dev-libs/boost-numpy
 	bzip2? ( app-arch/bzip2:=[${MULTILIB_USEDEP}] )
 	icu? ( >=dev-libs/icu-3.6:=[${MULTILIB_USEDEP}] )
 	!icu? ( virtual/libiconv[${MULTILIB_USEDEP}] )

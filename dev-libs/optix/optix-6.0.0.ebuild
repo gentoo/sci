@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit cmake-utils cuda
+inherit cmake cuda
 
 DESCRIPTION="NVIDIA Ray Tracing Engine"
 HOMEPAGE="https://developer.nvidia.com/optix"
@@ -35,7 +35,7 @@ src_unpack() {
 }
 
 src_prepare() {
-	cmake-utils_src_prepare
+	cmake_src_prepare
 	rm -rf SDK-precompiled-samples
 	export PATH=$(cuda_gccdir):${PATH}
 }

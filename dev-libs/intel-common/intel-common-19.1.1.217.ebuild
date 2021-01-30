@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -74,7 +74,7 @@ src_install() {
 	local path rootpath ldpath arch fenv=35intelsdp
 	cat > ${fenv} <<-EOF
 		NLSPATH=$(isdp_get-sdp-edir)/linux/compiler/lib/$(isdp_get-native-abi-arch)/locale/en_US/%N
-		INTEL_LICENSE_FILE=${EPREFIX%/}/opt/intel/licenses:$(isdp_get-sdp-edir)/licenses
+		INTEL_LICENSE_FILE=${EPREFIX}/opt/intel/licenses:$(isdp_get-sdp-edir)/licenses
 	EOF
 	for arch in $(isdp_get-sdp-installed-arches); do
 		path="${path}:$(isdp_get-sdp-edir)/linux/bin/${arch}"
