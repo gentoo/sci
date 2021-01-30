@@ -26,7 +26,6 @@ RDEPEND="
 	virtual/blas
 	virtual/lapack
 	sci-libs/arpack
-	sci-libs/matc
 	sci-libs/elmer-hutiter
 	sci-libs/elmer-eio
 	mpi?     ( sys-cluster/mpich2 )"

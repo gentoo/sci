@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug"
 
 RDEPEND="
-	sci-libs/matc
+	sci-misc/elmer-fem
 	sci-libs/metis"
 DEPEND="${RDEPEND}"
 
