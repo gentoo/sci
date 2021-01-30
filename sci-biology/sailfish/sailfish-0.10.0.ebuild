@@ -23,6 +23,7 @@ DEPEND="
 	sci-biology/jellyfish:2
 "
 RDEPEND="${DEPEND}"
+BDEPEND="app-arch/unzip"
 # a C++-11 compliant compiler is needs, aka >=gcc-4.7
 
 # TODO: disable running wget/curl during src_compile
