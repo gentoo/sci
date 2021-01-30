@@ -1,10 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
-inherit mercurial cmake-utils cuda flag-o-matic python-any-r1
+inherit mercurial cmake cuda flag-o-matic python-any-r1
 
 EHG_REPO_URI="https://bitbucket.org/simoncblyth/${PN}"
 EHG_REVISION="a580e704afe9d2c138072835e986542c835c29fc"
@@ -49,7 +49,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	cmake-utils_src_prepare
+	cmake_src_prepare
 
 	# do not add the default '-O2' that results in nvcc error of
 	# nvcc fatal   : redefinition of argument 'optimize'
@@ -104,5 +104,5 @@ src_configure() {
 		-DBoost_NO_BOOST_CMAKE=ON
 		--target all
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
