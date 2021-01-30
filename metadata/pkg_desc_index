@@ -480,7 +480,7 @@ sci-libs/fgsl 1.3.0: A Fortran interface to the GNU Scientific Library
 sci-libs/fox 4.1.2-r2: A library designed to allow the easy use of XML from Fortran
 sci-libs/geom 5.1.2.7: A complete OpenCascade - OCAF based CAD framework
 sci-libs/htslib-plugins 201609: iRODs plugins for >=htslib-1.4
-sci-libs/iRODS 4.2.0: Integrated Rule Oriented Data System, a data management software
+sci-libs/iRODS 4.2.8: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
@@ -489,11 +489,10 @@ sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genetic programs
 sci-libs/libcgnsoo 1728: Object-oriented interface to the CGNS Mid-level library
 sci-libs/libflame-amd 2.2 9999: AMD optimized high-performance object-based library for DLA computations
-sci-libs/libmatheval 1.1.10: library to parse and evaluate symbolic expressions
+sci-libs/libmatheval 1.1.11: library to parse and evaluate symbolic expressions
 sci-libs/libmaus2 2.0.689 9999: Library for biobambam2
 sci-libs/libsufr 0.7.5-r1: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
-sci-libs/matc 6.0_p4651 8.0 9999: Finite element programs, libraries, and visualization tools - math C library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
 sci-libs/miopen 4.0.0-r1: AMD's Machine Intelligence Library
 sci-libs/mlpack 3.4.1 3.4.2: scalable C++ machine learning library
