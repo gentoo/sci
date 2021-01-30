@@ -1,12 +1,12 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 NUMERIC_MODULE_NAME="xblas"
 FORTRAN_NEEDED=fortran
 
-inherit flag-o-matic fortran-2 numeric-int64-multibuild toolchain-funcs versionator
+inherit flag-o-matic fortran-2 numeric-int64-multibuild toolchain-funcs
 
 DESCRIPTION="Extra Precise Basic Linear Algebra Subroutines"
 HOMEPAGE="https://www.netlib.org/xblas/"
@@ -24,7 +24,7 @@ DEPEND="${RDEPEND}
 static_to_shared() {
 	local libstatic=${1}; shift
 	local libname=$(basename ${libstatic%.a})
-	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
+	local soname=${libname}$(get_libname $(ver_cut 1-2))
 	local libdir=$(dirname ${libstatic})
 
 	einfo "Making ${soname} from ${libstatic}"
@@ -38,8 +38,8 @@ static_to_shared() {
 			-shared -Wl,-soname=${soname} \
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
-		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		[[ ${#PV} -gt 1 ]] && \
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(ver_cut 0-1)) || die
 		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
 }
@@ -49,6 +49,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	default
 	numeric-int64-multibuild_copy_sources
 }
 
