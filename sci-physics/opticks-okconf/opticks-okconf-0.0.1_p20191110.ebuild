@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit mercurial cmake-utils cuda
+inherit mercurial cmake cuda
 
 EHG_REPO_URI="https://bitbucket.org/simoncblyth/${PN//-*}"
 EHG_REVISION="a580e704afe9d2c138072835e986542c835c29fc"
@@ -28,7 +28,7 @@ PATCHES=(
 )
 
 src_prepare() {
-	cmake-utils_src_prepare
+	cmake_src_prepare
 	cuda_src_prepare
 
 	rm -f CMakeLists.txt* || die
@@ -42,5 +42,5 @@ src_configure() {
 		-DCOMPUTE_CAPABILITY=61
 		-DCUDA_NVCC_FLAGS="${NVCCFLAGS}"
 	)
-	CMAKE_USE_DIR=${S}/${PN##*-} cmake-utils_src_configure
+	CMAKE_USE_DIR=${S}/${PN##*-} cmake_src_configure
 }
