@@ -6,8 +6,13 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-BLAS/LAPACK-interface for OCaml
-</longdescription>
+		This OCaml-library interfaces two widely used mathematical FORTRAN-libraries:
+
+		BLAS - Basic Linear Algebra Subroutines
+		LAPACK - Linear Algebra PACKage
+
+		This allows developers to write high-performance numerical code for applications that require linear algebra.
+	</longdescription>
 	<upstream>
 		<remote-id type="bitbucket">mmottl/lacaml</remote-id>
 	</upstream>

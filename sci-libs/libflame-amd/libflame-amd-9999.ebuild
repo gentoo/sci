@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -26,9 +26,7 @@ IUSE_CPU_FLAGS_X86="${CPU_FLAGS[@]/#/cpu_flags_x86_}"
 IUSE="scc static-libs supermatrix ${IUSE_CPU_FLAGS_X86[@]}"
 
 DEPEND="virtual/cblas"
-RDEPEND="${DEPEND}
-	!sci-libs/libflame
-"
+RDEPEND="${DEPEND}"
 BDEPEND="dev-vcs/git"
 
 src_configure() {

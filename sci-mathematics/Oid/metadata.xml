@@ -9,7 +9,4 @@
 		<email>sci-mathematics@gentoo.org</email>
 		<name>Gentoo Mathematics Project</name>
 	</maintainer>
-	<longdescription lang="en">
-Oid is a tool to experiment with matroids
-</longdescription>
 </pkgmetadata>

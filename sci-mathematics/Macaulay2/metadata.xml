@@ -12,8 +12,4 @@
 	<use>
 		<flag name="optimization">Disable to build with -O0 for debugging.</flag>
 	</use>
-	<longdescription lang="en">
-Macaulay2 is a research tool for algraic geometry and commutative
-algebra. 
-</longdescription>
 </pkgmetadata>

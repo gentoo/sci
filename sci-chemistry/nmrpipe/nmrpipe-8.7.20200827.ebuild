@@ -40,8 +40,6 @@ RDEPEND="${DEPEND}
 	dev-lang/tk
 	dev-tcltk/blt
 	media-fonts/font-sun-misc
-	!sci-chemistry/sparta+
-	!sci-chemistry/talos+
 	sys-libs/ncurses-compat:5/5
 	x11-apps/xset
 	x11-libs/xview-bin

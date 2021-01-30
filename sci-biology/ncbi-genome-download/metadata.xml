@@ -5,7 +5,6 @@
 		<email>freeh4cker@gmail.com</email>
 		<name>Bertrand Néron</name>
 	</maintainer>
-	<longdescription>Scripts to download genomes from the NCBI FTP servers.</longdescription>
 	<upstream>
 		<remote-id type="github">kblin/ncbi-genome-download</remote-id>
 	</upstream>
