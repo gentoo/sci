@@ -470,8 +470,6 @@ sci-libs/ciftilib 1.6.0: C++ Library for reading and writing CIFTI-2 and CIFTI-1
 sci-libs/clfft 2.12.2 9999: Library containing FFT functions written in OpenCL
 sci-libs/clrng 1.0.0_beta_p20160304 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
-sci-libs/elmer-eio 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmer I/O library
-sci-libs/elmer-hutiter 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - hutiter library
 sci-libs/ensmallen 2.14.2 2.15.0 2.15.1: header only C++ library for numerical optimization
 sci-libs/etsf_io 1.0.4-r2: A library of F90 routines to read/write the ETSF file format
 sci-libs/fast5 0.6.5: C++ header-only library for reading Oxford Nanopore Fast5 files
@@ -542,12 +540,7 @@ sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
 sci-mathematics/scilab 5.5.2 6.0.2 6.1.0: Scientific software package for numerical computations
 sci-mathematics/why3 0.83: Why3 is a platform for deductive program verification
-sci-misc/elmer-elmergrid 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmergrid
-sci-misc/elmer-fem 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - main fem
-sci-misc/elmer-front 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmer frontend
-sci-misc/elmer-meshgen2d 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - meshgen2d
-sci-misc/elmer-meta 6.0_p4651 9999: Collection of finite element programs, libraries, and visualization tools
-sci-misc/elmer-post 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmerpost
+sci-misc/elmer-fem 9.0: Finite element programs, libraries, and visualization tools
 sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/irstlm 6.00.05: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.4_rc2: Java interface to WordNet dictionary data
