@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=configure
+DEPEND=guile? ( dev-scheme/guile:12 )
+DESCRIPTION=Library for parsing NMR star files (peak-list format) and CIF files
+EAPI=7
+HOMEPAGE=http://burrow-owl.sourceforge.net/
+IUSE=guile test
+KEYWORDS=~amd64
+LICENSE=GPL-2
+RDEPEND=guile? ( dev-scheme/guile:12 )
+REQUIRED_USE=test? ( guile )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://downloads.sourceforge.net/project/burrow-owl/starparse/0.9/starparse-0.9.tar.gz
+_md5_=7de7ceffdae10d06672de56a7e75e546
