@@ -1,9 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit autotools-utils fortran-2 multibuild
+inherit fortran-2 multibuild
 
 DESCRIPTION="Parallel 3d FFT"
 HOMEPAGE="https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software.php.en"
@@ -26,28 +26,23 @@ IUSE="static-libs"
 RDEPEND="
 	sci-libs/fftw:3.0[mpi,fortran]
 	virtual/mpi
-	"
+"
 
-DEPEND="
-	${RDEPEND}
-	"
+DEPEND="${RDEPEND}"
 
 src_configure() {
 	MULTIBUILD_VARIANTS=( single double long-double )
 	my_src_configure() {
-		local myeconfargs=(
-			$([[ ${MULTIBUILD_VARIANT} != double ]] && echo "--enable-${MULTIBUILD_VARIANT}")
-		)
-		autotools-utils_src_configure
+		econf $([[ ${MULTIBUILD_VARIANT} != double ]] && echo "--enable-${MULTIBUILD_VARIANT}")
 	}
 
-	multibuild_parallel_foreach_variant my_src_configure
+	multibuild_foreach_variant my_src_configure
 }
 
 src_compile() {
-	multibuild_foreach_variant autotools-utils_src_compile
+	multibuild_foreach_variant emake
 }
 
 src_install() {
-	multibuild_parallel_foreach_variant autotools-utils_src_install
+	multibuild_foreach_variant emake install DESTDIR="${D}"
 }

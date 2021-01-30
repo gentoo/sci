@@ -1,13 +1,13 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit autotools-utils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="C++ library for non-linear optimization"
 HOMEPAGE="https://software.sandia.gov/opt++/"
-SRC_URI="${HOMEPAGE}/downloads/${P}.tar.gz"
+SRC_URI="https://software.sandia.gov/opt++/downloads/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -16,19 +16,21 @@ IUSE="doc mpi static-libs"
 
 RDEPEND="
 	virtual/blas
-	mpi? ( virtual/mpi )"
-DEPEND="${RDEPEND}
-	virtual/pkgconfig"
+	virtual/lapack
+	mpi? ( virtual/mpi )
+"
+DEPEND="${RDEPEND}"
+BDEPEND="virtual/pkgconfig"
 
 src_configure() {
-	local myeconfargs=(
-		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
+	econf \
+		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)" \
 		$(use_enable mpi)
-	)
-	autotools-utils_src_configure
 }
 
 src_install() {
-	autotools-utils_src_install
-	use doc && dohtml -r docs/*
+	default
+	# avoid file collision with sci-libs/lapack
+	rm "${ED}/usr/include/cblas.h"
+	use doc && dodoc -r docs/*
 }
