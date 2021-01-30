@@ -24,7 +24,7 @@ DEPEND="${RDEPEND}
 static_to_shared() {
 	local libstatic=${1}; shift
 	local libname=$(basename ${libstatic%.a})
-	local soname=${libname}$(get_libname $(ver_rs 1-2))
+	local soname=${libname}$(get_libname $(ver_cut 1-2))
 	local libdir=$(dirname ${libstatic})
 
 	einfo "Making ${soname} from ${libstatic}"
