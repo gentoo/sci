@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: numeric-int64-multilib.eclass
@@ -122,9 +122,9 @@ numeric-int64_get_module_name() {
 	fi
 	# choose posix threads over openmp when the two are set
 	# yet to see the need of having the two profiles simultaneously
-	if use_if_iuse threads; then
+	if in_iuse threads && use threads; then
 		module_name+="-threads"
-	elif use_if_iuse openmp; then
+	elif in_iuse openmp && use openmp; then
 		module_name+="-openmp"
 	fi
 	echo "${module_name}"
@@ -239,7 +239,7 @@ numeric-int64_get_multibuild_int_variants() {
 	debug-print-function ${FUNCNAME} "${@}"
 	local MULTIBUILD_VARIANTS=( int32 ) variant
 
-	use_if_iuse int64 && MULTIBUILD_VARIANTS+=( int64 )
+	in_iuse int64 && use int64 && MULTIBUILD_VARIANTS+=( int64 )
 
 	echo "${MULTIBUILD_VARIANTS[@]}"
 }
@@ -251,7 +251,7 @@ numeric-int64_get_multibuild_int_variants() {
 numeric-int64_get_multibuild_variants() {
 	debug-print-function ${FUNCNAME} "${@}"
 	local MULTIBUILD_VARIANTS=$(numeric-int64_get_multibuild_int_variants)
-	if use_if_iuse static-libs; then
+	if in_iuse static-libs && use static-libs; then
 		for variant in ${MULTIBUILD_VARIANTS[@]}; do
 			MULTIBUILD_VARIANTS+=( static_${variant} )
 		done
