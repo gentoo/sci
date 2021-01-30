@@ -1,28 +1,33 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils fortran-2 multilib toolchain-funcs
+inherit fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Calculates maximally localized Wannier functions (MLWFs)"
 HOMEPAGE="http://www.wannier.org/"
-SRC_URI="http://wannier.org/code/${P}.tar.gz"
+SRC_URI="https://github.com/wannier-developers/wannier90/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
 
-IUSE="examples perl static-libs test"
-RESTRICT="!test? ( test )"
+IUSE="examples perl static-libs"
 
 RDEPEND="
 	virtual/blas
 	virtual/lapack
-	perl? ( dev-lang/perl )"
-DEPEND="${RDEPEND}
-	virtual/pkgconfig
+	virtual/mpi
+	perl? ( dev-lang/perl )
 "
+DEPEND="${RDEPEND}"
+BDEPEND="virtual/pkgconfig"
+
+src_prepare() {
+	default
+	cp config/make.inc.gfort make.inc || die
+}
 
 src_configure() {
 	cat <<- EOF >> "${S}"/make.sys
@@ -33,16 +38,10 @@ src_configure() {
 	EOF
 }
 
-src_compile() {
-	emake -j1 wannier
-	emake -j1 lib
-}
-
 src_test() {
 	einfo "Compare the 'Standard' and 'Current' outputs of this test."
-	cd tests
-	emake test
-	cat wantest.log
+	cd test-suite || die
+	./run_tests --default || die
 }
 
 src_install() {
