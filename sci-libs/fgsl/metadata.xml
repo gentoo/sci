@@ -9,5 +9,4 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription>FGSL: A Fortran interface to the GNU Scientific Library</longdescription>
 </pkgmetadata>
