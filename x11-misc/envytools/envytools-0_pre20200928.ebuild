@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake git-r3
+inherit cmake
 
 DESCRIPTION="Tools for people envious of nvidia's blob driver"
 HOMEPAGE="https://envytools.readthedocs.io/en/latest/"
