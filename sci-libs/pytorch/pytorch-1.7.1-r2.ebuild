@@ -56,7 +56,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static test tools zeromq"
-
+RESTRICT="!test? ( test )"
 REQUIRED_USE="
 	^^ ( cuda rocm )
 "
