@@ -466,9 +466,8 @@ sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/blastdb 9999: The BLAST NR database
 sci-libs/blis-amd 2.2 9999: AMD optimized BLAS-like Library Instantiation Software Framework
 sci-libs/ccif 0.4.20120917: CCP4 ccif lib
-sci-libs/cgnstools 2.5.4-r1: The CFD General Notation System (CGNS) tools
-sci-libs/ciftilib 1.5.3-r1: C++ Library for reading and writing CIFTI-2 and CIFTI-1 files
-sci-libs/clfft 2.12.0 2.12.1 2.12.2 9999: Library containing FFT functions written in OpenCL
+sci-libs/ciftilib 1.6.0: C++ Library for reading and writing CIFTI-2 and CIFTI-1 files
+sci-libs/clfft 2.12.2 9999: Library containing FFT functions written in OpenCL
 sci-libs/clrng 1.0.0_beta_p20160304 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 1.01.2009.1109.11: System for chemical shifts based protein structure prediction using ROSETTA
 sci-libs/elmer-eio 6.0_p4651 9999: Finite element programs, libraries, and visualization tools - elmer I/O library
