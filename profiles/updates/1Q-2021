@@ -1,1 +1,8 @@
 move virtual/blacs sci-libs/mkl
+move sci-libs/elmer-eio sci-misc/elmer-fem
+move sci-libs/elmer-hutiter sci-misc/elmer-fem
+move sci-misc/elmer-elmergrid sci-misc/elmer-fem
+move sci-misc/elmer-front sci-misc/elmer-fem
+move sci-misc/elmer-meshgend2d sci-misc/elmer-fem
+move sci-misc/elmer-post sci-misc/elmer-fem
+move sci-misc/elmer-meta sci-misc/elmer-fem
