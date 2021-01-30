@@ -516,7 +516,7 @@ sci-libs/spyking-circus 1.0.6: Fast spike sorting by template matching
 sci-libs/starparse 9999: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/superlu_dist 6.4.0: MPI distributed sparse LU factorization library
 sci-libs/vxl 9999: C++ computer vision research libraries
-sci-libs/wannier90 2.0.1 2.0.1.1: Calculates maximally localized Wannier functions (MLWFs)
+sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
