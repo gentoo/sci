@@ -12,7 +12,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	~sci-libs/matc-${PV}
+	~sci-misc/elmer-fem-${PV}
 	~sci-misc/elmer-elmergrid-${PV}
 	~sci-misc/elmer-meshgen2d-${PV}
 	~sci-libs/elmer-eio-${PV}

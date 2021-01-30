@@ -28,7 +28,7 @@ RDEPEND="
 		virtual/opengl
 		media-libs/ftgl
 		)
-	sci-libs/matc"
+	sci-misc/elmer-fem"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 

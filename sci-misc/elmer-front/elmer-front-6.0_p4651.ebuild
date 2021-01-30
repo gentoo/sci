@@ -22,7 +22,7 @@ IUSE=""
 RDEPEND="
 	dev-lang/tcl:0=
 	dev-lang/tk:0=
-	sci-libs/matc
+	sci-misc/elmer-fem
 	sci-libs/elmer-eio
 	virtual/opengl"
 DEPEND="${RDEPEND}"
