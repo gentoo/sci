@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-# @ECLASS: numeric-int64-multilib.eclass
+# @ECLASS: numeric-int64-multibuild.eclass
 # @MAINTAINER:
 # sci team <sci@gentoo.org>
 # @AUTHOR:
@@ -9,7 +9,7 @@
 # Author: Justin Lecher <jlec@gentoo.org>
 # @BLURB: Build functions for Fortran multilib int64 multibuild packages
 # @DESCRIPTION:
-# The numeric-int64-multilib.eclass exports USE flags and utility functions
+# The numeric-int64-multibuild.eclass exports USE flags and utility functions
 # necessary to build packages for multilib int64 multibuild in a clean
 # and uniform manner.
 
