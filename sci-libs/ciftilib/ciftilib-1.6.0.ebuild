@@ -1,9 +1,9 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="C++ Library for reading and writing CIFTI-2 and CIFTI-1 files"
 HOMEPAGE="https://github.com/Washington-University/CiftiLib"
@@ -22,10 +22,6 @@ DEPEND="
 	"
 RDEPEND="${DEPEND}"
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-1.5.3-openmp_in_pc.patch
-	)
-
 S="${WORKDIR}/CiftiLib-${PV}"
 
 #TODO: Enable doc building and installation
@@ -42,14 +38,14 @@ src_prepare(){
 		-e "s:DT_:CIFTI_DT_:g" \
 		-i `grep -rl DT_ *`
 
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
 	local mycmakeargs=(-DBUILD_SHARED_LIBS=ON)
 	use qt5 || mycmakeargs+=(-DIGNORE_QT=TRUE)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_test(){
@@ -57,5 +53,5 @@ src_test(){
 	local myctestargs=(
 			-j1
 	)
-	cmake-utils_src_test
+	cmake_src_test
 }
