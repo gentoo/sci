@@ -21,7 +21,6 @@ dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphica
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-lang/berkeley_upc 2.16.2 2.18.0 2.18.2 2.20.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.16.2 2.18.2 2.28.0: The Berkeley UPC-to-C translator
-dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
 dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
 dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/pgi 13.5: PGI compiler suite
@@ -295,7 +294,6 @@ sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare s
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
 sci-biology/kmergenie 1.6971: Estimate best k-mer length to be used in novo assemblies
 sci-biology/kraken 1.1.1: Detect sequencing project contaminants by mapping reads to taxonomic groups
-sci-biology/last 852: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.00: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
@@ -372,7 +370,6 @@ sci-biology/samri 0.4.1 0.5 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
-sci-biology/scaffold_builder 2.2: Combine FASTA contigs from a de novo assembly into scaffolds
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
 sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
 sci-biology/screed 1.0.4: Short read sequence utilities
@@ -396,13 +393,10 @@ sci-biology/ssaha2-bin 2.5.5: SSAHA2: Sequence Search and Alignment by Hashing A
 sci-biology/stacks 1.44: Analyze restriction enzyme data, draw gen. maps, population genomics
 sci-biology/staden 2.0.0_beta11 9999: DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
 sci-biology/staden_doc 2.0.0_beta11: Documentation files for the staden package
-sci-biology/stampy-bin 1.0.28: Map highly divergent short reads to a reference
 sci-biology/stringtie 1.3.4d: Transcriptome assembler and RNA-Seq analysis on BAM files aka cufflinks
 sci-biology/subread 2.0.1: NGS suite for analysis of mapped reads, summary of exon/intron/gene counts
 sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt flatfiles
 sci-biology/symap 4.0: Synteny Mapping and Analysis Program
-sci-biology/tablet 1.17.08.17 9999: Viewer of next generation sequence assemblies and alignments
-sci-biology/tablet-bin 1.20.12.24: Viewer of next generation sequence assemblies and alignments
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
 sci-biology/tclust 110625: Transitive closure clustering tool with overlap filtering options
 sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
@@ -426,7 +420,6 @@ sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural vari
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.4.0: Correction of electron beam-induced sample motion
-sci-chemistry/chimera-bin 1.14 1.15: An extensible Molecular Modelling System
 sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/ctffind 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/dl_poly 1.9 4.05: a general purpose molecular dynamics simulation package
@@ -438,7 +431,6 @@ sci-chemistry/hydronmr 7c: Calculation of NMR relaxation of small, quasirigid ma
 sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to be created
 sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
 sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
-sci-chemistry/mddnmr 2.7: Program for processing of NUS multidimensional NMR spectra
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
 sci-chemistry/modeller 9.25: Homology or comparative modeling of protein three-dimensional structures
 sci-chemistry/module2 0_pre20140717: Residual dipolar coupling and residual chemical shift analysis software
@@ -517,7 +509,6 @@ sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWF
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
-sci-mathematics/Macaulay2 9999: Research tool for commutative algebra and algebraic geometry
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/acl2 7.1 8.3: Industrial strength theorem prover
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
