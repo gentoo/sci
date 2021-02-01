@@ -4,7 +4,6 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8} )
-DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1 virtualx
 
@@ -14,9 +13,15 @@ SRC_URI="https://github.com/pauldmccarthy/${PN}/archive/${PV}.tar.gz -> ${P}.tar
 
 LICENSE="BSD"
 SLOT="0"
-# Fails with file collisions with =sci-biology/fsl-6.0.2-r1
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
+IUSE="test"
 
+DEPEND="
+	test? (
+		dev-python/pytest[${PYTHON_USEDEP}]
+	)
+	dev-python/setuptools[${PYTHON_USEDEP}]
+"
 RDEPEND="
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/indexed_gzip[${PYTHON_USEDEP}]
@@ -31,8 +36,6 @@ RDEPEND="
 "
 
 PATCHES=( "${FILESDIR}/fslpy-2.7.0-coverage.patch" )
-
-distutils_enable_tests pytest
 
 python_test() {
 	virtx pytest --niters=50 -m "not (dicomtest or longtest or fsltest)" --verbose || die
