@@ -1,21 +1,19 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module eutils toolchain-funcs
+inherit perl-module toolchain-funcs
 
 # Butterfly should not require any special compilation, as its written in Java and already provided as portable precompiled software ...
 
 DESCRIPTION="Transcriptome assembler for RNA-seq reads"
-HOMEPAGE="http://trinityrnaseq.github.io/"
-SRC_URI="https://github.com/trinityrnaseq/trinityrnaseq/archive/Trinity-v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://github.com/Trinotate/Trinotate.github.io/wiki"
+SRC_URI="https://github.com/trinityrnaseq/trinityrnaseq/releases/download/v${PV}/${PN}-v${PV}.FULL_with_extendedTestData.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
 KEYWORDS="" # PERL5INC path is wrong when /usr/bin/Trinity is executed
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -34,26 +32,27 @@ RDEPEND="${DEPEND}
 # COLLECTL
 # ParaFly-0.1.0
 
-S="${WORKDIR}"/trinityrnaseq-Trinity-v"${PV}"
+S="${WORKDIR}/${PN}-v${PV}"
 
-src_prepare(){
-	epatch "${FILESDIR}"/"${P}"-disable_some_plugins.patch
+PATCHES=(
+	"${FILESDIR}/${PN}-2.11.0-fix-compilation.patch"
+)
+
+src_compile(){
+	emake all
+	emake plugins # bundled copies of TransDecoder, trimmomatic, fastool, parafly
 }
-
-#src_compile(){
-#	emake all
-#	emake plugins # bundled copies of TransDecoder, trimmomatic, fastool, parafly
-#}
 
 src_install(){
 	dodoc Chrysalis/chrysalis.notes
 	dodoc Changelog.txt
 	perl_set_version
-	dobin Trinity util/*.pl
+	dobin Trinity
+	perl_domodule util/*.pl
 	dobin Inchworm/bin/*
-	cd Chrysalis  || die
-	dobin MakeDepend checkLock BreakTransByPairs BubbleUpClustering Chrysalis CreateIwormFastaBundle GraphFromFasta GraphFromFasta_MPI IsoformAugment JoinTransByPairs QuantifyGraph ReadsToTranscripts ReadsToTranscripts_MPI ReadsToTranscripts_MPI_chang RunButterfly TranscriptomeFromVaryK analysis/ReadsToComponents.pl
-	cd ../util/R || die
+	cd Chrysalis/bin  || die
+	dobin BubbleUpClustering Chrysalis CreateIwormFastaBundle GraphFromFasta QuantifyGraph ReadsToTranscripts
+	cd ../../util/R || die
 	insinto /usr/share/"${PN}"/R
 	doins *.R
 	cd ../PBS || die
