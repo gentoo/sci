@@ -77,7 +77,7 @@ dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
 dev-python/extension-helpers 0.1: Utilities for building and installing packages in the Astropy ecosystem
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
-dev-python/fslpy 3.4.0: The FSL Python Library
+dev-python/fslpy 2.8.4 3.4.0: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/gmsh_interop 2019.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
