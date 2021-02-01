@@ -1,0 +1,13 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install
+DESCRIPTION=Genome browser and analysis
+EAPI=7
+HOMEPAGE=http://johnsonlab.ucsf.edu/mochi.html
+IUSE=elibc_FreeBSD
+KEYWORDS=~amd64
+LICENSE=MIT LGPL-3 MPL-1.1 Apache-2.0
+RDEPEND=>=virtual/jre-1.7:*
+SLOT=0
+SRC_URI=https://www.johnsonlab.ucsf.edu/s/MochiView_v146.zip
+_eclasses_=java-utils-2	378e4cda228ea0231a0ac283cb2ad25c
+_md5_=e62b418a20f0631f091724081792eaba

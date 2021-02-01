@@ -152,7 +152,6 @@ sci-libs/pytorch:rocm - Enable AMD ROCm
 sci-libs/pytorch:tools - Build binary tools
 sci-libs/pytorch:zeromq - Enable support for ZeroMQ
 sci-libs/xblas:int64 - Build the 64 bits integer library
-sci-mathematics/Macaulay2:optimization - Disable to build with -O0 for debugging.
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
 sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
 sci-mathematics/gap:hpc - Build gap with multithreading and parallel process support
