@@ -1,11 +1,12 @@
 BDEPEND=virtual/pkgconfig
 DEFINED_PHASES=configure
-DEPEND=dev-lang/lua:* dev-libs/libconfig media-libs/libsamplerate sci-libs/fftw:3.0 sci-libs/gsl sci-libs/itpp x11-libs/gtk+:3 x11-libs/vte:2.91
+DEPEND=dev-lang/lua:* dev-libs/libconfig media-libs/libsamplerate sci-libs/itpp sci-libs/fftw:3.0 sci-libs/gsl sci-libs/itpp x11-libs/gtk+:3 x11-libs/vte:2.91
 DESCRIPTION=A sleep-research experiment manager, EDF viewer & Process S simulator
 EAPI=7
 HOMEPAGE=http://johnhommer.com/academic/code/aghermann
 LICENSE=GPL-2+
-RDEPEND=dev-lang/lua:* dev-libs/libconfig media-libs/libsamplerate sci-libs/fftw:3.0 sci-libs/gsl sci-libs/itpp x11-libs/gtk+:3 x11-libs/vte:2.91
+RDEPEND=dev-lang/lua:* dev-libs/libconfig media-libs/libsamplerate sci-libs/itpp sci-libs/fftw:3.0 sci-libs/gsl sci-libs/itpp x11-libs/gtk+:3 x11-libs/vte:2.91
 SLOT=0
 SRC_URI=http://johnhommer.com/code/aghermann/source/aghermann-1.1.2.tar.xz
-_md5_=43a37713ea86eefcd433f1d1f8a917a2
+_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_md5_=c3a77921f82a0dfd956aa06b0edd8a6e
