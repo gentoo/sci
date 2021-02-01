@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit multilib
+
 DESCRIPTION="A sleep-research experiment manager, EDF viewer & Process S simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/aghermann"
 SRC_URI="http://johnhommer.com/code/aghermann/source/${P}.tar.xz"
@@ -14,6 +16,7 @@ KEYWORDS=""
 RDEPEND="dev-lang/lua:*
 	dev-libs/libconfig
 	media-libs/libsamplerate
+	sci-libs/itpp
 	sci-libs/fftw:3.0
 	sci-libs/gsl
 	sci-libs/itpp
@@ -25,5 +28,5 @@ DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
 
 src_configure() {
-	econf --bindir="${EPREFIX}"/usr/bin
+	ITPP_LIBS="/usr/$(get_libdir)/libitpp.so" ITPP_CFLAGS="/usr/include/itpp/" econf --bindir="${EPREFIX}"/usr/bin
 }
