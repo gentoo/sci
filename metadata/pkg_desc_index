@@ -21,6 +21,7 @@ dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphica
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-lang/berkeley_upc 2.16.2 2.18.0 2.18.2 2.20.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.16.2 2.18.2 2.28.0: The Berkeley UPC-to-C translator
+dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
 dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
 dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/pgi 13.5: PGI compiler suite
@@ -294,6 +295,7 @@ sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare s
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
 sci-biology/kmergenie 1.6971: Estimate best k-mer length to be used in novo assemblies
 sci-biology/kraken 1.1.1: Detect sequencing project contaminants by mapping reads to taxonomic groups
+sci-biology/last 852: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.00: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
@@ -542,7 +544,6 @@ sci-misc/praat 6.0.26: Speech analysis and synthesis
 sci-misc/stanford-parser 1.6: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 20060521: Stanfords log linear POS taggers
 sci-physics/atompaw 4.1.1.0: PAW atomic data generator
-sci-physics/elk 1.4.22 2.1.25: All-electron full-potential linearised augmented-plane wave (FP-LAPW)
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
@@ -554,9 +555,9 @@ sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.5 9999: Tau decay Monte Carlo generator
 sci-visualization/clip 0.7: command line chart creator
 sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFire
-sci-visualization/fsleyes 0.34.2: The new FSL image viewer, released with FSL 5.0.10
-sci-visualization/fsleyes-props 1.7.0: Object attribute management for the FSLeyes viewer
-sci-visualization/fsleyes-widgets 0.9.0: GUI widgets and utilities for the FSLeyes viewer
+sci-visualization/fsleyes 0.32.3 0.34.2: The new FSL image viewer, released with FSL 5.0.10
+sci-visualization/fsleyes-props 1.6.7 1.7.0: Object attribute management for the FSLeyes viewer
+sci-visualization/fsleyes-widgets 0.8.4 0.9.0: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20170202 1.0.20180622 9999: A surface rendering tool supporting neuroimaging data

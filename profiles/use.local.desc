@@ -183,9 +183,6 @@ sci-misc/elmer-fem:matc - Build the Elmer matc library
 sci-misc/elmer-fem:post - Build ElmerPOST
 sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation potentials library
 sci-physics/atompaw:longplot - Patch the sources to plot functions all over the space considered, not just up to the matching radius plus 50 grid points. May be useless or even harmful.
-sci-physics/elk:libxc - Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
-sci-physics/elk:perl - Install perl scripts.
-sci-physics/elk:python - Install python scripts.
 sci-physics/mc-tester:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:tau-spinner - Compile with TauSpinner library
