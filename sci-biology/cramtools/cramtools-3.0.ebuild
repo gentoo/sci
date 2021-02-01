@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-2 java-ant-2
 
@@ -12,8 +12,7 @@ SRC_URI="https://github.com/enasequence/cramtools/archive/v3.0.tar.gz -> ${P}.ta
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 DEPEND="
 	>=virtual/jdk-1.7:*
@@ -28,4 +27,8 @@ RDEPEND="
 # https://github.com/enasequence/cramtools/issues/59
 src_compile(){
 	ant -f build/build.xml runnable || die
+}
+
+src_install() {
+	java-pkg_newjar "${P}.jar" "${PN}.jar"
 }
