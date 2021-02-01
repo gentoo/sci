@@ -6,7 +6,7 @@ EAPI=7
 inherit java-utils-2
 
 DESCRIPTION="Genome browser and analysis"
-HOMEPAGE="http://johnsonlab.ucsf.edu/mochi.html"
+HOMEPAGE="https://www.johnsonlab.ucsf.edu/mochi.html"
 SRC_URI="https://www.johnsonlab.ucsf.edu/s/MochiView_v${PV//.}.zip"
 
 LICENSE="MIT LGPL-3 MPL-1.1 Apache-2.0"
