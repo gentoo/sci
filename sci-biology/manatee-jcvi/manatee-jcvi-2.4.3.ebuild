@@ -28,16 +28,20 @@ DEPEND=">=dev-libs/expat-1.95.8
 		dev-perl/Log-Log4perl
 		dev-perl/Log-Cabin
 		dev-perl/IO-Tee
-		dev-perl/MLDBM"
-		#dev-perl/CGI
-		#dev-perl/CGI-Carp
-		#dev-perl/CGI-Cookie
-		#dev-perl/GD-Text
-		#dev-perl/GD-Graph
-		#dev-perl/Date-Manip
+		dev-perl/MLDBM
+		dev-perl/CGI
+		dev-perl/DBI
+		dev-perl/Apache-DBI
+		dev-perl/Date-Manip
+"
+# 		dev-perl/CGI-Carp
+# 		dev-perl/CGI-Cookie
+# 		dev-perl/GD-Text
+# 		dev-perl/GD-Graph
+#
 RDEPEND="${DEPEND}
-		>=virtual/mysql-5:*
-		>=www-servers/apache-2.2"
+	>=virtual/mysql-5:*
+	>=www-servers/apache-2.2"
 
 S="${WORKDIR}"/manatee-"${PV}"
 
