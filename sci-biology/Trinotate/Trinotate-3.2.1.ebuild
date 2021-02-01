@@ -1,25 +1,24 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module eutils toolchain-funcs
+inherit perl-module toolchain-funcs
 
 DESCRIPTION="Annotation and analysis pipeline for de novo assembled transcriptomes"
-HOMEPAGE="http://trinotate.github.io"
-SRC_URI="https://github.com/Trinotate/Trinotate/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://github.com/Trinotate/Trinotate.github.io/wiki"
+SRC_URI="https://github.com/Trinotate/Trinotate/archive/${PN}-v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/ncbi-tools++
 	sci-biology/trinityrnaseq
-	sci-biology/TransDecoder"
+	sci-biology/TransDecoder
+"
 
 # http://www.cbs.dtu.dk/cgi-bin/sw_request?rnammer
 # >=sci-biology/rnammer-2.3.2
@@ -33,12 +32,14 @@ RDEPEND="${DEPEND}
 # In the 'rnammer' software configuration, edit the rnammer script to point
 # $HMMSEARCH_BINARY = "/path/to/hmmsearch2";
 
+S="${WORKDIR}/${PN}-${PN}-v${PV}"
+
 src_install(){
 	perl_set_version
 	dobin Trinotate
 	insinto /usr/share/"${PN}"
-	doins -r admin java sample_data util TrinotateWeb
+	doins -r admin sample_data util TrinotateWeb
 	insinto ${VENDOR_LIB}/${PN}
 	doins -r PerlLib/*
-	dodoc Release.Notes
+	dodoc notes README.md README.txt Changelog.txt
 }
