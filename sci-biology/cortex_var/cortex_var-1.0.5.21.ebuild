@@ -28,13 +28,15 @@ S="${WORKDIR}/CORTEX_release_v${PV}"
 
 src_prepare(){
 	default
-	sed -e "s/ -O3 / ${CFLAGS} /" Makefile || die
-	sed -e "s#libs/gsl-1.15#${EPREFIX}/usr/include/gsl#" Makefile || die
+	sed -i -e "s/ -O3 / ${CFLAGS} /" Makefile || die
+	sed -i -e "s#libs/gsl-1.15#${EPREFIX}/usr/include/gsl#" Makefile || die
 }
 
 src_compile(){
 	rm -rf libs/htslib libs/gsl-1.15 || die
-	emake NUM_COLS=1 MAXK=31 cortex_var || die
+	emake -C libs/string_buffer
+	emake STRING_BUF_PATH="${S}/libs/string_buffer" HTS_PATH="/usr/include/" -C libs/seq_file
+	emake NUM_COLS=1 MAXK=31 cortex_var
 }
 
 src_install(){
