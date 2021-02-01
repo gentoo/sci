@@ -6,7 +6,7 @@ EAPI=7
 inherit fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="PAW atomic data generator"
-HOMEPAGE="https://users.wfu.edu/natalie/papers/pwpaw/man.html"
+HOMEPAGE="http://users.wfu.edu/natalie/papers/pwpaw/man.html"
 SRC_URI="
 	http://users.wfu.edu/natalie/papers/pwpaw/${P}.tar.gz
 	http://users.wfu.edu/natalie/papers/pwpaw/atompaw.pdf
