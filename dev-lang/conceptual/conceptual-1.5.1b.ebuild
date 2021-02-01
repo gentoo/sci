@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_7} )
 JAVA_PKG_OPT_USE="gui"
 
 inherit java-pkg-opt-2 python-single-r1
