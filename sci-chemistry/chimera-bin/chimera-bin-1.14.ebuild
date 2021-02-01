@@ -3,9 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
-
-inherit desktop xdg python-r1
+inherit desktop xdg
 
 DESCRIPTION="An extensible Molecular Modelling System"
 HOMEPAGE="https://www.cgl.ucsf.edu/chimera/"
@@ -14,8 +12,6 @@ SRC_URI="chimera-${PV}-linux_x86_64.bin"
 SLOT="0"
 LICENSE="chimera"
 KEYWORDS="~amd64 ~x86"
-
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="prefix? ( dev-util/patchelf )"
 RDEPEND="
@@ -47,7 +43,6 @@ RDEPEND="
 	x11-libs/libSM
 	x11-libs/libXt
 	x11-libs/libGLw
-	${PYTHON_DEPS}
 "
 
 S="${WORKDIR}"
