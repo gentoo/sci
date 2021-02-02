@@ -16,8 +16,8 @@ IUSE="cuda"
 
 DEPEND="
 	dev-libs/boost
-	<dev-python/fslpy-3
-	!>=dev-python/fslpy-3
+	>=dev-python/fslpy-3
+	!<dev-python/fslpy-3
 	media-gfx/graphviz
 	media-libs/gd
 	media-libs/glu
@@ -43,8 +43,8 @@ S=${WORKDIR}/${PN}
 UPSTREAM_FSLDIR="/usr/share/fsl"
 
 PATCHES=(
-	"${FILESDIR}/${PN}"-6.0.2-gcc10_include.patch
-	"${FILESDIR}/${PN}"-6.0.2-setup.patch
+	"${FILESDIR}/${P}"-gcc10_include.patch
+	"${FILESDIR}/${P}"-setup.patch
 	"${FILESDIR}/${PN}"-6.0.2-template.patch
 	"${FILESDIR}/${PN}"-6.0.2-no_xmlpp.patch
 	"${FILESDIR}/${PN}"-5.0.11-niftiio_var_fix.patch
@@ -52,8 +52,10 @@ PATCHES=(
 	"${FILESDIR}/${PN}"-5.0.11-fslsurface_parallel_make.patch
 	"${FILESDIR}/${PN}"-6.0.2-qstring_compat.patch
 	"${FILESDIR}/${PN}"-5.0.9-headers.patch
-	"${FILESDIR}/${PN}"-6.0.2-fsldir_redux-p1.patch
-	"${FILESDIR}/${PN}"-6.0.2-fsldir_redux-p2.patch
+	"${FILESDIR}/${P}"-fsldir_redux.patch
+	"${FILESDIR}/${P}"-flameo_std.patch
+	"${FILESDIR}/${P}"-melodic_std.patch
+	"${FILESDIR}/${P}"-remove_fslpy_collisions.patch
 )
 
 src_prepare() {
@@ -68,8 +70,11 @@ src_prepare() {
 	eprefixify $(grep -rl GENTOO_PORTAGE_EPREFIX src/*) \
 		etc/js/label-div.html
 
-	# Disable mist-clean the hard way for now.
-	rm -rf src/mist-clean
+	# Disable mist the hard way for now.
+	rm -rf src/mist
+
+	# Disable ptx2 for now
+	rm -rf src/ptx2
 
 	makefilelist=$(find src/ -name Makefile)
 
@@ -112,7 +117,7 @@ src_prepare() {
 	sed -e "s:-lopenblas:-llapack -lblas:g" \
 		-i $(grep -rlI lopenblas *) || die
 
-	# script wanting to have access to flsversion at buildtime
+	# script wanting to have access to fslversion at buildtime
 	sed -e "s:/etc/fslversion:${S}/etc/fslversion:g" \
 		-i ${makefilelist} || die
 
@@ -130,8 +135,9 @@ src_prepare() {
 		CUDA_INSTALLATION="/opt/cuda"
 		CUDAVER=`cuda_toolkit_version`
 
-		eapply "${FILESDIR}/${PN}-6.0.2-eddy_cuda.patch"
-		eapply "${FILESDIR}/${PN}-6.0.2-cuda_buildsettings.patch"
+		eapply "${FILESDIR}/${P}-eddy_cuda.patch"
+		eapply "${FILESDIR}/${P}-cuda_buildsettings.patch"
+		eapply "${FILESDIR}/${P}-fdt_cuda.patch"
 
 		sed -i \
 			-e "s:@@GENTOO_NVCC_FLAGS@@:${cuda_NVCC_flags}:" \
@@ -146,8 +152,14 @@ src_compile() {
 	export FSLCONDIR=${WORKDIR}/${PN}/config
 	export FSLMACHTYPE=generic
 
+	# define the default build system to match upstream official standard
+	#  -> individual projects may overwrite the '-std=' flag
+	export ANSI_CFLAGS="-std=c99"
+	export ANSI_CXXFLAGS="-std=c++98"
+
 	export USERLDFLAGS="${LDFLAGS}"
 	export USERCFLAGS="${CFLAGS}"
+	export USERCPPFLAGS="${CPPFLAGS}"
 	export USERCXXFLAGS="${CXXFLAGS}"
 
 	export CIFTICFLAGS="$($(tc-getPKG_CONFIG) --cflags CiftiLib)"

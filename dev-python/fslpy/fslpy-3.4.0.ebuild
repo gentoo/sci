@@ -14,8 +14,7 @@ SRC_URI="https://github.com/pauldmccarthy/${PN}/archive/${PV}.tar.gz -> ${P}.tar
 
 LICENSE="BSD"
 SLOT="0"
-# Fails with file collisions with =sci-biology/fsl-6.0.2-r1
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-python/h5py[${PYTHON_USEDEP}]

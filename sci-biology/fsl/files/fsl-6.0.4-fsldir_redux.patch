@@ -1,0 +1,494 @@
+From 2bc4be1f55b27a733e1e624b34bc570187ba95e1 Mon Sep 17 00:00:00 2001
+From: François Bissey <frp.bissey@gmail.com>
+Date: Mon, 20 Jan 2020 11:40:53 +1300
+Subject: [PATCH] Making sure fsl code and executable can find other executable
+ and data in standard location.
+
+---
+ src/fast4/fast_two.cc              |  8 ++++----
+ src/feat5/feat_model.cc            |  8 +++-----
+ src/feat5/tsplot.cc                |  7 +++----
+ src/first/first_utils.cc           |  4 ++--
+ src/fnirt/fnirtfns.cpp             | 11 ++++-------
+ src/fslsurface/fslsurface_first.cc |  6 ++----
+ src/fslsurface/fslsurfacemaths.cpp | 12 ------------
+ src/libvis/miscpic.h               |  7 +------
+ src/melodic/meldata.cc             |  4 ++--
+ src/melodic/meloptions.cc          |  8 --------
+ src/melodic/meloptions.h           |  1 -
+ src/melodic/melreport.cc           | 12 ++++++------
+ src/melodic/melreport.h            | 20 ++++++++++----------
+ src/mm/mixture_model.cc            |  4 ++--
+ src/siena/siena_diff.cc            | 28 +++++++++++++---------------
+ src/topup/topupfns.cpp             |  3 +--
+ 16 files changed, 53 insertions(+), 90 deletions(-)
+
+diff --git a/src/fast4/fast_two.cc b/src/fast4/fast_two.cc
+index 592b5df..b525444 100644
+--- a/src/fast4/fast_two.cc
++++ b/src/fast4/fast_two.cc
+@@ -166,7 +166,7 @@ int prior_registration(string inname, string main_prior_vol, NEWIMAGE::volume<fl
+ string csfPriorName, grayPriorName, whitePriorName;
+   if(alternatePriors.unset())
+   {
+-    string priorRootName=string(getenv("FSLDIR")) + "/data/standard/tissuepriors/avg152T1_";
++    string priorRootName="@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/tissuepriors/avg152T1_";
+     csfPriorName = priorRootName+"csf";
+     grayPriorName = priorRootName+"gray";
+     whitePriorName = priorRootName+"white";
+@@ -215,15 +215,15 @@ string csfPriorName, grayPriorName, whitePriorName;
+     if(bapused>0)
+       {
+ 	char reg[1024];
+-	sprintf(reg, "%s/bin/flirt -ref %s -in %s -out %s -applyxfm -init %s", getenv("FSLDIR"), inname.c_str(), csfPriorName.c_str(), (main_prior_vol+"_csf_stdspace").c_str(),  bapriori.value().c_str());
++	sprintf(reg, "flirt -ref %s -in %s -out %s -applyxfm -init %s", inname.c_str(), csfPriorName.c_str(), (main_prior_vol+"_csf_stdspace").c_str(),  bapriori.value().c_str());
+         if(verbose.value())
+ 	  cout<<reg<<endl;
+ 	system(reg);
+-	sprintf(reg, "%s/bin/flirt -ref %s -in %s -out %s -applyxfm -init %s", getenv("FSLDIR"), inname.c_str(), grayPriorName.c_str(), (main_prior_vol+"_gm_stdspace").c_str(),  bapriori.value().c_str());
++	sprintf(reg, "flirt -ref %s -in %s -out %s -applyxfm -init %s", inname.c_str(), grayPriorName.c_str(), (main_prior_vol+"_gm_stdspace").c_str(),  bapriori.value().c_str());
+ 	if(verbose.value())
+ 	  cout<<reg<<endl;
+         system(reg);
+-	sprintf(reg, "%s/bin/flirt -ref %s -in %s -out %s -applyxfm -init %s", getenv("FSLDIR"), inname.c_str(), whitePriorName.c_str(), (main_prior_vol+"_wm_stdspace").c_str(),  bapriori.value().c_str());
++	sprintf(reg, "flirt -ref %s -in %s -out %s -applyxfm -init %s", inname.c_str(), whitePriorName.c_str(), (main_prior_vol+"_wm_stdspace").c_str(),  bapriori.value().c_str());
+ 	if(verbose.value())
+ 	  cout << reg << endl;
+ 	system(reg);
+diff --git a/src/feat5/feat_model.cc b/src/feat5/feat_model.cc
+index 399a13e..e15e43c 100644
+--- a/src/feat5/feat_model.cc
++++ b/src/feat5/feat_model.cc
+@@ -744,7 +744,7 @@ int main(int argc, char **argv)
+   vector<int> G;
+   vector<string> titles;
+   float  tr, mult, trmult, nltffwhm=0, maxconvwin=0;
+-  char   fl[10000], *FSLDIR;
++  char   fl[10000];
+   string fn, filename;
+   FONT_DATA *font_data = new FONT_DATA[1];
+ 
+@@ -763,8 +763,6 @@ int main(int argc, char **argv)
+   if (argc==3)
+     motionparams=remmean(read_ascii_matrix(argv[2]));
+ 
+-  FSLDIR=getenv("FSLDIR");
+-
+   fn = string(argv[1])+".fsf";
+ 
+   level      = atoi(find_line(fn, "fmri(level)", fl));
+@@ -1510,7 +1508,7 @@ int main(int argc, char **argv)
+   writeCovarianceImage(string(argv[1])+"_cov.ppm", contrasts, F, nftests, realDesign, level, evs.eigenvals, font_data, contrasts.RE);
+   writeImagePreview(string(argv[1])+".ppm", contrasts, F, nftests, realDesign, level, evs, font_data, titles, tr, nltffwhm, nTimepoints, G);
+ 
+-  filename=string(getenv("FSLDIR"))+"/bin/wpng -q -overwrite  "+string(argv[1])+".ppm ";
++  filename="wpng -q -overwrite  "+string(argv[1])+".ppm ";
+   system(filename.c_str());
+ 
+   return(0);
+@@ -2161,6 +2159,6 @@ char the_string[10000];
+ 
+     fclose(outputfile);
+ 
+-    filename=string(getenv("FSLDIR")) + "/bin/wpng -q -overwrite  " + filename;
++    filename="wpng -q -overwrite  " + filename;
+     system(filename.c_str());
+ }
+diff --git a/src/feat5/tsplot.cc b/src/feat5/tsplot.cc
+index ae191fd..3a02b55 100644
+--- a/src/feat5/tsplot.cc
++++ b/src/feat5/tsplot.cc
+@@ -293,7 +293,7 @@ int main(int argc, char **argv)
+ ofstream     outputFile;
+ int          numEVs, npts, numContrasts=1, nftests=0, GRPHSIZE(600), PSSIZE(600); 
+ vector<double> normalisedContrasts, model, triggers;
+- string       fmriFileName, fslPath, featdir, vType, indexText;
++ string       fmriFileName, featdir, vType, indexText;
+ ColumnVector NewimageVoxCoord(4),NiftiVoxCoord(4);
+ bool outputText(true), useCoordinate(false), prewhiten(false), useTriggers(false), customMask(false), modelFree(false), isHigherLevel(false), outputDataOnly(false);
+ bool zWeightClusters(true);
+@@ -307,7 +307,6 @@ volume<float> immask;
+   if (argc<2) usage("");
+   featdir=string(argv[1]);
+   fmriFileName=featdir+"/filtered_func_data";
+-  fslPath=string(getenv("FSLDIR"));
+ 
+   string outputName(featdir);
+ 
+@@ -753,7 +752,7 @@ volume4D<float> acs;
+ 	cerr << "Can't open output report file " << outputName << endl;
+ 	exit(1);
+       }
+-      outputFile << "<HTML>\n<TITLE>"<< statType << num2str(i) <<"</TITLE>\n<BODY BACKGROUND=\"file:"<< fslPath <<"/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report - "<< statType << num2str(i) <<"</H1>\n</CENTER>\n<hr><b>Full plots</b><p>\n"<< graphText;
++      outputFile << "<HTML>\n<TITLE>"<< statType << num2str(i) <<"</TITLE>\n<BODY BACKGROUND=\"file:"<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report - "<< statType << num2str(i) <<"</H1>\n</CENTER>\n<hr><b>Full plots</b><p>\n"<< graphText;
+       if (useTriggers) outputFile << "\n<hr><b>Peristimulus plots</b><p>\n"<< peristimulusText <<"\n<HR></BODY></HTML>\n\n";
+       else outputFile << "\n</BODY></HTML>\n\n";
+       outputFile.close();
+@@ -768,7 +767,7 @@ volume4D<float> acs;
+       cerr << "Can't open output report file " << outputName << endl;
+       exit(1);
+   }
+-  outputFile << "<HTML>\n<TITLE>FEAT Time Series Report</TITLE>\n<BODY BACKGROUND=\"file:" << fslPath << "/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report</H1>\n</CENTER>\n<hr>" << indexText << "<HR></BODY></HTML>" << endl << endl;
++  outputFile << "<HTML>\n<TITLE>FEAT Time Series Report</TITLE>\n<BODY BACKGROUND=\"file:" << "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report</H1>\n</CENTER>\n<hr>" << indexText << "<HR></BODY></HTML>" << endl << endl;
+   outputFile.close();
+ 
+   /* now output same thing without start and end, for inclusion in feat report */
+diff --git a/src/first/first_utils.cc b/src/first/first_utils.cc
+index 68be44b..85960f4 100644
+--- a/src/first/first_utils.cc
++++ b/src/first/first_utils.cc
+@@ -1954,8 +1954,8 @@ void do_work_bvars(){
+     if (!surfaceVAout.value()) {
+       // do not output on the surface, instead do the new default of outputting a volume with the scalar normal dot product values (for use with randomise)
+       volume<float> refim;
+-      if (useReconMNI.value()) { read_volume(refim,string(getenv("FSLDIR")) + "/data/standard/MNI152_T1_1mm"); } 
+-      else { read_volume(refim,string(getenv("FSLDIR")) + "/data/standard/MNI152_T1_1mm"); } 
++      if (useReconMNI.value()) { read_volume(refim,"@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm"); } 
++      else { read_volume(refim,"@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm"); } 
+       volume<float> maskvol(refim);
+       maskvol=0.0f;
+       volume4D<float> volnormals;
+diff --git a/src/fnirt/fnirtfns.cpp b/src/fnirt/fnirtfns.cpp
+index 24e26fd..77899e7 100644
+--- a/src/fnirt/fnirtfns.cpp
++++ b/src/fnirt/fnirtfns.cpp
+@@ -1203,8 +1203,7 @@ string existing_ref_fname(const string& ref_fname)
+       return(string(ref_fname));
+     }
+     else {
+-      const char *fsldir_ptr = getenv("FSLDIR");
+-      string eref_fname = string(fsldir_ptr) + string("/data/standard/") + ref_fname;
++      string eref_fname = string("@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/") + ref_fname;
+       if (NEWIMAGE::FslFileExists(eref_fname)) return(eref_fname);
+       else return(string(""));
+     }
+@@ -1230,9 +1229,8 @@ string existing_ref_fname(const string& ref_fname)
+       NEWIMAGE::read_volume_hdr_only(vref,ref_fname); // Throws if file dont exist
+       eref_fname = ref_fname;
+     }
+-    catch(...) { // Didn't exist in current directory, try in ${FSLDIR}/data/standard
+-      const char *fsldir_ptr = getenv("FSLDIR");
+-      eref_fname = string(fsldir_ptr) + string("/data/standard/") + ref_fname;
++    catch(...) { // Didn't exist in current directory, try in .../data/standard
++      eref_fname = string("@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/") + ref_fname;
+       try {
+         cout << "Could not find " << ref_fname << ", now checking " << eref_fname << endl;
+         NEWIMAGE::read_volume_hdr_only(vref,eref_fname); // Throws if file dont exist
+@@ -1267,8 +1265,7 @@ string existing_conf_file(const string& cfname)
+     if (check_exist(ecfname)) return(ecfname);
+   }
+   if (!FNIRT::path(cfname).length()) {              // If no path explicitly given
+-    const char *fsldir_ptr = getenv("FSLDIR");
+-    ecfname = string(fsldir_ptr) + string("/etc/flirtsch/") + cfname;
++    ecfname = string("@GENTOO_PORTAGE_EPREFIX@/etc/flirtsch/") + cfname;
+     if (check_exist(ecfname)) return(ecfname);
+     else if (!FNIRT::extension(ecfname).length()) { // If no path _and_ no extension given
+       ecfname += string(".cnf");
+diff --git a/src/fslsurface/fslsurface_first.cc b/src/fslsurface/fslsurface_first.cc
+index faec642..b2ef794 100644
+--- a/src/fslsurface/fslsurface_first.cc
++++ b/src/fslsurface/fslsurface_first.cc
+@@ -500,8 +500,7 @@ namespace fslsurface_name {
+             
+ 			volume<float>* immni = new volume<float>();
+             
+-            char* fsldir = getenv("FSLDIR");
+-            read_volume_hdr_only(*immni, string(fsldir) + "/data/standard/MNI152_T1_1mm");
++            read_volume_hdr_only(*immni, "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm");
+             
+ 			//read_volume_hdr_only(*immni, template_name);
+ 			
+@@ -699,8 +698,7 @@ namespace fslsurface_name {
+           
+ 			volume<float>* immni = new volume<float>();
+             
+-            char* fsldir = getenv("FSLDIR");
+-            read_volume_hdr_only(*immni, string(fsldir) + "/data/standard/MNI152_T1_1mm");
++            read_volume_hdr_only(*immni, "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm");
+             
+ 			//read_volume_hdr_only(*immni, template_name);
+ 			
+diff --git a/src/fslsurface/fslsurfacemaths.cpp b/src/fslsurface/fslsurfacemaths.cpp
+index eaf55eb..3dc184d 100644
+--- a/src/fslsurface/fslsurfacemaths.cpp
++++ b/src/fslsurface/fslsurfacemaths.cpp
+@@ -598,12 +598,6 @@ int main (int argc, char * argv[])
+ 
+         }else if (command == "-reconFromBvars"){
+             cout<<"do recon "<<endl;
+-            char* fsldir = getenv("FSLDIR");
+-            if (fsldir == NULL)
+-            {
+-                cerr<<"FSLDIR has not been set. "<<endl;
+-                exit(EXIT_FAILURE); 
+-            }
+             //file.bvars,mni_template.nii.gz
+            // string mni = string(fsldir)+"/data/standard/MNI152_T1_1mm";
+             reconSurface_from_bvars( surf, string(argv[i_arg+1]));
+@@ -612,12 +606,6 @@ int main (int argc, char * argv[])
+ 
+         }else if (command == "-reconAllFromBvarsAndSave"){
+             cout<<"do recon+save "<<argc<<" "<<i_arg<<endl;
+-            char* fsldir = getenv("FSLDIR");
+-            if (fsldir == NULL)
+-            {
+-                cerr<<"FSLDIR has not been set. "<<endl;
+-                exit(EXIT_FAILURE); 
+-            }
+             //file.bvars,mni_template.nii.gz
+             // string mni = string(fsldir)+"/data/standard/MNI152_T1_1mm";
+             cout<<"recon "<< string(argv[i_arg+1])<<endl;
+diff --git a/src/libvis/miscpic.h b/src/libvis/miscpic.h
+index a2f3855..5f440f2 100644
+--- a/src/libvis/miscpic.h
++++ b/src/libvis/miscpic.h
+@@ -90,12 +90,7 @@ namespace MISCPIC{
+ 	markRight=false;
+ 	trans= -10;
+ 	edgethresh = 0.0;
+-	if(getenv("FSLDIR")!=0){
+-	  lutbase = string(getenv("FSLDIR")) + "/etc/luts/";
+-	}
+-	else{
+-	  lutbase = string("/");
+-	}
++	lutbase = "@GENTOO_PORTAGE_EPREFIX@/etc/luts/";
+ 	title = string("");
+ 	cbartype = string("");
+ 	cbarptr = NULL;
+diff --git a/src/melodic/meldata.cc b/src/melodic/meldata.cc
+index 1749a45..c4ad234 100644
+--- a/src/melodic/meldata.cc
++++ b/src/melodic/meldata.cc
+@@ -992,7 +992,7 @@ namespace Melodic{
+   void MelodicData::est_smoothness()
+   {
+     if(Resels == 0){
+-      string SM_path = opts.binpath + "smoothest";
++      string SM_path = "smoothest";
+       string Mask_fname = logger.appendDir("mask");
+ 
+       if(opts.segment.value().length()>0){
+@@ -1157,7 +1157,7 @@ namespace Melodic{
+ 				// set up all strings
+ 				string BET_outputfname = string(Mean_fname)+"_brain";
+ 
+-				string BET_path = opts.binpath + "bet";
++				string BET_path = "bet";
+ 				string BET_optarg = "-m -f 0.4"; // see man bet
+ 				string Mask_fname = BET_outputfname+"_mask";
+ 
+diff --git a/src/melodic/meloptions.cc b/src/melodic/meloptions.cc
+index 08170c7..252e72b 100644
+--- a/src/melodic/meloptions.cc
++++ b/src/melodic/meloptions.cc
+@@ -93,14 +93,6 @@ MelodicOptions* MelodicOptions::gopt = NULL;
+   		explicitnums = false;
+   		logfname = string("log.txt");
+ 
+-  		// work out the path to the $FSLDIR/bin directory
+-  		if(getenv("FSLDIR")!=0){
+-    		binpath = (string) getenv("FSLDIR") + "/bin/";
+-  		} else{
+-    		binpath = argv[0];
+-    		binpath = binpath.substr(0,binpath.length()-7);
+-  		}
+-
+   		// parse once to establish log directory name
+   		for(int a = options.parse_command_line(argc, argv); a < argc; a++);
+ 
+diff --git a/src/melodic/meloptions.h b/src/melodic/meloptions.h
+index f546125..b964b7d 100644
+--- a/src/melodic/meloptions.h
++++ b/src/melodic/meloptions.h
+@@ -93,7 +93,6 @@ class MelodicOptions {
+   	~MelodicOptions() { delete gopt; }
+ 
+   	string version;
+-  	string binpath;
+   	string logfname;
+   	bool   filtermode;
+   	bool   explicitnums;
+diff --git a/src/melodic/melreport.cc b/src/melodic/melreport.cc
+index 141b6c2..2625059 100644
+--- a/src/melodic/melreport.cc
++++ b/src/melodic/melreport.cc
+@@ -84,8 +84,8 @@ namespace Melodic{
+ 			IChtml.setDir(report.getDir(),mmodel.get_prefix()+".html");
+ 
+       {//start IC page
+-				IChtml << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:" +
+-					(string) getenv("FSLDIR") +"/doc/fsl.css>" << endl
++				IChtml << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:"
++				       << "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/fsl.css>" << endl
+ 					<< "<style type=\"text/css\">OBJECT { width: 100% }</style>"
+ 	       	<< "<TITLE>FSL</TITLE></HEAD>" << endl
+ 	  			<< "<IFRAME  height=" << int(melodat.get_numfiles()/30 + 1)*50 
+@@ -486,8 +486,8 @@ namespace Melodic{
+ 
+       {//start IC2 page
+ 				IChtml2.setDir(report.getDir(),mmodel.get_prefix()+"_MM.html");
+-				IChtml2 << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:" +
+-					(string) getenv("FSLDIR") +"/doc/fsl.css>" << endl
++				IChtml2 << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:"
++					<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/fsl.css>" << endl
+ 					<< "<style type=\"text/css\">OBJECT { width: 100% }</style>"
+ 	       	<< "<TITLE>FSL</TITLE></HEAD>" << endl
+ 					<< "<IFRAME  height="<< int(melodat.get_numfiles()/30 + 1)*50 
+@@ -665,8 +665,8 @@ namespace Melodic{
+ 				IChtml << "<HTML> " << endl
+ 	       	<< "<TITLE>MELODIC Component " << num2str(cnum)
+ 	       	<< "</TITLE>" << endl
+-	       	<< "<BODY BACKGROUND=\"file:" << getenv("FSLDIR") 
+-	    		<< "/doc/images/fsl-bg.jpg\">" << endl 
++	       	<< "<BODY BACKGROUND=\"file:"  
++	    		<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">" << endl 
+ 	     		<< "<hr><CENTER><H1>MELODIC Component " << num2str(cnum)
+ 	       	<< "</H1>"<< endl;
+ 	
+diff --git a/src/melodic/melreport.h b/src/melodic/melreport.h
+index 574fc4c..e444681 100644
+--- a/src/melodic/melreport.h
++++ b/src/melodic/melreport.h
+@@ -104,21 +104,21 @@ namespace Melodic{
+ 	  				const time_t tmptime = time(NULL);
+ 		    		system(("mkdir "+ logger.appendDir("report") + " 2>/dev/null").c_str());
+ 				report.setDir(logger.appendDir("report"),"00index.html",true,false,ios::out);
+-						report << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:" +
+-							(string) getenv("FSLDIR") +"/doc/fsl.css>" 
++						report << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:"
++							<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/fsl.css>" 
+ 						  << "<TITLE>MELODIC report</TITLE></HEAD><BODY>"
+ 							<< endl <<endl;
+ 						loghtml.setDir(report.getDir(),"log.html");
+-						loghtml << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:" +
+-							(string) getenv("FSLDIR") +"/doc/fsl.css>" 
++						loghtml << "<HTML><HEAD><link REL=stylesheet TYPE=text/css href=file:"
++							<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/fsl.css>" 
+ 						  << "<TITLE>MELODIC report</TITLE></HEAD><BODY>"
+ 							<< endl <<endl;						
+ 						navigator.setDir(report.getDir(),"nav.html");
+ 						head.setDir(report.getDir(),"head.html");
+-	  				navigator << "<link REL=stylesheet TYPE=text/css href=file:"+
+-							(string) getenv("FSLDIR") +"/doc/fsl.css>"  << endl;
+-						head << "<link REL=stylesheet TYPE=text/css href=file:"+
+-							(string) getenv("FSLDIR") +"/doc/fsl.css>"  << endl;
++	  				navigator << "<link REL=stylesheet TYPE=text/css href=file:"
++						<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/fsl.css>"  << endl;
++						head << "<link REL=stylesheet TYPE=text/css href=file:"
++							<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/fsl.css>"  << endl;
+ 						head  <<"<TABLE BORDER=0><TR>" << endl
+ 							<<" <TD ALIGN=CENTER WIDTH=100%>"<< endl
+ 							<<"<TABLE BORDER=0>"<< endl
+@@ -130,8 +130,8 @@ namespace Melodic{
+ 							<< "</tr></table>" << endl
+ 							<< "<TD ALIGN=RIGHT>" << endl
+ 							<< "<a href=http://www.fmrib.ox.ac.uk/fsl target=_top>" << endl
+-						  << "<IMG BORDER=0 SRC=file:"<< getenv("FSLDIR")
+-							<< "/doc/images/fsl-logo-big.jpg WIDTH=165></a>" << endl
++						  << "<IMG BORDER=0 SRC=file:"
++							<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-logo-big.jpg WIDTH=165></a>" << endl
+ 							<< "</TD>"<<endl<<"</TR></TABLE> <hr>"<<endl;
+ 						if(opts.guireport.value()==""){
+ 							report <<"<OBJECT data=head.html></OBJECT>" <<  endl;
+diff --git a/src/mm/mixture_model.cc b/src/mm/mixture_model.cc
+index b8e6167..5f00693 100644
+--- a/src/mm/mixture_model.cc
++++ b/src/mm/mixture_model.cc
+@@ -2224,8 +2224,8 @@ namespace Mm {
+ 
+ 	htmllog << "<HTML> " << endl
+ 		<< "<TITLE>Mixture Model fit for" << data_name << "</TITLE>" << endl
+-		<< "<BODY BACKGROUND=\"file:" << getenv("FSLDIR") 
+-		<< "/doc/images/fsl-bg.jpg\">" << endl 
++		<< "<BODY BACKGROUND=\"file:"  
++		<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">" << endl 
+ 		<< "<hr><CENTER><H1>Mixture Model fit for<br>" << data_name << " </H1>"<< endl;
+      	
+ 	htmllog << "<hr><p>" << endl;
+diff -Naur fsl.orig/src/siena/siena_diff.cc fsl/src/siena/siena_diff.cc
+--- fsl.orig/src/siena/siena_diff.cc	2020-12-02 15:52:50.359856656 -0500
++++ fsl/src/siena/siena_diff.cc	2020-12-02 16:03:25.699876412 -0500
+@@ -107,7 +107,7 @@
+ {
+   // {{{  vars
+ 
+-char   thestring[10000], segoptions[10000], fsldir[10000];
++char   thestring[10000], segoptions[10000];
+ int    x_size, y_size, z_size, size, x, y, z, i, count,
+   seg2=0, ignore_z=0, ignore_top_slices=0, //erode_mask=0, 
+   ignore_bottom_slices=0, debug=0, flow_output=1, edge_masking=0;
+@@ -124,8 +124,6 @@
+ 
+ string argv1(argv[1]), argv2(argv[2]);
+ 
+-sprintf(fsldir,"%s",getenv("FSLDIR"));
+-
+ for (i = 3; i < argc; i++)
+   {
+     if (!strcmp(argv[i], "-i"))
+@@ -206,26 +204,26 @@
+ // }}}
+   // {{{  transform images and masks
+ 
+-sprintf(thestring,"%s/bin/flirt -o %s_halfwayto_%s -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s",
+-  fsldir,argv[1],argv[2],argv[1],argv[2],argv[1],argv[1]);
++sprintf(thestring,"flirt -o %s_halfwayto_%s -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s",
++	argv[1],argv[2],argv[1],argv[2],argv[1],argv[1]);
+ printf("%s\n",thestring); system(thestring);
+ 
+-sprintf(thestring,"%s/bin/flirt -o %s_halfwayto_%s -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s",
+-  fsldir,argv[2],argv[1],argv[2],argv[1],argv[1],argv[2]);
++sprintf(thestring,"flirt -o %s_halfwayto_%s -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s",
++	argv[2],argv[1],argv[2],argv[1],argv[1],argv[2]);
+ printf("%s\n",thestring); system(thestring);
+ 
+-sprintf(thestring,"%s/bin/flirt -o %s_halfwayto_%s_mask -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s_brain_mask",
+-  fsldir,argv[1],argv[2],argv[1],argv[2],argv[1],argv[1]);
++sprintf(thestring,"flirt -o %s_halfwayto_%s_mask -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s_brain_mask",
++	argv[1],argv[2],argv[1],argv[2],argv[1],argv[1]);
+ printf("%s\n",thestring); system(thestring);
+ 
+-sprintf(thestring,"%s/bin/flirt -o %s_halfwayto_%s_mask -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s_brain_mask",
+-  fsldir,argv[2],argv[1],argv[2],argv[1],argv[1],argv[2]);
++sprintf(thestring,"flirt -o %s_halfwayto_%s_mask -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s_brain_mask",
++	argv[2],argv[1],argv[2],argv[1],argv[1],argv[2]);
+ printf("%s\n",thestring); system(thestring);
+ 
+ if (edge_masking)
+ {
+-  sprintf(thestring,"%s/bin/flirt -o %s_halfwayto_%s_valid_mask -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s_valid_mask_with_%s",
+-    fsldir,argv[1],argv[2],argv[1],argv[2],argv[1],argv[1],argv[2]);
++  sprintf(thestring,"flirt -o %s_halfwayto_%s_valid_mask -applyisoxfm 1 -paddingsize 0 -init %s_halfwayto_%s.mat -ref %s -in %s_valid_mask_with_%s",
++	  argv[1],argv[2],argv[1],argv[2],argv[1],argv[1],argv[2]);
+   printf("%s\n",thestring); system(thestring);
+ }
+ 
+@@ -284,8 +282,8 @@
+     cout << "saving image 1 to disk prior to segmentation" << endl;
+     save_volume(in1,argv1+"_halfwayto_"+argv2+"_brain");
+     in1.destroy();
+-    sprintf(thestring,"%s/bin/fast %s %s %s_halfwayto_%s_brain > %s_halfwayto_%s_brain.vol 2>&1",
+-      fsldir,segtype,segoptions,argv[1],argv[2],argv[1],argv[2]);
++    sprintf(thestring,"fast %s %s %s_halfwayto_%s_brain > %s_halfwayto_%s_brain.vol 2>&1",
++	    segtype,segoptions,argv[1],argv[2],argv[1],argv[2]);
+     cout << thestring << endl;
+     system(thestring);
+   }
+diff --git a/src/topup/topupfns.cpp b/src/topup/topupfns.cpp
+index 6873758..9e8b956 100644
+--- a/src/topup/topupfns.cpp
++++ b/src/topup/topupfns.cpp
+@@ -463,8 +463,7 @@ string existing_conf_file(const string& cfname)
+     if (TOPUP::check_exist(ecfname)) return(ecfname);
+   }
+   if (!TOPUP::path(cfname).length()) {              // If no path explicitly given
+-    const char *fsldir_ptr = getenv("FSLDIR");
+-    ecfname = string(fsldir_ptr) + string("/etc/flirtsch/") + cfname;
++    ecfname = string("@GENTOO_PORTAGE_EPREFIX@/etc/flirtsch/") + cfname;
+     if (TOPUP::check_exist(ecfname)) return(ecfname);
+     else if (!TOPUP::extension(ecfname).length()) { // If no path _and_ no extension given
+       ecfname += string(".cnf");
+-- 
+2.24.1
+
