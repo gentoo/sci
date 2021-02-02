@@ -1,9 +1,10 @@
 DEFINED_PHASES=install prepare
 DESCRIPTION=Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
-EAPI=6
+EAPI=7
 HOMEPAGE=http://bioresearch.byu.edu/msa
+KEYWORDS=~amd64
 LICENSE=all-rights-reserved
 SLOT=0
 SRC_URI=http://bioresearch.byu.edu/msa/msautil-1.1.tgz
 _eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=b3e726433c26c1d34dbdfdafcddc8fc6
+_md5_=41f001b7886085a976a1a580bdf8ea79
