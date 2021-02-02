@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit toolchain-funcs
 
@@ -11,8 +11,7 @@ SRC_URI="http://bioresearch.byu.edu/msa/${P}.tgz"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 src_prepare(){
 	sed \
