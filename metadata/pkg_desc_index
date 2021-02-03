@@ -338,7 +338,6 @@ sci-biology/pbbam 1.6.0 9999: PacBio modified BAM file format
 sci-biology/pbcopper 1.9.0: Core C++ library for data structures, algorithms, and utilities
 sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
-sci-biology/phusion 2.1c: Whole genome shotgun assembler using phrap (for Sanger-based reads)
 sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger-based reads)
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
 sci-biology/pilon-bin 1.23: Fix assembled reference using BAM-aligned reads, call SNPs
