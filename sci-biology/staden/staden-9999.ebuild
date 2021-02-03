@@ -46,9 +46,9 @@ src_prepare() {
 src_configure(){
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
 	econf \
-		$(use_enable X x)
-		$(use_enable amd64 64bit)
-		--with-tklib=/usr/$(get_libdir)/tklib
+		$(use_enable X x) \
+		$(use_enable amd64 64bit) \
+		--with-tklib="/usr/$(get_libdir)/tklib"
 }
 
 src_install() {

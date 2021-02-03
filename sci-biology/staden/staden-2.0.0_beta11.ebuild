@@ -11,7 +11,7 @@ SRC_URI="https://downloads.sourceforge.net/staden/staden-${PV/_beta/b}-2016-src.
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="debug doc fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
@@ -40,7 +40,7 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"/staden-${PV/_beta/b}-2016-src
 
 PATCHES=(
-	"${FILESDIR}"/${P}-ldflags.patch
+	"${FILESDIR}/${P}-ldflags.patch"
 )
 
 src_prepare() {
@@ -53,9 +53,9 @@ src_prepare() {
 src_configure(){
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
 	econf \
-		$(use_enable X x)
-		$(use_enable amd64 64bit)
-		--with-tklib=/usr/$(get_libdir)/tklib
+		$(use_enable X x) \
+		$(use_enable amd64 64bit) \
+		--with-tklib="/usr/$(get_libdir)/tklib"
 }
 
 src_install() {
