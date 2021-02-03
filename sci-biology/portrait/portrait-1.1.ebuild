@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Ab initio ncRNA prediction"
 HOMEPAGE="http://bioinformatics.cenargen.embrapa.br/portrait"
@@ -9,8 +9,7 @@ SRC_URI="http://bioinformatics.cenargen.embrapa.br/portrait/download/portrait.ta
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 DEPEND=""
 RDEPEND="
