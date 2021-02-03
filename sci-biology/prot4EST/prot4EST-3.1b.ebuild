@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit perl-module
 
@@ -12,10 +12,10 @@ SRC_URI="http://www.compsysbio.org/lab/james/prot4EST_rl3.1b.tgz"
 
 LICENSE="GPL-1"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
-DEPEND="sci-biology/emboss
+DEPEND="
+	sci-biology/emboss
 	sci-biology/estscan
 	sci-biology/bioperl
 	sci-biology/ncbi-tools
@@ -27,7 +27,7 @@ DEPEND="sci-biology/emboss
 	# sci-biology/DECODER
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/"p4e3.1b"
+S="${WORKDIR}/p4e3.1b"
 
 src_install(){
 	mydoc="README INSTALL"
