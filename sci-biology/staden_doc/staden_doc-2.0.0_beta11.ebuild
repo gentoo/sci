@@ -9,9 +9,10 @@ SRC_URI="https://sourceforge.net/projects/staden/files/staden/${PV/_beta/b}/stad
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
-DEPEND="dev-lang/perl
+DEPEND="
+	dev-lang/perl
 	app-text/texlive
 	app-text/texi2html"
 BDEPEND="app-editors/emacs"
@@ -23,18 +24,19 @@ S="${WORKDIR}"/staden_doc-${PV/_beta/b}-src
 # texi2html -menu -verbose -split_chapter -index_chars interface.htmlinfo
 # Unknown option: index_char
 # src_prepare(){
+# 	default
 # 	# avoid running bundled texi2html code
 # 	sed -e "s#./tools/texi2html#texi2html#" -i manual/Makefile || die
 # }
 
 src_compile(){
 	cd manual || die
-	make -j 1 spotless || die
+	emake -j1 spotless || die
 	cd .. || die
-	emake -j 1 unix PAPER=A4
+	emake -j1 unix PAPER=A4
 }
 
 src_install(){
-	emake -j 1 install prefix="${D}"/usr
+	emake -j1 install prefix="${D}"/usr
 	dodoc gkb547_gml.pdf
 }
