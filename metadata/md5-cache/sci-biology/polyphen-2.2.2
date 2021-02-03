@@ -1,8 +1,11 @@
-DEFINED_PHASES=-
+DEFINED_PHASES=compile configure install unpack
+DEPEND=dev-perl/CGI sci-biology/ncbi-blast+
 DESCRIPTION=Predict effect of aminoacid substitution on human protein function
 EAPI=7
 HOMEPAGE=http://genetics.bwh.harvard.edu/pph2/dokuwiki/start
+KEYWORDS=~amd64
 LICENSE=polyphen
+RDEPEND=dev-perl/CGI sci-biology/ncbi-blast+
 SLOT=0
-SRC_URI=http://genetics.bwh.harvard.edu/pph2/dokuwiki/_media/polyphen-2.2.2r405d.tar.gz
-_md5_=78e3ddaebd0996d316fa0385dd78772f
+SRC_URI=http://genetics.bwh.harvard.edu/pph2/dokuwiki/_media/polyphen-2.2.2r405d.tar.gz http://mafft.cbrc.jp/alignment/software/mafft-7.221-without-extensions-src.tgz http://prdownloads.sourceforge.net/weka/weka-3-6-12.zip
+_md5_=e1739b83aa533e4434f9aeeb18be044f
