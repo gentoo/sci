@@ -16,12 +16,24 @@ SRC_URI="primerD.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
+# make: *** No rule to make target '/usr/include/linux/new.h', needed by 'Main.o'.  Stop.
 KEYWORDS=""
 
 S="${WORKDIR}"/primerD
 
 src_prepare(){
-	sed -e "s:CC=g++:CC=$(tc-getCXX):; s:-Wall -g:${CFLAGS}:" -i Makefile || die
+	default
+	sed -i -e "s:CC=g++:CC=$(tc-getCXX):; s:-Wall -g:${CFLAGS}:" \
+		-e "s:/usr/include/g++-3/stl_algobase.h:/usr/lib/gcc/${CHOST}/$(gcc-fullversion)/include/g++-v$(gcc-major-version )/bits/stl_algobase.h:g" \
+		-e "s:/usr/include/g++-3/stl_relops.h:/usr/lib/gcc/${CHOST}/$(gcc-fullversion)/include/g++-v$(gcc-major-version )/bits/stl_relops.h:g" \
+		-e "s:/usr/include/g++-3/stl_pair.h:/usr/lib/gcc/${CHOST}/$(gcc-fullversion)/include/g++-v$(gcc-major-version )/bits/stl_pair.h:g" \
+		-e "s:/usr/include/g++-3/type_traits.h:/usr/lib/gcc/${CHOST}/$(gcc-fullversion)/include/g++-v$(gcc-major-version )/ext/type_traits.h:g" \
+		-e "s:/usr/include/g++-3/stl_config.h:/usr/lib/gcc/${CHOST}/$(gcc-fullversion)/include/g++-v$(gcc-major-version )/pstl/pstl_config.h:g" \
+		-e "s:/usr/include/g++-3/:/usr/lib/gcc/${CHOST}/$(gcc-fullversion)/include/g++-v$(gcc-major-version )/:g" \
+		-e "s:/usr/include/_G_config.h:/usr/include/stdio.h:g" \
+		-e "s:/usr/lib/gcc-lib/i386-redhat-linux/2.96/include/:/usr/include/linux/:g" \
+		Makefile || die
+
 }
 
 src_install(){
