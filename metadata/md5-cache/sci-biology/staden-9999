@@ -10,4 +10,4 @@ PROPERTIES=live
 RDEPEND=app-arch/xz-utils dev-lang/tk:0= dev-tcltk/tklib media-libs/libpng:0 sci-biology/samtools:0 >=sci-libs/io_lib-1.13.8 sys-libs/zlib >=dev-tcltk/iwidgets-4.0 tcl? ( >=dev-tcltk/itcl-3.2 ) tk? ( >=dev-tcltk/itk-3.2 ) net-misc/curl doc? ( sci-biology/staden_doc ) virtual/fortran
 SLOT=0
 _eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	estack	055c42df72f76a4f45ec92b35e83cd56	eutils	2d5b3f4b315094768576b6799e4f926e	flag-o-matic	09a8beb8e6a8e02dc1e1bd83ac353741	fortran-2	b4796813ccda91c9c0d3463fc90aa969	l10n	8cdd85e169b835d518bc2fd59f780d8e	multilib	d410501a125f99ffb560b0c523cd3d1e	subversion	ed3498da4fb92dcfb0d6089c85d1465f	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	wrapper	4251d4c84c25f59094fd557e0063a974
-_md5_=1f5662ab602275bfadec081ebd046b9b
+_md5_=898b05ee02a4e153f318dbc8e272fbcb
