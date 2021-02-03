@@ -5,7 +5,7 @@ EAPI=7
 
 inherit eutils cmake
 
-DESCRIPTION="Ultra fast and sensitive search and clustering suite"
+DESCRIPTION="Fast and sensitive sequence search and clustering"
 HOMEPAGE="https://github.com/soedinglab/MMseqs2"
 MY_PN="MMseqs2"
 
