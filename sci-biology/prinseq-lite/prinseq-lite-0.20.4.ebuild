@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="Describe, trim, reformat and convert to or form FASTA/FASTQ files"
 HOMEPAGE="http://prinseq.sourceforge.net/"
@@ -9,8 +9,7 @@ SRC_URI="https://sourceforge.net/projects/prinseq/files/standalone/${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 DEPEND=""
 RDEPEND="${DEPEND}
