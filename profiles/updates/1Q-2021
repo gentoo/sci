@@ -6,4 +6,4 @@ move sci-misc/elmer-front sci-misc/elmer-fem
 move sci-misc/elmer-meshgend2d sci-misc/elmer-fem
 move sci-misc/elmer-post sci-misc/elmer-fem
 move sci-misc/elmer-meta sci-misc/elmer-fem
-move sci-biology/fusion  sci-biology/fusion2
+move sci-biology/phusion  sci-biology/phusion2
