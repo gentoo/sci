@@ -1,9 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
+EAPI=7
 
 DESCRIPTION="Manipulate CAF files and convert to GAP4 format (not GAP5), ACE, PHRAP"
 HOMEPAGE="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC310697/"
@@ -14,15 +12,18 @@ SRC_URI="
 LICENSE="GRL"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="
 	sci-libs/io_lib
 	dev-lang/perl"
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/Makefile.in-"${PV}".patch
+)
+
 src_prepare(){
-	epatch "${FILESDIR}"/Makefile.in-"${PV}".patch
+	default
 	mv "${WORKDIR}"/caftools-2.0/man/*.{1,5} "${S}"/man/ || die
 }
 
