@@ -1,11 +1,11 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile unpack
-DEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DESCRIPTION=Parallell process SAM/BAM/CRAM files faster than samtools
-EAPI=6
-HOMEPAGE=http://lomereiter.github.io/sambamba
+EAPI=7
+HOMEPAGE=https://lomereiter.github.io/sambamba/
 IUSE=debug
 LICENSE=GPL-2+
 PROPERTIES=live
 SLOT=0
 _eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
-_md5_=73ef60b5f91b1bbfdea30846884ffe4a
+_md5_=29346c6142bec14150da9514e62271bd
