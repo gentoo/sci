@@ -9,6 +9,7 @@ SRC_URI="https://github.com/ncbi/sra-tools/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="public-domain"
 SLOT="0"
+# missing dep ngs-sdk
 KEYWORDS=""
 
 DEPEND="
@@ -19,6 +20,11 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/sra-tools-${PV}"
+
+src_configure() {
+	# this is some non-standard configure script
+	./configure || die
+}
 
 src_compile(){
 	emake OUTDIR="${WORKDIR}"/objdir out
