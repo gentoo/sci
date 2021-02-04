@@ -13,7 +13,7 @@ SRC_URI="https://www.wishartlab.com/download/${MY_PN}.zip -> ${P}.zip"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 RDEPEND=">=virtual/jre-1.7:*"
 DEPEND="${RDEPEND}"

@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-2 java-ant-2 multilib
 
@@ -13,13 +13,12 @@ SRC_URI="http://www.ysbl.york.ac.uk/mxstat/${MY_PN}/${MY_PN}.${PV}.tar.gz"
 
 LICENSE="ccp4"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 RDEPEND=">=virtual/jre-1.5"
 DEPEND=">=virtual/jdk-1.5"
 
-S="${WORKDIR}"/${MY_PN}.${PV}
+S="${WORKDIR}/${MY_PN}.${PV}"
 
 src_compile() {
 	sed 's:makefile::g' -i Makefile || die
@@ -27,7 +26,7 @@ src_compile() {
 }
 
 src_install() {
-	java-pkg_dojar ${PN}.jar
-	java-pkg_dolauncher ${PN} \
-		--jar ${PN}.jar
+	java-pkg_newjar JLigand.jar "${PN}.jar"
+	java-pkg_dolauncher JLigand \
+		--jar "${PN}.jar"
 }
