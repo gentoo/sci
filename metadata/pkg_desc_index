@@ -550,7 +550,7 @@ sci-physics/opticks 0.0.1_p20191110: GPU Optical Photon Simulation for Particle 
 sci-physics/opticks-okconf 0.0.1_p20191110: GPU Optical Photon Simulation for Particle Physics
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
-sci-physics/tauola 1.1.5 9999: Tau decay Monte Carlo generator
+sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
 sci-visualization/clip 0.7: command line chart creator
 sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFire
 sci-visualization/fsleyes 0.32.3 0.34.2: The new FSL image viewer, released with FSL 5.0.10

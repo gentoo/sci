@@ -5,5 +5,5 @@ HOMEPAGE=https://lomereiter.github.io/sambamba/
 IUSE=debug
 LICENSE=GPL-2+
 SLOT=0
-SRC_URI=https://github.com/lomereiter/sambamba/archive/v0.8.0.tar.gz -> sambamba-0.8.0.tar.gz https://github.com/lz4/lz4/archive/b3692db46d2b23a7c0af2d5e69988c94f126e10a.tar.gz
-_md5_=59b4777f6cbba364d37577359413c2b0
+SRC_URI=https://github.com/lomereiter/sambamba/archive/v0.8.0.tar.gz -> sambamba-0.8.0.tar.gz https://github.com/lz4/lz4/archive/b3692db46d2b23a7c0af2d5e69988c94f126e10a.tar.gz -> lz4-sambamba-0.8.0.tar.gz
+_md5_=8b30f6d4093a3d5a40d96ebd364d33e7

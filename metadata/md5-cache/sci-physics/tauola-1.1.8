@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install
+DEPEND=hepmc? ( sci-physics/hepmc ) tau-spinner? ( sci-physics/lhapdf ) doc? ( app-doc/doxygen[dot] app-text/ghostscript-gpl app-text/texlive )
+DESCRIPTION=Tau decay Monte Carlo generator
+EAPI=7
+HOMEPAGE=https://tauolapp.web.cern.ch/tauolapp/
+IUSE=doc examples hepmc tau-spinner
+KEYWORDS=~amd64 ~x86
+LICENSE=CPC GPL-2+
+RDEPEND=hepmc? ( sci-physics/hepmc ) tau-spinner? ( sci-physics/lhapdf )
+SLOT=0
+SRC_URI=https://tauolapp.web.cern.ch/tauolapp/resources/TAUOLA.1.1.8/TAUOLA.1.1.8.tar.gz
+_md5_=268e91a54c1199bfa14fd7ff2aea1b60
