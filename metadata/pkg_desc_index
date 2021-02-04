@@ -473,7 +473,7 @@ sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.8: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
-sci-libs/jhdf5 14.12.1: Java binding for HDF5 compatible with HDF5 1.6/1.8
+sci-libs/jhdf5 19.04.0: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genetic programs
