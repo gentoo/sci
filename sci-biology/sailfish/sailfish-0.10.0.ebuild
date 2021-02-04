@@ -8,7 +8,11 @@ inherit cmake multilib
 DESCRIPTION="Rapid Mapping-based Isoform Quantification from RNA-Seq Reads"
 HOMEPAGE="https://www.cs.cmu.edu/~ckingsf/software/sailfish/"
 SRC_URI="https://github.com/kingsfordgroup/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/COMBINE-lab/RapMap/archive/quasi-mph.zip"
+	https://github.com/COMBINE-lab/RapMap/archive/quasi-mph.zip
+	https://github.com/gmarcais/Jellyfish/releases/download/v2.2.5/jellyfish-2.2.5.tar.gz
+	https://github.com/COMBINE-lab/sparsehash/archive/sparsehash-2.0.2.tar.gz
+	https://github.com/Kingsford-Group/libgff/archive/v1.0.tar.gz
+"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -45,10 +49,15 @@ src_unpack() {
 	mkdir -p "${S}/external"
 	cp "${DISTDIR}/quasi-mph.zip" "${S}/external/rapmap.zip" || die
 	mv "${WORKDIR}/RapMap-quasi-mph" "${S}/external/RapMap" || die
+	mv "${WORKDIR}/jellyfish-2.2.5" "${S}/external/jellyfish-2.2.5" || die
+	mv "${WORKDIR}/sparsehash-sparsehash-2.0.2" "${S}/external/sparsehash-sparsehash-2.0.2" || die
+	mv "${WORKDIR}/libgff-1.0" "${S}/external/libgff" || die
 	mkdir -p "${S}/external/install/lib"
 	cp "${EPREFIX}/usr/$(get_libdir)/libdivsufsort.so" "${S}/external/install/lib/" || die
 	cp "${EPREFIX}/usr/$(get_libdir)/libdivsufsort64.so" "${S}/external/install/lib/" || die
 	cp "${EPREFIX}/usr/$(get_libdir)/libjellyfish-2.0.so" "${S}/external/install/lib/" || die
+	mkdir -p "${S}/external/install/src/rapmap"
+	cp "${S}/external/RapMap/src/"* "${S}/external/install/src/rapmap" || die
 }
 
 src_prepare() {
