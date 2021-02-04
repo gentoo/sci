@@ -391,13 +391,13 @@ sci-biology/snpomatic 9999: Stringent short-read aligner supporting filters and 
 sci-biology/spm 8 12 12_p6470 12_p7219: Analysis of brain imaging data sequences for Octave or Matlab
 sci-biology/sra_sdk 2.10.9: NCBI Sequence Read Archive (SRA) sratoolkit
 sci-biology/ssaha2-bin 2.5.5: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
-sci-biology/stacks 1.44: Analyze restriction enzyme data, draw gen. maps, population genomics
+sci-biology/stacks 2.55: Analyze restriction enzyme data, draw gen. maps, population genomics
 sci-biology/staden 2.0.0_beta11 9999: DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
 sci-biology/staden_doc 2.0.0_beta11: Documentation files for the staden package
 sci-biology/stringtie 1.3.4d: Transcriptome assembler and RNA-Seq analysis on BAM files aka cufflinks
 sci-biology/subread 2.0.1: NGS suite for analysis of mapped reads, summary of exon/intron/gene counts
 sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt flatfiles
-sci-biology/symap 4.0: Synteny Mapping and Analysis Program
+sci-biology/symap 5.0.6: Synteny Mapping and Analysis Program
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
 sci-biology/tclust 110625: Transitive closure clustering tool with overlap filtering options
 sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
@@ -446,7 +446,6 @@ sci-chemistry/relion 3.1.1: Image-processing software for cryo-electron microsco
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/ssp 09.11: Secondary structure propensities
 sci-chemistry/talosn 4.12.2015.147.15.40: Prediction of Protein bb and sc Torsion Angles from NMR Chemical Shifts
-sci-chemistry/unio 2.0.3-r1: Automated NMR Data Analysis
 sci-electronics/minipro 0.4: A free and open TL866XX programmer
 sci-libs/HDF5Plugin-Zstandard 0_pre20201121: ZSTD plugin for hdf5
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
@@ -457,7 +456,6 @@ sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
 sci-libs/arrayfire 3.7.2 3.7.3 3.8.0: general purpose GPU library
 sci-libs/asl 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
-sci-libs/blastdb 9999: The BLAST NR database
 sci-libs/blis-amd 2.2 9999: AMD optimized BLAS-like Library Instantiation Software Framework
 sci-libs/ccif 0.4.20120917: CCP4 ccif lib
 sci-libs/ciftilib 1.6.0: C++ Library for reading and writing CIFTI-2 and CIFTI-1 files
@@ -471,7 +469,7 @@ sci-libs/fdlibm 5.3.1: C math library supporting IEEE 754 floating-point arithme
 sci-libs/fgsl 1.3.0: A Fortran interface to the GNU Scientific Library
 sci-libs/fox 4.1.2-r2: A library designed to allow the easy use of XML from Fortran
 sci-libs/geom 5.1.2.7: A complete OpenCascade - OCAF based CAD framework
-sci-libs/htslib-plugins 201609: iRODs plugins for >=htslib-1.4
+sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.8: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit

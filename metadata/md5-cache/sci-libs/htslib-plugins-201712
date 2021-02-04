@@ -1,10 +1,10 @@
 DEFINED_PHASES=-
 DEPEND=>=sci-libs/iRODS-3
 DESCRIPTION=iRODs plugins for >=htslib-1.4
-EAPI=6
+EAPI=7
 HOMEPAGE=https://github.com/samtools/htslib-plugins
 LICENSE=MIT
 RDEPEND=>=sci-libs/iRODS-3
 SLOT=0
-SRC_URI=https://github.com/samtools/htslib-plugins/archive/201609.tar.gz -> htslib-plugins-201609.tar.gz
-_md5_=47bce9e80e3b33ea87965066fb950b83
+SRC_URI=https://github.com/samtools/htslib-plugins/archive/201712.tar.gz -> htslib-plugins-201712.tar.gz
+_md5_=e01a9b1e7b54808a52289ac2b65be491
