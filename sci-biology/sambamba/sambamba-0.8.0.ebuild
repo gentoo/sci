@@ -8,7 +8,7 @@ LZ4_COMMIT="b3692db46d2b23a7c0af2d5e69988c94f126e10a"
 DESCRIPTION="Parallell process SAM/BAM/CRAM files faster than samtools"
 HOMEPAGE="https://lomereiter.github.io/sambamba/"
 SRC_URI="https://github.com/lomereiter/sambamba/archive/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/lz4/lz4/archive/${LZ4_COMMIT}.tar.gz"
+	https://github.com/lz4/lz4/archive/${LZ4_COMMIT}.tar.gz -> lz4-${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
