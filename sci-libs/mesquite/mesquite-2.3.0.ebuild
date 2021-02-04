@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils
 
 DESCRIPTION="Mesh Quality Improvement Toolkit"
-HOMEPAGE="http://www.cs.sandia.gov/optimization/knupp/Mesquite.html"
+HOMEPAGE="https://trilinos.github.io/mesquite.html"
 SRC_URI="https://software.sandia.gov/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
