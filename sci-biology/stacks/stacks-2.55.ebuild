@@ -1,11 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-AUTOTOOLS_AUTORECONF=yes
-
-inherit flag-o-matic eutils perl-module webapp autotools
+inherit flag-o-matic perl-module webapp autotools
 
 DESCRIPTION="Analyze restriction enzyme data, draw gen. maps, population genomics"
 HOMEPAGE="http://creskolab.uoregon.edu/stacks"
@@ -14,7 +12,9 @@ SRC_URI="http://creskolab.uoregon.edu/stacks/source/${P}.tar.gz"
 LICENSE="GPL-3"
 # SLOT="0" # webapp ebuilds do not set SLOT
 KEYWORDS=""
-IUSE=""
+
+# No rule to make target test
+RESTRICT="test"
 
 DEPEND="
 	>=sci-libs/htslib-1.3.1:0
@@ -27,8 +27,12 @@ RDEPEND="${DEPEND}
 	>=dev-lang/php-5
 	dev-perl/DBD-mysql"
 
+PATCHES=(
+	"${FILESDIR}/${PN}-make-install.patch"
+)
+
 src_prepare(){
-	sed -e 's/SUBDIRS = htslib/SUBDIRS = /' -i Makefile.am || die
+	default
 	#mycppflags=`pkg-config --cflags htslib` # is blocked by bug #601366
 	if [ -z "$mycppflags" ]; then mycppflags="."; fi
 	sed -e "s#-I./htslib/htslib#-I/usr/include/bam -I${mycppflags}#" -i configure.ac || die
@@ -36,20 +40,15 @@ src_prepare(){
 }
 
 src_configure() {
-	econf --enable-bam --enable-sparsehash
+	econf
 	webapp_src_preinst
-	sed -i 's#/usr/lib/libbam.a#-lbam#;#./htslib/libhts.a#-lhts#' Makefile || die
-}
-
-src_compile(){
-	rm -rf htslib # zap bundled htslib-1.3.1
-	emake DESTDIR="${D}"
+	sed -e 's#/usr/lib/libbam.a#-lbam#;#./htslib/libhts.a#-lhts#' -i Makefile || die
 }
 
 src_install() {
-	emake install DESTDIR="${D}"
+	emake install DESTDIR="${ED}"
 	mydoc="Changes README TODO INSTALL"
-	perl-module_src_install DESTDIR="${D}"
+	perl-module_src_install DESTDIR="${ED}"
 	webapp_src_install || die "Failed running webapp_src_install"
 }
 

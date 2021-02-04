@@ -1,0 +1,83 @@
+diff --git a/Makefile.am b/Makefile.am
+index 7ff8a2b..e6e4682 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -104,19 +104,20 @@ debug:
+ 	$(MAKE) all "CXXFLAGS=-g -Wall -DDEBUG -Og"
+ 
+ install-data-hook:
+-	sed -e 's,_VERSION_,$(VERSION),' -e 's,_BINDIR_,$(bindir)/,g' -e 's,_PKGDATADIR_,$(pkgdatadir)/,g' $(DESTDIR)$(bindir)/denovo_map.pl > $(DESTDIR)$(bindir)/denovo_map.pl.subst
+-	mv $(DESTDIR)$(bindir)/denovo_map.pl.subst $(DESTDIR)$(bindir)/denovo_map.pl
+-	chmod +x $(DESTDIR)$(bindir)/denovo_map.pl
+-	sed -e 's,_VERSION_,$(VERSION),' -e 's,_BINDIR_,$(bindir)/,g' -e 's,_PKGDATADIR_,$(pkgdatadir)/,g' $(DESTDIR)$(bindir)/ref_map.pl > $(DESTDIR)$(bindir)/ref_map.pl.subst
+-	mv $(DESTDIR)$(bindir)/ref_map.pl.subst $(DESTDIR)$(bindir)/ref_map.pl
+-	chmod +x $(DESTDIR)$(bindir)/ref_map.pl
+-	sed -i.bkp -e 's,_VERSION_,$(VERSION),' $(DESTDIR)$(bindir)/stacks-integrate-alignments
+-	sed -i.bkp -e 's,_VERSION_,$(VERSION),' $(DESTDIR)$(bindir)/stacks-samtools-tview
+-	rm -f $(DESTDIR)$(bindir)/stacks-integrate-alignments.bkp
+-	rm -f $(DESTDIR)$(bindir)/stacks-samtools-tview.bkp
+-	chmod +x $(DESTDIR)$(bindir)/stacks-integrate-alignments
+-	chmod +x $(DESTDIR)$(bindir)/stacks-dist-extract
+-	chmod +x $(DESTDIR)$(bindir)/stacks-gdb
++	echo "Skipped"
++	##sed -e 's,_VERSION_,$(VERSION),' -e 's,_BINDIR_,$(bindir)/,g' -e 's,_PKGDATADIR_,$(pkgdatadir)/,g' $(DESTDIR)$(bindir)/denovo_map.pl > $(DESTDIR)$(bindir)/denovo_map.pl.subst
++	##mv $(DESTDIR)$(bindir)/denovo_map.pl.subst $(DESTDIR)$(bindir)/denovo_map.pl
++	##chmod +x $(DESTDIR)$(bindir)/denovo_map.pl
++	##sed -e 's,_VERSION_,$(VERSION),' -e 's,_BINDIR_,$(bindir)/,g' -e 's,_PKGDATADIR_,$(pkgdatadir)/,g' $(DESTDIR)$(bindir)/ref_map.pl > $(DESTDIR)$(bindir)/ref_map.pl.subst
++	##mv $(DESTDIR)$(bindir)/ref_map.pl.subst $(DESTDIR)$(bindir)/ref_map.pl
++	##chmod +x $(DESTDIR)$(bindir)/ref_map.pl
++	##sed -i.bkp -e 's,_VERSION_,$(VERSION),' $(DESTDIR)$(bindir)/stacks-integrate-alignments
++	##sed -i.bkp -e 's,_VERSION_,$(VERSION),' $(DESTDIR)$(bindir)/stacks-samtools-tview
++	##rm -f $(DESTDIR)$(bindir)/stacks-integrate-alignments.bkp
++	##rm -f $(DESTDIR)$(bindir)/stacks-samtools-tview.bkp
++	##chmod +x $(DESTDIR)$(bindir)/stacks-integrate-alignments
++	##chmod +x $(DESTDIR)$(bindir)/stacks-dist-extract
++	##chmod +x $(DESTDIR)$(bindir)/stacks-gdb
+ 	##sed -e 's,_VERSION_,$(VERSION),' -e 's,_BINDIR_,$(DESTDIR)$(bindir)/,g' -e 's,_PKGDATADIR_,$(pkgdatadir)/,g' $(DESTDIR)$(bindir)/denovo_map.py > $(DESTDIR)$(bindir)/denovo_map.py.subst
+ 	##mv $(DESTDIR)$(bindir)/denovo_map.py.subst $(DESTDIR)$(bindir)/denovo_map.py
+ 	##chmod +x $(DESTDIR)$(bindir)/denovo_map.py
+diff --git a/Makefile.in b/Makefile.in
+index ca1c64f..2c85268 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -819,10 +819,7 @@ install-binPROGRAMS: $(bin_PROGRAMS)
+ 	  END { for (d in files) print "f", d, files[d] }' | \
+ 	while read type dir files; do \
+ 	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
+-	    test -z "$$files" || { \
+-	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
+-	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
+-	    } \
++	    test -z "$$files" || { echo "Skipped" } \
+ 	; done
+ 
+ uninstall-binPROGRAMS:
+@@ -1006,10 +1003,7 @@ install-dist_binSCRIPTS: $(dist_bin_SCRIPTS)
+ 	  END { for (d in files) print "f", d, files[d] }' | \
+ 	while read type dir files; do \
+ 	     if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
+-	     test -z "$$files" || { \
+-	       echo " $(INSTALL_SCRIPT) $$files '$(DESTDIR)$(bindir)$$dir'"; \
+-	       $(INSTALL_SCRIPT) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
+-	     } \
++	     test -z "$$files" || { echo "Skipped" } \
+ 	; done
+ 
+ uninstall-dist_binSCRIPTS:
+@@ -1600,15 +1594,7 @@ install-am: all-am
+ 
+ installcheck: installcheck-recursive
+ install-strip:
+-	if test -z '$(STRIP)'; then \
+-	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
+-	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
+-	      install; \
+-	else \
+-	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
+-	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
+-	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
+-	fi
++	echo "Skipped"
+ mostlyclean-generic:
+ 	-test -z "$(TEST_LOGS)" || rm -f $(TEST_LOGS)
+ 	-test -z "$(TEST_LOGS:.log=.trs)" || rm -f $(TEST_LOGS:.log=.trs)
