@@ -18,7 +18,7 @@ IUSE="X"
 RDEPEND="X? ( x11-libs/libXpm )"
 DEPEND="${RDEPEND}
 	app-text/noweb
-	>=dev-lisp/sbcl-1.0.22
+	dev-lisp/ecls[cxx]
 "
 
 DOCS="MAINTAINERS TODO STYLES"
@@ -28,8 +28,8 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 src_configure() {
 	# There is an option to compile with other lisps. However:
 	# - gcl is getting obsolete and unmaintained and is hard masked
-	# - could not make it work with ecls
+	# - could not make it work with sbcl
 	econf \
-		--with-lisp=sbcl \
+		--with-lisp=ecl \
 		$(use_with X x)
 }
