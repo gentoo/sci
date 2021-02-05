@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,15 +8,15 @@ inherit flag-o-matic toolchain-funcs
 MY_PN="${PN%-db}"
 
 DESCRIPTION="System for chemical shifts based protein structure prediction using ROSETTA"
-HOMEPAGE="http://spin.niddk.nih.gov/bax/software/CSROSETTA/"
+HOMEPAGE="https://spin.niddk.nih.gov/bax/software/CSROSETTA/"
 SRC_URI="
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/PDBH.tar.Z -> ${P}-PDBH.tar.Z
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/PDBH.hyb.tar.gz ->  ${P}-PDBH.hyb.tar.gz
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/CS.tar.Z -> ${P}-CS.tar.Z
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/CS.hyb.tar.gz -> ${P}-CS.hyb.tar.gz
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/ANGLESS.tar.Z -> ${P}-ANGLESS.tar.Z
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/ANGLESS.hyb.tar.gz -> ${P}-ANGLESS.hyb.tar.gz
-	http://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/vall.dat.apr24.gz -> ${P}-vall.dat.apr24.gz"
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/PDBH.tar.Z -> ${P}-PDBH.tar.Z
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/PDBH.hyb.tar.gz ->  ${P}-PDBH.hyb.tar.gz
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/CS.tar.Z -> ${P}-CS.tar.Z
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/CS.hyb.tar.gz -> ${P}-CS.hyb.tar.gz
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/ANGLESS.tar.Z -> ${P}-ANGLESS.tar.Z
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/ANGLESS.hyb.tar.gz -> ${P}-ANGLESS.hyb.tar.gz
+	https://spin.niddk.nih.gov/bax/software/CSROSETTA/hybrid/vall.dat.apr24.gz -> ${P}-vall.dat.apr24.gz"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
