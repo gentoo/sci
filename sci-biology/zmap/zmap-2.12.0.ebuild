@@ -1,10 +1,10 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 DESCRIPTION="A desktop genome browser using GFF inputs"
-HOMEPAGE="http://www.sanger.ac.uk/science/tools/zmap"
+HOMEPAGE="https://www.sanger.ac.uk/science/tools/zmap"
 SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/zmap/production/zmap-${PV}.tar.gz
 	ftp://ftp.sanger.ac.uk/pub/resources/software/zmap/ZMap_User_Manual.pdf"
 
