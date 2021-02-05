@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,8 +6,8 @@ EAPI=5
 inherit java-pkg-opt-2
 
 DESCRIPTION="Prediction of Protein Structural Motifs from NMR Chemical Shifts"
-HOMEPAGE="http://spin.niddk.nih.gov/bax/software/MICS/"
-SRC_URI="http://spin.niddk.nih.gov/bax/software/MICS/mics.tar.Z -> ${P}.tgz"
+HOMEPAGE="https://spin.niddk.nih.gov/bax/software/MICS/"
+SRC_URI="https://spin.niddk.nih.gov/bax/software/MICS/mics.tar.Z -> ${P}.tgz"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
