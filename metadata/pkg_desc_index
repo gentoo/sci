@@ -331,6 +331,7 @@ sci-biology/ntCard 1.1.0 9999: Estimate k-mer coverage histogram of genomics dat
 sci-biology/nwalign3 0.1.2: Needleman-Wunsch global sequence alignment in python3
 sci-biology/nxtrim 9999: Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker
 sci-biology/oases 0.2.08 9999: De novo transcriptome assembler
+sci-biology/open-ephys-gui 0.5.2.2 9999 99999999: Processing, recording, and visualizing multichannel ephys data
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
 sci-biology/parafly 20130121: Some dependency for transdecoder
