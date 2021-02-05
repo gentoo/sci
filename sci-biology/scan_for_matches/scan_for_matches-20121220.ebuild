@@ -8,8 +8,8 @@ inherit eutils
 S="${WORKDIR}"/scan_for_matches
 
 DESCRIPTION="Pattern search through DNA sequences (aka patscan)"
-HOMEPAGE="http://blog.theseed.org/servers/2010/07/scan-for-matches.html"
-SRC_URI="http://www.theseed.org/servers/downloads/scan_for_matches.tgz -> ${P}.tgz"
+HOMEPAGE="https://blog.theseed.org/servers/2010/07/scan-for-matches.html"
+SRC_URI="https://www.theseed.org/servers/downloads/scan_for_matches.tgz -> ${P}.tgz"
 
 LICENSE="public-domain"
 SLOT="0"
