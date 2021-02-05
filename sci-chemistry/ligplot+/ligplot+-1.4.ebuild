@@ -6,7 +6,7 @@ EAPI=5
 inherit java-pkg-2
 
 DESCRIPTION="GUI-based version of LIGPLOT"
-HOMEPAGE="http://www.ebi.ac.uk/thornton-srv/software/LigPlus/"
+HOMEPAGE="https://www.ebi.ac.uk/thornton-srv/software/LigPlus/"
 SRC_URI="LigPlus.zip"
 
 SLOT="0"

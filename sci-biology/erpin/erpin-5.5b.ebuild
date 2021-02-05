@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -8,7 +8,7 @@ inherit toolchain-funcs
 ERPIN_BATCH_V=1.4
 
 DESCRIPTION="Easy RNA Profile IdentificatioN, an RNA motif search program"
-HOMEPAGE="http://tagc.univ-mrs.fr/erpin/"
+HOMEPAGE="http://rna.igmors.u-psud.fr"
 SRC_URI="
 	http://rna.igmors.u-psud.fr/download/Erpin/erpin${PV}.serv.tar.gz
 	http://rna.igmors.u-psud.fr/download/Erpin/ErpinBatch.${ERPIN_BATCH_V}.tar.gz"

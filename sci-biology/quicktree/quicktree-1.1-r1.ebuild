@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -6,7 +6,7 @@ EAPI=5
 inherit toolchain-funcs
 
 DESCRIPTION="Rapid reconstruction of phylogenies by the Neighbor-Joining method"
-HOMEPAGE="http://www.sanger.ac.uk/Software/analysis/quicktree/"
+HOMEPAGE="https://www.sanger.ac.uk/tool/quicktree/"
 SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/${PN}/${PN}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GRL"

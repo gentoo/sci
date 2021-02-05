@@ -6,7 +6,7 @@ EAPI=6
 inherit java-pkg-2
 
 DESCRIPTION="DNA contig sequence comparison tool supplementing Artemis"
-HOMEPAGE="http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act"
+HOMEPAGE="https://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act"
 SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/act/v17/v${PV}/sact-v${PV}.jar
 	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v17/v${PV}/act-v${PV}.jar
 	ftp://ftp.sanger.ac.uk/pub/resources/software/act/v13/act_manual_complete.pdf -> ${P}.manual.pdf

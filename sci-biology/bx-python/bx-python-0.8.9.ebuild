@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{7..9} )
 inherit distutils-r1
 
 DESCRIPTION="Library for rapid implementation of genome scale analyses"
-HOMEPAGE="https://bitbucket.org/james_taylor/bx-python/wiki/Home"
+HOMEPAGE="https://github.com/bxlab/bx-python"
 SRC_URI="https://github.com/bxlab/bx-python/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
