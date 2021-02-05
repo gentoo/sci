@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
 DESCRIPTION="Visualisation and analysis of processed NMR data"
-HOMEPAGE="http://www.onemoonscientific.com/nmrview/"
+HOMEPAGE="https://nmrfx.org/nmrfx/nmrviewj"
 SRC_URI="
 	${PN}${PV}.lib.tar.gz
 	${PN}${PV//./_}_01_linux.gz"
