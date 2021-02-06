@@ -28,7 +28,7 @@ PATCHES=( "${FILESDIR}"/${PN}-4.0.0-cmake.patch
 		  "${FILESDIR}"/${PN}-4.0.0-locate-commands.patch
 		  "${FILESDIR}"/${PN}-4.0.0-output-currentISA.patch )
 
-S="${WORKDIR}/${PN}-rocm-${PVR}"
+S="${WORKDIR}/${PN}-rocm-${PV}"
 CMAKE_USE_DIR="${WORKDIR}/Source"
 
 src_prepare() {
