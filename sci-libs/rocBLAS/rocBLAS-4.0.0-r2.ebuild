@@ -20,6 +20,7 @@ DEPEND="${RDEPEND}
 	dev-util/cmake
 	dev-util/rocm-cmake
 	>=dev-util/Tensile-4.0.0-r1
+	>=sys-devel/llvm-roc-4.0.0-r2
 	"
 
 # stripped library is not working
@@ -60,7 +61,6 @@ src_configure() {
 		-DTensile_TEST_LOCAL_PATH="${WORKDIR}/Tensile-rocm-${PV}"
 		-DBUILD_WITH_TENSILE=ON
 		-DBUILD_WITH_TENSILE_HOST=ON
-		-DCMAKE_CXX_FLAGS="--rocm-path=${EPREFIX}/usr"
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr"
 		-DCMAKE_INSTALL_INCLUDEDIR="include/rocblas"
 		-DBUILD_TESTING=OFF
