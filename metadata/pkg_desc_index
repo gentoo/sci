@@ -100,7 +100,7 @@ dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.8.6: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyerfa 1.7.1.1: Python bindings for ERFA
-dev-python/pynndescent 0.4.8 0.5.1: nearest neighbor descent for approximate nearest neighbors
+dev-python/pynndescent 0.4.8 0.5.1 0.5.2: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.8.0: Pytest plugin with advanced doctest features
@@ -124,7 +124,7 @@ dev-python/toposort 1.6: Implements a topological sort algorithm
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/trimesh 3.9.1: Python library for loading and using triangular meshes.
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
-dev-python/umap-learn 0.4.6 0.5.0: Uniform Manifold Approximation and Projection
+dev-python/umap-learn 0.4.6 0.5.0 0.5.1: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
 dev-python/xgboost 1.3.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1 1.1.0: Open compressed files transparently
