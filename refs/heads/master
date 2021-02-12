@@ -1,17 +1,13 @@
 certificate version 0.1
-pusher A19F636CD4EDBCD1 1613145422 +0100
-pushee git.gentoo.org:proj/sci.git
-nonce 1613145422-5214c757d96c861f737319bfe9118fefed683bb4
+pusher Sam James <sam@gentoo.org> 1613165454 +0000
+pushee git+ssh://git.gentoo.org/proj/sci.git
+nonce 1613165454-a1ce29bbecfe3a63fdd33d65f9a411eb480782a0
 
-edff00decbd829f1e1fc0f02a39d43440f5bdf76 990fd48f1fa182acb02b2a4922b06ab19ea7d01a refs/heads/master
+990fd48f1fa182acb02b2a4922b06ab19ea7d01a c136fc7e637924777738dd329548975e49f5e5e1 refs/heads/master
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCAAdFiEEBv9TQb2AXbC8fQemoZ9jbNTtvNEFAmAmpU4ACgkQoZ9jbNTt
-vNFzDAf7BW0gIqLYG0hVRt7RXeZkmLIkRH49J01C7UMPgm/BL8za2S6rs6/dCGkv
-XLTLJXnJvR8jGtIQXQNhY4fJ03lAy32x3lLGoFz0Ec32yWVF7pOEk5tPHVTUIcX4
-Uu9WtGSiy90ctPOCSYr6D15d16NAKkxf3zpriUtLurMMmgi5hwi1jVj2AR8ehI4w
-RXsJ94m6wFdZ2HWbkrGUE5tqs5uVNIdCpXyfnj6ME/T0QNBTrr2zBndwfhdBriqM
-m9whOd0ti/QuK7Oa8Htsobl5P4gtYb3qtzTsEolB318tWSbBq5CCzeX+dkdBNpDt
-uFiRlBgq/ifXoz+OED1PrO2IyHRwKA==
-=TjRg
+iIUEABYIAC0WIQSONjK3ErBA5VvN3hCxfj6E5hA8mwUCYCbzjg8cc2FtQGdlbnRv
+by5vcmcACgkQsX4+hOYQPJst8AD/VHVAXD5SPR+FLvxMXlmJYI8497gmNPlOaXVG
+ziCY6JUA/13vUxzxn7w1CCNyONS2+DRexTsJAzsAahNKMqVaiEMP
+=cS8J
 -----END PGP SIGNATURE-----
