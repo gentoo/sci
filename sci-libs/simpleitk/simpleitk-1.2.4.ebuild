@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6..9} )
+PYTHON_COMPAT=( python3_{7..9} )
 LUA_COMPAT=( lua5-{1..3} )
 
 inherit lua-single toolchain-funcs cmake python-single-r1
@@ -25,17 +25,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE="python"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+BDEPEND="dev-lang/swig"
 RDEPEND="
-	dev-lang/lua:0
+	${LUA_DEPS}
 	dev-cpp/gtest
 	sci-libs/itk
 	dev-python/virtualenv
 	python? ( ${PYTHON_DEPS} )
 "
-DEPEND="
-	${RDEPEND}
-	dev-lang/swig
-"
+DEPEND="${RDEPEND}"
 
 PATCHES=(
 	"${FILESDIR}/${P}-module.patch"
