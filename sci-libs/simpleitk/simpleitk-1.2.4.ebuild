@@ -25,17 +25,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE="python"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+BDEPEND="dev-lang/swig"
 RDEPEND="
-	dev-lang/lua:0
+	${LUA_DEPS}
 	dev-cpp/gtest
 	sci-libs/itk
 	dev-python/virtualenv
 	python? ( ${PYTHON_DEPS} )
 "
-DEPEND="
-	${RDEPEND}
-	dev-lang/swig
-"
+DEPEND="${RDEPEND}"
 
 PATCHES=(
 	"${FILESDIR}/${P}-module.patch"
