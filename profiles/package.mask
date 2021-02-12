@@ -29,3 +29,9 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Sam James <sam@gentoo.org> (2021-02-12)
+# These versions need Python 2.7
+# Unspecified whether at build time (okay for now) or runtime (not)
+=sci-biology/canu-9999
+=sci-biology/Sibelia-9999
