@@ -228,7 +228,7 @@ sci-biology/bru2nii 1.0.20180303: Converts Bruker ParaVision MRI data to the NIf
 sci-biology/bruker2nifti 1.0.4: Medical image converter, from raw Bruker ParaVision to NIfTI
 sci-biology/bx-python 0.8.9 9999: Library for rapid implementation of genome scale analyses
 sci-biology/caftools 2.0.2: Manipulate CAF files and convert to GAP4 format (not GAP5), ACE, PHRAP
-sci-biology/canu 9999: Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences
+sci-biology/canu 2.1.1: Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences
 sci-biology/cast-bin 20080813: Predict low-complexity regions in putative proteins
 sci-biology/cdbfasta 0.1: FASTA record indexing/retrievieng utility
 sci-biology/cg-cat 20150130: r2cat and treecat, scaffolding tools for ordering and orienting contigs
@@ -292,7 +292,7 @@ sci-biology/jtreeview-bin 1.2.0: Viewer for Microarray Data in PCL or CDT format
 sci-biology/karect 1.0.0: Error-correct mismatches and InDels of raw reads incl. paired-end
 sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
-sci-biology/kmergenie 1.6971: Estimate best k-mer length to be used in novo assemblies
+sci-biology/kmergenie 1.7048: Estimate best k-mer length to be used in novo assemblies
 sci-biology/kraken 1.1.1: Detect sequencing project contaminants by mapping reads to taxonomic groups
 sci-biology/last 1179: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.00: A pairwise DNA sequence aligner, a BLASTZ replacement
