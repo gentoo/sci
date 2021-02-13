@@ -162,7 +162,7 @@ sci-biology/BRANCH 9999: Extend partial transcripts with sequence from other rea
 sci-biology/BlastToSam 1.1: Convert NCBI BLAST+ Pairwise/XML (-outfmt 0 or 5) output to SAM v1.4
 sci-biology/CAT 1.3: Codon usage bias (composition) and its statistical significance
 sci-biology/FLASH 1.2.11: Paired-end mates merge from fragments
-sci-biology/Fastaq 9999: Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers
+sci-biology/Fastaq 3.17.0: Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers
 sci-biology/GAL 0.2.2_p20200508: Genome Annotation Library (incl. fasta_tool)
 sci-biology/IMAGE 2.4.1: Iterative Mapping and Assembly for Gap Elimination using paired-end Illumina
 sci-biology/InterMine 0.98: Biological data warehouse integrating complex data
