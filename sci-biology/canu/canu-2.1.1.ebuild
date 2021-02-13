@@ -63,7 +63,7 @@ src_install(){
 	insinto /usr
 	doins -r Linux-amd64/{bin,share}
 	insinto /usr/$(get_libdir)
-	dolib Linux-amd64/lib/libcanu.a
+	dolib.a Linux-amd64/lib/libcanu.a
 	rm Linux-amd64/lib/libcanu.a || die
 	perl_set_version
 	insinto ${VENDOR_LIB}
