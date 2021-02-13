@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python{2_7,3_7} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit toolchain-funcs python-single-r1
 
@@ -19,11 +19,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}"
 DEPEND="app-arch/unzip"
-
-PATCHES=(
-	"${FILESDIR}"/${PN}-${PV}-fix-build-system.patch
-	"${FILESDIR}"/${PN}-${PV}-portable-shebangs.patch
-)
 
 src_configure() {
 	tc-export CC CXX
