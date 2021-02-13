@@ -1,29 +1,28 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit eutils java-pkg-2 perl-module multilib git-r3
+PYTHON_COMPAT=( python3_{7,8,9} )
+
+inherit java-pkg-2 perl-module python-r1 multilib
 
 DESCRIPTION="Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences"
-HOMEPAGE="http://canu.readthedocs.io/en/latest"
-EGIT_REPO_URI="https://github.com/marbl/canu.git"
+HOMEPAGE="https://canu.readthedocs.io/en/latest"
+SRC_URI="https://github.com/marbl/canu/releases/download/v${PV}/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="
+RDEPEND="${PYTHON_DEPS}
 	>=virtual/jre-1.8:*
 	dev-lang/perl
 	virtual/perl-File-Path
 	sci-visualization/gnuplot
-	"
+"
 # =sci-biology/mhap-2.1.3 if we unbundle it
 DEPEND="${RDEPEND}
 	>=virtual/jdk-1.8:*
@@ -46,13 +45,8 @@ DEPEND="${RDEPEND}
 # Perl 5.12.0, or File::Path 2.08
 # Java SE 8
 # https://github.com/marbl/MHAP uses Apache maven
-S="${WORKDIR}"/"${P}"
 
 # contains bundled mhap-2.1.3.jar, kmer, pbutgcns, FALCON
-
-src_prepare(){
-	epatch "${FILESDIR}"/canu-1.8_respect_CXXFLAGS.patch
-}
 
 src_compile(){
 	cd src || die
