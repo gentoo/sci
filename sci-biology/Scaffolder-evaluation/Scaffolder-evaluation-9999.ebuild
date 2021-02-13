@@ -1,33 +1,38 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit git-r3
+PYTHON_COMPAT=( python3_{7,8,9} )
+
+inherit python-r1 perl-functions git-r3
 
 DESCRIPTION="Scripts to run genome assembly scaffolding tools and analyse output for accuracy"
 HOMEPAGE="https://github.com/martinghunt/Scaffolder-evaluation
-	http://genomebiology.com/2014/15/3/R42"
+	https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-3-r42"
 EGIT_REPO_URI="https://github.com/martinghunt/Scaffolder-evaluation.git"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
-DEPEND=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+DEPEND="${PYTHON_DPES}"
 RDEPEND="${DEPEND}
 	dev-lang/perl
-	dev-lang/python
 	dev-lang/R
 	media-gfx/graphviz
 	sci-biology/mummer
 	sci-biology/bowtie
 	sci-biology/samtools
 	sci-biology/ncbi-tools
-	sci-biology/Fastaq"
+	sci-biology/Fastaq[${PYTHON_USEDEP}]
+"
 
 src_install(){
-	dobin Analysis-scripts/* Wrapper-scripts/*
+	python_foreach_impl python_doscript Analysis-scripts/*.py
+	dobin Analysis-scripts/*.sh
+	perl_domodule Wrapper-scripts/*
 	dodoc README.md
 }
