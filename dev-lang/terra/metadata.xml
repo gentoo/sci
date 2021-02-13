@@ -8,4 +8,7 @@
 	<upstream>
 		<remote-id type="github">zdevito/terra</remote-id>
 	</upstream>
+	<use>
+		<flag name="cuda">Enable CUDA</flag>
+	</use>
 </pkgmetadata>
