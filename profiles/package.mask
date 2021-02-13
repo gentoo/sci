@@ -33,4 +33,9 @@
 # Sam James <sam@gentoo.org> (2021-02-12)
 # These versions need Python 2.7
 # Unspecified whether at build time (okay for now) or runtime (not)
+#
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (2021-02-13)
+# Checked the code, this is a **runtime** dependency. Upstream also
+# specifies this in their README file.
+# Removal in 14 days
 =sci-biology/Sibelia-9999
