@@ -3,9 +3,9 @@
 
 EAPI=7
 
-LUA_COMPAT=( lua5-{1..4} )
+LUA_COMPAT=( lua5-{1..3} )
 
-inherit autotools lua
+inherit autotools lua-single
 
 DESCRIPTION="A NeuroML-enabled, precise but slow neuronal network simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/cnrun"
