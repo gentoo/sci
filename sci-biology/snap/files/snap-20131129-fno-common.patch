@@ -1,0 +1,15 @@
+--- a/Zoe/zoeTools.h
++++ b/Zoe/zoeTools.h
+@@ -40,9 +40,9 @@ The MIT License (MIT) - opensource.org/licenses/MIT
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-const char * zoeFunction;
+-const char * zoeConstructor;
+-const char * zoeMethod;
++extern char * zoeFunction;
++extern char * zoeConstructor;
++extern char * zoeMethod;
+ 
+ void   zoeLibInfo (void);
+ void   zoeSetProgramName (const char*);
