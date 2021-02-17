@@ -2,9 +2,9 @@ name: duplicates
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ master ]
   pull_request:
-    branches: [ dev ]
+    branches: [ master ]
   schedule:
     - cron: '0 0 * * *'
 
