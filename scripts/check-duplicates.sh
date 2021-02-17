@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Maintainer: Andrew Ammerlaan <andrewammerlaan@riseup.net>
 #
-# This checks if packages in ::guru are also in ::gentoo
+# This checks if packages in ::science are also in ::gentoo
 #
 # Note that this is not going to be 100% accurate
 #
@@ -10,22 +10,22 @@
 printf "\nChecking for duplicates....\n"
 
 gentoo_location="/var/db/repos/gentoo"
-guru_location="."
+science_location="."
 
 gentoo_packs=$(find ${gentoo_location} -mindepth 2 -maxdepth 2 -printf "%P\n" | sort | grep -Ev "^(.git|.github|metadata|profiles|scripts)/")
-guru_packs=$(find ${guru_location} -mindepth 2 -maxdepth 2 -printf "%P\n" | sort | grep -Ev "^(.git|.github|metadata|profiles|scripts)/")
+science_packs=$(find ${science_location} -mindepth 2 -maxdepth 2 -printf "%P\n" | sort | grep -Ev "^(.git|.github|metadata|profiles|scripts)/")
 
 pack_overrides="" pack_close_match_in_cat="" pack_close_match=""
-for guru_pack in ${guru_packs}; do
+for science_pack in ${science_packs}; do
 	# separate category and packages
-	guru_pack_cat="${guru_pack%%/*}"
-	guru_pack_name="${guru_pack##*/}"
+	science_pack_cat="${science_pack%%/*}"
+	science_pack_name="${science_pack##*/}"
 
 	# convert all to lowercase
-	guru_pack_name="${guru_pack_name,,}"
+	science_pack_name="${science_pack_name,,}"
 
 	# stip all numbers, dashes, underscores and pluses
-	guru_pack_name="${guru_pack_name/[0-9-_+]}"
+	science_pack_name="${science_pack_name/[0-9-_+]}"
 
 	for gentoo_pack in ${gentoo_packs}; do
 		# separate category and packages
@@ -40,15 +40,15 @@ for guru_pack in ${guru_packs}; do
 
 		#TODO: check DESCRIPTION, HOMEPAGE and SRC_URI for close matches
 
-		if [[ "${gentoo_pack_name}" == "${guru_pack_name}" ]]; then
-			if [[ "${gentoo_pack_cat}" == "${guru_pack_cat}" ]]; then
-				if [[ "${gentoo_pack}" == "${guru_pack}" ]]; then
-					pack_overrides+="\t${guru_pack}::guru exact match of ${gentoo_pack}::gentoo\n"
+		if [[ "${gentoo_pack_name}" == "${science_pack_name}" ]]; then
+			if [[ "${gentoo_pack_cat}" == "${science_pack_cat}" ]]; then
+				if [[ "${gentoo_pack}" == "${science_pack}" ]]; then
+					pack_overrides+="\t${science_pack}::science exact match of ${gentoo_pack}::gentoo\n"
 				else
-					pack_close_match_in_cat+="\t${guru_pack}::guru possible duplicate of ${gentoo_pack}::gentoo\n"
+					pack_close_match_in_cat+="\t${science_pack}::science possible duplicate of ${gentoo_pack}::gentoo\n"
 				fi
 			else
-				pack_close_match+="\t${guru_pack}::guru possible duplicate of ${gentoo_pack}::gentoo\n"
+				pack_close_match+="\t${science_pack}::science possible duplicate of ${gentoo_pack}::gentoo\n"
 			fi
 		fi
 	done
