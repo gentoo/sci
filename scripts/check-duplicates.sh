@@ -73,5 +73,6 @@ if [[ -n ${PKG_EXACT_MATCH} ]]; then
 	printf "\nERROR: The following packages override packages in the main Gentoo repository:\n"
 	printf "${PKG_EXACT_MATCH}"
 	printf "Please remove these packages.\n"
-	exit 1
+	# do not fatally exit
+	# exit 1
 fi
