@@ -1,17 +1,24 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
+
+inherit flag-o-matic
 
 MY_P=RNAplex-${PV}
-
 DESCRIPTION="RNA-RNA interaction search"
 HOMEPAGE="http://www.bioinf.uni-leipzig.de/Software/RNAplex/"
 SRC_URI="http://www.bioinf.uni-leipzig.de/Software/RNAplex/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-S=${WORKDIR}/${MY_P}
+S="${WORKDIR}/${MY_P}"
+
+PATCHES=( "${FILESDIR}"/${P}-inline.patch )
+
+src_configure() {
+	append-cflags -fcommon
+	default
+}
