@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit flag-o-matic
+
 MY_P="GRAPPA20"
 
 DESCRIPTION="Genome Rearrangements Analysis under Parsimony and other Phylogenetic Algorithms"
@@ -15,9 +17,16 @@ KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}/${MY_P}"
 
+PATCHES=( "${FILESDIR}"/${P}-inline.patch )
+
 src_prepare() {
 	default
 	sed -i -e '/CFLAGS := -mcpu/ d' -e 's/\(CFLAGS := -D${OS}\)/\1 ${CFLAGS}/' "${S}/Makefile" || die
+}
+
+src_configure() {
+	append-cflags -fcommon
+	default
 }
 
 src_install() {
