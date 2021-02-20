@@ -1,0 +1,55 @@
+--- a/erpin5.5b.serv/include/rnaIV.h
++++ b/erpin5.5b.serv/include/rnaIV.h
+@@ -178,10 +178,10 @@ typedef struct {
+   double  *vals;
+   } Histo;
+ 
+-Histo  MainMaskEvals;             /* histogramme des E-values des detections */
++extern Histo  MainMaskEvals;             /* histogramme des E-values des detections */
+                                                       /* du masque principal */
+-Histo  MainMaskDetects;    /* histogramme des detections du masque principal */
+-Map    MainMaskMap;       /* pour l'etalonnage de l'axe de 'MainMaskDetects' */
++extern Histo  MainMaskDetects;    /* histogramme des detections du masque principal */
++extern Map    MainMaskMap;       /* pour l'etalonnage de l'axe de 'MainMaskDetects' */
+ 
+ /*
+ -------------------------------------------------------------------------------
+--- a/erpin5.5b.serv/libsrc/dhisto.c
++++ b/erpin5.5b.serv/libsrc/dhisto.c
+@@ -36,6 +36,9 @@ void   AddToDetectsHisto(double x);
+ void   PrintHisto(Histo hist, char *filename);
+ Histo  ReadHisto(char *filename);
+ void   PrintScoresHisto(Context *ctxt);
++Histo MainMaskDetects;
++Histo MainMaskEvals;
++Map   MainMaskMap;
+ 
+ /*=============================================================================
+  InitDetectsHisto(): Initialise l'histogramme des detections gerees par 'ctxt'.
+@@ -44,9 +47,6 @@ void   PrintScoresHisto(Context *ctxt);
+ 
+ void InitDetectsHisto(Context *ctxt)
+ {
+-  extern Histo MainMaskDetects;
+-  extern Histo MainMaskEvals;
+-  extern Map   MainMaskMap;
+   
+   MainMaskDetects = SetupHist(ctxt->mask->threshold, MainMaskEvals.hmax,
+                               DELTA_H, 0);
+@@ -63,8 +63,6 @@ void InitDetectsHisto(Context *ctxt)
+ 
+ void AddToDetectsHisto(double x)
+ {
+-  extern Histo MainMaskDetects;
+-  extern Map   MainMaskMap;
+   int index;
+ 
+   if (x > MainMaskDetects.hmin && x < MainMaskDetects.hmax)
+@@ -132,7 +130,6 @@ Histo ReadHisto(char *filename)
+ 
+ void PrintScoresHisto(Context *ctxt)
+ {
+-  extern Histo MainMaskDetects;
+ 
+   if (ctxt->hist == ON)
+   {
