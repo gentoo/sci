@@ -1,0 +1,31 @@
+--- a/src/nuc_code.c
++++ b/src/nuc_code.c
+@@ -29,6 +29,9 @@
+ #include <stdlib.h>
+ #include "nuc_code.h"
+ 
++unsigned int rev_nuc_code[5];
++unsigned int nuc_code[256];
++
+ 
+ /** \fn void init_nuc_code()
+  \brief Initializes nucleotide conversion arrays. 
+--- a/src/nuc_code.h
++++ b/src/nuc_code.h
+@@ -32,14 +32,14 @@
+  *
+  *
+  */
+-unsigned int nuc_code[256];
++extern unsigned int nuc_code[256];
+ 
+ /**
+  * @brief Converts 0-5 nucleotides into printable ASCII to.
+  *
+  *
+  */
+-unsigned int rev_nuc_code[5];
++extern unsigned int rev_nuc_code[5];
+ 
+ void init_nuc_code(void);
+ 
