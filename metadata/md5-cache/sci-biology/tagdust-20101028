@@ -1,9 +1,9 @@
 DEFINED_PHASES=install prepare
 DESCRIPTION=Trim multimers of various primers/adapter from Illumina datasets
-EAPI=5
+EAPI=7
 HOMEPAGE=http://genome.gsc.riken.jp/osc/english/dataresource
 KEYWORDS=~amd64
 LICENSE=GPL-3
 SLOT=0
 SRC_URI=http://genome.gsc.riken.jp/osc/english/software/src/tagdust.tgz -> tagdust-20101028.tgz
-_md5_=c0f5cc028191fcd5a23c2c7a8ad93c44
+_md5_=c6c074b8200e6af46e5969f742761231

@@ -1,11 +1,12 @@
 DEFINED_PHASES=compile install prepare
 DEPEND=!sys-cluster/maui
 DESCRIPTION=Easy RNA Profile IdentificatioN, an RNA motif search program
-EAPI=5
+EAPI=7
 HOMEPAGE=http://rna.igmors.u-psud.fr
 KEYWORDS=~amd64 ~x86
 LICENSE=all-rights-reserved
+RDEPEND=!sys-cluster/maui
 SLOT=0
 SRC_URI=http://rna.igmors.u-psud.fr/download/Erpin/erpin5.5b.serv.tar.gz http://rna.igmors.u-psud.fr/download/Erpin/ErpinBatch.1.4.tar.gz
 _eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=bdfb72960974553e3e304554b3da48b3
+_md5_=0568686bace798af487a03d5143710b5
