@@ -5,14 +5,7 @@ EAPI=7
 
 DESCRIPTION="NGS suite for analysis of mapped reads, summary of exon/intron/gene counts"
 HOMEPAGE="http://bioinf.wehi.edu.au/featureCounts/" # no https
-if [ "$PV" == "9999" ]; then
-	inherit subversion
-	ESVN_REPO_URI="https://subread.svn.sourceforge.net/svnroot/subread/trunk"
-	KEYWORDS=""
-else
-	SRC_URI="https://sourceforge.net/projects/subread/files/${P}/${P}-source.tar.gz"
-	KEYWORDS=""
-fi
+SRC_URI="https://sourceforge.net/projects/subread/files/${P}/${P}-source.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -20,7 +13,9 @@ SLOT="0"
 DEPEND="sys-libs/zlib"
 RDEPEND="${DEPEND}"
 
-S="${S}"-source
+S="${S}-source"
+
+PATCHES=( "${FILESDIR}"/${P}-fno-common.patch )
 
 src_prepare(){
 	default
