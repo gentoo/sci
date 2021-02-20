@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit toolchain-funcs
 
@@ -15,17 +15,19 @@ SRC_URI="
 
 LICENSE="all-rights-reserved"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="!sys-cluster/maui" # file collision
-RDEPEND=""
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
 
+PATCHES=( "${FILESDIR}"/${P}-fno-common.patch )
+
 src_prepare() {
-	rm -f erpin${PV}.serv/{bin,lib}/* || die
-	rm -f ErpinBatch.${ERPIN_BATCH_V}/erpin* || die
+	default
+	rm erpin${PV}.serv/{bin,lib}/* || die
+	rm ErpinBatch.${ERPIN_BATCH_V}/erpin* || die
 	find -name '*.mk' | xargs sed -i \
 		-e 's/strip $@/echo skipping strip $@/' \
 		-e '/CFLAGS =/ d' \
@@ -44,6 +46,6 @@ src_install() {
 	insinto /usr/share/${PN}
 	doins -r erpin${PV}.serv/scripts ErpinBatch.${ERPIN_BATCH_V}
 	exeinto /usr/share/${PN}
-	newexe "${FILESDIR}/erpincommand-${PV}.pl" erpincommand
+	newexe "${FILESDIR}"/erpincommand-${PV}.pl erpincommand
 	dodoc erpin${PV}.serv/doc/doc*.pdf
 }

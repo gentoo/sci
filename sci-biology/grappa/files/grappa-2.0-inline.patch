@@ -1,0 +1,18 @@
+--- a/greedy_median.c
++++ b/greedy_median.c
+@@ -7,7 +7,6 @@
+    chosen, including the original */
+ 
+ /* i->succ1[i] is the chosen adjacency */
+-INLINE int
+ finish1 ( int i, int *count, int *degree, int *succ1, int *succ2,
+           int *pred1, int *pred2, int *tour, int *otherEnd, int num_genes )
+ {
+@@ -82,7 +81,6 @@ finish1 ( int i, int *count, int *degree, int *succ1, int *succ2,
+ 
+ 
+ /* i->succ2[i] is the chosen adjacency */
+-INLINE int
+ finish2 ( int i, int *count, int *degree, int *succ1, int *succ2,
+           int *pred1, int *pred2, int *tour, int *otherEnd, int num_genes )
+ {
