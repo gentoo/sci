@@ -1,0 +1,651 @@
+diff -Naur fsl.orig/src/fslio/imln fsl/src/fslio/imln
+--- fsl.orig/src/fslio/imln	2021-02-01 15:29:34.842752994 -0500
++++ fsl/src/fslio/imln	1969-12-31 19:00:00.000000000 -0500
+@@ -1,90 +0,0 @@
+-#!/bin/sh
+-
+-#   imln - make symbolic link(s) to image file(s)
+-#
+-#   Stephen Smith and Mark Jenkinson, FMRIB Image Analysis Group
+-#
+-#   Copyright (C) 1999-2004 University of Oxford
+-#
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-export LC_ALL=C
+-
+-if [ $# -lt 2 ] ; then
+-  echo "Usage: $0 <file1> <file2>"
+-  echo "  Makes a link (called file2) to file1"
+-  echo "  NB: filenames can be basenames or include an extension"
+-  exit 1;
+-fi
+-
+-f1=`${FSLDIR}/bin/remove_ext $1`;
+-f2=`${FSLDIR}/bin/remove_ext $2`;
+-
+-if [ -f ${f1}.hdr ] ; then ln -fs ${f1}.hdr ${f2}.hdr ; fi
+-if [ -f ${f1}.hdr.gz ] ; then ln -fs ${f1}.hdr.gz ${f2}.hdr.gz ; fi 
+-if [ -f ${f1}.img ] ; then ln -fs ${f1}.img ${f2}.img ; fi 
+-if [ -f ${f1}.img.gz ] ; then ln -fs ${f1}.img.gz ${f2}.img.gz ; fi 
+-if [ -f ${f1}.nii ] ; then ln -fs ${f1}.nii ${f2}.nii ; fi 
+-if [ -f ${f1}.nii.gz ] ; then ln -fs ${f1}.nii.gz ${f2}.nii.gz ; fi 
+-if [ -f ${f1}.mnc ] ; then ln -fs ${f1}.mnc ${f2}.mnc ; fi 
+-if [ -f ${f1}.mnc.gz ] ; then ln -fs ${f1}.mnc.gz ${f2}.mnc.gz ; fi 
+-
+diff -Naur fsl.orig/src/fslio/imrm fsl/src/fslio/imrm
+--- fsl.orig/src/fslio/imrm	2021-02-01 15:29:34.842752994 -0500
++++ fsl/src/fslio/imrm	1969-12-31 19:00:00.000000000 -0500
+@@ -1,83 +0,0 @@
+-#!/bin/sh
+-
+-#   imrm - remove image files
+-#
+-#   Stephen Smith and Mark Jenkinson, FMRIB Image Analysis Group
+-#
+-#   Copyright (C) 1999-2004 University of Oxford
+-#
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-export LC_ALL=C
+-
+-if [ $# -lt 1 ] ; then
+-  echo "Usage: $0 <list of image names to remove>"
+-  echo "NB: filenames can be basenames or not"
+-  exit 1;
+-fi
+-
+-for f in $@ ; do
+-  fn=`${FSLDIR}/bin/remove_ext $f`;
+-  # do the rm silently
+-  /bin/rm -f ${fn}.img ${fn}.hdr ${fn}.hdr.gz ${fn}.img.gz ${fn}.nii ${fn}.nii.gz ${fn}.mnc ${fn}.mnc.gz
+-done
+-
+diff -Naur fsl.orig/src/fslio/imtest fsl/src/fslio/imtest
+--- fsl.orig/src/fslio/imtest	2021-02-01 15:29:34.842752994 -0500
++++ fsl/src/fslio/imtest	1969-12-31 19:00:00.000000000 -0500
+@@ -1,118 +0,0 @@
+-#!/bin/sh
+-
+-#   imtest - test to see if a valid image file exists with this name (root)
+-#
+-#   Stephen Smith and Mark Jenkinson, FMRIB Image Analysis Group
+-#
+-#   Copyright (C) 1999-2004 University of Oxford
+-#
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-export LC_ALL=C
+-
+-# return 0 if no image exists or 1 if the image exists
+-
+-if [ $# -lt 1 ] ; then
+- echo "0";
+- exit;
+-fi
+-
+-inputfile=$1
+-
+-
+-
+-for i in 1 2 3 4 5 6 7 8 9 10 11 12
+-do
+-if [ -h $inputfile ] ; then 
+-inputfile=`readlink $inputfile`;
+-fi
+-done
+-
+-filename=`${FSLDIR}/bin/remove_ext $inputfile`;
+-
+-if [ -r ${filename}.nii ] || [ -r ${filename}.nii.gz ] ; then
+-  echo "1";
+-  exit;
+-fi
+-
+-if [ -r ${filename}.mnc ] || [ -r ${filename}.mnc.gz ] ; then
+-  echo "1";
+-  exit;
+-fi
+-
+-if [ ! -r ${filename}.hdr ] && [ ! -r ${filename}.hdr.gz ] ; then
+-  # return 0 here as no header exists and no single image means no image!
+-  echo "0";
+-  exit;
+-fi
+-
+-if [ ! -r ${filename}.img ] && [ ! -r ${filename}.img.gz ] ; then
+-  # return 0 here as no img file exists and no single image means no image!
+-  echo "0";
+-  exit;
+-fi
+-
+-# only gets to here if there was a hdr and an img file
+-
+-echo "1";
+-exit;
+-
+diff -Naur fsl.orig/src/fslio/Makefile fsl/src/fslio/Makefile
+--- fsl.orig/src/fslio/Makefile	2021-02-01 15:29:34.842752994 -0500
++++ fsl/src/fslio/Makefile	2021-02-01 15:32:19.723761859 -0500
+@@ -6,7 +6,7 @@
+ 
+ OBJS=fslio.o
+ 
+-SCRIPTS = remove_ext fsloutputtype imtest imglob imcp imln imrm immv
++SCRIPTS = fsloutputtype imglob imcp immv
+ 
+ all: 
+ 
+diff -Naur fsl.orig/src/fslio/remove_ext fsl/src/fslio/remove_ext
+--- fsl.orig/src/fslio/remove_ext	2021-02-01 15:29:34.842752994 -0500
++++ fsl/src/fslio/remove_ext	1969-12-31 19:00:00.000000000 -0500
+@@ -1,87 +0,0 @@
+-#!/bin/sh
+-
+-#   remove_ext - remove extension from image filename
+-#
+-#   Stephen Smith and Mark Jenkinson, FMRIB Image Analysis Group
+-#
+-#   Copyright (C) 1999-2004 University of Oxford
+-#
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-export LC_ALL=C
+-
+-
+-if [ $# -lt 1 ] ; then
+-  exit 1
+-fi
+-
+-lst="";
+-for fn in $@ ; do
+-    # for the ones at the end of the line
+-  f=`echo "$fn" | sed 's/\.hdr\.gz$//' | sed 's/\.img\.gz$//' | sed 's/\.hdr$//' | sed 's/\.img$//' | sed 's/\.nii.gz$//' | sed 's/\.nii$//' | sed 's/\.mnc.gz$//' | sed 's/\.mnc$//' | sed 's/\.$//'`;
+-    # for the ones in the middle of the line
+-  f=`echo "$f" | sed 's/\.hdr\.gz[ 	]/ /g' | sed 's/\.img\.gz[ 	]/ /g' | sed 's/\.hdr[ 	]/ /g' | sed 's/\.img[ 	]/ /g' | sed 's/\.nii\.gz[ 	]/ /g' | sed 's/\.nii[ 	]/ /g' | sed 's/\.mnc\.gz[ 	]/ /g' | sed 's/\.mnc[ 	]/ /g' |sed 's/\.[ 	]/ /g'`;
+-  lst="$lst $f";
+-done
+-echo $lst;
+-
+-
+diff -Naur fsl.orig/src/misc_scripts/fsl_abspath fsl/src/misc_scripts/fsl_abspath
+--- fsl.orig/src/misc_scripts/fsl_abspath	2021-02-01 15:29:34.828752994 -0500
++++ fsl/src/misc_scripts/fsl_abspath	1969-12-31 19:00:00.000000000 -0500
+@@ -1,71 +0,0 @@
+-#!/usr/bin/env fslpython
+-#   fsl_abspath - return true file path
+-#   Matthew Webster FMRIB Image Analysis Group
+-#   Copyright (C) 2009 University of Oxford 
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-from __future__ import print_function
+-import sys
+-import os
+-
+-print (os.path.realpath(sys.argv[1]))
+-sys.exit(0)
+diff -Naur fsl.orig/src/misc_scripts/Makefile fsl/src/misc_scripts/Makefile
+--- fsl.orig/src/misc_scripts/Makefile	2021-02-01 15:29:34.828752994 -0500
++++ fsl/src/misc_scripts/Makefile	2021-02-01 15:32:56.027763811 -0500
+@@ -2,6 +2,6 @@
+ 
+ PROJNAME = misc_scripts
+ 
+-SCRIPTS = fslecho regscript remove_vols replace_and_average_fmrib linkbedpost ocmr_preproc correct_and_average eddy_correct Text2Vest Vest2Text AnatomicalAverage fsl_abspath fsl_anat fslFixText
++SCRIPTS = fslecho regscript remove_vols replace_and_average_fmrib linkbedpost ocmr_preproc correct_and_average eddy_correct AnatomicalAverage fsl_anat fslFixText
+ 
+ all:
+diff -Naur fsl.orig/src/misc_scripts/Text2Vest fsl/src/misc_scripts/Text2Vest
+--- fsl.orig/src/misc_scripts/Text2Vest	2021-02-01 15:29:34.828752994 -0500
++++ fsl/src/misc_scripts/Text2Vest	1969-12-31 19:00:00.000000000 -0500
+@@ -1,80 +0,0 @@
+-#!/bin/sh
+-#   Copyright (C) 2012 University of Oxford
+-#
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-export LC_ALL=C
+-if [ $# -lt 2 ] ; then 
+-  echo "`basename $0` <text file> <vest file>"
+-  exit 0
+-fi
+-
+-NumPoints=`grep -cve '^\s*$' $1`
+-NumWaves=`wc $1 | awk '{ print $2 }'`
+-NumWaves=`expr $NumWaves / $NumPoints`
+-
+-echo /NumWaves $NumWaves    > $2
+-echo /NumPoints $NumPoints >> $2
+-echo /Matrix               >> $2
+-
+-cat $1 >> $2
+-
+diff -Naur fsl.orig/src/misc_scripts/Vest2Text fsl/src/misc_scripts/Vest2Text
+--- fsl.orig/src/misc_scripts/Vest2Text	2021-02-01 15:29:34.828752994 -0500
++++ fsl/src/misc_scripts/Vest2Text	1969-12-31 19:00:00.000000000 -0500
+@@ -1,71 +0,0 @@
+-#!/bin/sh
+-#   Copyright (C) 2012 University of Oxford
+-#
+-#   Part of FSL - FMRIB's Software Library
+-#   http://www.fmrib.ox.ac.uk/fsl
+-#   fsl@fmrib.ox.ac.uk
+-#
+-#   Developed at FMRIB (Oxford Centre for Functional Magnetic Resonance
+-#   Imaging of the Brain), Department of Clinical Neurology, Oxford
+-#   University, Oxford, UK
+-#
+-#
+-#   LICENCE
+-#
+-#   FMRIB Software Library, Release 6.0 (c) 2018, The University of
+-#   Oxford (the "Software")
+-#
+-#   The Software remains the property of the Oxford University Innovation
+-#   ("the University").
+-#
+-#   The Software is distributed "AS IS" under this Licence solely for
+-#   non-commercial use in the hope that it will be useful, but in order
+-#   that the University as a charitable foundation protects its assets for
+-#   the benefit of its educational and research purposes, the University
+-#   makes clear that no condition is made or to be implied, nor is any
+-#   warranty given or to be implied, as to the accuracy of the Software,
+-#   or that it will be suitable for any particular purpose or for use
+-#   under any specific conditions. Furthermore, the University disclaims
+-#   all responsibility for the use which is made of the Software. It
+-#   further disclaims any liability for the outcomes arising from using
+-#   the Software.
+-#
+-#   The Licensee agrees to indemnify the University and hold the
+-#   University harmless from and against any and all claims, damages and
+-#   liabilities asserted by third parties (including claims for
+-#   negligence) which arise directly or indirectly from the use of the
+-#   Software or the sale of any products based on the Software.
+-#
+-#   No part of the Software may be reproduced, modified, transmitted or
+-#   transferred in any form or by any means, electronic or mechanical,
+-#   without the express permission of the University. The permission of
+-#   the University is not required if the said reproduction, modification,
+-#   transmission or transference is done without financial return, the
+-#   conditions of this Licence are imposed upon the receiver of the
+-#   product, and all original and amended source code is included in any
+-#   transmitted product. You may be held legally responsible for any
+-#   copyright infringement that is caused or encouraged by your failure to
+-#   abide by these terms and conditions.
+-#
+-#   You are not permitted under this Licence to use this Software
+-#   commercially. Use for which any financial return is received shall be
+-#   defined as commercial use, and includes (1) integration of all or part
+-#   of the source code or the Software into a product for sale or license
+-#   by or on behalf of Licensee to third parties or (2) use of the
+-#   Software or any derivative of it for research with the final aim of
+-#   developing software products for sale or license to a third party or
+-#   (3) use of the Software or any derivative of it for research with the
+-#   final aim of developing non-software products for sale or license to a
+-#   third party, or (4) use of the Software to provide any service to an
+-#   external organisation for which payment is received. If you are
+-#   interested in using the Software commercially, please contact Oxford
+-#   University Innovation ("OUI"), the technology transfer company of the
+-#   University, to negotiate a licence. Contact details are:
+-#   fsl@innovation.ox.ac.uk quoting Reference Project 9564, FSL.
+-export LC_ALL=C
+-if [ $# -lt 2 ] ; then 
+-  echo "`basename $0` <vest file> <text file>"
+-  exit 0
+-fi
+-sed -e "/\//d" $1 | sed '/^$/d' > $2
+-

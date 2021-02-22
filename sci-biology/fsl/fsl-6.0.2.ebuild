@@ -16,7 +16,8 @@ IUSE=""
 
 DEPEND="
 	dev-libs/boost
-	dev-python/fslpy
+	<dev-python/fslpy-3
+	!>=dev-python/fslpy-3
 	media-gfx/graphviz
 	media-libs/gd
 	media-libs/glu
