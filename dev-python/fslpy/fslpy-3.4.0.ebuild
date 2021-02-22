@@ -14,8 +14,7 @@ SRC_URI="https://github.com/pauldmccarthy/${PN}/archive/${PV}.tar.gz -> ${P}.tar
 
 LICENSE="BSD"
 SLOT="0"
-# Fails with file collisions with =sci-biology/fsl-6.0.2-r1
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-python/h5py[${PYTHON_USEDEP}]
@@ -30,7 +29,10 @@ RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 "
 
-PATCHES=( "${FILESDIR}/fslpy-2.7.0-coverage.patch" )
+PATCHES=( 
+	"${FILESDIR}/fslpy-2.7.0-coverage.patch" 
+	"${FILESDIR}/fslpy-3-remove_dataclasses_req.patch"
+)
 
 distutils_enable_tests pytest
 
