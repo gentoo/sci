@@ -4,6 +4,7 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
+DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1 optfeature
 
@@ -30,9 +31,9 @@ BDEPEND="
 	)
 "
 
-distutils_enable_sphinx docs \
-	dev-python/recommonmark \
-	dev-python/sphinx-argparse
+#distutils_enable_sphinx docs \
+#	dev-python/recommonmark \
+#	dev-python/sphinx-argparse
 # dev-python/sphinx-markdown-tables
 
 python_prepare_all() {
