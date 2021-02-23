@@ -15,8 +15,6 @@ SRC_URI="https://github.com/saulpw/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
-RESTRICT="!test? ( test )"
 
 RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]"
 BDEPEND="
@@ -36,6 +34,8 @@ BDEPEND="
 #	dev-python/sphinx-argparse
 # dev-python/sphinx-markdown-tables
 
+distutils_enable_tests pytest
+
 python_prepare_all() {
 	rm tests/load-http.vd || die "Could not remove network-dependent test."
 	rm tests/graph-cursor-nosave.vd || die "Could not remove network-dependent test."
@@ -53,6 +53,7 @@ python_prepare_all() {
 python_test() {
 	git init || die "Git init failed."
 	git add tests/golden/ || die "Git add failed."
+	# this test script eventually calls pytest under the hood
 	dev/test.sh || die "Tests failed."
 	rm .git -rf || die "Could not clean up git test directory."
 }
