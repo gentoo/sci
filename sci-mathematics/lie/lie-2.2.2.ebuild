@@ -1,15 +1,14 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="A Computer algebra package for Lie group computations"
 HOMEPAGE="http://www-math.univ-poitiers.fr/~maavl/LiE/" # no https, invalid certificate
 SRC_URI="http://wwwmathlabo.univ-poitiers.fr/~maavl/LiE/conLiE.tar.gz -> ${P}.tar.gz"
-#### Remove the following line when moving this ebuild to the main tree!
-RESTRICT="mirror"
+S="${WORKDIR}/LiE"
 
 LICENSE="LGPL-2.1"
 ##### See http://packages.debian.org/changelogs/pool/main/l/lie/lie_2.2.2+dfsg-1/lie.copyright
@@ -17,20 +16,16 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-DEPEND="
+RDEPEND="
+	sys-libs/readline:=
+	sys-libs/ncurses:=
+"
+DEPEND="${RDEPEND}"
+BDEPEND="${RDEPEND}
 	sys-devel/bison
-	sys-libs/readline:0=
-	sys-libs/ncurses:0="
-RDEPEND="sys-libs/readline:=
-	sys-libs/ncurses"
+"
 
-S="${WORKDIR}/LiE"
-
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-make.patch \
-		"${FILESDIR}"/parrallelmake-${P}.patch
-}
+PATCHES=( "${FILESDIR}"/${P}-debian.patch )
 
 src_compile() {
 	emake CC=$(tc-getCC)
@@ -38,11 +33,5 @@ src_compile() {
 
 src_install() {
 	default
-	use doc && dodoc "${S}"/manual/*
-}
-
-pkg_postinst() {
-	elog "This version of the LiE ebuild is still under development."
-	elog "Help us improve the ebuild in:"
-	elog "https://bugs.gentoo.org/show_bug.cgi?id=194393"
+	use doc && dodoc "${S}"/manual/
 }
