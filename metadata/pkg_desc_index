@@ -520,7 +520,6 @@ sci-mathematics/gap 4.11.0: Computational discrete algebra system - minimal GAP 
 sci-mathematics/gappa 1.1.1: Verifying and proving properties on floating-point or fixed-point arithmetic
 sci-mathematics/gappalib-coq 1.0.0: Allows the certificates Gappa generates to be imported by the Coq
 sci-mathematics/giac 1.6.0.47: A free C++ CAS (Computer Algebra System) library and its interfaces
-sci-mathematics/htk 3.4.1: Toolkit for building and manipulating hidden Markov models
 sci-mathematics/libsfmt 1.3.0: SIMD-oriented Fast Mersenne Twister
 sci-mathematics/lie 2.2.2: A Computer algebra package for Lie group computations
 sci-mathematics/ltl2ba 1.1: Fast LTL to Buechi Automata Translation
