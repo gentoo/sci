@@ -1,10 +1,10 @@
 DEFINED_PHASES=configure install
 DESCRIPTION=Merge-sort utility for compressed alignment files, with multi-file output
 EAPI=7
-HOMEPAGE=http://compbio.dfci.harvard.edu/tgi/software/
+HOMEPAGE=https://web.archive.org/web/20140726030702/http://compbio.dfci.harvard.edu/tgi/software/
 KEYWORDS=~amd64 ~x86
 LICENSE=Artistic
 SLOT=0
 SRC_URI=ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/zmsort.tar.gz -> zmsort-110625.tar.gz ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/gclib.tar.gz -> gclib-110625.tar.gz
 _eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=ab6eb5fdb6ac5aa3fb7d26667b3911e8
+_md5_=8e6b82c9a5a7bacb48b6eeb2a65df120
