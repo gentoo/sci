@@ -9,7 +9,7 @@ MY_PN=miRanda
 MY_P=${MY_PN}-${PV}
 
 DESCRIPTION="An algorithm for finding genomic targets for microRNAs"
-HOMEPAGE="http://www.microrna.org/"
+HOMEPAGE="https://www.mskcc.org/research/ski/programs/computational-biology"
 SRC_URI="http://cbio.mskcc.org/microrna_data/${MY_PN}-aug2010.tar.gz"
 
 LICENSE="GPL-2"
