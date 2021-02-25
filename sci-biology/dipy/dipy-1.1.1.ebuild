@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{7..9} )
 inherit distutils-r1
 
 DESCRIPTION="Computational neuroanatomy project focusing on diffusion MRI"
-HOMEPAGE="https://nipy.org/dipy"
+HOMEPAGE="https://github.com/nipy/dipy"
 SRC_URI="https://github.com/nipy/dipy/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
