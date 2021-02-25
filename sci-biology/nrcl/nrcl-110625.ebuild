@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Containment clustering and layout utility for processing pairwise alignments"
-HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
+HOMEPAGE="https://web.archive.org/web/20140726030702/http://compbio.dfci.harvard.edu/tgi/software/"
 SRC_URI="
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/${PN}.tar.gz -> ${P}.tar.gz
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/gclib.tar.gz"

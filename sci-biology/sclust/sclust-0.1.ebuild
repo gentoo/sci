@@ -4,7 +4,7 @@
 EAPI=5
 
 DESCRIPTION="Seeded clustering tool by processing pairwise alignments"
-HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
+HOMEPAGE="https://web.archive.org/web/20140726030702/http://compbio.dfci.harvard.edu/tgi/software/"
 SRC_URI="
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/${PN}.tar.gz -> ${P}.tar.gz
 	ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/cdbfasta.tar.gz"

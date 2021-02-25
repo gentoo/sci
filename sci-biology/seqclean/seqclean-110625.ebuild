@@ -6,7 +6,7 @@ EAPI=5
 inherit eutils toolchain-funcs
 
 DESCRIPTION="Trimpoly and mdust for trimming and validation of ESTs/DNA sequences"
-HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software/"
+HOMEPAGE="https://web.archive.org/web/20140726030702/http://compbio.dfci.harvard.edu/tgi/software/"
 for i in seqcl_scripts mdust trimpoly; do
 	SRC_URI="${SRC_URI} ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/seqclean/${i}.tar.gz -> ${i}-${PV}.tar.gz"
 done
