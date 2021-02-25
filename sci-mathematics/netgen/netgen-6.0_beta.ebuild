@@ -29,7 +29,7 @@ DEPEND="
 	opencascade? ( sci-libs/opencascade:* )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg:0= )
-	mpi? ( virtual/mpi || ( sci-libs/parmetis <sci-libs/metis-5.0 ) opencascade? ( sci-libs/hdf5[mpi] ) )
+	mpi? ( virtual/mpi sci-libs/parmetis opencascade? ( sci-libs/hdf5[mpi] ) )
 "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
