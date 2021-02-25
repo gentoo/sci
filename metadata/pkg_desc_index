@@ -67,7 +67,7 @@ dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated
 dev-python/astroquery 0.4.1: A collection of packages to access online astronomical resources
 dev-python/astroscrappy 1.0.8: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
-dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3: Statistical and interactive HTML plots for Python
+dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorlover 0.3.0: color scales in python for humans
