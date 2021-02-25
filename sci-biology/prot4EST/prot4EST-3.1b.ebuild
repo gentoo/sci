@@ -6,7 +6,7 @@ EAPI=7
 inherit perl-module
 
 DESCRIPTION="Predict proteins from EST sequences overcoming frameshifts"
-HOMEPAGE="http://www.compsysbio.org/lab/?q=prot4EST
+HOMEPAGE="http://www.compsysbio.org/
 	http://www.biomedcentral.com/1471-2105/5/187"
 SRC_URI="http://www.compsysbio.org/lab/james/prot4EST_rl3.1b.tgz"
 
