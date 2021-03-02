@@ -7,7 +7,7 @@ inherit desktop xdg
 
 DESCRIPTION="Helps you collect, organize, cite, and share your research sources"
 HOMEPAGE="https://www.zotero.org"
-SRC_URI="https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64&version=${PV} -> ${P}-${PV}.tar.bz2"
+SRC_URI="https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64&version=${PV} -> ${P}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
