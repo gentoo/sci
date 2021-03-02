@@ -7,6 +7,6 @@ KEYWORDS=~amd64
 LICENSE=GPL-3
 RDEPEND=dev-libs/dbus-glib dev-libs/nss x11-libs/gtk+:3 x11-libs/libXt
 SLOT=0
-SRC_URI=https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64&version=5.0.95 -> zotero-bin-5.0.95-5.0.95.tar.bz2
+SRC_URI=https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64&version=5.0.96 -> zotero-bin-5.0.96.tar.bz2
 _eclasses_=desktop	c0d27bf73aa08ca05b663dbd31fbef28	xdg	c7ba313ea1eaf266f95cc6235f7d6a07	xdg-utils	ff2ff954e6b17929574eee4efc5152ba
-_md5_=c242a5a7075d43816e5bb1929e7fd8c7
+_md5_=bc47e468b8a88bb930670cdd4563161e
