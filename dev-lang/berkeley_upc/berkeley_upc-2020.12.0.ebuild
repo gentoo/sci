@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="The Berkeley UPC Runtime/driver"
 HOMEPAGE="https://upc.lbl.gov/"
@@ -12,6 +12,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="mpi mpi-compat pshm +segment-fast segment-large +single +sptr-packed
 	sptr-struct sptr-symmetric threads +udp"
+
+# Requires network access
+RESTRICT="test"
 
 REQUIRED_USE="
 	^^ ( segment-fast segment-large )
