@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 JAVA_PKG_IUSE="doc source"
 WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
@@ -45,7 +45,8 @@ EANT_GENTOO_CLASSPATH="gluegen-${SLOT},antlr,ant-core,swt-3.7"
 EANT_GENTOO_CLASSPATH_EXTRA="${S}/build/${PN}/*.jar:${S}/build/nativewindow/*.jar"
 EANT_NEEDS_TOOLS="yes"
 
-java_prepare() {
+src_prepare() {
+	default
 	#we keep make/lib/plugin3/puglin3-public.jar
 	find -name 'make/lib/swt/*.jar' -delete -print || die
 
