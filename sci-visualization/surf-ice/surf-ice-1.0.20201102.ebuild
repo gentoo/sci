@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit gnome2-utils
+inherit desktop xdg
 
 DESCRIPTION="A simple medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/surf-ice"
@@ -14,8 +14,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND=""
-DEPEND="dev-lang/fpc
-	>=dev-lang/lazarus-1.6.2[python(-)]"
+DEPEND="${RDEPEND}
+	dev-lang/fpc
+	>=dev-lang/lazarus-1.6.2[python(-)]
+"
 
 src_compile() {
 	# Python support will only be vaialable for the default implementation:
@@ -27,19 +29,6 @@ src_compile() {
 src_install() {
 	dobin surfice
 
-	insinto /usr/bin/shaders
-	doins shaders/*.txt
-
-	insinto /usr/bin/shadersOld
-	doins shadersOld/*.txt
-
 	doicon -s scalable Surfice.jpg
 	make_desktop_entry surfice surfice /usr/share/icons/hicolor/scalable/apps/Surfice.jpg
-}
-
-pkg_postinst() {
-	gnome2_icon_cache_update
-}
-pkg_postrm() {
-	gnome2_icon_cache_update
 }
