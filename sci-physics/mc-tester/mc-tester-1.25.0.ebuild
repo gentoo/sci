@@ -1,59 +1,59 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils
+MYPN="MC-TESTER"
 
-MYPN=MC-TESTER
+DOCS_BUILDER="doxygen"
+DOCS_DIR="doc"
+DOCS_DEPEND="media-gfx/graphviz"
+
+inherit docs
 
 DESCRIPTION="Comparisons of Monte Carlo predictions in High Energy Physics"
 HOMEPAGE="http://mc-tester.web.cern.ch/MC-TESTER/"
 SRC_URI="http://mc-tester.web.cern.ch/MC-TESTER/${MYPN}-${PV}.tar.gz"
-LICENSE="CPC GPL-2+"
-#HepMC interface is licensed under GPL, other code under CPC
 
+#HepMC interface is licensed under GPL, other code under CPC
+LICENSE="CPC GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples hepmc"
+
+IUSE="examples hepmc pythia"
 
 RDEPEND="sci-physics/root:=
 	hepmc? ( sci-physics/hepmc )
+	pythia? ( sci-physics/pythia:8 )
 "
-DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen )"
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MYPN}"
 
-src_prepare() {
-	epatch "${FILESDIR}/${P}-compare.sh.patch"
-}
+PATCHES=(
+	"${FILESDIR}/${P}-compare.sh.patch"
+)
 
 src_configure() {
 	econf \
 		--with-root="${EPREFIX}/usr" \
-		--without-Pythia8 \
+		$(use_with pythia Pythia8 "${EPREFIX}/usr") \
 		$(use_with hepmc HepMC "${EPREFIX}/usr")
 }
 
 src_compile() {
+	docs_compile
 	default
-	use doc && cd doc && default
 }
 
 src_install() {
-	emake PREFIX="${D}/usr" install
+	default
 	newbin analyze/compare.sh mc-tester-compare
 
 	insinto /usr/libexec/${PN}/analyze
 	doins analyze/*.C
 	insinto /usr/share/${PN}
 	doins analyze/*.tex
-
-	if use doc; then
-		dohtml doc/doxygenDocs/html/*
-		dodoc doc/{README*,USER-TESTS,tester.ps.gz}
-	fi
 
 	use examples && dodoc -r examples-*
 }

@@ -1,5 +1,5 @@
---- analyze/compare.sh
-+++ analyze/compare.sh
+--- a/analyze/compare.sh
++++ b/analyze/compare.sh
 @@ -6,13 +6,14 @@
  #----------------------------------
  # Change these variables
