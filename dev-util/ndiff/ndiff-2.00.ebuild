@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="A diff program that ignores small numeric differences"
 HOMEPAGE="http://www.math.utah.edu/~beebe/software/ndiff/"
@@ -11,6 +11,9 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
+
+# Sandbox violation to /tmp/
+RESTRICT="test"
 
 DEPEND="dev-libs/gmp:0="
 RDEPEND="${DEPEND}"
