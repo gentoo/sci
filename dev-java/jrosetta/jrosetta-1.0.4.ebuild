@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-2 java-ant-2
 
@@ -14,17 +14,17 @@ SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/${PN}/${P}-sources.jar/5c3589d4
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="
-	>=virtual/jdk-1.5:*
-	app-arch/unzip"
+	>=virtual/jdk-1.5:*"
+BDEPEND="app-arch/unzip"
 RDEPEND=">=virtual/jre-1.5:*"
 
 EANT_BUILD_TARGET="compile package"
 JAVA_ANT_BSFIX_EXTRA_ARGS="--maven-cleaning"
 
-java_prepare () {
+src_prepare () {
+	default
 	cp "${FILESDIR}/api-build.xml" modules/jrosetta-api/build.xml || die
 	cp "${FILESDIR}/engine-build.xml" modules/jrosetta-engine/build.xml || die
 	cp "${FILESDIR}/build.xml" . || die
