@@ -40,9 +40,9 @@ dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library 
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*
-dev-perl/BTLib 0.19: Perl part of the estscan package
+dev-perl/BTLib 0.19 0.20: Perl part of the estscan package
 dev-perl/Bio-BigFile 1.07: BigWig and BigBed file perl-based interface for Gbrowse-2
-dev-perl/Bio-DB-Das-Chado 0.34: A Chado database interface for Gbrowse-2
+dev-perl/Bio-DB-Das-Chado 0.35: A Chado database interface for Gbrowse-2
 dev-perl/Bio-EnsEMBL 9999: EnsEMBL Perl API aka ensembl-api exposing Bio::EnsEMBL::Registry
 dev-perl/Config-Std 0.903: Load and save configuration files in a standard format
 dev-perl/DBIx-DBStag 0.12: Relational Database to Hierarchical (Stag/XML) Mapping
