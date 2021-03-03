@@ -1,7 +1,7 @@
-diff --git a//make/build.xml b//make/build.xml
+diff --git a/make/build.xml b/make/build.xml
 index 55ef270..bce6d12 100644
---- a//make/build.xml
-+++ b//make/build.xml
+--- a/make/build.xml
++++ b/make/build.xml
 @@ -806,12 +806,6 @@
        </fileset>
      </jar>

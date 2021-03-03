@@ -42,12 +42,9 @@ EANT_GENTOO_CLASSPATH_EXTRA="${S}/build/${PN}{,-rt}.jar"
 EANT_EXTRA_ARGS="-Dc.strip.libraries=false"
 
 PATCHES=(
-	"${FILESDIR}/2.1.4-dont-copy-jars.patch"
-	"${FILESDIR}/2.1.4-dont-strip.patch"
-	"${FILESDIR}/2.1.4-dont-test-archive.patch"
-	#"${FILESDIR}/2.2.4-dont-copy-jars.patch"
-	#"${FILESDIR}/2.2.4-dont-strip.patch"
-	#"${FILESDIR}/2.2.4-dont-test-archive.patch"
+	"${FILESDIR}/${PV}-dont-copy-jars.patch"
+	"${FILESDIR}/${PV}-dont-strip.patch"
+	"${FILESDIR}/${PV}-dont-test-archive.patch"
 )
 
 src_prepare() {

@@ -1,7 +1,7 @@
-diff --git a//make/build-test.xml b//make/build-test.xml
+diff --git a/make/build-test.xml b/make/build-test.xml
 index 31dc773..e872a0a 100644
---- a//make/build-test.xml
-+++ b//make/build-test.xml
+--- a/make/build-test.xml
++++ b/make/build-test.xml
 @@ -614,9 +614,11 @@ chmod 644 ${results}/* \${line.separator}
  
      <!-- updates / create the test results zip file -->
