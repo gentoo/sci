@@ -3,14 +3,15 @@
 
 EAPI=7
 
-inherit git-r3 desktop xdg
+inherit desktop xdg
 
-DESCRIPTION="A surface rendering tool supporting neuroimaging data"
+DESCRIPTION="A simple medical imaging visualization tool"
 HOMEPAGE="https://github.com/neurolabusc/surf-ice"
-EGIT_REPO_URI="https://github.com/neurolabusc/surf-ice.git"
+SRC_URI="https://github.com/neurolabusc/surf-ice/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
