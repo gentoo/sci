@@ -1,7 +1,7 @@
-diff --git a/gluegen-2.1.4_rc01/make/gluegen-cpptasks-base.xml b/gluegen-2.1.4_rc01/make/gluegen-cpptasks-base.xml
+diff --git a//make/gluegen-cpptasks-base.xml b//make/gluegen-cpptasks-base.xml
 index 8b8b82e..ec39aeb 100755
---- a/gluegen-2.1.4_rc01/make/gluegen-cpptasks-base.xml
-+++ b/gluegen-2.1.4_rc01/make/gluegen-cpptasks-base.xml
+--- a//make/gluegen-cpptasks-base.xml
++++ b//make/gluegen-cpptasks-base.xml
 @@ -1511,17 +1511,6 @@
         - Helper strip.libraries for stripping off debug information
        -->
