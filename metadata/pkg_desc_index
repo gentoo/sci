@@ -16,7 +16,7 @@ dev-java/jeuclid-core 3.1.14: Core module of MathML rendering solution
 dev-java/jgraphx 4.2.2: Open-source graph component for Java
 dev-java/jlatexmath 1.0.3: A Java API to render LaTeX
 dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
-dev-java/jogl 2.1.4 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
+dev-java/jogl 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
 dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-lang/berkeley_upc 2.16.2 2.18.0 2.18.2 2.20.0: The Berkeley UPC Runtime/driver
