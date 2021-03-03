@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 JAVA_PKG_IUSE="doc source"
 
 inherit java-pkg-2 java-ant-2
@@ -14,18 +14,20 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE=""
-
-RDEPEND=">=virtual/jre-1.5"
-DEPEND=">=virtual/jdk-1.5
-	app-arch/unzip
-	dev-java/skinlf"
+RDEPEND=">=virtual/jre-1.5:=
+	dev-java/skinlf:0"
+BDEPEND="app-arch/unzip"
+DEPEND="${RDEPEND}"
 
 EANT_BUILD_TARGET="jar"
 EANT_DOC_TARGET="doc"
 
-java_prepare() {
-	epatch "${FILESDIR}"/${P}-nodemo.patch
+PATCHES=(
+	"${FILESDIR}/${P}-nodemo.patch"
+)
+
+src_prepare() {
+	default
 
 	#some cleanups
 	find . -name '*.so' -exec rm -v {} \;|| die
