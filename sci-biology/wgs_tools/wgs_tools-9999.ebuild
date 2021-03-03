@@ -5,8 +5,8 @@ EAPI=7
 
 DESCRIPTION="Scripts for ncbi-tools++ and SRA postprocessing using taxonomy"
 HOMEPAGE="ftp://ftp.ncbi.nih.gov/blast/WGS_TOOLS
-	http://www.ncbi.nlm.nih.gov/books/NBK279690/
-	http://www.ncbi.nlm.nih.gov/genbank/wgs"
+	https://www.ncbi.nlm.nih.gov/books/NBK279690/
+	https://www.ncbi.nlm.nih.gov/genbank/wgs"
 SRC_URI="ftp://ftp.ncbi.nih.gov/blast/WGS_TOOLS/taxid2tsa.pl
 	ftp://ftp.ncbi.nih.gov/blast/WGS_TOOLS/taxid2wgs.pl"
 
