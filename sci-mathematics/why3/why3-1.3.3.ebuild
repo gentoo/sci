@@ -29,7 +29,7 @@ DEPEND="
 	dev-ml/menhir
 	dev-ml/num
 	sci-mathematics/coq
-	frama-c? ( >=sci-mathematics/frama-c-20140301 )
+	frama-c? ( >=sci-mathematics/frama-c-22 )
 	float? ( sci-mathematics/flocq )
 "
 RDEPEND="${DEPEND}"
