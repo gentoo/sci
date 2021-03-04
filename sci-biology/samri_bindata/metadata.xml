@@ -9,7 +9,4 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription lang="en">
-		Larger binary testing data package for sci-biology/samri.
-	</longdescription>
 </pkgmetadata>
