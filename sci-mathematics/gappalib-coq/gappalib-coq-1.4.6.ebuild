@@ -1,23 +1,25 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Allows the certificates Gappa generates to be imported by the Coq"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
-SRC_URI="http://gforge.inria.fr/frs/download.php/32743/${P}.tar.gz"
+SRC_URI="https://gforge.inria.fr/frs/download.php/file/38386/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-DEPEND="sci-mathematics/gappa
-		sci-mathematics/coq
-		sci-mathematics/flocq"
+DEPEND="
+	>=sci-mathematics/gappa-1.3.2
+	>=sci-mathematics/coq-8.8
+	>=sci-mathematics/flocq-3.0
+"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
+	default
 	sed -i Remakefile.in \
 		-e "s:mkdir -p @libdir@:mkdir -p \${DESTDIR}@libdir@:g" \
 		-e "s:cp \$(OBJS) \$(MLTARGETS) @libdir@:cp \$(OBJS) \$(MLTARGETS) \${DESTDIR}@libdir@:g"
@@ -29,5 +31,5 @@ src_compile() {
 
 src_install() {
 	DESTDIR="${D}" ./remake install || die "emake install failed"
-	dodoc NEWS README AUTHORS ChangeLog
+	einstalldocs
 }
