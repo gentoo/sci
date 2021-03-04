@@ -1,36 +1,35 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 JAVA_PKG_IUSE="source examples doc"
 
-inherit eutils java-pkg-2 java-ant-2
+inherit java-pkg-2 java-ant-2
 
 MY_PN="maxent"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="Maximum entropy model implementation for opennlp"
-HOMEPAGE="http://maxent.sf.net/"
-SRC_URI="mirror://sourceforge/maxent/${MY_P}.tgz"
+HOMEPAGE="http://maxent.sourceforge.net/about.html"
+SRC_URI="mirror://sourceforge/maxent/${P}-src.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~x86"
-IUSE="${IUSE}"
+KEYWORDS="~amd64 ~x86"
 
 COMMON_DEP="
-	dev-java/java-getopt
+	dev-java/java-getopt:1
 	dev-java/trove:0"
-DEPEND=">=virtual/jdk-1.4:*
+DEPEND=">=virtual/jdk-1.6:*
 	${COMMON_DEP}"
-RDEPEND=">=virtual/jre-1.4:*
+RDEPEND=">=virtual/jre-1.6:*
 	${COMMON_DEP}"
 
 EANT_BUILD_TARGET="compile package"
-S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
+	default
 	cd "${S}"/lib || die
 	rm -v *.jar || die "failed to rm jars"
 	java-pkg_jarfrom java-getopt-1 gnu.getopt.jar java-getopt.jar
