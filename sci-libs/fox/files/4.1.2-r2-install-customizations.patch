@@ -1,6 +1,6 @@
-diff -Naur tmp-old/Makefile tmp-new/Makefile
---- Makefile	2009-03-07 22:44:12.000000000 +0000
-+++ Makefile	2009-03-07 22:42:59.000000000 +0000
+diff -Naur a/Makefile b/Makefile
+--- a/Makefile	2009-03-07 22:44:12.000000000 +0000
++++ b/Makefile	2009-03-07 22:42:59.000000000 +0000
 @@ -9,9 +9,9 @@
  	mkdir -p objs/lib objs/finclude
  #
@@ -14,8 +14,8 @@ diff -Naur tmp-old/Makefile tmp-new/Makefile
  #
  examples_build:
 diff -Naur tmp-old/arch.make.in tmp-new/arch.make.in
---- arch.make.in	2009-03-07 22:44:19.000000000 +0000
-+++ arch.make.in	2009-03-07 22:43:07.000000000 +0000
+--- a/arch.make.in	2009-03-07 22:44:19.000000000 +0000
++++ b/arch.make.in	2009-03-07 22:43:07.000000000 +0000
 @@ -5,7 +5,7 @@
  
  VPATH=@VPATH@
