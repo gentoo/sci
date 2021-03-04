@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<longdescription>
-PGI is the C/C++/Fortran compiler suite of the Portland Group.
-</longdescription>
 	<maintainer type="person">
 		<email>gentryx@gmx.de</email>
 	</maintainer>
