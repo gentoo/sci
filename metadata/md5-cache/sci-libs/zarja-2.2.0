@@ -1,0 +1,11 @@
+DEFINED_PHASES=install
+DEPEND=sci-libs/gsl virtual/lapack sci-libs/fftw:3.0 dev-libs/boost dev-cpp/tclap
+DESCRIPTION=Scientific multi-agent simulation library
+EAPI=7
+HOMEPAGE=https://sourceforge.net/projects/zarja/
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=sci-libs/gsl virtual/lapack sci-libs/fftw:3.0 dev-libs/boost dev-cpp/tclap
+SLOT=0
+SRC_URI=https://downloads.sourceforge.net/project/zarja/zarja/zarja_2.2.0.tar.gz -> zarja-2.2.0.tar.gz
+_md5_=552b145ef206a8b4bc4e6e567117e4cf

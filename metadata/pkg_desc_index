@@ -507,7 +507,7 @@ sci-libs/vxl 2.0.2: C++ computer vision research libraries
 sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
-sci-libs/zarja 1.1.1: Scientific multi-agent simulation library
+sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/acl2 7.1 8.3: Industrial strength theorem prover
 sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking puzzles
