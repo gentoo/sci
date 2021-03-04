@@ -1,44 +1,49 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 JAVA_PKG_IUSE="doc source"
-inherit eutils java-pkg-2 java-ant-2
 
-MY_PV=2007-08-19
-MY_P=${PN}-${MY_PV}
+inherit java-pkg-2
+
+DATE="2020-11-17"
 
 DESCRIPTION="Stanfords statistical natural language parsers"
-HOMEPAGE="http://www-nlp.stanford.edu/software/"
-SRC_URI="http://www-nlp.stanford.edu/software/${MY_P}.tar.gz"
+HOMEPAGE="https://www-nlp.stanford.edu/software/lex-parser.html"
+SRC_URI="http://www-nlp.stanford.edu/software/${P}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
-IUSE="${IUSE}"
+KEYWORDS="~amd64 ~x86"
 
 COMMON_DEP=""
-DEPEND=">=virtual/jdk-1.5
+DEPEND=">=virtual/jdk-1.7
 	${COMMON_DEP}"
-RDEPEND=">=virtual/jre-1.5
+RDEPEND=">=virtual/jre-1.7
 	${COMMON_DEP}"
+BDEPEND="app-arch/unzip"
 
-S="${WORKDIR}/${MY_P}"
+S="${WORKDIR}/${PN}-full-${DATE}"
 
 EANT_BUILD_TARGET="compile"
 
+src_prepare() {
+	mkdir -p src || die
+	pushd src || die
+	jar xf ../${P}-sources.jar || die
+	popd || die
+	default
+}
+
 src_install() {
-	java-pkg_dojar stanford-parser.jar
+	java-pkg_dojar ${PN}.jar
 	if use doc ; then
 		java-pkg_dojavadoc javadoc
 	fi
 	if use source ; then
 		java-pkg_dosrc src
 	fi
-	dodoc README.txt README_dependencies.txt cedict_readme.txt
-	insinto /usr/share/${PN}
-	doins *ser.gz
 	java-pkg_dolauncher stanford-lexparser --java_args -Xmx200m --main edu.stanford.nlp.parser.lexparser.LexicalizedParser
 	java-pkg_dolauncher stanford-lexparser-gui --java_args "-server -Xmx600m" --main edu.stanford.nlp.parser.ui.Parser
 }
