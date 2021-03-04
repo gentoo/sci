@@ -172,7 +172,7 @@ src_install() {
 		cd "${WORKDIR}"/html || die
 		rm  *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
-		docinto /usr/share/doc/${PF}/api-docs
+		docinto api-docs
 		dodoc -r *
 	fi
 }
