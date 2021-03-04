@@ -15,7 +15,7 @@ inherit python-any-r1 docs
 
 DESCRIPTION="Why3 is a platform for deductive program verification"
 HOMEPAGE="http://why3.lri.fr/"
-SRC_URI="https://gforge.inria.fr/frs/download.php/file/38367/why3-1.3.3.tar.gz"
+SRC_URI="https://gforge.inria.fr/frs/download.php/file/38367/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -59,9 +59,5 @@ src_compile() {
 
 src_install(){
 	default
-
-	if use examples; then
-		insinto /usr/share/doc/${PF}
-		doins -r examples
-	fi
+	use examples && dodoc -r examples
 }
