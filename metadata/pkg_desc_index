@@ -514,7 +514,7 @@ sci-mathematics/burrtools 0.5.2-r1: Program to solve assembly and interlocking p
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/dsfmt 2.2.4: Double precision SIMD-oriented Fast Mersenne Twister library
 sci-mathematics/flocq 3.4.0: A floating-point formalization for the Coq system
-sci-mathematics/frama-c 20140301: Framework for analysis of source codes written in C
+sci-mathematics/frama-c 22.0: Framework for analysis of source codes written in C
 sci-mathematics/freefem++ 4.7.1: Solve PDEs using FEM on 2d and 3d domains
 sci-mathematics/gap 4.11.0: Computational discrete algebra system - minimal GAP core system
 sci-mathematics/gappa 1.3.5: Verifying and proving properties on floating-point or fixed-point arithmetic
