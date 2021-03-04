@@ -1,18 +1,20 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit autotools eutils
+inherit autotools
+
+NAME="Titanium"
 
 DESCRIPTION="Framework for analysis of source codes written in C"
-HOMEPAGE="http://frama-c.com"
-NAME="Neon"
-SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
+HOMEPAGE="https://frama-c.com"
+SRC_URI="https://frama-c.com/download/${P}-${NAME}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
+
 IUSE="doc gtk +ocamlopt"
 RESTRICT="strip"
 
@@ -20,6 +22,7 @@ DEPEND="
 	>=dev-lang/ocaml-3.12.1[ocamlopt?]
 	>=dev-ml/ocamlgraph-1.8.5[gtk?,ocamlopt?]
 	dev-ml/zarith
+	dev-ml/yojson
 	sci-mathematics/coq
 	sci-mathematics/ltl2ba
 	sci-mathematics/alt-ergo
@@ -30,40 +33,29 @@ DEPEND="
 	)"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
+S="${WORKDIR}/${P}-${NAME}"
 
 src_prepare(){
 	touch config_file || die
 	rm -f ocamlgraph.tar.gz || die
-	epatch "${FILESDIR}/ocamlgraph185_compat.patch"
+	default
 	eautoreconf
 }
 
 src_configure(){
-	if use gtk; then
-		myconf="--enable-gui"
-	else
-		myconf="--disable-gui"
-	fi
-	econf ${myconf}
+	econf "$(use_enable gtk gui )"
 }
 
 src_compile(){
 	# dependencies can not be processed in parallel,
 	# this is the intended behavior.
-	emake -j1 depend
+	emake depend
 	emake all top DESTDIR="/"
 
-	if use doc; then
-		emake -j1 doc doc-tgz
-		tar -xzf frama-c-api.tar.gz -C doc/
-	fi
+	use doc && emake doc
 }
 
 src_install(){
 	default
-
-	if use doc; then
-		dohtml -A svg -r doc/frama-c-api/*
-	fi
+	use doc && dodoc -r doc/doxygen/html/*
 }
