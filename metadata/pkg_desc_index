@@ -475,7 +475,7 @@ sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
 sci-libs/jhdf5 19.04.0: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
-sci-libs/libStatGen 1.0.13 1.0.14: Set of classes for creating statistical genetic programs
+sci-libs/libStatGen 1.0.15: Set of classes for creating statistical genetic programs
 sci-libs/libcgnsoo 1728: Object-oriented interface to the CGNS Mid-level library
 sci-libs/libflame-amd 2.2 9999: AMD optimized high-performance object-based library for DLA computations
 sci-libs/libmatheval 1.1.11: library to parse and evaluate symbolic expressions
