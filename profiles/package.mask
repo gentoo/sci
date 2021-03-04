@@ -35,3 +35,9 @@
 # The ebuild was last touched in 2015, last upstream update was in 2013
 # Masked for removal in 14 days, if you need this please complain
 sci-mathematics/burrtools
+
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (04 March 2021)
+# libcgnsoo does not compile, ebuild was last touched in 2015
+# no newer version available upstream
+# Masked for removal in 14 days, if you need this please complain
+sci-libs/libcgnsoo
