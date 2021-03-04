@@ -536,7 +536,7 @@ sci-misc/jwnl 1.4_rc2: Java interface to WordNet dictionary data
 sci-misc/mitlm 0.4.1: Tools designed for efficient estimation of statistical n-gram language models
 sci-misc/openfst 1.3.4 1.4.1 1.6.1: Finite State Transducer tools by Google et al
 sci-misc/opennlp-maxent 2.4.0: Maximum entropy model implementation for opennlp
-sci-misc/praat 6.0.26: Speech analysis and synthesis
+sci-misc/praat 6.1.40: Speech analysis and synthesis
 sci-misc/stanford-parser 4.2.0: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 4.2.0: Stanfords log linear POS taggers
 sci-physics/atompaw 4.1.1.0: PAW atomic data generator
