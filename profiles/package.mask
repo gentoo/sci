@@ -29,3 +29,9 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (04 March 2021)
+# Burrtools does not compile, nor does the newest version (0.6.3)
+# The ebuild was last touched in 2015, last upstream update was in 2013
+# Masked for removal in 14 days, if you need this please complain
+sci-mathematics/burrtools
