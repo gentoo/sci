@@ -17,9 +17,6 @@ LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="!sys-cluster/maui" # file collision
-RDEPEND="${DEPEND}"
-
 S="${WORKDIR}"
 
 PATCHES=( "${FILESDIR}"/${P}-fno-common.patch )
