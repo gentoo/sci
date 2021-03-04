@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -44,10 +44,10 @@ src_install() {
 		dodoc -r doc/html/.
 	fi
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
-		doins -r "${BUILD_DIR}/bin"
-		doins test/makeGeom.C
-		doins test/README
+		docinto examples
+		dodoc -r "${BUILD_DIR}/bin"
+		dodoc test/makeGeom.C
+		dodoc test/README
 	fi
 	echo
 	elog "Note that there is no support in this ebuild for RAVE yet,"

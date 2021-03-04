@@ -18,17 +18,17 @@ declare -a GLI_TEST_HASHES=(
 
 GLI_TEST_SRC=""
 for i in "${GLI_TEST_HASHES[@]}"; do
-	GLI_TEST_SRC+="https://data.kitware.com/api/v1/file/hashsum/sha512/${i} -> ${i} "
+	GLI_TEST_SRC+="https://data.kitware.com/api/v1/file/hashsum/sha512/${i} -> ${P}-test-${i} "
 done
 
 DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
 SRC_URI="
 	https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/${MY_P}.tar.gz
-	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/${GLI_HASH}.zip -> ITKGenericLabelInterpolator-${PV}.zip
+	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/${GLI_HASH}.tar.gz -> ITKGenericLabelInterpolator-${PV}.tar.gz
 	test? (
 		https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/InsightData-${PV}.tar.gz
-		https://github.com/InsightSoftwareConsortium/ITKTestingData/archive/${TEST_HASH}.tar.gz
+		https://github.com/InsightSoftwareConsortium/ITKTestingData/archive/${TEST_HASH}.tar.gz -> ${P}-testingdata.tar.gz
 		${GLI_TEST_SRC}
 		)
 	"
@@ -64,7 +64,6 @@ DEPEND="${RDEPEND}
 	)
 	doc? ( app-doc/doxygen )
 "
-BDEPEND="app-arch/unzip"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -106,6 +105,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
+		-DITK_BUILD_DOCUMENTATION="$(usex doc ON OFF)"
 		-DBUILD_EXAMPLES="$(usex examples ON OFF)"
 		-DBUILD_SHARED_LIBS=ON
 		-DBUILD_TESTING="$(usex test ON OFF)"
@@ -165,9 +165,9 @@ src_install() {
 	cmake_src_install
 
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
+		docinto examples
 		docompress -x /usr/share/doc/${PF}/examples
-		doins -r "${S}"/Examples/*
+		dodoc -r "${S}"/Examples/*
 	fi
 
 	echo "ITK_DATA_ROOT=${EROOT}/usr/share/${PN}/data" > ${T}/40${PN}
@@ -180,11 +180,10 @@ src_install() {
 	doenvd "${T}"/40${PN}
 
 	if use doc; then
-		insinto /usr/share/doc/${PF}/api-docs
-		cd "${WORKDIR}"/html
+		cd "${WORKDIR}"/html || die
 		rm  *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
-		insinto /usr/share/doc/${PF}/api-docs
-		doins -r *
+		docinto api-docs
+		dodoc -r *
 	fi
 }

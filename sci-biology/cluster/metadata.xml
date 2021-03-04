@@ -9,8 +9,4 @@
 		<email>sci-biology@gentoo.org</email>
 		<name>Gentoo Biology Project</name>
 	</maintainer>
-	<longdescription lang="en">
-Cluster provides an interface to access methods of gene expression data
-analysis.
-</longdescription>
 </pkgmetadata>

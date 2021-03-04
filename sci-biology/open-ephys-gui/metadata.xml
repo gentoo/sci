@@ -5,9 +5,6 @@
 		<email>malfatti@disroot.org</email>
 		<name>T Malfatti</name>
 	</maintainer>
-	<longdescription lang="en">
-		Software for processing, recording, and visualizing multichannel electrophysiological data.
-	</longdescription>
 	<upstream>
 		<remote-id type="github">open-ephys/plugin-GUI</remote-id>
 	</upstream>

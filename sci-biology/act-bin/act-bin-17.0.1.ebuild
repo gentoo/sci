@@ -18,8 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="app-arch/unzip
-	!sci-biology/artemis"
+DEPEND="app-arch/unzip"
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.8:*"
 

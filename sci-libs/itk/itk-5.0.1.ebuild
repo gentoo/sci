@@ -16,7 +16,7 @@ DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
 SRC_URI="
 	https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/${MY_P}.tar.gz
-	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/${GLI_HASH}.zip -> ITKGenericLabelInterpolator-${PV}.zip
+	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/${GLI_HASH}.tar.gz -> ITKGenericLabelInterpolator-${PV}.tar.gz
 	test? (
 		https://data.kitware.com/api/v1/folder/${GLI_TEST_HASH}/download -> ITKGenericLabelInterpolator_test-${PV}.zip
 		https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/InsightData-${PV}.tar.gz
@@ -118,6 +118,7 @@ src_configure() {
 		-DBUILD_TESTING="$(usex test ON OFF)"
 		-DBUILD_EXAMPLES="$(usex examples ON OFF)"
 		-DITK_USE_REVIEW="$(usex review ON OFF)"
+		-DITK_BUILD_DOCUMENTATION="$(usex doc ON OFF)"
 		-DITK_INSTALL_LIBRARY_DIR=$(get_libdir)
 	)
 	if use fftw; then
@@ -153,9 +154,9 @@ src_install() {
 	cmake_src_install
 
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
+		docinto examples
 		docompress -x /usr/share/doc/${PF}/examples
-		doins -r "${S}"/Examples/*
+		dodoc -r "${S}"/Examples/*
 	fi
 
 	echo "ITK_DATA_ROOT=${EROOT}/usr/share/${PN}/data" > ${T}/40${PN}
@@ -168,11 +169,10 @@ src_install() {
 	doenvd "${T}"/40${PN}
 
 	if use doc; then
-		insinto /usr/share/doc/${PF}/api-docs
-		cd "${WORKDIR}"/html
+		cd "${WORKDIR}"/html || die
 		rm  *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
-		insinto /usr/share/doc/${PF}/api-docs
-		doins -r *
+		docinto api-docs
+		dodoc -r *
 	fi
 }
