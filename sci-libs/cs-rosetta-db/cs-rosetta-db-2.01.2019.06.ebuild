@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit flag-o-matic toolchain-funcs
 
@@ -21,7 +21,6 @@ SRC_URI="
 SLOT="0"
 LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE=""
 
 RESTRICT="binchecks mirror strip"
 
@@ -42,6 +41,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	default
 	cat >> "${T}"/39${PN} <<- EOF
 	CS_DIR="${EPREFIX}/opt/${MY_PN}/CS"
 	CSHYB_DIR="${EPREFIX}/opt/${MY_PN}/CS"
