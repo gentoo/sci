@@ -9,10 +9,6 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription lang="en">
-		Digital mouse brain atlases in NIfTI format for use in magnetic
-		resonance mouse brain imaging.
-	</longdescription>
 	<use>
 		<flag name="hires">Also install high-resolution atlases.</flag>
 	</use>
