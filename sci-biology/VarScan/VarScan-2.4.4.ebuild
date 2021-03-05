@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-2
 
@@ -10,12 +10,11 @@ HOMEPAGE="http://varscan.sourceforge.net/"
 
 # binary
 #https://github.com/dkoboldt/varscan/blob/master/VarScan.v2.4.3.jar
-SRC_URI="https://github.com/dkoboldt/varscan/blob/master/VarScan.v2.4.3.source.jar?raw=true -> ${PN}.v${PV}.source.jar"
+SRC_URI="https://github.com/dkoboldt/varscan/blob/master/VarScan.v${PV}.source.jar?raw=true -> ${PN}.v${PV}.source.jar"
 
 LICENSE="Non-profit-OSL-3.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND="
 	>=virtual/jdk-1.5:*
