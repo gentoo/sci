@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit java-pkg-2
 
@@ -16,9 +16,8 @@ SRC_URI="ftp://ftp.sanger.ac.uk/pub/resources/software/act/v17/v${PV}/sact-v${PV
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
-DEPEND="app-arch/unzip"
+BDEPEND="app-arch/unzip"
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.8:*"
 
@@ -37,8 +36,8 @@ src_prepare(){
 src_install(){
 	java-pkg_dojar "${DISTDIR}"/*.jar
 	dodoc "${DISTDIR}"/${P}.manual.pdf "${DISTDIR}"/release_notes.txt
-	insinto /usr/share/doc/"${PN}"/html
-	doins act_html_build/*
+	docinto html
+	dodoc act_html_build/*
 }
 
 pkg_postinst(){
