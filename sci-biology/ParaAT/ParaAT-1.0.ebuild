@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="Create multiple protein-coding DNA alignments and back-Translation"
 HOMEPAGE="http://cbb.big.ac.cn/software
@@ -11,7 +11,6 @@ SRC_URI="https://storage.googleapis.com/google-code-archive-downloads/v2/code.go
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="dev-lang/perl"
 RDEPEND="${DEPEND}"
