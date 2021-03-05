@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit check-reqs fortran-2 flag-o-matic pax-utils toolchain-funcs
 
@@ -25,13 +25,12 @@ CDEPEND="
 	app-shells/tcsh
 	mpi? ( virtual/mpi )
 	virtual/blas"
-DEPEND="${CDEPEND}
-	virtual/pkgconfig"
+DEPEND="${CDEPEND}"
+BDEPEND="virtual/pkgconfig"
 RDEPEND="${CDEPEND}
 	net-misc/openssh"
 
-REQUIRED_USE="(
-	openmp? ( !neo !vb2000 ) )"
+REQUIRED_USE="( openmp? ( !neo !vb2000 ) )"
 
 S="${WORKDIR}/${PN}"
 
