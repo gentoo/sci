@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Visualisation and analysis of processed NMR data"
 HOMEPAGE="https://nmrfx.org/nmrfx/nmrviewj"
@@ -11,7 +11,6 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-IUSE=""
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="x11-libs/libX11"

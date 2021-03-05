@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-2
 
@@ -12,14 +12,13 @@ SRC_URI="LigPlus.zip"
 SLOT="0"
 LICENSE="ligplot+"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE=""
 
 RDEPEND="virtual/jre:*"
 DEPEND="app-arch/unzip"
 
 RESTRICT="fetch"
 
-S="${WORKDIR}"/LigPlus
+S="${WORKDIR}/LigPlus"
 
 QA_PREBUILT="opt/${PN}/.*"
 
@@ -31,6 +30,7 @@ pkg_nofetch() {
 }
 
 src_prepare() {
+	default
 	rm -rf lib/*{win,mac} || die
 }
 
