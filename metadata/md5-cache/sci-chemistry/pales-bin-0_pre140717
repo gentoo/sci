@@ -1,9 +1,9 @@
 DEFINED_PHASES=install unpack
 DESCRIPTION=Prediction of alignment from structure
-EAPI=5
+EAPI=7
 HOMEPAGE=http://www3.mpibpc.mpg.de/groups/zweckstetter/_links/software_pales.htm
 KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
 LICENSE=all-rights-reserved
 SLOT=0
 SRC_URI=http://www3.mpibpc.mpg.de/groups/zweckstetter/_software_files/_pales/pales-linux -> pales-bin-0_pre140717
-_md5_=5af0aaba1ac13289603e9bb88edadcef
+_md5_=62196f1bbd79781e4948f26373fe0dd1
