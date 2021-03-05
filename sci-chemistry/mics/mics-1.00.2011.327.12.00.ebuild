@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-opt-2
 
@@ -17,11 +17,12 @@ IUSE="examples"
 RDEPEND=">=virtual/jre-1.5:*"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}"/MICS
+S="${WORKDIR}/MICS"
 
 QA_PREBUILT="/opt/.*"
 
 src_prepare() {
+	default
 	rm -f bin/MICS.{mac,static.*,exe} || die
 }
 
