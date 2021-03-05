@@ -186,7 +186,7 @@ sci-biology/SPAdes 3.15.1: De novo de Bruijn genome assembler overcoming uneven 
 sci-biology/SSAKE 3.8.2: Short-read trimmer, OLC assembler, scaffolder in PERL using the 3'-most k-mers
 sci-biology/Scaffolder-evaluation 9999: Scripts to run genome assembly scaffolding tools and analyse output for accuracy
 sci-biology/SnpEff 4.3t: SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF
-sci-biology/SolexaQA 2.2: Analyze and trim single-end and paired-end reads, show quality statistics
+sci-biology/SolexaQA 3.1.7.1: Analyze and trim single-end and paired-end reads, show quality statistics
 sci-biology/StarORF 9999: Java-based utility to show ORFs in a sequence
 sci-biology/TransDecoder 5.5.0: Extract ORF/CDS regions from FASTA sequences
 sci-biology/Trinotate 3.2.1: Annotation and analysis pipeline for de novo assembled transcriptomes
