@@ -1,9 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-
-inherit eutils
+EAPI=7
 
 DESCRIPTION="SEquence Error Corrector for RNA-Seq reads"
 HOMEPAGE="http://sb.cs.cmu.edu/seecer/"
@@ -13,7 +11,6 @@ SRC_URI="
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64"
 
 # although has bundled jellyfish-1.1.11 copy it just calls the executable during runtime
@@ -24,7 +21,7 @@ DEPEND="
 RDEPEND="${DEPEND}
 	sci-biology/jellyfish:1"
 
-S="${S}"/SEECER
+S="${WORKDIR}/${P}/SEECER"
 
 PATCHES=(
 	"${FILESDIR}"/remove-hardcoded-paths.patch
