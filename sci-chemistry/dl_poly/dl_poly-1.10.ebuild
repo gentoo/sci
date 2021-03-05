@@ -1,25 +1,26 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit fortran-2 toolchain-funcs
 
 DESCRIPTION="a general purpose molecular dynamics simulation package"
 HOMEPAGE="http://www.ccp5.ac.uk/DL_POLY_CLASSIC/"
-SRC_URI="http://ccpforge.cse.rl.ac.uk/gf/download/frsrelease/255/2627/dl_class_1.9.tar.gz"
+SRC_URI="https://gitlab.com/DL_POLY_Classic/dl_poly/-/archive/RELEASE-${PV//./-}/${PN}-RELEASE-${PV//./-}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc"
 
-DEPEND=""
+DEPEND="virtual/mpi[fortran]"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/dl_class_1.9/source"
+S="${WORKDIR}/${PN}-RELEASE-${PV//./-}/source"
 
 src_prepare() {
+	default
 	cp ../build/MakeSEQ Makefile || die
 }
 
