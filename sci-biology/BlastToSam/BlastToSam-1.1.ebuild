@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit git-r3 java-pkg-2 java-ant-2
 
@@ -13,13 +13,13 @@ EGIT_COMMIT="8f543ff1640b64e44701cb534e2959ff46469b2e"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 RDEPEND=">=virtual/jre-1.5:*"
 DEPEND="${RDEPEND}
 	>=virtual/jdk-1.5:*
 	dev-java/ant-core
-	dev-java/jython"
+	dev-java/jython
+"
 
 src_compile() {
 	ant compile || die
