@@ -1,11 +1,11 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install unpack
-DEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DESCRIPTION=Reference-genome-assisted asssembly of contigs/scaffolds using PE reads
-EAPI=5
+EAPI=7
 HOMEPAGE=https://github.com/baoe/AlignGraph http://bioinformatics.oxfordjournals.org/content/30/12/i319.long
 LICENSE=Artistic-2
 PROPERTIES=live
 RDEPEND=sci-biology/mummer sci-biology/blat sci-biology/bowtie
 SLOT=0
 _eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=61355b28c8e45de451b02bab70f81b4b
+_md5_=48f459a37598dcd370aaf50bde58ac3d
