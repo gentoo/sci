@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install prepare setup
+DEPEND=virtual/mpi[fortran] virtual/fortran
+DESCRIPTION=a general purpose molecular dynamics simulation package
+EAPI=7
+HOMEPAGE=http://www.ccp5.ac.uk/DL_POLY_CLASSIC/
+IUSE=doc
+KEYWORDS=~amd64
+LICENSE=BSD
+RDEPEND=virtual/mpi[fortran] virtual/fortran
+SLOT=0
+SRC_URI=https://gitlab.com/DL_POLY_Classic/dl_poly/-/archive/RELEASE-1-10/dl_poly-RELEASE-1-10.tar.gz -> dl_poly-1.10.tar.gz
+_eclasses_=fortran-2	b4796813ccda91c9c0d3463fc90aa969	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_md5_=b439ecdfdeb81c75368b574eb920db0a
