@@ -1,18 +1,17 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Protein conformations around a known structure based on geometric restrictions"
-HOMEPAGE="http://www.mpibpc.mpg.de/groups/de_groot/concoord/concoord.html"
+HOMEPAGE="https://www3.mpibpc.mpg.de/groups/de_groot/concoord/concoord.html"
 SRC_URI="
-	amd64? ( http://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux64.tgz )
-	x86? ( http://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux32.tgz )"
+	amd64? ( https://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux64.tgz )
+	x86? ( https://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux32.tgz )"
 
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="all-rights-reserved"
-IUSE=""
 
 QA_PREBUILT="opt/${PN}/bin/*"
 
