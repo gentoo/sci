@@ -12,7 +12,7 @@ SRC_URI="
 	https://cab.spbu.ru/files/release${PV}/truspades_manual.html -> ${P}_truspades_manual.html"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 DEPEND="
 	sys-libs/zlib
