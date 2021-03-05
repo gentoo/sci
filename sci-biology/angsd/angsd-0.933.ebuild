@@ -1,18 +1,15 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-
-inherit git-r3
+EAPI=7
 
 DESCRIPTION="Population genetics analysis package"
 HOMEPAGE="http://www.popgen.dk/angsd"
-EGIT_REPO_URI="https://github.com/ANGSD/angsd.git"
+SRC_URI="https://github.com/ANGSD/angsd/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 DEPEND="
 	dev-lang/R
@@ -41,10 +38,10 @@ src_compile(){
 }
 
 src_install(){
+	einstalldocs
 	dobin angsd
-	dodoc README.md
 	cd misc || die
 	dobin \
-		supersim thetaStat realSFS emOptim2 msToGlf smartCount \
-		printIcounts splitgl contamination NGSadmix
+		supersim haploToPlink ibs thetaStat realSFS msToGlf msHOT2glf smartCount \
+		printIcounts splitgl contamination contamination2 NGSadmix ngsPSMC scounts
 }

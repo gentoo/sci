@@ -1,18 +1,17 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit eutils
+inherit optfeature
 
 DESCRIPTION="Order and orientate DNA contigs even via 6-frame protein alignments"
 HOMEPAGE="http://abacas.sourceforge.net"
-SRC_URI="http://downloads.sourceforge.net/project/abacas/abacas.1.3.1.pl"
+SRC_URI="https://downloads.sourceforge.net/project/abacas/abacas.1.3.1.pl"
 
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -26,7 +25,7 @@ src_prepare(){
 	sed \
 		-i 's#/usr/local/bin/perl#/usr/bin/perl#' \
 		-i abacas.pl || die
-	eapply_user
+	default
 }
 src_install(){
 	dobin abacas.pl
