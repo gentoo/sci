@@ -1,18 +1,15 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit toolchain-funcs
-
-if [ "$PV" == "9999" ]; then
-	inherit git-r3
-fi
 
 DESCRIPTION="Reference-genome-assisted asssembly of contigs/scaffolds using PE reads"
 HOMEPAGE="https://github.com/baoe/AlignGraph
 	http://bioinformatics.oxfordjournals.org/content/30/12/i319.long"
 if [ "$PV" == "9999" ]; then
+	inherit git-r3
 	EGIT_REPO_URI="https://github.com/baoe/AlignGraph.git"
 	KEYWORDS=""
 else
@@ -22,13 +19,13 @@ fi
 
 LICENSE="Artistic-2"
 SLOT="0"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/mummer
 	sci-biology/blat
-	sci-biology/bowtie"
+	sci-biology/bowtie
+"
 
 # AlignGraph runs the alignment steps with BLAT and Bowtie2 automatically, but both
 # need to be installed on the system. AlignGraph’s run time is currently 23–57 min
