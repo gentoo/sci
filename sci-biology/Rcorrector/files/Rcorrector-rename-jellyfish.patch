@@ -1,5 +1,5 @@
---- Makefile.ori	2018-04-21 17:47:38.017147315 +0200
-+++ Makefile	2018-04-21 17:48:29.038679685 +0200
+--- a/Makefile	2018-04-21 17:47:38.017147315 +0200
++++ b/Makefile	2018-04-21 17:48:29.038679685 +0200
 @@ -2,14 +2,14 @@
  CXXFLAGS= -O2 -pipe -mpclmul -mpopcnt -march=native -ftree-vectorize -std=c++0x
  LINKFLAGS = -I . -lpthread -lz 
@@ -18,8 +18,8 @@
  		then \
  			wget -O jellyfish.tar.gz https://github.com/gmarcais/Jellyfish/releases/download/v2.2.4/jellyfish-2.2.4.tar.gz ;\
  			tar -xzf jellyfish.tar.gz ; mv jellyfish-2.2.4 jellyfish ; rm jellyfish.tar.gz ; cd jellyfish && ./configure && make ;\
---- run_rcorrector.pl.ori	2018-04-21 17:48:43.459112787 +0200
-+++ run_rcorrector.pl	2018-04-21 17:49:18.070152287 +0200
+--- a/run_rcorrector.pl	2018-04-21 17:48:43.459112787 +0200
++++ b/run_rcorrector.pl	2018-04-21 17:49:18.070152287 +0200
 @@ -42,10 +42,10 @@
  	die "$usage\n" ;
  }
