@@ -1,7 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
+
+inherit perl-functions
 
 DESCRIPTION="CDS prediction overcoming sequencing errors in unfinished cDNA"
 HOMEPAGE="http://bioinformatics.cenargen.embrapa.br/portrait/download"
@@ -14,15 +16,18 @@ SRC_URI="http://bioinformatics.cenargen.embrapa.br/portrait/download/angle.tar.g
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-S="${WORKDIR}"/angle
+S="${WORKDIR}/angle"
+
+RDEPEND="
+	sys-libs/libstdc++-v3
+	dev-lang/perl
+"
 
 QA_PREBUILT="opt/*"
 
 src_install(){
-	into /opt
-	dobin *.pl
+	perl_domodule *.pl
 	use amd64 && dobin ANGLE-linux64 ANGLE-linux64DP
 	use x86 && dobin ANGLE-linux32 ANGLE-linux32DP
 	dodoc README.txt
