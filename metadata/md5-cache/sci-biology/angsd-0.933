@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=dev-lang/R sci-libs/htslib:0=
+DESCRIPTION=Population genetics analysis package
+EAPI=7
+HOMEPAGE=http://www.popgen.dk/angsd
+KEYWORDS=~amd64
+LICENSE=GPL-2
+RDEPEND=dev-lang/R sci-libs/htslib:0=
+SLOT=0
+SRC_URI=https://github.com/ANGSD/angsd/archive/0.933.tar.gz -> angsd-0.933.tar.gz
+_md5_=6b181b2cdb8fe4d440723b251f04f196
