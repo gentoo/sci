@@ -1,9 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 MY_PN="DRAWxtl"
 MY_P=${MY_PN}${PV}
@@ -27,8 +27,12 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-gentoo.patch
+)
+
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-gentoo.patch
+	default
 	cd "${S}"/source || die
 	if ! use opengl; then
 		sed -i -e 's:define OPENGL 1:undef OPENGL:' ${MY_P}/drawxtl.h || die "sed failed"
@@ -59,8 +63,7 @@ src_install() {
 	fi
 
 	dodoc docs/readme.txt
-	insinto /usr/share/doc/${P}
-	doins docs/*.pdf
+	dodoc docs/*.pdf
 
 	if use examples; then
 		docinto examples
