@@ -285,19 +285,19 @@ sci-biology/jellyfish 1.1.12 2.3.0: k-mer counter within reads for assemblies
 sci-biology/jigsaw 3.2.10m: Combine results from external gene predictors into final gene models
 sci-biology/jtreeview 1.2.0 9999: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/jtreeview-bin 1.2.0: Viewer for Microarray Data in PCL or CDT formats
-sci-biology/karect 1.0.0: Error-correct mismatches and InDels of raw reads incl. paired-end
+sci-biology/karect 1.0: Error-correct mismatches and InDels of raw reads incl. paired-end
 sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
 sci-biology/kmergenie 1.7048: Estimate best k-mer length to be used in novo assemblies
 sci-biology/kraken 1.1.1: Detect sequencing project contaminants by mapping reads to taxonomic groups
 sci-biology/last 1179: Genome-scale comparison of biological sequences
-sci-biology/lastz 1.04.00: A pairwise DNA sequence aligner, a BLASTZ replacement
+sci-biology/lastz 1.04.03: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
 sci-biology/libblasr 9999: Library for blasr
 sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
-sci-biology/lumpy-sv 9999: Probabilistic framework for structural variant discovery
+sci-biology/lumpy-sv 0.3.1: Probabilistic framework for structural variant discovery
 sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
 sci-biology/maker 3.01.02_beta: A genome annotation viewer and pipeline for small eukaryota and prokaryota
 sci-biology/manatee-igs 2.23.1: IGS-modified version of the genome annotation tool using Chado database schema
