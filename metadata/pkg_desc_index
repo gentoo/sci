@@ -230,7 +230,7 @@ sci-biology/cdbfasta 0.1: FASTA record indexing/retrievieng utility
 sci-biology/cg-cat 20150130: r2cat and treecat, scaffolding tools for ordering and orienting contigs
 sci-biology/cgview-bin 1.0.0: CGView Comparison Tool to compare genome sequences graphically (aka CCT)
 sci-biology/chiron 0.6.1.1: A deep neural network basecaller for nanopore sequencing
-sci-biology/cluster 1.52a: Hierarchical, k-means, k-medians clustering for expression/microarray analysis
+sci-biology/cluster 1.59: Hierarchical, k-means, k-medians clustering for expression/microarray analysis
 sci-biology/clview 0.1: clview is an assembly .ace file viewer from TIGR Gene Indices project tools
 sci-biology/cnrun 2.1.0-r2: A NeuroML-enabled, precise but slow neuronal network simulator
 sci-biology/codonw 1.4.4-r2: Multivariate statistical analysis of codon and amino acid usage
