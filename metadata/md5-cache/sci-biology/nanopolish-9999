@@ -1,11 +1,12 @@
-DEFINED_PHASES=compile install prepare test unpack
-DEPEND=>=sci-libs/hdf5-1.8.14[threads] >=dev-cpp/eigen-3.2.5 >=sci-libs/htslib-1.4:0 sci-libs/fast5 >=dev-vcs/git-1.8.2.1[curl]
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install prepare unpack
+DEPEND=>=sci-libs/hdf5-1.8.14[threads] >=dev-cpp/eigen-3.2.5 >=sci-libs/htslib-1.4:0 sci-libs/fast5
 DESCRIPTION=Signal-level analysis of Oxford Nanopore sequencing data
-EAPI=6
+EAPI=7
 HOMEPAGE=https://github.com/jts/nanopolish
 LICENSE=MIT
 PROPERTIES=live
 RDEPEND=>=sci-libs/hdf5-1.8.14[threads] >=dev-cpp/eigen-3.2.5 >=sci-libs/htslib-1.4:0 sci-libs/fast5 sci-biology/biopython
 SLOT=0
 _eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
-_md5_=31abcc38c1700e8aef27d7c9db91f224
+_md5_=bac89af32b7b7f9bb9b4cf39c696bcbd
