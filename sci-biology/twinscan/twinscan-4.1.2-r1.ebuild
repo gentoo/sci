@@ -12,7 +12,6 @@ HOMEPAGE="https://mblab.wustl.edu/software.html"
 # Unable to locally verify the issuer's authority.
 # To connect to mblab.wustl.edu insecurely, use `--no-check-certificate'.
 SRC_URI="iscan-${PV}.tar.gz"
-RESTRICT="fetch"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
@@ -22,7 +21,7 @@ DEPEND="dev-libs/glib:2"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/N-SCAN"
-RESTRICT="test"
+RESTRICT="test fetch"
 
 src_prepare() {
 	default
