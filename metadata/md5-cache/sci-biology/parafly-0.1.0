@@ -1,0 +1,9 @@
+DEFINED_PHASES=configure
+DESCRIPTION=Parallel cmd processing utility
+EAPI=7
+HOMEPAGE=https://github.com/ParaFly/ParaFly
+KEYWORDS=~amd64
+LICENSE=BSD-BroadInstitute
+SLOT=0
+SRC_URI=https://github.com/ParaFly/ParaFly/archive/v0.1.0.tar.gz -> parafly-0.1.0.tar.gz
+_md5_=28304039c1cc129d4408d57f3532e8d1
