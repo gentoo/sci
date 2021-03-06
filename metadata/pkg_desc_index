@@ -281,7 +281,7 @@ sci-biology/igv 2.3.47 2.3.81 2.3.88 2.3.92: Integrative Genomics Viewer
 sci-biology/imagej 1.53g: Image Processing and Analysis in Java
 sci-biology/irsabi_bidsdata 1.4: BIDS data files released with the IRSABI publication
 sci-biology/jannovar-bin 0.35: Exome annotation tool (upstream jar binaries)
-sci-biology/jellyfish 1.1.12 2.1.3-r1 2.1.4-r1 2.2.10 2.3.0: k-mer counter within reads for assemblies
+sci-biology/jellyfish 1.1.12 2.3.0: k-mer counter within reads for assemblies
 sci-biology/jigsaw 3.2.10m: Combine results from external gene predictors into final gene models
 sci-biology/jtreeview 1.2.0 9999: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/jtreeview-bin 1.2.0: Viewer for Microarray Data in PCL or CDT formats
