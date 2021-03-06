@@ -1,13 +1,12 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit toolchain-funcs
 
 DESCRIPTION="Popular short read aligner for Next-generation sequencing data"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/bowtie2/"
-SRC_URI="mirror://sourceforge/project/${PN}-bio/${PN}2/${PV}/${PN}2-${PV}-source.zip"
 SRC_URI="https://github.com/BenLangmead/${PN}2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
@@ -60,8 +59,4 @@ src_install() {
 		insinto /usr/share/${PN}2
 		doins -r example
 	fi
-}
-
-src_test(){
-	emake test
 }

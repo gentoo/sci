@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit toolchain-funcs
 
@@ -11,13 +11,13 @@ SRC_URI="http://compbio.cs.ucr.edu/brat/downloads/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
 RDEPEND="!sci-biology/brat"
 
 src_prepare() {
+	default
 	sed \
 		-e "s:-Wl,-O1 : :g" \
 		-e "s:g++:$(tc-getCXX):g" \
