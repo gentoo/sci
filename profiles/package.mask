@@ -66,3 +66,8 @@ sci-biology/dna2pep
 # Does not build, latest update 2013
 # Masked for removal in 14 days, if you need this please complain
 sci-biology/edena
+
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
+# missing dependency cplex (nonfree IBM thingy)
+# Masked for removal in 14 days, if you need this please complain
+sci-biology/grass

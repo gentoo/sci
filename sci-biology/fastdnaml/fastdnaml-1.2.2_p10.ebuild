@@ -1,9 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
-
-inherit eutils
+EAPI=7
 
 DEB_PATCHLVL=10
 
@@ -15,15 +13,14 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}"/fastDNAml_${PV%_p*}
 
 src_prepare() {
 	mv ../debian . || die
-	EPATCH_OPTS="-p1" \
-		epatch debian/patches/*patch
+	default
+	eapply debian/patches/*patch
 }
 
 src_install() {
