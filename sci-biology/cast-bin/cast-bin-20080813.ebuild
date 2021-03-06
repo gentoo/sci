@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Predict low-complexity regions in putative proteins"
 HOMEPAGE="http://bioinformatics.cenargen.embrapa.br/portrait/download"
@@ -18,7 +18,6 @@ SRC_URI="http://bioinformatics.cenargen.embrapa.br/portrait/download/cast-linux.
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
