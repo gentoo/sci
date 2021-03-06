@@ -71,3 +71,10 @@ sci-biology/edena
 # missing dependency cplex (nonfree IBM thingy)
 # Masked for removal in 14 days, if you need this please complain
 sci-biology/grass
+
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
+# Newer versions use gradle build system which is currently not
+# support by portage, old versions do not build, ebuilds don't
+# have any keywords
+# Masked for removal in 14 days, if you need this please complain
+sci-biology/igv
