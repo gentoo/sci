@@ -11,7 +11,7 @@ HOMEPAGE="https://mblab.wustl.edu/software.html"
 # ERROR: cannot verify mblab.wustl.edu's certificate, issued by ‘CN=InCommon RSA Server CA,OU=InCommon,O=Internet2,L=Ann Arbor,ST=MI,C=US’:
 # Unable to locally verify the issuer's authority.
 # To connect to mblab.wustl.edu insecurely, use `--no-check-certificate'.
-SRC_URI="${P}.tar.gz"
+SRC_URI="iscan-${PV}.tar.gz"
 RESTRICT="fetch"
 
 LICENSE="all-rights-reserved"
