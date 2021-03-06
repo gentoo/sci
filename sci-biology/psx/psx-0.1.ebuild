@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit toolchain-funcs
 
@@ -12,9 +12,8 @@ SRC_URI="ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/tgicl/${PN}.tar.gz -
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-S=${WORKDIR}
+S="${WORKDIR}"
 
 src_compile() {
 	emake \
