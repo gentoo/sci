@@ -105,7 +105,7 @@ dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd 
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.8.0: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
-dev-python/python-igraph 0.8.2 0.8.3: Python interface for igraph
+dev-python/python-igraph 0.8.2 0.8.3 0.9.0: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pyzotero 1.4.20: A Python client for the Zotero API
@@ -398,7 +398,7 @@ sci-biology/tclust 110625: Transitive closure clustering tool with overlap filte
 sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
 sci-biology/tigr-foundation-libs 2.0-r1: TIGR Foundation for C++
 sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
-sci-biology/trans-abyss 1.4.8: Analyze and combine multiple assemblies from abyss
+sci-biology/trans-abyss 2.0.1: Analyze and combine multiple assemblies from abyss
 sci-biology/trf-bin 4.09: Tandem Repeats Finder
 sci-biology/trim_galore 0.6.6: Perl wrapper around Cutadapt and FastQC to adapter and quality trimming
 sci-biology/trimmomatic 0.38: Illumina adapter trimming tool

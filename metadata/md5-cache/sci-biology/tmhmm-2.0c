@@ -1,10 +1,10 @@
 DEFINED_PHASES=install nofetch prepare
 DESCRIPTION=Prediction of transmembrane helices in proteins
-EAPI=6
+EAPI=7
 HOMEPAGE=http://www.cbs.dtu.dk/services/TMHMM/
 KEYWORDS=~amd64 ~x86
 LICENSE=tmhmm
 RESTRICT=fetch
 SLOT=0
 SRC_URI=tmhmm-2.0c.Linux.tar.gz
-_md5_=17c4b248be051d6822faa6a6dbe80364
+_md5_=fdd2812200905e60e64ca662580c9ba4
