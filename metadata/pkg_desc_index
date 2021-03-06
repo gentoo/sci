@@ -356,9 +356,9 @@ sci-biology/quorum 1.1.1: Correct substitution errors in Illumina reads
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roche454ace2caf 20100812: ace to gap4 converter
-sci-biology/rtg-tools 9999: Manipulate and analyze VCF files
+sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
-sci-biology/rum 2.0.5.5: RNA-Seq Unified Mapper (digital normalization)
+sci-biology/rum 2.0.5.06: RNA-Seq Unified Mapper (digital normalization)
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/sailfish 0.10.0 9999: Rapid Mapping-based Isoform Quantification from RNA-Seq Reads
 sci-biology/salmon 0.10.2 1.4.0 9999: Transcript-level quantification from RNA-seq reads using lightweight alignments
