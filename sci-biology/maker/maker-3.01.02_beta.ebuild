@@ -1,10 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit eutils perl-module
+inherit perl-functions
 
 DESCRIPTION="A genome annotation viewer and pipeline for small eukaryota and prokaryota"
 HOMEPAGE="http://www.yandell-lab.org/software/maker.html"
