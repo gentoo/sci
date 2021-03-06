@@ -1,25 +1,24 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit java-pkg-2 java-ant-2 eutils git-r3
+inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Manipulate and analyze VCF files"
 HOMEPAGE="https://github.com/RealTimeGenomics/rtg-tools"
-EGIT_REPO_URI="https://github.com/RealTimeGenomics/rtg-tools.git"
+SRC_URI="https://github.com/RealTimeGenomics/rtg-tools/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
 DEPEND="
-		>=virtual/jdk-1.8:*
-		>=dev-java/ant-core-1.9
-		dev-java/jython"
+	>=virtual/jdk-1.8:*
+	>=dev-java/ant-core-1.9
+	dev-java/jython"
 RDEPEND="${DEPEND}
-		>=virtual/jre-1.8:*"
+	>=virtual/jre-1.8:*"
 
 src_compile(){
 	ant zip-nojre || die
