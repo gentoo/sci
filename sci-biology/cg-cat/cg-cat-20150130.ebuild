@@ -1,7 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit java-pkg-2 java-ant-2
 
@@ -13,7 +13,6 @@ SRC_URI="http://bibiserv.techfak.uni-bielefeld.de/applications/cgcat/resources/d
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 RDEPEND="${DEPEND}
 	>=virtual/jre-1.6:*
@@ -26,6 +25,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}"/r2cat
 
 src_prepare(){
+	default
 	sed -e "s#/vol/bioapps#"${D}"/usr#" -e "s#/vol/bibidev/r2cat#"${D}"/usr#" -i Makefile || die
 	sed -e "s#/vol/gnu#/usr#" -i de/bielefeld/uni/cebitec/r2cat/blast_to_r2cat.pl || die
 }
@@ -46,8 +46,8 @@ src_install(){
 	dobin de/bielefeld/uni/cebitec/r2cat/blast_to_r2cat.pl
 	java-pkg_dojar r2cat.jar || die
 	dodoc README.md ReadmeLicenses.txt
-	insinto /usr/share/doc/"${PN}"/html
-	doins de/bielefeld/uni/cebitec/r2cat/help/*
+	docinto html
+	dodoc de/bielefeld/uni/cebitec/r2cat/help/*
 }
 
 # to start r2cat:
