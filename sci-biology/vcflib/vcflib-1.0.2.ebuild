@@ -1,13 +1,13 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit git-r3 toolchain-funcs
+inherit cmake toolchain-funcs
 
 DESCRIPTION="VCF/BED utils, Genotype Phenotype Association Toolkit (GPAT++)"
 HOMEPAGE="https://github.com/vcflib/vcflib"
-EGIT_REPO_URI="https://github.com/vcflib/vcflib.git"
+SRC_URI="https://github.com/vcflib/vcflib/releases/download/v${PV}/${P}-src.tar.gz"
 
 # vcflib is incorporated into several projects, such as freebayes
 
@@ -16,13 +16,18 @@ SLOT="0"
 KEYWORDS=""
 IUSE="openmp"
 
-DEPEND=""
+DEPEND="
+	sys-libs/zlib
+	sci-libs/htslib
+"
 RDEPEND="${DEPEND}"
 # contains bundled sci-biology/htslib ?
 # see also ./include for possible traces of other bundled sw
 
+S="${WORKDIR}/${PN}"
+
 src_prepare(){
-	default
+	cmake_src_prepare
 	sed -e "s/^CXX = g++/CXX = $(tc-getCXX)/" -i Makefile || die
 	sed -e "s/^CXXFLAGS = -O3/CXXFLAGS = ${CXXFLAGS}/" -i Makefile || die
 	# openmp detection stolen from velvet-1.2.10.ebuild
@@ -39,15 +44,15 @@ src_prepare(){
 }
 
 src_compile(){
-	if use openmp ; then
-		emake openmp
-	else
-		emake
-	fi
+	mycmakeargs=(
+		-DOPENMP="$(use_enable openmp)"
+		-DHTSLIB_LOCAL=NO
+	)
+	cmake_src_compile
 }
-
-src_install(){
-	dobin bin/*
-	dolib lib/* # install libvcflib.a
-	dodoc README.md
-}
+#
+# src_install(){
+# 	dobin bin/*
+# 	dolib lib/* # install libvcflib.a
+# 	dodoc README.md
+# }

@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit flag-o-matic git-r3 toolchain-funcs
 
@@ -12,7 +12,6 @@ EGIT_REPO_URI="https://github.com/GregoryFaust/yaha.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 PATCHES=(
 	"${FILESDIR}"/${P}-fpermissive.patch
