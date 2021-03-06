@@ -393,6 +393,7 @@ sci-biology/stringtie 2.1.5: Transcriptome assembler and RNA-Seq analysis on BAM
 sci-biology/subread 2.0.1: NGS suite for analysis of mapped reads, summary of exon/intron/gene counts
 sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt flatfiles
 sci-biology/symap 5.0.6: Synteny Mapping and Analysis Program
+sci-biology/tabixpp 1.1.0: C++ wrapper to tabix indexer
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
 sci-biology/tclust 110625: Transitive closure clustering tool with overlap filtering options
 sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
