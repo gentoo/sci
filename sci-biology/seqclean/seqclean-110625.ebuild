@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Trimpoly and mdust for trimming and validation of ESTs/DNA sequences"
 HOMEPAGE="https://web.archive.org/web/20140726030702/http://compbio.dfci.harvard.edu/tgi/software/"
@@ -14,7 +14,6 @@ done
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="
 	dev-lang/perl
@@ -23,13 +22,15 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}
 
+PATCHES=(
+	"${FILESDIR}"/${P}-build.patch
+)
+
 src_prepare() {
+	default
 	# disable the necessity to install Mailer.pm with this tool
 	einfo "Disabling mailer feature within seqclean"
 	sed -i 's/use Mailer;/#use Mailer;/' "${S}"/"${PN}"/"${PN}" || die
-
-	epatch "${FILESDIR}"/${P}-build.patch
-
 	tc-export CC CXX
 }
 
