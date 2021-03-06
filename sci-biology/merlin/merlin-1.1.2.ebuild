@@ -1,20 +1,20 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit toolchain-funcs
+inherit toolchain-funcs flag-o-matic
 
 DESCRIPTION="Statistical analysis of gene flow in pedigrees"
-HOMEPAGE="http://www.sph.umich.edu/csg/abecasis/Merlin/"
-SRC_URI="http://www.sph.umich.edu/csg/abecasis/Merlin/download/${P}.tar.gz"
+HOMEPAGE="https://csg.sph.umich.edu/abecasis/Merlin/"
+SRC_URI="https://www.sph.umich.edu/csg/abecasis/Merlin/download/${P}.tar.gz"
 
 LICENSE="merlin"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 src_prepare() {
+	default
 	sed -i -e 's/CXX=g++/CXX='$(tc-getCXX)'/' -e 's/CFLAGS=/CFLAGS+= /' "${S}/Makefile" || die
 }
 
