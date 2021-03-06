@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit git-r3
 
@@ -12,7 +12,6 @@ EGIT_REPO_URI="https://github.com/jts/nanopolish.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
 
 # HDF5 is not thread safe by default and nanopolish currently requires a threadsafe HDF5.
 # This is one reason we download the compile it ourself (the main reason is to make it
@@ -32,8 +31,6 @@ src_prepare(){
 }
 
 src_compile(){
-	# >=gcc-4.8 but <gcc-7 is needed
-	# https://github.com/jts/nanopolish/issues/145
 	emake HDF5="noinstall" EIGEN="noinstall" HTS="noinstall" HTS_LIB=-lhts HTS_INCLUDE=-I/usr/include/htslib EIGEN_INCLUDE=-I/usr/include/eigen3 # TODO: FAST5_INCLUDE=-I/usr/include/fast5
 }
 
@@ -41,8 +38,4 @@ src_install(){
 	rm -rf lib || die # zap libs eventually compiled from the bundled copies
 	dobin nanopolish
 	# add scripts/ subdirectory to PATH
-}
-
-src_test(){
-	nanopolish_test || die
 }
