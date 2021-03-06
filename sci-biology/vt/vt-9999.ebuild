@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit git-r3 toolchain-funcs
 
@@ -31,6 +31,7 @@ RDEPEND="${DEPEND}
 
 # Compiles statically bundled version of htslib and Rmath, only libpcre2 is dynamically linked
 src_prepare(){
+	default
 	sed -e "s/= -O3/= ${CFLAGS}/" -i Makefile || die
 	sed -e 's/^CXX = /CXX ?= /' -i Makefile || die
 	sed -e "s/-g -Wall -O2/${CFLAGS}/" -i lib/htslib/Makefile || die
