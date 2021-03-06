@@ -1,15 +1,14 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
-
-[ "$PV" == "9999" ] && inherit git-r3
+inherit toolchain-funcs
 
 DESCRIPTION="Windowed adaptive quality-based trimming tool for FASTQ data"
 HOMEPAGE="https://github.com/najoshi/sickle"
 if [ "$PV" == "9999" ]; then
+	inherit git-r3
 	EGIT_REPO_URI="https://github.com/najoshi/sickle"
 	KEYWORDS=""
 else
@@ -19,15 +18,9 @@ fi
 
 LICENSE="MIT"
 SLOT="0"
-IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}
-	sys-libs/zlib"
-
-src_prepare(){
-	sed -e "s#-pedantic#-pedantic ${CFLAGS}#;s#gcc#"$(tc-getCC)"#" -i Makefile || die
-}
+DEPEND="sys-libs/zlib"
+RDEPEND="${DEPEND}"
 
 src_install(){
 	dobin sickle
