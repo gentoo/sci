@@ -1,12 +1,12 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit git-r3 toolchain-funcs
 
 DESCRIPTION="De novo De Bruijn graph assembler iteratively using multimple k-mers"
-HOMEPAGE="http://i.cs.hku.hk/~alse/hkubrg/projects/idba_ud"
+HOMEPAGE="https://i.cs.hku.hk/~alse/hkubrg/projects/idba_ud/"
 EGIT_REPO_URI="https://github.com/loneknightpy/idba.git"
 
 LICENSE="GPL-2+"
