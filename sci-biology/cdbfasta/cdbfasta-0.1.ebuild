@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="FASTA record indexing/retrievieng utility"
 HOMEPAGE="https://github.com/gpertea/cdbfasta"
@@ -10,11 +10,11 @@ SRC_URI="ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/cdbfasta/cdbfasta.ta
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 S=${WORKDIR}/${PN}
 
 src_prepare() {
+	default
 	sed \
 		-e 's/CFLAGS[ ]*=/CFLAGS :=/; s/-D_REENTRANT/-D_REENTRANT \${CFLAGS}/; s/CFLAGS[ ]*:=[ ]*-O2$//' \
 		-i "${S}"/Makefile || die "Failed to patch Makefile"

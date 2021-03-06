@@ -1,12 +1,12 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Hierarchical, k-means, k-medians clustering for expression/microarray analysis"
 HOMEPAGE="http://bonsai.hgc.jp/~mdehoon/software/cluster
 	http://bonsai.hgc.jp/~mdehoon/software/cluster/software.htm#ctv"
-SRC_URI="${P}.tar.gz"
+SRC_URI="http://bonsai.hgc.jp/~mdehoon/software/cluster/${P}.tar.gz"
 
 LICENSE="Eisen"
 SLOT="0"
@@ -20,13 +20,8 @@ RDEPEND="
 		app-text/mupdf
 	)"
 
-RESTRICT="fetch"
-
-pkg_nofetch() {
-	einfo "Please obtain ${P}.tar.gz from ${HOMEPAGE} and place it in ${DISTDIR}"
-}
-
 src_prepare() {
+	default
 	sed -i \
 		-e 's:^docdir = .*$:docdir = @docdir@:' \
 		-e 's:^htmldir = .*$:htmldir = @htmldir@:' \
@@ -38,8 +33,8 @@ src_prepare() {
 src_configure() {
 	econf \
 		$(use_with X x) \
-		--docdir="/usr/share/doc/${P}" \
-		--htmldir="/usr/share/doc/${P}/html"
+		--docdir="/usr/share/doc/${PF}" \
+		--htmldir="/usr/share/doc/${PF}/html"
 }
 
 src_install() {
@@ -47,10 +42,9 @@ src_install() {
 
 	mv "${ED}"/usr/bin/cluster{,3} || die
 
-	insinto /usr/share/doc/${P}/examples
-	doins example/example.c example/README
-	insinto /usr/share/doc/${PR}
-	doins doc/cluster.pdf
+	dodoc doc/cluster.pdf
+	docinto examples
+	dodoc example/example.c example/README
 }
 
 pkg_postinst() {
