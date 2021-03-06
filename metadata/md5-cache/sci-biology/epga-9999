@@ -1,10 +1,10 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install unpack
-DEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DESCRIPTION=De novo assembler using distribution of reads and insert size
-EAPI=5
+EAPI=7
 HOMEPAGE=https://github.com/bioinfomaticsCSU/EPGA
 LICENSE=GPL-3+
 PROPERTIES=live
 SLOT=0
 _eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=724acdbedc733fe728468e4dd6f7a9ae
+_md5_=4ec6defef0735d81452937a04da19b90
