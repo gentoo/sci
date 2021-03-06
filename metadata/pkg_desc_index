@@ -370,7 +370,7 @@ sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
 sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
 sci-biology/screed 1.0.4: Short read sequence utilities
-sci-biology/scythe 0.992: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
+sci-biology/scythe 9999: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
 sci-biology/seqclean 110625: Trimpoly and mdust for trimming and validation of ESTs/DNA sequences
 sci-biology/seqtk 1.3: Manipulate FASTA and FASTQ files
 sci-biology/seqtools 4.44.1: Display alignments and GFF files, matrix dot plots (blixem, dotter, belvu)
