@@ -401,12 +401,12 @@ sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
 sci-biology/trans-abyss 2.0.1: Analyze and combine multiple assemblies from abyss
 sci-biology/trf-bin 4.09: Tandem Repeats Finder
 sci-biology/trim_galore 0.6.6: Perl wrapper around Cutadapt and FastQC to adapter and quality trimming
-sci-biology/trimmomatic 0.38: Illumina adapter trimming tool
+sci-biology/trimmomatic 0.39: Illumina adapter trimming tool
 sci-biology/trinityrnaseq 2.11.0: Transcriptome assembler for RNA-seq reads
 sci-biology/trowel 0.1.4.1: Error corrector for genomic Illumina FASTQ reads
 sci-biology/twinscan 4.1.2-r1: iscan (aka twinscan and N-SCAN), Pairagon wrapper: Gene structure pred. pipeline
 sci-biology/vague-bin 1.0.5: GUI for Velvet de novo assembler
-sci-biology/vcflib 9999: VCF/BED utils, Genotype Phenotype Association Toolkit (GPAT++)
+sci-biology/vcflib 1.0.2: VCF/BED utils, Genotype Phenotype Association Toolkit (GPAT++)
 sci-biology/verifyBamID 1.1.3: Verify sample identity/mix and genotype concordance
 sci-biology/vt 9999: A tool set for short variant discovery in genetic sequence data
 sci-biology/wcd 0.6.3_p20180430: EST sequence clustering: d2 function, edit distance, common word heuristics
