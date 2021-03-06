@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit java-pkg-2 java-ant-2
 
@@ -16,7 +16,6 @@ SRC_URI="
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND=">=virtual/jdk-1.6:*
 	dev-java/ant-core
@@ -31,6 +30,5 @@ src_install() {
 	java-pkg_newjar "dist/jar/${P}.jar" "${PN}.jar"
 	insinto /usr/share/${PN}/Illumina
 	doins adapters/*.fa
-	insinto /usr/share/doc/${P}
 	dodoc "${DISTDIR}"/${P}_manual.pdf
 }
