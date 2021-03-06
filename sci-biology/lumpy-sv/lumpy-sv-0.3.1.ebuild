@@ -1,23 +1,25 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-
-inherit git-r3
+EAPI=7
 
 DESCRIPTION="Probabilistic framework for structural variant discovery"
 HOMEPAGE="https://github.com/arq5x/lumpy-sv"
-EGIT_REPO_URI="https://github.com/arq5x/lumpy-sv.git"
+SRC_URI="https://github.com/arq5x/lumpy-sv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
-# contains bundled htslib
-CDEPEND="dev-util/cmake"
-DEPEND=""
+DEPEND="sci-libs/htslib"
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+	default
+	# do not build bundled htslib, link to system lib
+	sed -i -e 's/lumpy_filter: htslib/lumpy_filter:/g' Makefile || die
+	sed -i -e 's/-I..\/..\/lib\/htslib\///' -e 's/..\/..\/lib\/htslib\/libhts.a/-lhts/g' src/filter/Makefile || die
+}
 
 src_install(){
 	cat > "${T}"/99lumpy-sv <<- EOF
@@ -35,9 +37,5 @@ src_install(){
 		rm scripts/"$f" || die
 	done
 	doins scripts/*
-	dodoc README.md
-	insinto /usr/share/lumpy-sv/scripts/bamkit
-	cd scripts/bamkit || die
-	doins *.py sectosupp
-	newdoc README.md README_bamkit.md
+	einstalldocs
 }
