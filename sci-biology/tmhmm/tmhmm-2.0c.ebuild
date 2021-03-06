@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="Prediction of transmembrane helices in proteins"
 HOMEPAGE="http://www.cbs.dtu.dk/services/TMHMM/"
@@ -21,6 +21,7 @@ pkg_nofetch() {
 }
 
 src_prepare() {
+	default
 	sed -i '1 i #!/usr/bin/env perl' "${S}"/bin/tmhmm* || die
 	sed -i '1 a $opt_basedir = "/opt/tmhmm";' "${S}"/bin/tmhmm || die
 }
