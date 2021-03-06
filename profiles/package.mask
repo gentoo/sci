@@ -62,3 +62,7 @@ sci-biology/autoeditor
 # Masked for removal in 14 days, if you need this please complain
 sci-biology/dna2pep
 
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
+# Does not build, latest update 2013
+# Masked for removal in 14 days, if you need this please complain
+sci-biology/edena
