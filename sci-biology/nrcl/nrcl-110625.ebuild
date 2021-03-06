@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Containment clustering and layout utility for processing pairwise alignments"
 HOMEPAGE="https://web.archive.org/web/20140726030702/http://compbio.dfci.harvard.edu/tgi/software/"
@@ -14,12 +14,15 @@ SRC_URI="
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-S="${WORKDIR}"/${PN}
+S="${WORKDIR}/${PN}"
+
+PATCHES=(
+	"${FILESDIR}/${PV}-build.patch"
+)
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-build.patch
+	default
 	tc-export CXX
 }
 
