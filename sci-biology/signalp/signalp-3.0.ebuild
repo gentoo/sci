@@ -1,7 +1,7 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Prediction of signal peptide cleavage sites in amino acid sequences"
 HOMEPAGE="http://www.cbs.dtu.dk/services/SignalP/"
@@ -25,6 +25,7 @@ pkg_nofetch() {
 }
 
 src_prepare() {
+	default
 	sed -i -e '/SIGNALP=/ s/\/usr//' \
 		-e '/TMPDIR=/ s/$SIGNALP//' "${S}/signalp" || die
 	sed -i 's/nawk/gawk/' "${S}"/bin/* || die
