@@ -19,6 +19,7 @@ IUSE="openmp"
 DEPEND="
 	sys-libs/zlib
 	sci-libs/htslib
+	sci-biology/tabixpp
 "
 RDEPEND="${DEPEND}"
 # contains bundled sci-biology/htslib ?
