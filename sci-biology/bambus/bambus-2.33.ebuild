@@ -1,10 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-PERL_EXPORT_PHASE_FUNCTIONS=no
-inherit perl-module eutils toolchain-funcs
+inherit perl-module toolchain-funcs
 
 DESCRIPTION="Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle"
 HOMEPAGE="
@@ -17,7 +16,6 @@ SRC_URI="
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 RDEPEND="
 	sci-biology/tigr-foundation-libs
@@ -26,8 +24,13 @@ RDEPEND="
 	dev-perl/GraphViz"
 DEPEND="${RDEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/TigrFoundation-all-patches.patch
+)
+
 src_prepare() {
-#	epatch "${FILESDIR}"/amos-2.0.8-gcc44.patch
+	default
+#	eapply "${FILESDIR}"/amos-2.0.8-gcc44.patch
 	sed -e 's:BASEDIR = /usr/local/packages/bambus:BASEDIR = /usr:' -i Makefile || die
 	sed -e 's:PERL = /usr/local/bin/perl:PERL = /usr/bin/perl:' -i Makefile || die
 	sed \
@@ -64,7 +67,6 @@ src_prepare() {
 	#rm -rf src/TIGR_Foundation_CC || die "Failed to rm -rf src/TIGR_Foundation_CC/, we use it from sci-biology/tigr-foundation-libs"
 	#sed -i 's:TIGR_Foundation_CC::' src/Makefile || die "Failed to zap last pointer to local copy of tigr-foundation-libs"
 	cd src/TIGR_Foundation_CC || die "Failed to cd src/TIGR_Foundation_CC/"
-	epatch "${FILESDIR}"/TigrFoundation-all-patches.patch || die
 	sed -e "s:/export/usr/local:${ED}/usr:g" -i Makefile || die
 }
 
