@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="clview is an assembly .ace file viewer from TIGR Gene Indices project tools"
 HOMEPAGE="https://sourceforge.net/projects/clview"
@@ -62,7 +62,6 @@ SRC_URI="
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND="=x11-libs/fox-1.6*"
 RDEPEND="${DEPEND}"
@@ -74,6 +73,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	default
 	# FIXME: we have to run `/usr/bin/fox-config --cflags' to yield
 	#        `-I/usr/include/fox-1.6'
 	# similarly `fox-config --libs' to yield e.g.

@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils
+inherit toolchain-funcs
 
 DESCRIPTION="Error corrector for Illumina and Roche/454 reads using multiple alignment info"
 HOMEPAGE="http://www.cs.helsinki.fi/u/lmsalmel/coral"
@@ -12,12 +12,12 @@ SRC_URI="http://www.cs.helsinki.fi/u/lmsalmel/coral/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_prepare(){
+	default
 	sed -e "s#-O3 -Wall -g#${CXXFLAGS}#; s#g++#$(tc-getCXX)#" -i Makefile || die
 }
 
