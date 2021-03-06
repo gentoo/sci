@@ -236,7 +236,7 @@ sci-biology/cnrun 2.1.0-r2: A NeuroML-enabled, precise but slow neuronal network
 sci-biology/codonw 1.4.4-r2: Multivariate statistical analysis of codon and amino acid usage
 sci-biology/conform-gt 1174: Modify your Variant Call Format file to be consistent with reference VCF
 sci-biology/conrad 1: Ab initio- and ad hoc evidence-based (RNA-Seq, BLAST) gene/ORF predictor
-sci-biology/coral 1.4: Error corrector for Illumina and Roche/454 reads using multiple alignment info
+sci-biology/coral 1.4.1: Error corrector for Illumina and Roche/454 reads using multiple alignment info
 sci-biology/cortex_var 1.0.5.21: Genotype variant discovery without reference sequence
 sci-biology/cramtools 3.0: Java tools and APIs for efficient compression of sequence read data
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
