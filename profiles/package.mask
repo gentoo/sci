@@ -88,3 +88,8 @@ sci-biology/perga
 # Does not fetch, last update in 2009
 # Masked for removal in 14 days, if you need this please complain
 sci-biology/sclust
+
+# Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
+# Does not build, last updated in 2009
+# Masked for removal in 14 days, if you need this please complain
+sci-biology/tclust
