@@ -336,7 +336,7 @@ sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
 sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger-based reads)
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
-sci-biology/pilon-bin 1.23: Fix assembled reference using BAM-aligned reads, call SNPs
+sci-biology/pilon-bin 1.24: Fix assembled reference using BAM-aligned reads, call SNPs
 sci-biology/polyphen 2.2.2: Predict effect of aminoacid substitution on human protein function
 sci-biology/portrait 1.1: Ab initio ncRNA prediction
 sci-biology/primerD 1.0.0: Design degenerate primers
@@ -351,10 +351,9 @@ sci-biology/pybedtools 0.8.0: Use BED and GFF files from python using BEDtools
 sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequences
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
 sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each other
-sci-biology/quicktree 1.1-r1 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
+sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
 sci-biology/quorum 1.1.1: Correct substitution errors in Illumina reads
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
-sci-biology/reaper 15348: Demultiplex, trim 3'-adapter/polyA and filter short read DNA sequences
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roche454ace2caf 20100812: ace to gap4 converter
 sci-biology/rtg-tools 9999: Manipulate and analyze VCF files
