@@ -1,5 +1,5 @@
---- lastz-distrib-1.04.00/src/Makefile.ori	2017-11-16 16:09:47.232140878 +0100
-+++ lastz-distrib-1.04.00/src/Makefile	2017-11-16 16:14:12.589271305 +0100
+--- a/src/Makefile	2017-11-16 16:09:47.232140878 +0100
++++ b/src/Makefile	2017-11-16 16:14:12.589271305 +0100
 @@ -1,7 +1,7 @@
  include ../make-include.mak
  include version.mak
