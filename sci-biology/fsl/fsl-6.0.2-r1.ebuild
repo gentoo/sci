@@ -11,12 +11,12 @@ SRC_URI="https://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz -> ${P}.tar
 
 LICENSE="FSL BSD-2 newmat"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="cuda"
 
 DEPEND="
 	dev-libs/boost
-	dev-python/fslpy
+	<dev-python/fslpy-3
 	media-gfx/graphviz
 	media-libs/gd
 	media-libs/glu

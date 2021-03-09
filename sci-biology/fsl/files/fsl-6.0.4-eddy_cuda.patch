@@ -1,0 +1,21 @@
+diff -Naur fsl.orig/src/eddy/Makefile fsl/src/eddy/Makefile
+--- fsl.orig/src/eddy/Makefile	2020-12-02 16:07:47.327884548 -0500
++++ fsl/src/eddy/Makefile	2020-12-02 16:11:21.149891196 -0500
+@@ -29,6 +29,8 @@
+ TMPCXXFLAGS_2=
+ TMPNAME_1=
+ TMPNAME_2=
++cuda=1
++cpu=1
+ TOPUP_DIR=../topup
+ 
+ ifndef cuda
+@@ -74,7 +75,7 @@
+ ifdef NVCC11
+ 	NVCC=${NVCC11}
+ endif
+-NVCCFLAGS=-c -DCOMPILE_GPU -O3 -m 64 -std=c++11
++NVCCFLAGS=-c -DCOMPILE_GPU -O3 -m 64 -std=c++11 @@GENTOO_NVCC_FLAGS@@
+ ifeq ($(CLOBBER_CLANG),1)
+    NVCCFLAGS+= -DCLOBBER_CLANG
+ endif

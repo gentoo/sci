@@ -1,0 +1,11 @@
+diff -Naur fsl.orig/src/melodic/Makefile fsl/src/melodic/Makefile
+--- fsl.orig/src/melodic/Makefile	2021-01-06 14:04:35.743274475 -0500
++++ fsl/src/melodic/Makefile	2021-01-06 14:11:27.924264859 -0500
+@@ -9,6 +9,7 @@
+ 
+ USRINCFLAGS = -I${INC_NEWMAT} -I${INC_PROB} -I${INC_GD} -I${INC_GDC} -I${INC_PNG} -I${INC_ZLIB} -DCIFTILIB_USE_XMLPP -I${FSLEXTINC} -I${INC_XML2} -I${INC_XML++} -I${INC_XML++CONF} -I${INC_BOOST} -I${FSLDIR}/include/ciftiio
+ USRLDFLAGS = -L${LIB_NEWMAT} -L${LIB_PROB} -L${LIB_GD} -L${LIB_GDC} -L${LIB_PNG} -L${LIB_ZLIB}
++USRCXXFLAGS = -std=c++11
+ 
+ UNAME := $(shell uname)
+ ifeq (${UNAME},Darwin)
