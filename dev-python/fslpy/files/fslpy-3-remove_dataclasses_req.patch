@@ -1,0 +1,8 @@
+diff -Naur fslpy-3.4.0.orig/requirements.txt fslpy-3.4.0/requirements.txt
+--- fslpy-3.4.0.orig/requirements.txt	2021-02-18 21:38:49.826829560 -0500
++++ fslpy-3.4.0/requirements.txt	2021-02-18 21:38:55.475829863 -0500
+@@ -3,4 +3,3 @@
+ numpy>=1
+ scipy>=0.18
+ six>=1
+-dataclasses
