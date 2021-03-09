@@ -11,7 +11,7 @@ SRC_URI="https://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz -> ${P}.tar
 
 LICENSE="FSL BSD-2 newmat"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="cuda"
 
 DEPEND="
