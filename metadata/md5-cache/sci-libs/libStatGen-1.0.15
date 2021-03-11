@@ -10,5 +10,5 @@ LICENSE=GPL-3+
 RDEPEND=dev-libs/openssl:0=
 SLOT=0
 SRC_URI=https://github.com/statgen/libStatGen/archive/v1.0.15.tar.gz -> libStatGen-1.0.15.tar.gz
-_eclasses_=docs	ab81eebd98db486ca36ad1e30ac2b7c5
+_eclasses_=docs	5a0235b1127b58fd6bf54a12c8d21657
 _md5_=1e723148938d2b28a1ff232f8e150aab
