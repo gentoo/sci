@@ -5,7 +5,7 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-    <stabilize-allarches/>
+	<stabilize-allarches/>
 	<upstream>
 		<remote-id type="pypi">colorcet</remote-id>
 		<remote-id type="github">holoviz/colorcet</remote-id>
