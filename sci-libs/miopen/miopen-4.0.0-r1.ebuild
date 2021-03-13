@@ -16,13 +16,14 @@ SLOT="0"
 RDEPEND="
 	>=dev-util/hip-${PV}
 	>=dev-libs/half-1.12.0
+	<dev-libs/half-2
 	dev-libs/ocl-icd
 	=dev-util/rocm-clang-ocl-${PV}*
 	sci-libs/rocBLAS
 	=dev-libs/boost-1.72*"
 
-DEPEND="${RDEPEND}
-	dev-util/cmake"
+DEPEND="${RDEPEND}"
+BDEPEND="app-admin/chrpath"
 
 S="${WORKDIR}/MIOpen-rocm-${PV}"
 
@@ -55,6 +56,6 @@ src_configure() {
 
 src_install() {
 	cmake_src_install
-	chrpath --delete "${ED}/usr/bin/MIOpenDriver"
-	chrpath --delete "${ED}/usr/lib64/libMIOpen.so.1.0"
+	chrpath --delete "${ED}/usr/bin/MIOpenDriver" || die
+	chrpath --delete "${ED}/usr/lib64/libMIOpen.so.1.0" || die
 }
