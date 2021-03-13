@@ -9,11 +9,11 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<longdescription lang="en">
-Insight Segmentation and Registration Toolkit (ITK) is a library
-that provides developers with an extensive suite of tools for image
-analysis.
-</longdescription>
-	<use>
+		Insight Segmentation and Registration Toolkit (ITK) is a library
+		that provides developers with an extensive suite of tools for image
+		analysis.
+	</longdescription>
+		<use>
 		<flag name="itkv4-compat">Compatibility for applications using ITKv4 API</flag>
 		<flag name="review">Enable compilation of methods under review</flag>
 		<flag name="vtkglue">PLEASE FIX MY DESCRIPTION</flag>
