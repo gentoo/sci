@@ -1,6 +1,0 @@
-# Theo Anderson <telans@posteo.de> (2021-01-06)
-# Create profiles with the hidden arch where dependency conflicts
-# arise and masks are needed. They must match :gentoo profiles.
-# Using parent files within the profiles allows gentoo: profiles
-# to inherit any ::guru masks we choose.
-hidden  default/linux/amd64/17.0/x32                            dev
