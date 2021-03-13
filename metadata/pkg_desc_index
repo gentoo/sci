@@ -31,7 +31,7 @@ dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Genget
 dev-libs/asmjit 1.0_p22092020 9999: complete x86/x64 JIT-Assembler for C++ language
 dev-libs/boost 1.72.0-r2: Boost Libraries for C++
 dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
-dev-libs/half 2.1.0: Half-precision floating-point library
+dev-libs/half 1.12.0 2.1.0: Half-precision floating-point library
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
 dev-libs/optix 6.0.0 7.0.0 7.1.0: NVIDIA Ray Tracing Engine
