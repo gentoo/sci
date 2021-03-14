@@ -36,7 +36,7 @@ SRC_URI="
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc examples fftw python review test vtkglue"
+IUSE="debug doc examples fftw itkv4-compat python review test vtkglue"
 RESTRICT="!test? ( test )"
 # python will not work, this is a know issue upstream:
 # https://github.com/InsightSoftwareConsortium/ITK/issues/2005
@@ -131,6 +131,7 @@ src_configure() {
 		-DModule_ITKReview:BOOL=ON
 		-DWRAP_ITK_JAVA=OFF
 		-DWRAP_ITK_TCL=OFF
+		-DITKV4_COMPATIBILITY:BOOL=$(usex itkv4-compat)
 	)
 	if use fftw; then
 		mycmakeargs+=(
