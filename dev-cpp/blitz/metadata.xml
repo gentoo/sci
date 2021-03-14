@@ -9,4 +9,14 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
+	<longdescription>
+		Blitz++ is a C++ template class library that provides high-performance
+		multidimensional array containers for scientific compiting.
+	</longdescription>
+	<use>
+		<flag name="boost">Enable serialization support using Boost::Serialization.</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">blitzpp/blitz</remote-id>
+	</upstream>
 </pkgmetadata>
