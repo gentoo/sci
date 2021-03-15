@@ -29,8 +29,8 @@ RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 "
 
-PATCHES=( 
-	"${FILESDIR}/fslpy-2.7.0-coverage.patch" 
+PATCHES=(
+	"${FILESDIR}/fslpy-2.7.0-coverage.patch"
 	"${FILESDIR}/fslpy-3-remove_dataclasses_req.patch"
 )
 
