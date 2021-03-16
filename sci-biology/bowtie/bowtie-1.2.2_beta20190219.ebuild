@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit flag-o-matic toolchain-funcs git-r3
 
@@ -25,7 +25,7 @@ DEPEND="${RDEPEND}
 DOCS=( AUTHORS NEWS TUTORIAL doc/README )
 HTML_DOCS=( doc/{manual.html,style.css} )
 
-PATCHES=( "${FILESDIR}/bowtie-1.2.2-fix-isa-return-type.patch" )
+#PATCHES=( "${FILESDIR}/bowtie-1.2.2-fix-isa-return-type.patch" )
 # not needed
 # "${FILESDIR}/${P}-fix-Intel-compilation.patch", obsoleted by https://github.com/BenLangmead/bowtie/commit/d8b661fb36c129cb9899fcd3689b3618036f8c7b
 #
