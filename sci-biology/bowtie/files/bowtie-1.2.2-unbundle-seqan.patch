@@ -1,0 +1,14 @@
+--- bowtie-1.2.2/Makefile	2019-02-18 13:26:29.490835084 +0100
++++ bowtie-1.2.2/Makefile	2019-02-18 13:28:36.864742545 +0100
+@@ -5,10 +5,7 @@
+ prefix = /usr/local
+ bindir = $(prefix)/bin
+ 
+-SEQAN_DIR = ./SeqAn-1.1
+-# treat SeqAn as a sysdir to suppress warnings
+-SEQAN_INC = -isystem $(SEQAN_DIR)
+-INC = $(if $(RELEASE_BUILD),-I$(CURDIR)/.include) $(SEQAN_INC) -I third_party
++INC = $(if $(RELEASE_BUILD),-I$(CURDIR)/.include) `pkg-config --cflags seqan-1.4` -I third_party
+ CPP = g++
+ CXX = $(CPP)
+ CC = gcc

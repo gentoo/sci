@@ -1,0 +1,17 @@
+Description: Change class name of _Context_LSS
+ New version 1.4 of SeQan uses a different name of the class. 
+Forwarded: no
+Author: Gert Wollny <gw.fossdev@gmail.com>
+Last-Update: 2014-100-06
+
+--- bowtie-1.2.2/diff_sample.h	2017-11-03 01:25:56.000000000 +0100
++++ bowtie-1.2.2/diff_sample.h	2019-02-18 12:50:37.894674282 +0100
+@@ -979,7 +979,7 @@
+ 	{
+ 		Timer timer(cout, "  Invoking Larsson-Sadakane on ranks time: ", this->verbose());
+ 		VMSG_NL("  Invoking Larsson-Sadakane on ranks");
+-		_Context_LSS<TIndexOff> c;
++		ContextLss_<TIndexOff> c;
+ 		c.suffixsort(
+ 			(TIndexOff*)begin(_isaPrime, Standard()),
+ 			(TIndexOff*)begin(sPrime, Standard()),
