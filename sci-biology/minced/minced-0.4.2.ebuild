@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-2
+inherit java-pkg-2 java-pkg-simple
 
 DESCRIPTION="Short Palindromic Repeat finder tool (for CRISPRs)"
 HOMEPAGE="https://github.com/ctSkennerton/minced"
