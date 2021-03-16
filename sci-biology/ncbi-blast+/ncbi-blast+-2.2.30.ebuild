@@ -10,7 +10,6 @@ inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 MY_P="ncbi-blast-${PV}+-src"
 # workdir/ncbi-blast-2.2.30+-src
 # ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-src.tar.gz
-# ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.3.0+-src.tar.gz
 
 DESCRIPTION="A subset of NCBI C++ Toolkit containing just the NCBI BLAST+"
 HOMEPAGE="https://ncbi.github.io/cxx-toolkit/"
@@ -67,8 +66,7 @@ DEPEND="
 	xpm? ( x11-libs/libXpm )
 	dev-libs/lzo
 	app-arch/bzip2
-	dev-libs/libpcre
-	dev-db/lmdb"
+	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 # Intentionally omitted USE flags:
 #   ftds? ( dev-db/freetds ) # support for outside FreeTDS installations is currently broken.
@@ -124,10 +122,7 @@ src_prepare() {
 ##	epatch ${PATCHES[@]}
 
 	# use a Debian patch from http://anonscm.debian.org/viewvc/debian-med/trunk/packages/ncbi-blast%2B/trunk/debian/patches/fix_lib_deps?revision=18535&view=markup
-	# the patches for 2.2.30+ do not apply to 2.2.31, mostly DLL_LIB is gone but somewhere
-	# it is still present, plus in a few places was something else patched
-	# staying without any patches for now and lets see is it works on Gentoo
-	# epatch "${FILESDIR}"/fix_lib_deps.patch
+	epatch "${FILESDIR}"/"${P}"__fix_lib_deps.patch
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 
@@ -241,9 +236,7 @@ src_configure() {
 	$(use_with mesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
 	$(use_with opengl glew "${EPREFIX}/usr")
-	#
-	# GLEW 2.0 dropped support for this, see https://bugs.gentoo.org/show_bug.cgi?id=611302
-	# $(use_with opengl glew-mx)
+	$(use_with opengl glew-mx)
 	$(use_with wxwidgets wxwidgets "${EPREFIX}/usr")
 	$(use_with wxwidgets wxwidgets-ucs)
 	$(use_with freetype freetype "${EPREFIX}/usr")
@@ -268,8 +261,6 @@ src_configure() {
 	$(use_with curl curl "${EPREFIX}/usr")
 #	$(use_with X x "${EPREFIX}/usr")
 #	$(use_with X x) # there is no --with-x option
-	# prevent downloading VDB sources from https://github.com/ncbi/ncbi-vdb.git during configure execution
-	--without-vdb
 	)
 
 	# http://www.ncbi.nlm.nih.gov/books/NBK7167/
@@ -289,7 +280,7 @@ src_configure() {
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
 		--with-flat-makefile \
-		${myconf[@]} || die "Maybe try new src/build-system/cmake/cmake-configure instead?"
+		${myconf[@]} || die "gcc 7 or newer were not used by upstream hence unsupported"
 #--without-debug \
 #		--with-bin-release \
 #		--with-bincopy \

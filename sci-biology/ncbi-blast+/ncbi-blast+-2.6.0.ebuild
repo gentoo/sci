@@ -67,8 +67,7 @@ DEPEND="
 	xpm? ( x11-libs/libXpm )
 	dev-libs/lzo
 	app-arch/bzip2
-	dev-libs/libpcre
-	dev-db/lmdb"
+	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 # Intentionally omitted USE flags:
 #   ftds? ( dev-db/freetds ) # support for outside FreeTDS installations is currently broken.
@@ -289,7 +288,7 @@ src_configure() {
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
 		--with-flat-makefile \
-		${myconf[@]} || die "Maybe try new src/build-system/cmake/cmake-configure instead?"
+		${myconf[@]} || die
 #--without-debug \
 #		--with-bin-release \
 #		--with-bincopy \
