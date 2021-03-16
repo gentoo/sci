@@ -3,9 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
-
-inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
+inherit flag-o-matic multilib toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
@@ -28,13 +26,11 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
-	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
+	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS="~amd64"
 RESTRICT="!test? ( test )"
-
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # sys-libs/db should be compiled with USE=cxx
 # dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
@@ -53,7 +49,6 @@ DEPEND="
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	gnutls? ( net-libs/gnutls )
-	python? ( ${PYTHON_DEPS} )
 	cppunit? ( dev-util/cppunit )
 	icu? ( dev-libs/icu )
 	expat? ( dev-libs/expat )
@@ -256,7 +251,8 @@ src_configure() {
 	$(use_with fastcgi fastcgi "${EPREFIX}/usr")
 	$(use_with berkdb bdb "${EPREFIX}/usr")
 	$(usex odbc --with-odbc="${EPREFIX}/usr" "")
-	$(use_with python python "${EPREFIX}/usr")
+	# is python2
+	--without-python
 	$(use_with boost boost "${EPREFIX}/usr")
 	$(use_with sqlite sqlite3 "${EPREFIX}/usr")
 	$(use_with icu icu "${EPREFIX}/usr")
