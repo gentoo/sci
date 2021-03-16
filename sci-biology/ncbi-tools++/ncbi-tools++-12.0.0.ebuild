@@ -9,7 +9,7 @@ inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
-MY_PV="18_0_0"
+MY_PV="12_0_0"
 MY_P="ncbi_cxx--${MY_PV}"
 #ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
 
@@ -17,7 +17,7 @@ MY_P="ncbi_cxx--${MY_PV}"
 DESCRIPTION="NCBI C++ Toolkit, including NCBI BLAST+"
 HOMEPAGE="https://ncbi.github.io/cxx-toolkit/"
 SRC_URI="
-	ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools++/ARCHIVE/2017/Jan_10_2017/ncbi_cxx--${MY_PV}.tar.gz"
+	ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools++/ARCHIVE/${MY_PV}/ncbi_cxx--${MY_PV}.tar.gz"
 #	http://dev.gentoo.org/~jlec/distfiles/${PN}-${PV#0.}-asneeded.patch.xz"
 
 # should also install ftp://ftp.ncbi.nlm.nih.gov/blast/db/taxdb.tar.gz
@@ -30,7 +30,8 @@ IUSE="
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite tiff xerces xalan xml xpm xslt X"
-KEYWORDS="~amd64 ~x86"
+#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -85,29 +86,16 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
+		"${FILESDIR}"/${P}-conf-opts.patch
+		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
+		"${FILESDIR}"/${P}-linkage-tuneups.patch
+		"${FILESDIR}"/${P}-more-patches.patch
+		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
 		"${FILESDIR}"/${P}-configure.patch
+		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
 		"${FILESDIR}"/${P}-fix-install.patch
+		"${FILESDIR}"/${P}-bdb6.patch
 		"${FILESDIR}"/${P}-never_build_test_boost.patch # bug #579248
-		"${FILESDIR}"/${P}-fix-annotwriter-linking.patch
-		"${FILESDIR}"/${P}-fix-undefined-xobjread.patch
-		"${FILESDIR}"/${P}-fix-apps-blast-linking.patch
-		"${FILESDIR}"/${P}-fix-sample-app-cgi-linking.patch
-		"${FILESDIR}"/${P}-fix-app-compartp-linking.patch
-		"${FILESDIR}"/${P}-fix-app-convert_seq-linking.patch
-		"${FILESDIR}"/${P}-fix-app-hfilter-linking.patch
-		"${FILESDIR}"/${P}-fix-app-igblast-linking.patch
-		"${FILESDIR}"/${P}-fix-ncfetch-linking.patch
-		"${FILESDIR}"/${P}-fix-netcache_cgi_sample-linking.patch
-		"${FILESDIR}"/${P}-fix-netstorage_gc-linking.patch
-		"${FILESDIR}"/${P}-fix-speedtest-linking.patch
-		"${FILESDIR}"/${P}-fix-splign-linking.patch
-		"${FILESDIR}"/${P}-fix-srcchk-linking.patch
-		"${FILESDIR}"/${P}-fix-app-rmblastn-linking.patch
-		"${FILESDIR}"/${P}-remove-old-symlinks.patch
-		"${FILESDIR}"/${P}-fix-app-table2asn-linking.patch
-		"${FILESDIR}"/${P}-fix-app-tls-linking.patch
-		"${FILESDIR}"/${P}-fix-app-vecscreen-linking.patch
-		"${FILESDIR}"/${P}-fix-app-blast_sample-linking.patch
 		)
 
 src_prepare() {
@@ -138,7 +126,11 @@ src_prepare() {
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
 
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
-	#ncbi-tools++-18.0.0-fix-undefined-lxncbi.patch
+#       "${FILESDIR}"/${P}-as-needed.patch
+#       "${FILESDIR}"/${P}-fix-creaders-linking.patch
+#       "${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
+#		)
+		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 
@@ -237,7 +229,7 @@ src_configure() {
 	# resulting in 'checking for ncbi-vdb... no' and
 	# '^PACKAGES:'
 	# '^  disabled: ... VDB'
-	--without-downloaded-vdb
+	# --without-downloaded-vdb
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
@@ -366,13 +358,6 @@ src_install() {
 	mv -f "${ED}"/usr/bin/test_regexp "${ED}"/usr/bin/test_regexp+ # drop the eventually mistakenly compiled binaries
 	mv "${ED}"/usr/bin/vecscreen "${ED}"/usr/bin/vecscreen+
 	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop+
-	#
-	# idfetch collides with idfetch from ncbi-tools-2.2.26
-	# Although the two idfetch implementations do deliberately have several
-	# options in common, the C++ version is not yet a full drop-in replacement
-	# for the C version (and will never entirely be, due to fundamental
-	# differences between the two toolkits' argument-parsing conventions).
-	mv "${ED}"/usr/bin/idfetch "${ED}"/usr/bin/idfetch+ # new in ncbi-tools++-18.0.0
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/${PN}" > ${S}/99${PN}
 	doenvd "${S}/99${PN}"
