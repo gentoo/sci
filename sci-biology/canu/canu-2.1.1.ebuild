@@ -22,6 +22,7 @@ RDEPEND="${PYTHON_DEPS}
 	dev-lang/perl
 	virtual/perl-File-Path
 	sci-visualization/gnuplot
+	sci-biology/minimap2
 "
 # =sci-biology/mhap-2.1.3 if we unbundle it
 DEPEND="${RDEPEND}
