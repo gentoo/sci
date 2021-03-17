@@ -34,13 +34,13 @@ src_compile(){
 }
 
 src_install(){
-	dodoc "${DISTDIR}"/${P}_MANUAL.html
+	dodoc "${DISTDIR}/${P}_MANUAL.html"
 	perl_set_version
 	insinto ${VENDOR_LIB}/${PN}
 	doins destdir/*.pm
 	insinto /usr/share/${PN}/util
 	doins destdir/*.pl
-	chmod -R a+rx "${D}"/"${EPREFIX}"/usr/share/${PN}/util
+	chmod -R a+rx "${ED}/usr/share/${PN}/util"
 	rm -f destdir/krakenlib.pm
 	dobin destdir/*
 }
