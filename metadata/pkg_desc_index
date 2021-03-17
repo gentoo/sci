@@ -313,6 +313,7 @@ sci-biology/megahit 1.2.9: Metagenome assembler using succinct de Bruijn graph a
 sci-biology/merlin 1.1.2: Statistical analysis of gene flow in pedigrees
 sci-biology/mgblast 0.1: Customized version of megablast from TIGR Gene Indices project
 sci-biology/minced 0.4.2: Short Palindromic Repeat finder tool (for CRISPRs)
+sci-biology/minimap2 2.17: splice-aware sequence aligner
 sci-biology/mip-scaffolder 0.6: Scaffold contigs using ABI Solid or Illumina mate pair info
 sci-biology/miranda 3.3a: An algorithm for finding genomic targets for microRNAs
 sci-biology/mouse-brain-atlases 0.5.3: A collection of mouse brain atlases in NIfTI format
