@@ -21,7 +21,6 @@ RDEPEND="
 src_install(){
 	dobin VelvetOptimiser.pl
 	perl_set_version
-	insinto ${VENDOR_LIB}/VelvetOpt
-	doins VelvetOpt/*.pm
+	perl_domodule VelvetOpt/*.pm
 	einstalldocs
 }
