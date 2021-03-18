@@ -23,7 +23,7 @@ src_prepare(){
 	sed -e "s@^CCC.*@CCC = $(tc-getCXX)@" -e "s@^CFLAGS.*@CFLAGS = ${CFLAGS} -ansi -pthread@" -i src/Makefile || die
 }
 
-src_compile() {
+src_compile(){
 	cd src || die
 	default
 }
