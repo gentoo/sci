@@ -67,6 +67,5 @@ src_install(){
 	dolib.a Linux-amd64/lib/libcanu.a
 	rm Linux-amd64/lib/libcanu.a || die
 	perl_set_version
-	insinto ${VENDOR_LIB}
-	doins -r Linux-amd64/lib
+	perl_domodule -r Linux-amd64/lib
 }
