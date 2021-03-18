@@ -18,7 +18,6 @@ S="${WORKDIR}"
 
 src_install(){
 	perl_set_version
-	insinto "${VENDOR_LIB}" # do not add "${PN}" so the the PERL path starts with Bio/
 	find . -name t | xargs rm -rf || die
 	find . -name test.pl | xargs rm -f || die
 	find . -name \*.example | xargs rm -f || die
@@ -27,5 +26,5 @@ src_install(){
 	find . -name \*.conf | xargs rm -f || die
 	find . -name travisci | xargs rm -rf || die
 	find . -name sql | xargs rm -rf || die
-	find . -name modules | while read d; do pushd "$d"; doins -r *; popd; done || die
+	find . -name modules | while read d; do pushd "$d"; perl_domodule -r *; popd; done || die
 }
