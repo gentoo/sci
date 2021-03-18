@@ -4,9 +4,10 @@ DEPEND=dev-lang/perl
 DESCRIPTION=Transcriptome assembler for RNA-seq reads
 EAPI=7
 HOMEPAGE=https://github.com/Trinotate/Trinotate.github.io/wiki
+INHERIT=perl-module toolchain-funcs
 LICENSE=BSD-BroadInstitute
 RDEPEND=sci-biology/parafly >=sci-biology/jellyfish-2.2.6:2 >=sci-libs/htslib-1.2.1 >=sci-biology/samtools-1.3:0 >=sci-biology/trimmomatic-0.36 >=sci-biology/GAL-0.2.1 dev-perl/IO-All sci-biology/seqtools dev-lang/perl:=
 SLOT=0
 SRC_URI=https://github.com/trinityrnaseq/trinityrnaseq/releases/download/v2.11.0/trinityrnaseq-v2.11.0.FULL_with_extendedTestData.tar.gz -> trinityrnaseq-2.11.0.tar.gz
-_eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	multiprocessing	cac3169468f893670dac3e7cb940e045	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	perl-module	97206c028d9bdc9f248e022ac5c9fc83	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=68daff76fa115f6a0b0b043f06f087d0
+_eclasses_=multiprocessing	cac3169468f893670dac3e7cb940e045	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	perl-module	97206c028d9bdc9f248e022ac5c9fc83	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e
+_md5_=3c226cbcba4b6d636916d46e14ae412f

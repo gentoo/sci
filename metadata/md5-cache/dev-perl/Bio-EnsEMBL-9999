@@ -4,9 +4,10 @@ DEPEND=dev-lang/perl
 DESCRIPTION=EnsEMBL Perl API aka ensembl-api exposing Bio::EnsEMBL::Registry
 EAPI=7
 HOMEPAGE=https://www.ensembl.org/index.html
+INHERIT=perl-module
 LICENSE=Apache-2.0
 RDEPEND=dev-lang/perl:=
 SLOT=0
 SRC_URI=ftp://ftp.ensembl.org/pub/ensembl-api.tar.gz
 _eclasses_=multiprocessing	cac3169468f893670dac3e7cb940e045	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	perl-module	97206c028d9bdc9f248e022ac5c9fc83
-_md5_=025d6d4be477b4d655b69c0550426c91
+_md5_=853baadde00ab6c66766105d4269896a
