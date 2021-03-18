@@ -19,3 +19,10 @@ DEPEND="
 	>=dev-qt/qtscript-5.4.2[scripttools]
 "
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+	cmake_src_prepare
+	# remove Werror
+	sed -i -e '/-Werror=/d' CMakeLists.txt || die
+	sed -i -e '/-Werror=/d' src/ugene_globals.pri || die
+}
