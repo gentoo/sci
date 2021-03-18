@@ -7,7 +7,7 @@ inherit qmake-utils
 
 DESCRIPTION="A free open-source cross-platform bioinformatics software"
 HOMEPAGE="http://ugene.unipro.ru"
-SRC_URI="https://github.com/ugeneunipro/ugene/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/ugeneunipro/ugene/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
