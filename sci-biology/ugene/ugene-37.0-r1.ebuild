@@ -33,5 +33,5 @@ src_configure() {
 
 src_install() {
 	einstalldocs
-	emake INSTALL_ROOT="${ED}"
+	emake INSTALL_ROOT="${ED}" install
 }
