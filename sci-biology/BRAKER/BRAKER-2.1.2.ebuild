@@ -1,9 +1,8 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-#PERL_EXPORT_PHASE_FUNCTIONS=no
 inherit perl-module
 
 DESCRIPTION="Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS"
@@ -22,7 +21,6 @@ SRC_URI="https://github.com/Gaius-Augustus/BRAKER/archive/v${PV}.tar.gz -> ${P}.
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -33,8 +31,7 @@ RDEPEND="${DEPEND}
 src_install(){
 	perl_set_version
 	dobin scripts/*.pl
-	insinto ${VENDOR_LIB}/${PN}
-	doins scripts/*.pm
+	perl_domodule scripts/*.pm
 	dodoc docs/userguide.pdf
 }
 
