@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit perl-module
+inherit perl-functions
 
 DESCRIPTION="Detect sequencing project contaminants by mapping reads to taxonomic groups"
 HOMEPAGE="https://ccb.jhu.edu/software/kraken"
@@ -37,6 +37,7 @@ src_install(){
 	dodoc "${DISTDIR}/${P}_MANUAL.html"
 	perl_set_version
 	perl_domodule destdir/*.pm
+	dosym ../../"${VENDOR_LIB}/krakenlib.pm" /usr/bin/krakenlib.pm
 	insinto /usr/share/${PN}/util
 	doins destdir/*.pl
 	chmod -R a+rx "${ED}/usr/share/${PN}/util"
