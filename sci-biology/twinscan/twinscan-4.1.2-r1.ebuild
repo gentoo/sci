@@ -52,8 +52,7 @@ src_install() {
 	insinto /usr/share/${PN}/src
 	doins src/*.zhmm
 	perl_set_version
-	insinto ${VENDOR_LIB}/${PN}
-	doins lib/perl5/*.pm
+	perl_domodule lib/perl5/*.pm
 	echo "TWINSCAN=/usr" > "${S}"/99${PN}
 	doenvd "${S}"/99${PN}
 	rm -rf examples/tmp
