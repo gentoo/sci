@@ -39,7 +39,6 @@ src_install(){
 	dobin Trinotate
 	insinto /usr/share/"${PN}"
 	doins -r admin sample_data util TrinotateWeb
-	insinto ${VENDOR_LIB}/${PN}
-	doins -r PerlLib/*
+	perl_domodule -r PerlLib/*
 	dodoc notes README.md README.txt Changelog.txt
 }

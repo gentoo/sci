@@ -32,6 +32,5 @@ src_install(){
 	dobin bin/*
 	dodoc README
 	perl_set_version
-	insinto ${VENDOR_LIB}
-	doins -r lib/Glean
+	perl_domodule -r lib/Glean
 }

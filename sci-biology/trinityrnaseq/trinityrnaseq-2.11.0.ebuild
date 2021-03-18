@@ -61,15 +61,10 @@ src_install(){
 	cd .. || die
 	cp -rp support_scripts misc "${ED}"/usr/share/"${PN}"/ || die
 	cd "${S}" || die
-	insinto "${VENDOR_LIB}/${PN}"
-	doins util/misc/PerlLib/*.pm PerlLib/*.pm
-	insinto "${VENDOR_LIB}/${PN}"/KmerGraphLib
-	doins PerlLib/KmerGraphLib/*.pm
-	insinto "${VENDOR_LIB}/${PN}"/CDNA
-	doins PerlLib/CDNA/*.pm
-	insinto "${VENDOR_LIB}/${PN}"/Simulate
-	doins PerlLib/Simulate/*.pm
-	insinto "${VENDOR_LIB}/${PN}"/CanvasXpress
-	doins PerlLib/CanvasXpress/*.pm
+	perl_domodule util/misc/PerlLib/*.pm PerlLib/*.pm
+	perl_domodule PerlLib/KmerGraphLib/*.pm
+	perl_domodule PerlLib/CDNA/*.pm
+	perl_domodule PerlLib/Simulate/*.pm
+	perl_domodule PerlLib/CanvasXpress/*.pm
 	chmod a+rx -R "${ED}/${VENDOR_LIB}/${PN}"
 }

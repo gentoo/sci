@@ -42,8 +42,7 @@ src_compile(){
 src_install(){
 	bash install.sh || die
 	perl_set_version
-	insinto ${VENDOR_LIB}
-	doins scripts/analyse_variants/bioinf-perl/lib/* scripts/calling/*
+	perl_domodule scripts/analyse_variants/bioinf-perl/lib/* scripts/calling/*
 	echo \
 		"PATH=${EPREFIX}/usr/share/${PN}/scripts/analyse_variants/needleman_wunsch" \
 		> "${T}/99${PN}" || die

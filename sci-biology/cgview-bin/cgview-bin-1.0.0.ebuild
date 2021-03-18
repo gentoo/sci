@@ -36,8 +36,7 @@ src_install() {
 	echo 'PATH="$PATH":"'${CCT_HOME}'/scripts"' >> "${S}/99cgview"
 	doenvd "${S}/99cgview"
 	perl_set_version
-	insinto ${VENDOR_LIB}/cgview
-	doins lib/perl_modules/Util/*.pm
+	perl_domodule lib/perl_modules/Util/*.pm
 	#
 	# Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/batik/svggen/SVGGraphics2DIOException
 	java-pkg_dojar bin/cgview/cgview.jar

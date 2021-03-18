@@ -121,11 +121,9 @@ src_install(){
 	mv bin/compare bin/compare_gff3_to_chado # rename as agreed by upstream, will be in maker-3 as well
 	dobin bin/*
 	perl_set_version
-	insinto "${VENDOR_LIB}"/MAKER # uppercase, not "${PN}"
-	doins perl/lib/MAKER/*.pm
+	perl_domodule perl/lib/MAKER/*.pm
 	doman perl/man/*.3pm
-	insinto "${VENDOR_LIB}"/Parallel/Application
-	doins perl/lib/Parallel/Application/*.pm
+	perl_domodule perl/lib/Parallel/Application/*.pm
 	insinto /usr/share/"${PN}"/data
 	doins data/*
 	# FIXME: find equivalent perl packages for lib/* contents, for example lib/GI.pm

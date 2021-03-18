@@ -22,9 +22,8 @@ src_install(){
 	java-pkg_dolauncher ${PN} TreeView.jar
 	cd ../helper-scripts-0.0.2 || die
 	perl_set_version
-	insinto "${VENDOR_LIB}"
-	doins *.pm
-	dobin *.pl
+	perl_domodule *.pm
+	perl_domodule *.pl
 	insinto /usr/share/"${PN}"/examples
 	doins blues.color
 	newdoc README README.helper-scripts
