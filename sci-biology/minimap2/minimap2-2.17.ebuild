@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="splice-aware sequence aligner"
 HOMEPAGE="https://github.com/lh3/minimap2"
-SRC_URI="https://github.com/lh3/minimap2/releases/download/v2.17/minimap2-2.17.tar.bz2 -> ${P}.tar.bz2"
+SRC_URI="https://github.com/lh3/${PN}/releases/download/v${PV}/${P}.tar.bz2"
 
 LICENSE="MIT"
 SLOT="0"
