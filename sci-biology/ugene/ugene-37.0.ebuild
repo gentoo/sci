@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake
+inherit qmake-utils
 
 DESCRIPTION="A free open-source cross-platform bioinformatics software"
 HOMEPAGE="http://ugene.unipro.ru"
@@ -21,8 +21,17 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	cmake_src_prepare
+	default
 	# remove Werror
 	sed -i -e '/-Werror=/d' CMakeLists.txt || die
 	sed -i -e '/-Werror=/d' src/ugene_globals.pri || die
+}
+
+src_configure() {
+	eqmake5
+}
+
+src_install() {
+	einstalldocs
+	emake INSTALL_ROOT="${ED}"
 }
