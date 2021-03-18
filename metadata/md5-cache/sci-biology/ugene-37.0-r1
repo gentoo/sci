@@ -10,4 +10,4 @@ RDEPEND=>=dev-qt/qtgui-5.4.2 >=dev-qt/qtsvg-5.4.2 >=dev-qt/qtscript-5.4.2[script
 SLOT=0
 SRC_URI=https://github.com/ugeneunipro/ugene/archive/37.0.tar.gz
 _eclasses_=toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	qmake-utils	dc74fe3891abc25e80dad5cd3d7c6e47
-_md5_=ce16d79112f42c72b41c3d1feced9307
+_md5_=8a66bedb2450abc64929be537f94b7b8
