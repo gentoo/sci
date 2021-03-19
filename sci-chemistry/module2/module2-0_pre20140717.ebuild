@@ -30,7 +30,7 @@ QA_PREBUILT="opt/bin/.*"
 pkg_nofetch() {
 	elog "Please download ${A} from"
 	elog "${HOMEPAGE}"
-	elog "and place it in ${DISTDIR}"
+	elog "and place it into your DISTDIR folder"
 }
 
 src_install() {
