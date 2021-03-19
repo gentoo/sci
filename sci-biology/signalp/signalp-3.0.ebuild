@@ -21,7 +21,7 @@ RESTRICT="fetch strip"
 
 pkg_nofetch() {
 	einfo "Please visit ${HOMEPAGE} and obtain the file"
-	einfo "\"${SRC_URI}\", then place it in ${DISTDIR}"
+	einfo "\"${SRC_URI}\", then place it into your DISTDIR folder"
 }
 
 src_prepare() {
