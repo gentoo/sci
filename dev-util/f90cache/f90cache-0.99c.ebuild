@@ -25,7 +25,7 @@ src_install() {
 
 	#we depend on ccache, put links in there so that portage find it
 	#TODO improve this
-	dosym ../../../bin/f90cache "${ROOT}/usr/$(get_libdir)/ccache/bin/gfortran"
+	dosym ../../../bin/f90cache "/usr/$(get_libdir)/ccache/bin/gfortran"
 }
 
 pkg_postinst() {
