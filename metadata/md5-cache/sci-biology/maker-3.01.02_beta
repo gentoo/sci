@@ -11,4 +11,4 @@ RESTRICT=fetch
 SLOT=0
 SRC_URI=maker-3.01.02_beta.tgz
 _eclasses_=perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b
-_md5_=f384494bb5c3bd13727253991652aabf
+_md5_=99ddcbba23b07234039063c8dcae79b8

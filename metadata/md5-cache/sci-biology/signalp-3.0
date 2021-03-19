@@ -9,4 +9,4 @@ RDEPEND=gnuplot? ( sci-visualization/gnuplot media-libs/netpbm )
 RESTRICT=fetch strip
 SLOT=0
 SRC_URI=signalp-3.0.Linux.tar.Z
-_md5_=2fcdd4f6d0a042c49f4b874c048f027f
+_md5_=787fa016cfaac1eaa45bee9a4c12af9f
