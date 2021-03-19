@@ -26,7 +26,7 @@ pkg_nofetch() {
 	elog "Please visit"
 	elog "http://www.ebi.ac.uk/thornton-srv/software/LigPlus/applicence.html"
 	elog "download ${A}"
-	elog "and save in ${DISTDIR}"
+	elog "and save into your DISTDIR folder"
 }
 
 src_prepare() {
