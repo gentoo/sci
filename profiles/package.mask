@@ -31,11 +31,6 @@
 #--- END OF EXAMPLES ---
 
 # Andrew Ammerlaan <andrewammerlaan@riseup.net> (05 March 2021)
-# Does not fetch, installs an exe, upstream website times out
-# Masked for removal in 14 days, if you need this please complain
-sci-chemistry/hydronmr
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (05 March 2021)
 # Does not build, live only, latest update 2013
 # Masked for removal in 14 days, if you need this please complain
 sci-biology/BG7
