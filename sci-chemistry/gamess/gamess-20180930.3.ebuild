@@ -55,11 +55,10 @@ pkg_nofetch() {
 	elog "Please download ${PN}-current.tar.gz from"
 	elog "${GAMESS_DOWNLOAD}."
 	elog "Be sure to select the version ${GAMESS_VERSION} tarball!!"
-	elog "Then move the tarball to"
-	elog "${DISTDIR}/${P}.tar.gz"
+	elog "Then move the tarball into your DISTDIR folder"
 	if use qmmm-tinker ; then
 		elog "Also download http://www.msg.ameslab.gov/GAMESS/tinker.tar.gz"
-		elog "and place tinker.tar.gz to ${DISTDIR}"
+		elog "and place tinker.tar.gz into your DISTDIR folder"
 	fi
 	echo
 }
