@@ -1,4 +1,4 @@
-# Copyright 2019-2020 Gentoo Authors
+# Copyright 2019-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -27,7 +27,7 @@ BDEPEND="app-arch/unzip"
 pkg_nofetch() {
 	elog "Please download ${PN}_${PV}.zip from:"
 	elog "\t ${HOMEPAGE}"
-	elog "and place it into ${DISTDIR}"
+	elog "and place it into your DISTDIR folder"
 }
 
 src_install() {
