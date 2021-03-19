@@ -95,7 +95,7 @@ S="${WORKDIR}"/maker/src
 
 pkg_nofetch() {
 	einfo "Please visit ${HOMEPAGE} and obtain the file"
-	einfo "maker-"${PV}".tgz and place it into ${DISTDIR}"
+	einfo "maker-"${PV}".tgz and place it into your DISTDIR folder"
 	einfo "If it is '-beta' rename it to '_beta'"
 	einfo "You must also install sci-biology/repeatmasker otherwise"
 	einfo "MAKER install process will stop."

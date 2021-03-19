@@ -30,33 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (04 March 2021)
-# Burrtools does not compile, nor does the newest version (0.6.3)
-# The ebuild was last touched in 2015, last upstream update was in 2013
-# Masked for removal in 14 days, if you need this please complain
-sci-mathematics/burrtools
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (04 March 2021)
-# libcgnsoo does not compile, ebuild was last touched in 2015
-# no newer version available upstream
-# Masked for removal in 14 days, if you need this please complain
-sci-libs/libcgnsoo
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (05 March 2021)
-# Does not fetch, installs an exe, upstream website times out
-# Masked for removal in 14 days, if you need this please complain
-sci-chemistry/hydronmr
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (05 March 2021)
-# Does not build, live only, latest update 2013
-# Masked for removal in 14 days, if you need this please complain
-sci-biology/BG7
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (05 March 2021)
-# Does not compile, last update in 2009
-# Masked for removal in 14 days, if you need this please complain
-sci-biology/autoeditor
-
 # Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
 # Python2 only
 # Masked for removal in 14 days, if you need this please complain

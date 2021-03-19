@@ -31,8 +31,7 @@ pkg_nofetch() {
 	einfo "Complete the registration process, then download the following files:"
 	einfo "\t${A}"
 	echo
-	einfo "Place the downloaded files in your distfiles directory:"
-	einfo "\t${DISTDIR}"
+	einfo "Place the downloaded files in your distfiles directory"
 	echo
 }
 
