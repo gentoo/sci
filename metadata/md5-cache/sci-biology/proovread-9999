@@ -4,9 +4,10 @@ DEPEND=>=dev-lang/perl-5.10 dev-perl/Log-Log4perl dev-perl/File-Which >=sci-biol
 DESCRIPTION=Error correct PacBio subreads using Illumina reads
 EAPI=7
 HOMEPAGE=https://github.com/BioInf-Wuerzburg/proovread
+INHERIT=perl-functions git-r3
 LICENSE=Artistic-2 GPL-3 blasr
 PROPERTIES=live
 RDEPEND=>=dev-lang/perl-5.10 dev-perl/Log-Log4perl dev-perl/File-Which >=sci-biology/ncbi-tools++-2.2.24 >=sci-biology/samtools-1.1
 SLOT=0
-_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b
-_md5_=60e5f1d67a7bae25037820e2b892661d
+_eclasses_=perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	git-r3	3e7ec3d6619213460c85e2aa48398441
+_md5_=198e7e59bc372f76a832be1020caac92

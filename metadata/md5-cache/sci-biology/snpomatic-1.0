@@ -6,4 +6,4 @@ KEYWORDS=~amd64
 LICENSE=GPL-3
 SLOT=0
 SRC_URI=https://github.com/magnusmanske/snpomatic/archive/v1.0.tar.gz -> snpomatic-1.0.tar.gz
-_md5_=ed9dcc8a871a6ea05aee84d4d2bb1f92
+_md5_=b25208c9b09a0e4fa95a6e213e0a56ea
