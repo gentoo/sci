@@ -252,7 +252,6 @@ sci-biology/deeptools 3.5.0: Extract reads from BAM files, normalize, draw figur
 sci-biology/deeptools-intervals 0.1.9: Constructing interval trees with associated exon/annotation information
 sci-biology/diamond 2.0.6: Alternative of blastp/blastx searches using DNA short reads through protein db
 sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
-sci-biology/dna2pep 1.1: Translate DNA sequence into protein (with STOP codon read-through)
 sci-biology/drlfom_bidsdata 1.1: BIDS data files released with the DRLFOM publication
 sci-biology/edena 3.131028: De novo short read OLC assembler (overlap-layout-consensus)
 sci-biology/epga 9999: De novo assembler using distribution of reads and insert size
@@ -277,11 +276,9 @@ sci-biology/glean 1.0.1: Merge various gene prediction into one (unsupervised le
 sci-biology/grabix 9999: Provide random access to text files BGZF compressed with bgzip
 sci-biology/graf-bin 2.4: Find closely related subjects using SNP genotype data, validate pedigree file
 sci-biology/grappa 2.0: Genome Rearrangements Analysis under Parsimony and other Phylogenetic Algorithms
-sci-biology/grass 9999: Scaffold next-generation sequencing assemblies
 sci-biology/hexamer 19990330: Predict CDS using 6mers without deriving information from base composition
 sci-biology/hisat2 2.2.1: Align DNA reads to a population of genomes
 sci-biology/idba 1.1.3 9999: De novo De Bruijn graph assembler iteratively using multimple k-mers
-sci-biology/igv 2.3.47 2.3.81 2.3.88 2.3.92: Integrative Genomics Viewer
 sci-biology/imagej 1.53g: Image Processing and Analysis in Java
 sci-biology/irsabi_bidsdata 1.4: BIDS data files released with the IRSABI publication
 sci-biology/jannovar-bin 0.35: Exome annotation tool (upstream jar binaries)
@@ -373,7 +370,6 @@ sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMR
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
-sci-biology/sclust 0.1: Seeded clustering tool by processing pairwise alignments
 sci-biology/screed 1.0.4: Short read sequence utilities
 sci-biology/scythe 9999: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
 sci-biology/seqclean 110625: Trimpoly and mdust for trimming and validation of ESTs/DNA sequences
@@ -400,7 +396,6 @@ sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt fla
 sci-biology/symap 5.0.6: Synteny Mapping and Analysis Program
 sci-biology/tabixpp 1.1.0: C++ wrapper to tabix indexer
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
-sci-biology/tclust 110625: Transitive closure clustering tool with overlap filtering options
 sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
 sci-biology/tigr-foundation-libs 2.0-r1: TIGR Foundation for C++
 sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
@@ -409,7 +404,6 @@ sci-biology/trf-bin 4.09: Tandem Repeats Finder
 sci-biology/trim_galore 0.6.6: Perl wrapper around Cutadapt and FastQC to adapter and quality trimming
 sci-biology/trimmomatic 0.39: Illumina adapter trimming tool
 sci-biology/trinityrnaseq 2.11.0: Transcriptome assembler for RNA-seq reads
-sci-biology/trowel 0.1.4.1: Error corrector for genomic Illumina FASTQ reads
 sci-biology/twinscan 4.1.2-r1: iscan (aka twinscan and N-SCAN), Pairagon wrapper: Gene structure pred. pipeline
 sci-biology/ugene 37.0-r1: A free open-source cross-platform bioinformatics software
 sci-biology/vague-bin 1.0.5: GUI for Velvet de novo assembler
@@ -510,7 +504,7 @@ sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
-sci-mathematics/acl2 7.1 8.3: Industrial strength theorem prover
+sci-mathematics/acl2 8.3: Industrial strength theorem prover
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/dsfmt 2.2.4: Double precision SIMD-oriented Fast Mersenne Twister library
 sci-mathematics/flocq 3.4.0: A floating-point formalization for the Coq system
@@ -554,7 +548,7 @@ sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFir
 sci-visualization/fsleyes 0.32.3 0.34.2: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.6.7 1.7.0: Object attribute management for the FSLeyes viewer
 sci-visualization/fsleyes-widgets 0.8.4 0.9.0: GUI widgets and utilities for the FSLeyes viewer
-sci-visualization/mricrogl 1.0.20180402 1.0.20180623 1.2.20200331: A simple medical imaging visualization tool
+sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/scidavis 2.3.0: Application for Scientific Data Analysis and Visualization
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-apps/ndctl 70.1 71 71.1 9999: utility for managing the nvdimm sub-system in the linux kernel
