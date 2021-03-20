@@ -10,7 +10,6 @@ HOMEPAGE="https://github.com/najoshi/sabre"
 if [ "$PV" == "9999" ]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/najoshi/sabre.git"
-	KEYWORDS=""
 else
 	SRC_URI=""
 	KEYWORDS=""
