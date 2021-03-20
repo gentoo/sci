@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit qmake-utils
+inherit qmake-utils xdg
 
 DESCRIPTION="A free open-source cross-platform bioinformatics software"
 HOMEPAGE="http://ugene.unipro.ru"
