@@ -31,13 +31,6 @@
 #--- END OF EXAMPLES ---
 
 # Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
-# Newer versions use gradle build system which is currently not
-# support by portage, old versions do not build, ebuilds don't
-# have any keywords
-# Masked for removal in 14 days, if you need this please complain
-sci-biology/igv
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
 # Does not fetch, last update in 2009
 # Masked for removal in 14 days, if you need this please complain
 sci-biology/sclust
