@@ -29,6 +29,14 @@
 
 ## Installation <a name="install"></a>
 
+### Eselect-repository install <a name="install-eselect"></a>
+
+The easiest way to enable the overlay is to:
+```console
+emerge --noreplace eselect-repository && eselect repository enable science && emerge --sync
+```
+and emerge the package as usual.
+
 ### Manual Install <a name="install-manual"></a>
 
 As per the current [Portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html), ebuild repositories (a.k.a. overlays) can be managed via file collections under `/etc/portage/repos.conf/`, via the new [plug-in sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync).
