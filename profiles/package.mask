@@ -29,9 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (06 March 2021)
-# Does not compile with newer boost versions because endian.hpp
-# was removed.
-# Masked for removal in 14 days, if you need this please complain
-sci-biology/trowel
