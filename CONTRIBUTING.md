@@ -101,7 +101,7 @@ If you would like to get direct access to the overlay, prove some contribution a
 ## Ebuild recommendations
 As the Gentoo Science overlay is a constant work-in-progress, we have some recommendations for prospective contributors:
 
-* **Aim for writing EAPI=6 ebuilds.** For certain eclasses, EAPI=6 is not allowed yet. In such cases you may use EAPI=5. We will not accept EAPI<5 ebuilds.
+* **Aim for writing EAPI=7 ebuilds.** For certain eclasses, EAPI=7 is not allowed yet. In such cases you may use EAPI=6. We will not accept EAPI<6 ebuilds.
 * **Version bumps should always follow the latest guidelines.** For instance, a version bump of an ebuild that still employs autotools-utils.eclass should be avoided. Instead, drop 'autotools-utils', move to 'autotools' and call `default` followed by `eautoreconf` in src_prepare().
 
 ----
