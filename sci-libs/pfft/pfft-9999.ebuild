@@ -11,7 +11,6 @@ HOMEPAGE="https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software.php.e
 if [[ $PV = *9999 ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/mpip/pfft.git"
-	KEYWORDS=""
 	AUTOTOOLS_AUTORECONF=1
 else
 	SRC_URI="https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software/${P//_/-}.tar.gz"

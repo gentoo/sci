@@ -11,7 +11,6 @@ HOMEPAGE="https://vicbioinformatics.com/software.vague.shtml"
 if [ "$PV" == "9999" ]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/Victorian-Bioinformatics-Consortium/vague"
-	KEYWORDS=""
 else
 	SRC_URI="https://vicbioinformatics.com/vague-${PV}.tar.gz"
 	KEYWORDS="~amd64"

@@ -8,7 +8,6 @@ inherit cmake
 if [[ ${PV} == *9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/GenFit/GenFit.git"
-	KEYWORDS=""
 else
 	EGIT_COMMIT=""
 	MY_PN="GenFit"

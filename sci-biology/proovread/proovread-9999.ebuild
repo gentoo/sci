@@ -10,7 +10,6 @@ HOMEPAGE="https://github.com/BioInf-Wuerzburg/proovread"
 if [ "$PV" == "9999" ]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/BioInf-Wuerzburg/proovread"
-	KEYWORDS=""
 else
 	SRC_URI="https://github.com/BioInf-Wuerzburg/${PN}/releases/download/${P}/${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86"
