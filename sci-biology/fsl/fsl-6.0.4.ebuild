@@ -55,6 +55,7 @@ PATCHES=(
 	"${FILESDIR}/${P}"-flameo_std.patch
 	"${FILESDIR}/${P}"-melodic_std.patch
 	"${FILESDIR}/${P}"-remove_fslpy_collisions.patch
+	"${FILESDIR}/${P}-fdt_cuda.patch"
 )
 
 src_prepare() {
@@ -136,7 +137,6 @@ src_prepare() {
 
 		eapply "${FILESDIR}/${P}-eddy_cuda.patch"
 		eapply "${FILESDIR}/${P}-cuda_buildsettings.patch"
-		eapply "${FILESDIR}/${P}-fdt_cuda.patch"
 
 		sed -i \
 			-e "s:@@GENTOO_NVCC_FLAGS@@:${cuda_NVCC_flags}:" \
