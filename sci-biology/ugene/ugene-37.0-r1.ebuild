@@ -13,6 +13,8 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 
+IUSE="cpu_flags_x86_sse2"
+
 DEPEND="
 	>=dev-qt/qtgui-5.4.2
 	>=dev-qt/qtsvg-5.4.2
@@ -28,10 +30,19 @@ src_prepare() {
 }
 
 src_configure() {
-	eqmake5
+	local CONFIG_OPTS
+	if use amd64; then
+		CONFIG_OPTS+=( CONFIG+="x64" )
+	elif use ppc; then
+		CONFIG_OPTS+=( CONFIG+="ppc" )
+	fi
+
+	use cpu_flags_x86_sse2 && CONFIG_OPTS+=( use_sse2 )
+
+	eqmake5 $CONFIG_OPTS || die
 }
 
 src_install() {
 	einstalldocs
-	emake INSTALL_ROOT="${ED}" install
+	emake DESTDIR="${D}" INSTALL_ROOT="${ED}" install
 }
