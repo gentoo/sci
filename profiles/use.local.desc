@@ -3,6 +3,8 @@
 # * generated automatically using pmaint *
 
 dev-java/jogl:cg - Enable NVidia Cg binding.
+dev-java/lucene:contrib - Include extra functionality from contrib/
+dev-java/lucene:modules - Also build optional modules
 dev-lang/berkeley_upc:mpi-compat - Enable interoperability with MPI
 dev-lang/berkeley_upc:pshm - Build UPC Runtime/GASNet with Process-SHared Memory enabled
 dev-lang/berkeley_upc:segment-fast - Select GASNet's FAST segments (default), for the fastest remote access with a possible cost in max shared memory size
