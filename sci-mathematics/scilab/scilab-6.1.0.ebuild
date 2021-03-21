@@ -77,7 +77,7 @@ CDEPEND="
 		>=dev-java/jlatexmath-fop-1.0.3:1
 		~dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
-		>dev-java/lucene-2:=[contrib(-)]
+		>dev-java/lucene-7:=[modules(-)]
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:2
 		virtual/opengl
