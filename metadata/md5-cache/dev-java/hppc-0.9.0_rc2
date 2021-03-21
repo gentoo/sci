@@ -1,13 +1,13 @@
 DEFINED_PHASES=compile install preinst prepare setup test
-DEPEND=dev-java/antlr:4 dev-java/fastutil:0 dev-java/jcommander:0 dev-java/jmh-core:0 dev-java/velocity:0 dev-java/slf4j-simple:0 >=virtual/jdk-1.8 >=dev-java/java-config-2.2.0-r3
+DEPEND=dev-java/antlr:4 dev-java/fastutil:0 dev-java/jcommander:0 dev-java/jmh-core:0 dev-java/koloboke:0 dev-java/velocity:0 dev-java/slf4j-simple:0 >=virtual/jdk-1.8 >=dev-java/java-config-2.2.0-r3
 DESCRIPTION=High Performance Primitive Collections for Java
 EAPI=7
 HOMEPAGE=https://github.com/carrotsearch/hppc
 INHERIT=java-pkg-2 java-pkg-simple
 IUSE=elibc_FreeBSD elibc_FreeBSD
 LICENSE=Apache-2.0
-RDEPEND=dev-java/antlr:4 dev-java/fastutil:0 dev-java/jcommander:0 dev-java/jmh-core:0 dev-java/velocity:0 dev-java/slf4j-simple:0 >=virtual/jre-1.8 >=dev-java/java-config-2.2.0-r3
+RDEPEND=dev-java/antlr:4 dev-java/fastutil:0 dev-java/jcommander:0 dev-java/jmh-core:0 dev-java/koloboke:0 dev-java/velocity:0 dev-java/slf4j-simple:0 >=virtual/jre-1.8 >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://github.com/carrotsearch/hppc/archive/refs/tags/0.9.0.RC2.tar.gz -> hppc-0.9.0_rc2.tar.gz
 _eclasses_=java-utils-2	378e4cda228ea0231a0ac283cb2ad25c	java-pkg-2	c4e6af2574fd1dc79b43a6e27af4b5fb	java-pkg-simple	a814c0c1adac3d7902bc7023902a2e1a
-_md5_=c9adf715153c3350924bc72879bdec5f
+_md5_=6fe09ace851348fbd371afa06c0ab69f

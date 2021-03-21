@@ -19,6 +19,7 @@ dev-java/jlatexmath 1.0.3: A Java API to render LaTeX
 dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
 dev-java/jogl 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
 dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
+dev-java/koloboke 0.5.1: Java Collections till the last breadcrumb of memory and performance
 dev-java/lucene 3.6.2-r2 5.2.1 8.4.0: High-performance, full-featured text search engine written entirely in Java
 dev-java/morfologik 2.1.7: Tools for finite state automata construction and morphological dictionaries
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
