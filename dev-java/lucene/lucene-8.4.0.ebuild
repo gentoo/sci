@@ -32,6 +32,7 @@ CDEPEND="
 		dev-java/commons-beanutils:1.7
 		dev-java/commons-codec:0
 		dev-java/icu4j:56
+		dev-java/morfologik:0
 	)"
 
 DEPEND="
@@ -138,6 +139,7 @@ src_compile() {
 			commons-beanutils-1.7
 			commons-codec
 			icu4j-56
+			morfologik
 			"
 		EANT_BUILD_TARGET+=" build-modules"
 		EANT_DOC_TARGET+=" javadocs-modules"
