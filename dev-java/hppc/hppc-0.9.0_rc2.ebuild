@@ -20,6 +20,7 @@ CDEPEND="
 	dev-java/fastutil:0
 	dev-java/jcommander:0
 	dev-java/jmh-core:0
+	dev-java/koloboke:0
 	dev-java/velocity:0
 	dev-java/slf4j-simple:0
 "
@@ -37,6 +38,7 @@ JAVA_GENTOO_CLASSPATH="
 	fastutil
 	jcommander
 	jmh-core
+	koloboke
 	velocity
 	slf4j-simple
 "
