@@ -11,6 +11,7 @@ dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-java/fits 1.15.1: Java library for FITS input/output
 dev-java/flexdock 1.2.4: A Java docking framework for use in cross-platform Swing applications
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
+dev-java/hppc 0.9.0_rc2: High Performance Primitive Collections for Java
 dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
 dev-java/jeuclid-core 3.1.14: Core module of MathML rendering solution
 dev-java/jgraphx 4.2.2: Open-source graph component for Java
@@ -19,6 +20,7 @@ dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
 dev-java/jogl 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
 dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
 dev-java/lucene 3.6.2-r2 5.2.1 8.4.0: High-performance, full-featured text search engine written entirely in Java
+dev-java/morfologik 2.1.7: Tools for finite state automata construction and morphological dictionaries
 dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
