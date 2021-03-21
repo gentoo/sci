@@ -1,0 +1,24 @@
+diff --git a/lucene/test-framework/src/java/org/apache/lucene/util/LuceneJUnitDividingSelector.java b/lucene/test-framework/src/java/org/apache/lucene/util/LuceneJUnitDividingSelector.java
+index 5a9509c..beecebe 100644
+--- a/test-framework/src/java/org/apache/lucene/util/LuceneJUnitDividingSelector.java
++++ b/test-framework/src/java/org/apache/lucene/util/LuceneJUnitDividingSelector.java
+@@ -21,6 +21,7 @@ import java.io.File;
+ import org.apache.tools.ant.BuildException;
+ import org.apache.tools.ant.types.Parameter;
+ import org.apache.tools.ant.types.selectors.BaseExtendSelector;
++import org.apache.tools.ant.types.Resource;
+ 
+ /** Divides filesets into equal groups */
+ public class LuceneJUnitDividingSelector extends BaseExtendSelector {
+@@ -30,6 +31,11 @@ public class LuceneJUnitDividingSelector extends BaseExtendSelector {
+   /** Current part to accept. */
+   private int part;
+ 
++  @Override
++  public boolean isSelected(Resource r) {
++      return false;
++  }
++
+   @Override
+   public void setParameters(Parameter[] pParameters) {
+     super.setParameters(pParameters);
