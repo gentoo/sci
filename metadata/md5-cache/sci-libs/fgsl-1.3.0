@@ -4,11 +4,12 @@ DEPEND=>=sci-libs/gsl-2.4 virtual/fortran
 DESCRIPTION=A Fortran interface to the GNU Scientific Library
 EAPI=7
 HOMEPAGE=https://doku.lrz.de/display/PUBLIC/FGSL+-+A+Fortran+interface+to+the+GNU+Scientific+Library/
+INHERIT=autotools docs fortran-2 toolchain-funcs
 IUSE=static-libs doc
 KEYWORDS=~amd64 ~amd64-linux
 LICENSE=GPL-2+
 RDEPEND=>=sci-libs/gsl-2.4 virtual/fortran
 SLOT=0
 SRC_URI=https://doku.lrz.de/download/attachments/43321199/fgsl-1.3.0.tar.gz
-_eclasses_=autotools	9988ecbe04129214297a7bbf3d253710	docs	5a0235b1127b58fd6bf54a12c8d21657	fortran-2	b4796813ccda91c9c0d3463fc90aa969	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_eclasses_=toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	libtool	f143db5a74ccd9ca28c1234deffede96	autotools	4ba6c345bf49883c84d5fa5c9bf40c0b	docs	5a0235b1127b58fd6bf54a12c8d21657	fortran-2	b4796813ccda91c9c0d3463fc90aa969
 _md5_=b15a4c3a1c496ad7ce3575df6f31c2ed
