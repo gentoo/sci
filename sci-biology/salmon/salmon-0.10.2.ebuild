@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake
+inherit cmake multilib
 
 DESCRIPTION="Transcript-level quantification from RNA-seq reads using lightweight alignments"
 HOMEPAGE="https://github.com/COMBINE-lab/salmon"
@@ -49,6 +49,8 @@ DEPEND="
 	app-arch/bzip2
 	app-arch/xz-utils
 	dev-libs/boost:0[threads]
+	dev-libs/libdivsufsort
+	sci-biology/bwa
 	>=dev-libs/jemalloc-5.0.1
 	>=dev-cpp/tbb-2018.20180312
 "
@@ -57,3 +59,15 @@ BDEPEND="
 	net-misc/curl
 	app-arch/unzip
 "
+
+src_prepare() {
+	# use system libs
+	sed -i \
+		-e "s%\${GAT_SOURCE_DIR}/external/install/lib/libstaden-read.a%/usr/$(get_libdir)/libstaden-read.so%g" \
+		-e "s%\${GAT_SOURCE_DIR}/external/install/lib/libdivsufsort.a%/usr/$(get_libdir)/libdivsufsort.so%g" \
+		-e "s%\${GAT_SOURCE_DIR}/external/install/lib/libdivsufsort64.a%/usr/$(get_libdir)/libdivsufsort64.so%g" \
+		-e "s%\${GAT_SOURCE_DIR}/external/install/lib/libbwa.a%/usr/$(get_libdir)/libbwa.so%g" \
+		src/CMakeLists.txt || die
+
+	cmake_src_prepare
+}
