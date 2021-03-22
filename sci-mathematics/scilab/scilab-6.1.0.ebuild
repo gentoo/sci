@@ -54,6 +54,7 @@ CDEPEND="
 	sys-devel/gettext
 	sys-libs/ncurses:0=
 	sys-libs/readline:0=
+	sys-process/time
 	emf? (
 		dev-java/freehep-graphicsio:0
 		dev-java/freehep-graphicsio-emf:0
@@ -92,7 +93,6 @@ RDEPEND="${CDEPEND}
 	gui? ( >=virtual/jre-1.8 )"
 
 DEPEND="${CDEPEND}
-	virtual/pkgconfig
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.6
@@ -110,14 +110,16 @@ DEPEND="${CDEPEND}
 		dev-java/junit:4
 		dev-java/ant-junit4:0
 		gui? ( ${VIRTUALX_DEPEND} ) )"
+BDEPEND="virtual/pkgconfig"
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
 PATCHES=(
-	"${FILESDIR}/${P}-followlinks.patch"
-	"${FILESDIR}/${P}-gluegen.patch"
+	"${FILESDIR}/${PN}-5.5.2-followlinks.patch"
+	"${FILESDIR}/${PN}-5.5.2-gluegen.patch"
+	"${FILESDIR}/${PN}-5.5.2-ocaml-4.0.4.patch"
 	"${FILESDIR}/${P}-accessviolation.patch"
-	"${FILESDIR}/${P}-missinglib.patch"
+	"${FILESDIR}/${PN}-5.5.2-missinglib.patch"
 	"${FILESDIR}/${P}-freehep.patch"
 	"${FILESDIR}/${P}-libxml.patch"
 )
@@ -142,6 +144,8 @@ pkg_setup() {
 
 	# fails to compile in src/fortran/optml2.f:172:50 without this
 	test-flag-FC -fallow-argument-mismatch && append-fflags -fallow-argument-mismatch
+	# failure in src/cpp/GetSparseVariable.cpp:106:22
+	append-cxxflags -fpermissive
 
 	ALL_L10N="en_US"
 	ALL_L10N_DOC="en_US"

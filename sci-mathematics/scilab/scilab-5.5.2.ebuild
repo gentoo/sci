@@ -78,6 +78,7 @@ CDEPEND="
 		~dev-java/jogl-2.2.4:2.2
 		>=dev-java/jrosetta-1.0.4:0
 		>dev-java/lucene-2:=[contrib(-)]
+		<dev-java/lucene-5:=[contrib(-)]
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:2
 		virtual/opengl
@@ -92,7 +93,6 @@ RDEPEND="${CDEPEND}
 	gui? ( >=virtual/jre-1.5 )"
 
 DEPEND="${CDEPEND}
-	virtual/pkgconfig
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.6
@@ -110,6 +110,7 @@ DEPEND="${CDEPEND}
 		dev-java/junit:4
 		dev-java/ant-junit4:0
 		gui? ( ${VIRTUALX_DEPEND} ) )"
+BDEPEND="virtual/pkgconfig"
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
