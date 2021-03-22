@@ -18,6 +18,7 @@ KEYWORDS=""
 CDEPEND="
 	dev-java/antlr:4
 	dev-java/fastutil:0
+	dev-java/javaparser:0
 	dev-java/jcommander:0
 	dev-java/jmh-core:0
 	dev-java/koloboke:0
@@ -36,6 +37,7 @@ S="${WORKDIR}/${PN}-${MY_PV^^}"
 JAVA_GENTOO_CLASSPATH="
 	antlr:4
 	fastutil
+	javaparser
 	jcommander
 	jmh-core
 	koloboke
