@@ -15,7 +15,7 @@ SRC_URI="https://archive.apache.org/dist/lucene/java/${PV}/${P}-src.tgz"
 
 LICENSE="Apache-2.0"
 SLOT="5.2"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 CDEPEND="
 	dev-java/ant-core:0
@@ -23,6 +23,10 @@ CDEPEND="
 	dev-java/hamcrest-core:0
 	dev-java/jflex:0
 	modules? (
+		dev-java/ant-apache-log4j:0
+		dev-java/antlr:3.5
+		dev-java/asm:9
+		dev-java/asm-commons:9
 		dev-java/junit:4
 		dev-java/jakarta-regexp:1.4
 		dev-java/commons-compress:0
@@ -32,7 +36,7 @@ CDEPEND="
 		dev-java/commons-beanutils:1.7
 		dev-java/commons-codec:0
 		dev-java/icu4j:56
-		dev-java/morfologik:0
+		dev-java/log4j:0
 	)"
 
 DEPEND="
@@ -108,6 +112,46 @@ src_prepare() {
 			-v "-Xdoclint:none --allow-script-in-comments"
 	fi
 
+	if use modules; then
+		mkdir -p analysis/icu/lib
+		java-pkg_jar-from --into analysis/icu/lib icu4j-56
+		# disable morfologik, dependency does not build
+		# disable uima, dependency does not build
+		# disable phonetic, dependency does not exist
+		sed -i \
+			-e 's/morfologik,//g' \
+			-e 's/,uima//g' \
+			-e 's/phonetic,//g' \
+			-e 's/,compile-test//g' \
+			analysis/build.xml || die
+		rm -r analysis/morfologik || die
+		rm -r analysis/uima || die
+		rm -r analysis/phonetic || die
+		# do not compile all the tests just because we want the modules
+		sed -i \
+			-e 's/name="build-modules" depends="compile-test"/name="build-modules"/g' \
+			build.xml || die
+		sed -i \
+			-e 's/, compile-test//g' \
+			module-build.xml || die
+		mkdir -p expressions/lib
+		# facet requires hppc which does not compile
+		sed -i \
+			-e '/<ant dir="${common.dir}\/facet" target="jar-core" inheritall="false">/,+2d' \
+			module-build.xml || die
+		rm -r facet || die
+		# requires spatial4j, which does not exist
+		sed -i \
+			-e '/<ant dir="${common.dir}\/spatial" target="jar-core" inheritAll="false">/,+2d' \
+			module-build.xml || die
+		rm -r spatial || die
+		# these require modules which we have disabled
+		rm -r benchmark || die
+		rm -r demo || die
+		# fails to build for unknown reasons
+		rm -r replicator || die
+	fi
+
 	java-pkg-2_src_prepare
 }
 
@@ -116,6 +160,10 @@ src_compile() {
 
 	if use modules; then
 	    EANT_GENTOO_CLASSPATH+="
+			ant-apache-log4j
+			antlr-3.5
+			asm-9
+			asm-commons-9
 			jakarta-regexp-1.4
 			commons-compress
 			commons-collections
@@ -124,7 +172,7 @@ src_compile() {
 			commons-beanutils-1.7
 			commons-codec
 			icu4j-56
-			morfologik
+			log4j
 			"
 		EANT_BUILD_TARGET+=" build-modules"
 		EANT_DOC_TARGET+=" javadocs-modules"
@@ -147,21 +195,17 @@ src_test() {
 
 src_install() {
 	einstalldocs
-	java-pkg_newjar build/core/${PN}-core-${PV}.jar ${PN}-core.jar
-
-	if use modules; then
-		local i j
-		for i in $(find build/modules -name \*-${PV}.jar); do
-		    j=${i##*/}
-			java-pkg_newjar $i ${j%%-${PV}.jar}.jar
-		done
-	fi
+	local i j
+	for i in $(find build -name \*-${PV}.jar); do
+	    j=${i##*/}
+		java-pkg_newjar $i ${j%%-${PV}.jar}.jar
+	done
 	if use doc; then
 		dodoc -r docs
 		java-pkg_dohtml -r build/docs
 	fi
 	if use source; then
 	     java-pkg_dosrc core/src/java/org
-	  	 use modules && java-pkg_dosrc modules
+	  	 use modules && java-pkg_dosrc */src */*/src
 	fi
 }
