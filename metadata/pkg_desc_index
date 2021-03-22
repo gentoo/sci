@@ -13,6 +13,7 @@ dev-java/flexdock 1.2.4: A Java docking framework for use in cross-platform Swin
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
 dev-java/hppc 0.9.0_rc2: High Performance Primitive Collections for Java
 dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
+dev-java/javaparser 3.20.2: Java 1-15 Parser and Abstract Syntax Tree for Java.
 dev-java/jeuclid-core 3.1.14: Core module of MathML rendering solution
 dev-java/jgraphx 4.2.2: Open-source graph component for Java
 dev-java/jlatexmath 1.0.3: A Java API to render LaTeX
