@@ -291,7 +291,7 @@ sci-biology/karect 1.0: Error-correct mismatches and InDels of raw reads incl. p
 sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
 sci-biology/khmer 2.1.1: In-memory K-mer counting in DNA/RNA/protein sequences
 sci-biology/kmergenie 1.7048: Estimate best k-mer length to be used in novo assemblies
-sci-biology/kraken 1.1.1-r1: Detect sequencing project contaminants by mapping reads to taxonomic groups
+sci-biology/kraken 1.1.1-r2 2.1.1: Detect sequencing project contaminants by mapping reads to taxonomic groups
 sci-biology/last 1179: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.03: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
