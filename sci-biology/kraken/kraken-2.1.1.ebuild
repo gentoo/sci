@@ -6,35 +6,36 @@ EAPI=7
 inherit perl-functions
 
 DESCRIPTION="Detect sequencing project contaminants by mapping reads to taxonomic groups"
-HOMEPAGE="https://ccb.jhu.edu/software/kraken"
-SRC_URI="https://github.com/DerrickWood/kraken/archive/v1.0.tar.gz -> ${P}.tar.gz
-	https://ccb.jhu.edu/software/kraken/MANUAL.html -> ${P}_MANUAL.html"
+HOMEPAGE="https://ccb.jhu.edu/software/kraken2/"
+SRC_URI="https://github.com/DerrickWood/kraken2/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-3"
-SLOT="0"
+LICENSE="MIT"
+SLOT="2"
 KEYWORDS="~amd64"
 
+# TODO: somehow avoid the file conflict with kraken-1
 DEPEND=""
 RDEPEND="${DEPEND}
+	sci-biology/ncbi-tools++
 	dev-lang/perl
 	net-misc/wget
-	sci-biology/jellyfish:1
+	!sci-biology/kraken:1
 "
 
-S="${WORKDIR}/${PN}-1.0"
+S="${WORKDIR}/${PN}2-${PV}"
 
 src_prepare(){
 	default
 	sed -e 's/^CXX = /CXX ?= /' -e 's/^CXXFLAGS = /CXXFLAGS ?= /' -i src/Makefile || die
-	echo "exit 0" >> install_kraken.sh || die
+	echo "exit 0" >> install_kraken2.sh || die
 }
 
 src_compile(){
-	./install_kraken.sh destdir || die
+	./install_kraken2.sh destdir || die
 }
 
 src_install(){
-	dodoc "${DISTDIR}/${P}_MANUAL.html"
+	dodoc -r docs
 	perl_set_version
 	perl_domodule destdir/*.pm
 	dosym ../../"${VENDOR_LIB//${EPREFIX/}}/krakenlib.pm" /usr/bin/krakenlib.pm
