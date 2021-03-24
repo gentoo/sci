@@ -18,5 +18,4 @@ jobs:
     - name: Run pkgcheck
       uses: pkgcore/pkgcheck-action@v1
       with:
-        pkgs: pkgcheck==0.9.4
         args: --keywords=-RedundantVersion,-MissingAccountIdentifier,-OldPackageUpdate,-VisibleVcsPkg
