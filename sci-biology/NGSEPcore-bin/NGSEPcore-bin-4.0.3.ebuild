@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-utils-2
+inherit java-pkg-2
 
 DESCRIPTION="NGSEP (CNV and indel discovery)"
 HOMEPAGE="https://sourceforge.net/p/ngsep/wiki/Home
