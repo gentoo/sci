@@ -4,10 +4,11 @@ DEPEND=sci-libs/fftw:3.0 virtual/jpeg media-libs/tiff x11-libs/wxGTK:*
 DESCRIPTION=CTF estimation (ctffind, ctftilt)
 EAPI=7
 HOMEPAGE=https://grigoriefflab.umassmed.edu/
+INHERIT=wxwidgets
 KEYWORDS=~amd64 ~x86
 LICENSE=Janelia-1.2
 RDEPEND=sci-libs/fftw:3.0 virtual/jpeg media-libs/tiff x11-libs/wxGTK:*
 SLOT=0
 SRC_URI=https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-4.1.14.tar.gz&file=1&type=node&id=26 -> ctffind-4.1.14.tar.gz
-_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	eutils	2d5b3f4b315094768576b6799e4f926e	flag-o-matic	09a8beb8e6a8e02dc1e1bd83ac353741	l10n	8cdd85e169b835d518bc2fd59f780d8e	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	wrapper	4251d4c84c25f59094fd557e0063a974	wxwidgets	e1e6e1eb5b3d911b3abd712f611e2312
+_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	l10n	8cdd85e169b835d518bc2fd59f780d8e	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	2d5b3f4b315094768576b6799e4f926e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	flag-o-matic	09a8beb8e6a8e02dc1e1bd83ac353741	wxwidgets	407be90c398e52298054aff2093912a3
 _md5_=034c5648522e4b6297adeaef7e744353
