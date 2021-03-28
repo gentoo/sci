@@ -3,6 +3,7 @@ DEPEND=virtual/mpi python_single_target_python3_7? ( dev-lang/python:3.7 >=dev-l
 DESCRIPTION=A Network Correctness and Performance Testing Language
 EAPI=7
 HOMEPAGE=http://conceptual.sourceforge.net/
+INHERIT=java-pkg-opt-2 python-single-r1
 IUSE=gui elibc_FreeBSD gui +python_single_target_python3_7
 KEYWORDS=~amd64
 LICENSE=BSD-2
@@ -10,5 +11,5 @@ RDEPEND=virtual/mpi python_single_target_python3_7? ( dev-lang/python:3.7 >=dev-
 REQUIRED_USE=^^ ( python_single_target_python3_7 )
 SLOT=0
 SRC_URI=mirror://sourceforge/conceptual/conceptual-1.5.1b.tar.gz
-_eclasses_=java-pkg-opt-2	77d2e22d0de7640f817d20e861c0ff3f	java-utils-2	378e4cda228ea0231a0ac283cb2ad25c	multilib	d410501a125f99ffb560b0c523cd3d1e	python-single-r1	d3100de905f978df912135806cf27188	python-utils-r1	2dc8e06a3429719b43e9140f7292a425	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_eclasses_=java-utils-2	378e4cda228ea0231a0ac283cb2ad25c	java-pkg-opt-2	77d2e22d0de7640f817d20e861c0ff3f	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	python-utils-r1	543b53e4d003ebd889082f4673e52af5	python-single-r1	c7de0087e87a282f2faec351822e097c
 _md5_=9da60dc3ae1c8af257a7d520dee57364
