@@ -1,0 +1,11 @@
+diff -Naur fsl.orig/src/newimage/newimageio.h fsl/src/newimage/newimageio.h
+--- fsl.orig/src/newimage/newimageio.h	2020-12-02 15:15:27.012786899 -0500
++++ fsl/src/newimage/newimageio.h	2020-12-02 15:19:51.046795110 -0500
+@@ -75,6 +75,7 @@
+ #include <iostream>
+ #include <fstream>
+ #include <sstream>
++#include <stdexcept>
+ #include "NewNifti/NewNifti.h"
+ #include "newmatio.h"
+ #include "newimage.h"

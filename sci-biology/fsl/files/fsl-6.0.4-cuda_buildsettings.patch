@@ -1,0 +1,12 @@
+diff -Naur fsl.orig/config/buildSettings.mk fsl/config/buildSettings.mk
+--- fsl.orig/config/buildSettings.mk	2020-12-02 16:22:57.999912865 -0500
++++ fsl/config/buildSettings.mk	2020-12-02 16:24:15.332915270 -0500
+@@ -144,7 +144,7 @@
+ # CUDA development environment
+ CUDAVER := $(or $(CUDAVER),9.1)
+ #$(info $$CUDAVER is [${CUDAVER}])
+-CUDA_INSTALLATION = /opt/cuda-${CUDAVER}
++CUDA_INSTALLATION = /opt/cuda
+ ifdef SINGULARITY_NAME
+ CUDA_INSTALLATION = /usr/local/cuda-${CUDAVER}
+ endif
