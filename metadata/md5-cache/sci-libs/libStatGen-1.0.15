@@ -4,6 +4,7 @@ DEPEND=dev-libs/openssl:0=
 DESCRIPTION=Set of classes for creating statistical genetic programs
 EAPI=7
 HOMEPAGE=https://github.com/statgen/libStatGen
+INHERIT=docs
 IUSE=doc
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3+

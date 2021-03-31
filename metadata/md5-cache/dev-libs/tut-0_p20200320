@@ -3,6 +3,7 @@ DEFINED_PHASES=compile configure install
 DESCRIPTION=C++ Template Unit Test Framework
 EAPI=7
 HOMEPAGE=https://mrzechonek.github.io/tut-framework/
+INHERIT=docs
 IUSE=examples doc
 KEYWORDS=~amd64 ~x86
 LICENSE=BSD-2

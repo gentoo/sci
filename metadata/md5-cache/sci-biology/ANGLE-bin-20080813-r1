@@ -2,6 +2,7 @@ DEFINED_PHASES=install
 DESCRIPTION=CDS prediction overcoming sequencing errors in unfinished cDNA
 EAPI=7
 HOMEPAGE=http://bioinformatics.cenargen.embrapa.br/portrait/download
+INHERIT=perl-functions
 KEYWORDS=~amd64 ~x86
 LICENSE=BSD
 RDEPEND=sys-libs/libstdc++-v3 dev-lang/perl

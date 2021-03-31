@@ -3,6 +3,7 @@ DEPEND=mpi? ( sys-cluster/mpich2 )
 DESCRIPTION=EST sequence clustering: d2 function, edit distance, common word heuristics
 EAPI=7
 HOMEPAGE=https://shaze.github.io/wcdest/
+INHERIT=multilib
 IUSE=doc mpi threads
 LICENSE=GPL-2
 SLOT=0

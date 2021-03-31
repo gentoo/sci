@@ -4,11 +4,12 @@ DEPEND=virtual/blas virtual/lapack libxc? ( >=sci-libs/libxc-2.0.1[fortran] ) vi
 DESCRIPTION=PAW atomic data generator
 EAPI=7
 HOMEPAGE=http://users.wfu.edu/natalie/papers/pwpaw/man.html
+INHERIT=fortran-2 multilib toolchain-funcs
 IUSE=libxc longplot
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 RDEPEND=virtual/blas virtual/lapack libxc? ( >=sci-libs/libxc-2.0.1[fortran] ) virtual/fortran
 SLOT=0
 SRC_URI=http://users.wfu.edu/natalie/papers/pwpaw/atompaw-4.1.1.0.tar.gz http://users.wfu.edu/natalie/papers/pwpaw/atompaw.pdf http://users.wfu.edu/natalie/papers/pwpaw/notes/atompaw/atompawEqns.pdf
-_eclasses_=fortran-2	b4796813ccda91c9c0d3463fc90aa969	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_eclasses_=toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	fortran-2	b4796813ccda91c9c0d3463fc90aa969
 _md5_=587cc6e282cf44c135114bab8c706b87
