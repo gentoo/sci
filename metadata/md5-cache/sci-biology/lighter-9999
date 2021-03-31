@@ -9,5 +9,5 @@ LICENSE=GPL-2+
 PROPERTIES=live
 RDEPEND=sys-libs/zlib
 SLOT=0
-_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
+_eclasses_=git-r3	b8e8c92aa5fe8df7187e466138eb4e52
 _md5_=66a8eef18fca937dbb89334a1161a822

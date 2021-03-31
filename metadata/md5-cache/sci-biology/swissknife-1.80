@@ -4,11 +4,12 @@ DEPEND=dev-perl/Module-Build dev-lang/perl
 DESCRIPTION=Perl library of modules to manipulate SwissProt flatfiles
 EAPI=7
 HOMEPAGE=http://swissknife.sourceforge.net/
+INHERIT=perl-module
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2+
 RDEPEND=dev-perl/Module-Build >=dev-lang/perl-5.002:= dev-lang/perl:=
 RESTRICT=test
 SLOT=0
 SRC_URI=https://downloads.sourceforge.net/project/swissknife/swissknife/1.80/swissknife_1.80.tar.gz
-_eclasses_=multiprocessing	cac3169468f893670dac3e7cb940e045	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	perl-module	97206c028d9bdc9f248e022ac5c9fc83
+_eclasses_=multiprocessing	cac3169468f893670dac3e7cb940e045	perl-functions	6ec4c4d8fc8324200f1c14e8d158c59b	perl-module	ae176ff49e02bcbe576f6436b031c518
 _md5_=a4979171e1d41ca1b3bf2cdac47da493
