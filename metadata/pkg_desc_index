@@ -201,7 +201,7 @@ sci-biology/VarScan-bin 2.4.4: Variant detection (germline, multi-sample, somati
 sci-biology/VelvetOptimiser 2.2.6: Optimise Velvet sequence assembler
 sci-biology/YASRA 2.33: Yet Another Short Read Assembler aligning to a reference using LASTZ
 sci-biology/abacas 1.3.1: Order and orientate DNA contigs even via 6-frame protein alignments
-sci-biology/abyss 2.2.5: Assembly By Short Sequences - a de novo, parallel, paired-end sequence assembler
+sci-biology/abyss 2.3.0: Assembly By Short Sequences - a de novo, parallel, paired-end sequence assembler
 sci-biology/act-bin 17.0.1: DNA contig sequence comparison tool supplementing Artemis
 sci-biology/afni 19.3.12 20.1.16 20.3.03 9999: An open-source environment for processing and displaying functional MRI data
 sci-biology/aghermann 1.1.2-r2: A sleep-research experiment manager, EDF viewer & Process S simulator
