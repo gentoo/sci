@@ -27,6 +27,7 @@ dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
 dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/pgi 13.5: PGI compiler suite
 dev-lang/terra 1.0.0_beta2: A low-level counterpart to Lua
+dev-lang/tk 8.5.17-r1: Tk Widget Set
 dev-lang/vtune 18.0.2.0.551022 19.0.4.0.597835 2020.1.0.607630: Intel VTune Profiler
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
 dev-libs/asmjit 1.0_p22092020 9999: complete x86/x64 JIT-Assembler for C++ language
