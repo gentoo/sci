@@ -145,7 +145,7 @@ dev-util/mad-numdiff 9999 20180125: compare unformatted text files with numerica
 dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
-dev-util/rocm-clang-ocl 4.0.0-r1: OpenCL compilation with clang compiler
+dev-util/rocm-clang-ocl 4.0.0-r1 4.1.0: OpenCL compilation with clang compiler
 dev-util/waf 2.0.21: Piece of software used to help building software projects
 media-gfx/brlcad 7.32.0 9999: Constructive solid geometry modeling system
 media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
