@@ -4,7 +4,6 @@
 #
 # This checks for potential and exact package matches within an overlay & ::gentoo
 # Note that this is not going to be 100% accurate
-#
 
 GENTOO_DIR="/var/db/repos/gentoo"
 GENTOO_PACKAGES=(
@@ -73,6 +72,5 @@ if [[ -n ${PKG_EXACT_MATCH} ]]; then
 	printf "\nERROR: The following packages override packages in the main Gentoo repository:\n"
 	printf "${PKG_EXACT_MATCH}"
 	printf "Please remove these packages.\n"
-	# do not fatally exit
 	# exit 1
 fi
