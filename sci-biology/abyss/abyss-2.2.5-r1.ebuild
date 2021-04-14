@@ -27,6 +27,10 @@ DEPEND="${RDEPEND}
 		dev-lang/ghc
 	)"
 
+PATCHES=( "${FILESDIR}"/${PN}-2.2.5-PathConsensus-assert.patch
+		"${FILESDIR}"/${PN}-2.2.5-ContigProperties.h.patch
+	)
+
 # todo: --enable-maxk=N configure option
 # todo: fix automagic mpi toggling
 
