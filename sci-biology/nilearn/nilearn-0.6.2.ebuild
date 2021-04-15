@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -32,7 +32,7 @@ RDEPEND="
 	sci-libs/scikit-learn[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	plot? ( dev-python/matplotlib[${PYTHON_USEDEP}] )"
+	plot? ( <dev-python/matplotlib-3.4.0[${PYTHON_USEDEP}] )"
 
 # (Temporarily) commented out, since Gentoo sci-libs/scikit-learn decided it
 # is a mess to maintain system joblib usage
