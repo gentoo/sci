@@ -1,15 +1,15 @@
 DEFINED_PHASES=install
-DEPEND=python_targets_python3_7? ( dev-lang/python:3.7 ) >=dev-lang/python-exec-2:=[python_targets_python3_7(-)?,-python_single_target_python3_7(-)] dev-lang/perl dev-python/python-igraph[python_targets_python3_7(-)?,-python_single_target_python3_7(-)] sci-biology/abyss sci-biology/blat
+DEPEND=python_targets_python3_7? ( dev-lang/python:3.7 ) python_targets_python3_8? ( dev-lang/python:3.8 ) python_targets_python3_9? ( dev-lang/python:3.9 ) >=dev-lang/python-exec-2:=[python_targets_python3_7(-)?,python_targets_python3_8(-)?,python_targets_python3_9(-)?,-python_single_target_python3_7(-),-python_single_target_python3_8(-),-python_single_target_python3_9(-)] dev-lang/perl dev-python/python-igraph[python_targets_python3_7(-)?,python_targets_python3_8(-)?,python_targets_python3_9(-)?,-python_single_target_python3_7(-),-python_single_target_python3_8(-),-python_single_target_python3_9(-)] sci-biology/abyss sci-biology/blat
 DESCRIPTION=Analyze and combine multiple assemblies from abyss
 EAPI=7
 HOMEPAGE=https://www.bcgsc.ca/resources/software/trans-abyss
 INHERIT=python-r1
-IUSE=python_targets_python3_7
+IUSE=python_targets_python3_7 python_targets_python3_8 python_targets_python3_9
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3
-RDEPEND=python_targets_python3_7? ( dev-lang/python:3.7 ) >=dev-lang/python-exec-2:=[python_targets_python3_7(-)?,-python_single_target_python3_7(-)] dev-lang/perl dev-python/python-igraph[python_targets_python3_7(-)?,-python_single_target_python3_7(-)] sci-biology/abyss sci-biology/blat
-REQUIRED_USE=|| ( python_targets_python3_7 )
+RDEPEND=python_targets_python3_7? ( dev-lang/python:3.7 ) python_targets_python3_8? ( dev-lang/python:3.8 ) python_targets_python3_9? ( dev-lang/python:3.9 ) >=dev-lang/python-exec-2:=[python_targets_python3_7(-)?,python_targets_python3_8(-)?,python_targets_python3_9(-)?,-python_single_target_python3_7(-),-python_single_target_python3_8(-),-python_single_target_python3_9(-)] dev-lang/perl dev-python/python-igraph[python_targets_python3_7(-)?,python_targets_python3_8(-)?,python_targets_python3_9(-)?,-python_single_target_python3_7(-),-python_single_target_python3_8(-),-python_single_target_python3_9(-)] sci-biology/abyss sci-biology/blat
+REQUIRED_USE=|| ( python_targets_python3_7 python_targets_python3_8 python_targets_python3_9 )
 SLOT=0
 SRC_URI=https://github.com/bcgsc/transabyss/archive/2.0.1.tar.gz -> trans-abyss-2.0.1.tar.gz
 _eclasses_=multibuild	6b3d5ee849dafe6cdfd7b859c211fb01	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	python-utils-r1	3ea803de86891185c7b1db2c0b5bc8c8	python-r1	26e4ad0a4190b14f70973dc253e86535
-_md5_=ab6719bac3b415a20774f1ec73dc03d5
+_md5_=3b90739a81966ab19faa46de876c190c
