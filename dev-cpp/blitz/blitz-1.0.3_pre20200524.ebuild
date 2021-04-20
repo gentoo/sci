@@ -5,14 +5,18 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
 
-inherit cmake git-r3 python-any-r1
+inherit cmake python-any-r1
+
+COMMIT="39f885951a9b8b11f931f917935a16066a945056"
 
 DESCRIPTION="Multi-dimensional array library for C++"
 HOMEPAGE="https://github.com/blitzpp/blitz"
-EGIT_REPO_URI="https://github.com/blitzpp/blitz"
+SRC_URI="https://github.com/blitzpp/blitz/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="BSD LGPL-3+"
 SLOT="0"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~x86"
 IUSE="boost doc test"
 RESTRICT="!test? ( test )"
 
