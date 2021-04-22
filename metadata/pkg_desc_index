@@ -70,7 +70,7 @@ dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated
 dev-python/astroquery 0.4.1: A collection of packages to access online astronomical resources
 dev-python/astroscrappy 1.0.8: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
-dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0: Statistical and interactive HTML plots for Python
+dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
@@ -96,7 +96,7 @@ dev-python/kmapper 1.4.1: Python implementation of Mapper algorithm for Topologi
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
-dev-python/numba 0.51.2 0.52.0: NumPy aware dynamic Python compiler using LLVM
+dev-python/numba 0.51.2 0.52.0 0.53.1: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/panel 0.11.0: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1: Make Python code clearer and more reliable by declaring Parameters
