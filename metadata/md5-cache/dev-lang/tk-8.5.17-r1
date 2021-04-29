@@ -12,5 +12,5 @@ RDEPEND=!aqua? ( media-libs/fontconfig media-libs/freetype:2 x11-libs/libX11 x11
 RESTRICT=!test? ( test )
 SLOT=0/8.5
 SRC_URI=mirror://sourceforge/tcl/tk8.5.17-src.tar.gz
-_eclasses_=gnuconfig	9f91b4b0c84e734a87492d4293f03de5	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	libtool	f143db5a74ccd9ca28c1234deffede96	autotools	9e63f92c2a5d867fea55ecb160c7d354	prefix	de7d8e2b10085ed5ff09ad70e4753e5c	virtualx	d828f8a6cfc731f2683d0967d3f2f95a
+_eclasses_=gnuconfig	9f91b4b0c84e734a87492d4293f03de5	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	libtool	f143db5a74ccd9ca28c1234deffede96	autotools	9e63f92c2a5d867fea55ecb160c7d354	prefix	de7d8e2b10085ed5ff09ad70e4753e5c	virtualx	0a780e1ab49c75da33a78ede35ab8f9c
 _md5_=e18e0f06635d15254919b1b6ee726a2d
