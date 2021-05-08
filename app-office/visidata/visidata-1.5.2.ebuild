@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
 
-inherit distutils-r1 eutils
+inherit distutils-r1 optfeature
 
 DESCRIPTION="Terminal spreadsheet multitool for discovering and arranging data"
 HOMEPAGE="http://visidata.org"
