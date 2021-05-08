@@ -1,0 +1,12 @@
+DEFINED_PHASES=install prepare
+DEPEND=pulseaudio? ( media-sound/pulseaudio ) static-libs? ( media-libs/alsa-lib ) X? ( x11-libs/gtk+:3 ) !X? ( x11-libs/pango )
+DESCRIPTION=Speech analysis and synthesis
+EAPI=7
+HOMEPAGE=http://www.fon.hum.uva.nl/praat/
+IUSE=+pulseaudio static-libs +X
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=pulseaudio? ( media-sound/pulseaudio ) static-libs? ( media-libs/alsa-lib ) X? ( x11-libs/gtk+:3 ) !X? ( x11-libs/pango )
+SLOT=0
+SRC_URI=https://github.com/praat/praat/archive/v6.1.42.tar.gz -> praat-6.1.42.tar.gz
+_md5_=f679c25a0184e1ce89ee5a07bfe9c566
