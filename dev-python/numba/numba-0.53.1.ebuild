@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 
 DISTUTILS_USE_SETUPTOOLS=rdepend
-inherit eutils multiprocessing distutils-r1
+inherit multiprocessing distutils-r1
 
 DESCRIPTION="NumPy aware dynamic Python compiler using LLVM"
 HOMEPAGE="https://numba.pydata.org/
@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 IUSE="openmp threads"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
 	>=dev-python/llvmlite-0.36.0[${PYTHON_USEDEP}]
 	<dev-python/llvmlite-0.37.0
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -30,10 +30,11 @@ DEPEND="${RDEPEND}"
 
 DISTUTILS_IN_SOURCE_BUILD=1
 distutils_enable_tests unittest
+# Only works in a git repository
+#distutils_enable_sphinx docs/source dev-python/numpydoc
 
-# doc system is another huge mess, skip it
 PATCHES=(
-	"${FILESDIR}/${P}-skip_tests.patch"
+	"${FILESDIR}/${PN}-0.52.0-skip_tests.patch"
 )
 
 pkg_setup() {
@@ -57,11 +58,6 @@ python_test() {
 		"${EPYTHON} failed to build_ext"
 	${EPYTHON} runtests.py -m $(makeopts_jobs) || die \
 		"${EPYTHON} failed unittests"
-}
-
-# https://numba.pydata.org/numba-doc/latest/user/installing.html
-python_install_all() {
-	distutils-r1_python_install_all
 }
 
 pkg_postinst() {
