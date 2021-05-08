@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 
 DISTUTILS_USE_SETUPTOOLS=rdepend
-inherit multiprocessing distutils-r1
+inherit optfeature multiprocessing distutils-r1
 
 DESCRIPTION="NumPy aware dynamic Python compiler using LLVM"
 HOMEPAGE="https://numba.pydata.org/
