@@ -4,7 +4,7 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 
-inherit eutils distutils-r1
+inherit distutils-r1
 
 DESCRIPTION="Python interface generator for Fortran based codes"
 HOMEPAGE="https://github.com/dpgrote/Forthon"
