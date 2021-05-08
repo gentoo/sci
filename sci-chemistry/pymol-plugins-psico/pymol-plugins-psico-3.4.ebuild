@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7,8,9} )
 DISTUTILS_USE_SETUPTOOLS=no
 
-inherit distutils-r1
+inherit distutils-r1 optfeature
 
 DESCRIPTION="Pymol ScrIpt COllection"
 HOMEPAGE="https://github.com/speleo3/pymol-psico/"
