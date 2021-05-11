@@ -97,7 +97,7 @@ dev-python/kmapper 1.4.1: Python implementation of Mapper algorithm for Topologi
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
-dev-python/numba 0.51.2 0.52.0 0.53.1: NumPy aware dynamic Python compiler using LLVM
+dev-python/numba 0.53.1: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/panel 0.11.0: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1: Make Python code clearer and more reliable by declaring Parameters
@@ -156,6 +156,7 @@ media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/imgui 1.80: Bloat-free graphical user interface library for C++
 media-libs/implicitmesher 0_p20200413: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0: Simplify the creation of computer graphics software
+media-libs/libredwg 0.12.4: C library to handle DWG files
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
 media-libs/yocto-gl 3.3.0: Single File Libraries for Physically-Based Graphics
 net-misc/cernbox-client 2.7.5.3180 2.7.6.3261: Synchronize files from CERNBox EOS with your computer
