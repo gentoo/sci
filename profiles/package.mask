@@ -30,7 +30,7 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@riseup.net> (08 May 2021)
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (08 May 2021)
 # netcdf(-java) is horribly outdated, it requires dev-java/ehcache which is
 # being removed. This ebuild cannot be moved into ::sci because the sources
 # are no longer available outside of the Gentoo mirror. Newer versions of
