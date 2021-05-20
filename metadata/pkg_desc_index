@@ -151,7 +151,7 @@ dev-util/rocm-clang-ocl 4.0.0-r1 4.1.0: OpenCL compilation with clang compiler
 dev-util/waf 2.0.21: Piece of software used to help building software projects
 media-gfx/brlcad 7.32.0 9999: Constructive solid geometry modeling system
 media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
-media-libs/embree-bin 3.12.0 3.12.1 3.12.2: high-performance ray tracing kernels from intel
+media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/imgui 1.80: Bloat-free graphical user interface library for C++
 media-libs/implicitmesher 0_p20200413: Real-time implicit surface polygonization
