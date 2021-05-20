@@ -71,7 +71,7 @@ dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated
 dev-python/astroquery 0.4.1: A collection of packages to access online astronomical resources
 dev-python/astroscrappy 1.0.8: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
-dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1: Statistical and interactive HTML plots for Python
+dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1 2.3.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
@@ -79,7 +79,7 @@ dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/datrie 0.8.2: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2017.1.0: Python module for distributed just-in-time shared library building
-dev-python/dnaio 0.4.2 0.4.3 0.5.0: efficient reader for FASTA and FASTQ files
+dev-python/dnaio 0.4.2 0.4.3 0.5.0 0.5.1: efficient reader for FASTA and FASTQ files
 dev-python/extension-helpers 0.1: Utilities for building and installing packages in the Astropy ecosystem
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
