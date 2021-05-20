@@ -93,7 +93,7 @@ dev-python/holoviews 1.14.2: Make data analysis and visualization seamless and s
 dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
-dev-python/kmapper 1.4.1: Python implementation of Mapper algorithm for Topological Data Analysis
+dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
