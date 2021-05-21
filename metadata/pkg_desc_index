@@ -462,7 +462,7 @@ sci-libs/ciftilib 1.6.0: C++ Library for reading and writing CIFTI-2 and CIFTI-1
 sci-libs/clfft 2.12.2 9999: Library containing FFT functions written in OpenCL
 sci-libs/clrng 1.0.0_beta_p20160304 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 2.01.2019.06: System for chemical shifts based protein structure prediction using ROSETTA
-sci-libs/ensmallen 2.14.2 2.15.0 2.15.1 2.16.0: header only C++ library for numerical optimization
+sci-libs/ensmallen 2.14.2 2.15.0 2.15.1 2.16.0 2.16.2: header only C++ library for numerical optimization
 sci-libs/etsf_io 1.0.4-r2: A library of F90 routines to read/write the ETSF file format
 sci-libs/fast5 0.6.5: C++ header-only library for reading Oxford Nanopore Fast5 files
 sci-libs/fdlibm 5.3.1: C math library supporting IEEE 754 floating-point arithmetic
@@ -549,7 +549,7 @@ sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a qua
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
 sci-visualization/clip 0.7: command line chart creator
-sci-visualization/forge 1.0.5 9999: High Performance Visualizations for ArrayFire
+sci-visualization/forge 1.0.5 1.0.7 9999: High Performance Visualizations for ArrayFire
 sci-visualization/fsleyes 0.32.3 0.34.2: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.6.7 1.7.0: Object attribute management for the FSLeyes viewer
 sci-visualization/fsleyes-widgets 0.8.4 0.9.0: GUI widgets and utilities for the FSLeyes viewer
