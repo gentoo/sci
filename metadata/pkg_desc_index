@@ -249,7 +249,7 @@ sci-biology/coral 1.4.1: Error corrector for Illumina and Roche/454 reads using 
 sci-biology/cortex_var 1.0.5.21: Genotype variant discovery without reference sequence
 sci-biology/cramtools 3.0: Java tools and APIs for efficient compression of sequence read data
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
-sci-biology/cutadapt 2.10: Remove adapter sequences from high-throughput sequencing data
+sci-biology/cutadapt 2.10 3.3: Remove adapter sequences from high-throughput sequencing data
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
 sci-biology/dcm2niix 1.0.20201102: DICOM to NIfTI converter
 sci-biology/dcmstack 0.8: DICOM to Nifti coversion
