@@ -1,4 +1,4 @@
-BDEPEND=virtual/pkgconfig >=dev-cpp/gtest-1.8.1 >=dev-lang/swig-3.0.5 >=dev-vcs/git-1.8.2.1[curl] >=dev-util/meson-0.54.0 >=dev-util/ninja-1.8.2 dev-util/meson-format-array
+BDEPEND=virtual/pkgconfig >=dev-cpp/gtest-1.8.1 >=dev-lang/swig-3.0.5 >=dev-vcs/git-1.8.2.1[curl] >=dev-util/meson-0.56.0 >=dev-util/ninja-1.8.2 dev-util/meson-format-array
 DEFINED_PHASES=compile configure install test unpack
 DEPEND=sci-biology/pbcopper >=sci-libs/htslib-1.3.1:= >=dev-libs/boost-1.55:=[threads]
 DESCRIPTION=PacBio modified BAM file format
@@ -9,5 +9,5 @@ LICENSE=blasr
 PROPERTIES=live
 RDEPEND=sci-biology/pbcopper >=sci-libs/htslib-1.3.1:= >=dev-libs/boost-1.55:=[threads]
 SLOT=0
-_eclasses_=git-r3	b8e8c92aa5fe8df7187e466138eb4e52	multiprocessing	cac3169468f893670dac3e7cb940e045	ninja-utils	132cbb376048d079b5a012f5467c4e7f	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	python-utils-r1	d273d56dc725880edbeb1f6389faf5f1	meson	00d6fba6e500964c50ba74d1d1fc2e6c
+_eclasses_=git-r3	b8e8c92aa5fe8df7187e466138eb4e52	multiprocessing	cac3169468f893670dac3e7cb940e045	ninja-utils	132cbb376048d079b5a012f5467c4e7f	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	python-utils-r1	d273d56dc725880edbeb1f6389faf5f1	meson	28cbb704f3b4e0481c4a5f22be635115
 _md5_=0c59a110314f12b227d4327b8c61f1a6
