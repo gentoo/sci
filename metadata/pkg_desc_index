@@ -1,7 +1,6 @@
 app-arch/libdeflate 1.2 1.6 1.7 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-office/visidata 1.5.2 2.1.1: Terminal spreadsheet multitool for discovering and arranging data
 app-text/noweb 2.12: a literate programming tool, lighter than web
-app-text/zotero-bin 5.0.96: Helps you collect, organize, cite, and share your research sources
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
 dev-cpp/blitz 1.0.3_pre20200524 9999: Multi-dimensional array library for C++
@@ -118,7 +117,6 @@ dev-python/python-igraph 0.8.2 0.8.3 0.9.0: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
-dev-python/pyzotero 1.4.20: A Python client for the Zotero API
 dev-python/regions 0.4: Astropy affilated package for region handling
 dev-python/reproject 0.7.1: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
