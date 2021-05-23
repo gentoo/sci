@@ -189,7 +189,4 @@ sci-physics/mc-tester:pythia - Compile sci-physics/pythia interface
 sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:tau-spinner - Compile with TauSpinner library
 sci-visualization/mricrogl:dicom - Adds limited read support for the DICOM imaging format.
-sci-visualization/scidavis:assistant - Compile with QAssistant (documentation broweser) support from dev-qt/assistant.
-sci-visualization/scidavis:origin - Add support for reading OriginLab OPJ project files through sci-libs/liborigin.
-sci-visualization/scidavis:python - Build support for python scripting.
 sys-cluster/modules:compat - Build Modules version 3 compat support
