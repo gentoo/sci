@@ -154,7 +154,6 @@ media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/imgui 1.80: Bloat-free graphical user interface library for C++
 media-libs/implicitmesher 0_p20200413: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0: Simplify the creation of computer graphics software
-media-libs/libredwg 0.12.4: C library to handle DWG files
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
 media-libs/yocto-gl 3.3.0: Single File Libraries for Physically-Based Graphics
 net-misc/cernbox-client 2.7.5.3180 2.7.6.3261: Synchronize files from CERNBox EOS with your computer
