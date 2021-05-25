@@ -18,8 +18,10 @@ IUSE="ocamlopt"
 RDEPEND="
 	virtual/blas
 	virtual/lapack
+	dev-ml/dune-configurator
 "
-BDEPEND="${RDEPEND}
+DEPEND="${RDEPEND}"
+BDEPEND="
 	virtual/pkgconfig
 "
 
