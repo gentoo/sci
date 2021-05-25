@@ -1,6 +1,6 @@
-BDEPEND=virtual/blas virtual/lapack virtual/pkgconfig dev-ml/dune dev-lang/ocaml
+BDEPEND=virtual/pkgconfig dev-ml/dune dev-lang/ocaml
 DEFINED_PHASES=compile install test
-DEPEND=>=dev-lang/ocaml-4:=[ocamlopt?]
+DEPEND=virtual/blas virtual/lapack dev-ml/dune-configurator >=dev-lang/ocaml-4:=[ocamlopt?]
 DESCRIPTION=BLAS/LAPACK interface for OCaml
 EAPI=7
 HOMEPAGE=https://mmottl.github.io/lacaml/
@@ -8,8 +8,8 @@ INHERIT=dune
 IUSE=ocamlopt
 KEYWORDS=~amd64 ~x86
 LICENSE=LGPL-2.1-with-linking-exception
-RDEPEND=virtual/blas virtual/lapack >=dev-lang/ocaml-4:=[ocamlopt?]
+RDEPEND=virtual/blas virtual/lapack dev-ml/dune-configurator >=dev-lang/ocaml-4:=[ocamlopt?]
 SLOT=0
 SRC_URI=https://github.com/mmottl/lacaml/archive/11.0.8.tar.gz -> lacaml-11.0.8.tar.gz
 _eclasses_=dune	2d138ae1c0f7d4624876ad486529731f
-_md5_=3c50d2f0cb4692545d76216698bf8973
+_md5_=a8a22102c10dd613292818b58df99efd
