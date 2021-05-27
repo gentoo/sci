@@ -18,13 +18,20 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 IUSE="openmp threads"
 
+# Minimum dependency versions derive from:
+# * For llvmlite, the "min_llvmlite_version" and "max_llvmlite_version" globals
+#   in "setup.py".
+# * For NumPy, the "min_numpy_run_version" global in "setup.py".
+# * For TBB, #error pragmas in "numba/np/ufunc/tbbpool.cpp" like:
+#   #error "TBB version is too old, 2019 update 5...
+# Lastly, note the "numba -s" subcommand requires "pip" at runtime.
 RDEPEND="
 	>=dev-python/llvmlite-0.36.0[${PYTHON_USEDEP}]
 	<dev-python/llvmlite-0.37.0
-	dev-python/numpy[${PYTHON_USEDEP}]
+	>=dev-python/numpy-1.15.0[${PYTHON_USEDEP}]
 	dev-python/pip[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	threads? ( dev-cpp/tbb )
+	threads? ( >=dev-cpp/tbb-2019.5 )
 "
 DEPEND="${RDEPEND}"
 
@@ -49,6 +56,13 @@ pkg_setup() {
 		unset NUMBA_DISABLE_TBB
 		export TBBROOT="${EPREFIX}/usr"
 	fi
+}
+
+python_compile() {
+	# FIXME: parallel python building fails. See Portage bug #614464 and
+	# gentoo/sci issue #1080.
+	export MAKEOPTS=-j1
+	distutils-r1_python_compile
 }
 
 # https://numba.pydata.org/numba-doc/latest/developer/contributing.html?highlight=test#running-tests
