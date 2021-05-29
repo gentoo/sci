@@ -28,6 +28,8 @@ S="${WORKDIR}/${MY_P}"
 
 FORTRAN_STANDARD=90
 
+DEPEND="sys-devel/gcc[fortran]"
+
 PATCHES=(
 	"${FILESDIR}"/4.1.2-r2-install-customizations.patch
 )
