@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -31,8 +31,8 @@ DEPEND="
 
 	cuda? (
 		|| (
-			( =dev-util/nvidia-cuda-toolkit-10* =sys-devel/gcc-8* )
-			( =dev-util/nvidia-cuda-toolkit-11* =sys-devel/gcc-9* )
+			( =dev-util/nvidia-cuda-toolkit-10* =sys-devel/gcc-8*:* )
+			( =dev-util/nvidia-cuda-toolkit-11* =sys-devel/gcc-9*:* )
 		   )
 	)
 	"
