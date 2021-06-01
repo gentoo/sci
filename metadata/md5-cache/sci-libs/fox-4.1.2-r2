@@ -1,10 +1,14 @@
-DEFINED_PHASES=compile configure install test
+DEFINED_PHASES=compile configure install setup test
+DEPEND=virtual/fortran
 DESCRIPTION=A library designed to allow the easy use of XML from Fortran
 EAPI=7
 HOMEPAGE=https://homepages.see.leeds.ac.uk/~earawa/FoX//
+INHERIT=fortran-2
 IUSE=debug doc +dom +fast +sax +wcml +wkml +wxml
 KEYWORDS=~amd64 ~x86 ~amd64-linux
 LICENSE=BSD ZLIB
+RDEPEND=virtual/fortran
 SLOT=0
 SRC_URI=doc? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-full.tar.gz ) !doc? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2.tar.gz dom? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-dom.tar.gz ) sax? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-sax.tar.gz ) wcml? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-wcml.tar.gz ) wkml? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-wkml.tar.gz ) wxml? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-wxml.tar.gz ) )
-_md5_=1e75473ecdea08853e64e07823c2890d
+_eclasses_=toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	fortran-2	b4796813ccda91c9c0d3463fc90aa969
+_md5_=56173c42fcc39f98ac8f2228e5366cbf
