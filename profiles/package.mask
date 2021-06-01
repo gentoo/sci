@@ -30,16 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (08 May 2021)
-# netcdf(-java) is horribly outdated, it requires dev-java/ehcache which is
-# being removed. This ebuild cannot be moved into ::sci because the sources
-# are no longer available outside of the Gentoo mirror. Newer versions of
-# netcdf-java and ehcache use a maven based build system which currently does
-# not work with portage. The only real solution would be to add a netcdf-bin
-# package. If you need this software please complain on bugzilla or GitHub.
-# Masked for removal when dev-java/ehcache is removed from ::gentoo (~30 days).
-dev-java/netcdf
-
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (24 May 2021)
 # This was originally added for the NationalInstruments/GPIB ebuilds, however
 # due to the number of ebuilds it was decided to maintain these in ::natinst.

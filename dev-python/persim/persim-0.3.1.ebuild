@@ -22,7 +22,7 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/plotly[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/scikit-learn[${PYTHON_USEDEP}]
-	test? ( dev-python/deprecated[${PYTHON_USEDEP}] )
 "
+BDEPEND="test? ( dev-python/deprecated[${PYTHON_USEDEP}] )"
 
 distutils_enable_tests pytest
