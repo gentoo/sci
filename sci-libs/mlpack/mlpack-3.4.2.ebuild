@@ -22,7 +22,7 @@ CDEPEND="
 	${PYTHON_DEPS}
 	julia? ( || (
 			dev-lang/julia
-			dev-lang/julia-bin
+			dev-lang/julia-bin:*
 		)
 	)
 	go? ( dev-lang/go )
