@@ -22,6 +22,7 @@ dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-java/skinlf 6.7.10: Skin Look and Feel - Skinning Engine for the Swing toolkit
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
+dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
 dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
 dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/pgi 13.5: PGI compiler suite
