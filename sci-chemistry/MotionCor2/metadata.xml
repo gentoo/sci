@@ -10,7 +10,6 @@
 		<name>Alexey Shvetsov</name>
 	</maintainer>
 	<use>
-		<flag name="cuda92">Install cuda-9.2 version</flag>
 		<flag name="cuda102">Install cuda-10.2 version</flag>
 	</use>
 </pkgmetadata>

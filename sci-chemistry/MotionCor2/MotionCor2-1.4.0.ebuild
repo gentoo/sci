@@ -11,12 +11,10 @@ S="${WORKDIR}"/${PN}_${PV}
 LICENSE="UCSF-Motioncor2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cuda92 +cuda102"
-REQUIRED_USE="^^ ( cuda92 cuda102 )"
+IUSE="+cuda102"
 RESTRICT="fetch"
 
 RDEPEND="
-	cuda92? ( =dev-util/nvidia-cuda-toolkit-9.2* )
 	cuda102? ( =dev-util/nvidia-cuda-toolkit-10.2* )
 	media-libs/tiff
 	app-arch/xz-utils
@@ -38,11 +36,7 @@ src_install() {
 	# package also has 10.0 10.1 11.0 versions
 	# but these cuda versions are not in ::gentoo
 	local mcbin
-	if use cuda92; then
-		mcbin="${PN}_${PV}_Cuda92"
-	elif use cuda102; then
-		mcbin="${PN}_${PV}_Cuda102"
-	fi
+	use cuda102 && mcbin="${PN}_${PV}_Cuda102"
 	dobin "${mcbin}"
 	dosym "${mcbin}" /usr/bin/MotionCor2
 }
