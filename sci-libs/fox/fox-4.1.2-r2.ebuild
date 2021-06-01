@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit fortran-2
+
 MY_PN="FoX"
 MY_P="${MY_PN}-${PV}"
 
