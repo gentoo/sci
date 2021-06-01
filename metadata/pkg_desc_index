@@ -18,7 +18,6 @@ dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
 dev-java/jogl 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
 dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
 dev-java/lucene 3.6.2-r2 5.2.1 8.4.0: High-performance, full-featured text search engine written entirely in Java
-dev-java/netcdf 4.2: Java Common Data Model (CDM) interface to to netCDF files
 dev-java/skinlf 6.7.10: Skin Look and Feel - Skinning Engine for the Swing toolkit
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
@@ -194,7 +193,6 @@ sci-biology/SSAKE 3.8.2: Short-read trimmer, OLC assembler, scaffolder in PERL u
 sci-biology/Scaffolder-evaluation 9999: Scripts to run genome assembly scaffolding tools and analyse output for accuracy
 sci-biology/SnpEff 4.3t: SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF
 sci-biology/SolexaQA 3.1.7.1: Analyze and trim single-end and paired-end reads, show quality statistics
-sci-biology/StarORF 9999: Java-based utility to show ORFs in a sequence
 sci-biology/TransDecoder 5.5.0: Extract ORF/CDS regions from FASTA sequences
 sci-biology/Trinotate 3.2.1: Annotation and analysis pipeline for de novo assembled transcriptomes
 sci-biology/VarScan 2.4.4: Variant detection (germline, multi-sample, somatic mutations, CNA, SNP calls)
