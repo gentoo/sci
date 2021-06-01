@@ -36,7 +36,7 @@ src_install() {
 	# package also has 10.0 10.1 11.0 versions
 	# but these cuda versions are not in ::gentoo
 	local mcbin
-	mcbin="${PN}_${PV}_Cuda102"
+	use cuda102 && mcbin="${PN}_${PV}_Cuda102"
 	dobin "${mcbin}"
 	dosym "${mcbin}" /usr/bin/MotionCor2
 }
