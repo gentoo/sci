@@ -1,0 +1,24 @@
+cstring now contains memcpy.
+Written and tested by Lucas Mitrak.
+
+--- a/src/raster-png.cxx
++++ b/src/raster-png.cxx
+@@ -12,6 +12,7 @@
+ #include <vector>
+ #include <gfx/gfx.h>
+ #include <gfx/raster.h>
++#include <cstring>
+ 
+ #ifdef HAVE_LIBPNG
+ 
+--- a/src/raster.cxx
++++ b/src/raster.cxx
+@@ -9,7 +9,7 @@
+ #include <gfx/gfx.h>
+ #include <gfx/raster.h>
+ 
+-#include <string>
++#include <cstring>
+ #include <cctype>
+ 
+ namespace gfx

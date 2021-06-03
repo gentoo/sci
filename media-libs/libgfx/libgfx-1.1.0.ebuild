@@ -10,9 +10,19 @@ SRC_URI="http://mgarland.org/dist/${P}.tar.gz"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="static-libs"
+IUSE="static-libs test"
 
-PATCHES=( "${FILESDIR}"/${PV}-gcc4.3.patch )
+DEPEND="
+	virtual/opengl
+	x11-libs/fltk
+"
+
+RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"${FILESDIR}"/${PV}-gcc-4.3.patch
+	"${FILESDIR}"/${PV}-libPNG-1.0.6.patch
+)
 
 src_compile() {
 	cd src || die
@@ -24,4 +34,10 @@ src_install() {
 	doheader include/gfx/gfx.h
 
 	dodoc doc/*
+}
+
+src_test() {
+	cd tests || die
+	sed -i -e 's/t-vec.cxx t-img.cxx t-gui.cxx t-glimg.cxx t-script.cxx t-glext.cxx/t-vec.cxx t-img.cxx t-script.cxx/' Makefile
+	emake
 }
