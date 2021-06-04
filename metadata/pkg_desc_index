@@ -171,7 +171,7 @@ sci-biology/FLASH 1.2.11: Paired-end mates merge from fragments
 sci-biology/Fastaq 3.17.0: Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers
 sci-biology/GAL 0.2.2_p20200508: Genome Annotation Library (incl. fasta_tool)
 sci-biology/IMAGE 2.4.1: Iterative Mapping and Assembly for Gap Elimination using paired-end Illumina
-sci-biology/KING 2.2.5: Check family relationship and infer population structure
+sci-biology/KING 2.2.7: Check family relationship and infer population structure
 sci-biology/KaKs_Calculator 1.2 2.0: Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates
 sci-biology/MaSuRCA 4.0.1: de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore
 sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
