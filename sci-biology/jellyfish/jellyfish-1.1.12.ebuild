@@ -18,21 +18,18 @@ SLOT="1"
 KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse"
 
-DEPEND=""
-DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
 
-src_prepare(){
+src_configure() {
 	#  --with-sse              enable SSE
 	#  --with-half             enable half float (16 bits)
 	#  --with-int128           enable int128
 	local myconf
 	use cpu_flags_x86_sse && myconf+=( --with-sse )
 	econf ${myconf[@]}
-	eapply_user
 }
 
-src_install(){
+src_install() {
 	default
 	# install the binary under jellyfish1 name like Debian/Ubuntu to avoid name clash with jellyfish2 and allow simultaneous installs
 	mv "${ED}"/usr/bin/jellyfish "${ED}"/usr/bin/jellyfish1 || die
