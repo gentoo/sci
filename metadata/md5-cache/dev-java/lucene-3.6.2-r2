@@ -11,5 +11,5 @@ RDEPEND=dev-java/ant-core:0 dev-java/ant-junit:0 dev-java/hamcrest-core:0 dev-ja
 RESTRICT=test
 SLOT=3.6
 SRC_URI=mirror://apache/lucene/java/3.6.2/lucene-3.6.2-src.tgz
-_eclasses_=java-utils-2	2440f41421207d084e5e3f1fb001b34e	java-pkg-2	45c44ec10db6affb3ebee1ac72039888	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	java-ant-2	51fb0a4707d58382310390ad47ab0ab0
+_eclasses_=java-utils-2	2440f41421207d084e5e3f1fb001b34e	java-pkg-2	45c44ec10db6affb3ebee1ac72039888	multilib	ebdbaed22e873a5abe6205f41349b479	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	java-ant-2	51fb0a4707d58382310390ad47ab0ab0
 _md5_=bc8270f9ee476ee96e39d04aee3bff4f
