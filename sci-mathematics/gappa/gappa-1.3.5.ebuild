@@ -28,6 +28,11 @@ src_prepare() {
 }
 
 src_compile() {
+	# Remove --load-average or -l because remake does not accept these
+	echo ${MAKEOPTS} | egrep -o '(\-l|\-\-load\-average)(=?|[[:space:]]*)[[:digit:]]+' > /dev/null
+	if [ $? -eq 0 ]; then
+		MAKEOPTS="${MAKEOPTS/$(echo ${MAKEOPTS} | egrep -o '(\-l|\-\-load\-average)(=?|[[:space:]]*)[[:digit:]]+')/}"
+	fi
 	./remake -d ${MAKEOPTS} || die "emake failed"
 	if use doc; then
 		./remake doc/html/index.html
