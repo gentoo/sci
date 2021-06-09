@@ -3,42 +3,40 @@
 
 EAPI=7
 
-inherit multiprocessing
+DOCS_BUILDER="doxygen"
+DOCS_DIR="doc/doxygen"
+
+inherit docs multiprocessing
 
 DESCRIPTION="Verifying and proving properties on floating-point or fixed-point arithmetic"
-HOMEPAGE="http://gappa.gforge.inria.fr/"
-SRC_URI="https://gforge.inria.fr/frs/download.php/file/38044/${P}.tar.gz"
+HOMEPAGE="https://gappa.gitlabpages.inria.fr/"
+SRC_URI="https://gforge.inria.fr/frs/download.php/file/38436/${P}.tar.gz"
 
 LICENSE="|| ( CeCILL-2 GPL-2 )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
 
 RDEPEND="
 	dev-libs/gmp:0=
 	dev-libs/mpfr:0=
 	dev-libs/boost
 "
-DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen )"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 	default
 	sed -i Remakefile.in \
 		-e "s:mkdir -p @bindir@:mkdir -p \${DESTDIR}@bindir@:g" \
-		-e "s:cp src/gappa @bindir@:cp src/gappa \${DESTDIR}@bindir@:g"
+		-e "s:cp src/gappa @bindir@:cp src/gappa \${DESTDIR}@bindir@:g" || die
 }
 
 src_compile() {
 	# Only accept number of parrellel jobs because remake does not understand --load-average
 	./remake -d -j$(makeopts_jobs) || die "emake failed"
-	if use doc; then
-		./remake doc/html/index.html
-	fi
+	docs_compile
 }
 
 src_install() {
 	DESTDIR="${D}" ./remake install
 	einstalldocs
-	use doc && dodoc -r doc/html/*
 }
