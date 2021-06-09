@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit multiprocessing
+
 DESCRIPTION="Verifying and proving properties on floating-point or fixed-point arithmetic"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
 SRC_URI="https://gforge.inria.fr/frs/download.php/file/38044/${P}.tar.gz"
@@ -28,12 +30,8 @@ src_prepare() {
 }
 
 src_compile() {
-	# Remove --load-average or -l because remake does not accept these
-	echo ${MAKEOPTS} | egrep -o '(\-l|\-\-load\-average)(=?|[[:space:]]*)[[:digit:]]+' > /dev/null
-	if [ $? -eq 0 ]; then
-		MAKEOPTS="${MAKEOPTS/$(echo ${MAKEOPTS} | egrep -o '(\-l|\-\-load\-average)(=?|[[:space:]]*)[[:digit:]]+')/}"
-	fi
-	./remake -d ${MAKEOPTS} || die "emake failed"
+	# Only accept number of parrellel jobs because remake does not understand --load-average
+	./remake -d -j$(makeopts_jobs) || die "emake failed"
 	if use doc; then
 		./remake doc/html/index.html
 	fi
