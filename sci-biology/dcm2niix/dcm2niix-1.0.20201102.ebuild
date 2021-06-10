@@ -16,6 +16,10 @@ KEYWORDS="~amd64 ~x86"
 DEPEND=""
 RDEPEND=""
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-disable_find_git.patch
+)
+
 pkg_postinst() {
 	optfeature "parallel gzip support" app-arch/pigz
 }
