@@ -1,0 +1,19 @@
+disable finding git because it should not be used nor needed
+Written and tested by Lucas Mitrak.
+https://bugs.gentoo.org/755746
+
+--- a/SuperBuild/SuperBuild.cmake
++++ b/SuperBuild/SuperBuild.cmake
+@@ -1,8 +1,8 @@
+ # Check if git exists
+-find_package(Git)
+-if(NOT GIT_FOUND)
+-    message(FATAL_ERROR "Cannot find Git. Git is required for Superbuild")
+-endif()
++#find_package(Git)
++#if(NOT GIT_FOUND)
++#    message(FATAL_ERROR "Cannot find Git. Git is required for Superbuild")
++#endif()
+ 
+ # Use git protocol or not
+ option(USE_GIT_PROTOCOL "If behind a firewall turn this off to use http instead." ON)
