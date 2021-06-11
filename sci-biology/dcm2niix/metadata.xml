@@ -9,6 +9,11 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
+	<use>
+	<flag name="system-jpeg">Use the system-wide <pkg>media-libs/libjpeg-turbo</pkg>
+		instead of bundled.</flag>
+	<flag name="jpeg-ls">Supprt for converting DICOM images compressed with the JPEG-LS transfer syntaxes using the bundled CharLS library</flag>
+	</use>
 	<longdescription>
 		dcm2niix is a designed to convert neuroimaging data from the DICOM
 		format to the NIfTI format. ICOM provides many ways to store/compress
