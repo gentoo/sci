@@ -246,7 +246,7 @@ sci-biology/cramtools 3.0: Java tools and APIs for efficient compression of sequ
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
 sci-biology/cutadapt 2.10 3.3: Remove adapter sequences from high-throughput sequencing data
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
-sci-biology/dcm2niix 1.0.20201102: DICOM to NIfTI converter
+sci-biology/dcm2niix 1.0.20201102 1.0.20210317: DICOM to NIfTI converter
 sci-biology/dcmstack 0.8: DICOM to Nifti coversion
 sci-biology/deeptools 3.5.0: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
 sci-biology/deeptools-intervals 0.1.9: Constructing interval trees with associated exon/annotation information
