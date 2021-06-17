@@ -16,7 +16,7 @@ git clone https://github.com/gentoo/portage.git
 cd portage
 
 # Get all versions, and read into array
-mapfile -t RM_VERSIONS < <( git tag | grep repoman | sort -uV )
+mapfile -t RM_VERSIONS < <( git tag | grep portage | sort -uV )
 
 # Select latests version (last element in array)
 RM_VERS="${RM_VERSIONS[-1]}"
