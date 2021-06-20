@@ -2,7 +2,7 @@
 [![pkgcheck](https://github.com/gentoo/sci/workflows/pkgcheck/badge.svg)](https://github.com/gentoo/sci/actions?query=workflow%3Apkgcheck)
 [![repoman](https://github.com/gentoo/sci/workflows/repoman/badge.svg)](https://github.com/gentoo/sci/actions?query=workflow%3Arepoman)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/gentoo/sci#guide)
-[![chat on freenode](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/#gentoo-science)
+[![chat on libera](https://img.shields.io/badge/chat-on%20libera-brightgreen.svg)](https://web.libera.chat/#gentoo-science)
 
 <table>
 <tr>
@@ -143,5 +143,5 @@ Additionally, please make sure to add the Science Project as an additional maint
 
 ## Support
 
-You can ask for help on [Freenode IRC](https://www.gentoo.org/get-involved/irc-channels/) in [**#gentoo-science**](http://webchat.freenode.net/?channels=gentoo-science).
+You can ask for help on [Libera IRC](https://www.gentoo.org/get-involved/irc-channels/) in [**#gentoo-science**](https://web.libera.chat/#gentoo-science).
 Alternatively you can report bugs on the [GitHub issues page](https://github.com/gentoo/sci/issues).
