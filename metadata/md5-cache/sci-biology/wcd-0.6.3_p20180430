@@ -8,5 +8,5 @@ IUSE=doc mpi threads
 LICENSE=GPL-2
 SLOT=0
 SRC_URI=https://github.com/shaze/wcdest/archive/aee525029bb661b633097e989c6fe2eaa93d2def.tar.gz -> wcd-0.6.3_p20180430.tar.gz http://www.bioinf.wits.ac.za/~scott/wcd.html http://www.bioinf.wits.ac.za/~scott/wcd.pdf
-_eclasses_=multilib	6f710a580aea2e8c7f5be70f8912ad43	toolchain-funcs	7a9551c9a6680454019664620505375a
+_eclasses_=multilib	f8d35c2432bb32c4f1e779c4287b31ec	toolchain-funcs	e867df3870e8ff04a5b94f925be8b06a
 _md5_=418d05bff4c324397038000e85504766
