@@ -24,6 +24,12 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/CiftiLib-${PV}"
 
+# fix submitted upstream
+# https://github.com/Washington-University/CiftiLib/pull/23
+PATCHES=(
+	"${FILESDIR}/${P}-version.patch"
+)
+
 #TODO: Enable doc building and installation
 
 src_prepare(){
