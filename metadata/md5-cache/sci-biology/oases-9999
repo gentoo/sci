@@ -9,5 +9,5 @@ PROPERTIES=live
 RDEPEND=>=sci-biology/velvet-1.2.08
 SLOT=0
 SRC_URI=http://www.ebi.ac.uk/~zerbino/oases/OasesManual.pdf
-_eclasses_=git-r3	b8e8c92aa5fe8df7187e466138eb4e52
+_eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
 _md5_=817ec57ba7a1053eeb040711a992387c

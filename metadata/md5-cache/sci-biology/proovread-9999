@@ -9,5 +9,5 @@ LICENSE=Artistic-2 GPL-3 blasr
 PROPERTIES=live
 RDEPEND=>=dev-lang/perl-5.10 dev-perl/Log-Log4perl dev-perl/File-Which >=sci-biology/ncbi-tools++-2.2.24 >=sci-biology/samtools-1.1
 SLOT=0
-_eclasses_=perl-functions	fea344a91ebf37efadf172c6a3de5a72	git-r3	b8e8c92aa5fe8df7187e466138eb4e52
+_eclasses_=perl-functions	fea344a91ebf37efadf172c6a3de5a72	git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
 _md5_=198e7e59bc372f76a832be1020caac92
