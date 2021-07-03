@@ -36,7 +36,7 @@ dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/half 1.12.0 2.1.0: Half-precision floating-point library
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
-dev-libs/optix 6.0.0 7.0.0 7.1.0: NVIDIA Ray Tracing Engine
+dev-libs/optix 6.0.0 7.0.0 7.1.0 7.2.0: NVIDIA Ray Tracing Engine
 dev-libs/protobuf 3.11.4: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
@@ -108,7 +108,7 @@ dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.8.6 0.8.7: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 1.7.1.1: Python bindings for ERFA
-dev-python/pynndescent 0.4.8 0.5.1 0.5.2: nearest neighbor descent for approximate nearest neighbors
+dev-python/pynndescent 0.5.2: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.8.0: Pytest plugin with advanced doctest features
