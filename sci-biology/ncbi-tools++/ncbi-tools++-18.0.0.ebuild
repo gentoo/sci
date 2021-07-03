@@ -41,7 +41,7 @@ DEPEND="
 	<sys-devel/gcc-10:=
 	!sci-biology/sra_sdk
 	app-arch/cpio
-	berkdb? ( sys-libs/db:4.3[cxx] )
+	berkdb? ( sys-libs/db:=[cxx] )
 	boost? ( dev-libs/boost[tools] )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite:3 )
