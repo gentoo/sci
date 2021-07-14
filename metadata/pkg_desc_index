@@ -556,7 +556,6 @@ sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization 
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-apps/ndctl 70.1 71 71.1 9999: utility for managing the nvdimm sub-system in the linux kernel
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
-sys-kernel/dkms 2.8.4: Dynamic Kernel Module Support
 virtual/scalapack 2.0.2-r1: Virtual for ScaLAPACK implementation
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
