@@ -29,12 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (24 May 2021)
-# This was originally added for the NationalInstruments/GPIB ebuilds, however
-# due to the number of ebuilds it was decided to maintain these in ::natinst.
-# An ebuild for dkms was also added to ::natinst, so it makes little sense to
-# maintain an ebuild in ::sci as well. Additionally there is also an ebuild
-# for this in ::guru
-# Removal in 30 days
-sys-kernel/dkms
