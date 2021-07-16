@@ -9,5 +9,5 @@ LICENSE=LGPL-3
 RDEPEND=virtual/fortran virtual/fortran
 SLOT=0
 SRC_URI=ftp://ftp.ccp4.ac.uk/opensource/ccif-0.4.20120917.tar.bz2
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	fortran-2	3cec34b0def864e87677d8b2b1c370b8
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	fortran-2	cca0c11947f3e90961771da271435fdb
 _md5_=76f36ec509f9f1b7d600a8047ecc2cdd

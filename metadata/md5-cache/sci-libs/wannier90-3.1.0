@@ -11,5 +11,5 @@ LICENSE=GPL-2
 RDEPEND=virtual/blas virtual/lapack virtual/mpi perl? ( dev-lang/perl ) virtual/fortran
 SLOT=0
 SRC_URI=https://github.com/wannier-developers/wannier90/archive/v3.1.0.tar.gz -> wannier90-3.1.0.tar.gz
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	fortran-2	3cec34b0def864e87677d8b2b1c370b8
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	fortran-2	cca0c11947f3e90961771da271435fdb
 _md5_=4be9b122c693f6eddee1c35286aae0e3
