@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -15,8 +15,15 @@ SRC_URI="https://github.com/foerstner-lab/${PN}/archive/v${PV}.tar.gz -> ${P}.ta
 LICENSE="ISC"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-RESTRICT="test"
 
-DEPEND="dev-python/pandas[${PYTHON_USEDEP}]"
-RDEPEND="${DEPEND}"
-BDEPEND=""
+RDEPEND="dev-python/pandas[${PYTHON_USEDEP}]"
+
+distutils_enable_tests pytest
+distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
+
+python_prepare_all() {
+	# Do not depend on pytest-runner
+	sed -i -e '/pytest-runner/d' setup.py || die
+
+	distutils-r1_python_prepare_all
+}
