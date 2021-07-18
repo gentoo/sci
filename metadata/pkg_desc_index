@@ -272,7 +272,7 @@ sci-biology/ffindex 1.0: Simple index/database for huge amounts of small files
 sci-biology/flexbar 3.5.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 1.3.5: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
-sci-biology/fsl 6.0.2 6.0.2-r1: Analysis of functional, structural, and diffusion MRI brain imaging data
+sci-biology/fsl 6.0.2 6.0.2-r1 6.0.4: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
 sci-biology/genepop 4.7: Population genetics analysis
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
