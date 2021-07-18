@@ -71,9 +71,11 @@ dev-python/astroscrappy 1.0.8: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1 2.3.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
+dev-python/cadquery-pywrap 7.5.2_rc20210526: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
 dev-python/colorlover 0.3.0: color scales in python for humans
+dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
 dev-python/datrie 0.8.2: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2017.1.0: Python module for distributed just-in-time shared library building
@@ -92,6 +94,7 @@ dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
 dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
+dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshio 4.4.6: Python input/output for many mesh formats
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
@@ -122,6 +125,7 @@ dev-python/regions 0.4: Astropy affilated package for region handling
 dev-python/reproject 0.7.1: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
 dev-python/ripser 0.6.0: python frontend for the fast ripser tda tool
+dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
 dev-python/snakemake 5.32.2: Make-like task language
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
