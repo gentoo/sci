@@ -1,0 +1,240 @@
+From 2bc4be1f55b27a733e1e624b34bc570187ba95e1 Mon Sep 17 00:00:00 2001
+From: François Bissey <frp.bissey@gmail.com>
+Date: Mon, 20 Jan 2020 11:40:53 +1300
+Subject: [PATCH] Making sure fsl code and executable can find other executable
+ and data in standard location.
+
+---
+ src/fast4/fast_two.cc              |  8 ++++----
+ src/feat5/feat_model.cc            |  8 +++-----
+ src/feat5/tsplot.cc                |  7 +++----
+ src/first/first_utils.cc           |  4 ++--
+ src/fnirt/fnirtfns.cpp             | 11 ++++-------
+ src/fslsurface/fslsurface_first.cc |  6 ++----
+ src/fslsurface/fslsurfacemaths.cpp | 12 ------------
+ src/libvis/miscpic.h               |  7 +------
+ src/melodic/meldata.cc             |  4 ++--
+ src/melodic/meloptions.cc          |  8 --------
+ src/melodic/meloptions.h           |  1 -
+ src/melodic/melreport.cc           | 12 ++++++------
+ src/melodic/melreport.h            | 20 ++++++++++----------
+ src/mm/mixture_model.cc            |  4 ++--
+ src/siena/siena_diff.cc            | 28 +++++++++++++---------------
+ src/topup/topupfns.cpp             |  3 +--
+ 16 files changed, 53 insertions(+), 90 deletions(-)
+
+diff --git a/src/fast4/fast_two.cc b/src/fast4/fast_two.cc
+index 592b5df..b525444 100644
+--- a/src/fast4/fast_two.cc
++++ b/src/fast4/fast_two.cc
+@@ -166,7 +166,7 @@ int prior_registration(string inname, string main_prior_vol, NEWIMAGE::volume<fl
+ string csfPriorName, grayPriorName, whitePriorName;
+   if(alternatePriors.unset())
+   {
+-    string priorRootName=string(getenv("FSLDIR")) + "/data/standard/tissuepriors/avg152T1_";
++    string priorRootName="@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/tissuepriors/avg152T1_";
+     csfPriorName = priorRootName+"csf";
+     grayPriorName = priorRootName+"gray";
+     whitePriorName = priorRootName+"white";
+@@ -215,15 +215,15 @@ string csfPriorName, grayPriorName, whitePriorName;
+     if(bapused>0)
+       {
+ 	char reg[1024];
+-	sprintf(reg, "%s/bin/flirt -ref %s -in %s -out %s -applyxfm -init %s", getenv("FSLDIR"), inname.c_str(), csfPriorName.c_str(), (main_prior_vol+"_csf_stdspace").c_str(),  bapriori.value().c_str());
++	sprintf(reg, "flirt -ref %s -in %s -out %s -applyxfm -init %s", inname.c_str(), csfPriorName.c_str(), (main_prior_vol+"_csf_stdspace").c_str(),  bapriori.value().c_str());
+         if(verbose.value())
+ 	  cout<<reg<<endl;
+ 	system(reg);
+-	sprintf(reg, "%s/bin/flirt -ref %s -in %s -out %s -applyxfm -init %s", getenv("FSLDIR"), inname.c_str(), grayPriorName.c_str(), (main_prior_vol+"_gm_stdspace").c_str(),  bapriori.value().c_str());
++	sprintf(reg, "flirt -ref %s -in %s -out %s -applyxfm -init %s", inname.c_str(), grayPriorName.c_str(), (main_prior_vol+"_gm_stdspace").c_str(),  bapriori.value().c_str());
+ 	if(verbose.value())
+ 	  cout<<reg<<endl;
+         system(reg);
+-	sprintf(reg, "%s/bin/flirt -ref %s -in %s -out %s -applyxfm -init %s", getenv("FSLDIR"), inname.c_str(), whitePriorName.c_str(), (main_prior_vol+"_wm_stdspace").c_str(),  bapriori.value().c_str());
++	sprintf(reg, "flirt -ref %s -in %s -out %s -applyxfm -init %s", inname.c_str(), whitePriorName.c_str(), (main_prior_vol+"_wm_stdspace").c_str(),  bapriori.value().c_str());
+ 	if(verbose.value())
+ 	  cout << reg << endl;
+ 	system(reg);
+diff --git a/src/feat5/feat_model.cc b/src/feat5/feat_model.cc
+index 399a13e..e15e43c 100644
+--- a/src/feat5/feat_model.cc
++++ b/src/feat5/feat_model.cc
+@@ -744,7 +744,7 @@ int main(int argc, char **argv)
+   vector<int> G;
+   vector<string> titles;
+   float  tr, mult, trmult, nltffwhm=0, maxconvwin=0;
+-  char   fl[10000], *FSLDIR;
++  char   fl[10000];
+   string fn, filename;
+   FONT_DATA *font_data = new FONT_DATA[1];
+ 
+@@ -763,8 +763,6 @@ int main(int argc, char **argv)
+   if (argc==3)
+     motionparams=remmean(read_ascii_matrix(argv[2]));
+ 
+-  FSLDIR=getenv("FSLDIR");
+-
+   fn = string(argv[1])+".fsf";
+ 
+   level      = atoi(find_line(fn, "fmri(level)", fl));
+@@ -1510,7 +1508,7 @@ int main(int argc, char **argv)
+   writeCovarianceImage(string(argv[1])+"_cov.ppm", contrasts, F, nftests, realDesign, level, evs.eigenvals, font_data, contrasts.RE);
+   writeImagePreview(string(argv[1])+".ppm", contrasts, F, nftests, realDesign, level, evs, font_data, titles, tr, nltffwhm, nTimepoints, G);
+ 
+-  filename=string(getenv("FSLDIR"))+"/bin/wpng -q -overwrite  "+string(argv[1])+".ppm ";
++  filename="wpng -q -overwrite  "+string(argv[1])+".ppm ";
+   system(filename.c_str());
+ 
+   return(0);
+@@ -2161,6 +2159,6 @@ char the_string[10000];
+ 
+     fclose(outputfile);
+ 
+-    filename=string(getenv("FSLDIR")) + "/bin/wpng -q -overwrite  " + filename;
++    filename="wpng -q -overwrite  " + filename;
+     system(filename.c_str());
+ }
+diff --git a/src/feat5/tsplot.cc b/src/feat5/tsplot.cc
+index ae191fd..3a02b55 100644
+--- a/src/feat5/tsplot.cc
++++ b/src/feat5/tsplot.cc
+@@ -293,7 +293,7 @@ int main(int argc, char **argv)
+ ofstream     outputFile;
+ int          numEVs, npts, numContrasts=1, nftests=0, GRPHSIZE(600), PSSIZE(600); 
+ vector<double> normalisedContrasts, model, triggers;
+- string       fmriFileName, fslPath, featdir, vType, indexText;
++ string       fmriFileName, featdir, vType, indexText;
+ ColumnVector NewimageVoxCoord(4),NiftiVoxCoord(4);
+ bool outputText(true), useCoordinate(false), prewhiten(false), useTriggers(false), customMask(false), modelFree(false), isHigherLevel(false), outputDataOnly(false);
+ bool zWeightClusters(true);
+@@ -307,7 +307,6 @@ volume<float> immask;
+   if (argc<2) usage("");
+   featdir=string(argv[1]);
+   fmriFileName=featdir+"/filtered_func_data";
+-  fslPath=string(getenv("FSLDIR"));
+ 
+   string outputName(featdir);
+ 
+@@ -753,7 +752,7 @@ volume4D<float> acs;
+ 	cerr << "Can't open output report file " << outputName << endl;
+ 	exit(1);
+       }
+-      outputFile << "<HTML>\n<TITLE>"<< statType << num2str(i) <<"</TITLE>\n<BODY BACKGROUND=\"file:"<< fslPath <<"/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report - "<< statType << num2str(i) <<"</H1>\n</CENTER>\n<hr><b>Full plots</b><p>\n"<< graphText;
++      outputFile << "<HTML>\n<TITLE>"<< statType << num2str(i) <<"</TITLE>\n<BODY BACKGROUND=\"file:"<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report - "<< statType << num2str(i) <<"</H1>\n</CENTER>\n<hr><b>Full plots</b><p>\n"<< graphText;
+       if (useTriggers) outputFile << "\n<hr><b>Peristimulus plots</b><p>\n"<< peristimulusText <<"\n<HR></BODY></HTML>\n\n";
+       else outputFile << "\n</BODY></HTML>\n\n";
+       outputFile.close();
+@@ -768,7 +767,7 @@ volume4D<float> acs;
+       cerr << "Can't open output report file " << outputName << endl;
+       exit(1);
+   }
+-  outputFile << "<HTML>\n<TITLE>FEAT Time Series Report</TITLE>\n<BODY BACKGROUND=\"file:" << fslPath << "/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report</H1>\n</CENTER>\n<hr>" << indexText << "<HR></BODY></HTML>" << endl << endl;
++  outputFile << "<HTML>\n<TITLE>FEAT Time Series Report</TITLE>\n<BODY BACKGROUND=\"file:" << "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">\n<hr><CENTER>\n<H1>FEAT Time Series Report</H1>\n</CENTER>\n<hr>" << indexText << "<HR></BODY></HTML>" << endl << endl;
+   outputFile.close();
+ 
+   /* now output same thing without start and end, for inclusion in feat report */
+diff --git a/src/first/first_utils.cc b/src/first/first_utils.cc
+index 68be44b..85960f4 100644
+--- a/src/first/first_utils.cc
++++ b/src/first/first_utils.cc
+@@ -1954,8 +1954,8 @@ void do_work_bvars(){
+     if (!surfaceVAout.value()) {
+       // do not output on the surface, instead do the new default of outputting a volume with the scalar normal dot product values (for use with randomise)
+       volume<float> refim;
+-      if (useReconMNI.value()) { read_volume(refim,string(getenv("FSLDIR")) + "/data/standard/MNI152_T1_1mm"); } 
+-      else { read_volume(refim,string(getenv("FSLDIR")) + "/data/standard/MNI152_T1_1mm"); } 
++      if (useReconMNI.value()) { read_volume(refim,"@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm"); } 
++      else { read_volume(refim,"@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm"); } 
+       volume<float> maskvol(refim);
+       maskvol=0.0f;
+       volume4D<float> volnormals;
+diff --git a/src/fnirt/fnirtfns.cpp b/src/fnirt/fnirtfns.cpp
+index 24e26fd..77899e7 100644
+--- a/src/fnirt/fnirtfns.cpp
++++ b/src/fnirt/fnirtfns.cpp
+@@ -1203,8 +1203,7 @@ string existing_ref_fname(const string& ref_fname)
+       return(string(ref_fname));
+     }
+     else {
+-      const char *fsldir_ptr = getenv("FSLDIR");
+-      string eref_fname = string(fsldir_ptr) + string("/data/standard/") + ref_fname;
++      string eref_fname = string("@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/") + ref_fname;
+       if (NEWIMAGE::FslFileExists(eref_fname)) return(eref_fname);
+       else return(string(""));
+     }
+@@ -1230,9 +1229,8 @@ string existing_ref_fname(const string& ref_fname)
+       NEWIMAGE::read_volume_hdr_only(vref,ref_fname); // Throws if file dont exist
+       eref_fname = ref_fname;
+     }
+-    catch(...) { // Didn't exist in current directory, try in ${FSLDIR}/data/standard
+-      const char *fsldir_ptr = getenv("FSLDIR");
+-      eref_fname = string(fsldir_ptr) + string("/data/standard/") + ref_fname;
++    catch(...) { // Didn't exist in current directory, try in .../data/standard
++      eref_fname = string("@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/") + ref_fname;
+       try {
+         cout << "Could not find " << ref_fname << ", now checking " << eref_fname << endl;
+         NEWIMAGE::read_volume_hdr_only(vref,eref_fname); // Throws if file dont exist
+@@ -1267,8 +1265,7 @@ string existing_conf_file(const string& cfname)
+     if (check_exist(ecfname)) return(ecfname);
+   }
+   if (!FNIRT::path(cfname).length()) {              // If no path explicitly given
+-    const char *fsldir_ptr = getenv("FSLDIR");
+-    ecfname = string(fsldir_ptr) + string("/etc/flirtsch/") + cfname;
++    ecfname = string("@GENTOO_PORTAGE_EPREFIX@/etc/flirtsch/") + cfname;
+     if (check_exist(ecfname)) return(ecfname);
+     else if (!FNIRT::extension(ecfname).length()) { // If no path _and_ no extension given
+       ecfname += string(".cnf");
+diff --git a/src/fslsurface/fslsurface_first.cc b/src/fslsurface/fslsurface_first.cc
+index faec642..b2ef794 100644
+--- a/src/fslsurface/fslsurface_first.cc
++++ b/src/fslsurface/fslsurface_first.cc
+@@ -500,8 +500,7 @@ namespace fslsurface_name {
+             
+ 			volume<float>* immni = new volume<float>();
+             
+-            char* fsldir = getenv("FSLDIR");
+-            read_volume_hdr_only(*immni, string(fsldir) + "/data/standard/MNI152_T1_1mm");
++            read_volume_hdr_only(*immni, "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm");
+             
+ 			//read_volume_hdr_only(*immni, template_name);
+ 			
+@@ -699,8 +698,7 @@ namespace fslsurface_name {
+           
+ 			volume<float>* immni = new volume<float>();
+             
+-            char* fsldir = getenv("FSLDIR");
+-            read_volume_hdr_only(*immni, string(fsldir) + "/data/standard/MNI152_T1_1mm");
++            read_volume_hdr_only(*immni, "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/MNI152_T1_1mm");
+             
+ 			//read_volume_hdr_only(*immni, template_name);
+ 			
+diff --git a/src/fslsurface/fslsurfacemaths.cpp b/src/fslsurface/fslsurfacemaths.cpp
+index eaf55eb..3dc184d 100644
+--- a/src/fslsurface/fslsurfacemaths.cpp
++++ b/src/fslsurface/fslsurfacemaths.cpp
+@@ -598,12 +598,6 @@ int main (int argc, char * argv[])
+ 
+         }else if (command == "-reconFromBvars"){
+             cout<<"do recon "<<endl;
+-            char* fsldir = getenv("FSLDIR");
+-            if (fsldir == NULL)
+-            {
+-                cerr<<"FSLDIR has not been set. "<<endl;
+-                exit(EXIT_FAILURE); 
+-            }
+             //file.bvars,mni_template.nii.gz
+            // string mni = string(fsldir)+"/data/standard/MNI152_T1_1mm";
+             reconSurface_from_bvars( surf, string(argv[i_arg+1]));
+@@ -612,12 +606,6 @@ int main (int argc, char * argv[])
+ 
+         }else if (command == "-reconAllFromBvarsAndSave"){
+             cout<<"do recon+save "<<argc<<" "<<i_arg<<endl;
+-            char* fsldir = getenv("FSLDIR");
+-            if (fsldir == NULL)
+-            {
+-                cerr<<"FSLDIR has not been set. "<<endl;
+-                exit(EXIT_FAILURE); 
+-            }
+             //file.bvars,mni_template.nii.gz
+             // string mni = string(fsldir)+"/data/standard/MNI152_T1_1mm";
+             cout<<"recon "<< string(argv[i_arg+1])<<endl;
