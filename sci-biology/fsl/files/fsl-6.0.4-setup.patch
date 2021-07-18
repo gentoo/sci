@@ -1,0 +1,174 @@
+diff -Naur fsl.orig/build fsl/build
+--- fsl.orig/build	2020-12-02 15:29:12.180812558 -0500
++++ fsl/build	2020-12-02 15:34:03.854821628 -0500
+@@ -28,7 +28,6 @@
+     # The build order for MASTERLIBS is very important, and should not be modified unless you know what
+     # you are doing. 
+     MASTERLIBS="
+-    CiftiLib-master \
+     utils \
+     znzlib \
+     NewNifti \
+@@ -157,8 +156,8 @@
+     done #project (MASTERPROJECTS)
+ fi #full build
+ 
+-echo "Building projects - see build.log file for progress..."
+-./config/common/buildproj $PROJECTS > ./build.log 2>&1
++echo "Building projects"
++./config/common/buildproj $PROJECTS
+ finalStatus=$?
+ if [ $finalStatus -eq 0 ]; then
+     echo "Build completed successfully.";
+diff -Naur fsl.orig/config/buildSettings.mk fsl/config/buildSettings.mk
+--- fsl.orig/config/buildSettings.mk	2020-12-02 15:29:11.993812552 -0500
++++ fsl/config/buildSettings.mk	2020-12-02 15:39:37.269831995 -0500
+@@ -18,7 +18,7 @@
+ CHMOD = /bin/chmod
+ MKDIR = /bin/mkdir
+ INSTALL = install -p
+-TCLSH = ${FSLDIR}/bin/fsltclsh
++TCLSH = tclsh
+ DEPENDFLAGS = -MM
+ MACHDBGFLAGS = -g
+ #####################################################################
+@@ -127,19 +127,19 @@
+ #####################################################################
+ ifeq ($(SYSTYPE), Linux)
+ ###############   System Vars   #####################################
+-CC = gcc
+-CXX = c++
+-CXX11 = c++
++CC = @@GENTOO_CC@@
++CXX = @@GENTOO_CXX@@
++CXX11 = @@GENTOO_CXX@@
+ CSTATICFLAGS = -static
+ CXXSTATICFLAGS = -static
+-ARCHFLAGS = -m64
+-ARCHLDFLAGS = -Wl,-rpath,'$$ORIGIN/../lib'
++ARCHFLAGS =
++ARCHLDFLAGS =
+ PARALLELFLAGS = -fopenmp
+-OPTFLAGS = -g -O3 -fexpensive-optimizations ${ARCHFLAGS}
++OPTFLAGS =
+ GNU_ANSI_FLAGS = -Wall -ansi -pedantic -Wno-long-long
+ SGI_ANSI_FLAGS = -ansi -fullwarn
+ ANSI_FLAGS = ${GNU_ANSI_FLAGS}
+-RANLIB = echo
++RANLIB = @@GENTOO_RANLIB@@
+ FSLML = ${FSLDIR}/bin/fslml
+ # CUDA development environment
+ CUDAVER := $(or $(CUDAVER),9.1)
+@@ -158,8 +158,8 @@
+ NVCC = ${CUDA_INSTALLATION}/bin/nvcc
+ ###############   External Libs   #####################################
+ # ZLIB library
+-LIB_ZLIB = ${FSLEXTLIB}
+-INC_ZLIB = ${FSLEXTINC}
++#LIB_ZLIB = ${FSLEXTLIB}
++#INC_ZLIB = ${FSLEXTINC}
+ # QT library
+ QTDIR = /usr/lib/qt3
+ LIB_QT = ${QTDIR}/lib
+diff -Naur fsl.orig/config/common/buildproj fsl/config/common/buildproj
+--- fsl.orig/config/common/buildproj	2020-12-02 15:29:11.993812552 -0500
++++ fsl/config/common/buildproj	2020-12-02 15:41:25.579835363 -0500
+@@ -11,10 +11,10 @@
+ fi
+ PROJECTS="$@" ; export PROJECTS ;
+ 
+-FSLDIR=`pwd`
++#FSLDIR=`pwd`
+ FSLDEVDIR=${FSLDIR}
+ FSLCONFDIR=${FSLDIR}/config
+-FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
++#FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
+ FSLMASTERBUILD=1
+ export FSLDIR FSLDEVDIR FSLCONFDIR FSLMACHTYPE FSLMASTERBUILD
+ 
+@@ -67,7 +67,7 @@
+ 	  if [ -x ./fslconfig ] ; then
+ 	    . ./fslconfig ;
+ 	  fi
+-	  if ${MAKE} -k ${MAKEOPTIONS} ; then 
++	  if ${MAKE} ${MAKEOPTIONS} ; then 
+ 	    if ${MAKE} ${MAKEOPTIONS} install ; then
+ 	      installok=true;
+ 	      # Clean up after ourselves
+@@ -82,6 +82,7 @@
+ 	    if [ $installok = false ]  ; then
+ 	      echo " "
+ 	      echo "ERROR::Could not install $projname successfully" ;
++          exit 1
+ 	    fi
+ 	  else
+ 	    echo " "
+@@ -90,6 +91,7 @@
+ 	    echo " "
+ 	    echo " "
+ 	    errorprojs="$errorprojs $projname" ; export errorprojs ;
++        exit 1
+ 	  fi
+     fi
+ done
+diff -Naur fsl.orig/config/common/vars.mk fsl/config/common/vars.mk
+--- fsl.orig/config/common/vars.mk	2020-12-02 15:29:11.993812552 -0500
++++ fsl/config/common/vars.mk	2020-12-02 15:43:00.602838318 -0500
+@@ -24,15 +24,15 @@
+ USRCFLAGS = 
+ USRCXXFLAGS =
+ 
+-LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR}
++LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR} ${USERLDFLAGS}
+ 
+-AccumulatedIncFlags = -I${INC_BOOST} ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR}
++AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR} ${CPPFLAGS}
+ 
+ CFLAGS = ${ANSI_FLAGS} ${ANSI_CFLAGS} ${DBGFLAGS} ${USEDCSTATICFLAGS} ${USRCFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCFLAGS}
+ 
+-CXXFLAGS = ${ANSI_FLAGS} ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++CXXFLAGS = ${ANSI_CXXFLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
++	${AccumulatedIncFlags} ${USERCXXFLAGS}
+ 
+ HFILES = *.h
+ AFILES = *.a
+diff -Naur fsl.orig/extras/build fsl/extras/build
+--- fsl.orig/extras/build	2020-12-02 15:29:12.404812565 -0500
++++ fsl/extras/build	2020-12-02 15:44:06.906840380 -0500
+@@ -96,16 +96,16 @@
+ 	BUILDICONV=1
+     fi
+ fi
+-PROJECTS="tcl tk"
++#PROJECTS="tcl tk"
+ if [ ${BUILDZLIB} -eq 1 ]; then
+   PROJECTS="${PROJECTS} zlib"
+ fi
+-PROJECTS="${PROJECTS} libpng"
++#PROJECTS="${PROJECTS} libpng"
+ if [ ${BUILDICONV} -eq 1 ]; then
+   PROJECTS="${PROJECTS} libiconv"
+ fi
+-PROJECTS="${PROJECTS} libgd libgdc libprob libcprob newmat cprob newran fftw"
+-PROJECTS="${PROJECTS} boost libxml2-2.9.2 libxmlpp libsqlite libnlopt ../include/armawrap/dummy_newmat"
++PROJECTS="${PROJECTS} libgdc libprob libcprob newmat cprob newran"
++PROJECTS="${PROJECTS} ../include/armawrap/dummy_newmat"
+ for projname in $PROJECTS; do
+     if [ -d $FSLESRCDIR/$projname ] ; then
+        buildIt $FSLESRCDIR $projname 1
+diff -Naur fsl.orig/src/mist/Makefile fsl/src/mist/Makefile
+--- fsl.orig/src/mist/Makefile	2020-12-02 15:29:12.875812580 -0500
++++ fsl/src/mist/Makefile	2020-12-02 15:45:09.805842335 -0500
+@@ -52,6 +52,8 @@
+ 		cp -r python/* ${DESTDIR}/python/mist
+ 
+ clean:
+-			rm -f ${OBJS} mist/mist.o mist/mist
++			rm -f ${OBJS} mist/mist.o mist/mist || echo "CLEAN could not locate some files scheduled for deletion."
++ 
++
+ 
+ .PHONY:		all clean installdata

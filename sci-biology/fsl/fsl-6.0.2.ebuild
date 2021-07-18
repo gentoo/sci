@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,7 +6,7 @@ EAPI=7
 inherit flag-o-matic toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
-HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
+HOMEPAGE="https://www.fmrib.ox.ac.uk/fsl"
 SRC_URI="https://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz -> ${P}.tar.gz"
 
 LICENSE="FSL BSD-2 newmat"
@@ -16,7 +16,7 @@ IUSE=""
 
 DEPEND="
 	dev-libs/boost
-	dev-python/fslpy
+	<dev-python/fslpy-3
 	media-gfx/graphviz
 	media-libs/gd
 	media-libs/glu

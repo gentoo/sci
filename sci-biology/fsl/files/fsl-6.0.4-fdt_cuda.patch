@@ -1,0 +1,14 @@
+diff -Naur fsl.orig/src/fdt/Makefile fsl/src/fdt/Makefile
+--- fsl.orig/src/fdt/Makefile	2020-12-02 19:06:55.826218772 -0500
++++ fsl/src/fdt/Makefile	2020-12-02 19:08:02.883220858 -0500
+@@ -6,7 +6,9 @@
+      $(eval $($(PROJNAME)_MASTERBUILD))
+ endif
+ 
+-ifeq ($(COMPILE_GPU), 1)
++# disable CUDA support for fdt
++#ifeq ($(COMPILE_GPU), 1)
++ifeq (0, 1)
+ 	COMPILE_WITH_GPU=libbedpostx_cuda.so merge_parts_gpu xfibres_gpu CUDA/split_parts_gpu
+ 	SCRIPTS_GPU=CUDA/bedpostx_gpu CUDA/bedpostx_postproc_gpu.sh
+ endif
