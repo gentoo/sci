@@ -68,6 +68,7 @@ dev-python/astropy-helpers 4.0.1: Helpers for Astropy and Affiliated packages
 dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated packages
 dev-python/astroquery 0.4.1: A collection of packages to access online astronomical resources
 dev-python/astroscrappy 1.0.8: Speedy Cosmic Ray Annihilation Package in Python
+dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1 2.3.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
@@ -499,7 +500,7 @@ sci-libs/pfft 1.0.8_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/pybids 0.6.5 0.10.2 0.11.1 0.12.4: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
-sci-libs/pytorch 1.6.0-r2 1.7.1-r2: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+sci-libs/pytorch 1.6.0-r2 1.7.1-r2 1.9.0: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/rocBLAS 4.0.0-r1 4.0.0-r2: AMD's library for BLAS on ROCm.
 sci-libs/scikits_video 1.1.11_p20200115: Video processing in Python
