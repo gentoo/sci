@@ -1,4 +1,4 @@
-BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+BDEPEND=virtual/fortran >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile configure install setup unpack
 DEPEND=sci-libs/fftw:3.0[mpi,fortran] virtual/mpi virtual/fortran
 DESCRIPTION=Parallel 3d FFT
@@ -10,5 +10,5 @@ LICENSE=GPL-3
 PROPERTIES=live
 RDEPEND=sci-libs/fftw:3.0[mpi,fortran] virtual/mpi virtual/fortran
 SLOT=0
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	fortran-2	cca0c11947f3e90961771da271435fdb	multibuild	05a584848db4901c97fcd94ae7cc3a97	git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	fortran-2	7e39eb204d37699d5f1eaf9f4d61888a	multibuild	05a584848db4901c97fcd94ae7cc3a97	git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
 _md5_=e47543807cd640a2e8b3df69ec79dc32
