@@ -26,11 +26,6 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-gcc-4.3.patch
-	"${FILESDIR}"/${PV}-libPNG-1.2.5.patch
-)
-
 src_compile() {
 	cd src || die
 	default
