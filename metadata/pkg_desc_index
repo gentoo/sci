@@ -72,6 +72,7 @@ dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1 2.3.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
+dev-python/cadquery-ocp 7.5.2_beta: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
