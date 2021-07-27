@@ -28,7 +28,7 @@ BDEPEND=">=dev-util/cmake-3.16"
 RDEPEND="
 	${PYTHON_DEPS}
 	~sci-libs/opencascade-${OCCT_PV}[json,tbb,vtk]
-	>=sci-libs/vtk-9.0.0[${PYTHON_SINGLE_USEDEP}]
+	>=sci-libs/vtk-9.0.0[python,${PYTHON_SINGLE_USEDEP}]
 "
 DEPEND="${RDEPEND}
 	$(python_gen_cond_dep '
