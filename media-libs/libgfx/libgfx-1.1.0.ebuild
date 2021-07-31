@@ -6,13 +6,7 @@ EAPI=7
 DESCRIPTION="Simplify the creation of computer graphics software"
 HOMEPAGE="http://mgarland.org/software/libgfx.html"
 
-if [[ ${PV} == "1.1.1" ]] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/mjgarland/libgfx"
-	EGIT_BRANCH="branch-1.1.1"
-else
-	SRC_URI="http://mgarland.org/dist/${P}.tar.gz"
-fi
+SRC_URI="http://mgarland.org/dist/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
