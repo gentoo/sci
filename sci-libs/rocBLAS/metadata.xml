@@ -8,4 +8,8 @@
     <email>gentoo@holzke.net</email>
     <name>Wilfried Holzke</name>
   </maintainer>
+    <use>
+        <flag name="test">Perform rocblas-test to compare the result between rocBLAS and system BLAS.</flag>
+        <flag name="benchmark">Build and install rocblas-bench.</flag>
+    </use>
 </pkgmetadata>
