@@ -1,0 +1,65 @@
+Add a parameter called EnabledISA (list) with empty default value. If empty, auto detect supported GPU ISA
+
+kernels for ISA in EnabledISA will be generated and compiled, then merged in to codeobjects
+
+--- Tensile-rocm-4.1.0/Tensile/Common.py
++++ Tensile-rocm-4.1.0/Tensile/Common.py
+@@ -209,6 +209,7 @@ globalParameters["ClientExecutionLockPat
+ 
+ # internal, i.e., gets set during startup
+ globalParameters["CurrentISA"] = (0,0,0)
++globalParameters["EnabledISA"] = []
+ globalParameters["ROCmAgentEnumeratorPath"] = None      # /opt/rocm/bin/rocm_agent_enumerator
+ globalParameters["ROCmSMIPath"] = None                  # /opt/rocm/bin/rocm-smi
+ globalParameters["AssemblerPath"] = None                # /opt/rocm/hip/bin/hipcc
+@@ -1644,6 +1645,7 @@ def assignGlobalParameters( config ):
+     globalParameters["ROCmAgentEnumeratorPath"] = config["ROCmAgentEnumeratorPath"]
+ 
+   # read current gfx version
++  auto_detect_ISA = globalParameters["EnabledISA"] == []
+   if os.name != "nt" and globalParameters["CurrentISA"] == (0,0,0) and globalParameters["ROCmAgentEnumeratorPath"]:
+     process = Popen([globalParameters["ROCmAgentEnumeratorPath"], "-t", "GPU"], stdout=PIPE)
+     line = process.stdout.readline().decode()
+@@ -1653,7 +1655,9 @@ def assignGlobalParameters( config ):
+         if arch in globalParameters["SupportedISA"]:
+           print1("# Detected local GPU with ISA: gfx" + ''.join(map(str,arch)))
+           globalParameters["CurrentISA"] = arch
++          if auto_detect_ISA : globalParameters["EnabledISA"].append(arch)
+         line = process.stdout.readline().decode()
++    print1("# kernels for " + ', '.join('gfx' + ''.join(map(str,arch)) for arch in globalParameters["EnabledISA"]) + " will be generated and compiled.")
+     if globalParameters["CurrentISA"] == (0,0,0):
+       printWarning("Did not detect SupportedISA: %s; cannot benchmark assembly kernels." % globalParameters["SupportedISA"])
+     if process.returncode:
+
+--- Tensile-rocm-4.1.0/Tensile/TensileCreateLibrary.py
++++ Tensile-rocm-4.1.0/Tensile/TensileCreateLibrary.py
+@@ -169,7 +169,7 @@ def buildSourceCodeObjectFile(CxxCompile
+ 
+       archs = []
+       cmdlineArchs = []
+-      for arch in globalParameters['SupportedISA']:
++      for arch in globalParameters['EnabledISA']:
+         if isSupported(arch):
+           if (arch == (9,0,6) or arch == (9,0,8)):
+             archs += ['gfx'+''.join(map(str,arch))+'-xnack-']
+@@ -1067,7 +1067,7 @@ def buildObjectFileNames(solutionWriter,
+                if isSupported(arch)]
+   elif (cxxCompiler == 'hipcc'):
+     sourceArchs = []
+-    for arch in globalParameters['SupportedISA']:
++    for arch in globalParameters['EnabledISA']:
+       if isSupported(arch):
+         if (arch == (9,0,6) or arch == (9,0,8)):
+           sourceArchs += ['gfx'+''.join(map(str,arch))+'-xnack-']
+@@ -1249,8 +1249,9 @@ def generateKernelObjectsFromSolutions(s
+   for solution in solutions:
+     solutionKernels = solution.getKernels()
+     for kernel in solutionKernels:
+-      if kernel not in kernels:
+-        kernels.append(kernel)
++      if kernel["ISA"] in globalParameters["EnabledISA"] or kernel["KernelLanguage"] == "Source" :
++        if kernel not in kernels:
++          kernels.append(kernel)
+     solutionHelperKernels = solution.getHelperKernelObjects()
+     for ko in solutionHelperKernels:
+       kname = ko.getKernelName()

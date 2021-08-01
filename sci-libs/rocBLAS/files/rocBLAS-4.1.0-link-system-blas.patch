@@ -1,0 +1,42 @@
+Link system blas libraries against rocblas-bench and rocblas-test
+
+--- rocBLAS-rocm-4.1.0/clients/benchmarks/CMakeLists.txt
++++ rocBLAS-rocm-4.1.0/clients/benchmarks/CMakeLists.txt
+@@ -83,7 +83,7 @@ if( OS_ID_rhel OR OS_ID_sles OR OS_ID_ce
+     if(LINK_BLIS)
+       target_link_libraries( rocblas-bench PRIVATE rocblas_fortran_client roc::rocblas cblas lapack ${BLIS_LIBRARY} ${OPENMP_LIBRARY} )
+     else()
+-      target_link_libraries( rocblas-bench PRIVATE rocblas_fortran_client roc::rocblas cblas lapack ${OPENMP_LIBRARY} )
++      target_link_libraries( rocblas-bench PRIVATE rocblas_fortran_client roc::rocblas cblas lapack -lblas ${OPENMP_LIBRARY} )
+     endif()
+ else()
+     # External header includes included as system files
+@@ -97,7 +97,7 @@ else()
+     if(LINK_BLIS)
+       target_link_libraries( rocblas-bench PRIVATE rocblas_fortran_client roc::rocblas lapack cblas ${BLIS_LIBRARY} )
+     else()
+-      target_link_libraries( rocblas-bench PRIVATE rocblas_fortran_client roc::rocblas lapack cblas )
++      target_link_libraries( rocblas-bench PRIVATE rocblas_fortran_client roc::rocblas lapack cblas -lblas )
+     endif()
+ endif()
+ 
+--- rocBLAS-rocm-4.1.0/clients/gtest/CMakeLists.txt
++++ rocBLAS-rocm-4.1.0/clients/gtest/CMakeLists.txt
+@@ -163,7 +163,7 @@ if( OS_ID_rhel OR OS_ID_sles OR OS_ID_ce
+     if(LINK_BLIS)
+       target_link_libraries( rocblas-test PRIVATE rocblas_fortran_client roc::rocblas lapack cblas ${BLIS_LIBRARY} ${GTEST_LIBRARIES} ${OPENMP_LIBRARY} )
+     else()
+-      target_link_libraries( rocblas-test PRIVATE rocblas_fortran_client roc::rocblas lapack cblas ${GTEST_LIBRARIES} ${OPENMP_LIBRARY} )
++      target_link_libraries( rocblas-test PRIVATE rocblas_fortran_client roc::rocblas lapack cblas -lblas ${GTEST_LIBRARIES} ${OPENMP_LIBRARY} )
+     endif()
+ else()
+     # External header includes included as system files
+@@ -177,7 +177,7 @@ else()
+     if(LINK_BLIS)
+       target_link_libraries( rocblas-test PRIVATE rocblas_fortran_client roc::rocblas lapack cblas ${BLIS_LIBRARY} ${GTEST_LIBRARIES} )
+     else()
+-      target_link_libraries( rocblas-test PRIVATE rocblas_fortran_client roc::rocblas lapack cblas ${GTEST_LIBRARIES} )
++      target_link_libraries( rocblas-test PRIVATE rocblas_fortran_client roc::rocblas lapack cblas -lblas ${GTEST_LIBRARIES} )
+     endif()
+ endif()
+ 

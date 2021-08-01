@@ -1,0 +1,36 @@
+Print Code objects generation commands
+
+Cancel running dpkg to check existence of hip
+
+--- Tensile-rocm-4.1.0/Tensile/Common.py
++++ Tensile-rocm-4.1.0/Tensile/Common.py
+@@ -175,7 +175,7 @@ globalParameters["PrintTensorD"] = 0
+ globalParameters["PrintTensorRef"] = 0          # Print reference tensor.  0x1=after init; 0x2=after copy-back; 0x3=both
+ globalParameters["PrintIndexAssignments"] = 0      # Print the tensor index assignment info
+ globalParameters["PrintWinnersOnly"] = False      # Only print the solutions which become the fastest
+-globalParameters["PrintCodeCommands"] = False  # print the commands used to generate the code objects (asm,link,hip-clang, etc)
++globalParameters["PrintCodeCommands"] = True  # print the commands used to generate the code objects (asm,link,hip-clang, etc)
+ 
+ # TODO - remove this when NewClient is mainstream
+ globalParameters["OldClientSourceTmp"] = True      # Use an intermediate sourceTmp dir to detect file changes and minimize rebuilds on old client
+@@ -1680,20 +1680,6 @@ def assignGlobalParameters( config ):
+   # Due to platform.linux_distribution() being deprecated, just try to run dpkg regardless.
+   # The alternative would be to install the `distro` package.
+   # See https://docs.python.org/3.7/library/platform.html#platform.linux_distribution
+-  try:
+-    if globalParameters["CxxCompiler"] == "hipcc":
+-      output = subprocess.run(["dpkg", "-l", "hip-rocclr"], check=True, stdout=subprocess.PIPE).stdout.decode()
+-    elif globalParameters["CxxCompiler"] == "hcc":
+-      output = subprocess.run(["dpkg", "-l", "hcc"], check=True, stdout=subprocess.PIPE).stdout.decode()
+-
+-    for line in output.split('\n'):
+-      if 'hipcc' in line:
+-        globalParameters['HipClangVersion'] = line.split()[2]
+-      elif 'hcc' in line:
+-        globalParameters['HccVersion'] = line.split()[2]
+-
+-  except (subprocess.CalledProcessError, OSError) as e:
+-      printWarning("Error: {} looking for package {}: {}".format('dpkg', 'hip-rocclr', e))
+ 
+   for key in config:
+     value = config[key]
