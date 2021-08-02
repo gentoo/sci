@@ -42,3 +42,5 @@ sci-biology/cgview-bin
 sci-biology/prot4EST
 sci-biology/seqclean
 sci-chemistry/talosn
+# revdep of seqclean
+sci-biology/rum
