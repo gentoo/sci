@@ -29,3 +29,16 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (02 Aug 2021)
+# These packages depend on ncbi-tools which is being removed from ::gentoo:
+# Last release 10 years ago, EOL upstream, no other distro packages this
+# anymore, tons of bugs. Revdeps are unmaintained too and out of date.
+# Bug #798015, removal in 30 days.
+# Perhaps these packages work with the newer ncbi-tools++? If anyone is actively
+# using these packages please open a bug report
+sci-biology/cg-cat
+sci-biology/cgview-bin
+sci-biology/prot4EST
+sci-biology/seqclean
+sci-chemistry/talosn
