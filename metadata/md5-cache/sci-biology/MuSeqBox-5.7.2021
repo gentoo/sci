@@ -1,11 +1,11 @@
 DEFINED_PHASES=compile install
 DESCRIPTION=Parse and filter BLAST output into tab-delimited file
-EAPI=7
+EAPI=8
 HOMEPAGE=http://brendelgroup.org/bioinformatics2go/MuSeqBox.php
 INHERIT=toolchain-funcs
 KEYWORDS=~amd64
 LICENSE=GPL-3
 SLOT=0
-SRC_URI=http://www.brendelgroup.org/bioinformatics2go/Download/MuSeqBox-3-4-2020.tar.gz
+SRC_URI=http://www.brendelgroup.org/bioinformatics2go/Download/MuSeqBox-5-7-2021.tar.gz
 _eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352
-_md5_=84513b2d743e829d09ee867c7bd6a2da
+_md5_=c41fcd60ec242dc92d45e460d52bc37e

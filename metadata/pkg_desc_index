@@ -188,7 +188,7 @@ sci-biology/MaSuRCA 4.0.1: de Bruijn and OLC assembler for Sanger, Roche 454, Il
 sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
 sci-biology/MochiView 1.46: Genome browser and analysis
 sci-biology/MolBioLib 5: C++11 framework for bioinformatics tasks
-sci-biology/MuSeqBox 3.4.2020: Parse and filter BLAST output into tab-delimited file
+sci-biology/MuSeqBox 5.7.2021: Parse and filter BLAST output into tab-delimited file
 sci-biology/NGSEPcore 4.0.3: NGSEP (CNV and indel discovery)
 sci-biology/NGSEPcore-bin 4.0.3: NGSEP (CNV and indel discovery)
 sci-biology/OBO-Edit 2.3.1: Java-based editor optimized for the OBO biological ontology file format
