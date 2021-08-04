@@ -503,7 +503,7 @@ sci-libs/pybids 0.6.5 0.10.2 0.11.1 0.12.4: Python package to access BIDS datase
 sci-libs/pydicom 1.1.0 1.4.2: A pure python package for parsing DICOM files
 sci-libs/pytorch 1.6.0-r2 1.7.1-r2 1.9.0: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-libs/rdkit 2020.03.6: Cheminformatics and machine-learning software written in C++ and Python
-sci-libs/rocBLAS 4.0.0-r1 4.0.0-r2: AMD's library for BLAS on ROCm.
+sci-libs/rocBLAS 4.0.0-r1 4.0.0-r2 4.1.0: AMD's library for BLAS on ROCm.
 sci-libs/scikits_video 1.1.11_p20200115: Video processing in Python
 sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education and interpreted languages.
 sci-libs/spams-python 2.6.2: Optimization toolbox for solving various sparse estimation problems
