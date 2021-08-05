@@ -1,7 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
+
+inherit multiprocessing
 
 DESCRIPTION="A floating-point formalization for the Coq system"
 HOMEPAGE="http://flocq.gforge.inria.fr/"
@@ -26,7 +28,7 @@ src_configure() {
 }
 
 src_compile() {
-	./remake || die "emake failed"
+	./remake --jobs=$(makeopts_jobs) || die "emake failed"
 }
 
 src_install() {
