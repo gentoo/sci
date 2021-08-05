@@ -22,8 +22,10 @@ SRC_URI="https://github.com/lief-project/LIEF/archive/${PV}.tar.gz -> ${P}.tar.g
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+
+# Python is not multilib yet
 IUSE="c examples +python static-libs"
-REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} !abi_x86_32 !abi_x86_x32 )"
 
 # See "cmake/LIEFDependencies.cmake" for C and C++ dependencies.
 BDEPEND="
