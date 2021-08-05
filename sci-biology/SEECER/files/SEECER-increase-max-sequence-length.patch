@@ -1,0 +1,44 @@
+Increase the max sequence length from 256 to 10000
+Patch created from an updated replace_ids.cc downloaded from an archived upstream email list that is no longer online
+https://web.archive.org/web/20150911132231/http://seecer-rna-read-error-correction-mailing-list.21961.x6.nabble.com/Segmentation-fault-in-step-4-td41.html
+
+--- SEECER-0.1.3/pipeline/replace_ids.cc
++++ SEECER-0.1.3/pipeline/replace_ids.cc
+@@ -5,6 +5,7 @@
+ 
+ #include <vector>
+ using namespace std;
++#define MAXSEQLENGTH 10000  
+ 
+ char* getread(int& rid, char* annot, char* seq, FILE* f2, FILE* f3) {
+   char a;
+@@ -47,10 +48,10 @@ void closeFiles(vector<FILE*>& files) {
+ 
+ bool ReadNextLines(FILE* f, char* id, char* seq) {
+     assert(!feof(f));
+-    fgets(id, 256, f);
++    fgets(id, MAXSEQLENGTH, f);
+     if (id[0] == '+') {
+-	if (!fgets(id, 256, f)) return false;
+-	if (!fgets(id, 256, f)) return false;
++	if (!fgets(id, MAXSEQLENGTH, f)) return false;
++	if (!fgets(id, MAXSEQLENGTH, f)) return false;
+     }
+     int i = 0;
+     while (id[i+1] != '\0' && id[i+1] != '\n') {
+@@ -78,11 +79,10 @@ int main(int argc, char* argv[]) {
+       && origs.size() == output.size()) {
+ 
+     int n = origs.size();
+-  
+-    char id[256];
+-    char seq[256];
+-    char seqc[256];
+-    char annot[256];
++    char id[MAXSEQLENGTH];
++    char seq[MAXSEQLENGTH];
++    char seqc[MAXSEQLENGTH];
++    char annot[MAXSEQLENGTH];
+     int rid;
+     char a;
+ 
