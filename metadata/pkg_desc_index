@@ -519,7 +519,7 @@ sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/acl2 8.3: Industrial strength theorem prover
 sci-mathematics/cipi 1.0: Computing information projections iteratively
-sci-mathematics/flocq 3.4.0: A floating-point formalization for the Coq system
+sci-mathematics/flocq 3.4.0-r1: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 22.0: Framework for analysis of source codes written in C
 sci-mathematics/freefem++ 4.7.1: Solve PDEs using FEM on 2d and 3d domains
 sci-mathematics/gap 4.11.0: Computational discrete algebra system - minimal GAP core system
