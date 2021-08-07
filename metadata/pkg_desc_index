@@ -73,6 +73,7 @@ dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1 2.3.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
+dev-python/cadquery 2.2_rc20210804: Python parametric CAD scripting framework based on OCCT
 dev-python/cadquery-ocp 7.5.2_beta: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
@@ -84,6 +85,7 @@ dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/dijitso 2017.1.0: Python module for distributed just-in-time shared library building
 dev-python/dnaio 0.4.2 0.4.3 0.5.0 0.5.1: efficient reader for FASTA and FASTQ files
 dev-python/extension-helpers 0.1: Utilities for building and installing packages in the Astropy ecosystem
+dev-python/ezdxf 0.16.5: Python interface to DXF
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
 dev-python/fslpy 2.8.4 3.4.0: The FSL Python Library
@@ -102,6 +104,7 @@ dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshio 4.4.6: Python input/output for many mesh formats
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
+dev-python/nptyping 1.4.3: Type hints for NumPy
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.53.1: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
@@ -142,6 +145,7 @@ dev-python/toposort 1.6: Implements a topological sort algorithm
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/trimesh 3.9.1: Python library for loading and using triangular meshes.
+dev-python/typish 1.9.3: Python functions for thorough checks on types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.4.6 0.5.0 0.5.1: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units

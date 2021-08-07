@@ -45,6 +45,9 @@ dev-libs/memkind:secure - Build libraries with security enhancements
 dev-libs/memkind:tls - Enable thread local storage
 dev-libs/simclist:dump - Disable building of dump and restore functionalities
 dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locations
+dev-python/ezdxf:cython - Build Cython-based C extensions
+dev-python/ezdxf:matplotlib - Add support for dev-python/matplotlib
+dev-python/ezdxf:qt5 - Add support for dev-python/PyQt5
 dev-python/trimesh:extra - Extra functionality for advanced mesh preparation
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
 media-libs/mmg:scotch - Use SCOTCH TOOL for renumbering
