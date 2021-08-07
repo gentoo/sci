@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">ezdxf</remote-id>
+		<remote-id type="github">mozman/ezdxf</remote-id>
+	</upstream>
+	<use>
+		<flag name="cython">Build Cython-based C extensions</flag>
+		<flag name="matplotlib">Add support for dev-python/matplotlib</flag>
+		<flag name="qt5">Add support for dev-python/PyQt5</flag>
+	</use>
+</pkgmetadata>
