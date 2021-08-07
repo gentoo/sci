@@ -27,7 +27,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 # (OCCT) to be built with "-DUSE_GLES2=OFF" and thus "-gles2". See also:
 #     https://github.com/CadQuery/OCP/issues/46#issuecomment-808920994
 BDEPEND="
-	>=dev-libs/lief-0.11.5[python]
+	>=dev-libs/lief-0.11.5[python,${PYTHON_SINGLE_USEDEP}]
 	>=dev-util/cmake-3.16
 "
 RDEPEND="
