@@ -19,7 +19,7 @@ LICENSE="gamess"
 # new version comes out the stable version will be useless since
 # users can not get at the tarball any more.
 KEYWORDS="~amd64 ~x86"
-IUSE="mpi msucc neo openmp pax_kernel qmmm-tinker vb2000"
+IUSE="mpi msucc neo openmp pax-kernel qmmm-tinker vb2000"
 
 CDEPEND="
 	app-shells/tcsh
@@ -136,7 +136,7 @@ src_prepare() {
 
 	# for hardened-gcc let't turn off ssp, since it breakes
 	# a few routines
-	if use pax_kernel && [[ ${FCOMP} == g77 ]]; then
+	if use pax-kernel && [[ ${FCOMP} == g77 ]]; then
 		FFLAGS="${FFLAGS} -fno-stack-protector-all"
 	fi
 
@@ -263,7 +263,7 @@ src_compile() {
 
 	# for hardened (PAX) users and ifc we need to turn
 	# MPROTECT off
-	if [[ ${FCOMP} == "ifort" ]] && use pax_kernel; then
+	if [[ ${FCOMP} == "ifort" ]] && use pax-kernel; then
 		pax-mark -PemRxS actvte.x
 	fi
 
@@ -281,7 +281,7 @@ src_compile() {
 
 	# for hardened (PAX) users and ifc we need to turn
 	# MPROTECT off
-	if [[ ${FCOMP} == "ifort" ]] && use pax_kernel; then
+	if [[ ${FCOMP} == "ifort" ]] && use pax-kernel; then
 		pax-mark -PemRxS ${PN}.00.x
 	fi
 }
