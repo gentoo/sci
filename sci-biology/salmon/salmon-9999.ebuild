@@ -13,7 +13,7 @@ LICENSE="GPL-3"
 SLOT="0"
 
 RDEPEND="
-	dev-libs/boost:=[threads]
+	dev-libs/boost:=[threads(-)]
 	sys-libs/zlib
 "
 

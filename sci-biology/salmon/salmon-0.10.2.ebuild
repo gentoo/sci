@@ -48,7 +48,7 @@ DEPEND="
 	sys-libs/zlib
 	app-arch/bzip2
 	app-arch/xz-utils
-	dev-libs/boost:0[threads]
+	dev-libs/boost:0[threads(-)]
 	dev-libs/libdivsufsort
 	sci-biology/bwa
 	>=dev-libs/jemalloc-5.0.1
