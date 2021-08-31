@@ -21,7 +21,7 @@ BDEPEND="
 	doc? ( app-doc/doxygen[dot] )
 "
 DEPEND="
-	boost? ( dev-libs/boost:=[static-libs] )
+	boost? ( dev-libs/boost:=[static-libs(-)] )
 "
 
 src_configure() {
