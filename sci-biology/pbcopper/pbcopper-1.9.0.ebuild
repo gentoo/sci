@@ -21,6 +21,6 @@ BDEPEND="
 
 DEPEND="
 	>=sci-libs/htslib-1.3.1:=
-	>=dev-libs/boost-1.55:=[threads]
+	>=dev-libs/boost-1.55:=[threads(-)]
 "
 RDEPEND="${DEPEND}"

@@ -19,6 +19,7 @@ IUSE="cython matplotlib qt5"
 
 BDEPEND="
 	cython? ( dev-python/cython[${PYTHON_USEDEP}] )
+	app-arch/unzip
 "
 DEPEND="
 	dev-python/typing-extensions[${PYTHON_USEDEP}]

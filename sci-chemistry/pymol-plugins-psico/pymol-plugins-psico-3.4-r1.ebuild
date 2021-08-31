@@ -15,23 +15,12 @@ SRC_URI="https://github.com/speleo3/pymol-psico/archive/${PV}.tar.gz -> ${P}.tar
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD-2"
-IUSE="minimal"
 
 S="${WORKDIR}/pymol-psico-${PV}"
 
 RDEPEND="
 	sci-chemistry/pymol[${PYTHON_USEDEP}]
-	!minimal? (
-		media-libs/qhull
-		media-video/mplayer
-		sci-biology/stride
-		sci-chemistry/dssp
-		sci-chemistry/mm-align
-		sci-chemistry/pdbmat
-		sci-chemistry/theseus
-		sci-chemistry/tm-align
-		sci-mathematics/diagrtb
-	)"
+"
 
 pkg_post_inst() {
 	optfeature sci-libs/mmtk "Normal modes via mmtk"

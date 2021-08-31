@@ -21,6 +21,6 @@ BDEPEND="
 DEPEND="
 	sci-biology/pbbam
 	sci-biology/libblasr
-	dev-libs/boost:=[threads]
+	dev-libs/boost:=[threads(-)]
 "
 RDEPEND="${DEPEND}"

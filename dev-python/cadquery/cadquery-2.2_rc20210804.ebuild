@@ -52,5 +52,5 @@ S="${WORKDIR}/${PN}-${MY_COMMIT}"
 
 distutils_enable_tests pytest
 
-#FIXME: Uncomment after packaging "dev-python/sphinx-autodoc-typehints". 
+#FIXME: Uncomment after packaging "dev-python/sphinx-autodoc-typehints".
 # distutils_enable_sphinx docs dev-python/sphinx_rtd_theme dev-python/sphinx-autodoc-typehints

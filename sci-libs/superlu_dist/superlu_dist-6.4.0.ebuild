@@ -21,7 +21,7 @@ IUSE="examples test"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
-	sci-libs/parmetis[mpi]
+	sci-libs/parmetis[mpi(-)]
 	virtual/mpi"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"

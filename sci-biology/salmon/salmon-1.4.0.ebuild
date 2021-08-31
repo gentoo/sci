@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS=""
 
 RDEPEND="
-	dev-libs/boost:=[threads]
+	dev-libs/boost:=[threads(-)]
 	sys-libs/zlib
 "
 

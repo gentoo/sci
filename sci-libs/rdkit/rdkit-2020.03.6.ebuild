@@ -22,7 +22,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
 # build configuration issues https://github.com/rdkit/rdkit/issues/3444
-IUSE="+python -static-libs"
+IUSE="+python static-libs"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="dev-libs/boost
