@@ -16,7 +16,6 @@ SRC_URI="
 	https://github.com/SimpleITK/SimpleITK/releases/download/v${PV}/SimpleITK-${PV}.tar.gz
 	https://github.com/SimpleITK/SimpleITK/releases/download/v${PV}/SimpleITKData-${PV}.tar.gz
 "
-RESTRICT="primaryuri"
 
 LICENSE="Apache-2.0"
 SLOT="0"
