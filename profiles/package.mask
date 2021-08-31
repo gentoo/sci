@@ -38,5 +38,3 @@
 # Perhaps these packages work with the newer ncbi-tools++? If anyone is actively
 # using these packages please open a bug report
 sci-chemistry/talosn
-# revdep of seqclean
-sci-biology/rum
