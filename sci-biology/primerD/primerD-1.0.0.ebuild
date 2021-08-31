@@ -7,12 +7,12 @@ inherit toolchain-funcs
 
 DESCRIPTION="Design degenerate primers"
 HOMEPAGE="https://mblab.wustl.edu/software.html"
+SRC_URI="primerD.tar.gz"
 #SRC_URI="https://mblab.wustl.edu/software/download/primerD.tar.gz -> primerD-1.0.tar.gz"
 # ERROR: cannot verify mblab.wustl.edu's certificate, issued by ‘CN=InCommon RSA Server CA,OU=InCommon,O=Internet2,L=Ann Arbor,ST=MI,C=US’:
 # Unable to locally verify the issuer's authority.
 # To connect to mblab.wustl.edu insecurely, use `--no-check-certificate'.
 RESTRICT="fetch"
-SRC_URI="primerD.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
