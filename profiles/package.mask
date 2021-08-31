@@ -37,7 +37,6 @@
 # Bug #798015, removal in 30 days.
 # Perhaps these packages work with the newer ncbi-tools++? If anyone is actively
 # using these packages please open a bug report
-sci-biology/seqclean
 sci-chemistry/talosn
 # revdep of seqclean
 sci-biology/rum
