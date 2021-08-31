@@ -206,7 +206,6 @@ sci-biology/SEECER 0.1.3-r2 0.1.3-r3: SEquence Error Corrector for RNA-Seq reads
 sci-biology/SOAPdenovo2 242: Whole genome shotgun assembler (sparse de Bruijn graph) (now MEGAHIT)
 sci-biology/SPAdes 3.15.1: De novo de Bruijn genome assembler overcoming uneven coverage
 sci-biology/SSAKE 3.8.2: Short-read trimmer, OLC assembler, scaffolder in PERL using the 3'-most k-mers
-sci-biology/Scaffolder-evaluation 9999: Scripts to run genome assembly scaffolding tools and analyse output for accuracy
 sci-biology/SnpEff 4.3t: SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF
 sci-biology/SolexaQA 3.1.7.1: Analyze and trim single-end and paired-end reads, show quality statistics
 sci-biology/TransDecoder 5.5.0: Extract ORF/CDS regions from FASTA sequences
@@ -247,8 +246,6 @@ sci-biology/caftools 2.0.2: Manipulate CAF files and convert to GAP4 format (not
 sci-biology/canu 2.1.1: Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences
 sci-biology/cast-bin 20080813: Predict low-complexity regions in putative proteins
 sci-biology/cdbfasta 0.1: FASTA record indexing/retrievieng utility
-sci-biology/cg-cat 20150130: r2cat and treecat, scaffolding tools for ordering and orienting contigs
-sci-biology/cgview-bin 1.0.0: CGView Comparison Tool to compare genome sequences graphically (aka CCT)
 sci-biology/chiron 0.6.1.1: A deep neural network basecaller for nanopore sequencing
 sci-biology/cluster 1.59: Hierarchical, k-means, k-medians clustering for expression/microarray analysis
 sci-biology/clview 0.1: clview is an assembly .ace file viewer from TIGR Gene Indices project tools
@@ -316,13 +313,11 @@ sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 0.3.1: Probabilistic framework for structural variant discovery
 sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
-sci-biology/maker 3.01.02_beta: A genome annotation viewer and pipeline for small eukaryota and prokaryota
 sci-biology/manatee-igs 2.23.1: IGS-modified version of the genome annotation tool using Chado database schema
 sci-biology/manatee-jcvi 2.4.3: Genome annotation tool
 sci-biology/mappy 2.17: Minimap2 python binding
 sci-biology/megahit 1.2.9: Metagenome assembler using succinct de Bruijn graph approach with CUDA
 sci-biology/merlin 1.1.2: Statistical analysis of gene flow in pedigrees
-sci-biology/mgblast 0.1: Customized version of megablast from TIGR Gene Indices project
 sci-biology/minced 0.4.2: Short Palindromic Repeat finder tool (for CRISPRs)
 sci-biology/minimap2 2.17: splice-aware sequence aligner
 sci-biology/mip-scaffolder 0.6: Scaffold contigs using ABI Solid or Illumina mate pair info
@@ -363,7 +358,6 @@ sci-biology/prinseq-lite 0.20.4: Describe, trim, reformat and convert to or form
 sci-biology/proda 1.0: Multiple alignment of protein sequences with repeated and shuffled elements
 sci-biology/prokka 1.14.6: Prokaryotic whole genome annotation pipeline
 sci-biology/proovread 2.14.1 9999: Error correct PacBio subreads using Illumina reads
-sci-biology/prot4EST 3.1b: Predict proteins from EST sequences overcoming frameshifts
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
 sci-biology/pufferfish 1.4.0: Index for the colored, compacted, de Bruijn graph
 sci-biology/pybedtools 0.8.0: Use BED and GFF files from python using BEDtools
@@ -377,7 +371,6 @@ sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roche454ace2caf 20100812: ace to gap4 converter
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
-sci-biology/rum 2.0.5.06: RNA-Seq Unified Mapper (digital normalization)
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/sailfish 0.10.0 9999: Rapid Mapping-based Isoform Quantification from RNA-Seq Reads
 sci-biology/salmon 0.10.2 1.4.0 9999: Transcript-level quantification from RNA-seq reads using lightweight alignments
@@ -389,7 +382,6 @@ sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
 sci-biology/scan_for_matches 20121220: Pattern search through DNA sequences (aka patscan)
 sci-biology/screed 1.0.4: Short read sequence utilities
 sci-biology/scythe 9999: Bayesian 3'-end adapter (only) trimmer for Illumina/Solexa
-sci-biology/seqclean 110625: Trimpoly and mdust for trimming and validation of ESTs/DNA sequences
 sci-biology/seqtk 1.3: Manipulate FASTA and FASTQ files
 sci-biology/seqtools 4.44.1: Display alignments and GFF files, matrix dot plots (blixem, dotter, belvu)
 sci-biology/sff_dump 1.04: Convert Roche SFF files to FASTA file format
@@ -456,7 +448,6 @@ sci-chemistry/pyquante 2.1_p20190721: Quantum chemistry package written in Pytho
 sci-chemistry/relion 3.1.1: Image-processing software for cryo-electron microscopy
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/ssp 09.11: Secondary structure propensities
-sci-chemistry/talosn 4.12.2015.147.15.40: Prediction of Protein bb and sc Torsion Angles from NMR Chemical Shifts
 sci-electronics/minipro 0.4: A free and open TL866XX programmer
 sci-libs/HDF5Plugin-Zstandard 0_pre20201121: ZSTD plugin for hdf5
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
