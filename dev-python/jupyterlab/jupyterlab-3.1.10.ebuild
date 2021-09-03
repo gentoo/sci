@@ -32,3 +32,7 @@ RDEPEND="
 distutils_enable_tests pytest
 # TODO: package myst_parser
 #distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
+
+pkg_postinst() {
+	jupyter-lab build || die "Failed to build jupyter assets"
+}
