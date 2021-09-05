@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit cmake
+inherit cmake udev
 
 DESCRIPTION="Processing, recording, and visualizing multichannel ephys data"
 HOMEPAGE="http://www.open-ephys.org/gui/"
@@ -12,19 +12,19 @@ if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/open-ephys/plugin-GUI"
 	EGIT_BRANCH="master"
-	Suffix=$EGIT_BRANCH
+	Suffix=${EGIT_BRANCH}
 	SubDir=${P}
 elif [[ ${PV} == "99999999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/open-ephys/plugin-GUI"
 	EGIT_BRANCH="development"
-	Suffix=$EGIT_BRANCH
+	Suffix=${EGIT_BRANCH}
 	SubDir=${P}
 else
 	SRC_URI="https://github.com/open-ephys/plugin-GUI/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	Suffix=${PV}
 	SubDir="plugin-GUI-${PV}"
-	S="${WORKDIR}/$SubDir"
+	S="${WORKDIR}/${SubDir}"
 	KEYWORDS="~amd64 ~x86"
 fi
 
@@ -42,7 +42,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-BUILD_DIR="$S/Build"
+BUILD_DIR="${S}/Build"
 PATCHES=( "${FILESDIR}"/${P}.patch )
 
 QA_PREBUILT="opt/open-ephys-*/shared/*.so"
@@ -65,15 +65,12 @@ src_configure() {
 }
 
 src_install() {
-	dodir opt/open-ephys-"$Suffix"/ lib/udev/rules.d/
-	cp -R "${BUILD_DIR}"/Gentoo/* "${ED}"/opt/open-ephys-"$Suffix"/
-	cp -R "${WORKDIR}"/"${SubDir}"/Resources/Scripts/40-open-ephys.rules "${ED}"/lib/udev/rules.d/
-	dosym ../../opt/open-ephys-"$Suffix"/open-ephys usr/bin/open-ephys-"$Suffix"
+	dodir opt/open-ephys-"${Suffix}"/ lib/udev/rules.d/
+	cp -R "${BUILD_DIR}"/Gentoo/* "${ED}"/opt/open-ephys-"${Suffix}"/
+	udev_dorules "${WORKDIR}"/"${SubDir}"/Resources/Scripts/40-open-ephys.rules
+	dosym ../../opt/open-ephys-"${Suffix}"/open-ephys usr/bin/open-ephys-"${Suffix}"
 }
 
 pkg_postinst() {
-	ewarn " "
-	ewarn "You must restart the udev service in order to allow your computer to"
-	ewarn "communicate with the Open Ephys acquisition board."
-	ewarn " "
+	udev_reload
 }
