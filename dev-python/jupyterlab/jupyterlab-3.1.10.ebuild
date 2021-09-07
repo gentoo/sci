@@ -11,7 +11,7 @@ DESCRIPTION="JupyterLab computational environment"
 HOMEPAGE="https://jupyter.org/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
-LICENSE="BSD"
+LICENSE="BSD MIT GPL-3 Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
@@ -34,5 +34,10 @@ distutils_enable_tests pytest
 #distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
 
 pkg_postinst() {
-	jupyter-lab build || die "Failed to build jupyter assets"
+	# We have to do this here because we need internet since this uses yarn
+	jupyter-lab build -y || die "Failed to build jupyterlab javascript assets"
+}
+
+pkg_prerm() {
+	jupyter-lab clean -y || die "Failed to clean jupyterlab javascript assets"
 }
