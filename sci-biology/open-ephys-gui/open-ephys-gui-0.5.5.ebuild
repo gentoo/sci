@@ -67,10 +67,14 @@ src_configure() {
 src_install() {
 	dodir opt/open-ephys-"${Suffix}"/ lib/udev/rules.d/
 	cp -R "${BUILD_DIR}"/Gentoo/* "${ED}"/opt/open-ephys-"${Suffix}"/
-	udev_dorules "${WORKDIR}"/"${SubDir}"/Resources/Scripts/40-open-ephys.rules
+	udev_newrules "${WORKDIR}"/"${SubDir}"/Resources/Scripts/40-open-ephys.rules 40-open-ephys-"${Suffix}".rules
 	dosym ../../opt/open-ephys-"${Suffix}"/open-ephys usr/bin/open-ephys-"${Suffix}"
 }
 
 pkg_postinst() {
+	udev_reload
+}
+
+pkg_postrm() {
 	udev_reload
 }
