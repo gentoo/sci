@@ -35,9 +35,17 @@ distutils_enable_tests pytest
 
 pkg_postinst() {
 	# We have to do this here because we need internet since this uses yarn
-	jupyter-lab build -y || die "Failed to build jupyterlab javascript assets"
+	jupyter-lab build -y || ( \
+		ewarn "Failed to build jupyterlab javascript assets, please run"
+		ewarn "'jupyter-lab build' manually before starting jupyter-lab."
+		ewarn "Note that this will likely require network access."
+		)
 }
 
 pkg_prerm() {
-	jupyter-lab clean -y || die "Failed to clean jupyterlab javascript assets"
+	jupyter-lab clean -y --static || ( \
+		ewarn "Failed to clean jupyterlab javascript assets, please remove"
+		ewarn "/usr/share/jupyter/lab/staging and /usr/share/jupyter/lab/static"
+		ewarn "manually."
+	)
 }
