@@ -5,7 +5,7 @@ EAPI=7
 inherit cmake
 
 DESCRIPTION="Processing, recording, and visualizing multichannel ephys data"
-HOMEPAGE="http://www.open-ephys.org/gui/"
+HOMEPAGE="https://open-ephys.org/gui/"
 LICENSE="GPL-3"
 
 if [[ ${PV} == "9999" ]] ; then
