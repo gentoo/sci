@@ -18,6 +18,8 @@ KEYWORDS="~amd64"
 # TODO: package openapi et al
 RESTRICT="test"
 
+BDEPEND="dev-python/jupyter_packaging[${PYTHON_USEDEP}]"
+
 RDEPEND="
 	dev-python/ipython[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
@@ -33,19 +35,7 @@ distutils_enable_tests pytest
 # TODO: package myst_parser
 #distutils_enable_sphinx docs/source dev-python/sphinx_rtd_theme
 
-pkg_postinst() {
-	# We have to do this here because we need internet since this uses yarn
-	jupyter-lab build -y || ( \
-		ewarn "Failed to build jupyterlab javascript assets, please run"
-		ewarn "'jupyter-lab build' manually before starting jupyter-lab."
-		ewarn "Note that this will likely require network access."
-		)
-}
-
-pkg_prerm() {
-	jupyter-lab clean -y --static || ( \
-		ewarn "Failed to clean jupyterlab javascript assets, please remove"
-		ewarn "/usr/share/jupyter/lab/staging and /usr/share/jupyter/lab/static"
-		ewarn "manually."
-	)
+python_install_all() {
+	distutils-r1_python_install_all
+	mv "${ED}/usr/etc" "${ED}/etc" || die
 }
