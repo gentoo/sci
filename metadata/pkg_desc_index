@@ -342,14 +342,14 @@ sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1 2.11.0: A subset of NCBI C++ T
 sci-biology/ncbi-genome-download 0.3.0: Download genomes from the NCBI FTP servers
 sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI BLAST+
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
-sci-biology/nilearn 0.6.2 9999: Fast and easy statistical learning on NeuroImaging data
+sci-biology/nilearn 0.8.0 9999: Fast and easy statistical learning on NeuroImaging data
 sci-biology/nitime 0.9 9999: Time-series analysis of neuroscience data
 sci-biology/nrcl 110625: Containment clustering and layout utility for processing pairwise alignments
 sci-biology/ntCard 1.2.2 9999: Estimate k-mer coverage histogram of genomics data
 sci-biology/nwalign3 0.1.2: Needleman-Wunsch global sequence alignment in python3
 sci-biology/nxtrim 0.4.3: Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker
 sci-biology/oases 0.2.08 9999: De novo transcriptome assembler
-sci-biology/open-ephys-gui 0.5.2.2 9999 99999999: Processing, recording, and visualizing multichannel ephys data
+sci-biology/open-ephys-gui 0.5.2.2 0.5.5 9999 99999999: Processing, recording, and visualizing multichannel ephys data
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
 sci-biology/parafly 0.1.0: Parallel cmd processing utility
