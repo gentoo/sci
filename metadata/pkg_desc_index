@@ -100,7 +100,9 @@ dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
 dev-python/json5 0.9.6: A Python implementation of the JSON5 data format
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
+dev-python/jupyter-lsp 1.4.1: Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab
 dev-python/jupyterlab 3.1.10-r1: JupyterLab computational environment
+dev-python/jupyterlab-lsp 3.8.1: Coding assistance for JupyterLab with Language Server Protocol
 dev-python/jupyterlab_launcher 0.13.1: Jupyter Launcher
 dev-python/jupyterlab_server 2.7.2: Server components for JupyterLab and JupyterLab like applications
 dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
