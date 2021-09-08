@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -36,7 +36,7 @@ RDEPEND="
 "
 BDEPEND="
 	test? (
-		dev-python/beautifulsoup:4[${PYTHON_USEDEP}]
+		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 		dev-python/flaky[${PYTHON_USEDEP}]
 		dev-python/ipython_genutils[${PYTHON_USEDEP}]
 		dev-python/mock[${PYTHON_USEDEP}]

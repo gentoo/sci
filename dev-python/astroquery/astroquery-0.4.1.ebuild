@@ -26,7 +26,7 @@ RESTRICT="test"
 
 RDEPEND="
 	>=dev-python/astropy-0.2[${PYTHON_USEDEP}]
-	dev-python/beautifulsoup:4[${PYTHON_USEDEP}]
+	dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 	dev-python/html5lib[${PYTHON_USEDEP}]
 	dev-python/keyring[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
