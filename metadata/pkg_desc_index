@@ -98,19 +98,13 @@ dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 file
 dev-python/holoviews 1.14.2: Make data analysis and visualization seamless and simple
 dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
-dev-python/json5 0.9.6: A Python implementation of the JSON5 data format
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
-dev-python/jupyter-lsp 1.4.1: Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab
-dev-python/jupyterlab 3.1.10-r1: JupyterLab computational environment
-dev-python/jupyterlab-lsp 3.8.1: Coding assistance for JupyterLab with Language Server Protocol
 dev-python/jupyterlab_launcher 0.13.1: Jupyter Launcher
-dev-python/jupyterlab_server 2.7.2: Server components for JupyterLab and JupyterLab like applications
 dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshio 4.4.6: Python input/output for many mesh formats
 dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/nbclassic 0.3.1: Jupyter Notebook as a Jupyter Server Extension
 dev-python/nptyping 1.4.3: Type hints for NumPy
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.53.1: NumPy aware dynamic Python compiler using LLVM
@@ -128,9 +122,7 @@ dev-python/pyerfa 1.7.1.1: Python bindings for ERFA
 dev-python/pynndescent 0.5.2: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
-dev-python/pytest-console-scripts 1.2.0: Pytest plugin for testing console scripts
 dev-python/pytest-doctestplus 0.8.0: Pytest plugin with advanced doctest features
-dev-python/pytest-tornasync 0.6.0_p2: Pytest plugin for testing Python 3.5+ Tornado code
 dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.8.2 0.8.3 0.9.0: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
