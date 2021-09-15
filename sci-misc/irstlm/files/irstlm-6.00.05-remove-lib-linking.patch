@@ -1,0 +1,18 @@
+Remove Makefile.am lib linking operation
+Taken from upstream PR: https://github.com/irstlm-team/irstlm/pull/12
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -7,12 +7,3 @@ SUBDIRS = src scripts doc
+ EXTRA_DIST = README RELEASE Copyright
+ 
+ ACLOCAL_AMFLAGS = -I m4
+-
+-LN_S=@LN_S@
+-
+-install-exec-hook:
+-	cd ${exec_prefix}/ && \
+-	  ${LN_S} -n -f lib lib64
+-
+-dist-hook:
+-	rm -rf `find $(distdir)/doc -type d -name .svn`
