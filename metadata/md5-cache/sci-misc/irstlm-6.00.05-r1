@@ -1,0 +1,13 @@
+BDEPEND=doc? ( app-text/texlive[extra] ) sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.2-r1:1.16 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DEFINED_PHASES=configure prepare
+DESCRIPTION=A tool to estimate, store, and access very large n-gram language models
+EAPI=8
+HOMEPAGE=https://hlt-mt.fbk.eu/technologies/irstlm
+INHERIT=autotools
+IUSE=doc static-libs
+KEYWORDS=~amd64
+LICENSE=LGPL-3
+SLOT=0
+SRC_URI=https://github.com/irstlm-team/irstlm/archive/v6.00.05.tar.gz -> irstlm-6.00.05.tar.gz
+_eclasses_=gnuconfig	262062cef0ba4f22b397193da514a350	toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	libtool	241a8f577b9781a42a7421e53448a44e	autotools	c7052b276346587968d52ea8eaf5aca1
+_md5_=cce433ce2a2ea8e4ea13d49f48b4a970
