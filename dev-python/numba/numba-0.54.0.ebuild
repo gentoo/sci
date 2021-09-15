@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..9} )
 
 DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit optfeature multiprocessing distutils-r1
@@ -18,27 +18,20 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 IUSE="openmp threads"
 
-# Minimum dependency versions derive from:
-# * For llvmlite, the "min_llvmlite_version" and "max_llvmlite_version" globals
-#   in "setup.py".
-# * For NumPy, the "min_numpy_run_version" global in "setup.py".
-# * For TBB, #error pragmas in "numba/np/ufunc/tbbpool.cpp" like:
-#   #error "TBB version is too old, 2019 update 5...
-# Lastly, note the "numba -s" subcommand requires "pip" at runtime.
 RDEPEND="
-	>=dev-python/llvmlite-0.36.0[${PYTHON_USEDEP}]
-	<dev-python/llvmlite-0.37.0
-	>=dev-python/numpy-1.15.0[${PYTHON_USEDEP}]
-	dev-python/pip[${PYTHON_USEDEP}]
-	dev-python/scipy[${PYTHON_USEDEP}]
+	>=dev-python/llvmlite-0.37.0[${PYTHON_USEDEP}]
+	<dev-python/llvmlite-0.38.0
+	>=dev-python/numpy-1.17.0[${PYTHON_USEDEP}]
 	threads? ( >=dev-cpp/tbb-2019.5 )
 "
-DEPEND="${RDEPEND}"
+BDEPEND="
+	dev-python/pip[${PYTHON_USEDEP}]
+	dev-python/versioneer[${PYTHON_USEDEP}]
+"
 
 DISTUTILS_IN_SOURCE_BUILD=1
 distutils_enable_tests unittest
-# Only works in a git repository
-#distutils_enable_sphinx docs/source dev-python/numpydoc
+distutils_enable_sphinx docs/source dev-python/numpydoc dev-python/sphinx_rtd_theme
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.52.0-skip_tests.patch"
@@ -46,22 +39,34 @@ PATCHES=(
 
 pkg_setup() {
 	if ! use openmp; then
-		export NUMBA_DISABLE_OPENMP=1
+		export NUMBA_DISABLE_OPENMP=1 || die
 	else
-		unset NUMBA_DISABLE_OPENMP
+		unset NUMBA_DISABLE_OPENMP || die
 	fi
 	if ! use threads; then
-		export NUMBA_DISABLE_TBB=1
+		export NUMBA_DISABLE_TBB=1 || die
 	else
-		unset NUMBA_DISABLE_TBB
-		export TBBROOT="${EPREFIX}/usr"
+		unset NUMBA_DISABLE_TBB || die
+		export TBBROOT="${EPREFIX}/usr" || die
 	fi
+}
+
+python_prepare_all() {
+	# This conf.py only works in a git repo
+	if use doc; then
+		git init -q || die
+		git config user.email "larry@gentoo.org" || die
+		git config user.name "Larry the Cow" || die
+		git add . || die
+		git commit -m "init" || die
+	fi
+	distutils-r1_python_prepare_all
 }
 
 python_compile() {
 	# FIXME: parallel python building fails. See Portage bug #614464 and
 	# gentoo/sci issue #1080.
-	export MAKEOPTS=-j1
+	export MAKEOPTS=-j1 || die
 	distutils-r1_python_compile
 }
 
