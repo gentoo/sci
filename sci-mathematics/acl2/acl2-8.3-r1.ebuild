@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="books doc emacs"
 
 BDEPEND="
-	>=dev-lisp/sbcl-1.5.2
+	dev-lisp/sbcl
 	emacs? ( >=app-editors/emacs-23.1:* )
 "
 DEPEND="
