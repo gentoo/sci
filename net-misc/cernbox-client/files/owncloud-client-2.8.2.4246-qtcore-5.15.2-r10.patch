@@ -1,0 +1,13 @@
+diff --git a/src/csync/csync_exclude.cpp b/src/csync/csync_exclude.cpp
+index 820fed7fb..4a103a0f9 100644
+--- a/src/csync/csync_exclude.cpp
++++ b/src/csync/csync_exclude.cpp
+@@ -486,7 +486,7 @@ QString ExcludedFiles::convertToRegexpSyntax(QString exclude, bool wildcardsMatc
+             // Translate [! to [^
+             QString bracketExpr = exclude.mid(i, j - i + 1);
+             if (bracketExpr.startsWith(QLatin1String("[!")))
+-                bracketExpr[1] = '^';
++                bracketExpr[1] = QLatin1Char('^');
+             regex.append(bracketExpr);
+             i = j;
+             break;
