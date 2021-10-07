@@ -513,7 +513,7 @@ sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
-sci-mathematics/acl2 8.3-r1 8.4: Industrial strength theorem prover
+sci-mathematics/acl2 8.3-r1 8.3-r2 8.4 8.4-r1: Industrial strength theorem prover
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/flocq 3.4.0-r1: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 22.0: Framework for analysis of source codes written in C
