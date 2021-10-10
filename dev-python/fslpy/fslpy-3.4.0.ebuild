@@ -27,6 +27,11 @@ RDEPEND="
 	sci-libs/rtree[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.3.1[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
+	!<sci-biology/fsl-6.0.4
+"
+
+DEPEND="
+	!<sci-biology/fsl-6.0.4
 "
 
 PATCHES=(
