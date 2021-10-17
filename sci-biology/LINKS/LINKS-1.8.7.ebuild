@@ -20,6 +20,6 @@ RDEPEND="
 "
 
 src_install(){
-	dobin bin/LINKS *.pl tools/*.pl
+	dobin bin/LINKS *.pl releases/links_v1.8.5/tools/*.pl
 	dodoc README.md
 }
