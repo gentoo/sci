@@ -409,7 +409,7 @@ sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt fla
 sci-biology/symap 5.0.6: Synteny Mapping and Analysis Program
 sci-biology/tabixpp 1.1.0: C++ wrapper to tabix indexer
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
-sci-biology/tigmint 1.2.1: Correct misassemblies using linked reads from 10x Genomics Chromium
+sci-biology/tigmint 1.2.4: Correct misassemblies using linked reads from 10x Genomics Chromium
 sci-biology/tigr-foundation-libs 2.0-r1: TIGR Foundation for C++
 sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
 sci-biology/trans-abyss 2.0.1: Analyze and combine multiple assemblies from abyss
