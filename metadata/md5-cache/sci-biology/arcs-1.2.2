@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DESCRIPTION=Scaffold genome sequence assemblies by Chromium/PacBio/Naopore reads
+EAPI=7
+HOMEPAGE=https://github.com/bcgsc/arcs
+IUSE=minimal
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=dev-libs/boost dev-cpp/sparsehash !minimal? ( sci-biology/abyss sci-biology/tigmint )
+RESTRICT=test
+SLOT=0
+SRC_URI=https://github.com/bcgsc/arcs/releases/download/v1.2.2/arcs-1.2.2.tar.gz
+_md5_=600c170de2e358a39e0082edca4f62c8

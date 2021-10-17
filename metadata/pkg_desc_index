@@ -227,6 +227,7 @@ sci-biology/align_to_scf 1.06: View trace information at a given position missin
 sci-biology/angsd 0.933: Population genetics analysis package
 sci-biology/ants 2.3.4: Advanced Normalitazion Tools for neuroimaging
 sci-biology/arachne 46233: Whole genome shotgun OLC assembler for Sanger reads (overlap-layout-contig)
+sci-biology/arcs 1.2.2: Scaffold genome sequence assemblies by Chromium/PacBio/Naopore reads
 sci-biology/assembly-stats 9999: Assembly statistics (min, max, sum, N50, N90, count gaps and Ns)
 sci-biology/bam-readcount 0.8.0 9999: Count DNA sequence reads in BAM files and other statistics calculations
 sci-biology/bambus 2.33: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
