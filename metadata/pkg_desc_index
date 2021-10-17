@@ -193,6 +193,7 @@ sci-biology/GAL 0.2.2_p20200508: Genome Annotation Library (incl. fasta_tool)
 sci-biology/IMAGE 2.4.1: Iterative Mapping and Assembly for Gap Elimination using paired-end Illumina
 sci-biology/KING 2.2.7: Check family relationship and infer population structure
 sci-biology/KaKs_Calculator 1.2 2.0: Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates
+sci-biology/LINKS 1.8.7: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
 sci-biology/MaSuRCA 4.0.1: de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore
 sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
 sci-biology/MochiView 1.46: Genome browser and analysis
@@ -246,6 +247,7 @@ sci-biology/brat_bw 2.0.1: Bisulfite-aware short read mapper, FM-index, no InDel
 sci-biology/brat_nova 20160103: Bisulfite-aware short read mapper, FM-index, accepts 1 InDel/read, local align
 sci-biology/bru2nii 1.0.20180303: Converts Bruker ParaVision MRI data to the NIfTI file format
 sci-biology/bruker2nifti 1.0.4: Medical image converter, from raw Bruker ParaVision to NIfTI
+sci-biology/btl_bloomfilter 1.2.1: BTL C/C common bloom filters
 sci-biology/bx-python 0.8.9 9999: Library for rapid implementation of genome scale analyses
 sci-biology/caftools 2.0.2: Manipulate CAF files and convert to GAP4 format (not GAP5), ACE, PHRAP
 sci-biology/canu 2.1.1: Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences
