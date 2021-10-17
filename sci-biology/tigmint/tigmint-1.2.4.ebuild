@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7,8} )
+PYTHON_COMPAT=( python3_{7,8,9} )
 
 inherit distutils-r1
 
@@ -15,9 +15,6 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-# TODO: fix this
-# FileNotFoundError: [Errno 2] No such file or directory
-# happens even with --install
 RESTRICT="test"
 
 RDEPEND="
