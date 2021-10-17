@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Correct misassemblies using linked reads from 10x Genomics Chromium"
 HOMEPAGE="https://github.com/bcgsc/tigmint https://bcgsc.github.io/tigmint/"
-SRC_URI="https://github.com/bcgsc/tigmint/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/bcgsc/tigmint/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
