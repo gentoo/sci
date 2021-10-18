@@ -318,6 +318,7 @@ sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lem
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
 sci-biology/libblasr 9999: Library for blasr
 sci-biology/lighter 1.1.2 9999: NGS reads corrector
+sci-biology/longstitch 1.0.1: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 0.3.1: Probabilistic framework for structural variant discovery
 sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
