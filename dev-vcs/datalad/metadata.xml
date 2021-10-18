@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		DataLad makes data management and data distribution more accessible. To
+		do that, it stands on the shoulders of Git and Git-annex to deliver a
+		decentralized system for data exchange. This includes automated
+		ingestion of data from online portals and exposing it in readily usable
+		form as Git(-annex) repositories, so-called datasets. The actual data
+		storage and permission management, however, remains with the original
+		data providers.
+	</longdescription>
+	<use>
+		<flag name="downloaders">Extended support for download resources</flag>
+		<flag name="metadata">Annotated metadata support for datasets</flag>
+		<flag name="misc">Dataset publishing support</flag>
+		<flag name="publish">Dataset publishing support</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">datalad/datalad</remote-id>
+	</upstream>
+</pkgmetadata>
