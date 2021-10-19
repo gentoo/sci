@@ -13,7 +13,7 @@ SRC_URI="https://github.com/bcgsc/tigmint/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 RESTRICT="test"
 
@@ -28,3 +28,28 @@ RDEPEND="
 "
 
 distutils_enable_tests pytest
+
+# install the executable into /usr/bin
+# BUG: the read_fasta.py should be installed into python modules
+#   so it can be imported into python
+src_prepare(){
+	sed -i Makefile -e 's#prefix=/usr/local#prefix=/usr#'
+	default
+}
+
+src_configure(){
+	python_setup
+	default
+}
+
+# do not run src_compile step as it runs git, makefile2graph, gsed, tred
+
+src_install(){
+	default
+	distutils-r1_src_install
+}
+
+src_test(){
+	default
+	python_foreach_impl python_test
+}
