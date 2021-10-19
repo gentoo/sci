@@ -21,6 +21,10 @@ RDEPEND="
 	dev-python/intervaltree[${PYTHON_USEDEP}]
 	sci-biology/pybedtools[${PYTHON_USEDEP}]
 	sci-biology/pysam[${PYTHON_USEDEP}]
+	app-arch/pigz
+	sci-biology/samtools
+	sci-biology/minimap2
+	sci-biology/seqtk
 "
 
 distutils_enable_tests pytest
