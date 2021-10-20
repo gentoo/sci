@@ -1,9 +1,10 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{8..9} )
+DISTUTILS_USE_SETUPTOOLS=no
 
 inherit distutils-r1
 
@@ -13,9 +14,10 @@ SRC_URI="https://github.com/bcgsc/tigmint/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RESTRICT="test"
+PROPERTIES="test_network"
 
 RDEPEND="
 	dev-python/intervaltree[${PYTHON_USEDEP}]
@@ -29,10 +31,8 @@ RDEPEND="
 
 distutils_enable_tests pytest
 
-# install the executable into /usr/bin
-# BUG: the read_fasta.py should be installed into python modules
-#   so it can be imported into python
 src_prepare(){
+	# install the executable into /usr/bin
 	sed -i Makefile -e 's#prefix=/usr/local#prefix=/usr#'
 	default
 }
@@ -44,12 +44,25 @@ src_configure(){
 
 # do not run src_compile step as it runs git, makefile2graph, gsed, tred
 
-src_install(){
-	default
-	distutils-r1_src_install
+python_install() {
+	# This is a bit unorthodox, but it allows us to get both a symlink from
+	# /usr/bin to our script using the correct python implementation
+	# *and* to import it from the python shell
+	python_domodule bin/*.py
+	python_domodule bin/tigmint-arcs-tsv
+	python_domodule bin/tigmint-cut
+
+	python_doscript bin/*.py
+	python_doscript bin/tigmint-arcs-tsv
+	python_doscript bin/tigmint-cut
+}
+
+python_install_all() {
+	dobin bin/tigmint
+	dobin bin/tigmint-make
 }
 
 src_test(){
 	default
-	python_foreach_impl python_test
+	distutils-r1_src_test
 }
