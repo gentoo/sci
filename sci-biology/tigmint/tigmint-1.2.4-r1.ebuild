@@ -24,6 +24,7 @@ RDEPEND="
 	sci-biology/pybedtools[${PYTHON_USEDEP}]
 	sci-biology/pysam[${PYTHON_USEDEP}]
 	app-arch/pigz
+	app-shells/zsh
 	sci-biology/samtools
 	sci-biology/minimap2
 	sci-biology/seqtk
