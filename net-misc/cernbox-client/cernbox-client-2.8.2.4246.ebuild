@@ -58,6 +58,8 @@ RESTRICT="!test? ( test )"
 
 S=${WORKDIR}/${ORIGIN_PN}-${PV}
 
+PATCHES=( "${FILESDIR}"/owncloud-client-${PV}-qtcore-5.15.2-r10.patch )
+
 src_unpack() {
 	rpm_src_unpack ${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm || die "failed to extract branding RPM"
 	mv ${PN%-*}-${BRANDED_PV}.${BRANDED_REL}/branding "${S}" || die "failed to extract branding"
