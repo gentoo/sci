@@ -13,7 +13,7 @@ BRANDED_P="cernbox"
 BRANDED_PV="2.7.1"
 BRANDED_REL="2596"
 HOMEPAGE="https://cernbox.cern.ch/"
-SRC_URI="http://download.owncloud.com/desktop/${ORIGIN_PN}/stable/${PV}/source/${ORIGIN_PN}-${PV}.tar.xz
+SRC_URI="https://download.owncloud.com/desktop/${ORIGIN_PN}/stable/${PV}/source/${ORIGIN_PN}-${PV}.tar.xz
 	https://cernbox.cern.ch/cernbox/doc/Linux/repo/CentOS_7/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm
 	https://cern.ch/ofreyerm/gentoo/cernbox/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm"
 
