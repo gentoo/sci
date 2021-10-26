@@ -490,7 +490,7 @@ sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.15: Set of classes for creating statistical genetic programs
 sci-libs/libflame-amd 2.2 9999: AMD optimized high-performance object-based library for DLA computations
-sci-libs/libmatheval 1.1.11: library to parse and evaluate symbolic expressions
+sci-libs/libmatheval 1.1.11 1.1.11-r1: library to parse and evaluate symbolic expressions
 sci-libs/libmaus2 2.0.689 9999: Library for biobambam2
 sci-libs/libsufr 0.7.5-r1: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
