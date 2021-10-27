@@ -1,0 +1,15 @@
+DEFINED_PHASES=compile install preinst prepare setup test
+DEPEND=~dev-java/freehep-graphics2d-2.4:0 ~dev-java/freehep-graphicsbase-2.4:0 ~dev-java/freehep-graphicsio-2.4:0 dev-java/freehep-io:0 >=virtual/jdk-1.7 test? ( ~dev-java/freehep-graphicsio-tests-2.4:0 dev-java/junit:4 ) >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip )
+DESCRIPTION=High Energy Physics Java library - FreeHEP Enhanced Metafile Format Driver
+EAPI=7
+HOMEPAGE=http://java.freehep.org/
+INHERIT=java-pkg-2 java-pkg-simple
+IUSE=test elibc_FreeBSD doc source
+KEYWORDS=~amd64 ~x86
+LICENSE=Apache-2.0 LGPL-2.1
+RDEPEND=~dev-java/freehep-graphics2d-2.4:0 ~dev-java/freehep-graphicsbase-2.4:0 ~dev-java/freehep-graphicsio-2.4:0 dev-java/freehep-io:0 >=virtual/jre-1.7 >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/freehep/freehep-vectorgraphics/archive/freehep-vectorgraphics-2.4.tar.gz
+_eclasses_=java-utils-2	8a3af9303fdbeca4510a6ba6e91b1460	java-pkg-2	a3d583b3f640032c3eff643a4191bd03	java-pkg-simple	148ea0f0bf459bdb4768a56036df3cc2
+_md5_=1b79bcc298d69f2366ea692cb19400e4

@@ -9,6 +9,7 @@ dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-java/fits 1.15.1: Java library for FITS input/output
 dev-java/flexdock 1.2.4: A Java docking framework for use in cross-platform Swing applications
+dev-java/freehep-graphicsio-emf 2.4-r1: High Energy Physics Java library - FreeHEP Enhanced Metafile Format Driver
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
 dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
 dev-java/jeuclid-core 3.1.14: Core module of MathML rendering solution
