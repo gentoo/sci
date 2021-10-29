@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		The Hierarchical Data Modeling Framework, or HDMF, is a Python package
+		for working with hierarchical data. It provides APIs for specifying
+		data models, reading and writing data to different storage backends,
+		and representing data with Python object.
+	</longdescription>
+</pkgmetadata>
