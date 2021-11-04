@@ -5,13 +5,13 @@ EAPI=8
 
 FORTRAN_STANDARD=90
 
-inherit fortran-2 flag-o-matic cmake multilib
+inherit fortran-2 flag-o-matic cmake
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools"
-HOMEPAGE="https://www.csc.fi/web/elmer http://www.elmerfem.org/blog/"
+HOMEPAGE="https://www.csc.fi/web/elmer https://www.elmerfem.org/blog/"
 SRC_URI="https://github.com/ElmerCSC/elmerfem/archive/release-${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
