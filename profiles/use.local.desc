@@ -189,6 +189,7 @@ sci-mathematics/why3:frama-c - Enable Frama-C plugin
 sci-misc/elmer-fem:gui - Build the ElmerGUI
 sci-misc/elmer-fem:ice - Build ElmerICE
 sci-misc/elmer-fem:matc - Build the Elmer matc library
+sci-misc/elmer-fem:mumps - Build with Mumps
 sci-misc/elmer-fem:post - Build ElmerPOST
 sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation potentials library
 sci-physics/atompaw:longplot - Patch the sources to plot functions all over the space considered, not just up to the matching radius plus 50 grid points. May be useless or even harmful.
