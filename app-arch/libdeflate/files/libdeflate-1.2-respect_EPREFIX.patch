@@ -5,7 +5,7 @@
  
  override CFLAGS :=							\
 -	$(CFLAGS) -O2 -fomit-frame-pointer -std=c99 -I. -Icommon	\
-+	-O2 $(CFLAGS) -fomit-frame-pointer -std=c99 -I. -Icommon	\
++	$(CFLAGS) -fomit-frame-pointer -std=c99 -I. -Icommon	\
  	-Wall -Wundef							\
  	$(call cc-option,-Wpedantic)					\
  	$(call cc-option,-Wdeclaration-after-statement)			\
