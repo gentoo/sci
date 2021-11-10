@@ -1,9 +1,0 @@
-DEFINED_PHASES=install
-DESCRIPTION=Half-precision floating-point library
-EAPI=7
-HOMEPAGE=http://half.sourceforge.net/
-KEYWORDS=~amd64
-LICENSE=MIT
-SLOT=0
-SRC_URI=https://github.com/ROCmSoftwarePlatform/half/archive/1.12.0.tar.gz -> half-1.12.0.tar.gz
-_md5_=615b64fcdaf1de067ef8bfe906105466
