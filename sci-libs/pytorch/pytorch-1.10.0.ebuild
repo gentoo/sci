@@ -108,7 +108,7 @@ DEPEND="${RDEPEND}
 	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
 	dev-cpp/tbb
 	app-arch/zstd
-	!dev-python/pybind11
+	dev-python/pybind11[${PYTHON_USEDEP}]
 	dev-python/typing-extensions[${PYTHON_USEDEP}]
 	sys-fabric/libibverbs
 	sys-process/numactl
@@ -320,6 +320,8 @@ src_install() {
 
 		python_foreach_impl python_optimize
 	fi
+
+	rm -rfv "${ED}/usr/include/pybind11"
 
 	find "${ED}/usr/${LIB}" -name "*.a" -exec rm -fv {} \;
 
