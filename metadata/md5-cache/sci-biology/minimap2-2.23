@@ -1,0 +1,11 @@
+DEFINED_PHASES=install prepare
+DESCRIPTION=splice-aware sequence aligner
+EAPI=7
+HOMEPAGE=https://github.com/lh3/minimap2
+INHERIT=toolchain-funcs
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/lh3/minimap2/releases/download/v2.23/minimap2-2.23.tar.bz2
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988
+_md5_=b5ac63ff06ba0b26bb6104fdc4614868
