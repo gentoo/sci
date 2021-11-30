@@ -31,7 +31,7 @@ CDEPEND="
 		dev-java/commons-logging:0
 		dev-java/commons-beanutils:1.7
 		dev-java/commons-codec:0
-		dev-java/icu4j:56
+		dev-java/icu4j:52
 	)"
 
 DEPEND="
@@ -119,7 +119,7 @@ src_compile() {
 			commons-logging
 			commons-beanutils-1.7
 			commons-codec
-			icu4j-56
+			icu4j-52
 			"
 		EANT_BUILD_TARGET+=" build-contrib"
 		EANT_DOC_TARGET+=" javadocs-all"
