@@ -12,8 +12,10 @@ dev-java/flexdock 1.2.4: A Java docking framework for use in cross-platform Swin
 dev-java/freehep-graphicsio-emf 2.4-r1: High Energy Physics Java library - FreeHEP Enhanced Metafile Format Driver
 dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
 dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
+dev-java/jcommon 1.0.23: A collection of useful classes used by JFreeChart, JFreeReport and others
 dev-java/jeuclid-core 3.1.14: Core module of MathML rendering solution
 dev-java/jfreechart 1.0.19-r2: JFreeChart is a free Java class library for generating charts
+dev-java/jfreesvg 2.1-r1 3.0: JFreeSVG is a fast, light-weight, vector graphics library for the Java platform
 dev-java/jgraphx 4.2.2: Open-source graph component for Java
 dev-java/jlatexmath 1.0.3: A Java API to render LaTeX
 dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
@@ -105,6 +107,7 @@ dev-python/json_tricks 3.15.5: Extra features for Python's JSON
 dev-python/jupyterlab_launcher 0.13.1: Jupyter Launcher
 dev-python/keyrings_alt 4.1.0: Alternate keyring backend implementations used with dev-python/keyring
 dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
+dev-python/llvmlite 0.37.0: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshio 4.4.6: Python input/output for many mesh formats

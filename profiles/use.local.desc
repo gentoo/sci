@@ -3,6 +3,7 @@
 # * generated automatically using pmaint *
 
 dev-cpp/blitz:boost - Enable serialization support using Boost::Serialization.
+dev-java/jfreesvg:debug - Enable debugging during compilation.
 dev-java/jogl:cg - Enable NVidia Cg binding.
 dev-java/lucene:contrib - Include extra functionality from contrib/
 dev-java/lucene:modules - Also build optional modules
