@@ -35,7 +35,7 @@ CDEPEND="
 		dev-java/commons-logging:0
 		dev-java/commons-beanutils:1.7
 		dev-java/commons-codec:0
-		dev-java/icu4j:56
+		dev-java/icu4j:52
 		dev-java/log4j:0
 	)"
 
@@ -124,7 +124,7 @@ src_prepare() {
 
 	if use modules; then
 		mkdir -p analysis/icu/lib
-		java-pkg_jar-from --into analysis/icu/lib icu4j-56
+		java-pkg_jar-from --into analysis/icu/lib icu4j-52
 		# disable morfologik, dependency does not build
 		# disable opennlp, dependency does not exist
 		# disable phonetic, dependency does not exist
@@ -183,7 +183,7 @@ src_compile() {
 			commons-logging
 			commons-beanutils-1.7
 			commons-codec
-			icu4j-56
+			icu4j-52
 			log4j
 			"
 		EANT_BUILD_TARGET+=" build-modules"
