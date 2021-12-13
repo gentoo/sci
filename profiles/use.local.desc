@@ -62,7 +62,6 @@ net-misc/cernbox-client:nautilus - Install the gnome-base/nautilus extension
 sci-biology/abyss:misc-haskell - build abyss-samtobreak tool, pull in haskell toolchain
 sci-biology/ants:vtk - Optional support for a number of surface enabled tools (via sci-libs/vtk).
 sci-biology/behaviopy:evaluation - Installs evaluation submodule.
-sci-biology/bowtie:tbb - Enables building bowtie with the Intel Threading Building Blocks from dev-cpp/tbb. This flag is recommended.
 sci-biology/bru2nii:gui - Build graphical user interface
 sci-biology/dcm2niix:jpeg-ls - Supprt for converting DICOM images compressed with the JPEG-LS transfer syntaxes using the bundled CharLS library
 sci-biology/dcm2niix:system-jpeg - Use the system-wide media-libs/libjpeg-turbo instead of bundled.
@@ -174,9 +173,6 @@ sci-mathematics/gap:julia - Build julia bindings
 sci-mathematics/gap:julia-gc - Use the julia garbage collector
 sci-mathematics/gap:memcheck - Enable memory checking
 sci-mathematics/gap:valgrind - Build symbols to be used by valgrind
-sci-mathematics/giac:ecm - Enable the use of sci-mathematics/gmp-ecm
-sci-mathematics/giac:gc - Enable garbage collection support via dev-libs/boehm-gc
-sci-mathematics/giac:glpk - Enable the use of sci-mathematics/glpk
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
 sci-mathematics/ripser:progress - print progress of calculations in console
 sci-mathematics/ripser:sparsehash - use google sparsehash for storage
