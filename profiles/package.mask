@@ -29,13 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (04 Nov 2021)
-# No upstream activity since 2011, does not build with sci-libs/opencascade:7.5.
-# Note that this package is NOT the salome geometry module but a standalone
-# version of that module that now appears to be abandoned. Packaging the
-# original salome geometry module requires packaging the salome kernel and the
-# salome gui module.
-# Masked for removal in 30 days or whenever sci-libs/opencascade:7.4.0:::gentoo
-# is removed.
-sci-libs/geom
