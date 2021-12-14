@@ -9,5 +9,5 @@ LICENSE=AMD
 RESTRICT=fetch strip !test? ( test )
 SLOT=0
 SRC_URI=aocc? ( aocl-libm-linux-aocc-3.6.0-4.tar.gz ) !aocc? ( aocl-libm-linux-gcc-3.6.0-4.tar.gz )
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988
 _md5_=b9b7bb912e58c708300585fbbb61bb6c

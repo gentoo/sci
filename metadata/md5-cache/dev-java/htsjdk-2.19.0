@@ -9,5 +9,5 @@ LICENSE=MIT
 RDEPEND=>=virtual/jre-1.8 dev-java/commons-jexl:2 dev-java/commons-compress:0 dev-java/commons-logging:0 dev-java/gradle-bin:* >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip )
 SLOT=0
 SRC_URI=https://github.com/samtools/htsjdk/archive/2.19.0.tar.gz -> htsjdk-2.19.0.tar.gz
-_eclasses_=java-utils-2	32fe52795e36e76dcbcf92d89bb1c4d0	java-pkg-2	2d0eb1353bf1264bd6e61736d3e409a2	multilib	4b66d835ec72e021e359bb81eacfe988	toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	java-ant-2	e83ca06db890ca292b0b6d43e376e20d
+_eclasses_=java-utils-2	32fe52795e36e76dcbcf92d89bb1c4d0	java-pkg-2	2d0eb1353bf1264bd6e61736d3e409a2	multilib	4b66d835ec72e021e359bb81eacfe988	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	java-ant-2	e83ca06db890ca292b0b6d43e376e20d
 _md5_=3f39b730c9e7342782a97af2e71be029
