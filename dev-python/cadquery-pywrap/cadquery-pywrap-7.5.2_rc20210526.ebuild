@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{8..9} )
 
-inherit llvm toolchain-funcs distutils-r1
+inherit llvm distutils-r1
 
 DESCRIPTION="C++ binding generator based on libclang and pybind11"
 HOMEPAGE="https://github.com/CadQuery/pywrap"
