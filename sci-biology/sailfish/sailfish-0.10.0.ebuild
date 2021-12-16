@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake multilib
+inherit cmake
 
 DESCRIPTION="Rapid Mapping-based Isoform Quantification from RNA-Seq Reads"
 HOMEPAGE="https://www.cs.cmu.edu/~ckingsf/software/sailfish/"

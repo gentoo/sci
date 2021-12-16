@@ -4,7 +4,7 @@
 EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
-inherit mercurial cmake cuda flag-o-matic python-any-r1
+inherit mercurial cmake cuda python-any-r1
 
 EHG_REPO_URI="https://bitbucket.org/simoncblyth/${PN}"
 EHG_REVISION="a580e704afe9d2c138072835e986542c835c29fc"

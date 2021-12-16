@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit autotools
-
 release_data="20191030105216"
 
 DESCRIPTION="Tools for bam file processing (libmaus2)"

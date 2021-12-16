@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit rpm multilib
+inherit rpm
 
 RPMVER="3.2p1.4-21.1"
 

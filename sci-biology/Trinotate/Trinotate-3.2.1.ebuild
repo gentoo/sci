@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit perl-module toolchain-funcs
+inherit perl-module
 
 DESCRIPTION="Annotation and analysis pipeline for de novo assembled transcriptomes"
 HOMEPAGE="https://github.com/Trinotate/Trinotate.github.io/wiki"

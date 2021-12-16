@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake
+inherit cmake flag-o-matic
 
 DESCRIPTION="Barcode, MID tag and adapter sequence removal"
 HOMEPAGE="https://github.com/seqan/flexbar"

@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit eutils desktop
+inherit desktop
 
 DEMOS_HASH="d07815f31093f28b47731f87f3f5ba5543f12d11"
 PY4LAZ_HASH="8dc41685b547f0982755b90115d9a43a2d2b358c"

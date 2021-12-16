@@ -6,7 +6,7 @@ EAPI=7
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
-inherit autotools bash-completion-r1 check-reqs eutils flag-o-matic \
+inherit autotools bash-completion-r1 check-reqs flag-o-matic \
 	fortran-2 java-pkg-opt-2 pax-utils toolchain-funcs virtualx xdg-utils
 
 DESCRIPTION="Scientific software package for numerical computations"

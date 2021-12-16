@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
 
-inherit cmake python-single-r1 toolchain-funcs
+inherit cmake python-single-r1
 
 DESCRIPTION="scalable C++ machine learning library"
 HOMEPAGE="https://www.mlpack.org/"

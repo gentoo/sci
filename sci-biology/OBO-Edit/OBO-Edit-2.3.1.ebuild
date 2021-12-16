@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit toolchain-funcs java-pkg-2
+inherit java-pkg-2
 
 MY_PV="${PV//./_}"
 

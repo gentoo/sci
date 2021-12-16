@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit eutils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates"
 HOMEPAGE="

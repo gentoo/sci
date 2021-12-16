@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit toolchain-funcs cmake python-single-r1
+inherit cmake python-single-r1
 
 MY_PN="InsightToolkit"
 MY_P="${MY_PN}-${PV}"

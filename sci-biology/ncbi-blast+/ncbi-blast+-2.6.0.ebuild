@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit eutils flag-o-matic multilib toolchain-funcs
+inherit toolchain-funcs
 
 MY_P="ncbi-blast-${PV}+-src"
 # workdir/ncbi-blast-2.2.30+-src

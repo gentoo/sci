@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit toolchain-funcs flag-o-matic
+inherit toolchain-funcs
 
 DESCRIPTION="Statistical analysis of gene flow in pedigrees"
 HOMEPAGE="https://csg.sph.umich.edu/abecasis/Merlin/"

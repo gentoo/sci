@@ -5,7 +5,7 @@ EAPI=7
 
 LUA_COMPAT=( lua5-{1..3} )
 
-inherit multilib lua
+inherit lua
 
 DESCRIPTION="A sleep-research experiment manager, EDF viewer & Process S simulator"
 HOMEPAGE="http://johnhommer.com/academic/code/aghermann"

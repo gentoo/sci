@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs
-
 DESCRIPTION="Manipulate BED file (alternative to bedtools)"
 HOMEPAGE="http://bedops.readthedocs.io
 	https://github.com/bedops/bedops"

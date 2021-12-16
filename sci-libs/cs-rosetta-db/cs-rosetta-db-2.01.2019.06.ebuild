@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit flag-o-matic toolchain-funcs
-
 MY_PN="${PN%-db}"
 
 DESCRIPTION="System for chemical shifts based protein structure prediction using ROSETTA"

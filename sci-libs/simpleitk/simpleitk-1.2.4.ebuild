@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python3_{7..9} )
 LUA_COMPAT=( lua5-{1..3} )
 
-inherit lua-single toolchain-funcs cmake python-single-r1
+inherit lua-single cmake python-single-r1
 
 MY_PN="SimpleITK"
 

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit eutils multilib pax-utils toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"

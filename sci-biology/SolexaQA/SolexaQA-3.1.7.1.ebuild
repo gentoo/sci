@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit multilib
-
 DESCRIPTION="Analyze and trim single-end and paired-end reads, show quality statistics"
 HOMEPAGE="https://sourceforge.net/projects/solexaqa"
 SRC_URI="https://sourceforge.net/projects/solexaqa/files/src/SolexaQA++_v${PV}.zip"

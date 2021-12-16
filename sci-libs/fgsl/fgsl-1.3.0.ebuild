@@ -6,7 +6,7 @@ EAPI=7
 DOCS_BUILDER="doxygen"
 DOCS_DEPEND="media-gfx/graphviz"
 
-inherit autotools docs fortran-2 toolchain-funcs
+inherit docs fortran-2
 
 DESCRIPTION="A Fortran interface to the GNU Scientific Library"
 HOMEPAGE="https://doku.lrz.de/display/PUBLIC/FGSL+-+A+Fortran+interface+to+the+GNU+Scientific+Library/"

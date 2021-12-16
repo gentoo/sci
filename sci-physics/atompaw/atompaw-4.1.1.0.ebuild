@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit fortran-2 multilib toolchain-funcs
+inherit fortran-2 toolchain-funcs
 
 DESCRIPTION="PAW atomic data generator"
 HOMEPAGE="http://users.wfu.edu/natalie/papers/pwpaw/man.html"

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake subversion java-pkg-2 flag-o-matic
+inherit cmake desktop subversion java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="https://brlcad.org/"

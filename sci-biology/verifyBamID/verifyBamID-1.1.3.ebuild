@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs
-
 DESCRIPTION="Verify sample identity/mix and genotype concordance"
 HOMEPAGE="http://genome.sph.umich.edu/wiki/VerifyBamID"
 SRC_URI="https://github.com/statgen/verifyBamID/archive/v${PV}.tar.gz -> ${P}.tar.gz

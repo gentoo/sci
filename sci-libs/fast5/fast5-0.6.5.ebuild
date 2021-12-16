@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{7,8,9} )
 DOCS_BUILDER="doxygen"
 DOCS_DIR="${WORKDIR}/${P}"
 
-inherit distutils-r1 docs multilib
+inherit distutils-r1 docs
 
 DESCRIPTION="C++ header-only library for reading Oxford Nanopore Fast5 files"
 HOMEPAGE="https://github.com/mateidavid/fast5"

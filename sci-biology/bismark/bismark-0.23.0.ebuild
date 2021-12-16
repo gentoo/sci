@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs
-
 DESCRIPTION="Map bisulfite converted sequence reads and cytosine methylation states"
 HOMEPAGE="https://www.bioinformatics.babraham.ac.uk/projects/"
 SRC_URI="https://github.com/FelixKrueger/Bismark/archive/${PV}.tar.gz -> ${P}.tar.gz"

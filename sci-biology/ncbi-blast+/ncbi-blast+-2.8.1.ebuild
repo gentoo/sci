@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
+inherit python-single-r1 toolchain-funcs
 
 MY_P="ncbi-blast-${PV}+-src"
 # workdir/ncbi-blast-2.2.30+-src

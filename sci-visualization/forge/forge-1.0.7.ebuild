@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake multilib
+inherit cmake
 
 DESCRIPTION="High Performance Visualizations for ArrayFire"
 HOMEPAGE="http://www.arrayfire.com/"

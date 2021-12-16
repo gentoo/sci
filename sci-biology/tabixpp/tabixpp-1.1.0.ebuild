@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs multilib
-
 DESCRIPTION="C++ wrapper to tabix indexer "
 HOMEPAGE="https://github.com/ekg/tabixpp"
 SRC_URI="https://github.com/ekg/tabixpp/archive/v${PV}.tar.gz -> ${P}.tar.gz"

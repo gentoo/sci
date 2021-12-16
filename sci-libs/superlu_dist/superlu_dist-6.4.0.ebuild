@@ -6,7 +6,7 @@ EAPI=7
 DOCS_BUILDER="doxygen"
 DOCS_CONFIG_NAME="DoxyConfig"
 
-inherit cmake docs multilib
+inherit cmake docs
 
 MYPN=SuperLU_DIST
 

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit perl-module toolchain-funcs
+inherit perl-module
 
 # Butterfly should not require any special compilation, as its written in Java and already provided as portable precompiled software ...
 

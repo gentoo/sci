@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
+inherit python-single-r1 toolchain-funcs
 
 MY_TAG="Mar_28_2019"
 MY_Y="${MY_TAG/*_/}"

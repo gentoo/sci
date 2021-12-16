@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit distutils-r1 virtualx
+inherit distutils-r1
 
 DESCRIPTION="Enthought Tool Suite: Explicitly typed attributes for Python"
 HOMEPAGE="https://docs.enthought.com/traits/

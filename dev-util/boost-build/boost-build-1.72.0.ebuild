@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic prefix toolchain-funcs
+inherit prefix toolchain-funcs
 
 MY_PV="$(ver_rs 1- _)"
 
