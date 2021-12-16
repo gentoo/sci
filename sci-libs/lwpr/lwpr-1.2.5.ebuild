@@ -5,7 +5,7 @@ EAPI=7
 
 DOCS_BUILDER="doxygen"
 
-inherit autotools docs
+inherit docs
 
 DESCRIPTION="The Locally Weighted Projection Regression Library"
 HOMEPAGE="https://web.inf.ed.ac.uk/slmc"
