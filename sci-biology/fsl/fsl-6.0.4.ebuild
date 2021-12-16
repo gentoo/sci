@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cuda flag-o-matic toolchain-funcs prefix
+inherit cuda toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="https://www.fmrib.ox.ac.uk/fsl"
