@@ -3,7 +3,7 @@ DEPEND=<sys-devel/gcc-10:= !sci-biology/ncbi-tools++ !sci-biology/sra_sdk berkdb
 DESCRIPTION=A subset of NCBI C++ Toolkit containing just the NCBI BLAST+
 EAPI=7
 HOMEPAGE=https://ncbi.github.io/cxx-toolkit/
-INHERIT=eutils flag-o-matic multilib python-single-r1 toolchain-funcs
+INHERIT=python-single-r1 toolchain-funcs
 IUSE=debug static-libs static threads pch test wxwidgets odbc berkdb boost bzip2 cppunit curl expat fltk freetype gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite tiff xerces xalan xml xpm xslt X python_single_target_python3_8 python_single_target_python3_9
 KEYWORDS=~amd64 ~x86
 LICENSE=public-domain
@@ -12,5 +12,5 @@ REQUIRED_USE=^^ ( python_single_target_python3_8 python_single_target_python3_9 
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.11.0/ncbi-blast-2.11.0+-src.tar.gz
-_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	ac3ee41ee2d31d8c41a77c0838320cc7	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	dab5d8ec471d025b79c9e6906bcf3bff	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988	flag-o-matic	4134b5c0fb719b9161d10bdaba9e09e5	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	multiprocessing	61c959fc55c15c00bbb1079d6a71370b	python-utils-r1	a8b7938ade305f087865de7e52d079b5	python-single-r1	d46c125afba8be02eb1cd7104bac6e9c
-_md5_=56c1522098716beb555de40a1c43f375
+_eclasses_=eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	multiprocessing	61c959fc55c15c00bbb1079d6a71370b	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988	python-utils-r1	a8b7938ade305f087865de7e52d079b5	python-single-r1	d46c125afba8be02eb1cd7104bac6e9c
+_md5_=99ad53522ae4f3fc7790ef88093e0052

@@ -4,12 +4,12 @@ DEPEND=sys-devel/m4 fortran? ( virtual/fortran ) >=app-admin/eselect-1.4.13-r101
 DESCRIPTION=Extra Precise Basic Linear Algebra Subroutines
 EAPI=7
 HOMEPAGE=https://www.netlib.org/xblas/
-INHERIT=flag-o-matic fortran-2 numeric-int64-multibuild toolchain-funcs
+INHERIT=fortran-2 numeric-int64-multibuild toolchain-funcs
 IUSE=doc fortran static-libs abi_x86_32 abi_x86_64 abi_x86_x32 abi_mips_n32 abi_mips_n64 abi_mips_o32 abi_s390_32 abi_s390_64 int64
 KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
 LICENSE=BSD
 RDEPEND=fortran? ( virtual/fortran ) >=app-admin/eselect-1.4.13-r101 !app-eselect/eselect-blas !app-eselect/eselect-cblas !app-eselect/eselect-lapack fortran? ( virtual/fortran )
 SLOT=0
 SRC_URI=https://www.netlib.org/xblas/xblas-1.0.248.tar.gz
-_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988	edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	ac3ee41ee2d31d8c41a77c0838320cc7	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	dab5d8ec471d025b79c9e6906bcf3bff	flag-o-matic	4134b5c0fb719b9161d10bdaba9e09e5	fortran-2	7e39eb204d37699d5f1eaf9f4d61888a	alternatives-2	8f6e3469da5a1b39b5a8e648299cdee5	multibuild	05a584848db4901c97fcd94ae7cc3a97	multilib-build	19ec165e9adcaa4c132b9e3fe3e7f556	numeric	6f7db4431f634823c48b80cb104e1d6b	numeric-int64-multibuild	d12015077474929a30fb6b3caaab87c6
-_md5_=c600d991cfc441b647a85066d81e2a4e
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988	fortran-2	7e39eb204d37699d5f1eaf9f4d61888a	alternatives-2	8f6e3469da5a1b39b5a8e648299cdee5	edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	ac3ee41ee2d31d8c41a77c0838320cc7	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	dab5d8ec471d025b79c9e6906bcf3bff	multibuild	05a584848db4901c97fcd94ae7cc3a97	multilib-build	19ec165e9adcaa4c132b9e3fe3e7f556	numeric	6f7db4431f634823c48b80cb104e1d6b	numeric-int64-multibuild	d12015077474929a30fb6b3caaab87c6
+_md5_=5b246c52d172db276b5516c9c18da67a

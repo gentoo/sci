@@ -1,15 +1,15 @@
-BDEPEND=sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.2-r1:1.16 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4 doc? ( app-doc/doxygen )
+BDEPEND=doc? ( app-doc/doxygen )
 DEFINED_PHASES=compile configure install
 DEPEND=octave? ( >=sci-mathematics/octave-3 )
 DESCRIPTION=The Locally Weighted Projection Regression Library
 EAPI=7
 HOMEPAGE=https://web.inf.ed.ac.uk/slmc
-INHERIT=autotools docs
+INHERIT=docs
 IUSE=examples octave static-libs doc
 KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
 LICENSE=LGPL-2.1
 RDEPEND=octave? ( >=sci-mathematics/octave-3 )
 SLOT=0
 SRC_URI=mirror://sourceforge/lwpr/lwpr-1.2.5.tar.gz
-_eclasses_=gnuconfig	262062cef0ba4f22b397193da514a350	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988	libtool	241a8f577b9781a42a7421e53448a44e	autotools	c9df06c186913b43eb211100ef5fe2cf	docs	7c38d94fa7c1b4235fe571dc09e018df
-_md5_=9e83fc74c97738b94a007dd01e1df302
+_eclasses_=docs	7c38d94fa7c1b4235fe571dc09e018df
+_md5_=c8dd7c94ac7cab9ad128b7a6147b011a
