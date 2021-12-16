@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic perl-module webapp autotools
+inherit perl-module webapp autotools
 
 DESCRIPTION="Analyze restriction enzyme data, draw gen. maps, population genomics"
 HOMEPAGE="http://creskolab.uoregon.edu/stacks"
