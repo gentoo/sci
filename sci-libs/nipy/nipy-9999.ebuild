@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
 
-inherit distutils-r1 eutils multilib flag-o-matic git-r3
+inherit distutils-r1 flag-o-matic git-r3
 
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="https://nipy.org/"
