@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="Split Illumina Nextera long mate-pairs"
 HOMEPAGE="https://github.com/richardmleggett/nextclip
