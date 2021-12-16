@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-2 java-ant-2 multilib
+inherit java-pkg-2 java-ant-2
 
 MY_PN="JLigand"
 

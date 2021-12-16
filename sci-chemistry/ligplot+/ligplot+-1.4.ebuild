@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-2
+inherit java-pkg-2 wrapper
 
 DESCRIPTION="GUI-based version of LIGPLOT"
 HOMEPAGE="https://www.ebi.ac.uk/thornton-srv/software/LigPlus/"
