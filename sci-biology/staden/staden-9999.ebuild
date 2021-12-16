@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic fortran-2 multilib subversion
+inherit flag-o-matic fortran-2 subversion
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="https://sourceforge.net/projects/staden/"
