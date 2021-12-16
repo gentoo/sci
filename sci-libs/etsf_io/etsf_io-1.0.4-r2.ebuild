@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit fortran-2 multilib
+inherit fortran-2
 
 DESCRIPTION="A library of F90 routines to read/write the ETSF file format"
 HOMEPAGE="https://github.com/ElectronicStructureLibrary/libetsf_io"
