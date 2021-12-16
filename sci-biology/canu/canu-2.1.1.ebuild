@@ -5,7 +5,7 @@ EAPI=7
 
 PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit java-pkg-2 perl-module python-r1 multilib
+inherit java-pkg-2 perl-module python-r1
 
 DESCRIPTION="Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences"
 HOMEPAGE="https://canu.readthedocs.io/en/latest"
