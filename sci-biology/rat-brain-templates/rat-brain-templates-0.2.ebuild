@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit check-reqs
+
 DESCRIPTION="A collection of rat brain templates in NIfTI format"
 HOMEPAGE="https://gitlab.com/FOS-FMI/rat-brain-templates_generator"
 SRC_URI="http://chymera.eu/distfiles/${P}.tar.xz"
