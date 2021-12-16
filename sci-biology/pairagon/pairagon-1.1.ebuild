@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit perl-functions toolchain-funcs
+inherit perl-functions
 
 DESCRIPTION="HMM-based cDNA to genome aligner"
 HOMEPAGE="https://mblab.wustl.edu/software.html"
