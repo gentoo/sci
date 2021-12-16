@@ -5,7 +5,7 @@ EAPI=7
 
 MODULE_AUTHOR=EASR
 
-inherit multilib perl-module
+inherit perl-module
 
 DESCRIPTION="Manipulates OBO- and OWL-formatted ontologies (like the Gene Ontology)"
 HOMEPAGE="https://metacpan.org/release/ONTO-PERL"
