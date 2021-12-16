@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit autotools fortran-2
+inherit fortran-2
 FORTRAN_NEED_OPENMP=1
 
 DESCRIPTION="AMD optimized high-performance object-based library for DLA computations"
