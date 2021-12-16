@@ -3,7 +3,8 @@
 
 EAPI=7
 JAVA_PKG_IUSE="source"
-inherit eutils java-pkg-2 java-ant-2
+
+inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Core module of MathML rendering solution"
 HOMEPAGE="https://github.com/rototor/jeuclid"
