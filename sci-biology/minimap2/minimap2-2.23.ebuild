@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs
-
 DESCRIPTION="splice-aware sequence aligner with SSE2 and SSE4.1"
 HOMEPAGE="https://github.com/lh3/minimap2"
 SRC_URI="https://github.com/lh3/${PN}/releases/download/v${PV}/${P}.tar.bz2"
