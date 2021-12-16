@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic multilib toolchain-funcs
+inherit toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
