@@ -12,4 +12,4 @@ RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-src.tar.gz
 _eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988
-_md5_=6651fb0ccb555e9a9ce89686dca8dac7
+_md5_=dde523ee2125a5bf7a12749e05616310
