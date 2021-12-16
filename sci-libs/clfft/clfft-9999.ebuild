@@ -45,7 +45,7 @@ src_configure() {
 		-DBUILD_TEST="$(usex test)"
 		-DBoost_USE_STATIC_LIBS=OFF
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_compile() {
