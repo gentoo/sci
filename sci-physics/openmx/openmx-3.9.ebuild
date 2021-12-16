@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit multilib toolchain-funcs flag-o-matic fortran-2
+inherit toolchain-funcs flag-o-matic fortran-2
 
 DESCRIPTION="Material eXplorer"
 HOMEPAGE="http://www.openmx-square.org/" # no https, SSL invalid
