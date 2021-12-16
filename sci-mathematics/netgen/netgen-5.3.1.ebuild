@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit autotools flag-o-matic multilib xdg
+inherit autotools desktop flag-o-matic xdg
 
 MY_PN=${PN}-mesher
 MY_PV=$(ver_cut 1-2)
@@ -109,8 +109,6 @@ src_install() {
 	# Install icon and .desktop for menu entry
 	doicon "${FILESDIR}"/${PN}.png
 	domenu "${FILESDIR}"/${PN}.desktop
-
-	prune_libtool_files
 }
 
 pkg_postinst() {
