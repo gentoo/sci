@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit fortran-2 multilib toolchain-funcs
+inherit fortran-2 multilib
 
 DESCRIPTION="Compiler cache for fortran"
 HOMEPAGE="https://perso.univ-rennes1.fr/edouard.canot//f90cache/"
