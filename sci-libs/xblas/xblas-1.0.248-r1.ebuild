@@ -6,7 +6,7 @@ EAPI=7
 NUMERIC_MODULE_NAME="xblas"
 FORTRAN_NEEDED=fortran
 
-inherit flag-o-matic fortran-2 numeric-int64-multibuild toolchain-funcs
+inherit fortran-2 numeric-int64-multibuild toolchain-funcs
 
 DESCRIPTION="Extra Precise Basic Linear Algebra Subroutines"
 HOMEPAGE="https://www.netlib.org/xblas/"
