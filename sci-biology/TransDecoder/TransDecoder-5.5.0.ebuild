@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit perl-functions toolchain-funcs
+inherit perl-functions
 
 DESCRIPTION="Extract ORF/CDS regions from FASTA sequences"
 HOMEPAGE="https://github.com/TransDecoder/TransDecoder/wiki"
