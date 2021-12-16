@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs
-
 DESCRIPTION="Windowed adaptive quality-based trimming tool for FASTQ data"
 HOMEPAGE="https://github.com/najoshi/sickle"
 if [ "$PV" == "9999" ]; then
