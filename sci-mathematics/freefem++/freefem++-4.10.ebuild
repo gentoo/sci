@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit autotools flag-o-matic toolchain-funcs
+inherit autotools toolchain-funcs
 
 DESCRIPTION="Solve PDEs using FEM on 2d and 3d domains"
 HOMEPAGE="https://freefem.org/"
