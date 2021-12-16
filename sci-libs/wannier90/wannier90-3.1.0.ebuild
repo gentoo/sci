@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit fortran-2 multilib toolchain-funcs
+inherit fortran-2 toolchain-funcs
 
 DESCRIPTION="Calculates maximally localized Wannier functions (MLWFs)"
 HOMEPAGE="http://www.wannier.org/"
