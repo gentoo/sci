@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit perl-module toolchain-funcs
+inherit perl-module
 
 DESCRIPTION="Merge various gene prediction into one (unsupervised learning system)"
 HOMEPAGE="https://sourceforge.net/projects/glean-gene"
