@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake multilib
+inherit cmake
 
 DESCRIPTION="C++ computer vision research libraries"
 HOMEPAGE="https://vxl.github.io/"
