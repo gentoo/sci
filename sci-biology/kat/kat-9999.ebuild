@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python3_{7,8,9} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 # https://github.com/Ensembl/Bio-DB-HTS/issues/30
 
-inherit flag-o-matic autotools distutils-r1 git-r3
+inherit autotools distutils-r1 git-r3
 
 DESCRIPTION="K-mer Analysis Toolkit (histogram, filter, compare sets, plot)"
 HOMEPAGE="https://github.com/TGAC/KAT"
