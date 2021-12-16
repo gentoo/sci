@@ -6,7 +6,7 @@ EAPI=7
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=( python3_{7,8,9} )
 
-inherit cmake fortran-2 git-r3 python-any-r1 multilib
+inherit cmake fortran-2 git-r3 python-any-r1
 
 DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry"
 HOMEPAGE="https://www.freeon.org"
