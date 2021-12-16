@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake multilib
+inherit cmake
 
 DESCRIPTION="general purpose GPU library"
 HOMEPAGE="https://arrayfire.com/"
