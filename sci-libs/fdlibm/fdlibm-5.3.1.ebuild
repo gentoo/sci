@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake multilib
+inherit cmake
 
 DESCRIPTION="C math library supporting IEEE 754 floating-point arithmetic"
 HOMEPAGE="https://www.netlib.org/fdlibm"
