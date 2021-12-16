@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit toolchain-funcs
-
 DESCRIPTION="Whole genome shotgun assembler (sparse de Bruijn graph) (now MEGAHIT)"
 HOMEPAGE="https://github.com/aquaskyline/SOAPdenovo2
 	https://gigascience.biomedcentral.com/articles/10.1186/2047-217X-1-18"
