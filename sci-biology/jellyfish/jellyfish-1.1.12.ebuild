@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit flag-o-matic
-
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.cbcb.umd.edu/software/jellyfish"
 SRC_URI="https://github.com/gmarcais/Jellyfish/releases/download/v${PV}/${P}.tar.gz"

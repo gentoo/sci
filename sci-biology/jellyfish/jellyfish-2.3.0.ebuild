@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic autotools
+inherit autotools
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
