@@ -538,7 +538,7 @@ sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
 sci-mathematics/scilab 5.5.2 6.0.2 6.1.0: Scientific software package for numerical computations
 sci-misc/elmer-fem 9.0-r1: Finite element programs, libraries, and visualization tools
-sci-misc/europa-bin 1.0.0: JupyterLab's Desktop client in electron
+sci-misc/europa-bin 1.1.0: JupyterLab's Desktop client in electron
 sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/irstlm 6.00.05 6.00.05-r1: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.4_rc2: Java interface to WordNet dictionary data
