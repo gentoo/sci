@@ -45,7 +45,7 @@ https://github.com/google/libnop/archive/aa95422e.tar.gz -> libnop-aa95422e.tar.
 https://github.com/libuv/libuv/archive/48e04275332f5753427d21a52f17ec6206451f2c.tar.gz -> libuv-48e04275332f5753427d21a52f17ec6206451f2c.tar.gz
 https://github.com/google/XNNPACK/archive/79cd5f9e18ad0925ac9a050b00ea5a36230072db.tar.gz -> XNNPACK-79cd5f9e18ad0925ac9a050b00ea5a36230072db.tar.gz
 https://github.com/pytorch/kineto/archive/879a203d9bf554e95541679ddad6e0326f272dc1.tar.gz -> kineto-879a203d9bf554e95541679ddad6e0326f272dc1.tar.gz
-https://github.com/driazati/breakpad/archive/7d188f679d4ae0a5bd06408a3047d69ef8eef848.tar.gz -> breakpad-7d188f679d4ae0a5bd06408a3047d69ef8eef848.tar.gz
+https://github.com/driazati/breakpad/archive/edbb99f95c75be27d038fffb1d969cdacf705db2.tar.gz -> breakpad-edbb99f95c75be27d038fffb1d969cdacf705db2.tar.gz
 https://github.com/mikey/linux-syscall-support/archive/e1e7b0ad8ee99a875b272c8e33e308472e897660.tar.gz -> lss-e1e7b0ad8ee99a875b272c8e33e308472e897660.tar.gz
 "
 
@@ -56,7 +56,7 @@ https://github.com/mikey/linux-syscall-support/archive/e1e7b0ad8ee99a875b272c8e3
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static tools zeromq"
 REQUIRED_USE="
@@ -193,7 +193,7 @@ src_prepare() {
 	rmdir third_party/kineto || die
 	ln -sv "${WORKDIR}"/kineto-879a203d9bf554e95541679ddad6e0326f272dc1 third_party/kineto || die
 	rmdir third_party/breakpad || die
-	ln -sv "${WORKDIR}"/breakpad-7d188f679d4ae0a5bd06408a3047d69ef8eef848 third_party/breakpad || die
+	ln -sv "${WORKDIR}"/breakpad-edbb99f95c75be27d038fffb1d969cdacf705db2 third_party/breakpad || die
 	rmdir third_party/breakpad/src/third_party/lss || die
 	ln -sv "${WORKDIR}"/linux-syscall-support-e1e7b0ad8ee99a875b272c8e33e308472e897660 third_party/breakpad/src/third_party/lss || die
 
