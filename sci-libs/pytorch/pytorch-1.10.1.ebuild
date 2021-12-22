@@ -58,7 +58,8 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static tools zeromq"
+IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static test tools zeromq"
+RESTRICT="!test? ( test )"
 REQUIRED_USE="
 	?? ( cuda rocm )
 "
@@ -68,17 +69,17 @@ RDEPEND="
 	blas? ( virtual/blas )
 	cuda? ( dev-libs/cudnn
 		dev-cpp/eigen[cuda] )
-	rocm? ( >=dev-util/hip-4.0.0-r1
-			>=dev-libs/rccl-4
-			>=sci-libs/rocThrust-4
-			>=sci-libs/hipCUB-4
-			>=sci-libs/rocPRIM-4
-			>=sci-libs/miopen-4
-			>=sci-libs/rocBLAS-4
-			>=sci-libs/rocRAND-4
-			>=sci-libs/hipSPARSE-4
-			>=sci-libs/rocFFT-4
-			>=dev-util/roctracer-4 )
+	rocm? ( >=dev-util/hip-4.3
+			>=dev-libs/rccl-4.3
+			>=sci-libs/rocThrust-4.3
+			>=sci-libs/hipCUB-4.3
+			>=sci-libs/rocPRIM-4.3
+			>=sci-libs/miopen-4.3
+			>=sci-libs/rocBLAS-4.3
+			>=sci-libs/rocRAND-4.3
+			>=sci-libs/hipSPARSE-4.3
+			>=sci-libs/rocFFT-4.3
+			>=dev-util/roctracer-4.3 )
 	ffmpeg? ( media-video/ffmpeg )
 	gflags? ( dev-cpp/gflags )
 	glog? ( dev-cpp/glog[gflags] )
@@ -90,12 +91,12 @@ RDEPEND="
 	python? ( ${PYTHON_DEPS}
 		dev-python/pybind11[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
-		dev-python/protobuf-python:0/30
+		dev-python/protobuf-python:=
 	)
 	redis? ( dev-db/redis )
 	zeromq? ( net-libs/zeromq )
 	dev-cpp/eigen
-	dev-libs/protobuf:0/30
+	dev-libs/protobuf:=
 	dev-libs/libuv
 "
 
@@ -103,6 +104,7 @@ RDEPEND="
 BDEPEND="dev-python/pyyaml"
 
 DEPEND="${RDEPEND}
+	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
 	dev-cpp/tbb
 	app-arch/zstd
 	dev-python/pybind11[${PYTHON_USEDEP}]
@@ -112,7 +114,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.6.0-skip-tests.patch
+	"${FILESDIR}"/${PN}-1.9.0-Change-library-directory-according-to-CMake-build.patch
 	"${FILESDIR}"/${PN}-1.6.0-global-dlopen.patch
 	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.7.1.patch
 	"${FILESDIR}"/${PN}-1.7.1-no-rpath.patch
@@ -213,12 +215,21 @@ src_prepare() {
 
 		ebegin "HIPifying cuda sources"
 		${EPYTHON} tools/amd_build/build_amd.py || die
+		eapply "${FILESDIR}"/${PN}-1.9.1-fix-wrong-hipify.patch
 		eend $?
 
-		export PYTORCH_ROCM_ARCH=$(rocminfo | egrep -o "gfx[0-9]+" | uniq | awk -vORS=';' "{print $1}" | sed 's/;$/\n/') || die
+		local ROCM_VERSION="$(hipconfig -v)-"
+		export PYTORCH_ROCM_ARCH="${AMDGPU_TARGETS}"
 		sed -e "/set(roctracer_INCLUDE_DIRS/s,\${ROCTRACER_PATH}/include,${EPREFIX}/usr/include/roctracer," \
+			-e "/PYTORCH_HIP_HCC_LIBRARIES/s,\${HIP_PATH}/lib,${EPREFIX}/usr/lib/hip/lib," \
+			-e "s,\${ROCTRACER_PATH}/lib,${EPREFIX}/usr/lib64/roctracer," \
+			-e "/READ.*\.info\/version-dev/c\  set(ROCM_VERSION_DEV_RAW ${ROCM_VERSION})" \
 			-i cmake/public/LoadHIP.cmake || die
+		sed -r -e '/^if\(USE_ROCM/{:a;N;/\nendif/!ba; s,\{([^\{]*)_PATH\}(/include)?,\{\L\1_\UINCLUDE_DIRS\},g}' -i cmake/Dependencies.cmake || die
 	fi
+
+	# Set build dir for pytorch's setup
+	sed -e "/BUILD_DIR/s,build,${BUILD_DIR}," -i tools/setup_helpers/env.py || die
 }
 
 src_configure() {
@@ -262,13 +273,12 @@ src_configure() {
 		-DUSE_GLOO=$(usex gloo ON OFF)
 		-DUSE_SYSTEM_EIGEN_INSTALL=ON
 		-DUSE_SYSTEM_PYBIND11=ON
-		-DBUILD_NAMEDTENSOR=$(usex namedtensor ON OFF)
 		-DBLAS=$(usex blas Generic Eigen)
 		-DTP_BUILD_LIBUV=OFF
 		-Wno-dev
 	)
 
-	cmake_src_configure
+	HIP_PATH="${EPREFIX}/usr/lib/hip" cmake_src_configure
 
 	if use python; then
 		CMAKE_BUILD_DIR="${BUILD_DIR}" distutils-r1_src_configure
@@ -308,6 +318,7 @@ src_install() {
 	rm -rfv "${ED}/usr/include/var"
 
 	rm -r "${ED}/usr/${LIB}/cmake" || die
+	rm -rv "${ED}/usr/${LIB}/cmake" || die
 
 	if use python; then
 		scanelf -r --fix "${BUILD_DIR}/caffe2/python" || die
