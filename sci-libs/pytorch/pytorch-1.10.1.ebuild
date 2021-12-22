@@ -1,9 +1,9 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..10} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit cmake cuda distutils-r1 prefix
 
@@ -56,10 +56,9 @@ https://github.com/mikey/linux-syscall-support/archive/e1e7b0ad8ee99a875b272c8e3
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 
-IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static test tools zeromq"
-RESTRICT="!test? ( test )"
+IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static tools zeromq"
 REQUIRED_USE="
 	?? ( cuda rocm )
 "
@@ -104,7 +103,6 @@ RDEPEND="
 BDEPEND="dev-python/pyyaml"
 
 DEPEND="${RDEPEND}
-	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
 	dev-cpp/tbb
 	app-arch/zstd
 	dev-python/pybind11[${PYTHON_USEDEP}]
@@ -121,6 +119,8 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.7.1-torch_shm_manager.patch
 	"${FILESDIR}"/${PN}-1.10.0-nonull.patch
 )
+
+distutils_enable_tests pytest
 
 src_prepare() {
 	cmake_src_prepare
@@ -208,11 +208,11 @@ src_prepare() {
 		#Allow escaping sandbox
 		addread /dev/kfd
 		addread /dev/dri
-		addwrite /dev/kfd
-		addwrite /dev/dri
+		addpredict /dev/kfd
+		addpredict /dev/dri
 
 		ebegin "HIPifying cuda sources"
-		tools/amd_build/build_amd.py
+		${EPYTHON} tools/amd_build/build_amd.py || die
 		eend $?
 
 		export PYTORCH_ROCM_ARCH=$(rocminfo | egrep -o "gfx[0-9]+" | uniq | awk -vORS=';' "{print $1}" | sed 's/;$/\n/') || die
@@ -307,21 +307,23 @@ src_install() {
 	rm -rfv "${ED}/usr/include/include"
 	rm -rfv "${ED}/usr/include/var"
 
-	cp -rv "${WORKDIR}/${P}/third_party/pybind11/include/pybind11" "${ED}/usr/include/"
+	cp -rv "${WORKDIR}/${P}/third_party/pybind11/include/pybind11" "${ED}/usr/include/" || die
 
-	rm -fv "${ED}/usr/${LIB}/libtbb.so"
-	rm -rfv "${ED}/usr/${LIB}/cmake"
+	rm -v "${ED}/usr/${LIB}/libtbb.so" || die
+	rm -r "${ED}/usr/${LIB}/cmake" || die
 
 	if use python; then
-		scanelf -r --fix "${BUILD_DIR}/caffe2/python"
+		scanelf -r --fix "${BUILD_DIR}/caffe2/python" || die
 		USE_SYSTEM_LIBS=ON CMAKE_BUILD_DIR=${BUILD_DIR} distutils-r1_src_install
 
 		python_foreach_impl python_optimize
 	fi
 
-	find "${ED}/usr/${LIB}" -name "*.a" -exec rm -fv {} \;
+	find "${ED}/usr/${LIB}" -name "*.a" -exec rm -fv {} \; || die
 
-	use test && rm -rfv "${ED}/usr/test" "${ED}"/usr/bin/test_{api,jit}
+	if use test; then
+		rm -r "${ED}/usr/test" "${ED}"/usr/bin/test_{api,jit} || die
+	fi
 
 	# Remove the empty directories by CMake Python:
 	find "${ED}" -type d -empty -delete || die
