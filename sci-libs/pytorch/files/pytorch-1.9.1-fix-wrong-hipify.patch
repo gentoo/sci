@@ -1,0 +1,13 @@
+The hipify misadd a ) and causes compilation error
+
+--- orig/aten/src/ATen/native/sparse/hip/SparseHIPTensor.hip
++++ pytorch-1.9.1/aten/src/ATen/native/sparse/hip/SparseHIPTensor.hip
+@@ -282,7 +282,7 @@ Tensor sparse_mask_helper_cuda(
+               mask_indices_ti,
+               t_indices_pos_ti,
+               t_values_ti,
+-              r_values_ti);
++              r_values_ti;
+           C10_HIP_KERNEL_LAUNCH_CHECK();
+         });
+   }
