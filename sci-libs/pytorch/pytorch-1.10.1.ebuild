@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_SETUPTOOLS=no
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit cmake cuda distutils-r1 prefix
@@ -58,11 +59,8 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static test tools zeromq"
-RESTRICT="!test? ( test )"
-REQUIRED_USE="
-	?? ( cuda rocm )
-"
+IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi namedtensor +nnpack numa +observers opencl opencv +openmp +python +qnnpack redis rocm static tools zeromq"
+REQUIRED_USE="	?? ( cuda rocm )"
 
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
@@ -104,7 +102,6 @@ RDEPEND="
 BDEPEND="dev-python/pyyaml"
 
 DEPEND="${RDEPEND}
-	test? ( dev-python/pytest[${PYTHON_USEDEP}] )
 	dev-cpp/tbb
 	app-arch/zstd
 	dev-python/pybind11[${PYTHON_USEDEP}]
@@ -304,21 +301,13 @@ src_install() {
 		mv -fv "${ED}"/usr/lib/*.so "${ED}"/usr/${LIB}/ || die
 	fi
 
-	rm -rfv "${ED}/torch"
-	rm -rfv "${ED}/var"
-	rm -rfv "${ED}/usr/lib"
+	rm -r "${ED}/usr/lib" || die
 
-	rm -fv "${ED}/usr/include/*.{h,hpp}"
-	rm -rfv "${ED}/usr/include/asmjit"
-	rm -rfv "${ED}/usr/include/c10d"
-	rm -rfv "${ED}/usr/include/fbgemm"
-	rm -rfv "${ED}/usr/include/fp16"
-	rm -rfv "${ED}/usr/include/gloo"
-	rm -rfv "${ED}/usr/include/include"
-	rm -rfv "${ED}/usr/include/var"
-
-	rm -r "${ED}/usr/${LIB}/cmake" || die
-	rm -rv "${ED}/usr/${LIB}/cmake" || die
+	rm -r "${ED}/usr/include/asmjit" || die
+	rm -r "${ED}/usr/include/c10d" || die
+	rm -r "${ED}/usr/include/fbgemm" || die
+	rm -r "${ED}/usr/include/fp16" || die
+	rm -r "${ED}/usr/include/gloo" || die
 
 	if use python; then
 		scanelf -r --fix "${BUILD_DIR}/caffe2/python" || die
