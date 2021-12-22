@@ -307,7 +307,6 @@ src_install() {
 	rm -rfv "${ED}/usr/include/include"
 	rm -rfv "${ED}/usr/include/var"
 
-	rm -v "${ED}/usr/${LIB}/libtbb.so" || die
 	rm -r "${ED}/usr/${LIB}/cmake" || die
 
 	if use python; then
