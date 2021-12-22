@@ -304,20 +304,19 @@ src_install() {
 		mv -fv "${ED}"/usr/lib/*.so "${ED}"/usr/${LIB}/ || die
 	fi
 
-	rm -rfv "${ED}/torch"
-	rm -rfv "${ED}/var"
-	rm -rfv "${ED}/usr/lib"
+	rm -rv "${ED}/torch" || die
+	rm -rv "${ED}/var" || die
+	rm -rv "${ED}/usr/lib" || die
 
-	rm -fv "${ED}/usr/include/*.{h,hpp}"
-	rm -rfv "${ED}/usr/include/asmjit"
-	rm -rfv "${ED}/usr/include/c10d"
-	rm -rfv "${ED}/usr/include/fbgemm"
-	rm -rfv "${ED}/usr/include/fp16"
-	rm -rfv "${ED}/usr/include/gloo"
-	rm -rfv "${ED}/usr/include/include"
-	rm -rfv "${ED}/usr/include/var"
+	rm -fv "${ED}/usr/include/*.{h,hpp}" || die
+	rm -rv "${ED}/usr/include/asmjit" || die
+	rm -rv "${ED}/usr/include/c10d" || die
+	rm -rv "${ED}/usr/include/fbgemm" || die
+	rm -rv "${ED}/usr/include/fp16" || die
+	rm -rv "${ED}/usr/include/gloo" || die
+	rm -rv "${ED}/usr/include/include" || die
+	rm -rv "${ED}/usr/include/var" || die
 
-	rm -r "${ED}/usr/${LIB}/cmake" || die
 	rm -rv "${ED}/usr/${LIB}/cmake" || die
 
 	if use python; then
