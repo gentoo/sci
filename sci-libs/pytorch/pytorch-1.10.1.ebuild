@@ -307,8 +307,6 @@ src_install() {
 	rm -rfv "${ED}/usr/include/include"
 	rm -rfv "${ED}/usr/include/var"
 
-	cp -rv "${WORKDIR}/${P}/third_party/pybind11/include/pybind11" "${ED}/usr/include/" || die
-
 	rm -v "${ED}/usr/${LIB}/libtbb.so" || die
 	rm -r "${ED}/usr/${LIB}/cmake" || die
 
