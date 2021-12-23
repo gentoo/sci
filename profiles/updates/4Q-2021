@@ -1,0 +1,1 @@
+move sys-apps/ndctl sys-block/ndctl
