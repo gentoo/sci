@@ -9,5 +9,5 @@ LICENSE=Boost-1.0
 RESTRICT=test
 SLOT=0
 SRC_URI=https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.bz2
-_eclasses_=prefix	d04f14b297013ad1410550c0757f14f8	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4b66d835ec72e021e359bb81eacfe988
+_eclasses_=prefix	d04f14b297013ad1410550c0757f14f8	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	8a0248f83ae77f945d376ff4a7953257
 _md5_=8479a81350cc46c9b55d6a3b15cfbd4d
