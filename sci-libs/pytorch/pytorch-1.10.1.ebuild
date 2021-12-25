@@ -117,6 +117,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.7.1-no-rpath.patch
 	"${FILESDIR}"/${PN}-1.7.1-torch_shm_manager.patch
 	"${FILESDIR}"/${PN}-1.10.0-nonull.patch
+	"${FILESDIR}"/${PN}-1.10.0-fix-distutils.patch
 )
 
 distutils_enable_tests pytest
