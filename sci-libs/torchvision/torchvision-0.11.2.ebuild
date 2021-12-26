@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+DISTUTILS_SINGLE_IMPL=1
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -14,9 +15,10 @@ SRC_URI="https://github.com/pytorch/vision/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cuda test"
+IUSE="cuda"
 
 RDEPEND="
+	$(python_gen_cond_dep '
 	dev-python/av[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
@@ -24,13 +26,16 @@ RDEPEND="
 	dev-python/tqdm[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	sci-libs/pytorch[cuda?,python,${PYTHON_USEDEP}]
+	')
 	media-video/ffmpeg
 	dev-qt/qtcore:5
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
 	test? (
+		$(python_gen_cond_dep '
 		dev-python/mock[${PYTHON_USEDEP}]
+		')
 	)"
 
 S="${WORKDIR}/vision-${PV}"
