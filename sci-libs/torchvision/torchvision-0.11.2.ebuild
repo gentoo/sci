@@ -25,8 +25,8 @@ RDEPEND="
 	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/tqdm[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	sci-libs/pytorch[cuda?,python,${PYTHON_USEDEP}]
 	')
+	sci-libs/pytorch[cuda?,python,${PYTHON_SINGLE_USEDEP}]
 	media-video/ffmpeg
 	dev-qt/qtcore:5
 "
