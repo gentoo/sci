@@ -100,7 +100,6 @@ sci-chemistry/gamess:neo - Enable NEO for nuclear basis support
 sci-chemistry/gamess:pax-kernel - Make this package work on PAX kernels
 sci-chemistry/gamess:qmmm-tinker - Enable tinker qmmm code
 sci-chemistry/gamess:vb2000 - Enable Valence Bond method using VB2000 code
-sci-chemistry/relion:cuda - Enable CUDA support
 sci-chemistry/relion:gui - Enable relion gui
 sci-libs/aocl-libm:aocc - install the library built using AOCC, else use the GCC version
 sci-libs/arrayfire:cache - cache kernals to disk.
@@ -165,6 +164,7 @@ sci-libs/pytorch:redis - Enable support for Redis
 sci-libs/pytorch:rocm - Enable AMD ROCm
 sci-libs/pytorch:tools - Build binary tools
 sci-libs/pytorch:zeromq - Enable support for ZeroMQ
+sci-libs/torchvision:cuda - Enable CUDA support if enabled in PyTorch
 sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
 sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
