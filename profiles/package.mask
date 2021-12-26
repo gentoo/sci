@@ -29,3 +29,10 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (26 Dec 2021)
+# cuda-10 is being removed from ::gentoo, mask revdeps in ::sci
+# for removal too. Removal in 90 days
+sci-physics/opticks
+sci-chemistry/MotionCor2
+
