@@ -4,6 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_SETUPTOOLS=manual
+DISTUTILS_SINGLE_IMPL=1
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit cmake cuda distutils-r1 prefix
@@ -63,7 +64,9 @@ IUSE="asan blas cuda +fbgemm ffmpeg gflags glog +gloo leveldb lmdb mkldnn mpi na
 REQUIRED_USE="	?? ( cuda rocm )"
 
 RDEPEND="
+	$(python_gen_cond_dep '
 	dev-python/pyyaml[${PYTHON_USEDEP}]
+	')
 	blas? ( virtual/blas )
 	cuda? ( dev-libs/cudnn
 		dev-cpp/eigen[cuda] )
@@ -87,10 +90,12 @@ RDEPEND="
 	opencl? ( dev-libs/clhpp )
 	opencv? ( media-libs/opencv )
 	python? ( ${PYTHON_DEPS}
+		$(python_gen_cond_dep '
 		dev-python/setuptools[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
-		dev-python/protobuf-python:=
+		dev-python/protobuf-python:=[${PYTHON_USEDEP}]
+		')
 	)
 	redis? ( dev-db/redis )
 	zeromq? ( net-libs/zeromq )
@@ -105,8 +110,10 @@ BDEPEND="dev-python/pyyaml"
 DEPEND="${RDEPEND}
 	dev-cpp/tbb
 	app-arch/zstd
+	$(python_gen_cond_dep '
 	dev-python/pybind11[${PYTHON_USEDEP}]
 	dev-python/typing-extensions[${PYTHON_USEDEP}]
+	')
 	sys-fabric/libibverbs
 	sys-process/numactl
 "
@@ -316,7 +323,7 @@ src_install() {
 		scanelf -r --fix "${BUILD_DIR}/caffe2/python" || die
 		USE_SYSTEM_LIBS=ON CMAKE_BUILD_DIR=${BUILD_DIR} distutils-r1_src_install
 
-		python_foreach_impl python_optimize
+		python_optimize
 	fi
 
 	find "${ED}/usr/${LIB}" -name "*.a" -exec rm -fv {} \; || die
