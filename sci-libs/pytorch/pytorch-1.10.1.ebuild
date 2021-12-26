@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_SETUPTOOLS=no
+DISTUTILS_USE_SETUPTOOLS=manual
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit cmake cuda distutils-r1 prefix
@@ -84,9 +84,10 @@ RDEPEND="
 	leveldb? ( dev-libs/leveldb )
 	lmdb? ( dev-db/lmdb )
 	mpi? ( virtual/mpi )
-	opencl? ( dev-libs/clhpp virtual/opencl )
+	opencl? ( dev-libs/clhpp )
 	opencv? ( media-libs/opencv )
 	python? ( ${PYTHON_DEPS}
+		dev-python/setuptools[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
 		dev-python/protobuf-python:=
@@ -118,9 +119,10 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.7.1-torch_shm_manager.patch
 	"${FILESDIR}"/${PN}-1.10.0-nonull.patch
 	"${FILESDIR}"/${PN}-1.10.0-fix-distutils.patch
+	"${FILESDIR}"/${PN}-1.10.0-clhpp2.patch
 )
 
-distutils_enable_tests pytest
+distutils_enable_tests --install pytest
 
 src_prepare() {
 	cmake_src_prepare

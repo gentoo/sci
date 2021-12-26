@@ -1,0 +1,52 @@
+diff --git a/caffe2/contrib/opencl/OpenCL/cl.hpp b/caffe2/contrib/opencl/OpenCL/cl.hpp
+index 87cc4a1..7c27e33 100644
+--- a/caffe2/contrib/opencl/OpenCL/cl.hpp
++++ b/caffe2/contrib/opencl/OpenCL/cl.hpp
+@@ -76,7 +76,7 @@
+  * #if defined(__APPLE__) || defined(__MACOSX)
+  * #include <OpenCL/cl.hpp>
+  * #else
+- * #include <CL/cl.hpp>
++ * #include <CL/cl2.hpp>
+  * #endif
+  * #include <cstdio>
+  * #include <cstdlib>
+diff --git a/caffe2/contrib/opencl/context.h b/caffe2/contrib/opencl/context.h
+index b1e61c2..968d3c7 100644
+--- a/caffe2/contrib/opencl/context.h
++++ b/caffe2/contrib/opencl/context.h
+@@ -11,7 +11,7 @@
+ #if defined(__APPLE__) || defined(__MACOSX)
+ #include <OpenCL/cl.hpp>
+ #else
+-#include <CL/cl.hpp>
++#include <CL/cl2.hpp>
+ #endif
+ 
+ #define OPENCL_CHECK(expr) (void)expr
+diff --git a/caffe2/mobile/contrib/libopencl-stub/include/CL/cl.hpp b/caffe2/mobile/contrib/libopencl-stub/include/CL/cl.hpp
+index f3badf7..928c9f0 100644
+--- a/caffe2/mobile/contrib/libopencl-stub/include/CL/cl.hpp
++++ b/caffe2/mobile/contrib/libopencl-stub/include/CL/cl.hpp
+@@ -76,7 +76,7 @@
+  * #if defined(__APPLE__) || defined(__MACOSX)
+  * #include <OpenCL/cl.hpp>
+  * #else
+- * #include <CL/cl.hpp>
++ * #include <CL/cl2.hpp>
+  * #endif
+  * #include <cstdio>
+  * #include <cstdlib>
+diff --git a/third_party/tensorflow_cuda_bazel_build/cuda/BUILD b/third_party/tensorflow_cuda_bazel_build/cuda/BUILD
+index f7271af..334f4ec 100755
+--- a/third_party/tensorflow_cuda_bazel_build/cuda/BUILD
++++ b/third_party/tensorflow_cuda_bazel_build/cuda/BUILD
+@@ -188,7 +188,7 @@ CUDA_INCLUDES_FILES = [
+     "include/CL/cl_gl_ext.h",
+     "include/CL/cl_gl.h",
+     "include/CL/cl.h",
+-    "include/CL/cl.hpp",
++    "include/CL/cl2.hpp",
+     "include/CL/cl_platform.h",
+     "include/CL/opencl.h",
+     "include/common_functions.h",
