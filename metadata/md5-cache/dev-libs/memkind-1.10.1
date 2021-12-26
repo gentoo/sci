@@ -1,16 +1,16 @@
 BDEPEND=sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.2-r1:1.16 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
 DEFINED_PHASES=configure prepare setup test
-DEPEND=sys-apps/ndctl sys-process/numactl
+DEPEND=sys-block/ndctl sys-process/numactl
 DESCRIPTION=user extensible heap manager built on top of jemalloc
 EAPI=7
 HOMEPAGE=https://memkind.github.io/memkind/
 INHERIT=autotools linux-info
 IUSE=+heap-manager openmp secure +tls kernel_linux
-KEYWORDS=~amd64 ~arm64 ~ppc ~ppc64 ~x86
+KEYWORDS=~amd64 ~x86
 LICENSE=BSD
-RDEPEND=sys-apps/ndctl sys-process/numactl
+RDEPEND=sys-block/ndctl sys-process/numactl
 RESTRICT=test
 SLOT=0
 SRC_URI=https://github.com/memkind/memkind/archive/v1.10.1.tar.gz -> memkind-1.10.1.tar.gz
 _eclasses_=gnuconfig	262062cef0ba4f22b397193da514a350	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	8a0248f83ae77f945d376ff4a7953257	libtool	241a8f577b9781a42a7421e53448a44e	autotools	c9df06c186913b43eb211100ef5fe2cf	linux-info	6b67971d8a0a029d13181f2cfb9f5fa9
-_md5_=83b90a167c5df9c4ba92d8e168ee642e
+_md5_=61247f5a7b19325ee0dc6761f1ee73c4
