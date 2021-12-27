@@ -28,7 +28,7 @@ https://github.com/facebookincubator/gloo/archive/c22a5cfba94edf8ea4f53a174d38aa
 https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.tar.gz -> googletest-e2239ee6043f73722e7aa812a459f54a28552929.tar.gz
 https://github.com/intel/ideep/archive/9ca27bbfd88fa1469cbf0467bd6f14cd1738fa40.tar.gz -> ideep-9ca27bbfd88fa1469cbf0467bd6f14cd1738fa40.tar.gz
 https://github.com/intel/mkl-dnn/archive/5ef631a0.tar.gz -> mkl-dnn-5ef631a0.tar.gz
-cuda? ( https://github.com/NVIDIA/nccl/archive/033d7995.tar.gz -> nccl-033d7995.tar.gz )
+cuda? ( https://github.com/NVIDIA/nccl/archive/c5790b36722d5b41ee2a9b2bad69e364180ffd22.tar.gz -> nccl-c5790b36722d5b41ee2a9b2bad69e364180ffd22.tar.gz )
 https://github.com/Maratyszcza/NNPACK/archive/c07e3a0400713d546e0dea2d5466dd22ea389c73.tar.gz -> NNPACK-c07e3a0400713d546e0dea2d5466dd22ea389c73.tar.gz
 https://github.com/onnx/onnx/archive/a82c6a70.tar.gz -> onnx-a82c6a70.tar.gz
 https://github.com/onnx/onnx-tensorrt/archive/c153211418a7c57ce071d9ce2a41f8d1c85a878f.tar.gz -> onnx-tensorrt-c153211418a7c57ce071d9ce2a41f8d1c85a878f.tar.gz
@@ -168,7 +168,7 @@ src_prepare() {
 	rmdir third_party/ideep/mkl-dnn || die
 	ln -sv "${WORKDIR}"/mkl-dnn-5ef631a030a6f73131c77892041042805a06064f third_party/ideep/mkl-dnn || die
 	rmdir third_party/nccl/nccl || die
-	ln -sv "${WORKDIR}"/nccl-033d799524fb97629af5ac2f609de367472b2696 third_party/nccl/nccl || die
+	ln -sv "${WORKDIR}"/nccl-c5790b36722d5b41ee2a9b2bad69e364180ffd22 third_party/nccl/nccl || die
 	rmdir third_party/NNPACK || die
 	ln -sv "${WORKDIR}"/NNPACK-c07e3a0400713d546e0dea2d5466dd22ea389c73 third_party/NNPACK || die
 	rmdir third_party/onnx || die
@@ -208,9 +208,10 @@ src_prepare() {
 
 	if use cuda; then
 		cd third_party/nccl/nccl || die
-		eapply "${FILESDIR}"/${PN}-1.6.0-nccl-nvccflags.patch
+		eapply "${FILESDIR}"/${PN}-1.10.1-nccl-nvccflags.patch
 		cuda_src_prepare
 		export CUDAHOSTCXX=$(cuda_gccdir)/g++
+		cd "${S}"
 	fi
 
 	if use rocm; then
