@@ -11,5 +11,5 @@ RDEPEND=<sys-devel/gcc-10:= !sci-biology/ncbi-tools++ !sci-biology/sra_sdk berkd
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.6.0/ncbi-blast-2.6.0+-src.tar.gz
-_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	8a0248f83ae77f945d376ff4a7953257
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784
 _md5_=e452c109e756c97c302dc8abac715708
