@@ -4,12 +4,12 @@ DESCRIPTION=High-performance, full-featured text search engine written entirely 
 EAPI=7
 HOMEPAGE=https://lucene.apache.org
 INHERIT=java-pkg-2 java-ant-2
-IUSE=elibc_FreeBSD doc source test modules
+IUSE=doc source test modules
 KEYWORDS=~amd64 ~x86
 LICENSE=Apache-2.0
 RDEPEND=dev-java/ant-core:0 dev-java/ant-junit:0 dev-java/hamcrest-core:0 dev-java/jflex:0 modules? ( dev-java/ant-apache-log4j:0 dev-java/antlr:4 dev-java/asm:9 dev-java/asm-commons:9 dev-java/junit:4 dev-java/jakarta-regexp:1.4 dev-java/commons-compress:0 dev-java/commons-collections:0 dev-java/commons-digester:0 dev-java/commons-logging:0 dev-java/commons-beanutils:1.7 dev-java/commons-codec:0 dev-java/icu4j:52 dev-java/log4j:0 ) >=virtual/jre-1.8 >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip )
 RESTRICT=test
 SLOT=8.4
 SRC_URI=https://archive.apache.org/dist/lucene/java/8.4.0/lucene-8.4.0-src.tgz
-_eclasses_=java-utils-2	32fe52795e36e76dcbcf92d89bb1c4d0	java-pkg-2	2d0eb1353bf1264bd6e61736d3e409a2	multilib	de4beb52bfa93c4c5d96792a6b5e1784	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	java-ant-2	262d853e2dd1056dc103b953dfc113b9
+_eclasses_=java-utils-2	eb6cdf369ec1bc780222e7e2136f64f5	java-pkg-2	2d0eb1353bf1264bd6e61736d3e409a2	multilib	de4beb52bfa93c4c5d96792a6b5e1784	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	java-ant-2	262d853e2dd1056dc103b953dfc113b9
 _md5_=31d847c29f5d7e14478ce771102e395c

@@ -5,12 +5,12 @@ DESCRIPTION=Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences
 EAPI=7
 HOMEPAGE=https://canu.readthedocs.io/en/latest
 INHERIT=java-pkg-2 perl-module python-r1
-IUSE=elibc_FreeBSD python_targets_python3_8 python_targets_python3_9
+IUSE=python_targets_python3_8 python_targets_python3_9
 KEYWORDS=~amd64
 LICENSE=GPL-2
 RDEPEND=python_targets_python3_8? ( dev-lang/python:3.8 ) python_targets_python3_9? ( dev-lang/python:3.9 ) >=dev-lang/python-exec-2:=[python_targets_python3_8(-)?,python_targets_python3_9(-)?] >=virtual/jre-1.8:* dev-lang/perl virtual/perl-File-Path sci-visualization/gnuplot sci-biology/minimap2 >=dev-java/java-config-2.2.0-r3 dev-lang/perl:=
 REQUIRED_USE=|| ( python_targets_python3_8 python_targets_python3_9 )
 SLOT=0
 SRC_URI=https://github.com/marbl/canu/releases/download/v2.1.1/canu-2.1.1.tar.xz
-_eclasses_=java-utils-2	32fe52795e36e76dcbcf92d89bb1c4d0	java-pkg-2	2d0eb1353bf1264bd6e61736d3e409a2	multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	perl-module	bd9574a79c5f0a347a9ea3db5ad9ca72	multibuild	05a584848db4901c97fcd94ae7cc3a97	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784	python-utils-r1	a8b7938ade305f087865de7e52d079b5	python-r1	e574a3642f886323f18f867ecc4d91c4
+_eclasses_=java-utils-2	eb6cdf369ec1bc780222e7e2136f64f5	java-pkg-2	2d0eb1353bf1264bd6e61736d3e409a2	multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	perl-module	bd9574a79c5f0a347a9ea3db5ad9ca72	multibuild	05a584848db4901c97fcd94ae7cc3a97	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784	python-utils-r1	a8b7938ade305f087865de7e52d079b5	python-r1	e574a3642f886323f18f867ecc4d91c4
 _md5_=483e69bda8397014bc9ec64004aafadd
