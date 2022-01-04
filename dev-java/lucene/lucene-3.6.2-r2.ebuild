@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -31,7 +31,7 @@ CDEPEND="
 		dev-java/commons-logging:0
 		dev-java/commons-beanutils:1.7
 		dev-java/commons-codec:0
-		dev-java/icu4j:52
+		dev-java/icu4j:70
 	)"
 
 DEPEND="
@@ -119,7 +119,7 @@ src_compile() {
 			commons-logging
 			commons-beanutils-1.7
 			commons-codec
-			icu4j-52
+			icu4j-70
 			"
 		EANT_BUILD_TARGET+=" build-contrib"
 		EANT_DOC_TARGET+=" javadocs-all"
