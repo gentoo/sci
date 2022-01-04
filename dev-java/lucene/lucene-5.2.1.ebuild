@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -35,7 +35,7 @@ CDEPEND="
 		dev-java/commons-logging:0
 		dev-java/commons-beanutils:1.7
 		dev-java/commons-codec:0
-		dev-java/icu4j:52
+		dev-java/icu4j:70
 		dev-java/log4j:0
 	)"
 
@@ -114,7 +114,7 @@ src_prepare() {
 
 	if use modules; then
 		mkdir -p analysis/icu/lib
-		java-pkg_jar-from --into analysis/icu/lib icu4j-52
+		java-pkg_jar-from --into analysis/icu/lib icu4j-70
 		# disable morfologik, dependency does not build
 		# disable uima, dependency does not build
 		# disable phonetic, dependency does not exist
@@ -171,7 +171,7 @@ src_compile() {
 			commons-logging
 			commons-beanutils-1.7
 			commons-codec
-			icu4j-52
+			icu4j-70
 			log4j
 			"
 		EANT_BUILD_TARGET+=" build-modules"
