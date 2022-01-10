@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -159,11 +159,11 @@ src_install() {
 		dodoc -r "${S}"/Examples/*
 	fi
 
-	echo "ITK_DATA_ROOT=${EROOT}/usr/share/${PN}/data" > ${T}/40${PN}
-	local ldpath="${EROOT}/usr/$(get_libdir)/InsightToolkit"
+	echo "ITK_DATA_ROOT=${EPREFIX}/usr/share/${PN}/data" > ${T}/40${PN}
+	local ldpath="${EPREFIX}/usr/$(get_libdir)/InsightToolkit"
 	if use python; then
-		echo "PYTHONPATH=${EROOT}/usr/$(get_libdir)/InsightToolkit/WrapITK/Python" >> "${T}"/40${PN}
-		ldpath="${ldpath}:${EROOT}/usr/$(get_libdir)/InsightToolkit/WrapITK/lib"
+		echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/InsightToolkit/WrapITK/Python" >> "${T}"/40${PN}
+		ldpath="${ldpath}:${EPREFIX}/usr/$(get_libdir)/InsightToolkit/WrapITK/lib"
 	fi
 	echo "LDPATH=${ldpath}" >> "${T}"/40${PN}
 	doenvd "${T}"/40${PN}
