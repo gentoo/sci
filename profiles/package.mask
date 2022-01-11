@@ -36,3 +36,23 @@
 sci-physics/opticks
 sci-chemistry/MotionCor2
 
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
+# Last-rite scilab in favour of scilab-bin. Scilab's java dependencies make
+# a from-source ebuild very difficult since portage doesn't support gradle or
+# maven. In addition it requires old versions of libraries that have already
+# been removed.
+# Removal in 30 days
+sci-mathematics/scilab
+>dev-java/lucene-4
+dev-java/flexdock
+dev-java/gluegen
+dev-java/jogl
+dev-java/jlatexmath
+dev-java/jlatexmath-fop
+dev-java/jfreechart
+dev-java/jfreesvg
+dev-java/jgraphx
+dev-java/jcommon
+dev-java/skinlf
+dev-java/jrosetta
+dev-java/freehep-graphicsio-emf
