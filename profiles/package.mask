@@ -56,3 +56,5 @@ dev-java/jcommon
 dev-java/skinlf
 dev-java/jrosetta
 dev-java/freehep-graphicsio-emf
+# and also mask this which hasn't seen an upstream release since 2007!
+sci-biology/conrad
