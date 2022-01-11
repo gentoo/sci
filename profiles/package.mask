@@ -58,3 +58,7 @@ dev-java/jrosetta
 dev-java/freehep-graphicsio-emf
 # and also mask this which hasn't seen an upstream release since 2007!
 sci-biology/conrad
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
+# Removal in 30 days, use jupyterlab-desktop instead.
+sci-misc/europa-bin
