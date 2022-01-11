@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -32,7 +32,7 @@ BDEPEND="
 "
 RDEPEND="
 	${PYTHON_DEPS}
-	sci-libs/opencascade:7.5=[json,tbb,vtk,-gles2]
+	sci-libs/opencascade:0/7.5[json,tbb,vtk,-gles2]
 	>=sci-libs/vtk-9.0.0[python,${PYTHON_SINGLE_USEDEP}]
 "
 DEPEND="${RDEPEND}
