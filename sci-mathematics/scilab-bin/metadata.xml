@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci-mathematics@gentoo.org</email>
+		<name>Gentoo Mathematics Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		Scilab is a matrix-based scientific software package. Scilab contains
+		hundreds of built-in mathematical functions, rich data structures
+		(including polynomials, rationals,linear systems, lists, etc...) and
+		comes with a number of specific toolboxes for control, signal
+		processing, ...
+	</longdescription>
+</pkgmetadata>
