@@ -11,23 +11,18 @@
 	</maintainer>
 	<use>
 		<flag name="asan">Build with address sanitizer (ASAN)</flag>
-		<flag name="atlas">Use ATLAS as BLAS implementation</flag>
 		<flag name="cuda">Enable support for nVidia CUDA</flag>
-		<flag name="eigen">Use Eigen as BLAS implementation</flag>
 		<flag name="fbgemm">Enable FBGEMM (Facebook GEneral Matrix Multiplication) support</flag>
 		<flag name="gflags">Build with gflags</flag>
 		<flag name="glog">Build with glog support</flag>
 		<flag name="gloo">Build gloo distributed communication backend support</flag>
 		<flag name="leveldb">Enable support for LevelDB</flag>
 		<flag name="lmdb">Enable support for LMDB</flag>
-		<flag name="mkl">Use Intel MKL as BLAS implementation</flag>
 		<flag name="mkldnn">Build with Intel MKL-DNN support</flag>
 		<flag name="namedtensor">Enable support for named tensors</flag>
 		<flag name="nnpack">Enable NNPACK support</flag>
 		<flag name="numa">Enable support for NUMA</flag>
-		<flag name="numpy">Enable NumPy support</flag>
 		<flag name="observers">Build observers</flag>
-		<flag name="openblas">Use OpenBLAS as BLAS implementation</flag>
 		<flag name="opencv">Enable support for OpenCV</flag>
 		<flag name="opencl">Enable support for OpenCL</flag>
 		<flag name="qnnpack">Enable QNNPACK support</flag>
