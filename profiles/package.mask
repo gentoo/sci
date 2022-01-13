@@ -65,6 +65,11 @@ dev-java/htsjdk
 sci-biology/cramtools
 sci-biology/pilon-bin
 
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org (13 Jan 2022)
+# Broken, no consumers
+# Removal in 30 days
+dev-lang/terra
+
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
 # Removal in 30 days, use jupyterlab-desktop instead.
 sci-misc/europa-bin
