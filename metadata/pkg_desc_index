@@ -177,7 +177,6 @@ media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics softwa
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
 media-libs/yocto-gl 3.3.0: Single File Libraries for Physically-Based Graphics
 net-misc/cernbox-client 2.9.1.5500 2.9.2.6206: Synchronize files from CERNBox EOS with your computer
-sci-astronomy/erfa 1.7.0 1.7.1: Essential Routines for Fundamental Astronomy
 sci-astronomy/libthesky 0.4.1-r1: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
 sci-biology/ABI-expression-data 0.2: Gene expression data form the Allen Mouse Brain data portal
