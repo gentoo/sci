@@ -60,6 +60,15 @@ dev-java/freehep-graphicsio-emf
 sci-biology/conrad
 # depends on dev-java/args4j which is being last-rited from ::gentoo
 sci-libs/jhdf5
+# ancient java, can't update due to gradle/maven limitation
+dev-java/htsjdk
+sci-biology/cramtools
+sci-biology/pilon-bin
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org (13 Jan 2022)
+# Broken, no consumers
+# Removal in 30 days
+dev-lang/terra
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
 # Removal in 30 days, use jupyterlab-desktop instead.
