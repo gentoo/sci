@@ -128,6 +128,7 @@ dev-python/pytest-doctestplus 0.8.0: Pytest plugin with advanced doctest feature
 dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.8.2 0.8.3 0.9.0: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
+dev-python/pytorch-lightning 1.5.8: Lightweight PyTorch wrapper for ML researchers
 dev-python/pyvista 0.31.1: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
