@@ -38,7 +38,6 @@ dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common 
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
 dev-libs/optix 6.0.0 7.0.0 7.1.0 7.2.0: NVIDIA Ray Tracing Engine
-dev-libs/protobuf 3.11.4: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
@@ -117,10 +116,9 @@ dev-python/panel 0.11.0: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1: Make Python code clearer and more reliable by declaring Parameters
 dev-python/persim 0.1.3 0.2.0 0.3.0 0.3.1: Distances and representations of persistence diagrams
 dev-python/photutils 1.0.1: Affiliated package for image photometry utilities
-dev-python/protobuf-python 3.11.4-r1: Google's Protocol Buffers - Python bindings
 dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
-dev-python/pybind11-stubgen 0.8.6 0.8.7: PEP 561 type stubs generator for pybind11 modules
+dev-python/pybind11-stubgen 0.8.6 0.8.7 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 1.7.1.1: Python bindings for ERFA
 dev-python/pynndescent 0.5.2: nearest neighbor descent for approximate nearest neighbors
@@ -157,7 +155,6 @@ dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
 dev-python/visvis 1.13.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/xgboost 1.3.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1 1.1.0: Open compressed files transparently
-dev-tcltk/togl 1.7-r1 2.0: Tk widget for OpenGL rendering
 dev-util/Tensile 4.0.0 4.0.0-r1: Stretching GPU performance for GEMMs and tensor contractions
 dev-util/bcm 0.0.1_p20191110: Boost cmake modules
 dev-util/f90cache 0.99c: Compiler cache for fortran
@@ -527,7 +524,7 @@ sci-mathematics/gappalib-coq 1.4.6: Allows the certificates Gappa generates to b
 sci-mathematics/libsfmt 1.3.0: SIMD-oriented Fast Mersenne Twister
 sci-mathematics/lie 2.2.2: A Computer algebra package for Lie group computations
 sci-mathematics/ltl2ba 1.1: Fast LTL to Buechi Automata Translation
-sci-mathematics/netgen 5.3.1 6.0_beta: Automatic 3d tetrahedral mesh generator
+sci-mathematics/netgen 6.2.2105: Automatic 3d tetrahedral mesh generator
 sci-mathematics/open-axiom 1.4.2_p20180201: Symbolic and algebraic computations system
 sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
@@ -562,6 +559,5 @@ sci-visualization/fsleyes-widgets 0.8.4 0.9.0: GUI widgets and utilities for the
 sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
-virtual/scalapack 2.0.2-r1: Virtual for ScaLAPACK implementation
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
