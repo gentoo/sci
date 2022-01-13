@@ -58,6 +58,8 @@ dev-java/jrosetta
 dev-java/freehep-graphicsio-emf
 # and also mask this which hasn't seen an upstream release since 2007!
 sci-biology/conrad
+# depends on dev-java/args4j which is being last-rited from ::gentoo
+sci-libs/jhdf5
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
 # Removal in 30 days, use jupyterlab-desktop instead.
