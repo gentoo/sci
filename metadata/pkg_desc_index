@@ -88,7 +88,7 @@ dev-python/extension-helpers 0.1: Utilities for building and installing packages
 dev-python/ezdxf 0.16.5: Python interface to DXF
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
-dev-python/fslpy 2.8.4 3.4.0: The FSL Python Library
+dev-python/fslpy 2.8.4 3.4.0 3.8.1: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
 dev-python/gmsh_interop 2019.1: Interoperability with Gmsh for Python
@@ -148,7 +148,7 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/texext 0.6.6: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
-dev-python/trimesh 3.9.1: Python library for loading and using triangular meshes.
+dev-python/trimesh 3.9.1 3.9.42: Python library for loading and using triangular meshes.
 dev-python/typish 1.9.3: Python functions for thorough checks on types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.4.6 0.5.0 0.5.1: Uniform Manifold Approximation and Projection
@@ -280,7 +280,7 @@ sci-biology/ffindex 1.0: Simple index/database for huge amounts of small files
 sci-biology/flexbar 3.5.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 1.3.5: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
-sci-biology/fsl 6.0.2 6.0.2-r1 6.0.4: Analysis of functional, structural, and diffusion MRI brain imaging data
+sci-biology/fsl 6.0.2 6.0.2-r1 6.0.4 6.0.5: Analysis of functional, structural, and diffusion MRI brain imaging data
 sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
 sci-biology/genepop 4.7: Population genetics analysis
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
