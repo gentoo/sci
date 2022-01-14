@@ -230,6 +230,7 @@ src_prepare() {
 		export PYTORCH_ROCM_ARCH="${AMDGPU_TARGETS}"
 		sed -e "/set(roctracer_INCLUDE_DIRS/s,\${ROCTRACER_PATH}/include,${EPREFIX}/usr/include/roctracer," \
 			-e "/PYTORCH_HIP_HCC_LIBRARIES/s,\${HIP_PATH}/lib,${EPREFIX}/usr/lib/hip/lib," \
+			-e "/set(roctracer_INCLUDE_DIRS/a\  set(thrust_INCLUDE_DIRS ${EPREFIX}/usr/include/rocthrust)" \
 			-e "s,\${ROCTRACER_PATH}/lib,${EPREFIX}/usr/lib64/roctracer," \
 			-e "/READ.*\.info\/version-dev/c\  set(ROCM_VERSION_DEV_RAW ${ROCM_VERSION})" \
 			-i cmake/public/LoadHIP.cmake || die
