@@ -73,3 +73,10 @@ dev-lang/terra
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
 # Removal in 30 days, use jupyterlab-desktop instead.
 sci-misc/europa-bin
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org (14 Jan 2022)
+# Does not compile, no upstream activity since 2016
+# https://github.com/gmarcais/Quorum/issues/2
+# https://github.com/gmarcais/Quorum/issues/1
+# Removal in 30 days
+sci-biology/quorum
