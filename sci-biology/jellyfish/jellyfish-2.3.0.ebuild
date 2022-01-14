@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit autotools
-
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
 SRC_URI="https://github.com/gmarcais/Jellyfish/releases/download/v${PV}/${P}.tar.gz"
@@ -16,14 +14,12 @@ SLOT="2"
 KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse"
 
-DEPEND=""
+RDEPEND="
+	sci-biology/samtools:0
+	sci-libs/htslib
+"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
-
-src_prepare(){
-	eautoreconf
-	default
-}
 
 # TODO: enable compilation of Bindings to Ruby, Python and Perl
 # '--enable-ruby-binding', '--enable-python-binding' or '--enable-perl-binding',  '--enable-swig'
