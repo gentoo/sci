@@ -275,7 +275,7 @@ sci-biology/erpin 5.5b: Easy RNA Profile IdentificatioN, an RNA motif search pro
 sci-biology/estscan 3.0.3: Prediction of coding regions in DNA/RNA sequences
 sci-biology/exonerate-gff3 9999: exonerate-2.2.0 with patches to add GFF3 formatted output
 sci-biology/fastdnaml 1.2.2_p10: Maximum likelihood phylogenetic tree builder for DNA sequences
-sci-biology/fastqc 0.11.3: Quality control FASTA/FASTQ sequence files
+sci-biology/fastqc 0.11.9: Quality control FASTA/FASTQ sequence files
 sci-biology/ffindex 1.0: Simple index/database for huge amounts of small files
 sci-biology/flexbar 3.5.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 1.3.5: Bayesian gen. variant detector to find short polymorphisms
