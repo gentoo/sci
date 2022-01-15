@@ -17,6 +17,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
 	sci-biology/bamtools
+	virtual/jdk:*
 "
 RDEPEND="${DEPEND}
 	virtual/jre:*
