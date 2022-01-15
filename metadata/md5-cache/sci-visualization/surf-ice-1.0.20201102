@@ -1,5 +1,5 @@
 DEFINED_PHASES=compile install postinst postrm preinst prepare
-DEPEND=dev-lang/fpc >=dev-lang/lazarus-1.6.2[python(-)] dev-util/desktop-file-utils x11-misc/shared-mime-info
+DEPEND=dev-lang/fpc >=dev-lang/lazarus-1.6.2 dev-util/desktop-file-utils x11-misc/shared-mime-info
 DESCRIPTION=A simple medical imaging visualization tool
 EAPI=7
 HOMEPAGE=https://github.com/neurolabusc/surf-ice
@@ -9,4 +9,4 @@ LICENSE=BSD
 SLOT=0
 SRC_URI=https://github.com/neurolabusc/surf-ice/archive/v1.0.20201102.tar.gz -> surf-ice-1.0.20201102.tar.gz
 _eclasses_=desktop	c0d27bf73aa08ca05b663dbd31fbef28	xdg-utils	4f29a8b760a594a212abe9c2ba957c31	xdg	6024fbc93167fad782e2032933654857
-_md5_=14e6ab9cec014c4b332961493a742e2b
+_md5_=c16a29eec91d6ba5d4fef4824aca2210
