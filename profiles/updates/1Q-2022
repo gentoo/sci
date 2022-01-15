@@ -1,1 +1,1 @@
-sci-biology/sra_sdk sci-biology/sra-tools
+move sci-biology/sra_sdk sci-biology/sra-tools
