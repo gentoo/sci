@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -25,7 +25,7 @@ BDEPEND="
 	doc? ( app-doc/doxygen[dot] )
 "
 DEPEND="
-	boost? ( dev-libs/boost:=[static-libs(-)] )
+	boost? ( dev-libs/boost:= )
 "
 
 src_configure() {
