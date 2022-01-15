@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
-inherit python-single-r1
+inherit python-single-r1 java-pkg-2
 
 DESCRIPTION="NGS Language Bindings "
 HOMEPAGE="https://github.com/ncbi/ngs"
@@ -17,10 +17,10 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
 	sci-biology/bamtools
-	virtual/jdk:*
+	virtual/jdk:1.8
 "
 RDEPEND="${DEPEND}
-	virtual/jre:*
+	virtual/jre:1.8
 "
 
 src_configure() {
