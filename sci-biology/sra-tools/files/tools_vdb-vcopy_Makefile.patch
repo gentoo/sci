@@ -1,0 +1,12 @@
+diff -u -w sra_sdk-2.1.9/work/sra_sdk-2.1.9/tools/vdb-copy/Makefile sra_sdk-2.1.9/work/sra_sdk-2.1.9/tools/vdb-copy/Makefile
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/tools/vdb-copy/Makefile	2011-12-02 22:00:36.000000000 +0100
++++ sra_sdk-2.1.9/work/sra_sdk-2.1.9/tools/vdb-copy/Makefile	2012-02-06 18:39:05.000000000 +0100
+@@ -89,7 +89,7 @@
+ $(BINDIR)/vdb-copy: $(NCBIDIR)/vdb-copy.kfg 
+ 
+ $(NCBIDIR)/vdb-copy.kfg: $(SRCDIR)/vdb-copy.kfg
+-	cp $^ $@
++	cp $^ $(DESTDIR)$@
+ 
+ VDB_COPY_SRC = \
+ 	num-gen \

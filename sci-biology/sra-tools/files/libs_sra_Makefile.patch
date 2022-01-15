@@ -1,0 +1,77 @@
+diff -u -w sra_sdk-2.1.9/work/sra_sdk-2.1.9/libs/sra/Makefile sra_sdk-2.1.9/work/sra_sdk-2.1.9/libs/sra/Makefile
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/libs/sra/Makefile	2011-12-02 21:30:12.000000000 +0100
++++ sra_sdk-2.1.9/work/sra_sdk-2.1.9/libs/sra/Makefile	2012-02-06 18:38:45.000000000 +0100
+@@ -100,7 +100,7 @@
+ 	$(addsuffix .$(LOBX),$(SRAPATH_SRC))
+ 
+ $(LIBDIR)/libsrapath.$(LIBX): $(SRAPATH_OBJ)
+-	$(LD) --slib -o $@ $^
++	$(LD) --slib -o $(DESTDIR)$@ $^
+ 
+ libsrapath.vers.h:
+ 	@ true
+@@ -138,10 +138,10 @@
+ 	-dklib
+ 
+ $(LIBDIR)/libsra-schema.$(SHLX): $(SRA_SCHEMA_OBJ)
+-	$(LD) --dlib --vers $(SRCDIR) -o $@ $^ $(SRA_SCHEMA_LIB)
++	$(LD) --dlib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(SRA_SCHEMA_LIB)
+ 
+ $(LIBDIR)/libwsra-schema.$(SHLX): $(WSRA_SCHEMA_OBJ)
+-	$(LD) --dlib --vers $(SRCDIR) -o $@ $^ $(WSRA_SCHEMA_LIB)
++	$(LD) --dlib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(WSRA_SCHEMA_LIB)
+ 
+ SRASCHEMA_SRC = \
+ 	sraschema-stub
+@@ -168,10 +168,10 @@
+ 	$(addsuffix .$(LOBX),$(WSRASCHEMA_SRC))
+ 
+ $(LIBDIR)/libsraschema.$(LIBX): $(SRASCHEMA_OBJ) $(SRASCHEMA_DEPS)
+-	$(LD) --slib -o $@ $(SRASCHEMA_OBJ) $(SRA_SCHEMA_LIB)
++	$(LD) --slib -o $(DESTDIR)$@ $(SRASCHEMA_OBJ) $(SRA_SCHEMA_LIB)
+ 
+ $(LIBDIR)/libwsraschema.$(LIBX): $(WSRASCHEMA_OBJ) $(WSRASCHEMA_DEPS)
+-	$(LD) --slib -o $@ $(WSRASCHEMA_OBJ) $(WSRA_SCHEMA_LIB)
++	$(LD) --slib -o $(DESTDIR)$@ $(WSRASCHEMA_OBJ) $(WSRA_SCHEMA_LIB)
+ 
+ libsraschema_tag:
+ 	@ $(TOP)/build/tag-module.sh $(MODULE) libsraschema $(SRASCHEMA_OBJ)
+@@ -205,10 +205,10 @@
+ 	-dklib
+ 
+ $(LIBDIR)/libsradb.$(SHLX): $(SRADB_OBJ)
+-	$(LD) --dlib --vers $(SRCDIR) -o $@ $^ $(SRADB_LIB)
++	$(LD) --dlib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(SRADB_LIB)
+ 
+ $(LIBDIR)/libsradb.$(LIBX): $(SRADB_OBJ)
+-	$(LD) --slib --vers $(SRCDIR) -o $@ $^ $(SRADB_LIB)
++	$(LD) --slib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(SRADB_LIB)
+ 
+ libsradb_tag: $(SRADB_TAGS)
+ 	@ $(TOP)/build/tag-module.sh $(MODULE) libsradb $(SRADB_OBJ)
+@@ -236,10 +236,10 @@
+ 	-dklib
+ 
+ $(LIBDIR)/libwsradb.$(SHLX): $(WSRADB_OBJ)
+-	$(LD) --dlib --vers $(SRCDIR) -o $@ $^ $(WSRADB_LIB)
++	$(LD) --dlib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(WSRADB_LIB)
+ 
+ $(LIBDIR)/libwsradb.$(LIBX): $(WSRADB_OBJ)
+-	$(LD) --slib --vers $(SRCDIR) -o $@ $^ $(WSRADB_LIB)
++	$(LD) --slib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(WSRADB_LIB)
+ 
+ libwsradb_tag: $(WSRADB_TAGS)
+ 	@ $(TOP)/build/tag-module.sh $(MODULE) libwsradb $(WSRADB_OBJ)
+@@ -266,10 +266,10 @@
+ 	-dklib
+ 
+ $(LIBDIR)/libsrareader.$(SHLX): $(SRAREADER_OBJ)
+-	$(LD) --dlib --vers $(SRCDIR) -o $@ $^ $(SRAREADER_LIB)
++	$(LD) --dlib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(SRAREADER_LIB)
+ 
+ $(LIBDIR)/libsrareader.$(LIBX): $(SRAREADER_OBJ)
+-	$(LD) --slib --vers $(SRCDIR) -o $@ $^ $(SRAREADER_LIB)
++	$(LD) --slib --vers $(SRCDIR) -o $(DESTDIR)$@ $^ $(SRAREADER_LIB)
+ 
+ libsrareader_tag:
+ 	@ $(TOP)/build/tag-module.sh $(MODULE) libsrareader $(SRAREADER_OBJ)
