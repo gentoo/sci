@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -34,10 +34,10 @@ RDEPEND="
 	$(python_gen_cond_dep '
 		dev-libs/boost[${PYTHON_USEDEP}]
 		dev-libs/libxml2[${PYTHON_USEDEP}]
+		dev-python/pandas[${PYTHON_USEDEP}]
+		dev-python/numpy[${PYTHON_USEDEP}]
+		dev-python/cython[${PYTHON_USEDEP}]
 	')
-	dev-python/pandas
-	dev-python/cython
-	dev-python/numpy
 	dev-libs/stb
 	>=sci-libs/armadillo-8.4.0[arpack,blas,lapack]
 	sci-libs/ensmallen
@@ -51,6 +51,9 @@ BDEPEND="
 		app-doc/doxygen
 		dev-libs/mathjax
 	)
+	$(python_gen_cond_dep '
+		dev-python/cython[${PYTHON_USEDEP}]
+	')
 	test? ( $( python_gen_cond_dep '
 		dev-python/pytest[${PYTHON_USEDEP}]
 		')
@@ -75,6 +78,9 @@ src_prepare() {
 		-e "s:share/doc/mlpack:share/doc/${PF}:" \
 		-e 's/-O3//g' \
 		CMakeLists.txt || die
+	# drop dep on pytest-runner
+	sed -i -e "/setup_requires/d" \
+		src/mlpack/bindings/python/setup.py.in || die
 	cmake_src_prepare
 }
 
