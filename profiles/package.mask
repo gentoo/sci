@@ -64,6 +64,7 @@ sci-libs/jhdf5
 dev-java/htsjdk
 sci-biology/cramtools
 sci-biology/pilon-bin
+sci-misc/opennlp-maxent
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (13 Jan 2022)
 # Broken, no consumers
