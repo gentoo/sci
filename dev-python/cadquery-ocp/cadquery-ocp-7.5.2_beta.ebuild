@@ -32,7 +32,7 @@ BDEPEND="
 "
 RDEPEND="
 	${PYTHON_DEPS}
-	sci-libs/opencascade:0/7.5[json,tbb,vtk,-gles2]
+	sci-libs/opencascade:0/7.5[json,tbb,vtk]
 	>=sci-libs/vtk-9.0.0[python,${PYTHON_SINGLE_USEDEP}]
 "
 DEPEND="${RDEPEND}
