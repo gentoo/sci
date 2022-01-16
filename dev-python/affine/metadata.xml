@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription lang="en">
+  Affine is a python library for handling affine transformations of the plane.
+  Georeferenced raster datasets use affine transformations to map from image 
+  coordinates to world coordinates. 
+</longdescription>
+  <upstream>
+    <remote-id type="github">rasterio/affine</remote-id>
+    <remote-id type="pypi">affine</remote-id>
+  </upstream>
+</pkgmetadata>
