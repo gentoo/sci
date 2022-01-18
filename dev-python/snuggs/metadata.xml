@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <longdescription lang="en">
+  Snuggs library parses S-expressions using numpy. Available function 
+  include arithmetic and logical operators.  Also members of the numpy 
+  module such as "asarray()", "mean()" and "where" are available.
+</longdescription>
+  <upstream>
+    <remote-id type="github">mapbox/snuggs</remote-id>
+    <remote-id type="pypi">snuggs</remote-id>
+  </upstream>
+</pkgmetadata>
