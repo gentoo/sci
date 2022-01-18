@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -114,7 +114,7 @@ DEPEND="${RDEPEND}
 	dev-python/pybind11[${PYTHON_USEDEP}]
 	dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
-	sys-fabric/libibverbs
+	sys-cluster/rdma-core
 	sys-process/numactl
 "
 
