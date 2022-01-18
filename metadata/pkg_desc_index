@@ -59,6 +59,7 @@ dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-python/Forthon 0.8.49 0.9.4: Python interface generator for Fortran based codes
 dev-python/POT 0.7.0: Python Optimal Transport Library
 dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
+dev-python/affine 2.3.0: Library for handling affine transformations of the plane
 dev-python/amply 0.1.4: Allows you to load and manipulate AMPL/GLPK data as Python data structures
 dev-python/annexremote 1.5.0 1.6.0: Helper module to easily develop git-annex remotes
 dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
@@ -77,6 +78,7 @@ dev-python/cadquery 2.2_rc20210804: Python parametric CAD scripting framework ba
 dev-python/cadquery-ocp 7.5.2_beta: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
+dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
@@ -88,8 +90,10 @@ dev-python/extension-helpers 0.1: Utilities for building and installing packages
 dev-python/ezdxf 0.16.5: Python interface to DXF
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
+dev-python/fiona 1.8.20: API for reading/writing vector geospatial data
 dev-python/fslpy 2.8.4 3.4.0 3.8.1: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
+dev-python/geopandas 0.10.2: Python tools for geographic data
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
 dev-python/gmsh_interop 2019.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
@@ -133,6 +137,8 @@ dev-python/pyvista 0.31.1: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pyzo 4.11.2: The Python IDE for scientific computing
+dev-python/rasterio 1.2.10: Command line tool and API for geospatial raster data
+dev-python/rasterstats 0.16.0: Python module for summarizing geospatial raster datasets based on vectors
 dev-python/regions 0.4: Astropy affilated package for region handling
 dev-python/reproject 0.7.1: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
@@ -140,6 +146,7 @@ dev-python/ripser 0.6.0: python frontend for the fast ripser tda tool
 dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
 dev-python/snakemake 5.32.2: Make-like task language
+dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
 dev-python/sphinx-argparse 0.2.5: Sphinx extension that automatically documents argparse commands and options
 dev-python/sphinx-astropy 1.3: Sphinx extensions and configuration specific to the Astropy project
