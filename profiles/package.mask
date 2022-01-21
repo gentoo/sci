@@ -86,3 +86,7 @@ sci-biology/quorum
 # No updates since 2009(!), no longer compiles
 # Removal in 30 days
 sci-biology/jigsaw
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org (21 Jan 2022)
+# Requires dev-java/nanoxml which is masked for removal in ::gentoo
+sci-biology/jtreeview
