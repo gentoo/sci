@@ -125,12 +125,7 @@ We welcome new contributors and are happy to include new packages.
 
 ### Areas to contribute
 
-- [Current open issues](https://github.com/gentoo/sci/issues)
 - [Current open bugs](https://bugs.gentoo.org/buglist.cgi?no_redirect=1&quicksearch=[science+overlay])
-- EAPI 6 (or 5) ebuilds which need updating
-```
-find . -type f -name "*.ebuild" ! \( -wholename "*.git*" -o -wholename "*profile*" -o -wholename "*metadata*" \) | while read ff; do grep -lRE "EAPI.*6" /dev/null $ff; done
-```
 
 ### Resources
 
@@ -144,4 +139,4 @@ Additionally, please make sure to add the Science Project as an additional maint
 ## Support
 
 You can ask for help on [Libera IRC](https://www.gentoo.org/get-involved/irc-channels/) in [**#gentoo-science**](https://web.libera.chat/#gentoo-science).
-Alternatively you can report bugs on the [GitHub issues page](https://github.com/gentoo/sci/issues).
+Alternatively you can report bugs on the [Gentoo Bugzilla](https://bugs.gentoo.org/).
