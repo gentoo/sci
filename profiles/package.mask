@@ -34,7 +34,6 @@
 # cuda-10 is being removed from ::gentoo, mask revdeps in ::sci
 # for removal too. Removal in 90 days
 sci-physics/opticks
-sci-chemistry/MotionCor2
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
 # Last-rite scilab in favour of scilab-bin. Scilab's java dependencies make
