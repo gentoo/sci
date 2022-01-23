@@ -56,8 +56,3 @@ sci-biology/conrad
 sci-libs/jhdf5
 # ancient java, can't update due to gradle/maven limitation
 dev-java/htsjdk
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org (13 Jan 2022)
-# Broken, no consumers
-# Removal in 30 days
-dev-lang/terra
