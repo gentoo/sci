@@ -1,7 +1,7 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit meson
 
@@ -20,6 +20,7 @@ BDEPEND="
 "
 DEPEND="
 	sci-biology/pbcopper
+	sci-biology/samtools:0
 	>=sci-libs/htslib-1.3.1:=
 	>=dev-libs/boost-1.55:=
 "
