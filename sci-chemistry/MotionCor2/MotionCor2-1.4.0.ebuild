@@ -11,11 +11,9 @@ S="${WORKDIR}"/${PN}_${PV}
 LICENSE="UCSF-Motioncor2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+cuda102"
 RESTRICT="fetch"
 
 RDEPEND="
-	cuda102? ( =dev-util/nvidia-cuda-toolkit-10.2* )
 	media-libs/tiff
 	app-arch/xz-utils
 	media-libs/libjpeg-turbo
@@ -33,10 +31,7 @@ src_install() {
 	      MotionCor2_1.4.0_ReleaseIntro-10-14-2020.docx
 	docompress -x /usr/share/doc/${PF}
 
-	# package also has 10.0 10.1 11.0 versions
-	# but these cuda versions are not in ::gentoo
 	local mcbin
-	use cuda102 && mcbin="${PN}_${PV}_Cuda102"
 	dobin "${mcbin}"
 	dosym "${mcbin}" /usr/bin/MotionCor2
 }

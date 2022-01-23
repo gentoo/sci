@@ -9,7 +9,7 @@ inherit distutils-r1 virtualx
 
 DESCRIPTION="The FSL Python Library"
 HOMEPAGE="https://git.fmrib.ox.ac.uk/fsl/fslpy"
-SRC_URI="https://git.fmrib.ox.ac.uk/fsl/${PN}/-/archive/${PV}/${P}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://git.fmrib.ox.ac.uk/fsl/${PN}/-/archive/${PV}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
