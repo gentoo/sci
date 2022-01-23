@@ -56,7 +56,6 @@ sci-biology/conrad
 sci-libs/jhdf5
 # ancient java, can't update due to gradle/maven limitation
 dev-java/htsjdk
-sci-biology/cramtools
 sci-biology/pilon-bin
 sci-misc/opennlp-maxent
 
