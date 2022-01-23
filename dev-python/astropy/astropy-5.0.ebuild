@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -16,7 +16,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 #TODO: Package all these pytest deps:
-# 	pytest-doctestplus>=0.2.0
 # 	pytest-remotedata>=0.3.1
 # 	pytest-openfiles>=0.3.1
 # 	pytest-astropy-header>=0.1.2
@@ -26,8 +25,10 @@ RESTRICT="test"
 
 RDEPEND="
 	dev-libs/expat:0=
-	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/pyerfa[${PYTHON_USEDEP}]
+	>=dev-python/numpy-1.18[${PYTHON_USEDEP}]
+	>=dev-python/pyerfa-2.0[${PYTHON_USEDEP}]
+	>=dev-python/pyyaml-3.13[${PYTHON_USEDEP}]
+	>=dev-python/packaging-19.0[${PYTHON_USEDEP}]
 	sci-astronomy/wcslib:0=
 	>=sci-libs/cfitsio-3.350:0=
 	sys-libs/zlib:0=
