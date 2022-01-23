@@ -50,7 +50,5 @@ dev-java/jcommon
 dev-java/skinlf
 dev-java/jrosetta
 dev-java/freehep-graphicsio-emf
-# depends on dev-java/args4j which is being last-rited from ::gentoo
-sci-libs/jhdf5
 # ancient java, can't update due to gradle/maven limitation
 dev-java/htsjdk
