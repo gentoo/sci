@@ -37,18 +37,3 @@
 # been removed.
 # Removal in 30 days
 sci-mathematics/scilab
->dev-java/lucene-4
-dev-java/flexdock
-dev-java/gluegen
-dev-java/jogl
-dev-java/jlatexmath
-dev-java/jlatexmath-fop
-dev-java/jfreechart
-dev-java/jfreesvg
-dev-java/jgraphx
-dev-java/jcommon
-dev-java/skinlf
-dev-java/jrosetta
-dev-java/freehep-graphicsio-emf
-# ancient java, can't update due to gradle/maven limitation
-dev-java/htsjdk
