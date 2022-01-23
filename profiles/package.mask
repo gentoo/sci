@@ -50,8 +50,6 @@ dev-java/jcommon
 dev-java/skinlf
 dev-java/jrosetta
 dev-java/freehep-graphicsio-emf
-# and also mask this which hasn't seen an upstream release since 2007!
-sci-biology/conrad
 # depends on dev-java/args4j which is being last-rited from ::gentoo
 sci-libs/jhdf5
 # ancient java, can't update due to gradle/maven limitation
