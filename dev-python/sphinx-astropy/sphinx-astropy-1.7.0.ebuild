@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -19,9 +19,10 @@ KEYWORDS="~amd64 ~x86"
 RESTRICT="test"
 
 RDEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/astropy-sphinx-theme[${PYTHON_USEDEP}]
 	dev-python/numpydoc[${PYTHON_USEDEP}]
-	dev-python/sphinx[${PYTHON_USEDEP}]
+	>=dev-python/sphinx-1.7[${PYTHON_USEDEP}]
 	dev-python/sphinx-automodapi[${PYTHON_USEDEP}]
 	dev-python/sphinx-gallery[${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
