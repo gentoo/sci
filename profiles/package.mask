@@ -29,11 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
-# Last-rite scilab in favour of scilab-bin. Scilab's java dependencies make
-# a from-source ebuild very difficult since portage doesn't support gradle or
-# maven. In addition it requires old versions of libraries that have already
-# been removed.
-# Removal in 30 days
-sci-mathematics/scilab
