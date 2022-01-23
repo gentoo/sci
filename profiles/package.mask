@@ -30,11 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (26 Dec 2021)
-# cuda-10 is being removed from ::gentoo, mask revdeps in ::sci
-# for removal too. Removal in 90 days
-sci-physics/opticks
-
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (11 Jan 2022)
 # Last-rite scilab in favour of scilab-bin. Scilab's java dependencies make
 # a from-source ebuild very difficult since portage doesn't support gradle or
