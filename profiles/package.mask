@@ -71,8 +71,3 @@ dev-lang/terra
 # https://github.com/gmarcais/Quorum/issues/1
 # Removal in 30 days
 sci-biology/quorum
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org (15 Jan 2022)
-# No updates since 2009(!), no longer compiles
-# Removal in 30 days
-sci-biology/jigsaw
