@@ -3,10 +3,6 @@
 # * generated automatically using pmaint *
 
 dev-cpp/blitz:boost - Enable serialization support using Boost::Serialization.
-dev-java/jfreesvg:debug - Enable debugging during compilation.
-dev-java/jogl:cg - Enable NVidia Cg binding.
-dev-java/lucene:contrib - Include extra functionality from contrib/
-dev-java/lucene:modules - Also build optional modules
 dev-lang/berkeley_upc:mpi-compat - Enable interoperability with MPI
 dev-lang/berkeley_upc:pshm - Build UPC Runtime/GASNet with Process-SHared Memory enabled
 dev-lang/berkeley_upc:segment-fast - Select GASNet's FAST segments (default), for the fastest remote access with a possible cost in max shared memory size
@@ -19,7 +15,6 @@ dev-lang/berkeley_upc:udp - Support running over UDP
 dev-lang/conceptual:gui - Build the Java base graphical interface
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
-dev-lang/terra:cuda - Enable CUDA
 dev-libs/asmjit:natvis - build natvis files
 dev-libs/boost-compute:benchmark - build benchmark examples
 dev-libs/boost-compute:bolt - build bolt examples and tests
@@ -86,7 +81,6 @@ sci-biology/ncbi-tools++:xslt - Undocumented USE
 sci-biology/samri:atlases - Include dependency on compatible anatomica atlases.
 sci-biology/samri:labbookdb - Pipe data from LabbookDB databases.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
-sci-chemistry/MotionCor2:cuda102 - Install cuda-10.2 version
 sci-chemistry/gamess:msucc - Build Michigan State University CCT3 and CCSD3A methods. This will increase build time and memory requirements by ~10 times
 sci-chemistry/gamess:neo - Enable NEO for nuclear basis support
 sci-chemistry/gamess:pax-kernel - Make this package work on PAX kernels
@@ -163,11 +157,6 @@ sci-mathematics/gap:valgrind - Build symbols to be used by valgrind
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
 sci-mathematics/ripser:progress - print progress of calculations in console
 sci-mathematics/ripser:sparsehash - use google sparsehash for storage
-sci-mathematics/scilab:emf - Add suport for exporting to emf files
-sci-mathematics/scilab:gui - Build the Java base graphical interface
-sci-mathematics/scilab:matio - Enable support for MATLAB file through sci-libs/matio
-sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/umfpack
-sci-mathematics/scilab:xcos - Enable building hybrid dynamic systems modeler and simulator Xcos
 sci-misc/elmer-fem:gui - Build the ElmerGUI
 sci-misc/elmer-fem:ice - Build ElmerICE
 sci-misc/elmer-fem:matc - Build the Elmer matc library

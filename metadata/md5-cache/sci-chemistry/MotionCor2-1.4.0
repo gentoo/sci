@@ -3,11 +3,10 @@ DEFINED_PHASES=install nofetch
 DESCRIPTION=Correction of electron beam-induced sample motion
 EAPI=7
 HOMEPAGE=https://emcore.ucsf.edu/ucsf-motioncor2
-IUSE=+cuda102
 KEYWORDS=~amd64
 LICENSE=UCSF-Motioncor2
-RDEPEND=cuda102? ( =dev-util/nvidia-cuda-toolkit-10.2* ) media-libs/tiff app-arch/xz-utils media-libs/libjpeg-turbo
+RDEPEND=media-libs/tiff app-arch/xz-utils media-libs/libjpeg-turbo
 RESTRICT=fetch
 SLOT=0
 SRC_URI=MotionCor2_1.4.0.zip
-_md5_=fb53a9625cd67de0f38d67bd35046c37
+_md5_=0df61b88d08b3752d37b3f2cbf67d6ec

@@ -1,6 +1,6 @@
 BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install postinst postrm preinst prepare unpack
-DEPEND=dev-lang/fpc >=dev-lang/lazarus-1.6.2[python(-)] dev-util/desktop-file-utils x11-misc/shared-mime-info
+DEPEND=dev-lang/fpc >=dev-lang/lazarus-1.6.2 dev-util/desktop-file-utils x11-misc/shared-mime-info
 DESCRIPTION=A surface rendering tool supporting neuroimaging data
 EAPI=7
 HOMEPAGE=https://github.com/neurolabusc/surf-ice
@@ -9,4 +9,4 @@ LICENSE=BSD
 PROPERTIES=live
 SLOT=0
 _eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da	desktop	c0d27bf73aa08ca05b663dbd31fbef28	xdg-utils	4f29a8b760a594a212abe9c2ba957c31	xdg	6024fbc93167fad782e2032933654857
-_md5_=02ca603d9b411933e4cc727867f49575
+_md5_=7ad15e28aa58c56207d362036e8402c9

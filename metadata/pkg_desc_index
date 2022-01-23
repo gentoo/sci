@@ -8,28 +8,13 @@ dev-cpp/castxml 0.3.6 0.4.3 9999: CastXML is a C-family abstract syntax tree XML
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-java/fits 1.15.1: Java library for FITS input/output
-dev-java/flexdock 1.2.4: A Java docking framework for use in cross-platform Swing applications
-dev-java/freehep-graphicsio-emf 2.4-r1: High Energy Physics Java library - FreeHEP Enhanced Metafile Format Driver
-dev-java/gluegen 2.1.4 2.2.4: Automatically generate the JNI code necessary to call C libraries
-dev-java/htsjdk 2.3.0 2.19.0 9999: Java API for high-throughput sequencing data (HTS) formats
-dev-java/jcommon 1.0.23: A collection of useful classes used by JFreeChart, JFreeReport and others
 dev-java/jeuclid-core 3.1.14: Core module of MathML rendering solution
-dev-java/jfreechart 1.0.19-r2: JFreeChart is a free Java class library for generating charts
-dev-java/jfreesvg 2.1-r1 3.0: JFreeSVG is a fast, light-weight, vector graphics library for the Java platform
-dev-java/jgraphx 4.2.2: Open-source graph component for Java
-dev-java/jlatexmath 1.0.3: A Java API to render LaTeX
-dev-java/jlatexmath-fop 1.0.3: jlatexmath plugin for dev-java/fop
-dev-java/jogl 2.2.4: Java(TM) Binding fot the OpenGL(TM) API
-dev-java/jrosetta 1.0.4: Common base for graphical component to build a graphical console
-dev-java/lucene 3.6.2-r2 5.2.1 8.4.0: High-performance, full-featured text search engine written entirely in Java
-dev-java/skinlf 6.7.10: Skin Look and Feel - Skinning Engine for the Swing toolkit
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
 dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
 dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
 dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/pgi 13.5: PGI compiler suite
-dev-lang/terra 1.0.0_beta2: A low-level counterpart to Lua
 dev-lang/vtune 18.0.2.0.551022 19.0.4.0.597835 2020.1.0.607630: Intel VTune Profiler
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
 dev-libs/asmjit 1.0_p22092020 9999: complete x86/x64 JIT-Assembler for C++ language
@@ -37,7 +22,7 @@ dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
-dev-libs/optix 6.0.0 7.0.0 7.1.0 7.2.0: NVIDIA Ray Tracing Engine
+dev-libs/optix 7.4.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
@@ -164,7 +149,6 @@ dev-python/visvis 1.13.0: An object oriented approach to visualization of 1D to 
 dev-python/xgboost 1.3.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1 1.1.0: Open compressed files transparently
 dev-util/Tensile 4.0.0 4.0.0-r1: Stretching GPU performance for GEMMs and tensor contractions
-dev-util/bcm 0.0.1_p20191110: Boost cmake modules
 dev-util/f90cache 0.99c: Compiler cache for fortran
 dev-util/mad-numdiff 9999 20180125: compare unformatted text files with numerical content
 dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
@@ -173,14 +157,10 @@ dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-util/waf 2.0.21: Piece of software used to help building software projects
 dev-vcs/datalad 0.15.1 0.15.2: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
-media-libs/DualContouringSample 0_p20191111-r1: A sample Dual Contouring implementation
 media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
-media-libs/imgui 1.80: Bloat-free graphical user interface library for C++
-media-libs/implicitmesher 0_p20200413: Real-time implicit surface polygonization
 media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
-media-libs/yocto-gl 3.3.0: Single File Libraries for Physically-Based Graphics
 net-misc/cernbox-client 2.9.2.6206 2.10.0.6519: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/libthesky 0.4.1-r1: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
@@ -262,10 +242,8 @@ sci-biology/clview 0.1: clview is an assembly .ace file viewer from TIGR Gene In
 sci-biology/cnrun 2.1.0-r2: A NeuroML-enabled, precise but slow neuronal network simulator
 sci-biology/codonw 1.4.4-r2: Multivariate statistical analysis of codon and amino acid usage
 sci-biology/conform-gt 1174: Modify your Variant Call Format file to be consistent with reference VCF
-sci-biology/conrad 1: Ab initio- and ad hoc evidence-based (RNA-Seq, BLAST) gene/ORF predictor
 sci-biology/coral 1.4.1: Error corrector for Illumina and Roche/454 reads using multiple alignment info
 sci-biology/cortex_var 1.0.5.21: Genotype variant discovery without reference sequence
-sci-biology/cramtools 3.0: Java tools and APIs for efficient compression of sequence read data
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
 sci-biology/cutadapt 2.10 3.3: Remove adapter sequences from high-throughput sequencing data
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
@@ -306,8 +284,6 @@ sci-biology/imagej 1.53g: Image Processing and Analysis in Java
 sci-biology/irsabi_bidsdata 1.4: BIDS data files released with the IRSABI publication
 sci-biology/jannovar-bin 0.35: Exome annotation tool (upstream jar binaries)
 sci-biology/jellyfish 1.1.12 2.3.0: k-mer counter within reads for assemblies
-sci-biology/jigsaw 3.2.10m: Combine results from external gene predictors into final gene models
-sci-biology/jtreeview 1.2.0 9999: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/jtreeview-bin 1.2.0: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/karect 1.0: Error-correct mismatches and InDels of raw reads incl. paired-end
 sci-biology/kat 2.4.2 9999: K-mer Analysis Toolkit (histogram, filter, compare sets, plot)
@@ -363,7 +339,6 @@ sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
 sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger-based reads)
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
-sci-biology/pilon-bin 1.24: Fix assembled reference using BAM-aligned reads, call SNPs
 sci-biology/polyphen 2.2.2: Predict effect of aminoacid substitution on human protein function
 sci-biology/portrait 1.1: Ab initio ncRNA prediction
 sci-biology/primerD 1.0.0: Design degenerate primers
@@ -378,7 +353,6 @@ sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequen
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
 sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each other
 sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
-sci-biology/quorum 1.1.1: Correct substitution errors in Illumina reads
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roche454ace2caf 20100812: ace to gap4 converter
@@ -488,7 +462,6 @@ sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.8: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.0.1 5.1.0: NLM Insight Segmentation and Registration Toolkit
-sci-libs/jhdf5 19.04.0: Java binding for HDF5 compatible with HDF5 1.6/1.8
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.15: Set of classes for creating statistical genetic programs
@@ -538,16 +511,13 @@ sci-mathematics/netgen 6.2.2105: Automatic 3d tetrahedral mesh generator
 sci-mathematics/open-axiom 1.4.2_p20180201: Symbolic and algebraic computations system
 sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
-sci-mathematics/scilab 5.5.2 6.0.2 6.1.0: Scientific software package for numerical computations
 sci-mathematics/scilab-bin 6.1.1: Scientific software package for numerical computations
 sci-misc/elmer-fem 9.0-r1: Finite element programs, libraries, and visualization tools
-sci-misc/europa-bin 1.1.0: JupyterLab's Desktop client in electron
 sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/irstlm 6.00.05 6.00.05-r1: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.4_rc2: Java interface to WordNet dictionary data
 sci-misc/mitlm 0.4.2: Tools designed for efficient estimation of statistical n-gram language models
 sci-misc/openfst 1.8.1: Finite State Transducer tools by Google et al
-sci-misc/opennlp-maxent 3.0.0: Maximum entropy model implementation for opennlp
 sci-misc/praat 6.1.42: Speech analysis and synthesis
 sci-misc/stanford-parser 4.2.0: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 4.2.0: Stanfords log linear POS taggers
@@ -556,8 +526,6 @@ sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld ana
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
 sci-physics/openmx 3.9: Material eXplorer
-sci-physics/opticks 0.0.1_p20191110: GPU Optical Photon Simulation for Particle Physics
-sci-physics/opticks-okconf 0.0.1_p20191110: GPU Optical Photon Simulation for Particle Physics
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
