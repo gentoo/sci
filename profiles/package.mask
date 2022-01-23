@@ -56,7 +56,6 @@ sci-biology/conrad
 sci-libs/jhdf5
 # ancient java, can't update due to gradle/maven limitation
 dev-java/htsjdk
-sci-biology/pilon-bin
 sci-misc/opennlp-maxent
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org (13 Jan 2022)
