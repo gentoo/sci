@@ -3,7 +3,7 @@ app-office/visidata 1.5.2 2.1.1: Terminal spreadsheet multitool for discovering 
 app-text/noweb 2.12: a literate programming tool, lighter than web
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
-dev-cpp/blitz 1.0.3_pre20200524 9999: Multi-dimensional array library for C++
+dev-cpp/blitz 1.0.3_pre20200524: Multi-dimensional array library for C++
 dev-cpp/castxml 0.3.6 0.4.3 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
@@ -224,7 +224,7 @@ sci-biology/bedops 2.4.26 2.4.39: Manipulate BED file (alternative to bedtools)
 sci-biology/behaviopy 0.1 9999: Neuroimaging tools for Python
 sci-biology/biobambam2 2.0.146 9999: Tools for bam file processing (using libmaus2)
 sci-biology/bismark 0.23.0: Map bisulfite converted sequence reads and cytosine methylation states
-sci-biology/blasr 9999: The PacBio long read aligner
+sci-biology/blasr 5.3.5: The PacBio long read aligner
 sci-biology/brat 1.2.4: Bisulfite-treated Reads Analysis Tool (short read mapper)
 sci-biology/brat_bw 2.0.1: Bisulfite-aware short read mapper, FM-index, no InDel support
 sci-biology/brat_nova 20160103: Bisulfite-aware short read mapper, FM-index, accepts 1 InDel/read, local align
@@ -294,7 +294,7 @@ sci-biology/last 1179: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.03: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
-sci-biology/libblasr 9999: Library for blasr
+sci-biology/libblasr 5.3.5: Library for blasr
 sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/longstitch 1.0.1: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
@@ -333,8 +333,8 @@ sci-biology/open-ephys-gui 0.5.2.2 0.5.5 9999 99999999: Processing, recording, a
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
 sci-biology/parafly 0.1.0: Parallel cmd processing utility
-sci-biology/pbbam 1.6.0 9999: PacBio modified BAM file format
-sci-biology/pbcopper 1.9.0: Core C++ library for data structures, algorithms, and utilities
+sci-biology/pbbam 1.8.1: PacBio modified BAM file format
+sci-biology/pbcopper 1.9.5: Core C++ library for data structures, algorithms, and utilities
 sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
 sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger-based reads)
@@ -360,7 +360,7 @@ sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/sailfish 0.10.0 9999: Rapid Mapping-based Isoform Quantification from RNA-Seq Reads
-sci-biology/salmon 0.10.2 1.4.0 9999: Transcript-level quantification from RNA-seq reads using lightweight alignments
+sci-biology/salmon 0.10.2 1.4.0: Transcript-level quantification from RNA-seq reads using lightweight alignments
 sci-biology/sambamba 0.8.0 9999: Parallell process SAM/BAM/CRAM files faster than samtools
 sci-biology/samri 0.4.1 0.5 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
