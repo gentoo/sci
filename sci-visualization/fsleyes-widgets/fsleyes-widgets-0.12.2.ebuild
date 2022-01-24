@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8} )
+PYTHON_COMPAT=( python3_{8..9} )
 
 inherit distutils-r1 virtualx
 
@@ -12,22 +12,20 @@ MY_P="widgets-${PV}"
 DESCRIPTION="GUI widgets and utilities for the FSLeyes viewer"
 HOMEPAGE="https://git.fmrib.ox.ac.uk/fsl/fsleyes/fsleyes/tree/master"
 SRC_URI="https://git.fmrib.ox.ac.uk/fsl/fsleyes/widgets/-/archive/${PV}/${MY_P}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	dev-python/deprecation[${PYTHON_USEDEP}]
 	=dev-python/numpy-1*[${PYTHON_USEDEP}]
-	dev-python/matplotlib[${PYTHON_USEDEP}]
-	=dev-python/six-1*[${PYTHON_USEDEP}]
-	dev-python/wxpython[${PYTHON_USEDEP}]
-	"
-
-S="${WORKDIR}/${MY_P}"
+	>=dev-python/matplotlib-1.5[${PYTHON_USEDEP}]
+	>=dev-python/wxpython-3.0.2.0[${PYTHON_USEDEP}]
+"
 
 distutils_enable_tests pytest
+distutils_enable_sphinx doc dev-python/sphinx_rtd_theme
 
 python_prepare_all() {
 	# do not depend on pytest-cov
@@ -55,5 +53,5 @@ python_test() {
 	# If this could be set for the eclass, it might fix some of the tests:
 	# https://github.com/pauldmccarthy/fsleyes-widgets/issues/1#issuecomment-575387724
 	#xvfbargs="-screen 0 1920x1200x24 +extension RANDR"
-	virtx pytest --verbose || die
+	virtx epytest
 }
