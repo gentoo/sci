@@ -30,7 +30,6 @@ dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter,
 dev-perl/BTLib 0.19 0.20: Perl part of the estscan package
 dev-perl/Bio-BigFile 1.07: BigWig and BigBed file perl-based interface for Gbrowse-2
 dev-perl/Bio-DB-Das-Chado 0.35: A Chado database interface for Gbrowse-2
-dev-perl/Bio-EnsEMBL 9999: EnsEMBL Perl API aka ensembl-api exposing Bio::EnsEMBL::Registry
 dev-perl/Config-Std 0.903: Load and save configuration files in a standard format
 dev-perl/DBIx-DBStag 0.12: Relational Database to Hierarchical (Stag/XML) Mapping
 dev-perl/Log-Cabin 0.06: Partial implementation of Log::Log4perl with reduced disk IO
@@ -76,7 +75,7 @@ dev-python/ezdxf 0.16.5: Python interface to DXF
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
 dev-python/fiona 1.8.20: API for reading/writing vector geospatial data
-dev-python/fslpy 2.8.4 3.4.0 3.8.1: The FSL Python Library
+dev-python/fslpy 3.8.1: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/geopandas 0.10.2: Python tools for geographic data
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
@@ -525,15 +524,15 @@ sci-physics/atompaw 4.1.1.0: PAW atomic data generator
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
-sci-physics/openmx 3.9: Material eXplorer
+sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
 sci-visualization/clip 0.7: command line chart creator
 sci-visualization/forge 1.0.5 1.0.7 9999: High Performance Visualizations for ArrayFire
-sci-visualization/fsleyes 0.32.3 0.34.2: The new FSL image viewer, released with FSL 5.0.10
-sci-visualization/fsleyes-props 1.6.7 1.7.0: Object attribute management for the FSLeyes viewer
-sci-visualization/fsleyes-widgets 0.8.4 0.9.0: GUI widgets and utilities for the FSLeyes viewer
+sci-visualization/fsleyes 1.3.3: The new FSL image viewer, released with FSL 5.0.10
+sci-visualization/fsleyes-props 1.7.3: Object attribute management for the FSLeyes viewer
+sci-visualization/fsleyes-widgets 0.12.2: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles

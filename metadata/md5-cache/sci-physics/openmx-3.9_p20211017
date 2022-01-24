@@ -1,0 +1,16 @@
+BDEPEND=virtual/pkgconfig virtual/fortran
+DEFINED_PHASES=compile configure install setup test unpack
+DEPEND=virtual/blas virtual/lapack virtual/mpi sci-libs/scalapack sys-cluster/openmpi sci-libs/fftw:3.0[mpi,openmp?] virtual/fortran
+DESCRIPTION=Material eXplorer
+EAPI=8
+HOMEPAGE=http://www.openmx-square.org/
+INHERIT=toolchain-funcs flag-o-matic fortran-2
+IUSE=debug openmp test
+KEYWORDS=~amd64
+LICENSE=GPL-3
+RDEPEND=virtual/blas virtual/lapack virtual/mpi sci-libs/scalapack sys-cluster/openmpi sci-libs/fftw:3.0[mpi,openmp?] virtual/fortran
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=http://t-ozaki.issp.u-tokyo.ac.jp/openmx3.9.tar.gz http://www.openmx-square.org/bugfixed/21Oct17/patch3.9.9.tar.gz
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784	flag-o-matic	a500d7cc40da3de38c361e889153bdf7	fortran-2	7e39eb204d37699d5f1eaf9f4d61888a
+_md5_=934a265a8a7801b535679862a52766d3
