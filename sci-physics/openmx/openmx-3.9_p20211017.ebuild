@@ -1,17 +1,21 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit toolchain-funcs flag-o-matic fortran-2
 
 DESCRIPTION="Material eXplorer"
 HOMEPAGE="http://www.openmx-square.org/" # no https, SSL invalid
-SRC_URI="http://t-ozaki.issp.u-tokyo.ac.jp/${PN}${PV}.tar.gz"
+SRC_URI="
+	http://t-ozaki.issp.u-tokyo.ac.jp/${PN}${PV//_*}.tar.gz
+	http://www.openmx-square.org/bugfixed/21Oct17/patch${PV//_*}.9.tar.gz
+"
+S="${WORKDIR}/${PN}${PV//_*}/source"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 IUSE="debug openmp test"
 RESTRICT="!test? ( test )"
@@ -20,11 +24,11 @@ RDEPEND="
 	virtual/blas
 	virtual/lapack
 	virtual/mpi
+	sci-libs/scalapack
+	sys-cluster/openmpi
 	sci-libs/fftw:3.0[mpi,openmp?]"
 DEPEND="${RDEPEND}"
 BDEPEND="virtual/pkgconfig"
-
-S="${WORKDIR}/${PN}${PV}/source"
 
 FORTRAN_STANDARD=90
 
@@ -65,7 +69,7 @@ pkg_setup() {
 			(( ${ret} )) || break
 		done
 
-		rm -f "${code}.*"
+		rm "${code}."* || die
 		popd
 
 		if (( ${ret} )); then
@@ -86,7 +90,7 @@ pkg_setup() {
 			(( ${ret} )) || break
 		done
 
-		rm -f "${code}.*"
+		rm "${code}."* || die
 		popd
 
 		if (( ${ret} )); then
@@ -98,18 +102,34 @@ pkg_setup() {
 
 }
 
+src_unpack() {
+	unpack "${PN}${PV//_*}.tar.gz"
+	# copy patched files to source
+	cd "${S}" || die
+	unpack "patch${PV//_*}.9.tar.gz"
+}
+
 src_configure() {
 	local FFTW_FLAVOUR=fftw3
 	if use openmp; then
 	   FFTW_FLAVOUR=fftw3_omp
+	   append-cflag -fopenmp
 	else
 	   append-cflag -Dnoomp
 	fi
+	append-cflag -Dkcomp
+	append-cflag -ffast-math
 	append-cflags $($(tc-getPKG_CONFIG) --cflags lapack)
+	append-cflags $($(tc-getPKG_CONFIG) --cflags scalapack)
+	append-cflags $($(tc-getPKG_CONFIG) --cflags openmpi)
 	append-cflags $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})
 
 	append-fflags -I/usr/include
+	append-fflags -Dkcomp
+	append-fflags -ffast-math
 	append-fflags $($(tc-getPKG_CONFIG) --cflags lapack)
+	append-fflags $($(tc-getPKG_CONFIG) --cflags scalapack)
+	append-fflags $($(tc-getPKG_CONFIG) --cflags openmpi)
 	append-fflags $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})
 
 	# otherwise we get Error: Rank mismatch between actual argument
@@ -117,6 +137,8 @@ src_configure() {
 	append-fflags -fallow-argument-mismatch
 
 	local MX_LIB="$($(tc-getPKG_CONFIG) --static --libs lapack)"
+	MX_LIB="${MX_LIB} $($(tc-getPKG_CONFIG) --static --libs scalapack)"
+	MX_LIB="${MX_LIB} $($(tc-getPKG_CONFIG) --static --libs openmpi)"
 	MX_LIB="${MX_LIB} $($(tc-getPKG_CONFIG) --static --libs ${FFTW_FLAVOUR})"
 	MX_LIB="${MX_LIB} $(mpif90 -showme:link)"
 
@@ -135,17 +157,17 @@ src_compile() {
 }
 
 src_test() {
-	cd ../work
+	cd ../work || die
 	../source/openmx -runtest || die
 }
 
 src_install() {
 	insinto /usr/share/${P}
 	doins -r DFT_DATA19
-	cd ../work
+	cd ../work || die
 	insinto /usr/share/${P}/examples
 	doins -r *
-	cd ../source
+	cd ../source || die
 	emake DESTDIR="${D}/usr/bin" install
 	dodoc "${S}/${PN}${PV%.?}.pdf"
 	use test && dodoc "${S}"/work/runtest.result
