@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -13,6 +13,7 @@ SRC_URI="
 	https://sourceforge.net/projects/jtreeview/files/jtreeview/${PV}/TreeView-${PV}-bin.tar.gz
 	https://sourceforge.net/projects/jtreeview/files/helper-scripts/0.0.2/helper-scripts-0.0.2.tar.gz
 "
+S="${WORKDIR}/TreeView-${PV}-bin"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,11 +21,10 @@ KEYWORDS="~amd64"
 
 DEPEND="
 	>virtual/jdk-1.5:*
-	!sci-biology/jtreeview"
+"
 RDEPEND="${DEPEND}
-	>=virtual/jre-1.5:*"
-
-S="${WORKDIR}/TreeView-${PV}-bin"
+	>=virtual/jre-1.5:*
+"
 
 # TODO: use xltproc to create docs following TreeView-1.1.6r4-src/doc/README
 
