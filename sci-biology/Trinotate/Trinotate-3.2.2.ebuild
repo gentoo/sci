@@ -1,17 +1,18 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit perl-module
 
 DESCRIPTION="Annotation and analysis pipeline for de novo assembled transcriptomes"
 HOMEPAGE="https://github.com/Trinotate/Trinotate.github.io/wiki"
 SRC_URI="https://github.com/Trinotate/Trinotate/archive/${PN}-v${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-${PN}-v${PV}"
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -31,8 +32,6 @@ RDEPEND="${DEPEND}
 # We suggest you rename this version of hmmsearch from hmmer-2 package to 'hmmsearch2'.
 # In the 'rnammer' software configuration, edit the rnammer script to point
 # $HMMSEARCH_BINARY = "/path/to/hmmsearch2";
-
-S="${WORKDIR}/${PN}-${PN}-v${PV}"
 
 src_install(){
 	perl_set_version
