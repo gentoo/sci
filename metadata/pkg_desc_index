@@ -382,7 +382,7 @@ sci-biology/snpomatic 1.0: Stringent short-read aligner supporting filters and v
 sci-biology/spm 12_p7771: Analysis of brain imaging data sequences for Octave or Matlab
 sci-biology/sra-tools 2.11.3: NCBI Sequence Read Archive (SRA) sratoolkit
 sci-biology/ssaha2-bin 2.5.5: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
-sci-biology/stacks 2.55: Analyze restriction enzyme data, draw gen. maps, population genomics
+sci-biology/stacks 2.60: Analyze restriction enzyme data, draw gen. maps, population genomics
 sci-biology/staden 2.0.0_beta11 9999: DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
 sci-biology/staden_doc 2.0.0_beta11: Documentation files for the staden package
 sci-biology/stringtie 2.1.5: Transcriptome assembler and RNA-Seq analysis on BAM files aka cufflinks
