@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit toolchain-funcs
 
@@ -26,26 +26,18 @@ RDEPEND="dev-libs/expat
 	x11-libs/libXft
 	x11-libs/libXi
 	x11-libs/libXpm
-	x11-libs/motif[-static-libs]"
-
-# x11-libs/motif[static-libs] breaks the build.
-# See upstream discussion
-# http://afni.nimh.nih.gov/afni/community/board/read.php?1,85348,85348#msg-85348
+	x11-libs/motif
+"
 
 DEPEND="${RDEPEND}
 	app-shells/tcsh"
 
 S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 BUILD="linux_fedora_19_64"
-BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
-
-#PATCHES=(
-#	"${FILESDIR}/${P}-python.patch"
-#)
+BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count)
 
 src_prepare() {
-	eapply "${FILESDIR}/${P}-python.patch" || die
-	find -type f -exec sed -i -e "s/-lXp //g" {} +
+	find -type f -exec sed -i -e "s/-lXp //g" {} + || die
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
 	# Unbundle imcat
 	sed -e "s/ imcat / /g" \
@@ -57,10 +49,10 @@ src_prepare() {
 		-e "s~RANLIB = /usr/bin/ranlib~RANLIB = $(tc-getRANLIB)~" \
 		-i Makefile || die "Could not edit Makefile"
 		# they provide somewhat problematic makefiles :(
-	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
+	sed -e "s~ifeq (\$(CC),gcc)~ifeq (1,1)~"\
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
-	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EROOT}/usr/~g;" -i
+	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EPREFIX}/usr/~g;" -i || die
 	default
 }
 
@@ -69,9 +61,9 @@ src_compile() {
 }
 
 src_install() {
-	emake INSTALLDIR="${ED}/usr/bin" -j1 install install_plugins
+	emake INSTALLDIR="${ED}/usr/bin" install install_plugins
 	emake INSTALLDIR="${ED}/usr/$(get_libdir)" install_lib
 	for CONFLICT in ${BIN_CONFLICTS[@]}; do
-		rm "${ED}/usr/bin/${CONFLICT}"
+		rm "${ED}/usr/bin/${CONFLICT}" || die
 	done
 }
