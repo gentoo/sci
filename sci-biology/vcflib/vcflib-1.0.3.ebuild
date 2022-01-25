@@ -1,18 +1,17 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake toolchain-funcs
 
 DESCRIPTION="VCF/BED utils, Genotype Phenotype Association Toolkit (GPAT++)"
 HOMEPAGE="https://github.com/vcflib/vcflib"
-SRC_URI="https://github.com/vcflib/vcflib/releases/download/v${PV}/${P}-src.tar.gz"
-
-# vcflib is incorporated into several projects, such as freebayes
+SRC_URI="https://github.com/vcflib/vcflib/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT-with-advertising"
 SLOT="0"
+# No proper release tarball for this release yet
 KEYWORDS=""
 IUSE="openmp"
 
@@ -22,10 +21,6 @@ DEPEND="
 	sci-biology/tabixpp
 "
 RDEPEND="${DEPEND}"
-# contains bundled sci-biology/htslib ?
-# see also ./include for possible traces of other bundled sw
-
-S="${WORKDIR}/${PN}"
 
 src_prepare(){
 	cmake_src_prepare
@@ -47,7 +42,7 @@ src_prepare(){
 src_compile(){
 	mycmakeargs=(
 		-DOPENMP="$(use_enable openmp)"
-		-DHTSLIB_LOCAL=NO
+		-DHTSLIB_LOCAL=ON
 	)
 	cmake_src_compile
 }
