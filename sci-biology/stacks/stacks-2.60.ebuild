@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit perl-module webapp autotools
 
@@ -10,10 +10,8 @@ HOMEPAGE="http://creskolab.uoregon.edu/stacks"
 SRC_URI="http://creskolab.uoregon.edu/stacks/source/${P}.tar.gz"
 
 LICENSE="GPL-3"
-# SLOT="0" # webapp ebuilds do not set SLOT
-KEYWORDS=""
+KEYWORDS="~amd64"
 
-# No rule to make target test
 RESTRICT="test"
 
 DEPEND="
@@ -21,11 +19,14 @@ DEPEND="
 	dev-cpp/sparsehash
 	sci-biology/samtools:*
 	sci-biology/bamtools
-	sci-biology/gmap" # Source code for both GMAP and GSNAP
+	sci-biology/gmap
+"
+
 RDEPEND="${DEPEND}
 	dev-lang/perl
-	>=dev-lang/php-5
-	dev-perl/DBD-mysql"
+	>=dev-lang/php-5:*
+	dev-perl/DBD-mysql
+"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-make-install.patch"
@@ -41,17 +42,13 @@ src_prepare(){
 
 src_configure() {
 	econf
-	webapp_src_preinst
 	sed -e 's#/usr/lib/libbam.a#-lbam#;#./htslib/libhts.a#-lhts#' -i Makefile || die
 }
 
 src_install() {
-	emake install DESTDIR="${ED}"
-	mydoc="Changes README TODO INSTALL"
-	perl-module_src_install DESTDIR="${ED}"
-	webapp_src_install || die "Failed running webapp_src_install"
-}
-
-pkg_postinst() {
-	webapp_pkg_postinst || die "webapp_pkg_postinst failed"
+	webapp_src_preinst
+	DESTDIR="${ED}" default
+	DESTDIR="${ED}" perl-module_src_install
+	dodir /usr/share/webapps/${PN}/${PV}
+	webapp_src_install
 }
