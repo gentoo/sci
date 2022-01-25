@@ -14,7 +14,8 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-lang/perl-1.6
-	dev-lang/swig
 	dev-util/cppcheck
 "
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	dev-lang/swig
+"
