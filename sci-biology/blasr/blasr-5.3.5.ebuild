@@ -7,7 +7,7 @@ inherit meson
 
 DESCRIPTION="The PacBio long read aligner"
 HOMEPAGE="http://www.smrtcommunity.com/SMRT-Analysis/Algorithms/BLASR"
-SRC_URI="https://github.com/PacificBiosciences/blasr/tarball/${PV} -> ${P}.tar.gz"
+SRC_URI="https://github.com/PacificBiosciences/blasr/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="blasr"
 SLOT="0"
