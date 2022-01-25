@@ -1,29 +1,23 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit fortran-2
 FORTRAN_NEED_OPENMP=1
 
 DESCRIPTION="AMD optimized high-performance object-based library for DLA computations"
 HOMEPAGE="https://developer.amd.com/amd-aocl/"
+SRC_URI="https://github.com/amd/libflame/archive/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/libflame-${PV}"
 
-if [[ ${PV} == 9999 ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/amd/libflame"
-else
-	SRC_URI="https://github.com/amd/libflame/archive/${PV}.tar.gz -> ${P}.tar.gz"
-	S="${WORKDIR}"/libflame-"${PV}"
-	KEYWORDS="~amd64"
-fi
-
+KEYWORDS="~amd64"
 LICENSE="BSD"
 SLOT="0"
 
 CPU_FLAGS=( sse3 )
 IUSE_CPU_FLAGS_X86="${CPU_FLAGS[@]/#/cpu_flags_x86_}"
-IUSE="scc static-libs supermatrix ${IUSE_CPU_FLAGS_X86[@]}"
+IUSE="scc supermatrix ${IUSE_CPU_FLAGS_X86[@]}"
 
 DEPEND="virtual/cblas"
 RDEPEND="${DEPEND}"
@@ -39,17 +33,14 @@ src_configure() {
 		--enable-max-arg-list-hack
 		--enable-dynamic-build
 		--enable-vector-intrinsics=$(usex cpu_flags_x86_sse3 sse none)
-		$(use_enable static-libs static-build)
 		$(use_enable scc)
 		$(use_enable supermatrix)
 	)
 	econf "${myconf[@]}"
 }
 
-src_compile() {
-	default
-}
-
 src_install() {
-	emake -j1 DESTDIR="${D}" install
+	# -j1 because otherwise cannot create file that already exists
+	DESTDIR="${ED}" emake -j1 install
+	einstalldocs
 }
