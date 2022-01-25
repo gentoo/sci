@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -32,7 +32,6 @@ RESTRICT="!test? ( test )"
 DEPEND="
 	<sys-devel/gcc-10:=
 	!sci-biology/ncbi-tools++
-	!sci-biology/sra_sdk
 	berkdb? ( sys-libs/db:=[cxx(-)] )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
