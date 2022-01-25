@@ -1,14 +1,16 @@
-BDEPEND=dev-lang/perl
+BDEPEND=dev-perl/Module-Build dev-lang/perl test? ( virtual/perl-Test-Simple )
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=>=dev-lang/perl-5.6.1 dev-perl/Module-Build dev-perl/Config-Std virtual/perl-Data-Dumper dev-perl/Data-Types dev-perl/DBD-SQLite dev-perl/DBIx-Class dev-perl/IO-All dev-perl/Number-Format virtual/perl-Scalar-List-Utils dev-perl/Set-IntSpan-Fast dev-perl/Statistics-Descriptive-Discrete dev-perl/Template-Toolkit dev-perl/Text-Graph dev-perl/Text-RecordParser dev-perl/Text-Table dev-perl/Exception-Class dev-perl/Test-Warn dev-perl/URI dev-lang/perl
+DEPEND=dev-perl/Config-Std virtual/perl-Data-Dumper dev-perl/Data-Types dev-perl/DBD-SQLite dev-perl/DBIx-Class dev-perl/IO-All dev-perl/Number-Format virtual/perl-Scalar-List-Utils dev-perl/Set-IntSpan-Fast dev-perl/Statistics-Descriptive dev-perl/Statistics-Descriptive-Discrete dev-perl/Template-Toolkit dev-perl/Text-Graph dev-perl/Text-RecordParser dev-perl/Text-Table dev-perl/Exception-Class dev-perl/Test-Warn dev-perl/URI sci-biology/fasta dev-lang/perl
 DESCRIPTION=Genome Annotation Library (incl. fasta_tool)
-EAPI=7
+EAPI=8
 HOMEPAGE=https://github.com/The-Sequence-Ontology/GAL
 INHERIT=perl-module
+IUSE=test
+KEYWORDS=~amd64
 LICENSE=( GPL-1+ Artistic )
-RDEPEND=>=dev-lang/perl-5.6.1 dev-perl/Module-Build dev-perl/Config-Std virtual/perl-Data-Dumper dev-perl/Data-Types dev-perl/DBD-SQLite dev-perl/DBIx-Class dev-perl/IO-All dev-perl/Number-Format virtual/perl-Scalar-List-Utils dev-perl/Set-IntSpan-Fast dev-perl/Statistics-Descriptive-Discrete dev-perl/Template-Toolkit dev-perl/Text-Graph dev-perl/Text-RecordParser dev-perl/Text-Table dev-perl/Exception-Class dev-perl/Test-Warn dev-perl/URI dev-lang/perl:=
-RESTRICT=test
+RDEPEND=dev-perl/Config-Std virtual/perl-Data-Dumper dev-perl/Data-Types dev-perl/DBD-SQLite dev-perl/DBIx-Class dev-perl/IO-All dev-perl/Number-Format virtual/perl-Scalar-List-Utils dev-perl/Set-IntSpan-Fast dev-perl/Statistics-Descriptive dev-perl/Statistics-Descriptive-Discrete dev-perl/Template-Toolkit dev-perl/Text-Graph dev-perl/Text-RecordParser dev-perl/Text-Table dev-perl/Exception-Class dev-perl/Test-Warn dev-perl/URI sci-biology/fasta dev-lang/perl:=
+RESTRICT=test !test? ( test )
 SLOT=0
 SRC_URI=https://github.com/The-Sequence-Ontology/GAL/archive/94af39622aab5ba48eb693f2327f6e90f1d202ed.tar.gz -> GAL-0.2.2_p20200508.tar.gz
-_eclasses_=multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	perl-module	bd9574a79c5f0a347a9ea3db5ad9ca72
-_md5_=afb9069fb206614bdc855489f908055a
+_eclasses_=multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	readme.gentoo-r1	eebd0164fe61f4f7b64a683e83fdceb1	perl-module	bd9574a79c5f0a347a9ea3db5ad9ca72
+_md5_=dd9559aee99cfb221a7cfef61cd05779
