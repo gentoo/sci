@@ -423,7 +423,7 @@ sci-libs/HDF5Plugin-Zstandard 0_pre20201121: ZSTD plugin for hdf5
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
-sci-libs/aocl-libm 3.6.0_p4: Optimized libm replacement from AMD for x86_64 architectures
+sci-libs/aocl-libm 3.1.0: Optimized libm replacement from AMD for x86_64 architectures
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
 sci-libs/arrayfire 3.7.2 3.7.3 3.8.0: general purpose GPU library
 sci-libs/asl 0.1.7 9999: Hardware accelerated multiphysics simulation platform
