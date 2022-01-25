@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -28,10 +28,11 @@ BDEPEND="dev-python/setuptools_scm[${PYTHON_USEDEP}]"
 
 RDEPEND="
 	>=dev-python/astropy-3.2[${PYTHON_USEDEP}]
-	dev-python/astropy-healpix[${PYTHON_USEDEP}]
-	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/scipy[${PYTHON_USEDEP}]
+	>=dev-python/astropy-healpix-0.6[${PYTHON_USEDEP}]
+	>=dev-python/numpy-1.14[${PYTHON_USEDEP}]
+	>=dev-python/scipy-1.1[${PYTHON_USEDEP}]
 "
 
-distutils_enable_sphinx docs dev-python/sphinx-astropy dev-python/matplotlib
+# requires self to be installed
+# distutils_enable_sphinx docs dev-python/sphinx-astropy dev-python/matplotlib
 distutils_enable_tests --install pytest
