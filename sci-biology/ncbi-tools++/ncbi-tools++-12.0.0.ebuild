@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -36,7 +36,6 @@ RESTRICT="!test? ( test )"
 # dev-libs/boost must have Boost.Test suite, probably dev-libs/boost[test] then?
 DEPEND="
 	<sys-devel/gcc-10:=
-	!sci-biology/sra_sdk
 	app-arch/cpio
 	berkdb? ( sys-libs/db:=[cxx(-)] )
 	boost? ( dev-libs/boost[tools] )

@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit perl-module toolchain-funcs
 
@@ -70,23 +70,6 @@ src_prepare() {
 	sed -e "s:/export/usr/local:${ED}/usr:g" -i Makefile || die
 }
 
-src_compile() {
-	emake DESTDIR="${ED}/usr"
-
-	# TODO:
-	#ld  -L../TIGR_Foundation_CC/ -shared -fPIC -o grommit grommit.o -L. -lgraph -lTigrFoundation
-	# ld: warning: creating a DT_TEXTREL in object.
-	#
-	# * QA Notice: The following files contain runtime text relocations
-	# *  Text relocations force the dynamic linker to perform extra
-	# *  work at startup, waste system resources, and may pose a security
-	# *  risk.  On some architectures, the code may not even function
-	# *  properly, if at all.
-	# *  For more information, see http://hardened.gentoo.org/pic-fix-guide.xml
-	# *  Please include the following list of files in your report:
-	# * TEXTREL usr/bin/grommit
-}
-
 src_install() {
 	emake DESTDIR="${ED}/usr" install
 	# cvs HEAD of amos now contains even more updated files: /usr/bin/printScaff /usr/bin/untangle /usr/lib/TIGR/AsmLib.pm
@@ -102,13 +85,13 @@ src_install() {
 	done
 	rm "${ED}"/usr/lib/libTigrFoundation.a || die
 
-	dodir /usr/share/doc/${P}
+	dodir /usr/share/doc/${PF}
 	mv "${ED}"/usr/doc/* "${ED}"/usr/share/doc/${PF} || die
 	rmdir "${ED}"/usr/doc || die
 
 	dobin "${FILESDIR}"/goBambus.pl
 	dodoc "${DISTDIR}"/scaffolding_MIRA_BAMBUS.pdf
-	rm -rf "${ED}"/usr/lib || die
+	rm -r "${ED}"/usr/lib || die
 }
 
 pkg_postinst(){

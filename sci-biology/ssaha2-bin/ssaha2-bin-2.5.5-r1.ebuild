@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit toolchain-funcs
 
@@ -20,9 +20,10 @@ LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-QA_PREBUILT="/opt/.*"
+QA_PREBUILT="*"
 
-pkg_setup() {
+src_unpack() {
+	default
 	use x86 && export S="${WORKDIR}"/${MY_P}_i686
 	use amd64 && export S="${WORKDIR}"/${MY_P}_x86_64
 }
@@ -31,8 +32,7 @@ src_compile() {
 }
 
 src_install() {
-	dobin samflag
-	exeinto /opt/bin
-	doexe ssaha2 ssaha2Build ssahaSNP
+	dobin samflag ssaha2 ssaha2Build ssahaSNP
 	dodoc README "${DISTDIR}"/ssaha2-manual.pdf
+	einstalldocs
 }

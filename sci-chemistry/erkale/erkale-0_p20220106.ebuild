@@ -1,17 +1,20 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit cmake flag-o-matic git-r3 multibuild toolchain-funcs
+inherit cmake flag-o-matic multibuild toolchain-funcs
+
+COMMIT="bfb9d499a45e1da78b32a9fd52a06fd0dafc52f8"
 
 DESCRIPTION="Quantum chemistry program for atoms and molecules"
 HOMEPAGE="https://github.com/susilehtola/erkale"
-EGIT_REPO_URI="https://github.com/susilehtola/erkale.git"
+SRC_URI="https://github.com/susilehtola/${PN}/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-${COMMIT}"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="openmp"
 
 RDEPEND="
@@ -40,7 +43,7 @@ src_prepare() {
 src_configure() {
 	my_configure() {
 		local OMP=OFF && [[ ${MULTIBUILD_VARIANT} == "omp" ]] && OMP=ON
-		local basis="${EROOT}/usr/share/${PN}/basis"
+		local basis="${EPREFIX}/usr/share/${PN}/basis"
 		local mycmakeargs=(
 			-DUSE_OPENMP=${OMP}
 			-DBUILD_SHARED_LIBS=ON

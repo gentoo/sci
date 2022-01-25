@@ -1,11 +1,11 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 CMAKE_BUILD_TYPE=Release
-inherit cmake fortran-2
 CMAKE_MAKEFILE_GENERATOR="emake"
+inherit cmake fortran-2
 
 DESCRIPTION="Assist the transition from PGPlot to PLplot in Fortran programs"
 HOMEPAGE="http://pg2plplot.sourceforge.net"
@@ -16,14 +16,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X png postscript static-libs"
 
-DEPEND="virtual/fortran
-		sci-libs/plplot[fortran]"
+DEPEND="
+	virtual/fortran
+	sci-libs/plplot[fortran]
+"
 
 # If USE="png" or "postscript", ensure PLplot has USE="cairo":
 RDEPEND="${DEPEND}
-		 sci-libs/plplot[fortran,X?]
-		 png? ( sci-libs/plplot[cairo] )
-		 postscript? ( sci-libs/plplot[cairo] )"
+	sci-libs/plplot[fortran,X?]
+	png? ( sci-libs/plplot[cairo] )
+	postscript? ( sci-libs/plplot[cairo] )
+"
 
 src_configure() {
 	local mycmakeargs=(
@@ -31,5 +34,3 @@ src_configure() {
 	)
 	cmake_src_configure
 }
-
-DOCS="CHANGELOG README VERSION"

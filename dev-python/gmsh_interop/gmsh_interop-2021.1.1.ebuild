@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{6..8} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -16,14 +16,12 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="${PYTHON_DEPS}
-	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]
+	>=dev-python/numpy-1.6.0[${PYTHON_USEDEP}]
 	dev-python/pytools[${PYTHON_USEDEP}]
 	sci-libs/gmsh[blas]
 "
 BDEPEND="
 	test? (
-		dev-python/hopcroftkarp[${PYTHON_USEDEP}]
 		dev-python/joblib[${PYTHON_USEDEP}]
 	)
 "
