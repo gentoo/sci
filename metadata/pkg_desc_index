@@ -53,15 +53,15 @@ dev-python/astropy-healpix 0.6: HEALPix for Astropy
 dev-python/astropy-helpers 4.0.1: Helpers for Astropy and Affiliated packages
 dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated packages
 dev-python/astroquery 0.4.1: A collection of packages to access online astronomical resources
-dev-python/astroscrappy 1.0.8: Speedy Cosmic Ray Annihilation Package in Python
+dev-python/astroscrappy 1.1.0: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
-dev-python/bokeh 2.2.1-r1 2.2.2-r1 2.2.3 2.3.0 2.3.1 2.3.2: Statistical and interactive HTML plots for Python
+dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/cadquery 2.2_rc20210804: Python parametric CAD scripting framework based on OCCT
 dev-python/cadquery-ocp 7.5.2_beta: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526: C++ binding generator based on libclang and pybind11
-dev-python/ccdproc 2.1.0: Astropy affiliated package for reducing optical/IR CCD data
+dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
 dev-python/colorlover 0.3.0: color scales in python for humans
@@ -79,7 +79,7 @@ dev-python/fslpy 3.8.1: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/geopandas 0.10.2: Python tools for geographic data
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
-dev-python/gmsh_interop 2019.1: Interoperability with Gmsh for Python
+dev-python/gmsh_interop 2021.1.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
 dev-python/gwcs 0.16.1: Generalized World Coordinate System
 dev-python/hdf5storage 0.1.15_p1 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
@@ -94,8 +94,8 @@ dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for To
 dev-python/llvmlite 0.37.0 0.38.0: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
-dev-python/meshio 4.4.6: Python input/output for many mesh formats
-dev-python/meshpy 2018.2.1 2018.2.1_p1: Quality triangular and tetrahedral mesh generation for Python
+dev-python/meshio 4.4.6 5.3.0: Python input/output for many mesh formats
+dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/nptyping 1.4.3: Type hints for NumPy
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.54.0 0.55.0: NumPy aware dynamic Python compiler using LLVM
@@ -113,18 +113,18 @@ dev-python/pynndescent 0.5.2: nearest neighbor descent for approximate nearest n
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2: Pytest plugin with advanced doctest features
-dev-python/python-gantt 0.6.0 0.6.0_p20200809: Draw Gantt charts from Python
-dev-python/python-igraph 0.8.2 0.8.3 0.9.0: Python interface for igraph
+dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
+dev-python/python-igraph 0.9.0: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pytorch-lightning 1.5.8: Lightweight PyTorch wrapper for ML researchers
-dev-python/pyvista 0.31.1: Easier Pythonic interface to VTK
+dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pyzo 4.11.2: The Python IDE for scientific computing
 dev-python/rasterio 1.2.10: Command line tool and API for geospatial raster data
 dev-python/rasterstats 0.16.0: Python module for summarizing geospatial raster datasets based on vectors
 dev-python/regions 0.4: Astropy affilated package for region handling
-dev-python/reproject 0.7.1: Reproject astronomical images
+dev-python/reproject 0.8: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
 dev-python/ripser 0.6.0: python frontend for the fast ripser tda tool
 dev-python/schema 0.7.4: Schema validation just got Pythonic
@@ -161,7 +161,7 @@ media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
 net-misc/cernbox-client 2.9.2.6206 2.10.0.6519: Synchronize files from CERNBox EOS with your computer
-sci-astronomy/libthesky 0.4.1-r1: Fortran library to compute positions of celestial bodies
+sci-astronomy/libthesky 0.4.2: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
 sci-biology/ABI-expression-data 0.2: Gene expression data form the Allen Mouse Brain data portal
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
@@ -210,7 +210,7 @@ sci-biology/ants 2.3.4: Advanced Normalitazion Tools for neuroimaging
 sci-biology/arcs 1.2.2: Scaffold genome sequence assemblies by Chromium/PacBio/Naopore reads
 sci-biology/assembly-stats 9999: Assembly statistics (min, max, sum, N50, N90, count gaps and Ns)
 sci-biology/bam-readcount 0.8.0 9999: Count DNA sequence reads in BAM files and other statistics calculations
-sci-biology/bambus 2.33: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
+sci-biology/bambus 2.33-r1: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
 sci-biology/bamql 1.6.1 9999: Extract reads from BAM files
 sci-biology/barrnap 0.9: Predict Bacterial and Archaeal rRNA genes and output in GFF3 format
 sci-biology/beagle 5.1: Genotype calling/phasing, imputation of ungenotyped markers
@@ -368,7 +368,7 @@ sci-biology/snap 20131129: HMM-based prokaryotic and eukaryotic gene prediction 
 sci-biology/snpomatic 1.0: Stringent short-read aligner supporting filters and various output formats
 sci-biology/spm 12_p7771: Analysis of brain imaging data sequences for Octave or Matlab
 sci-biology/sra-tools 2.11.3: NCBI Sequence Read Archive (SRA) sratoolkit
-sci-biology/ssaha2-bin 2.5.5: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
+sci-biology/ssaha2-bin 2.5.5-r1: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
 sci-biology/stacks 2.60: Analyze restriction enzyme data, draw gen. maps, population genomics
 sci-biology/staden 2.0.0_beta11: DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
 sci-biology/staden_doc 2.0.0_beta11: Documentation files for the staden package
@@ -378,7 +378,7 @@ sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt fla
 sci-biology/tabixpp 1.1.0: C++ wrapper to tabix indexer
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
 sci-biology/tigmint 1.2.4-r1: Correct misassemblies using linked reads from 10x Genomics Chromium
-sci-biology/tigr-foundation-libs 2.0-r1: TIGR Foundation for C++
+sci-biology/tigr-foundation-libs 2.0-r2: TIGR Foundation for C++
 sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
 sci-biology/trans-abyss 2.0.1: Analyze and combine multiple assemblies from abyss
 sci-biology/trf-bin 4.09: Tandem Repeats Finder
@@ -402,7 +402,7 @@ sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure
 sci-chemistry/ctffind 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/dl_poly 1.10 5.0.0: a general purpose molecular dynamics simulation package
 sci-chemistry/drawxtl 45 55: Crystal structure drawings from structural data
-sci-chemistry/erkale 9999: Quantum chemistry program for atoms and molecules
+sci-chemistry/erkale 0_p20220106: Quantum chemistry program for atoms and molecules
 sci-chemistry/freeon 9999: An experimental suite of programs for linear scaling quantum chemistry
 sci-chemistry/gamess 20180930.3-r1: A powerful quantum chemistry package
 sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to be created
@@ -451,7 +451,7 @@ sci-libs/libStatGen 1.0.15: Set of classes for creating statistical genetic prog
 sci-libs/libflame-amd 3.1: AMD optimized high-performance object-based library for DLA computations
 sci-libs/libmatheval 1.1.11 1.1.11-r1: library to parse and evaluate symbolic expressions
 sci-libs/libmaus2 2.0.689 9999: Library for biobambam2
-sci-libs/libsufr 0.7.5-r1: LIBrary of Some Useful Fortran Routines
+sci-libs/libsufr 0.7.7: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
 sci-libs/mlpack 3.4.1 3.4.2: scalable C++ machine learning library
@@ -461,7 +461,7 @@ sci-libs/nipy 0.4.2 9999: Neuroimaging tools for Python
 sci-libs/nipype 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.8_alpha 9999: Parallel 3d FFT
-sci-libs/pg2plplot 5.13.0: Assist the transition from PGPlot to PLplot in Fortran programs
+sci-libs/pg2plplot 5.13.1: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/pybids 0.6.5 0.10.2 0.11.1 0.12.4: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2 2.2.2: A pure python package for parsing DICOM files
 sci-libs/pytorch 1.10.1-r1: Tensors and Dynamic neural networks in Python with strong GPU acceleration
@@ -511,7 +511,7 @@ sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
-sci-visualization/clip 0.7: command line chart creator
+sci-visualization/clip 0.7-r1: command line chart creator
 sci-visualization/forge 1.0.5 1.0.7 9999: High Performance Visualizations for ArrayFire
 sci-visualization/fsleyes 1.3.3: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.7.3: Object attribute management for the FSLeyes viewer

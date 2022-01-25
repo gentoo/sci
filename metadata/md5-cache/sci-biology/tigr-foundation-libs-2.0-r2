@@ -1,9 +1,9 @@
-DEFINED_PHASES=install prepare
+DEFINED_PHASES=install
 DESCRIPTION=TIGR Foundation for C++
-EAPI=7
+EAPI=8
 HOMEPAGE=https://sourceforge.net/projects/amos/
 KEYWORDS=~amd64 ~x86
 LICENSE=Artistic
 SLOT=0
 SRC_URI=ftp://ftp.cbcb.umd.edu/pub/software/autoEditor/autoEditor-1.20.tar.gz
-_md5_=898b1f1711ebaef0c12a67ce0e082b2d
+_md5_=54bdbbbabc8ae8d3c5c1ac39f03726b7
