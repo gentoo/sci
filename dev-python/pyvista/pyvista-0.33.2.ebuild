@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python3_{8..9} )
 DISTUTILS_SINGLE_IMPL=1  # because "sci-libs/vtk" inherits "python-single-r1"
@@ -23,10 +23,7 @@ RDEPEND="
 		dev-python/imageio[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
-		!>=dev-python/meshio-5.0.0[${PYTHON_USEDEP}]
-		>=dev-python/meshio-4.0.3[${PYTHON_USEDEP}]
 		>=dev-python/scooby-0.5.1[${PYTHON_USEDEP}]
-		>=dev-python/transforms3d-0.3.1[${PYTHON_USEDEP}]
 	')
 "
 DEPEND="${RDEPEND}"
