@@ -1,21 +1,19 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 DESCRIPTION="NGS suite for analysis of mapped reads, summary of exon/intron/gene counts"
 HOMEPAGE="http://bioinf.wehi.edu.au/featureCounts/" # no https
 SRC_URI="https://sourceforge.net/projects/subread/files/${P}/${P}-source.tar.gz"
+S="${S}-source"
 
 LICENSE="GPL-3"
 SLOT="0"
+KEYWORDS="~amd64"
 
 DEPEND="sys-libs/zlib"
 RDEPEND="${DEPEND}"
-
-S="${S}-source"
-
-PATCHES=( "${FILESDIR}"/${P}-fno-common.patch )
 
 src_prepare(){
 	default
