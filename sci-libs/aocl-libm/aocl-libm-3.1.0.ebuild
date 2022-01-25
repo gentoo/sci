@@ -1,19 +1,17 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit toolchain-funcs
-
-MY_PV=${PV/_p/-}
 
 DESCRIPTION="Optimized libm replacement from AMD for x86_64 architectures"
 HOMEPAGE="https://developer.amd.com/amd-aocl/amd-math-library-libm/"
 SRC_URI="
-	aocc? ( aocl-libm-linux-aocc-${MY_PV}.tar.gz )
-	!aocc? ( aocl-libm-linux-gcc-${MY_PV}.tar.gz )
+	aocc? ( aocl-libm-linux-aocc-${PV}.tar.gz )
+	!aocc? ( aocl-libm-linux-gcc-${PV}.tar.gz )
 "
-S="${WORKDIR}"/amd-libm
+S="${WORKDIR}/amd-libm"
 
 LICENSE="AMD"
 SLOT="0"
@@ -36,15 +34,15 @@ src_prepare() {
 
 	sed -e "s/^CC =.*$/CC = $(tc-getCC)/" -i examples/Makefile || die
 
-	cat <<- EOF > "${T}"/amdlibm.pc
-		prefix=${EROOT}/usr
+	cat <<- EOF > "${T}"/amdlibm.pc || die
+		prefix=${EPREFIX}/usr
 		exec_prefix=\${prefix}
 		libdir=\${prefix}/$(get_libdir)
 		includedir=\${prefix}/include
 
 		Name: ${PN}
 		Description: ${DESCRIPTION}
-		Version: ${MY_PV}
+		Version: ${PV}
 		Libs: -L\${libdir} -lamdlibm
 		Cflags: -I\${includedir}
 	EOF
@@ -61,9 +59,8 @@ src_install() {
 
 	doheader include/*
 
-	dolib.so lib/libamdlibm.so
-	use static-libs && \
-	dolib.a  lib/libamdlibm.a
+	dolib.so lib/*.so
+	use static-libs && dolib.a  lib/*.a
 
 	if use examples; then
 		dodoc -r examples
