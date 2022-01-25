@@ -1,9 +1,0 @@
-DEFINED_PHASES=install prepare
-DESCRIPTION=De novo transcriptome assembler
-EAPI=7
-HOMEPAGE=http://www.ebi.ac.uk/~zerbino/oases
-LICENSE=GPL-3
-RDEPEND=>=sci-biology/velvet-1.2.08
-SLOT=0
-SRC_URI=http://www.ebi.ac.uk/~zerbino/oases/oases_0.2.08.tgz http://www.ebi.ac.uk/~zerbino/oases/OasesManual.pdf
-_md5_=817ec57ba7a1053eeb040711a992387c

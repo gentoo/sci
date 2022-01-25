@@ -312,7 +312,6 @@ sci-biology/mouse-brain-atlases 0.5.3: A collection of mouse brain atlases in NI
 sci-biology/mouse-brain-templates 0.5.3: A collection of mouse brain templates in NIfTI format
 sci-biology/mreps 2.6.01: Identification of serial/tandem repeats in DNA sequences
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
-sci-biology/mrsfast 3.4.2: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
 sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1 2.11.0: A subset of NCBI C++ Toolkit containing just the NCBI BLAST+
@@ -327,7 +326,6 @@ sci-biology/nrcl 110625: Containment clustering and layout utility for processin
 sci-biology/ntCard 1.2.2 9999: Estimate k-mer coverage histogram of genomics data
 sci-biology/nwalign3 0.1.2: Needleman-Wunsch global sequence alignment in python3
 sci-biology/nxtrim 0.4.3: Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker
-sci-biology/oases 0.2.08 9999: De novo transcriptome assembler
 sci-biology/open-ephys-gui 0.5.2.2 0.5.5 9999 99999999: Processing, recording, and visualizing multichannel ephys data
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
@@ -340,13 +338,11 @@ sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
 sci-biology/polyphen 2.2.2: Predict effect of aminoacid substitution on human protein function
 sci-biology/portrait 1.1: Ab initio ncRNA prediction
-sci-biology/primerD 1.0.0: Design degenerate primers
 sci-biology/prinseq-lite 0.20.4: Describe, trim, reformat and convert to or form FASTA/FASTQ files
 sci-biology/proda 1.0: Multiple alignment of protein sequences with repeated and shuffled elements
 sci-biology/prokka 1.14.6: Prokaryotic whole genome annotation pipeline
 sci-biology/proovread 2.14.1 9999: Error correct PacBio subreads using Illumina reads
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
-sci-biology/pufferfish 1.4.0: Index for the colored, compacted, de Bruijn graph
 sci-biology/pybedtools 0.8.2: Use BED and GFF files from python using BEDtools
 sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequences
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
@@ -358,8 +354,7 @@ sci-biology/roche454ace2caf 20100812: ace to gap4 converter
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
-sci-biology/sailfish 0.10.0 9999: Rapid Mapping-based Isoform Quantification from RNA-Seq Reads
-sci-biology/salmon 0.10.2 1.4.0: Transcript-level quantification from RNA-seq reads using lightweight alignments
+sci-biology/salmon 0.10.2 1.6.0: Transcript-level quantification from RNA-seq reads using lightweight alignments
 sci-biology/samri 0.4.1 0.5 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
