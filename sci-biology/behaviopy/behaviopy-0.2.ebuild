@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -13,11 +13,9 @@ SRC_URI="https://github.com/TheChymera/behaviopy/archive/${PV}.tar.gz -> ${P}.ta
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="evaluation test"
+IUSE="evaluation"
 KEYWORDS="~amd64 ~x86"
-RESTRICT="!test? ( test )"
 
-DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -25,17 +23,17 @@ RDEPEND="
 	dev-python/seaborn[${PYTHON_USEDEP}]
 	dev-python/statsmodels[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	"
+"
 
-src_prepare() {
+python_prepare_all() {
 	if ! use evaluation; then
 		rm behaviopy/evaluation.py || die
 	fi
-	default
+	distutils-r1_python_prepare_all
 }
 
 python_test() {
-	cd behaviopy/examples
+	cd behaviopy/examples || die
 	echo "backend : Agg" > matplotlibrc || die
 	for i in *py; do
 		echo "Executing $i"
