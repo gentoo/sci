@@ -66,11 +66,12 @@ src_prepare() {
 	einfo "bambus-2.33/src/TIGR_Foundation_CC/OptionResult.cc:/*! Uses same syntax as getopt"
 	#rm -rf src/TIGR_Foundation_CC || die "Failed to rm -rf src/TIGR_Foundation_CC/, we use it from sci-biology/tigr-foundation-libs"
 	#sed -i 's:TIGR_Foundation_CC::' src/Makefile || die "Failed to zap last pointer to local copy of tigr-foundation-libs"
-	cd src/TIGR_Foundation_CC || die "Failed to cd src/TIGR_Foundation_CC/"
-	sed -e "s:/export/usr/local:${ED}/usr:g" -i Makefile || die
 }
 
 src_install() {
+	pushd src/TIGR_Foundation_CC || die
+	sed -e "s:/export/usr/local:${ED}/usr:g" -i Makefile || die
+	popd || die
 	emake DESTDIR="${ED}/usr" install
 	# cvs HEAD of amos now contains even more updated files: /usr/bin/printScaff /usr/bin/untangle /usr/lib/TIGR/AsmLib.pm
 	for f in FASTArecord.pm FASTAreader.pm Foundation.pm FASTAgrammar.pm AsmLib.pm; do rm "${ED}"/usr/lib/TIGR/$f; done || die
