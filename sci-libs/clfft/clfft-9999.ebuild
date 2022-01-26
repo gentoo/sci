@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 MY_PN="clFFT"
 
@@ -21,7 +21,7 @@ EGIT_BRANCH="develop"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="callback_client +client test"
+IUSE="callback-client +client test"
 
 RDEPEND="
 	virtual/opencl
@@ -40,7 +40,7 @@ S="${WORKDIR}/${P}/src"
 
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_CALLBACK_CLIENT="$(usex callback_client)"
+		-DBUILD_CALLBACK_CLIENT="$(usex callback-client)"
 		-DBUILD_CLIENT="$(usex client)"
 		-DBUILD_TEST="$(usex test)"
 		-DBoost_USE_STATIC_LIBS=OFF
