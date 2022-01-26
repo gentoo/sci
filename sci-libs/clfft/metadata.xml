@@ -18,7 +18,7 @@ clFFT is part of the clMath sofware library, which is the
 successor of APPML.
 </longdescription>
 	<use>
-		<flag name="callback_client">
+		<flag name="callback-client">
 Build a command line clFFT client program that tests callback functionality.
 </flag>
 		<flag name="client">

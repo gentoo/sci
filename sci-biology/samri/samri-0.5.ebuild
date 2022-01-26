@@ -1,25 +1,25 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7..8} )
+PYTHON_COMPAT=( python3_{8..9} )
 
 inherit distutils-r1 prefix
 
 DESCRIPTION="Small Animal Magnetic Resonance Imaging"
 HOMEPAGE="https://github.com/IBT-FMI/SAMRI"
 SRC_URI="https://github.com/IBT-FMI/SAMRI/archive/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/SAMRI-${PV}"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="+atlases labbookdb test"
 KEYWORDS="~amd64"
-RESTRICT="!test? ( test )"
+IUSE="+atlases labbookdb"
+REQUIRED_USE="test? ( atlases )"
 
 DEPEND="
 	test? (
-		dev-python/pytest[${PYTHON_USEDEP}]
 		sci-biology/samri_bidsdata
 		sci-biology/samri_bindata
 		)
@@ -48,14 +48,13 @@ RDEPEND="
 	sci-biology/nilearn[${PYTHON_USEDEP}]
 "
 
-REQUIRED_USE="test? ( atlases )"
-
-S="${WORKDIR}/SAMRI-${PV}"
+distutils_enable_tests pytest
+distutils_enable_sphinx doc/source dev-python/sphinxcontrib-napoleon
 
 src_prepare() {
 	distutils-r1_src_prepare
-	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI \'/usr/ samri`
-	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI /usr/ test_scripts.sh`
+	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI \'/usr/ samri` || die
+	sed -i -e "s:/usr:@GENTOO_PORTAGE_EPREFIX@/usr:g" `grep -rlI /usr/ test_scripts.sh` || die
 	eprefixify $(grep -rl GENTOO_PORTAGE_EPREFIX samri/* test_scripts.sh)
 }
 
@@ -68,5 +67,5 @@ python_test() {
 	sed -i -e \
 		"/def test_bru2bids():/i@pytest.mark.skip('Removed in full test suite, as this is already tested in `test_scripts.sh`')" \
 		samri/pipelines/tests/test_repos.py || die
-	pytest -vv -k "not longtime" || die
+	epytest -k "not longtime"
 }
