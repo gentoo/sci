@@ -99,7 +99,7 @@ sci-libs/blis-amd:64bit-index - Enable 64bit array indexing, incompatible with r
 sci-libs/blis-amd:eselect-ldso - Enable runtime library switching by eselect and ld.so
 sci-libs/blis-amd:openmp - Use openmp threadding model
 sci-libs/blis-amd:pthread - Use pthread threadding model
-sci-libs/clfft:callback_client - Build a command line clFFT client program that tests callback functionality.
+sci-libs/clfft:callback-client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
 sci-libs/etsf_io:pic - Compile Position Independent Code

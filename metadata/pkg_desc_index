@@ -96,7 +96,6 @@ dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshio 4.4.6 5.3.0: Python input/output for many mesh formats
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
-dev-python/nptyping 1.4.3: Type hints for NumPy
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.54.0 0.55.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/palettable 3.3.0 9999: library of color palettes for python
@@ -109,7 +108,7 @@ dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.8.6 0.8.7 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1: Python bindings for ERFA
-dev-python/pynndescent 0.5.2: nearest neighbor descent for approximate nearest neighbors
+dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2: Simple pure-python module for reading and writing nrrd files
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2: Pytest plugin with advanced doctest features
@@ -140,9 +139,8 @@ dev-python/texext 0.6.6: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/trimesh 3.9.1 3.9.42: Python library for loading and using triangular meshes.
-dev-python/typish 1.9.3: Python functions for thorough checks on types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
-dev-python/umap-learn 0.4.6 0.5.0 0.5.1: Uniform Manifold Approximation and Projection
+dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
 dev-python/visvis 1.13.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/xgboost 1.3.1: XGBoost Python Package
@@ -216,7 +214,7 @@ sci-biology/barrnap 0.9: Predict Bacterial and Archaeal rRNA genes and output in
 sci-biology/beagle 5.1: Genotype calling/phasing, imputation of ungenotyped markers
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
 sci-biology/bedops 2.4.26 2.4.39: Manipulate BED file (alternative to bedtools)
-sci-biology/behaviopy 0.1 9999: Neuroimaging tools for Python
+sci-biology/behaviopy 0.2: Neuroimaging tools for Python
 sci-biology/biobambam2 2.0.146 9999: Tools for bam file processing (using libmaus2)
 sci-biology/bismark 0.23.0: Map bisulfite converted sequence reads and cytosine methylation states
 sci-biology/blasr 5.3.5: The PacBio long read aligner
@@ -294,7 +292,7 @@ sci-biology/longstitch 1.0.1: Scaffold genome assemblies by Chromium/PacBio/Nano
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 0.3.1: Probabilistic framework for structural variant discovery
 sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
-sci-biology/mappy 2.17: Minimap2 python binding
+sci-biology/mappy 2.24: Minimap2 python binding
 sci-biology/megahit 1.2.9: Metagenome assembler using succinct de Bruijn graph approach with CUDA
 sci-biology/merlin 1.1.2: Statistical analysis of gene flow in pedigrees
 sci-biology/minced 0.4.2: Short Palindromic Repeat finder tool (for CRISPRs)
@@ -313,13 +311,13 @@ sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI 
 sci-biology/ncbi-vdb 2.11.2: NCBI SRA ( Sequence Read Archive )
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/ngs 2.11.2: NGS Language Bindings
-sci-biology/nilearn 0.8.0 9999: Fast and easy statistical learning on NeuroImaging data
+sci-biology/nilearn 0.8.1: Fast and easy statistical learning on NeuroImaging data
 sci-biology/nitime 0.9 9999: Time-series analysis of neuroscience data
 sci-biology/nrcl 110625: Containment clustering and layout utility for processing pairwise alignments
 sci-biology/ntCard 1.2.2 9999: Estimate k-mer coverage histogram of genomics data
 sci-biology/nwalign3 0.1.2: Needleman-Wunsch global sequence alignment in python3
 sci-biology/nxtrim 0.4.3: Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker
-sci-biology/open-ephys-gui 0.5.2.2 0.5.5 9999 99999999: Processing, recording, and visualizing multichannel ephys data
+sci-biology/open-ephys-gui 0.5.5 9999 99999999: Processing, recording, and visualizing multichannel ephys data
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
 sci-biology/parafly 0.1.0: Parallel cmd processing utility
@@ -348,7 +346,7 @@ sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/salmon 0.10.2 1.6.0: Transcript-level quantification from RNA-seq reads using lightweight alignments
-sci-biology/samri 0.4.1 0.5 9999: Small Animal Magnetic Resonance Imaging
+sci-biology/samri 0.5: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
@@ -414,7 +412,6 @@ sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/pymol-plugins-psico 3.4-r1: Pymol ScrIpt COllection
-sci-chemistry/pyquante 2.1_p20190721: Quantum chemistry package written in Python
 sci-chemistry/relion 3.1.1: Image-processing software for cryo-electron microscopy
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/ssp 09.11: Secondary structure propensities
@@ -431,7 +428,7 @@ sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
 sci-libs/blis-amd 2.2 9999: AMD optimized BLAS-like Library Instantiation Software Framework
 sci-libs/ccif 0.4.20120917: CCP4 ccif lib
 sci-libs/ciftilib 1.6.0: C++ Library for reading and writing CIFTI-2 and CIFTI-1 files
-sci-libs/clfft 2.12.2 9999: Library containing FFT functions written in OpenCL
+sci-libs/clfft 2.12.2-r1 9999: Library containing FFT functions written in OpenCL
 sci-libs/clrng 1.0.0_beta_p20160304 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 2.01.2019.06: System for chemical shifts based protein structure prediction using ROSETTA
 sci-libs/ensmallen 2.14.2 2.15.0 2.15.1 2.16.0 2.16.2: header only C++ library for numerical optimization
