@@ -132,7 +132,7 @@ dev-python/scooby 0.5.7: Easily report Python package versions and hardware reso
 dev-python/snakemake 5.32.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
-dev-python/sphinx-argparse 0.2.5: Sphinx extension that automatically documents argparse commands and options
+dev-python/sphinx-argparse 0.3.1: Sphinx extension that automatically documents argparse commands and options
 dev-python/sphinx-astropy 1.7.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
@@ -210,7 +210,7 @@ sci-biology/ants 2.3.4: Advanced Normalitazion Tools for neuroimaging
 sci-biology/arcs 1.2.2: Scaffold genome sequence assemblies by Chromium/PacBio/Naopore reads
 sci-biology/assembly-stats 9999: Assembly statistics (min, max, sum, N50, N90, count gaps and Ns)
 sci-biology/bam-readcount 0.8.0 9999: Count DNA sequence reads in BAM files and other statistics calculations
-sci-biology/bambus 2.33-r1: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
+sci-biology/bambus 2.33-r2: Scaffolding Polymorphic Genomes and Metagenomes, a part of AMOS bundle
 sci-biology/bamql 1.6.1 9999: Extract reads from BAM files
 sci-biology/barrnap 0.9: Predict Bacterial and Archaeal rRNA genes and output in GFF3 format
 sci-biology/beagle 5.1: Genotype calling/phasing, imputation of ungenotyped markers
