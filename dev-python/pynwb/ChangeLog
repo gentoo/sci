@@ -1,0 +1,6 @@
+*pynwb-2.0.0_p0 (31 Jan 2022)
+
+  31 Jan 2022;  <chymera@gentoo.org> +files/pynwb-2.0.0-versions.patch,
+  +pynwb-2.0.0_p0.ebuild, pynwb-2.0.0.ebuild:
+  dev-python/pynwb: version bump and test skip  linking skipped test reports on
+  upstream issue treacker
