@@ -18,7 +18,7 @@ LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	sci-libs/hdf5[ros3]
+	sci-libs/hdf5[ros3(-)]
 	dev-python/hdmf[${PYTHON_USEDEP}]
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
