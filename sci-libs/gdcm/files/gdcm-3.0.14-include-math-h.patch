@@ -1,0 +1,15 @@
+https://cgit.freebsd.org/ports/plain/devel/gdcm/files/patch-Utilities_VTK_vtkImageMapToWindowLevelColors2.cxx?id=8f5541298099b722e34632ca9ed388bda91064e7
+
+- workaround for https://sourceforge.net/p/gdcm/bugs/536/
+
+--- a/Utilities/VTK/vtkImageMapToWindowLevelColors2.cxx	2022-06-26 20:39:45 UTC
++++ b/Utilities/VTK/vtkImageMapToWindowLevelColors2.cxx
+@@ -37,6 +37,8 @@
+ #include "vtkScalarsToColors.h"
+ #include "vtkPointData.h"
+ 
++#include <math.h>
++
+ //vtkCxxRevisionMacro(vtkImageMapToWindowLevelColors2, "$Revision: 1.3 $")
+ vtkStandardNewMacro(vtkImageMapToWindowLevelColors2)
+ 
