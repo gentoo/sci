@@ -10,7 +10,7 @@
         <name>Joel Berendzen</name>
     </maintainer>
     <longdescription>
-        MMseqs2 (Many-against-Many sequence searching) is a software suite toi
+        MMseqs2 (Many-against-Many sequence searching) is a software suite to
         search and cluster huge protein and nucleotide sequence sets.
         MMseqs2 is open source GPL-licensed software implemented in C++.
         The software is designed to run on multiple cores and servers

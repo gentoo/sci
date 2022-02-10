@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+    <upstream>
+        <remote-id type="github">steineggerlab/foldseek</remote-id>
+        <doc>https://www.biorxiv.org/content/10.1101/2022.02.07.479398</doc>
+    </upstream>
+    <maintainer type="person">
+        <email>joel@generisbio.com</email>
+        <name>Joel Berendzen</name>
+    </maintainer>
+    <longdescription>
+		Foldseek enables fast and sensitive comparisons of large structure sets.
+		It reaches sensitivities similar to state-of-the-art aligners while
+		being at least 20,000 times faster.
+    </longdescription>
+</pkgmetadata>
