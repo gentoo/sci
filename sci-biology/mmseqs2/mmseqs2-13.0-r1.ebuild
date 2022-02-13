@@ -27,6 +27,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+PATCHES=(
+	"${FILESDIR}/${P}-properly-handle-cpuflags.patch"
+)
+
 src_configure() {
 	local mycmakeargs=(
 		# Need static libs: https://github.com/soedinglab/MMseqs2/issues/411
