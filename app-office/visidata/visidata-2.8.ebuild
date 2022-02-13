@@ -20,6 +20,7 @@ RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]"
 BDEPEND="
 	test? (
 		dev-python/h5py[${PYTHON_USEDEP}]
+		dev-python/odfpy[${PYTHON_USEDEP}]
 		dev-python/openpyxl[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
 		dev-python/pytest[${PYTHON_USEDEP}]
