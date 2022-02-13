@@ -5,10 +5,6 @@
 		<email>chr@chymera.eu</email>
 		<name>Horea Christian</name>
 	</maintainer>
-	<maintainer type="project">
-		<email>proxy-maint@gentoo.org</email>
-		<name>Proxy Maintainers</name>
-	</maintainer>
 	<longdescription lang="en">
 		VisiData is an interactive multitool for tabular data. It combines the
 		clarity of a spreadsheet, the efficiency of the terminal, and the power
