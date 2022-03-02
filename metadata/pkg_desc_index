@@ -265,7 +265,7 @@ sci-biology/genepop 4.7: Population genetics analysis
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.3: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.12.2: Compare, classify, merge, track, annotate GFF files
-sci-biology/gffread 0.11.0: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
+sci-biology/gffread 0.12.7: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
 sci-biology/gffutils 0.8.7.1 0.10.1: GFF and GTF file manipulation and interconversion
 sci-biology/glean 1.0.1: Merge various gene prediction into one (unsupervised learning system)
 sci-biology/grabix 9999: Provide random access to text files BGZF compressed with bgzip
