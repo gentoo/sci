@@ -94,7 +94,6 @@ dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for To
 dev-python/llvmlite 0.37.0 0.38.0: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
-dev-python/meshio 4.4.6 5.3.0: Python input/output for many mesh formats
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.54.0 0.55.0: NumPy aware dynamic Python compiler using LLVM
@@ -140,7 +139,6 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/texext 0.6.6: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
-dev-python/trimesh 3.9.1 3.9.42: Python library for loading and using triangular meshes.
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
