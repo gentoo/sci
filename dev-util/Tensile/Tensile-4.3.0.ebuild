@@ -14,7 +14,7 @@ S="${WORKDIR}/${PN}-rocm-${PV}"
 
 LICENSE="MIT"
 KEYWORDS="~amd64"
-SLOT="0"
+SLOT="0/$(ver_cut 1-2)"
 
 # Not compatible with recent versions of pytest
 RESTRICT="test"
