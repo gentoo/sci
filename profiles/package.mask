@@ -29,3 +29,8 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (15 Mar 2022)
+# Missing dependencies, bumping is non-trivial, requires patches to get it to
+# compile without errors or sandbox violations. Mask for removal, no revdeps
+sci-libs/superlu_dist
