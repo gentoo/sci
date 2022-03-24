@@ -11,5 +11,5 @@ LICENSE=BSD
 RDEPEND=dev-lisp/sbcl:= books? ( dev-lang/perl ) doc? ( dev-lang/perl )
 SLOT=0
 SRC_URI=https://github.com/acl2/acl2/archive/8.4/acl2-8.4.tar.gz
-_eclasses_=elisp-common	cf4fd1b0835b9f3e638724840468064a
+_eclasses_=elisp-common	f9c72486dbcb18b633c9d0949211d86e
 _md5_=407c79a9e37494e0ce2b6489e0fa4a1b
