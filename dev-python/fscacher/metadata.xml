@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		fscacher provides a cache and decorator for memoizing functions whose
+		outputs depend upon the contents of a file argument. If you have a
+		function `foo()` that takes a file path as its first argument, and if
+		the behavior of `foo()` is pure in the contents of the path and the
+		values of its other arguments, fscacher can help cache that function,
+	</longdescription>
+	<upstream>
+		<remote-id type="github">con/fscacher</remote-id>
+		<remote-id type="pypi">fscacher</remote-id>
+	</upstream>
+</pkgmetadata>

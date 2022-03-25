@@ -1,0 +1,9 @@
+--- a/tox.ini	2021-09-27 01:00:33.935464308 -0400
++++ b/tox.ini	2021-09-27 02:48:34.349729243 -0400
+@@ -27,7 +27,6 @@
+     asv run {posargs}
+
+ [pytest]
+-addopts = --cov=fscacher --no-cov-on-fail
+ filterwarnings = error
+ norecursedirs = test/data
