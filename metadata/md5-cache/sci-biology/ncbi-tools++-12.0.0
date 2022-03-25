@@ -11,5 +11,5 @@ RDEPEND=<sys-devel/gcc-10:= app-arch/cpio berkdb? ( sys-libs/db:=[cxx(-)] ) boos
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools++/ARCHIVE/12_0_0/ncbi_cxx--12_0_0.tar.gz
-_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4a33c9008e5ee30cb8840a3fdc24df2b
 _md5_=25cddb9cd4685196fbea80ca4d47b912
