@@ -18,4 +18,5 @@ jobs:
       with:
         args: --keywords=-RedundantVersion,-MissingAccountIdentifier,-OldPackageUpdate,-VisibleVcsPkg
     - name: try clear cache
+      if: always()
       run: rm -r /home/runner/work/_temp/*
