@@ -1,4 +1,4 @@
-name: pkgcheck
+name: pkgcheck-CI
 
 on:
   push:
