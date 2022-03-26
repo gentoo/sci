@@ -17,5 +17,3 @@ jobs:
       uses: pkgcore/pkgcheck-action@v1
       with:
         args: --keywords=-RedundantVersion,-MissingAccountIdentifier,-OldPackageUpdate,-VisibleVcsPkg
-    - name: try clear cache
-      run: rm -r /home/runner/work/_temp/*
