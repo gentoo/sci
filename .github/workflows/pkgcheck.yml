@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/cache@v1
       with:
+        path: ~/pkgcheck-test-cache
         key: pkgcheck-test
         restore-keys: pkgcheck-test
     - name: Run pkgcheck
