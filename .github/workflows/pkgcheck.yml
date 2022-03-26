@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/cache@v1
+      with:
+        key: pkgcheck-test
+        restore-keys: pkgcheck-test
     - name: Run pkgcheck
       uses: pkgcore/pkgcheck-action@v1
       with:
