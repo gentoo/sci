@@ -1,4 +1,4 @@
-name: pkgcheck-CI
+name: pkgcheck
 
 on:
   push:
@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: try clear cache
+      run: rm -r /home/runner/work/_temp/*
     - name: Run pkgcheck
       uses: pkgcore/pkgcheck-action@v1
       with:
