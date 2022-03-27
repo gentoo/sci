@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		pyout is a Python package that defines an interface for writing
+		structured records as a table in a terminal. It is being developed to
+		replace custom code for displaying tabular data in in ReproMan and
+		DataLad. See the Examples folder for how to get started. A primary
+		goal of the interface is the separation of content from style and
+		presentation.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">pyout/pyout</remote-id>
+		<remote-id type="pypi">pyout</remote-id>
+	</upstream>
+</pkgmetadata>
