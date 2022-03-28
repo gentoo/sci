@@ -1,0 +1,10 @@
+--- a/tox.ini	2021-09-27 06:43:49.569561395 -0400
++++ b/tox.ini	2021-09-27 06:47:36.549815529 -0400
+@@ -30,7 +30,6 @@
+     mypy src test
+
+ [pytest]
+-addopts = --cov=anys --no-cov-on-fail
+ filterwarnings = error
+ norecursedirs = test/data
+
