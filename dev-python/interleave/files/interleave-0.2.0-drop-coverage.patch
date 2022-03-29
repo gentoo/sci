@@ -1,0 +1,18 @@
+--- a/tox.ini
++++ b/tox.ini
+@@ -8,8 +8,6 @@
+ passenv = CI
+ deps =
+     pytest~=7.0
+-    pytest-cov~=3.0
+-    pytest-rerunfailures~=10.0
+ commands =
+     pytest {posargs} test
+
+@@ -31,7 +29,6 @@
+     mypy src test
+
+ [pytest]
+-addopts = --cov=interleave --no-cov-on-fail
+ filterwarnings = error
+ norecursedirs = test/data
