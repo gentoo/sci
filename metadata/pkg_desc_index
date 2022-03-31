@@ -112,7 +112,6 @@ dev-python/photutils 1.0.1: Affiliated package for image photometry utilities
 dev-python/py2bit 0.3.0 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.8.6 0.8.7 0.10.4: PEP 561 type stubs generator for pybind11 modules
-dev-python/pycryptodomex 3.10.4 3.14.1: Cryptographic library for Python
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1: Python bindings for ERFA
 dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest neighbors
