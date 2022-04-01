@@ -46,17 +46,17 @@ src_prepare() {
 	# Unbundle imcat
 	sed -e "s/ imcat / /g" \
 		-i Makefile.INCLUDE || die "Could not edit includes files."
-	sed -e "s~CC	 = /usr/bin/gcc -O2 -m64~CC  = $(tc-getCC) \$(CFLAGS)~" \
+	sed -e "s~CC	 = /usr/bin/gcc -O2 -m64~CC	 = $(tc-getCC) \$(CFLAGS)~" \
 		-e "s~CCMIN  = /usr/bin/gcc -m64~CCMIN  = $(tc-getCC) \$(CFLAGS)~" \
-		-e "s~LD	 = /usr/bin/gcc~LD   = $(tc-getCC)~" \
-		-e "s~AR	 = /usr/bin/ar~AR	= $(tc-getAR)~" \
+		-e "s~LD	 = /usr/bin/gcc~LD	 = $(tc-getCC)~" \
+		-e "s~AR	 = /usr/bin/ar~AR	 = $(tc-getAR)~" \
 		-e "s~RANLIB = /usr/bin/ranlib~RANLIB = $(tc-getRANLIB)~" \
 		-i Makefile || die "Could not edit Makefile"
 		# they provide somewhat problematic makefiles :(
 	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
-	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EROOT}/usr/~g;" -i
+	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EPREFIX}/usr/~g;" -i
 	default
 }
 
