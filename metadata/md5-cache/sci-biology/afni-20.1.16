@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install prepare
+DEPEND=dev-libs/expat media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* virtual/jpeg:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif[-static-libs] app-shells/tcsh
+DESCRIPTION=An open-source environment for processing and displaying functional MRI data
+EAPI=8
+HOMEPAGE=http://afni.nimh.nih.gov/
+INHERIT=toolchain-funcs
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3+
+RDEPEND=dev-libs/expat media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* virtual/jpeg:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif[-static-libs]
+SLOT=0
+SRC_URI=https://github.com/afni/afni/archive/AFNI_20.1.16.tar.gz -> afni-20.1.16.tar.gz
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4a33c9008e5ee30cb8840a3fdc24df2b
+_md5_=3dbc47805146b53a103a6943a7c6b4c9
