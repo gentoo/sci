@@ -8,14 +8,16 @@ inherit toolchain-funcs
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
 SRC_URI="https://github.com/afni/afni/archive/AFNI_${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 
 LICENSE="GPL-3+"
 SLOT="0"
-# fully broken due to upstream cmake migration
-KEYWORDS=""
-IUSE=""
+KEYWORDS="~amd64"
 
-RDEPEND="dev-libs/expat
+RDEPEND="
+	dev-libs/libf2c
+	dev-libs/expat
+	media-libs/freeglut
 	media-libs/glu
 	media-libs/netpbm
 	media-libs/qhull
@@ -31,9 +33,14 @@ RDEPEND="dev-libs/expat
 "
 
 DEPEND="${RDEPEND}
-	app-shells/tcsh"
+	app-shells/tcsh
+"
 
-S="${WORKDIR}/${PN}-AFNI_${PV}/src"
+PATCHES=(
+	# Drop python2.7 dependency
+	"${FILESDIR}/${P}-python.patch"
+)
+
 BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count)
 
