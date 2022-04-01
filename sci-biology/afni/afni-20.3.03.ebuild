@@ -39,10 +39,6 @@ S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
 
-#PATCHES=(
-#   "${FILESDIR}/${P}-python.patch"
-#)
-
 src_prepare() {
 	eapply "${FILESDIR}/${P}-python.patch" || die
 	find -type f -exec sed -i -e "s/-lXp //g" {} +
@@ -60,7 +56,7 @@ src_prepare() {
 	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
-	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EROOT}/usr/~g;" -i
+	find "${S}" -iname "*Makefile*" | xargs sed -e "s~/usr/~${EPREFIX}/usr/~g;" -i
 	default
 }
 
