@@ -12,7 +12,9 @@ S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
+# Depends on some python version withoug pulling it in
+# `thd_selenium.c:18:10: fatal error: Python.h: No such file or directory`
+KEYWORDS=""
 
 RDEPEND="
 	dev-libs/libf2c
