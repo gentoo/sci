@@ -10,4 +10,4 @@ RDEPEND=dev-libs/expat media-libs/glu media-libs/netpbm media-libs/qhull media-v
 SLOT=0
 SRC_URI=https://github.com/afni/afni/archive/AFNI_20.1.16.tar.gz -> afni-20.1.16.tar.gz
 _eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4a33c9008e5ee30cb8840a3fdc24df2b
-_md5_=3dbc47805146b53a103a6943a7c6b4c9
+_md5_=50f5a61113381279d8d876a4a4e6932a
