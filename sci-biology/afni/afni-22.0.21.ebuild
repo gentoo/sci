@@ -12,8 +12,7 @@ S="${WORKDIR}/${PN}-AFNI_${PV}/src"
 
 LICENSE="GPL-3+"
 SLOT="0"
-# Depends on some python version withoug pulling it in
-# `thd_selenium.c:18:10: fatal error: Python.h: No such file or directory`
+# SUMA error: https://ppb.chymera.eu/4223de.log
 KEYWORDS=""
 
 RDEPEND="
@@ -38,15 +37,12 @@ DEPEND="${RDEPEND}
 	app-shells/tcsh
 "
 
-PATCHES=(
-	# Drop python2.7 dependency
-	"${FILESDIR}/${P}-python.patch"
-)
-
 BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count)
 
 src_prepare() {
+	# more easily applied here than via PATCHES at phase end.
+	eapply "${FILESDIR}/${P}-python.patch" || die
 	find -type f -exec sed -i -e "s/-lXp //g" {} + || die
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
 	# Unbundle imcat
