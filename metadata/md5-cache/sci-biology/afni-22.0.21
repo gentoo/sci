@@ -9,4 +9,4 @@ RDEPEND=dev-libs/libf2c dev-libs/expat media-libs/freeglut media-libs/glu media-
 SLOT=0
 SRC_URI=https://github.com/afni/afni/archive/AFNI_22.0.21.tar.gz -> afni-22.0.21.tar.gz
 _eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4a33c9008e5ee30cb8840a3fdc24df2b
-_md5_=39e1808c5d780b1c471d429ea243525b
+_md5_=d455418c6f372e20a71b6f595138e56d
