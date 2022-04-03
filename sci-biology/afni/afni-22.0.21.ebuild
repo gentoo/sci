@@ -42,7 +42,7 @@ BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count)
 
 src_prepare() {
 	# more easily applied here than via PATCHES at phase end.
-	eapply "${FILESDIR}/${P}-python.patch" || die
+	eapply "${FILESDIR}/${PN}-20.1.16-python.patch" || die
 	find -type f -exec sed -i -e "s/-lXp //g" {} + || die
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
 	# Unbundle imcat

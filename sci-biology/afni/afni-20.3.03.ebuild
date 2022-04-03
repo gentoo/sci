@@ -40,7 +40,7 @@ BUILD="linux_fedora_19_64"
 BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
 
 src_prepare() {
-	eapply "${FILESDIR}/${P}-python.patch" || die
+	eapply "${FILESDIR}/${PN}-20.1.16-python.patch" || die
 	find -type f -exec sed -i -e "s/-lXp //g" {} +
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
 	# Unbundle imcat
