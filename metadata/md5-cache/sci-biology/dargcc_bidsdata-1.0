@@ -5,5 +5,5 @@ HOMEPAGE=https://academic.oup.com/cercor/article/28/7/2495/4975475
 KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
 LICENSE=GPL-3
 SLOT=0
-SRC_URI=https://zenodo.org/record/3885733/files/dargcc_bidsdata-1.0.tar.xz http://chymera.eu/distfiles/dargcc_bidsdata-1.0.tar.xz
-_md5_=27f676235d9ad02a564f6157cedb4b73
+SRC_URI=https://zenodo.org/record/3885733/files/dargcc_bidsdata-1.0.tar.xz
+_md5_=17f8db58dfe8897b15758819bf2372c8
