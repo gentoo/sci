@@ -36,7 +36,7 @@ RDEPEND="
 	>=media-gfx/blender-2.83.4
 	>=sci-biology/fsl-5.0.9
 	sci-biology/bru2nii
-	atlases? ( sci-biology/mouse-brain-atlases )
+	atlases? ( sci-biology/mouse-brain-templates )
 	labbookdb? ( sci-libs/labbookdb[${PYTHON_USEDEP}] )
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	>=sci-libs/nipy-0.4.1[${PYTHON_USEDEP}]
