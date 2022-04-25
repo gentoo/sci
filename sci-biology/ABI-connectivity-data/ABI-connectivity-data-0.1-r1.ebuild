@@ -7,7 +7,7 @@ inherit check-reqs
 
 DESCRIPTION="Connectivity data from the Allen Mouse Brain data portal"
 HOMEPAGE="https://github.com/IBT-FMI/ABI-connectivity-data_generator"
-SRC_URI="http://chymera.eu/distfiles/${P}.tar.xz"
+SRC_URI="http://resources.chymera.eu/distfiles/${P}.tar.xz"
 
 LICENSE="fairuse"
 SLOT="0"
