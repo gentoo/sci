@@ -16,13 +16,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 IUSE="examples"
 
-LLVM_MAX_SLOT=11
+LLVM_MAX_SLOT=12
 
 RDEPEND="
 	sys-devel/llvm:${LLVM_MAX_SLOT}
 	sys-libs/zlib:0=
 "
 DEPEND="${RDEPEND}"
+
+PATCHES=( "${FILESDIR}/${P}-llvm12.patch" )
 
 src_prepare() {
 	sed -i -e '/max_python/s:3\.10:3.11:' setup.py || die
