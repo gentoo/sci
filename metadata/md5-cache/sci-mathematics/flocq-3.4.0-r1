@@ -9,5 +9,5 @@ LICENSE=LGPL-3
 RDEPEND=>=sci-mathematics/coq-8.7
 SLOT=0
 SRC_URI=https://gforge.inria.fr/frs/download.php/file/38385/flocq-3.4.0.tar.gz
-_eclasses_=multiprocessing	61c959fc55c15c00bbb1079d6a71370b
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730
 _md5_=fd47677f2f1f59bf387bba5fff1308a5
