@@ -1,6 +1,5 @@
 # The [Gentoo Science Project](https://wiki.gentoo.org/wiki/Project:Science) Repository    
 [![pkgcheck](https://github.com/gentoo/sci/workflows/pkgcheck/badge.svg)](https://github.com/gentoo/sci/actions?query=workflow%3Apkgcheck)
-[![repoman](https://github.com/gentoo/sci/workflows/repoman/badge.svg)](https://github.com/gentoo/sci/actions?query=workflow%3Arepoman)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/gentoo/sci#guide)
 [![chat on libera](https://img.shields.io/badge/chat-on%20libera-brightgreen.svg)](https://web.libera.chat/#gentoo-science)
 
