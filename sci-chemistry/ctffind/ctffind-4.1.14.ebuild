@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	sci-libs/fftw:3.0
-	virtual/jpeg
+	media-libs/libjpeg-turbo
 	media-libs/tiff
 	x11-libs/wxGTK:*
 "

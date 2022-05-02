@@ -21,7 +21,7 @@ RDEPEND="
 	dev-lang/ispc
 	media-libs/glfw
 	media-libs/glu
-	virtual/jpeg:0
+	media-libs/libjpeg-turbo:0
 	virtual/opengl
 	x11-libs/libxcb
 	x11-libs/libX11

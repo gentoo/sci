@@ -59,7 +59,7 @@ DEPEND="
 	muparser? ( dev-cpp/muParser )
 	hdf5? ( sci-libs/hdf5[cxx] )
 	gif? ( media-libs/giflib )
-	jpeg? ( virtual/jpeg:0= )
+	jpeg? ( media-libs/libjpeg-turbo:0= )
 	png? ( media-libs/libpng:0= )
 	tiff? ( media-libs/tiff:0= )
 	xpm? ( x11-libs/libXpm )
