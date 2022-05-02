@@ -1,12 +1,12 @@
 DEFINED_PHASES=compile install prepare
-DEPEND=dev-libs/libf2c dev-libs/expat media-libs/freeglut media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* virtual/jpeg:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif app-shells/tcsh
+DEPEND=dev-libs/libf2c dev-libs/expat media-libs/freeglut media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* media-libs/libjpeg-turbo:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif app-shells/tcsh
 DESCRIPTION=An open-source environment for processing and displaying functional MRI data
 EAPI=8
 HOMEPAGE=http://afni.nimh.nih.gov/
 INHERIT=toolchain-funcs
 LICENSE=GPL-3+
-RDEPEND=dev-libs/libf2c dev-libs/expat media-libs/freeglut media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* virtual/jpeg:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif
+RDEPEND=dev-libs/libf2c dev-libs/expat media-libs/freeglut media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* media-libs/libjpeg-turbo:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif
 SLOT=0
 SRC_URI=https://github.com/afni/afni/archive/AFNI_22.0.21.tar.gz -> afni-22.0.21.tar.gz
 _eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4a33c9008e5ee30cb8840a3fdc24df2b
-_md5_=d455418c6f372e20a71b6f595138e56d
+_md5_=94010f28d10c78064b1f422ec49dda41
