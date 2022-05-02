@@ -1,0 +1,11 @@
+--- a/tox.ini	2021-09-22 19:31:20.534576095 -0400
++++ b/tox.ini	2021-09-26 16:11:30.080164191 -0400
+@@ -17,7 +17,7 @@
+     flake8 --config=setup.cfg {posargs} dandischema setup.py
+
+ [pytest]
+-addopts = --cov=dandischema --tb=short --durations=10
++addopts = --tb=short --durations=10
+ filterwarnings = error
+
+ [coverage:run]
