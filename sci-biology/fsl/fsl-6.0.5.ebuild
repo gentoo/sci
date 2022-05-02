@@ -39,9 +39,7 @@ DEPEND="
 	>=virtual/lapack-3.8
 	>=virtual/blas-3.8
 	cuda? (
-		|| (
-			( =dev-util/nvidia-cuda-toolkit-11* =sys-devel/gcc-9*:* )
-		   )
+		=dev-util/nvidia-cuda-toolkit-11* =sys-devel/gcc-9*:*
 	)
 	"
 RDEPEND="${DEPEND}"
