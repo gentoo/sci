@@ -30,7 +30,7 @@ RDEPEND="
 	sci-libs/hdf5
 	sci-libs/xdrfile
 	sys-devel/gcc[openmp,fortran]
-	virtual/jpeg
+	media-libs/libjpeg-turbo
 	virtual/glu
 	virtual/opengl
 	x11-libs/libX11

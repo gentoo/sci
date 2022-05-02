@@ -40,7 +40,7 @@ DEPEND="
 	)
 	opencascade? ( sci-libs/opencascade:* )
 	ffmpeg? ( media-video/ffmpeg )
-	jpeg? ( virtual/jpeg:0= )
+	jpeg? ( media-libs/libjpeg-turbo:0= )
 	mpi? ( virtual/mpi sci-libs/parmetis opencascade? ( sci-libs/hdf5[mpi] ) )
 "
 RDEPEND="${DEPEND}"
