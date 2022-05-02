@@ -3,7 +3,6 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
@@ -21,16 +20,18 @@ RDEPEND="
 	dev-python/appdirs[${PYTHON_USEDEP}]
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/click-didyoumean[${PYTHON_USEDEP}]
-	=dev-python/dandischema-0.5*[${PYTHON_USEDEP}]
+	~dev-python/dandi-schema-0.6.0[${PYTHON_USEDEP}]
 	dev-python/fasteners[${PYTHON_USEDEP}]
 	dev-python/fscacher[${PYTHON_USEDEP}]
 	dev-python/humanize[${PYTHON_USEDEP}]
+	dev-python/interleave[${PYTHON_USEDEP}]
 	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/keyring[${PYTHON_USEDEP}]
 	dev-python/keyrings_alt[${PYTHON_USEDEP}]
+	dev-python/nwbinspector[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pycryptodome[${PYTHON_USEDEP}]
-	dev-python/pydantic[${PYTHON_USEDEP}]
+	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
 	dev-python/pyout[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
@@ -38,8 +39,8 @@ RDEPEND="
 	dev-python/ruamel-yaml[${PYTHON_USEDEP}]
 	dev-python/semantic_version[${PYTHON_USEDEP}]
 	dev-python/tenacity[${PYTHON_USEDEP}]
-	dev-python/tqdm[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
+	dev-python/zarr[${PYTHON_USEDEP}]
 "
 
 DEPEND="
@@ -48,8 +49,11 @@ DEPEND="
 		dev-python/responses[${PYTHON_USEDEP}]
 		dev-python/pyfakefs[${PYTHON_USEDEP}]
 		dev-python/pytest-mock[${PYTHON_USEDEP}]
+		media-libs/opencv[ffmpeg,${PYTHON_USEDEP}]
 	)
 "
+# Upstream might be amenable to dropping opencv:
+# https://github.com/dandi/dandi-cli/issues/944
 
 # Some tests require deep copy with git history
 # https://github.com/dandi/dandi-cli/issues/878#issuecomment-1021720299
@@ -63,8 +67,7 @@ EPYTEST_DESELECT=(
 distutils_enable_tests pytest
 
 PATCHES=(
-	"${FILESDIR}/${PN}-0.34.1-pip-versioncheck.patch"
-	"${FILESDIR}/${PN}-0.35.0-test_nonetwork.patch"
+	"${FILESDIR}/${PN}-0.37.0-pip-versioncheck.patch"
 )
 
 src_prepare() {
