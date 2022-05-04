@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
@@ -67,6 +68,7 @@ distutils_enable_tests pytest
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.37.0-pip-versioncheck.patch"
+	"${FILESDIR}/${PN}-0.37.0-pep517.patch"
 )
 
 src_prepare() {
