@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
@@ -39,11 +40,12 @@ RDEPEND="
 	dev-python/ruamel-yaml[${PYTHON_USEDEP}]
 	dev-python/semantic_version[${PYTHON_USEDEP}]
 	dev-python/tenacity[${PYTHON_USEDEP}]
+	dev-python/versioneer[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	dev-python/zarr[${PYTHON_USEDEP}]
 "
 
-DEPEND="
+BDEPEND="
 	test? (
 		dev-python/anys[${PYTHON_USEDEP}]
 		dev-python/responses[${PYTHON_USEDEP}]
@@ -68,6 +70,7 @@ distutils_enable_tests pytest
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.37.0-pip-versioncheck.patch"
+	"${FILESDIR}/${PN}-0.37.0-pep517.patch"
 )
 
 src_prepare() {
