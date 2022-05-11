@@ -1,0 +1,10 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -78,7 +78,6 @@
+ doctest_optionflags = NORMALIZE_WHITESPACE ELLIPSIS
+ junit_family = xunit2
+ addopts =
+-	--doctest-modules
+ 	-s
+ 	-vv
+ 	--durations=0
