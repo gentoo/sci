@@ -37,6 +37,8 @@ EPYTEST_IGNORE=(
 	"examples/05_glm_second_level/plot_second_level_one_sample_test.py"
 	"examples/05_glm_second_level/plot_second_level_two_sample_test.py"
 )
+# Reported upstream:
+# https://github.com/nilearn/nilearn/issues/3232
 EPYTEST_DESELECT=(
 	"nilearn/interfaces/fmriprep/tests/test_load_confounds.py::test_nilearn_standardize[False-True-zscore]"
 	"nilearn/interfaces/fmriprep/tests/test_load_confounds.py::test_nilearn_standardize[False-True-psc]"
