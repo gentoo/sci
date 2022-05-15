@@ -29,3 +29,9 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (15 May 2022)
+# Requires old and removed batik:1.9::gentoo
+# No updates since 2019
+# Mask for removal in 30 days
+dev-java/jeuclid-core
