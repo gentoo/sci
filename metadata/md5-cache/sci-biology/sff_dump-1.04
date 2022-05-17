@@ -7,5 +7,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=FLI-Jena
 SLOT=0
 SRC_URI=http://genome.imb-jena.de/software/roche454ace2caf/download/src/sff_dump-1.04.tgz
-_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4a33c9008e5ee30cb8840a3fdc24df2b
+_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85
 _md5_=bcf338ce53eaf47a099812c479097966
