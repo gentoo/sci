@@ -41,7 +41,7 @@ RDEPEND="
 	sci-libs/nibabel[${PYTHON_USEDEP}]
 	>=sci-libs/nipy-0.4.1[${PYTHON_USEDEP}]
 	>=sci-libs/nipype-1.0.0[${PYTHON_USEDEP}]
-	sci-libs/pybids[${PYTHON_USEDEP}]
+	<sci-libs/pybids-0.10.2[${PYTHON_USEDEP}]
 	sci-libs/scikit-image[${PYTHON_USEDEP}]
 	sci-biology/ants
 	sci-biology/afni
