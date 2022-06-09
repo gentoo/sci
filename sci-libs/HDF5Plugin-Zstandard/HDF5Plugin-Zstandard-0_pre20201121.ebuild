@@ -14,7 +14,7 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="app-arch/zstd sci-libs/hdf5"
+DEPEND="app-arch/zstd >=sci-libs/hdf5-1.12.2-r2"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${PN}-${COMMIT}
@@ -24,10 +24,4 @@ src_configure() {
 		-DPLUGIN_INSTALL_PATH="${EPREFIX}/usr/$(get_libdir)/hdf5/plugin"
 	)
 	cmake_src_configure
-}
-
-src_install() {
-	echo "HDF5_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/hdf5/plugin" >> 99h5zstd || die
-	doenvd 99h5zstd
-	cmake_src_install
 }
