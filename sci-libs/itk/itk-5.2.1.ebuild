@@ -4,8 +4,9 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{9,10} )
+VIRTUALX_REQUIRED="manual"
 
-inherit cmake python-single-r1
+inherit cmake python-single-r1 virtualx
 
 MY_PN="InsightToolkit"
 MY_P="${MY_PN}-${PV}"
@@ -62,13 +63,17 @@ DEPEND="${RDEPEND}
 	)
 	doc? ( app-doc/doxygen )
 "
+BDEPEND="
+	test? (
+		vtkglue? ( ${VIRTUALX_DEPEND} )
+	)
+"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}/tests.patch"
 	"${FILESDIR}/${P}-upstream-fixes.patch"
 	"${FILESDIR}/${P}-system-tiff-has-64.patch"
 	"${FILESDIR}/${P}-fix-castxml-clang-attr-malloc.patch"
@@ -186,5 +191,13 @@ src_install() {
 		einfo "Installing API docs. This may take some time."
 		docinto api-docs
 		dodoc -r *
+	fi
+}
+
+src_test() {
+	if use vtkglue; then
+		virtx cmake_src_test || die
+	else
+		cmake_src_test
 	fi
 }
