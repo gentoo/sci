@@ -1,0 +1,28 @@
+https://github.com/InsightSoftwareConsortium/ITK/commit/2a7f5ed199926999b67f61a97c2c9a2595a11558.patch
+
+From 2a7f5ed199926999b67f61a97c2c9a2595a11558 Mon Sep 17 00:00:00 2001
+From: Niels Dekker <N.Dekker@lumc.nl>
+Date: Thu, 24 Jun 2021 18:00:01 +0200
+Subject: [PATCH] COMP: Add missing `#include <iostream>` to Deprecated module
+ test
+
+Fixed a Visual C++ 2019 error, saying:
+
+> Deprecated\test\itkSimpleFastMutexLockTest.cxx(48,12): error C2039: 'cout': is not a member of 'std'
+---
+ .../Deprecated/test/itkSimpleFastMutexLockTest.cxx              | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx b/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx
+index 11ad0c52700..60aa1c065b4 100644
+--- a/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx
++++ b/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx
+@@ -19,6 +19,8 @@
+ 
+ #include "itkSimpleFastMutexLock.h"
+ 
++#include <iostream> // For cout.
++
+ 
+ int
+ itkSimpleFastMutexLockTest(int, char *[])
