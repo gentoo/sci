@@ -1,0 +1,255 @@
+https://github.com/InsightSoftwareConsortium/ITK/commit/2a7f5ed199926999b67f61a97c2c9a2595a11558.patch
+https://github.com/InsightSoftwareConsortium/ITK/commit/0c31aa688e82a34e5430873bc6176740fd09ad75.patch
+https://github.com/InsightSoftwareConsortium/ITK/commit/28325d921a9b8793e6aaefd612f53989f951d19c.patch
+
+From 2a7f5ed199926999b67f61a97c2c9a2595a11558 Mon Sep 17 00:00:00 2001
+From: Niels Dekker <N.Dekker@lumc.nl>
+Date: Thu, 24 Jun 2021 18:00:01 +0200
+Subject: [PATCH] COMP: Add missing `#include <iostream>` to Deprecated module
+ test
+
+Fixed a Visual C++ 2019 error, saying:
+
+> Deprecated\test\itkSimpleFastMutexLockTest.cxx(48,12): error C2039: 'cout': is not a member of 'std'
+---
+ .../Deprecated/test/itkSimpleFastMutexLockTest.cxx              | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx b/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx
+index 11ad0c52700..60aa1c065b4 100644
+--- a/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx
++++ b/Modules/Compatibility/Deprecated/test/itkSimpleFastMutexLockTest.cxx
+@@ -19,6 +19,8 @@
+ 
+ #include "itkSimpleFastMutexLock.h"
+ 
++#include <iostream> // For cout.
++
+ 
+ int
+ itkSimpleFastMutexLockTest(int, char *[])
+From 0c31aa688e82a34e5430873bc6176740fd09ad75 Mon Sep 17 00:00:00 2001
+From: Pablo Hernandez-Cerdan <pablo.hernandez.cerdan@outlook.com>
+Date: Tue, 20 Apr 2021 17:21:21 +0200
+Subject: [PATCH] COMP: CastXML, ITKVtkGlue, include only when property exists
+
+Some targets (VTK libraries) didn't have the property INTERFACE_INCLUDE_DIRECTORIES
+
+```bash
+CMake Error in Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:
+  Found relative path while evaluating include directories of
+  "ITKVtkGluePython":
+
+    "_vtk_lib_include_dirs-NOTFOUND"
+```
+
+Triggered when compiling Slicer with `Slicer_BUILD_ITKPython:BOOL=ON`
+aka `ITK_WRAP_PYTHON:BOOL=ON`.
+
+Full error log with extra printing:
+
+```bash
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:3 (message):
+  ITKVtkGlue_VTK_LIBRARIES:
+  VTK::IOImage;VTK::ImagingSources;VTK::WrappingPythonCore;VTK::CommonCore;VTK::CommonDataModel;VTK::kwiml;VTK::CommonExecutionModel;VTK::RenderingOpenGL2;VTK::RenderingFreeType;VTK::InteractionStyle;VTK::InteractionWidgets
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs:
+  build/VTK-build/Wrapping/PythonCore;build/VTK/Wrapping/PythonCore
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs:
+  build/VTK-build/Utilities/KWIML;build/VTK/Utilities/KWIML
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+CMake Warning at Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:6 (message):
+  _vtk_lib_include_dirs: _vtk_lib_include_dirs-NOTFOUND
+
+-- ITKVtkGlue: Creating module.
+-- ITKVtkGlue: Creating itkImageToVTKImageFilter submodule.
+-- ITKVtkGlue: Creating itkVTKImageToImageFilter submodule.
+-- ITKVtkGlue: Creating itkViewImage submodule.
+-- MGHIO: Creating module.
+-- MGHIO: Creating itkMGHImageIO submodule.
+-- MorphologicalContourInterpolation: Creating module.
+-- MorphologicalContourInterpolation: Creating itkMorphologicalContourInterpolator submodule.
+-- ITKPyUtils: Creating module.
+-- ITKPyUtils: Creating itkPyCommand submodule.
+-- ITKPyUtils: Creating itkPyImageFilter submodule.
+-- Configuring done
+CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake files:
+_vtk_lib_include_dirs
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+   used as include directory in directory build/ITK/Modules/Bridge/VtkGlue/wrapping
+
+CMake Error in Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt:
+  Found relative path while evaluating include directories of
+  "ITKVtkGluePython":
+
+    "_vtk_lib_include_dirs-NOTFOUND"
+
+```
+---
+ Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt b/Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt
+index 3f3322957e1..2fd6a5af8f6 100644
+--- a/Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt
++++ b/Modules/Bridge/VtkGlue/wrapping/CMakeLists.txt
+@@ -2,7 +2,9 @@
+ if(NOT VTK_RENDERING_BACKEND STREQUAL "None")
+   foreach(_vtk_lib IN LISTS ITKVtkGlue_VTK_LIBRARIES)
+     get_target_property(_vtk_lib_include_dirs ${_vtk_lib} INTERFACE_INCLUDE_DIRECTORIES)
+-    include_directories(${_vtk_lib_include_dirs})
++    if(_vtk_lib_include_dirs)
++      include_directories(${_vtk_lib_include_dirs})
++    endif()
+   endforeach()
+ endif()
+ 
+From 28325d921a9b8793e6aaefd612f53989f951d19c Mon Sep 17 00:00:00 2001
+From: Butui Hu <hot123tea123@gmail.com>
+Date: Mon, 1 Aug 2022 14:26:39 +0800
+Subject: [PATCH] COMP: use sysconfig.get_path as PEP 632 deprecate distutils
+ module
+
+---
+ Wrapping/Generators/Python/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Wrapping/Generators/Python/CMakeLists.txt b/Wrapping/Generators/Python/CMakeLists.txt
+index fca3d999b87..3b7a1d37334 100644
+--- a/Wrapping/Generators/Python/CMakeLists.txt
++++ b/Wrapping/Generators/Python/CMakeLists.txt
+@@ -36,7 +36,7 @@ file(MAKE_DIRECTORY ${WRAPPER_MASTER_INDEX_OUTPUT_DIR}/python)
+ ###############################################################################
+ # Configure Python wrapping installation
+ if(Python3_EXECUTABLE AND NOT PY_SITE_PACKAGES_PATH)
+-  set(python_check "try:\n    import distutils.sysconfig\n    print(distutils.sysconfig.get_python_lib(plat_specific=1, prefix=''))\nexcept:\n    pass")
++  set(python_check "try:\n    import sysconfig\n    print(sysconfig.get_path('platlib'))\nexcept:\n    pass")
+   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/detect_site_package_path.py ${python_check})
+   execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_BINARY_DIR}/detect_site_package_path.py"
+     OUTPUT_VARIABLE py_spp
