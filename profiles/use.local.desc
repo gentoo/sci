@@ -88,6 +88,9 @@ sci-chemistry/gamess:qmmm-tinker - Enable tinker qmmm code
 sci-chemistry/gamess:vb2000 - Enable Valence Bond method using VB2000 code
 sci-chemistry/relion:gui - Enable relion gui
 sci-libs/aocl-libm:aocc - install the library built using AOCC, else use the GCC version
+sci-libs/arpack:icb - Enable support for *[ae]upd_c with ISO_C_BINDING
+sci-libs/arpack:icbexmm - Enable support for matrix market example based on ICB
+sci-libs/arpack:int64 - Use the 64-bit integer interface (ILP64)
 sci-libs/arrayfire:cache - cache kernals to disk.
 sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:mkl - Build against static MKL.

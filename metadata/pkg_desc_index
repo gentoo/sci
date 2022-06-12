@@ -1,4 +1,4 @@
-app-arch/libdeflate 1.2 1.6 1.7 1.8 1.9 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
+app-arch/libdeflate 1.2 1.6 1.7 1.8 1.9 1.11 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-office/visidata 2.8: Terminal spreadsheet multitool for discovering and arranging data
 app-text/noweb 2.12: a literate programming tool, lighter than web
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
@@ -433,6 +433,7 @@ sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/aocl-libm 3.1.0: Optimized libm replacement from AMD for x86_64 architectures
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
+sci-libs/arpack 3.8.0_p20220604: Arnoldi package library to solve large scale eigenvalue problems
 sci-libs/arrayfire 3.7.2 3.7.3 3.8.0: general purpose GPU library
 sci-libs/asl 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
