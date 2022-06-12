@@ -24,5 +24,5 @@ src_install() {
 	if ! use static-libs; then
 		find "${ED}" -name '*.a' -delete || die
 	fi
-	dodoc NEWS README.md
+	dodoc NEWS,d README.md
 }
