@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	sci-libs/gdal[aux-xml,jpeg,png,threads,python,${PYTHON_USEDEP}]
+	sci-libs/gdal:=[aux-xml(+),jpeg,png,threads(+)]
 	dev-python/affine[${PYTHON_USEDEP}]
 	dev-python/attrs[${PYTHON_USEDEP}]
 	dev-python/certifi[${PYTHON_USEDEP}]
@@ -26,13 +26,14 @@ RDEPEND="
 	dev-python/click-plugins[${PYTHON_USEDEP}]
 	dev-python/snuggs[${PYTHON_USEDEP}]
 "
+
 #DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
 	test? (
 		dev-python/boto3[${PYTHON_USEDEP}]
 		dev-python/hypothesis[${PYTHON_USEDEP}]
-		sci-libs/gdal[aux-xml,jpeg,png,threads,python,${PYTHON_USEDEP}]
+		sci-libs/gdal:=[aux-xml(+),jpeg,png,threads(+)]
 	)
 "
 
@@ -43,6 +44,9 @@ python_test() {
 		# disable tests failing for unknown reason
 		tests/test_env.py::test_rio_env_no_credentials
 		tests/test_rio_info.py::test_info_azure_unsigned
+
+		tests/test__env.py::test_search_debian_gdal_data
+		tests/test__env.py::test_search_gdal_data_debian
 		tests/test_warp.py::test_reproject_resampling[Resampling.cubic]
 		tests/test_warp.py::test_reproject_resampling[Resampling.lanczos]
 		tests/test_warp.py::test_reproject_resampling_alpha[Resampling.cubic]
