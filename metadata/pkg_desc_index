@@ -130,7 +130,7 @@ dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pyzo 4.11.2: The Python IDE for scientific computing
-dev-python/rasterio 1.2.10: Command line tool and API for geospatial raster data
+dev-python/rasterio 1.2.10-r1: Command line tool and API for geospatial raster data
 dev-python/rasterstats 0.16.0: Python module for summarizing geospatial raster datasets based on vectors
 dev-python/regions 0.4: Astropy affilated package for region handling
 dev-python/reproject 0.8: Reproject astronomical images
