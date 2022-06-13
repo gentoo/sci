@@ -33,6 +33,7 @@ BDEPEND="
 	test? (
 		dev-python/boto3[${PYTHON_USEDEP}]
 		dev-python/hypothesis[${PYTHON_USEDEP}]
+		sci-libs/shapely[${PYTHON_USEDEP}]
 		sci-libs/gdal:=[aux-xml(+),jpeg,png,threads(+)]
 	)
 "
