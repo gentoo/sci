@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	sci-libs/gdal[geos,sqlite,python,${PYTHON_USEDEP}]
+	sci-libs/gdal[geos,sqlite]
 	dev-python/attrs[${PYTHON_USEDEP}]
 	dev-python/click-plugins[${PYTHON_USEDEP}]
 	dev-python/cligj[${PYTHON_USEDEP}]
@@ -24,11 +24,12 @@ RDEPEND="
 	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/certifi[${PYTHON_USEDEP}]
 "
+
 BDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
 	test? (
 		dev-python/boto3[${PYTHON_USEDEP}]
-		sci-libs/gdal[geos,sqlite,python,${PYTHON_USEDEP}]
+		sci-libs/gdal[geos,sqlite]
 	)
 "
 
@@ -55,6 +56,9 @@ python_test() {
 		tests/test_drvsupport.py::test_no_append_driver_cannot_append[GPSTrackMaker]
 		tests/test_drvsupport.py::test_no_append_driver_cannot_append[PCIDSK]
 		tests/test_drvsupport.py::test_write_or_driver_error[DGN]
+
+		# failure in flatgeobuf impl
+		tests/test_drvsupport.py::test_no_append_driver_cannot_append[FlatGeobuf]
 
 		# geos
 		#tests/test_collection.py::test_mask_polygon_triangle
