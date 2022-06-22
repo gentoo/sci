@@ -1,4 +1,4 @@
-BDEPEND=app-arch/unzip net-misc/curl dev-util/ninja >=dev-util/cmake-3.20.5
+BDEPEND=app-arch/unzip net-misc/curl >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
 DEFINED_PHASES=compile configure install prepare test unpack
 DEPEND=dev-libs/boost:= sys-libs/zlib app-arch/bzip2 app-arch/xz-utils >=dev-libs/jemalloc-5.0.1 >=dev-cpp/tbb-2018.20180312 dev-libs/cereal sci-libs/io_lib[static-libs]
 DESCRIPTION=Transcript-level quantification from RNA-seq reads using lightweight alignments
@@ -10,5 +10,5 @@ LICENSE=GPL-3
 RDEPEND=dev-libs/boost:= sys-libs/zlib
 SLOT=0
 SRC_URI=https://github.com/COMBINE-lab/salmon/archive/v1.6.0.tar.gz -> salmon-1.6.0.tar.gz https://github.com/COMBINE-lab/pufferfish/archive/salmon-v1.6.0.tar.gz -> pufferfish-salmon-1.6.0.tar.gz https://github.com/COMBINE-lab/libgff/archive/v2.0.0.tar.gz -> libgff-salmon-1.6.0.tar.gz
-_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85	flag-o-matic	a500d7cc40da3de38c361e889153bdf7	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	58ec4e54962bf45d065fb95030701514	xdg-utils	fffb53a53cf17c9c0c998a3c0a590c7e	cmake	90e2b29417d53718328f3a95227137a0
+_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85	flag-o-matic	a500d7cc40da3de38c361e889153bdf7	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	58ec4e54962bf45d065fb95030701514	xdg-utils	fffb53a53cf17c9c0c998a3c0a590c7e	cmake	44afbf15c35884f7c840470f1cf05d0d
 _md5_=86fca2f305b2d7aabd0115696c76ae3b
