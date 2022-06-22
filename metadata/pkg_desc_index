@@ -60,7 +60,7 @@ dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
-dev-python/cadquery 2.2_rc20210804: Python parametric CAD scripting framework based on OCCT
+dev-python/cadquery 2.2_rc20210804 2.2_rc20220506: Python parametric CAD scripting framework based on OCCT
 dev-python/cadquery-ocp 7.5.2_beta 7.5.3.0: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
@@ -101,6 +101,7 @@ dev-python/llvmlite 0.37.0-r1 0.38.0-r1: Python wrapper around the llvm C++ libr
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
+dev-python/multimethod 1.8: Library allowing Python function overloads based on argument types
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.54.0 0.55.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/numcodecs 0.9.0 0.9.1: Data storage buffer compression and transformation codecs
@@ -148,6 +149,7 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/texext 0.6.6: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
+dev-python/typish 1.9.3: Functionality for types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
