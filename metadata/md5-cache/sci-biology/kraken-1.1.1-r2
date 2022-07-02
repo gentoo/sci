@@ -8,5 +8,5 @@ LICENSE=GPL-3
 RDEPEND=dev-lang/perl net-misc/wget sci-biology/jellyfish:1
 SLOT=1
 SRC_URI=https://github.com/DerrickWood/kraken/archive/v1.1.1.tar.gz -> kraken-1.1.1.tar.gz
-_eclasses_=perl-functions	fea344a91ebf37efadf172c6a3de5a72
+_eclasses_=perl-functions	95b2df43c5f3057b6e77bd00b4d953da
 _md5_=517cd6c11a7969125639e81b7ac9bc18
