@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-python/pandas[${PYTHON_USEDEP}]
-	sci-libs/shapely[${PYTHON_USEDEP}]
+	dev-python/shapely[${PYTHON_USEDEP}]
 	dev-python/fiona[${PYTHON_USEDEP}]
 	dev-python/pyproj[${PYTHON_USEDEP}]"
 
