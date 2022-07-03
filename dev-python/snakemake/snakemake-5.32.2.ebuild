@@ -32,7 +32,7 @@ BDEPEND="test? (
 
 RDEPEND="
 	dev-python/appdirs[${PYTHON_USEDEP}]
-	dev-python/configargparse[${PYTHON_USEDEP}]
+	dev-python/ConfigArgParse[${PYTHON_USEDEP}]
 	dev-python/datrie[${PYTHON_USEDEP}]
 	dev-python/docutils[${PYTHON_USEDEP}]
 	dev-python/GitPython[${PYTHON_USEDEP}]
