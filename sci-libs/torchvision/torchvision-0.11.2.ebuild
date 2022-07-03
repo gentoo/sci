@@ -3,7 +3,6 @@
 
 EAPI=8
 
-DISTUTILS_SINGLE_IMPL=1
 PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
@@ -18,15 +17,13 @@ KEYWORDS="~amd64"
 IUSE="cuda"
 
 RDEPEND="
-	$(python_gen_cond_dep '
 	dev-python/av[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/tqdm[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	')
-	sci-libs/pytorch[cuda?,python,${PYTHON_SINGLE_USEDEP}]
+	sci-libs/pytorch[${PYTHON_USEDEP}]
 	media-video/ffmpeg
 	dev-qt/qtcore:5
 "
