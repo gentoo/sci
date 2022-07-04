@@ -51,6 +51,11 @@ EPYTEST_DESELECT=(
 	zarr/tests/test_sync.py::TestArray::test_object_arrays_vlen_bytes
 	zarr/tests/test_sync.py::TestArrayWithThreadSynchronizer::test_object_arrays_vlen_bytes
 	zarr/tests/test_sync.py::TestArrayWithProcessSynchronizer::test_object_arrays_vlen_bytes
+	zarr/tests/test_core.py::TestArrayWithFSStore::test_object_arrays_vlen_bytes
+	zarr/tests/test_core.py::TestArrayWithFSStoreFromFilesystem::test_object_arrays_vlen_bytes
+	zarr/tests/test_core.py::TestArrayWithFSStorePartialRead::test_object_arrays_vlen_bytes
+	zarr/tests/test_core.py::TestArrayWithFSStoreNested::test_object_arrays_vlen_bytes
+	zarr/tests/test_core.py::TestArrayWithFSStoreNestedPartialRead::test_object_arrays_vlen_bytes
 )
 
 distutils_enable_tests pytest
