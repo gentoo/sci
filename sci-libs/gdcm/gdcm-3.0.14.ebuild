@@ -27,6 +27,7 @@ DEPEND="
 	sys-apps/util-linux:0=
 	sys-libs/zlib:0=
 	vtk? ( sci-libs/vtk[rendering,python?] )
+	vtk? ( python? ( <sci-libs/vtk-9 ) )
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
