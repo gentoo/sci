@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1 virtualx
 
@@ -34,6 +34,10 @@ PATCHES=(
 distutils_enable_tests pytest
 distutils_enable_sphinx doc dev-python/sphinx_rtd_theme
 
+src_test() {
+	virtx distutils-r1_src_test
+}
+
 python_test() {
-	virtx epytest --niters=50 -m "not (dicomtest or longtest or fsltest)"
+	epytest --niters=50 -m "not (dicomtest or longtest or fsltest)" || die "Tests failed with ${EPYTHON}"
 }
