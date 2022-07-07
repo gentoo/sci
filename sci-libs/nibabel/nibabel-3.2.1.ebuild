@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1
@@ -23,14 +23,19 @@ RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/mock[${PYTHON_USEDEP}]
 	dicom? (
-		sci-libs/pydicom
 		dev-python/pillow[${PYTHON_USEDEP}]
-		)
+		sci-libs/pydicom
+	)
 "
 
 BDEPEND="test? (
 	dev-python/pytest-doctestplus[${PYTHON_USEDEP}]
 )"
+
+EPYTEST_DESELECT=(
+	# Re-evaluate after 3.2.1
+	nibabel/gifti/tests/test_parse_gifti_fast.py::test_parse_dataarrays
+)
 
 distutils_enable_sphinx doc/source dev-python/texext dev-python/numpydoc dev-python/matplotlib
 distutils_enable_tests pytest
