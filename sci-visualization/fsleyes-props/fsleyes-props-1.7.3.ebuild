@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1 virtualx
 
@@ -36,6 +36,10 @@ python_prepare_all() {
 	distutils-r1_python_prepare_all
 }
 
+src_test() {
+	virtx distutils-r1_src_test
+}
+
 python_test() {
-	virtx epytest
+	epytest || die "Tests failed with ${EPYTHON}"
 }
