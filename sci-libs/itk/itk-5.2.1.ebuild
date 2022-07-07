@@ -94,6 +94,26 @@ pkg_pretend() {
 }
 
 src_prepare() {
+	# drop bundled libs
+	local -a DROPS=(
+		DoubleConversion/src/double-conversion
+		JPEG/src/itkjpeg
+		HDF5/src/itkhdf5
+		PNG/src/itkpng
+		TIFF/src/itktiff
+		ZLIB/src/itkzlib
+	)
+	local x
+	for x in "${DROPS[@]}"; do
+		ebegin "Dropping bundled ${x%%/*}"
+		rm -r "Modules/ThirdParty/${x}" || die
+		eend $?
+	done
+	{
+		find Modules/ThirdParty -mindepth 2 -maxdepth 2 -type d -name src -printf '%P\n'
+		printf '%s\n' "${DROPS[@]}" | sed 's,/[^/]*$,,'
+	} | sort | uniq -u | xargs -n 1 ewarn "Using bundled"
+
 	sed -i -e "s/find_package(OpenJPEG 2.0.0/find_package(OpenJPEG/g"\
 		Modules/ThirdParty/GDCM/src/gdcm/CMakeLists.txt
 	ln -sr "../ITKGenericLabelInterpolator-${GLI_HASH}" Modules/External/ITKGenericLabelInterpolator || die
