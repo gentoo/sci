@@ -49,6 +49,7 @@ RDEPEND="
 	media-libs/tiff:0=[jpeg]
 	sci-libs/dcmtk:0=
 	sci-libs/hdf5:0=[cxx]
+	sci-libs/gdcm:0=
 	sys-libs/zlib:0=
 	media-libs/libjpeg-turbo:0=
 	fftw? ( sci-libs/fftw:3.0= )
@@ -98,6 +99,7 @@ src_prepare() {
 	# drop bundled libs
 	local -a DROPS=(
 		DoubleConversion/src/double-conversion
+		GDCM/src/gdcm
 		JPEG/src/itkjpeg
 		HDF5/src/itkhdf5
 		OpenJPEG/src/openjpeg
@@ -145,6 +147,7 @@ src_configure() {
 		-DITK_USE_SYSTEM_DCMTK=ON
 		-DITK_USE_SYSTEM_DOUBLECONVERSION=ON
 		-DITK_USE_SYSTEM_CASTXML=ON
+		-DITK_USE_SYSTEM_GDCM=ON
 		-DITK_USE_SYSTEM_HDF5=ON
 		-DITK_USE_SYSTEM_JPEG=ON
 		-DITK_USE_SYSTEM_OPENJPEG=ON
