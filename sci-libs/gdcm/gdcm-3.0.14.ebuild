@@ -45,6 +45,18 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# drop unbundled libs
+	local -a DROPS=( gdcmcharls gdcmexpat gdcmopenjpeg gdcmuuid gdcmzlib getopt pvrg KWStyle Release )
+	local x
+	for x in "${DROPS[@]}"; do
+		ebegin "Dropping bundled ${x#gdcm}"
+		rm -r "Utilities/${x}" || die
+		sed -i "s,^[ \t]*APPEND_COPYRIGHT(\\\${CMAKE_CURRENT_SOURCE_DIR}/${x}/,#&," "Utilities/CMakeLists.txt" || die
+		eend $?
+	done
+	find Utilities -mindepth 1 -maxdepth 1 '!' -name doxygen '!' -name VTK -type d \
+		-exec ewarn "Using bundled" {} ';'
+
 	# fix charls include case
 	sed -i 's:CharLS/charls\.h:charls/charls.h:' CMake/FindCharLS.cmake Utilities/gdcm_charls.h || die
 	sed -i 's:NAMES CharLS:NAMES charls:' CMake/FindCharLS.cmake || die
