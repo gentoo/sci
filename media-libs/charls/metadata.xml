@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>fx.carton91@gmail.com</email>
+		<name>François-Xavier Carton</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">team-charls/charls</remote-id>
+	</upstream>
+</pkgmetadata>

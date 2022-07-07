@@ -1,0 +1,70 @@
+--- a/Utilities/VTK/CMakeLists.txt
++++ b/Utilities/VTK/CMakeLists.txt
+@@ -26,6 +26,11 @@
+   )
+ endif()
+ 
++if( ${VTK_MAJOR_VERSION} GREATER_EQUAL 9 )
++  set(VTK_INCLUDE_DIRS "${VTK_PREFIX_PATH}/include/vtk-${VTK_MAJOR_VERSION}.${VTK_MINOR_VERSION}")
++  include_directories(AFTER ${VTK_INCLUDE_DIRS})
++endif()
++
+ include(CheckCXXSourceCompiles)
+ set(CMAKE_REQUIRED_INCLUDES ${VTK_INCLUDE_DIRS})
+ CHECK_CXX_SOURCE_COMPILES(
+@@ -94,6 +99,10 @@
+   endforeach()
+ endif()
+ 
++if( ${VTK_MAJOR_VERSION} GREATER_EQUAL 9 )
++  string(REGEX REPLACE "vtk([^;]+)" "VTK::\\1" vtkgdcm_LIBS "${vtkgdcm_LIBS}")
++endif()
++
+ # Use wrapping hints for this project.
+ #set(VTK_WRAP_HINTS "${PROJECT_SOURCE_DIR}/hints")
+ 
+--- a/Utilities/VTK/Applications/CMakeLists.txt
++++ b/Utilities/VTK/Applications/CMakeLists.txt
+@@ -25,6 +25,11 @@
+     )
+ endif()
+ 
++set(vtk_ioxml vtkIOXML)
++if( ${VTK_MAJOR_VERSION} GREATER_EQUAL 9 )
++  set(vtk_ioxml VTK::IOXML)
++endif()
++
+ foreach(app ${GDCM_VTK_APPS})
+   add_executable(${app} ${app}.cxx)
+   if(GDCM_EXECUTABLE_PROPERTIES)
+@@ -42,7 +47,7 @@
+     endif()
+   else()
+     # >= 6.0
+-    target_link_libraries(${app} ${VTK_LIBRARIES} vtkIOXML)
++    target_link_libraries(${app} ${VTK_LIBRARIES} ${vtk_ioxml})
+   endif()
+   if(WIN32 AND NOT CYGWIN)
+     target_link_libraries(${app} gdcmgetopt)
+--- a/Utilities/VTK/vtkGDCMPolyDataWriter.cxx
++++ b/Utilities/VTK/vtkGDCMPolyDataWriter.cxx
+@@ -496,6 +496,9 @@
+   sqi = new SequenceOfItems;
+ 
+   vtkIdType npts = 0;
++#if VTK_MAJOR_VERSION >= 9
++  const
++#endif
+   vtkIdType *indx = 0;
+   double v[3];
+   unsigned int cellnum = 0;
+@@ -759,6 +762,9 @@
+     vtkPoints *pts;
+     vtkCellArray *polys;
+     vtkIdType npts = 0;
++#if VTK_MAJOR_VERSION >= 9
++  const
++#endif
+     vtkIdType *indx = 0;
+     pts = theData->GetPoints();
+     polys = theData->GetPolys();
