@@ -39,8 +39,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc examples fftw itkv4-compat python review test vtkglue"
 RESTRICT="!test? ( test )"
-# python will not work, this is a know issue upstream:
-# https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/issues/10
 
 RDEPEND="
 	dev-cpp/eigen:3
@@ -122,10 +120,11 @@ src_prepare() {
 		printf '%s\n' "${DROPS[@]}" | sed 's,/[^/]*$,,'
 	} | sort | uniq -u | xargs -n 1 ewarn "Using bundled"
 
-	sed -i -e "s/find_package(OpenJPEG 2.0.0/find_package(OpenJPEG/g"\
-		Modules/ThirdParty/GDCM/src/gdcm/CMakeLists.txt
+	# Remote modules
 	ln -sr "../ITKGenericLabelInterpolator-${GLI_HASH}" Modules/External/ITKGenericLabelInterpolator || die
+
 	cmake_src_prepare
+
 	if use test; then
 		cp -rf "../ITKTestingData-${TEST_HASH}/"* ".ExternalData/" || die
 		mv "../ITKTestingData-${TEST_HASH}" "${BUILD_DIR}/.ExternalData" || die
