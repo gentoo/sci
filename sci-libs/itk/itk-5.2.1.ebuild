@@ -43,6 +43,7 @@ RESTRICT="!test? ( test )"
 # https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/issues/10
 
 RDEPEND="
+	dev-cpp/eigen:3
 	dev-libs/double-conversion:0=
 	media-libs/openjpeg:2
 	media-libs/libpng:0=
@@ -99,6 +100,7 @@ src_prepare() {
 	# drop bundled libs
 	local -a DROPS=(
 		DoubleConversion/src/double-conversion
+		Eigen3/src/itkeigen
 		GDCM/src/gdcm
 		JPEG/src/itkjpeg
 		HDF5/src/itkhdf5
@@ -147,6 +149,7 @@ src_configure() {
 		-DITK_USE_SYSTEM_DCMTK=ON
 		-DITK_USE_SYSTEM_DOUBLECONVERSION=ON
 		-DITK_USE_SYSTEM_CASTXML=ON
+		-DITK_USE_SYSTEM_EIGEN=ON
 		-DITK_USE_SYSTEM_GDCM=ON
 		-DITK_USE_SYSTEM_HDF5=ON
 		-DITK_USE_SYSTEM_JPEG=ON
