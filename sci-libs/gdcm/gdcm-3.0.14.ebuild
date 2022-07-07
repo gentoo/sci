@@ -40,6 +40,11 @@ BDEPEND="
 
 IUSE="doc python test vtk"
 
+PATCHES=(
+	"${FILESDIR}/gdcm_support_vtk9.patch"
+	"${FILESDIR}/gdcm-3.0.14-include-math-h.patch"
+)
+
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 }
