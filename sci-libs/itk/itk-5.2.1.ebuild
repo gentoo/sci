@@ -77,6 +77,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-upstream-fixes.patch"
 	"${FILESDIR}/${P}-system-tiff-has-64.patch"
 	"${FILESDIR}/${P}-fix-castxml-clang-attr-malloc.patch"
+	"${FILESDIR}/${P}-system-openjpeg.patch"
 )
 
 pkg_pretend() {
@@ -99,6 +100,7 @@ src_prepare() {
 		DoubleConversion/src/double-conversion
 		JPEG/src/itkjpeg
 		HDF5/src/itkhdf5
+		OpenJPEG/src/openjpeg
 		PNG/src/itkpng
 		TIFF/src/itktiff
 		ZLIB/src/itkzlib
@@ -145,6 +147,7 @@ src_configure() {
 		-DITK_USE_SYSTEM_CASTXML=ON
 		-DITK_USE_SYSTEM_HDF5=ON
 		-DITK_USE_SYSTEM_JPEG=ON
+		-DITK_USE_SYSTEM_OPENJPEG=ON
 		-DITK_USE_SYSTEM_PNG=ON
 		-DITK_USE_SYSTEM_SWIG=ON
 		-DITK_USE_SYSTEM_TIFF=ON
