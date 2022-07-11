@@ -19,17 +19,14 @@ RESTRICT="test"
 # reported upstream: https://github.com/nipy/nipy/issues/493
 
 RDEPEND="
-	dev-python/prov[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/sympy[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	"
+DEPEND=""
 
-DEPEND="
-	${RDEPEND}
-	dev-python/setuptools[${PYTHON_USEDEP}]
-	"
+distutils_enable_tests nose
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
@@ -41,15 +38,15 @@ python_prepare_all() {
 	# nipy uses the horrible numpy.distutils automagic
 }
 
-python_test() {
-	distutils-r1_install_for_testing
-	cp nipy/testing/*.nii.gz "${BUILD_DIR}/lib/nipy/testing/"
-	cp nipy/modalities/fmri/tests/*.{mat,npz,txt} "${BUILD_DIR}/lib/nipy/modalities/fmri/tests/"
-	cp nipy/algorithms/statistics/models/tests/test_data.bin "${BUILD_DIR}/lib/nipy/algorithms/statistics/models/tests"
-	cp nipy/labs/spatial_models/tests/some_blobs.nii "${BUILD_DIR}/lib/nipy/labs/spatial_models/tests/some_blobs.nii"
-	mkdir "${BUILD_DIR}/lib/nipy/algorithms/diagnostics/tests/data/"
-	cp nipy/algorithms/diagnostics/tests/data/tsdiff_results.mat "${BUILD_DIR}/lib/nipy/algorithms/diagnostics/tests/data/"
-	cd "${BUILD_DIR}" || die
-	echo "backend : agg" > matplotlibrc
-	nosetests || die
-}
+#python_test() {
+#	distutils-r1_install_for_testing
+#	cp nipy/testing/*.nii.gz "${BUILD_DIR}/lib/nipy/testing/"
+#	cp nipy/modalities/fmri/tests/*.{mat,npz,txt} "${BUILD_DIR}/lib/nipy/modalities/fmri/tests/"
+#	cp nipy/algorithms/statistics/models/tests/test_data.bin "${BUILD_DIR}/lib/nipy/algorithms/statistics/models/tests"
+#	cp nipy/labs/spatial_models/tests/some_blobs.nii "${BUILD_DIR}/lib/nipy/labs/spatial_models/tests/some_blobs.nii"
+#	mkdir "${BUILD_DIR}/lib/nipy/algorithms/diagnostics/tests/data/"
+#	cp nipy/algorithms/diagnostics/tests/data/tsdiff_results.mat "${BUILD_DIR}/lib/nipy/algorithms/diagnostics/tests/data/"
+#	cd "${BUILD_DIR}" || die
+#	echo "backend : agg" > matplotlibrc
+#	nosetests || die
+#}
