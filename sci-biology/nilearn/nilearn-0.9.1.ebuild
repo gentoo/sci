@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -40,6 +40,7 @@ EPYTEST_IGNORE=(
 # Reported upstream:
 # https://github.com/nilearn/nilearn/issues/3232
 EPYTEST_DESELECT=(
+	"nilearn/decoding/tests/test_decoder.py::test_decoder_dummy_classifier"
 	"nilearn/interfaces/fmriprep/tests/test_load_confounds.py::test_nilearn_standardize[False-True-zscore]"
 	"nilearn/interfaces/fmriprep/tests/test_load_confounds.py::test_nilearn_standardize[False-True-psc]"
 	"nilearn/interfaces/fmriprep/tests/test_load_confounds.py::test_nilearn_standardize[True-True-zscore]"
