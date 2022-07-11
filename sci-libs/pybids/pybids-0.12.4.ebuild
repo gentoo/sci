@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 
 inherit distutils-r1
@@ -16,9 +16,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-BDEPEND="dev-python/versioneer[${PYTHON_USEDEP}]
-	test? (	dev-python/mock[${PYTHON_USEDEP}] )
-"
+BDEPEND="test? (	dev-python/mock[${PYTHON_USEDEP}] )"
 
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
@@ -32,4 +30,4 @@ RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 "
 
-distutils_enable_tests --install pytest
+distutils_enable_tests pytest

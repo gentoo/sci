@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
@@ -29,12 +29,4 @@ RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	"
 
-#RESTRICT="test"
-# Fails because fixtures are called directly
-# https://github.com/bids-standard/pybids/issues/289#issuecomment-476853673
-
-python_test() {
-	#rm bids/tests/test_config.py || die
-	distutils_install_for_testing
-	pytest -vv || die
-}
+distutils_enable_tests pytest
