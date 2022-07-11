@@ -1,15 +1,18 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit distutils-r1
 
 DESCRIPTION="DICOM to Nifti coversion"
 HOMEPAGE="https://dcmstack.readthedocs.org/en/latest/"
-SRC_URI="https://github.com/moloney/dcmstack/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="
+	https://github.com/moloney/dcmstack/archive/v${PV}.tar.gz -> ${P}.tar.gz
+	https://resources.chymera.eu/patches/dcmstack-0.8-pytest.patch
+"
 EGIT_REPO_URI="https://github.com/moloney/dcmstack"
 
 LICENSE="MIT"
@@ -22,4 +25,6 @@ RDEPEND="
 	sci-libs/pydicom[${PYTHON_USEDEP}]
 "
 
-distutils_enable_tests setup.py
+PATCHES=( "${DISTDIR}/${P}-pytest.patch" )
+
+distutils_enable_tests pytest
