@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="threads(+),sqlite"
 
 inherit distutils-r1
@@ -47,6 +47,7 @@ RDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${P}"-version_check.patch
+	"${FILESDIR}/${P}"-collections.patch
 )
 
 src_prepare() {
@@ -68,10 +69,18 @@ python_install_all() {
 	doenvd "${FILESDIR}/98nipype"
 }
 
+EPYTEST_DESELECT=(
+	nipype/algorithms/tests/test_CompCor.py::TestCompCor::test_compcor
+	nipype/algorithms/tests/test_CompCor.py::TestCompCor::test_compcor_variance_threshold_and_metadata
+	nipype/algorithms/tests/test_CompCor.py::TestCompCor::test_tcompcor
+	nipype/interfaces/tests/test_io.py::test_s3datagrabber_communication
+	nipype/utils/tests/test_cmd.py::TestNipypeCMD::test_main_returns_0_on_help
+)
+
 python_test() {
 	# Setting environment variable to disable etelemetry version check:
 	# https://github.com/nipy/nipype/issues/3196#issuecomment-605980044
-	NIPYPE_NO_ET=1 pytest -vv\
+	NIPYPE_NO_ET=1 epytest -vv\
 		|| die
 	# Upstream test configuration fails
 		#-c nipype/pytest.ini\
