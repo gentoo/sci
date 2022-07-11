@@ -255,7 +255,7 @@ sci-biology/dcmstack 0.8: DICOM to Nifti coversion
 sci-biology/deeptools 3.5.0: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
 sci-biology/deeptools-intervals 0.1.9: Constructing interval trees with associated exon/annotation information
 sci-biology/diamond 2.0.6: Alternative of blastp/blastx searches using DNA short reads through protein db
-sci-biology/dipy 1.1.1 9999: Computational neuroanatomy project focusing on diffusion MRI
+sci-biology/dipy 1.1.1: Computational neuroanatomy project focusing on diffusion MRI
 sci-biology/drlfom_bidsdata 1.1: BIDS data files released with the DRLFOM publication
 sci-biology/edena 3.131028: De novo short read OLC assembler (overlap-layout-consensus)
 sci-biology/epga 9999: De novo assembler using distribution of reads and insert size
