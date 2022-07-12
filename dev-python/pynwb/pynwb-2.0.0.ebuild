@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	sci-libs/hdf5[ros3(-)]
-	dev-python/hdmf[${PYTHON_USEDEP}]
+	<dev-python/hdmf-3.3.2[${PYTHON_USEDEP}]
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pandas[${PYTHON_USEDEP}]
@@ -30,7 +30,7 @@ PATCHES=(
 
 EPYTEST_DESELECT=(
 	# Reported upsream:
-	# https://github.com/dandi/dandischema/issues/87
+	# https://github.com/NeurodataWithoutBorders/pynwb/issues/1425
 	tests/validation/test_validate.py::TestValidateScript::test_validate_file_cached
 	tests/validation/test_validate.py::TestValidateScript::test_validate_file_cached_bad_ns
 	tests/validation/test_validate.py::TestValidateScript::test_validate_file_cached_hdmf_common
