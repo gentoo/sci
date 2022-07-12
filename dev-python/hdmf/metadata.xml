@@ -15,4 +15,8 @@
 		data models, reading and writing data to different storage backends,
 		and representing data with Python object.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">hdmf-dev/hdmf</remote-id>
+		<remote-id type="pypi">hdmf</remote-id>
+	</upstream>
 </pkgmetadata>
