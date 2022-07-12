@@ -3,8 +3,8 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{8..10} )
-DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit distutils-r1
 
 DESCRIPTION="The Hierarchical Data Modeling Framework"
@@ -26,13 +26,3 @@ RDEPEND="
 BDEPEND=""
 
 distutils_enable_tests pytest
-
-# Known to upstream:
-# https://github.com/hdmf-dev/hdmf/issues/687
-EPYTEST_DESELECT=(
-	tests/unit/utils_test/test_labelleddict.py::TestLabelledDict::test_set_key_attr
-)
-
-PATCHES=(
-	"${FILESDIR}/${PN}-3.1.1-versions.patch"
-)
