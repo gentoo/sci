@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{7..10} )
 
 inherit distutils-r1
 
@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="${PYTHON_DEPS}
-	dev-libs/igraph
+	>=dev-libs/igraph-0.9.0
 	dev-python/texttable[${PYTHON_USEDEP}]
 	dev-python/pycairo[${PYTHON_USEDEP}]
 "
