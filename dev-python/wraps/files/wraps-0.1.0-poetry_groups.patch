@@ -1,0 +1,61 @@
+--- a/pyproject.toml	2022-06-28 11:08:09.624127900 -0400
++++ b/pyproject.toml	2022-07-11 16:33:14.810411482 -0400
+@@ -37,29 +37,6 @@
+
+ typing-extensions = ">= 4.2.0"
+
+-[tool.poetry.group.format]
+-optional = true
+-
+-[tool.poetry.group.format.dependencies]
+-black = "22.6.0"
+-
+-[tool.poetry.group.format.dependencies.isort]
+-version = "5.10.1"
+-python = "^3.7"
+-
+-[tool.poetry.group.check]
+-optional = true
+-
+-[tool.poetry.group.check.dependencies]
+-mypy = "0.961"
+-
+-[tool.poetry.group.test]
+-optional = true
+-
+-[tool.poetry.group.test.dependencies]
+-pytest = "7.1.2"
+-pytest-cov = "3.0.0"
+-
+ [tool.black]
+ line_length = 100
+
+@@ -67,29 +44,6 @@
+ line_length = 100
+ profile = "black"
+
+-[tool.pytest.ini_options]
+-addopts = "--cov wraps"
+-testpaths = ["tests"]
+-
+-[tool.coverage.run]
+-source = ["wraps"]
+-
+-[tool.coverage.report]
+-ignore_errors = true
+-exclude_lines = [
+-    "pragma: never",
+-    "pragma: no cover",
+-    "if TYPE_CHECKING",
+-    "@overload",
+-    "@abstractmethod",
+-    "raise NotImplementedError",
+-    "raise AssertionError",
+-    "def __repr__",
+-]
+-
+-[tool.coverage.html]
+-directory = "coverage"
+-
+ [tool.mypy]
+ show_column_numbers = true
