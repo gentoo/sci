@@ -3,15 +3,13 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{8..10} )
 inherit distutils-r1
 
-MY_PV="${PV/_p/.post}.dev5"
-MY_P="${PN}-${MY_PV}"
-
 DESCRIPTION="A Python API for working with Neurodata stored in the NWB Format "
 HOMEPAGE="https://github.com/NeurodataWithoutBorders/pynwb"
-SRC_URI="https://github.com/NeurodataWithoutBorders/pynwb/releases/download/latest/${MY_P}.tar.gz"
+SRC_URI="https://github.com/NeurodataWithoutBorders/pynwb/releases/download/${PV}/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD"
@@ -27,14 +25,8 @@ RDEPEND="
 	"
 BDEPEND=""
 
-PATCHES=(
-	"${FILESDIR}/${PN}-2.0.0-versions.patch"
-	)
-
-S="${WORKDIR}/${MY_P}"
-
 EPYTEST_DESELECT=(
-	# Reported upsream
+	# Reported upsream:
 	# https://github.com/dandi/dandischema/issues/87
 	tests/validation/test_validate.py::TestValidateScript::test_validate_file_cached
 	tests/validation/test_validate.py::TestValidateScript::test_validate_file_cached_bad_ns

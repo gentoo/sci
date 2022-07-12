@@ -17,4 +17,8 @@
 		data, focused on the dynamics of groups of neurons measured under a
 		large range of experimental conditions.
 	</longdescription>
+	<upstream>
+		<remote-id type="pypi">pynwb</remote-id>
+		<remote-id type="github">NeurodataWithoutBorders/pynwb</remote-id>
+	</upstream>
 </pkgmetadata>
