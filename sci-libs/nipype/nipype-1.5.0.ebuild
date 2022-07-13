@@ -80,7 +80,7 @@ EPYTEST_DESELECT=(
 python_test() {
 	# Setting environment variable to disable etelemetry version check:
 	# https://github.com/nipy/nipype/issues/3196#issuecomment-605980044
-	NIPYPE_NO_ET=1 epytest -vv
+	NIPYPE_NO_ET=1 epytest
 	# Upstream test configuration fails
 		#-c nipype/pytest.ini\
 		#--doctest-modules nipype\
