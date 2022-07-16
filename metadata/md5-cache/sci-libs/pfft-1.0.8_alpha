@@ -11,5 +11,5 @@ LICENSE=GPL-3
 RDEPEND=sci-libs/fftw:3.0[mpi,fortran] virtual/mpi virtual/fortran
 SLOT=0
 SRC_URI=https://www-user.tu-chemnitz.de/~potts/workgroup/pippig/software/pfft-1.0.8-alpha.tar.gz
-_eclasses_=toolchain-funcs	e9da88162e7a3c60376e80c2c2adcdfb	multilib	4fbbbc98f236f1b43acd99476bc3cd85	fortran-2	72d28c6872beb1e7cb99684b0ae4715d	multibuild	d26d81f242cb193d899a72bca423d0bd
+_eclasses_=toolchain-funcs	3484f775017f532a8d1ae02c65defe13	multilib	4fbbbc98f236f1b43acd99476bc3cd85	fortran-2	72d28c6872beb1e7cb99684b0ae4715d	multibuild	d26d81f242cb193d899a72bca423d0bd
 _md5_=e47543807cd640a2e8b3df69ec79dc32
