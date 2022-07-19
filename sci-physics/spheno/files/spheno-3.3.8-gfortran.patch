@@ -1,0 +1,15 @@
+--- a/Makefile	2022-02-16 16:04:19.000000000 +0100
++++ b/Makefile	2022-02-17 22:13:48.086482293 +0100
+@@ -3,10 +3,10 @@
+ # cases NAG's nagfor, gfortran, g95, Lahey's lf95 and Intels ifort
+ # Please uncomment the corresponding line
+ # F90 = nagfor
+-# F90 = gfortran
++F90 = gfortran
+ # F90 = g95
+ # F90 = lf95
+-F90 = ifort
++#F90 = ifort
+ Model = src
+ version = 400.00
+ bin/SPheno:
