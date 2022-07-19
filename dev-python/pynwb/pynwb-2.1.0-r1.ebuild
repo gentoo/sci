@@ -25,6 +25,10 @@ RDEPEND="
 	"
 BDEPEND=""
 
+PATCHES=(
+	"${FILESDIR}/${P}-versions.patch"
+	)
+
 EPYTEST_DESELECT=(
 	# Reported upsream:
 	# https://github.com/NeurodataWithoutBorders/pynwb/issues/1425
