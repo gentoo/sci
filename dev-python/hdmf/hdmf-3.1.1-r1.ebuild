@@ -34,5 +34,5 @@ EPYTEST_DESELECT=(
 )
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.1.1-versions.patch"
+	"${FILESDIR}/${P}-versions.patch"
 )
