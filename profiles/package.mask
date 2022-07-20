@@ -29,3 +29,8 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (20 Jul 2022)
+# Depends on removed llvm:12
+# removal in 30 days
+dev-python/llvmlite
