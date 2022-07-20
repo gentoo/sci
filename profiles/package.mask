@@ -34,3 +34,6 @@
 # Depends on removed llvm:12
 # removal in 30 days
 dev-python/llvmlite
+# reverse dependencies of llvmlite
+dev-python/numba
+dev-python/pynndescent
