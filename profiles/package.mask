@@ -37,3 +37,5 @@ dev-python/llvmlite
 # reverse dependencies of llvmlite
 dev-python/numba
 dev-python/pynndescent
+# reverse dependencies of numba
+dev-python/umap-learn
