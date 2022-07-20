@@ -13,3 +13,16 @@
  Model = src
  version = 400.00
  bin/SPheno:
+--- a/src/Makefile	2022-07-20 11:47:44.078639381 +0200
++++ b/src/Makefile	2022-07-20 11:50:40.553222937 +0200
+@@ -23,8 +23,8 @@
+ 
+ # gfortran
+ ifeq (${F90},gfortran)
+- comp = -c -O -J${Mdir} -I${InDir}
+- LFlagsB = -O  
++ comp = -c -O -J${Mdir} -I${InDir} ${FFLAGS} ${FCFLAGS} ${CFLAGS}
++ LFlagsB = -O ${LDFLAGS}
+ endif
+ 
+ # g95 
