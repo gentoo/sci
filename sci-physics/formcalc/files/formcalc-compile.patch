@@ -1,0 +1,50 @@
+--- a/compile	2022-07-20 14:51:59.605328833 +0200
++++ b/compile	2022-07-20 15:37:09.122446647 +0200
+@@ -96,7 +96,7 @@
+ 
+ mcc="REALCC=\"$CC\" CC=\"$t/fcc\" \
+ REALCXX=\"$CXX\" CXX=\"$t/f++\" \
+-PATH=\""'$$PATH'":$t\" $MCC -st $MCFLAGS $CFLAGS"
++PATH=\""'$$PATH'":$t\" $MCC -st -g $MCFLAGS $CFLAGS"
+ 
+ # Mma 5.1's mcc needs -lpthread for static linking
+ mclibs="-lpthread"
+@@ -104,37 +104,28 @@
+ cc="$CC $CFLAGS"
+ 
+ make -f - << _EOF_ || exit 1
+-all: $DEST/tform$exe \
++all: \
+   $DEST/ReadForm$exe $DEST/ToForm$exe \
+   $DEST/ToFortran$exe $DEST/ToC$exe \
+   $DEST/ReadData$exe $DEST/reorder$exe
+ 
+-$DEST/tform$exe: $SRC/bin/$BIN/tform$exe
+-	cp -p $SRC/bin/$BIN/* $DEST/
+-
+ $DEST/ReadForm$exe: $SRC/FormCalc/ReadForm.tm
+ 	$mcc -o $DEST/ReadForm$exe $SRC/FormCalc/ReadForm.tm $mclibs
+-	-strip $DEST/ReadForm$exe
+ 
+ $DEST/ToForm$exe: $SRC/FormCalc/ToForm.c
+ 	$cc -o $DEST/ToForm$exe $SRC/FormCalc/ToForm.c
+-	-strip $DEST/ToForm$exe
+ 
+ $DEST/ToFortran$exe: $SRC/FormCalc/ToFortran.c
+ 	$cc -o $DEST/ToFortran$exe $SRC/FormCalc/ToFortran.c
+-	-strip $DEST/ToFortran$exe
+ 
+ $DEST/ToC$exe: $SRC/FormCalc/ToC.c
+ 	$cc -o $DEST/ToC$exe $SRC/FormCalc/ToC.c
+-	-strip $DEST/ToC$exe
+ 
+ $DEST/ReadData$exe: $SRC/tools/ReadData.tm
+ 	$mcc -o $DEST/ReadData$exe $SRC/tools/ReadData.tm $mclibs
+-	-strip $DEST/ReadData$exe
+ 
+ $DEST/reorder$exe: $SRC/tools/reorder.c
+ 	$cc -o $DEST/reorder$exe $SRC/tools/reorder.c
+-	-strip $DEST/reorder$exe
+ _EOF_
+ 
+ 
