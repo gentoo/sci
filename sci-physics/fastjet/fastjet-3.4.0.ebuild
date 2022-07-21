@@ -43,7 +43,7 @@ src_prepare() {
 }
 
 src_configure() {
-	append-libs -lgmp
+	use cgal && append-libs -lgmp
 	econf \
 		$(use_enable cgal) \
 		$(use_enable plugins allplugins) \
