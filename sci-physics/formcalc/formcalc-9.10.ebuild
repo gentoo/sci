@@ -24,7 +24,7 @@ BDEPEND="
 	sci-mathematics/mathematica
 	sci-mathematics/form
 	"
-PATCHES=( "${FILESDIR}"/${PN}-compile.patch )
+PATCHES=( "${FILESDIR}"/${PN}-9.9-compile.patch )
 
 src_compile() {
 	# remove shipped binaries

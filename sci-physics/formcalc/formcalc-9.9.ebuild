@@ -25,7 +25,7 @@ BDEPEND="
 	sci-mathematics/form
 	"
 
-PATCHES=( "${FILESDIR}"/${PN}-compile.patch )
+PATCHES=( "${FILESDIR}"/${P}-compile.patch )
 
 src_compile() {
 	# remove shipped binaries
