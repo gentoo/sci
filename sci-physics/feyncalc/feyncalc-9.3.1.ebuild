@@ -22,20 +22,20 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 src_configure() {
-	mv "${MY_PN}/DocOutput" "${MY_PN}/Documentation"
+	mv "${MY_PN}/DocOutput" "${MY_PN}/Documentation" || die
 	if use FCtraditionalFormOutput; then
-		echo '$FCTraditionalFormOutput=True;' > "${MY_PN}/FCConfig.m"
+		echo '$FCTraditionalFormOutput=True;' > "${MY_PN}/FCConfig.m" || die
 	fi
 }
 
 src_install() {
 	MMADIR=/usr/share/Mathematica/Applications
-	dodir "$MMADIR/${MY_PN}"
-	insinto "$MMADIR/"
+	dodir "${MMADIR}/${MY_PN}"
+	insinto "${MMADIR}/"
 	doins -r "${S}/${MY_PN}"
 	# copy permissions
 	for f in $(find "${MY_PN}/*" ! -type l); do
-		fperms --reference="${S}/$f" "$MMADIR/$f"
+		fperms --reference="${S}/$f" "${MMADIR}/$f"
 	done
 	# documentation are notebook(.nb) files
 	dodoc -r ${MY_PN}/Documentation/English/*
