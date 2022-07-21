@@ -29,27 +29,26 @@ PATCHES=( "${FILESDIR}"/${PN}-compile.patch )
 
 src_compile() {
 	# remove shipped binaries
-	rm bin/Linux-x86-64/*
-	rm bin/Linux-x86-64-old/*
+	rm bin/Linux-x86-64/* || die
+	rm bin/Linux-x86-64-old/* || die
 
 	export DEST=Linux-x86-64
-	./compile ${LDFLAGS}
+	./compile ${LDFLAGS} || die
 }
 
 src_install() {
 	MMADIR=/usr/share/Mathematica/Applications
-	dosym ${MY_P} $MMADIR/${MY_PN}
-	dodir $MMADIR/${MY_P}
-	insinto $MMADIR
+	dosym ${MY_P} ${MMADIR}/${MY_PN}
+	dodir ${MMADIR}/${MY_P}
+	insinto ${MMADIR}
 	doins -r "${S}"
-	cd "${S}"
 	# Copy executable, etc. permissions
 	for f in $(find * ! -type l); do
-		fperms --reference="${S}/$f" $MMADIR/${MY_P}/$f
+		fperms --reference="${S}/$f" ${MMADIR}/${MY_P}/$f
 	done
 	# switch to system form
-	dosym `which form` $MMADIR/${MY_P}/Linux-x86-64/form
-	dosym `which form` $MMADIR/${MY_P}/Linux-x86-64/tform
+	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/form
+	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/tform
 
 	dodoc manual/*.pdf
 }
