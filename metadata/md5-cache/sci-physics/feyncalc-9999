@@ -1,0 +1,12 @@
+DEFINED_PHASES=configure install
+DEPEND=sci-mathematics/mathematica
+DESCRIPTION=FeynCalc is a Mathematica package for computing Feynman diagrams.
+EAPI=8
+HOMEPAGE=https://feyncalc.github.io/
+IUSE=+FCtraditionalFormOutput
+LICENSE=GPL-3+
+PROPERTIES=live
+RDEPEND=sci-mathematics/mathematica
+SLOT=0
+SRC_URI=https://github.com/FeynCalc/feyncalc/archive/hotfix-stable.tar.gz -> FeynCalc-9999.tar.gz
+_md5_=23247afd7c5389036d59c7dfbe9016cc
