@@ -6,6 +6,8 @@ EAPI=8
 FORTRAN_NEEDED=plugins
 PYTHON_COMPAT=( python3_{8..10} )
 DOCS_BUILDER="doxygen"
+# we depend on these similar to putting doxygen[dot] in BDEPEND
+DOCS_DEPEND="media-gfx/graphviz media-libs/freetype"
 
 inherit autotools flag-o-matic fortran-2 python-r1 docs
 
@@ -28,7 +30,6 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	doc? ( app-doc/doxygen[dot] )
 	virtual/fortran
 "
 
