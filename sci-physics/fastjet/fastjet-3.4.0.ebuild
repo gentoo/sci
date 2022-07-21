@@ -28,7 +28,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	app-doc/doxygen[dot]
+	doc? ( app-doc/doxygen[dot] )
 	virtual/fortran
 "
 
