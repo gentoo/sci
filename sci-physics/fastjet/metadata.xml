@@ -9,9 +9,8 @@
 	A software package for jet finding in pp and e+e- collisions. It includes fast native implementations of many sequential recombination clustering algorithms, plugins for access to a range of cone jet finders and tools for advanced jet manipulation. 
 	</longdescription>
 	<use>
-		<flag name="python"> Build python bindings</flag>
-		<flag name="contrib"> Build fastjet-contrib (fjcontrib)</flag>
+		<flag name="contrib"> Build fastjet-contrib (fjcontrib) </flag>
 		<flag name="plugins"> Build all standard and C++ plugins </flag>
-		<flag name="cgal"> Use <pkg>sci-mathematics/cgal</pkg> instead of bundled algorithms</flag>
+		<flag name="cgal"> Use <pkg>sci-mathematics/cgal</pkg> instead of bundled algorithms </flag>
 	</use>
 </pkgmetadata>
