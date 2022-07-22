@@ -3,12 +3,15 @@
 
 EAPI=8
 
+inherit toolchain-funcs
+
 MY_PN=SPheno
 MY_P=${MY_PN}-${PV}
 
 DESCRIPTION="SPheno stands for S(upersymmetric) Pheno(menology)"
 HOMEPAGE="https://spheno.hepforge.org/"
 SRC_URI="https://spheno.hepforge.org/downloads/?f=${MY_P}.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="all-rights-reserved"
 RESTRICT="bindist mirror"
@@ -20,12 +23,11 @@ RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}"/${P}-gfortran.patch )
 
-S="${WORKDIR}/${MY_P}"
-
 src_compile() {
 	# single thread force needed since fortan mods depend on each other
 	export MAKEOPTS=-j1
-	emake
+	F90=`tc-getFC`
+	emake F90="${F90}"
 }
 
 src_install() {
