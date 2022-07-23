@@ -58,18 +58,16 @@ DEPEND="
 	)
 "
 
-# Noticed by upstream:
-# https://github.com/datalad/datalad/issues/6623
-PATCHES=( "${FILESDIR}/${PN}-0.17.0-skip.patch" )
+EPYTEST_DESELECT=(
+	# Reported upstream: https://github.com/datalad/datalad/issues/6870
+	datalad/distributed/tests/test_ria_basics.py::test_version_check
+	datalad/local/tests/test_gitcredential.py::test_datalad_credential_helper
+)
 
 distutils_enable_tests pytest
 
 python_test() {
 	local -x DATALAD_TESTS_NONETWORK=1
-	#export DATALAD_TESTS_NONETWORK=1
+	# see test groups in "tox.ini"
 	epytest -k "not turtle and not slow and not usecase"
-	#epytest -k "not turtle"
-	#${EPYTHON} -m nose -s -v -A "not(integration or usecase or slow or network or turtle)" datalad || die
-	# Full test suite takes for ever:
-	# ${EPYTHON} -m nose -s -v datalad || die
 }
