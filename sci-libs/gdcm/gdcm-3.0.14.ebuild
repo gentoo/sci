@@ -15,6 +15,8 @@ SRC_URI="mirror://sourceforge/gdcm/${P}.tar.bz2
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="doc python test vtk"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	app-text/poppler:0=[cxx]
@@ -39,7 +41,6 @@ BDEPEND="
 		>=dev-lang/swig-3.0.7
 	)"
 
-IUSE="doc python test vtk"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 PATCHES=(
