@@ -26,8 +26,8 @@ PATCHES=( "${FILESDIR}"/${P}-gfortran.patch )
 src_compile() {
 	# single thread force needed since fortan mods depend on each other
 	export MAKEOPTS=-j1
-	F90=`tc-getFC`
-	emake F90="${F90}"
+	tc-export FC AR
+	emake AR="${AR}" F90="${FC}"
 }
 
 src_install() {
