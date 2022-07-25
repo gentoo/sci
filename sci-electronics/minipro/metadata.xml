@@ -5,6 +5,13 @@
 		<email>sci-electronics@gentoo.org</email>
 		<name>Gentoo Electronics Project</name>
 	</maintainer>
+	<maintainer type="person">
+		<email>scott@alfter.us</email>
+		<name>Scott Alfter</name>
+	</maintainer>
+	<longdescription lang="en">
+		an open-source program for controlling the MiniPRO TL866xx series of chip programmers
+	</longdescription>
 	<upstream>
 		<remote-id type="github">vdudouyt/minipro</remote-id>
 	</upstream>
