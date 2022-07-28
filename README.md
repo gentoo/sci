@@ -28,9 +28,11 @@
 
 ## Installation <a name="install"></a>
 
+As per the current [Portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html), ebuild repositories (a.k.a. overlays) can be managed via file collections under `/etc/portage/repos.conf/`, via the new [plug-in sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync).
+
 ### Eselect-repository Install <a name="install-eselect"></a>
 
-The overlay can be enabled via `repository` extension of the Gentoo `eselect` utility.
+The overlay can be enabled via the `repository` extension of the Gentoo `eselect` utility.
 
 ```console
 emerge --noreplace eselect-repository
@@ -47,8 +49,6 @@ eselect repository remove science
 ```
 
 ### Manual Install <a name="install-manual"></a>
-
-As per the current [Portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html), ebuild repositories (a.k.a. overlays) can be managed via file collections under `/etc/portage/repos.conf/`, via the new [plug-in sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync).
 
 To enable the overlay without the need for dedicated repository software, you need to have `git` installed:
 
