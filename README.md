@@ -28,25 +28,35 @@
 
 ## Installation <a name="install"></a>
 
-### Eselect-repository install <a name="install-eselect"></a>
+As per the current [Portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html), ebuild repositories (a.k.a. overlays) can be managed via file collections under `/etc/portage/repos.conf/`, via the new [plug-in sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync).
 
-The easiest way to enable the overlay is to:
+### Eselect-repository Install <a name="install-eselect"></a>
+
+The overlay can be enabled via the `repository` extension of the Gentoo `eselect` utility.
+
 ```console
-emerge --noreplace eselect-repository && eselect repository enable science && emerge --sync
+emerge --noreplace eselect-repository
+eselect repository enable science
 ```
-and emerge the package as usual.
+
+### Eselect-repository Uninstall
+
+To disable and remove the overlay, run:
+
+```console
+eselect repository disable science
+eselect repository remove science
+```
 
 ### Manual Install <a name="install-manual"></a>
 
-As per the current [Portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html), ebuild repositories (a.k.a. overlays) can be managed via file collections under `/etc/portage/repos.conf/`, via the new [plug-in sync system](https://wiki.gentoo.org/wiki/Project:Portage/Sync).
-
-To enable the overlay without the need for additional software, you first need to have `git` installed:
+To enable the overlay without the need for dedicated repository software, you need to have `git` installed:
 
 ```console
 emerge --ask --verbose dev-vcs/git
 ````
 
-Then you need to add the science repository configuration by downloading the [science.conf](metadata/science.conf) file:
+Then you can simply download the science repository configuration file, [science.conf](metadata/science.conf):
 
 ```console
 wget https://gitweb.gentoo.org/proj/sci.git/plain/metadata/science.conf \
@@ -55,7 +65,7 @@ wget https://gitweb.gentoo.org/proj/sci.git/plain/metadata/science.conf \
 
 ### Manual Uninstall
 
-To uninstall the overlay, simply run:
+To disable and remove the overlay, run:
 
 ```console
 rm /etc/portage/repos.conf/science
