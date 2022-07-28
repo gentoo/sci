@@ -20,6 +20,7 @@ RESTRICT="!test? ( test )"
 DEPEND=""
 RDEPEND="
 	dev-python/jsonschema[${PYTHON_USEDEP}]
+	dev-python/natsort[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 "
