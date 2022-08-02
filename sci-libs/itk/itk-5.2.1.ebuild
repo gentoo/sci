@@ -38,6 +38,8 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc examples fftw itkv4-compat python review test vtkglue"
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -69,8 +71,6 @@ BDEPEND="
 		vtkglue? ( ${VIRTUALX_DEPEND} )
 	)
 "
-
-REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -207,13 +207,13 @@ src_install() {
 		dodoc -r "${S}"/Examples/*
 	fi
 
-	echo "ITK_DATA_ROOT=${EPREFIX}/usr/share/${PN}/data" > ${T}/40${PN}
+	echo "ITK_DATA_ROOT=${EPREFIX}/usr/share/${PN}/data" > ${T}/40${PN} || die
 	local ldpath="${EPREFIX}/usr/$(get_libdir)/InsightToolkit"
 	if use python; then
-		echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/InsightToolkit/WrapITK/Python" >> "${T}"/40${PN}
+		echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/InsightToolkit/WrapITK/Python" >> "${T}"/40${PN} || die
 		ldpath="${ldpath}:${EPREFIX}/usr/$(get_libdir)/InsightToolkit/WrapITK/lib"
 	fi
-	echo "LDPATH=${ldpath}" >> "${T}"/40${PN}
+	echo "LDPATH=${ldpath}" >> "${T}"/40${PN} || die
 	doenvd "${T}"/40${PN}
 
 	if use doc; then
@@ -227,7 +227,7 @@ src_install() {
 
 src_test() {
 	if use vtkglue; then
-		virtx cmake_src_test || die
+		virtx cmake_src_test
 	else
 		cmake_src_test
 	fi
