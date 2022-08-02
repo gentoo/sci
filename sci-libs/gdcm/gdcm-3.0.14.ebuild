@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/gdcm/${P}.tar.bz2
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc python test vtk"
 RESTRICT="!test? ( test )"
 
