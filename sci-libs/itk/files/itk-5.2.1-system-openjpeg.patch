@@ -9,7 +9,6 @@
 -  ${ITKOpenJPEG_SOURCE_DIR}/src/openjpeg
 -  )
 -set(ITKOpenJPEG_LIBRARIES itkopenjpeg)
--set(ITK_LIBRARY_PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
 +option(ITK_USE_SYSTEM_OPENJPEG "Use system-installed openjpeg" ${ITK_USE_SYSTEM_LIBRARIES})
 +mark_as_advanced(ITK_USE_SYSTEM_OPENJPEG)
 +
@@ -30,9 +29,10 @@
 +    )
 +  set(ITKOpenJPEG_LIBRARIES itkopenjpeg)
 +endif()
- 
++
 +configure_file(src/itk_openjpeg.h.in src/itk_openjpeg.h)
-+set(ITK_LIBRARY_PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
+ set(ITK_LIBRARY_PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS FALSE)
+-
  itk_module_impl()
  
 -install(FILES ${ITKOpenJPEG_SOURCE_DIR}/src/itk_openjpeg.h
@@ -40,69 +40,16 @@
    DESTINATION ${ITKOpenJPEG_INSTALL_INCLUDE_DIR}
    COMPONENT Development
    )
+diff --git a/Modules/ThirdParty/OpenJPEG/src/itk_openjpeg.h b/Modules/ThirdParty/OpenJPEG/src/itk_openjpeg.h.in
+rename from Modules/ThirdParty/OpenJPEG/src/itk_openjpeg.h
+rename to Modules/ThirdParty/OpenJPEG/src/itk_openjpeg.h.in
 --- a/Modules/ThirdParty/OpenJPEG/src/itk_openjpeg.h
-+++ /dev/null
-@@ -1,30 +0,0 @@
--/*=========================================================================
-- *
-- *  Copyright NumFOCUS
-- *
-- *  Licensed under the Apache License, Version 2.0 (the "License");
-- *  you may not use this file except in compliance with the License.
-- *  You may obtain a copy of the License at
-- *
-- *         http://www.apache.org/licenses/LICENSE-2.0.txt
-- *
-- *  Unless required by applicable law or agreed to in writing, software
-- *  distributed under the License is distributed on an "AS IS" BASIS,
-- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-- *  See the License for the specific language governing permissions and
-- *  limitations under the License.
-- *
-- *=========================================================================*/
--/*=========================================================================
-- * Include file to wrap the internal ITK OpenJpeg library header
-- *
-- * Author : Guillaume Pasero <guillaume.pasero@c-s.fr>
-- *
-- *=========================================================================*/
--
--#ifndef itk_openjpeg_h
--#define itk_openjpeg_h
--
--#include <itkopenjpeg/openjpeg.h>
--
--#endif
---- /dev/null
 +++ b/Modules/ThirdParty/OpenJPEG/src/itk_openjpeg.h.in
-@@ -0,0 +1,36 @@
-+/*=========================================================================
-+ *
-+ *  Copyright NumFOCUS
-+ *
-+ *  Licensed under the Apache License, Version 2.0 (the "License");
-+ *  you may not use this file except in compliance with the License.
-+ *  You may obtain a copy of the License at
-+ *
-+ *         http://www.apache.org/licenses/LICENSE-2.0.txt
-+ *
-+ *  Unless required by applicable law or agreed to in writing, software
-+ *  distributed under the License is distributed on an "AS IS" BASIS,
-+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-+ *  See the License for the specific language governing permissions and
-+ *  limitations under the License.
-+ *
-+ *=========================================================================*/
-+/*=========================================================================
-+ * Include file to wrap the internal ITK OpenJpeg library header
-+ *
-+ * Author : Guillaume Pasero <guillaume.pasero@c-s.fr>
-+ *
-+ *=========================================================================*/
-+
-+#ifndef itk_openjpeg_h
-+#define itk_openjpeg_h
-+
+@@ -25,6 +25,12 @@
+ #ifndef itk_openjpeg_h
+ #define itk_openjpeg_h
+ 
+-#include <itkopenjpeg/openjpeg.h>
 +/* Use the openjpeg library configured for ITK.  */
 +#cmakedefine ITK_USE_SYSTEM_OPENJPEG
 +#ifdef ITK_USE_SYSTEM_OPENJPEG
@@ -110,8 +57,8 @@
 +#else
 +# include <itkopenjpeg/openjpeg.h>
 +#endif
-+
-+#endif
+ 
+ #endif
 --- a/Modules/IO/JPEG2000/src/itkJPEG2000ImageIO.cxx
 +++ b/Modules/IO/JPEG2000/src/itkJPEG2000ImageIO.cxx
 @@ -27,8 +27,6 @@
@@ -123,7 +70,7 @@
  }
  
  
-@@ -139,22 +137,17 @@
+@@ -139,11 +137,11 @@
  {
    itkDebugMacro(<< "ReadImageInformation()");
  
@@ -139,7 +86,7 @@
    {
      itkExceptionMacro("JPEG2000ImageIO failed to open file for reading: " << this->GetFileName() << std::endl
                                                                            << "Reason: "
-                                                                           << itksys::SystemTools::GetLastSystemError());
+@@ -151,10 +149,5 @@
    }
  
 -  /* set decoding parameters to default values */
@@ -150,8 +97,7 @@
    this->m_Internal->m_Dinfo = nullptr; /* handle to a decompressor */
  
    opj_image_t * l_image = nullptr;
-@@ -187,11 +180,10 @@
-       /* JPEG-2000 codestream */
+@@ -188,9 +181,8 @@
  
        /* get a decoder handle */
 -      this->m_Internal->m_Dinfo = opj_create_decompress(CODEC_J2K);
@@ -162,8 +108,7 @@
 -        fclose(l_file);
          itkExceptionMacro("JPEG2000ImageIO failed to read file: "
                            << this->GetFileName() << std::endl
-                           << "Reason: opj_create_decompress(CODEC_J2K) returns nullptr");
-@@ -202,11 +194,10 @@
+@@ -202,10 +194,9 @@
      {
        /* JPEG 2000 compressed image data */
        /* get a decoder handle */
@@ -175,8 +120,7 @@
 -        fclose(l_file);
          itkExceptionMacro("JPEG2000ImageIO failed to read file: "
                            << this->GetFileName() << std::endl
-                           << "Reason: opj_create_decompress(CODEC_JP2) returns nullptr");
-@@ -217,11 +208,10 @@
+@@ -217,10 +208,9 @@
      {
        /* JPEG 2000, JPIP */
        /* get a decoder handle */
@@ -188,7 +132,6 @@
 -        fclose(l_file);
          itkExceptionMacro("JPEG2000ImageIO failed to read file: "
                            << this->GetFileName() << std::endl
-                           << "Reason: opj_create_decompress(CODEC_JPT) returns nullptr");
 @@ -230,7 +220,6 @@
      }
      default:
@@ -197,8 +140,7 @@
        itkExceptionMacro("JPEG2000ImageIO failed to read file: "
                          << this->GetFileName() << std::endl
                          << "Reason: "
-@@ -247,27 +236,9 @@
-                                                               << "Reason: opj_setup_decoder returns false");
+@@ -248,26 +237,8 @@
    }
  
 -  // Image parameters - first tile
@@ -226,8 +168,7 @@
  
    if (!bResult)
    {
-@@ -283,14 +254,22 @@
-                                                               << "Reason: Error whle reading image header");
+@@ -284,13 +255,21 @@
    }
  
 -  this->m_Internal->m_TileStartX = l_tile_x0;
@@ -263,8 +204,7 @@
      itkExceptionMacro("JPEG2000ImageIO failed to read file: " << this->GetFileName() << std::endl
                                                                << "Reason: "
                                                                << "Unknown precision in file: "
-@@ -319,7 +299,7 @@
-       this->SetPixelType(IOPixelEnum::SCALAR);
+@@ -320,6 +300,6 @@
        break;
      case 3:
 -      if (l_image->color_space != CLRSPC_SRGB)
@@ -343,8 +283,7 @@
        itkExceptionMacro("JPEG2000ImageIO failed to read file: "
                          << this->GetFileName() << std::endl
                          << "Reason: "
-@@ -444,33 +417,18 @@
-   /* setup the decoder decoding parameters using user parameters */
+@@ -445,32 +418,17 @@
    if (!opj_setup_decoder(this->m_Internal->m_Dinfo, &(this->m_Internal->m_DecompressionParameters)))
    {
 +    opj_stream_destroy(l_stream);
@@ -388,8 +327,7 @@
  
    itkDebugMacro(<< "opj_set_decode_area() after");
  
-@@ -508,7 +466,6 @@
-     opj_destroy_codec(this->m_Internal->m_Dinfo);
+@@ -509,6 +467,5 @@
      this->m_Internal->m_Dinfo = nullptr;
      opj_stream_destroy(l_stream);
 -    fclose(l_file);
@@ -412,8 +350,7 @@
                                                 &l_tile_index,
                                                 &l_data_size,
                                                 &l_current_tile_x0,
-@@ -539,14 +497,12 @@
-                                                &l_current_tile_x1,
+@@ -540,13 +498,11 @@
                                                 &l_current_tile_y1,
                                                 &l_nb_comps,
 -                                               &l_go_on,
@@ -452,8 +389,7 @@
      opj_destroy_codec(this->m_Internal->m_Dinfo);
      opj_image_destroy(l_image);
      itkExceptionMacro("JPEG2000ImageIO failed to read file: " << this->GetFileName() << std::endl
-@@ -666,14 +619,12 @@
-     opj_destroy_codec(this->m_Internal->m_Dinfo);
+@@ -667,13 +620,11 @@
      this->m_Internal->m_Dinfo = nullptr;
      opj_stream_destroy(l_stream);
 -    fclose(l_file);
@@ -467,8 +403,7 @@
  
    if (this->m_Internal->m_Dinfo)
    {
-@@ -774,7 +725,7 @@
-                       << parameters.cp_ty0 << ") <= IMG_Y0( " << parameters.image_offset_y0 << ") ");
+@@ -775,6 +726,6 @@
    }
  
 -  for (int i = 0; i < parameters.numpocs; i++)
@@ -501,8 +436,7 @@
  
      /* initialize image components */
      memset(&cmptparms[0], 0, sizeof(opj_image_cmptparm_t));
-@@ -940,9 +891,10 @@
-   opj_codec_t * cinfo = nullptr;
+@@ -941,8 +892,9 @@
    if (extension == ".j2k")
    {
 -    cinfo = opj_create_compress(CODEC_J2K);
