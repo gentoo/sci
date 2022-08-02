@@ -55,7 +55,12 @@ RDEPEND="
 	sys-libs/zlib:0=
 	media-libs/libjpeg-turbo:0=
 	fftw? ( sci-libs/fftw:3.0= )
-	vtkglue? ( sci-libs/vtk:0=[rendering,python?] )
+	vtkglue? (
+		sci-libs/vtk:0=[rendering]
+		python? (
+			sci-libs/vtk:0=[python,${PYTHON_SINGLE_USEDEP}]
+		)
+	)
 	python? ( ${PYTHON_DEPS} )
 "
 DEPEND="${RDEPEND}
