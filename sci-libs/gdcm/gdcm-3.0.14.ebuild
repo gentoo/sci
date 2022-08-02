@@ -28,8 +28,13 @@ DEPEND="
 	>=media-libs/openjpeg-2.0.0:2=
 	sys-apps/util-linux:0=
 	sys-libs/zlib:0=
-	vtk? ( sci-libs/vtk[rendering,python?] )
-	vtk? ( python? ( <sci-libs/vtk-9[${PYTHON_SINGLE_USEDEP}] ) )
+	python? ( ${PYTHON_DEPS} )
+	vtk? (
+		sci-libs/vtk[rendering]
+		python? (
+			<sci-libs/vtk-9[python,${PYTHON_SINGLE_USEDEP}]
+		) 
+	)
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
