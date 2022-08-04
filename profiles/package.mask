@@ -29,13 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (20 Jul 2022)
-# Depends on removed llvm:12
-# removal in 30 days
-dev-python/llvmlite
-# reverse dependencies of llvmlite
-dev-python/numba
-dev-python/pynndescent
-# reverse dependencies of numba
-dev-python/umap-learn
