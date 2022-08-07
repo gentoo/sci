@@ -9,11 +9,11 @@ Subject: [PATCH] Enable LLVM-12 and LLVM-13
  llvmlite/tests/test_binding.py | 19 ++++++++++++++++---
  3 files changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/ffi/build.py b/ffi/build.py
-index 6408bf5f..95e33c64 100755
---- a/ffi/build.py
-+++ b/ffi/build.py
-@@ -162,9 +162,8 @@ def main_posix(kind, library_ext):
+Index: llvmlite-0.39.0/ffi/build.py
+===================================================================
+--- llvmlite-0.39.0.orig/ffi/build.py
++++ llvmlite-0.39.0/ffi/build.py
+@@ -163,9 +163,8 @@ def main_posix(kind, library_ext):
          print(msg)
          print(warning + '\n')
      else:
@@ -25,11 +25,11 @@ index 6408bf5f..95e33c64 100755
                     "{!r}. Be sure to set LLVM_CONFIG to the right executable "
                     "path.\nRead the documentation at "
                     "http://llvmlite.pydata.org/ for more information about "
-diff --git a/ffi/targets.cpp b/ffi/targets.cpp
-index 1ce472c2..4ba33e79 100644
---- a/ffi/targets.cpp
-+++ b/ffi/targets.cpp
-@@ -233,7 +233,9 @@ LLVMPY_CreateTargetMachine(LLVMTargetRef T,
+Index: llvmlite-0.39.0/ffi/targets.cpp
+===================================================================
+--- llvmlite-0.39.0.orig/ffi/targets.cpp
++++ llvmlite-0.39.0/ffi/targets.cpp
+@@ -204,7 +204,9 @@ LLVMPY_CreateTargetMachine(LLVMTargetRef
          rm = Reloc::DynamicNoPIC;
  
      TargetOptions opt;
@@ -39,11 +39,11 @@ index 1ce472c2..4ba33e79 100644
      opt.MCOptions.ABIName = ABIName;
  
      bool jit = JIT;
-diff --git a/llvmlite/tests/test_binding.py b/llvmlite/tests/test_binding.py
-index 80495787..fee2372a 100644
---- a/llvmlite/tests/test_binding.py
-+++ b/llvmlite/tests/test_binding.py
-@@ -18,6 +18,16 @@
+Index: llvmlite-0.39.0/llvmlite/tests/test_binding.py
+===================================================================
+--- llvmlite-0.39.0.orig/llvmlite/tests/test_binding.py
++++ llvmlite-0.39.0/llvmlite/tests/test_binding.py
+@@ -18,6 +18,16 @@ from llvmlite.binding import ffi
  from llvmlite.tests import TestCase
  
  
@@ -60,16 +60,7 @@ index 80495787..fee2372a 100644
  # arvm7l needs extra ABI symbols to link successfully
  if platform.machine() == 'armv7l':
      llvm.load_library_permanently('libgcc_s.so.1')
-@@ -158,7 +168,7 @@ def no_de_locale():
- target triple = "unknown-unknown-unknown"
- target datalayout = ""
- 
--define i32 @"foo"() 
-+define i32 @"foo"()
- {
- "<>!*''#":
-   ret i32 12345
-@@ -424,7 +434,10 @@ def test_nonalphanum_block_name(self):
+@@ -555,7 +565,10 @@ class TestMisc(BaseTest):
          bd = ir.IRBuilder(fn.append_basic_block(name="<>!*''#"))
          bd.ret(ir.Constant(ir.IntType(32), 12345))
          asm = str(mod)
@@ -81,7 +72,7 @@ index 80495787..fee2372a 100644
  
      def test_global_context(self):
          gcontext1 = llvm.context.get_global_context()
-@@ -509,7 +522,7 @@ def test_set_option(self):
+@@ -640,7 +653,7 @@ class TestMisc(BaseTest):
      def test_version(self):
          major, minor, patch = llvm.llvm_version_info
          # one of these can be valid
@@ -90,3 +81,17 @@ index 80495787..fee2372a 100644
          self.assertIn((major,), valid)
          self.assertIn(patch, range(10))
  
+Index: llvmlite-0.39.0/ffi/passmanagers.cpp
+===================================================================
+--- llvmlite-0.39.0.orig/ffi/passmanagers.cpp
++++ llvmlite-0.39.0/ffi/passmanagers.cpp
+@@ -17,9 +17,6 @@
+ #include "llvm-c/Transforms/IPO.h"
+ #include "llvm-c/Transforms/Scalar.h"
+ #include "llvm/IR/LegacyPassManager.h"
+-#if LLVM_VERSION_MAJOR > 11
+-#include "llvm/IR/RemarkStreamer.h"
+-#endif
+ #include "llvm/IR/LLVMRemarkStreamer.h"
+ #include "llvm/Remarks/RemarkStreamer.h"
+ #include "llvm/Transforms/IPO.h"
