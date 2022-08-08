@@ -1,3 +1,4 @@
+can't seem to override PREFIX at build time, so patch it
 --- minipro-0.5/Makefile	2020-11-04 21:35:31.000000000 -0800
 +++ minipro-0.5/Makefile	2022-07-22 11:42:54.866390621 -0700
 @@ -9,7 +9,7 @@
