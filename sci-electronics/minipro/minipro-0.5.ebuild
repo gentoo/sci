@@ -3,12 +3,12 @@
 
 EAPI=8
 
-inherit bash-completion-r1 udev
+inherit udev
 
 DESCRIPTION="A free and open TL866XX programmer"
 HOMEPAGE="https://gitlab.com/DavidGriffith/minipro"
 SRC_URI="https://gitlab.com/DavidGriffith/minipro/-/archive/${PV}/${P}.tar.gz"
-PATCHES="$FILESDIR/$P-makefile.patch"
+PATCHES=( "$FILESDIR/$P-makefile.patch" )
 
 LICENSE="GPL-3"
 SLOT="0"
