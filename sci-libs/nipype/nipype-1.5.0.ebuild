@@ -52,7 +52,7 @@ PATCHES=(
 
 src_prepare() {
 	# Remove etelemetry
-	sed -i '/"etelemetry/d' nipype/info.py || die
+	sed -i '/"etelemetry/d' nipype/info.py requirements.txt || die
 
 	# Mark failing tests
 	sed -i \
