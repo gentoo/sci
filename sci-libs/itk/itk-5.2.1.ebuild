@@ -67,7 +67,7 @@ DEPEND="${RDEPEND}
 	sys-apps/coreutils
 	python? (
 		>=dev-lang/swig-2.0:0
-		dev-cpp/castxml
+		dev-libs/castxml
 	)
 	doc? ( app-doc/doxygen )
 "
