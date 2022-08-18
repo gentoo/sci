@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -14,7 +14,7 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="app-arch/zstd >=sci-libs/hdf5-1.12.2-r2"
+DEPEND="app-arch/zstd >=sci-libs/hdf5-1.12.2-r5"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${PN}-${COMMIT}
