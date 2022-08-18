@@ -1,5 +1,6 @@
 https://github.com/InsightSoftwareConsortium/ITK/commit/2a7f5ed199926999b67f61a97c2c9a2595a11558.patch
 https://github.com/InsightSoftwareConsortium/ITK/commit/0c31aa688e82a34e5430873bc6176740fd09ad75.patch
+https://github.com/InsightSoftwareConsortium/ITK/commit/28325d921a9b8793e6aaefd612f53989f951d19c.patch
 
 From 2a7f5ed199926999b67f61a97c2c9a2595a11558 Mon Sep 17 00:00:00 2001
 From: Niels Dekker <N.Dekker@lumc.nl>
@@ -229,3 +230,26 @@ index 3f3322957e1..2fd6a5af8f6 100644
    endforeach()
  endif()
  
+From 28325d921a9b8793e6aaefd612f53989f951d19c Mon Sep 17 00:00:00 2001
+From: Butui Hu <hot123tea123@gmail.com>
+Date: Mon, 1 Aug 2022 14:26:39 +0800
+Subject: [PATCH] COMP: use sysconfig.get_path as PEP 632 deprecate distutils
+ module
+
+---
+ Wrapping/Generators/Python/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Wrapping/Generators/Python/CMakeLists.txt b/Wrapping/Generators/Python/CMakeLists.txt
+index fca3d999b87..3b7a1d37334 100644
+--- a/Wrapping/Generators/Python/CMakeLists.txt
++++ b/Wrapping/Generators/Python/CMakeLists.txt
+@@ -36,7 +36,7 @@ file(MAKE_DIRECTORY ${WRAPPER_MASTER_INDEX_OUTPUT_DIR}/python)
+ ###############################################################################
+ # Configure Python wrapping installation
+ if(Python3_EXECUTABLE AND NOT PY_SITE_PACKAGES_PATH)
+-  set(python_check "try:\n    import distutils.sysconfig\n    print(distutils.sysconfig.get_python_lib(plat_specific=1, prefix=''))\nexcept:\n    pass")
++  set(python_check "try:\n    import sysconfig\n    print(sysconfig.get_path('platlib'))\nexcept:\n    pass")
+   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/detect_site_package_path.py ${python_check})
+   execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_BINARY_DIR}/detect_site_package_path.py"
+     OUTPUT_VARIABLE py_spp

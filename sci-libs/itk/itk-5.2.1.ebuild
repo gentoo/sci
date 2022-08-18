@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{9,10} )
+PYTHON_COMPAT=( python3_{9,10,11} )
 VIRTUALX_REQUIRED="manual"
 
 inherit cmake python-single-r1 virtualx
@@ -74,6 +74,9 @@ DEPEND="${RDEPEND}
 BDEPEND="
 	test? (
 		vtkglue? ( ${VIRTUALX_DEPEND} )
+		python? (
+			$(python_gen_cond_dep 'dev-python/numpy[${PYTHON_USEDEP}]')
+		)
 	)
 "
 
