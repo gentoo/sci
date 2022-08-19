@@ -146,6 +146,7 @@ src_prepare() {
 src_configure() {
 	local mycmakeargs=(
 		-DITK_BUILD_DOCUMENTATION="$(usex doc ON OFF)"
+		-DITK_INSTALL_DOC_DIR="share/doc/${P}"
 		-DBUILD_EXAMPLES="$(usex examples ON OFF)"
 		-DBUILD_SHARED_LIBS=ON
 		-DBUILD_TESTING="$(usex test ON OFF)"
@@ -232,6 +233,8 @@ src_install() {
 		docinto api-docs
 		dodoc -r *
 	fi
+
+	use python && python_optimize
 }
 
 src_test() {
