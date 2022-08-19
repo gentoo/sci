@@ -196,6 +196,7 @@ src_configure() {
 	if use python; then
 		mycmakeargs+=(
 			-DITK_WRAP_PYTHON=ON
+			-DPython3_EXECUTABLE="${PYTHON}"
 			-DITK_WRAP_DIMS="${ITK_WRAP_DIMS:-2;3}"
 		)
 	else
