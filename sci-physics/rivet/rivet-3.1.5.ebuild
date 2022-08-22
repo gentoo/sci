@@ -56,7 +56,8 @@ src_prepare() {
 }
 
 src_configure() {
-	# TODO does this affect more cpus?
+	# Eigen complains about alignment (see https://gitlab.com/libeigen/eigen/-/issues/2523).
+	# does this affect more cpus?
 	replace-cpu-flags znver1 x86-64
 	PREFIX_YODA=$(yoda-config --prefix) || die
 	PREFIX_FJ=$(fastjet-config --prefix) || die
