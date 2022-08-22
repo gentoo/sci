@@ -1,12 +1,12 @@
 BDEPEND=sci-mathematics/mathematica sci-mathematics/form
 DEFINED_PHASES=compile install
-DEPEND=sci-mathematics/mathematica sci-mathematics/form
+DEPEND=sci-mathematics/mathematica sci-mathematics/form[threads]
 DESCRIPTION=FormCalc can be used for automatic Feynman diagram computation.
 EAPI=8
 HOMEPAGE=http://feynarts.de/formcalc
 KEYWORDS=~amd64
 LICENSE=LGPL-3+
-RDEPEND=sci-mathematics/mathematica sci-mathematics/form
+RDEPEND=sci-mathematics/mathematica sci-mathematics/form[threads]
 SLOT=0
-SRC_URI=http://feynarts.de/formcalc/FormCalc-9.9.tar.gz
-_md5_=6bb1e38abbf1783fd68192b81ba176f3
+SRC_URI=http://feynarts.de/formcalc/FormCalc-9.10.tar.gz
+_md5_=bcfba250fac44b2bdc3ddd117cc9412f

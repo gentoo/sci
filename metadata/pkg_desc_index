@@ -514,7 +514,7 @@ sci-misc/stanford-tagger 4.2.0: Stanfords log linear POS taggers
 sci-physics/atompaw 4.1.1.0: PAW atomic data generator
 sci-physics/feynarts 3.11: FeynArts renders Feynman diagrams and generates their topologies.
 sci-physics/feyncalc 9.3.1 9999: FeynCalc is a Mathematica package for computing Feynman diagrams.
-sci-physics/formcalc 9.9 9.10: FormCalc can be used for automatic Feynman diagram computation.
+sci-physics/formcalc 9.9-r1 9.10-r1: FormCalc can be used for automatic Feynman diagram computation.
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
