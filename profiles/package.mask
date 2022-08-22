@@ -36,3 +36,4 @@ sci-biology/caftools
 sci-biology/salmon
 sci-biology/staden
 sci-biology/staden_doc
+sci-biology/roche454ace2caf
