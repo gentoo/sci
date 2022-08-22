@@ -1,0 +1,11 @@
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -26,7 +26,7 @@
+   LIBLOCATION=$(top_builddir)/src/.libs \
+   LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+   DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(HEPMC3LIBPATH):$(YODALIBPATH) \
+-  PYTHONPATH=$(top_builddir)/pyext/build/$(RIVET_SETUP_PY_PATH):$(PYTHONPATH) \
++  PYTHONPATH=$(shell realpath $(top_builddir)/pyext/build/lib*):$(top_builddir)/pyext/build/$(RIVET_SETUP_PY_PATH):$(PYTHONPATH) \
+   PATH=$(top_builddir)/bin:$(top_srcdir)/bin:$(PATH) \
+   PYTHON=$(PYTHON) \
+   RIVET_TESTS_SRC=$(srcdir)
