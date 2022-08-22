@@ -17,7 +17,7 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	sci-mathematics/mathematica
-	sci-mathematics/form
+	sci-mathematics/form[threads]
 	"
 DEPEND="${RDEPEND}"
 BDEPEND="
@@ -46,7 +46,7 @@ src_install() {
 	done
 	# switch to system form
 	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/form
-	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/tform
+	dosym `command -v tform` ${MMADIR}/${MY_P}/Linux-x86-64/tform
 
 	dodoc manual/*.pdf
 }
