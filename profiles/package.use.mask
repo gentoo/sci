@@ -30,9 +30,3 @@ sci-biology/estscan icc ifc
 # Christoph Junghans <ottxor@gentoo.org> (05 Nov 2013)
 # gui sandbox error
 dev-lang/conceptual gui
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (15 Jan 2022)
-# dependencies not available
-# https://github.com/gentoo/sci/issues/1085
-# https://github.com/gentoo/sci/issues/1084
-sci-libs/mlpack go R
