@@ -111,6 +111,7 @@ sci-libs/fox:sax - Compile the streaming, validating parser based on java's Simp
 sci-libs/fox:wcml - Compile the module for a subset of the Chemical Markup Language
 sci-libs/fox:wkml - Compile the module for the creation of KML documents used by applications such as Google Earth
 sci-libs/fox:wxml - Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements
+sci-libs/gdcm:vtk - Build sci-libs/vtk bridge
 sci-libs/itk:itkv4-compat - Compatibility for applications using ITKv4 API
 sci-libs/itk:review - Enable compilation of methods under review
 sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION

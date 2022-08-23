@@ -1,0 +1,17 @@
+BDEPEND=dev-libs/libxslt app-text/docbook-xsl-ns-stylesheets doc? ( app-doc/doxygen[dot] ) python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.12:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.4:3.10 ) >=dev-lang/swig-3.0.7 ) >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
+DEFINED_PHASES=compile configure install prepare setup test
+DEPEND=app-text/poppler:0=[cxx] dev-libs/expat:0= dev-libs/json-c:0= dev-libs/libxml2:2= dev-libs/openssl:0= >=media-libs/charls-2.0.0:0= >=media-libs/openjpeg-2.0.0:2= sys-apps/util-linux:0= sys-libs/zlib:0= python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.12:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.4:3.10 ) ) vtk? ( sci-libs/vtk[rendering] python? ( sci-libs/vtk[python,python_single_target_python3_9(-)?,python_single_target_python3_10(-)?] ) )
+DESCRIPTION=Cross-platform DICOM implementation
+EAPI=8
+HOMEPAGE=http://gdcm.sourceforge.net/
+INHERIT=cmake python-single-r1
+IUSE=doc python test vtk python_single_target_python3_9 python_single_target_python3_10
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD
+RDEPEND=app-text/poppler:0=[cxx] dev-libs/expat:0= dev-libs/json-c:0= dev-libs/libxml2:2= dev-libs/openssl:0= >=media-libs/charls-2.0.0:0= >=media-libs/openjpeg-2.0.0:2= sys-apps/util-linux:0= sys-libs/zlib:0= python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.12:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.4:3.10 ) ) vtk? ( sci-libs/vtk[rendering] python? ( sci-libs/vtk[python,python_single_target_python3_9(-)?,python_single_target_python3_10(-)?] ) )
+REQUIRED_USE=python? ( ^^ ( python_single_target_python3_9 python_single_target_python3_10 ) )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=mirror://sourceforge/gdcm/gdcm-3.0.14.tar.bz2 test? ( mirror://sourceforge/gdcm/gdcmData.tar.gz )
+_eclasses_=toolchain-funcs	1542e649be915f43f6908a9e93909961	multilib	5ca4e49abed8e3a2f7b56920eadee157	flag-o-matic	38d6ec96711cea42a5cb1cc723a6e906	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	58ec4e54962bf45d065fb95030701514	xdg-utils	fffb53a53cf17c9c0c998a3c0a590c7e	cmake	44afbf15c35884f7c840470f1cf05d0d	python-utils-r1	dd5e1098e305ad508d21f496e9e37046	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_md5_=ed230d7e23184303687bc36726ce0eb0
