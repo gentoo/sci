@@ -1,0 +1,25 @@
+From: François-Xavier Carton <fx.carton91@gmail.com>
+Date: Thu, 9 Jun 2022 14:56:22 +0200
+Subject: [PATCH] fix attr malloc error with recent glibc/gcc
+
+Recent GCC has support for __attribute__((__malloc__)) with arguments, but clang
+does not. castxml uses clang internally. And recent glibc/gcc uses the attribute
+with arguments. Mix all this, and you get:
+
+error: '__malloc__' attribute takes no arguments
+
+when compiling itk with python wrapping.
+
+To fix this, we add a define to castxml flags to remove the extra arguments.
+
+--- a/Wrapping/Generators/CastXML/CMakeLists.txt	2022-06-09 14:53:15.582352715 +0200
++++ b/Wrapping/Generators/CastXML/CMakeLists.txt	2022-06-09 14:54:38.182351433 +0200
+@@ -237,7 +237,7 @@
+       set(_castxml_cc ${_castxml_cc} "-D_HAS_TR1=0")
+     endif()
+   else()
+-    set(_castxml_cc --castxml-cc-gnu ( "${CMAKE_CXX_COMPILER}" ${_castxml_cc_flags} ))
++    set(_castxml_cc --castxml-cc-gnu ( "${CMAKE_CXX_COMPILER}" ${_castxml_cc_flags} -D__malloc__\(a,b\)=__malloc__ ))
+   endif()
+   set(_target)
+   if(CMAKE_CROSSCOMPILING)

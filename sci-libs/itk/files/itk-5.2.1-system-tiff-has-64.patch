@@ -1,0 +1,18 @@
+From: François-Xavier Carton <fx.carton91@gmail.com>
+Date: Wed, 8 Jun 2022 19:36:48 +0200
+Subject: [PATCH] system libtiff has INT64
+
+Enabling this, otherwise using system libtiff leads to errors. In particular
+tests fail because there is some IFD8 data but the itkTIFFDataSize function
+returns 0 instead of 8, resulting in invalid mem access.
+
+--- a/Modules/ThirdParty/TIFF/src/itk_tiff.h.in.orig	2022-06-08 19:34:04.412431969 +0200
++++ b/Modules/ThirdParty/TIFF/src/itk_tiff.h.in	2022-06-08 19:34:26.240431631 +0200
+@@ -34,6 +34,7 @@
+ #cmakedefine ITK_TIFF_HAS_TIFFFieldReadCount
+ #cmakedefine ITK_TIFF_HAS_TIFFField
+ #ifdef ITK_USE_SYSTEM_TIFF
++# define TIFF_INT64_T int64_t
+ # include <tiffio.h>
+ #else
+ # include "itktiff/tiffio.h"

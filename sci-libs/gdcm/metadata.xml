@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>fx.carton91@gmail.com</email>
+		<name>François-Xavier Carton</name>
+	</maintainer>
+	<use>
+		<flag name="vtk">Build <pkg>sci-libs/vtk</pkg> bridge</flag>
+	</use>
+	<upstream>
+		<remote-id type="sourceforge">gdcm</remote-id>
+	</upstream>
+</pkgmetadata>

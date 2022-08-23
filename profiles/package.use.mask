@@ -15,6 +15,10 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (23 Aug 2022)
+# vtk<9 no longer available in ::gentoo
+sci-libs/gdcm python
+
 # Andrew Savchenko <bircoph@gentoo.org> (02 Jun 2016)
 # doesn't link with plotutils-2.6
 sci-physics/qcl plotutils
