@@ -118,11 +118,6 @@ sci-libs/itk:vtkglue - PLEASE FIX MY DESCRIPTION
 sci-libs/libflame-amd:scc - Enable code that takes advantage of the SCC multicore architecture, recommended to use supermatrix if scc is enabled.
 sci-libs/libflame-amd:supermatrix - Enable Ernie Chan's dependency-aware task scheduling and parallel execution system.
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
-sci-libs/mlpack:R - build R bindings
-sci-libs/mlpack:arma-debug - build with armadillo dbug symbols
-sci-libs/mlpack:go - build go bindings
-sci-libs/mlpack:julia - build julia bindings
-sci-libs/mlpack:matlab - build matlab bindings
 sci-libs/nexus:hdf4 - Support the old HDF4 representation
 sci-libs/nexus:hdf5 - Support the standard representation (HDF5)
 sci-libs/nexus:java - Build the Java bindings
