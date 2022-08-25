@@ -40,6 +40,7 @@ DEPEND="${RDEPEND}"
 PATCHES=(
 	"${FILESDIR}/${PN}-DCRComplexSolve-compile-error.patch"
 	"${FILESDIR}/${PN}-ElmerIce-compile.patch"
+	"${FILESDIR}/${PN}-rpath.patch"
 )
 
 S="${WORKDIR}/elmerfem-release-${PV}"
