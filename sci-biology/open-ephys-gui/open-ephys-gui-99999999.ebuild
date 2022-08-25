@@ -1,7 +1,7 @@
-# Copyright 2019-2021 Gentoo Authors
+# Copyright 2019-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 inherit cmake udev
 
 DESCRIPTION="Processing, recording, and visualizing multichannel ephys data"
@@ -11,7 +11,7 @@ LICENSE="GPL-3"
 if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/open-ephys/plugin-GUI"
-	EGIT_BRANCH="master"
+	EGIT_BRANCH="main"
 	Suffix=${EGIT_BRANCH}
 	SubDir=${P}
 elif [[ ${PV} == "99999999" ]] ; then
@@ -32,9 +32,12 @@ SLOT="${PV}"
 IUSE="jack"
 
 DEPEND="
+	dev-libs/openssl
 	media-libs/alsa-lib
 	media-libs/freeglut
 	media-libs/freetype
+	net-libs/webkit-gtk
+	net-misc/curl
 	x11-libs/libXrandr
 	x11-libs/libXcursor
 	x11-libs/libXinerama
@@ -43,7 +46,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 BUILD_DIR="${S}/Build"
-PATCHES=( "${FILESDIR}"/${P}.patch )
+PATCHES=( "${FILESDIR}"/"${PN}"-0.6.1.patch )
 
 QA_PREBUILT="opt/open-ephys-*/shared/*.so"
 QA_PRESTRIPPED="
@@ -66,7 +69,7 @@ src_configure() {
 
 src_install() {
 	dodir opt/open-ephys-"${Suffix}"/ lib/udev/rules.d/
-	cp -R "${BUILD_DIR}"/Gentoo/* "${ED}"/opt/open-ephys-"${Suffix}"/
+	cp -R "${BUILD_DIR}"/RelWithDebInfo/* "${ED}"/opt/open-ephys-"${Suffix}"/ || die
 	udev_newrules "${WORKDIR}"/"${SubDir}"/Resources/Scripts/40-open-ephys.rules 40-open-ephys-"${Suffix}".rules
 	dosym ../../opt/open-ephys-"${Suffix}"/open-ephys usr/bin/open-ephys-"${Suffix}"
 }
