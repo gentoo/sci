@@ -5,6 +5,10 @@
 		<email>malfatti@disroot.org</email>
 		<name>T Malfatti</name>
 	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
 	<upstream>
 		<remote-id type="github">open-ephys/plugin-GUI</remote-id>
 	</upstream>
