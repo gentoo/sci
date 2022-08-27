@@ -28,7 +28,7 @@ RDEPEND="
 	>=sci-physics/yoda-1.9.4[python(-),${PYTHON_SINGLE_USEDEP}]
 	>=sci-physics/fastjet-3.4.0[plugins]
 	>=sci-physics/fastjet-contrib-1.046
-	hepmc2? ( sci-physics/hepmc:0=[-cm(-),gev(+)] )
+	hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] )
 	hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] )
 
 	sci-libs/gsl
