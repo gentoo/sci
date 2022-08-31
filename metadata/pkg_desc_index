@@ -4,7 +4,6 @@ app-text/noweb 2.12: a literate programming tool, lighter than web
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
 dev-cpp/blitz 1.0.3_pre20200524: Multi-dimensional array library for C++
-dev-cpp/castxml 0.3.6 0.4.3 9999: CastXML is a C-family abstract syntax tree XML output tool.
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-java/fits 1.15.1: Java library for FITS input/output
@@ -456,7 +455,7 @@ sci-libs/gdcm 3.0.14: Cross-platform DICOM implementation
 sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.11: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
-sci-libs/itk 5.0.1 5.1.0 5.2.1: NLM Insight Segmentation and Registration Toolkit
+sci-libs/itk 5.2.1: NLM Insight Segmentation and Registration Toolkit
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.15: Set of classes for creating statistical genetic programs
