@@ -331,7 +331,7 @@ sci-biology/nrcl 110625: Containment clustering and layout utility for processin
 sci-biology/ntCard 1.2.2 9999: Estimate k-mer coverage histogram of genomics data
 sci-biology/nwalign3 0.1.2: Needleman-Wunsch global sequence alignment in python3
 sci-biology/nxtrim 0.4.3: Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker
-sci-biology/open-ephys-gui 0.5.5 9999 99999999: Processing, recording, and visualizing multichannel ephys data
+sci-biology/open-ephys-gui 0.5.5 0.6.1 9999 99999999: Processing, recording, and visualizing multichannel ephys data
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
 sci-biology/parafly 0.1.0: Parallel cmd processing utility
