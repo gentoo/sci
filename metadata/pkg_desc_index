@@ -20,7 +20,6 @@ dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
-dev-libs/optix 7.4.0: NVIDIA Ray Tracing Engine
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
@@ -504,7 +503,7 @@ sci-mathematics/netgen 6.2.2105: Automatic 3d tetrahedral mesh generator
 sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
 sci-mathematics/scilab-bin 6.1.1: Scientific software package for numerical computations
-sci-misc/elmer-fem 9.0-r1: Finite element programs, libraries, and visualization tools
+sci-misc/elmer-fem 9.0-r2: Finite element programs, libraries, and visualization tools
 sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/irstlm 6.00.05 6.00.05-r1: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.4_rc2: Java interface to WordNet dictionary data
