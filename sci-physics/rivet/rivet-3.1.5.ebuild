@@ -62,8 +62,8 @@ src_configure() {
 	PREFIX_YODA=$(yoda-config --prefix) || die
 	PREFIX_FJ=$(fastjet-config --prefix) || die
 	econf \
-		$(usex hepmc2 "--with-hepmc=/usr" "") \
-		$(usex hepmc3 "--with-hepmc3=/usr" "") \
+		$(usex hepmc2 "--with-hepmc=${SYSROOT}/usr" "") \
+		$(usex hepmc3 "--with-hepmc3=${SYSROOT}/usr" "") \
 		--with-yoda=$PREFIX_YODA \
 		--with-fastjet=$PREFIX_FJ
 }
