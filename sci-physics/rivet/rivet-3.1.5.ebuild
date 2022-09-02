@@ -62,10 +62,10 @@ src_configure() {
 	PREFIX_YODA=$(yoda-config --prefix) || die
 	PREFIX_FJ=$(fastjet-config --prefix) || die
 	econf \
-		$(usex hepmc2 "--with-hepmc=/usr" "") \
-		$(usex hepmc3 "--with-hepmc3=/usr" "") \
-		--with-yoda=$PREFIX_YODA \
-		--with-fastjet=$PREFIX_FJ
+		$(usex hepmc2 "--with-hepmc=${ESYSROOT}/usr" "") \
+		$(usex hepmc3 "--with-hepmc3=${ESYSROOT}/usr" "") \
+		--with-yoda=${PREFIX_YODA} \
+		--with-fastjet=${PREFIX_FJ}
 }
 
 src_install() {
