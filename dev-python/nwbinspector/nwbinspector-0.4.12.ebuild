@@ -23,6 +23,7 @@ RDEPEND="
 	dev-python/natsort[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
+	dev-python/tqdm[${PYTHON_USEDEP}]
 "
 BDEPEND=""
 
