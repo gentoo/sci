@@ -10,9 +10,7 @@ MY_PN="ANTs"
 
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="https://stnava.github.io/ANTs/"
-SRC_URI="
-	https://github.com/ANTsX/ANTs/archive/v${PV}.tar.gz ->  ${P}.tar.gz
-"
+SRC_URI="https://github.com/ANTsX/ANTs/archive/v${PV}.tar.gz ->  ${P}.tar.gz"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 SLOT="0"
@@ -22,22 +20,27 @@ IUSE="test vtk"
 RESTRICT="test"
 
 DEPEND="
-	=sci-libs/itk-5.2*
+	!vtk? ( =sci-libs/itk-5.2*[fftw,-vtkglue] )
 	vtk? (
-		=sci-libs/itk-5.2*[vtkglue]
+		=sci-libs/itk-5.2*[fftw,vtkglue]
 		=sci-libs/vtk-9.1*
 	)
 "
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}/${P}-fix-compile.patch"
+)
+
 src_configure() {
 	local mycmakeargs=(
+		-DBUILD_EXAMPLES=OFF
 		-DUSE_SYSTEM_ITK=ON
+		-DITK_USE_SYSTEM_FFTW=ON
 		-DITK_DIR="${EPREFIX}/usr/include/ITK-5.2/"
 		-DBUILD_TESTING="$(usex test ON OFF)"
 		-DUSE_VTK=$(usex vtk ON OFF)
 		-DUSE_SYSTEM_VTK=$(usex vtk ON OFF)
-		-DANTS_SNAPSHOT_VERSION:STRING=${PV}
 	)
 	use vtk && mycmakeargs+=(
 		-DVTK_DIR="${EPREFIX}/usr/include/vtk-9.1/"
@@ -46,7 +49,7 @@ src_configure() {
 }
 
 src_install() {
-	BUILD_DIR="${WORKDIR}/${P}_build/ANTS-build"
+	BUILD_DIR="${WORKDIR}/${MY_PN}-${PV}_build/ANTS-build"
 	cmake_src_install
 	cd "${S}/Scripts" || die "scripts dir not found"
 	dobin *.sh
