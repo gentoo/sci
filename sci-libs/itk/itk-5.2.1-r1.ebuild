@@ -11,6 +11,7 @@ inherit cmake python-single-r1 virtualx
 MY_PN="InsightToolkit"
 MY_P="${MY_PN}-${PV}"
 GLI_HASH="89da9305f5750d3990ca9fd35ecc5ce0b39c71a6"
+IAD_HASH="24825c8d246e941334f47968553f0ae388851f0c"
 TEST_HASH="7ab9d41ad5b42ccbe8adcaf0b24416d439a264d0"
 declare -a GLI_TEST_HASHES=(
 	"a5e11ea71164ff78c65fcf259db01ea5db981a9d868e60045ff2bffca92984df1174bf984a1076e450f0d5d69b4f0191ed1a61465c220e2c91a893b5df150c0a"
@@ -27,6 +28,7 @@ HOMEPAGE="https://itk.org"
 SRC_URI="
 	https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/${MY_P}.tar.gz
 	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/${GLI_HASH}.tar.gz -> ITKGenericLabelInterpolator-${PV}.tar.gz
+	https://github.com/ntustison/ITKAdaptiveDenoising/archive/${IAD_HASH}.tar.gz -> ITKAdaptiveDenoising-${PV}.tar.gz
 	test? (
 		https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/InsightData-${PV}.tar.gz
 		https://github.com/InsightSoftwareConsortium/ITKTestingData/archive/${TEST_HASH}.tar.gz -> ${P}-testingdata.tar.gz
@@ -130,6 +132,7 @@ src_prepare() {
 
 	# Remote modules
 	ln -sr "../ITKGenericLabelInterpolator-${GLI_HASH}" Modules/External/ITKGenericLabelInterpolator || die
+	ln -sr "../ITKAdaptiveDenoising-${IAD_HASH}" Modules/External/ITKAdaptiveDenoising || die
 
 	cmake_src_prepare
 
@@ -172,6 +175,7 @@ src_configure() {
 		-DITK_USE_KWSTYLE=OFF
 		-DITK_BUILD_DEFAULT_MODULES=ON
 		-DITK_COMPUTER_MEMORY_SIZE="${ITK_COMPUTER_MEMORY_SIZE:-1}"
+		-DModule_AdaptiveDenoising:BOOL=ON
 		-DModule_GenericLabelInterpolator:BOOL=ON
 		-DModule_ITKReview:BOOL=ON
 		-DWRAP_ITK_JAVA=OFF
