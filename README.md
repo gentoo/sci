@@ -17,6 +17,7 @@
 ### Contents
 
 1. [Installation](#install)
+  - [Eselect](#install-eselect)
   - [Manual](#install-manual)
   - [Layman](#install-layman)
 2. [Usage](#usage)
