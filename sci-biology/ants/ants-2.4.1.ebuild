@@ -17,9 +17,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 SLOT="0"
 LICENSE="BSD"
-# Fails on account of not finding a source file:
-# https://ppb.chymera.eu/e8dcb1.log
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test vtk"
 RESTRICT="test"
 
