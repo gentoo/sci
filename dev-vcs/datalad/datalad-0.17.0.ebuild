@@ -32,7 +32,7 @@ RDEPEND="
 	downloaders? (
 		dev-python/boto[${PYTHON_USEDEP}]
 		dev-python/keyring[${PYTHON_USEDEP}]
-		dev-python/keyrings_alt[${PYTHON_USEDEP}]
+		dev-python/keyrings-alt[${PYTHON_USEDEP}]
 		dev-python/msgpack[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
 	)
