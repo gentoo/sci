@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="DANDI command line client to facilitate common operations"
 HOMEPAGE="https://github.com/dandi/dandi-cli"
-SRC_URI="https://github.com/dandi/dandi-cli/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/dandi/dandi-cli/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
