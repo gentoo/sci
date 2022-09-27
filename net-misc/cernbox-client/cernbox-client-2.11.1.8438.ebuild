@@ -10,8 +10,8 @@ DESCRIPTION="Synchronize files from CERNBox EOS with your computer"
 # Origin is classic owncloud-client, branded for CERN during compilation.
 ORIGIN_PN="ownCloud"
 BRANDED_P="cernbox"
-BRANDED_PV="2.7.1"
-BRANDED_REL="2596"
+BRANDED_PV="2.9.2"
+BRANDED_REL="6339"
 HOMEPAGE="https://cernbox.cern.ch/"
 SRC_URI="https://download.owncloud.com/desktop/${ORIGIN_PN}/stable/${PV}/source/${ORIGIN_PN}-${PV}.tar.xz
 	https://cernbox.cern.ch/cernbox/doc/Linux/repo/CentOS_7/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm
@@ -21,8 +21,9 @@ LICENSE="CC-BY-3.0 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="dolphin gnome-keyring nautilus test"
+RESTRICT="!test? ( test )"
 
-COMMON_DEPEND=">=dev-db/sqlite-3.4:3
+RDEPEND=">=dev-db/sqlite-3.4:3
 	dev-libs/qtkeychain[gnome-keyring?,qt5(+)]
 	dev-qt/qtconcurrent:5
 	dev-qt/qtcore:5
@@ -39,20 +40,17 @@ COMMON_DEPEND=">=dev-db/sqlite-3.4:3
 	)
 	nautilus? ( dev-python/nautilus-python )"
 
-RDEPEND="${COMMON_DEPEND}"
-DEPEND="${COMMON_DEPEND}
-	dev-qt/linguist-tools:5
-	kde-frameworks/extra-cmake-modules
+DEPEND="${RDEPEND}
 	test? (
 		dev-util/cmocka
 		dev-qt/qttest:5
 	)"
 
-RESTRICT="!test? ( test )"
+BDEPEND="
+	dev-qt/linguist-tools:5
+	kde-frameworks/extra-cmake-modules"
 
 S=${WORKDIR}/${ORIGIN_PN}-${PV}
-
-PATCHES=( "${FILESDIR}"/cernbox-theme-2.9.1.patch )
 
 src_unpack() {
 	rpm_src_unpack ${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm || die "failed to extract branding RPM"
