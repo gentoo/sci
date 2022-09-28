@@ -100,7 +100,7 @@ dev-python/multimethod 1.8: Library allowing Python function overloads based on 
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.0: NumPy aware dynamic Python compiler using LLVM
 dev-python/numcodecs 0.9.0 0.9.1 0.10.0: Data storage buffer compression and transformation codecs
-dev-python/nwbinspector 0.3.9 0.4.12: Inspect NWB files for compliance with NWB Best Practices
+dev-python/nwbinspector 0.3.9 0.4.12 0.4.14: Inspect NWB files for compliance with NWB Best Practices
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/panel 0.11.0: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1: Make Python code clearer and more reliable by declaring Parameters
