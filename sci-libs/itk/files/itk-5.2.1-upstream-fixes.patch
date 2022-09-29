@@ -1,6 +1,7 @@
 https://github.com/InsightSoftwareConsortium/ITK/commit/2a7f5ed199926999b67f61a97c2c9a2595a11558.patch
 https://github.com/InsightSoftwareConsortium/ITK/commit/0c31aa688e82a34e5430873bc6176740fd09ad75.patch
 https://github.com/InsightSoftwareConsortium/ITK/commit/28325d921a9b8793e6aaefd612f53989f951d19c.patch
+https://github.com/InsightSoftwareConsortium/ITK/commit/aafd1f9631d0fad60e1b6f53e049e95a50c48bd1.patch
 
 From 2a7f5ed199926999b67f61a97c2c9a2595a11558 Mon Sep 17 00:00:00 2001
 From: Niels Dekker <N.Dekker@lumc.nl>
@@ -253,3 +254,56 @@ index fca3d999b87..3b7a1d37334 100644
    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/detect_site_package_path.py ${python_check})
    execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_BINARY_DIR}/detect_site_package_path.py"
      OUTPUT_VARIABLE py_spp
+From aafd1f9631d0fad60e1b6f53e049e95a50c48bd1 Mon Sep 17 00:00:00 2001
+From: Hans Johnson <hans-johnson@uiowa.edu>
+Date: Wed, 15 Dec 2021 08:10:58 -0600
+Subject: [PATCH] COMP: Remove inclusion of .hxx files as headers
+
+The ability to include either .h or .hxx files as
+header files required recursively reading the
+.h files twice.  The added complexity is
+unnecessary, costly, and can confuse static
+analysis tools that monitor header guardes (due
+to reaching the maximum depth of recursion
+limits for nested #ifdefs in checking).
+
+Co-authored-by: Simon Rit <simon.rit@creatis.insa-lyon.fr>
+---
+ CMake/ITKModuleHeaderTest.cmake          | 3 +--
+ Utilities/Maintenance/BuildHeaderTest.py | 4 ----
+ 2 files changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/CMake/ITKModuleHeaderTest.cmake b/CMake/ITKModuleHeaderTest.cmake
+index eb809d7e93d..82ad192a6f8 100644
+--- a/CMake/ITKModuleHeaderTest.cmake
++++ b/CMake/ITKModuleHeaderTest.cmake
+@@ -36,8 +36,7 @@ macro( itk_module_headertest _name )
+     # effected.
+     set( _include ${${_name}_SOURCE_DIR}/include )
+     file( GLOB _h_files ${_include}/*.h )
+-    file( GLOB _hxx_files ${_include}/*.hxx )
+-    set( _header_files ${_h_files} ${_hxx_files} )
++    set( _header_files ${_h_files} )
+     list( LENGTH _h_files _num_headers )
+     set( _outputs ${${_name}_BINARY_DIR}/test/${_name}HeaderTest1.cxx )
+     set( _test_num 1 )
+diff --git a/Utilities/Maintenance/BuildHeaderTest.py b/Utilities/Maintenance/BuildHeaderTest.py
+index 26a4b6ccb3f..f8ed9f7901e 100755
+--- a/Utilities/Maintenance/BuildHeaderTest.py
++++ b/Utilities/Maintenance/BuildHeaderTest.py
+@@ -130,15 +130,11 @@ def main():
+         else:
+             max_idx = added_header_idx + maximum_number_of_headers
+         for i in range(added_header_idx, max_idx):
+-            # Use the .hxx if possible.
+-            hxx_file = h_files[i][:-1] + "hxx"
+             # Files that include VTK headers need to link to VTK.
+             if h_files[i] in BANNED_HEADERS or h_files[i].lower().find("vtk") != -1:
+                 to_include = (
+                     '// #include "' + h_files[i] + '" // Banned in BuildHeaderTest.py\n'
+                 )
+-            elif os.path.exists(os.path.join(module_source_path, "include", hxx_file)):
+-                to_include = '#include "' + hxx_file + '"\n'
+             else:
+                 to_include = '#include "' + h_files[i] + '"\n'
+ 
