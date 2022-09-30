@@ -29,7 +29,7 @@ SLOT="0"
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/logzero[${PYTHON_USEDEP}]
-	dev-python/path-py[${PYTHON_USEDEP}]
+	dev-python/path[${PYTHON_USEDEP}]
 	dev-python/clang-python[${PYTHON_USEDEP}]
 	dev-python/cymbal[${PYTHON_USEDEP}]
 	dev-python/toml[${PYTHON_USEDEP}]
