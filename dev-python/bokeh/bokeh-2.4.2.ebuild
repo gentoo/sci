@@ -25,7 +25,7 @@ RDEPEND="
 	>=dev-python/pillow-7.1.0[${PYTHON_USEDEP}]
 	>=dev-python/pyyaml-3.10[${PYTHON_USEDEP}]
 	>=dev-python/typing-extensions-3.10.0[${PYTHON_USEDEP}]
-	>=www-servers/tornado-5.1[${PYTHON_USEDEP}]
+	>=dev-python/tornado-5.1[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	test? (
