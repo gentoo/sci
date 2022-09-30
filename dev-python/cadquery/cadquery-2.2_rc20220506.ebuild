@@ -31,7 +31,7 @@ BDEPEND="
 	test? (
 		$(python_gen_cond_dep '
 			dev-python/docutils[${PYTHON_USEDEP}]
-			dev-python/path-py[${PYTHON_USEDEP}]
+			dev-python/path[${PYTHON_USEDEP}]
 		')
 	)
 "
