@@ -10,5 +10,5 @@ LICENSE=|| ( Artistic GPL-1+ )
 RDEPEND=>=sci-biology/swissknife-1.65 dev-perl/Date-Manip >=dev-perl/XML-Simple-2.16 >=dev-perl/XML-Parser-2.34 virtual/perl-File-Path dev-lang/perl:=
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/E/EA/EASR/ONTO-PERL/ONTO-PERL-1.45.tar.gz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	4f80b00fab088c2f6d68edb55a6c4bf4
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	21a0cb6221498d0e7894bdf445b79887
 _md5_=b912f55b3c0fabf063012505ca80952d
