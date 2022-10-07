@@ -137,7 +137,6 @@ dev-python/scooby 0.5.7: Easily report Python package versions and hardware reso
 dev-python/snakemake 5.32.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
-dev-python/sphinx-argparse 0.3.1: Sphinx extension that automatically documents argparse commands and options
 dev-python/sphinx-astropy 1.7.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
