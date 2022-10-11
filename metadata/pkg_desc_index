@@ -60,7 +60,6 @@ dev-python/cadquery 2.2_rc20210804 2.2_rc20220506: Python parametric CAD scripti
 dev-python/cadquery-ocp 7.5.2_beta 7.5.3.0: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
-dev-python/click-didyoumean 0.2.0 0.3.0-r1: Enable git-like did-you-mean feature in click
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
 dev-python/colorlover 0.3.0: color scales in python for humans
