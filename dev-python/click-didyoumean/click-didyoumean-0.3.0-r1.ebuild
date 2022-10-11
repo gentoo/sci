@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Enable git-like did-you-mean feature in click"
 HOMEPAGE="https://github.com/click-contrib/click-didyoumean"
-SRC_URI="https://github.com/click-contrib/click-didyoumean/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/click-contrib/click-didyoumean/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
