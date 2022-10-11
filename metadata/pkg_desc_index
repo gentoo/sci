@@ -60,7 +60,7 @@ dev-python/cadquery 2.2_rc20210804 2.2_rc20220506: Python parametric CAD scripti
 dev-python/cadquery-ocp 7.5.2_beta 7.5.3.0: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.2_rc20210526 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
-dev-python/click-didyoumean 0.2.0 0.3.0: Enable git-like did-you-mean feature in click
+dev-python/click-didyoumean 0.2.0 0.3.0-r1: Enable git-like did-you-mean feature in click
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
 dev-python/colorlover 0.3.0: color scales in python for humans
@@ -138,6 +138,7 @@ dev-python/scooby 0.5.7: Easily report Python package versions and hardware reso
 dev-python/snakemake 5.32.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
+dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents argparse commands and options
 dev-python/sphinx-astropy 1.7.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
