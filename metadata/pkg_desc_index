@@ -75,7 +75,7 @@ dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ c
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
 dev-python/fiona 1.8.21: API for reading/writing vector geospatial data
 dev-python/fscacher 0.1.4 0.2.0: Cache results of operations on heavy file trees
-dev-python/fslpy 3.8.1: The FSL Python Library
+dev-python/fslpy 3.10.0: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
 dev-python/geopandas 0.10.2: Python tools for geographic data
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
@@ -115,7 +115,6 @@ dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest n
 dev-python/pynrrd 0.4.2 0.4.3: Simple pure-python module for reading and writing nrrd files
 dev-python/pynwb 2.0.0 2.0.1 2.1.0-r1: A Python API for working with Neurodata stored in the NWB Format
 dev-python/pyout 0.7.1 0.7.2: Terminal styling for structured data
-dev-python/pyparsing 2.4.7-r1: Easy-to-use Python module for text parsing
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
@@ -235,7 +234,6 @@ sci-biology/bru2nii 1.0.20180303: Converts Bruker ParaVision MRI data to the NIf
 sci-biology/bruker2nifti 1.0.4: Medical image converter, from raw Bruker ParaVision to NIfTI
 sci-biology/btl_bloomfilter 1.2.1: BTL C/C common bloom filters
 sci-biology/bx-python 0.8.9 9999: Library for rapid implementation of genome scale analyses
-sci-biology/caftools 2.0.2: Manipulate CAF files and convert to GAP4 format (not GAP5), ACE, PHRAP
 sci-biology/canu 2.1.1: Fork of a wgs-assembler for Oxfordnanopore and PacBio sequences
 sci-biology/cast-bin 20080813: Predict low-complexity regions in putative proteins
 sci-biology/cdbfasta 0.1: FASTA record indexing/retrievieng utility
@@ -352,11 +350,9 @@ sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each o
 sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
-sci-biology/roche454ace2caf 20100812: ace to gap4 converter
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
-sci-biology/salmon 0.10.2 1.6.0: Transcript-level quantification from RNA-seq reads using lightweight alignments
 sci-biology/samri 0.5: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
@@ -379,8 +375,6 @@ sci-biology/spm 12_p7771: Analysis of brain imaging data sequences for Octave or
 sci-biology/sra-tools 2.11.3: NCBI Sequence Read Archive (SRA) sratoolkit
 sci-biology/ssaha2-bin 2.5.5-r1: SSAHA2: Sequence Search and Alignment by Hashing Algorithm
 sci-biology/stacks 2.60: Analyze restriction enzyme data, draw gen. maps, population genomics
-sci-biology/staden 2.0.0_beta11: DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)
-sci-biology/staden_doc 2.0.0_beta11: Documentation files for the staden package
 sci-biology/stringtie 2.1.5: Transcriptome assembler and RNA-Seq analysis on BAM files aka cufflinks
 sci-biology/subread 2.0.3: NGS suite for analysis of mapped reads, summary of exon/intron/gene counts
 sci-biology/swissknife 1.80: Perl library of modules to manipulate SwissProt flatfiles
@@ -525,9 +519,9 @@ sci-physics/spheno 3.3.8: SPheno stands for S(upersymmetric) Pheno(menology)
 sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
 sci-visualization/clip 0.7-r1: command line chart creator
 sci-visualization/forge 1.0.5 1.0.7 9999: High Performance Visualizations for ArrayFire
-sci-visualization/fsleyes 1.3.3: The new FSL image viewer, released with FSL 5.0.10
-sci-visualization/fsleyes-props 1.7.3: Object attribute management for the FSLeyes viewer
-sci-visualization/fsleyes-widgets 0.12.2: GUI widgets and utilities for the FSLeyes viewer
+sci-visualization/fsleyes 1.5.0: The new FSL image viewer, released with FSL 5.0.10
+sci-visualization/fsleyes-props 1.8.2: Object attribute management for the FSLeyes viewer
+sci-visualization/fsleyes-widgets 0.12.3: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
