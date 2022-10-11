@@ -3,25 +3,24 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
-DISTUTILS_USE_SETUPTOOLS=pyproject.toml
+PYTHON_COMPAT=( python3_{8..11} )
+DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1
 
 DESCRIPTION="Sphinx extension that automatically documents argparse commands and options"
-HOMEPAGE="https://pypi.org/project/sphinx-argparse/
-	https://github.com/ashb/sphinx-argparse"
+HOMEPAGE="
+	https://pypi.org/project/sphinx-argparse/
+	https://github.com/ashb/sphinx-argparse
+"
 SRC_URI="https://github.com/ashb/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND=""
-RDEPEND="${DEPEND}
+RDEPEND="
 	dev-python/sphinx[${PYTHON_USEDEP}]
 	dev-python/commonmark[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest
-# requires self to build own documentation
-distutils_enable_sphinx docs dev-python/sphinx_rtd_theme dev-python/sphinx-argparse
