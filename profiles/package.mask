@@ -29,11 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2022-08-22)
-# Depends on removed sci-libs/io_lib. removal in 30 days
-sci-biology/caftools
-sci-biology/salmon
-sci-biology/staden
-sci-biology/staden_doc
-sci-biology/roche454ace2caf

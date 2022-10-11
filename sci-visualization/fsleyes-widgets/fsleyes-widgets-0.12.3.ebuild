@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
-
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 virtualx
 
 MY_P="widgets-${PV}"
@@ -57,5 +57,5 @@ python_test() {
 	# If this could be set for the eclass, it might fix some of the tests:
 	# https://github.com/pauldmccarthy/fsleyes-widgets/issues/1#issuecomment-575387724
 	#xvfbargs="-screen 0 1920x1200x24 +extension RANDR"
-	epytest || die "Tests failed with ${EPYTHON}"
+	epytest
 }

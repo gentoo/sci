@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
-
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 virtualx
 
 DESCRIPTION="The FSL Python Library"
@@ -16,6 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
+	dev-python/dill[${PYTHON_USEDEP}]
 	>=dev-python/h5py-2.9[${PYTHON_USEDEP}]
 	>=dev-python/indexed_gzip-0.7.0[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1[${PYTHON_USEDEP}]
@@ -27,17 +28,20 @@ RDEPEND="
 	>=dev-python/scipy-0.18[${PYTHON_USEDEP}]
 "
 
-PATCHES=(
-	"${FILESDIR}/fslpy-2.7.0-coverage.patch"
-)
-
 distutils_enable_tests pytest
 distutils_enable_sphinx doc dev-python/sphinx_rtd_theme
+
+python_prepare_all() {
+	# Do not depend on coverage
+	sed -i -e 's/--cov=fsl//g' setup.cfg || die
+
+	distutils-r1_python_prepare_all
+}
 
 src_test() {
 	virtx distutils-r1_src_test
 }
 
 python_test() {
-	epytest --niters=50 -m "not (dicomtest or longtest or fsltest)" || die "Tests failed with ${EPYTHON}"
+	epytest -m "not (dicomtest or longtest or fsltest)" || die "Tests failed with ${EPYTHON}"
 }

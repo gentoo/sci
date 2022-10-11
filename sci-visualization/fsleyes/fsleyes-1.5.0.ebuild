@@ -3,8 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
-
+PYTHON_COMPAT=( python3_{8..10} )
+DISTUTILS_USE_PEP517=setuptools
 inherit xdg distutils-r1 desktop virtualx
 
 DESCRIPTION="The new FSL image viewer, released with FSL 5.0.10"
@@ -19,19 +19,19 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	>=dev-python/fslpy-3.6[${PYTHON_USEDEP}]
+	>=dev-python/fslpy-3.9[${PYTHON_USEDEP}]
 	>=dev-python/jinja-2[${PYTHON_USEDEP}]
 	>=dev-python/matplotlib-1.5.1[${PYTHON_USEDEP}]
-	>=dev-python/numpy-1.14.0[${PYTHON_USEDEP}]
+	>=dev-python/numpy-1.14[${PYTHON_USEDEP}]
 	>=dev-python/pillow-3.2.0[${PYTHON_USEDEP}]
 	>=dev-python/pyopengl-3.1.0[${PYTHON_USEDEP}]
 	>=dev-python/pyopengl_accelerate-3.1.0[${PYTHON_USEDEP}]
-	=dev-python/pyparsing-2*[${PYTHON_USEDEP}]
+	>=dev-python/pyparsing-2[${PYTHON_USEDEP}]
 	>=dev-python/wxpython-4[${PYTHON_USEDEP}]
 	>=dev-python/scipy-0.18[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-2.3[${PYTHON_USEDEP}]
-	>=sci-visualization/fsleyes-widgets-0.12[${PYTHON_USEDEP}]
-	>=sci-visualization/fsleyes-props-1.7.2[${PYTHON_USEDEP}]
+	>=sci-visualization/fsleyes-widgets-0.12.3[${PYTHON_USEDEP}]
+	>=sci-visualization/fsleyes-props-1.8[${PYTHON_USEDEP}]
 	"
 
 PATCHES=(
