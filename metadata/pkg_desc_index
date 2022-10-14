@@ -91,7 +91,7 @@ dev-python/interleave 0.2.0: Yield from multiple iterators as values become avai
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
 dev-python/jupyterlab_launcher 0.13.1: Jupyter Launcher
 dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
-dev-python/llvmlite 0.39.0: Python wrapper around the llvm C++ library
+dev-python/llvmlite 0.39.1: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
