@@ -5,7 +5,7 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
 
-DISTUTILS_USE_SETUPTOOLS=rdepend
+DISTUTILS_USE_PEP517=setuptools
 inherit optfeature multiprocessing distutils-r1
 
 DESCRIPTION="NumPy aware dynamic Python compiler using LLVM"
@@ -23,14 +23,13 @@ RDEPEND="
 	<=dev-python/llvmlite-0.40.0
 	>=dev-python/numpy-1.18.0[${PYTHON_USEDEP}]
 	<dev-python/numpy-1.23[${PYTHON_USEDEP}]
-	threads? ( >=dev-cpp/tbb-2021.1 )
+	threads? ( >=dev-cpp/tbb-2021.1 <dev-cpp/tbb-2021.6 )
 "
 BDEPEND="
 	dev-python/pip[${PYTHON_USEDEP}]
 	dev-python/versioneer[${PYTHON_USEDEP}]
 "
 
-DISTUTILS_IN_SOURCE_BUILD=1
 distutils_enable_tests unittest
 distutils_enable_sphinx docs/source dev-python/numpydoc dev-python/sphinx_rtd_theme
 
@@ -73,7 +72,6 @@ python_compile() {
 
 # https://numba.pydata.org/numba-doc/latest/developer/contributing.html?highlight=test#running-tests
 python_test() {
-	distutils_install_for_testing
 	${EPYTHON} setup.py build_ext --inplace || die \
 		"${EPYTHON} failed to build_ext"
 	${EPYTHON} runtests.py -m $(makeopts_jobs) || die \
