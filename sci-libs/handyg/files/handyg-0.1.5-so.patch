@@ -1,0 +1,23 @@
+--- a/configure	2022-09-19 22:54:12.742507414 +0200
++++ b/configure	2022-09-19 23:00:13.452378883 +0200
+@@ -839,7 +839,7 @@
+ objects = \$(addprefix build/,\$(files))
+ 
+ 
+-all: libhandyg.a handyg.mod ${CONF_MPREP:+handyG} geval test
++all: libhandyg.a libhandyg.so handyg.mod ${CONF_MPREP:+handyG} geval test
+ 
+ EOF
+ 
+@@ -868,6 +868,11 @@
+ 		@echo "AR \$@"
+ 		@\$(AR) \$@ \$^
+ 
++libhandyg.so:\$(objects)
++		@echo "\$(FC) \$@"
++		\$(FC) \$(LFLAGS) -Wl,-soname,libhandyg.so -shared -o \$@ \$^
++
++
+ handyg.mod: build/handyg.mod
+ 		cp \$< \$@
+ 
