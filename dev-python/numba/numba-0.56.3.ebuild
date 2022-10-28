@@ -22,7 +22,7 @@ RDEPEND="
 	>=dev-python/llvmlite-0.39.0[${PYTHON_USEDEP}]
 	<=dev-python/llvmlite-0.40.0
 	>=dev-python/numpy-1.18.0[${PYTHON_USEDEP}]
-	<dev-python/numpy-1.23[${PYTHON_USEDEP}]
+	<dev-python/numpy-1.24[${PYTHON_USEDEP}]
 	threads? ( >=dev-cpp/tbb-2021.1 <dev-cpp/tbb-2021.6 )
 "
 BDEPEND="
