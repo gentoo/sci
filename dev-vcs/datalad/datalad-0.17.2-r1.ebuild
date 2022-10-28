@@ -20,6 +20,7 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	app-arch/p7zip
 	app-arch/patool[${PYTHON_USEDEP}]
+	dev-vcs/git-annex
 	dev-python/annexremote[${PYTHON_USEDEP}]
 	>=dev-python/chardet-3.0.4[${PYTHON_USEDEP}]
 	dev-python/distro[${PYTHON_USEDEP}]
@@ -49,9 +50,10 @@ RDEPEND="
 		dev-vcs/python-gitlab[${PYTHON_USEDEP}]
 	)
 "
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
+BDEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	test? (
+		${RDEPEND}
 		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 		dev-python/httpretty[${PYTHON_USEDEP}]
 		dev-python/vcrpy[${PYTHON_USEDEP}]

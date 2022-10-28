@@ -20,6 +20,7 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	app-arch/p7zip
 	app-arch/patool[${PYTHON_USEDEP}]
+	dev-vcs/git-annex
 	dev-python/annexremote[${PYTHON_USEDEP}]
 	>=dev-python/chardet-3.0.4[${PYTHON_USEDEP}]
 	dev-python/distro[${PYTHON_USEDEP}]
@@ -50,6 +51,7 @@ RDEPEND="
 	)
 "
 DEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? (
 		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
@@ -61,6 +63,12 @@ DEPEND="
 # Noticed by upstream:
 # https://github.com/datalad/datalad/issues/6623
 PATCHES=( "${FILESDIR}/${PN}-0.17.0-skip.patch" )
+
+EPYTEST_DESELECT=(
+	# Reported upstream: https://github.com/datalad/datalad/issues/6870
+	datalad/tests/test_misc.py::test_test
+	datalad/local/tests/test_gitcredential.py::test_datalad_credential_helper
+)
 
 distutils_enable_tests pytest
 
