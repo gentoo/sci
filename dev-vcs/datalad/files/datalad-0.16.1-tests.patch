@@ -1,0 +1,10 @@
+--- a/datalad-0.16.1/datalad/distribution/tests/test_siblings.py	2022-10-24 16:06:18.740935265 -0400
++++ b/datalad-0.16.1/datalad/distribution/tests/test_siblings.py	2022-10-24 16:08:43.054322297 -0400
+@@ -504,6 +504,7 @@
+ @with_tempfile(mkdir=True)
+ @serve_path_via_http
+ def test_as_common_datasource(testbed, viapath, viaurl, remotepath, url):
++    raise SkipTest("Known to fail in Portage environment.")
+     ds = Dataset(remotepath).create()
+     (ds.pathobj / 'testfile').write_text('likemagic')
+     (ds.pathobj / 'testfile2').write_text('likemagic2')

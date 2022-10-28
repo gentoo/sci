@@ -92,3 +92,40 @@ index 09387a70d..6dc0e0be4 100644
  @with_tempfile
  def test_credential_cycle(path):
  
+--- a/datalad/distribution/tests/test_siblings.py	2022-10-24 16:06:18.740935265 -0400
++++ b/datalad/distribution/tests/test_siblings.py	2022-10-24 16:08:43.054322297 -0400
+@@ -9,6 +9,8 @@
+
+ """
+
++from nose import SkipTest
++
+ from datalad.support.path import (
+     basename,
+     join as opj,
+@@ -504,6 +504,7 @@
+ @with_tempfile(mkdir=True)
+ @serve_path_via_http
+ def test_as_common_datasource(testbed, viapath, viaurl, remotepath, url):
++    raise SkipTest("Known to fail in Portage environment.")
+     ds = Dataset(remotepath).create()
+     (ds.pathobj / 'testfile').write_text('likemagic')
+     (ds.pathobj / 'testfile2').write_text('likemagic2')
+--- a/datalad/local/tests/test_add_archive_content.py
++++ b/datalad/local/tests/test_add_archive_content.py
+@@ -13,6 +13,7 @@
+ __docformat__ = 'restructuredtext'
+
+ import os
++from nose import SkipTest
+ from glob import glob
+ from os import unlink
+ from os.path import (
+@@ -514,6 +515,7 @@
+         assert_false(lexists(self.ds.pathobj / '1.tar'))
+
+     def test_add_archive_leading_dir(self):
++        raise SkipTest("Known to fail in Portage environment.")
+         import os
+         os.mkdir(self.ds.pathobj / 'sub')
+         f123 = Path('sub') / '123.tar'
