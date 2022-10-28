@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{8..10} )
 inherit distutils-r1
 
@@ -19,6 +20,7 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	app-arch/p7zip
 	dev-python/annexremote[${PYTHON_USEDEP}]
+	dev-vcs/git-annex
 	dev-python/appdirs[${PYTHON_USEDEP}]
 	>=dev-python/chardet-3.0.4[${PYTHON_USEDEP}]
 	dev-python/distro[${PYTHON_USEDEP}]
@@ -49,14 +51,19 @@ RDEPEND="
 		dev-python/PyGithub[${PYTHON_USEDEP}]
 	)
 "
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
+BDEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	test? (
+		${RDEPEND}
 		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 		dev-python/httpretty[${PYTHON_USEDEP}]
 		dev-python/vcrpy[${PYTHON_USEDEP}]
 	)
 "
+
+# Noticed by upstream:
+# https://github.com/datalad/datalad/issues/6623
+PATCHES=( "${FILESDIR}/${P}-input.patch" )
 
 distutils_enable_tests nose
 

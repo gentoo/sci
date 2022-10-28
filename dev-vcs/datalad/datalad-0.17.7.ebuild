@@ -20,6 +20,7 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	app-arch/p7zip
 	app-arch/patool[${PYTHON_USEDEP}]
+	dev-vcs/git-annex
 	dev-python/annexremote[${PYTHON_USEDEP}]
 	>=dev-python/chardet-3.0.4[${PYTHON_USEDEP}]
 	dev-python/distro[${PYTHON_USEDEP}]
@@ -49,18 +50,24 @@ RDEPEND="
 		dev-vcs/python-gitlab[${PYTHON_USEDEP}]
 	)
 "
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
+BEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	test? (
+		${RDEPEND}
 		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 		dev-python/httpretty[${PYTHON_USEDEP}]
+		dev-python/mypy[${PYTHON_USEDEP}]
 		dev-python/vcrpy[${PYTHON_USEDEP}]
 	)
 "
+# also wants base RDEPEND:
+# looseversion
+# Also wants test dep:
+# dev-python/types-requests
+# dev-python/types-python-dateutil
 
 EPYTEST_DESELECT=(
 	# Reported upstream: https://github.com/datalad/datalad/issues/6870
-	datalad/distributed/tests/test_ria_basics.py::test_version_check
 	datalad/local/tests/test_gitcredential.py::test_datalad_credential_helper
 )
 

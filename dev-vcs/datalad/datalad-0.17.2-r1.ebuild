@@ -20,6 +20,7 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	app-arch/p7zip
 	app-arch/patool[${PYTHON_USEDEP}]
+	dev-vcs/git-annex
 	dev-python/annexremote[${PYTHON_USEDEP}]
 	>=dev-python/chardet-3.0.4[${PYTHON_USEDEP}]
 	dev-python/distro[${PYTHON_USEDEP}]
@@ -49,27 +50,26 @@ RDEPEND="
 		dev-vcs/python-gitlab[${PYTHON_USEDEP}]
 	)
 "
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
+BDEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	test? (
+		${RDEPEND}
 		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 		dev-python/httpretty[${PYTHON_USEDEP}]
 		dev-python/vcrpy[${PYTHON_USEDEP}]
 	)
 "
 
-# Noticed by upstream:
-# https://github.com/datalad/datalad/issues/6623
-PATCHES=( "${FILESDIR}/${PN}-0.17.0-skip.patch" )
+EPYTEST_DESELECT=(
+	# Reported upstream: https://github.com/datalad/datalad/issues/6870
+	datalad/distributed/tests/test_ria_basics.py::test_version_check
+	datalad/local/tests/test_gitcredential.py::test_datalad_credential_helper
+)
 
 distutils_enable_tests pytest
 
 python_test() {
 	local -x DATALAD_TESTS_NONETWORK=1
-	#export DATALAD_TESTS_NONETWORK=1
+	# see test groups in "tox.ini"
 	epytest -k "not turtle and not slow and not usecase"
-	#epytest -k "not turtle"
-	#${EPYTHON} -m nose -s -v -A "not(integration or usecase or slow or network or turtle)" datalad || die
-	# Full test suite takes for ever:
-	# ${EPYTHON} -m nose -s -v datalad || die
 }
