@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION=" Meaningful and safe wrapping types. "
 HOMEPAGE="https://github.com/nekitdev/wraps"
-SRC_URI="https://github.com/nekitdev/wraps/releases/download/v${PV}/${P}.tar.gz"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -24,7 +24,7 @@ RDEPEND="
 	"
 
 PATCHES=(
-	"${FILESDIR}/${P}-includes.patch"
+#	"${FILESDIR}/${P}-includes.patch"
 	"${FILESDIR}/${P}-poetry_groups.patch"
 )
 
