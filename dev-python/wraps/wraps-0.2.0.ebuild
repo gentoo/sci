@@ -24,7 +24,6 @@ RDEPEND="
 	"
 
 PATCHES=(
-#	"${FILESDIR}/${P}-includes.patch"
 	"${FILESDIR}/${PN}-0.1.0-poetry_groups.patch"
 )
 
