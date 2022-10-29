@@ -148,7 +148,7 @@ dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discret
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
 dev-python/visvis 1.13.0: An object oriented approach to visualization of 1D to 4D data
-dev-python/wraps 0.1.0: Meaningful and safe wrapping types.
+dev-python/wraps 0.1.0-r1 0.2.0: Meaningful and safe wrapping types.
 dev-python/xgboost 1.3.1: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1 1.1.0: Open compressed files transparently
 dev-python/zarr 2.11.1 2.11.3 2.12.0: Chunked, compressed, N-dimensional arrays for Python
