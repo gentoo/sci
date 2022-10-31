@@ -1,0 +1,22 @@
+--- a/configure	2022-09-19 01:59:40.382091704 +0200
++++ b/configure	2022-09-19 02:00:00.734380534 +0200
+@@ -358,7 +358,7 @@
+       FLDFLAGS+=" $1" ;;
+     -Bstatic | -Bdynamic | *.ld)
+       echo "Found linker flag $1" 1>&2
+-      FLDFLAGS+=" -Wl,$1" ;;
++      FLDFLAGS+=" $1" ;;
+     /*)
+       echo "Found linker flag $1" 1>&2
+       FLDFLAGS+=" -L$1" ;;
+--- a/configure	2022-09-19 02:02:18.064324729 +0200
++++ b/configure	2022-09-19 02:02:22.935393539 +0200
+@@ -364,7 +364,7 @@
+       FLDFLAGS+=" -L$1" ;;
+     -rpath*)
+       echo "Found linker flag $1" 1>&2
+-      FLDFLAGS+=" -Wl,$1,$2"
++      FLDFLAGS+=" $1,$2"
+       shift ;;
+     -dynamic-linker)
+       shift ;;
