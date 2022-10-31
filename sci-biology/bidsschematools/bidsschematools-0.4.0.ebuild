@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..11} )
 
 inherit distutils-r1
 
@@ -20,8 +20,8 @@ IUSE="render"
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	render? (
-		dev-python/tabulate[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
+		dev-python/tabulate[${PYTHON_USEDEP}]
 	)
 "
 DEPEND=""
