@@ -20,6 +20,7 @@ IUSE="render"
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	render? (
+		dev-python/markdown-it-py[${PYTHON_USEDEP}]
 		dev-python/tabulate[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
 	)
