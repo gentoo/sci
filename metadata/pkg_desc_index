@@ -149,7 +149,7 @@ dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
 dev-python/visvis 1.13.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wraps 0.1.0-r1 0.2.0: Meaningful and safe wrapping types.
-dev-python/xgboost 1.3.1: XGBoost Python Package
+dev-python/xgboost 1.6.2: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1 1.1.0: Open compressed files transparently
 dev-python/zarr 2.11.1 2.11.3 2.12.0: Chunked, compressed, N-dimensional arrays for Python
 dev-util/f90cache 0.99c: Compiler cache for fortran
@@ -445,6 +445,7 @@ sci-libs/fgsl 1.3.0: A Fortran interface to the GNU Scientific Library
 sci-libs/flexiblas 3.0.4 9999: BLAS/LAPACK wrapper library for runtime switching of backends
 sci-libs/fox 4.1.2-r2: A library designed to allow the easy use of XML from Fortran
 sci-libs/gdcm 3.0.14: Cross-platform DICOM implementation
+sci-libs/handyg 0.1.5: Rapid numerical evaluation of generalised polylogarithms
 sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.11: Integrated Rule Oriented Data System, a data management software
 sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
