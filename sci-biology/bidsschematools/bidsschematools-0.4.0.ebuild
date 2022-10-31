@@ -20,8 +20,8 @@ IUSE="render"
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	render? (
-		dev-python/tabulate[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
+		dev-python/tabulate[${PYTHON_USEDEP}]
 	)
 "
 DEPEND=""
