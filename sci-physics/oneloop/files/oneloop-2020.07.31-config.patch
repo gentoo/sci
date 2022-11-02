@@ -1,0 +1,11 @@
+--- a/Config	2022-05-19 17:34:51.000000000 +0200
++++ b/Config	2022-05-19 17:34:51.000000000 +0200
+@@ -3,7 +3,7 @@
+ #FFLAGS = -Wall
+ 
+ DPKIND = kind(1d0)
+-QPKIND = kind(1q0)
++#QPKIND = kind(1q0)
+ #DPKIND = selected_real_kind(15)
+ #QPKIND = 16
+ #DDTYPE = ddfun90
