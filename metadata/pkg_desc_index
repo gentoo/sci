@@ -512,6 +512,7 @@ sci-physics/formcalc 9.9-r1 9.10-r1: FormCalc can be used for automatic Feynman 
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
+sci-physics/oneloop 2020.07.31: Library of one-loop scalar functions
 sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/qcdloop 2.0.5 2.0.9: An object-oriented one-loop scalar Feynman integrals framework
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
