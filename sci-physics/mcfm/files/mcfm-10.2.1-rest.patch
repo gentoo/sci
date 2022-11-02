@@ -1,0 +1,251 @@
+--- a/CMakeLists.txt	2022-09-19 02:30:49.215050000 +0200
++++ b/CMakeLists.txt	2022-09-19 21:03:05.409746266 +0200
+@@ -41,48 +41,48 @@
+ 
+ include(ExternalProject)
+ 
+-ExternalProject_Add(qd
+-    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/qd-2.3.22 ${CMAKE_BINARY_DIR}/lib/
+-    PREFIX ${CMAKE_BINARY_DIR}/lib/qd-2.3.22
+-    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/qd-2.3.22
+-    BUILD_IN_SOURCE ON
+-    PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
+-    CONFIGURE_COMMAND CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} FC=${CMAKE_Fortran_COMPILER} ./configure --with-pic --enable-fortran --enable-fma --prefix=${CMAKE_BINARY_DIR}/local --enable-shared --libdir=${CMAKE_BINARY_DIR}/local/lib
+-    BUILD_COMMAND ${MAKE}
+-    INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
+-)
+-
+-ExternalProject_Add(qcdloop
+-    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/qcdloop-2.0.5 ${CMAKE_BINARY_DIR}/lib
+-    PREFIX ${CMAKE_BINARY_DIR}/lib/qcdloop-2.0.5
+-    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/qcdloop-2.0.5
+-    BUILD_IN_SOURCE ON
+-    PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
+-    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DENABLE_FORTRAN_WRAPPER=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/local -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_INSTALL_LIBDIR=lib
+-    BUILD_COMMAND ${MAKE}
+-    INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
+-)
+-
+-ExternalProject_Add(liboneloop
+-    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/oneloop ${CMAKE_BINARY_DIR}/lib/
+-    PREFIX ${CMAKE_BINARY_DIR}/lib/oneloop
+-    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/oneloop
+-    BUILD_IN_SOURCE ON
+-    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} -DCMAKE_Fortran_FLAGS=-fPIC
+-    BUILD_COMMAND ${MAKE}
+-    INSTALL_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local/include && cp ${CMAKE_BINARY_DIR}/lib/oneloop/avh_olo.mod ${CMAKE_BINARY_DIR}/local/include 
+-)
+-
+-ExternalProject_Add(handyg
+-    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/handyG ${CMAKE_BINARY_DIR}/lib/
+-    PREFIX ${CMAKE_BINARY_DIR}/lib/handyG
+-    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/handyG
+-    BUILD_IN_SOURCE ON
+-    PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
+-    CONFIGURE_COMMAND CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} FC=${CMAKE_Fortran_COMPILER} CFLAGS=-fPIC CXXFLAGS=-fPIC FFLAGS=-fPIC  ./configure --prefix=${CMAKE_BINARY_DIR}/local --moduledir=${CMAKE_BINARY_DIR}/local/include
+-    BUILD_COMMAND ${MAKE}
+-    INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
+-)
++#ExternalProject_Add(qd
++#    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/qd-2.3.22 ${CMAKE_BINARY_DIR}/lib/
++#    PREFIX ${CMAKE_BINARY_DIR}/lib/qd-2.3.22
++#    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/qd-2.3.22
++#    BUILD_IN_SOURCE ON
++#    PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
++#    CONFIGURE_COMMAND CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} FC=${CMAKE_Fortran_COMPILER} ./configure --with-pic --enable-fortran --enable-fma --prefix=${CMAKE_BINARY_DIR}/local --enable-shared --libdir=${CMAKE_BINARY_DIR}/local/lib
++#    BUILD_COMMAND ${MAKE}
++#    INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
++#)
++#
++#ExternalProject_Add(qcdloop
++#    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/qcdloop-2.0.5 ${CMAKE_BINARY_DIR}/lib
++#    PREFIX ${CMAKE_BINARY_DIR}/lib/qcdloop-2.0.5
++#    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/qcdloop-2.0.5
++#    BUILD_IN_SOURCE ON
++#    PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
++#    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DENABLE_FORTRAN_WRAPPER=ON -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/local -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_INSTALL_LIBDIR=lib
++#    BUILD_COMMAND ${MAKE}
++#    INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
++#)
++#
++#ExternalProject_Add(liboneloop
++#    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/oneloop ${CMAKE_BINARY_DIR}/lib/
++#    PREFIX ${CMAKE_BINARY_DIR}/lib/oneloop
++#    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/oneloop
++#    BUILD_IN_SOURCE ON
++#    CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} -DCMAKE_Fortran_FLAGS=-fPIC
++#    BUILD_COMMAND ${MAKE}
++#    INSTALL_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local/include && cp ${CMAKE_BINARY_DIR}/lib/oneloop/avh_olo.mod ${CMAKE_BINARY_DIR}/local/include 
++#)
++#
++#ExternalProject_Add(handyg
++#    DOWNLOAD_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/lib && cp -r ${CMAKE_SOURCE_DIR}/lib/handyG ${CMAKE_BINARY_DIR}/lib/
++#    PREFIX ${CMAKE_BINARY_DIR}/lib/handyG
++#    SOURCE_DIR ${CMAKE_BINARY_DIR}/lib/handyG
++#    BUILD_IN_SOURCE ON
++#    PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
++#    CONFIGURE_COMMAND CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} FC=${CMAKE_Fortran_COMPILER} CFLAGS=-fPIC CXXFLAGS=-fPIC FFLAGS=-fPIC  ./configure --prefix=${CMAKE_BINARY_DIR}/local --moduledir=${CMAKE_BINARY_DIR}/local/include
++#    BUILD_COMMAND ${MAKE}
++#    INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
++#)
+ 
+ ## Configuration options
+ 
+@@ -169,7 +169,7 @@
+ add_subdirectory(lib/SpecialFunctions)
+ add_subdirectory(lib/AMOS)
+ 
+-add_dependencies(objlib qd qcdloop liboneloop handyg)
++#add_dependencies(objlib qd qcdloop liboneloop handyg)
+ 
+ if(${with_vvamp})
+     add_compile_definitions(WITH_VVAMP=1)
+@@ -182,7 +182,7 @@
+         PATCH_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local
+         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} -DCMAKE_Fortran_FLAGS=-fPIC
+         BUILD_COMMAND ${MAKE}
+-        INSTALL_COMMAND mkdir -p ${CMAKE_BINARY_DIR}/local/include && cp ${CMAKE_BINARY_DIR}/VVamp/mod_vvamp.mod ${CMAKE_BINARY_DIR}/local/include 
++        INSTALL_COMMAND mv ${CMAKE_BINARY_DIR}/VVamp/mod_vvamp.mod ${CMAKE_BINARY_DIR}/local/include 
+     )
+     add_library(vvamp STATIC IMPORTED)
+     set_property(TARGET vvamp PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/VVamp/libvvamp.a")
+@@ -192,7 +192,6 @@
+ else()
+     set(linkvvamp "")
+ endif()
+-
+ set_target_properties(objlib PROPERTIES
+     CXX_STANDARD 11
+     Fortran_MODULE_DIRECTORY "${CMAKE_BINARY_DIR}/include"
+@@ -222,48 +221,51 @@
+     target_link_libraries(mcfm ${OpenMP_Fortran_LIBRARIES})
+ endif()
+ 
+-add_library(oneloop STATIC IMPORTED)
+-set_property(TARGET oneloop PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/lib/oneloop/liboneloop.a")
++find_library(qcdloop qcdloop)
+ 
+-add_library(qcdloop_lib_static STATIC IMPORTED)
+-set_property(TARGET qcdloop_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqcdloop.a")
+-set_property(TARGET qcdloop_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(qcdloop_lib_static qcdloop)
+-
+-add_library(qcdloop_lib_shared SHARED IMPORTED)
+-set_property(TARGET qcdloop_lib_shared PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqcdloop.${CMAKE_SHARED_LIBRARY_SUFFIX}")
+-set_property(TARGET qcdloop_lib_shared PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(qcdloop_lib_shared qcdloop)
+-
+-add_library(qd_lib_static STATIC IMPORTED)
+-set_property(TARGET qd_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqd.a")
+-set_property(TARGET qd_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(qd_lib_static qd)
+-
+-add_library(qd_lib_shared SHARED IMPORTED)
+-set_property(TARGET qd_lib_shared PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqd.${CMAKE_SHARED_LIBRARY_SUFFIX}")
+-set_property(TARGET qd_lib_shared PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(qd_lib_shared qd)
+-
+-add_library(qdmod_lib_static STATIC IMPORTED)
+-set_property(TARGET qdmod_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqdmod.a")
+-set_property(TARGET qdmod_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(qdmod_lib_static qd)
+-
+-add_library(qdmod_lib_shared SHARED IMPORTED)
+-set_property(TARGET qdmod_lib_shared PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqdmod.${CMAKE_SHARED_LIBRARY_SUFFIX}")
+-set_property(TARGET qdmod_lib_shared PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(qdmod_lib_shared qd)
+-
+-add_library(handyg_lib_static STATIC IMPORTED)
+-set_property(TARGET handyg_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libhandyg.a")
+-set_property(TARGET handyg_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
+-add_dependencies(handyg_lib_static handyg)
+-
+-add_dependencies(objlib qdmod_lib_static)
+-add_dependencies(objlib qd_lib_static)
+-add_dependencies(objlib qcdloop_lib_static)
+-add_dependencies(objlib handyg_lib_static)
++#add_library(oneloop STATIC IMPORTED)
++#set_property(TARGET oneloop PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/lib/oneloop/liboneloop.a")
++#
++#add_library(qcdloop_lib_static STATIC IMPORTED)
++#set_property(TARGET qcdloop_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqcdloop.a")
++#set_property(TARGET qcdloop_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(qcdloop_lib_static qcdloop)
++
++#add_library(qcdloop_lib_shared SHARED IMPORTED)
++#set_property(TARGET qcdloop_lib_shared PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqcdloop.${CMAKE_SHARED_LIBRARY_SUFFIX}")
++#set_property(TARGET qcdloop_lib_shared PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(qcdloop_lib_shared qcdloop)
++#
++#add_library(qd_lib_static STATIC IMPORTED)
++#set_property(TARGET qd_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqd.a")
++#set_property(TARGET qd_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(qd_lib_static qd)
++#
++#add_library(qd_lib_shared SHARED IMPORTED)
++#set_property(TARGET qd_lib_shared PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqd.${CMAKE_SHARED_LIBRARY_SUFFIX}")
++#set_property(TARGET qd_lib_shared PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(qd_lib_shared qd)
++#
++#add_library(qdmod_lib_static STATIC IMPORTED)
++#set_property(TARGET qdmod_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqdmod.a")
++#set_property(TARGET qdmod_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(qdmod_lib_static qd)
++#
++#add_library(qdmod_lib_shared SHARED IMPORTED)
++#set_property(TARGET qdmod_lib_shared PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libqdmod.${CMAKE_SHARED_LIBRARY_SUFFIX}")
++#set_property(TARGET qdmod_lib_shared PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(qdmod_lib_shared qd)
++#
++#add_library(handyg_lib_static STATIC IMPORTED)
++#set_property(TARGET handyg_lib_static PROPERTY IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/local/lib/libhandyg.a")
++#set_property(TARGET handyg_lib_static PROPERTY IMPORTED_NO_SONAME TRUE)
++#add_dependencies(handyg_lib_static handyg)
++
++#add_dependencies(objlib qdmod_lib_static)
++#add_dependencies(objlib qd_lib_static)
++#add_dependencies(objlib qcdloop_lib_static)
++#add_dependencies(objlib handyg_lib_static)
++target_link_libraries(objlib qdmod qd qcdloop handyg)
+ 
+ if(use_internal_lhapdf)
+     ExternalProject_Add(lhapdf
+@@ -285,13 +287,15 @@
+ 
+     add_dependencies(lhapdf_lib_static lhapdf)
+     target_link_libraries(mcfm lhapdf_lib_static)
+-    target_include_directories(objlib PRIVATE "${CMAKE_BINARY_DIR}/local/include" "${CMAKE_BINARY_DIR}/local/include/qd")
++    target_include_directories(objlib PRIVATE
++	   "${CMAKE_BINARY_DIR}/include" "/usr/include" "/usr/include/qd")
+     add_dependencies(objlib lhapdf)
+ elseif(use_external_lhapdf)
+     find_library(lhapdf_lib NAMES LHAPDF REQUIRED)
+     target_link_libraries(mcfm ${lhapdf_lib})
+     if (${lhapdf_include_path})
+-        target_include_directories(objlib PRIVATE "${LHAPDF_INCLUDE_PATH}" "${CMAKE_BINARY_DIR}/local/include" "${CMAKE_BINARY_DIR}/local/include/qd")
++        target_include_directories(objlib PRIVATE "${LHAPDF_INCLUDE_PATH}"
++          "${CMAKE_BINARY_DIR}/include" "/usr/include" "/usr/include/qd")
+     endif()
+ endif()
+ 
+@@ -299,9 +303,9 @@
+ 
+ if(${with_library})
+     if(use_internal_lhapdf)
+-        target_link_libraries(libmcfm qdmod_lib_static qd_lib_static qcdloop_lib_static oneloop handyg_lib_static ${linkvvamp} quadmath stdc++ lhapdf_lib_static)
++        target_link_libraries(libmcfm qdmod qd qcdloop avh_olo handyg ${linkvvamp} quadmath stdc++ lhapdf_lib_static)
+     else()
+-        target_link_libraries(libmcfm qdmod_lib_static qd_lib_static qcdloop_lib_static oneloop handyg_lib_static ${linkvvamp} quadmath stdc++ ${lhapdf_lib})
++        target_link_libraries(libmcfm qdmod qd qcdloop avh_olo handyg ${linkvvamp} quadmath stdc++ ${lhapdf_lib})
+     endif()
+     if (DEFINED OLDIR)
+       target_link_libraries(oltest libmcfm ${openloops_lib})
+@@ -320,7 +324,7 @@
+     endif()
+ endif()
+ 
+-target_link_libraries(mcfm qdmod_lib_static qd_lib_static qcdloop_lib_static oneloop handyg_lib_static ${linkvvamp} quadmath stdc++)
++target_link_libraries(mcfm qdmod qd qcdloop avh_olo handyg ${linkvvamp} quadmath stdc++)
+ 
+ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+ set(CMAKE_INSTALL_RPATH "${CMAKE_BINARY_DIR}/local/lib")

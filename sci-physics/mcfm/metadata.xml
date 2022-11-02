@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>APN-Pucky@users.noreply.github.com</email>
+		<name>APN-Pucky</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription lang="en">
+	The program calculates cross-sections for various femtobarn-level processes at hadron-hadron colliders. A number of processes can be calculated at NLO order in QCD, while most other processes are included at NNLO order in QCD. The calculation of some processes can also account for next-to-leading order weak effects.
+	</longdescription>
+</pkgmetadata>
