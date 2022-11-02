@@ -57,6 +57,7 @@ BEPEND="
 		dev-python/beautifulsoup4[${PYTHON_USEDEP}]
 		dev-python/httpretty[${PYTHON_USEDEP}]
 		dev-python/mypy[${PYTHON_USEDEP}]
+		dev-python/nose[${PYTHON_USEDEP}]
 		dev-python/vcrpy[${PYTHON_USEDEP}]
 	)
 "
