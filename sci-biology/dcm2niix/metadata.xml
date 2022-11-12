@@ -19,4 +19,7 @@
 		format to the NIfTI format. ICOM provides many ways to store/compress
 		image data, known as transfer syntaxes.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">rordenlab/dcm2niix</remote-id>
+	</upstream>
 </pkgmetadata>

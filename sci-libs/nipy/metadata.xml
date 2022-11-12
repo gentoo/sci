@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="pypi">nipy</remote-id>
+		<remote-id type="github">nipy/nipy</remote-id>
 	</upstream>
 </pkgmetadata>

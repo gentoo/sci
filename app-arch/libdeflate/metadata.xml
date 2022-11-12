@@ -8,9 +8,12 @@
 	<maintainer type="person">
 		<email>gentoo@aisha.cc</email>
 		<name>Aisha Tammy</name>
-	</maintainer>	
+	</maintainer>
 	<maintainer type="project">
 		<email>sci-biology@gentoo.org</email>
 		<name>Gentoo Biology Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">ebiggers/libdeflate</remote-id>
+	</upstream>
 </pkgmetadata>

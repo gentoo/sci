@@ -21,6 +21,6 @@
 	</longdescription>
 	<upstream>
 		<remote-id type="pypi">json-tricks</remote-id>
+		<remote-id type="github">mverleg/pyjson_tricks</remote-id>
 	</upstream>
 </pkgmetadata>
-

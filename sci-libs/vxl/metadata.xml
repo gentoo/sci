@@ -13,5 +13,6 @@ written in ANSI/ISO C++ and is designed to be portable over many platforms.
 </longdescription>
 	<upstream>
 		<remote-id type="sourceforge">vxl</remote-id>
+		<remote-id type="github">vxl/vxl</remote-id>
 	</upstream>
 </pkgmetadata>

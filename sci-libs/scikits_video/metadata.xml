@@ -14,5 +14,6 @@
 	</longdescription>
 	<upstream>
 		<remote-id type="pypi">scikit-video</remote-id>
+		<remote-id type="github">scikit-video/scikit-video</remote-id>
 	</upstream>
 </pkgmetadata>

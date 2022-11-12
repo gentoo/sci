@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="pypi">pyfaidx</remote-id>
+		<remote-id type="github">mdshw5/pyfaidx</remote-id>
 	</upstream>
 </pkgmetadata>

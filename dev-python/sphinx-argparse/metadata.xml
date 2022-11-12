@@ -5,4 +5,7 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">ashb/sphinx-argparse</remote-id>
+	</upstream>
 </pkgmetadata>

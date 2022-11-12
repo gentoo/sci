@@ -16,4 +16,7 @@
 		on datasets coming from in vitro retina with 252 electrodes MEA, from in
 		vivo hippocampus with tetrodes, and in vivo and in vitro cortex data.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">spyking-circus/spyking-circus</remote-id>
+	</upstream>
 </pkgmetadata>

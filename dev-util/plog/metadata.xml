@@ -4,4 +4,7 @@
 	<maintainer type="person">
 		<email>heroxbd@gentoo.org</email>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">SergiusTheBest/plog</remote-id>
+	</upstream>
 </pkgmetadata>

@@ -18,5 +18,6 @@
 	<upstream>
 		<doc>http://www.wannier.org/</doc>
 		<remote-id type="launchpad">wannier90</remote-id>
+		<remote-id type="github">wannier-developers/wannier90</remote-id>
 	</upstream>
 </pkgmetadata>

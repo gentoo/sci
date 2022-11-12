@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
@@ -13,4 +13,7 @@
 		Python-Gantt makes it possible to easily draw gantt charts from Python
 		and export outputs as scalable vector graphics (SVG).
 	</longdescription>
+	<upstream>
+		<remote-id type="github">stefanSchinkel/gantt</remote-id>
+	</upstream>
 </pkgmetadata>
