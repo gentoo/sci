@@ -18,4 +18,7 @@ ground-state electron momentum densities and Compton profiles, and core
 (x-ray absorption and x-ray Raman scattering) and valence electron
 excitation spectra of atoms and molecules.
 </longdescription>
+	<upstream>
+		<remote-id type="github">susilehtola/erkale</remote-id>
+	</upstream>
 </pkgmetadata>

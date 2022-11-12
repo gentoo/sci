@@ -17,5 +17,6 @@ support Hermite and nonconforming elements.
 </longdescription>
 	<upstream>
 		<remote-id type="bitbucket">fenics-project/fiat</remote-id>
+		<remote-id type="github">FEniCS/fiat</remote-id>
 	</upstream>
 </pkgmetadata>

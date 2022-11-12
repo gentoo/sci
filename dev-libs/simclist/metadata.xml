@@ -15,4 +15,7 @@
 		<flag name="dump">Disable building of dump and restore functionalities</flag>
 		<flag name="hash">Allow list_hash() to work exclusively on memory locations</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">mij/simclist</remote-id>
+	</upstream>
 </pkgmetadata>

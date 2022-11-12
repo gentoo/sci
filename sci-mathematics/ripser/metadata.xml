@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-    <maintainer type="person">
-        <email>gentoo@aisha.cc</email>
-        <name>Aisha Tammy</name>
-    </maintainer>
-    <maintainer type="project">
-        <email>sci@gentoo.org</email>
-        <name>Gentoo Science Project</name>
-    </maintainer>
-    <use>
-      <flag name="progress">print progress of calculations in console</flag>
-      <flag name="sparsehash">use google sparsehash for storage</flag>
-    </use>
+	<maintainer type="person">
+		<email>gentoo@aisha.cc</email>
+		<name>Aisha Tammy</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<use>
+		<flag name="progress">print progress of calculations in console</flag>
+		<flag name="sparsehash">use google sparsehash for storage</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">Ripser/ripser</remote-id>
+	</upstream>
 </pkgmetadata>

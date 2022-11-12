@@ -12,4 +12,7 @@
 	<longdescription lang="en">
 	QCDLoop is a library of one-loop scalar Feynman integrals, evaluated close to four dimensions. First documented in arXiv:0712.1851 and recently in arXiv:1605.03181.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">scarrazza/qcdloop</remote-id>
+	</upstream>
 </pkgmetadata>

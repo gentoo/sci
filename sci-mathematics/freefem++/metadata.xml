@@ -10,4 +10,7 @@ FreeFem++ is an implementation of a language dedicated to the finite
 element method. It enables you to solve Partial Differential Equations
 (PDE) easily.
 </longdescription>
+	<upstream>
+		<remote-id type="github">FreeFem/FreeFem-sources</remote-id>
+	</upstream>
 </pkgmetadata>

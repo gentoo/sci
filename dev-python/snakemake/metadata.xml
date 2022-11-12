@@ -8,5 +8,6 @@
 	<upstream>
 		<remote-id type="bitbucket">johanneskoester/snakemake</remote-id>
 		<remote-id type="pypi">snakemake</remote-id>
+		<remote-id type="github">snakemake/snakemake</remote-id>
 	</upstream>
 </pkgmetadata>

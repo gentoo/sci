@@ -21,4 +21,7 @@
 	<use>
 		<flag name="vtk">Optional support for a number of surface enabled tools (via sci-libs/vtk).</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">ANTsX/ANTs</remote-id>
+	</upstream>
 </pkgmetadata>

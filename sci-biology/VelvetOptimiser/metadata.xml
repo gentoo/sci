@@ -9,4 +9,7 @@
 		<email>sci-biology@gentoo.org</email>
 		<name>Gentoo Biology Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">tseemann/VelvetOptimiser</remote-id>
+	</upstream>
 </pkgmetadata>

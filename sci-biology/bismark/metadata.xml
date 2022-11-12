@@ -20,4 +20,7 @@ and gapped alignments; (4) Alignment seed length, number of mismatches etc. are
 adjustable; (5) Output discriminates between cytosine methylation in CpG, CHG
 and CHH context.
 </longdescription>
+	<upstream>
+		<remote-id type="github">FelixKrueger/Bismark</remote-id>
+	</upstream>
 </pkgmetadata>
