@@ -5,4 +5,7 @@
 		<email>xgreenlandforwyy@gmail.com</email>
 		<name>Yiyang Wu</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">aparamon/HDF5Plugin-Zstandard</remote-id>
+	</upstream>
 </pkgmetadata>

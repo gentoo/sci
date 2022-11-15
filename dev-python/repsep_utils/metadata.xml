@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>chr@chymera.eu</email>
-    <name>Horea Christian</name>
-  </maintainer>
-  <longdescription lang="en">
+	<maintainer type="person">
+		<email>chr@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<longdescription lang="en">
     Utilities for compiling and developing RepSeP-style articles, such as the
     reference implementation. The package contains generic boilerplate code for
     PythonTeX-interaction, as used by all RepSeP-style articles, as well as an
     executable file allowing single-script execution for development and
     debugging purposes.
   </longdescription>
+	<upstream>
+		<remote-id type="github">TheChymera/repsep_utils</remote-id>
+	</upstream>
 </pkgmetadata>

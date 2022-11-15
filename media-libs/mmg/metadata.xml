@@ -13,4 +13,7 @@
 		<flag name="scotch">Use SCOTCH TOOL for renumbering</flag>
 		<flag name="vtk">Use VTK I/O</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">MmgTools/mmg</remote-id>
+	</upstream>
 </pkgmetadata>

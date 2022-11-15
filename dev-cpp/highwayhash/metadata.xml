@@ -5,4 +5,7 @@
 		<email>junghans@gentoo.org</email>
 		<name>Christoph Junghans</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">google/highwayhash</remote-id>
+	</upstream>
 </pkgmetadata>

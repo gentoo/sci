@@ -15,5 +15,6 @@ Hang Si. Both are included in the package in slightly modified versions.
 </longdescription>
 	<upstream>
 		<remote-id type="pypi">MeshPy</remote-id>
+		<remote-id type="github">inducer/meshpy</remote-id>
 	</upstream>
 </pkgmetadata>

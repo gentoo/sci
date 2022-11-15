@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
@@ -16,4 +16,7 @@
 		(or normal) probability density function for outcomes, or a fixed
 		outcome probability.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">TheChymera/pyvote</remote-id>
+	</upstream>
 </pkgmetadata>

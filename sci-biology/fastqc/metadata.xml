@@ -13,4 +13,7 @@
 		<email>sci-biology@gentoo.org</email>
 		<name>Gentoo Biology Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">s-andrews/FastQC</remote-id>
+	</upstream>
 </pkgmetadata>

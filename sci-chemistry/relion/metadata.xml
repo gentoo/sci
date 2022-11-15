@@ -12,4 +12,7 @@
 	<use>
 		<flag name="gui">Enable relion gui</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">3dem/relion</remote-id>
+	</upstream>
 </pkgmetadata>

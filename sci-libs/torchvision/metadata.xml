@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-    <maintainer type="person">
-        <email>jpizarrocallejas@gmail.com</email>
-        <name>Jorge Pizarro Callejas</name>
-    </maintainer>
-    <use>
-        <flag name="cuda">Enable CUDA support if enabled in PyTorch</flag>
-    </use>
+	<maintainer type="person">
+		<email>jpizarrocallejas@gmail.com</email>
+		<name>Jorge Pizarro Callejas</name>
+	</maintainer>
+	<use>
+		<flag name="cuda">Enable CUDA support if enabled in PyTorch</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">pytorch/vision</remote-id>
+	</upstream>
 </pkgmetadata>
