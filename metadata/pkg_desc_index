@@ -161,6 +161,7 @@ dev-util/waf 2.0.21: Piece of software used to help building software projects
 dev-vcs/dandi-cli 0.38.0 0.39.4 0.45.1 0.46.6: DANDI command line client to facilitate common operations
 dev-vcs/datalad 0.16.1-r1 0.17.0-r1 0.17.2-r1 0.17.7: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
+media-gfx/netgen 6.2.2105 6.2.2204: Automatic 3d tetrahedral mesh generator
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
 media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
@@ -492,7 +493,6 @@ sci-mathematics/gappalib-coq 1.4.6: Allows the certificates Gappa generates to b
 sci-mathematics/libsfmt 1.3.0: SIMD-oriented Fast Mersenne Twister
 sci-mathematics/lie 2.2.2: A Computer algebra package for Lie group computations
 sci-mathematics/ltl2ba 1.1: Fast LTL to Buechi Automata Translation
-sci-mathematics/netgen 6.2.2105: Automatic 3d tetrahedral mesh generator
 sci-mathematics/pulp 2.4: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
 sci-mathematics/scilab-bin 6.1.1: Scientific software package for numerical computations
