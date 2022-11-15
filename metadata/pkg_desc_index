@@ -1,4 +1,4 @@
-app-arch/libdeflate 1.2 1.6 1.7 1.8 1.9 1.11 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
+app-arch/libdeflate 1.6 1.7 1.8 1.9 1.11 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-office/visidata 2.8: Terminal spreadsheet multitool for discovering and arranging data
 app-text/noweb 2.12: a literate programming tool, lighter than web
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
@@ -485,7 +485,7 @@ sci-mathematics/acl2 8.3-r1 8.3-r2 8.4 8.4-r1: Industrial strength theorem prove
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/flocq 3.4.0-r1: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 22.0: Framework for analysis of source codes written in C
-sci-mathematics/freefem++ 4.7.1 4.10: Solve PDEs using FEM on 2d and 3d domains
+sci-mathematics/freefem++ 4.10: Solve PDEs using FEM on 2d and 3d domains
 sci-mathematics/gap 4.11.0: Computational discrete algebra system - minimal GAP core system
 sci-mathematics/gappa 1.3.5 1.4.0: Verifying and proving properties on floating-point or fixed-point arithmetic
 sci-mathematics/gappalib-coq 1.4.6: Allows the certificates Gappa generates to be imported by the Coq
