@@ -8,7 +8,7 @@ inherit distutils-r1
 
 DESCRIPTION="ASCII trees in python"
 HOMEPAGE="https://github.com/mbr/asciitree"
-SRC_URI="https://github.com/mbr/asciitree/archive/refs/tags/0.3.3.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/mbr/asciitree/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
