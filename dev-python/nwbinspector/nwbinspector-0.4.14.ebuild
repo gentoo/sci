@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Inspect NWB files for compliance with NWB Best Practices"
 HOMEPAGE="https://github.com/NeurodataWithoutBorders/nwbinspector"
-SRC_URI="https://github.com/NeurodataWithoutBorders/nwbinspector/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/NeurodataWithoutBorders/nwbinspector/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
