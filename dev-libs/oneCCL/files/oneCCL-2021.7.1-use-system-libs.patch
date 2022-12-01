@@ -1,0 +1,102 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 74c4fc0..92c4d16 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -87,15 +87,13 @@ add_definitions(-DCCL_CXX_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILE
+ SET(CCL_ENABLE_ZE OFF CACHE BOOL "Enable Level Zero support")
+ 
+ set(CCL_COMMON_INSTALL_PREFIX "intel64")
+-set(CMAKE_INSTALL_LIBDIR "lib")
+ set(CCL_INSTALL_LIB "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+ set(CCL_INSTALL_INCLUDE "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}")
+ set(CCL_INSTALL_DOC "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DOCDIR}")
+ set(CCL_INSTALL_BIN "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}")
+-set(CCL_INSTALL_ENV "${CMAKE_INSTALL_PREFIX}/env")
+-set(CCL_INSTALL_ETC "${CMAKE_INSTALL_PREFIX}/etc")
+-set(CCL_INSTALL_LICENSE "${CMAKE_INSTALL_PREFIX}/licensing")
+-set(CCL_INSTALL_MODULE "${CMAKE_INSTALL_PREFIX}/modulefiles")
++set(CCL_INSTALL_ENV "${CMAKE_INSTALL_FULL_SYSCONFDIR}/env")
++set(CCL_INSTALL_ETC "${CMAKE_INSTALL_FULL_SYSCONFDIR}")
++set(CCL_INSTALL_MODULE "${CMAKE_INSTALL_FULL_SYSCONFDIR}/modulefiles")
+ set(CCL_INSTALL_EXAMPLES "${CMAKE_INSTALL_PREFIX}/examples")
+ set(CCL_INSTALL_TESTS "${CMAKE_INSTALL_PREFIX}/tests")
+ set(CCL_INSTALL_KERNELS "${CMAKE_INSTALL_PREFIX}/lib/kernels")
+@@ -103,23 +101,23 @@ set(CCL_INSTALL_KERNELS "${CMAKE_INSTALL_PREFIX}/lib/kernels")
+ # setup dependency directories
+ set(DEPS_DIR "${PROJECT_SOURCE_DIR}/deps")
+ 
+-set(MPI_INCLUDE_DIR "${DEPS_DIR}/mpi/include/")
+-set(MPI_LIB_DIR "${DEPS_DIR}/mpi/lib/")
++set(MPI_INCLUDE_DIR "/usr/include/")
++set(MPI_LIB_DIR "/usr/lib64/")
+ message(STATUS "MPI_INCLUDE_DIR: ${MPI_INCLUDE_DIR}")
+ message(STATUS "MPI_LIB_DIR: ${MPI_LIB_DIR}")
+ 
+ if ("${LIBFABRIC_DIR}" STREQUAL "")
+-    set(LIBFABRIC_INCLUDE_DIR "${DEPS_DIR}/ofi/include")
+-    set(LIBFABRIC_LIB_DIR "${DEPS_DIR}/ofi/lib/")
++    set(LIBFABRIC_INCLUDE_DIR "${DEPS_DIR}/ofi/include/")
++    set(LIBFABRIC_LIB_DIR "${DEPS_DIR}/ofi/lib64/")
+ else()
+     set(LIBFABRIC_INCLUDE_DIR "${LIBFABRIC_DIR}/include/")
+-    set(LIBFABRIC_LIB_DIR "${LIBFABRIC_DIR}/lib")
++    set(LIBFABRIC_LIB_DIR "${LIBFABRIC_DIR}/lib64/")
+ endif()
+ message(STATUS "LIBFABRIC_LIB_DIR: ${LIBFABRIC_LIB_DIR}")
+ message(STATUS "LIBFABRIC_INCLUDE_DIR: ${LIBFABRIC_INCLUDE_DIR}")
+ 
+-set(HWLOC_INCLUDE_DIR "${DEPS_DIR}/hwloc/include/")
+-set(HWLOC_LIB_DIR "${DEPS_DIR}/hwloc/lib/")
++set(HWLOC_INCLUDE_DIR "/usr/include/")
++set(HWLOC_LIB_DIR "/usr/lib64/")
+ message(STATUS "HWLOC_INCLUDE_DIR: ${HWLOC_INCLUDE_DIR}")
+ message(STATUS "HWLOC_LIB_DIR: ${HWLOC_LIB_DIR}")
+ 
+@@ -128,7 +126,7 @@ set(ITT_LIB_DIR "${DEPS_DIR}/itt/lib64")
+ message(STATUS "ITT_INCLUDE_DIR: ${ITT_INCLUDE_DIR}")
+ message(STATUS "ITT_LIB_DIR: ${ITT_LIB_DIR}")
+ 
+-set(LEVEL_ZERO_INCLUDE_DIR "${DEPS_DIR}/level_zero/include/")
++set(LEVEL_ZERO_INCLUDE_DIR "/usr/include/level_zero")
+ message(STATUS "LEVEL_ZERO_INCLUDE_DIR: ${LEVEL_ZERO_INCLUDE_DIR}")
+ 
+ set(CMAKE_SKIP_INSTALL_RPATH TRUE)
+@@ -241,8 +239,6 @@ configure_file(third-party-programs.txt ${CMAKE_CURRENT_BINARY_DIR}/third-party-
+ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/vars.sh DESTINATION ${CCL_INSTALL_ENV})
+ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/setvars.sh DESTINATION ${CCL_INSTALL_ENV})
+ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/ccl DESTINATION ${CCL_INSTALL_MODULE})
+-install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/third-party-programs.txt DESTINATION ${CCL_INSTALL_LICENSE})
+-install(PROGRAMS ${PROJECT_SOURCE_DIR}/LICENSE DESTINATION ${CCL_INSTALL_LICENSE})
+ 
+ # copy kernels
+ if (COMPUTE_BACKEND AND EXISTS "${PROJECT_SOURCE_DIR}/src/kernels")
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 7b4cff9..7ef00f8 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -263,7 +263,7 @@ list(APPEND SRC_LINK_LIBS
+      pthread
+      ${EXTERNAL_LIBS}
+      fabric
+-     ${HWLOC_LIB_DIR}/libhwloc.a
++     ${HWLOC_LIB_DIR}/libhwloc.so
+      ${ITT_LIB_DIR}/libittnotify.a)
+ 
+ if (ENABLE_MPI)
+@@ -335,16 +335,3 @@ if ("${LIBFABRIC_DIR}" STREQUAL "")
+     install(DIRECTORY ${DEPS_DIR}/ofi/lib/
+             DESTINATION ${CCL_INSTALL_LIB})
+ endif()
+-
+-if (ENABLE_MPI)
+-    file(GLOB mpi_bins "${DEPS_DIR}/mpi/bin/*")
+-    install(PROGRAMS ${mpi_bins} DESTINATION ${CCL_INSTALL_BIN})
+-    install(DIRECTORY ${DEPS_DIR}/mpi/include/
+-            DESTINATION ${CCL_INSTALL_INCLUDE})
+-    install(DIRECTORY ${DEPS_DIR}/mpi/lib/
+-           DESTINATION ${CCL_INSTALL_LIB})
+-    install(DIRECTORY ${DEPS_DIR}/mpi/etc/
+-            DESTINATION ${CCL_INSTALL_ETC})
+-    install(DIRECTORY ${DEPS_DIR}/mpi/licensing/
+-            DESTINATION ${CCL_INSTALL_LICENSE}/mpi/)
+-endif()
