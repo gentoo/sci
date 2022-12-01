@@ -5,9 +5,7 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription lang="en">
-Intel(R) Integrated Performance Primitives (Intel(R) IPP) is a
-library of multi-core-ready, optimized software functions for
-multimedia data processing, and communications applications.
-</longdescription>
+	<upstream>
+		<remote-id type="github">oneapi-src/oneDPL</remote-id>
+	</upstream>
 </pkgmetadata>
