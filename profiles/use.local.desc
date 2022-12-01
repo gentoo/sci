@@ -26,7 +26,6 @@ dev-libs/boost-compute:qt - build qt examples and tests
 dev-libs/boost-compute:tbb - build examples and tests using tbb backend
 dev-libs/boost-compute:threads - build thread safe examples and tests
 dev-libs/boost-compute:vtk - build vtk examples and tests
-dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
 dev-libs/lief:c - install C API
 dev-libs/memkind:heap-manager - Allow switching allocator at runtime
 dev-libs/memkind:secure - Build libraries with security enhancements
@@ -152,3 +151,6 @@ sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:tau-spinner - Compile with TauSpinner library
 sci-visualization/mricrogl:dicom - Adds limited read support for the DICOM imaging format.
 sys-cluster/modules:compat - Build Modules version 3 compat support
+sys-devel/DPC++:cuda - use the cuda backend
+sys-devel/DPC++:esimd_emulator - enable ESIMD CPU emulation
+sys-devel/DPC++:hip - use the HIP backend

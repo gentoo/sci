@@ -1,0 +1,17 @@
+BDEPEND=virtual/pkgconfig >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5 doc? ( app-doc/doxygen media-gfx/graphviz virtual/latex-base || ( ( >=dev-lang/python-3.11.0_p2:3.11 dev-python/sphinx[python_targets_python3_11(-)] dev-python/recommonmark[python_targets_python3_11(-)] dev-python/myst_parser[python_targets_python3_11(-)] ) ( >=dev-lang/python-3.10.8_p3:3.10 dev-python/sphinx[python_targets_python3_10(-)] dev-python/recommonmark[python_targets_python3_10(-)] dev-python/myst_parser[python_targets_python3_10(-)] ) ( >=dev-lang/python-3.9.15_p3:3.9 dev-python/sphinx[python_targets_python3_9(-)] dev-python/recommonmark[python_targets_python3_9(-)] dev-python/myst_parser[python_targets_python3_9(-)] ) ( >=dev-lang/python-3.8.15_p3:3.8 dev-python/sphinx[python_targets_python3_8(-)] dev-python/recommonmark[python_targets_python3_8(-)] dev-python/myst_parser[python_targets_python3_8(-)] ) ) )
+DEFINED_PHASES=compile configure install prepare setup test
+DEPEND=dev-libs/boost:= dev-libs/level-zero:= dev-libs/opencl-icd-loader dev-util/opencl-headers dev-util/spirv-headers dev-util/spirv-tools media-libs/libva sys-devel/libtool esimd_emulator? ( dev-libs/libffi:= ) cuda? ( dev-util/nvidia-cuda-toolkit:= ) hip? ( dev-util/hip:= )
+DESCRIPTION=oneAPI Data Parallel C++ compiler
+EAPI=8
+HOMEPAGE=https://github.com/intel/llvm
+INHERIT=cmake python-any-r1 docs
+IUSE=cuda hip test esimd_emulator llvm_targets_AArch64 llvm_targets_AMDGPU llvm_targets_ARM llvm_targets_AVR llvm_targets_BPF llvm_targets_Hexagon llvm_targets_Lanai llvm_targets_Mips llvm_targets_MSP430 llvm_targets_NVPTX llvm_targets_PowerPC llvm_targets_RISCV llvm_targets_Sparc llvm_targets_SystemZ llvm_targets_WebAssembly llvm_targets_X86 llvm_targets_XCore doc
+KEYWORDS=~amd64
+LICENSE=Apache-2.0 MIT
+RDEPEND=dev-libs/boost:= dev-libs/level-zero:= dev-libs/opencl-icd-loader dev-util/opencl-headers dev-util/spirv-headers dev-util/spirv-tools media-libs/libva sys-devel/libtool esimd_emulator? ( dev-libs/libffi:= ) cuda? ( dev-util/nvidia-cuda-toolkit:= ) hip? ( dev-util/hip:= )
+REQUIRED_USE=?? ( cuda hip ) cuda? ( llvm_targets_NVPTX ) hip? ( llvm_targets_AMDGPU )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/intel/llvm/archive/refs/tags/2022-09.tar.gz -> DPC++-2022.09.tar.gz https://github.com/intel/vc-intrinsics/archive/refs/tags/v0.8.1.tar.gz -> DPC++-2022.09-vc-intrinsics-0.8.1.tar.gz esimd_emulator? ( https://github.com/intel/cm-cpu-emulation/archive/refs/tags/v2022-08-22.tar.gz -> DPC++-2022.09-cm-cpu-emulation-2022-08-22.tar.gz )
+_eclasses_=toolchain-funcs	441f754fd75cd4fd1fa06fbc17da6144	multilib	5ca4e49abed8e3a2f7b56920eadee157	flag-o-matic	29a755b1291d64133634d80b0328f153	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	8ed38f92fe095be374d6c4c8d4c0dda7	xdg-utils	ac0e315a3688929e34ac75b139e7349a	cmake	44afbf15c35884f7c840470f1cf05d0d	python-utils-r1	25c880c1db58e21b80b684bacc964958	python-any-r1	f2f00fb79b5e888b5011d4c51240ae97	docs	2af4a2f0074bd646101ce0f66ca6dd03
+_md5_=764990a8cf44f9ad31afb34dd4ab99b0

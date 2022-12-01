@@ -10,15 +10,12 @@ dev-java/fits 1.15.1: Java library for FITS input/output
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
 dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
-dev-lang/icc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel C/C++ Compiler
-dev-lang/ifc 18.0.2.199-r1 19.0.4.243 19.1.1.217: Intel FORTRAN Compiler
 dev-lang/pgi 13.5: PGI compiler suite
-dev-lang/vtune 18.0.2.0.551022 19.0.4.0.597835 2020.1.0.607630: Intel VTune Profiler
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
 dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
-dev-libs/intel-common 18.0.2.199-r1 19.0.3.199-r1 19.0.4.243 19.1.1.217: Common libraries and utilities needed for Intel compilers and libraries
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
+dev-libs/oneCCL 2021.7.1: oneAPI Collective Communications Library
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
@@ -450,7 +447,6 @@ sci-libs/gdcm 3.0.14: Cross-platform DICOM implementation
 sci-libs/handyg 0.1.5: Rapid numerical evaluation of generalised polylogarithms
 sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.11: Integrated Rule Oriented Data System, a data management software
-sci-libs/ipp 18.0.2.199 19.0.4.243 2020.1.217: Intel Integrated Performance Primitive library
 sci-libs/itk 5.2.1-r2: NLM Insight Segmentation and Registration Toolkit
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
@@ -530,5 +526,7 @@ sci-visualization/fsleyes-widgets 0.12.3: GUI widgets and utilities for the FSLe
 sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
+sys-devel/DPC++ 2022.09: oneAPI Data Parallel C++ compiler
+sys-devel/oneDPL 2021.7.1: oneAPI Data Parallel C++ Library
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
