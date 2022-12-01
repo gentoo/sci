@@ -256,7 +256,6 @@ sci-biology/drlfom_bidsdata 1.1: BIDS data files released with the DRLFOM public
 sci-biology/edena 3.131028: De novo short read OLC assembler (overlap-layout-consensus)
 sci-biology/epga 9999: De novo assembler using distribution of reads and insert size
 sci-biology/erpin 5.5b: Easy RNA Profile IdentificatioN, an RNA motif search program
-sci-biology/estscan 3.0.3: Prediction of coding regions in DNA/RNA sequences
 sci-biology/exonerate-gff3 9999: exonerate-2.2.0 with patches to add GFF3 formatted output
 sci-biology/fastdnaml 1.2.2_p10: Maximum likelihood phylogenetic tree builder for DNA sequences
 sci-biology/fastqc 0.11.9: Quality control FASTA/FASTQ sequence files

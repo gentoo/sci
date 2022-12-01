@@ -52,8 +52,6 @@ sci-biology/bidsschematools:render - Support for schema table rendering
 sci-biology/bru2nii:gui - Build graphical user interface
 sci-biology/dcm2niix:jpeg-ls - Supprt for converting DICOM images compressed with the JPEG-LS transfer syntaxes using the bundled CharLS library
 sci-biology/dcm2niix:system-jpeg - Use the system-wide media-libs/libjpeg-turbo instead of bundled.
-sci-biology/estscan:icc - Undocumented USE
-sci-biology/estscan:ifc - Undocumented USE
 sci-biology/exonerate-gff3:utils - Unknown
 sci-biology/fsl:cuda - Add support for CUDA
 sci-biology/imagej:plugins - Install additional plugins
@@ -124,7 +122,6 @@ sci-libs/nexus:hdf5 - Support the standard representation (HDF5)
 sci-libs/nexus:java - Build the Java bindings
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
-sci-libs/torchvision:cuda - Enable CUDA support if enabled in PyTorch
 sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
 sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
