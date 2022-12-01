@@ -297,7 +297,6 @@ sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/longstitch 1.0.1: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 0.3.1: Probabilistic framework for structural variant discovery
-sci-biology/mRNAmarkup 5.21.2019: Transcript annotation workflow
 sci-biology/mappy 2.24: Minimap2 python binding
 sci-biology/megahit 1.2.9: Metagenome assembler using succinct de Bruijn graph approach with CUDA
 sci-biology/merlin 1.1.2: Statistical analysis of gene flow in pedigrees
