@@ -19,14 +19,6 @@
 # vtk<9 no longer available in ::gentoo
 sci-libs/gdcm python
 
-# Andrew Savchenko <bircoph@gentoo.org> (02 Jun 2016)
-# doesn't link with plotutils-2.6
-sci-physics/qcl plotutils
-
-# Christoph Junghans <ottxor@gentoo.org> (12 Sep 2014)
-# icc and ifc don't work on no-multilib
-sci-biology/estscan icc ifc
-
 # Christoph Junghans <ottxor@gentoo.org> (05 Nov 2013)
 # gui sandbox error
 dev-lang/conceptual gui
