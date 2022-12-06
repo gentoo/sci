@@ -15,10 +15,12 @@ KEYWORDS="~amd64"
 
 IUSE="mpi"
 
+BDEPEND="sys-devel/DPC++"
+
 DEPEND="
-	dev-libs/level-zero
-	sys-apps/hwloc
-	sys-block/libfabric
+	dev-libs/level-zero:=
+	sys-apps/hwloc:=
+	sys-block/libfabric:=
 	mpi? ( virtual/mpi )
 "
 RDEPEND="${DEPEND}"
@@ -33,6 +35,9 @@ src_prepare() {
 
 	# Use system libs instead
 	rm -r deps/hwloc deps/level_zero deps/mpi deps/ofi || die
+
+	# DPC++ compiler required for full functionality
+	export CXX="${ESYSROOT}/usr/lib/llvm/intel/bin/clang"
 
 	cmake_src_prepare
 }
@@ -49,6 +54,7 @@ src_configure() {
 		-DENABLE_MPI="$(usex mpi)"
 		# Use system fabric
 		-DLIBFABRIC_DIR="${ESYSROOT}/usr"
+		# TODO: Unbundle ITT
 	)
 	cmake_src_configure
 }
