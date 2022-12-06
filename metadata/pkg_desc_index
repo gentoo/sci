@@ -15,7 +15,7 @@ dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Genget
 dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
-dev-libs/oneCCL 2021.7.1: oneAPI Collective Communications Library
+dev-libs/oneCCL 2021.7.1-r1: oneAPI Collective Communications Library
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
