@@ -10,5 +10,5 @@ LICENSE=GPL-2
 RDEPEND=>virtual/jdk-1.5:* >=virtual/jre-1.5:* >=dev-java/java-config-2.2.0-r3 dev-lang/perl:=
 SLOT=0
 SRC_URI=https://sourceforge.net/projects/jtreeview/files/jtreeview/1.2.0/TreeView-1.2.0-bin.tar.gz https://sourceforge.net/projects/jtreeview/files/helper-scripts/0.0.2/helper-scripts-0.0.2.tar.gz
-_eclasses_=java-utils-2	c79d65661a9f4f72b60376c9e4b3dfa1	java-pkg-2	3b09e051fc2045a0f0b9471b87d4f8bd	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	441f754fd75cd4fd1fa06fbc17da6144	java-ant-2	5cf479aa9e0ac9cc55899f2762c2aaa0	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	21a0cb6221498d0e7894bdf445b79887
+_eclasses_=java-utils-2	c79d65661a9f4f72b60376c9e4b3dfa1	java-pkg-2	3b09e051fc2045a0f0b9471b87d4f8bd	multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	959e1d99122907eb98a3a660297a967e	java-ant-2	5cf479aa9e0ac9cc55899f2762c2aaa0	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	21a0cb6221498d0e7894bdf445b79887
 _md5_=75118fc4ea99174b7f0d0b9391e3244d
