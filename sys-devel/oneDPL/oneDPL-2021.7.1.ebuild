@@ -3,11 +3,12 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..11} )
-DOCS_BUILDER="sphinx"
-DOCS_DIR="documentation/library_guide"
-DOCS_AUTODOC=0
-inherit cmake python-any-r1 docs
+# Missing deps for documentation
+# PYTHON_COMPAT=( python3_{8..11} )
+# DOCS_BUILDER="sphinx"
+# DOCS_DIR="documentation/library_guide"
+# DOCS_AUTODOC=0
+inherit cmake #python-any-r1 docs
 
 DESCRIPTION="oneAPI Data Parallel C++ Library"
 HOMEPAGE="https://github.com/oneapi-src/oneDPL"
@@ -25,8 +26,8 @@ BDEPEND="virtual/pkgconfig"
 
 DEPEND="
 	sys-devel/DPC++
-	dev-libs/level-zero:=
-	dev-cpp/tbb:=
+	dev-libs/level-zero
+	dev-cpp/tbb
 "
 RDEPEND="${DEPEND}"
 
@@ -46,12 +47,11 @@ src_configure() {
 }
 
 src_compile() {
-	# Nothing to compile, header only
-	docs_compile
+	cmake_src_compile
+	# docs_compile
 }
 
 src_install() {
 	einstalldocs
-	dodir /usr/include
-	mv "${S}/include/oneapi" "${ED}/usr/include/" || die
+	doheader -r "${S}/include/oneapi"
 }
