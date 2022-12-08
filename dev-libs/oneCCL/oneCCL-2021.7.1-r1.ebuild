@@ -37,7 +37,8 @@ src_prepare() {
 	rm -r deps/hwloc deps/level_zero deps/mpi deps/ofi || die
 
 	# DPC++ compiler required for full functionality
-	export CXX="${ESYSROOT}/usr/lib/llvm/intel/bin/clang"
+	export CC="${ESYSROOT}/usr/lib/llvm/intel/bin/clang"
+	export CXX="${ESYSROOT}/usr/lib/llvm/intel/bin/clang++"
 
 	cmake_src_prepare
 }
