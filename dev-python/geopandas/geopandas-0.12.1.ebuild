@@ -5,7 +5,7 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
 DISTUTILS_USE_PEP517="setuptools"
-inherit distutils-r1
+inherit distutils-r1 optfeature
 
 DESCRIPTION="Python tools for geographic data"
 HOMEPAGE="https://github.com/geopandas/geopandas"
@@ -31,4 +31,10 @@ python_test() {
 	)
 
 	epytest ${deselect[@]/#/--deselect }
+}
+
+pkg_postinst() {
+	optfeature "plotting" dev-python/matplotlib
+	optfeature "spatial indexes and spatial joins" sci-libs/rtree
+	optfeature "geocoding" sci-geosciences/geopy
 }
