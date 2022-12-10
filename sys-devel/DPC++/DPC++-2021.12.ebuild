@@ -36,7 +36,7 @@ CMAKE_USE_DIR="${S}/llvm"
 BUILD_DIR="${S}/build"
 
 LICENSE="Apache-2.0 MIT"
-SLOT="0/6" # Based on libsycl.so
+SLOT="0/5" # Based on libsycl.so
 KEYWORDS="~amd64"
 
 ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430
@@ -98,9 +98,10 @@ src_configure() {
 		-DSYCL_ENABLE_XPTI_TRACING=ON
 		-DLLVM_ENABLE_LLD=OFF
 		-DXPTI_ENABLE_WERROR=OFF
-		-DSYCL_ENABLE_PLUGINS="level_zero;opencl;$(usev esimd_emulator);$(usev hip);$(usev cuda)"
+		-DSYCL_BUILD_PI_ESIMD_EMULATOR="$(usex esimd_emulator)"
+		-DSYCL_BUILD_PI_CUDA="$(usex cuda)"
+		-DSYCL_BUILD_PI_HIP="$(usex hip)"
 		-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR="${ESYSROOT}/usr"
-		-DBOOST_MP11_SOURCE_DIR="${ESYSROOT}/usr "
 		-DLEVEL_ZERO_LIBRARY="${ESYSROOT}/usr/lib64/libze_loader.so"
 		-DLEVEL_ZERO_INCLUDE_DIR="${ESYSROOT}/usr/include"
 		-DLLVMGenXIntrinsics_SOURCE_DIR="${WORKDIR}/vc-intrinsics-${VC_INTR_PV}"
