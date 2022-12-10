@@ -75,7 +75,7 @@ dev-python/fiona 1.8.21: API for reading/writing vector geospatial data
 dev-python/fscacher 0.1.4 0.2.0: Cache results of operations on heavy file trees
 dev-python/fslpy 3.10.0: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
-dev-python/geopandas 0.10.2: Python tools for geographic data
+dev-python/geopandas 0.12.1: Python tools for geographic data
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
 dev-python/gmsh_interop 2021.1.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
