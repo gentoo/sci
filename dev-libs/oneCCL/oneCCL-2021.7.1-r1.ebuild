@@ -21,6 +21,7 @@ DEPEND="
 	dev-libs/level-zero:=
 	sys-apps/hwloc:=
 	sys-block/libfabric:=
+	sys-devel/ittapi
 	mpi? ( virtual/mpi )
 "
 RDEPEND="${DEPEND}"
@@ -34,7 +35,7 @@ src_prepare() {
 	find . -name "CMakeLists.txt" -exec sed -i "s/-Werror//g" {} + || die
 
 	# Use system libs instead
-	rm -r deps/hwloc deps/level_zero deps/mpi deps/ofi || die
+	rm -r deps/* || die
 
 	# DPC++ compiler required for full functionality
 	export CC="${ESYSROOT}/usr/lib/llvm/intel/bin/clang"
@@ -55,7 +56,6 @@ src_configure() {
 		-DENABLE_MPI="$(usex mpi)"
 		# Use system fabric
 		-DLIBFABRIC_DIR="${ESYSROOT}/usr"
-		# TODO: Unbundle ITT
 	)
 	cmake_src_configure
 }
