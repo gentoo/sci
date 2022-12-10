@@ -36,7 +36,7 @@ CMAKE_USE_DIR="${S}/llvm"
 BUILD_DIR="${S}/build"
 
 LICENSE="Apache-2.0 MIT"
-SLOT="0"
+SLOT="0/6" # Based on libsycl.so
 KEYWORDS="~amd64"
 
 ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430
