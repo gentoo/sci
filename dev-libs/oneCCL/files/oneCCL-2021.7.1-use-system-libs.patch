@@ -71,18 +71,20 @@ index 74c4fc0..92c4d16 100644
  # copy kernels
  if (COMPUTE_BACKEND AND EXISTS "${PROJECT_SOURCE_DIR}/src/kernels")
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 7b4cff9..7ef00f8 100644
+index 7b4cff9..e8296a0 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -263,7 +263,7 @@ list(APPEND SRC_LINK_LIBS
+@@ -263,8 +263,8 @@ list(APPEND SRC_LINK_LIBS
       pthread
       ${EXTERNAL_LIBS}
       fabric
 -     ${HWLOC_LIB_DIR}/libhwloc.a
-+     ${HWLOC_LIB_DIR}/libhwloc.so
-      ${ITT_LIB_DIR}/libittnotify.a)
+-     ${ITT_LIB_DIR}/libittnotify.a)
++     libhwloc.so
++     libittnotify.so)
  
  if (ENABLE_MPI)
+     set(SRC_C_FLAGS "${SRC_C_FLAGS} -DCCL_ENABLE_MPI")
 @@ -335,16 +335,3 @@ if ("${LIBFABRIC_DIR}" STREQUAL "")
      install(DIRECTORY ${DEPS_DIR}/ofi/lib/
              DESTINATION ${CCL_INSTALL_LIB})
