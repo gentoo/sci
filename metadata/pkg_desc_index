@@ -527,6 +527,7 @@ sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization 
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
 sys-devel/DPC++ 2021.12 2022.09: oneAPI Data Parallel C++ compiler
+sys-devel/ittapi 3.23.0: Intel Instrumentation and Tracing Technology and Just-In-Time API
 sys-devel/oneDPL 2021.7.1: oneAPI Data Parallel C++ Library
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
