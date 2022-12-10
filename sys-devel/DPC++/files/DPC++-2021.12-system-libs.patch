@@ -1,0 +1,274 @@
+diff --git a/opencl/CMakeLists.txt b/opencl/CMakeLists.txt
+index ad6fc3327..f68e18b51 100644
+--- a/opencl/CMakeLists.txt
++++ b/opencl/CMakeLists.txt
+@@ -23,29 +23,8 @@ set(OCL_LOADER_REPO
+ set(OCL_HEADERS_TAG 23710f1b99186065c1768fc3098ba681adc0f253)
+ set(OCL_LOADER_TAG 5f8249691ec8c25775789498951f8e9eb62c201d)
+ 
+-# OpenCL Headers
+-if(NOT OpenCL_HEADERS)
+-  message(STATUS "Will fetch OpenCL headers from ${OCL_HEADERS_REPO}")
+-
+-  FetchContent_Declare(ocl-headers
+-    GIT_REPOSITORY    ${OCL_HEADERS_REPO}
+-    GIT_TAG           ${OCL_HEADERS_TAG}
+-  )
+-else()
+-  message(STATUS "OpenCL headers are added manually ${OpenCL_HEADERS}")
+-
+-  FetchContent_Declare(ocl-headers
+-    URL               ${OpenCL_HEADERS}
+-  )
+-endif()
+-
+-FetchContent_MakeAvailable(ocl-headers)
+-FetchContent_GetProperties(ocl-headers)
+ set(OpenCL_INCLUDE_DIR
+-  ${ocl-headers_SOURCE_DIR} CACHE PATH "Path to OpenCL Headers")
+-
+-target_compile_definitions(Headers INTERFACE -DCL_TARGET_OPENCL_VERSION=220)
+-add_library(OpenCL-Headers ALIAS Headers)
++  /usr/include CACHE PATH "Path to OpenCL Headers")
+ 
+ # OpenCL Library (ICD Loader)
+ 
+@@ -57,25 +36,4 @@ set(OPENCL_ICD_LOADER_HEADERS_DIR
+ # library.
+ set(BUILD_SHARED_LIBS ON)
+ 
+-if(NOT OpenCL_LIBRARY_SRC)
+-  message(STATUS "Will fetch OpenCL ICD Loader from ${OCL_LOADER_REPO}")
+-
+-  FetchContent_Declare(ocl-icd
+-    GIT_REPOSITORY    ${OCL_LOADER_REPO}
+-    GIT_TAG           ${OCL_LOADER_TAG}
+-  )
+-else()
+-  # TODO: add possibility to use prebuilt OpenCL library rather than building
+-  #       together with llvm.
+-  message(STATUS
+-    "OpenCL ICD Loader sources added manually ${OpenCL_LIBRARY_SRC}")
+-
+-  FetchContent_Declare(ocl-icd
+-    URL               ${OpenCL_LIBRARY_SRC}
+-  )
+-endif()
+-
+-FetchContent_MakeAvailable(ocl-icd)
+-add_library(OpenCL-ICD ALIAS OpenCL)
+-
+ add_subdirectory(opencl-aot)
+diff --git a/opencl/opencl-aot/CMakeLists.txt b/opencl/opencl-aot/CMakeLists.txt
+index ff905fd88..5232fe7a6 100644
+--- a/opencl/opencl-aot/CMakeLists.txt
++++ b/opencl/opencl-aot/CMakeLists.txt
+@@ -19,5 +19,4 @@ endif()
+ 
+ target_link_libraries(${OPENCL_AOT_PROJECT_NAME}
+   PRIVATE
+-    OpenCL-Headers
+-    OpenCL-ICD)
++    OpenCL)
+diff --git a/sycl/CMakeLists.txt b/sycl/CMakeLists.txt
+index 0894e7413..5645799a8 100644
+--- a/sycl/CMakeLists.txt
++++ b/sycl/CMakeLists.txt
+@@ -103,7 +103,7 @@ file(COPY ${OpenCL_INCLUDE_DIR}/CL
+ # Include OpenCL Headers into final bundle.
+ install(DIRECTORY ${OpenCL_INCLUDE_DIR}/CL
+         DESTINATION ${SYCL_INCLUDE_DIR}/sycl
+-        COMPONENT OpenCL-Headers)
++        COMPONENT OpenCL)
+ 
+ option(SYCL_BUILD_PI_CUDA
+   "Enables the CUDA backend for the Plugin Interface" OFF)
+@@ -295,7 +295,7 @@ set( SYCL_TOOLCHAIN_DEPLOY_COMPONENTS
+      sycl-post-link
+      sycl-ls
+      clang-resource-headers
+-     OpenCL-Headers
++     OpenCL
+      opencl-aot
+      sycl-headers
+      sycl-headers-extras
+@@ -306,8 +306,8 @@ set( SYCL_TOOLCHAIN_DEPLOY_COMPONENTS
+      ${XPTIFW_LIBS}
+ )
+ 
+-if(OpenCL_INSTALL_KHRONOS_ICD_LOADER AND TARGET OpenCL-ICD)
+-  list(APPEND SYCL_TOOLCHAIN_DEPLOY_COMPONENTS OpenCL-ICD)
++if(OpenCL_INSTALL_KHRONOS_ICD_LOADER AND TARGET OpenCL)
++  list(APPEND SYCL_TOOLCHAIN_DEPLOY_COMPONENTS OpenCL)
+ endif()
+ 
+ if(SYCL_BUILD_PI_CUDA)
+diff --git a/sycl/cmake/modules/AddSYCLUnitTest.cmake b/sycl/cmake/modules/AddSYCLUnitTest.cmake
+index 030ff6139..235522b58 100644
+--- a/sycl/cmake/modules/AddSYCLUnitTest.cmake
++++ b/sycl/cmake/modules/AddSYCLUnitTest.cmake
+@@ -31,7 +31,7 @@ macro(add_sycl_unittest test_dirname link_variant)
+   target_link_libraries(${test_dirname}
+     PRIVATE
+       LLVMTestingSupport
+-      OpenCL-Headers
++      OpenCL
+       ${SYCL_LINK_LIBS}
+     )
+   target_include_directories(${test_dirname}
+diff --git a/sycl/plugins/cuda/CMakeLists.txt b/sycl/plugins/cuda/CMakeLists.txt
+index ff6dd8bc6..260b10268 100644
+--- a/sycl/plugins/cuda/CMakeLists.txt
++++ b/sycl/plugins/cuda/CMakeLists.txt
+@@ -41,7 +41,7 @@ target_include_directories(pi_cuda
+ 
+ target_link_libraries(pi_cuda
+   PRIVATE
+-    OpenCL-Headers
++    OpenCL
+     cudadrv
+ )
+ 
+diff --git a/sycl/plugins/esimd_emulator/CMakeLists.txt b/sycl/plugins/esimd_emulator/CMakeLists.txt
+index 4ce9e1ff5..5b6cbf1bf 100755
+--- a/sycl/plugins/esimd_emulator/CMakeLists.txt
++++ b/sycl/plugins/esimd_emulator/CMakeLists.txt
+@@ -40,6 +40,7 @@ if (DEFINED CM_LOCAL_SOURCE_DIR)
+       INSTALL_DIR       ${CMAKE_CURRENT_BINARY_DIR}/cm-emu_install
+       CMAKE_ARGS        -DLIBVA_INSTALL_PATH=/usr
+                         -D__SYCL_EXPLICIT_SIMD_PLUGIN__=true
++                        -DLibFFI_INCLUDE_DIR=${LibFFI_INCLUDE_DIR}
+                         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+       BUILD_BYPRODUCTS  ${LIBCM} ${LIBIGFXCMRT_EMU}
+     )
+@@ -123,7 +124,7 @@ else()
+   )
+ endif()
+ 
+-add_dependencies(pi_esimd_emulator OpenCL-Headers)
++add_dependencies(pi_esimd_emulator OpenCL)
+ add_dependencies(pi_esimd_emulator cm-emu)
+ add_dependencies(sycl-toolchain pi_esimd_emulator)
+ 
+diff --git a/sycl/plugins/hip/CMakeLists.txt b/sycl/plugins/hip/CMakeLists.txt
+index 7b3d9c395..e696ceeb0 100644
+--- a/sycl/plugins/hip/CMakeLists.txt
++++ b/sycl/plugins/hip/CMakeLists.txt
+@@ -17,7 +17,7 @@ add_library(pi_hip SHARED
+ )
+ add_dependencies(sycl-toolchain pi_hip)
+ set_target_properties(pi_hip PROPERTIES LINKER_LANGUAGE CXX)
+-target_link_libraries(pi_hip PUBLIC OpenCL-Headers)
++target_link_libraries(pi_hip PUBLIC OpenCL)
+ 
+ # Setup include directories
+ target_include_directories(pi_hip
+diff --git a/sycl/plugins/level_zero/CMakeLists.txt b/sycl/plugins/level_zero/CMakeLists.txt
+index f4e6a48bc..f674c6a57 100755
+--- a/sycl/plugins/level_zero/CMakeLists.txt
++++ b/sycl/plugins/level_zero/CMakeLists.txt
+@@ -48,7 +48,7 @@ if (NOT DEFINED LEVEL_ZERO_LIBRARY OR NOT DEFINED LEVEL_ZERO_INCLUDE_DIR)
+                LOG_BUILD 1
+                LOG_INSTALL 1
+     STEP_TARGETS      configure,build,install
+-    DEPENDS           OpenCL-Headers
++    DEPENDS           OpenCL
+     BUILD_BYPRODUCTS ${LEVEL_ZERO_LOADER}
+   )
+   ExternalProject_Add_Step(level-zero-loader llvminstall
+@@ -82,7 +82,7 @@ else()
+       COMMAND
+ 	  ${CMAKE_COMMAND} -E copy ${LEVEL_ZERO_LIBRARY_SRC} ${LLVM_LIBRARY_OUTPUT_INTDIR}
+       COMMAND
+-	  ${CMAKE_COMMAND} -E copy_directory ${LEVEL_ZERO_INCLUDE_DIR} ${LLVM_BINARY_DIR}/include/sycl
++	  ${CMAKE_COMMAND} -E copy_directory ${LEVEL_ZERO_INCLUDE_DIR}/level_zero ${LLVM_BINARY_DIR}/include/sycl/level_zero
+       DEPENDS
+ 	  ${LEVEL_ZERO_LIBRARY}
+           ${LEVEL_ZERO_INCLUDE_DIR}
+@@ -140,7 +140,7 @@ add_dependencies(sycl-toolchain pi_level_zero)
+ target_link_libraries(pi_level_zero
+   PRIVATE
+     "${LEVEL_ZERO_LOADER}"
+-    OpenCL-Headers
++    OpenCL
+ )
+ 
+ if (UNIX)
+diff --git a/sycl/plugins/opencl/CMakeLists.txt b/sycl/plugins/opencl/CMakeLists.txt
+index d3d5c3a4c..d08809c99 100644
+--- a/sycl/plugins/opencl/CMakeLists.txt
++++ b/sycl/plugins/opencl/CMakeLists.txt
+@@ -25,8 +25,7 @@ target_include_directories(pi_opencl PRIVATE "${sycl_inc_dir}")
+ #link pi_opencl with OpenCL headers and ICD Loader.
+ target_link_libraries(pi_opencl
+   PRIVATE
+-    OpenCL-Headers
+-    OpenCL-ICD
++    OpenCL
+ )
+ if (MSVC)
+   # by defining __SYCL_BUILD_SYCL_DLL, we can use __declspec(dllexport)
+diff --git a/sycl/source/CMakeLists.txt b/sycl/source/CMakeLists.txt
+index 46f33bdb4..6e65cd6a8 100644
+--- a/sycl/source/CMakeLists.txt
++++ b/sycl/source/CMakeLists.txt
+@@ -76,14 +76,14 @@ function(add_sycl_rt_library LIB_NAME)
+   )
+   #TODO: Remove dependency on icd loader and opencl headers.
+   target_link_libraries(${LIB_OBJ_NAME}
+-    PRIVATE OpenCL-Headers
++    PRIVATE OpenCL
+   )
+ 
+   find_package(Threads REQUIRED)
+ 
+   target_link_libraries(${LIB_NAME}
+     PRIVATE
+-      OpenCL-ICD
++      OpenCL
+       ${CMAKE_DL_LIBS}
+       ${CMAKE_THREAD_LIBS_INIT}
+     PUBLIC
+diff --git a/sycl/tools/CMakeLists.txt b/sycl/tools/CMakeLists.txt
+index a4f567482..7af557fd2 100644
+--- a/sycl/tools/CMakeLists.txt
++++ b/sycl/tools/CMakeLists.txt
+@@ -20,9 +20,8 @@ endif()
+ 
+ target_link_libraries(get_device_count_by_type
+   PRIVATE
+-    OpenCL-Headers
++    OpenCL
+     LevelZeroLoader::Headers
+-    OpenCL-ICD
+     ${LEVEL_ZERO_LIBRARY}
+     # The CUDA and HIP for NVIDA plugins need cudadrv
+     $<$<OR:$<BOOL:${SYCL_BUILD_PI_CUDA}>,$<AND:$<BOOL:${SYCL_BUILD_PI_HIP}>,$<STREQUAL:${SYCL_BUILD_PI_HIP_PLATFORM},NVIDIA>>>:cudadrv>
+diff --git a/sycl/tools/pi-trace/CMakeLists.txt b/sycl/tools/pi-trace/CMakeLists.txt
+index e305fd22d..5aea609ff 100644
+--- a/sycl/tools/pi-trace/CMakeLists.txt
++++ b/sycl/tools/pi-trace/CMakeLists.txt
+@@ -1,8 +1,8 @@
+ add_library(pi_trace SHARED pi_trace.cpp)
+ target_compile_definitions(pi_trace PRIVATE XPTI_CALLBACK_API_EXPORTS)
+ target_link_libraries(pi_trace PRIVATE xptifw)
+-if (TARGET OpenCL-Headers)
+-  target_link_libraries(pi_trace PRIVATE OpenCL-Headers)
++if (TARGET OpenCL)
++  target_link_libraries(pi_trace PRIVATE OpenCL)
+ endif()
+ 
+ target_include_directories(pi_trace PRIVATE
+diff --git a/sycl/tools/sycl-ls/CMakeLists.txt b/sycl/tools/sycl-ls/CMakeLists.txt
+index f5909cf49..f9c52e3a3 100644
+--- a/sycl/tools/sycl-ls/CMakeLists.txt
++++ b/sycl/tools/sycl-ls/CMakeLists.txt
+@@ -11,7 +11,7 @@ endif()
+ target_link_libraries(sycl-ls
+   PRIVATE
+     ${sycl_lib}
+-    OpenCL-Headers
++    OpenCL
+ )
+ install(TARGETS sycl-ls
+   RUNTIME DESTINATION "bin" COMPONENT sycl-ls)
