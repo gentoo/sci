@@ -1,0 +1,13 @@
+diff --git a/libsyclinterface/cmake/modules/FindIntelSycl.cmake b/libsyclinterface/cmake/modules/FindIntelSycl.cmake
+index 84e8946..ccc2591 100644
+--- a/libsyclinterface/cmake/modules/FindIntelSycl.cmake
++++ b/libsyclinterface/cmake/modules/FindIntelSycl.cmake
+@@ -134,7 +134,7 @@ if(${clangxx_result} MATCHES "0")
+         find_file(
+             IntelSycl_OPENCL_LIBRARY
+             NAMES "libOpenCL.so"
+-            PATHS ${IntelSycl_LIBRARY_DIR}
++            PATHS /usr/lib64
+         )
+     endif()
+ 
