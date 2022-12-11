@@ -460,6 +460,7 @@ sci-libs/nexus 4.4.3_p20200126: Data format for neutron and x-ray scattering dat
 sci-libs/nibabel 3.0.2 3.2.1: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.4.2 0.5.0: Neuroimaging tools for Python
 sci-libs/nipype 1.5.0: Neuroimaging in Python: Pipelines and Interfaces
+sci-libs/oneDAL 2021.7.1_p20221207: oneAPI Data Analytics Library
 sci-libs/oneMKL 0.2_p20221201: oneAPI Math Kernel Library Interfaces
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.8_alpha 9999: Parallel 3d FFT
