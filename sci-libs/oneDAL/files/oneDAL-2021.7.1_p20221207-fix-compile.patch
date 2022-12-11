@@ -1,0 +1,164 @@
+diff --git a/dev/bazel/deps/onedal.bzl b/dev/bazel/deps/onedal.bzl
+index f0f7662..6b9d11f 100644
+--- a/dev/bazel/deps/onedal.bzl
++++ b/dev/bazel/deps/onedal.bzl
+@@ -21,18 +21,12 @@ onedal_repo = repos.prebuilt_libs_repo_rule(
+         "include",
+     ],
+     libs = [
+-        # Static
+-        "lib/intel64/libonedal_core.a",
+-        "lib/intel64/libonedal_thread.a",
+-        "lib/intel64/libonedal.a",
+-        "lib/intel64/libonedal_dpc.a",
+-        "lib/intel64/libonedal_sycl.a",
+-
+         # Dynamic
+         "lib/intel64/libonedal_core.so",
+         "lib/intel64/libonedal_thread.so",
+         "lib/intel64/libonedal.so",
+         "lib/intel64/libonedal_dpc.so",
++        "lib/intel64/libonedal_sycl.so",
+     ],
+     build_template = "@onedal//dev/bazel/deps:onedal.tpl.BUILD",
+ )
+diff --git a/dev/bazel/deps/onedal.tpl.BUILD b/dev/bazel/deps/onedal.tpl.BUILD
+index 60be678..0f7990e 100644
+--- a/dev/bazel/deps/onedal.tpl.BUILD
++++ b/dev/bazel/deps/onedal.tpl.BUILD
+@@ -9,62 +9,17 @@ cc_library(
+     includes = [ "include" ],
+ )
+ 
+-cc_library(
+-    name = "core_static",
+-    srcs = [
+-        "lib/intel64/libonedal_core.a",
+-    ],
+-    deps = [
+-        ":headers",
+-        # TODO: Currently vml_ipp lib depends on TBB, but it shouldn't
+-        #       Remove TBB from deps once problem with vml_ipp is resolved
+-        "@tbb//:tbb_binary",
+-    ],
+-)
+-
+-cc_library(
+-    name = "thread_static",
+-    srcs = [
+-        "lib/intel64/libonedal_thread.a",
+-    ],
+-    deps = [
+-        ":headers",
+-        "@tbb//:tbb_binary",
+-        "@tbb//:tbbmalloc_binary",
+-    ],
+-)
+ 
+ cc_library(
+     name = "onedal_sycl",
+     srcs = [
+-        "lib/intel64/libonedal_sycl.a",
+-    ],
+-    deps = [
+-        ":headers",
+-    ],
+-)
+-
+-cc_library(
+-    name = "onedal_static",
+-    srcs = [
+-        "lib/intel64/libonedal.a",
++        "lib/intel64/libonedal_sycl.so",
+     ],
+     deps = [
+         ":headers",
+     ],
+ )
+ 
+-cc_library(
+-    name = "onedal_static_dpc",
+-    srcs = [
+-        "lib/intel64/libonedal_dpc.a",
+-    ],
+-    deps = [
+-        ":headers",
+-        ":onedal_sycl",
+-    ],
+-)
+-
+ cc_library(
+     name = "core_dynamic",
+     srcs = [
+diff --git a/dev/make/cmplr.dpcpp.mk b/dev/make/cmplr.dpcpp.mk
+index 2ac2ed9..bd0e182 100644
+--- a/dev/make/cmplr.dpcpp.mk
++++ b/dev/make/cmplr.dpcpp.mk
+@@ -28,13 +28,13 @@ CORE.SERV.COMPILER.dpcpp = generic
+ -Zl.dpcpp =
+ -DEBC.dpcpp = -g
+ 
+-COMPILER.lnx.dpcpp = icpx -fsycl $(if $(IA_is_ia32),-m32,-m64) -stdlib=libstdc++ -fgnu-runtime -fwrapv \
+-                     -Werror -Wreturn-type -fsycl-device-code-split=per_kernel
+-COMPILER.win.dpcpp = icx -fsycl $(if $(MSVC_RT_is_release),-MD, -MDd /debug:none) -nologo -WX \
++COMPILER.lnx.dpcpp = $(CXX) $(CXXFLAGS) -fsycl $(if $(IA_is_ia32),-m32,-m64) -stdlib=libstdc++ -fgnu-runtime -fwrapv \
++                     -Wreturn-type -fsycl-device-code-split=per_kernel
++COMPILER.win.dpcpp = $(CC) $(CFLAGS) -fsycl $(if $(MSVC_RT_is_release),-MD, -MDd /debug:none) -nologo -WX \
+                      -Wno-deprecated-declarations -fsycl-device-code-split=per_kernel
+ 
+-link.dynamic.lnx.dpcpp = icpx -fsycl $(if $(IA_is_ia32),-m32,-m64) -fsycl-device-code-split=per_kernel
+-link.dynamic.win.dpcpp = icx -fsycl $(if $(IA_is_ia32),-m32,-m64) -fsycl-device-code-split=per_kernel
++link.dynamic.lnx.dpcpp = $(CXX) $(LDFLAGS) -fsycl $(if $(IA_is_ia32),-m32,-m64) -fsycl-device-code-split=per_kernel
++link.dynamic.win.dpcpp = $(CC) $(LDFLAGS) -fsycl $(if $(IA_is_ia32),-m32,-m64) -fsycl-device-code-split=per_kernel
+ 
+ pedantic.opts.lnx.dpcpp = -pedantic \
+                           -Wall \
+diff --git a/dev/make/cmplr.icx.mk b/dev/make/cmplr.icx.mk
+index 28ce293..7c478b0 100644
+--- a/dev/make/cmplr.icx.mk
++++ b/dev/make/cmplr.icx.mk
+@@ -24,14 +24,14 @@ CMPLRDIRSUFF.icx = _icx
+ 
+ CORE.SERV.COMPILER.icx = generic
+ 
+--Zl.icx =  -no-intel-lib=libirc
++-Zl.icx =
+ -DEBC.icx = -g
+ 
+-COMPILER.lnx.icx = icpx $(if $(IA_is_ia32),-m32,-m64) \
+-                     -Werror -Wreturn-type
++COMPILER.lnx.icx = $(CXX) $(CXXFLAGS) $(if $(IA_is_ia32),-m32,-m64) \
++                     -Wreturn-type
+ 
+ 
+-link.dynamic.lnx.icx = icpx $(if $(IA_is_ia32),-m32,-m64)
++link.dynamic.lnx.icx = $(CXX) $(LDFLAGS) $(if $(IA_is_ia32),-m32,-m64)
+ 
+ pedantic.opts.icx = -pedantic \
+                       -Wall \
+diff --git a/makefile b/makefile
+index 9c51bad..20aaff5 100644
+--- a/makefile
++++ b/makefile
+@@ -219,7 +219,7 @@ TBBDIR.2 := $(if $(TBBDIR.2),$(TBBDIR.2),$(error Can`t find TBB neither in $(DIR
+ 
+ TBBDIR.include := $(if $(TBBDIR),$(TBBDIR)/include/tbb $(TBBDIR)/include)
+ 
+-TBBDIR.libia.prefix := $(TBBDIR.2)/lib
++TBBDIR.libia.prefix := $(TBBDIR.2)/lib64
+ 
+ TBBDIR.libia.win.vc1  := $(if $(OS_is_win),$(if $(wildcard $(call frompf1,$(TBBDIR.libia.prefix))/$(_IA)/vc_mt),$(TBBDIR.libia.prefix)/$(_IA)/vc_mt,$(if $(wildcard $(call frompf1,$(TBBDIR.libia.prefix))/$(_IA)/vc14),$(TBBDIR.libia.prefix)/$(_IA)/vc14)))
+ TBBDIR.libia.win.vc2  := $(if $(OS_is_win),$(if $(TBBDIR.libia.win.vc1),,$(firstword $(filter $(call topf,$$TBBROOT)%,$(subst ;,$(space),$(call topf,$$LIB))))))
+@@ -227,10 +227,10 @@ TBBDIR.libia.win.vc22 := $(if $(OS_is_win),$(if $(TBBDIR.libia.win.vc2),$(wildca
+ 
+ TBBDIR.libia.win:= $(if $(OS_is_win),$(if $(TBBDIR.libia.win.vc22),$(TBBDIR.libia.win.vc2),$(if $(TBBDIR.libia.win.vc1),$(TBBDIR.libia.win.vc1),$(error Can`t find TBB libs nether in $(call frompf,$(TBBDIR.libia.prefix))/$(_IA)/vc_mt not in $(firstword $(filter $(TBBROOT)%,$(subst ;,$(space),$(LIB)))).))))
+ 
+-TBBDIR.libia.lnx.gcc1 := $(if $(OS_is_lnx),$(if $(wildcard $(TBBDIR.libia.prefix)/$(_IA)/gcc4.8/*),$(TBBDIR.libia.prefix)/$(_IA)/gcc4.8))
++TBBDIR.libia.lnx.gcc1 := $(if $(OS_is_lnx),$(if $(wildcard $(TBBDIR.libia.prefix)/*),$(TBBDIR.libia.prefix)))
+ TBBDIR.libia.lnx.gcc2  := $(if $(OS_is_lnx),$(if $(TBBDIR.libia.lnx.gcc1),,$(firstword $(filter $(TBBROOT)%,$(subst :,$(space),$(LD_LIBRARY_PATH))))))
+ TBBDIR.libia.lnx.gcc22 := $(if $(OS_is_lnx),$(if $(TBBDIR.libia.lnx.gcc2),$(wildcard $(TBBDIR.libia.lnx.gcc2)/libtbb.so)))
+-TBBDIR.libia.lnx := $(if $(OS_is_lnx),$(if $(TBBDIR.libia.lnx.gcc22),$(TBBDIR.libia.lnx.gcc2),$(if $(TBBDIR.libia.lnx.gcc1),$(TBBDIR.libia.lnx.gcc1),$(error Can`t find TBB runtimes nether in $(TBBDIR.libia.prefix)/$(_IA)/gcc4.8 not in $(firstword $(filter $(TBBROOT)%,$(subst :,$(space),$(LD_LIBRARY_PATH)))).))))
++TBBDIR.libia.lnx := $(if $(OS_is_lnx),$(if $(TBBDIR.libia.lnx.gcc22),$(TBBDIR.libia.lnx.gcc2),$(if $(TBBDIR.libia.lnx.gcc1),$(TBBDIR.libia.lnx.gcc1),$(error Can`t find TBB runtimes nether in $(TBBDIR.libia.prefix) not in $(firstword $(filter $(TBBROOT)%,$(subst :,$(space),$(LD_LIBRARY_PATH)))).))))
+ 
+ TBBDIR.libia.mac.clang1  := $(if $(OS_is_mac),$(if $(wildcard $(TBBDIR.libia.prefix)/*),$(TBBDIR.libia.prefix)))
+ TBBDIR.libia.mac.clang2  := $(if $(OS_is_mac),$(if $(TBBDIR.libia.mac.clang1),,$(firstword $(filter $(TBBROOT)%,$(subst :,$(space),$(LIBRARY_PATH))))))
