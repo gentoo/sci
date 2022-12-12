@@ -4,7 +4,8 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8..11} )
-DISTUTILS_USE_PEP517=setuptools
+# Breaks the installation of the backend library
+#DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Data Parallel Extension for NumPy"
@@ -26,6 +27,7 @@ RDEPEND="
 	dev-python/dpctl[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/mkl
+	sys-devel/DPC++:=
 "
 DEPEND="${RDEPEND}
 	sys-devel/oneDPL
@@ -47,4 +49,9 @@ python_prepare_all() {
 	export MAKEOPTS="-j1"
 
 	distutils-r1_python_prepare_all
+}
+
+python_compile() {
+	export BUILD_DIR_LIBS="${BUILD_DIR}/lib/dpnp"
+	distutils-r1_python_compile
 }
