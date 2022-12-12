@@ -19,6 +19,7 @@ BDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/scikit-build[${PYTHON_USEDEP}]
 	dev-python/pybind11[${PYTHON_USEDEP}]
+	dev-python/versioneer[${PYTHON_USEDEP}]
 	dev-util/cmake
 	dev-vcs/git
 	sys-devel/DPC++
@@ -30,6 +31,7 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	sci-libs/oneDAL
+	sys-devel/DPC++:0/6
 "
 RDEPEND="${DEPEND}"
 

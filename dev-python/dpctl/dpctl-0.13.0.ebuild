@@ -31,6 +31,7 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	sci-libs/oneDAL
+	sys-devel/DPC++:0/5
 "
 RDEPEND="${DEPEND}"
 
