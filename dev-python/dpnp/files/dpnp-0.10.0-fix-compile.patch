@@ -1,0 +1,97 @@
+diff --git a/0.build.sh b/0.build.sh
+index c089b1d..3bb0739 100755
+--- a/0.build.sh
++++ b/0.build.sh
+@@ -10,14 +10,14 @@ python setup.py clean
+ DPLROOT=/opt/intel/oneapi/dpl/latest python setup.py build_clib
+ 
+ # inplace build
+-CC=dpcpp python setup.py build_ext --inplace
++CC=${CC} python setup.py build_ext --inplace
+ 
+ # development build. Root privileges needed
+ # python setup.py develop
+ 
+ echo
+ echo =========example3==============
+-dpcpp -g -fPIC dpnp/backend/examples/example3.cpp -Idpnp -Idpnp/backend/include -Ldpnp -Wl,-rpath='$ORIGIN'/dpnp -ldpnp_backend_c -o example3
++${CXX} -g -fPIC dpnp/backend/examples/example3.cpp -Idpnp -Idpnp/backend/include -Ldpnp -Wl,-rpath='$ORIGIN'/dpnp -ldpnp_backend_c -o example3
+ # LD_DEBUG=libs,bindings,symbols ./example3
+ ./example3
+ 
+diff --git a/dpnp/backend/CMakeLists.txt b/dpnp/backend/CMakeLists.txt
+index 81f073c..bcc4ecc 100644
+--- a/dpnp/backend/CMakeLists.txt
++++ b/dpnp/backend/CMakeLists.txt
+@@ -88,24 +88,6 @@ if (CMAKE_VERSION VERSION_EQUAL 3.19.1)
+         )
+ endif()
+ 
+-if(UNIX)
+-  set(CMAKE_CXX_COMPILER "dpcpp")
+-  # add_compile_options(-fPIC)
+-elseif(WIN32)
+-  set(CMAKE_CXX_COMPILER "dpcpp")
+-  # set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld-link")
+-  # set(CMAKE_LINKER "lld-link")
+-  # include (Platform/Windows-Clang) 
+-  # set(CMAKE_LINKER "dpcpp") 
+-  # set(CMAKE_AR "llvm-ar") 
+-  # set(CMAKE_RANLIB "llvm-ranlib") 
+-  # set(CMAKE_CXX_FLAGS "/EHsc") 
+-
+-  add_compile_options(/EHsc) # /Ox /W3 /GL /DNDEBUG /MD /EHsc
+-else()
+-  message(FATAL_ERROR "Unsupported system ${CMAKE_SYSTEM} in compiler selection case")
+-endif()
+-
+ # set language version
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+@@ -280,6 +262,7 @@ endif()
+ # set_target_properties(dpnp_backend_c PROPERTIES VERSION ${DPNP_VERSION} SOVERSION ${DPNP_API_VERSION})
+ 
+ install(TARGETS dpnp_backend_c
++        DESTINATION ${DPNP_INSTALL_PREFIX}
+         PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+         )
+ 
+diff --git a/utils/command_build_clib.py b/utils/command_build_clib.py
+index dc9f322..35432fa 100644
+--- a/utils/command_build_clib.py
++++ b/utils/command_build_clib.py
+@@ -60,8 +60,8 @@ else:
+ Set compiler for the project
+ """
+ # default variables (for Linux)
+-_project_compiler = "dpcpp"
+-_project_linker = "dpcpp"
++_project_compiler = os.environ.get("CXX")
++_project_linker = os.environ.get("CXX")
+ _project_cmplr_flag_sycl_devel = ["-fsycl-device-code-split=per_kernel"]
+ _project_cmplr_flag_sycl = ["-fsycl"]
+ _project_cmplr_flag_stdcpp_static = []  # This brakes TBB ["-static-libstdc++", "-static-libgcc"]
+@@ -113,8 +113,8 @@ except ImportError:
+ 
+ # other OS specific
+ if IS_WIN:
+-    _project_compiler = "dpcpp"
+-    _project_linker = "lld-link"
++    _project_compiler = os.environ.get("CXX")
++    _project_linker = os.environ.get("CXX")
+     _project_cmplr_flag_sycl = []
+     _project_cmplr_flag_stdcpp_static = []
+     _project_cmplr_flag_compatibility = []
+diff --git a/utils/command_build_cmake_clib.py b/utils/command_build_cmake_clib.py
+index 0ef0e24..84f2469 100644
+--- a/utils/command_build_cmake_clib.py
++++ b/utils/command_build_cmake_clib.py
+@@ -112,7 +112,7 @@ class custom_build_cmake_clib(build_clib.build_clib):
+             "-S" + backend_directory,
+             "-B" + abs_build_temp_path,
+             "-DCMAKE_BUILD_TYPE=" + config,
+-            "-DDPNP_INSTALL_PREFIX=" + install_directory.replace(os.sep, "/"),  # adjust to cmake requirenments
++            "-DDPNP_INSTALL_PREFIX=" + os.environ.get('BUILD_DIR_LIBS'),  # adjust to cmake requirenments
+             "-DDPNP_INSTALL_STRUCTURED=OFF",
+             # "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + install_directory,
+             "-DDPNP_SYCL_QUEUE_MGR_ENABLE:BOOL=" + _dpctrl_exists,

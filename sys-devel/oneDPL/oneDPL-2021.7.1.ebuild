@@ -25,16 +25,17 @@ RESTRICT="test"
 BDEPEND="virtual/pkgconfig"
 
 DEPEND="
-	sys-devel/DPC++
+	sys-devel/DPC++:0/5
 	dev-libs/level-zero
 	dev-cpp/tbb
 "
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	cmake_src_prepare
 	# Not using the DPC++ compiler doesn't really make sense here
-	export CXX="${ESYSROOT}/usr/lib/llvm/intel/bin/clang"
+	export CXX="${ESYSROOT}/usr/lib/llvm/intel/bin/clang++"
+	export CC="${ESYSROOT}/usr/lib/llvm/intel/bin/clang"
+	cmake_src_prepare
 }
 
 src_configure() {

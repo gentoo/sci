@@ -31,15 +31,13 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	sci-libs/oneDAL
-	sys-devel/DPC++:0/6
+	sys-devel/DPC++:0/5
 "
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/${P}-find-opencl.patch"
-	"${FILESDIR}/${P}-dont-fetch-level-zero.patch"
-	"${FILESDIR}/${P}-dont-fetch-pybind.patch"
-	"${FILESDIR}/${P}-include-tuple.patch"
+	"${FILESDIR}/${PN}-0.14.0-dont-fetch-level-zero.patch"
+	"${FILESDIR}/${PN}-0.13.0-dont-fetch-pybind.patch"
 )
 
 distutils_enable_tests pytest
@@ -50,13 +48,15 @@ python_prepare_all() {
 	export CXX="${ESYSROOT}/usr/lib/llvm/intel/bin/clang++"
 	export DPCPPROOT="${ESYSROOT}/usr/lib/llvm/intel"
 
-	# Build system reads version from git tag
-	git init -q || die
-	git config --global user.email "larry@gentoo.org" || die
-	git config --global user.name "Larry the Cow" || die
-	git add . || die
-	git commit -qm "init" || die
-	git tag -a "${PV}" -m "${PN} version ${PV}" || die
+	# For some reason this is required to build successfully
+	mkdir -p _skbuild/linux-x86_64-3.8/setuptools/lib.linux-x86_64-cpython-38/dpctl || die
+	cp dpctl/_version.py _skbuild/linux-x86_64-3.8/setuptools/lib.linux-x86_64-cpython-38/dpctl || die
+	mkdir -p _skbuild/linux-x86_64-3.9/setuptools/lib.linux-x86_64-cpython-39/dpctl || die
+	cp dpctl/_version.py _skbuild/linux-x86_64-3.9/setuptools/lib.linux-x86_64-cpython-39/dpctl || die
+	mkdir -p _skbuild/linux-x86_64-3.10/setuptools/lib.linux-x86_64-cpython-310/dpctl || die
+	cp dpctl/_version.py _skbuild/linux-x86_64-3.10/setuptools/lib.linux-x86_64-cpython-310/dpctl || die
+	mkdir -p _skbuild/linux-x86_64-3.11/setuptools/lib.linux-x86_64-cpython-311/dpctl || die
+	cp dpctl/_version.py _skbuild/linux-x86_64-3.11/setuptools/lib.linux-x86_64-cpython-311/dpctl || die
 
 	distutils-r1_python_prepare_all
 }
