@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..11} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 llvm
 
 DESCRIPTION="Python wrapper around the llvm C++ library"
@@ -24,7 +25,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-PATCHES=( "${FILESDIR}/${P}-llvm12.patch" )
+PATCHES=(
+	"${FILESDIR}/${P}-llvm12.patch"
+	"${FILESDIR}/${P}-allow-py3.11.patch"
+)
 
 src_prepare() {
 	sed -i -e '/max_python/s:3\.10:3.11:' setup.py || die
