@@ -1,0 +1,69 @@
+diff --git a/generator/gen_daal4py.py b/generator/gen_daal4py.py
+index 203c870..7fdac1e 100755
+--- a/generator/gen_daal4py.py
++++ b/generator/gen_daal4py.py
+@@ -34,7 +34,7 @@ from .wrappers import (required, ignore, defaults, has_dist, ifaces,
+                        enum_maps, enum_params, wrap_algo, result_to_compute)
+ from .wrapper_gen import wrapper_gen
+ from .format import mk_var
+-from shutil import copytree, rmtree
++from shutil import copytree, copyfile, rmtree
+ from subprocess import call
+ 
+ try:
+@@ -1045,7 +1045,13 @@ def gen_daal4py(daalroot, outdir, version, warn_all=False,
+     head_path = jp("build", "include")
+     algo_path = jp(head_path, "algorithms")
+     rmtree(head_path, ignore_errors=True)
+-    copytree(orig_path, head_path)
++    copytree(jp(orig_path, 'services'), jp(head_path, 'services'))
++    copytree(jp(orig_path, 'oneapi', 'dal'), jp(head_path, 'oneapi', 'dal'))
++    copytree(jp(orig_path, 'data_management'), jp(head_path, 'data_management'))
++    copytree(jp(orig_path, 'algorithms'), jp(head_path, 'algorithms'))
++    copyfile(jp(orig_path, 'daal.h'), jp(head_path, 'daal.h'))
++    copyfile(jp(orig_path, 'daal_sycl.h'), jp(head_path, 'daal_sycl.h'))
++    copyfile(jp(orig_path, 'oneapi', 'dal.hpp'), jp(head_path, 'oneapi', 'dal.hpp'))
+     for (dirpath, dirnames, filenames) in os.walk(algo_path):
+         for filename in filenames:
+             call([shutil.which("clang-format"), "-i", jp(dirpath, filename)])
+diff --git a/scripts/build_backend.py b/scripts/build_backend.py
+index a252a1d..c36a312 100755
+--- a/scripts/build_backend.py
++++ b/scripts/build_backend.py
+@@ -116,10 +116,8 @@ def custom_build_cmake_clib(iface, cxx=None):
+     python_library_dir = win_python_path_lib if IS_WIN else get_config_var('LIBDIR')
+     numpy_include = np.get_include()
+ 
+-    if iface == 'dpc':
+-        cxx = 'dpcpp'
+-    elif cxx is None:
+-        raise RuntimeError('CXX compiler shall be specified')
++    if cxx is None:
++        cxx=os.environ.get('CXX')
+ 
+     cmake_args = [
+         "cmake",
+diff --git a/setup.py b/setup.py
+index 864ab5d..7eaa52f 100755
+--- a/setup.py
++++ b/setup.py
+@@ -47,7 +47,7 @@ if dal_root is None:
+ 
+ if 'linux' in sys.platform:
+     IS_LIN = True
+-    lib_dir = jp(dal_root, 'lib', 'intel64')
++    lib_dir = jp(dal_root, 'lib64')
+ elif sys.platform == 'darwin':
+     IS_MAC = True
+     lib_dir = jp(dal_root, 'lib')
+@@ -306,8 +306,8 @@ def build_oneapi_backend():
+     eca, ela, includes = get_build_options()
+ 
+     return build_backend.build_cpp(
+-        cc='dpcpp',
+-        cxx='dpcpp',
++        cc=os.environ.get('CC'),
++        cxx=os.environ.get('CXX'),
+         sources=['src/oneapi/oneapi_backend.cpp'],
+         targetname='oneapi_backend',
+         targetprefix='' if IS_WIN else 'lib',
