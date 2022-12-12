@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="github">numba/numba</remote-id>
+		<remote-id type="pypi">numba</remote-id>
 	</upstream>
 </pkgmetadata>
