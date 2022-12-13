@@ -524,6 +524,7 @@ sci-physics/oneloop 2020.07.31: Library of one-loop scalar functions
 sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/qcdloop 2.0.5 2.0.9: An object-oriented one-loop scalar Feynman integrals framework
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
+sci-physics/qgraf 3.6.5: qgraf generates Feynman diagrams for various types of QFT models
 sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/rivet 3.1.5 3.1.6: Rivet toolkit (Robust Independent Validation of Experiment and Theory)
 sci-physics/spheno 3.3.8: SPheno stands for S(upersymmetric) Pheno(menology)
