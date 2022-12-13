@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>alexander@neuwirth-informatik.de</email>
+    <name>Alexander Puck Neuwirth</name>
+  </maintainer>
+  <maintainer type="project" proxied="proxy">
+    <email>sci-physics@gentoo.org</email>
+    <name>Gentoo Physics Project</name>
+  </maintainer>
+  <longdescription lang="en">
+    Qgraf is a computer program that generates Feynman diagrams for various types of QFT models — it is a research tool created with the obvious aim of contributing to extend the range of feasible, perturbative QFT calculations. It generates neither 0-point nor non-connected diagrams, though. Diagrams are represented by symbolic expressions only; nevertheless, if some kind of graphical representation is required, have a look at the external links.
+  </longdescription>
+</pkgmetadata>
