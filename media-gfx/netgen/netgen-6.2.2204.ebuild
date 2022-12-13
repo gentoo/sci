@@ -14,7 +14,9 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="ffmpeg jpeg mpi opencascade python gui"
+IUSE="ffmpeg gui jpeg logging mpi opencascade python test"
+RESTRICT="!test? ( test )"
+
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	ffmpeg? ( gui )
@@ -35,6 +37,7 @@ DEPEND="
 		x11-libs/libxcb:=
 	)
 	jpeg? ( media-libs/libjpeg-turbo:0= )
+	logging? ( dev-libs/spdlog:= )
 	mpi? (
 		sci-libs/metis
 		virtual/mpi
@@ -55,13 +58,21 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	sys-apps/lsb-release
 	virtual/pkgconfig
+	test? (
+		<dev-cpp/catch-3:0
+		python? ( $(python_gen_cond_dep 'dev-python/pytest[${PYTHON_USEDEP}]') )
+	)
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}-use-external-pybind11.patch"
-	"${FILESDIR}/${P}-find-Tk-include-directories.patch"
-	"${FILESDIR}/${P}-find-libjpeg-turbo-library.patch"
-	"${FILESDIR}/${P}-link-against-ffmpeg.patch"
+	"${FILESDIR}/${PN}-6.2.2204-use-external-pybind11.patch"
+	"${FILESDIR}/${PN}-6.2.2204-find-Tk-include-directories.patch"
+	"${FILESDIR}/${PN}-6.2.2204-find-libjpeg-turbo-library.patch"
+	"${FILESDIR}/${PN}-6.2.2204-link-against-ffmpeg.patch"
+	"${FILESDIR}/${PN}-6.2.2204-use-system-spdlog.patch"
+	"${FILESDIR}/${PN}-6.2.2204-use-system-catch.patch"
+	"${FILESDIR}/${PN}-6.2.2204-disable-failing-tests.patch"
+	"${FILESDIR}/${PN}-6.2.2204-disable-python-tests.patch"
 )
 
 pkg_setup() {
@@ -81,6 +92,7 @@ src_configure() {
 		# currently not working in a sandbox, expects netgen to be installed
 		# see https://github.com/NGSolve/netgen/issues/132
 		-DBUILD_STUB_FILES=OFF
+		-DENABLE_UNIT_TESTS=$(usex test)
 		-DINSTALL_PROFILES=OFF
 		-DNG_INSTALL_DIR_CMAKE="$(get_libdir)/cmake/${PN}"
 		-DNG_INSTALL_DIR_INCLUDE="include/${PN}"
@@ -88,15 +100,16 @@ src_configure() {
 		-DUSE_CCACHE=OFF
 		# doesn't build with this version
 		-DUSE_CGNS=OFF
-		-DUSE_GUI="$(usex gui)"
+		-DUSE_GUI=$(usex gui)
 		-DUSE_INTERNAL_TCL=OFF
-		-DUSE_JPEG="$(usex jpeg)"
-		-DUSE_MPEG="$(usex ffmpeg)"
+		-DUSE_JPEG=$(usex jpeg)
+		-DUSE_MPEG=$(usex ffmpeg)
 		# respect users -march= choice
 		-DUSE_NATIVE_ARCH=OFF
-		-DUSE_MPI="$(usex mpi)"
-		-DUSE_OCC="$(usex opencascade)"
-		-DUSE_PYTHON="$(usex python)"
+		-DUSE_MPI=$(usex mpi)
+		-DUSE_OCC=$(usex opencascade)
+		-DUSE_PYTHON=$(usex python)
+		-DUSE_SPDLOG=$(usex logging)
 		-DUSE_SUPERBUILD=OFF
 	)
 	# no need to set this, if we only build the library
@@ -134,4 +147,6 @@ src_install() {
 
 	mv "${ED}"/usr/share/${PN}/doc/ng4.pdf "${ED}"/usr/share/doc/${PF} || die
 	dosym -r /usr/share/doc/${PF}/ng4.pdf /usr/share/${PN}/doc/ng4.pdf
+
+	use python || rm -r "${ED}${NETGENDIR}"/py_tutorials || die
 }
