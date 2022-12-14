@@ -1,6 +1,6 @@
 BDEPEND=sys-devel/DPC++
 DEFINED_PHASES=compile install preinst prepare setup unpack
-DEPEND=|| ( >=dev-lang/python-3.11.0_p2:3.11 >=dev-lang/python-3.10.8_p3:3.10 >=dev-lang/python-3.9.15_p3:3.9 >=dev-lang/python-3.8.15_p3:3.8 ) >=dev-java/java-config-2.2.0-r3
+DEPEND=|| ( >=dev-lang/python-3.11.1:3.11 >=dev-lang/python-3.10.9:3.10 >=dev-lang/python-3.9.16:3.9 >=dev-lang/python-3.8.16:3.8 ) >=dev-java/java-config-2.2.0-r3
 DESCRIPTION=oneAPI Data Analytics Library
 EAPI=8
 HOMEPAGE=https://github.com/oneapi-src/oneDAL
@@ -10,5 +10,5 @@ LICENSE=Apache-2.0
 RDEPEND=dev-cpp/tbb:= dev-libs/opencl-icd-loader virtual/jdk:17 >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://github.com/oneapi-src/oneDAL/archive/a6bce46565825747fa8c3fdfe2dd6a676ab600a7.tar.gz -> oneDAL-2021.7.1_p20221207.tar.gz https://github.com/oneapi-src/oneDAL/releases/download/Dependencies/mklgpufpk_lnx_2021-11-11.tgz https://github.com/oneapi-src/oneDAL/releases/download/Dependencies/mklfpk_lnx_20210426.tgz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	37a4612ce5522df5a100359a8dbc8491	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	25c880c1db58e21b80b684bacc964958	python-any-r1	f2f00fb79b5e888b5011d4c51240ae97	java-utils-2	c79d65661a9f4f72b60376c9e4b3dfa1	java-pkg-2	3b09e051fc2045a0f0b9471b87d4f8bd
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	37a4612ce5522df5a100359a8dbc8491	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	6a75203e8a499f0fb42971452ce15388	python-any-r1	1a218637f27d4c027b92e511707264fd	java-utils-2	c79d65661a9f4f72b60376c9e4b3dfa1	java-pkg-2	3b09e051fc2045a0f0b9471b87d4f8bd
 _md5_=fa0821ede48256297901ecb208cb44a4
