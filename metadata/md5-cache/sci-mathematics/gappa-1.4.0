@@ -11,5 +11,5 @@ LICENSE=|| ( CeCILL-2 GPL-2 )
 RDEPEND=dev-libs/gmp:0= dev-libs/mpfr:0= dev-libs/boost
 SLOT=0
 SRC_URI=https://gforge.inria.fr/frs/download.php/file/38436/gappa-1.4.0.tar.gz
-_eclasses_=docs	2af4a2f0074bd646101ce0f66ca6dd03	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730
+_eclasses_=docs	314e509c51630fb75f120d62a77d008c	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730
 _md5_=d009d1bc45da61914e8a3e96145a5d30
