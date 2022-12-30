@@ -1,9 +1,9 @@
 # Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..11} )
 
 inherit autotools python-single-r1
 
@@ -27,7 +27,7 @@ DEPEND="
 # lmod is strong blocked since both want to install a module binary
 RDEPEND="
 	${DEPEND}
-	!!sys-cluster/lmod
+	!sys-cluster/lmod
 "
 BDEPEND="
 	test? ( dev-util/dejagnu )
