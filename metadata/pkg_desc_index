@@ -35,6 +35,7 @@ dev-perl/Text-RecordParser 1.6.5: Perl module to read record-oriented files
 dev-perl/Time-Progress 2.12: Elapsed and estimated finish time reporting
 dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-python/Forthon 0.8.49 0.9.4: Python interface generator for Fortran based codes
+dev-python/MagnetoResistance-tool 0.0.2: Create calibration matrix to correct for magneto-resistance in resistive sensors
 dev-python/POT 0.7.0: Python Optimal Transport Library
 dev-python/PeakUtils 1.3.3: Peak detection utilities for 1D data
 dev-python/affine 2.3.0: Library for handling affine transformations of the plane
