@@ -6,7 +6,7 @@
 		<name>Science Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">PyTorchLightning/pytorch-lightning</remote-id>
+		<remote-id type="github">Lightning-AI/lightning</remote-id>
 		<remote-id type="pypi">pytorch-lightning</remote-id>
 	</upstream>
 </pkgmetadata>
