@@ -126,7 +126,7 @@ dev-python/pytest-doctestplus 0.11.2: Pytest plugin with advanced doctest featur
 dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.9.0 0.9.11: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
-dev-python/pytorch-lightning 1.5.8: Lightweight PyTorch wrapper for ML researchers
+dev-python/pytorch-lightning 1.8.6: Lightweight PyTorch wrapper for ML researchers
 dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
@@ -481,7 +481,7 @@ sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education a
 sci-libs/spams-python 2.6.2: Optimization toolbox for solving various sparse estimation problems
 sci-libs/spyking-circus 1.1.0: Fast spike sorting by template matching
 sci-libs/starparse 0.9: Library for parsing NMR star files (peak-list format) and CIF files
-sci-libs/torchvision 0.11.2: Datasets, transforms and models to specific to computer vision
+sci-libs/torchvision 0.14.1: Datasets, transforms and models to specific to computer vision
 sci-libs/vxl 2.0.2: C++ computer vision research libraries
 sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
@@ -490,12 +490,9 @@ sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/acl2 8.3-r1 8.3-r2 8.4 8.4-r1: Industrial strength theorem prover
 sci-mathematics/cipi 1.0: Computing information projections iteratively
-sci-mathematics/flocq 3.4.0-r1: A floating-point formalization for the Coq system
 sci-mathematics/frama-c 22.0: Framework for analysis of source codes written in C
 sci-mathematics/freefem++ 4.10: Solve PDEs using FEM on 2d and 3d domains
 sci-mathematics/gap 4.11.0: Computational discrete algebra system - minimal GAP core system
-sci-mathematics/gappa 1.3.5 1.4.0: Verifying and proving properties on floating-point or fixed-point arithmetic
-sci-mathematics/gappalib-coq 1.4.6: Allows the certificates Gappa generates to be imported by the Coq
 sci-mathematics/libsfmt 1.3.0: SIMD-oriented Fast Mersenne Twister
 sci-mathematics/lie 2.2.2: A Computer algebra package for Lie group computations
 sci-mathematics/ltl2ba 1.1: Fast LTL to Buechi Automata Translation
