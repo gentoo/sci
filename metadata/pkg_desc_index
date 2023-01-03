@@ -107,7 +107,6 @@ dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.19.0: Data Parallel Extension for Numba
 dev-python/numcodecs 0.9.0 0.9.1 0.10.0: Data storage buffer compression and transformation codecs
-dev-python/nwbinspector 0.3.9 0.4.12 0.4.14 0.4.19: Inspect NWB files for compliance with NWB Best Practices
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/panel 0.11.0: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1: Make Python code clearer and more reliable by declaring Parameters
@@ -121,7 +120,6 @@ dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1: Python bindings for ERFA
 dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2 0.4.3: Simple pure-python module for reading and writing nrrd files
-dev-python/pynwb 2.0.1 2.1.0-r1 2.2.0: A Python API for working with Neurodata stored in the NWB Format
 dev-python/pyout 0.7.1 0.7.2: Terminal styling for structured data
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2: Pytest plugin with advanced doctest features
@@ -166,7 +164,6 @@ dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-util/waf 2.0.21: Piece of software used to help building software projects
-dev-vcs/dandi-cli 0.38.0 0.39.4 0.45.1 0.46.6: DANDI command line client to facilitate common operations
 dev-vcs/datalad 0.16.1-r1 0.17.0-r1 0.17.2-r1 0.17.7: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-gfx/netgen 6.2.2204: Automatic 3d tetrahedral mesh generator
@@ -538,7 +535,7 @@ sci-visualization/fsleyes-props 1.8.2: Object attribute management for the FSLey
 sci-visualization/fsleyes-widgets 0.12.3: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
-sys-cluster/modules 4.6.0: Dynamic modification of a user's environment via modulefiles
+sys-cluster/modules 4.6.0 4.6.0-r1: Dynamic modification of a user's environment via modulefiles
 sys-devel/DPC++ 2021.12 2022.09: oneAPI Data Parallel C++ compiler
 sys-devel/ittapi 3.23.0: Intel Instrumentation and Tracing Technology and Just-In-Time API
 sys-devel/oneDPL 2021.7.1: oneAPI Data Parallel C++ Library
