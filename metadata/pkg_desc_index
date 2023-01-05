@@ -96,6 +96,7 @@ dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for To
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/llvmlite 0.39.1: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
+dev-python/looseversion 1.0.2: A backwards/forwards-compatible fork of distutils' LooseVersion
 dev-python/matrix2latex 1.10: A tool to create LaTeX tables from python lists and arrays
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/mkl-service 2.4.0: Python hooks for Intel Math Kernel Library runtime control settings
