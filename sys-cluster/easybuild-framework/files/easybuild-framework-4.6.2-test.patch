@@ -1,0 +1,11 @@
+--- a/setup.py	2022-10-22 17:31:01.312465269 +0200
++++ b/setup.py	2022-10-22 17:30:50.826310864 +0200
+@@ -72,7 +72,7 @@
+     "easybuild.toolchains.fft", "easybuild.toolchains.linalg", "easybuild.tools", "easybuild.tools.containers",
+     "easybuild.tools.deprecated", "easybuild.tools.job", "easybuild.tools.toolchain",
+     "easybuild.tools.module_naming_scheme", "easybuild.tools.package", "easybuild.tools.package.package_naming_scheme",
+-    "easybuild.tools.py2vs3", "easybuild.tools.repository", "test.framework", "test",
++    "easybuild.tools.py2vs3", "easybuild.tools.repository",
+ ]
+ 
+ setup(

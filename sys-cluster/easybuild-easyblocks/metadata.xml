@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	The easybuild-easyblocks package provides a collection of easyblocks for EasyBuild. Easyblocks are Python modules that implement the install procedure for a (group of) software package(s). Together with the EasyBuild framework, they allow to easily build and install supported software packages.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">easybuild-easyblocks</remote-id>
+		<remote-id type="github">easybuilders/easybuild-easyblocks</remote-id>
+		<bugs-to>https://github.com/easybuilders/easybuild-easyblocks/issues</bugs-to>
+	</upstream>
+</pkgmetadata>
