@@ -19,11 +19,6 @@ IUSE=""
 RDEPEND=""
 BEPEND=""
 
-#EPYTEST_DESELECT=(
-#	# Reported upstream: https://github.com/datalad/datalad/issues/6870
-#	datalad/local/tests/test_gitcredential.py::test_datalad_credential_helper
-#)
-
 distutils_enable_tests pytest
 
 python_test() {
