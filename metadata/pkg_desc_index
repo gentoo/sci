@@ -534,6 +534,10 @@ sci-visualization/fsleyes-props 1.8.2: Object attribute management for the FSLey
 sci-visualization/fsleyes-widgets 0.12.3: GUI widgets and utilities for the FSLeyes viewer
 sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
+sys-cluster/easybuild 4.6.2: EasyBuild is a software build and installation framework.
+sys-cluster/easybuild-easyblocks 4.6.2: Provides a collection of easyblocks for EasyBuild.
+sys-cluster/easybuild-easyconfigs 4.6.2: Provides a collection of well-tested easyconfig files for EasyBuild.
+sys-cluster/easybuild-framework 4.6.2: The easybuild-framework package is the core of EasyBuild.
 sys-cluster/modules 4.6.0 4.6.0-r1: Dynamic modification of a user's environment via modulefiles
 sys-devel/DPC++ 2021.12 2022.09: oneAPI Data Parallel C++ compiler
 sys-devel/ittapi 3.23.0: Intel Instrumentation and Tracing Technology and Just-In-Time API
