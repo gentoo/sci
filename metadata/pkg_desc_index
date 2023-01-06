@@ -165,7 +165,7 @@ dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-util/waf 2.0.21: Piece of software used to help building software projects
-dev-vcs/datalad 0.16.1-r1 0.17.0-r1 0.17.2-r1 0.17.7: Keep code, data, containers under control with git and git-annex
+dev-vcs/datalad 0.16.1-r1 0.17.0-r1 0.17.2-r1 0.17.7 0.18.0: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-gfx/netgen 6.2.2204: Automatic 3d tetrahedral mesh generator
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
