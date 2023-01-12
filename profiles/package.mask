@@ -59,7 +59,6 @@ sci-biology/longstitch
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Depends on dev-python/nose, needs porting to pytest
-sci-libs/nipy
 sci-biology/pyfaidx
 sci-biology/gffutils
 sci-biology/RSeQC
