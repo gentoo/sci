@@ -70,3 +70,5 @@ dev-python/hdf5storage
 dev-python/transforms3d
 dev-python/annexremote
 dev-python/pysolar
+# Reverse deps of above
+dev-vcs/datalad
