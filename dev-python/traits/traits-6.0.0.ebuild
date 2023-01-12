@@ -28,6 +28,8 @@ DEPEND="
 		${RDEPEND}
 		)"
 
+distutils_enable_tests unittest
+
 python_prepare_all() {
 	sed -i -e "s/'-O3'//g" setup.py || die
 	distutils-r1_python_prepare_all
