@@ -9,7 +9,7 @@ inherit distutils-r1 optfeature
 
 DESCRIPTION="Python tools for geographic data"
 HOMEPAGE="https://github.com/geopandas/geopandas"
-SRC_URI="https://github.com/geopandas/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/geopandas/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
