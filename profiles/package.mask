@@ -64,7 +64,6 @@ sci-biology/gffutils
 sci-biology/RSeQC
 sci-biology/Fastaq
 sci-biology/deeptools
-dev-python/traits
 dev-python/hdf5storage
 dev-python/transforms3d
 dev-python/annexremote
