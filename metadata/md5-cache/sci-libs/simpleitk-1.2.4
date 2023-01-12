@@ -1,16 +1,16 @@
 BDEPEND=dev-lang/swig >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5
 DEFINED_PHASES=compile configure install prepare setup test
-DEPEND=lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) dev-cpp/gtest sci-libs/itk dev-python/virtualenv python? ( python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) )
+DEPEND=lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) dev-cpp/gtest sci-libs/itk dev-python/virtualenv python? ( python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) )
 DESCRIPTION=Layer on top of ITK for rapid prototyping, education and interpreted languages.
 EAPI=8
 HOMEPAGE=https://simpleitk.org/
 INHERIT=lua-single cmake python-single-r1
-IUSE=python lua_single_target_lua5-1 lua_single_target_lua5-3 python_single_target_python3_8 python_single_target_python3_9 python_single_target_python3_10
+IUSE=python lua_single_target_lua5-1 lua_single_target_lua5-3 +python_single_target_python3_10
 KEYWORDS=~amd64 ~x86
 LICENSE=Apache-2.0
-RDEPEND=lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) dev-cpp/gtest sci-libs/itk dev-python/virtualenv python? ( python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) )
-REQUIRED_USE=^^ ( python_single_target_python3_8 python_single_target_python3_9 python_single_target_python3_10 )
+RDEPEND=lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) dev-cpp/gtest sci-libs/itk dev-python/virtualenv python? ( python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) )
+REQUIRED_USE=^^ ( python_single_target_python3_10 )
 SLOT=0
 SRC_URI=https://github.com/SimpleITK/SimpleITK/releases/download/v1.2.4/SimpleITK-1.2.4.tar.gz https://github.com/SimpleITK/SimpleITK/releases/download/v1.2.4/SimpleITKData-1.2.4.tar.gz
 _eclasses_=toolchain-funcs	ec8bbc28394c7305b43ea07164bd8f5f	multilib	5ca4e49abed8e3a2f7b56920eadee157	lua-utils	e69ff116248d78546ae1a234c086fe80	lua-single	aee383a0de35701b9eb0b27077a1c143	flag-o-matic	69394e25812406faa1f90edaf4969395	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	38c85b725d0467e51954ea921b6c104b	xdg-utils	ac0e315a3688929e34ac75b139e7349a	cmake	449b4785acace35308fe747fc939bde1	python-utils-r1	7870d60e8b98856ef02d33397fd5ec0f	python-single-r1	75118e916668a74c660a13b0ecb22562
-_md5_=a5079678d922619b596bec5f03188f61
+_md5_=fbb630dadd7b6094224c3d486b7e3ae0

@@ -58,9 +58,9 @@ dev-python/blessed 1.19.1: An easy, practical library for making python terminal
 dev-python/blessings 1.7-r1: A thin, practical wrapper around terminal coloring, styling, and positioning
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
-dev-python/cadquery 2.2_rc20210804 2.2_rc20220506: Python parametric CAD scripting framework based on OCCT
-dev-python/cadquery-ocp 7.5.2_beta 7.5.3.0: Python wrapper for OCCT generated using pywrap
-dev-python/cadquery-pywrap 7.5.2_rc20210526 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
+dev-python/cadquery 2.2_rc20220506: Python parametric CAD scripting framework based on OCCT
+dev-python/cadquery-ocp 7.5.3.0: Python wrapper for OCCT generated using pywrap
+dev-python/cadquery-pywrap 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
@@ -151,7 +151,7 @@ dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents 
 dev-python/sphinx-astropy 1.7.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
-dev-python/texext 0.6.6: Sphinx extensions for working with LaTeX math
+dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/typish 1.9.3: Functionality for types

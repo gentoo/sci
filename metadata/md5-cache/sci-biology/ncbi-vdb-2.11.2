@@ -1,14 +1,14 @@
 DEFINED_PHASES=configure install setup
-DEPEND=python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) sci-libs/hdf5 sci-biology/ngs
+DEPEND=python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) sci-libs/hdf5 sci-biology/ngs
 DESCRIPTION=NCBI SRA ( Sequence Read Archive )
 EAPI=8
 HOMEPAGE=https://github.com/ncbi/ncbi-vdb
 INHERIT=python-single-r1
-IUSE=python_single_target_python3_8 python_single_target_python3_9 python_single_target_python3_10
+IUSE=+python_single_target_python3_10
 LICENSE=public-domain
-RDEPEND=python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) sci-libs/hdf5 sci-biology/ngs
-REQUIRED_USE=^^ ( python_single_target_python3_8 python_single_target_python3_9 python_single_target_python3_10 )
+RDEPEND=python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) sci-libs/hdf5 sci-biology/ngs
+REQUIRED_USE=^^ ( python_single_target_python3_10 )
 SLOT=0
 SRC_URI=https://github.com/ncbi/ncbi-vdb/archive/2.11.2.tar.gz -> ncbi-vdb-2.11.2.tar.gz
 _eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	ec8bbc28394c7305b43ea07164bd8f5f	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	7870d60e8b98856ef02d33397fd5ec0f	python-single-r1	75118e916668a74c660a13b0ecb22562
-_md5_=35b08ba1a4fd199ea7a7b6fc4de5f434
+_md5_=b9b453dc54885c9830f8dd81e1f37848

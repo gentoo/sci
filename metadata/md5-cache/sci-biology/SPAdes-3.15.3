@@ -1,16 +1,16 @@
 BDEPEND=dev-util/cmake
 DEFINED_PHASES=install setup
-DEPEND=sys-libs/zlib app-arch/bzip2 dev-python/regex python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 )
+DEPEND=sys-libs/zlib app-arch/bzip2 dev-python/regex python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 )
 DESCRIPTION=De novo de Bruijn genome assembler overcoming uneven coverage
 EAPI=8
 HOMEPAGE=https://cab.spbu.ru/software/spades
 INHERIT=python-single-r1
-IUSE=python_single_target_python3_8 python_single_target_python3_9 python_single_target_python3_10
+IUSE=+python_single_target_python3_10
 KEYWORDS=~amd64
 LICENSE=GPL-2
-RDEPEND=sys-libs/zlib app-arch/bzip2 dev-python/regex python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 )
-REQUIRED_USE=^^ ( python_single_target_python3_8 python_single_target_python3_9 python_single_target_python3_10 )
+RDEPEND=sys-libs/zlib app-arch/bzip2 dev-python/regex python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 )
+REQUIRED_USE=^^ ( python_single_target_python3_10 )
 SLOT=0
 SRC_URI=https://github.com/ablab/spades/releases/download/v3.15.3/SPAdes-3.15.3.tar.gz https://cab.spbu.ru/files/release3.15.3/manual.html -> SPAdes-3.15.3_manual.html https://cab.spbu.ru/files/release3.15.3/rnaspades_manual.html -> SPAdes-3.15.3_rnaspades_manual.html https://cab.spbu.ru/files/release3.15.3/truspades_manual.html -> SPAdes-3.15.3_truspades_manual.html
 _eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	ec8bbc28394c7305b43ea07164bd8f5f	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	7870d60e8b98856ef02d33397fd5ec0f	python-single-r1	75118e916668a74c660a13b0ecb22562
-_md5_=24300e205d5c38ea8faf7614534579ff
+_md5_=ca41fdcba84f710cb87ab225169e2bc5
