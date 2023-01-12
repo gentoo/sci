@@ -54,8 +54,6 @@ dev-python/astroquery 0.4.1: A collection of packages to access online astronomi
 dev-python/astroscrappy 1.1.0: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
-dev-python/blessed 1.19.1: An easy, practical library for making python terminal apps
-dev-python/blessings 1.7-r1: A thin, practical wrapper around terminal coloring, styling, and positioning
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
 dev-python/bz2file 0.98: Read and write bzip2-compressed files
 dev-python/cadquery 2.2_rc20220506: Python parametric CAD scripting framework based on OCCT
@@ -493,7 +491,6 @@ sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/xraylib 4.0.0: X-ray matter interaction cross sections for X-ray fluorescence library
 sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
-sci-mathematics/acl2 8.3-r1 8.3-r2 8.4 8.4-r1: Industrial strength theorem prover
 sci-mathematics/cipi 1.0: Computing information projections iteratively
 sci-mathematics/frama-c 22.0: Framework for analysis of source codes written in C
 sci-mathematics/freefem++ 4.10: Solve PDEs using FEM on 2d and 3d domains

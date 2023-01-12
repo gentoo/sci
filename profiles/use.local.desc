@@ -123,7 +123,6 @@ sci-libs/nexus:java - Build the Java bindings
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
 sci-libs/xblas:int64 - Build the 64 bits integer library
-sci-mathematics/acl2:books - build community books, the canonical collection of open-source libraries
 sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
 sci-mathematics/gap:hpc - Build gap with multithreading and parallel process support
 sci-mathematics/gap:julia - Build julia bindings
