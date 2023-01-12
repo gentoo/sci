@@ -35,6 +35,7 @@ dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locatio
 dev-python/ezdxf:cython - Build Cython-based C extensions
 dev-python/ezdxf:matplotlib - Add support for dev-python/matplotlib
 dev-python/ezdxf:qt5 - Add support for dev-python/PyQt5
+dev-vcs/dandi-cli:etelemetry - version checking to respect server schema version
 dev-vcs/datalad:downloaders - Extended support for download resources
 dev-vcs/datalad:metadata - Annotated metadata support for datasets
 dev-vcs/datalad:misc - Dataset publishing support
