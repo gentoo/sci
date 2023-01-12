@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 
 # OCP uses "python-single-r1" only because VTK uses "python-single-r1".
 inherit check-reqs cmake llvm multiprocessing python-single-r1 toolchain-funcs

@@ -4,7 +4,7 @@
 EAPI=8
 
 # Missing deps for documentation
-# PYTHON_COMPAT=( python3_{8..11} )
+# PYTHON_COMPAT=( python3_{10..11} )
 # DOCS_BUILDER="sphinx"
 # DOCS_DIR="documentation/library_guide"
 # DOCS_AUTODOC=0

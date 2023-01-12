@@ -4,7 +4,7 @@
 EAPI=7
 
 CMAKE_ECLASS=cmake
-PYTHON_COMPAT=( python3_{8..10} pypy3 )
+PYTHON_COMPAT=( python3_10 pypy3 )
 
 # Upstream has two alternate approaches to building its Python API:
 # 1. A working "CMakeList.txt" only supporting a single Python target.

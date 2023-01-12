@@ -4,7 +4,7 @@
 EAPI=8
 
 COMMIT="5eafea4328f1631eab28b1a20e757d1f0e21f8a6"
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 
 inherit cmake flag-o-matic fortran-2 python-single-r1
 

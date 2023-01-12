@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 inherit cmake desktop python-single-r1 xdg
 
 DESCRIPTION="Automatic 3d tetrahedral mesh generator"

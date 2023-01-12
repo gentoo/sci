@@ -4,7 +4,7 @@
 EAPI=8
 
 # python only needed for create.py to get binaries
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 inherit toolchain-funcs python-any-r1
 
 DESCRIPTION="Library of one-loop scalar functions"
