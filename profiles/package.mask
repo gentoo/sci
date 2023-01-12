@@ -72,3 +72,5 @@ dev-python/annexremote
 dev-python/pysolar
 # Reverse deps of above
 dev-vcs/datalad
+sci-biology/samri
+sci-libs/nipype
