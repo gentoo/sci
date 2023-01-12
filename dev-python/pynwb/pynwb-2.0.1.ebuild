@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,7 +16,7 @@ LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	sci-libs/hdf5[ros3(-)]
+	>=sci-libs/hdf5-1.12.2[ros3(+)]
 	<dev-python/hdmf-3.3.2[${PYTHON_USEDEP}]
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
