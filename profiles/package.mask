@@ -29,3 +29,30 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
+# Needs bump of PYTHON_COMPAT to at least python3_10
+sci-biology/tigmint
+sci-biology/nitime
+sci-biology/deeptools
+sci-biology/gemini
+sci-biology/gffutils
+sci-biology/chiron
+dev-python/snakemake
+dev-python/pyvista
+dev-python/specutils
+dev-python/regions
+dev-python/pyzo
+dev-python/persim
+dev-python/panel
+dev-python/kmapper
+dev-python/photutils
+dev-python/gwcs
+dev-python/gammapy
+dev-python/asdf
+dev-python/astroquery
+# Reverse deps of above
+dev-python/holoviews
+dev-python/ripser
+sci-biology/arcs
+sci-biology/longstitch

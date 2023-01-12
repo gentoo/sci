@@ -5,7 +5,7 @@ EAPI=8
 
 # py3.11 fails to compile:
 # error: ‘CFrame’ does not name a type; did you mean ‘_frame’?
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 DISTUTILS_USE_PEP517=setuptools
 inherit optfeature multiprocessing distutils-r1
 

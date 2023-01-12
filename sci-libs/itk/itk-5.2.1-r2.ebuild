@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_10 )
 VIRTUALX_REQUIRED="manual"
 
 inherit cmake python-single-r1 virtualx

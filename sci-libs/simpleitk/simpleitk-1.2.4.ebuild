@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 LUA_COMPAT=( lua5-{1..3} )
 
 inherit lua-single cmake python-single-r1

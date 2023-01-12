@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_10 )
 inherit python-single-r1 java-pkg-2
 
 DESCRIPTION="NGS Language Bindings "
