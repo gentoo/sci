@@ -32,7 +32,6 @@
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Needs bump of PYTHON_COMPAT to at least python3_10
-sci-biology/deeptools
 sci-biology/gemini
 sci-biology/gffutils
 sci-biology/chiron
@@ -61,7 +60,6 @@ sci-biology/pyfaidx
 sci-biology/gffutils
 sci-biology/RSeQC
 sci-biology/Fastaq
-sci-biology/deeptools
 dev-python/hdf5storage
 dev-python/transforms3d
 dev-python/pysolar
