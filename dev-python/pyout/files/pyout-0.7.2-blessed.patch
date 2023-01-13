@@ -1,0 +1,140 @@
+From 0f7c6d6f2abb304c9c473afb504cb03d17fef036 Mon Sep 17 00:00:00 2001
+From: Horea Christian <chr@chymera.eu>
+Date: Sat, 7 Jan 2023 21:49:32 -0500
+Subject: [PATCH 1/2] Accepting either bless* library
+
+---
+ pyout/field.py                | 7 ++++++-
+ pyout/tabular.py              | 9 +++++++--
+ pyout/tests/terminal.py       | 9 +++++++--
+ pyout/tests/test_interface.py | 7 ++++++-
+ pyout/tests/test_tabular.py   | 7 ++++++-
+ 5 files changed, 32 insertions(+), 7 deletions(-)
+
+diff --git a/pyout/field.py b/pyout/field.py
+index 5105081..99c310f 100644
+--- a/pyout/field.py
++++ b/pyout/field.py
+@@ -495,7 +495,12 @@ class TermProcessors(StyleProcessors):
+ 
+     Parameters
+     ----------
+-    term : blessings.Terminal
++    term : blessed.Terminal or blessings.Terminal
++
++    Notes
++    -----
++    * Eventually we may want to retire blessings:
++        https://github.com/pyout/pyout/issues/136
+     """
+ 
+     def __init__(self, term):
+diff --git a/pyout/tabular.py b/pyout/tabular.py
+index 2a776a1..0d4797a 100644
+--- a/pyout/tabular.py
++++ b/pyout/tabular.py
+@@ -7,7 +7,12 @@
+ from logging import getLogger
+ import os
+ 
+-from blessings import Terminal
++# Eventually we may want to retire blessings:
++# https://github.com/pyout/pyout/issues/136
++try:
++    from blessed import Terminal
++except ImportError:
++    from blessings import Terminal
+ 
+ from pyout import interface
+ from pyout.field import TermProcessors
+@@ -16,7 +21,7 @@
+ 
+ 
+ class TerminalStream(interface.Stream):
+-    """Stream interface implementation using blessings.Terminal.
++    """Stream interface implementation using blessed/blessings.Terminal.
+     """
+ 
+     def __init__(self, stream=None, interactive=None):
+diff --git a/pyout/tests/terminal.py b/pyout/tests/terminal.py
+index 53aabd7..2d8857c 100644
+--- a/pyout/tests/terminal.py
++++ b/pyout/tests/terminal.py
+@@ -6,12 +6,17 @@
+ from functools import partial
+ import re
+ 
+-import blessings
++# Eventually we may want to retire blessings:
++# https://github.com/pyout/pyout/issues/136
++try:
++    import blessed as bls
++except ImportError:
++    import blessings as bls
+ 
+ from pyout.tests.utils import assert_contains
+ 
+ 
+-class Terminal(blessings.Terminal):
++class Terminal(bls.Terminal):
+ 
+     def __init__(self, *args, **kwargs):
+         super(Terminal, self).__init__(
+diff --git a/pyout/tests/test_interface.py b/pyout/tests/test_interface.py
+index 5205ef3..8348323 100644
+--- a/pyout/tests/test_interface.py
++++ b/pyout/tests/test_interface.py
+@@ -1,6 +1,11 @@
+ import pytest
+ 
+-pytest.importorskip("blessings")
++# Eventually we may want to retire blessings:
++# https://github.com/pyout/pyout/issues/136
++try:
++    pytest.importorskip("blessed")
++except pytest.skip.Exception:
++    pytest.importorskip("blessings")
+ 
+ import inspect
+ 
+diff --git a/pyout/tests/test_tabular.py b/pyout/tests/test_tabular.py
+index 2044e92..a1d35e5 100644
+--- a/pyout/tests/test_tabular.py
++++ b/pyout/tests/test_tabular.py
+@@ -1,7 +1,12 @@
+ # -*- coding: utf-8 -*-
+ import pytest
+ 
+-pytest.importorskip("blessings")
++# Eventually we may want to retire blessings:
++# https://github.com/pyout/pyout/issues/136
++try:
++    pytest.importorskip("blessed")
++except pytest.skip.Exception:
++    pytest.importorskip("blessings")
+ 
+ from collections import Counter
+ from collections import OrderedDict
+
+From 5f6691c114578217a124d2ac1b24468993178e27 Mon Sep 17 00:00:00 2001
+From: Horea Christian <chr@chymera.eu>
+Date: Sat, 7 Jan 2023 23:48:37 -0500
+Subject: [PATCH 2/2] Preferring blessings
+
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index b376c2e..43005e7 100644
+--- a/setup.py
++++ b/setup.py
+@@ -2,7 +2,7 @@
+ 
+ requires = {
+     "core": [
+-        "blessings; sys_platform != 'win32'",
++        "blessed; sys_platform != 'win32'",
+         "jsonschema>=3.0.0",
+     ],
+     "tests": ["pytest", "pytest-timeout"],

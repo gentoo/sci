@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
 inherit distutils-r1
 
 DESCRIPTION="Terminal styling for structured data"
@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-python/jsonschema[${PYTHON_USEDEP}]
-	dev-python/blessings[${PYTHON_USEDEP}]
+	dev-python/blessed[${PYTHON_USEDEP}]
 "
 DEPEND="
 	test? (
@@ -25,6 +25,8 @@ DEPEND="
 "
 
 distutils_enable_tests pytest
+
+PATCHES=( "${FILESDIR}/${P}-blessed.patch"  )
 
 python_prepare_all() {
 	sed -i -e '/pytest-runner/d' setup.py || die
