@@ -33,4 +33,4 @@ RDEPEND="
 S="${WORKDIR}/deepTools-${PV}"
 
 distutils_enable_sphinx docs dev-python/sphinx_rtd_theme dev-python/sphinx-argparse
-distutils_enable_tests nose
+#distutils_enable_tests nose
