@@ -14,6 +14,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
+# Reported upstream:
+# https://github.com/Lykos153/AnnexRemote/issues/61
+RESTRICT="test"
 
 COMMON_DEPEND="dev-python/future[${PYTHON_USEDEP}]"
 RDEPEND="
