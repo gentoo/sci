@@ -43,7 +43,6 @@ dev-python/persim
 dev-python/panel
 dev-python/kmapper
 dev-python/photutils
-dev-python/gwcs
 dev-python/gammapy
 dev-python/asdf
 dev-python/astroquery
