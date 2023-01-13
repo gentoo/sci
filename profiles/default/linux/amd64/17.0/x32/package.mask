@@ -1,3 +1,0 @@
-# Cecil Curry <leycec@gmail.com> (2021-10-07)
-# Panel requires Node.js, which fails to support the x32 ABI.
-dev-python/panel
