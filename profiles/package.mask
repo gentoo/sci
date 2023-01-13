@@ -66,7 +66,3 @@ sci-biology/deeptools
 dev-python/hdf5storage
 dev-python/transforms3d
 dev-python/pysolar
-# Reverse deps of above
-dev-vcs/datalad
-sci-biology/samri
-sci-libs/nipype
