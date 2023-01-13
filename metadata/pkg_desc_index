@@ -150,7 +150,7 @@ dev-python/sphinx-astropy 1.7.0: Sphinx extensions and configuration specific to
 dev-python/sphinx-automodapi 0.14.1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
-dev-python/traits 6.0.0 6.1.1: Enthought Tool Suite: Explicitly typed attributes for Python
+dev-python/traits 6.1.1 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/typish 1.9.3: Functionality for types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
