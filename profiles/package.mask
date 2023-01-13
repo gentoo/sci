@@ -44,7 +44,6 @@ dev-python/panel
 dev-python/kmapper
 dev-python/photutils
 dev-python/gammapy
-dev-python/asdf
 dev-python/astroquery
 # Reverse deps of above
 dev-python/holoviews
