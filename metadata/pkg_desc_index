@@ -45,7 +45,7 @@ dev-python/anys 0.2.0 0.2.1: Matchers for pytest
 dev-python/archspec 0.1.4: labels for various aspects of a system architecture like CPU, etc.
 dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for ArrayFire
 dev-python/asciitree 0.3.3: ASCII trees in python
-dev-python/asdf 2.8.3: Python library for the Advanced Scientific Data Format
+dev-python/asdf 2.8.3 2.14.3: Python library for the Advanced Scientific Data Format
 dev-python/astropy 5.0: Core functionality for performing astrophysics with Python
 dev-python/astropy-healpix 0.6: HEALPix for Astropy
 dev-python/astropy-helpers 4.0.1: Helpers for Astropy and Affiliated packages
