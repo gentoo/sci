@@ -16,10 +16,12 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
+# Reported upstream: https://github.com/enthought/traits/issues/1731
+RESTRICT="test"
 
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 
-distutils_enable_tests nose
+distutils_enable_tests unittest
 # ToDo: Fix doc building:
 # AttributeError: 'NoDefaultSpecified' object has no attribute '__name__'
 #distutils_enable_sphinx docs/source --no-autodoc
