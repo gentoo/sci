@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{10..10} )
 inherit distutils-r1
 
 DESCRIPTION="python frontend for the fast ripser tda tool"
-HOMEPAGE="https://ripser.scikit-tda.org/"
+HOMEPAGE="https://ripser.scikit-tda.org/ https://github.com/sofiatolaosebikan/hopcroftkarp"
 COMMIT="2846e1dd3265d95d2bddb0cf4190b830cbb4efe6"
 SRC_URI="https://github.com/sofiatolaosebikan/hopcroftkarp/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}"/${PN}-${COMMIT}
