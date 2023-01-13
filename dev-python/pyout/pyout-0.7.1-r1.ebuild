@@ -26,6 +26,10 @@ DEPEND="
 
 distutils_enable_tests pytest
 
+
+PATCHES=( "${FILESDIR}/${PN}-0.7.2-blessed.patch"  )
+
+
 python_prepare_all() {
 	sed -i -e '/pytest-runner/d' setup.py || die
 	distutils-r1_python_prepare_all
