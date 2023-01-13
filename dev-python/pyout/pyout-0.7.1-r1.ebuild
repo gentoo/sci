@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	dev-python/jsonschema[${PYTHON_USEDEP}]
-	dev-python/blessings[${PYTHON_USEDEP}]
+	dev-python/blessed[${PYTHON_USEDEP}]
 "
 DEPEND="
 	test? (
