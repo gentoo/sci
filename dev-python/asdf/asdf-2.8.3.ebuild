@@ -15,6 +15,9 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+# Reported upstream:
+# https://github.com/asdf-format/asdf/issues/1319
+RESTRICT="test"
 
 BDEPEND="dev-python/setuptools_scm[${PYTHON_USEDEP}]
 	test? (
