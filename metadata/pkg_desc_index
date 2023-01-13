@@ -83,7 +83,7 @@ dev-python/geopandas 0.12.1: Python tools for geographic data
 dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
 dev-python/gmsh_interop 2021.1.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
-dev-python/gwcs 0.16.1: Generalized World Coordinate System
+dev-python/gwcs 0.16.1 0.18.3: Generalized World Coordinate System
 dev-python/hdf5storage 0.1.17 0.1.18 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hdmf 3.1.1-r1 3.3.2-r1: The Hierarchical Data Modeling Framework
 dev-python/holoviews 1.14.2: Make data analysis and visualization seamless and simple
