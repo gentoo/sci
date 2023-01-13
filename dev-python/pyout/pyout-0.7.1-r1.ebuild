@@ -13,6 +13,7 @@ SRC_URI="https://github.com/pyout/pyout/archive/refs/tags/v${PV}.tar.gz -> ${P}.
 SLOT="0"
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"
+RESTRICT="test"
 
 RDEPEND="
 	dev-python/jsonschema[${PYTHON_USEDEP}]
