@@ -35,7 +35,6 @@
 sci-biology/gffutils
 sci-biology/chiron
 dev-python/snakemake
-dev-python/pyvista
 dev-python/specutils
 dev-python/regions
 dev-python/pyzo
