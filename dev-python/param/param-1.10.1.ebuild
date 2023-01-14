@@ -9,8 +9,13 @@ inherit distutils-r1
 
 DESCRIPTION="Make Python code clearer and more reliable by declaring Parameters"
 HOMEPAGE="https://param.holoviz.org"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+# Pypi sources do not include tests
+#SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="https://github.com/holoviz/param/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
+
+# Some tests require nose:
+#distutils_enable_tests unittest
