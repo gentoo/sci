@@ -54,7 +54,6 @@ sci-biology/longstitch
 sci-biology/pyfaidx
 sci-biology/gffutils
 sci-biology/RSeQC
-sci-biology/Fastaq
 dev-python/hdf5storage
 dev-python/transforms3d
 dev-python/pysolar
