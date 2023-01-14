@@ -16,3 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="dev-python/param[${PYTHON_USEDEP}]"
+
+# Tarballs do not include tests, reported upstream:
+# https://github.com/holoviz/pyviz_comms/issues/104
+#distutils_enable_tests pytest
