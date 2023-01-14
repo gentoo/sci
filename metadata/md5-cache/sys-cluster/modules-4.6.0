@@ -1,17 +1,17 @@
 BDEPEND=test? ( dev-util/dejagnu ) sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) >=sys-devel/autoconf-2.71-r5 >=sys-devel/libtool-2.4.7
 DEFINED_PHASES=configure install prepare setup test
-DEPEND=python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) dev-lang/tcl:0= dev-tcltk/tclx compat? ( x11-libs/libX11 )
+DEPEND=python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) dev-lang/tcl:0= dev-tcltk/tclx compat? ( x11-libs/libX11 )
 DESCRIPTION=Dynamic modification of a user's environment via modulefiles
 EAPI=7
 HOMEPAGE=http://modules.sourceforge.net/
 INHERIT=autotools python-single-r1
-IUSE=compat test python_single_target_python3_8 python_single_target_python3_9
+IUSE=compat test +python_single_target_python3_9
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
-RDEPEND=python_single_target_python3_8? ( >=dev-lang/python-3.8.16:3.8 ) python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) dev-lang/tcl:0= dev-tcltk/tclx compat? ( x11-libs/libX11 )
-REQUIRED_USE=^^ ( python_single_target_python3_8 python_single_target_python3_9 )
+RDEPEND=python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) dev-lang/tcl:0= dev-tcltk/tclx compat? ( x11-libs/libX11 )
+REQUIRED_USE=^^ ( python_single_target_python3_9 )
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/cea-hpc/modules/releases/download/v4.6.0/modules-4.6.0.tar.bz2
-_eclasses_=gnuconfig	b6b3e92f8b8c996400074b5f61a59256	toolchain-funcs	ec8bbc28394c7305b43ea07164bd8f5f	multilib	5ca4e49abed8e3a2f7b56920eadee157	libtool	241a8f577b9781a42a7421e53448a44e	autotools	6dcd6b6a486e79928e1243ff9ba41fcc	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	python-utils-r1	7870d60e8b98856ef02d33397fd5ec0f	python-single-r1	75118e916668a74c660a13b0ecb22562
+_eclasses_=gnuconfig	b6b3e92f8b8c996400074b5f61a59256	toolchain-funcs	ec8bbc28394c7305b43ea07164bd8f5f	multilib	5ca4e49abed8e3a2f7b56920eadee157	libtool	241a8f577b9781a42a7421e53448a44e	autotools	6dcd6b6a486e79928e1243ff9ba41fcc	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	python-utils-r1	a1a985ddd8795a8634b4b7f820b93143	python-single-r1	75118e916668a74c660a13b0ecb22562
 _md5_=56a3243c1b403bce2a466a5c8b648354
