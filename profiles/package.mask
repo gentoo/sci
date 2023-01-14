@@ -38,7 +38,6 @@ dev-python/snakemake
 dev-python/specutils
 dev-python/regions
 dev-python/pyzo
-dev-python/persim
 dev-python/panel
 dev-python/kmapper
 dev-python/photutils
