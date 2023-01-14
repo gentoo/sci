@@ -15,4 +15,6 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-distutils_enable_tests nose
+distutils_enable_tests pytest
+# Nominally upstream still uses nose, though it does not encumber us, and tests pass:
+# https://github.com/sanger-pathogens/Fastaq/issues/84
