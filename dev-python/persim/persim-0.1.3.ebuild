@@ -24,3 +24,13 @@ RDEPEND="${PYTHON_DEPS}
 "
 
 distutils_enable_tests pytest
+
+EPYTEST_DESELECT=(
+	# Reported upsream:
+	# https://github.com/scikit-tda/persim/issues/64
+	test/test_persim.py::test_integer_diagrams
+	test/test_persim.py::TestEmpty::test_empyt_diagram_list
+	test/test_persim.py::TestTransforms::test_lists_of_lists
+	test/test_persim.py::TestTransforms::test_n_pixels
+	test/test_persim.py::TestTransforms::test_multiple_diagrams
+)
