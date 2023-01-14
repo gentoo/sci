@@ -131,7 +131,7 @@ dev-python/python-igraph 0.9.0 0.9.11: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pytorch-lightning 1.8.6: Lightweight PyTorch wrapper for ML researchers
 dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
-dev-python/pyviz_comms 2.0.1: Bidirectional communication for the HoloViz ecosystem
+dev-python/pyviz_comms 2.0.1 2.2.0: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pyzo 4.11.2: The Python IDE for scientific computing
 dev-python/rasterio 1.2.10-r1: Command line tool and API for geospatial raster data
