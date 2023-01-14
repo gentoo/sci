@@ -61,7 +61,7 @@ dev-python/cadquery-ocp 7.5.3.0: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
-dev-python/colorcet 2.0.6: Collection of perceptually uniform colormaps
+dev-python/colorcet 2.0.6 3.0.1: Collection of perceptually uniform colormaps
 dev-python/colorlover 0.3.0: color scales in python for humans
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
 dev-python/dandi-schema 0.4.3 0.5.1 0.5.3 0.6.0 0.7.1: Schemata for DANDI archive project
