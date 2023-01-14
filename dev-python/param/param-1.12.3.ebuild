@@ -19,4 +19,4 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
 # Some tests require nose:
-#distutils_enable_tests unittest
+distutils_enable_tests pytest
