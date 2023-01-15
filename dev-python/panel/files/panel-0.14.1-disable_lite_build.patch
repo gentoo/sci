@@ -1,0 +1,47 @@
+Subject: Prevent Panel from violating network sandboxing.
+
+     * By default, "setup.py" invokes "npm" to rebuild Node.js packages bundled with Panel.
+     * Without this patch we get `error: HTTPSConnectionPool`
+     * A `sed` fix of the `_build_paneljs()` line will break the syntax.
+     * Using the `PANEL_LITE_BUILD` variable might do the trick instead of a patch, but thus far it didn't 
+Author: Horea Christian <gentoo@chymera.eu>
+diff --git a/setup.py b/setup.py
+index d2541dfb..8cfbf933 100644
+--- a/setup.py
++++ b/setup.py
+@@ -54,8 +54,6 @@ class CustomDevelopCommand(develop):
+     """Custom installation for development mode."""
+
+     def run(self):
+-        if not PANEL_LITE_BUILD:
+-            _build_paneljs()
+         develop.run(self)
+
+
+@@ -63,8 +61,6 @@ class CustomInstallCommand(install):
+     """Custom installation for install mode."""
+
+     def run(self):
+-        if not PANEL_LITE_BUILD:
+-            _build_paneljs()
+         install.run(self)
+
+
+@@ -72,8 +68,6 @@ class CustomSdistCommand(sdist):
+     """Custom installation for sdist mode."""
+
+     def run(self):
+-        if not PANEL_LITE_BUILD:
+-            _build_paneljs()
+         sdist.run(self)
+
+
+@@ -92,8 +86,6 @@ try:
+
+         def run(self):
+             """Do nothing so the command intentionally fails."""
+-            if not PANEL_LITE_BUILD:
+-                _build_paneljs()
+             bdist_wheel.run(self)
+
+     _COMMANDS['bdist_wheel'] = CustomBdistWheelCommand
