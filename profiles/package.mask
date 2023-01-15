@@ -38,13 +38,11 @@ dev-python/snakemake
 dev-python/specutils
 dev-python/regions
 dev-python/pyzo
-dev-python/panel
 dev-python/kmapper
 dev-python/photutils
 dev-python/gammapy
 dev-python/astroquery
 # Reverse deps of above
-dev-python/holoviews
 dev-python/ripser
 sci-biology/arcs
 sci-biology/longstitch
