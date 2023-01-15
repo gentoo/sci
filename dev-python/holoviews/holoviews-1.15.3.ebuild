@@ -17,10 +17,23 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+# Reported upstream:
+# https://github.com/holoviz/holoviews/issues/5592
+RESTRICT="test"
 
 DEPEND="
 	>=dev-python/param-1.9.3[${PYTHON_USEDEP}]
 	>=dev-python/pyct-0.4.4[${PYTHON_USEDEP}]
+"
+BDEPEND="
+	test? (
+		dev-python/bokeh[${PYTHON_USEDEP}]
+		dev-python/matplotlib[${PYTHON_USEDEP}]
+		dev-python/nbconvert[${PYTHON_USEDEP}]
+		dev-python/pillow[${PYTHON_USEDEP}]
+		dev-python/plotly[${PYTHON_USEDEP}]
+		sci-visualization/dash[${PYTHON_USEDEP}]
+	)
 "
 RDEPEND="${DEPEND}
 	dev-python/colorcet[${PYTHON_USEDEP}]
@@ -29,3 +42,5 @@ RDEPEND="${DEPEND}
 	>=dev-python/panel-0.8.0[${PYTHON_USEDEP}]
 	>=dev-python/pyviz_comms-0.7.4[${PYTHON_USEDEP}]
 "
+
+distutils_enable_tests pytest
