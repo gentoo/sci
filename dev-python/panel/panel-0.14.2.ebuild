@@ -33,17 +33,11 @@ RDEPEND="${DEPEND}
 	>=net-libs/nodejs-15.11.0
 "
 
+PATCHES=( "${FILESDIR}/${PN}-0.14.1-disable_lite_build.patch" )
+
 src_prepare() {
 	# Install Jupyter configuration files to "/etc" rather than "/usr/etc".
 	sed -i -e 's~"etc/jupyter~"/etc/jupyter~' setup.py || die
-
-	# Prevent Panel from violating network sandboxing. By default, "setup.py"
-	# invokes "npm" to rebuild Node.js packages bundled with Panel when these
-	# packages were built by Panel developers with a different version of Bokeh
-	# than that installed on the local system. Since disabling this
-	# functionality invites backend and frontend complications, we encourage
-	# server administrators to manually perform this functionality below.
-	sed -i -e '/^\s*_build_paneljs()$/d' setup.py || die
 
 	default_src_prepare
 }
