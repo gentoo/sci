@@ -44,7 +44,6 @@ dev-python/gammapy
 dev-python/astroquery
 # Reverse deps of above
 dev-python/ripser
-sci-biology/arcs
 sci-biology/longstitch
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
