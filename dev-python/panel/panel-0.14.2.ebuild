@@ -35,12 +35,21 @@ RDEPEND="${DEPEND}
 
 PATCHES=( "${FILESDIR}/${PN}-0.14.1-disable_lite_build.patch" )
 
+# This does not work, need to patch..
+#export PANEL_LITE_BUILD=1
+
 src_prepare() {
 	# Install Jupyter configuration files to "/etc" rather than "/usr/etc".
 	sed -i -e 's~"etc/jupyter~"/etc/jupyter~' setup.py || die
 
 	default_src_prepare
 }
+
+# This also does not work, still need patch :(
+#src_compile() {
+#	export PANEL_LITE_BUILD=1
+#	distutils-r1_src_compile
+#}
 
 pkg_postinst() {
 	panel_pkg_postinst() {
