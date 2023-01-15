@@ -7,6 +7,7 @@ EAPI=8
 # incorrect" for this package. It isn't. This package imports from neither
 # "distutils", "packaging", "pkg_resources", nor "setuptools" at runtime.
 PYTHON_COMPAT=( python3_{10..11} pypy3 )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
 
@@ -17,6 +18,9 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+# Reported upstream:
+# https://github.com/holoviz/colorcet/issues/103
+RESTRICT="test"
 
 DEPEND="
 	>=dev-python/param-1.7.0[${PYTHON_USEDEP}]
