@@ -8,9 +8,12 @@ PYTHON_COMPAT=( python3_{10..10} )
 
 inherit distutils-r1
 
+MY_PN="dandi"
+MY_P="${MY_PN}-${PV}"
+
 DESCRIPTION="DANDI command line client to facilitate common operations"
 HOMEPAGE="https://github.com/dandi/dandi-cli"
-SRC_URI="https://github.com/dandi/dandi-cli/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -21,7 +24,7 @@ RDEPEND="
 	dev-python/appdirs[${PYTHON_USEDEP}]
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/click-didyoumean[${PYTHON_USEDEP}]
-	~dev-python/dandi-schema-0.6.0[${PYTHON_USEDEP}]
+	=dev-python/dandi-schema-0.7*[${PYTHON_USEDEP}]
 	dev-python/fasteners[${PYTHON_USEDEP}]
 	dev-python/fscacher[${PYTHON_USEDEP}]
 	dev-python/humanize[${PYTHON_USEDEP}]
@@ -29,6 +32,7 @@ RDEPEND="
 	dev-python/joblib[${PYTHON_USEDEP}]
 	dev-python/keyring[${PYTHON_USEDEP}]
 	dev-python/keyrings-alt[${PYTHON_USEDEP}]
+	dev-python/nwbinspector[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pycryptodome[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
@@ -43,7 +47,7 @@ RDEPEND="
 	dev-python/zarr[${PYTHON_USEDEP}]
 "
 
-DEPEND="
+BDEPEND="
 	test? (
 		dev-python/anys[${PYTHON_USEDEP}]
 		dev-python/responses[${PYTHON_USEDEP}]
@@ -55,21 +59,9 @@ DEPEND="
 # Upstream might be amenable to dropping opencv:
 # https://github.com/dandi/dandi-cli/issues/944
 
-# Some tests require deep copy with git history
-# https://github.com/dandi/dandi-cli/issues/878#issuecomment-1021720299
-EPYTEST_DESELECT=(
-	"dandi/tests/test_utils.py::test_get_instance_dandi_with_api"
-	"dandi/tests/test_utils.py::test_get_instance_url"
-	"dandi/tests/test_utils.py::test_get_instance_cli_version_too_old"
-	"dandi/tests/test_utils.py::test_get_instance_bad_cli_version"
-)
+S="${WORKDIR}/${MY_P}"
 
 distutils_enable_tests pytest
-
-PATCHES=(
-	"${FILESDIR}/${PN}-0.37.0-pip-versioncheck.patch"
-	"${FILESDIR}/${PN}-0.37.0-pep517.patch"
-)
 
 src_prepare() {
 	if use etelemetry; then
