@@ -15,18 +15,15 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RESTRICT="test"
-# reported upstream: https://github.com/nipy/nipy/issues/493
+# No tests, reported upstream: https://github.com/nipy/nipy/issues/493
 
 RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/sympy[${PYTHON_USEDEP}]
-	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
-	dev-python/numpy[${PYTHON_USEDEP}]
+	sci-libs/nibabel[${PYTHON_USEDEP}]
+	<dev-python/numpy-1.24.0[${PYTHON_USEDEP}]
 	"
 DEPEND=""
-
-distutils_enable_tests nose
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
