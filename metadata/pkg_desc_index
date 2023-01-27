@@ -108,6 +108,7 @@ dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.19.0: Data Parallel Extension for Numba
 dev-python/numcodecs 0.9.0 0.9.1 0.10.0: Data storage buffer compression and transformation codecs
+dev-python/numpy 1.23.5: Fast array and numerical python library
 dev-python/nwbinspector 0.4.12 0.4.14 0.4.19: Inspect NWB files for compliance with NWB Best Practices
 dev-python/palettable 3.3.0 9999: library of color palettes for python
 dev-python/panel 0.11.0 0.14.1 0.14.2: High-level app and dashboarding solution for Python
