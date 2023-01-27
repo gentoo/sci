@@ -12,7 +12,9 @@ LICENSE="all-rights-reserved" # temporarily placed value
 # Availability
 # Phusion is undergoing a rewrite of the code to make this a portable package. It will be made available free of charge to academic sites, but requires licensing for commercial use. For more information please contact the authors.
 SLOT="0"
-KEYWORDS="~amd64"
+#KEYWORDS="~amd64"
+# dependency sci-biology/phrap removed from ::gentoo in f3cfb83adfc5dd1b85d0c9dce5ffbf166b25f4e4
+KEYWORDS=""
 
 DEPEND="app-shells/tcsh
 	sys-cluster/openmpi"
