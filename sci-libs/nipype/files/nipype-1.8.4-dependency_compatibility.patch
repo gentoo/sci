@@ -1,0 +1,575 @@
+From a31870d0f9dc0e774f1cf9d18351586f78ecb252 Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 08:11:54 -0500
+Subject: [PATCH 1/9] FIX: Set dtypes for integer test images
+
+NiBabel 4 began warning that int64 images would error, and NiBabel 5
+began erroring if not passed an explicit dtype or header.
+
+We don't need int64 images, just set some sensible dtypes.
+---
+ nipype/algorithms/tests/test_ErrorMap.py | 2 +-
+ nipype/algorithms/tests/test_TSNR.py     | 3 ++-
+ nipype/algorithms/tests/test_metrics.py  | 2 +-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/nipype/algorithms/tests/test_ErrorMap.py b/nipype/algorithms/tests/test_ErrorMap.py
+index 98f05d8e17..adac507bad 100644
+--- a/nipype/algorithms/tests/test_ErrorMap.py
++++ b/nipype/algorithms/tests/test_ErrorMap.py
+@@ -17,7 +17,7 @@ def test_errormap(tmpdir):
+     volume1 = np.array([[[2.0, 8.0], [1.0, 2.0]], [[1.0, 9.0], [0.0, 3.0]]])
+     # Alan Turing's birthday
+     volume2 = np.array([[[0.0, 7.0], [2.0, 3.0]], [[1.0, 9.0], [1.0, 2.0]]])
+-    mask = np.array([[[1, 0], [0, 1]], [[1, 0], [0, 1]]])
++    mask = np.array([[[1, 0], [0, 1]], [[1, 0], [0, 1]]], dtype=np.uint8)
+ 
+     img1 = nb.Nifti1Image(volume1, np.eye(4))
+     img2 = nb.Nifti1Image(volume2, np.eye(4))
+diff --git a/nipype/algorithms/tests/test_TSNR.py b/nipype/algorithms/tests/test_TSNR.py
+index 26c1019b63..320bec8ab2 100644
+--- a/nipype/algorithms/tests/test_TSNR.py
++++ b/nipype/algorithms/tests/test_TSNR.py
+@@ -131,5 +131,6 @@ def assert_unchanged(self, expected_ranges):
+         [
+             [[[2, 4, 3, 9, 1], [3, 6, 4, 7, 4]], [[8, 3, 4, 6, 2], [4, 0, 4, 4, 2]]],
+             [[[9, 7, 5, 5, 7], [7, 8, 4, 8, 4]], [[0, 4, 7, 1, 7], [6, 8, 8, 8, 7]]],
+-        ]
++        ],
++        dtype=np.int16,
+     )
+diff --git a/nipype/algorithms/tests/test_metrics.py b/nipype/algorithms/tests/test_metrics.py
+index ad7502992e..3652fc2ce5 100644
+--- a/nipype/algorithms/tests/test_metrics.py
++++ b/nipype/algorithms/tests/test_metrics.py
+@@ -45,7 +45,7 @@ def test_fuzzy_overlap(tmpdir):
+ 
+     # Just considering the mask, the central pixel
+     # that raised the index now is left aside.
+-    data = np.zeros((3, 3, 3), dtype=int)
++    data = np.zeros((3, 3, 3), dtype=np.uint8)
+     data[0, 0, 0] = 1
+     data[2, 2, 2] = 1
+     nb.Nifti1Image(data, np.eye(4)).to_filename("mask.nii.gz")
+
+From 443492e82f3b197ad739cb244912ced652853a8d Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 08:43:07 -0500
+Subject: [PATCH 2/9] FIX: Coerce depidx to lil_matrix
+
+---
+ nipype/pipeline/plugins/base.py | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/nipype/pipeline/plugins/base.py b/nipype/pipeline/plugins/base.py
+index a927b24686..3d600dda55 100644
+--- a/nipype/pipeline/plugins/base.py
++++ b/nipype/pipeline/plugins/base.py
+@@ -21,6 +21,18 @@
+ logger = logging.getLogger("nipype.workflow")
+ 
+ 
++def _graph_to_lil_matrix(graph, nodelist):
++    """Provide a sparse linked list matrix across various NetworkX versions"""
++    import scipy.sparse as ssp
++
++    try:
++        from networkx import to_scipy_sparse_array
++    except ImportError:  # NetworkX < 2.7
++        from networkx import to_scipy_sparse_matrix as to_scipy_sparse_array
++
++    return ssp.lil_matrix(to_scipy_sparse_array(graph, nodelist=nodelist, format="lil"))
++
++
+ class PluginBase(object):
+     """Base class for plugins."""
+ 
+@@ -431,12 +443,8 @@ def _task_finished_cb(self, jobid, cached=False):
+ 
+     def _generate_dependency_list(self, graph):
+         """Generates a dependency list for a list of graphs."""
+-        import networkx as nx
+-
+         self.procs, _ = topological_sort(graph)
+-        self.depidx = nx.to_scipy_sparse_matrix(
+-            graph, nodelist=self.procs, format="lil"
+-        )
++        self.depidx = _graph_to_lil_matrix(graph, nodelist=self.procs)
+         self.refidx = self.depidx.astype(int)
+         self.proc_done = np.zeros(len(self.procs), dtype=bool)
+         self.proc_pending = np.zeros(len(self.procs), dtype=bool)
+
+From 34ef6c2ff89f327fcf2951b792ef38b6d56f8c4e Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 11:57:54 -0500
+Subject: [PATCH 3/9] FIX: Accept "str" in dipy type (includes "string")
+
+---
+ nipype/interfaces/dipy/base.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/nipype/interfaces/dipy/base.py b/nipype/interfaces/dipy/base.py
+index d8a1c0fbf5..161ed33227 100644
+--- a/nipype/interfaces/dipy/base.py
++++ b/nipype/interfaces/dipy/base.py
+@@ -110,7 +110,7 @@ def convert_to_traits_type(dipy_type, is_file=False):
+     """Convert DIPY type to Traits type."""
+     dipy_type = dipy_type.lower()
+     is_mandatory = bool("optional" not in dipy_type)
+-    if "variable" in dipy_type and "string" in dipy_type:
++    if "variable" in dipy_type and "str" in dipy_type:
+         return traits.ListStr, is_mandatory
+     elif "variable" in dipy_type and "int" in dipy_type:
+         return traits.ListInt, is_mandatory
+@@ -120,9 +120,9 @@ def convert_to_traits_type(dipy_type, is_file=False):
+         return traits.ListBool, is_mandatory
+     elif "variable" in dipy_type and "complex" in dipy_type:
+         return traits.ListComplex, is_mandatory
+-    elif "string" in dipy_type and not is_file:
++    elif "str" in dipy_type and not is_file:
+         return traits.Str, is_mandatory
+-    elif "string" in dipy_type and is_file:
++    elif "str" in dipy_type and is_file:
+         return File, is_mandatory
+     elif "int" in dipy_type:
+         return traits.Int, is_mandatory
+
+From 83c8cf86d6bbb0dc04aa58dbe5119fd864342d9c Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 11:55:34 -0500
+Subject: [PATCH 4/9] MNT: Update requirements from info.py
+
+---
+ requirements.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/requirements.txt b/requirements.txt
+index afec34ebfd..331e2c5def 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -2,8 +2,7 @@
+ click>=6.6.0
+ networkx>=2.0
+ nibabel>=2.1.0
+-numpy>=1.13 ; python_version < "3.7"
+-numpy>=1.15.3 ; python_version >= "3.7"
++numpy>=1.17
+ packaging
+ prov>=1.5.2
+ pydot>=1.2.3
+@@ -11,6 +10,7 @@ python-dateutil>=2.2
+ rdflib>=5.0.0
+ scipy>=0.14
+ simplejson>=3.8.0
+-traits>=4.6,!=5.0
++traits>=4.6,<6.4,!=5.0
+ filelock>=3.0.0
+ etelemetry>=0.2.0
++looseversion
+
+From 24c55a6f48aa658320ff35283b6f91ec38b13a40 Mon Sep 17 00:00:00 2001
+From: Horea Christian <chr@chymera.eu>
+Date: Thu, 26 Jan 2023 02:28:33 -0500
+Subject: [PATCH 5/9] Writing pickles directly as networkx no longer ships
+ write_gpickle
+
+---
+ nipype/interfaces/cmtk/cmtk.py           | 12 ++++++++----
+ nipype/interfaces/cmtk/nbs.py            |  7 +++++--
+ nipype/interfaces/cmtk/nx.py             | 12 ++++++++----
+ nipype/interfaces/cmtk/tests/test_nbs.py |  4 +++-
+ 4 files changed, 24 insertions(+), 11 deletions(-)
+
+diff --git a/nipype/interfaces/cmtk/cmtk.py b/nipype/interfaces/cmtk/cmtk.py
+index 8775a8517e..8df7a1c5ad 100644
+--- a/nipype/interfaces/cmtk/cmtk.py
++++ b/nipype/interfaces/cmtk/cmtk.py
+@@ -226,7 +226,8 @@ def cmat(
+     # Add node information from specified parcellation scheme
+     path, name, ext = split_filename(resolution_network_file)
+     if ext == ".pck":
+-        gp = nx.read_gpickle(resolution_network_file)
++        with open(resolution_network_file, 'rb') as f:
++            gp = pickle.load(f)
+     elif ext == ".graphml":
+         gp = nx.read_graphml(resolution_network_file)
+     else:
+@@ -379,7 +380,8 @@ def cmat(
+                 fibdev.add_edge(u, v, weight=di["fiber_length_std"])
+ 
+     iflogger.info("Writing network as %s", matrix_name)
+-    nx.write_gpickle(G, op.abspath(matrix_name))
++    with open(op.abspath(matrix_name), 'wb') as f:
++        pickle.dump(G, f, pickle.HIGHEST_PROTOCOL)
+ 
+     numfib_mlab = nx.to_numpy_matrix(numfib, dtype=int)
+     numfib_dict = {"number_of_fibers": numfib_mlab}
+@@ -394,7 +396,8 @@ def cmat(
+         path, name, ext = split_filename(matrix_name)
+         intersection_matrix_name = op.abspath(name + "_intersections") + ext
+         iflogger.info("Writing intersection network as %s", intersection_matrix_name)
+-        nx.write_gpickle(I, intersection_matrix_name)
++        with open(intersection_matrix_name, 'wb') as f:
++            pickle.dump(I, f, pickle.HIGHEST_PROTOCOL)
+ 
+     path, name, ext = split_filename(matrix_mat_name)
+     if not ext == ".mat":
+@@ -1070,7 +1073,8 @@ def create_nodes(roi_file, resolution_network_file, out_filename):
+             )
+         )
+         G.nodes[int(u)]["dn_position"] = tuple([xyz[0], xyz[2], -xyz[1]])
+-    nx.write_gpickle(G, out_filename)
++    with open(out_filename, 'wb') as f:
++        pickle.dump(G, f, pickle.HIGHEST_PROTOCOL)
+     return out_filename
+ 
+ 
+diff --git a/nipype/interfaces/cmtk/nbs.py b/nipype/interfaces/cmtk/nbs.py
+index 4e1db9ffb7..57d63897c7 100644
+--- a/nipype/interfaces/cmtk/nbs.py
++++ b/nipype/interfaces/cmtk/nbs.py
+@@ -6,6 +6,7 @@
+ 
+ import numpy as np
+ import networkx as nx
++import pickle
+ 
+ from ... import logging
+ from ..base import (
+@@ -172,12 +173,14 @@ def _run_interface(self, runtime):
+ 
+         path = op.abspath("NBS_Result_" + details)
+         iflogger.info(path)
+-        nx.write_gpickle(nbsgraph, path)
++        with open(path, 'wb') as f:
++            pickle.dump(nbsgraph, f, pickle.HIGHEST_PROTOCOL)
+         iflogger.info("Saving output NBS edge network as %s", path)
+ 
+         pval_path = op.abspath("NBS_P_vals_" + details)
+         iflogger.info(pval_path)
+-        nx.write_gpickle(nbs_pval_graph, pval_path)
++        with open(pval_path, 'wb') as f:
++            pickle.dump(nbs_pval_graph, f, pickle.HIGHEST_PROTOCOL)
+         iflogger.info("Saving output p-value network as %s", pval_path)
+         return runtime
+ 
+diff --git a/nipype/interfaces/cmtk/nx.py b/nipype/interfaces/cmtk/nx.py
+index aaf4bece39..a662eb65c6 100644
+--- a/nipype/interfaces/cmtk/nx.py
++++ b/nipype/interfaces/cmtk/nx.py
+@@ -200,7 +200,8 @@ def average_networks(in_files, ntwk_res_file, group_id):
+ 
+     # Writes the networks and returns the name
+     network_name = group_id + "_average.pck"
+-    nx.write_gpickle(avg_ntwk, op.abspath(network_name))
++    with open(op.abspath(network_name), 'wb') as f:
++        pickle.dump(avg_ntwk, f, pickle.HIGHEST_PROTOCOL)
+     iflogger.info("Saving average network as %s", op.abspath(network_name))
+     avg_ntwk = fix_keys_for_gexf(avg_ntwk)
+     network_name = group_id + "_average.gexf"
+@@ -483,7 +484,8 @@ def _run_interface(self, runtime):
+         for key in list(node_measures.keys()):
+             newntwk = add_node_data(node_measures[key], ntwk)
+             out_file = op.abspath(self._gen_outfilename(key, "pck"))
+-            nx.write_gpickle(newntwk, out_file)
++            with open(out_file, 'wb') as f:
++                pickle.dump(newntwk, f, pickle.HIGHEST_PROTOCOL)
+             nodentwks.append(out_file)
+         if isdefined(self.inputs.out_node_metrics_matlab):
+             node_out_file = op.abspath(self.inputs.out_node_metrics_matlab)
+@@ -497,7 +499,8 @@ def _run_interface(self, runtime):
+         for key in list(edge_measures.keys()):
+             newntwk = add_edge_data(edge_measures[key], ntwk)
+             out_file = op.abspath(self._gen_outfilename(key, "pck"))
+-            nx.write_gpickle(newntwk, out_file)
++            with open(out_file, 'wb') as f:
++                pickle.dump(newntwk, f, pickle.HIGHEST_PROTOCOL)
+             edgentwks.append(out_file)
+         if isdefined(self.inputs.out_edge_metrics_matlab):
+             edge_out_file = op.abspath(self.inputs.out_edge_metrics_matlab)
+@@ -521,7 +524,8 @@ def _run_interface(self, runtime):
+                 out_file = op.abspath(
+                     self._gen_outfilename(self.inputs.out_k_crust, "pck")
+                 )
+-            nx.write_gpickle(ntwk_measures[key], out_file)
++            with open(out_file, 'wb') as f:
++                pickle.dump(ntwk_measures[key], f, pickle.HIGHEST_PROTOCOL)
+             kntwks.append(out_file)
+         gpickled.extend(kntwks)
+ 
+diff --git a/nipype/interfaces/cmtk/tests/test_nbs.py b/nipype/interfaces/cmtk/tests/test_nbs.py
+index 46da939f1a..7a60b407a4 100644
+--- a/nipype/interfaces/cmtk/tests/test_nbs.py
++++ b/nipype/interfaces/cmtk/tests/test_nbs.py
+@@ -2,6 +2,7 @@
+ from ....utils.misc import package_check
+ import numpy as np
+ import networkx as nx
++import pickle
+ import pytest
+ 
+ have_cv = True
+@@ -20,7 +21,8 @@ def creating_graphs(tmpdir):
+         G = nx.from_numpy_matrix(graph)
+         out_file = tmpdir.strpath + graphnames[idx] + ".pck"
+         # Save as pck file
+-        nx.write_gpickle(G, out_file)
++        with open(out_file, 'wb') as f:
++            pickle.dump(G, f, pickle.HIGHEST_PROTOCOL)
+         graphlist.append(out_file)
+     return graphlist
+ 
+
+From b9a8e2000be9ce30a94aca85453d5cf4e32e10ec Mon Sep 17 00:00:00 2001
+From: Horea Christian <chr@chymera.eu>
+Date: Thu, 26 Jan 2023 02:03:39 -0500
+Subject: [PATCH 6/9] updating networkx from_numpy_{matrix,array}
+
+---
+ nipype/interfaces/cmtk/cmtk.py           | 2 +-
+ nipype/interfaces/cmtk/nbs.py            | 4 ++--
+ nipype/interfaces/cmtk/tests/test_nbs.py | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/nipype/interfaces/cmtk/cmtk.py b/nipype/interfaces/cmtk/cmtk.py
+index 8df7a1c5ad..fc730b1166 100644
+--- a/nipype/interfaces/cmtk/cmtk.py
++++ b/nipype/interfaces/cmtk/cmtk.py
+@@ -264,7 +264,7 @@ def cmat(
+         )
+         intersection_matrix = np.matrix(intersection_matrix)
+         I = G.copy()
+-        H = nx.from_numpy_matrix(np.matrix(intersection_matrix))
++        H = nx.from_numpy_array(np.matrix(intersection_matrix))
+         H = nx.relabel_nodes(H, lambda x: x + 1)  # relabel nodes so they start at 1
+         I.add_weighted_edges_from(
+             ((u, v, d["weight"]) for u, v, d in H.edges(data=True))
+diff --git a/nipype/interfaces/cmtk/nbs.py b/nipype/interfaces/cmtk/nbs.py
+index 57d63897c7..b0a8b5df33 100644
+--- a/nipype/interfaces/cmtk/nbs.py
++++ b/nipype/interfaces/cmtk/nbs.py
+@@ -150,8 +150,8 @@ def _run_interface(self, runtime):
+             pADJ[x, y] = PVAL[idx]
+ 
+         # Create networkx graphs from the adjacency matrix
+-        nbsgraph = nx.from_numpy_matrix(ADJ)
+-        nbs_pval_graph = nx.from_numpy_matrix(pADJ)
++        nbsgraph = nx.from_numpy_array(ADJ)
++        nbs_pval_graph = nx.from_numpy_array(pADJ)
+ 
+         # Relabel nodes because they should not start at zero for our convention
+         nbsgraph = nx.relabel_nodes(nbsgraph, lambda x: x + 1)
+diff --git a/nipype/interfaces/cmtk/tests/test_nbs.py b/nipype/interfaces/cmtk/tests/test_nbs.py
+index 7a60b407a4..6323546c1e 100644
+--- a/nipype/interfaces/cmtk/tests/test_nbs.py
++++ b/nipype/interfaces/cmtk/tests/test_nbs.py
+@@ -18,7 +18,7 @@ def creating_graphs(tmpdir):
+     graphnames = ["name" + str(i) for i in range(6)]
+     for idx, name in enumerate(graphnames):
+         graph = np.random.rand(10, 10)
+-        G = nx.from_numpy_matrix(graph)
++        G = nx.from_numpy_array(graph)
+         out_file = tmpdir.strpath + graphnames[idx] + ".pck"
+         # Save as pck file
+         with open(out_file, 'wb') as f:
+
+From 7aa7c5968cf28afed9aca658bca28470afbfeb9f Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 12:45:17 -0500
+Subject: [PATCH 7/9] FIX: Purge nx.to_numpy_matrix
+
+---
+ nipype/interfaces/cmtk/cmtk.py | 8 ++++----
+ nipype/interfaces/cmtk/nbs.py  | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/nipype/interfaces/cmtk/cmtk.py b/nipype/interfaces/cmtk/cmtk.py
+index fc730b1166..00c134fc37 100644
+--- a/nipype/interfaces/cmtk/cmtk.py
++++ b/nipype/interfaces/cmtk/cmtk.py
+@@ -383,13 +383,13 @@ def cmat(
+     with open(op.abspath(matrix_name), 'wb') as f:
+         pickle.dump(G, f, pickle.HIGHEST_PROTOCOL)
+ 
+-    numfib_mlab = nx.to_numpy_matrix(numfib, dtype=int)
++    numfib_mlab = nx.to_numpy_array(numfib, dtype=int)
+     numfib_dict = {"number_of_fibers": numfib_mlab}
+-    fibmean_mlab = nx.to_numpy_matrix(fibmean, dtype=np.float64)
++    fibmean_mlab = nx.to_numpy_array(fibmean, dtype=np.float64)
+     fibmean_dict = {"mean_fiber_length": fibmean_mlab}
+-    fibmedian_mlab = nx.to_numpy_matrix(fibmedian, dtype=np.float64)
++    fibmedian_mlab = nx.to_numpy_array(fibmedian, dtype=np.float64)
+     fibmedian_dict = {"median_fiber_length": fibmedian_mlab}
+-    fibdev_mlab = nx.to_numpy_matrix(fibdev, dtype=np.float64)
++    fibdev_mlab = nx.to_numpy_array(fibdev, dtype=np.float64)
+     fibdev_dict = {"fiber_length_std": fibdev_mlab}
+ 
+     if intersections:
+diff --git a/nipype/interfaces/cmtk/nbs.py b/nipype/interfaces/cmtk/nbs.py
+index b0a8b5df33..2560ed8e3c 100644
+--- a/nipype/interfaces/cmtk/nbs.py
++++ b/nipype/interfaces/cmtk/nbs.py
+@@ -40,7 +40,7 @@ def ntwks_to_matrices(in_files, edge_key):
+                 raise KeyError(
+                     "the graph edges do not have {} attribute".format(edge_key)
+                 )
+-        matrix[:, :, idx] = nx.to_numpy_matrix(graph)  # Retrieve the matrix
++        matrix[:, :, idx] = nx.to_numpy_array(graph)  # Retrieve the matrix
+     return matrix
+ 
+ 
+
+From f20035c303a88fba3e207ac60388397665bb97be Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 12:45:38 -0500
+Subject: [PATCH 8/9] FIX: Purge nx.read_gpickle
+
+---
+ nipype/interfaces/cmtk/convert.py |  9 ++++++++-
+ nipype/interfaces/cmtk/nbs.py     | 11 ++++++++---
+ nipype/interfaces/cmtk/nx.py      | 11 ++++++++---
+ 3 files changed, 24 insertions(+), 7 deletions(-)
+
+diff --git a/nipype/interfaces/cmtk/convert.py b/nipype/interfaces/cmtk/convert.py
+index 321a40fbba..a45daddcd6 100644
+--- a/nipype/interfaces/cmtk/convert.py
++++ b/nipype/interfaces/cmtk/convert.py
+@@ -18,6 +18,13 @@
+ from .base import CFFBaseInterface, have_cfflib
+ 
+ 
++def _read_pickle(fname):
++    import pickle
++
++    with open(fname, 'rb') as f:
++        return pickle.load(f)
++
++
+ class CFFConverterInputSpec(BaseInterfaceInputSpec):
+     graphml_networks = InputMultiPath(
+         File(exists=True), desc="list of graphML networks"
+@@ -135,7 +142,7 @@ def _run_interface(self, runtime):
+             unpickled = []
+             for ntwk in self.inputs.gpickled_networks:
+                 _, ntwk_name, _ = split_filename(ntwk)
+-                unpickled = nx.read_gpickle(ntwk)
++                unpickled = _read_pickle(ntwk)
+                 cnet = cf.CNetwork(name=ntwk_name)
+                 cnet.set_with_nxgraph(unpickled)
+                 a.add_connectome_network(cnet)
+diff --git a/nipype/interfaces/cmtk/nbs.py b/nipype/interfaces/cmtk/nbs.py
+index 2560ed8e3c..a2bd42abee 100644
+--- a/nipype/interfaces/cmtk/nbs.py
++++ b/nipype/interfaces/cmtk/nbs.py
+@@ -24,13 +24,18 @@
+ iflogger = logging.getLogger("nipype.interface")
+ 
+ 
++def _read_pickle(fname):
++    with open(fname, 'rb') as f:
++        return pickle.load(f)
++
++
+ def ntwks_to_matrices(in_files, edge_key):
+-    first = nx.read_gpickle(in_files[0])
++    first = _read_pickle(in_files[0])
+     files = len(in_files)
+     nodes = len(first.nodes())
+     matrix = np.zeros((nodes, nodes, files))
+     for idx, name in enumerate(in_files):
+-        graph = nx.read_gpickle(name)
++        graph = _read_pickle(name)
+         for u, v, d in graph.edges(data=True):
+             try:
+                 graph[u][v]["weight"] = d[
+@@ -162,7 +167,7 @@ def _run_interface(self, runtime):
+         else:
+             node_ntwk_name = self.inputs.in_group1[0]
+ 
+-        node_network = nx.read_gpickle(node_ntwk_name)
++        node_network = _read_pickle(node_ntwk_name)
+         iflogger.info(
+             "Populating node dictionaries with attributes from %s", node_ntwk_name
+         )
+diff --git a/nipype/interfaces/cmtk/nx.py b/nipype/interfaces/cmtk/nx.py
+index a662eb65c6..991ca89dcf 100644
+--- a/nipype/interfaces/cmtk/nx.py
++++ b/nipype/interfaces/cmtk/nx.py
+@@ -24,11 +24,16 @@
+ iflogger = logging.getLogger("nipype.interface")
+ 
+ 
++def _read_pickle(fname):
++    with open(fname, 'rb') as f:
++        return pickle.load(f)
++
++
+ def read_unknown_ntwk(ntwk):
+     if not isinstance(ntwk, nx.classes.graph.Graph):
+         _, _, ext = split_filename(ntwk)
+         if ext == ".pck":
+-            ntwk = nx.read_gpickle(ntwk)
++            ntwk = _read_pickle(ntwk)
+         elif ext == ".graphml":
+             ntwk = nx.read_graphml(ntwk)
+     return ntwk
+@@ -121,7 +126,7 @@ def average_networks(in_files, ntwk_res_file, group_id):
+         counting_ntwk = ntwk.copy()
+         # Sums all the relevant variables
+         for index, subject in enumerate(in_files):
+-            tmp = nx.read_gpickle(subject)
++            tmp = _read_pickle(subject)
+             iflogger.info("File %s has %i edges", subject, tmp.number_of_edges())
+             edges = list(tmp.edges())
+             for edge in edges:
+@@ -461,7 +466,7 @@ def _run_interface(self, runtime):
+         edgentwks = list()
+         kntwks = list()
+         matlab = list()
+-        ntwk = nx.read_gpickle(self.inputs.in_file)
++        ntwk = _read_pickle(self.inputs.in_file)
+ 
+         # Each block computes, writes, and saves a measure
+         # The names are then added to the output .pck file list
+
+From f6bf0af19c044709de5be79a4488dcfd4d08f305 Mon Sep 17 00:00:00 2001
+From: Chris Markiewicz <effigies@gmail.com>
+Date: Sat, 28 Jan 2023 13:23:33 -0500
+Subject: [PATCH 9/9] FIX: Add dtypes to nilearn interface/tests
+
+---
+ nipype/interfaces/nilearn.py            | 2 +-
+ nipype/interfaces/tests/test_nilearn.py | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/nipype/interfaces/nilearn.py b/nipype/interfaces/nilearn.py
+index 053902e2bd..95494e7f5f 100644
+--- a/nipype/interfaces/nilearn.py
++++ b/nipype/interfaces/nilearn.py
+@@ -155,7 +155,7 @@ def _process_inputs(self):
+         if self.inputs.include_global:
+             global_label_data = label_data.dataobj.sum(axis=3)  # sum across all regions
+             global_label_data = (
+-                np.rint(global_label_data).astype(int).clip(0, 1)
++                np.rint(global_label_data).clip(0, 1).astype('u1')
+             )  # binarize
+             global_label_data = self._4d(global_label_data, label_data.affine)
+             global_masker = nl.NiftiLabelsMasker(
+diff --git a/nipype/interfaces/tests/test_nilearn.py b/nipype/interfaces/tests/test_nilearn.py
+index 2066c00768..4f94bbb87b 100644
+--- a/nipype/interfaces/tests/test_nilearn.py
++++ b/nipype/interfaces/tests/test_nilearn.py
+@@ -184,10 +184,11 @@ def assert_expected_output(self, labels, wanted):
+                 [[2, -2, -1, -2, -5], [3, 0, 3, -5, -2]],
+                 [[-4, -2, -2, 1, -2], [3, 1, 4, -3, -2]],
+             ],
+-        ]
++        ],
++        np.int16,
+     )
+ 
+-    fake_label_data = np.array([[[1, 0], [3, 1]], [[2, 0], [1, 3]]])
++    fake_label_data = np.array([[[1, 0], [3, 1]], [[2, 0], [1, 3]]], np.uint8)
+ 
+     fake_equiv_4d_label_data = np.array(
+         [
