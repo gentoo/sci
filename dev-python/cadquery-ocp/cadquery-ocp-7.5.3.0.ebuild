@@ -18,7 +18,9 @@ HOMEPAGE="https://github.com/CadQuery/OCP"
 SRC_URI="https://github.com/CadQuery/OCP/archive/refs/tags/${MY_PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
-KEYWORDS="~amd64 ~x86"
+# Hard masking due to opencascade slot 0/7.5 having been removed from ::gentoo in ff9032e688571dde15e9d36cebedf5a247ded1b8
+#KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 SLOT="0"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
