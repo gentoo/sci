@@ -23,7 +23,9 @@ SRC_URI="https://github.com/CadQuery/cadquery/archive/${MY_COMMIT}.tar.gz -> ${P
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+# Hard masking since package depends on dev-python/cadquery-ocp, which depends on sci-libs/opencascade, which is no longer available from ::gentoo in the required slot.
+KEYWORDS=""
+#KEYWORDS="~amd64 ~x86"
 
 # Dependencies are intentionally listed in "conda/meta.yml" order. Due to its
 # Anaconda focus, "setup.py" currently fails to list dependencies.
