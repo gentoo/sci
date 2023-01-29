@@ -6,11 +6,10 @@ EAPI=8
 HOMEPAGE=https://github.com/CadQuery/OCP
 INHERIT=check-reqs cmake llvm multiprocessing python-single-r1 toolchain-funcs
 IUSE=+python_single_target_python3_10
-KEYWORDS=~amd64 ~x86
 LICENSE=Apache-2.0
 RDEPEND=python_single_target_python3_10? ( >=dev-lang/python-3.10.9:3.10 ) sci-libs/opencascade:0/7.5[json,tbb,vtk] >=sci-libs/vtk-9.0.0[python,python_single_target_python3_10(-)?]
 REQUIRED_USE=^^ ( python_single_target_python3_10 )
 SLOT=0
 SRC_URI=https://github.com/CadQuery/OCP/archive/refs/tags/7.5.3.0.tar.gz -> cadquery-ocp-7.5.3.0.tar.gz
 _eclasses_=check-reqs	5e6dfbd7a8d3238a79f009fae7ac469c	toolchain-funcs	ec8bbc28394c7305b43ea07164bd8f5f	multilib	5ca4e49abed8e3a2f7b56920eadee157	flag-o-matic	69394e25812406faa1f90edaf4969395	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	38c85b725d0467e51954ea921b6c104b	xdg-utils	ac0e315a3688929e34ac75b139e7349a	cmake	449b4785acace35308fe747fc939bde1	llvm	2573b2f563461fd232f4587523e5144b	python-utils-r1	8d5c1c4ecef47fa1b4576a718c620d1d	python-single-r1	75118e916668a74c660a13b0ecb22562
-_md5_=997a0e4554e7181d1de0a93413e9f7b2
+_md5_=3b92c183848cac701973fd1758be80da
