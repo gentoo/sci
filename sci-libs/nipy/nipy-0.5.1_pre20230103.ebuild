@@ -11,7 +11,7 @@ MY_HASH="35a5f5205ba2aa54f1f0524564a6f1f8dafb237f"
 
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="https://nipy.org/"
-SRC_URI="https://github.com/${PN}/${PN}/archive/${MY_HASH}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/archive/${MY_HASH}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

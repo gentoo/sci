@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="https://nipy.org/"
-SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
