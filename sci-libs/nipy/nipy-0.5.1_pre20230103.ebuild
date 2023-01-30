@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,23 +7,26 @@ PYTHON_COMPAT=( python3_10 )
 
 inherit distutils-r1
 
+MY_HASH="35a5f5205ba2aa54f1f0524564a6f1f8dafb237f"
+
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="https://nipy.org/"
-SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/archive/${MY_HASH}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-# No tests, reported upstream: https://github.com/nipy/nipy/issues/493
 
 RDEPEND="
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/sympy[${PYTHON_USEDEP}]
 	sci-libs/nibabel[${PYTHON_USEDEP}]
-	<dev-python/numpy-1.24.0[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
 	"
 DEPEND=""
+
+S="${WORKDIR}/${PN}-${MY_HASH}"
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
