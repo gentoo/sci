@@ -1,0 +1,170 @@
+From 184b4a6711c60d90e073828ddcd3a6d328ee6a5e Mon Sep 17 00:00:00 2001
+From: Oliver Ruebel <oruebel@lbl.gov>
+Date: Wed, 18 Jan 2023 16:05:57 -0800
+Subject: [PATCH 1/5] Fix #817 Check that __open_links exists before trying to
+ clsoe links
+
+---
+ src/hdmf/backends/hdf5/h5tools.py | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/src/hdmf/backends/hdf5/h5tools.py b/src/hdmf/backends/hdf5/h5tools.py
+index ba8946c60..acf2061ad 100644
+--- a/src/hdmf/backends/hdf5/h5tools.py
++++ b/src/hdmf/backends/hdf5/h5tools.py
+@@ -746,10 +746,15 @@ def close_linked_files(self):
+         not, which prevents the linked-to file from being deleted or truncated. Use this method to close all opened,
+         linked-to files.
+         """
+-        for obj in self.__open_links:
+-            if obj:
+-                obj.file.close()
+-        self.__open_links = []
++        # Make sure
++        try:
++            for obj in self.__open_links:
++                if obj:
++                    obj.file.close()
++        except AttributeError:  # In case that self.__open_links does not exist on delete
++            pass
++        finally:
++            self.__open_links = []
+ 
+     @docval({'name': 'builder', 'type': GroupBuilder, 'doc': 'the GroupBuilder object representing the HDF5 file'},
+             {'name': 'link_data', 'type': bool,
+
+From c12ea0851f4632c59ecdd626556bee6ddc22b632 Mon Sep 17 00:00:00 2001
+From: Oliver Ruebel <oruebel@lbl.gov>
+Date: Wed, 18 Jan 2023 17:32:20 -0800
+Subject: [PATCH 2/5] Catch possible missing HDF5IO.__file error
+
+---
+ src/hdmf/backends/hdf5/h5tools.py | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/src/hdmf/backends/hdf5/h5tools.py b/src/hdmf/backends/hdf5/h5tools.py
+index acf2061ad..75044a64a 100644
+--- a/src/hdmf/backends/hdf5/h5tools.py
++++ b/src/hdmf/backends/hdf5/h5tools.py
+@@ -736,8 +736,15 @@ def close(self, close_links=True):
+         """
+         if close_links:
+             self.close_linked_files()
+-        if self.__file is not None:
+-            self.__file.close()
++        try:
++            if self.__file is not None:
++                self.__file.close()
++        except AttributeError:
++            # Do not do anything in case that self._file does not exist. This
++            # may happen in case that an error occurs before HDF5IO has been fully
++            # setup in __init__, e.g,. if a child class such as NWBHDF5IO raises
++            # and error before self.__file has been created
++            warnings.warn("HDF5IO was not fully initialized before close. Missing self.__file")
+ 
+     def close_linked_files(self):
+         """Close all opened, linked-to files.
+@@ -751,8 +758,12 @@ def close_linked_files(self):
+             for obj in self.__open_links:
+                 if obj:
+                     obj.file.close()
+-        except AttributeError:  # In case that self.__open_links does not exist on delete
+-            pass
++        except AttributeError:
++            # Do not do anything in case that self.__open_links does not exist. This
++            # may happen in case that an error occurs before HDF5IO has been fully
++            # setup in __init__, e.g,. if a child class such as NWBHDF5IO raises
++            # and error before self.__open_links has been created.
++            warnings.warn("HDF5IO was not fully initialized before close. Missing self.__open_links.")
+         finally:
+             self.__open_links = []
+ 
+
+From a43e65d13726936aa2ab49169e265a42c5a1be7f Mon Sep 17 00:00:00 2001
+From: Oliver Ruebel <oruebel@lbl.gov>
+Date: Wed, 18 Jan 2023 17:32:55 -0800
+Subject: [PATCH 3/5] Add unit test for case where HDF5IO.close is called
+ before HDF5IO.__init__ is complete
+
+---
+ tests/unit/test_io_hdf5_h5tools.py | 34 ++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/tests/unit/test_io_hdf5_h5tools.py b/tests/unit/test_io_hdf5_h5tools.py
+index 8c03e72f8..0f2f81e31 100644
+--- a/tests/unit/test_io_hdf5_h5tools.py
++++ b/tests/unit/test_io_hdf5_h5tools.py
+@@ -826,6 +826,40 @@ def test_constructor(self):
+             self.assertEqual(io.manager, self.manager)
+             self.assertEqual(io.source, self.path)
+ 
++    def test_delete_with_incomplete_construction_missing_file(self):
++        """
++        Here we test what happens when close is called before HDF5IO.__init__ has
++        bee completed. In this case self.__file is missing
++        """
++        class MyHDF5IO(HDF5IO):
++            def __init__(self):
++                raise ValueError("test error")
++        with self.assertWarnsWith(warn_type=UserWarning,
++                                  exc_msg="HDF5IO was not fully initialized before close. Missing self.__file"):
++            try:
++                with MyHDF5IO() as _:
++                    pass
++            except ValueError:
++                pass
++
++    def test_delete_with_incomplete_construction_missing_open_files(self):
++        """
++        Here we test what happens when close is called before HDF5IO.__init__ has
++        bee completed. In this case self.__open_file is missing
++        """
++
++        class MyHDF5IO(HDF5IO):
++            def __init__(self):
++                raise ValueError("test error")
++
++        with self.assertWarnsWith(warn_type=UserWarning,
++                                  exc_msg="HDF5IO was not fully initialized before close. Missing self.__open_links."):
++            try:
++                with MyHDF5IO() as _:
++                    pass
++            except ValueError:
++                pass
++
+     def test_set_file_mismatch(self):
+         self.file_obj = File(get_temp_filepath(), 'w')
+         err_msg = ("You argued %s as this object's path, but supplied a file with filename: %s"
+
+From f79b3a26bdfaee22b8d24bd3094c93be77e5595f Mon Sep 17 00:00:00 2001
+From: Oliver Ruebel <oruebel@lbl.gov>
+Date: Thu, 19 Jan 2023 13:54:33 -0800
+Subject: [PATCH 5/5] Move init of __file and __openlink up to prevent warning
+ during close
+
+---
+ src/hdmf/backends/hdf5/h5tools.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/hdmf/backends/hdf5/h5tools.py b/src/hdmf/backends/hdf5/h5tools.py
+index 75044a64a..44b9c612c 100644
+--- a/src/hdmf/backends/hdf5/h5tools.py
++++ b/src/hdmf/backends/hdf5/h5tools.py
+@@ -55,6 +55,9 @@ def __init__(self, **kwargs):
+         path, manager, mode, comm, file_obj, driver = popargs('path', 'manager', 'mode', 'comm', 'file', 'driver',
+                                                               kwargs)
+ 
++        self.__open_links = []  # keep track of other files opened from links in this file
++        self.__file = None  # This will be set below, but set to None first in case an error occurs and we need to close
++
+         if path is None and file_obj is None:
+             raise ValueError("You must supply either a path or a file.")
+ 
+@@ -89,7 +92,6 @@ def __init__(self, **kwargs):
+         self.__dci_queue = HDF5IODataChunkIteratorQueue()  # a queue of DataChunkIterators that need to be exhausted
+         ObjectMapper.no_convert(Dataset)
+         self._written_builders = WriteStatusTracker()  # track which builders were written (or read) by this IO object
+-        self.__open_links = []      # keep track of other files opened from links in this file
+ 
+     @property
+     def comm(self):
