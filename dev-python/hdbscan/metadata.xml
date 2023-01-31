@@ -24,5 +24,6 @@
 	</longdescription>
 	<upstream>
 		<remote-id type="github">scikit-learn-contrib/hdbscan</remote-id>
+		<remote-id type="pypi">hdbscan</remote-id>
 	</upstream>
 </pkgmetadata>
