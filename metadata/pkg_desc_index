@@ -105,6 +105,7 @@ dev-python/mkl_fft 1.3.1: NumPy-based Python interface to Intel MKL FFT function
 dev-python/mkl_random 1.2.2: Python interface to Intel Math Kernel Library's random number generation
 dev-python/mkl_umath 0.1.1: Package implementing NumPy's UFuncs based on SVML and MKL VML
 dev-python/multimethod 1.8: Library allowing Python function overloads based on argument types
+dev-python/neo 0.11.0 0.11.1: Read and represent a wide range of neurophysiology file formats in Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.19.0: Data Parallel Extension for Numba
@@ -154,6 +155,7 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.1.1 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
+dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
