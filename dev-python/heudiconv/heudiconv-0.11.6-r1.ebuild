@@ -19,12 +19,13 @@ LICENSE="Apache-2.0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	sci-libs/nibabel[${PYTHON_USEDEP}]
-	sci-libs/pydicom[${PYTHON_USEDEP}]
-	sci-libs/nipype[${PYTHON_USEDEP}]
-	sci-biology/dcmstack[${PYTHON_USEDEP}]
 	dev-python/filelock[${PYTHON_USEDEP}]
 	dev-python/versioningit[${PYTHON_USEDEP}]
+	sci-biology/dcm2niix
+	sci-biology/dcmstack[${PYTHON_USEDEP}]
+	sci-libs/nibabel[${PYTHON_USEDEP}]
+	sci-libs/nipype[${PYTHON_USEDEP}]
+	sci-libs/pydicom[${PYTHON_USEDEP}]
 	"
 BDEPEND="
 	test? (
@@ -35,7 +36,6 @@ BDEPEND="
 # Reported upstream:
 # https://github.com/nipy/heudiconv/issues/627
 EPYTEST_DESELECT=(
-	"heudiconv/tests/test_convert.py::test_b0dwi_for_fmap"
 	"heudiconv/tests/test_dicoms.py::test_embed_dicom_and_nifti_metadata"
 	"heudiconv/tests/test_heuristics.py::test_reproin_largely_smoke"
 	"heudiconv/tests/test_heuristics.py::test_scans_keys_reproin"
