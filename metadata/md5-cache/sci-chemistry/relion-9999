@@ -1,0 +1,15 @@
+BDEPEND=gui? ( x11-libs/fltk ) cuda? ( dev-util/nvidia-cuda-toolkit ) dev-cpp/tbb sci-libs/fftw:3.0 media-libs/tiff virtual/mpi >=dev-util/ninja-1.8.2 >=dev-util/cmake-3.20.5 >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=gui? ( x11-libs/fltk ) cuda? ( dev-util/nvidia-cuda-toolkit ) dev-cpp/tbb sci-libs/fftw:3.0 media-libs/tiff virtual/mpi
+DESCRIPTION=Image-processing software for cryo-electron microscopy
+EAPI=8
+HOMEPAGE=https://www3.mrc-lmb.cam.ac.uk/relion/index.php/Main_Page
+INHERIT=cmake git-r3
+IUSE=+gui cuda
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=gui? ( x11-libs/fltk ) cuda? ( dev-util/nvidia-cuda-toolkit ) dev-cpp/tbb sci-libs/fftw:3.0 media-libs/tiff virtual/mpi sci-chemistry/ctffind
+SLOT=0
+SRC_URI=ftp://ftp.mrc-lmb.cam.ac.uk/pub/dari/class_ranker_0.1.3_torch_1.0.1.pt.tar.gz
+_eclasses_=toolchain-funcs	9a610728b9bcca1919234cceb35a1027	multilib	5ca4e49abed8e3a2f7b56920eadee157	flag-o-matic	69394e25812406faa1f90edaf4969395	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	38c85b725d0467e51954ea921b6c104b	xdg-utils	ac0e315a3688929e34ac75b139e7349a	cmake	449b4785acace35308fe747fc939bde1	git-r3	2347f8fe2d392b2a091191f94be37e6f
+_md5_=18292603ae074bb078cffd742290dab0

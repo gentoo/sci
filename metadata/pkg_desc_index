@@ -431,7 +431,7 @@ sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/pymol-plugins-psico 3.4-r1: Pymol ScrIpt COllection
-sci-chemistry/relion 4.0.0: Image-processing software for cryo-electron microscopy
+sci-chemistry/relion 4.0.0 9999: Image-processing software for cryo-electron microscopy
 sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/ssp 09.11: Secondary structure propensities
 sci-electronics/minipro 0.5: A free and open TL866XX programmer
