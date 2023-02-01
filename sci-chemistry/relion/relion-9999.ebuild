@@ -39,8 +39,6 @@ RDEPEND="
 "
 BDEPEND="${DEPEND}"
 
-PATCHES=( "${FILESDIR}/${PN}-4.0.0-build.patch" )
-
 src_unpack() {
 	git-r3_src_unpack
 	default
