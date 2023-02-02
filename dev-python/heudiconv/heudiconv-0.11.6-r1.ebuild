@@ -33,19 +33,10 @@ BDEPEND="
 	)
 "
 
-# Reported upstream:
-# https://github.com/nipy/heudiconv/issues/627
-EPYTEST_DESELECT=(
-	"heudiconv/tests/test_dicoms.py::test_embed_dicom_and_nifti_metadata"
-	"heudiconv/tests/test_heuristics.py::test_reproin_largely_smoke"
-	"heudiconv/tests/test_heuristics.py::test_scans_keys_reproin"
-	"heudiconv/tests/test_heuristics.py::test_scout_conversion"
-	"heudiconv/tests/test_heuristics.py::test_notop[bidsoptions0]"
-	"heudiconv/tests/test_heuristics.py::test_notop[bidsoptions1]"
-	"heudiconv/tests/test_heuristics.py::test_phoenix_doc_conversion"
-	"heudiconv/tests/test_main.py::test_prepare_for_datalad"
-	"heudiconv/tests/test_main.py::test_cache"
-	"heudiconv/tests/test_regression.py::test_grouping[merged]"
+# Patch sumbitted upstream, check if removal possible in next release:
+# https://github.com/nipy/heudiconv/pull/631
+PATCHES=(
+	"${FILESDIR}/${P}-gitenv.patch"
 )
 
 distutils_enable_tests pytest
