@@ -1,0 +1,21 @@
+From 0c30781248e0c1f2d437e0dfd923a74d7e647411 Mon Sep 17 00:00:00 2001
+From: Horea Christian <chr@chymera.eu>
+Date: Wed, 1 Feb 2023 21:34:58 -0500
+Subject: [PATCH] Setting git author and email in test environment
+
+---
+ heudiconv/tests/conftest.py | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100644 heudiconv/tests/conftest.py
+
+diff --git /dev/null b/heudiconv/tests/conftest.py
+new file mode 100644
+index 00000000..f4f47d16
+--- /dev/null
++++ b/heudiconv/tests/conftest.py
+@@ -0,0 +1,5 @@
++import os
++os.environ["GIT_AUTHOR_EMAIL"] = "maxm@example.com"
++os.environ["GIT_AUTHOR_NAME"] = "Max Mustermann"
++os.environ["GIT_COMMITTER_EMAIL"] = "maxm@example.com"
++os.environ["GIT_COMMITTER_NAME"] = "Max Mustermann"
