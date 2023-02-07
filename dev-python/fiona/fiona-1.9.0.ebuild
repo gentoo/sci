@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="API for reading/writing vector geospatial data"
 HOMEPAGE="https://github.com/Toblerity/fiona"
-SRC_URI="https://github.com/Toblerity/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Toblerity/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -21,7 +21,6 @@ RDEPEND="
 	dev-python/click-plugins[${PYTHON_USEDEP}]
 	dev-python/cligj[${PYTHON_USEDEP}]
 	dev-python/munch[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/certifi[${PYTHON_USEDEP}]
 "
 
