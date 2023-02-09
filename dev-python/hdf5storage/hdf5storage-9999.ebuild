@@ -28,4 +28,4 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-distutils_enable_tests nose
+distutils_enable_tests pytest
