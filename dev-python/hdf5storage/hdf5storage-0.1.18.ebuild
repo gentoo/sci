@@ -14,6 +14,8 @@ KEYWORDS="~amd64 ~x86"
 
 LICENSE="BSD"
 SLOT="0"
+# Gentoo no longer supports nose
+RESTRICT="test"
 
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -21,4 +23,4 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-distutils_enable_tests nose
+#distutils_enable_tests nose
