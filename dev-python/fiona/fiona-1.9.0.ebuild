@@ -3,13 +3,14 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517="setuptools"
 inherit distutils-r1
 
 DESCRIPTION="API for reading/writing vector geospatial data"
 HOMEPAGE="https://github.com/Toblerity/fiona"
-SRC_URI="https://github.com/Toblerity/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Toblerity/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/Fiona-${PV}"
 
 LICENSE="BSD"
 SLOT="0"
@@ -21,7 +22,6 @@ RDEPEND="
 	dev-python/click-plugins[${PYTHON_USEDEP}]
 	dev-python/cligj[${PYTHON_USEDEP}]
 	dev-python/munch[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/certifi[${PYTHON_USEDEP}]
 "
 
@@ -32,8 +32,6 @@ BDEPEND="
 		sci-libs/gdal[geos,sqlite]
 	)
 "
-
-S="${WORKDIR}/Fiona-${PV}"
 
 distutils_enable_tests pytest
 
