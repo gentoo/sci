@@ -347,7 +347,6 @@ sci-biology/pbbam 1.8.1: PacBio modified BAM file format
 sci-biology/pbcopper 1.9.5: Core C++ library for data structures, algorithms, and utilities
 sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
-sci-biology/phusion2 3.0: Whole genome shotgun assembler using phrap (for Sanger-based reads)
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
 sci-biology/polyphen 2.2.2: Predict effect of aminoacid substitution on human protein function
 sci-biology/portrait 1.1: Ab initio ncRNA prediction
@@ -414,7 +413,7 @@ sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.4.0: Correction of electron beam-induced sample motion
 sci-chemistry/chimera-bin 1.14 1.15: An extensible Molecular Modelling System
-sci-chemistry/concoord 2.1 2.1.2: Protein conformations around a known structure based on geometric restrictions
+sci-chemistry/concoord 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/ctffind 4.1.10 4.1.13 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/dl_poly 1.10 5.0.0: a general purpose molecular dynamics simulation package
 sci-chemistry/drawxtl 45 55: Crystal structure drawings from structural data
