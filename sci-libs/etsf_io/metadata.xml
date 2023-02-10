@@ -7,4 +7,8 @@
 	<use>
 		<flag name="pic">Compile Position Independent Code</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">ElectronicStructureLibrary/libetsf_io</remote-id>
+		<remote-id type="launchpad">etsf-io</remote-id>
+	</upstream>
 </pkgmetadata>

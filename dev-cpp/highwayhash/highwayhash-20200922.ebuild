@@ -25,6 +25,6 @@ src_install() {
 		LIBDIR="/usr/$(get_libdir)" \
 		install
 	use static-libs || \
-		rm "${ED}"/${EPREFIX}/usr/$(get_libdir)/lib*.a || die
+		rm "${ED}/usr/$(get_libdir)"/lib*.a || die
 	einstalldocs
 }

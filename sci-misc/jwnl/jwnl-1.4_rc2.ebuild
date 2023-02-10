@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-2 java-utils-2
+inherit java-pkg-2
 
 MY_P=${PN}${PV//.}
 
