@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
 AUTHOR=pingswept
 
@@ -17,13 +18,16 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
+# Still depends on nose
+RESTRICT="test"
+
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pytz[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 "
 
-distutils_enable_tests nose
+distutils_enable_tests pytest
 
 python_prepare_all() {
 	sed \

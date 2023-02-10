@@ -34,14 +34,10 @@
 # Needs bump of PYTHON_COMPAT to at least python3_10
 sci-biology/gffutils
 sci-biology/chiron
-# Reverse deps of above
-dev-python/ripser
+sci-biology/trans-abyss
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Depends on dev-python/nose, needs porting to pytest
 sci-biology/pyfaidx
 sci-biology/gffutils
 sci-biology/RSeQC
-dev-python/hdf5storage
-dev-python/transforms3d
-dev-python/pysolar
