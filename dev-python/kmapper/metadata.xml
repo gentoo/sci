@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="github">scikit-tda/kepler-mapper</remote-id>
+		<remote-id type="pypi">kmapper</remote-id>
 	</upstream>
 </pkgmetadata>

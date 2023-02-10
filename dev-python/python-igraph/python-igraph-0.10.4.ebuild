@@ -3,24 +3,22 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
 
-MY_PN="${PN#python-}"
-MY_P="${MY_PN}-${PV}"
-
 DESCRIPTION="Python interface for igraph"
 HOMEPAGE="https://igraph.org"
-SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
-S="${WORKDIR}/${MY_P}"
+SRC_URI="mirror://pypi/i/igraph/igraph-${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/igraph-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	>=dev-libs/igraph-0.9.0
+	>=dev-libs/igraph-$(ver_cut 1-2)
 	>=dev-python/texttable-1.6.2[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}"
