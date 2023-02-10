@@ -47,11 +47,11 @@ dev-python/arrayfire-python 3.6.20181017 3.6.20181017_p1: Python bindings for Ar
 dev-python/asciitree 0.3.3: ASCII trees in python
 dev-python/asdf 2.8.3 2.14.3: Python library for the Advanced Scientific Data Format
 dev-python/astropy 5.0 5.2.1: Core functionality for performing astrophysics with Python
-dev-python/astropy-healpix 0.6: HEALPix for Astropy
+dev-python/astropy-healpix 0.7: HEALPix for Astropy
 dev-python/astropy-helpers 4.0.1-r1: Helpers for Astropy and Affiliated packages
-dev-python/astropy-sphinx-theme 1.1: The sphinx theme for Astropy and affiliated packages
+dev-python/astropy-sphinx-theme 1.1-r1: The sphinx theme for Astropy and affiliated packages
 dev-python/astroquery 0.4.6: A collection of packages to access online astronomical resources
-dev-python/astroscrappy 1.1.0: Speedy Cosmic Ray Annihilation Package in Python
+dev-python/astroscrappy 1.1.0-r1: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bcbio-gff 0.6.6: Read and write Generic Feature Format (GFF) with Biopython
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
@@ -151,8 +151,8 @@ dev-python/snakemake 5.32.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.1.1: Package for spectroscopic astronomical data
 dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents argparse commands and options
-dev-python/sphinx-astropy 1.7.0: Sphinx extensions and configuration specific to the Astropy project
-dev-python/sphinx-automodapi 0.14.1: Sphinx extension for auto-generating API documentation for entire modules
+dev-python/sphinx-astropy 1.7.0 1.8.0: Sphinx extensions and configuration specific to the Astropy project
+dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings for better clarity
 dev-python/spikeinterface 0.96.1: A Python-based module for creating flexible and robust spike sorting pipelines.
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
