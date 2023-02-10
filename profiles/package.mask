@@ -40,4 +40,3 @@ sci-biology/chiron
 sci-biology/pyfaidx
 sci-biology/gffutils
 sci-biology/RSeQC
-dev-python/transforms3d
