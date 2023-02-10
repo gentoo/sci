@@ -3,20 +3,20 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Python bindings for ERFA"
 HOMEPAGE="https://github.com/liberfa/pyerfa/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 # ImportError: cannot import name 'ufunc' from 'erfa'
-#RESTRICT="test"
+RESTRICT="test"
 
 RDEPEND="
 	sci-astronomy/erfa:0=
@@ -29,4 +29,4 @@ BDEPEND="${RDEPEND}
 	)"
 
 distutils_enable_tests pytest
-distutils_enable_sphinx docs dev-python/sphinx-astropy
+#distutils_enable_sphinx docs dev-python/sphinx-astropy
