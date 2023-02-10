@@ -272,7 +272,7 @@ src_compile() {
 	./compall || die "compall failed"
 
 	# build the ddi TCP/IP socket stuff
-	cd ${S}/"ddi"
+	cd "${S}/ddi"
 	./compddi || die "compddi failed"
 
 	# finally, link it all together
