@@ -3,12 +3,12 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
-DISTUTILS_USE_PEP517="setuptools"
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 optfeature
 
 DESCRIPTION="Python tools for geographic data"
-HOMEPAGE="https://github.com/geopandas/geopandas"
+HOMEPAGE="https://github.com/geopandas/geopandas https://pypi.org/project/geopandas/"
 SRC_URI="https://github.com/geopandas/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
