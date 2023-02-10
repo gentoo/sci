@@ -12,5 +12,6 @@ H.E.S.S, and CTA in primarily Galactic plane survey studies.
 </longdescription>
 	<upstream>
 		<remote-id type="github">gammapy/gammapy</remote-id>
+		<remote-id type="pypi">gammapy</remote-id>
 	</upstream>
 </pkgmetadata>
