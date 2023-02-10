@@ -3,13 +3,13 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..10} )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Generalized World Coordinate System"
 HOMEPAGE="https://gwcs.readthedocs.io/en/latest/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -38,5 +38,5 @@ distutils_enable_tests pytest
 python_test() {
 	# discovers things in docs dir if we do not
 	# explicitly set it to run on the tests dir
-	pytest -vv gwcs/tests || die " Tests failed with ${EPYTHON}"
+	epytest gwcs/tests
 }
