@@ -42,4 +42,3 @@ sci-biology/gffutils
 sci-biology/RSeQC
 dev-python/hdf5storage
 dev-python/transforms3d
-dev-python/pysolar
