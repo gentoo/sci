@@ -34,7 +34,6 @@
 # Needs bump of PYTHON_COMPAT to at least python3_10
 sci-biology/gffutils
 sci-biology/chiron
-dev-python/snakemake
 dev-python/kmapper
 # Reverse deps of above
 dev-python/ripser
