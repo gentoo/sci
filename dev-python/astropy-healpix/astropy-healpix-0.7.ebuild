@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
 
@@ -33,4 +34,4 @@ RDEPEND="
 "
 
 distutils_enable_sphinx docs dev-python/sphinx-astropy dev-python/matplotlib
-distutils_enable_tests --install pytest
+distutils_enable_tests pytest
