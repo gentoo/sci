@@ -138,7 +138,7 @@ dev-python/pytorch-lightning 1.8.6: Lightweight PyTorch wrapper for ML researche
 dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.0.1 2.2.0: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
-dev-python/pyzo 4.11.2: The Python IDE for scientific computing
+dev-python/pyzo 4.12.7: The Python IDE for scientific computing
 dev-python/rasterio 1.2.10-r1: Command line tool and API for geospatial raster data
 dev-python/rasterstats 0.16.0: Python module for summarizing geospatial raster datasets based on vectors
 dev-python/regions 0.4: Astropy affilated package for region handling
@@ -163,7 +163,7 @@ dev-python/typish 1.9.3: Functionality for types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/unyt 2.7.2 2.8.0: package for handling numpy arrays with units
-dev-python/visvis 1.13.0: An object oriented approach to visualization of 1D to 4D data
+dev-python/visvis 1.13.0 1.14.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wraps 0.1.0-r1 0.2.0: Meaningful and safe wrapping types.
 dev-python/xgboost 1.6.2: XGBoost Python Package
 dev-python/xopen 0.9.0 1.0.0 1.0.1 1.1.0: Open compressed files transparently
