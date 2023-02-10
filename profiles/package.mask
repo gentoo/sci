@@ -35,10 +35,7 @@
 sci-biology/gffutils
 sci-biology/chiron
 dev-python/snakemake
-dev-python/specutils
-dev-python/regions
 dev-python/kmapper
-dev-python/gammapy
 # Reverse deps of above
 dev-python/ripser
 
