@@ -10,5 +10,5 @@ LICENSE=Apache-2.0
 RDEPEND=dev-cpp/tbb:= dev-libs/opencl-icd-loader virtual/jdk:17 >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://github.com/oneapi-src/oneDAL/archive/a6bce46565825747fa8c3fdfe2dd6a676ab600a7.tar.gz -> oneDAL-2021.7.1_p20221207.tar.gz https://github.com/oneapi-src/oneDAL/releases/download/Dependencies/mklgpufpk_lnx_2021-11-11.tgz https://github.com/oneapi-src/oneDAL/releases/download/Dependencies/mklfpk_lnx_20210426.tgz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	9a610728b9bcca1919234cceb35a1027	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	429bfd4e8d8e39db5385ba5744f30788	python-any-r1	d2955aaac8daaaa69fcc6dc93ed19f29	java-utils-2	c79d65661a9f4f72b60376c9e4b3dfa1	java-pkg-2	3b09e051fc2045a0f0b9471b87d4f8bd
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	9a610728b9bcca1919234cceb35a1027	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	429bfd4e8d8e39db5385ba5744f30788	python-any-r1	d2955aaac8daaaa69fcc6dc93ed19f29	java-utils-2	7b583ddc65574e378a6cc934f7c114a8	java-pkg-2	3b09e051fc2045a0f0b9471b87d4f8bd
 _md5_=af8d2d56bd9389bc48c57715c4575321
