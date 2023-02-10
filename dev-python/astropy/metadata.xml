@@ -9,4 +9,7 @@
 		<email>sci-astronomy@gentoo.org</email>
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="pypi">astropy</remote-id>
+	</upstream>
 </pkgmetadata>
