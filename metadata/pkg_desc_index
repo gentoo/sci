@@ -86,11 +86,11 @@ dev-python/gmsh_interop 2021.1.1: Interoperability with Gmsh for Python
 dev-python/grabbit 0.2.6: Get grabby with file trees
 dev-python/gwcs 0.16.1 0.18.3-r1: Generalized World Coordinate System
 dev-python/hdbscan 0.8.26 0.8.29: A high performance implementation of HDBSCAN clustering.
-dev-python/hdf5storage 0.1.17 0.1.18 0.1.19 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
+dev-python/hdf5storage 0.1.19 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hdmf 3.3.2-r1 3.4.7 3.5.0_p1 3.5.1: The Hierarchical Data Modeling Framework
 dev-python/heudiconv 0.11.6-r1: Flexible DICOM conversion to structured directory layouts
 dev-python/holoviews 1.14.2 1.15.3: Make data analysis and visualization seamless and simple
-dev-python/hopcroftkarp 1.2.5_p1: python frontend for the fast ripser tda tool
+dev-python/hopcroftkarp 1.2.5_p1-r1: python frontend for the fast ripser tda tool
 dev-python/imageutils 0.3.8: Various utilities for working with images
 dev-python/interleave 0.2.0: Yield from multiple iterators as values become available
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
@@ -129,7 +129,7 @@ dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest n
 dev-python/pynrrd 0.4.2 0.4.3: Simple pure-python module for reading and writing nrrd files
 dev-python/pynwb 2.1.0-r2 2.2.0-r1: A Python API for working with Neurodata stored in the NWB Format
 dev-python/pyout 0.7.1-r1 0.7.2-r1: Terminal styling for structured data
-dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
+dev-python/pysolar 0.10: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2 0.12.1: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.10.4: Python interface for igraph
@@ -144,7 +144,7 @@ dev-python/rasterstats 0.16.0: Python module for summarizing geospatial raster d
 dev-python/regions 0.7: Astropy affilated package for region handling
 dev-python/reproject 0.8: Reproject astronomical images
 dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
-dev-python/ripser 0.6.0: python frontend for the fast ripser tda tool
+dev-python/ripser 0.6.4: python frontend for the fast ripser tda tool
 dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
 dev-python/snuggs 1.4.7: S-expressions for numpy
@@ -156,7 +156,7 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/spikeinterface 0.96.1: A Python-based module for creating flexible and robust spike sorting pipelines.
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.1.1 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
-dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
+dev-python/transforms3d 0.4.1: Functions for 3D coordinate transformations
 dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
