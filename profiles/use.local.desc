@@ -43,8 +43,6 @@ dev-vcs/datalad:metadata - Annotated metadata support for datasets
 dev-vcs/datalad:misc - Dataset publishing support
 dev-vcs/datalad:publish - Dataset publishing support
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
-media-gfx/netgen:logging - Enable logging through dev-libs/spdlog
-media-gfx/netgen:opencascade - Enable OpenCASCADE support
 media-libs/mmg:scotch - Use SCOTCH TOOL for renumbering
 media-libs/mmg:vtk - Use VTK I/O
 net-misc/cernbox-client:dolphin - Install the kde-apps/dolphin extension
