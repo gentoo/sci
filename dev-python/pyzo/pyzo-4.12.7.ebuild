@@ -3,13 +3,14 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 virtualx desktop xdg
 
 DESCRIPTION="The Python IDE for scientific computing"
 HOMEPAGE="https://pyzo.org/"
-SRC_URI="https://github.com/${PN}/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
@@ -17,12 +18,14 @@ KEYWORDS="~amd64"
 
 # For some reason this requires network access
 # Qt: Session management error: Could not open network socket
+PROPERTIES="test_network"
 RESTRICT="test"
 
 RDEPEND="
 	dev-python/QtPy[${PYTHON_USEDEP}]
 "
 BDEPEND="
+	dev-python/packaging[${PYTHON_USEDEP}]
 	test? (
 		dev-python/visvis[${PYTHON_USEDEP}]
 	)
@@ -42,8 +45,8 @@ python_prepare_all() {
 	distutils-r1_python_prepare_all
 }
 
-src_test() {
-	virtx python_foreach_impl python_test
+python_test() {
+	virtx epytest
 }
 
 python_install() {

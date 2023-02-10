@@ -37,7 +37,6 @@ sci-biology/chiron
 dev-python/snakemake
 dev-python/specutils
 dev-python/regions
-dev-python/pyzo
 dev-python/kmapper
 dev-python/photutils
 dev-python/gammapy
