@@ -15,5 +15,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="github">astropy/astropy-helpers</remote-id>
+		<remote-id type="pypi">astropy-helpers</remote-id>
 	</upstream>
 </pkgmetadata>
