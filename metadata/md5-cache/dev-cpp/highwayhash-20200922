@@ -7,4 +7,4 @@ KEYWORDS=~amd64 ~x86
 LICENSE=Apache-2.0
 SLOT=0
 SRC_URI=https://github.com/google/highwayhash/archive/bdd572de8cfa3a1fbef6ba32307c2629db7c4773.tar.gz -> highwayhash-20200922.tar.gz
-_md5_=123033ed1b866470ff1ee2b7d9519795
+_md5_=ce4836d1bdb7f179df88199794546540

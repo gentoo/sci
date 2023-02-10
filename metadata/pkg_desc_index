@@ -156,7 +156,7 @@ dev-python/sphinxcontrib-napoleon 0.7: Allow a different format in dosctrings fo
 dev-python/spikeinterface 0.96.1: A Python-based module for creating flexible and robust spike sorting pipelines.
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/traits 6.1.1 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
-dev-python/transforms3d 0.4.1: Functions for 3D coordinate transformations
+dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/ufl 2019.1.0: Unified Form Language for declaration of for FE discretizations
@@ -529,7 +529,6 @@ sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/qcdloop 2.0.5 2.0.9: An object-oriented one-loop scalar Feynman integrals framework
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/qgraf 3.6.5: qgraf generates Feynman diagrams for various types of QFT models
-sci-physics/quinoa 9999: Adaptive computational fluid dynamics
 sci-physics/rivet 3.1.5 3.1.6: Rivet toolkit (Robust Independent Validation of Experiment and Theory)
 sci-physics/spheno 3.3.8: SPheno stands for S(upersymmetric) Pheno(menology)
 sci-physics/tauola 1.1.8: Tau decay Monte Carlo generator
