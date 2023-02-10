@@ -3,13 +3,13 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Sphinx extension for auto-generating API documentation for entire modules"
-HOMEPAGE="https://astropy.org/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+HOMEPAGE="https://www.astropy.org/"
 
 LICENSE="BSD"
 SLOT="0"
