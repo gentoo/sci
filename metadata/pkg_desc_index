@@ -95,7 +95,7 @@ dev-python/imageutils 0.3.8: Various utilities for working with images
 dev-python/interleave 0.2.0: Yield from multiple iterators as values become available
 dev-python/json_tricks 3.15.5: Extra features for Python's JSON
 dev-python/jupyterlab_launcher 0.13.1: Jupyter Launcher
-dev-python/kmapper 1.4.1 2.0.1: Python implementation of Mapper algorithm for Topological Data Analysis
+dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/llvmlite 0.39.1: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
@@ -132,7 +132,7 @@ dev-python/pyout 0.7.1-r1 0.7.2-r1: Terminal styling for structured data
 dev-python/pysolar 0.8: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2 0.12.1: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
-dev-python/python-igraph 0.9.0 0.9.11: Python interface for igraph
+dev-python/python-igraph 0.10.4: Python interface for igraph
 dev-python/python-vxi11 0.9 9999: Provides a pure Python VXI-11 driver for controlling instruments over Ethernet
 dev-python/pytorch-lightning 1.8.6: Lightweight PyTorch wrapper for ML researchers
 dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
@@ -147,7 +147,6 @@ dev-python/repsep_utils 0.2: Utilities Supporting RepSeP-style documents
 dev-python/ripser 0.6.0: python frontend for the fast ripser tda tool
 dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
-dev-python/snakemake 5.32.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.9.1: Package for spectroscopic astronomical data
 dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents argparse commands and options
