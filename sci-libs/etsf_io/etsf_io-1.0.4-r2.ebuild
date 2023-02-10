@@ -7,7 +7,7 @@ inherit fortran-2
 
 DESCRIPTION="A library of F90 routines to read/write the ETSF file format"
 HOMEPAGE="https://github.com/ElectronicStructureLibrary/libetsf_io"
-SRC_URI="https://launchpad.net/etsf-io/1.0/${PV}/+download/${P}.tar.gz"
+SRC_URI="https://launchpad.net/etsf-io/$(ver_cut 1-2)/${PV}/+download/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
