@@ -5,4 +5,7 @@
 		<email>sci-astronomy@gentoo.org</email>
 		<name>Gentoo Astronomy Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pytest-doctestplus</remote-id>
+	</upstream>
 </pkgmetadata>
