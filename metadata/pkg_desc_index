@@ -76,7 +76,7 @@ dev-python/extension-helpers 0.1: Utilities for building and installing packages
 dev-python/ezdxf 0.16.5: Python interface to DXF
 dev-python/ffc 2019.1.0: Compiler for multilinear forms by generating C or C++ code
 dev-python/fiat 2019.1.0: FInite element Automatic Tabulator
-dev-python/fiona 1.8.21: API for reading/writing vector geospatial data
+dev-python/fiona 1.9.0: API for reading/writing vector geospatial data
 dev-python/fscacher 0.1.4 0.2.0: Cache results of operations on heavy file trees
 dev-python/fslpy 3.10.0: The FSL Python Library
 dev-python/gammapy 0.18.2: A Python package for gamma-ray astronomy
