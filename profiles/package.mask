@@ -38,9 +38,7 @@ dev-python/snakemake
 dev-python/specutils
 dev-python/regions
 dev-python/kmapper
-dev-python/photutils
 dev-python/gammapy
-dev-python/astroquery
 # Reverse deps of above
 dev-python/ripser
 

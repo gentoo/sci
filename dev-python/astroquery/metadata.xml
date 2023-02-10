@@ -12,5 +12,6 @@ to support many services with a uniform API.
 </longdescription>
 	<upstream>
 		<remote-id type="github">astropy/astroquery</remote-id>
+		<remote-id type="pypi">astroquery</remote-id>
 	</upstream>
 </pkgmetadata>
