@@ -34,6 +34,7 @@
 # Needs bump of PYTHON_COMPAT to at least python3_10
 sci-biology/gffutils
 sci-biology/chiron
+sci-biology/trans-abyss
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Depends on dev-python/nose, needs porting to pytest
