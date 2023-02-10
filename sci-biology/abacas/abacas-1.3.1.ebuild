@@ -7,7 +7,7 @@ inherit optfeature
 
 DESCRIPTION="Order and orientate DNA contigs even via 6-frame protein alignments"
 HOMEPAGE="http://abacas.sourceforge.net"
-SRC_URI="https://downloads.sourceforge.net/project/abacas/abacas.1.3.1.pl"
+SRC_URI="https://downloads.sourceforge.net/project/abacas/abacas.${PV}.pl"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"
 
 src_prepare(){
-	cp -p "${DISTDIR}"/abacas.1.3.1.pl abacas.pl || die
+	cp -p "${DISTDIR}"/abacas.${PV}.pl abacas.pl || die
 	sed \
 		-i 's#/usr/local/bin/perl#/usr/bin/perl#' \
 		-i abacas.pl || die

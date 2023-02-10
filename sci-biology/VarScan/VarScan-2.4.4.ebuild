@@ -18,9 +18,11 @@ KEYWORDS="~amd64"
 
 DEPEND="
 	>=virtual/jdk-1.5:*
-	!sci-biology/VarScan-bin"
+"
 RDEPEND=">=virtual/jre-1.5:*
-	sci-biology/bam-readcount"
+	sci-biology/bam-readcount
+	!sci-biology/VarScan-bin
+"
 
 S="${WORKDIR}"/net/sf/varscan
 
