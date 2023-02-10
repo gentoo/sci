@@ -7,7 +7,7 @@ inherit cmake flag-o-matic
 
 DESCRIPTION="Computing information projections iteratively"
 HOMEPAGE="https://github.com/tom111/cipi"
-SRC_URI="https://github.com/tom111/cipi/archive/1.0.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/tom111/cipi/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
