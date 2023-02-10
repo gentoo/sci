@@ -35,7 +35,6 @@
 sci-biology/gffutils
 sci-biology/chiron
 dev-python/snakemake
-dev-python/specutils
 dev-python/kmapper
 # Reverse deps of above
 dev-python/ripser

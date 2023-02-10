@@ -12,5 +12,6 @@ into a class with special handling of 1D spectra.
 </longdescription>
 	<upstream>
 		<remote-id type="github">astropy/specutils</remote-id>
+		<remote-id type="pypi">specutils</remote-id>
 	</upstream>
 </pkgmetadata>
