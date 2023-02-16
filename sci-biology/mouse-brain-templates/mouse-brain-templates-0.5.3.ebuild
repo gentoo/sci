@@ -6,7 +6,7 @@ EAPI=7
 inherit check-reqs
 
 DESCRIPTION="A collection of mouse brain templates in NIfTI format"
-HOMEPAGE="https://github.com/IBT-FMI/mouse-brain-atlases"
+HOMEPAGE="https://github.com/IBT-FMI/mouse-brain-templates_generator"
 SRC_URI="
 	https://resources.chymera.eu/distfiles/${P}.tar.xz
 	hires? ( https://resources.chymera.eu/distfiles/${PN}HD-${PV}.tar.xz )

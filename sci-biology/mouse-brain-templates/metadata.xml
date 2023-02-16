@@ -12,4 +12,7 @@
 	<use>
 		<flag name="hires">Also install high-resolution atlases.</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">IBT-FMI/mouse-brain-templates_generator</remote-id>
+	</upstream>
 </pkgmetadata>
