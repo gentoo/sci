@@ -10,7 +10,7 @@ inherit distutils-r1
 DESCRIPTION="Python library to Filter and sort GFF3 annotations"
 HOMEPAGE="https://github.com/foerstner-lab/gffpandas
 	https://gffpandas.readthedocs.io/en/latest/"
-SRC_URI="https://github.com/foerstner-lab/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/foerstner-lab/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="ISC"
 SLOT="0"
