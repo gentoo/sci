@@ -1,11 +1,11 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 # py3.11 fails to compile:
 # error: ‘CFrame’ does not name a type; did you mean ‘_frame’?
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
 inherit optfeature multiprocessing distutils-r1
 
@@ -32,7 +32,7 @@ BDEPEND="
 "
 
 distutils_enable_tests unittest
-distutils_enable_sphinx docs/source dev-python/numpydoc dev-python/sphinx_rtd_theme
+distutils_enable_sphinx docs/source dev-python/numpydoc dev-python/sphinx-rtd-theme
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.52.0-skip_tests.patch"
