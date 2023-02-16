@@ -8,8 +8,8 @@ inherit check-reqs
 DESCRIPTION="A collection of mouse brain atlases in NIfTI format"
 HOMEPAGE="https://github.com/IBT-FMI/mouse-brain-atlases"
 SRC_URI="
-	http://resources.chymera.eu/distfiles/${P}.tar.xz
-	hires? ( http://resources.chymera.eu/distfiles/${PN}HD-${PV}.tar.xz )
+	https://resources.chymera.eu/distfiles/${P}.tar.xz
+	hires? ( https://resources.chymera.eu/distfiles/${PN}HD-${PV}.tar.xz )
 	"
 
 LICENSE="fairuse"
