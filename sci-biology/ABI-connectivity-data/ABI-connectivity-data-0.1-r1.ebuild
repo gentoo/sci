@@ -1,13 +1,13 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit check-reqs
 
 DESCRIPTION="Connectivity data from the Allen Mouse Brain data portal"
 HOMEPAGE="https://github.com/IBT-FMI/ABI-connectivity-data_generator"
-SRC_URI="http://resources.chymera.eu/distfiles/${P}.tar.xz"
+SRC_URI="https://resources.chymera.eu/distfiles/${P}.tar.xz"
 
 LICENSE="fairuse"
 SLOT="0"
