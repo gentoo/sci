@@ -1,12 +1,12 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit check-reqs
 
 DESCRIPTION="BIDS data files released with the DRLFOM publication"
-HOMEPAGE="http://www.aic-fmi.ethz.ch/"
+HOMEPAGE="http://chymera.eu/docs/focus/open-science/"
 SRC_URI="
 	https://zenodo.org/record/3598424/files/${P}.tar.xz
 "
