@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -31,7 +31,7 @@ BDEPEND="
 "
 
 distutils_enable_tests unittest
-distutils_enable_sphinx docs/source dev-python/numpydoc dev-python/sphinx_rtd_theme
+distutils_enable_sphinx docs/source dev-python/numpydoc dev-python/sphinx-rtd-theme
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.52.0-skip_tests.patch"
