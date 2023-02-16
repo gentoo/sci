@@ -8,7 +8,7 @@ inherit check-reqs
 DESCRIPTION="Gene expression data form the Allen Mouse Brain data portal"
 HOMEPAGE="https://github.com/IBT-FMI/ABI-expression-data_generator"
 SRC_URI="
-	http://resources.chymera.eu/distfiles/${P}.tar.xz
+	https://resources.chymera.eu/distfiles/${P}.tar.xz
 	"
 
 LICENSE="fairuse"

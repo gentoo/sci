@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,10 +6,10 @@ EAPI=7
 inherit check-reqs
 
 DESCRIPTION="A collection of mouse brain templates in NIfTI format"
-HOMEPAGE="https://github.com/IBT-FMI/mouse-brain-atlases"
+HOMEPAGE="https://github.com/IBT-FMI/mouse-brain-templates_generator"
 SRC_URI="
-	http://resources.chymera.eu/distfiles/${P}.tar.xz
-	hires? ( http://resources.chymera.eu/distfiles/${PN}HD-${PV}.tar.xz )
+	https://resources.chymera.eu/distfiles/${P}.tar.xz
+	hires? ( https://resources.chymera.eu/distfiles/${PN}HD-${PV}.tar.xz )
 	"
 
 LICENSE="fairuse"

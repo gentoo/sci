@@ -9,7 +9,7 @@ PYTHON_REQ_USE="threads(+),sqlite"
 inherit distutils-r1
 
 DESCRIPTION="Neuroimaging in Python: Pipelines and Interfaces"
-HOMEPAGE="http://nipy.sourceforge.net/nipype/"
+HOMEPAGE="https://nipype.readthedocs.io/"
 SRC_URI="https://github.com/nipy/nipype/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
