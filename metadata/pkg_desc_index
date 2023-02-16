@@ -321,7 +321,6 @@ sci-biology/minimap2 2.24: splice-aware sequence aligner with SSE2 and SSE4.1
 sci-biology/mip-scaffolder 0.6: Scaffold contigs using ABI Solid or Illumina mate pair info
 sci-biology/miranda 3.3a: An algorithm for finding genomic targets for microRNAs
 sci-biology/mmseqs2 13.0-r1: Fast and sensitive sequence search and clustering
-sci-biology/mouse-brain-atlases 0.5.3: A collection of mouse brain atlases in NIfTI format
 sci-biology/mouse-brain-templates 0.5.3: A collection of mouse brain templates in NIfTI format
 sci-biology/mreps 2.6.01: Identification of serial/tandem repeats in DNA sequences
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
