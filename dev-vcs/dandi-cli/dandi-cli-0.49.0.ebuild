@@ -13,7 +13,6 @@ MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="DANDI command line client to facilitate common operations"
 HOMEPAGE="https://github.com/dandi/dandi-cli"
-#SRC_URI="https://github.com/dandi/dandi-cli/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="Apache-2.0"
@@ -22,10 +21,11 @@ KEYWORDS="~amd64"
 IUSE="test etelemetry"
 
 RDEPEND="
-	dev-python/appdirs[${PYTHON_USEDEP}]
-	dev-python/click[${PYTHON_USEDEP}]
-	dev-python/click-didyoumean[${PYTHON_USEDEP}]
 	=dev-python/dandi-schema-0.7*[${PYTHON_USEDEP}]
+	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
+	dev-python/appdirs[${PYTHON_USEDEP}]
+	dev-python/click-didyoumean[${PYTHON_USEDEP}]
+	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/fasteners[${PYTHON_USEDEP}]
 	dev-python/fscacher[${PYTHON_USEDEP}]
 	dev-python/humanize[${PYTHON_USEDEP}]
@@ -36,7 +36,6 @@ RDEPEND="
 	dev-python/nwbinspector[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pycryptodome[${PYTHON_USEDEP}]
-	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
 	dev-python/pyout[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
@@ -46,6 +45,7 @@ RDEPEND="
 	dev-python/tenacity[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	dev-python/zarr[${PYTHON_USEDEP}]
+	dev-python/zarr_checksum[${PYTHON_USEDEP}]
 "
 
 BDEPEND="
