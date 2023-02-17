@@ -7,7 +7,7 @@ inherit check-reqs
 
 DESCRIPTION="A collection of rat brain templates in NIfTI format"
 HOMEPAGE="https://gitlab.com/FOS-FMI/rat-brain-templates_generator"
-SRC_URI="http://resources.chymera.eu/distfiles/${P}.tar.xz"
+SRC_URI="https://resources.chymera.eu/distfiles/${P}.tar.xz"
 
 LICENSE="fairuse"
 SLOT="0"
