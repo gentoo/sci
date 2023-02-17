@@ -14,4 +14,7 @@
 		format oriented in the standard RAS space, with origin at bregma for
 		use in magnetic resonance rat brain imaging.
 	</longdescription>
+	<upstream>
+		<remote-id type="gitlab">FOS-FMI/rat-brain-templates_generator</remote-id>
+	</upstream>
 </pkgmetadata>
