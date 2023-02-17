@@ -25,7 +25,7 @@ RDEPEND="dicom? ( sci-biology/dcm2niix )"
 DEPEND="dev-lang/fpc
 	>=dev-lang/lazarus-1.6.2"
 
-S="${WORKDIR}/MRIcroGL12-${PV}"
+S="${WORKDIR}/MRIcroGL-${PV}"
 
 src_compile() {
 	sed -i -e "s:Metal-Demos/common:Metal-Demos-${DEMOS_HASH}/common:g" MRIcroGL_NoPython.lpi || die
