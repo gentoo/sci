@@ -4,9 +4,7 @@
 EAPI=7
 
 DESCRIPTION="Codon usage bias (composition) and its statistical significance"
-HOMEPAGE="
-	https://bigd.big.ac.cn/tools/cat
-	http://cbb.big.ac.cn/Software"
+HOMEPAGE="https://bigd.big.ac.cn/tools/cat"
 SRC_URI="ftp://download.big.ac.cn/bigd/tools/${PN}${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
