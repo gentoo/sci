@@ -6,7 +6,7 @@ EAPI=7
 inherit perl-module
 
 DESCRIPTION="Predict Bacterial and Archaeal rRNA genes and output in GFF3 format"
-HOMEPAGE="https://vicbioinformatics.com/software.barrnap.shtml"
+HOMEPAGE="https://github.com/tseemann/barrnap"
 SRC_URI="https://github.com/tseemann/barrnap/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
