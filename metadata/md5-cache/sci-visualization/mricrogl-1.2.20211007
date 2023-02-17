@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile install
+DEPEND=dev-lang/fpc dev-lang/lazarus
+DESCRIPTION=A simple medical imaging visualization tool
+EAPI=8
+HOMEPAGE=https://github.com/neurolabusc/MRIcroGL
+INHERIT=desktop
+IUSE=dicom python
+KEYWORDS=~amd64 ~x86
+LICENSE=BSD
+RDEPEND=dicom? ( sci-biology/dcm2niix )
+SLOT=0
+SRC_URI=https://github.com/rordenlab/MRIcroGL/archive/v1.2.20211007.tar.gz -> mricrogl-1.2.20211007.tar.gz
+_eclasses_=desktop	7eb20ad915a0a318176d51bc2508ff5c
+_md5_=b59cda9af76425204007ce5119c4bdb2

@@ -535,7 +535,7 @@ sci-visualization/forge 1.0.5 1.0.7 9999: High Performance Visualizations for Ar
 sci-visualization/fsleyes 1.5.0: The new FSL image viewer, released with FSL 5.0.10
 sci-visualization/fsleyes-props 1.8.2: Object attribute management for the FSLeyes viewer
 sci-visualization/fsleyes-widgets 0.12.3: GUI widgets and utilities for the FSLeyes viewer
-sci-visualization/mricrogl 1.2.20200331: A simple medical imaging visualization tool
+sci-visualization/mricrogl 1.2.20211007 1.2.20220720: A simple medical imaging visualization tool
 sci-visualization/surf-ice 1.0.20201102 9999: A surface rendering tool supporting neuroimaging data
 sys-cluster/easybuild 4.6.2: EasyBuild is a software build and installation framework.
 sys-cluster/easybuild-easyblocks 4.6.2: Provides a collection of easyblocks for EasyBuild.
