@@ -9,13 +9,8 @@
 		<email>sci@gentoo.org</email>
 		<name>Gentoo Science Project</name>
 	</maintainer>
-	<longdescription lang="en">
-		The num2words library converts numbers like 42 to words like forty-two.
-		It supports multiple languages (see the list below for full list of
-		languages) and can even generate ordinal numbers like forty-second
-		(although this last feature is a bit buggy for some languages at the moment).
-	</longdescription>
 	<upstream>
-		<remote-id type="github">savoirefairelinux/num2words</remote-id>
+		<remote-id type="github">amitt001/delegator</remote-id>
+		<remote-id type="pypi">delegator.py</remote-id>
 	</upstream>
 </pkgmetadata>

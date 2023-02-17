@@ -6,7 +6,7 @@ EAPI=7
 inherit check-reqs
 
 DESCRIPTION="BIDS data files released with the OPFVTA publication"
-HOMEPAGE="http://www.aic-fmi.ethz.ch/"
+HOMEPAGE="http://chymera.eu/docs/focus/open-science/"
 SRC_URI="
 	https://zenodo.org/record/3575149/files/${P}.tar.xz
 	"
