@@ -174,7 +174,7 @@ dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-util/waf 2.0.21: Piece of software used to help building software projects
-dev-vcs/dandi-cli 0.39.4 0.45.1 0.46.6 0.48.0: DANDI command line client to facilitate common operations
+dev-vcs/dandi-cli 0.46.6 0.48.0 0.49.0: DANDI command line client to facilitate common operations
 dev-vcs/datalad 0.18.0 0.18.1: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
