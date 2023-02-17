@@ -1,11 +1,11 @@
 DEFINED_PHASES=install pretend setup
 DESCRIPTION=BIDS data files released with the OPFVTA publication
 EAPI=7
-HOMEPAGE=http://www.aic-fmi.ethz.ch/
+HOMEPAGE=http://chymera.eu/docs/focus/open-science/
 INHERIT=check-reqs
 KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
 LICENSE=CC-BY-SA-4.0
 SLOT=0
 SRC_URI=https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz
 _eclasses_=check-reqs	5e6dfbd7a8d3238a79f009fae7ac469c
-_md5_=daa66e640fe57344a75911f7b00a822e
+_md5_=97732d15a3db8d1489f54bb3173fa7a1
