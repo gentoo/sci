@@ -6,7 +6,7 @@ EAPI=7
 inherit optfeature
 
 DESCRIPTION="Order and orientate DNA contigs even via 6-frame protein alignments"
-HOMEPAGE="http://abacas.sourceforge.net"
+HOMEPAGE="https://abacas.sourceforge.net"
 SRC_URI="https://downloads.sourceforge.net/project/abacas/abacas.${PV}.pl"
 
 LICENSE="GPL-2+"
