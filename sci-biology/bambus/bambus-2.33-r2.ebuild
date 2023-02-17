@@ -11,7 +11,7 @@ HOMEPAGE="
 	https://sourceforge.net/projects/amos/files/bambus"
 SRC_URI="
 	https://sourceforge.net/projects/amos/files/bambus/${PV}/${P}.tar.gz
-	http://mira-assembler.sourceforge.net/docs/scaffolding_MIRA_BAMBUS.pdf" # no https
+	https://mira-assembler.sourceforge.net/docs/scaffolding_MIRA_BAMBUS.pdf"
 
 LICENSE="Artistic"
 SLOT="0"
