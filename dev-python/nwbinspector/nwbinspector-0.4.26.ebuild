@@ -29,11 +29,3 @@ RDEPEND="
 BDEPEND=""
 
 distutils_enable_tests pytest
-
-python_test() {
-	local EPYTEST_IGNORE=(
-		tests/test_inspector.py
-		tests/unit_tests/test_time_series.py
-	)
-	epytest
-}
