@@ -6,9 +6,9 @@ EAPI=7
 inherit toolchain-funcs
 
 DESCRIPTION="Multivariate statistical analysis of codon and amino acid usage"
-HOMEPAGE="http://codonw.sourceforge.net/"
+HOMEPAGE="https://codonw.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/CodonWSourceCode_${PV//./_}.tar.gz
-		http://codonw.sourceforge.net/JohnPedenThesisPressOpt_water.pdf"
+		https://codonw.sourceforge.net/JohnPedenThesisPressOpt_water.pdf"
 
 LICENSE="GPL-2"
 SLOT="0"
