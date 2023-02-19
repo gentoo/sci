@@ -11,5 +11,5 @@ LICENSE=BSD
 RDEPEND=virtual/mpi[fortran] virtual/fortran
 SLOT=0
 SRC_URI=https://gitlab.com/DL_POLY_Classic/dl_poly/-/archive/RELEASE-1-10/dl_poly-RELEASE-1-10.tar.gz -> dl_poly-1.10.tar.gz
-_eclasses_=toolchain-funcs	cf009a3ed4e5bef503e7a9f215791a78	multilib	5ca4e49abed8e3a2f7b56920eadee157	fortran-2	72d28c6872beb1e7cb99684b0ae4715d
+_eclasses_=toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	multilib	5ca4e49abed8e3a2f7b56920eadee157	fortran-2	72d28c6872beb1e7cb99684b0ae4715d
 _md5_=b439ecdfdeb81c75368b574eb920db0a

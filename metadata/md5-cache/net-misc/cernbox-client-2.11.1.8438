@@ -13,5 +13,5 @@ RDEPEND=>=dev-db/sqlite-3.4:3 dev-libs/qtkeychain[gnome-keyring?,qt5(+)] dev-qt/
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://download.owncloud.com/desktop/ownCloud/stable/2.11.1.8438/source/ownCloud-2.11.1.8438.tar.xz https://cernbox.cern.ch/cernbox/doc/Linux/repo/CentOS_7/src/cernbox-client-2.9.2-6339.src.rpm https://cern.ch/ofreyerm/gentoo/cernbox/cernbox-client-2.9.2-6339.src.rpm
-_eclasses_=toolchain-funcs	cf009a3ed4e5bef503e7a9f215791a78	multilib	5ca4e49abed8e3a2f7b56920eadee157	flag-o-matic	69394e25812406faa1f90edaf4969395	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	38c85b725d0467e51954ea921b6c104b	xdg-utils	ac0e315a3688929e34ac75b139e7349a	cmake	449b4785acace35308fe747fc939bde1	estack	055c42df72f76a4f45ec92b35e83cd56	rpm	f73e907469f65e52192f110dec72dce0	xdg	6024fbc93167fad782e2032933654857
+_eclasses_=toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	multilib	5ca4e49abed8e3a2f7b56920eadee157	flag-o-matic	69394e25812406faa1f90edaf4969395	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	38c85b725d0467e51954ea921b6c104b	xdg-utils	ac0e315a3688929e34ac75b139e7349a	cmake	449b4785acace35308fe747fc939bde1	estack	055c42df72f76a4f45ec92b35e83cd56	rpm	f73e907469f65e52192f110dec72dce0	xdg	6024fbc93167fad782e2032933654857
 _md5_=dfaa39ce2e38e95577f7d06f86d42799
