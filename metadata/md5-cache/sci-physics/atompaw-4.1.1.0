@@ -11,5 +11,5 @@ LICENSE=GPL-2
 RDEPEND=virtual/blas virtual/lapack libxc? ( >=sci-libs/libxc-2.0.1[fortran] ) virtual/fortran
 SLOT=0
 SRC_URI=http://users.wfu.edu/natalie/papers/pwpaw/atompaw-4.1.1.0.tar.gz http://users.wfu.edu/natalie/papers/pwpaw/atompaw.pdf http://users.wfu.edu/natalie/papers/pwpaw/notes/atompaw/atompawEqns.pdf
-_eclasses_=toolchain-funcs	9a610728b9bcca1919234cceb35a1027	multilib	5ca4e49abed8e3a2f7b56920eadee157	fortran-2	72d28c6872beb1e7cb99684b0ae4715d
+_eclasses_=toolchain-funcs	cf009a3ed4e5bef503e7a9f215791a78	multilib	5ca4e49abed8e3a2f7b56920eadee157	fortran-2	72d28c6872beb1e7cb99684b0ae4715d
 _md5_=ed5f5be77660c416d1f974227b6a8377
