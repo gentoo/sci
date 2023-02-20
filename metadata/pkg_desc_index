@@ -97,6 +97,7 @@ dev-python/json_tricks 3.15.5: Extra features for Python's JSON
 dev-python/jupyterlab_launcher 0.13.1: Jupyter Launcher
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
+dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
 dev-python/llvmlite 0.39.1: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/looseversion 1.0.2 1.0.3: A backwards/forwards-compatible fork of distutils' LooseVersion
@@ -361,6 +362,7 @@ sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each o
 sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
+sci-biology/roiextractors 0.5.1: Optical imaging data handling from several file formats
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/ruffus 2.8.4: Python module to support computational pipelines
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
