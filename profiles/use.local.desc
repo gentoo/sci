@@ -76,6 +76,9 @@ sci-biology/ncbi-tools++:sablotron - Undocumented USE
 sci-biology/ncbi-tools++:xalan - Undocumented USE
 sci-biology/ncbi-tools++:xerces - Undocumented USE
 sci-biology/ncbi-tools++:xslt - Undocumented USE
+sci-biology/neuroconv:ecephys - Extracellular electrophysiology interfaces
+sci-biology/neuroconv:icephys - Intracellular electrophysiology interfaces
+sci-biology/neuroconv:ophys - Optical physiology interfaces
 sci-biology/samri:atlases - Include dependency on compatible anatomica atlases.
 sci-biology/samri:labbookdb - Pipe data from LabbookDB databases.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
