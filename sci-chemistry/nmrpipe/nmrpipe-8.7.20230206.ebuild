@@ -3,7 +3,7 @@
 
 # Versioning is output of nmrPipe -help
 
-EAPI=7
+EAPI=8
 
 inherit virtualx
 
