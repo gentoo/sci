@@ -426,7 +426,7 @@ sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to 
 sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
 sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
-sci-chemistry/nmrpipe 8.7.20200827: Spectral visualisation, analysis and Fourier processing
+sci-chemistry/nmrpipe 8.7.20230206: Spectral visualisation, analysis and Fourier processing
 sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
