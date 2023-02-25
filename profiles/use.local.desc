@@ -154,3 +154,4 @@ sys-cluster/modules:compat - Build Modules version 3 compat support
 sys-devel/DPC++:cuda - use the cuda backend
 sys-devel/DPC++:esimd_emulator - enable ESIMD CPU emulation
 sys-devel/DPC++:hip - use the HIP backend
+sys-devel/oneDPL:esimd_emulator - enable ESIMD CPU emulation
