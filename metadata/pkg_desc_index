@@ -478,7 +478,7 @@ sci-libs/nibabel 3.2.1 4.0.0 5.0.0: Access a cacophony of neuro-imaging file for
 sci-libs/nipy 0.4.2 0.5.0-r1 0.5.1_pre20230103: Neuroimaging tools for Python
 sci-libs/nipype 1.5.0 1.8.4: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/oneDAL 2021.7.1_p20221207: oneAPI Data Analytics Library
-sci-libs/oneMKL 0.2_p20221201: oneAPI Math Kernel Library Interfaces
+sci-libs/oneMKL 0.2_p20221201 0.2_p20230221: oneAPI Math Kernel Library Interfaces
 sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.8_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.1: Assist the transition from PGPlot to PLplot in Fortran programs
