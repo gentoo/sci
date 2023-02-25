@@ -51,10 +51,15 @@ src_configure() {
 
 src_compile() {
 	cmake_src_compile
+	cmake -P cmake/scripts/generate_config.cmake || die
 	# docs_compile
 }
 
 src_install() {
 	einstalldocs
 	doheader -r "${S}/include/oneapi"
+	insinto "/usr/$(get_libdir)/cmake/oneDPL/"
+	doins output/*.cmake
+	insinto "/usr/$(get_libdir)/pkgconfig/"
+	doins output/pkgconfig-lin/*.pc
 }
