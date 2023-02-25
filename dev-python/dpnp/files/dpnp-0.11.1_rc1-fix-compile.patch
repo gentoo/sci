@@ -1,0 +1,71 @@
+diff --git a/dpnp/backend/CMakeLists.txt b/dpnp/backend/CMakeLists.txt
+index baee709..3202662 100644
+--- a/dpnp/backend/CMakeLists.txt
++++ b/dpnp/backend/CMakeLists.txt
+@@ -99,30 +99,6 @@ string(CONCAT COMMON_LINK_FLAGS
+   "-fsycl "
+   "-fsycl-device-code-split=per_kernel "
+ )
+-if(UNIX)
+-  set(CMAKE_CXX_COMPILER "icpx")
+-  # add_compile_options(-fPIC)
+-elseif(WIN32)
+-  set(CMAKE_CXX_COMPILER "icx")
+-  # set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld-link")
+-  # set(CMAKE_LINKER "lld-link")
+-  # include (Platform/Windows-Clang)
+-  # set(CMAKE_LINKER "dpcpp")
+-  # set(CMAKE_AR "llvm-ar")
+-  # set(CMAKE_RANLIB "llvm-ranlib")
+-  # set(CMAKE_CXX_FLAGS "/EHsc")
+-
+-  string(APPEND COMMON_COMPILE_FLAGS
+-    "/EHsc "
+-#    "/Ox "
+-#    "/W3 "
+-#    "/GL "
+-#    "/DNDEBUG "
+-#    "/MD "
+-  )
+-else()
+-  message(FATAL_ERROR "Unsupported system ${CMAKE_SYSTEM} in compiler selection case")
+-endif()
+ 
+ # set language version
+ set(CMAKE_CXX_STANDARD 17)
+@@ -334,6 +310,7 @@ endif()
+ # set_target_properties(dpnp_backend_c PROPERTIES VERSION ${DPNP_VERSION} SOVERSION ${DPNP_API_VERSION})
+ 
+ install(TARGETS dpnp_backend_c
++        DESTINATION ${DPNP_INSTALL_PREFIX}
+         PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+         )
+ 
+diff --git a/utils/command_build_clib.py b/utils/command_build_clib.py
+index d16bab3..7fd2afa 100644
+--- a/utils/command_build_clib.py
++++ b/utils/command_build_clib.py
+@@ -61,8 +61,8 @@ else:
+ Set compiler for the project
+ """
+ # default variables (for Linux)
+-_project_compiler = "icpx"
+-_project_linker = "icpx"
++_project_compiler = os.environ.get("CXX")
++_project_linker = os.environ.get("CXX")
+ _project_cmplr_flag_sycl_devel = ["-fsycl-device-code-split=per_kernel", "-fno-approx-func", "-fno-finite-math-only"]
+ _project_cmplr_flag_sycl = ["-fsycl"]
+ _project_cmplr_flag_stdcpp_static = []  # This brakes TBB ["-static-libstdc++", "-static-libgcc"]
+diff --git a/utils/command_build_cmake_clib.py b/utils/command_build_cmake_clib.py
+index 0ef0e24..84f2469 100644
+--- a/utils/command_build_cmake_clib.py
++++ b/utils/command_build_cmake_clib.py
+@@ -112,7 +112,7 @@ class custom_build_cmake_clib(build_clib.build_clib):
+             "-S" + backend_directory,
+             "-B" + abs_build_temp_path,
+             "-DCMAKE_BUILD_TYPE=" + config,
+-            "-DDPNP_INSTALL_PREFIX=" + install_directory.replace(os.sep, "/"),  # adjust to cmake requirenments
++            "-DDPNP_INSTALL_PREFIX=" + os.environ.get('BUILD_DIR_LIBS'),  # adjust to cmake requirenments
+             "-DDPNP_INSTALL_STRUCTURED=OFF",
+             # "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + install_directory,
+             "-DDPNP_SYCL_QUEUE_MGR_ENABLE:BOOL=" + _dpctrl_exists,
