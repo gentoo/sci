@@ -8,4 +8,7 @@
 	<upstream>
 		<remote-id type="github">oneapi-src/oneDPL</remote-id>
 	</upstream>
+	<use>
+		<flag name="esimd_emulator">enable ESIMD CPU emulation</flag>
+	</use>
 </pkgmetadata>
