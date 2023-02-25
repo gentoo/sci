@@ -451,7 +451,7 @@ sci-libs/ciftilib 1.6.0: C++ Library for reading and writing CIFTI-2 and CIFTI-1
 sci-libs/clfft 2.12.2-r1 9999: Library containing FFT functions written in OpenCL
 sci-libs/clrng 1.0.0_beta_p20160304 9999: A library for uniform random number generation in OpenCL
 sci-libs/cs-rosetta-db 2.01.2019.06: System for chemical shifts based protein structure prediction using ROSETTA
-sci-libs/daal4py 2021.7.1 2021.7.1_p20221209: Python API to the oneAPI Data Analytics Library
+sci-libs/daal4py 2021.7.1 2021.7.1_p20221209 2023.0.2: Python API to the oneAPI Data Analytics Library
 sci-libs/ensmallen 2.14.2 2.15.0 2.15.1 2.16.0 2.16.2: header only C++ library for numerical optimization
 sci-libs/etsf_io 1.0.4-r2: A library of F90 routines to read/write the ETSF file format
 sci-libs/fast5 0.6.5: C++ header-only library for reading Oxford Nanopore Fast5 files
@@ -485,7 +485,7 @@ sci-libs/pg2plplot 5.13.1: Assist the transition from PGPlot to PLplot in Fortra
 sci-libs/pybids 0.6.5 0.10.2 0.12.4: Python package to access BIDS datasets
 sci-libs/pydicom 1.1.0 1.4.2 2.2.2: A pure python package for parsing DICOM files
 sci-libs/rdkit 2021.09.4: Cheminformatics and machine-learning software written in C++ and Python
-sci-libs/scikit-learn-intelx 2021.7.1: Seamless way to speed up your Scikit-learn application
+sci-libs/scikit-learn-intelx 2021.7.1 2023.0.2: Seamless way to speed up your Scikit-learn application
 sci-libs/scikits_video 1.1.11_p20200115: Video processing in Python
 sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education and interpreted languages.
 sci-libs/spams-python 2.6.2: Optimization toolbox for solving various sparse estimation problems
