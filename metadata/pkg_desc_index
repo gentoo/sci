@@ -547,6 +547,6 @@ sys-cluster/easybuild-framework 4.6.2: The easybuild-framework package is the co
 sys-cluster/modules 4.6.0 4.6.0-r1: Dynamic modification of a user's environment via modulefiles
 sys-devel/DPC++ 2021.12 2022.09: oneAPI Data Parallel C++ compiler
 sys-devel/ittapi 3.23.0 3.24.0: Intel Instrumentation and Tracing Technology and Just-In-Time API
-sys-devel/oneDPL 2021.7.1 2022.0.0: oneAPI Data Parallel C++ Library
+sys-devel/oneDPL 2021.7.1 2022.0.0-r1: oneAPI Data Parallel C++ Library
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
