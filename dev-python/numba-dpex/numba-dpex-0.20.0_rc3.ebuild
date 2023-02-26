@@ -9,7 +9,8 @@ inherit distutils-r1
 
 DESCRIPTION="Data Parallel Extension for Numba"
 HOMEPAGE="https://github.com/IntelPython/numba-dpex"
-SRC_URI="https://github.com/IntelPython/numba-dpex/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/IntelPython/numba-dpex/archive/refs/tags/${PV//_rc/dev}.tar.gz -> ${P}.gh.tar.gz"
+S+"${WORKDIR}/${PN}-${PV//_rc/dev}"
 
 LICENSE="Apache-2.0"
 SLOT="0"

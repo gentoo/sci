@@ -9,7 +9,8 @@ inherit distutils-r1
 
 DESCRIPTION="Data Parallel Control "
 HOMEPAGE="https://github.com/IntelPython/dpctl"
-SRC_URI="https://github.com/IntelPython/dpctl/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/IntelPython/dpctl/archive/refs/tags/${PV//_rc/dev}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/${PN}-${PV//_rc/dev}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -36,10 +37,10 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/${P}-find-opencl.patch"
-	"${FILESDIR}/${P}-dont-fetch-level-zero.patch"
-	"${FILESDIR}/${P}-dont-fetch-pybind.patch"
-	"${FILESDIR}/${P}-include-tuple.patch"
+	"${FILESDIR}/${PN}-0.14.0-find-opencl.patch"
+	"${FILESDIR}/${PN}-0.14.1_rc2-dont-fetch-level-zero.patch"
+	"${FILESDIR}/${PN}-0.14.1_rc2-dont-fetch-pybind.patch"
+	#"${FILESDIR}/${PN}-0.14.1_rc2-include-tuple.patch"
 )
 
 distutils_enable_tests pytest
@@ -59,4 +60,10 @@ python_prepare_all() {
 	git tag -a "${PV}" -m "${PN} version ${PV}" || die
 
 	distutils-r1_python_prepare_all
+}
+
+python_test() {
+	export PYTHONPATH="${BUILD_DIR}/install/usr/lib/${EPYTHON}/site-packages"
+	# We don't use epytest because it overwrites our PYTHONPATH
+	pytest -vv || die
 }

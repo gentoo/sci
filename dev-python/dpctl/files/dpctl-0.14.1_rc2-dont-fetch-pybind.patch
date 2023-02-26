@@ -1,0 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d97ca9a..3914bd9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,15 +32,7 @@ install(FILES ${_dpctl_capi_headers}
+ # Define CMAKE_INSTALL_xxx: LIBDIR, INCLUDEDIR
+ include(GNUInstallDirs)
+ 
+-# Fetch pybind11
+-include(FetchContent)
+-
+-FetchContent_Declare(
+-    pybind11
+-    URL https://github.com/pybind/pybind11/archive/refs/tags/v2.10.2.tar.gz
+-    URL_HASH SHA256=93bd1e625e43e03028a3ea7389bba5d3f9f2596abc074b068e70f4ef9b1314ae
+-)
+-FetchContent_MakeAvailable(pybind11)
++include(/usr/share/cmake/pybind11/pybind11Config.cmake)
+ 
+ add_subdirectory(dpctl)
+ 
