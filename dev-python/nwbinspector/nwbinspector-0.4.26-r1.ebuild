@@ -20,6 +20,7 @@ RESTRICT="!test? ( test )"
 DEPEND=""
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
+	dev-python/isodate[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
 	dev-python/natsort[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
