@@ -10,6 +10,8 @@ inherit distutils-r1
 DESCRIPTION="Python package to handle probe layout, geometry and wiring to device"
 HOMEPAGE="https://github.com/SpikeInterface/probeinterface"
 SRC_URI="https://github.com/SpikeInterface/probeinterface/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+# upstream doesn't pus test dir to pypi, https://github.com/SpikeInterface/probeinterface/issues/145
+#SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
