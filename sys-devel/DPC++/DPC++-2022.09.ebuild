@@ -14,7 +14,7 @@ DOCS_DEPEND="
 	$(python_gen_any_dep '
 		dev-python/sphinx[${PYTHON_USEDEP}]
 		dev-python/recommonmark[${PYTHON_USEDEP}]
-		dev-python/myst_parser[${PYTHON_USEDEP}]
+		dev-python/myst-parser[${PYTHON_USEDEP}]
 	')
 "
 inherit docs
