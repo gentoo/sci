@@ -10,6 +10,6 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="sourceforge">downloads</remote-id>
+		<remote-id type="sourceforge">abacas</remote-id>
 	</upstream>
 </pkgmetadata>
