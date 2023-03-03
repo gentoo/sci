@@ -15,7 +15,7 @@ LICENSE="EPL-1.0"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
-BDEPEND="dev-python/setuptools_scm[${PYTHON_USEDEP}]"
+BDEPEND="dev-python/setuptools-scm[${PYTHON_USEDEP}]"
 
 RDEPEND="
 	dev-python/docutils[${PYTHON_USEDEP}]

@@ -19,7 +19,7 @@ KEYWORDS="~amd64 ~x86"
 # https://github.com/asdf-format/asdf/issues/1319
 RESTRICT="test"
 
-BDEPEND="dev-python/setuptools_scm[${PYTHON_USEDEP}]
+BDEPEND="dev-python/setuptools-scm[${PYTHON_USEDEP}]
 	test? (
 		dev-python/astropy[${PYTHON_USEDEP}]
 		dev-python/pytest-doctestplus[${PYTHON_USEDEP}]

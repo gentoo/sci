@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 # https://github.com/spacetelescope/gwcs/issues/437
 RESTRICT=test
 
-BDEPEND="dev-python/setuptools_scm[${PYTHON_USEDEP}]
+BDEPEND="dev-python/setuptools-scm[${PYTHON_USEDEP}]
 	test? (
 		dev-python/pytest-doctestplus[${PYTHON_USEDEP}]
 	)

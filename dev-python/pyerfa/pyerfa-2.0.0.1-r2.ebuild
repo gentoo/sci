@@ -23,7 +23,7 @@ RDEPEND="
 	>=dev-python/numpy-1.17[${PYTHON_USEDEP}]
 "
 BDEPEND="${RDEPEND}
-	dev-python/setuptools_scm[${PYTHON_USEDEP}]
+	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 	test? (
 		dev-python/pytest-doctestplus[${PYTHON_USEDEP}]
 	)"

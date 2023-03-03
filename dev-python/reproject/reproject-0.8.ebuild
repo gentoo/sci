@@ -24,7 +24,7 @@ KEYWORDS="~amd64 ~x86"
 # 	pytest-filter-subpackage>=0.1
 RESTRICT="test"
 
-BDEPEND="dev-python/setuptools_scm[${PYTHON_USEDEP}]"
+BDEPEND="dev-python/setuptools-scm[${PYTHON_USEDEP}]"
 
 RDEPEND="
 	>=dev-python/astropy-3.2[${PYTHON_USEDEP}]
