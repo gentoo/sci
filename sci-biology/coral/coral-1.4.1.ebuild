@@ -6,8 +6,8 @@ EAPI=7
 inherit toolchain-funcs
 
 DESCRIPTION="Error corrector for Illumina and Roche/454 reads using multiple alignment info"
-HOMEPAGE="http://www.cs.helsinki.fi/u/lmsalmel/coral"
-SRC_URI="http://www.cs.helsinki.fi/u/lmsalmel/coral/${P}.tar.gz"
+HOMEPAGE="https://www.cs.helsinki.fi/u/lmsalmel/coral"
+SRC_URI="https://www.cs.helsinki.fi/u/lmsalmel/coral/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
