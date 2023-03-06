@@ -6,6 +6,6 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">fidelram/deepTools_intervals</remote-id>
+		<remote-id type="github">deeptools/deeptools_intervals</remote-id>
 	</upstream>
 </pkgmetadata>
