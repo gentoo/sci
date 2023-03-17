@@ -35,6 +35,8 @@
 # requires bumping the version which would also require bumping
 # sci-libs/itk
 sci-biology/ants
+# revdep of above
+sci-biology/samri
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Needs bump of PYTHON_COMPAT to at least python3_10
