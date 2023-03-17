@@ -8,5 +8,5 @@ LICENSE=Artistic-2
 PROPERTIES=live
 RDEPEND=sci-biology/mummer sci-biology/blat sci-biology/bowtie
 SLOT=0
-_eclasses_=toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	multilib	5ca4e49abed8e3a2f7b56920eadee157	git-r3	2347f8fe2d392b2a091191f94be37e6f
+_eclasses_=toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	multilib	5ca4e49abed8e3a2f7b56920eadee157	git-r3	c57c50c922e121043788de0b40ada60a
 _md5_=2520e40c19c2c2f7877ea5bfc10eb615
