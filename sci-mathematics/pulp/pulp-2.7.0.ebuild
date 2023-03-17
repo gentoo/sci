@@ -1,22 +1,20 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{7,8,9} )
-DISTUTILS_USE_SETUPTOOLS=rdepend
+PYTHON_COMPAT=( python3_{9..11} )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
 
 DESCRIPTION="Create MPS/LP files, call solvers, and present results"
 HOMEPAGE="https://coin-or.github.io/pulp/"
-SRC_URI="https://github.com/coin-or/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/coin-or/${PN}/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-
-RDEPEND="dev-python/amply[${PYTHON_USEDEP}]"
 
 distutils_enable_tests setup.py
 # ToDo: package theme
