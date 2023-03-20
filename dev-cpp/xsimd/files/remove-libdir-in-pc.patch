@@ -1,0 +1,12 @@
+libdir is not used in this header-only package
+And this line cause QA notice:
+key=libdir does not respect EPREFIX libdir=/lib64
+===================================================================
+--- xsimd-10.0.0.orig/xsimd.pc.in
++++ xsimd-10.0.0/xsimd.pc.in
+@@ -1,5 +1,4 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=@libdir_for_pc_file@
+ includedir=@includedir_for_pc_file@
+ 
+ Name: xsimd
