@@ -1,10 +1,10 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 DESCRIPTION="Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot"
-HOMEPAGE="http://fsa.sourceforge.net"
+HOMEPAGE="https://fsa.sourceforge.net"
 SRC_URI="https://downloads.sourceforge.net/project/fsa/${P}.tar.gz"
 
 LICENSE="GPL-3+"
