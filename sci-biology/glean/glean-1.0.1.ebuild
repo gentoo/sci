@@ -6,7 +6,7 @@ EAPI=7
 inherit perl-module
 
 DESCRIPTION="Merge various gene prediction into one (unsupervised learning system)"
-HOMEPAGE="https://sourceforge.net/projects/glean-gene"
+HOMEPAGE="https://sourceforge.net/projects/glean-gene/"
 SRC_URI="https://downloads.sourceforge.net/project/glean-gene/GLEAN/glean-${PV//./-}/glean-${PV//./-}.tar.gz"
 
 LICENSE="Artistic"
