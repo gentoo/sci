@@ -6,14 +6,14 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..10} )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 MY_PN="dandi"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="DANDI command line client to facilitate common operations"
 HOMEPAGE="https://github.com/dandi/dandi-cli"
-SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
+SRC_URI="$(pypi_sdist_url dandi)"
 
 LICENSE="Apache-2.0"
 SLOT="0"
