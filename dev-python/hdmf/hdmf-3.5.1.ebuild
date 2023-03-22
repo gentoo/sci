@@ -25,8 +25,4 @@ RDEPEND="
 	"
 BDEPEND=""
 
-#PATCHES=(
-#	"${FILESDIR}/${P}-versions.patch"
-#)
-
 distutils_enable_tests pytest
