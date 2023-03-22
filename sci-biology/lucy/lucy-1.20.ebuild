@@ -4,7 +4,7 @@
 EAPI=7
 
 DESCRIPTION="DNA sequence quality and vector trimming tool"
-HOMEPAGE="http://lucy.sourceforge.net/" # no https
+HOMEPAGE="https://lucy.sourceforge.net/"
 SRC_URI="https://sourceforge.net/projects/lucy/files/lucy/lucy%201.20/lucy${PV}.tar.gz"
 
 LICENSE="Artistic"
