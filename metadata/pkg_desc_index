@@ -131,7 +131,7 @@ dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1-r2: Python bindings for ERFA
 dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2 0.4.3: Simple pure-python module for reading and writing nrrd files
-dev-python/pynwb 2.1.0-r2 2.2.0-r1: A Python API for working with Neurodata stored in the NWB Format
+dev-python/pynwb 2.1.0-r2 2.2.0-r1 2.3.1: A Python API for working with Neurodata stored in the NWB Format
 dev-python/pyout 0.7.1-r1 0.7.2-r1: Terminal styling for structured data
 dev-python/pysolar 0.10: Collection of Python libraries for simulating the irradiation by the sun
 dev-python/pytest-doctestplus 0.11.2 0.12.1: Pytest plugin with advanced doctest features
