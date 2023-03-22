@@ -6,7 +6,7 @@ EAPI=7
 inherit java-pkg-opt-2 java-ant-2
 
 DESCRIPTION="Genome browser and annotation tool"
-HOMEPAGE="http://genomeview.sourceforge.net"
+HOMEPAGE="https://genomeview.sourceforge.net"
 SRC_URI="https://downloads.sourceforge.net/project/genomeview/GenomeView/genomeview-2450.zip"
 
 LICENSE="GPL-2"
