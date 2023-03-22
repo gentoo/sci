@@ -8,7 +8,7 @@ inherit java-pkg-2 java-ant-2 perl-module
 S="${WORKDIR}"/TreeView-1.1.6r4-bin
 
 DESCRIPTION="Viewer for Microarray Data in PCL or CDT formats"
-HOMEPAGE="http://jtreeview.sourceforge.net/" # no https
+HOMEPAGE="https://jtreeview.sourceforge.net/"
 SRC_URI="
 	https://sourceforge.net/projects/jtreeview/files/jtreeview/${PV}/TreeView-${PV}-bin.tar.gz
 	https://sourceforge.net/projects/jtreeview/files/helper-scripts/0.0.2/helper-scripts-0.0.2.tar.gz
