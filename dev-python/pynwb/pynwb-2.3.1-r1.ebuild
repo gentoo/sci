@@ -25,7 +25,7 @@ RDEPEND="
 	"
 BDEPEND=""
 
-# Remove in next release
+# Remove both in next release
 PATCHES=(
 	"${FILESDIR}/${P}-typing.patch"
 	"${FILESDIR}/${P}-pkg_resources.patch"
