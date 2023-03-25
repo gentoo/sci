@@ -295,7 +295,7 @@ sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.3: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.12.2: Compare, classify, merge, track, annotate GFF files
 sci-biology/gffread 0.12.7: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
-sci-biology/gffutils 0.8.7.1 0.10.1: GFF and GTF file manipulation and interconversion
+sci-biology/gffutils 0.10.1 0.11.1: GFF and GTF file manipulation and interconversion
 sci-biology/glean 1.0.1: Merge various gene prediction into one (unsupervised learning system)
 sci-biology/grabix 9999: Provide random access to text files BGZF compressed with bgzip
 sci-biology/graf-bin 2.4: Find closely related subjects using SNP genotype data, validate pedigree file
@@ -500,6 +500,7 @@ sci-libs/spams-python 2.6.2: Optimization toolbox for solving various sparse est
 sci-libs/spyking-circus 1.1.0: Fast spike sorting by template matching
 sci-libs/starparse 0.9: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/torchvision 0.14.1: Datasets, transforms and models to specific to computer vision
+sci-libs/vtk 9.1.0-r6: The Visualization Toolkit
 sci-libs/vxl 2.0.2: C++ computer vision research libraries
 sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines

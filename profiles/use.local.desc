@@ -126,6 +126,27 @@ sci-libs/nexus:hdf5 - Support the standard representation (HDF5)
 sci-libs/nexus:java - Build the Java bindings
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
+sci-libs/vtk:all-modules - Build all modules
+sci-libs/vtk:boost - Add support for boost
+sci-libs/vtk:cuda - Add support for CUDA
+sci-libs/vtk:freetype - Build support for font rendering
+sci-libs/vtk:gdal - Support for gdal formated data
+sci-libs/vtk:imaging - Building Imaging modules
+sci-libs/vtk:json - Support for json formatted data
+sci-libs/vtk:kits - Build kits in addition to modules
+sci-libs/vtk:las - Build support for LiDAR files
+sci-libs/vtk:logging - Build the logging module
+sci-libs/vtk:offscreen - Offscreen rendering through OSMesa
+sci-libs/vtk:openvdb - Build support to handle VDB data files
+sci-libs/vtk:pdal - Build support to handle point cloud data files
+sci-libs/vtk:pegtl - Use pegtl to build parsers
+sci-libs/vtk:qt6 - Use Qt6 packages instead of Qt5
+sci-libs/vtk:rendering - Building Redering modules
+sci-libs/vtk:sdl - Enable SDL2 support for rendering modules
+sci-libs/vtk:tbb - Use dev-cpp/tbb to handle smp support
+sci-libs/vtk:views - Building Views modules
+sci-libs/vtk:vtkm - Build the vtkm accelerations modules
+sci-libs/vtk:web - Install web component
 sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
 sci-mathematics/gap:hpc - Build gap with multithreading and parallel process support
