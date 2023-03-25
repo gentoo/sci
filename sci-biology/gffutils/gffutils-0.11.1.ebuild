@@ -14,10 +14,28 @@ SRC_URI="https://github.com/daler/gffutils/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE="test"
+# Nose tests no longer supported, migration on next release
+#RESTRICT="test"
 
 RDEPEND="
-	sci-biology/pyfaidx[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	dev-python/argh[${PYTHON_USEDEP}]
-	dev-python/argcomplete[${PYTHON_USEDEP}]"
+	dev-python/argcomplete[${PYTHON_USEDEP}]
+	sci-biology/biopython[${PYTHON_USEDEP}]
+	sci-biology/pybedtools[${PYTHON_USEDEP}]
+	sci-biology/pyfaidx[${PYTHON_USEDEP}]
+"
 DEPEND="${RDEPEND}"
+
+python_prepare_all() {
+	if use test; then
+		sed -i -e "s:/tmp/gffutils-test:${T}:g" gffutils/test/test.py || die
+	fi
+	distutils-r1_python_prepare_all
+}
+
+python_test() {
+	distutils_install_for_testing
+	nosetests -v -x --with-doctest -a '!slow' || die
+}

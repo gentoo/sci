@@ -40,13 +40,11 @@ sci-biology/samri
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Needs bump of PYTHON_COMPAT to at least python3_10
-sci-biology/gffutils
 sci-biology/chiron
 sci-biology/trans-abyss
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
 # Depends on dev-python/nose, needs porting to pytest
-sci-biology/gffutils
 sci-biology/RSeQC
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (10 Feb 2023)
