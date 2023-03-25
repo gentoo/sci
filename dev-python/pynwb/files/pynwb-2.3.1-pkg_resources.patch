@@ -1,0 +1,54 @@
+From df0f7ed71defb8d12a7ff72746b93211304c4d4b Mon Sep 17 00:00:00 2001
+From: rly <rly@lbl.gov>
+Date: Fri, 24 Mar 2023 10:17:13 -0700
+Subject: [PATCH] Fix deprecation warning with pkg_resources
+
+---
+ src/pynwb/__init__.py                      | 14 +++++++++++---
+ tests/back_compat/test_import_structure.py |  1 -
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/src/pynwb/__init__.py b/src/pynwb/__init__.py
+index 2df273d43..023cda237 100644
+--- a/src/pynwb/__init__.py
++++ b/src/pynwb/__init__.py
+@@ -15,16 +15,24 @@
+ import hdmf.common
+ 
+ CORE_NAMESPACE = 'core'
+-__core_ns_file_name = 'nwb.namespace.yaml'
+ 
+ from .spec import NWBDatasetSpec, NWBGroupSpec, NWBNamespace  # noqa E402
+ from .validate import validate  # noqa: F401, E402
+ 
+ 
+ def __get_resources():
+-    from pkg_resources import resource_filename
++    try:
++        from importlib.resources import files
++    except ImportError:
++        # TODO: Remove when python 3.9 becomes the new minimum
++        from importlib_resources import files
++
++    __location_of_this_file = files(__name__)
++    __core_ns_file_name = 'nwb.namespace.yaml'
++    __schema_dir = 'nwb-schema/core'
++
+     ret = dict()
+-    ret['namespace_path'] = os.path.join(resource_filename(__name__, 'nwb-schema/core'), __core_ns_file_name)
++    ret['namespace_path'] = str(__location_of_this_file / __schema_dir / __core_ns_file_name)
+     return ret
+ 
+ 
+diff --git a/tests/back_compat/test_import_structure.py b/tests/back_compat/test_import_structure.py
+index dba11a48a..e5f931f5d 100644
+--- a/tests/back_compat/test_import_structure.py
++++ b/tests/back_compat/test_import_structure.py
+@@ -34,7 +34,6 @@ def test_outer_import_structure(self):
+             "__TYPE_MAP",
+             "__builtins__",
+             "__cached__",
+-            "__core_ns_file_name",
+             "__doc__",
+             "__file__",
+             "__get_resources",
