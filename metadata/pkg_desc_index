@@ -365,7 +365,7 @@ sci-biology/prokka 1.14.6: Prokaryotic whole genome annotation pipeline
 sci-biology/proovread 2.14.1 9999: Error correct PacBio subreads using Illumina reads
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
 sci-biology/pybedtools 0.8.2 0.9.0: Use BED and GFF files from python using BEDtools
-sci-biology/pyfaidx 0.5.9.2: Efficient pythonic random access to fasta subsequences
+sci-biology/pyfaidx 0.5.9.2 0.7.2.1: Efficient pythonic random access to fasta subsequences
 sci-biology/pysamstats 1.1.2: Calculate stats against genome positions from SAM/BAM/CRAM file
 sci-biology/quast 5.0.2: Compare quality of multiple genome assemblies to each other
 sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
