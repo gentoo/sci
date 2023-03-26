@@ -8,5 +8,5 @@ LICENSE=GPL-3+
 RDEPEND=dev-libs/libf2c dev-libs/expat media-libs/freeglut media-libs/glu media-libs/netpbm media-libs/qhull media-video/mpeg-tools sci-libs/gsl sys-devel/llvm:* media-libs/libjpeg-turbo:0 x11-libs/libGLw x11-libs/libXft x11-libs/libXi x11-libs/libXpm x11-libs/motif
 SLOT=0
 SRC_URI=https://github.com/afni/afni/archive/AFNI_22.0.21.tar.gz -> afni-22.0.21.tar.gz
-_eclasses_=toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	multilib	5ca4e49abed8e3a2f7b56920eadee157
+_eclasses_=toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	d1408425c7c4a7669b9b17735404b693
 _md5_=94010f28d10c78064b1f422ec49dda41

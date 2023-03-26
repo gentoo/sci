@@ -9,5 +9,5 @@ LICENSE=GPL-3
 RDEPEND=dev-lang/perl sci-biology/paml sci-biology/ParaAT
 SLOT=0
 SRC_URI=https://netcologne.dl.sourceforge.net/project/kakscalculator2/KaKs_Calculator2.0.tar.gz -> KaKs_Calculator-2.0.tar.gz https://raw.githubusercontent.com/WilsonSayresLab/AlignmentProcessor/master/KaKs_Calculator/KaKs_Calculator2.0/KaKs_Calculator2.0_manual.pdf -> KaKs_Calculator-2.0_manual.pdf https://s3.amazonaws.com/fumba.me/share+files/1-s2.0-S1672022907600072-main.pdf -> KaKs_Calculator-Zhang_et_al_2006.pdf
-_eclasses_=toolchain-funcs	6001248ef162a5fa2a21ce132a212f6b	multilib	5ca4e49abed8e3a2f7b56920eadee157
+_eclasses_=toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	d1408425c7c4a7669b9b17735404b693
 _md5_=416156170571eaec78a17408bd76078a
