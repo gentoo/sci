@@ -15,6 +15,9 @@ dev-lang/berkeley_upc:udp - Support running over UDP
 dev-lang/conceptual:gui - Build the Java base graphical interface
 dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
+dev-libs/apache-arrow:brotli - Enable brotli compression suppor
+dev-libs/apache-arrow:csv - Enables read/write csv format
+dev-libs/apache-arrow:parquet - Enables read/write parquet data format
 dev-libs/boost-compute:benchmark - build benchmark examples
 dev-libs/boost-compute:bolt - build bolt examples and tests
 dev-libs/boost-compute:cache - use offline cache for opencl binaries in examples and tests
@@ -35,6 +38,8 @@ dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locatio
 dev-python/ezdxf:cython - Build Cython-based C extensions
 dev-python/ezdxf:matplotlib - Add support for dev-python/matplotlib
 dev-python/ezdxf:qt5 - Add support for dev-python/PyQt5
+dev-python/pyarrow:dataset - Build the arrow dataset modules
+dev-python/pyarrow:parquet - Enables read/write parquet data format
 dev-python/spikeinterface:extractors - support for all extractors
 dev-python/spikeinterface:full - support for all optional processing features
 dev-vcs/dandi-cli:etelemetry - version checking to respect server schema version

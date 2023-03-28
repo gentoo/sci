@@ -6,12 +6,14 @@ dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framewor
 dev-cpp/blitz 1.0.3_pre20200524: Multi-dimensional array library for C++
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
+dev-cpp/xsimd 10.0.0: C++ wrappers for SIMD intrinsics and math implementations
 dev-java/fits 1.15.1: Java library for FITS input/output
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
 dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
 dev-lang/pgi 13.5: PGI compiler suite
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
+dev-libs/apache-arrow 11.0.0: A cross-language development platform for in-memory data.
 dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
@@ -126,6 +128,7 @@ dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
 dev-python/probeinterface 0.2.11 0.2.14 0.2.16: Python package to handle probe layout, geometry and wiring to device
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
+dev-python/pyarrow 11.0.0: Python library for Apache Arrow
 dev-python/pybind11-stubgen 0.8.6 0.8.7 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1-r2: Python bindings for ERFA
