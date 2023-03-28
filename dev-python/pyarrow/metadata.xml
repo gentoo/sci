@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>xgreenlandforwyy@gmail.com</email>
+		<name>Yiyang Wu</name>
+	</maintainer>
+	<use>
+		<flag name='dataset'>Build the arrow dataset modules</flag>
+		<flag name='parquet'>Enables read/write parquet data format</flag>
+	</use>
+</pkgmetadata>
