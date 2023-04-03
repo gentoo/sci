@@ -474,7 +474,7 @@ sci-libs/gdcm 3.0.14: Cross-platform DICOM implementation
 sci-libs/handyg 0.1.5: Rapid numerical evaluation of generalised polylogarithms
 sci-libs/htslib-plugins 201712: iRODs plugins for >=htslib-1.4
 sci-libs/iRODS 4.2.11: Integrated Rule Oriented Data System, a data management software
-sci-libs/itk 5.2.1-r2 5.3.0: NLM Insight Segmentation and Registration Toolkit
+sci-libs/itk 5.2.1-r2 5.3.0-r1: NLM Insight Segmentation and Registration Toolkit
 sci-libs/labbookdb 0.1: Lab Book Database Framework
 sci-libs/lib2bit 0.2.1: C library for accessing 2bit files
 sci-libs/libStatGen 1.0.15: Set of classes for creating statistical genetic programs
