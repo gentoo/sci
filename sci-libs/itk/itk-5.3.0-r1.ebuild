@@ -8,8 +8,6 @@ VIRTUALX_REQUIRED="manual"
 
 inherit cmake python-single-r1 virtualx
 
-# rsync: [sender] link_stat "/distfiles/1c/itk-test-bcdbb347f3704262d1f00be7179d6a0a6e68aed56c0653e8072ee5a94985c713bd229c935b1226a658af84fb7f1fffc2458c98364fc35303a2303b12f9f7ce2f" (in gentoo) failed: No such file or directory (2)
-
 MY_PN="InsightToolkit"
 MY_P="${MY_PN}-${PV}"
 GLI_V="1.2.0"
@@ -29,7 +27,7 @@ DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="https://itk.org"
 SRC_URI="
 	https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/${MY_P}.tar.gz
-	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/refs/tags/v${GLI_V}.tar.gz -> ITKGenericLabelInterpolator-${GLI_V}
+	https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator/archive/refs/tags/v${GLI_V}.tar.gz -> ITKGenericLabelInterpolator-${GLI_V}.tar.gz
 	https://github.com/ntustison/ITKAdaptiveDenoising/archive/${IAD_HASH}.tar.gz -> ITKAdaptiveDenoising-${PV}.tar.gz
 	test? (
 		https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${PV}/InsightData-${PV}.tar.gz
@@ -50,15 +48,16 @@ RDEPEND="
 	dev-cpp/eigen:3
 	dev-libs/double-conversion:0=
 	dev-libs/expat:0=
-	media-libs/openjpeg:2
+	dev-libs/icu:0=
+	media-libs/libjpeg-turbo:0=
 	media-libs/libpng:0=
+	media-libs/openjpeg:2
 	media-libs/tiff:0=[jpeg]
 	sci-libs/dcmtk:0=
-	sci-libs/hdf5:0=[cxx]
 	sci-libs/gdcm:0=
-	sys-libs/zlib:0=
-	media-libs/libjpeg-turbo:0=
-	fftw? ( sci-libs/fftw:3.0= )
+	sci-libs/hdf5:0=[cxx]
+	sys-libs/zlib-ng
+	fftw? ( sci-libs/fftw:3.0=[threads] )
 	vtkglue? (
 		sci-libs/vtk:0=[rendering]
 		python? (
@@ -67,6 +66,13 @@ RDEPEND="
 	)
 	python? ( ${PYTHON_DEPS} )
 "
+# Might also need:
+# dev-libs/kwsys::guru
+# kwiml
+# minc
+# metaio
+# niftilib
+# sci-lib/vxl::science
 DEPEND="${RDEPEND}
 	sys-apps/coreutils
 	python? (
@@ -117,6 +123,7 @@ src_prepare() {
 		OpenJPEG/src/openjpeg
 		PNG/src/itkpng
 		TIFF/src/itktiff
+		ZLIB/src/itkzlib-ng
 	)
 	local x
 	for x in "${DROPS[@]}"; do
@@ -130,7 +137,7 @@ src_prepare() {
 	} | sort | uniq -u | xargs -n 1 ewarn "Using bundled" || die
 
 	# Remote modules
-	ln -sr "../ITKGenericLabelInterpolator-${GLI_HASH}" Modules/External/ITKGenericLabelInterpolator || die
+	ln -sr "../ITKGenericLabelInterpolator-${GLI_V}" Modules/External/ITKGenericLabelInterpolator || die
 	ln -sr "../ITKAdaptiveDenoising-${IAD_HASH}" Modules/External/ITKAdaptiveDenoising || die
 
 	cmake_src_prepare
@@ -158,6 +165,7 @@ src_configure() {
 		-DITK_FORBID_DOWNLOADS:BOOL=ON
 		-DITK_INSTALL_LIBRARY_DIR=$(get_libdir)
 		-DITK_USE_REVIEW="$(usex review ON OFF)"
+		-DITK_USE_SYSTEM_ICU=ON
 		-DITK_USE_SYSTEM_DCMTK=ON
 		-DITK_USE_SYSTEM_DOUBLECONVERSION=ON
 		-DITK_USE_SYSTEM_CASTXML=ON
@@ -183,13 +191,23 @@ src_configure() {
 	)
 	if use fftw; then
 		mycmakeargs+=(
-			-DUSE_FFTWD=ON
-			-DUSE_FFTWF=ON
-			-DUSE_SYSTEM_FFTW=ON
+			-DITK_USE_FFTWD:BOOL=ON
+			-DITK_USE_FFTWF:BOOL=ON
+			-DITK_USE_SYSTEM_FFTW:BOOL=ON
 			-DITK_WRAP_double=ON
 			-DITK_WRAP_vector_double=ON
 			-DITK_WRAP_covariant_vector_double=ON
 			-DITK_WRAP_complex_double=ON
+		)
+	else
+		mycmakeargs+=(
+			-DITK_USE_FFTWD:BOOL=OFF
+			-DITK_USE_FFTWF:BOOL=OFF
+			-DITK_USE_SYSTEM_FFTW:BOOL=OFF
+			-DITK_WRAP_double=OFF
+			-DITK_WRAP_vector_double=OFF
+			-DITK_WRAP_covariant_vector_double=OFF
+			-DITK_WRAP_complex_double=OFF
 		)
 	fi
 	if use vtkglue; then
@@ -241,11 +259,9 @@ src_install() {
 }
 
 src_test() {
-	# Failing tests reported upstream:
-	# https://github.com/ntustison/ITKAdaptiveDenoising/issues/13
 	if use vtkglue; then
-		virtx cmake_src_test -E "(AdaptiveNonLocalMeansDenoisingImageFilterTest1|AdaptiveNonLocalMeansDenoisingImageFilterTest2)"
+		virtx cmake_src_test
 	else
-		cmake_src_test -E "(AdaptiveNonLocalMeansDenoisingImageFilterTest1|AdaptiveNonLocalMeansDenoisingImageFilterTest2)"
+		cmake_src_test
 	fi
 }
