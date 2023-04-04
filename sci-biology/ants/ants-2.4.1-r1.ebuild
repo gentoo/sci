@@ -10,14 +10,19 @@ MY_PN="ANTs"
 
 DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
 HOMEPAGE="https://stnava.github.io/ANTs/"
-SRC_URI="https://github.com/ANTsX/ANTs/archive/v${PV}.tar.gz ->  ${P}.tar.gz"
+SRC_URI="
+	https://github.com/ANTsX/ANTs/archive/v${PV}.tar.gz ->  ${P}.tar.gz
+	test? (
+		http://resources.chymera.eu/distfiles/ants_testdata-${PV}.tar.xz
+	)
+"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 IUSE="test vtk"
-RESTRICT="test"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	!vtk? ( =sci-libs/itk-5.2*[fftw,-vtkglue] )
@@ -31,6 +36,14 @@ RDEPEND="${DEPEND}"
 PATCHES=(
 	"${FILESDIR}/${P}-fix-compile.patch"
 )
+
+src_unpack() {
+	default
+	if use test; then
+		mkdir -p "${S}/.ExternalData/SHA512" || die "Could not create test data directory."
+		tar xvf "${DISTDIR}/ants_testdata-${PV}.tar.xz" -C "${S}/.ExternalData/SHA512/" > /dev/null || die "Could not unpack test data."
+	fi
+}
 
 src_configure() {
 	local mycmakeargs=(
