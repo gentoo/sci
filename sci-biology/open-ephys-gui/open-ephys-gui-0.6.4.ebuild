@@ -46,7 +46,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 BUILD_DIR="${S}/Build"
-PATCHES=( "${FILESDIR}"/"${PN}"-0.6.4.patch )
+PATCHES=( "${FILESDIR}"/${P}.patch )
 
 QA_PREBUILT="opt/open-ephys-*/shared/*.so"
 QA_PRESTRIPPED="
