@@ -1,0 +1,15 @@
+# Add 'Gentoo' build type
+
+--- ../CMakeLists.txt	2022-08-24 15:27:32.871426442 -0300
++++ ../CMakeLists.txt	2022-08-24 15:31:03.438087613 -0300
+@@ -173,8 +173,8 @@
+ 		target_compile_options(open-ephys PRIVATE -O0) #enable optimization for linux debug
+ 	elseif (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+ 		target_compile_options(open-ephys PRIVATE -O3) #enable optimization for linux release
+-	else()
+-		message(FATAL_ERROR "Invalid build type")
++    # else()
++    # 	message(FATAL_ERROR "Invalid build type")
+ 	endif()
+ 	find_package(CURL REQUIRED)
+ 	find_package(PkgConfig REQUIRED)
