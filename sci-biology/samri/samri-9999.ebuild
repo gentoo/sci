@@ -1,20 +1,27 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..10} )
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 prefix
 
 DESCRIPTION="Small Animal Magnetic Resonance Imaging"
 HOMEPAGE="https://github.com/IBT-FMI/SAMRI"
-SRC_URI="https://github.com/IBT-FMI/SAMRI/archive/${PV}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/SAMRI-${PV}"
+if [ "$PV" == "9999" ]; then
+        inherit git-r3
+        EGIT_REPO_URI="https://github.com/IBT-FMI/SAMRI.git"
+else
+        SRC_URI="https://github.com/IBT-FMI/SAMRI/archive/${PV}.tar.gz -> ${P}.tar.gz"
+        KEYWORDS="~amd64"
+		S="${WORKDIR}/SAMRI-${PV}"
+fi
+
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE="+atlases labbookdb"
 REQUIRED_USE="test? ( atlases )"
 
