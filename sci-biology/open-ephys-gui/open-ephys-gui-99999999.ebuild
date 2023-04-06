@@ -1,4 +1,4 @@
-# Copyright 2019-2022 Gentoo Authors
+# Copyright 2019-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -36,7 +36,7 @@ DEPEND="
 	media-libs/alsa-lib
 	media-libs/freeglut
 	media-libs/freetype
-	net-libs/webkit-gtk
+	net-libs/webkit-gtk:4
 	net-misc/curl
 	x11-libs/libXrandr
 	x11-libs/libXcursor
@@ -46,7 +46,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 BUILD_DIR="${S}/Build"
-PATCHES=( "${FILESDIR}"/"${PN}"-0.6.1.patch )
+PATCHES=( "${FILESDIR}"/"${PN}"-0.6.4.patch )
 
 QA_PREBUILT="opt/open-ephys-*/shared/*.so"
 QA_PRESTRIPPED="
