@@ -13,7 +13,7 @@ HOMEPAGE="https://stnava.github.io/ANTs/"
 SRC_URI="
 	https://github.com/ANTsX/ANTs/archive/v${PV}.tar.gz ->  ${P}.tar.gz
 	test? (
-		http://resources.chymera.eu/distfiles/ants_testdata-${PV}.tar.xz
+		https://resources.chymera.eu/distfiles/ants_testdata-${PV}.tar.xz
 	)
 "
 S="${WORKDIR}/${MY_PN}-${PV}"
