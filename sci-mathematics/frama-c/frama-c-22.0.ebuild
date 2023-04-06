@@ -20,7 +20,7 @@ RESTRICT="strip"
 
 DEPEND="
 	>=dev-lang/ocaml-3.12.1[ocamlopt?]
-	>=dev-ml/ocamlgraph-1.8.5[gtk(-)?,ocamlopt?]
+	>=dev-ml/ocamlgraph-1.8.5[ocamlopt?]
 	dev-ml/zarith
 	dev-ml/yojson
 	sci-mathematics/coq
