@@ -14,7 +14,7 @@ SRC_URI="https://github.com/nipy/nipype/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="test"
 RESTRICT="!test? ( test )"
 
@@ -31,12 +31,13 @@ DEPEND="
 
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
-	dev-python/rdflib[${PYTHON_USEDEP}]
 	dev-python/filelock[${PYTHON_USEDEP}]
+	dev-python/looseversion[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pydot[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
+	dev-python/rdflib[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	<dev-python/traits-6.4.0[${PYTHON_USEDEP}]
