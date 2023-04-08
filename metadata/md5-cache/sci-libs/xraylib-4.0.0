@@ -1,6 +1,6 @@
 BDEPEND=fortran? ( virtual/fortran )
 DEFINED_PHASES=configure install preinst prepare setup test
-DEPEND=lua? ( lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) ) perl? ( dev-lang/perl ) php? ( <dev-lang/php-8:* ) python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.16-r1:3.9 ) python_single_target_python3_9? ( dev-python/numpy[python_targets_python3_9(-)] ) ) ruby? ( || ( dev-lang/ruby:3.0 dev-lang/ruby:2.7 ) virtual/rubygems ) java? ( >=dev-java/java-config-2.2.0-r3 ) fortran? ( virtual/fortran )
+DEPEND=lua? ( lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) ) perl? ( dev-lang/perl ) php? ( <dev-lang/php-8:* ) python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.16-r1:3.9 ) python_single_target_python3_9? ( dev-python/numpy[python_targets_python3_9(-)] ) ) ruby? ( || ( ( dev-lang/ruby:3.0 virtual/rubygems[ruby_targets_ruby30(-)] ) ( dev-lang/ruby:2.7 virtual/rubygems[ruby_targets_ruby27(-)] ) ) ) java? ( >=dev-java/java-config-2.2.0-r3 ) fortran? ( virtual/fortran )
 DESCRIPTION=X-ray matter interaction cross sections for X-ray fluorescence library
 EAPI=7
 HOMEPAGE=https://github.com/tschoonj/xraylib
@@ -8,9 +8,9 @@ INHERIT=python-single-r1 lua-single ruby-single java-pkg-opt-2 fortran-2
 IUSE=examples fortran lua perl php python ruby +python_single_target_python3_9 lua_single_target_lua5-1 lua_single_target_lua5-3 java
 KEYWORDS=~amd64
 LICENSE=BSD
-RDEPEND=lua? ( lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) ) perl? ( dev-lang/perl ) php? ( <dev-lang/php-8:* ) python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.16-r1:3.9 ) python_single_target_python3_9? ( dev-python/numpy[python_targets_python3_9(-)] ) ) ruby? ( || ( dev-lang/ruby:3.0 dev-lang/ruby:2.7 ) virtual/rubygems ) java? ( >=dev-java/java-config-2.2.0-r3 ) fortran? ( virtual/fortran )
+RDEPEND=lua? ( lua_single_target_lua5-1? ( dev-lang/lua:5.1 ) lua_single_target_lua5-3? ( dev-lang/lua:5.3 ) ) perl? ( dev-lang/perl ) php? ( <dev-lang/php-8:* ) python? ( python_single_target_python3_9? ( >=dev-lang/python-3.9.16-r1:3.9 ) python_single_target_python3_9? ( dev-python/numpy[python_targets_python3_9(-)] ) ) ruby? ( || ( ( dev-lang/ruby:3.0 virtual/rubygems[ruby_targets_ruby30(-)] ) ( dev-lang/ruby:2.7 virtual/rubygems[ruby_targets_ruby27(-)] ) ) ) java? ( >=dev-java/java-config-2.2.0-r3 ) fortran? ( virtual/fortran )
 REQUIRED_USE=python? ( ^^ ( python_single_target_python3_9 ) ) lua? ( ^^ ( lua_single_target_lua5-1 lua_single_target_lua5-3 ) )
 SLOT=0
 SRC_URI=http://lvserver.ugent.be/xraylib/xraylib-4.0.0.tar.gz
-_eclasses_=eapi8-dosym	741bfa77afb2a9321261501aca58c208	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	d1408425c7c4a7669b9b17735404b693	python-utils-r1	429bfd4e8d8e39db5385ba5744f30788	python-single-r1	75118e916668a74c660a13b0ecb22562	lua-utils	d37a16dbcc1f07f71bc48da75ed7a0cb	lua-single	86d497a20c93c7ce83af442f627515c1	ruby-utils	2412b1152083f1e866ae6df229d51d30	ruby-single	b9b5d136d97bf37058132e4231da02fa	java-utils-2	8c72ea36a4935f626b13a30141d0d39c	java-pkg-opt-2	4d26f2efd4c5ec82b66d1e8816f421b2	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
+_eclasses_=eapi8-dosym	741bfa77afb2a9321261501aca58c208	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	d1408425c7c4a7669b9b17735404b693	python-utils-r1	429bfd4e8d8e39db5385ba5744f30788	python-single-r1	75118e916668a74c660a13b0ecb22562	lua-utils	d37a16dbcc1f07f71bc48da75ed7a0cb	lua-single	86d497a20c93c7ce83af442f627515c1	ruby-utils	2412b1152083f1e866ae6df229d51d30	ruby-single	291cec9036393ebb5b11a4199edce193	java-utils-2	8c72ea36a4935f626b13a30141d0d39c	java-pkg-opt-2	4d26f2efd4c5ec82b66d1e8816f421b2	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
 _md5_=54d58f74927de98565bb8a7bab902e20
