@@ -4,7 +4,7 @@
 EAPI=7
 
 DESCRIPTION="k-mer counter within reads for assemblies"
-HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
+HOMEPAGE="https://genome.umd.edu/jellyfish.html"
 SRC_URI="https://github.com/gmarcais/Jellyfish/releases/download/v${PV}/${P}.tar.gz"
 
 # older version is hidden in trinityrnaseq_r20140413p1/trinity-plugins/jellyfish-1.1.11
