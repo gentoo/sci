@@ -55,7 +55,7 @@ RDEPEND="
 	media-libs/tiff:0=[jpeg]
 	sci-libs/dcmtk:0=
 	sci-libs/gdcm:0=
-	sci-libs/hdf5:0=[cxx]
+	<sci-libs/hdf5-1.14.0:0=[cxx]
 	sys-libs/zlib-ng
 	fftw? ( sci-libs/fftw:3.0=[threads] )
 	vtkglue? (
