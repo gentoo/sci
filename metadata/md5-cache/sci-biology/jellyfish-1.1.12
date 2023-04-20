@@ -1,11 +1,11 @@
 BDEPEND=virtual/pkgconfig
 DEFINED_PHASES=configure install
 DESCRIPTION=k-mer counter within reads for assemblies
-EAPI=7
-HOMEPAGE=http://www.cbcb.umd.edu/software/jellyfish
+EAPI=8
+HOMEPAGE=https://genome.umd.edu/jellyfish.html
 IUSE=cpu_flags_x86_sse
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3+ BSD
 SLOT=1
 SRC_URI=https://github.com/gmarcais/Jellyfish/releases/download/v1.1.12/jellyfish-1.1.12.tar.gz
-_md5_=6309e764d223defa893bb18a1adbfdb3
+_md5_=e8029f4aab870db29df8a878d6d992df
