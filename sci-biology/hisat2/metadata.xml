@@ -10,6 +10,6 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">infphilo/hisat2</remote-id>
+		<remote-id type="github">DaehwanKimLab/hisat2</remote-id>
 	</upstream>
 </pkgmetadata>
