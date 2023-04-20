@@ -9,7 +9,7 @@ inherit python-r1
 
 DESCRIPTION="Align DNA reads to a population of genomes"
 HOMEPAGE="
-	https://ccb.jhu.edu/software/hisat2
+	https://daehwankimlab.github.io/hisat2
 	https://github.com/DaehwanKimLab/hisat2"
 SRC_URI="https://github.com/DaehwanKimLab/hisat2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
