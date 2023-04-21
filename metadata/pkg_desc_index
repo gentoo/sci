@@ -320,7 +320,6 @@ sci-biology/last 1179: Genome-scale comparison of biological sequences
 sci-biology/lastz 1.04.03: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
-sci-biology/libblasr 5.3.5: Library for blasr
 sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/longstitch 1.0.1: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
