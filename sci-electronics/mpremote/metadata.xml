@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci-electronics@gentoo.org</email>
+		<name>Gentoo Electronics Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>gentoo@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<longdescription lang="en">
+		This CLI tool provides an integrated set of utilities to remotely interact with
+		and automate a MicroPython device over a serial connection.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">micropython/micropython</remote-id>
+		<remote-id type="pypi">mpremote</remote-id>
+	</upstream>
+</pkgmetadata>
