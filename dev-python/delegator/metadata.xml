@@ -10,7 +10,7 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">amitt001/delegator</remote-id>
+		<remote-id type="github">amitt001/delegator.py</remote-id>
 		<remote-id type="pypi">delegator.py</remote-id>
 	</upstream>
 </pkgmetadata>
