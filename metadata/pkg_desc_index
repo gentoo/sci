@@ -354,7 +354,7 @@ sci-biology/open-ephys-gui 0.5.5 0.6.1 0.6.4 9999 99999999: Processing, recordin
 sci-biology/opfvta_bidsdata 2.0: BIDS data files released with the OPFVTA publication
 sci-biology/pairagon 1.1: HMM-based cDNA to genome aligner
 sci-biology/parafly 0.1.0: Parallel cmd processing utility
-sci-biology/pbbam 1.8.1: PacBio modified BAM file format
+sci-biology/pbbam 2.1.0: PacBio modified BAM file format
 sci-biology/pbcopper 1.9.5: Core C++ library for data structures, algorithms, and utilities
 sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
