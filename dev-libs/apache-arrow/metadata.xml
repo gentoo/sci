@@ -12,6 +12,7 @@
 	<use>
 		<flag name='brotli'>Enable brotli compression suppor</flag>
 		<flag name='csv'>Enables read/write csv format</flag>
+		<flag name='json'>Enables read/write json format</flag>
 		<flag name='parquet'>Enables read/write parquet data format</flag>
 	</use>
 </pkgmetadata>

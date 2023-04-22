@@ -1,11 +1,11 @@
-# Copyright 2021-2022 Gentoo Authors
+# Copyright 2021-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 inherit cmake
 
-IUSE="+bzip2 +brotli +csv +lz4 +parquet snappy test +zlib +zstd"
+IUSE="+bzip2 +brotli +csv +json +lz4 +parquet snappy test +zlib +zstd"
 
 DESCRIPTION="A cross-language development platform for in-memory data."
 HOMEPAGE="https://arrow.apache.org/"
@@ -67,6 +67,7 @@ src_configure() {
 		-DARROW_DEPENDENCY_SOURCE=SYSTEM
 		-DARROW_BUILD_STATIC=OFF
 		-DARROW_CSV=$(usex csv ON OFF)
+		-DARROW_JSON=$(usex json ON OFF)
 		-DARROW_DATASET=ON
 		-DARROW_DOC_DIR=share/doc/${PF}
 		-DARROW_JEMALLOC=OFF
