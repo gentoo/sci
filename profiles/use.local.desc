@@ -17,6 +17,7 @@ dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
 dev-lang/pgi:java - Install a PGI-tuned JRE.
 dev-libs/apache-arrow:brotli - Enable brotli compression suppor
 dev-libs/apache-arrow:csv - Enables read/write csv format
+dev-libs/apache-arrow:json - Enables read/write json format
 dev-libs/apache-arrow:parquet - Enables read/write parquet data format
 dev-libs/boost-compute:benchmark - build benchmark examples
 dev-libs/boost-compute:bolt - build bolt examples and tests
