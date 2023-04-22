@@ -24,7 +24,7 @@ RESTRICT="test" # tests seems not working
 BDEPEND="dev-util/cmake"
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
-	~dev-libs/apache-arrow-${PV}[csv,parquet?]
+	~dev-libs/apache-arrow-${PV}[csv,json,parquet?,snappy]
 "
 DEPEND="${RDEPEND}"
 
