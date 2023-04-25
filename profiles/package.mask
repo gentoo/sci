@@ -29,7 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org) (12 Jan 2023)
-# Needs bump of PYTHON_COMPAT to at least python3_10
-sci-biology/chiron
