@@ -13,8 +13,6 @@ dev-lang/berkeley_upc:sptr-struct - Use the 'struct' shared pointer representati
 dev-lang/berkeley_upc:sptr-symmetric - Enable 'symmetric' pointer variant where available (64-bit smp and shmem)
 dev-lang/berkeley_upc:udp - Support running over UDP
 dev-lang/conceptual:gui - Build the Java base graphical interface
-dev-lang/pgi:cuda - Install PGI's CUDA components (e.g. for OpenACC)
-dev-lang/pgi:java - Install a PGI-tuned JRE.
 dev-libs/apache-arrow:brotli - Enable brotli compression suppor
 dev-libs/apache-arrow:csv - Enables read/write csv format
 dev-libs/apache-arrow:json - Enables read/write json format

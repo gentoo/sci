@@ -11,7 +11,6 @@ dev-java/fits 1.15.1: Java library for FITS input/output
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
 dev-lang/conceptual 1.5.1b: A Network Correctness and Performance Testing Language
-dev-lang/pgi 13.5: PGI compiler suite
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
 dev-libs/apache-arrow 11.0.0: A cross-language development platform for in-memory data.
 dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
@@ -389,7 +388,6 @@ sci-biology/seqtools 4.44.1: Display alignments and GFF files, matrix dot plots 
 sci-biology/sff_dump 1.04: Convert Roche SFF files to FASTA file format
 sci-biology/sga 9999: String Graph OLC Assembler for short reads (overlap-layout-consensus)
 sci-biology/sickle 1.33 9999: Windowed adaptive quality-based trimming tool for FASTQ data
-sci-biology/signalp 3.0: Prediction of signal peptide cleavage sites in amino acid sequences
 sci-biology/skewer-bin 0.2.2: Adaptor and MID removal / trimming tool
 sci-biology/smalt 0.7.6: DNA read mapper using k=20 (successor of ssaha2)
 sci-biology/smalt-bin 0.7.6: Pairwise sequence alignment mapping DNA reads onto genomic reference
@@ -406,7 +404,6 @@ sci-biology/tabixpp 1.1.0: C++ wrapper to tabix indexer
 sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Illumina datasets
 sci-biology/tigmint 1.2.4-r1: Correct misassemblies using linked reads from 10x Genomics Chromium
 sci-biology/tigr-foundation-libs 2.0-r2: TIGR Foundation for C++
-sci-biology/tmhmm 2.0c: Prediction of transmembrane helices in proteins
 sci-biology/trans-abyss 2.0.1: Analyze and combine multiple assemblies from abyss
 sci-biology/trf-bin 4.09: Tandem Repeats Finder
 sci-biology/trim_galore 0.6.6: Perl wrapper around Cutadapt and FastQC to adapter and quality trimming
@@ -424,7 +421,6 @@ sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural vari
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.4.0: Correction of electron beam-induced sample motion
-sci-chemistry/chimera-bin 1.14 1.15: An extensible Molecular Modelling System
 sci-chemistry/concoord 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/ctffind 4.1.10 4.1.13 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/dl_poly 1.10 5.0.0: a general purpose molecular dynamics simulation package
@@ -433,16 +429,12 @@ sci-chemistry/erkale 0_p20220106: Quantum chemistry program for atoms and molecu
 sci-chemistry/freeon 9999: An experimental suite of programs for linear scaling quantum chemistry
 sci-chemistry/gamess 20180930.3-r1: A powerful quantum chemistry package
 sci-chemistry/jligand 1.0.40: Java interface which allows links descriptions to be created
-sci-chemistry/ligplot+ 1.4: GUI-based version of LIGPLOT
-sci-chemistry/mage 6.44.060606: Mage is a 3D vector display program which shows 'kinemage' graphics
 sci-chemistry/mics 1.00.2011.327.12.00: Prediction of Protein Structural Motifs from NMR Chemical Shifts
 sci-chemistry/nmrpipe 8.7.20230206: Spectral visualisation, analysis and Fourier processing
-sci-chemistry/nmrview 5.2.2-r3: Visualisation and analysis of processed NMR data
 sci-chemistry/pales-bin 0_pre140717: Prediction of alignment from structure
 sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NMR chemical shift assignments
 sci-chemistry/pymol-plugins-psico 3.4-r1: Pymol ScrIpt COllection
 sci-chemistry/relion 4.0.0 9999: Image-processing software for cryo-electron microscopy
-sci-chemistry/rosetta-tools 3.0: Additional scripts for rosetta
 sci-chemistry/ssp 09.11: Secondary structure propensities
 sci-electronics/minipro 0.5: A free and open TL866XX programmer
 sci-electronics/mpremote 0.4.0: MicroPython remote control
