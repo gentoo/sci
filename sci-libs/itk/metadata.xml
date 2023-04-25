@@ -19,6 +19,7 @@
 		<flag name="vtkglue">PLEASE FIX MY DESCRIPTION</flag>
 	</use>
 	<upstream>
+		<remote-id type="github">InsightSoftwareConsortium/ITK</remote-id>
 		<remote-id type="sourceforge">itk</remote-id>
 	</upstream>
 </pkgmetadata>
