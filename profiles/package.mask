@@ -41,6 +41,5 @@ sci-biology/RSeQC
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org) (10 Feb 2023)
 # Fetch restricted ebuilds without proper manifest entry
-sci-chemistry/ligplot+
 sci-chemistry/nmrview
 sci-chemistry/rosetta-tools
