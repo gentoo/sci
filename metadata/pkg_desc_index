@@ -418,6 +418,7 @@ sci-biology/yaha 9999: DNA mapper for single-end reads to detect structural vari
 sci-biology/zmap 2.12.0: A desktop genome browser using GFF inputs
 sci-biology/zmsort 110625: Merge-sort utility for compressed alignment files, with multi-file output
 sci-chemistry/MotionCor2 1.4.0: Correction of electron beam-induced sample motion
+sci-chemistry/chimera 1.17.1: Next generation molecular visualization program from RBVI
 sci-chemistry/concoord 2.1.2: Protein conformations around a known structure based on geometric restrictions
 sci-chemistry/ctffind 4.1.10 4.1.13 4.1.14: CTF estimation (ctffind, ctftilt)
 sci-chemistry/dl_poly 1.10 5.0.0: a general purpose molecular dynamics simulation package
