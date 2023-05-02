@@ -3,15 +3,14 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..10} )
+PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 MY_PN="python-neo"
 
 DESCRIPTION="Read and represent a wide range of neurophysiology file formats in Python"
 HOMEPAGE="https://github.com/NeuralEnsemble/python-neo"
-SRC_URI="https://github.com/NeuralEnsemble/python-neo/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
