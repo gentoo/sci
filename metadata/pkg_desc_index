@@ -139,6 +139,7 @@ dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents 
 dev-python/sphinx-astropy 1.7.0 1.8.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7-r1: Allow a different format in dosctrings for better clarity
+dev-python/spikeinterface 0.96.1 0.97.0: A Python-based module for creating flexible and robust spike sorting pipelines.
 dev-python/stopit 1.1.2: Timeout control decorator and context managers
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/throttler 1.2.2: Easy throttling with asyncio support
@@ -157,7 +158,7 @@ dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-vcs/dandi-cli 0.46.6 0.48.0 0.49.0 0.50.0 0.51.0: DANDI command line client to facilitate common operations
-dev-vcs/datalad 0.18.0 0.18.1: Keep code, data, containers under control with git and git-annex
+dev-vcs/datalad 0.18.0 0.18.1 0.18.3: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
 media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
