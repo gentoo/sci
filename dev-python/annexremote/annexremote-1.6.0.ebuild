@@ -3,30 +3,20 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
-inherit distutils-r1
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..11} )
+inherit distutils-r1 pypi
 
 DESCRIPTION="Helper module to easily develop git-annex remotes"
 HOMEPAGE="https://github.com/Lykos153/AnnexRemote"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
-# Reported upstream:
+# Tests require nose, reported upstream:
 # https://github.com/Lykos153/AnnexRemote/issues/61
 RESTRICT="test"
-
-COMMON_DEPEND="dev-python/future[${PYTHON_USEDEP}]"
-RDEPEND="
-	${COMMON_DEPEND}
-"
-DEPEND="
-	${COMMON_DEPEND}
-"
-
-distutils_enable_tests nose
 
 python_install_all() {
 	distutils-r1_python_install_all
