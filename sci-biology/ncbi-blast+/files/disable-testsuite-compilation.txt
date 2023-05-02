@@ -1,3 +1,0 @@
-.*
--.*/test
--.*/unit_test

@@ -8,7 +8,7 @@ EAPI=8
 #	properly before building.
 # - replace usex by usev once we bump to EAPI 8
 
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_10 )
 WEBAPP_OPTIONAL=yes
 WEBAPP_MANUAL_SLOT=yes
 
