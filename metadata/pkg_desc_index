@@ -340,7 +340,7 @@ sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roiextractors 0.5.1: Optical imaging data handling from several file formats
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
-sci-biology/samri 0.5.2 0.5.3 9999: Small Animal Magnetic Resonance Imaging
+sci-biology/samri 0.5.2 0.5.3 0.5.4 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
