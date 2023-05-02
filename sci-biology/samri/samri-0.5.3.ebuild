@@ -11,14 +11,13 @@ inherit distutils-r1 prefix
 DESCRIPTION="Small Animal Magnetic Resonance Imaging"
 HOMEPAGE="https://github.com/IBT-FMI/SAMRI"
 if [ "$PV" == "9999" ]; then
-        inherit git-r3
-        EGIT_REPO_URI="https://github.com/IBT-FMI/SAMRI.git"
+		inherit git-r3
+		EGIT_REPO_URI="https://github.com/IBT-FMI/SAMRI.git"
 else
-        SRC_URI="https://github.com/IBT-FMI/SAMRI/archive/${PV}.tar.gz -> ${P}.tar.gz"
-        KEYWORDS="~amd64"
+		SRC_URI="https://github.com/IBT-FMI/SAMRI/archive/${PV}.tar.gz -> ${P}.tar.gz"
+		KEYWORDS="~amd64"
 		S="${WORKDIR}/SAMRI-${PV}"
 fi
-
 
 LICENSE="GPL-3"
 SLOT="0"
