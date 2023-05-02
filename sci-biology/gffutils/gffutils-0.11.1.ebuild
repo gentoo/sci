@@ -17,6 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 # Nose tests no longer supported, migration on next release
 #RESTRICT="test"
+RESTRICT="!test? ( test )"
 
 RDEPEND="
 	dev-python/simplejson[${PYTHON_USEDEP}]
