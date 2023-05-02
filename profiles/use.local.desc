@@ -12,7 +12,6 @@ dev-lang/berkeley_upc:sptr-packed - Use the more efficient 'packed' shared point
 dev-lang/berkeley_upc:sptr-struct - Use the 'struct' shared pointer representation
 dev-lang/berkeley_upc:sptr-symmetric - Enable 'symmetric' pointer variant where available (64-bit smp and shmem)
 dev-lang/berkeley_upc:udp - Support running over UDP
-dev-lang/conceptual:gui - Build the Java base graphical interface
 dev-libs/apache-arrow:brotli - Enable brotli compression suppor
 dev-libs/apache-arrow:csv - Enables read/write csv format
 dev-libs/apache-arrow:json - Enables read/write json format
@@ -62,24 +61,6 @@ sci-biology/fsl:cuda - Add support for CUDA
 sci-biology/imagej:plugins - Install additional plugins
 sci-biology/megahit:cuda - Enable NVIDIA GTX680 (4G memory) and Tesla K40c (12G memory) with CUDA 5.5, 6.0 and 6.5
 sci-biology/mouse-brain-templates:hires - Also install high-resolution atlases.
-sci-biology/ncbi-blast+:boost - Undocumented USE
-sci-biology/ncbi-blast+:cppunit - Undocumented USE
-sci-biology/ncbi-blast+:freetype - Undocumented USE
-sci-biology/ncbi-blast+:mesa - Undocumented USE
-sci-biology/ncbi-blast+:muparser - Undocumented USE
-sci-biology/ncbi-blast+:sablotron - Undocumented USE
-sci-biology/ncbi-blast+:xalan - Undocumented USE
-sci-biology/ncbi-blast+:xerces - Undocumented USE
-sci-biology/ncbi-blast+:xslt - Undocumented USE
-sci-biology/ncbi-tools++:boost - Undocumented USE
-sci-biology/ncbi-tools++:cppunit - Undocumented USE
-sci-biology/ncbi-tools++:freetype - Undocumented USE
-sci-biology/ncbi-tools++:mesa - Undocumented USE
-sci-biology/ncbi-tools++:muparser - Undocumented USE
-sci-biology/ncbi-tools++:sablotron - Undocumented USE
-sci-biology/ncbi-tools++:xalan - Undocumented USE
-sci-biology/ncbi-tools++:xerces - Undocumented USE
-sci-biology/ncbi-tools++:xslt - Undocumented USE
 sci-biology/neuroconv:ecephys - Extracellular electrophysiology interfaces
 sci-biology/neuroconv:icephys - Intracellular electrophysiology interfaces
 sci-biology/neuroconv:ophys - Optical physiology interfaces
@@ -104,10 +85,6 @@ sci-libs/arrayfire:nonfree - build.
 sci-libs/arrayfire:opencl - build OpenCL backend.
 sci-libs/arrayfire:trace - enable additional traces during logging.
 sci-libs/asl:matlab - Matlab support with sci-libs/matio
-sci-libs/blis-amd:64bit-index - Enable 64bit array indexing, incompatible with runtime switching
-sci-libs/blis-amd:eselect-ldso - Enable runtime library switching by eselect and ld.so
-sci-libs/blis-amd:openmp - Use openmp threadding model
-sci-libs/blis-amd:pthread - Use pthread threadding model
 sci-libs/clfft:callback-client - Build a command line clFFT client program that tests callback functionality.
 sci-libs/clfft:client - Build a command line clFFT client program.
 sci-libs/clrng:client - Build a command line clRNG client program.
@@ -152,12 +129,6 @@ sci-libs/vtk:views - Building Views modules
 sci-libs/vtk:vtkm - Build the vtkm accelerations modules
 sci-libs/vtk:web - Install web component
 sci-libs/xblas:int64 - Build the 64 bits integer library
-sci-mathematics/gap:boehm - Use dev-libs/boehm-gc as garbage collector
-sci-mathematics/gap:hpc - Build gap with multithreading and parallel process support
-sci-mathematics/gap:julia - Build julia bindings
-sci-mathematics/gap:julia-gc - Use the julia garbage collector
-sci-mathematics/gap:memcheck - Enable memory checking
-sci-mathematics/gap:valgrind - Build symbols to be used by valgrind
 sci-mathematics/ripser:progress - print progress of calculations in console
 sci-mathematics/ripser:sparsehash - use google sparsehash for storage
 sci-misc/elmer-fem:gui - Build the ElmerGUI

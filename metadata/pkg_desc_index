@@ -18,7 +18,6 @@ dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top o
 dev-libs/oneCCL 2021.7.1-r1 2021.8: oneAPI Collective Communications Library
 dev-libs/oneDNN 2.7.2 3.0.1: oneAPI Deep Neural Network Library
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
-dev-libs/tut 0_p20200320: C++ Template Unit Test Framework
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*
 dev-perl/BTLib 0.19 0.20: Perl part of the estscan package
@@ -36,8 +35,7 @@ dev-perl/Time-Progress 2.12: Elapsed and estimated finish time reporting
 dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-python/MagnetoResistance-tool 0.0.2: Create calibration matrix to correct for magneto-resistance in resistive sensors
 dev-python/affine 2.3.0: Library for handling affine transformations of the plane
-dev-python/annexremote 1.5.0 1.6.0: Helper module to easily develop git-annex remotes
-dev-python/anys 0.2.0 0.2.1: Matchers for pytest
+dev-python/anys 0.2.1: Matchers for pytest
 dev-python/archspec 0.1.4: labels for various aspects of a system architecture like CPU, etc.
 dev-python/asciitree 0.3.3: ASCII trees in python
 dev-python/asdf 2.8.3 2.14.3: Python library for the Advanced Scientific Data Format
@@ -110,7 +108,7 @@ dev-python/probeinterface 0.2.11 0.2.14 0.2.16: Python package to handle probe l
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
 dev-python/pyarrow 11.0.0: Python library for Apache Arrow
-dev-python/pybind11-stubgen 0.8.6 0.8.7 0.10.4: PEP 561 type stubs generator for pybind11 modules
+dev-python/pybind11-stubgen 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1-r2: Python bindings for ERFA
 dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest neighbors
@@ -204,7 +202,6 @@ sci-biology/SSAKE 3.8.2: Short-read trimmer, OLC assembler, scaffolder in PERL u
 sci-biology/SnpEff 4.3t: SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF
 sci-biology/SolexaQA 3.1.7.1: Analyze and trim single-end and paired-end reads, show quality statistics
 sci-biology/TransDecoder 5.5.0: Extract ORF/CDS regions from FASTA sequences
-sci-biology/Trinotate 3.2.2: Annotation and analysis pipeline for de novo assembled transcriptomes
 sci-biology/VarScan 2.4.4: Variant detection (germline, multi-sample, somatic mutations, CNA, SNP calls)
 sci-biology/VarScan-bin 2.4.4: Variant detection (germline, multi-sample, somatic mut., CNA), SNP
 sci-biology/VelvetOptimiser 2.2.6: Optimise Velvet sequence assembler
@@ -270,7 +267,7 @@ sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.3: Find shared segments of Identity by Descent (IBD) between pairs of individuals
 sci-biology/gffcompare 0.12.2: Compare, classify, merge, track, annotate GFF files
 sci-biology/gffread 0.12.7: GFF/GTF utility providing format conversions, filter/extract regions from FASTA
-sci-biology/gffutils 0.10.1 0.11.1: GFF and GTF file manipulation and interconversion
+sci-biology/gffutils 0.11.1: GFF and GTF file manipulation and interconversion
 sci-biology/glean 1.0.1: Merge various gene prediction into one (unsupervised learning system)
 sci-biology/grabix 9999: Provide random access to text files BGZF compressed with bgzip
 sci-biology/graf-bin 2.4: Find closely related subjects using SNP genotype data, validate pedigree file
@@ -284,7 +281,6 @@ sci-biology/jannovar-bin 0.35: Exome annotation tool (upstream jar binaries)
 sci-biology/jellyfish 1.1.12 2.3.0: k-mer counter within reads for assemblies
 sci-biology/jtreeview-bin 1.2.0: Viewer for Microarray Data in PCL or CDT formats
 sci-biology/karect 1.0: Error-correct mismatches and InDels of raw reads incl. paired-end
-sci-biology/kraken 1.1.1-r2 2.1.1: Detect sequencing project contaminants by mapping reads to taxonomic groups
 sci-biology/lastz 1.04.03: A pairwise DNA sequence aligner, a BLASTZ replacement
 sci-biology/lemur-brain-atlas 0.1: MRI Brain Template and Atlas of the Mouse Lemur
 sci-biology/libBigWig 0.4.4 9999: C library for handling bigWig files (functionally replacing Jim Kent's lib)
@@ -305,8 +301,6 @@ sci-biology/mreps 2.6.01: Identification of serial/tandem repeats in DNA sequenc
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
-sci-biology/ncbi-blast+ 2.2.30 2.2.31 2.6.0 2.8.1 2.11.0: A subset of NCBI C++ Toolkit containing just the NCBI BLAST+
-sci-biology/ncbi-tools++ 12.0.0 18.0.0 22.0.0: NCBI C++ Toolkit, including NCBI BLAST+
 sci-biology/ncbi-vdb 2.11.2: NCBI SRA ( Sequence Read Archive )
 sci-biology/neuroconv 0.2.4: Create NWB files from proprietary formats.
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
@@ -325,12 +319,9 @@ sci-biology/pbcopper 1.9.5: Core C++ library for data structures, algorithms, an
 sci-biology/perga 9999: Paired End Reads Guided Assembler
 sci-biology/perlprimer 1.1.21: Primers design for standard PCR, bisulphite PCR and Real-time PCR
 sci-biology/pileup 0.6: SSAHA2-based pipeline to align reads
-sci-biology/polyphen 2.2.2: Predict effect of aminoacid substitution on human protein function
 sci-biology/portrait 1.1: Ab initio ncRNA prediction
 sci-biology/prinseq-lite 0.20.4: Describe, trim, reformat and convert to or form FASTA/FASTQ files
 sci-biology/proda 1.0: Multiple alignment of protein sequences with repeated and shuffled elements
-sci-biology/prokka 1.14.6: Prokaryotic whole genome annotation pipeline
-sci-biology/proovread 2.14.1 9999: Error correct PacBio subreads using Illumina reads
 sci-biology/psx 0.1: parallel multi-FASTA file processing tool from TIGR Gene Indices project tools
 sci-biology/pybedtools 0.8.2 0.9.0: Use BED and GFF files from python using BEDtools
 sci-biology/pyfaidx 0.5.9.2 0.7.2.1: Efficient pythonic random access to fasta subsequences
@@ -368,7 +359,6 @@ sci-biology/tagdust 20101028: Trim multimers of various primers/adapter from Ill
 sci-biology/tigmint 1.2.4-r1: Correct misassemblies using linked reads from 10x Genomics Chromium
 sci-biology/tigr-foundation-libs 2.0-r2: TIGR Foundation for C++
 sci-biology/trf-bin 4.09: Tandem Repeats Finder
-sci-biology/trim_galore 0.6.6: Perl wrapper around Cutadapt and FastQC to adapter and quality trimming
 sci-biology/trimmomatic 0.39: Illumina adapter trimming tool
 sci-biology/trinityrnaseq 2.13.2: Transcriptome assembler for RNA-seq reads
 sci-biology/twinscan 4.1.2-r1: iscan (aka twinscan and N-SCAN), Pairagon wrapper: Gene structure pred. pipeline
@@ -443,7 +433,7 @@ sci-libs/optpp 2.4: C++ library for non-linear optimization
 sci-libs/pfft 1.0.8_alpha 9999: Parallel 3d FFT
 sci-libs/pg2plplot 5.13.1: Assist the transition from PGPlot to PLplot in Fortran programs
 sci-libs/pybids 0.6.5 0.10.2 0.12.4: Python package to access BIDS datasets
-sci-libs/pydicom 1.1.0 1.4.2 2.2.2: A pure python package for parsing DICOM files
+sci-libs/pydicom 2.2.2: A pure python package for parsing DICOM files
 sci-libs/rdkit 2021.09.4: Cheminformatics and machine-learning software written in C++ and Python
 sci-libs/scikit-learn-intelx 2023.0.2: Seamless way to speed up your Scikit-learn application
 sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education and interpreted languages.
@@ -501,7 +491,7 @@ sys-cluster/easybuild 4.6.2: EasyBuild is a software build and installation fram
 sys-cluster/easybuild-easyblocks 4.6.2: Provides a collection of easyblocks for EasyBuild.
 sys-cluster/easybuild-easyconfigs 4.6.2: Provides a collection of well-tested easyconfig files for EasyBuild.
 sys-cluster/easybuild-framework 4.6.2: The easybuild-framework package is the core of EasyBuild.
-sys-cluster/modules 4.6.0 4.6.0-r1: Dynamic modification of a user's environment via modulefiles
+sys-cluster/modules 4.6.0-r1: Dynamic modification of a user's environment via modulefiles
 sys-devel/DPC++ 2021.12 2022.09 2022.12: oneAPI Data Parallel C++ compiler
 sys-devel/ittapi 3.23.0 3.24.0: Intel Instrumentation and Tracing Technology and Just-In-Time API
 sys-devel/oneDPL 2021.7.1 2022.0.0-r1: oneAPI Data Parallel C++ Library
