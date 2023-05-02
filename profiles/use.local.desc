@@ -38,13 +38,7 @@ dev-python/ezdxf:matplotlib - Add support for dev-python/matplotlib
 dev-python/ezdxf:qt5 - Add support for dev-python/PyQt5
 dev-python/pyarrow:dataset - Build the arrow dataset modules
 dev-python/pyarrow:parquet - Enables read/write parquet data format
-dev-python/spikeinterface:extractors - support for all extractors
-dev-python/spikeinterface:full - support for all optional processing features
 dev-vcs/dandi-cli:etelemetry - version checking to respect server schema version
-dev-vcs/datalad:downloaders - Extended support for download resources
-dev-vcs/datalad:metadata - Annotated metadata support for datasets
-dev-vcs/datalad:misc - Dataset publishing support
-dev-vcs/datalad:publish - Dataset publishing support
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
 media-libs/mmg:scotch - Use SCOTCH TOOL for renumbering
 media-libs/mmg:vtk - Use VTK I/O
@@ -61,9 +55,6 @@ sci-biology/fsl:cuda - Add support for CUDA
 sci-biology/imagej:plugins - Install additional plugins
 sci-biology/megahit:cuda - Enable NVIDIA GTX680 (4G memory) and Tesla K40c (12G memory) with CUDA 5.5, 6.0 and 6.5
 sci-biology/mouse-brain-templates:hires - Also install high-resolution atlases.
-sci-biology/neuroconv:ecephys - Extracellular electrophysiology interfaces
-sci-biology/neuroconv:icephys - Intracellular electrophysiology interfaces
-sci-biology/neuroconv:ophys - Optical physiology interfaces
 sci-biology/samri:atlases - Include dependency on compatible anatomica atlases.
 sci-biology/samri:labbookdb - Pipe data from LabbookDB databases.
 sci-biology/sga:jemalloc - Use dev-libs/jemalloc
@@ -128,7 +119,6 @@ sci-libs/vtk:tbb - Use dev-cpp/tbb to handle smp support
 sci-libs/vtk:views - Building Views modules
 sci-libs/vtk:vtkm - Build the vtkm accelerations modules
 sci-libs/vtk:web - Install web component
-sci-libs/xblas:int64 - Build the 64 bits integer library
 sci-mathematics/ripser:progress - print progress of calculations in console
 sci-mathematics/ripser:sparsehash - use google sparsehash for storage
 sci-misc/elmer-fem:gui - Build the ElmerGUI

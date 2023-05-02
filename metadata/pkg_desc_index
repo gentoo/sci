@@ -93,7 +93,6 @@ dev-python/mkl_fft 1.3.1: NumPy-based Python interface to Intel MKL FFT function
 dev-python/mkl_random 1.2.2: Python interface to Intel Math Kernel Library's random number generation
 dev-python/mkl_umath 0.1.1: Package implementing NumPy's UFuncs based on SVML and MKL VML
 dev-python/multimethod 1.8: Library allowing Python function overloads based on argument types
-dev-python/neo 0.11.0 0.11.1: Read and represent a wide range of neurophysiology file formats in Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.20.0_rc3: Data Parallel Extension for Numba
@@ -141,13 +140,11 @@ dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents 
 dev-python/sphinx-astropy 1.7.0 1.8.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7-r1: Allow a different format in dosctrings for better clarity
-dev-python/spikeinterface 0.96.1 0.97.0: A Python-based module for creating flexible and robust spike sorting pipelines.
 dev-python/stopit 1.1.2: Timeout control decorator and context managers
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/throttler 1.2.2: Easy throttling with asyncio support
 dev-python/traits 6.1.1 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
-dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/visvis 1.13.0 1.14.0: An object oriented approach to visualization of 1D to 4D data
@@ -161,7 +158,6 @@ dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-vcs/dandi-cli 0.46.6 0.48.0 0.49.0 0.50.0 0.51.0: DANDI command line client to facilitate common operations
-dev-vcs/datalad 0.18.0 0.18.1: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
 media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
@@ -302,7 +298,6 @@ sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
 sci-biology/ncbi-vdb 2.11.2: NCBI SRA ( Sequence Read Archive )
-sci-biology/neuroconv 0.2.4: Create NWB files from proprietary formats.
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/ngs 2.11.2: NGS Language Bindings
 sci-biology/nilearn 0.8.1 0.9.1: Fast and easy statistical learning on NeuroImaging data
@@ -331,7 +326,7 @@ sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roiextractors 0.5.1: Optical imaging data handling from several file formats
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
-sci-biology/samri 0.5.2 0.5.3 0.5.4 9999: Small Animal Magnetic Resonance Imaging
+sci-biology/samri 0.5.3 0.5.4 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
 sci-biology/samri_bindata 0.4: ParaVision Mouse, Rat, and Lemur Testing Data for SAMRI
 sci-biology/samstat 1.5.1: Statistics of BAM/SAM files
@@ -443,7 +438,6 @@ sci-libs/torchvision 0.14.1: Datasets, transforms and models to specific to comp
 sci-libs/vtk 9.1.0-r6: The Visualization Toolkit
 sci-libs/vxl 2.0.2: C++ computer vision research libraries
 sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
-sci-libs/xblas 1.0.248-r1: Extra Precise Basic Linear Algebra Subroutines
 sci-libs/zarja 2.2.0: Scientific multi-agent simulation library
 sci-mathematics/Oid 4.0: An interactive, extensible software system for experimenting with matroids
 sci-mathematics/cipi 1.0: Computing information projections iteratively
