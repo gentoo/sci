@@ -91,6 +91,7 @@ dev-python/mkl_fft 1.3.1: NumPy-based Python interface to Intel MKL FFT function
 dev-python/mkl_random 1.2.2: Python interface to Intel Math Kernel Library's random number generation
 dev-python/mkl_umath 0.1.1: Package implementing NumPy's UFuncs based on SVML and MKL VML
 dev-python/multimethod 1.8: Library allowing Python function overloads based on argument types
+dev-python/neo 0.11.0 0.11.1: Read and represent a wide range of neurophysiology file formats in Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.20.0_rc3: Data Parallel Extension for Numba
@@ -101,7 +102,7 @@ dev-python/panel 0.11.0 0.14.1 0.14.2: High-level app and dashboarding solution 
 dev-python/param 1.10.1 1.12.3: Make Python code clearer and more reliable by declaring Parameters
 dev-python/persim 0.1.3 0.2.0 0.3.0 0.3.1: Distances and representations of persistence diagrams
 dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
-dev-python/probeinterface 0.2.11 0.2.14 0.2.16: Python package to handle probe layout, geometry and wiring to device
+dev-python/probeinterface 0.2.14 0.2.16: Python package to handle probe layout, geometry and wiring to device
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
 dev-python/pyarrow 11.0.0: Python library for Apache Arrow
