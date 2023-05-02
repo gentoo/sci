@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@chymera.eu</email>
+		<name>Horea Christian</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<use>
+		<flag name="ecephys">Extracellular electrophysiology interfaces</flag>
+		<flag name="icephys">Intracellular electrophysiology interfaces</flag>
+		<flag name="ophys">Optical physiology interfaces</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">catalystneuro/roiextractors</remote-id>
+		<remote-id type="pypi">roiextractors</remote-id>
+	</upstream>
+</pkgmetadata>
