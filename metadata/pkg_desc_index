@@ -6,12 +6,10 @@ dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framewor
 dev-cpp/blitz 1.0.3_pre20200524: Multi-dimensional array library for C++
 dev-cpp/highwayhash 20200922: Fast strong hash functions: SipHash/HighwayHash
 dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
-dev-cpp/xsimd 10.0.0: C++ wrappers for SIMD intrinsics and math implementations
 dev-java/fits 1.15.1: Java library for FITS input/output
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
 dev-lang/berkeley_upc_translator 2.28.2: The Berkeley UPC-to-C translator
 dev-lang/yaggo 1.5.10: Tool to generate command line parsers for C++ (aka Gengetopt)
-dev-libs/apache-arrow 11.0.0: A cross-language development platform for in-memory data.
 dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
@@ -85,7 +83,6 @@ dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
 dev-python/llvmlite 0.39.1: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
-dev-python/looseversion 1.0.2 1.0.3: A backwards/forwards-compatible fork of distutils' LooseVersion
 dev-python/matlabengine 9.13.7: A module to call MATLAB from Python
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/mkl-service 2.4.0: Python hooks for Intel Math Kernel Library runtime control settings
@@ -208,7 +205,7 @@ sci-biology/afni 20.1.16 20.3.03 22.0.21: An open-source environment for process
 sci-biology/aghermann 1.1.2-r2: A sleep-research experiment manager, EDF viewer & Process S simulator
 sci-biology/align_to_scf 1.06: View trace information at a given position missing from Roche .ace files
 sci-biology/angsd 0.933: Population genetics analysis package
-sci-biology/ants 2.4.1-r1 2.4.3: Advanced Normalitazion Tools for neuroimaging
+sci-biology/ants 2.4.3: Advanced Normalitazion Tools for neuroimaging
 sci-biology/arcs 1.2.2: Scaffold genome sequence assemblies by Chromium/PacBio/Naopore reads
 sci-biology/assembly-stats 9999: Assembly statistics (min, max, sum, N50, N90, count gaps and Ns)
 sci-biology/bam-readcount 0.8.0 9999: Count DNA sequence reads in BAM files and other statistics calculations
@@ -323,7 +320,6 @@ sci-biology/pyfaidx 0.5.9.2 0.7.2.1: Efficient pythonic random access to fasta s
 sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-Joining method
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
-sci-biology/roiextractors 0.5.1: Optical imaging data handling from several file formats
 sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/samri 0.5.3 0.5.4 9999: Small Animal Magnetic Resonance Imaging
@@ -389,7 +385,6 @@ sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et
 sci-libs/amber99sbnmr-ildn 0_pre130901: AMBER99SBnmr1-ILDN FF (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/aocl-libm 3.1.0: Optimized libm replacement from AMD for x86_64 architectures
 sci-libs/aocl-sparse 2.2 9999: AMD library for optimized sparse BLAS operations
-sci-libs/arpack 3.8.0_p20220604: Arnoldi package library to solve large scale eigenvalue problems
 sci-libs/arrayfire 3.7.2 3.7.3 3.8.0: general purpose GPU library
 sci-libs/asl 0.1.7 9999: Hardware accelerated multiphysics simulation platform
 sci-libs/bids-validator 1.4.4: Validator for the Brain Imaging Data Structure
@@ -420,7 +415,7 @@ sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
 sci-libs/nexus 4.4.3_p20200126: Data format for neutron and x-ray scattering data
 sci-libs/nibabel 3.2.1 4.0.0 5.0.0: Access a cacophony of neuro-imaging file formats
-sci-libs/nipy 0.4.2 0.5.0-r1 0.5.1_pre20230103: Neuroimaging tools for Python
+sci-libs/nipy 0.5.1_pre20230103: Neuroimaging tools for Python
 sci-libs/nipype 1.5.0 1.8.4-r1: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/oneDAL 2023.0.1: oneAPI Data Analytics Library
 sci-libs/oneMKL 0.2_p20221201 0.2_p20230221: oneAPI Math Kernel Library Interfaces
@@ -435,7 +430,6 @@ sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education a
 sci-libs/spyking-circus 1.1.0: Fast spike sorting by template matching
 sci-libs/starparse 0.9: Library for parsing NMR star files (peak-list format) and CIF files
 sci-libs/torchvision 0.14.1: Datasets, transforms and models to specific to computer vision
-sci-libs/vtk 9.1.0-r6: The Visualization Toolkit
 sci-libs/vxl 2.0.2: C++ computer vision research libraries
 sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
 sci-libs/zarja 2.2.0: Scientific multi-agent simulation library

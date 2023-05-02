@@ -12,10 +12,6 @@ dev-lang/berkeley_upc:sptr-packed - Use the more efficient 'packed' shared point
 dev-lang/berkeley_upc:sptr-struct - Use the 'struct' shared pointer representation
 dev-lang/berkeley_upc:sptr-symmetric - Enable 'symmetric' pointer variant where available (64-bit smp and shmem)
 dev-lang/berkeley_upc:udp - Support running over UDP
-dev-libs/apache-arrow:brotli - Enable brotli compression suppor
-dev-libs/apache-arrow:csv - Enables read/write csv format
-dev-libs/apache-arrow:json - Enables read/write json format
-dev-libs/apache-arrow:parquet - Enables read/write parquet data format
 dev-libs/boost-compute:benchmark - build benchmark examples
 dev-libs/boost-compute:bolt - build bolt examples and tests
 dev-libs/boost-compute:cache - use offline cache for opencl binaries in examples and tests
@@ -66,9 +62,6 @@ sci-chemistry/gamess:vb2000 - Enable Valence Bond method using VB2000 code
 sci-chemistry/relion:cuda - Enable CUDA support
 sci-chemistry/relion:gui - Enable relion gui
 sci-libs/aocl-libm:aocc - install the library built using AOCC, else use the GCC version
-sci-libs/arpack:icb - Enable support for *[ae]upd_c with ISO_C_BINDING
-sci-libs/arpack:icbexmm - Enable support for matrix market example based on ICB
-sci-libs/arpack:int64 - Use the 64-bit integer interface (ILP64)
 sci-libs/arrayfire:cache - cache kernals to disk.
 sci-libs/arrayfire:cuda - Build CUDA backend.
 sci-libs/arrayfire:mkl - Build against static MKL.
@@ -98,27 +91,6 @@ sci-libs/nexus:hdf5 - Support the standard representation (HDF5)
 sci-libs/nexus:java - Build the Java bindings
 sci-libs/nexus:xml - Allow using the verbose XML representation of NeXus data
 sci-libs/nibabel:dicom - Adds limited read support for the DICOM imaging format.
-sci-libs/vtk:all-modules - Build all modules
-sci-libs/vtk:boost - Add support for boost
-sci-libs/vtk:cuda - Add support for CUDA
-sci-libs/vtk:freetype - Build support for font rendering
-sci-libs/vtk:gdal - Support for gdal formated data
-sci-libs/vtk:imaging - Building Imaging modules
-sci-libs/vtk:json - Support for json formatted data
-sci-libs/vtk:kits - Build kits in addition to modules
-sci-libs/vtk:las - Build support for LiDAR files
-sci-libs/vtk:logging - Build the logging module
-sci-libs/vtk:offscreen - Offscreen rendering through OSMesa
-sci-libs/vtk:openvdb - Build support to handle VDB data files
-sci-libs/vtk:pdal - Build support to handle point cloud data files
-sci-libs/vtk:pegtl - Use pegtl to build parsers
-sci-libs/vtk:qt6 - Use Qt6 packages instead of Qt5
-sci-libs/vtk:rendering - Building Redering modules
-sci-libs/vtk:sdl - Enable SDL2 support for rendering modules
-sci-libs/vtk:tbb - Use dev-cpp/tbb to handle smp support
-sci-libs/vtk:views - Building Views modules
-sci-libs/vtk:vtkm - Build the vtkm accelerations modules
-sci-libs/vtk:web - Install web component
 sci-mathematics/ripser:progress - print progress of calculations in console
 sci-mathematics/ripser:sparsehash - use google sparsehash for storage
 sci-misc/elmer-fem:gui - Build the ElmerGUI
