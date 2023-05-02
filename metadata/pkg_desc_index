@@ -95,7 +95,7 @@ dev-python/neo 0.11.0 0.11.1: Read and represent a wide range of neurophysiology
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
 dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.20.0_rc3: Data Parallel Extension for Numba
-dev-python/numcodecs 0.9.0 0.9.1 0.10.0: Data storage buffer compression and transformation codecs
+dev-python/numcodecs 0.9.1 0.10.0: Data storage buffer compression and transformation codecs
 dev-python/numpy 1.23.5: Fast array and numerical python library
 dev-python/nwbinspector 0.4.14 0.4.19 0.4.26-r1: Inspect NWB files for compliance with NWB Best Practices
 dev-python/panel 0.11.0 0.14.1 0.14.2: High-level app and dashboarding solution for Python
@@ -145,6 +145,7 @@ dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/throttler 1.2.2: Easy throttling with asyncio support
 dev-python/traits 6.1.1 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
+dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/visvis 1.13.0 1.14.0: An object oriented approach to visualization of 1D to 4D data
