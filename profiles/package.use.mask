@@ -18,7 +18,3 @@
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (23 Aug 2022)
 # vtk<9 no longer available in ::gentoo
 sci-libs/gdcm python
-
-# Christoph Junghans <ottxor@gentoo.org> (05 Nov 2013)
-# gui sandbox error
-dev-lang/conceptual gui
