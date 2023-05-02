@@ -8,7 +8,7 @@ inherit distutils-r1
 
 DESCRIPTION="Cache results of operations on heavy file trees"
 HOMEPAGE="https://github.com/con/fscacher"
-SRC_URI="https://github.com/con/fscacher/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/con/fscacher/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 SLOT="0"
 LICENSE="MIT"
