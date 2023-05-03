@@ -1,15 +1,15 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit distutils-r1
 
 DESCRIPTION="Fast and easy statistical learning on NeuroImaging data"
 HOMEPAGE="http://nilearn.github.io/"
-SRC_URI="https://github.com/nilearn/nilearn/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/nilearn/nilearn/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
