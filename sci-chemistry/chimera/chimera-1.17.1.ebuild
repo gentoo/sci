@@ -5,7 +5,7 @@ EAPI=8
 inherit desktop xdg
 
 DESCRIPTION="Next generation molecular visualization program from RBVI"
-HOMEPAGE="https://www.cgl.ucsf.edu/chimerax/"
+HOMEPAGE="https://www.cgl.ucsf.edu/chimera/"
 SRC_URI="chimera-${PV}-linux_x86_64.bin
 	fetch+http://svn.cgl.ucsf.edu/svn/chimera/trunk/icons/chimera/Chimera512.png"
 
