@@ -1,0 +1,10 @@
+--- a/Modules/Filtering/MathematicalMorphology/include/itkMathematicalMorphologyEnums.h
++++ b/Modules/Filtering/MathematicalMorphology/include/itkMathematicalMorphologyEnums.h
+@@ -20,6 +20,7 @@
+ 
+ #include <iostream>
+ #include "ITKMathematicalMorphologyExport.h"
++#include <cstdint>
+ 
+ 
+ namespace itk
