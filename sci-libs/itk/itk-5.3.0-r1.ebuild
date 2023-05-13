@@ -92,9 +92,11 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_P}"
 
+# uint patch applied by upstream for next release.
 PATCHES=(
 	"${FILESDIR}/${PN}-5.2.1-system-tiff-has-64.patch"
 	"${FILESDIR}/${PN}-5.3.0-system-openjpeg.patch"
+	"${FILESDIR}/${PN}-5.3.0-uint8.patch"
 )
 
 pkg_pretend() {
