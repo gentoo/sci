@@ -175,7 +175,6 @@ sci-biology/AlignGraph 9999: Reference-genome-assisted asssembly of contigs/scaf
 sci-biology/BBmap 38.87: Short read aligner, K-mer-based error-correct and normalize, FASTA/Q tool
 sci-biology/BRAKER 2.1.2: Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS
 sci-biology/BRANCH 9999: Extend partial transcripts with sequence from other reads or genomic contigs
-sci-biology/BlastToSam 1.1: Convert NCBI BLAST+ Pairwise/XML (-outfmt 0 or 5) output to SAM v1.4
 sci-biology/CAT 1.3: Codon usage bias (composition) and its statistical significance
 sci-biology/FLASH 1.2.11: Paired-end mates merge from fragments
 sci-biology/Fastaq 3.17.0: Manipulate FASTA/Q, GFF3, EMBL, GBK files with API for developers
@@ -327,7 +326,6 @@ sci-biology/quicktree 2.5: Rapid reconstruction of phylogenies by the Neighbor-J
 sci-biology/rat-brain-templates 0.2: A collection of rat brain templates in NIfTI format
 sci-biology/rnaplex 0.2: RNA-RNA interaction search
 sci-biology/roiextractors 0.5.1: Optical imaging data handling from several file formats
-sci-biology/rtg-tools 3.12: Manipulate and analyze VCF files
 sci-biology/sabre 9999: Barcode demultiplexing and trimming tool for Illumina FastQ files
 sci-biology/samri 0.5.3 0.5.4 9999: Small Animal Magnetic Resonance Imaging
 sci-biology/samri_bidsdata 0.3: BIDS-formatted example mouse brain data for SAMRI
