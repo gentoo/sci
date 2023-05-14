@@ -6,7 +6,7 @@ EAPI=7
 DESCRIPTION="de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore"
 HOMEPAGE="http://www.genome.umd.edu/masurca.html
 	http://bioinformatics.oxfordjournals.org/content/29/21/2669
-	https://biorxiv.org/content/biorxiv/early/2016/07/26/066100.full.pdf"
+	https://github.com/alekseyzimin/masurca"
 SRC_URI="https://github.com/alekseyzimin/masurca/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="BSD GPL-2 GPL-3"
