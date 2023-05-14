@@ -183,7 +183,7 @@ sci-biology/IMAGE 2.4.1: Iterative Mapping and Assembly for Gap Elimination usin
 sci-biology/KING 2.2.7: Check family relationship and infer population structure
 sci-biology/KaKs_Calculator 1.2 2.0: Calculate nonsynonymous (Ka) and synonymous (Ks) substitution rates
 sci-biology/LINKS 2.0.1: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
-sci-biology/MaSuRCA 4.0.1: de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore
+sci-biology/MaSuRCA 4.0.1 4.1.0: de Bruijn and OLC assembler for Sanger, Roche 454, Illumina, Pacbio, Nanopore
 sci-biology/MeV 4.8.1: Multiple experiment Viewer for genomic data analysis
 sci-biology/MochiView 1.46: Genome browser and analysis
 sci-biology/MuSeqBox 5.7.2021: Parse and filter BLAST output into tab-delimited file
