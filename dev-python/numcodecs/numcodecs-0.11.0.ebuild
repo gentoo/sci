@@ -4,6 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 pypi
 
 DESCRIPTION="Data storage buffer compression and transformation codecs"
@@ -15,13 +16,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 # Fails to collect tests for yet unknown reasons:
 # https://github.com/zarr-developers/numcodecs/issues/304
+# --pyargs numcodecs fix proposed in thread doesn't seem to take effect.
 RESTRICT="test"
 
 RDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
+	dev-python/entrypoints[${PYTHON_USEDEP}]
 	dev-python/msgpack[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/cython[${PYTHON_USEDEP}]
+	dev-python/py-cpuinfo[${PYTHON_USEDEP}]
 "
 
 DEPEND="
@@ -30,5 +33,9 @@ DEPEND="
 		dev-python/entrypoints[${PYTHON_USEDEP}]
 	)
 "
+
+PATCHES=(
+	"${FILESDIR}/${P}-nocov.patch"
+)
 
 distutils_enable_tests pytest
