@@ -14,10 +14,6 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
-# Fails to collect tests for yet unknown reasons:
-# https://github.com/zarr-developers/numcodecs/issues/304
-# --pyargs numcodecs fix proposed in thread doesn't seem to take effect.
-RESTRICT="test"
 
 RDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
@@ -38,4 +34,16 @@ PATCHES=(
 	"${FILESDIR}/${P}-nocov.patch"
 )
 
+# Reported upstream:
+# https://github.com/zarr-developers/numcodecs/issues/436
+EPYTEST_DESELECT=(
+	tests/test_json.py::test_non_numpy_inputs
+	tests/test_msgpacks.py::test_non_numpy_inputs
+)
+
 distutils_enable_tests pytest
+
+python_test() {
+	cd "${T}" || die
+	epytest --pyargs numcodecs
+}
