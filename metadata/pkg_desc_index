@@ -37,8 +37,8 @@ dev-python/annexremote 1.5.0 1.6.0: Helper module to easily develop git-annex re
 dev-python/anys 0.2.1: Matchers for pytest
 dev-python/archspec 0.1.4: labels for various aspects of a system architecture like CPU, etc.
 dev-python/asciitree 0.3.3: ASCII trees in python
-dev-python/asdf 2.8.3 2.14.3: Python library for the Advanced Scientific Data Format
-dev-python/astropy 5.0 5.2.1: Core functionality for performing astrophysics with Python
+dev-python/asdf 2.14.3: Python library for the Advanced Scientific Data Format
+dev-python/astropy 5.2.1: Core functionality for performing astrophysics with Python
 dev-python/astropy-healpix 0.7: HEALPix for Astropy
 dev-python/astropy-helpers 4.0.1-r1: Helpers for Astropy and Affiliated packages
 dev-python/astropy-sphinx-theme 1.1-r1: The sphinx theme for Astropy and affiliated packages
@@ -51,7 +51,7 @@ dev-python/cadquery-ocp 7.5.3.0: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
-dev-python/colorcet 2.0.6 3.0.1: Collection of perceptually uniform colormaps
+dev-python/colorcet 3.0.1: Collection of perceptually uniform colormaps
 dev-python/connection_pool 0.0.3: Thread safe connection pool
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
 dev-python/dandi-schema 0.6.0 0.7.1 0.8.2 0.8.3: Schemata for DANDI archive project
@@ -60,7 +60,7 @@ dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/distinctipy 1.2.2: Lightweight package for generating visually distinct colours
 dev-python/dpctl 0.14.1_rc2: Data Parallel Control
 dev-python/dpnp 0.11.1_rc1: Data Parallel Extension for NumPy
-dev-python/extension-helpers 0.1 1.0.0: Utilities for building and installing packages in the Astropy ecosystem
+dev-python/extension-helpers 1.0.0: Utilities for building and installing packages in the Astropy ecosystem
 dev-python/ezdxf 0.16.5: Python interface to DXF
 dev-python/fiona 1.9.0: API for reading/writing vector geospatial data
 dev-python/fscacher 0.1.4 0.2.0: Cache results of operations on heavy file trees
@@ -71,12 +71,12 @@ dev-python/gffpandas 1.2.0: Python library to Filter and sort GFF3 annotations
 dev-python/gmsh_interop 2021.1.1: Interoperability with Gmsh for Python
 dev-python/google-cloud-storage 2.7.0: Google Cloud Storage API client library
 dev-python/grabbit 0.2.6: Get grabby with file trees
-dev-python/gwcs 0.16.1 0.18.3-r1: Generalized World Coordinate System
-dev-python/hdbscan 0.8.26 0.8.29: A high performance implementation of HDBSCAN clustering.
+dev-python/gwcs 0.18.3-r1: Generalized World Coordinate System
+dev-python/hdbscan 0.8.29: A high performance implementation of HDBSCAN clustering.
 dev-python/hdf5storage 0.1.19 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hdmf 3.4.7 3.5.0_p1 3.5.1 3.5.2: The Hierarchical Data Modeling Framework
 dev-python/heudiconv 0.11.6-r1 0.13.0: Flexible DICOM conversion to structured directory layouts
-dev-python/holoviews 1.14.2 1.15.3: Make data analysis and visualization seamless and simple
+dev-python/holoviews 1.15.3: Make data analysis and visualization seamless and simple
 dev-python/hopcroftkarp 1.2.5_p1-r1: python frontend for the fast ripser tda tool
 dev-python/interleave 0.2.0: Yield from multiple iterators as values become available
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
