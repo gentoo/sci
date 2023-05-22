@@ -15,5 +15,6 @@ in both the time and spectral domains.
 </longdescription>
 	<upstream>
 		<remote-id type="github">nipy/nitime</remote-id>
+		<remote-id type="pypi">nitime</remote-id>
 	</upstream>
 </pkgmetadata>

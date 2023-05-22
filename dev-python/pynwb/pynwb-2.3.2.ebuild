@@ -9,7 +9,6 @@ inherit distutils-r1 pypi
 
 DESCRIPTION="A Python API for working with Neurodata stored in the NWB Format "
 HOMEPAGE="https://github.com/NeurodataWithoutBorders/pynwb"
-SRC_URI="$(pypi_sdist_url pynwb)"
 
 SLOT="0"
 LICENSE="BSD"
@@ -24,11 +23,6 @@ RDEPEND="
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
 	"
 BDEPEND=""
-
-# Remove in next release
-PATCHES=(
-	"${FILESDIR}/${P}-typing.patch"
-	)
 
 EPYTEST_DESELECT=(
 	# Reported upsream:
