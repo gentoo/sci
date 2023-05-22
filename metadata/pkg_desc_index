@@ -54,7 +54,7 @@ dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 2.0.6 3.0.1: Collection of perceptually uniform colormaps
 dev-python/connection_pool 0.0.3: Thread safe connection pool
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
-dev-python/dandi-schema 0.5.1 0.6.0 0.7.1 0.8.2: Schemata for DANDI archive project
+dev-python/dandi-schema 0.6.0 0.7.1 0.8.2 0.8.3: Schemata for DANDI archive project
 dev-python/datrie 0.8.2-r1: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/distinctipy 1.2.2: Lightweight package for generating visually distinct colours
@@ -220,7 +220,7 @@ sci-biology/beagle 5.1: Genotype calling/phasing, imputation of ungenotyped mark
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
 sci-biology/bedops 2.4.26 2.4.39: Manipulate BED file (alternative to bedtools)
 sci-biology/behaviopy 0.2: Neuroimaging tools for Python
-sci-biology/bidsschematools 0.4.0 0.5.1-r1 0.6.0: A Python library for working with the BIDS schema
+sci-biology/bidsschematools 0.5.1-r1 0.6.0 0.7.0: A Python library for working with the BIDS schema
 sci-biology/biobambam2 2.0.146 9999: Tools for bam file processing (using libmaus2)
 sci-biology/bismark 0.23.0: Map bisulfite converted sequence reads and cytosine methylation states
 sci-biology/brat 1.2.4: Bisulfite-treated Reads Analysis Tool (short read mapper)
