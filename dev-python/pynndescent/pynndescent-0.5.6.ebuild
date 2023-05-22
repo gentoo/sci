@@ -5,11 +5,10 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_10 )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="nearest neighbor descent for approximate nearest neighbors"
 HOMEPAGE="https://github.com/lmcinnes/pynndescent"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

@@ -4,11 +4,11 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_10 )
-inherit distutils-r1
+PYPI_NO_NORMALIZE=1
+inherit distutils-r1 pypi
 
 DESCRIPTION="PEP 561 type stubs generator for pybind11 modules"
 HOMEPAGE="https://github.com/sizmailov/pybind11-stubgen"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

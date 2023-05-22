@@ -5,12 +5,11 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
-
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Python interface for igraph"
 HOMEPAGE="https://igraph.org"
-SRC_URI="mirror://pypi/i/igraph/igraph-${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="$(pypi_sdist_url igraph)"
 S="${WORKDIR}/igraph-${PV}"
 
 LICENSE="MIT"

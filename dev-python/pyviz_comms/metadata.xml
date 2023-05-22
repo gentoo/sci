@@ -7,7 +7,7 @@
 	</maintainer>
 	<stabilize-allarches/>
 	<upstream>
-		<remote-id type="pypi">pyviz_comms</remote-id>
+		<remote-id type="pypi">pyviz-comms</remote-id>
 		<remote-id type="github">holoviz/pyviz_comms</remote-id>
 	</upstream>
 </pkgmetadata>

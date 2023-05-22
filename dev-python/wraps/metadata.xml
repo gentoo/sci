@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="github">nekitdev/wraps</remote-id>
+		<remote-id type="pypi">wraps</remote-id>
 	</upstream>
 </pkgmetadata>
