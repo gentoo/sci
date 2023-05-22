@@ -98,9 +98,9 @@ dev-python/numba-dpex 0.20.0_rc3: Data Parallel Extension for Numba
 dev-python/numcodecs 0.11.0: Data storage buffer compression and transformation codecs
 dev-python/numpy 1.23.5: Fast array and numerical python library
 dev-python/nwbinspector 0.4.19 0.4.26-r1: Inspect NWB files for compliance with NWB Best Practices
-dev-python/panel 0.11.0 0.14.1 0.14.2: High-level app and dashboarding solution for Python
+dev-python/panel 0.14.2: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1 1.12.3: Make Python code clearer and more reliable by declaring Parameters
-dev-python/persim 0.1.3 0.2.0 0.3.0 0.3.1: Distances and representations of persistence diagrams
+dev-python/persim 0.3.1: Distances and representations of persistence diagrams
 dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
 dev-python/probeinterface 0.2.14 0.2.16: Python package to handle probe layout, geometry and wiring to device
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
@@ -114,12 +114,12 @@ dev-python/pynrrd 0.4.2 0.4.3: Simple pure-python module for reading and writing
 dev-python/pynwb 2.2.0-r1 2.3.1-r1 2.3.2: A Python API for working with Neurodata stored in the NWB Format
 dev-python/pyout 0.7.1-r1 0.7.2-r1: Terminal styling for structured data
 dev-python/pysolar 0.10: Collection of Python libraries for simulating the irradiation by the sun
-dev-python/pytest-doctestplus 0.11.2 0.12.1: Pytest plugin with advanced doctest features
+dev-python/pytest-doctestplus 0.12.1: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.10.4: Python interface for igraph
 dev-python/pytorch-lightning 1.8.6: Lightweight PyTorch wrapper for ML researchers
 dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
-dev-python/pyviz_comms 2.0.1 2.2.0: Bidirectional communication for the HoloViz ecosystem
+dev-python/pyviz_comms 2.2.0: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
 dev-python/pyzo 4.12.7: The Python IDE for scientific computing
 dev-python/rasterio 1.2.10-r1: Command line tool and API for geospatial raster data
@@ -136,7 +136,7 @@ dev-python/snakemake 7.24.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.9.1: Package for spectroscopic astronomical data
 dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents argparse commands and options
-dev-python/sphinx-astropy 1.7.0 1.8.0: Sphinx extensions and configuration specific to the Astropy project
+dev-python/sphinx-astropy 1.8.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7-r1: Allow a different format in dosctrings for better clarity
 dev-python/spikeinterface 0.96.1 0.97.0: A Python-based module for creating flexible and robust spike sorting pipelines.
@@ -148,7 +148,7 @@ dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
-dev-python/visvis 1.13.0 1.14.0: An object oriented approach to visualization of 1D to 4D data
+dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wraps 0.1.0-r1 0.2.0: Meaningful and safe wrapping types.
 dev-python/xgboost 1.6.2: XGBoost Python Package
 dev-python/zarr 2.11.3 2.12.0: Chunked, compressed, N-dimensional arrays for Python
@@ -166,7 +166,7 @@ media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing 
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
-net-misc/cernbox-client 2.10.1.7389 2.11.1.8438 2.11.1.8946: Synchronize files from CERNBox EOS with your computer
+net-misc/cernbox-client 2.11.1.8946: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/libthesky 0.4.2: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
 sci-biology/ABI-expression-data 0.2: Gene expression data form the Allen Mouse Brain data portal
