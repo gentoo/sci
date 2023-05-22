@@ -258,7 +258,6 @@ sci-biology/flexbar 3.5.0: Barcode, MID tag and adapter sequence removal
 sci-biology/freebayes 1.3.5: Bayesian gen. variant detector to find short polymorphisms
 sci-biology/fsa 1.15.9: Distance-based probabilistic multiple sequence alignment algo for DNA/RNA/prot
 sci-biology/fsl 6.0.4 6.0.5: Analysis of functional, structural, and diffusion MRI brain imaging data
-sci-biology/gemini 0.30.2: Lightweight VCF to DB framework for disease and population genetics
 sci-biology/genepop 4.7: Population genetics analysis
 sci-biology/genomeview-bin 2450: Genome browser and annotation tool
 sci-biology/germline 1.5.3: Find shared segments of Identity by Descent (IBD) between pairs of individuals
@@ -285,7 +284,7 @@ sci-biology/lighter 1.1.2 9999: NGS reads corrector
 sci-biology/longstitch 1.0.1: Scaffold genome assemblies by Chromium/PacBio/Nanopore reads
 sci-biology/lucy 1.20: DNA sequence quality and vector trimming tool
 sci-biology/lumpy-sv 0.3.1: Probabilistic framework for structural variant discovery
-sci-biology/mappy 2.24: Minimap2 python binding
+sci-biology/mappy 2.24 2.26: Minimap2 python binding
 sci-biology/megahit 1.2.9: Metagenome assembler using succinct de Bruijn graph approach with CUDA
 sci-biology/merlin 1.1.2: Statistical analysis of gene flow in pedigrees
 sci-biology/minced 0.4.2: Short Palindromic Repeat finder tool (for CRISPRs)
