@@ -241,7 +241,7 @@ sci-biology/coral 1.4.1: Error corrector for Illumina and Roche/454 reads using 
 sci-biology/cross_genome 20140822: Genome scaffolding using cross-species synteny
 sci-biology/dargcc_bidsdata 1.0: BIDS data selection of wildtype animals from DARGCC article
 sci-biology/dcm2niix 1.0.20201102 1.0.20210317: DICOM to NIfTI converter
-sci-biology/dcmstack 0.8: DICOM to Nifti coversion
+sci-biology/dcmstack 0.9: DICOM to Nifti coversion
 sci-biology/deeptools 3.5.0 3.5.1: Extract reads from BAM files, normalize, draw figures, convert BAM to bigWig
 sci-biology/deeptools-intervals 0.1.9: Constructing interval trees with associated exon/annotation information
 sci-biology/diamond 2.0.6: Alternative of blastp/blastx searches using DNA short reads through protein db
