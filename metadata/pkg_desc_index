@@ -105,7 +105,6 @@ dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
 dev-python/probeinterface 0.2.14 0.2.16: Python package to handle probe layout, geometry and wiring to device
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
-dev-python/pyarrow 11.0.0: Python library for Apache Arrow
 dev-python/pybind11-stubgen 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1-r2: Python bindings for ERFA
@@ -149,7 +148,7 @@ dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
-dev-python/wraps 0.1.0-r1 0.2.0: Meaningful and safe wrapping types.
+dev-python/wraps 0.2.0: Meaningful and safe wrapping types.
 dev-python/xgboost 1.6.2: XGBoost Python Package
 dev-python/zarr 2.11.3 2.12.0: Chunked, compressed, N-dimensional arrays for Python
 dev-python/zarr_checksum 0.2.8: Calculatine zarr checksums from local or cloud storage

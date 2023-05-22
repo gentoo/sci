@@ -32,8 +32,6 @@ dev-libs/simclist:hash - Allow list_hash() to work exclusively on memory locatio
 dev-python/ezdxf:cython - Build Cython-based C extensions
 dev-python/ezdxf:matplotlib - Add support for dev-python/matplotlib
 dev-python/ezdxf:qt5 - Add support for dev-python/PyQt5
-dev-python/pyarrow:dataset - Build the arrow dataset modules
-dev-python/pyarrow:parquet - Enables read/write parquet data format
 dev-python/spikeinterface:extractors - support for all extractors
 dev-python/spikeinterface:full - support for all optional processing features
 dev-vcs/dandi-cli:etelemetry - version checking to respect server schema version
