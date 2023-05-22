@@ -5,4 +5,7 @@ SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
 	<maintainer type="person">
 		<email>heroxbd@gentoo.org</email>
 	</maintainer>
+	<upstream>
+		<remote-id type="pypi">xgboost</remote-id>
+	</upstream>
 </pkgmetadata>
