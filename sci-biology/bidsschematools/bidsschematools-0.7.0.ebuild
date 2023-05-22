@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,10 +16,14 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="render"
+# Documented upstream:
+# https://github.com/conda-forge/bidsschematools-feedstock/pull/2
+RESTRICT="test"
 
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	render? (
+		dev-python/markdown-it-py[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
 		dev-python/tabulate[${PYTHON_USEDEP}]
 	)
