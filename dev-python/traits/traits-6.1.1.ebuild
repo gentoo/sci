@@ -5,13 +5,12 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Enthought Tool Suite: Explicitly typed attributes for Python"
 HOMEPAGE="https://docs.enthought.com/traits/
 	https://github.com/enthought/traits
 	https://pypi.org/project/traits/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"

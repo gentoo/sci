@@ -21,6 +21,7 @@
 		* Visualization: With the TraitsUI package, GUIs can be generated automatically from traited objects.
 	</longdescription>
 	<upstream>
+		<remote-id type="github">enthought/traits</remote-id>
 		<remote-id type="pypi">traits</remote-id>
 	</upstream>
 </pkgmetadata>
