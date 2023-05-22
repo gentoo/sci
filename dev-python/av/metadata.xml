@@ -5,4 +5,8 @@
 		<email>jpizarrocallejas@gmail.com</email>
 		<name>Jorge Pizarro Callejas</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">mikeboers/PyAV</remote-id>
+		<remote-id type="pypi">av</remote-id>
+	</upstream>
 </pkgmetadata>
