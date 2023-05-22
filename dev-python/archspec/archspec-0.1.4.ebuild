@@ -2,11 +2,10 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=poetry
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="labels for various aspects of a system architecture like CPU, etc."
 HOMEPAGE="https://archspec.readthedocs.io/en/latest/index.html"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

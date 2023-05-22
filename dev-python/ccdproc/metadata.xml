@@ -12,5 +12,6 @@ and bad pixel tracking through the reduction steps.
 </longdescription>
 	<upstream>
 		<remote-id type="github">astropy/ccdproc</remote-id>
+		<remote-id type="pypi">ccdproc</remote-id>
 	</upstream>
 </pkgmetadata>

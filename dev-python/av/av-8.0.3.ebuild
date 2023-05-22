@@ -4,12 +4,10 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_10 )
-
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Pythonic bindings for FFmpeg's libraries."
-HOMEPAGE="https://github.com/mikeboers/PyAV https://pypi.org/project/av/"
-SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz"
+HOMEPAGE="https://github.com/PyAV-Org/PyAV https://pypi.org/project/av/"
 
 LICENSE="BSD"
 SLOT="0"

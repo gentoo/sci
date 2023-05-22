@@ -6,11 +6,11 @@ EAPI=8
 PYTHON_COMPAT=( python3_10 )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 DISTUTILS_IN_SOURCE_BUILD=1
-inherit distutils-r1 optfeature
+inherit distutils-r1 optfeature pypi
 
 DESCRIPTION="Statistical and interactive HTML plots for Python"
 HOMEPAGE="https://bokeh.org/"
-SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz
+SRC_URI+="
 	https://raw.githubusercontent.com/bokeh/bokeh/${PV}/conftest.py -> conftest-${P}.py
 "
 

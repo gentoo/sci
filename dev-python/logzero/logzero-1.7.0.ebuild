@@ -4,12 +4,10 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_10 pypy3 )
-
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Robust and effective logging for Python 2 and 3"
 HOMEPAGE="https://pypi.org/project/logzero"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

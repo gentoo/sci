@@ -5,15 +5,14 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
-
-inherit distutils-r1 xdg-utils
+PYPI_NO_NORMALIZE=1
+inherit distutils-r1 pypi xdg-utils
 
 MYPV=${PV/_/}
 S=${WORKDIR}/${PN}-${MYPV}
 
 DESCRIPTION="Helpers for Astropy and Affiliated packages"
 HOMEPAGE="https://github.com/astropy/astropy-helpers"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${PN}-${MYPV}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
