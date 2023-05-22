@@ -4,12 +4,10 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_10 )
-
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Add functionality missing from the python libclang bindings"
-HOMEPAGE="https://pypi.org/project/cymbal"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+HOMEPAGE="https://pypi.org/project/cymbal/"
 
 LICENSE="MIT"
 SLOT="0"
