@@ -33,12 +33,6 @@ BDEPEND="
 	)
 "
 
-# Patch sumbitted upstream, check if removal possible in next release:
-# https://github.com/nipy/heudiconv/pull/631
-PATCHES=(
-	"${FILESDIR}/${P}-gitenv.patch"
-)
-
 # Reported upstream:
 # https://github.com/nipy/heudiconv/issues/679
 EPYTEST_DESELECT=(
