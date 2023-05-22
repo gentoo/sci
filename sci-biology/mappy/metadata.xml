@@ -5,4 +5,8 @@
 		<email>sci-biology@gentoo.org</email>
 		<name>Gentoo Biology Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">haotianteng/chiron</remote-id>
+		<remote-id type="pypi">mappy</remote-id>
+	</upstream>
 </pkgmetadata>
