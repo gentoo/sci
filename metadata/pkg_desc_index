@@ -75,7 +75,7 @@ dev-python/gwcs 0.16.1 0.18.3-r1: Generalized World Coordinate System
 dev-python/hdbscan 0.8.26 0.8.29: A high performance implementation of HDBSCAN clustering.
 dev-python/hdf5storage 0.1.19 9999: Read/write Python types to/from HDF5 files, including MATLAB v7.3 MAT files
 dev-python/hdmf 3.4.7 3.5.0_p1 3.5.1 3.5.2: The Hierarchical Data Modeling Framework
-dev-python/heudiconv 0.11.6-r1: Flexible DICOM conversion to structured directory layouts
+dev-python/heudiconv 0.11.6-r1 0.13.0: Flexible DICOM conversion to structured directory layouts
 dev-python/holoviews 1.14.2 1.15.3: Make data analysis and visualization seamless and simple
 dev-python/hopcroftkarp 1.2.5_p1-r1: python frontend for the fast ripser tda tool
 dev-python/interleave 0.2.0: Yield from multiple iterators as values become available
