@@ -157,7 +157,7 @@ dev-util/mad-numdiff 9999 20180125: compare unformatted text files with numerica
 dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
-dev-vcs/dandi-cli 0.50.0 0.51.0 0.54.0 0.55.0: DANDI command line client to facilitate common operations
+dev-vcs/dandi-cli 0.50.0-r1 0.51.0-r1 0.55.0-r1 0.55.1: DANDI command line client to facilitate common operations
 dev-vcs/datalad 0.18.0 0.18.1 0.18.3: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
@@ -219,7 +219,7 @@ sci-biology/beagle 5.1: Genotype calling/phasing, imputation of ungenotyped mark
 sci-biology/beaglecall 20101115: Simultaneous genotype calling and haplotype phasing for unrelated individuals
 sci-biology/bedops 2.4.26 2.4.39: Manipulate BED file (alternative to bedtools)
 sci-biology/behaviopy 0.2: Neuroimaging tools for Python
-sci-biology/bidsschematools 0.5.1-r1 0.6.0 0.7.0: A Python library for working with the BIDS schema
+sci-biology/bidsschematools 0.6.0 0.7.0: A Python library for working with the BIDS schema
 sci-biology/biobambam2 2.0.146 9999: Tools for bam file processing (using libmaus2)
 sci-biology/bismark 0.23.0: Map bisulfite converted sequence reads and cytosine methylation states
 sci-biology/brat 1.2.4: Bisulfite-treated Reads Analysis Tool (short read mapper)
