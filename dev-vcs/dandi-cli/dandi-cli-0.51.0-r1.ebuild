@@ -21,6 +21,7 @@ KEYWORDS="~amd64"
 IUSE="test etelemetry"
 
 RDEPEND="
+	<sci-biology/bidsschematools-0.7.0[${PYTHON_USEDEP}]
 	=dev-python/dandi-schema-0.8*[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
 	dev-python/appdirs[${PYTHON_USEDEP}]
