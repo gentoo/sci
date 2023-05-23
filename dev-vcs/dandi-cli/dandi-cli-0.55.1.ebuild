@@ -20,9 +20,13 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="test etelemetry"
 
+# Urllib dependency is a workaround for vcrpy::gentoo
+# Remove when https://github.com/gentoo/gentoo/pull/31141 is merged
 RDEPEND="
+	<dev-python/urllib3-2[${PYTHON_USEDEP}]
 	=dev-python/dandi-schema-0.8*[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
+	>=sci-biology/bidsschematools-0.7.0[${PYTHON_USEDEP}]
 	dev-python/appdirs[${PYTHON_USEDEP}]
 	dev-python/click-didyoumean[${PYTHON_USEDEP}]
 	dev-python/click[${PYTHON_USEDEP}]
@@ -51,9 +55,11 @@ RDEPEND="
 BDEPEND="
 	test? (
 		dev-python/anys[${PYTHON_USEDEP}]
-		dev-python/responses[${PYTHON_USEDEP}]
 		dev-python/pyfakefs[${PYTHON_USEDEP}]
 		dev-python/pytest-mock[${PYTHON_USEDEP}]
+		dev-python/pytest-rerunfailures[${PYTHON_USEDEP}]
+		dev-python/responses[${PYTHON_USEDEP}]
+		dev-python/vcrpy[${PYTHON_USEDEP}]
 		media-libs/opencv[ffmpeg,${PYTHON_USEDEP}]
 	)
 "
@@ -61,6 +67,12 @@ BDEPEND="
 # https://github.com/dandi/dandi-cli/issues/944
 
 S="${WORKDIR}/${MY_P}"
+
+# Reported upstream:
+# https://github.com/dandi/dandi-cli/issues/1297
+EPYTEST_DESELECT=(
+	dandi/tests/test_files.py::test_validate_bogus
+)
 
 distutils_enable_tests pytest
 

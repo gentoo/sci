@@ -23,6 +23,8 @@ IUSE="test etelemetry"
 # Urllib dependency is a workaround for vcrpy::gentoo
 # Remove when https://github.com/gentoo/gentoo/pull/31141 is merged
 RDEPEND="
+	<dev-python/urllib3-2[${PYTHON_USEDEP}]
+	<sci-biology/bidsschematools-0.7.0[${PYTHON_USEDEP}]
 	=dev-python/dandi-schema-0.8*[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
 	dev-python/appdirs[${PYTHON_USEDEP}]
@@ -30,7 +32,6 @@ RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/fasteners[${PYTHON_USEDEP}]
 	dev-python/fscacher[${PYTHON_USEDEP}]
-	<dev-python/urllib3-2[${PYTHON_USEDEP}]
 	dev-python/humanize[${PYTHON_USEDEP}]
 	dev-python/interleave[${PYTHON_USEDEP}]
 	dev-python/joblib[${PYTHON_USEDEP}]
