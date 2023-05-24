@@ -54,7 +54,7 @@ dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 3.0.1: Collection of perceptually uniform colormaps
 dev-python/connection_pool 0.0.3: Thread safe connection pool
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
-dev-python/dandi-schema 0.6.0 0.7.1 0.8.2 0.8.3: Schemata for DANDI archive project
+dev-python/dandi-schema 0.7.1 0.8.2 0.8.3: Schemata for DANDI archive project
 dev-python/datrie 0.8.2-r1: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/distinctipy 1.2.2: Lightweight package for generating visually distinct colours
