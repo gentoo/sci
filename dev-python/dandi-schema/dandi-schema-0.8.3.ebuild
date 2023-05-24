@@ -20,7 +20,7 @@ RDEPEND="
 	dev-python/wheel[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
 	dev-python/pydantic[${PYTHON_USEDEP}]
-	dev-python/python-email-validator[${PYTHON_USEDEP}]
+	dev-python/email-validator[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 "
 

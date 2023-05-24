@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="render"
 # Documented upstream:
 # https://github.com/conda-forge/bidsschematools-feedstock/pull/2
-RESTRICT="test"
+#RESTRICT="test"
 
 RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
@@ -30,6 +30,12 @@ RDEPEND="
 DEPEND=""
 
 distutils_enable_tests pytest
+
+# Reported upstream:
+# https://github.com/bids-standard/bids-specification/issues/1500
+EPYTEST_DESELECT=(
+	"bidsschematools/tests/test_validator.py::test_bids_datasets[ds000248]"
+)
 
 src_prepare() {
 	if ! use render; then
