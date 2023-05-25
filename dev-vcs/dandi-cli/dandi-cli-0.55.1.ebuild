@@ -65,10 +65,8 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_P}"
 
-# Reported upstream:
-# https://github.com/dandi/dandi-cli/issues/1297
-EPYTEST_DESELECT=(
-	dandi/tests/test_files.py::test_validate_bogus
+PATCHES=(
+	"${FILESDIR}/${PN}-0.55.0-hdf5.patch"
 )
 
 distutils_enable_tests pytest

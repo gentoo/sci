@@ -1,0 +1,29 @@
+From d16bf0855e9ef7c029e8aca969ddfa04c1d7fdfd Mon Sep 17 00:00:00 2001
+From: "John T. Wodder II" <git@varonathe.org>
+Date: Thu, 25 May 2023 14:17:36 -0400
+Subject: [PATCH] Fix test for newer hdf5
+
+---
+ dandi/tests/test_files.py | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/dandi/tests/test_files.py b/dandi/tests/test_files.py
+index 4dbf0f223..3e44cf6b1 100644
+--- a/dandi/tests/test_files.py
++++ b/dandi/tests/test_files.py
+@@ -374,7 +374,14 @@ def test_validate_bogus(tmp_path):
+     errors = dandi_file(path).get_validation_errors()
+     # ATM we would get 2 errors -- since could not be open in two places,
+     # but that would be too rigid to test. Let's just see that we have expected errors
+-    assert any(e.message.startswith("Unable to open file") for e in errors)
++    assert any(
++        e.message.startswith(
++            ("Unable to open file", "Unable to synchronously open file")
++        )
++        for e in errors
++    )
++    # Recent versions of hdf5 changed the error message, hence the need to
++    # check for two different patterns.
+ 
+ 
+ def test_upload_zarr(new_dandiset, tmp_path):
