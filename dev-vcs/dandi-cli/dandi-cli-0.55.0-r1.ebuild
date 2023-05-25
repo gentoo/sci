@@ -20,10 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="test etelemetry"
 
-# Urllib dependency is a workaround for vcrpy::gentoo
-# Remove when https://github.com/gentoo/gentoo/pull/31141 is merged
 RDEPEND="
-	<dev-python/urllib3-2[${PYTHON_USEDEP}]
 	<sci-biology/bidsschematools-0.7.0[${PYTHON_USEDEP}]
 	=dev-python/dandi-schema-0.8*[${PYTHON_USEDEP}]
 	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
