@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
-# Upstream bug: https://github.com/pydicom/pydicom/issues/663
+# Reported upstream:
+# https://github.com/pydicom/pydicom/issues/1800
 RESTRICT="test"
 
 DEPEND="test? ( dev-python/pytest[${PYTHON_USEDEP}] )"
