@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python3_{10..11} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="A pure python package for parsing DICOM files"
-HOMEPAGE="http://www.pydicom.org/"
+HOMEPAGE="https://pydicom.github.io/pydicom/dev/"
 
 LICENSE="MIT"
 SLOT="0"
