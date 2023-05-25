@@ -45,7 +45,6 @@ python_prepare_all() {
 	rm tests/graph-cursor-nosave.vd || die "Could not remove network-dependent test."
 	rm tests/messenger-nosave.vd || die "Could not remove network-dependent test."
 	rm tests/save-benchmarks.vd || die "Could not benchmarks test"
-	rm tests/graph-sincos-nosave.vd || die "Could not benchmarks test"
 	rm tests/graphpr-nosave.vd || die "Could not benchmarks test"
 	rm tests/describe-error.vd || die "Could not remove network-dependent test"
 	rm tests/describe.vd || die "Could not remove network-dependent test"
