@@ -142,7 +142,7 @@ dev-python/spikeinterface 0.96.1 0.97.0: A Python-based module for creating flex
 dev-python/stopit 1.1.2: Timeout control decorator and context managers
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/throttler 1.2.2: Easy throttling with asyncio support
-dev-python/traits 6.1.1 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
+dev-python/traits 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
