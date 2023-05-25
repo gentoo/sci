@@ -1,5 +1,5 @@
 app-arch/libdeflate 1.6 1.7 1.8 1.9 1.11 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
-app-office/visidata 2.8: Terminal spreadsheet multitool for discovering and arranging data
+app-office/visidata 2.8 2.11: Terminal spreadsheet multitool for discovering and arranging data
 app-text/noweb 2.12: a literate programming tool, lighter than web
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
 dev-cpp/Fastor 0.6.3 9999: light-weight high performance tensor algebra framework
