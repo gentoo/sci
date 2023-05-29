@@ -1,6 +1,6 @@
 BDEPEND=virtual/fortran >=dev-python/cython-0.29.24 sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) >=sys-devel/autoconf-2.71-r5 >=sys-devel/libtool-2.4.7
 DEFINED_PHASES=configure install prepare setup
-DEPEND=>=sci-physics/yoda-1.9.4[python(-),python_single_target_python3_10(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.046 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl virtual/latex-base media-gfx/imagemagick app-text/ghostscript-gpl python_single_target_python3_10? ( >=dev-lang/python-3.10.9-r1:3.10 )
+DEPEND=>=sci-physics/yoda-1.9.4[python(-),python_single_target_python3_10(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.046 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl virtual/latex-base media-gfx/imagemagick app-text/ghostscript-gpl python_single_target_python3_10? ( >=dev-lang/python-3.10.11:3.10 )
 DESCRIPTION=Rivet toolkit (Robust Independent Validation of Experiment and Theory)
 EAPI=8
 HOMEPAGE=https://gitlab.com/hepcedar/rivet
@@ -8,9 +8,9 @@ INHERIT=python-single-r1 flag-o-matic autotools
 IUSE=+hepmc3 hepmc2 +python_single_target_python3_10
 KEYWORDS=~amd64
 LICENSE=GPL-3+
-RDEPEND=>=sci-physics/yoda-1.9.4[python(-),python_single_target_python3_10(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.046 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl virtual/latex-base media-gfx/imagemagick app-text/ghostscript-gpl python_single_target_python3_10? ( >=dev-lang/python-3.10.9-r1:3.10 )
+RDEPEND=>=sci-physics/yoda-1.9.4[python(-),python_single_target_python3_10(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.046 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl virtual/latex-base media-gfx/imagemagick app-text/ghostscript-gpl python_single_target_python3_10? ( >=dev-lang/python-3.10.11:3.10 )
 REQUIRED_USE=^^ ( hepmc3 hepmc2 ) ^^ ( python_single_target_python3_10 )
 SLOT=3
 SRC_URI=https://www.hepforge.org/archive/rivet/Rivet-3.1.5.tar.gz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	104e1332efb829e2f7cbf89307a474f1	python-utils-r1	d676fb844e9408f4290d20bc7312f8bb	python-single-r1	75118e916668a74c660a13b0ecb22562	flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	104e1332efb829e2f7cbf89307a474f1	python-utils-r1	ba15b8b81f30ca448294d759a9f7902c	python-single-r1	75118e916668a74c660a13b0ecb22562	flag-o-matic	16483e58fadb0d47b4528f0aa7e171f6	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde
 _md5_=8bcea8d73f62dd562fc8b35bb0fe799e
