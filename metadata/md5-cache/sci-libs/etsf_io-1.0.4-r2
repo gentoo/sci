@@ -12,5 +12,5 @@ RDEPEND=sci-libs/netcdf-fortran virtual/fortran virtual/fortran
 RESTRICT=test
 SLOT=0
 SRC_URI=https://launchpad.net/etsf-io/1.0/1.0.4/+download/etsf_io-1.0.4.tar.gz
-_eclasses_=toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
+_eclasses_=toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
 _md5_=fff2acafd51c44b85f0ed05ae471b096
