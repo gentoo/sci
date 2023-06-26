@@ -29,3 +29,10 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (26 Jun 2023)
+# Depends on removed dev-python/toml.
+# Alternatives are tomli or tomlkit
+dev-python/cadquery
+dev-python/cadquery-ocp
+dev-python/cadquery-pywrap
