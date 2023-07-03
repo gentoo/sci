@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit java-pkg-2 java-ant-2 desktop
 
@@ -13,7 +13,7 @@ DESCRIPTION="Image Processing and Analysis in Java"
 HOMEPAGE="https://imagej.nih.gov/ij/"
 
 SRC_URI="https://imagej.nih.gov/ij/download/src/${MY_PN}${MY_PV}-src.zip
-	https://rsb.info.nih.gov/ij/images/ImageJ.png
+	https://imagej.nih.gov/ij/images/ImageJ.png
 	plugins? ( https://wsr.imagej.net/distros/cross-platform/${MY_PN}${IJ_PV}.zip )"
 # plugins are under a different licenses and can be installed into user's $IJ_HOME/plugins
 #	plugins? ( http://rsb.info.nih.gov/ij/download/zips/${MY_PN}${IJ_PV}.zip )"
