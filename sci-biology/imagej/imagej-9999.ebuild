@@ -6,22 +6,37 @@ EAPI=8
 inherit java-pkg-2 java-ant-2 desktop
 
 MY_PN="ij"
-MY_PV=${PV//.}
-IJ_PV=${MY_PV::-1}
+IJ_PV="153" #plugins not currently available under 154
 
 DESCRIPTION="Image Processing and Analysis in Java"
-HOMEPAGE="https://imagej.nih.gov/ij/"
 
-SRC_URI="https://imagej.nih.gov/ij/download/src/${MY_PN}${MY_PV}-src.zip
-	https://imagej.nih.gov/ij/images/ImageJ.png
+HOMEPAGE="
+	https://imagej.nih.gov/ij/
+	https://github.com/imagej
+"
+
+SRC_URI="
+	https://rsb.info.nih.gov/ij/images/ImageJ.png
 	plugins? ( https://wsr.imagej.net/distros/cross-platform/${MY_PN}${IJ_PV}.zip )"
 # plugins are under a different licenses and can be installed into user's $IJ_HOME/plugins
-#	plugins? ( http://rsb.info.nih.gov/ij/download/zips/${MY_PN}${IJ_PV}.zip )"
 
-LICENSE="public-domain" # http://imagej.net/disclaimer.html
+if [[ ${PV} == 9999 ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/imagej/ImageJ"
+	IJ_S="${S}/ImageJ"
+else
+	SRC_URI="
+		https://github.com/imagej/ImageJ/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz
+		${SRC_URI}
+	"
+	S="${WORKDIR}/ImageJ-${PV}"
+	IJ_S="${WORKDIR}/ImageJ"
+	KEYWORDS="~amd64"
+fi
+
+LICENSE="public-domain"
+
 SLOT="0"
-
-KEYWORDS="~amd64"
 
 IUSE="doc plugins debug"
 
@@ -29,19 +44,25 @@ RDEPEND="
 	>=virtual/jre-1.7:*
 	dev-java/java-config
 "
-DEPEND="${RDEPEND}
+
+DEPEND="
+	${RDEPEND}
 	>=virtual/jdk-1.7:*
 "
+
 BDEPEND="
 	dev-java/ant-core
 	app-arch/unzip
 "
 
-S="${WORKDIR}/source"
-IJ_S=${WORKDIR}/ImageJ
-
 src_prepare() {
 	cp "${DISTDIR}"/ImageJ.png "${WORKDIR}/${PN}.png" || die
+
+	if [[ ${PV} == 9999 ]]; then
+	   if use plugins ; then
+	      unpack "${MY_PN}${IJ_PV}.zip"
+	   fi
+	fi
 
 	if ! use debug ; then
 		sed -i 's: debug="on">: debug="off">:' "${S}"/build.xml || die
@@ -58,9 +79,11 @@ src_compile() {
 	# Max memory usage depends on available memory and CPU type
 	MEM=$(grep MemTotal /proc/meminfo | cut -d':' -f2 | grep -o [0-9]*)
 	IJ_MAX_MEM=$(expr ${MEM} / 1024)
+
 	if use x86 && $IJ_MAX_MEM -gt 2048 ; then
-		IJ_MAX_MEM=2048
+	   IJ_MAX_MEM=2048
 	fi
+
 	# build finished, generate startup wrapper
 	cat <<EOF > "${T}/${PN}"
 #!${EPREFIX}/bin/bash
