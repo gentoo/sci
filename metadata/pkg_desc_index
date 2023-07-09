@@ -134,7 +134,6 @@ dev-python/smart-open 6.3.0: Utils for streaming large files (S3, HDFS, gzip, bz
 dev-python/snakemake 7.24.2: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.9.1: Package for spectroscopic astronomical data
-dev-python/sphinx-argparse 0.3.2: Sphinx extension that automatically documents argparse commands and options
 dev-python/sphinx-astropy 1.8.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7-r1: Allow a different format in dosctrings for better clarity
