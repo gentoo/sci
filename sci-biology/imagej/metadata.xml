@@ -12,4 +12,7 @@
 	<use>
 		<flag name="plugins">Install additional plugins</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">imagej/ImageJ</remote-id>
+	</upstream>
 </pkgmetadata>
