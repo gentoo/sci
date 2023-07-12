@@ -49,5 +49,5 @@ RDEPEND="
 JAVA_SRC_DIR="src/main/java"
 JAVA_MAIN_CLASS=""
 
-JAVA_TEST_GENTOO_CLASSPATH="jama-1.0.3,junit-4.13.2,jmh-core-1.35"
+JAVA_TEST_GENTOO_CLASSPATH="jama,junit-4,jmh-core"
 JAVA_TEST_SRC_DIR="src/test/java"
