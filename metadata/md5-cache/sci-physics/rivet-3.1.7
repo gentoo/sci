@@ -1,6 +1,6 @@
 BDEPEND=virtual/fortran >=dev-python/cython-0.29.24 sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) >=sys-devel/autoconf-2.71-r5 >=sys-devel/libtool-2.4.7
 DEFINED_PHASES=configure install prepare setup
-DEPEND=>=sci-physics/yoda-1.9.5[python(-),python_single_target_python3_10(-)?,python_single_target_python3_11(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.048 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl zlib? ( sys-libs/zlib ) python_single_target_python3_10? ( >=dev-lang/python-3.10.12:3.10 ) python_single_target_python3_11? ( >=dev-lang/python-3.11.4:3.11 )
+DEPEND=>=sci-physics/yoda-1.9.5[python(-),python_single_target_python3_10(-)?,python_single_target_python3_11(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.048 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl zlib? ( sys-libs/zlib ) python_single_target_python3_10? ( dev-lang/python:3.10 ) python_single_target_python3_11? ( dev-lang/python:3.11 )
 DESCRIPTION=Rivet toolkit (Robust Independent Validation of Experiment and Theory)
 EAPI=8
 HOMEPAGE=https://rivet.hepforge.org/ https://gitlab.com/hepcedar/rivet
@@ -8,9 +8,9 @@ INHERIT=python-single-r1 flag-o-matic autotools optfeature
 IUSE=+hepmc3 hepmc2 +zlib python_single_target_python3_10 python_single_target_python3_11
 KEYWORDS=~amd64
 LICENSE=GPL-3+
-RDEPEND=>=sci-physics/yoda-1.9.5[python(-),python_single_target_python3_10(-)?,python_single_target_python3_11(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.048 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl zlib? ( sys-libs/zlib ) python_single_target_python3_10? ( >=dev-lang/python-3.10.12:3.10 ) python_single_target_python3_11? ( >=dev-lang/python-3.11.4:3.11 )
+RDEPEND=>=sci-physics/yoda-1.9.5[python(-),python_single_target_python3_10(-)?,python_single_target_python3_11(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.048 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl zlib? ( sys-libs/zlib ) python_single_target_python3_10? ( dev-lang/python:3.10 ) python_single_target_python3_11? ( dev-lang/python:3.11 )
 REQUIRED_USE=^^ ( hepmc3 hepmc2 ) ^^ ( python_single_target_python3_10 python_single_target_python3_11 )
 SLOT=3
 SRC_URI=https://www.hepforge.org/archive/rivet/Rivet-3.1.7.tar.gz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	a013e16d5d896b3d8be68dd2a0e846ea	python-single-r1	75118e916668a74c660a13b0ecb22562	flag-o-matic	ad475baa777c9978fa035216c8264a10	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde	optfeature	222cb475c5a4f7ae7cfb0bf510a6fe54
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	7661dc585f75dd1f81eccefe37bef093	python-single-r1	75118e916668a74c660a13b0ecb22562	flag-o-matic	ad475baa777c9978fa035216c8264a10	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde	optfeature	222cb475c5a4f7ae7cfb0bf510a6fe54
 _md5_=ceeee8a607f3f784065d9d9e1505cb99
