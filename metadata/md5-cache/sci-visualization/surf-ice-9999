@@ -8,5 +8,5 @@ INHERIT=git-r3 desktop xdg
 LICENSE=BSD
 PROPERTIES=live
 SLOT=0
-_eclasses_=git-r3	27e13c09a4c7e4c78ac812f74727e676	desktop	021728fdc1b03b36357dbc89489e0f0d	xdg-utils	baea6080dd821f5562d715887954c9d3	xdg	4a14c5c24f121e7da66e5aab4a168c6e
+_eclasses_=git-r3	97f7f638070d17e4c2b6542589bb4575	desktop	021728fdc1b03b36357dbc89489e0f0d	xdg-utils	baea6080dd821f5562d715887954c9d3	xdg	4a14c5c24f121e7da66e5aab4a168c6e
 _md5_=7ad15e28aa58c56207d362036e8402c9
