@@ -36,7 +36,7 @@ SLOT="0"
 BDEPEND="
 	>=virtual/jdk-1.8:*
 	test? (
-		>=sci-libs/jama-1.0.3
+		>=dev-java/jama-1.0.3
 		>=dev-java/junit-4.13.2
 		>=dev-java/jmh-core-1.35
 	)
