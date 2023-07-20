@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <longdescription>
+    Parsington is an infix-to-postfix and infix-to-syntax-tree expression parser for mathematical expressions written in Java. It is simple yet fancy, handling (customizable) operators, functions, variables and constants in a similar way to what the Java language itself supports.
+  </longdescription>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">scijava/parsington</remote-id>
+  </upstream>
+</pkgmetadata>
