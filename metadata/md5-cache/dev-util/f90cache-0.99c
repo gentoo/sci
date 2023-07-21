@@ -10,5 +10,5 @@ LICENSE=GPL-3
 RDEPEND=dev-util/ccache virtual/fortran
 SLOT=0
 SRC_URI=https://perso.univ-rennes1.fr/edouard.canot//f90cache/f90cache-0.99c.tar.gz
-_eclasses_=toolchain-funcs	67b3e3d8916d690003f645486ed86aac	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
+_eclasses_=toolchain-funcs	fc2af1957597c539ae6e48f82bd43125	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
 _md5_=286eaa43d144751def33c9a813e15baa
