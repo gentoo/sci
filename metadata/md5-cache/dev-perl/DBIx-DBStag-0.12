@@ -10,5 +10,5 @@ LICENSE=|| ( Artistic GPL-1 GPL-2 GPL-3 )
 RDEPEND=>=dev-perl/DBIx-DBSchema-0.39 dev-perl/libxml-perl >=dev-perl/Data-Stag-0.11 dev-perl/DBI dev-perl/Parse-RecDescent dev-lang/perl dev-lang/perl:=
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/S/SC/SCAIN/DBIx-DBStag-0.12.tar.gz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0	perl-module	dd4003d3308d7cad2b2d4e2b8298ffb2
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	toolchain-funcs	67b3e3d8916d690003f645486ed86aac	multilib	c19072c3cd7ac5cb21de013f7e9832e0	perl-module	dd4003d3308d7cad2b2d4e2b8298ffb2
 _md5_=11b3b1d8f9305db75454f1221a0fbad8

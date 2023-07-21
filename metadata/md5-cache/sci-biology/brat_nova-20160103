@@ -8,5 +8,5 @@ LICENSE=GPL-3
 RDEPEND=!sci-biology/brat !sci-biology/brat_bw
 SLOT=0
 SRC_URI=http://compbio.cs.ucr.edu/brat/downloads/brat_nova.tar.gz -> brat_nova-20160103.tar.gz
-_eclasses_=toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0
+_eclasses_=toolchain-funcs	67b3e3d8916d690003f645486ed86aac	multilib	c19072c3cd7ac5cb21de013f7e9832e0
 _md5_=a7e167b14a525bf8c0ed6659fd7af2f3
