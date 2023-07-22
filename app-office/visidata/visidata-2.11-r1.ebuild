@@ -4,20 +4,25 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{11..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit distutils-r1 optfeature
 
-MY_HASH="5ff7883563eeac32fe192c5b2d4290a4e1e91cc2"
 DESCRIPTION="Terminal spreadsheet multitool for discovering and arranging data"
 HOMEPAGE="http://visidata.org"
-SRC_URI="https://github.com/saulpw/visidata/archive/${MY_HASH}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/saulpw/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+# Tests fail on recent Python:
+# https://github.com/saulpw/visidata/issues/1905
+RESTRICT="test"
 
-RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]"
+RDEPEND="
+	>=dev-python/importlib-metadata-3.6[${PYTHON_USEDEP}]
+	dev-python/python-dateutil[${PYTHON_USEDEP}]
+"
 BDEPEND="
 	test? (
 		dev-python/h5py[${PYTHON_USEDEP}]
@@ -30,8 +35,6 @@ BDEPEND="
 		$(python_gen_impl_dep sqlite)
 	)
 "
-
-S="${WORKDIR}/${PN}-${MY_HASH}"
 
 #distutils_enable_sphinx docs \
 #	dev-python/recommonmark \

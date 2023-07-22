@@ -4,22 +4,23 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_11 )
 
 inherit distutils-r1 optfeature
 
 DESCRIPTION="Terminal spreadsheet multitool for discovering and arranging data"
-HOMEPAGE="http://visidata.org"
-SRC_URI="https://github.com/saulpw/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+HOMEPAGE="https://www.visidata.org/"
+SRC_URI="https://github.com/saulpw/visidata/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-# Tests fail on recent Python:
-# https://github.com/saulpw/visidata/issues/1905
-RESTRICT="test"
 
-RDEPEND="dev-python/python-dateutil[${PYTHON_USEDEP}]"
+RDEPEND="
+	>=dev-python/importlib-metadata-3.6[${PYTHON_USEDEP}]
+	dev-python/python-dateutil[${PYTHON_USEDEP}]
+"
+DEPEND="${RDEPEND}"
 BDEPEND="
 	test? (
 		dev-python/h5py[${PYTHON_USEDEP}]
