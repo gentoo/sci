@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 RDEPEND="
 	dev-python/dill[${PYTHON_USEDEP}]
 	>=dev-python/h5py-2.9[${PYTHON_USEDEP}]
-	>=dev-python/indexed_gzip-0.7.0[${PYTHON_USEDEP}]
+	>=dev-python/indexed-gzip-0.7.0[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1[${PYTHON_USEDEP}]
 	>=dev-python/pillow-3.2.0[${PYTHON_USEDEP}]
 	>=dev-python/trimesh-2.37.29[${PYTHON_USEDEP}]
