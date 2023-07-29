@@ -460,10 +460,12 @@ sci-physics/feyncalc 9.3.1 9999: FeynCalc is a Mathematica package for computing
 sci-physics/formcalc 9.9-r1 9.10-r1: FormCalc can be used for automatic Feynman diagram computation.
 sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld analysis
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
+sci-physics/hepunits 2.3.2 9999: units and constants in the HEP system of units
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
 sci-physics/mcfm 10.2.1: Monte Carlo for FeMtobarn processes
 sci-physics/oneloop 2020.07.31: Library of one-loop scalar functions
 sci-physics/openmx 3.9_p20211017: Material eXplorer
+sci-physics/particle 0.23.0 9999: PDG particle data and identification codes
 sci-physics/qcdloop 2.0.5 2.0.9: An object-oriented one-loop scalar Feynman integrals framework
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
 sci-physics/qgraf 3.6.5: qgraf generates Feynman diagrams for various types of QFT models
