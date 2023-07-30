@@ -11,5 +11,5 @@ LICENSE=BSD ZLIB
 RDEPEND=virtual/fortran
 SLOT=0
 SRC_URI=doc? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-full.tar.gz ) !doc? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2.tar.gz dom? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-dom.tar.gz ) sax? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-sax.tar.gz ) wcml? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-wcml.tar.gz ) wkml? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-wkml.tar.gz ) wxml? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/FoX-4.1.2-wxml.tar.gz ) )
-_eclasses_=toolchain-funcs	8e3fb781f3258ae2757d1dfc2c7c170e	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
+_eclasses_=toolchain-funcs	e356bb9aa600fd4b0dc539d33513bba7	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
 _md5_=56173c42fcc39f98ac8f2228e5366cbf
