@@ -1,0 +1,73 @@
+From: Fabian Müller <fmueller@owncloud.com>
+Bug: https://github.com/owncloud/client/pull/10969
+
+Fix installation of branded client in parallel to unbranded client.
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 4d73f2cc3..49228dbb6 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -54,10 +54,12 @@ endif(NOT BUILD_LIBRARIES_ONLY)
+ 
+ add_subdirectory(plugins)
+ 
+-install(EXPORT ownCloudConfig DESTINATION "${KDE_INSTALL_CMAKEPACKAGEDIR}/ownCloud"  NAMESPACE ownCloud::)
++install(EXPORT ${APPLICATION_SHORTNAME}Config DESTINATION "${KDE_INSTALL_CMAKEPACKAGEDIR}/${APPLICATION_SHORTNAME}" NAMESPACE ownCloud::)
+ 
+-ecm_setup_version(PROJECT VARIABLE_PREFIX ownCloud
+-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/ownCloudConfigVersion.cmake"
+-                        SOVERSION ${MIRALL_SOVERSION})
++ecm_setup_version(PROJECT
++    VARIABLE_PREFIX ${APPLICATION_SHORTNAME}
++    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/${APPLICATION_SHORTNAME}ConfigVersion.cmake"
++    SOVERSION ${MIRALL_SOVERSION}
++)
+ 
+-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/ownCloudConfigVersion.cmake" DESTINATION "${KDE_INSTALL_CMAKEPACKAGEDIR}/ownCloud")
++install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${APPLICATION_SHORTNAME}ConfigVersion.cmake" DESTINATION "${KDE_INSTALL_CMAKEPACKAGEDIR}/${APPLICATION_SHORTNAME}")
+diff --git a/src/csync/CMakeLists.txt b/src/csync/CMakeLists.txt
+index fcf665e44..15c0a8130 100644
+--- a/src/csync/CMakeLists.txt
++++ b/src/csync/CMakeLists.txt
+@@ -98,10 +98,10 @@ INSTALL(
+         ../common/filesystembase.h
+         ../common/utility.h
+     DESTINATION
+-        ${INCLUDE_INSTALL_DIR}/ownCloud/common
++        ${INCLUDE_INSTALL_DIR}/${APPLICATION_SHORTNAME}/common
+ )
+ 
+-INSTALL(TARGETS csync EXPORT ownCloudConfig ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
++INSTALL(TARGETS csync EXPORT ${APPLICATION_SHORTNAME}Config ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+ 
+ configure_file(config_csync.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config_csync.h)
+ 
+diff --git a/src/libsync/CMakeLists.txt b/src/libsync/CMakeLists.txt
+index 3995bcfe9..eeaef8450 100644
+--- a/src/libsync/CMakeLists.txt
++++ b/src/libsync/CMakeLists.txt
+@@ -85,7 +85,7 @@ INSTALL(
+         ${CMAKE_CURRENT_BINARY_DIR}/owncloudlib.h
+         logger.h
+         accessmanager.h
+-    DESTINATION ${INCLUDE_INSTALL_DIR}/ownCloud/libsync
++    DESTINATION ${INCLUDE_INSTALL_DIR}/${APPLICATION_SHORTNAME}/libsync
+ )
+ 
+ add_library(libsync SHARED ${libsync_SRCS})
+@@ -138,4 +138,4 @@ set_target_properties(libsync PROPERTIES
+         VERSION ${MIRALL_VERSION}
+         SOVERSION ${MIRALL_SOVERSION}
+ )
+-install(TARGETS libsync EXPORT ownCloudConfig ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
++install(TARGETS libsync EXPORT ${APPLICATION_SHORTNAME}Config ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+diff --git a/src/resources/CMakeLists.txt b/src/resources/CMakeLists.txt
+index 6f50bf3be..7e0ff05b7 100644
+--- a/src/resources/CMakeLists.txt
++++ b/src/resources/CMakeLists.txt
+@@ -42,4 +42,4 @@ if(Qt5LinguistTools_FOUND)
+     )
+ endif()
+ 
+-install(TARGETS owncloudResources EXPORT ownCloudConfig ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
++install(TARGETS owncloudResources EXPORT ${APPLICATION_SHORTNAME}Config ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
