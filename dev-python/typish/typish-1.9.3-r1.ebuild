@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_11 )
 inherit distutils-r1
 
 DESCRIPTION="Functionality for types"
