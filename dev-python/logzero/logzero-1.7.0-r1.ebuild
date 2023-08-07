@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 pypy3 )
+PYTHON_COMPAT=( python3_11 pypy3 )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Robust and effective logging for Python 2 and 3"
