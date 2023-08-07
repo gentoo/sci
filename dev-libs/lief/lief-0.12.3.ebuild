@@ -4,7 +4,7 @@
 EAPI=7
 
 CMAKE_ECLASS=cmake
-PYTHON_COMPAT=( python3_10 pypy3 )
+PYTHON_COMPAT=( python3_11 pypy3 )
 
 # Upstream has two alternate approaches to building its Python API:
 # 1. A working "CMakeList.txt" only supporting a single Python target.
@@ -27,6 +27,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="c examples +python static-libs"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} !abi_x86_32 !abi_x86_x32 )"
 
+PATCHES=( "${FILESDIR}" )
+
 # See "cmake/LIEFDependencies.cmake" for C and C++ dependencies.
 BDEPEND="
 	python? (
@@ -37,7 +39,11 @@ BDEPEND="
 "
 #FIXME: Add after bumping to the next stable release:
 #	>=dev-libs/spdlog-1.8.5[${MULTILIB_USEDEP}]
-RDEPEND="python? ( ${PYTHON_DEPS} )"
+RDEPEND="
+	dev-cpp/nlohmann_json
+	>=dev-libs/utfcpp-3.2.1
+	python? ( ${PYTHON_DEPS} )
+"
 DEPEND="${RDEPEND}"
 
 # LIEF tests are non-trivial (if not infeasible) to run in the general case.
@@ -58,10 +64,6 @@ pkg_setup() {
 #vendored dependency resembling the existing "LIEF_EXTERNAL_SPDLOG" option.
 #Note that LIEF patches the vendored "Boost leaf" and "utfcpp" dependencies.
 src_prepare() {
-	# Respect "multilib"-based lib dirnames.
-	sed -i -e 's~\bDESTINATION lib\(64\)\{0,1\}\b~DESTINATION ${CMAKE_INSTALL_LIBDIR}~' \
-		CMakeLists.txt || die
-
 	# Respect "python"-based installation of Python bindings. Upstream
 	# currently fails to install these bindings, resulting in Gentoo "RUNPATH"
 	# QA notices at installation time. See also:
@@ -91,16 +93,8 @@ multilib_src_configure() {
 		-DLIEF_PROFILING=OFF
 		-DLIEF_SUPPORT_CXX14=ON
 		-DLIEF_USE_CCACHE=OFF  # Defer to Portage itself for "ccache" support.
-
-		# Disabling LIEF's format options causes build failures. See also:
-		#    https://github.com/lief-project/LIEF/issues/599
-		-DLIEF_ELF=ON
-		-DLIEF_PE=ON
-		-DLIEF_MACHO=ON
-		-DLIEF_ART=ON
-		-DLIEF_DEX=ON
-		-DLIEF_OAT=ON
-		-DLIEF_VDEX=ON
+		-DLIEF_OPT_NLOHMANN_JSON_EXTERNAL=ON
+		-DLIEF_OPT_UTFCPP_EXTERNAL=ON
 
 		-DBUILD_SHARED_LIBS="$(usex static-libs OFF ON)"
 		-DLIEF_C_API="$(usex c ON OFF)"
@@ -110,11 +104,9 @@ multilib_src_configure() {
 		-DLIEF_INSTALL_PYTHON="$(usex python ON OFF)"
 
 		#FIXME: Add USE flags governing most or all of these options.
-		-DLIEF_ENABLE_JSON=OFF
 		-DLIEF_DOC=OFF
 		-DLIEF_FUZZING=OFF
 		-DLIEF_INSTALL_COMPILED_EXAMPLES=OFF
-		-DLIEF_LOGGING=OFF
 		-DLIEF_LOGGING_DEBUG=OFF
 		-DLIEF_TESTS=OFF
 		-DLIEF_ASAN=OFF
