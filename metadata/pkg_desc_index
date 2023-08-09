@@ -82,7 +82,7 @@ dev-python/interleave 0.2.0: Yield from multiple iterators as values become avai
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
-dev-python/llvmlite 0.39.1: Python wrapper around the llvm C++ library
+dev-python/llvmlite 0.39.1 0.40.1: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matlabengine 9.13.7: A module to call MATLAB from Python
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
@@ -93,7 +93,7 @@ dev-python/mkl_umath 0.1.1: Package implementing NumPy's UFuncs based on SVML an
 dev-python/multimethod 1.8: Library allowing Python function overloads based on argument types
 dev-python/neo 0.11.0 0.11.1: Read and represent a wide range of neurophysiology file formats in Python
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
-dev-python/numba 0.56.3 0.56.4: NumPy aware dynamic Python compiler using LLVM
+dev-python/numba 0.56.4 0.57.1: NumPy aware dynamic Python compiler using LLVM
 dev-python/numba-dpex 0.20.0_rc3: Data Parallel Extension for Numba
 dev-python/numcodecs 0.11.0: Data storage buffer compression and transformation codecs
 dev-python/numpy 1.23.5: Fast array and numerical python library

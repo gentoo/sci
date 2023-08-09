@@ -1,0 +1,17 @@
+BDEPEND=dev-python/pip[python_targets_python3_10(-)?,python_targets_python3_11(-)?] dev-python/versioneer[python_targets_python3_10(-)?,python_targets_python3_11(-)?] test? ( >=dev-python/llvmlite-0.40.0[python_targets_python3_10(-)?,python_targets_python3_11(-)?] <=dev-python/llvmlite-0.41.0 >=dev-python/numpy-1.18.0[python_targets_python3_10(-)?,python_targets_python3_11(-)?] <dev-python/numpy-1.25[python_targets_python3_10(-)?,python_targets_python3_11(-)?] threads? ( >=dev-cpp/tbb-2021.6 ) python_targets_python3_10? ( dev-python/unittest-or-fail[python_targets_python3_10(-)?,python_targets_python3_11(-)?] ) python_targets_python3_11? ( dev-python/unittest-or-fail[python_targets_python3_10(-)?,python_targets_python3_11(-)?] ) ) doc? ( || ( ( dev-lang/python:3.11 >=dev-python/sphinx-5.3.0[python_targets_python3_11(-)] dev-python/numpydoc[python_targets_python3_11(-)] dev-python/sphinx-rtd-theme[python_targets_python3_11(-)] ) ( dev-lang/python:3.10 >=dev-python/sphinx-5.3.0[python_targets_python3_10(-)] dev-python/numpydoc[python_targets_python3_10(-)] dev-python/sphinx-rtd-theme[python_targets_python3_10(-)] ) ) ) python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_11? ( dev-lang/python:3.11 ) >=dev-python/gpep517-13[python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/setuptools-67.8.0-r1[python_targets_python3_10(-)?,python_targets_python3_11(-)?]
+DEFINED_PHASES=compile configure install postinst prepare setup test
+DEPEND=python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_11? ( dev-lang/python:3.11 )
+DESCRIPTION=NumPy aware dynamic Python compiler using LLVM
+EAPI=8
+HOMEPAGE=https://numba.pydata.org/ https://github.com/numba
+INHERIT=optfeature multiprocessing distutils-r1
+IUSE=openmp threads test doc python_targets_python3_10 python_targets_python3_11 debug
+KEYWORDS=~amd64 ~arm ~arm64 ~x86
+LICENSE=BSD
+RDEPEND=>=dev-python/llvmlite-0.40.0[python_targets_python3_10(-)?,python_targets_python3_11(-)?] <=dev-python/llvmlite-0.41.0 >=dev-python/numpy-1.18.0[python_targets_python3_10(-)?,python_targets_python3_11(-)?] <dev-python/numpy-1.25[python_targets_python3_10(-)?,python_targets_python3_11(-)?] threads? ( >=dev-cpp/tbb-2021.6 ) python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_11? ( dev-lang/python:3.11 )
+REQUIRED_USE=|| ( python_targets_python3_10 python_targets_python3_11 )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/numba/numba/archive/0.57.1.tar.gz -> numba-0.57.1.gh.tar.gz
+_eclasses_=optfeature	222cb475c5a4f7ae7cfb0bf510a6fe54	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	0c8a0b0d318eb5d5180d114bd3f6592b	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	ad475baa777c9978fa035216c8264a10	out-of-source-utils	1a9007554652a6e627edbccb3c25a439	multibuild	30dbf3c5a31db09a19f31ad0a68f2405	ninja-utils	f3010c780f65d1bb5aea15a9af1adc9c	python-utils-r1	1f435bc389faf790af695df46b8dcb73	python-r1	b3f874304c1bda6ffc3450ebb4ae5169	distutils-r1	b7cd5736a595ec0df9b164d5aec6f228
+_md5_=f4f45db5596f17d98a5f85546a17530f
