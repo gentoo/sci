@@ -4,14 +4,14 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
-
 DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_EXT=1
 inherit optfeature multiprocessing distutils-r1
 
 DESCRIPTION="NumPy aware dynamic Python compiler using LLVM"
 HOMEPAGE="https://numba.pydata.org/
 	https://github.com/numba"
-SRC_URI="https://github.com/numba/numba/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/numba/numba/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -19,11 +19,11 @@ KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 IUSE="openmp threads"
 
 RDEPEND="
-	>=dev-python/llvmlite-0.39.0[${PYTHON_USEDEP}]
-	<=dev-python/llvmlite-0.40.0
+	>=dev-python/llvmlite-0.40.0[${PYTHON_USEDEP}]
+	<=dev-python/llvmlite-0.41.0
 	>=dev-python/numpy-1.18.0[${PYTHON_USEDEP}]
-	<dev-python/numpy-1.24[${PYTHON_USEDEP}]
-	threads? ( >=dev-cpp/tbb-2021.1 <dev-cpp/tbb-2021.6 )
+	<dev-python/numpy-1.25[${PYTHON_USEDEP}]
+	threads? ( >=dev-cpp/tbb-2021.6 )
 "
 BDEPEND="
 	dev-python/pip[${PYTHON_USEDEP}]
