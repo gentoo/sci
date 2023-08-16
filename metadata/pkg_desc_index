@@ -164,7 +164,7 @@ media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing 
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
-net-misc/cernbox-client 2.11.1.8946 3.2.0.10193: Synchronize files from CERNBox EOS with your computer
+net-misc/cernbox-client 3.2.0.10193 4.1.0.11250: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/libthesky 0.4.2: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
 sci-biology/ABI-expression-data 0.2: Gene expression data form the Allen Mouse Brain data portal
