@@ -52,6 +52,7 @@ RDEPEND="
 	dev-python/throttler[${PYTHON_USEDEP}]
 	dev-python/toposort[${PYTHON_USEDEP}]
 	dev-python/wrapt[${PYTHON_USEDEP}]
+	dev-python/yte[${PYTHON_USEDEP}]
 	sci-mathematics/pulp[${PYTHON_USEDEP}]
 "
 
