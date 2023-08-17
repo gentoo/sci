@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <longdescription>
+    SCIFIO version of the Java Advanced Imaging Image I/O Tools API Core. Java API to handle JPEG and JPEG2000 files. Used by Bio-Formats to read images compressed with JPEG2000 and lossless JPEG.
+  </longdescription>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">scifio/scifio-jai-imageio</remote-id>
+  </upstream>
+</pkgmetadata>

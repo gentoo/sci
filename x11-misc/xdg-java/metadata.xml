@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <longdescription>
+    This is a Java API that provides an easy to use implementations of various Free Desktop specifications. Use the correct application specific configuration, data and cache directories. Safely read and write desktop entries without worrying about parsing and escaping.
+  </longdescription>
+  <maintainer type="project">
+    <email>sci@gentoo.org</email>
+    <name>Gentoo Science Project</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">kothar/xdg-java</remote-id>
+  </upstream>
+</pkgmetadata>
