@@ -5,8 +5,11 @@
 		<email>mschu.dev@gmail.com</email>
 		<name>Michael Schubert</name>
 	</maintainer>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
 	<upstream>
-		<remote-id type="bitbucket">johanneskoester/snakemake</remote-id>
 		<remote-id type="pypi">snakemake</remote-id>
 		<remote-id type="github">snakemake/snakemake</remote-id>
 	</upstream>
