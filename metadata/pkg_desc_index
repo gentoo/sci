@@ -173,6 +173,7 @@ media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
 media-libs/imglib2 6.2.0 9999: A multidimensional, type-agnostic image processing library.
 media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
+media-libs/scifio-jai-imageio 1.1.1 9999: SCIFIO version of the Java Advanced Imaging Image I/O Tools API Core.
 net-misc/cernbox-client 3.2.0.10193 4.1.0.11250: Synchronize files from CERNBox EOS with your computer
 sci-astronomy/libthesky 0.4.2: Fortran library to compute positions of celestial bodies
 sci-biology/ABI-connectivity-data 0.1-r1 0.2: Connectivity data from the Allen Mouse Brain data portal
@@ -498,3 +499,4 @@ sys-devel/ittapi 3.23.0 3.24.0: Intel Instrumentation and Tracing Technology and
 sys-devel/oneDPL 2021.7.1 2022.0.0-r1: oneAPI Data Parallel C++ Library
 x11-libs/xview-bin 3.2_p14211: The X Window-System-based Visual/Integrated Environment - binary package
 x11-misc/envytools 0_pre20200928 9999: Tools for people envious of nvidia's blob driver
+x11-misc/xdg-java 0.1.1 9999: Java bindings for various FreeDesktop.org standards
