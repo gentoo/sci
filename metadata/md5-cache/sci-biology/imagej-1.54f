@@ -11,5 +11,5 @@ LICENSE=public-domain
 RDEPEND=>=virtual/jre-1.7:* dev-java/java-config >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://imagej.nih.gov/ij/images/ImageJ.png plugins? ( https://wsr.imagej.net/distros/cross-platform/ij153.zip ) https://github.com/imagej/ImageJ/archive/refs/tags/v1.54f.tar.gz -> imagej-1.54f.gh.tar.gz
-_eclasses_=java-utils-2	8c72ea36a4935f626b13a30141d0d39c	java-pkg-2	1794573de2f5124d88b64ee5dc9aabb4	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	0c8a0b0d318eb5d5180d114bd3f6592b	java-ant-2	19239227fab7816f57abbc0c7d819396	desktop	021728fdc1b03b36357dbc89489e0f0d
+_eclasses_=java-utils-2	8c72ea36a4935f626b13a30141d0d39c	java-pkg-2	1794573de2f5124d88b64ee5dc9aabb4	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	862d337d98edb576796827be2c6b11ca	java-ant-2	19239227fab7816f57abbc0c7d819396	desktop	021728fdc1b03b36357dbc89489e0f0d
 _md5_=42ebbc48aea6b80bfa9f8899055caf0a
