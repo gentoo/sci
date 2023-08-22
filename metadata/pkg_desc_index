@@ -64,7 +64,7 @@ dev-python/datrie 0.8.2-r1: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/distinctipy 1.2.2: Lightweight package for generating visually distinct colours
 dev-python/dpath 2.1.6: Accessing and searching dictionaries via /slashed/paths
-dev-python/dpctl 0.14.1_rc2: Data Parallel Control
+dev-python/dpctl 0.14.1_rc2 0.14.5: Data Parallel Control
 dev-python/dpnp 0.11.1_rc1: Data Parallel Extension for NumPy
 dev-python/extension-helpers 1.0.0: Utilities for building and installing packages in the Astropy ecosystem
 dev-python/ezdxf 0.16.5: Python interface to DXF
