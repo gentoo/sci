@@ -73,6 +73,7 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}/${P}-system-libs.patch"
+	"${FILESDIR}/${P}-gcc13.patch"
 )
 
 src_configure() {

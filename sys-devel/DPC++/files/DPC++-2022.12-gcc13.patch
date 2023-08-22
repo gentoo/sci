@@ -1,0 +1,12 @@
+diff --git a/sycl/include/sycl/sycl_span.hpp b/sycl/include/sycl/sycl_span.hpp
+index 33b942fbc..395694573 100644
+--- a/sycl/include/sycl/sycl_span.hpp
++++ b/sycl/include/sycl/sycl_span.hpp
+@@ -128,6 +128,7 @@ template<class Container>
+ #include <cassert>     // for assert
+ #include <cstddef>     // for byte
+ #include <iterator>    // for iterators
++#include <cstdint>
+ #include <type_traits> // for remove_cv, etc
+ 
+ #define _SYCL_SPAN_TEMPLATE_VIS
