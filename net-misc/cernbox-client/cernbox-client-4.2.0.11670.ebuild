@@ -10,12 +10,12 @@ DESCRIPTION="Synchronize files from CERNBox EOS with your computer"
 # Origin is classic owncloud-client, branded for CERN during compilation.
 ORIGIN_PN="ownCloud"
 BRANDED_P="cernbox"
-BRANDED_PV="3.2.1"
-BRANDED_REL="10562"
+BRANDED_PV="4.1.0"
+BRANDED_REL="11373"
 REGRAPHAPI_PV="1.0.1"
 HOMEPAGE="https://cernbox.cern.ch/"
 SRC_URI="https://download.owncloud.com/desktop/${ORIGIN_PN}/stable/${PV}/source/${ORIGIN_PN}-${PV}.tar.xz
-	https://cernboxdistr.web.cern.ch/cernboxdistr/Linux/repo.future/Fedora_37/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm
+	https://cernboxdistr.web.cern.ch/cernboxdistr/Linux/repo.future/Fedora_38/src/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm
 	https://cern.ch/ofreyerm/gentoo/cernbox/${PN}-${BRANDED_PV}-${BRANDED_REL}.src.rpm
 	https://github.com/owncloud/libre-graph-api-cpp-qt-client/archive/refs/tags/v${REGRAPHAPI_PV}.tar.gz
 		-> libregraphapi-${REGRAPHAPI_PV}.tar.gz"
@@ -63,7 +63,7 @@ src_unpack() {
 PATCHES=(
 	"${FILESDIR}"/owncloud-client-3.1.0.9872-no_cmake_fetch.patch
 	"${FILESDIR}"/owncloud-client-3.2.0.10193-no_fortify_override.patch
-	"${FILESDIR}"/owncloud-client-3.2.0.10193-fix-mirall.patch
+	"${FILESDIR}"/owncloud-client-4.1.0.11250-fix-mirall.patch
 )
 
 src_prepare() {
