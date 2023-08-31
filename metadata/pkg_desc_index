@@ -181,6 +181,7 @@ sci-biology/ABI-expression-data 0.2: Gene expression data form the Allen Mouse B
 sci-biology/ANGLE-bin 20080813-r1: CDS prediction overcoming sequencing errors in unfinished cDNA
 sci-biology/AlignGraph 9999: Reference-genome-assisted asssembly of contigs/scaffolds using PE reads
 sci-biology/BBmap 38.87: Short read aligner, K-mer-based error-correct and normalize, FASTA/Q tool
+sci-biology/BEP032tools 0.0.1_alpha: Conversion and validation tools for BEP 032
 sci-biology/BRAKER 2.1.2: Gene prediction based on RNA-Seq using GeneMark-ET and AUGUSTUS
 sci-biology/BRANCH 9999: Extend partial transcripts with sequence from other reads or genomic contigs
 sci-biology/CAT 1.3: Codon usage bias (composition) and its statistical significance
