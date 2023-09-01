@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	The HistFactory p.d.f. template [CERN-OPEN-2012-016] is per-se independent of its implementation in ROOT and sometimes, it’s useful to be able to run statistical analysis outside of ROOT, RooFit, RooStats framework.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">particle</remote-id>
+		<remote-id type="github">scikit-hep/particle</remote-id>
+	</upstream>
+</pkgmetadata>
