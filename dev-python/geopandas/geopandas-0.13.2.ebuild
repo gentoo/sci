@@ -25,9 +25,10 @@ distutils_enable_tests pytest
 
 python_test() {
 	local deselect=(
-		# disable tests due to networking being blocked
-		geopandas/io/tests/test_file.py::test_read_file_remote_zipfile_url
-		geopandas/io/tests/test_file.py::test_read_file_remote_geojson_url
+		# needs network access
+		geopandas/io/tests/test_file.py::test_read_file_url
+		# fails with RuntimeError thrown by matplotlib
+		geopandas/tests/test_plotting.py::TestGeoplotAccessor::test_pandas_kind
 	)
 
 	epytest ${deselect[@]/#/--deselect }
@@ -37,4 +38,5 @@ pkg_postinst() {
 	optfeature "plotting" dev-python/matplotlib
 	optfeature "spatial indexes and spatial joins" sci-libs/rtree
 	optfeature "geocoding" sci-geosciences/geopy
+	optfeature "geodatabase access" dev-python/psycopg dev-python/sqlalchemy
 }
