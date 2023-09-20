@@ -461,7 +461,7 @@ sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/irstlm 6.00.05 6.00.05-r1: A tool to estimate, store, and access very large n-gram language models
 sci-misc/jwnl 1.4_rc2: Java interface to WordNet dictionary data
 sci-misc/mitlm 0.4.2: Tools designed for efficient estimation of statistical n-gram language models
-sci-misc/openfst 1.8.1: Finite State Transducer tools by Google et al
+sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
 sci-misc/pqdump 0.1.0: simple program to dump Parquet files
 sci-misc/praat 6.1.42: Speech analysis and synthesis
 sci-misc/stanford-parser 4.2.0: Stanfords statistical natural language parsers
