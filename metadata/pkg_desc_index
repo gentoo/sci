@@ -455,7 +455,7 @@ sci-mathematics/lie 2.2.2: A Computer algebra package for Lie group computations
 sci-mathematics/ltl2ba 1.1: Fast LTL to Buechi Automata Translation
 sci-mathematics/pulp 2.7.0: Create MPS/LP files, call solvers, and present results
 sci-mathematics/ripser 1.1: efficient computation of Vietoris-Rips persistence barcodes
-sci-mathematics/scilab-bin 6.1.1: Scientific software package for numerical computations
+sci-mathematics/scilab-bin 6.1.1 2023.1.0: Scientific software package for numerical computations
 sci-misc/elmer-fem 9.0-r2: Finite element programs, libraries, and visualization tools
 sci-misc/finomaton 1.0: Simple tcl/tk script to draw finite state automata
 sci-misc/irstlm 6.00.05 6.00.05-r1: A tool to estimate, store, and access very large n-gram language models
