@@ -88,7 +88,7 @@ dev-python/interleave 0.2.0: Yield from multiple iterators as values become avai
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
-dev-python/llvmlite 0.39.1 0.40.1: Python wrapper around the llvm C++ library
+dev-python/llvmlite 0.39.1 0.40.1 0.41.0: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/matlabengine 9.13.7: A module to call MATLAB from Python
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
