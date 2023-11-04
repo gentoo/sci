@@ -7,5 +7,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=all-rights-reserved
 SLOT=0
 SRC_URI=http://rna.igmors.u-psud.fr/download/Erpin/erpin5.5b.serv.tar.gz http://rna.igmors.u-psud.fr/download/Erpin/ErpinBatch.1.4.tar.gz
-_eclasses_=toolchain-funcs	70ec42843fec87d20fd94c67e77cdbff	multilib	c19072c3cd7ac5cb21de013f7e9832e0
+_eclasses_=toolchain-funcs	edeef89edaf21d30225d31702ab117ac	multilib	c19072c3cd7ac5cb21de013f7e9832e0
 _md5_=02635387a9d3f65e8459ddab593a15e3
