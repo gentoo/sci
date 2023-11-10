@@ -350,6 +350,7 @@ sci-biology/skewer-bin 0.2.2: Adaptor and MID removal / trimming tool
 sci-biology/smalt 0.7.6: DNA read mapper using k=20 (successor of ssaha2)
 sci-biology/smalt-bin 0.7.6: Pairwise sequence alignment mapping DNA reads onto genomic reference
 sci-biology/snap 20131129: HMM-based prokaryotic and eukaryotic gene prediction tool
+sci-biology/snapgene-viewer 7.0.3: Software for plasmid mapping, primer design, and restriction site analysis
 sci-biology/snpomatic 1.0: Stringent short-read aligner supporting filters and various output formats
 sci-biology/spm 12_p7771: Analysis of brain imaging data sequences for Octave or Matlab
 sci-biology/sra-tools 2.11.3: NCBI Sequence Read Archive (SRA) sratoolkit
