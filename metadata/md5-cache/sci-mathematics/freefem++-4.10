@@ -11,5 +11,5 @@ LICENSE=LGPL-2.1
 RDEPEND=sci-libs/fftw:3.0 virtual/cblas virtual/lapack sci-libs/umfpack sci-libs/arpack sci-libs/hdf5[cxx] mpi? ( virtual/mpi ) opengl? ( media-libs/freeglut virtual/opengl ) X? ( media-fonts/font-misc-misc x11-libs/libX11 x11-libs/libXext x11-libs/libXpm x11-libs/libXxf86vm )
 SLOT=0
 SRC_URI=https://github.com/FreeFem/FreeFem-sources/archive/v4.10.tar.gz -> freefem++-4.10.tar.gz
-_eclasses_=gnuconfig	b6b3e92f8b8c996400074b5f61a59256	toolchain-funcs	edeef89edaf21d30225d31702ab117ac	multilib	c19072c3cd7ac5cb21de013f7e9832e0	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde
+_eclasses_=gnuconfig	b6b3e92f8b8c996400074b5f61a59256	toolchain-funcs	eed10cf5e5a06916e654d31f5a1925cc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde
 _md5_=555e2c0efd6908b76949dbef99bad6a7
