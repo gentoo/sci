@@ -4,7 +4,7 @@
 EAPI=8
 
 #FIXME: Upstream explicitly supports "pypy3", but Gentoo dependencies do not.
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_11 )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Python interface to DXF"

@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index eadac9a6..10f1396e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -674,7 +674,6 @@ endif()
+ 
+ if(UNIX)
+   include(GNUInstallDirs)
+-  set(CMAKE_INSTALL_LIBDIR "lib")
+ else()
+   if(WIN32)
+       set(CMAKE_INSTALL_LIBDIR      "lib")

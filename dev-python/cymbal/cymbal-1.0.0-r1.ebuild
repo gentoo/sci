@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_11 )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Add functionality missing from the python libclang bindings"
