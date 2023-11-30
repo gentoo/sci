@@ -1,0 +1,11 @@
+--- a/setup.py	2023-07-05 17:09:42.000000000 -0400
++++ b/setup.py	2023-11-28 12:38:07.726369571 -0500
+@@ -24,7 +24,7 @@
+       author_email=__email__,
+       url=__url__,
+       license='GNLv3',
+-      packages=find_packages(),
++      packages=find_packages(exclude=["tests", "tests.*"]),
+       install_requires=['nibabel>=3.0.2',
+                         'numpy>=1.18.0',
+                         'pandas>=1.0.0',
