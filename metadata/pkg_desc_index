@@ -235,6 +235,7 @@ sci-biology/bismark 0.23.0: Map bisulfite converted sequence reads and cytosine 
 sci-biology/brat 1.2.4: Bisulfite-treated Reads Analysis Tool (short read mapper)
 sci-biology/brat_bw 2.0.1: Bisulfite-aware short read mapper, FM-index, no InDel support
 sci-biology/brat_nova 20160103: Bisulfite-aware short read mapper, FM-index, accepts 1 InDel/read, local align
+sci-biology/brkraw 0.3.11: Fast and easy statistical learning on NeuroImaging data
 sci-biology/bru2nii 1.0.20180303: Converts Bruker ParaVision MRI data to the NIfTI file format
 sci-biology/bruker2nifti 1.0.4: Medical image converter, from raw Bruker ParaVision to NIfTI
 sci-biology/btl_bloomfilter 1.2.1: BTL C/C common bloom filters
