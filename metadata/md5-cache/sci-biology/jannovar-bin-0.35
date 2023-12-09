@@ -9,5 +9,5 @@ LICENSE=BSD-2
 RDEPEND=>=virtual/jre-1.7 >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://search.maven.org/remotecontent?filepath=de/charite/compbio/jannovar-cli/0.35/jannovar-cli-0.35.jar https://search.maven.org/remotecontent?filepath=de/charite/compbio/jannovar-vardbs/0.35/jannovar-vardbs-0.35.jar https://search.maven.org/remotecontent?filepath=de/charite/compbio/jannovar-htsjdk/0.35/jannovar-htsjdk-0.35.jar https://search.maven.org/remotecontent?filepath=de/charite/compbio/jannovar-core/0.35/jannovar-core-0.35.jar https://search.maven.org/remotecontent?filepath=de/charite/compbio/jannovar-hgvs/0.35/jannovar-hgvs-0.35.jar
-_eclasses_=java-utils-2	c04e82b700f977924b211c7cdbc2f096	java-pkg-2	1794573de2f5124d88b64ee5dc9aabb4
+_eclasses_=java-utils-2	7c4c66a18e7b619373f3a3bcff542907	java-pkg-2	b6d755b4f6afabfd933932be28b46368
 _md5_=15ed5f9dd7defecaace7fe10bb843f69
