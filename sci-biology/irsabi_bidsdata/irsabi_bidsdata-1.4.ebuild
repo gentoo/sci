@@ -6,7 +6,7 @@ EAPI=7
 inherit check-reqs
 
 DESCRIPTION="BIDS data files released with the IRSABI publication"
-HOMEPAGE="http://chymera.eu/docs/focus/open-science/"
+HOMEPAGE="https://chymera.eu/docs/focus/open-science/"
 SRC_URI="
 	https://zenodo.org/record/3601531/files/${P}.tar.xz
 "
