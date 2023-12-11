@@ -15,7 +15,7 @@ SRC_URI="https://github.com/nipy/nipype/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 RESTRICT="!test? ( test )"
 
@@ -46,10 +46,12 @@ RDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-1.8.4-dependency_compatibility.patch"
+	"${FILESDIR}/${PN}-1.8.4-no_etelemetry.patch"
 )
 
 src_prepare() {
 	# Remove etelemetry
+	# Doing this separately since the file is affected by another patch.
 	sed -i '/"etelemetry/d' nipype/info.py requirements.txt || die
 
 	# Mark failing tests

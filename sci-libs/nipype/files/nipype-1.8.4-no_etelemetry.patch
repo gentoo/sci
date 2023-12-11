@@ -1,0 +1,50 @@
+diff --git a/nipype/__init__.py b/nipype/__init__.py
+index 06084e823..2e42dcbce 100644
+--- a/nipype/__init__.py
++++ b/nipype/__init__.py
+@@ -73,23 +73,6 @@ from .interfaces import (
+ )
+ 
+ 
+-def check_latest_version(raise_exception=False):
+-    """
+-    Check for the latest version of the library.
+-
+-    Parameters
+-    ----------
+-    raise_exception: bool
+-        Raise a RuntimeError if a bad version is being used
+-    """
+-    import etelemetry
+-
+-    logger = logging.getLogger("nipype.utils")
+-    return etelemetry.check_available_version(
+-        "nipy/nipype", __version__, logger, raise_exception
+-    )
+-
+-
+ # Run telemetry on import for interactive sessions, such as IPython, Jupyter notebooks, Python REPL
+ if config.getboolean("execution", "check_version"):
+     import __main__
+@@ -98,4 +81,4 @@ if config.getboolean("execution", "check_version"):
+         from .interfaces.base import BaseInterface
+ 
+         if BaseInterface._etelemetry_version_data is None:
+-            BaseInterface._etelemetry_version_data = check_latest_version() or "n/a"
++            BaseInterface._etelemetry_version_data = "n/a"
+diff --git a/nipype/interfaces/base/core.py b/nipype/interfaces/base/core.py
+index c8099be63..f7770dbfc 100644
+--- a/nipype/interfaces/base/core.py
++++ b/nipype/interfaces/base/core.py
+@@ -183,10 +183,9 @@ class BaseInterface(Interface):
+             config.getboolean("execution", "check_version")
+             and "NIPYPE_NO_ET" not in os.environ
+         ):
+-            from ... import check_latest_version
+ 
+             if BaseInterface._etelemetry_version_data is None:
+-                BaseInterface._etelemetry_version_data = check_latest_version() or "n/a"
++                BaseInterface._etelemetry_version_data = "n/a"
+ 
+         if not self.input_spec:
+             raise Exception("No input_spec in class: %s" % self.__class__.__name__)
