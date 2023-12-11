@@ -6,16 +6,14 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..11} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1 pypi
 
 DESCRIPTION="Time-series analysis of neuroscience data"
 HOMEPAGE="http://nipy.org/nitime/index.html"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/nipy/nitime"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 COMMON_DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
