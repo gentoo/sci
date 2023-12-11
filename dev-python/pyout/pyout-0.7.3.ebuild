@@ -3,17 +3,17 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
-inherit distutils-r1
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..12} )
+inherit distutils-r1 pypi
 
 DESCRIPTION="Terminal styling for structured data"
 HOMEPAGE="https://github.com/pyout/pyout"
-SRC_URI="https://github.com/pyout/pyout/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+#SRC_URI="https://github.com/pyout/pyout/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 SLOT="0"
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"
-RESTRICT="test"
 
 RDEPEND="
 	dev-python/jsonschema[${PYTHON_USEDEP}]
@@ -27,9 +27,7 @@ DEPEND="
 
 distutils_enable_tests pytest
 
-
-PATCHES=( "${FILESDIR}/${PN}-0.7.2-blessed.patch"  )
-
+#PATCHES=( "${FILESDIR}/${PN}-0.7.2-blessed.patch"  )
 
 python_prepare_all() {
 	sed -i -e '/pytest-runner/d' setup.py || die
