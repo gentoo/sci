@@ -313,7 +313,7 @@ sci-biology/neuroconv 0.2.4: Create NWB files from proprietary formats.
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/ngs 2.11.2: NGS Language Bindings
 sci-biology/nilearn 0.8.1 0.9.1: Fast and easy statistical learning on NeuroImaging data
-sci-biology/nitime 0.9 9999: Time-series analysis of neuroscience data
+sci-biology/nitime 0.9 0.10.2 9999: Time-series analysis of neuroscience data
 sci-biology/nrcl 110625: Containment clustering and layout utility for processing pairwise alignments
 sci-biology/ntCard 1.2.2 9999: Estimate k-mer coverage histogram of genomics data
 sci-biology/nxtrim 0.4.3: Trim Illumina TruSeq adapters and split reads by Nextera MatePair linker
