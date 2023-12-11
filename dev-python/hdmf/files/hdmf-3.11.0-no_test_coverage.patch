@@ -1,0 +1,10 @@
+--- a/pyproject.toml	2020-02-01 19:00:00.000000000 -0500
++++ b/pyproject.toml	2023-12-11 12:00:19.368474488 -0500
+@@ -76,7 +76,6 @@
+ # verbose = 1
+
+ [tool.pytest.ini_options]
+-addopts = "--cov --cov-report html"
+ norecursedirs = "tests/unit/helpers"
+
+ [tool.codespell]

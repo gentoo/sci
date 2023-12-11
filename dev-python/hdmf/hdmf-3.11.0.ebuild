@@ -3,16 +3,13 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=hatchling
 PYTHON_COMPAT=( python3_{10..11} )
-inherit distutils-r1
-
-MY_PV="${PV//_p*/}"
-MY_P="${PN}-${MY_PV}"
+inherit distutils-r1 pypi
 
 DESCRIPTION="The Hierarchical Data Modeling Framework"
 HOMEPAGE="https://github.com/hdmf-dev/hdmf"
-SRC_URI="https://github.com/hdmf-dev/hdmf/releases/download/${MY_PV}/${MY_P}.tar.gz"
+SRC_URI="$(pypi_sdist_url hdmf)"
 
 SLOT="0"
 LICENSE="BSD"
@@ -26,12 +23,9 @@ RDEPEND="
 	dev-python/ruamel-yaml[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	"
-BDEPEND=""
 
 PATCHES=(
-	"${FILESDIR}/${MY_P}-open_links.patch"
-)
+	"${FILESDIR}/${P}-no_test_coverage.patch"
+	)
 
 distutils_enable_tests pytest
-
-S="${WORKDIR}/${MY_P}"
