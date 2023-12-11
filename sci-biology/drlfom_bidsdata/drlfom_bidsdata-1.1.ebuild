@@ -6,7 +6,7 @@ EAPI=8
 inherit check-reqs
 
 DESCRIPTION="BIDS data files released with the DRLFOM publication"
-HOMEPAGE="http://chymera.eu/docs/focus/open-science/"
+HOMEPAGE="https://chymera.eu/docs/focus/open-science/"
 SRC_URI="
 	https://zenodo.org/record/3598424/files/${P}.tar.xz
 "
@@ -14,9 +14,6 @@ SRC_URI="
 LICENSE="CC-BY-SA-4.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-
-RDEPEND=""
-DEPEND=""
 
 pkg_pretend() {
 	CHECKREQS_DISK_BUILD="21G"
