@@ -146,7 +146,7 @@ dev-python/specutils 1.9.1: Package for spectroscopic astronomical data
 dev-python/sphinx-astropy 1.8.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
 dev-python/sphinxcontrib-napoleon 0.7-r1: Allow a different format in dosctrings for better clarity
-dev-python/spikeinterface 0.96.1 0.97.0: A Python-based module for creating flexible and robust spike sorting pipelines.
+dev-python/spikeinterface 0.96.1 0.97.0 0.99.1: A Python-based module for creating flexible and robust spike sorting pipelines.
 dev-python/stopit 1.1.2: Timeout control decorator and context managers
 dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/throttler 1.2.2: Easy throttling with asyncio support
