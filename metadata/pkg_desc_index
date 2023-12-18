@@ -140,7 +140,7 @@ dev-python/ripser 0.6.4: python frontend for the fast ripser tda tool
 dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
 dev-python/smart-open 6.3.0: Utils for streaming large files (S3, HDFS, gzip, bz2...)
-dev-python/snakemake 7.32.3: Make-like task language
+dev-python/snakemake 7.32.4: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
 dev-python/specutils 1.9.1: Package for spectroscopic astronomical data
 dev-python/sphinx-astropy 1.8.0: Sphinx extensions and configuration specific to the Astropy project
