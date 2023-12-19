@@ -6,7 +6,7 @@ EAPI=8
 inherit java-pkg-2 java-ant-2 desktop
 
 MY_PN="ij"
-IJ_PV="153" #plugins not currently available under 154
+IJ_PV="154" #plugins now available for 154
 
 DESCRIPTION="Image Processing and Analysis in Java"
 
@@ -59,7 +59,7 @@ src_prepare() {
 
 	if [[ ${PV} == 9999 ]]; then
 	   if use plugins ; then
-	      unpack "${MY_PN}${IJ_PV}.zip"
+		  unpack "${MY_PN}${IJ_PV}.zip"
 	   fi
 	fi
 

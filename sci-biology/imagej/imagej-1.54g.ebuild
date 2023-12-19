@@ -15,8 +15,6 @@ HOMEPAGE="https://imagej.nih.gov/ij/"
 SRC_URI="https://imagej.nih.gov/ij/download/src/${MY_PN}${MY_PV}-src.zip
 	https://imagej.nih.gov/ij/images/ImageJ.png
 	plugins? ( https://wsr.imagej.net/distros/cross-platform/${MY_PN}${IJ_PV}.zip )"
-# plugins are under a different licenses and can be installed into user's $IJ_HOME/plugins
-#	plugins? ( http://rsb.info.nih.gov/ij/download/zips/${MY_PN}${IJ_PV}.zip )"
 
 LICENSE="public-domain" # http://imagej.net/disclaimer.html
 SLOT="0"
