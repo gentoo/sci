@@ -1,4 +1,4 @@
-BDEPEND=virtual/fortran >=dev-python/cython-0.29.24 sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) >=sys-devel/autoconf-2.71-r5 >=sys-devel/libtool-2.4.7
+BDEPEND=virtual/fortran >=dev-python/cython-0.29.24 sys-devel/gnuconfig >=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.5:1.16 ) || ( >=sys-devel/autoconf-2.72-r1:2.72 >=sys-devel/autoconf-2.71-r6:2.71 ) >=sys-devel/libtool-2.4.7
 DEFINED_PHASES=configure install prepare setup
 DEPEND=>=sci-physics/yoda-1.9.5[python(-),python_single_target_python3_10(-)?] >=sci-physics/fastjet-3.4.0[plugins] >=sci-physics/fastjet-contrib-1.048 hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] ) hepmc3? ( sci-physics/hepmc:3=[-cm(-),gev(+)] ) sci-libs/gsl virtual/latex-base media-gfx/imagemagick app-text/ghostscript-gpl python_single_target_python3_10? ( dev-lang/python:3.10 )
 DESCRIPTION=Rivet toolkit (Robust Independent Validation of Experiment and Theory)
@@ -12,5 +12,5 @@ RDEPEND=>=sci-physics/yoda-1.9.5[python(-),python_single_target_python3_10(-)?] 
 REQUIRED_USE=^^ ( hepmc3 hepmc2 ) ^^ ( python_single_target_python3_10 )
 SLOT=3
 SRC_URI=https://www.hepforge.org/archive/rivet/Rivet-3.1.6.tar.gz
-_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	474cb53a7d1b62721a91809a1d702661	python-single-r1	75118e916668a74c660a13b0ecb22562	flag-o-matic	78cf3cc2d5572fddf5e5e10c70f7c81a	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	6ae9a4347149b19a112caa1182d03bde
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	474cb53a7d1b62721a91809a1d702661	python-single-r1	75118e916668a74c660a13b0ecb22562	flag-o-matic	78cf3cc2d5572fddf5e5e10c70f7c81a	gnuconfig	b6b3e92f8b8c996400074b5f61a59256	libtool	9d3a9a889a6fa62ae794f817c156491b	autotools	5f729b9cb10d5eda573cd604c93c6dc5
 _md5_=e6b9a868a966773290d215bb28acc3bd
