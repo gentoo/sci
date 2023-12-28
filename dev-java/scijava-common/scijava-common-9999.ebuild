@@ -25,7 +25,7 @@ else
 		https://github.com/scijava/${PN}/archive/refs/tags/${P}.tar.gz -> ${P}-sources.tar.gz
 	"
 	S="${WORKDIR}/${PN}-${P}"
-	MAVEN_ID="org.scijava:scijava-common:2.94.2"
+	MAVEN_ID="org.scijava:scijava-common:2.97.1"
 	KEYWORDS="~amd64"
 fi
 
@@ -38,20 +38,19 @@ CDEPEND="
 	dev-java/jaxb-api:2
 "
 
-BDEPEND="
+BDEPEND="${CDEPEND}
 	>=virtual/jdk-1.8:*
-	${CDEPEND}
+"
+
+DEPEND="${CDEPEND}
 	test? (
 		>=dev-java/junit-4.13.2
-		>=dev-java/mockito-2.19.0:2
+		>=dev-java/mockito-4.11.0:4
 	)
 "
 
-DEPEND="${CDEPEND}"
-
-RDEPEND="
+RDEPEND="${CDEPEND}
 	>=virtual/jre-1.8:*
-	${CDEPEND}
 "
 
 JAVA_GENTOO_CLASSPATH="parsington,jaxws-api,jaxb-api-2"
@@ -61,7 +60,7 @@ JAVA_RESOURCE_DIRS=(
 	"src/main/resources"
 )
 
-JAVA_TEST_GENTOO_CLASSPATH="junit-4,mockito-2"
+JAVA_TEST_GENTOO_CLASSPATH="junit-4,mockito-4"
 JAVA_TEST_SRC_DIR="src/test/java"
 JAVA_TEST_RESOURCE_DIRS=(
 	"src/test/resources"
