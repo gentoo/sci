@@ -30,6 +30,13 @@
 
 #--- END OF EXAMPLES ---
 
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (29 Dec 2023)
+# Depends on removed llvm:14, at the time of writing no llvm:15
+# update available.
+dev-python/llvmlite
+dev-python/numba
+dev-python/numba-dpex
+
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (16 Dec 2023)
 # Depends on removed dev-python/pydotplus
 sci-libs/nipype
