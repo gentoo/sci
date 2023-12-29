@@ -36,6 +36,10 @@
 dev-python/llvmlite
 dev-python/numba
 dev-python/numba-dpex
+dev-python/pynndescent
+# Reverse dep of numba
+dev-python/tridesclous
+dev-python/umap-learn
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (16 Dec 2023)
 # Depends on removed dev-python/pydotplus
