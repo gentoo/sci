@@ -9,7 +9,7 @@ dev-cpp/xor_singleheader 0_p20012020: single header library for fast XOR filters
 dev-java/fits 1.15.1: Java library for FITS input/output
 dev-java/jama 1.0.3: JAMA is a basic linear algebra package for Java.
 dev-java/parsington 3.1.0 9999: A mathematical expression parser for infix expression strings
-dev-java/scijava-common 2.94.2 9999: SciJava Common is a shared library for SciJava software.
+dev-java/scijava-common 2.97.1 9999: SciJava Common is a shared library for SciJava software.
 dev-java/scijava-optional 1.0.1 9999: Helpers for emulating named and default arguments
 dev-java/scijava-table 1.0.2 9999: Table structures for SciJava.
 dev-lang/berkeley_upc 2020.12.0: The Berkeley UPC Runtime/driver
