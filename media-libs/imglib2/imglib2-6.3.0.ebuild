@@ -24,7 +24,7 @@ else
 		https://github.com/imglib/${PN}/archive/refs/tags/${P}.tar.gz -> ${P}-sources.tar.gz
 	"
 	S="${WORKDIR}/${PN}-${P}"
-	MAVEN_ID="net.imglib2:imglib2:6.2.0"
+	MAVEN_ID="net.imglib2:imglib2:6.3.0"
 	KEYWORDS="~amd64"
 fi
 
