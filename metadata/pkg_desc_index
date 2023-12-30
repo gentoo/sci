@@ -172,7 +172,7 @@ media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
 media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
 media-libs/glbinding 3.1.0_p1: Cross-platform C++ binding for the OpenGL API
-media-libs/imglib2 6.2.0 9999: A multidimensional, type-agnostic image processing library.
+media-libs/imglib2 6.3.0 9999: A multidimensional, type-agnostic image processing library.
 media-libs/libgfx 1.1.0 1.1.1: Simplify the creation of computer graphics software
 media-libs/mmg 5.5.0 5.5.1 5.5.2: bidimensional and tridimensional remesher
 media-libs/scifio-jai-imageio 1.1.1 9999: SCIFIO version of the Java Advanced Imaging Image I/O Tools API Core.
