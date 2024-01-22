@@ -29,6 +29,8 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND="dev-build/cmake"
 
+# Remove for next release:
+# https://github.com/ablab/spades/issues/1238#issuecomment-1904427831
 PATCHES=(
 	"${FILESDIR}/${P}-gcc13.patch"
 )
