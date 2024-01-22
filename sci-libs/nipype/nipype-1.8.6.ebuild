@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..11} )
 PYTHON_REQ_USE="threads(+),sqlite"
 
@@ -16,7 +17,9 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
-RESTRICT="!test? ( test )"
+# Tests fail with numpy import error:
+# https://github.com/nipy/nipype/issues/3626
+RESTRICT="test"
 
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
@@ -28,30 +31,28 @@ DEPEND="
 		${RDEPEND}
 		)
 "
-# Dependency disabled as upstream test configuration which requires it fails
-#dev-python/pytest-xdist[${PYTHON_USEDEP}]
 
 RDEPEND="
-	>=dev-python/click-6.6[${PYTHON_USEDEP}]
+	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/filelock[${PYTHON_USEDEP}]
+	dev-python/looseversion[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/pydot[${PYTHON_USEDEP}]
-	dev-python/pydotplus[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
-	>=dev-python/rdflib-5.0.0[${PYTHON_USEDEP}]
+	dev-python/rdflib[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
-	dev-python/traits[${PYTHON_USEDEP}]
+	<dev-python/traits-6.4.0[${PYTHON_USEDEP}]
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}"-version_check.patch
-	"${FILESDIR}/${P}"-collections.patch
+	"${FILESDIR}/${PN}-1.8.4-no_etelemetry.patch"
 )
 
 src_prepare() {
 	# Remove etelemetry
+	# Doing this separately since the file is affected by another patch.
 	sed -i '/"etelemetry/d' nipype/info.py requirements.txt || die
 
 	# Mark failing tests
@@ -69,12 +70,10 @@ python_install_all() {
 	doenvd "${FILESDIR}/98nipype"
 }
 
+# Reported upstream:
+# https://github.com/nipy/nipype/issues/3540
 EPYTEST_DESELECT=(
-	nipype/algorithms/tests/test_CompCor.py::TestCompCor::test_compcor
-	nipype/algorithms/tests/test_CompCor.py::TestCompCor::test_compcor_variance_threshold_and_metadata
-	nipype/algorithms/tests/test_CompCor.py::TestCompCor::test_tcompcor
 	nipype/interfaces/tests/test_io.py::test_s3datagrabber_communication
-	nipype/utils/tests/test_cmd.py::TestNipypeCMD::test_main_returns_0_on_help
 )
 
 python_test() {

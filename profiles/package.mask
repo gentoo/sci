@@ -41,12 +41,6 @@ dev-python/pynndescent
 dev-python/tridesclous
 dev-python/umap-learn
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (16 Dec 2023)
-# Depends on removed dev-python/pydotplus
-sci-libs/nipype
-dev-python/heudiconv
-sci-biology/samri
-
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (26 Jun 2023)
 # Depends on removed dev-python/toml.
 # Alternatives are tomli or tomlkit
