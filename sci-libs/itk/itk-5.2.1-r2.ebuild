@@ -71,7 +71,7 @@ DEPEND="${RDEPEND}
 		>=dev-lang/swig-2.0:0
 		dev-libs/castxml
 	)
-	doc? ( app-doc/doxygen )
+	doc? ( app-text/doxygen )
 "
 BDEPEND="
 	test? (
