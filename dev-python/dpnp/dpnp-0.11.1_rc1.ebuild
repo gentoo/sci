@@ -19,7 +19,7 @@ KEYWORDS="~amd64"
 
 BDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
-	dev-util/cmake
+	dev-build/cmake
 	sys-devel/DPC++
 "
 
