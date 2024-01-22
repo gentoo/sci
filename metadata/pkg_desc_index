@@ -394,7 +394,7 @@ sci-chemistry/panav 0.20130730: Probabilistic approach for validating protein NM
 sci-chemistry/relion 4.0.0 9999: Image-processing software for cryo-electron microscopy
 sci-chemistry/ssp 09.11: Secondary structure propensities
 sci-electronics/minipro 0.5: A free and open TL866XX programmer
-sci-electronics/mpremote 0.4.0: MicroPython remote control
+sci-electronics/mpremote 0.4.0 1.22.0: MicroPython remote control
 sci-libs/HDF5Plugin-Zstandard 0_pre20201121-r1: ZSTD plugin for hdf5
 sci-libs/amber99sb_phipsi 0_pre130901: AMBER99SB PHI PSI table (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
 sci-libs/amber99sbnmr 0_pre130901: AMBER99SBnmr1 force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)
