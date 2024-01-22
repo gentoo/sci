@@ -22,7 +22,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	app-doc/doxygen
+	app-text/doxygen
 "
 
 src_configure() {
