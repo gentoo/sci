@@ -17,7 +17,9 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
+# Fails to build:
+# https://github.com/ablab/spades/issues/1238
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
