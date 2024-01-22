@@ -64,7 +64,7 @@ DEPEND="
 	dev-util/spirv-headers
 	dev-util/spirv-tools
 	media-libs/libva
-	sys-devel/libtool
+	dev-build/libtool
 	esimd_emulator? ( dev-libs/libffi:= )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	hip? ( dev-util/hip:= )
