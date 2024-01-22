@@ -40,7 +40,7 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	dev-libs/libxslt
 	app-text/docbook-xsl-ns-stylesheets
-	doc? ( app-doc/doxygen[dot] )
+	doc? ( app-text/doxygen[dot] )
 	python? (
 		${PYTHON_DEPS}
 		>=dev-lang/swig-3.0.7
