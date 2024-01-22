@@ -24,7 +24,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	matlab? ( >=sci-libs/matio-1.5.2 )
 "
-BDEPEND="doc? ( app-doc/doxygen[dot] )"
+BDEPEND="doc? ( app-text/doxygen[dot] )"
 
 src_prepare() {
 	cmake_src_prepare
