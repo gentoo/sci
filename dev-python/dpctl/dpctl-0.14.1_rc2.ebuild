@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
@@ -21,7 +21,7 @@ BDEPEND="
 	dev-python/scikit-build[${PYTHON_USEDEP}]
 	dev-python/pybind11[${PYTHON_USEDEP}]
 	dev-python/versioneer[${PYTHON_USEDEP}]
-	dev-util/cmake
+	dev-build/cmake
 	dev-vcs/git
 	sys-devel/DPC++
 "

@@ -21,7 +21,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	doc? (
-		app-doc/doxygen[dot]
+		app-text/doxygen[dot]
 		app-text/ghostscript-gpl
 		app-text/texlive
 	)
