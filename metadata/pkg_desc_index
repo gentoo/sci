@@ -111,7 +111,7 @@ dev-python/param 1.10.1 1.12.3: Make Python code clearer and more reliable by de
 dev-python/persim 0.3.1: Distances and representations of persistence diagrams
 dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
 dev-python/plac 1.4.2: Parsing the Command Line the Easy Way
-dev-python/probeinterface 0.2.14 0.2.16: Python package to handle probe layout, geometry and wiring to device
+dev-python/probeinterface 0.2.14 0.2.16 0.2.20: Python package to handle probe layout, geometry and wiring to device
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
 dev-python/pybind11-stubgen 0.10.4: PEP 561 type stubs generator for pybind11 modules
