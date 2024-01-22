@@ -27,7 +27,7 @@ DEPEND="
 	${PYTHON_DEPS}
 "
 RDEPEND="${DEPEND}"
-BDEPEND="dev-util/cmake"
+BDEPEND="dev-build/cmake"
 
 src_install(){
 	einstalldocs
