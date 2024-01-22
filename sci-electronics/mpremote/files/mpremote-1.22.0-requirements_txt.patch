@@ -1,0 +1,12 @@
+--- a/pyproject.toml	2020-02-01 19:00:00.000000000 -0500
++++ b/pyproject.toml	2024-01-22 03:59:19.414593373 -0500
+@@ -33,9 +33,6 @@
+ [project.scripts]
+ mpremote = "mpremote.main:main"
+
+-[tool.hatch.metadata.hooks.requirements_txt]
+-files = ["requirements.txt"]
+-
+ # This will be PEP-440 normalised into either:
+ # mpremote-X.Y.Z (on vX.Y.Z release tag)
+ # mpremote-X.Y.Zrc0 (on vX.Y.Z-preview tag, i.e. first commit in the cycle)
