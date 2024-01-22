@@ -29,7 +29,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
-	app-doc/doxygen[dot]
+	app-text/doxygen[dot]
 "
 
 pkg_setup() {
