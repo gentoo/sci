@@ -1,0 +1,49 @@
+From 3e802fa51d156fc958c36e25d607f20bf756f0bf Mon Sep 17 00:00:00 2001
+From: Bo YU <tsu.yubo@gmail.com>
+Date: Wed, 19 Jul 2023 18:42:04 +0800
+Subject: [PATCH] fix build issues due to gcc-13
+
+Signed-off-by: Bo YU <tsu.yubo@gmail.com>
+---
+ ext/include/llvm/Support/Signals.h   | 1 +
+ src/common/pipeline/library_data.hpp | 1 +
+ src/common/sequence/nucl.hpp         | 2 ++
+ 3 files changed, 4 insertions(+)
+
+diff --git a/assembler/ext/include/llvm/Support/Signals.h b/assembler/ext/include/llvm/Support/Signals.h
+index e0a18e72f..148216b8f 100644
+--- a/ext/include/llvm/Support/Signals.h
++++ b/ext/include/llvm/Support/Signals.h
+@@ -14,6 +14,7 @@
+ #ifndef LLVM_SUPPORT_SIGNALS_H
+ #define LLVM_SUPPORT_SIGNALS_H
+ 
++#include <cstdint>
+ #include <string>
+ 
+ namespace llvm {
+diff --git a/assembler/src/common/pipeline/library_data.hpp b/assembler/src/common/pipeline/library_data.hpp
+index 3cbaf0adb..1ffaa7b37 100644
+--- a/src/common/pipeline/library_data.hpp
++++ b/src/common/pipeline/library_data.hpp
+@@ -8,6 +8,7 @@
+ 
+ #include <map>
+ #include <string>
++#include <cstdint>
+ 
+ // Forward decls for LLVM YAML API
+ namespace llvm { namespace yaml { class IO; template<typename T> struct MappingTraits; } }
+diff --git a/assembler/src/common/sequence/nucl.hpp b/assembler/src/common/sequence/nucl.hpp
+index 9c7d6de13..e10e7f583 100755
+--- a/src/common/sequence/nucl.hpp
++++ b/src/common/sequence/nucl.hpp
+@@ -8,6 +8,8 @@
+ #ifndef NUCL_HPP_
+ #define NUCL_HPP_
+ 
++#include <cstdint>
++
+ #include "utils/verify.hpp"
+ 
+ /**

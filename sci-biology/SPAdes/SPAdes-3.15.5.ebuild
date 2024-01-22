@@ -17,9 +17,7 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-# Fails to build:
-# https://github.com/ablab/spades/issues/1238
+KEYWORDS="~amd64"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
@@ -30,6 +28,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="dev-build/cmake"
+
+PATCHES=(
+	"${FILESDIR}/${P}-gcc13.patch"
+)
 
 src_install(){
 	einstalldocs
