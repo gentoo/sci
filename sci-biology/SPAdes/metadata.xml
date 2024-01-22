@@ -10,8 +10,11 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<longdescription>
-truSPAdes includes support for Illumina TruSeq Synthetic Long Read technology reads.
-hammer and ionhammer are read error correcting modules for Illumina /IonTorrent reads, resp.
-dipspades is assembly module for highly polymorphic diploid genomes
-</longdescription>
+		truSPAdes includes support for Illumina TruSeq Synthetic Long Read technology reads.
+		hammer and ionhammer are read error correcting modules for Illumina /IonTorrent reads, resp.
+		dipspades is assembly module for highly polymorphic diploid genomes
+	</longdescription>
+	<upstream>
+		<remote-id type="github">ablab/spades</remote-id>
+	</upstream>
 </pkgmetadata>
