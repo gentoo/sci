@@ -21,7 +21,7 @@ BDEPEND="
 	dev-python/scikit-build[${PYTHON_USEDEP}]
 	dev-python/pybind11[${PYTHON_USEDEP}]
 	dev-python/versioneer[${PYTHON_USEDEP}]
-	dev-util/cmake
+	dev-build/cmake
 	dev-vcs/git
 	sys-devel/DPC++
 "
