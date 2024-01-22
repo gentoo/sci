@@ -43,7 +43,7 @@ DEPEND="${RDEPEND}
 	)
 	doc? (
 		dev-libs/libxslt
-		app-doc/doxygen
+		app-text/doxygen
 	)"
 
 # Install into /usr/ not recommended by upstream due to possible file conflicts
