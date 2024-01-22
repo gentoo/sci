@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..12} )
 inherit python-single-r1
 
 DESCRIPTION="De novo de Bruijn genome assembler overcoming uneven coverage"
