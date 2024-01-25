@@ -19,6 +19,7 @@ IUSE="+ecephys +icephys +ophys"
 RDEPEND="
 	dev-python/h5py[${PYTHON_USEDEP}]
 	dev-python/hdmf[${PYTHON_USEDEP}]
+	dev-python/hdmf-zarr[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/nwbinspector[${PYTHON_USEDEP}]
