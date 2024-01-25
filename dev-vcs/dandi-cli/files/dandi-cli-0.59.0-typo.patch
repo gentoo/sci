@@ -1,0 +1,12 @@
+diff --git a/var/tmp/portage/dev-vcs/dandi-cli-0.59.0/work/dandi-0.59.0/setup.cfg b/tmp/setup.cfg
+index 13ed3f3..f855608 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -146,8 +146,6 @@ ignore_missing_imports = True
+ [mypy-click_didyoumean.*]
+ ignore_missing_imports = True
+
+-ignore_missing_imports = True
+-
+ [mypy-fasteners.*]
+ ignore_missing_imports = True
