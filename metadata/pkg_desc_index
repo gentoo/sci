@@ -310,7 +310,7 @@ sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
 sci-biology/ncbi-vdb 2.11.2: NCBI SRA ( Sequence Read Archive )
-sci-biology/neuroconv 0.2.4: Create NWB files from proprietary formats.
+sci-biology/neuroconv 0.2.4 0.4.6: Create NWB files from proprietary formats.
 sci-biology/nextclip 1.3.1: Split Illumina Nextera long mate-pairs
 sci-biology/ngs 2.11.2: NGS Language Bindings
 sci-biology/nilearn 0.8.1 0.9.1: Fast and easy statistical learning on NeuroImaging data
