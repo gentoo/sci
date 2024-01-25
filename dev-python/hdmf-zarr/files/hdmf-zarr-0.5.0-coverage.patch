@@ -1,0 +1,28 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 4008b3b..40e281a 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -62,9 +62,6 @@ exclude = [".git_archival.txt"]
+ [tool.hatch.build.targets.wheel]
+ packages = ["src/hdmf_zarr"]
+
+-[tool.pytest.ini_options]
+-addopts = "--cov --cov-report html"
+-
+ [tool.codespell]
+ skip = "htmlcov,.git,.mypy_cache,.pytest_cache,.coverage,*.pdf,*.svg,venvs,.tox,./docs/_build/*,*.ipynb"
+ ignore-words-list = "datas"
+diff --git a/tox.ini b/tox.ini
+index 720a97f..66d0df3 100644
+--- a/tox.ini
++++ b/tox.ini
+@@ -28,8 +28,7 @@ commands =
+ [testenv:localcoverage]
+ basepython = python3.11
+ commands =
+-    pytest --cov=hdmf_zarr
+-    coverage html -d tests/coverage/htmlcov
++    pytest
+
+ # Test with python 3.11; pinned dev and optional reqs
+ [testenv:py311-optional]
