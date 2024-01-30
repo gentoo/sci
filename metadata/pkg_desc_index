@@ -57,6 +57,7 @@ dev-python/cadquery-pywrap 7.5.3_rc20220113: C++ binding generator based on libc
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 3.0.1: Collection of perceptually uniform colormaps
+dev-python/colormath 3.0.0: Easy color scales and color conversion for Python
 dev-python/connection_pool 0.0.3: Thread safe connection pool
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
 dev-python/dandi-schema 0.8.3-r1 0.8.4: Schemata for DANDI archive project
@@ -91,6 +92,7 @@ dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
 dev-python/llvmlite 0.39.1 0.40.1 0.41.0: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
+dev-python/lzstring 1.0.4: String encoding/decoding of binary data
 dev-python/matlabengine 9.13.7: A module to call MATLAB from Python
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
 dev-python/mkl-service 2.4.0: Python hooks for Intel Math Kernel Library runtime control settings
@@ -115,6 +117,7 @@ dev-python/plac 1.4.2: Parsing the Command Line the Easy Way
 dev-python/probeinterface 0.2.14 0.2.16 0.2.20: Python package to handle probe layout, geometry and wiring to device
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
+dev-python/pyaml-env 1.2.1: Parse YAML configuration with environment variables in Python
 dev-python/pybind11-stubgen 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1-r2: Python bindings for ERFA
@@ -137,12 +140,14 @@ dev-python/regions 0.7: Astropy affilated package for region handling
 dev-python/reproject 0.8: Reproject astronomical images
 dev-python/repsep_utils 0.2 0.3 0.3.1: Utilities Supporting RepSeP-style documents
 dev-python/reretry 0.11.8: An easy-to-use but functional retry decorator in python
+dev-python/rich-click 1.7.2: Format click help output nicely with rich
 dev-python/ripser 0.6.4: python frontend for the fast ripser tda tool
 dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
 dev-python/smart-open 6.3.0: Utils for streaming large files (S3, HDFS, gzip, bz2...)
 dev-python/snakemake 7.32.4: Make-like task language
 dev-python/snuggs 1.4.7: S-expressions for numpy
+dev-python/spectra 0.0.11: Easy color scales and color conversion for Python
 dev-python/specutils 1.9.1: Package for spectroscopic astronomical data
 dev-python/sphinx-astropy 1.8.0: Sphinx extensions and configuration specific to the Astropy project
 dev-python/sphinx-automodapi 0.14.1-r1: Sphinx extension for auto-generating API documentation for entire modules
@@ -264,6 +269,7 @@ sci-biology/epga 9999: De novo assembler using distribution of reads and insert 
 sci-biology/erpin 5.5b: Easy RNA Profile IdentificatioN, an RNA motif search program
 sci-biology/exonerate-gff3 9999: exonerate-2.2.0 with patches to add GFF3 formatted output
 sci-biology/fastdnaml 1.2.2_p10: Maximum likelihood phylogenetic tree builder for DNA sequences
+sci-biology/fastp 0.23.4: An ultra-fast all-in-one FASTQ preprocessor
 sci-biology/fastqc 0.11.9: Quality control FASTA/FASTQ sequence files
 sci-biology/ffindex 1.0: Simple index/database for huge amounts of small files
 sci-biology/flexbar 3.5.0: Barcode, MID tag and adapter sequence removal
@@ -308,6 +314,7 @@ sci-biology/mouse-brain-templates 0.5.3: A collection of mouse brain templates i
 sci-biology/mreps 2.6.01: Identification of serial/tandem repeats in DNA sequences
 sci-biology/mrfast 2.6.0.1: Micro Read Fast Alignment Search Tool
 sci-biology/msautil 1.1-r1: Reformat/edit FASTA files and compute simple statistics (N50, quartiles, mode)
+sci-biology/multiqc 1.19: Aggregate bioinformatics results across many samples into a single report
 sci-biology/nanopolish 9999: Signal-level analysis of Oxford Nanopore sequencing data
 sci-biology/ncbi-vdb 2.11.2: NCBI SRA ( Sequence Read Archive )
 sci-biology/neuroconv 0.2.4 0.4.6-r1: Create NWB files from proprietary formats.
