@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	pyhepmc largely mirrors the C++ interface of the HepMC3 library, which is documented here. Parts of the documentation have been copied from HepMC3. Documentation is available as Python docstrings, so you can use Python's help() browser to learn about the API. Alternatively, you can consult the online reference generated from these docstrings which includes some examples.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">pyhepmc</remote-id>
+		<remote-id type="github">scikit-hep/pyhepmc</remote-id>
+	</upstream>
+</pkgmetadata>
