@@ -18,12 +18,10 @@ IUSE="test"
 RDEPEND="
 	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/entrypoints[${PYTHON_USEDEP}]
-	dev-python/hdmf-zarr[${PYTHON_USEDEP}]
 	dev-python/msgpack[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/py-cpuinfo[${PYTHON_USEDEP}]
 "
-
 DEPEND="
 	test? (
 		${RDEPEND}
