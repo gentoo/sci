@@ -165,7 +165,7 @@ dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 
 dev-python/wraps 0.2.0: Meaningful and safe wrapping types.
 dev-python/xgboost 1.6.2: XGBoost Python Package
 dev-python/yte 1.5.4: A YAML template engine with Python expressions
-dev-python/zarr 2.11.3 2.12.0: Chunked, compressed, N-dimensional arrays for Python
+dev-python/zarr 2.12.0 2.14.2 2.16.1: Chunked, compressed, N-dimensional arrays for Python
 dev-python/zarr_checksum 0.2.8: Calculatine zarr checksums from local or cloud storage
 dev-util/f90cache 0.99c: Compiler cache for fortran
 dev-util/mad-numdiff 9999 20180125: compare unformatted text files with numerical content
