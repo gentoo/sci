@@ -31,6 +31,12 @@ DEPEND="
 
 distutils_enable_tests pytest
 
+python_compile() {
+	local -x DISABLE_NUMCODECS_AVX2=1
+	local -x DISABLE_NUMCODECS_SSE2=1
+	distutils-r1_python_compile
+}
+
 python_test() {
 	cd "${T}" || die
 	epytest --pyargs numcodecs
