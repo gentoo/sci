@@ -60,7 +60,7 @@ dev-python/colorcet 3.0.1: Collection of perceptually uniform colormaps
 dev-python/colormath 3.0.0: Easy color scales and color conversion for Python
 dev-python/connection_pool 0.0.3: Thread safe connection pool
 dev-python/cymbal 1.0.0: Add functionality missing from the python libclang bindings
-dev-python/dandi-schema 0.8.3-r1 0.8.4: Schemata for DANDI archive project
+dev-python/dandi-schema 0.8.3-r1 0.8.4 0.9.1: Schemata for DANDI archive project
 dev-python/datrie 0.8.2-r1: Implements a topological sort algorithm
 dev-python/delegator 0.1.1: Subprocesses for Humans 2.0.
 dev-python/distinctipy 1.2.2: Lightweight package for generating visually distinct colours
@@ -173,7 +173,7 @@ dev-util/makefile2graph 1.5.0 9999: Create a graph of dependencies from GNU Make
 dev-util/ndiff 2.00: A diff program that ignores small numeric differences
 dev-util/plog 1.1.5 9999: Portable, simple and extensible C++ logging library
 dev-vcs/dandi-cli 0.55.1 0.59.0 0.59.1: DANDI command line client to facilitate common operations
-dev-vcs/datalad 0.18.0 0.18.1 0.18.3: Keep code, data, containers under control with git and git-annex
+dev-vcs/datalad 0.18.0 0.18.1 0.18.3 0.19.6: Keep code, data, containers under control with git and git-annex
 media-gfx/brlcad 7.32.4 9999: Constructive solid geometry modeling system
 media-libs/charls 2.3.4: C++ JPEG-LS library implementation
 media-libs/embree-bin 3.12.0 3.12.1 3.12.2 3.13.0: high-performance ray tracing kernels from intel
