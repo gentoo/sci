@@ -1,0 +1,13 @@
+diff --git a/tox.ini b/tox.ini
+index c32f3b9..d552c6c 100644
+--- a/tox.ini
++++ b/tox.ini
+@@ -30,7 +30,7 @@ commands =
+     mypy dandischema
+ 
+ [pytest]
+-addopts = --cov=dandischema --tb=short --durations=10
++addopts = --tb=short --durations=10
+ filterwarnings =
+     error
+     # <https://github.com/dateutil/dateutil/issues/1284>
