@@ -37,4 +37,4 @@ distutils_enable_tests pytest
 # 	dev-python/scipy \
 # 	dev-python/matplotlib \
 # 	sci-libs/scikit-learn \
-# 	sci-libs/scikit-image \
+# 	dev-python/scikit-image \
