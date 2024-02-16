@@ -28,7 +28,7 @@ RDEPEND="
 	>=dev-python/astropy-4.0.6[${PYTHON_USEDEP}]
 	>=dev-python/astroscrappy-1.0.8[${PYTHON_USEDEP}]
 	>=dev-python/reproject-0.7[${PYTHON_USEDEP}]
-	sci-libs/scikit-image[${PYTHON_USEDEP}]
+	dev-python/scikit-image[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 "
 
