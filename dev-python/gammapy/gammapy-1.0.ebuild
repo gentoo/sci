@@ -47,7 +47,7 @@ pkg_postinst() {
 	optfeature "Plotting" dev-python/matplotlib
 	optfeature "Plotting Astronomical Images" dev-python/aplpy
 	optfeature "Read/write CVS files" dev-python/pandas
-	optfeature "Image Processing" sci-libs/scikit-image
+	optfeature "Image Processing" dev-python/scikit-image
 	optfeature "Conversion helper functions" dev-python/rootpy
 
 	# In science overlay:
