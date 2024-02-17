@@ -42,9 +42,9 @@ src_configure() {
 }
 
 pkg_postinst() {
-	echo ""
+	elog
 	elog "The sample PARAM file has been installed to /usr/share/${PN}-${PV}"
-	echo ""
+	elog
 	if use doc; then
 		elog "A pdf manual has been installed to /usr/share/${PN}-${PV}"
 	fi
