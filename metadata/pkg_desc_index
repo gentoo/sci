@@ -163,7 +163,7 @@ dev-python/typish 1.9.3: Functionality for types
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wraps 0.2.0: Meaningful and safe wrapping types.
-dev-python/xgboost 1.6.2: XGBoost Python Package
+dev-python/xgboost 1.6.2 2.0.3: XGBoost Python Package
 dev-python/yte 1.5.4: A YAML template engine with Python expressions
 dev-python/zarr 2.12.0 2.14.2 2.16.1: Chunked, compressed, N-dimensional arrays for Python
 dev-python/zarr_checksum 0.2.8: Calculatine zarr checksums from local or cloud storage
