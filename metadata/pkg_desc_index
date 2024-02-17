@@ -51,6 +51,7 @@ dev-python/astroquery 0.4.6: A collection of packages to access online astronomi
 dev-python/astroscrappy 1.1.0-r1: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
+dev-python/boost-histogram 1.4.0: Python bindings for the C++14 Boost::Histogram library
 dev-python/cadquery 2.2_rc20220506: Python parametric CAD scripting framework based on OCCT
 dev-python/cadquery-ocp 7.5.3.0: Python wrapper for OCCT generated using pywrap
 dev-python/cadquery-pywrap 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
@@ -87,6 +88,7 @@ dev-python/heudiconv 0.13.0 1.0.0: Flexible DICOM conversion to structured direc
 dev-python/holoviews 1.15.3: Make data analysis and visualization seamless and simple
 dev-python/hopcroftkarp 1.2.5_p1-r1: python frontend for the fast ripser tda tool
 dev-python/interleave 0.2.0: Yield from multiple iterators as values become available
+dev-python/jacobi 0.8.1: Numerical derivatives for analytic functions with arbitrary precision.
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
@@ -161,6 +163,7 @@ dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
+dev-python/vector 1.1.1: Vector classes and utilities
 dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wraps 0.2.0: Meaningful and safe wrapping types.
 dev-python/xgboost 1.6.2 2.0.3: XGBoost Python Package
@@ -490,6 +493,7 @@ sci-physics/mcfm 10.2.1: Monte Carlo for FeMtobarn processes
 sci-physics/oneloop 2020.07.31: Library of one-loop scalar functions
 sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/particle 0.23.0 9999: PDG particle data and identification codes
+sci-physics/pyhepmc 2.11.0: A Pythonic wrapper for the HepMC3 C++ library.
 sci-physics/pyhf 0.7.3: pure-python fitting/limit-setting/interval estimation HistFactory-style
 sci-physics/qcdloop 2.0.5 2.0.9: An object-oriented one-loop scalar Feynman integrals framework
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer
