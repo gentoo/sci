@@ -1,16 +1,13 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit flag-o-matic
 
 DESCRIPTION="Fast LTL to Buechi Automata Translation"
 HOMEPAGE="http://www.lsv.ens-cachan.fr/~gastin/ltl2ba"
-SRC_URI="
-	http://www.lsv.ens-cachan.fr/~gastin/${PN}/${P}.tar.gz
-	https://www.lrde.epita.fr/dload/spot/deps/${P}.tar.gz
-"
+SRC_URI="http://www.lsv.ens-cachan.fr/~gastin/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
