@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 DEPEND="
-	dev-libs/boost
+	dev-libs/boost:=
 	doc? ( virtual/latex-base )"
 RDEPEND="${DEPEND}"
 
