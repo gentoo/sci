@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+
+	<longdescription lang="en">
+	HOPPET is a Fortran 95 package for carrying out DGLAP evolution and other common manipulations of parton distribution functions (PDFs).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">gavinsalam/hoppet</remote-id> 
+	</upstream>
+</pkgmetadata>
