@@ -23,10 +23,6 @@ src_configure() {
 	./configure --prefix="${EPREFIX}"/usr FFLAGS="${FFLAGS} -fPIC" || die
 }
 
-src_compile() {
-	emake
-}
-
 src_install() {
 	# Fix install to ED
 	sed -i "s#scripts/install-sh hoppet-config#\##g" Makefile || die
