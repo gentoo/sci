@@ -14,10 +14,6 @@ SLOT="0"
 LICENSE="GPL-3+"
 KEYWORDS="~amd64"
 
-DEPEND="${RDEPEND}"
-BDEPEND="
-	virtual/fortran
-"
 
 src_configure() {
 	default
