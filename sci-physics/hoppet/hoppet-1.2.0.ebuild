@@ -22,7 +22,7 @@ BDEPEND="
 src_configure() {
 	default
 	# own custom configure
-	./configure --prefix="${EPREFIX}"/usr FFLAGS="${FFLAGS} -fPIC"
+	./configure --prefix="${EPREFIX}"/usr FFLAGS="${FFLAGS} -fPIC" || die
 }
 
 src_compile() {
