@@ -3,6 +3,8 @@
 
 EAPI=8
 
+inherit fortran-2
+
 DESCRIPTION="Higher Order Perturbative Parton Evolution Toolkit"
 HOMEPAGE="
 	https://hoppet.hepforge.org/
