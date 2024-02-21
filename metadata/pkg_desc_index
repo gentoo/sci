@@ -442,7 +442,7 @@ sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
 sci-libs/nexus 4.4.3_p20200126: Data format for neutron and x-ray scattering data
 sci-libs/nibabel 5.0.0 5.1.0: Access a cacophony of neuro-imaging file formats
-sci-libs/nipy 0.5.1_pre20230103: Neuroimaging tools for Python
+sci-libs/nipy 0.6.0: Neuroimaging tools for Python
 sci-libs/nipype 1.8.4-r1 1.8.4-r2 1.8.6: Neuroimaging in Python: Pipelines and Interfaces
 sci-libs/oneDAL 2023.0.1 2023.2.1: oneAPI Data Analytics Library
 sci-libs/oneMKL 0.2_p20221201 0.2_p20230221: oneAPI Math Kernel Library Interfaces
