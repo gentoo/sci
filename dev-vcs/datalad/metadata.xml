@@ -26,5 +26,6 @@
 	</use>
 	<upstream>
 		<remote-id type="github">datalad/datalad</remote-id>
+		<remote-id type="pypi">datalad</remote-id>
 	</upstream>
 </pkgmetadata>
