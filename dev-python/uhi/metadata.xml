@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	This is a package meant primarily for documenting histogram indexing and the PlottableHistogram Protocol and any future cross-library standards. It also contains the code for the PlottableHistogram Protocol, to be used in type checking libraries wanting to conform to the protocol. Eventually, it might gain a set of tools for testing conformance to UHI indexing, as well. It is not usually a runtime dependency, but only a type checking, testing, and/or docs dependency in support of other libraries (such as boost-histogram 0.13+, hist 2.1+, mplhep 0.2.15+, uproot 4+, and histoprint 2+). There are a few useful runtime usable components (listed below). It requires Python 3.6+. See what's new.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">uhi</remote-id>
+		<remote-id type="github">scikit-hep/uhi</remote-id>
+	</upstream>
+</pkgmetadata>
