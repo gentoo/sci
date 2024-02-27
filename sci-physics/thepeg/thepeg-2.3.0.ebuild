@@ -42,7 +42,8 @@ DEPEND="${CDEPEND}
 		dev-libs/boost
 	)"
 RDEPEND="${CDEPEND}
-	java? ( virtual/jre:1.8 )"
+	java? ( virtual/jre:1.8 )
+"
 
 S="${WORKDIR}/${MY_P}"
 
