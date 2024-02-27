@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription lang="en">
+	This package permits one to perform floating-point computations (real and complex) to arbitrarily high numeric precision
+	</longdescription>
+	<upstream>
+		<remote-id type="github">APN-Pucky/mpfun90</remote-id>
+	</upstream>
+</pkgmetadata>
