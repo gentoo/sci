@@ -40,7 +40,7 @@ dev-python/MagnetoResistance-tool 0.0.2: Create calibration matrix to correct fo
 dev-python/affine 2.3.0: Library for handling affine transformations of the plane
 dev-python/annexremote 1.5.0 1.6.0: Helper module to easily develop git-annex remotes
 dev-python/anys 0.2.1: Matchers for pytest
-dev-python/archspec 0.1.4: labels for various aspects of a system architecture like CPU, etc.
+dev-python/archspec 0.1.4 0.2.2: Labels for various aspects of a system architecture like CPU, etc.
 dev-python/asciitree 0.3.3: ASCII trees in python
 dev-python/asdf 2.14.3: Python library for the Advanced Scientific Data Format
 dev-python/astropy 5.2.1: Core functionality for performing astrophysics with Python
@@ -162,6 +162,7 @@ dev-python/traits 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
+dev-python/uhi 0.4.0: Universal Histogram Interface
 dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/vector 1.1.1: Vector classes and utilities
 dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
@@ -440,6 +441,7 @@ sci-libs/libmaus2 2.0.689 9999: Library for biobambam2
 sci-libs/libsufr 0.7.7: LIBrary of Some Useful Fortran Routines
 sci-libs/lwpr 1.2.5: The Locally Weighted Projection Regression Library
 sci-libs/mesquite 2.3.0: Mesh Quality Improvement Toolkit
+sci-libs/mpfun90 2023.02.26: High-Precision Software
 sci-libs/nexus 4.4.3_p20200126: Data format for neutron and x-ray scattering data
 sci-libs/nibabel 5.0.0 5.1.0: Access a cacophony of neuro-imaging file formats
 sci-libs/nipy 0.6.0: Neuroimaging tools for Python
@@ -482,6 +484,7 @@ sci-misc/stanford-parser 4.2.0: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 4.2.0: Stanfords log linear POS taggers
 sci-physics/apfelxx 4.8.0: Object oriented rewriting of the APFEL evolution code
 sci-physics/atompaw 4.1.1.0: PAW atomic data generator
+sci-physics/collier 1.2.8: A Complex One-Loop LIbrary with Extended Regularizations
 sci-physics/feynarts 3.11: FeynArts renders Feynman diagrams and generates their topologies.
 sci-physics/feyncalc 9.3.1 9999: FeynCalc is a Mathematica package for computing Feynman diagrams.
 sci-physics/formcalc 9.9-r1 9.10-r1: FormCalc can be used for automatic Feynman diagram computation.
