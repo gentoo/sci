@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0b56fc85..0db67942 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -410,7 +413,7 @@ else()
+         COMMENT "GZipping to ${CMAKE_CURRENT_BINARY_DIR}/${m}.gz."
+     )
+ endif()
+-  install(FILES  ${CMAKE_CURRENT_BINARY_DIR}/${m}.gz DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man1)
++#install(FILES  ${CMAKE_CURRENT_BINARY_DIR}/${m}.gz DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man1)
+ endforeach ( m ${man1} )
+ 
+ foreach ( m ${man8} )
+@@ -425,7 +428,7 @@ else()
+         COMMENT "GZipping to ${CMAKE_CURRENT_BINARY_DIR}/${m}.gz."
+     )
+ endif()
+-  install(FILES  ${CMAKE_CURRENT_BINARY_DIR}/${m}.gz DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man8)
++#install(FILES  ${CMAKE_CURRENT_BINARY_DIR}/${m}.gz DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man8)
+ endforeach ( m ${man8} )
+ 
+ #install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/patchy5/yexpand.script  DESTINATION ${CMAKE_INSTALL_BINDIR}/ RENAME yexpand.script${COMPSUFFIXBIN} )

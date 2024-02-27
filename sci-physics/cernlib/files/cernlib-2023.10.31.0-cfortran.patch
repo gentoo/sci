@@ -1,0 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0b56fc85..ead47c54 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -735,7 +735,6 @@ add_subdirectory(code_motif)
+ ########################################################################
+ set(CERNLIB_MMAP 1)
+ install(FILES
+-${CMAKE_CURRENT_SOURCE_DIR}/cfortran/cfortran.h
+ ${CMAKE_CURRENT_SOURCE_DIR}/cfortran/comis.h
+ ${CMAKE_CURRENT_SOURCE_DIR}/cfortran/cspack.h
+ ${CMAKE_CURRENT_SOURCE_DIR}/cfortran/geant315.h
+@@ -757,7 +756,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/cfortran/paw.h
+ ${CMAKE_CURRENT_SOURCE_DIR}/cfortran/zebra.h
+ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/  COMPONENT libs  )
+ 
+-set(head cfortran.h comis.h cspack.h geant315.h geant321.h gen.h graflib.h hbook.h hbook_94b.h higz.h hplot.h jetset74.h kernlib.h kuip.h lapack.h lepto62.h minuit.h packlib.h paw.h zebra.h )
++set(head comis.h cspack.h geant315.h geant321.h gen.h graflib.h hbook.h hbook_94b.h higz.h hplot.h jetset74.h kernlib.h kuip.h lapack.h lepto62.h minuit.h packlib.h paw.h zebra.h )
+ 
+ install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_INCLUDEDIR}/cfortran/)")
+ foreach ( m ${head} )
