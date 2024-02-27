@@ -1,0 +1,31 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0b56fc85..78a28e11 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -162,9 +162,10 @@ macro(CLATestTarget ast)
+   list(FIND a "<" NEEDSHELL)
+   list(JOIN a " " MYCMD)
+   if (NEEDSHELL STREQUAL "-1")
+-    add_test(NAME test${exec} COMMAND  ${CMAKE_CURRENT_BINARY_DIR}/${exec} {MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
++    add_test(NAME test${exec} COMMAND  ${CMAKE_CURRENT_BINARY_DIR}/${exec} ${MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+     if (CERNLIB_ENABLE_MEMORYTEST)
+-       add_test(NAME memory_test${exec} COMMAND ${VG} ${VGOPTIONS} ${CMAKE_CURRENT_BINARY_DIR}/${exec} {MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
++       add_test(NAME memory_test${exec} COMMAND ${VG} ${VGOPTIONS}
++	       ${CMAKE_CURRENT_BINARY_DIR}/${exec} ${MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+     endif()
+   else()
+     add_test(NAME test${exec} COMMAND sh -c "${CMAKE_CURRENT_BINARY_DIR}/${exec} ${MYCMD}"  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+@@ -182,9 +183,11 @@ macro(CLBTestTarget ast)
+   list(JOIN a " " MYCMD)
+   if (NEEDSHELL STREQUAL "-1")
+     if (CERNLIB_ENABLE_MEMORYTEST)
+-      add_test(NAME memory_test${exec} COMMAND ${VG} ${VGOPTIONS} ${CMAKE_CURRENT_BINARY_DIR}/${exec}/${exec} {MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${exec})
++      add_test(NAME memory_test${exec} COMMAND ${VG} ${VGOPTIONS}
++	      ${CMAKE_CURRENT_BINARY_DIR}/${exec}/${exec} ${MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${exec})
+     endif()
+-    add_test(NAME test${exec} COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${exec}/${exec} {MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${exec})
++    add_test(NAME test${exec} COMMAND
++	    ${CMAKE_CURRENT_BINARY_DIR}/${exec}/${exec} ${MYCMD}           WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${exec})
+   else()
+     if (CERNLIB_ENABLE_MEMORYTEST)
+       add_test(NAME memory_test${exec} COMMAND sh -c "${VG} ${VGOPTIONS} ${CMAKE_CURRENT_BINARY_DIR}/${exec}/${exec} ${MYCMD}"  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${exec})
