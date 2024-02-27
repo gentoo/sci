@@ -18,8 +18,6 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND="${DEPEND}"
-
 src_compile() {
 	tc-export FC
 	emake -j1 dynamic FC=${FC}
