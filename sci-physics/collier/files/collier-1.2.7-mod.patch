@@ -1,0 +1,40 @@
+--- a/CMakeLists.txt	2023-05-08 17:21:39.559979698 +0200
++++ b/CMakeLists.txt	2023-05-08 17:43:20.599147534 +0200
+@@ -282,7 +282,36 @@
+ message("Collier install include prefix: ${INCLUDE_INSTALL_DIR}")
+ message("Collier install library prefix: ${LIB_INSTALL_DIR}")
+ 
+-set(COLLIER_HEADERS "${CMAKE_Fortran_MODULE_DIRECTORY}/collier.mod")
++set(COLLIER_HEADERS "${CMAKE_Fortran_MODULE_DIRECTORY}/collier.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/cache.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/buildtensors.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/coli_aux2.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/coli_stat.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/collier_aux.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/collier_coefs.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/collier_global.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/collier_init.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/collier.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/collier_tensors.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/combinatorics.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_2pt.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_3pt.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_4pt.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_5pt.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_6pt.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_global.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/dd_statistics.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/globalc.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/globald.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/inittensors.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/master.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/reductionab.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/reductionc.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/reductiond.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/reductionefg.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/reductiontn.mod"
++	"${CMAKE_Fortran_MODULE_DIRECTORY}/tensorreduction.mod"
++)
+ set_target_properties(collier PROPERTIES PUBLIC_HEADER "${COLLIER_HEADERS}")
+ 
+ include(PackageConfigInstall)
