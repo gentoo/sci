@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit toolchain-funcs
+inherit toolchain-funcs fortran-2
 
 DESCRIPTION="High-Precision Software"
 HOMEPAGE="
@@ -19,8 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 src_compile() {
-	tc-export FC
-	emake -j1 dynamic FC=${FC}
+	emake -j1 dynamic
 }
 
 src_install() {
