@@ -17,6 +17,8 @@ IUSE_LHAPDF_SETS="
 	lhapdf_sets_cteq66
 	lhapdf_sets_cteq6l1
 	lhapdf_sets_mrst2004qed
+	lhapdf_sets_nnpdf23_nlo_as_0118
+	lhapdf_sets_nnpdf31_nnlo_as_0118
 "
 
 COMMON_URI="https://lhapdfsets.web.cern.ch/lhapdfsets/current"
@@ -36,7 +38,9 @@ SRC_URI="
 	lhapdf_sets_nnpdf23_nnlo_as_0119_qed_mc? ( ${COMMON_URI}/NNPDF23_nnlo_as_0119_qed_mc.tar.gz )
 	lhapdf_sets_cteq66?                      ( ${COMMON_URI}/cteq66.tar.gz                      )
 	lhapdf_sets_cteq6l1?                     ( ${COMMON_URI}/cteq6l1.tar.gz                     )
-	lhapdf_sets_mrst2004qed?                 ( ${HEPFORGE_URI}/MRST2004qed.tar.gz              )
+	lhapdf_sets_mrst2004qed?                 ( ${HEPFORGE_URI}/MRST2004qed.tar.gz               )
+	lhapdf_sets_nnpdf23_nlo_as_0118?         ( ${COMMON_URI}/NNPDF23_nlo_as_0118.tar.gz         )
+	lhapdf_sets_nnpdf31_nnlo_as_0118?        ( ${COMMON_URI}/NNPDF31_nnlo_as_0118.tar.gz        )
 "
 
 MY_PV=$(ver_cut 1-3)
