@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription lang="en">
+	APFEL++ is a C++ rewriting of the Fortran 77 evolution code APFEL. However, APFEL++ is based on a completely new code design and guarantees a better performance along with a more optimal memory management. The new modular structure allows for better maintainability and easier extensibility. This makes APFEL++ suitable for a wide range of tasks: from the solution of the DGLAP evolution equations to the computation of deep-inelastic-scattering (DIS) and single-inclusive-annihilation cross sections. Also more complex computations, such as differential semi-inclusive DIS and Drell-Yan cross sections, are easily implementable in APFEL++.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">vbertone/apfelxx</remote-id> 
+	</upstream>
+</pkgmetadata>
