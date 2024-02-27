@@ -35,7 +35,7 @@ CDEPEND="
 	lhapdf? ( >=sci-physics/lhapdf-6.0:0= )
 	zlib? ( sys-libs/zlib:0= )"
 DEPEND="${CDEPEND}
-	sci-libs/gsl
+	sci-libs/gsl:=
 	java? ( virtual/jdk:1.8 )
 	test? (
 		sys-process/time
