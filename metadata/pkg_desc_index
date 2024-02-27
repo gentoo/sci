@@ -480,6 +480,7 @@ sci-misc/pqdump 0.1.0: simple program to dump Parquet files
 sci-misc/praat 6.1.42: Speech analysis and synthesis
 sci-misc/stanford-parser 4.2.0: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 4.2.0: Stanfords log linear POS taggers
+sci-physics/apfelxx 4.8.0: Object oriented rewriting of the APFEL evolution code
 sci-physics/atompaw 4.1.1.0: PAW atomic data generator
 sci-physics/feynarts 3.11: FeynArts renders Feynman diagrams and generates their topologies.
 sci-physics/feyncalc 9.3.1 9999: FeynCalc is a Mathematica package for computing Feynman diagrams.
