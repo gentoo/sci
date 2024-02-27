@@ -2,7 +2,7 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=hatchling
-export SETUPTOOLS_SCM_PRETEND_VERSION=${PV}
+SETUPTOOLS_SCM_PRETEND_VERSION=${PV}
 inherit distutils-r1 pypi
 
 DESCRIPTION="Universal Histogram Interface"
