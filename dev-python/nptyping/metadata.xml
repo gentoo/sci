@@ -9,6 +9,7 @@
 		<email>gentoo@chymera.eu</email>
 		<name>Horea Christian</name>
 	</maintainer>
+	<upstream>
 		<remote-id type="pypi">nptyping</remote-id>
 		<remote-id type="github">ramonhagenaars/nptyping</remote-id>
 	</upstream>
