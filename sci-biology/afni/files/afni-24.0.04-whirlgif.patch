@@ -1,0 +1,39 @@
+diff --git a/packaging/installation_components.txt b/packaging/installation_components.txt
+index 127193338..ba8825a7b 100644
+--- a/packaging/installation_components.txt
++++ b/packaging/installation_components.txt
+@@ -347,7 +347,6 @@ uniq_images, corebinaries
+ unu, corebinaries
+ waver, corebinaries
+ whereami, corebinaries
+-whirlgif, corebinaries
+ 3dMax, tcsh
+ 3dPAR2AFNI.pl, tcsh
+ @1dDiffMag, tcsh
+diff --git a/src/CMakeLists_binaries.txt b/src/CMakeLists_binaries.txt
+index d53368390..8c8e9e1fb 100644
+--- a/src/CMakeLists_binaries.txt
++++ b/src/CMakeLists_binaries.txt
+@@ -209,7 +209,6 @@ foreach(
+   uniq_images
+   unu
+   whereami
+-  whirlgif
+ )
+
+   add_afni_executable(${target} ${target}.c)
+diff --git a/src/Makefile.INCLUDE b/src/Makefile.INCLUDE
+index f44103def..7ac08a87d 100644
+--- a/src/Makefile.INCLUDE
++++ b/src/Makefile.INCLUDE
+@@ -3495,11 +3495,6 @@ help_format:help_format.o
+ ibinom:ibinom.o
+ 	$(CC) -o ibinom ibinom.o $(LFLAGS) $(LLIBS)
+
+-## GIF animation
+-
+-whirlgif:whirlgif.h whirlgif.c
+-	$(CC) -o whirlgif whirlgif.c $(INFLAGS) $(LFLAGS) $(LLIBS)
+-
+ extor.o:extor.c
+ 	$(CCFAST) -c extor.c $(INFLAGS)

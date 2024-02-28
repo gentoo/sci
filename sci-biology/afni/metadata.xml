@@ -13,6 +13,9 @@
 		Analysis of Functional NeuroImages (AFNI) is an open-source environment for processing and displaying 
 		functional MRI data—a technique for mapping human brain activity.
 	</longdescription>
+	<use>
+		<flag name="whirlgif">Build optional whirlgif binary</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">afni/afni</remote-id>
 	</upstream>
