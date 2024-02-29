@@ -111,7 +111,7 @@ dev-python/numcodecs 0.11.0 0.12.1-r2: Data storage buffer compression and trans
 dev-python/numpy 1.23.5: Fast array and numerical python library
 dev-python/nwbinspector 0.4.19 0.4.26-r1: Inspect NWB files for compliance with NWB Best Practices
 dev-python/pandas-stubs 2.1.1.230928: Public type stubs for pandas
-dev-python/panel 0.14.2: High-level app and dashboarding solution for Python
+dev-python/panel 0.14.2-r1: High-level app and dashboarding solution for Python
 dev-python/param 1.10.1 1.12.3: Make Python code clearer and more reliable by declaring Parameters
 dev-python/persim 0.3.1: Distances and representations of persistence diagrams
 dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
