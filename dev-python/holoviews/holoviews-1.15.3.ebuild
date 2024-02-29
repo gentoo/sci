@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..10} )
+PYTHON_COMPAT=( python3_{10..11} )
 
 # HoloViews imports from "distutils" at runtime.
 DISTUTILS_USE_SETUPTOOLS=rdepend
@@ -15,7 +15,7 @@ HOMEPAGE="https://holoviews.org"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 # Reported upstream:
 # https://github.com/holoviz/holoviews/issues/5592
 RESTRICT="test"
