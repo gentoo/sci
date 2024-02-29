@@ -3,9 +3,10 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..10} )
+PYTHON_COMPAT=( python3_{10..11} )
+DISTUTILS_USE_PEP517=setuptools
 # Panel imports from "distutils" at runtime.
-DISTUTILS_USE_SETUPTOOLS=rdepend
+#DISTUTILS_USE_SETUPTOOLS=rdepend
 inherit distutils-r1 pypi
 
 DESCRIPTION="High-level app and dashboarding solution for Python"
@@ -20,6 +21,7 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="
 	>=dev-python/param-1.10.0[${PYTHON_USEDEP}]
 	>=dev-python/pyct-0.4.4[${PYTHON_USEDEP}]
+	dev-python/bleach[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}
 	dev-python/markdown[${PYTHON_USEDEP}]
