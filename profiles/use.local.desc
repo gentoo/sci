@@ -46,7 +46,6 @@ net-misc/cernbox-client:dolphin - Install the kde-apps/dolphin extension
 net-misc/cernbox-client:nautilus - Install the gnome-base/nautilus extension
 sci-biology/afni:whirlgif - Build optional whirlgif binary
 sci-biology/ants:vtk - Optional support for a number of surface enabled tools (via sci-libs/vtk).
-sci-biology/behaviopy:evaluation - Installs evaluation submodule.
 sci-biology/bidsschematools:render - Support for schema table rendering
 sci-biology/bru2nii:gui - Build graphical user interface
 sci-biology/dcm2niix:jpeg-ls - Supprt for converting DICOM images compressed with the JPEG-LS transfer syntaxes using the bundled CharLS library
