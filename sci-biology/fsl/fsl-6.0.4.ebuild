@@ -151,8 +151,8 @@ src_compile() {
 
 	# define the default build system to match upstream official standard
 	#  -> individual projects may overwrite the '-std=' flag
-	export ANSI_CFLAGS="-std=c99"
-	export ANSI_CXXFLAGS="-std=c++98"
+	export ANSI_CFLAGS="-std=c11"
+	export ANSI_CXXFLAGS="-std=c++11"
 
 	export USERLDFLAGS="${LDFLAGS}"
 	export USERCFLAGS="${CFLAGS}"
