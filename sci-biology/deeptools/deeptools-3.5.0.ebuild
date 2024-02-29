@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..10} )
+DISTUTILS_USE_PEP517=setuptools
+PYTHON_COMPAT=( python3_{10..11} )
 
 inherit distutils-r1
 
@@ -13,7 +14,7 @@ SRC_URI="https://github.com/deeptools/deepTools/archive/${PV}.tar.gz -> ${P}.tar
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 # TODO: fix this
 RESTRICT="test"
