@@ -14,7 +14,7 @@ S="${WORKDIR}/igraph-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-libs/igraph-$(ver_cut 1-2)
