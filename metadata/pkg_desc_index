@@ -50,9 +50,6 @@ dev-python/astroscrappy 1.1.0-r1: Speedy Cosmic Ray Annihilation Package in Pyth
 dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
 dev-python/boost-histogram 1.4.0: Python bindings for the C++14 Boost::Histogram library
-dev-python/cadquery 2.2_rc20220506: Python parametric CAD scripting framework based on OCCT
-dev-python/cadquery-ocp 7.5.3.0: Python wrapper for OCCT generated using pywrap
-dev-python/cadquery-pywrap 7.5.3_rc20220113: C++ binding generator based on libclang and pybind11
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
 dev-python/cligj 0.7.2: Library for processing GeoJSON commands
 dev-python/colorcet 3.0.1: Collection of perceptually uniform colormaps
@@ -90,7 +87,6 @@ dev-python/jacobi 0.8.1: Numerical derivatives for analytic functions with arbit
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
-dev-python/llvmlite 0.39.1 0.40.1 0.41.0: Python wrapper around the llvm C++ library
 dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/lzstring 1.0.4: String encoding/decoding of binary data
 dev-python/matlabengine 9.13.7: A module to call MATLAB from Python
@@ -103,10 +99,7 @@ dev-python/multimethod 1.8: Library allowing Python function overloads based on 
 dev-python/neo 0.11.0 0.11.1 0.12.0: Read and represent a wide range of neurophysiology file formats in Python
 dev-python/nptyping 2.5.0: Type hints for Numpy
 dev-python/num2words 0.5.10: Modules to convert numbers to words.
-dev-python/numba 0.56.4 0.57.1: NumPy aware dynamic Python compiler using LLVM
-dev-python/numba-dpex 0.20.0_rc3: Data Parallel Extension for Numba
 dev-python/numcodecs 0.11.0 0.12.1-r2: Data storage buffer compression and transformation codecs
-dev-python/numpy 1.23.5: Fast array and numerical python library
 dev-python/nwbinspector 0.4.19 0.4.26-r1: Inspect NWB files for compliance with NWB Best Practices
 dev-python/pandas-stubs 2.1.1.230928: Public type stubs for pandas
 dev-python/panel 0.14.2-r1: High-level app and dashboarding solution for Python
@@ -121,7 +114,6 @@ dev-python/pyaml-env 1.2.1: Parse YAML configuration with environment variables 
 dev-python/pybind11-stubgen 0.10.4: PEP 561 type stubs generator for pybind11 modules
 dev-python/pyct 0.4.8: Python packaging Common Tasks
 dev-python/pyerfa 2.0.0.1-r2: Python bindings for ERFA
-dev-python/pynndescent 0.5.6: nearest neighbor descent for approximate nearest neighbors
 dev-python/pynrrd 0.4.2 0.4.3 1.0.0: Simple pure-python module for reading and writing nrrd files
 dev-python/pynwb 2.3.2 2.5.0: A Python API for working with Neurodata stored in the NWB Format
 dev-python/pyout 0.7.2-r1 0.7.3: Terminal styling for structured data
@@ -129,7 +121,6 @@ dev-python/pysolar 0.10: Collection of Python libraries for simulating the irrad
 dev-python/pytest-doctestplus 0.12.1: Pytest plugin with advanced doctest features
 dev-python/python-gantt 0.6.0_p20200809: Draw Gantt charts from Python
 dev-python/python-igraph 0.10.4: Python interface for igraph
-dev-python/pytorch-lightning 1.8.6: Lightweight PyTorch wrapper for ML researchers
 dev-python/pyvista 0.33.2: Easier Pythonic interface to VTK
 dev-python/pyviz_comms 2.2.0: Bidirectional communication for the HoloViz ecosystem
 dev-python/pyvote 0.1: Estimate the probability of votes changing election outcomes
@@ -157,10 +148,8 @@ dev-python/texext 0.6.7: Sphinx extensions for working with LaTeX math
 dev-python/throttler 1.2.2: Easy throttling with asyncio support
 dev-python/traits 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes for Python
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
-dev-python/tridesclous 1.6.4 1.6.6: offline/online spike sorting
 dev-python/typish 1.9.3: Functionality for types
 dev-python/uhi 0.4.0: Universal Histogram Interface
-dev-python/umap-learn 0.5.2: Uniform Manifold Approximation and Projection
 dev-python/vector 1.1.1: Vector classes and utilities
 dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wraps 0.2.0: Meaningful and safe wrapping types.
