@@ -30,17 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (29 Dec 2023)
-# Depends on removed llvm:14, at the time of writing no llvm:15
-# update available.
-dev-python/llvmlite
-dev-python/numba
-dev-python/numba-dpex
-dev-python/pynndescent
-# Reverse dep of numba
-dev-python/tridesclous
-dev-python/umap-learn
-
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (26 Jun 2023)
 # Depends on removed dev-python/toml.
 # Alternatives are tomli or tomlkit
