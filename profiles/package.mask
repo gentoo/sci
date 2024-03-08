@@ -30,10 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (27-02-2024)
-# Depends on removed sci-visualization/tensorboard
-dev-python/pytorch-lightning
-
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (29 Dec 2023)
 # Depends on removed llvm:14, at the time of writing no llvm:15
 # update available.
