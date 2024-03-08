@@ -1,4 +1,3 @@
-app-arch/libdeflate 1.6 1.7 1.8 1.9 1.11 9999: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-office/visidata 2.8 2.11-r1 2.11_p20230217-r1 2.11.1: Terminal spreadsheet multitool for discovering and arranging data
 app-text/noweb 2.12: a literate programming tool, lighter than web
 app-vim/vim-gromacs 9999: vim plugin: Gromacs file syntax highlighting and some macros
@@ -19,7 +18,6 @@ dev-libs/boost-compute 1.74.0: A header-only C++ Computing Library for OpenCL
 dev-libs/lief 0.11.5: Library to instrument executable formats
 dev-libs/memkind 1.10.1 1.11.0 9999: user extensible heap manager built on top of jemalloc
 dev-libs/oneCCL 2021.7.1-r1 2021.8 2021.10: oneAPI Collective Communications Library
-dev-libs/oneDNN 2.7.2 3.0.1 3.2.1: oneAPI Deep Neural Network Library
 dev-libs/simclist 1.6_p1: SimCList is a high quality C (C++ embeddable) library for handling lists
 dev-ml/lacaml 11.0.8: BLAS/LAPACK interface for OCaml
 dev-perl/Algorithm-Loops 1.32: Looping constructs: NestedLoops, MapCar*, Filter, and NextPermute*
@@ -144,7 +142,6 @@ dev-python/repsep_utils 0.2 0.3 0.3.1: Utilities Supporting RepSeP-style documen
 dev-python/reretry 0.11.8: An easy-to-use but functional retry decorator in python
 dev-python/rich-click 1.7.2: Format click help output nicely with rich
 dev-python/ripser 0.6.4: python frontend for the fast ripser tda tool
-dev-python/schema 0.7.4: Schema validation just got Pythonic
 dev-python/scooby 0.5.7: Easily report Python package versions and hardware resources
 dev-python/smart-open 6.3.0: Utils for streaming large files (S3, HDFS, gzip, bz2...)
 dev-python/snakemake 7.32.4: Make-like task language
