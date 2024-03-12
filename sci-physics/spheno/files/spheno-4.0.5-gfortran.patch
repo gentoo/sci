@@ -1,0 +1,29 @@
+--- a/src/Makefile	2023-05-04 12:33:44.804394098 +0200
++++ b/src/Makefile	2023-05-04 12:34:37.023776033 +0200
+@@ -21,9 +21,9 @@
+ #
+ 
+ # Intels ifort, default in optimized mode
+-F90 = ifort
+-comp = -c -O -module ${Mdir} -I${InDir} 
+-LFlagsB = -O  
++F90 = ${F90}
++comp = -c -O -J${Mdir} -I${InDir}  ${FFLAGS} ${FCFLAGS} ${CFLAGS}
++LFlagsB = -O ${LDFLAGS}
+ 
+ # Intels ifort, debug modus
+ ifeq (${F90},ifortg)
+@@ -81,11 +81,11 @@
+ #
+ .f90.a:
+ 	${F90} ${comp} $<
+-	ar ${linker} $@ $*.o
++	$(AR) ${linker} $@ $*.o
+ 	rm -f $*.o
+ .F90.a:
+ 	${F90} ${comp}  ${PreDef} $<
+-	ar ${linker} $@ $*.o
++	$(AR) ${linker} $@ $*.o
+ 	rm -f $*.o
+ .f90.o: 
+ 	${F90} ${comp}  $< 
