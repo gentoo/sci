@@ -21,9 +21,8 @@ KEYWORDS="~amd64"
 PATCHES=( "${FILESDIR}"/${P}-gfortran.patch )
 
 src_compile() {
-	tc-export FC AR
 	# single thread force needed since fortan mods depend on each other
-	emake -j1 AR="${AR}" F90="${FC}"
+	emake -j1 F90="${FC}"
 }
 
 src_install() {
