@@ -1,0 +1,15 @@
+BDEPEND=virtual/fortran
+DEFINED_PHASES=compile install setup
+DEPEND=virtual/fortran
+DESCRIPTION=SPheno stands for S(upersymmetric) Pheno(menology)
+EAPI=8
+HOMEPAGE=https://spheno.hepforge.org/
+INHERIT=fortran-2
+KEYWORDS=~amd64
+LICENSE=all-rights-reserved
+RDEPEND=virtual/fortran
+RESTRICT=bindist mirror
+SLOT=0
+SRC_URI=https://spheno.hepforge.org/downloads/?f=SPheno-3.3.8.tar.gz -> spheno-3.3.8.tar.gz
+_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
+_md5_=809afd4ce185ab3a315c8ceac6b4ca46
