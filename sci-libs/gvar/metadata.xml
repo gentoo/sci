@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	This package facilitates the creation and manipulation of arbitrarily complicated (correlated) multi-dimensional Gaussian random variables. The random variables are represented by a new data type (gvar.GVar) that can be used in arithmetic expressions and pure Python functions. Such expressions/functions create new Gaussian random variables while automatically tracking statistical correlations between the new and old variables. This data type is useful for simple error propagation, but also is heavily used by the Bayesian least-squares fitting module lsqfit.py to define priors and specify fit results, while accounting for correlations between all variables.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">gvar</remote-id>
+		<remote-id type="github">gplepage/gvar</remote-id>
+	</upstream>
+</pkgmetadata>
