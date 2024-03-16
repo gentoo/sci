@@ -84,7 +84,7 @@ dev-python/heudiconv 0.13.0 1.0.0: Flexible DICOM conversion to structured direc
 dev-python/holoviews 1.15.3: Make data analysis and visualization seamless and simple
 dev-python/hopcroftkarp 1.2.5_p1-r1: python frontend for the fast ripser tda tool
 dev-python/interleave 0.2.0: Yield from multiple iterators as values become available
-dev-python/jacobi 0.8.1: Numerical derivatives for analytic functions with arbitrary precision.
+dev-python/jacobi 0.8.1 0.9.2: Numerical derivatives for analytic functions with arbitrary precision.
 dev-python/kmapper 2.0.1-r1: Python implementation of Mapper algorithm for Topological Data Analysis
 dev-python/latexify_py 0.2.0: Generate LaTeX expression from Python code
 dev-python/lazy_ops 0.2.0: Lazy transposing and slicing of h5py and Zarr data
