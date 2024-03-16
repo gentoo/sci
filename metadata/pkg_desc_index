@@ -48,6 +48,7 @@ dev-python/astropy-sphinx-theme 1.1-r1: The sphinx theme for Astropy and affilia
 dev-python/astroquery 0.4.6: A collection of packages to access online astronomical resources
 dev-python/astroscrappy 1.1.0-r1: Speedy Cosmic Ray Annihilation Package in Python
 dev-python/av 8.0.3: Pythonic bindings for FFmpeg's libraries.
+dev-python/awkward-cpp 28: awkward-cpp bindings for Python
 dev-python/bokeh 2.4.2: Statistical and interactive HTML plots for Python
 dev-python/boost-histogram 1.4.0: Python bindings for the C++14 Boost::Histogram library
 dev-python/ccdproc 2.3.0: Astropy affiliated package for reducing optical/IR CCD data
