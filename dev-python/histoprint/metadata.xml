@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	Histoprint uses a mix of terminal color codes and Unicode trickery (i.e. combining characters) to plot overlaying histograms. Some terminals are not able to display Unicode combining characters correctly. Histoprint can still be used in those terminals, but the character set needs to be constrained to the non-combining ones (see below).
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">histoprint</remote-id>
+		<remote-id type="github">scikit-hep/histoprint</remote-id>
+	</upstream>
+</pkgmetadata>
