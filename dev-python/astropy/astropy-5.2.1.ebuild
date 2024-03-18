@@ -33,7 +33,8 @@ RDEPEND="
 	>=sci-libs/cfitsio-3.350:0=
 	sys-libs/zlib:0=
 "
-BDEPEND="${RDEPEND}
+DEPEND="${RDEPEND}"
+BDEPEND="
 	dev-python/astropy-helpers[${PYTHON_USEDEP}]
 	dev-python/extension-helpers[${PYTHON_USEDEP}]
 	dev-python/cython[${PYTHON_USEDEP}]

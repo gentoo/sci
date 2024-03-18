@@ -20,7 +20,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	>=sys-cluster/easybuild-framework-${SUB_P}[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 	# already there from easybuild_framework
