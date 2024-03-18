@@ -14,7 +14,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	>=dev-python/numpy-1.10[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"
 
 distutils_enable_tests pytest
 

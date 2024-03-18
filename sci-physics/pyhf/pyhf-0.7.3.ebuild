@@ -32,4 +32,4 @@ RDEPEND="
 	>=dev-python/jsonpatch-1.15[${PYTHON_USEDEP}]
 	>=dev-python/click-8.0.0[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"

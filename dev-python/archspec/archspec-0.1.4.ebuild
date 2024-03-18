@@ -16,4 +16,4 @@ RDEPEND="
 	<=dev-python/six-2.0.0[${PYTHON_USEDEP}]
 	>=dev-python/click-7.1.2[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"

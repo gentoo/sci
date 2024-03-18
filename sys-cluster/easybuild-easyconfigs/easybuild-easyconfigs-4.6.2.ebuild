@@ -22,4 +22,4 @@ RDEPEND="
 	>=sys-cluster/easybuild-framework-${SUB_P}[${PYTHON_USEDEP}]
 	>=sys-cluster/easybuild-easyblocks-${SUB_P}.${SUB_PP}[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"
