@@ -26,7 +26,7 @@ dev-python/cryptography[${PYTHON_USEDEP}]
 dev-python/rich[${PYTHON_USEDEP}]
 dev-python/archspec[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/${P}-test.patch

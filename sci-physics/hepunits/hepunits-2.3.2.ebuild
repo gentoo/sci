@@ -20,4 +20,4 @@ fi
 RDEPEND="
 	>=dev-python/attrs-19.2[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"

@@ -21,7 +21,7 @@ RDEPEND="
 	sys-libs/ncurses:=
 "
 DEPEND="${RDEPEND}"
-BDEPEND="${RDEPEND}
+BDEPEND="
 	sys-devel/bison
 "
 

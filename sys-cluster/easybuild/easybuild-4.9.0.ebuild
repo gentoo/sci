@@ -29,7 +29,7 @@ RDEPEND="
 	~sys-cluster/easybuild-easyblocks-${PV}[${PYTHON_USEDEP}]
 	~sys-cluster/easybuild-easyconfigs-${PV}[${PYTHON_USEDEP}]
 "
-BDEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}"
 
 pkg_postinst() {
 	elog "Remember to set the module install path"
