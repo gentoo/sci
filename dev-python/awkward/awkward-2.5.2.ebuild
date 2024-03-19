@@ -22,6 +22,7 @@ BDEPEND="
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 	dev-python/hatch-fancy-pypi-readme[${PYTHON_USEDEP}]
 	test? (
+		dev-libs/apache-arrow[zstd]
 		dev-python/pyarrow[${PYTHON_USEDEP}]
 		dev-python/fsspec[${PYTHON_USEDEP}]
 		dev-python/numexpr[${PYTHON_USEDEP}]
