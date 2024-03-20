@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -21,10 +21,9 @@ KEYWORDS="~amd64"
 IUSE="test etelemetry"
 
 RDEPEND="
-	=dev-python/dandi-schema-0.8*[${PYTHON_USEDEP}]
-	>=dev-python/pydantic-1.9.0[${PYTHON_USEDEP}]
+	>=dev-python/dandi-schema-0.9.0[${PYTHON_USEDEP}]
+	>=dev-python/pydantic-2.0.0[${PYTHON_USEDEP}]
 	>=sci-biology/bidsschematools-0.7.0[${PYTHON_USEDEP}]
-	dev-python/appdirs[${PYTHON_USEDEP}]
 	dev-python/click-didyoumean[${PYTHON_USEDEP}]
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/fasteners[${PYTHON_USEDEP}]
@@ -36,6 +35,7 @@ RDEPEND="
 	dev-python/keyrings-alt[${PYTHON_USEDEP}]
 	dev-python/nwbinspector[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
+	dev-python/platformdirs[${PYTHON_USEDEP}]
 	dev-python/pycryptodome[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
 	dev-python/pyout[${PYTHON_USEDEP}]
@@ -44,9 +44,10 @@ RDEPEND="
 	dev-python/ruamel-yaml[${PYTHON_USEDEP}]
 	dev-python/semantic-version[${PYTHON_USEDEP}]
 	dev-python/tenacity[${PYTHON_USEDEP}]
+	dev-python/versioneer[${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]
 	dev-python/zarr[${PYTHON_USEDEP}]
-	dev-python/zarr_checksum[${PYTHON_USEDEP}]
+	>=dev-python/zarr_checksum-0.4.0[${PYTHON_USEDEP}]
 "
 
 BDEPEND="
@@ -65,21 +66,13 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_P}"
 
-PATCHES=(
-	"${FILESDIR}/${PN}-0.55.0-hdf5.patch"
+EPYTEST_DESELECT=(
+	# Reported upstream:
+	# https://github.com/dandi/dandi-cli/issues/1394
+	dandi/cli/tests/test_command.py::test_no_heavy_imports
 )
 
 distutils_enable_tests pytest
-
-src_prepare() {
-	if use etelemetry; then
-		default
-	else
-		eapply "${FILESDIR}/${PN}-0.28.0-no-etelemetry.patch"
-		default
-		sed -i "/etelemetry/d" setup.cfg
-	fi
-}
 
 python_test() {
 	export DANDI_TESTS_NONETWORK=1
