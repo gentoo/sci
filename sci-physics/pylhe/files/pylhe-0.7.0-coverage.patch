@@ -1,0 +1,8 @@
+--- a/pytest.ini	2024-03-20 07:36:32.600030197 +0100
++++ b/pytest.ini	2024-03-20 07:36:45.896874886 +0100
+@@ -1,4 +1,4 @@
+ [pytest]
+ docstyle_convention = numpy
+ junit_family = xunit2
+-addopts = --ignore=setup.py --ignore=binder/ --ignore=docs/ --cov=pylhe --cov-report=term-missing --cov-config=.coveragerc --cov-report xml --doctest-modules --doctest-glob='*.rst'
++addopts = --ignore=setup.py --ignore=binder/ --ignore=docs/ --doctest-modules --doctest-glob='*.rst'
