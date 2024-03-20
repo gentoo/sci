@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	A common package to provide example files (e.g. ROOT) for testing and developing packages against. The sample of files is representative of typical files found "in the wild".
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">scikit-hep-testdata</remote-id>
+		<remote-id type="github">scikit-hep/scikit-hep-testdata</remote-id>
+	</upstream>
+</pkgmetadata>
