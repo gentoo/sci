@@ -111,8 +111,6 @@ sci-physics/collier:static - Build static library
 sci-physics/feyncalc:FCtraditionalFormOutput - Use TraditionalForm typesetting.
 sci-physics/mc-tester:hepmc - Compile sci-physics/hepmc interface
 sci-physics/mc-tester:pythia - Compile sci-physics/pythia interface
-sci-physics/rivet:hepmc2 - Build with HepMC2
-sci-physics/rivet:hepmc3 - Build with HepMC3
 sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
 sci-physics/tauola:tau-spinner - Compile with TauSpinner library
 sci-visualization/mricrogl:dicom - Adds limited read support for the DICOM imaging format.
