@@ -31,10 +31,6 @@
 #--- END OF EXAMPLES ---
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-03-15)
-# Depends on removed dev-python/pydantic
-dev-python/dandi-schema
-dev-vcs/dandi-cli
-sci-biology/neuroconv
 # Depends on unkeyworded dev-libs/libpthread-stubs
 sci-biology/afni
 sci-biology/samri
