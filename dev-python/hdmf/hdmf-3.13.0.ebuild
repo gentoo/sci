@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="The Hierarchical Data Modeling Framework"
@@ -25,7 +25,7 @@ RDEPEND="
 	"
 
 PATCHES=(
-	"${FILESDIR}/${P}-no_test_coverage.patch"
+	"${FILESDIR}/${PN}-3.11.0-no_test_coverage.patch"
 	)
 
 distutils_enable_tests pytest
