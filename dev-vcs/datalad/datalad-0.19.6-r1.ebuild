@@ -32,7 +32,6 @@ RDEPEND="
 	dev-python/wraps[${PYTHON_USEDEP}]
 	dev-vcs/git-annex
 	downloaders? (
-		dev-python/boto[${PYTHON_USEDEP}]
 		dev-python/keyring[${PYTHON_USEDEP}]
 		dev-python/keyrings-alt[${PYTHON_USEDEP}]
 		dev-python/msgpack[${PYTHON_USEDEP}]

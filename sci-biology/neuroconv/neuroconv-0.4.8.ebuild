@@ -49,6 +49,12 @@ BDEPEND="
 
 distutils_enable_tests pytest
 
+# Reported upstream:
+# https://github.com/catalystneuro/neuroconv/issues/785
+EPYTEST_DESELECT=(
+	tests/test_ecephys/test_mock_recording_interface.py::TestMockRecordingInterface::test_conversion_as_lone_interface
+)
+
 python_test() {
 	# Additional tests require complex data getting infrastructure, ophys tests still have issues:
 	# https://github.com/catalystneuro/neuroconv/issues/305
