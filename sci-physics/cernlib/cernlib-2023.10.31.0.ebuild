@@ -34,17 +34,24 @@ PATCHES=(
 )
 src_prepare() {
 	cmake_src_prepare
+	# cfortran.patch
+	# Remove cfortran.h since it is already installed from dev-lang/cfortran
+	# thereby we avoid collisions if e.g. sci-physics/root[fortran] is installed.
 	rm cfortran/cfortran.h || die
 }
 
 src_configure() {
+	# docs follow rpm like spliting into packages cernlib, cernlib-devel, etc.
+	# we move them into a folder that agrees with gentoo doc structure.
 	sed -i "s#/doc/#/doc/${PF}/#g" CMakeLists.txt || die
 	cmake_src_configure
 }
 
 src_install() {
 	cmake_src_install
-
+	# man.patch
+	# The CMakeLists.txt already compresses the manual before install
+	# therefore we install it manually and avoid QA problems.
 	doman contrib/man/man1/*.1
 	doman contrib/man/man8/*.8
 }
