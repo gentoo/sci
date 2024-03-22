@@ -40,7 +40,6 @@ RDEPEND="
 	sci-libs/gts
 	sys-devel/llvm:*
 	sys-libs/libomp
-	dev-libs/libpthread-stubs
 	virtual/jpeg-compat:62
 	x11-libs/libGLw
 	x11-libs/libXft
