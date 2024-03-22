@@ -29,10 +29,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-03-15)
-# Depends on unkeyworded dev-libs/libpthread-stubs
-sci-biology/afni
-sci-biology/samri
-sci-biology/samri_bidsdata
-sci-biology/samri_bindata
