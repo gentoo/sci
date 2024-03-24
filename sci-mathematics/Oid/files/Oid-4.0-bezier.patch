@@ -1,0 +1,11 @@
+--- a/DisplayGeom.java	2024-02-16 22:01:22.213390949 +0100
++++ b/DisplayGeom.java	2024-02-16 22:01:26.106781457 +0100
+@@ -7844,7 +7844,7 @@
+ 			   // are c1 and c2. The tangent of the curve at p1 is determined
+ 			   // by the line between p1 and c1. Likewise, the tangent at p2 
+ 			   // is determined by a line from p2 to c2. These curves are also
+-			   // called Bézier curves.
++			   // called Bezier curves.
+ 			      
+ 			  //permStorage.removeAllElements();
+ 			  //finalStorage.removeAllElements();
