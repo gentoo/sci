@@ -447,7 +447,7 @@ sci-libs/scikit-learn-intelx 2023.0.2: Seamless way to speed up your Scikit-lear
 sci-libs/simpleitk 1.2.4: Layer on top of ITK for rapid prototyping, education and interpreted languages.
 sci-libs/spyking-circus 1.1.0: Fast spike sorting by template matching
 sci-libs/starparse 0.9: Library for parsing NMR star files (peak-list format) and CIF files
-sci-libs/torchvision 0.14.1: Datasets, transforms and models to specific to computer vision
+sci-libs/torchvision 0.14.1 0.17.1: Datasets, transforms and models to specific to computer vision
 sci-libs/vegas 6.0.1: Adaptive multidimensional Monte Carlo integration.
 sci-libs/vxl 2.0.2: C++ computer vision research libraries
 sci-libs/wannier90 3.1.0: Calculates maximally localized Wannier functions (MLWFs)
