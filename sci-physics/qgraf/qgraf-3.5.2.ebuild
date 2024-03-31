@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit toolchain-funcs
+inherit toolchain-funcs fortran-2
 
 DESCRIPTION="qgraf generates Feynman diagrams for various types of QFT models"
 HOMEPAGE="http://cfif.ist.utl.pt/~paulo/qgraf.html"
@@ -15,10 +15,6 @@ RESTRICT="bindist mirror"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc examples"
-
-DEPEND="virtual/fortran"
-RDEPEND="${DEPEND}"
-BDEPEND=""
 
 src_compile() {
 	$(tc-getFC) ${P}.f08 -o ${PN} ${FFLAGS} ${LDFLAGS}

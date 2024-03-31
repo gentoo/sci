@@ -17,7 +17,7 @@ KEYWORDS="~amd64"
 IUSE="doc examples"
 
 src_compile() {
-	$(tc-getFC) ${P}.f08 -o ${PN} ${FFLAGS} ${LDFLAGS} || die "Failed to compile"
+	$(tc-getFC) ${P}.f -o ${PN} ${FFLAGS} ${LDFLAGS}
 }
 
 src_install() {
