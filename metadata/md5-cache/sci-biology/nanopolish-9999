@@ -9,5 +9,5 @@ LICENSE=MIT
 PROPERTIES=live
 RDEPEND=>=sci-libs/hdf5-1.8.14[threads] >=dev-cpp/eigen-3.2.5 >=sci-libs/htslib-1.4:0 sci-libs/fast5 sci-biology/biopython
 SLOT=0
-_eclasses_=git-r3	86fa1f157b70b9d2ff340c4633b1cf4b
+_eclasses_=git-r3	fbb2889c81f3a05910c1524db69425c1
 _md5_=bac89af32b7b7f9bb9b4cf39c696bcbd
