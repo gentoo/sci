@@ -17,20 +17,21 @@ KEYWORDS="~amd64"
 IUSE="+ecephys +icephys +ophys"
 
 RDEPEND="
+	dev-python/docstring-parser[${PYTHON_USEDEP}]
 	dev-python/h5py[${PYTHON_USEDEP}]
-	dev-python/hdmf[${PYTHON_USEDEP}]
 	dev-python/hdmf-zarr[${PYTHON_USEDEP}]
+	dev-python/hdmf[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/nwbinspector[${PYTHON_USEDEP}]
 	dev-python/pandas[${PYTHON_USEDEP}]
 	dev-python/parse[${PYTHON_USEDEP}]
 	dev-python/psutil[${PYTHON_USEDEP}]
+	dev-python/pydantic[${PYTHON_USEDEP}]
 	dev-python/pynwb[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
 	dev-python/tqdm[${PYTHON_USEDEP}]
-	dev-python/pydantic[${PYTHON_USEDEP}]
 	ecephys? (
 		dev-python/spikeinterface[${PYTHON_USEDEP}]
 	)
