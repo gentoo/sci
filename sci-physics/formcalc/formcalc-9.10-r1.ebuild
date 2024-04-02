@@ -42,7 +42,7 @@ src_install() {
 	doins -r "${S}"
 	# Copy executable, etc. permissions
 	for f in $(find * ! -type l); do
-		fperms --reference="${S}/$f" ${MMADIR}/${MY_P}/$f
+		fperms --reference="${S}/$f" "${D}"/${MMADIR}/${MY_P}/$f
 	done
 	# switch to system form
 	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/form
