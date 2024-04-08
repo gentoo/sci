@@ -32,7 +32,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/$P-cfortran.patch
+	"${FILESDIR}"/${P}-cfortran.patch
 	"${FILESDIR}"/$P-ctest.patch
 	"${FILESDIR}"/$P-man.patch
 )
