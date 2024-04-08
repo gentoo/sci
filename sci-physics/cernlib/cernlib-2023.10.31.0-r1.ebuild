@@ -42,9 +42,9 @@ PATCHES=(
 )
 
 src_unpack() {
-	if [[ -n ${A} ]]; then
-		unpack ${A}
-		use free && mv ${P}-free ${P}
+	default
+	if use free; then
+		mv ${P}-free ${P} || die
 	fi
 }
 
