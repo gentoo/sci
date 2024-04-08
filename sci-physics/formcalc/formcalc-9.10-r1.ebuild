@@ -36,14 +36,10 @@ src_compile() {
 
 src_install() {
 	MMADIR=/usr/share/Mathematica/Applications
-	dosym ${MY_P} ${MMADIR}/${MY_PN}
 	dodir ${MMADIR}/${MY_P}
-	insinto ${MMADIR}
-	doins -r "${S}"
-	# Copy executable, etc. permissions
-	for f in $(find * ! -type l); do
-		fperms --reference="${S}/$f" "${D}"/${MMADIR}/${MY_P}/$f
-	done
+	mv "${WORKDIR}/${MY_P}" "${ED}${MMADIR}" || die
+	# unversioned directory
+	dosym ${MY_P} ${MMADIR}/${MY_PN}
 	# switch to system form
 	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/form
 	dosym `command -v tform` ${MMADIR}/${MY_P}/Linux-x86-64/tform
