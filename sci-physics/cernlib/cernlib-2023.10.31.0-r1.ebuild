@@ -3,14 +3,22 @@ EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 inherit cmake fortran-2
 
+MY_P="${P}"
 DESCRIPTION="CERN program library for High Energy Physics"
 HOMEPAGE="https://cernlib.web.cern.ch/cernlib/"
-SRC_URI="https://cernlib.web.cern.ch/download/2023_source/tar/${P}-free.tar.gz"
-S="${WORKDIR}/${P}-free"
+SRC_URI="
+	free? ( https://cernlib.web.cern.ch/download/2023_source/tar/${P}-free.tar.gz )
+	!free? ( https://cernlib.web.cern.ch/download/2023_source/tar/${P}.tar.gz )
+"
 
-LICENSE="GPL-3"
+LICENSE="
+	free? ( BSD LGPL-2+ GPL-1+ )
+	!free? ( all-rights-reserved )
+"
 SLOT="0"
 KEYWORDS="~amd64"
+IUSE="+free"
+RESTRICT="mirror"
 
 RDEPEND="
 	x11-libs/motif:0
@@ -28,10 +36,18 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/$P-cfortran.patch
-	"${FILESDIR}"/$P-ctest.patch
-	"${FILESDIR}"/$P-man.patch
+	"${FILESDIR}"/${P}-cfortran.patch
+	"${FILESDIR}"/${P}-ctest.patch
+	"${FILESDIR}"/${P}-man.patch
 )
+
+src_unpack() {
+	default
+	if use free; then
+		mv ${P}-free ${P} || die
+	fi
+}
+
 src_prepare() {
 	cmake_src_prepare
 	# cfortran.patch
