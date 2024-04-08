@@ -11,10 +11,14 @@ SRC_URI="
 	!free? ( https://cernlib.web.cern.ch/download/2023_source/tar/${P}.tar.gz )
 "
 
-LICENSE="all-rights-reserved"
+LICENSE="
+	free? ( BSD LGPL-2+ GPL-1+ )
+	!free? ( all-rights-reserved )
+"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+free"
+RESTRICT="mirror"
 
 RDEPEND="
 	x11-libs/motif:0
