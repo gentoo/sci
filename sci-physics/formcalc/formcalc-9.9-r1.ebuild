@@ -38,10 +38,9 @@ src_compile() {
 
 src_install() {
 	MMADIR=/usr/share/Mathematica/Applications
-	dodir ${MMADIR}/${MY_P}
-	mv "${WORKDIR}/${MY_P}" "${ED}${MMADIR}" || die
 	# unversioned directory
 	dosym ${MY_P} ${MMADIR}/${MY_PN}
+	mv "${WORKDIR}/${MY_P}" "${ED}${MMADIR}" || die
 	# switch to system form
 	dosym `command -v form` ${MMADIR}/${MY_P}/Linux-x86-64/form
 	dosym `command -v tform` ${MMADIR}/${MY_P}/Linux-x86-64/tform
