@@ -9,4 +9,4 @@ LICENSE=LGPL-3+
 RDEPEND=sci-mathematics/mathematica sci-mathematics/form[threads]
 SLOT=0
 SRC_URI=https://feynarts.de/formcalc/FormCalc-9.9.tar.gz
-_md5_=f1bcc2fcd0aea423bda6c6fede7910e7
+_md5_=6a0e88d9cc5cd69e649526ed54268003
