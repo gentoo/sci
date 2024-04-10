@@ -3,6 +3,8 @@
 
 EAPI=8
 
+inherit fortran-2
+
 MY_PN=FormCalc
 MY_P=${MY_PN}-${PV}
 
