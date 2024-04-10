@@ -19,11 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 IUSE="static-libs"
-BDEPEND="
-	virtual/fortran
-"
+
 PATCHES=(
-    "${FILESDIR}/${PN}-1.2.7-mod.patch"
+	"${FILESDIR}/${PN}-1.2.7-mod.patch"
 )
 
 src_configure() {
