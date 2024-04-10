@@ -5,7 +5,7 @@ EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="emake"
 
-inherit cmake
+inherit cmake fortran-2
 
 MY_PN=MCFM
 MY_P=${MY_PN}-${PV}
@@ -29,9 +29,6 @@ DEPEND="
 	>=sci-libs/handyg-0.1.5
 "
 RDEPEND="${DEPEND}"
-BDEPEND="
-	virtual/fortran
-"
 
 PATCHES=(
 	"${FILESDIR}"/${P}-rest.patch
