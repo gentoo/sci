@@ -9,4 +9,7 @@
 		<email>sci-physics@gentoo.org</email>
 		<name>Gentoo Physics Project</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="bitbucket">hameren/oneloop</remote-id>
+	</upstream>
 </pkgmetadata>

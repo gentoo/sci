@@ -5,7 +5,7 @@ EAPI=8
 
 # python only needed for create.py to get binaries
 PYTHON_COMPAT=( python3_{10..11} )
-inherit toolchain-funcs python-any-r1
+inherit toolchain-funcs python-any-r1 fortran-2
 
 DESCRIPTION="Library of one-loop scalar functions"
 HOMEPAGE="https://bitbucket.org/hameren/oneloop"
@@ -16,12 +16,9 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
 BDEPEND="
 	${PYTHON_DEPS}
 	app-arch/unzip
-	virtual/fortran
 "
 
 PATCHES=(
