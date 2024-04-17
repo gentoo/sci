@@ -108,7 +108,6 @@ sci-misc/elmer-fem:post - Build ElmerPOST
 sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation potentials library
 sci-physics/atompaw:longplot - Patch the sources to plot functions all over the space considered, not just up to the matching radius plus 50 grid points. May be useless or even harmful.
 sci-physics/cernlib:free - Use free sources
-sci-physics/collier:static - Build static library
 sci-physics/feyncalc:FCtraditionalFormOutput - Use TraditionalForm typesetting.
 sci-physics/mc-tester:hepmc - Compile sci-physics/hepmc interface
 sci-physics/mc-tester:pythia - Compile sci-physics/pythia interface
