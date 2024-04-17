@@ -9,7 +9,23 @@
 		<email>sci-physics@gentoo.org</email>
 		<name>Gentoo Physics Project</name>
 	</maintainer>
+	<longdescription lang="en">
+		Library of one-loop scalar functions by Andreas van Hameren.
+		Commonly named avh_olo and used by/for cuttools.
+	</longdescription>
 	<upstream>
 		<remote-id type="bitbucket">hameren/oneloop</remote-id>
 	</upstream>
+	<use>
+		<flag name="dpkind">double precision</flag>
+		<flag name="qpkind">quad precision</flag>
+		<flag name="dpkind16">double16 precision</flag>
+		<flag name="qpkind16">quad16 precision</flag>
+		<flag name="ddcpp">double use sci-libs/qd</flag>
+		<flag name="qdcpp">quad use sci-libs/qd</flag>
+		<flag name="arprec"> use sci-libs/arprec</flag>
+		<flag name="mpfun90"> use sci-libs/mpfun90</flag>
+		<flag name="tlevel"> enable tlevel</flag>
+		<flag name="cppintf"> enable cppintf</flag>
+	</use>
 </pkgmetadata>
