@@ -3,7 +3,6 @@ EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 inherit cmake fortran-2
 
-MY_P="${P}"
 DESCRIPTION="CERN program library for High Energy Physics"
 HOMEPAGE="https://cernlib.web.cern.ch/cernlib/"
 SRC_URI="
