@@ -1,7 +1,7 @@
 EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="emake"
-inherit cmake fortran-2
+inherit cmake fortran-2 flag-o-matic
 
 DESCRIPTION="CERN program library for High Energy Physics"
 HOMEPAGE="https://cernlib.web.cern.ch/cernlib/"
@@ -16,7 +16,8 @@ LICENSE="
 "
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+free"
+# static-libs as default since otherwise test fail...
+IUSE="+free +static-libs"
 RESTRICT="mirror"
 
 RDEPEND="
@@ -59,6 +60,11 @@ src_configure() {
 	# docs follow rpm like spliting into packages cernlib, cernlib-devel, etc.
 	# we move them into a folder that agrees with gentoo doc structure.
 	sed -i "s#/doc/#/doc/${PF}/#g" CMakeLists.txt || die
+	# with -O2 some tests fail
+	append-flags -O0
+	local mycmakeargs=(
+		-DBUILD_SHARED_LIBS=$(usex static-libs OFF ON)
+	)
 	cmake_src_configure
 }
 
