@@ -4,8 +4,8 @@ DEPEND=x11-libs/motif:0 x11-libs/libXaw x11-libs/libXau virtual/lapack dev-lang/
 DESCRIPTION=CERN program library for High Energy Physics
 EAPI=8
 HOMEPAGE=https://cernlib.web.cern.ch/cernlib/
-INHERIT=cmake fortran-2
-IUSE=+free
+INHERIT=cmake fortran-2 flag-o-matic
+IUSE=+free +static-libs
 KEYWORDS=~amd64
 LICENSE=free? ( BSD LGPL-2+ GPL-1+ ) !free? ( all-rights-reserved )
 RDEPEND=x11-libs/motif:0 x11-libs/libXaw x11-libs/libXau virtual/lapack dev-lang/cfortran x11-libs/xbae net-libs/libnsl virtual/libcrypt:= virtual/fortran
@@ -13,4 +13,4 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=free? ( https://cernlib.web.cern.ch/download/2023_source/tar/cernlib-2023.10.31.0-free.tar.gz ) !free? ( https://cernlib.web.cern.ch/download/2023_source/tar/cernlib-2023.10.31.0.tar.gz )
 _eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	288c54efeb5e2aa70775e39032695ad4	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	baea6080dd821f5562d715887954c9d3	cmake	c7c9a62d6232cac66d4ea32d575c3e7c	fortran-2	40c4450f1c4ecb2ee694d96e1958d4ea
-_md5_=35902e65d3c3a28dd22654bf91bb0e71
+_md5_=7a96760ee2b499e62708eb0f30ebe398

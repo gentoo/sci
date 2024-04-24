@@ -474,7 +474,7 @@ sci-misc/stanford-parser 4.2.0: Stanfords statistical natural language parsers
 sci-misc/stanford-tagger 4.2.0: Stanfords log linear POS taggers
 sci-physics/apfelxx 4.8.0: Object oriented rewriting of the APFEL evolution code
 sci-physics/atompaw 4.1.1.0: PAW atomic data generator
-sci-physics/cernlib 2023.10.31.0-r1: CERN program library for High Energy Physics
+sci-physics/cernlib 2023.10.31.0-r2: CERN program library for High Energy Physics
 sci-physics/collier 1.2.8: A Complex One-Loop LIbrary with Extended Regularizations
 sci-physics/feynarts 3.11: FeynArts renders Feynman diagrams and generates their topologies.
 sci-physics/feyncalc 9.3.1 9999: FeynCalc is a Mathematica package for computing Feynman diagrams.
