@@ -62,7 +62,7 @@ src_configure() {
 	sed -i "s#/doc/#/doc/${PF}/#g" CMakeLists.txt || die
 	# with -O2 some tests fail
 	# let upstream decide on optimization (-O0) since code is fragile
-	filter-flags -O1 -O2 -O3 -Os
+	filter-flags -O1 -O2 -O3 -Os -Oz -Og -Ofast
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=$(usex static-libs OFF ON)
 	)
