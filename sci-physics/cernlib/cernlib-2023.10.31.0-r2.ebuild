@@ -61,7 +61,8 @@ src_configure() {
 	# we move them into a folder that agrees with gentoo doc structure.
 	sed -i "s#/doc/#/doc/${PF}/#g" CMakeLists.txt || die
 	# with -O2 some tests fail
-	filter-flags -O2 -O3 -Os
+	# let upstream decide on optimization (-O0) since code is fragile
+	filter-flags -O1 -O2 -O3 -Os
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=$(usex static-libs OFF ON)
 	)
