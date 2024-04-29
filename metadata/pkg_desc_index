@@ -490,7 +490,7 @@ sci-physics/oneloop 2020.07.31: Library of one-loop scalar functions
 sci-physics/openmx 3.9_p20211017: Material eXplorer
 sci-physics/particle 0.23.0 0.23.1 0.24.0 9999: PDG particle data and identification codes
 sci-physics/pyhepmc 2.11.0: A Pythonic wrapper for the HepMC3 C++ library.
-sci-physics/pyhf 0.7.3: pure-python fitting/limit-setting/interval estimation HistFactory-style
+sci-physics/pyhf 0.7.3 0.7.5: pure-python fitting/limit-setting/interval estimation HistFactory-style
 sci-physics/pylhe 0.7.0 0.8.0: Lightweight Python interface to read Les Houches Event (LHE) files
 sci-physics/qcdloop 2.0.5 2.0.9: An object-oriented one-loop scalar Feynman integrals framework
 sci-physics/qcl 0.6.4-r2: Quantum Computation Language with an emulator of a quantum computer

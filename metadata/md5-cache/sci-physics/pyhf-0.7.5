@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 ) >=dev-python/gpep517-15[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/hatchling-1.21.1[python_targets_python3_11(-)?,python_targets_python3_12(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=>=dev-python/click-8.0.0[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/jsonpatch-1.15[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/jsonschema-4.15.0[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/pyyaml-5.1[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/scipy-1.5.2[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/tqdm-4.56.0[python_targets_python3_11(-)?,python_targets_python3_12(-)?] dev-python/numpy[python_targets_python3_11(-)?,python_targets_python3_12(-)?]
+DESCRIPTION=pure-python fitting/limit-setting/interval estimation HistFactory-style
+EAPI=8
+HOMEPAGE=https://github.com/scikit-hep/pyhf https://doi.org/10.5281/zenodo.1169739 https://zenodo.org/record/8256635 https://doi.org/10.21105/joss.02823 https://inspirehep.net/literature/2598491 https://arxiv.org/abs/2211.15838 https://doi.org/10.22323/1.414.0245
+INHERIT=distutils-r1 pypi
+IUSE=python_targets_python3_11 python_targets_python3_12
+KEYWORDS=~amd64
+LICENSE=BSD
+RDEPEND=>=dev-python/click-8.0.0[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/jsonpatch-1.15[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/jsonschema-4.15.0[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/pyyaml-5.1[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/scipy-1.5.2[python_targets_python3_11(-)?,python_targets_python3_12(-)?] >=dev-python/tqdm-4.56.0[python_targets_python3_11(-)?,python_targets_python3_12(-)?] dev-python/numpy[python_targets_python3_11(-)?,python_targets_python3_12(-)?] python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 )
+REQUIRED_USE=|| ( python_targets_python3_11 python_targets_python3_12 )
+RESTRICT=test
+SLOT=0
+SRC_URI=https://files.pythonhosted.org/packages/source/p/pyhf/pyhf-0.7.5.tar.gz
+_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	288c54efeb5e2aa70775e39032695ad4	out-of-source-utils	1a9007554652a6e627edbccb3c25a439	multibuild	d67e78a235f541871c7dfe4cf7931489	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	a1229a86bd0db058e474a2d7d9191cca	python-r1	8a28fa6d3e3bc96ff8a7eff2badbe71f	distutils-r1	a9e13d91cb9541a054827cb1d957a660	pypi	2eecb475512bc76e5ea9192a681b9e6b
+_md5_=4e22b5ae263abb7ffdb8e61b0618b7c9
