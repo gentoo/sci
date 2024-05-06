@@ -485,6 +485,7 @@ sci-physics/fullprof-bin 2020.09: Crystallographic tools mainly for Rietveld ana
 sci-physics/genfit 02.00.00_p20201231 9999: Generic toolkit for track reconstruction in physics experiments
 sci-physics/hepunits 2.3.2 2.3.3 9999: units and constants in the HEP system of units
 sci-physics/hoppet 1.2.0: Higher Order Perturbative Parton Evolution Toolkit
+sci-physics/jaxodraw-bin 2.1.0: Java program for drawing Feynman diagrams
 sci-physics/lhapdf-sets 0: LHAPDF data grids
 sci-physics/mc-tester 1.25.0: Comparisons of Monte Carlo predictions in High Energy Physics
 sci-physics/mcfm 10.2.1: Monte Carlo for FeMtobarn processes
