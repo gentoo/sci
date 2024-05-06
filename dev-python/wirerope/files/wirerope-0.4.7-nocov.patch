@@ -1,0 +1,10 @@
+--- a/setup.cfg	2023-02-05 08:00:42.000000000 -0500
++++ b/setup.cfg	2024-05-06 11:01:02.896234948 -0400
+@@ -33,7 +33,6 @@
+     sphinx
+ 
+ [tool:pytest]
+-addopts=--verbose --cov-config .coveragerc --cov wirerope
+ python_files = tests/test_*.py
+ norecursedirs=.git py ci
+ [flake8]
