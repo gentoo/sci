@@ -25,7 +25,7 @@ DEPEND="
 	sci-physics/lhapdf
 	>=sci-libs/qd-2.3.22
 	>=sci-physics/qcdloop-2.0.5
-	>=sci-physics/oneloop-2020.07.31
+	>=sci-physics/oneloop-3.6_p20200731
 	>=sci-libs/handyg-0.1.5
 "
 RDEPEND="${DEPEND}"
