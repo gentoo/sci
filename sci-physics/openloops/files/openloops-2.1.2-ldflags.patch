@@ -1,0 +1,11 @@
+--- a/pyol/tools/OLBaseConfig.py	2024-05-07 17:59:46.060792049 +0200
++++ b/pyol/tools/OLBaseConfig.py	2024-05-07 18:02:07.269403340 +0200
+@@ -182,7 +182,7 @@
+     parse_option(config, 'f90_flags', interpolate=True, converter=split_list)
+     parse_option(config, 'f_flags', interpolate=True, converter=split_list)
+     parse_option(config, 'common_flags', interpolate=True, converter=split_list)
+-    parse_option(config, 'link_flags', interpolate=True, converter=split_list)
++    parse_option(config, 'link_flags', interpolate=True, converter=str.split)
+     parse_option(config, 'debug_flags_1', converter=split_list)
+     parse_option(config, 'debug_flags_4', interpolate=True,
+                  converter=split_list)

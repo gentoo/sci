@@ -1,0 +1,34 @@
+--- a/SConstruct	2024-05-07 15:56:26.162295325 +0200
++++ b/SConstruct	2024-05-07 15:56:14.115460655 +0200
+@@ -404,8 +404,9 @@
+                   F90FLAGS = config['f90_flags'] + config['generic_optimisation'],
+                   LINKFLAGS = config['link_flags'],
+                   LIBPATH = [config['generic_lib_dir']],
+-                  DOLLAR = '\$$',
+-                  RPATH = [HashableLiteral('\$$ORIGIN')],
++                  DOLLAR = '\\$$',
++                  RPATH = [HashableLiteral('\\$$ORIGIN')],
++                  SHLIBVERSION = release_version,
+                   F90 = config['fortran_compiler'],
+                   FORTRAN = config['fortran_compiler'],
+                   CC = config['cc'])
+@@ -719,7 +719,7 @@
+         processes_seen[processlib] = loops
+ process_list = process_list_nodup
+ 
+-env.Append(RPATH = [HashableLiteral('\$$ORIGIN/../lib')])
++env.Append(RPATH = [HashableLiteral('\\$$ORIGIN/../lib')])
+ 
+ 
+ for (loops, process_api, processlib) in process_list:
+--- a/SConstruct	2024-05-07 15:59:46.808415000 +0200
++++ b/SConstruct	2024-05-07 16:00:46.839244667 +0200
+@@ -796,7 +796,7 @@
+             env = env,
+             shared = config['shared_libraries'],
+             env_mod = [
+-              ('^(virtual_\d|tensorsum_|loop_)',
++              ('^(virtual_\\d|tensorsum_|loop_)',
+                {'F90FLAGS': config['f90_flags'] + config['loop_optimisation']}),
+               ('',
+                {'F90FLAGS': config['f90_flags'] + config['born_optimisation']})]
