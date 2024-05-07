@@ -1,0 +1,44 @@
+diff -Naru MG5_aMC_v2_9_6.orig/vendor/CutTools/makefile MG5_aMC_v2_9_6/vendor/CutTools/makefile
+--- MG5_aMC_v2_9_6.orig/vendor/CutTools/makefile	2022-04-13 11:13:28.277248753 +0200
++++ MG5_aMC_v2_9_6/vendor/CutTools/makefile	2022-04-13 11:13:43.702292725 +0200
+@@ -42,15 +42,15 @@
+ endif
+ 
+ cpmp:   
+-	cp  -p ./src/cts/cts_mpr.in ./src/cts/cts_mpr.h
+-	cp  -p ./src/cts/cts_mpc.in ./src/cts/cts_mpc.h
+-	cp  -p ./src/cts/cts_mprec.in ./src/cts/cts_mprec.h 
+-	cp  -p ./src/cts/cts_mpinit.in ./src/cts/cts_mpinit.h
++	cp   ./src/cts/cts_mpr.in ./src/cts/cts_mpr.h
++	cp   ./src/cts/cts_mpc.in ./src/cts/cts_mpc.h
++	cp   ./src/cts/cts_mprec.in ./src/cts/cts_mprec.h 
++	cp   ./src/cts/cts_mpinit.in ./src/cts/cts_mpinit.h
+ cpqp:   
+-	cp  -p ./src/cts/cts_qpr.in ./src/cts/cts_mpr.h
+-	cp  -p ./src/cts/cts_qpc.in ./src/cts/cts_mpc.h
+-	cp  -p ./src/cts/cts_qprec.in ./src/cts/cts_mprec.h
+-	cp  -p ./src/cts/cts_qpinit.in ./src/cts/cts_mpinit.h
++	cp   ./src/cts/cts_qpr.in ./src/cts/cts_mpr.h
++	cp   ./src/cts/cts_qpc.in ./src/cts/cts_mpc.h
++	cp   ./src/cts/cts_qprec.in ./src/cts/cts_mprec.h
++	cp   ./src/cts/cts_qpinit.in ./src/cts/cts_mpinit.h
+ 
+ clean$(BLD): default
+ 	rm -fr  $(BLD)/*.f
+@@ -68,11 +68,11 @@
+ 
+ $(BLD)/version.h: 
+ 	-mkdir -p $(BLD)
+-	cp  -p ./src/avh/* $(BLD)/ 
+-	cp  -p ./src/cts/* $(BLD)/ 
+-	cp  -p ./src/mpfun90/* $(BLD)/ 
+-	cp  -p ./src/qcdloop/* $(BLD)/ 
+-	cp  -p ./src/makefile $(BLD)/ 
++	cp   ./src/avh/* $(BLD)/ 
++	cp   ./src/cts/* $(BLD)/ 
++	cp   ./src/mpfun90/* $(BLD)/ 
++	cp   ./src/qcdloop/* $(BLD)/ 
++	cp   ./src/makefile $(BLD)/ 
+ 
+ tar:
+ 	tar -czvf $(CTS_TAR) *
