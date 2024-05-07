@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+
+	<longdescription lang="en">
+	Herwig provides significantly improved and extended physics capabilities when compared to both its predecessors, HERWIG 6 and Herwig++ 2, while keeping the key model motivations such as coherent parton showers (including angular-ordered and dipole-based evolution), the cluster hadronization model, an eikonal multiple-interaction model, highly flexible BSM capabilities and improved perturbative input using next-to-leading order QCD.
+	</longdescription>
+	<use>
+		<flag name="pythia">Build with pythia support </flag>
+<!--
+		<flag name="openloops">Build with openloops support </flag>
+		<flag name="gosam">Build with gosam support </flag>
+		<flag name="madgraph">Build with madgraph support </flag>
+		<flag name="vbfnlo">Build with vbfnlo support </flag>
+		<flag name="njet">Build with njet support </flag>
+-->
+	</use>
+</pkgmetadata>
