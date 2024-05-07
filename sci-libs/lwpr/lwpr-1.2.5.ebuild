@@ -9,7 +9,7 @@ inherit docs
 
 DESCRIPTION="The Locally Weighted Projection Regression Library"
 HOMEPAGE="https://web.inf.ed.ac.uk/slmc"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"

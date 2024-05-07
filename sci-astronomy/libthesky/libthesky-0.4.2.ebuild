@@ -9,8 +9,8 @@ inherit cmake fortran-2
 
 DESCRIPTION="Fortran library to compute positions of celestial bodies"
 HOMEPAGE="http://libthesky.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
-	mirror://sourceforge/${PN}/libthesky-data-20160409.tar.bz2
+SRC_URI="https://downloads.sourceforge.net/${PN}/${P}.tar.gz
+	https://downloads.sourceforge.net/${PN}/libthesky-data-20160409.tar.bz2
 "
 
 LICENSE="GPL-3"

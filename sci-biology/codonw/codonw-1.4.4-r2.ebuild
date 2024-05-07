@@ -7,7 +7,7 @@ inherit toolchain-funcs
 
 DESCRIPTION="Multivariate statistical analysis of codon and amino acid usage"
 HOMEPAGE="https://codonw.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/CodonWSourceCode_${PV//./_}.tar.gz
+SRC_URI="https://downloads.sourceforge.net/${PN}/CodonWSourceCode_${PV//./_}.tar.gz
 		https://codonw.sourceforge.net/JohnPedenThesisPressOpt_water.pdf"
 
 LICENSE="GPL-2"
