@@ -9,7 +9,7 @@ inherit cmake fortran-2
 
 DESCRIPTION="Assist the transition from PGPlot to PLplot in Fortran programs"
 HOMEPAGE="http://pg2plplot.sourceforge.net"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="https://downloads.sourceforge.net/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

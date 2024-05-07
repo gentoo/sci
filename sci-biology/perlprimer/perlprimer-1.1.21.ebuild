@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Primers design for standard PCR, bisulphite PCR and Real-time PCR"
 HOMEPAGE="http://perlprimer.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+SRC_URI="https://downloads.sourceforge.net/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"

@@ -9,8 +9,8 @@ inherit cmake python-single-r1
 
 DESCRIPTION="Cross-platform DICOM implementation"
 HOMEPAGE="http://gdcm.sourceforge.net/"
-SRC_URI="mirror://sourceforge/gdcm/${P}.tar.bz2
-	test? ( mirror://sourceforge/gdcm/gdcmData.tar.gz )" # 3.0.14: .bz2 is broken, should be checked in next release
+SRC_URI="https://downloads.sourceforge.net/gdcm/${P}.tar.bz2
+	test? ( https://downloads.sourceforge.net/gdcm/gdcmData.tar.gz )" # 3.0.14: .bz2 is broken, should be checked in next release
 
 LICENSE="BSD"
 SLOT="0"

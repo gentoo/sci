@@ -9,7 +9,7 @@ MY_P=${PN}${PV//.}
 
 DESCRIPTION="Java interface to WordNet dictionary data"
 HOMEPAGE="https://sourceforge.net/projects/jwordnet/"
-SRC_URI="mirror://sourceforge/jwordnet/${MY_P//_rc/-rc}.zip"
+SRC_URI="https://downloads.sourceforge.net/jwordnet/${MY_P//_rc/-rc}.zip"
 
 LICENSE="BSD"
 SLOT="0"
