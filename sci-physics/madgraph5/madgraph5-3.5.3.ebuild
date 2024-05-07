@@ -48,8 +48,9 @@ RDEPEND="
 #	ninja? ( sci-physics/ninja[static-libs] )
 #	samurai? ( sci-physics/samurai )
 #	golem95? ( sci-physics/golem95 )
-PATCHES=( "${FILESDIR}"/cuttools.patch )
 DEPEND="${RDEPEND}"
+
+PATCHES=( "${FILESDIR}"/cuttools.patch )
 
 src_unpack() {
 	# Perserve permissions
