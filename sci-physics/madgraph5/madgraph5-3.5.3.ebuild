@@ -15,7 +15,7 @@ MY_PF=${MY_PN}${MY_PV}
 DESCRIPTION="MadGraph5_aMC@NLO"
 HOMEPAGE="https://launchpad.net/mg5amcnlo"
 SRC_URI="https://launchpad.net/mg5amcnlo/$(ver_cut 1).0/$(ver_cut 1-2).x/+download/${MY_PN}${PV}.tar.gz -> ${MY_PNN}-${PV}.tar.gz"
-S=${WORKDIR}/${MY_PF}
+S="${WORKDIR}/${MY_PF}"
 
 LICENSE="UoI-NCSA"
 SLOT="3"
