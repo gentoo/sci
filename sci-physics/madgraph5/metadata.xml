@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	MadGraph5_aMC@NLO is a framework that aims at providing all the elements necessary for SM and BSM phenomenology, such as the computations of cross sections, the generation of hard events and their matching with event generators, and the use of a variety of tools relevant to event manipulation and analysis. Processes can be simulated to LO accuracy for any user-defined Lagrangian, an the NLO accuracy in the case of models that support this kind of calculations -- prominent among these are QCD and EW corrections to SM processes. Matrix elements at the tree- and one-loop-level can also be obtained.
+	</longdescription>	
+	<use>
+		<flag name="lhapdf">USE system LHAPDF</flag>
+		<flag name="fastjet">USE system FASTJET</flag>
+		<flag name="pythia">USE system PYTHIA</flag>
+		<flag name="hepmc2">USE system hepmc version 2</flag>
+		<flag name="thepeg">USE system thepeg</flag>
+		<flag name="collier">USE system collier</flag>
+<!--
+		<flag name="ninja">USE system ninja</flag>
+		<flag name="samurai">USE system samurai</flag>
+		<flag name="pineappl">USE system pineappl</flag>
+		<flag name="herwig">USE system herwig</flag>
+		<flag name="madanalysis5">USE system madanalysis5</flag>
+		<flag name="golem95">USE system golem95</flag>
+		<flag name="td">USE system topdrawer</flag>
+		<flag name="rivet">USE system rivet</flag>
+-->
+	</use>
+	<upstream>
+		<remote-id type="launchpad">mg5amcnlo</remote-id>
+	</upstream>
+</pkgmetadata>
