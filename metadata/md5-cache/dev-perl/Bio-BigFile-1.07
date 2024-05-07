@@ -1,14 +1,15 @@
-BDEPEND=dev-lang/perl
+BDEPEND=|| ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 )
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=dev-perl/IO-String sci-biology/bioperl sci-biology/ucsc-genome-browser[static-libs] dev-perl/Module-Build dev-lang/perl
+DEPEND=dev-perl/IO-String sci-biology/bioperl sci-biology/ucsc-genome-browser[static-libs] dev-perl/Module-Build || ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 )
 DESCRIPTION=BigWig and BigBed file perl-based interface for Gbrowse-2
 EAPI=7
 HOMEPAGE=https://metacpan.org/release/Bio-BigFile
 INHERIT=flag-o-matic perl-module
+IUSE=perl_features_debug perl_features_ithreads perl_features_quadmath
 KEYWORDS=~amd64 ~x86
 LICENSE=|| ( Artistic-2 GPL-1 GPL-2 GPL-3 )
-RDEPEND=dev-perl/IO-String sci-biology/bioperl sci-biology/ucsc-genome-browser[static-libs] dev-lang/perl:=
+RDEPEND=dev-perl/IO-String sci-biology/bioperl sci-biology/ucsc-genome-browser[static-libs] || ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 ) dev-lang/perl:=
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/L/LD/LDS/Bio-BigFile-1.07.tar.gz
-_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	288c54efeb5e2aa70775e39032695ad4	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	4e37e1004a0a27e41bb7025c0b974676
+_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	288c54efeb5e2aa70775e39032695ad4	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	9cfd8bc4b0466de21b0127c4c8ab844e
 _md5_=9a59007374bcc932efd1eb69daac4521

@@ -1,15 +1,16 @@
-BDEPEND=dev-lang/perl
+BDEPEND=|| ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 )
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=dev-perl/Module-Build dev-lang/perl
+DEPEND=dev-perl/Module-Build || ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 )
 DESCRIPTION=Perl library of modules to manipulate SwissProt flatfiles
 EAPI=7
 HOMEPAGE=http://swissknife.sourceforge.net/
 INHERIT=perl-module
+IUSE=perl_features_debug perl_features_ithreads perl_features_quadmath
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2+
-RDEPEND=dev-perl/Module-Build >=dev-lang/perl-5.002:= dev-lang/perl:=
+RDEPEND=dev-perl/Module-Build >=dev-lang/perl-5.002:= || ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 ) dev-lang/perl:=
 RESTRICT=test
 SLOT=0
 SRC_URI=https://downloads.sourceforge.net/project/swissknife/swissknife/1.80/swissknife_1.80.tar.gz
-_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	perl-functions	c3fca037246e877693badea0df3b0ef8	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	perl-module	4e37e1004a0a27e41bb7025c0b974676
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	perl-functions	c3fca037246e877693badea0df3b0ef8	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	perl-module	9cfd8bc4b0466de21b0127c4c8ab844e
 _md5_=a4979171e1d41ca1b3bf2cdac47da493
