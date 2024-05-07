@@ -6,5 +6,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 RDEPEND=dev-perl/Tk dev-perl/libwww-perl >=sci-biology/rebase-904
 SLOT=0
-SRC_URI=mirror://sourceforge/perlprimer/perlprimer-1.1.21.tar.bz2
-_md5_=195dd2fc1177ad82cc78693fda9dd96e
+SRC_URI=https://downloads.sourceforge.net/perlprimer/perlprimer-1.1.21.tar.bz2
+_md5_=3c71283f6f9534b65b3682243bd6efd4
