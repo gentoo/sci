@@ -40,7 +40,7 @@ RDEPEND="
 	)
 	collier? ( sci-physics/collier[static-libs] )
 	thepeg? (
-	sci-physics/thepeg[hepmc3(-),fastjet?,lhapdf?]
+	      sci-physics/thepeg[hepmc3(-),fastjet?,lhapdf?]
 	)
 "
 #   madanalysis5? ( sci-physics/madanalysis5 )
