@@ -1,0 +1,22 @@
+--- a/Makefile	2020-01-28 18:43:43.000000000 +0100
++++ b/Makefile	2024-05-07 21:51:01.306908458 +0200
+@@ -48,7 +48,7 @@
+ 	mkdir -p $(DESTDIR)/$(PREFIX)/include/Tauola
+ 	install -m 644  include/Tauola/* $(DESTDIR)/$(PREFIX)/include/Tauola/.
+ 	mkdir -p $(DESTDIR)/$(LIBDIR)
+-	install lib/*so.$(LIB_VER) $(DESTDIR)/$(LIBDIR)/
++	install lib/*so.* $(DESTDIR)/$(LIBDIR)/
+ 	install lib/*a $(DESTDIR)/$(LIBDIR)/
+ 	cp -P lib/*so $(DESTDIR)/$(LIBDIR)/
+ 
+--- a/TauSpinner/Makefile	2024-05-07 21:57:58.542875180 +0200
++++ b/TauSpinner/Makefile	2024-05-07 21:58:42.993509785 +0200
+@@ -52,7 +52,7 @@
+ 
+ libTauSpinner: $(TAU_SPINNER_OBJECTS)
+ 	ar cr lib/$(LIB_TAU_SPINNER_A) $(TAU_SPINNER_OBJECTS)
+-	$(LD) $(LDFLAGS) $(SOFLAGS) $(TAU_SPINNER_OBJECTS) -o lib/$(LIB_TAU_SPINNER_SO).$(LIB_VER)
++	$(LD) $(LDFLAGS) $(SOFLAGS) $(TAU_SPINNER_OBJECTS) -o lib/$(LIB_TAU_SPINNER_SO).$(LIB_VER)  -Wl,-soname,$(LIB_TAU_SPINNER_SO)
+ 	ln -sf $(LIB_TAU_SPINNER_SO).$(LIB_VER) lib/$(LIB_TAU_SPINNER_SO)
+ 
+ clean:
