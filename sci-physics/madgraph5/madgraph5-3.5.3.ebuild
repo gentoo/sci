@@ -51,7 +51,7 @@ PATCHES=( "${FILESDIR}"/cuttools.patch )
 
 src_unpack() {
 	# Perserve permissions
-	tar xvzf "${DISTDIR}/${MY_PNN}-${PV}.tar.gz" -C "${WORKDIR}"
+	tar xvzf "${DISTDIR}/${MY_PNN}-${PV}.tar.gz" -C "${WORKDIR}" || die
 }
 
 src_configure() {
@@ -83,7 +83,7 @@ src_install() {
 	# symlink entrypoint
 	dosym ../../opt/${MY_PF}/bin/mg5_aMC /usr/bin/mg5_aMC3
 	dosym  ../opt/${MY_PF} /opt/"${MY_PNN}"
-	mv "${WORKDIR}/${MY_PF}" "${ED}/opt/"
+	mv "${WORKDIR}/${MY_PF}" "${ED}/opt/" || die
 
 	# allow all users to modify mg directory
 	# as it changes it self
