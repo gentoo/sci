@@ -55,15 +55,16 @@ src_unpack() {
 }
 
 src_configure() {
-	cat << EOF >> input/mg5_configuration.txt || die
-$(usex lhapdf "lhapdf_py3 = ${EPREFIX}/usr/bin/lhapdf-config" "")
-$(usex fastjet "fastjet = ${EPREFIX}/usr/bin/fastjet-config" "")
-$(usex pythia "pythia8_path = ${EPREFIX}/usr" "")
-$(usex hepmc "hepmc_path = ${EPREFIX}/usr" "")
-$(usex collier "collier = ${EPREFIX}/usr/$(get_libdir)" "")
-$(usex thepeg "thepeg_path = ${EPREFIX}/usr/$(get_libdir)" "")
-auto_update = 0
-EOF
+	cat << -EOF >> input/mg5_configuration.txt || die
+	$(usex lhapdf "lhapdf_py3 = ${EPREFIX}/usr/bin/lhapdf-config" "")
+	$(usex fastjet "fastjet = ${EPREFIX}/usr/bin/fastjet-config" "")
+	$(usex pythia "pythia8_path = ${EPREFIX}/usr" "")
+	$(usex hepmc "hepmc_path = ${EPREFIX}/usr" "")
+	$(usex collier "collier = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex thepeg "thepeg_path = ${EPREFIX}/usr/$(get_libdir)" "")
+	auto_update = 0
+	EOF
+
 	#use ninja && echo "ninja = ${EPREFIX}/usr/$(get_libdir)" >> input/mg5_configuration.txt
 	#use samurai && echo "samurai = ${EPREFIX}/usr/$(get_libdir)" >> input/mg5_configuration.txt
 	#use golem95 && echo "golem = ${EPREFIX}/usr/$(get_libdir)" >> input/mg5_configuration.txt
