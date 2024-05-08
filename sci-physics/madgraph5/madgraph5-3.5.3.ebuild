@@ -34,10 +34,7 @@ RDEPEND="
 	lhapdf? ( sci-physics/lhapdf[${PYTHON_SINGLE_USEDEP}] )
 	fastjet? ( sci-physics/fastjet[${PYTHON_SINGLE_USEDEP}] )
 	pythia? ( sci-physics/pythia:8=[examples] )
-	hepmc? (
-		sci-physics/hepmc:2
-		sci-physics/hepmc:3
-	)
+	hepmc? ( sci-physics/hepmc:2 )
 	collier? ( sci-physics/collier[static-libs] )
 	thepeg? (
 	      sci-physics/thepeg[hepmc3(-),fastjet?,lhapdf?]
