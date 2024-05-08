@@ -55,7 +55,7 @@ src_unpack() {
 }
 
 src_configure() {
-	cat << -EOF >> input/mg5_configuration.txt || die
+	cat <<-EOF >> input/mg5_configuration.txt || die
 	$(usex lhapdf "lhapdf_py3 = ${EPREFIX}/usr/bin/lhapdf-config" "")
 	$(usex fastjet "fastjet = ${EPREFIX}/usr/bin/fastjet-config" "")
 	$(usex pythia "pythia8_path = ${EPREFIX}/usr" "")
