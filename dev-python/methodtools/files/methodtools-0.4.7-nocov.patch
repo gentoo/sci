@@ -1,0 +1,9 @@
+--- a/setup.cfg	2023-02-05 08:15:17.000000000 -0500
++++ b/setup.cfg	2024-05-06 11:19:57.822360100 -0400
+@@ -35,6 +35,5 @@
+ [aliases]
+ test=pytest
+ [tool:pytest]
+-addopts=--verbose --cov-config .coveragerc --cov methodtools
+ python_files = tests/test*.py
+ norecursedirs=.git py ci
