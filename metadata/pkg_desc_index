@@ -97,6 +97,7 @@ dev-python/logzero 1.7.0: Robust and effective logging for Python 2 and 3
 dev-python/lzstring 1.0.4: String encoding/decoding of binary data
 dev-python/matlabengine 9.13.7: A module to call MATLAB from Python
 dev-python/meshpy 2020.1: Quality triangular and tetrahedral mesh generation for Python
+dev-python/methodtools 0.4.7: Expand functools features to methods, classmethods, staticmethods
 dev-python/mkl-service 2.4.0: Python hooks for Intel Math Kernel Library runtime control settings
 dev-python/mkl_fft 1.3.1: NumPy-based Python interface to Intel MKL FFT functionality
 dev-python/mkl_random 1.2.2: Python interface to Intel Math Kernel Library's random number generation
