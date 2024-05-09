@@ -115,6 +115,7 @@ dev-python/persim 0.3.1: Distances and representations of persistence diagrams
 dev-python/photutils 1.6.0: Affiliated package for image photometry utilities
 dev-python/plac 1.4.2: Parsing the Command Line the Easy Way
 dev-python/probeinterface 0.2.14 0.2.16 0.2.20: Python package to handle probe layout, geometry and wiring to device
+dev-python/prov 2.0.0: W3C provenance data dodel library
 dev-python/py2bit 0.3.0 0.3.1 9999: Python library for accessing 2bit files
 dev-python/pyBigWig 0.3.17 0.3.18 9999: quick access to and creation of bigWig files
 dev-python/pyaml-env 1.2.1: Parse YAML configuration with environment variables in Python
