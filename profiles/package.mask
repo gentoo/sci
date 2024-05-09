@@ -36,7 +36,3 @@ sci-biology/multiqc
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-04-24)
 # reverse deps
-sci-biology/samri
-sci-biology/samri_bidsdata
-sci-biology/samri_bindata
-dev-python/heudiconv
