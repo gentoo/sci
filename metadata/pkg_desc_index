@@ -36,6 +36,7 @@ dev-perl/Time-Progress 2.12: Elapsed and estimated finish time reporting
 dev-perl/go-db-perl 0.04-r1: Gene Ontology Database perl API
 dev-python/MagnetoResistance-tool 0.0.2: Create calibration matrix to correct for magneto-resistance in resistive sensors
 dev-python/affine 2.3.0: Library for handling affine transformations of the plane
+dev-python/aiohttp-retry 2.8.3: Simple retry client for aiohttp
 dev-python/annexremote 1.5.0 1.6.0: Helper module to easily develop git-annex remotes
 dev-python/anys 0.2.1: Matchers for pytest
 dev-python/archspec 0.1.4 0.2.2: Labels for various aspects of a system architecture like CPU, etc.
