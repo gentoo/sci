@@ -12,7 +12,7 @@
 		<flag name="lhapdf">USE system LHAPDF</flag>
 		<flag name="fastjet">USE system FASTJET</flag>
 		<flag name="pythia">USE system PYTHIA</flag>
-		<flag name="hepmc">USE system hepmc</flag>
+		<flag name="hepmc2">USE system hepmc version 2</flag>
 		<flag name="thepeg">USE system thepeg</flag>
 		<flag name="collier">USE system collier</flag>
 <!--

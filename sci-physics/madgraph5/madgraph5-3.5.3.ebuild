@@ -21,7 +21,7 @@ LICENSE="UoI-NCSA"
 SLOT="3"
 KEYWORDS="~amd64"
 # TODO add pineapple, herwig, syscalc, pjfrym, pineappl
-IUSE=" +hepmc +lhapdf +fastjet pythia collier thepeg" # td madanalysis5 ninja samurai golem95
+IUSE="+hepmc2 +lhapdf +fastjet pythia collier thepeg" # td madanalysis5 ninja samurai golem95
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -34,7 +34,7 @@ RDEPEND="
 	lhapdf? ( sci-physics/lhapdf[${PYTHON_SINGLE_USEDEP}] )
 	fastjet? ( sci-physics/fastjet[${PYTHON_SINGLE_USEDEP}] )
 	pythia? ( sci-physics/pythia:8=[examples] )
-	hepmc? ( sci-physics/hepmc:2 )
+	hepmc2? ( sci-physics/hepmc:2 )
 	collier? ( sci-physics/collier[static-libs] )
 	thepeg? (
 	      sci-physics/thepeg[hepmc3(-),fastjet?,lhapdf?]
@@ -59,7 +59,7 @@ src_configure() {
 	$(usex lhapdf "lhapdf_py3 = ${EPREFIX}/usr/bin/lhapdf-config" "")
 	$(usex fastjet "fastjet = ${EPREFIX}/usr/bin/fastjet-config" "")
 	$(usex pythia "pythia8_path = ${EPREFIX}/usr" "")
-	$(usex hepmc "hepmc_path = ${EPREFIX}/usr" "")
+	$(usex hepmc2 "hepmc_path = ${EPREFIX}/usr" "")
 	$(usex collier "collier = ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex thepeg "thepeg_path = ${EPREFIX}/usr/$(get_libdir)" "")
 	auto_update = 0
