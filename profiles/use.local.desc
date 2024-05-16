@@ -109,6 +109,12 @@ sci-physics/atompaw:libxc - Enable support for libxc, an exchange-correlation po
 sci-physics/atompaw:longplot - Patch the sources to plot functions all over the space considered, not just up to the matching radius plus 50 grid points. May be useless or even harmful.
 sci-physics/cernlib:free - Use free sources
 sci-physics/feyncalc:FCtraditionalFormOutput - Use TraditionalForm typesetting.
+sci-physics/madgraph5:collier - USE system collier
+sci-physics/madgraph5:fastjet - USE system FASTJET
+sci-physics/madgraph5:hepmc2 - USE system hepmc version 2
+sci-physics/madgraph5:lhapdf - USE system LHAPDF
+sci-physics/madgraph5:pythia - USE system PYTHIA
+sci-physics/madgraph5:thepeg - USE system thepeg
 sci-physics/mc-tester:hepmc - Compile sci-physics/hepmc interface
 sci-physics/mc-tester:pythia - Compile sci-physics/pythia interface
 sci-physics/tauola:hepmc - Compile sci-physics/hepmc interface
