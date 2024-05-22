@@ -11,5 +11,5 @@ LICENSE=|| ( Artistic-2 GPL-1 GPL-2 GPL-3 )
 RDEPEND=dev-perl/IO-String sci-biology/bioperl sci-biology/ucsc-genome-browser[static-libs] || ( >=dev-lang/perl-5.38.2-r3[perl_features_debug=,perl_features_ithreads=,perl_features_quadmath=] <dev-lang/perl-5.38.2-r3 ) dev-lang/perl:=
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/L/LD/LDS/Bio-BigFile-1.07.tar.gz
-_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	d309b9713dfc18e754cba88d3ba69653	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	40ad2a3a4af910a5aa963d77488cc062
+_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	d309b9713dfc18e754cba88d3ba69653	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	perl-functions	c3fca037246e877693badea0df3b0ef8	perl-module	07f7f317d867e5d5aa30fdeb6e873138
 _md5_=9a59007374bcc932efd1eb69daac4521
