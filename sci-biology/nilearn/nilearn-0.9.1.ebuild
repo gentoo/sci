@@ -25,7 +25,7 @@ RDEPEND="
 	>=dev-python/requests-2[${PYTHON_USEDEP}]
 	>=dev-python/scipy-1.5[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-3[${PYTHON_USEDEP}]
-	>=sci-libs/scikit-learn-0.22[${PYTHON_USEDEP}]
+	>=dev-python/scikit-learn-0.22[${PYTHON_USEDEP}]
 "
 
 PATCHES=( "${FILESDIR}/${P}-tests.patch" )
