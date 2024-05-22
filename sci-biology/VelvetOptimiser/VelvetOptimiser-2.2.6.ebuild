@@ -16,7 +16,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	>=sci-biology/bioperl-1.4
 	>=sci-biology/velvet-0.7.5.1
-	dev-lang/perl[ithreads]" # actually >=5.8 but make sure 5.16 is recognized as > 5.8, heh
+	dev-lang/perl[perl_features_ithreads]" # actually >=5.8 but make sure 5.16 is recognized as > 5.8, heh
 
 src_install(){
 	dobin VelvetOptimiser.pl
