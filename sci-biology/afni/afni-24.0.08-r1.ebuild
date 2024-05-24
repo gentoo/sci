@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 
 DISTUTILS_USE_PEP517=setuptools
 inherit cmake distutils-r1 toolchain-funcs
@@ -12,16 +12,18 @@ GTS_HASH="962155a01f5a1b87bd64e3e3d880b4dbc2347ac7"
 NIFTI_HASH="da476fd27f46098f37f5c9c4c1baee01e559572c"
 GIFTI_HASH="d3e873d8539d9b469daf7db04093da1d7e73d4f7"
 
-DESCRIPTION="Advanced Normalitazion Tools for neuroimaging"
-HOMEPAGE="http://stnava.github.io/ANTs/"
+DESCRIPTION="Analysis of Functional Neuroimages by NIMH"
+HOMEPAGE="https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/"
 SRC_URI="
 	https://github.com/afni/afni/archive/refs/tags/AFNI_${PV}.tar.gz -> ${P}.gh.tar.gz
 	https://github.com/NIFTI-Imaging/nifti_clib/archive/${NIFTI_HASH}.tar.gz -> nifti-${NIFTI_HASH}.tar.gz
 	https://github.com/NIFTI-Imaging/gifti_clib/archive/${GIFTI_HASH}.tar.gz -> gifti-${GIFTI_HASH}.tar.gz
 	"
 
-SLOT="0"
+S="${WORKDIR}/afni-AFNI_${PV}"
+
 LICENSE="GPL-3+"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test whirlgif"
 RESTRICT="!test? ( test )"
@@ -56,8 +58,6 @@ DEPEND="
 # Prospectively:
 #Update jpeg-compat to virtual/jpeg:0
 # look for xmhtlm
-
-S="${WORKDIR}/afni-AFNI_${PV}"
 
 	#tar xf "${DISTDIR}/${GTS_HASH}.tar.gz" || die
 src_prepare() {
