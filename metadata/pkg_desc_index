@@ -224,6 +224,7 @@ sci-biology/YASRA 2.33: Yet Another Short Read Assembler aligning to a reference
 sci-biology/abacas 1.3.1: Order and orientate DNA contigs even via 6-frame protein alignments
 sci-biology/act-bin 17.0.1: DNA contig sequence comparison tool supplementing Artemis
 sci-biology/afni 24.0.04-r1 24.0.08-r1: Analysis of Functional Neuroimages by NIMH
+sci-biology/afni-datasets 20240503: Datasets for using and testing sci-biology/afni
 sci-biology/aghermann 1.1.2-r2: A sleep-research experiment manager, EDF viewer & Process S simulator
 sci-biology/align_to_scf 1.06: View trace information at a given position missing from Roche .ace files
 sci-biology/angsd 0.933: Population genetics analysis package

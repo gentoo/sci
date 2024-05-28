@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Datasets for using and testing sci-biology/afni
+EAPI=8
+HOMEPAGE=https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3+
+SLOT=0
+SRC_URI=https://afni.nimh.nih.gov/pub/dist/atlases/afni_atlases_dist_2024_0503.tgz -> afni-datasets-20240503.tar.gz
+_md5_=e36ae12700c63d433c0b3953ab79c3cd
