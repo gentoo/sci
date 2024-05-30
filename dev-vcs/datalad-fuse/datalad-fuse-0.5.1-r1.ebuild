@@ -20,6 +20,7 @@ RDEPEND="
 	dev-python/fsspec[${PYTHON_USEDEP}]
 	dev-python/methodtools[${PYTHON_USEDEP}]
 	dev-python/linesep[${PYTHON_USEDEP}]
+	dev-python/fusepy[${PYTHON_USEDEP}]
 	dev-vcs/datalad[${PYTHON_USEDEP}]
 	sys-fs/fuse
 "
@@ -29,15 +30,3 @@ distutils_enable_tests pytest
 PATCHES=(
 	"${FILESDIR}/${P}-git_config.patch"
 )
-
-python_test() {
-	#git init -q || die
-	#git config --global user.email "placeholder@gentoo.org" || die
-	#git config --global user.name "Place Holder" || die
-	#git add . || die
-	#git commit -m "init" || die
-	##GIT_AUTHOR_NAME="Place Holder" GIT_AUTHOR_EMAIL="placeholder@gentoo.org" epytest
-	##export GIT_AUTHOR_NAME="Place Holder"
-	##export GIT_AUTHOR_EMAIL="placeholder@gentoo.org"
-	epytest
-}
