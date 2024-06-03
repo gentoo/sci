@@ -85,7 +85,7 @@ dev-python/hdf5storage 0.1.19 9999: Read/write Python types to/from HDF5 files, 
 dev-python/hdmf 3.13.0: The Hierarchical Data Modeling Framework
 dev-python/hdmf-zarr 0.5.0: Zarr I/O backend for HDMF
 dev-python/heudiconv 0.13.0 1.0.0: Flexible DICOM conversion to structured directory layouts
-dev-python/hist 2.7.2: Histogramming for analysis powered by boost-histogram
+dev-python/hist 2.7.2 2.7.3: Histogramming for analysis powered by boost-histogram
 dev-python/histoprint 2.4.0: Pretty print histograms to the console
 dev-python/holoviews 1.15.3: Make data analysis and visualization seamless and simple
 dev-python/hopcroftkarp 1.2.5_p1-r1: python frontend for the fast ripser tda tool
