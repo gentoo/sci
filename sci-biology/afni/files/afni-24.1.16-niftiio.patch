@@ -1,0 +1,27 @@
+From 05dbcd2659fa6177b221a2686300036e4ae435d6 Mon Sep 17 00:00:00 2001
+From: Yaroslav Halchenko <debian@onerussian.com>
+Date: Mon, 3 Jun 2024 19:28:21 -0400
+Subject: [PATCH] Announce niftiio as PRIVATE for linking to prevent
+ propagating linking against it
+
+I am just a messanger from the cmake-wise @leej3 at
+https://github.com/afni/afni/issues/639#issuecomment-2145703256
+
+Supposedly closes #639
+---
+ src/nifti/nifticdf/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/nifti/nifticdf/CMakeLists.txt b/src/nifti/nifticdf/CMakeLists.txt
+index 473be7e3be..01b18a14d8 100644
+--- a/nifti_clib_from_github/nifticdf/CMakeLists.txt
++++ b/nifti_clib_from_github/nifticdf/CMakeLists.txt
+@@ -8,7 +8,7 @@ set_target_properties(
+     "${CMAKE_CURRENT_LIST_DIR}/nifticdf.h"
+   )
+ target_compile_options(${NIFTI_CDFLIB_NAME} PRIVATE "-D__COMPILE_UNUSED_FUNCTIONS__")
+-target_link_libraries(${NIFTI_CDFLIB_NAME} PUBLIC ${NIFTI_PACKAGE_PREFIX}niftiio)
++target_link_libraries(${NIFTI_CDFLIB_NAME} PRIVATE ${NIFTI_PACKAGE_PREFIX}niftiio)
+ get_lib_version_vars("nifticdf_version.h" NIFTICDF_VERSION NIFTICDF_MAJOR_VERSION)
+ if(BUILD_SHARED_LIBS)
+     set_target_properties(${NIFTI_CDFLIB_NAME}
