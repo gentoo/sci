@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -11,12 +11,12 @@ IJ_PV="154" #plugins now available for 154
 DESCRIPTION="Image Processing and Analysis in Java"
 
 HOMEPAGE="
-	https://imagej.nih.gov/ij/
+	https://imagej.net/software/imagej/
 	https://github.com/imagej
 "
 
 SRC_URI="
-	https://imagej.nih.gov/ij/images/ImageJ.png
+	https://imagej.net/media/icons/imagej.png
 	plugins? ( https://wsr.imagej.net/distros/cross-platform/${MY_PN}${IJ_PV}.zip )"
 # plugins are under a different licenses and can be installed into user's $IJ_HOME/plugins
 
@@ -55,7 +55,7 @@ BDEPEND="
 "
 
 src_prepare() {
-	cp "${DISTDIR}"/ImageJ.png "${WORKDIR}/${PN}.png" || die
+	cp "${DISTDIR}"/imagej.png "${WORKDIR}/${PN}.png" || die
 
 	if [[ ${PV} == 9999 ]]; then
 	   if use plugins ; then
