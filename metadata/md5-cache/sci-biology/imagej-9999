@@ -3,13 +3,13 @@ DEFINED_PHASES=compile configure install postinst preinst prepare setup unpack
 DEPEND=>=virtual/jre-1.7:* dev-java/java-config >=virtual/jdk-1.7:* >=dev-java/java-config-2.2.0-r3 >=dev-java/ant-1.10.14-r2:0 dev-java/javatoolkit
 DESCRIPTION=Image Processing and Analysis in Java
 EAPI=8
-HOMEPAGE=https://imagej.nih.gov/ij/ https://github.com/imagej
+HOMEPAGE=https://imagej.net/software/imagej/ https://github.com/imagej
 INHERIT=java-pkg-2 java-ant-2 desktop git-r3
 IUSE=doc plugins debug
 LICENSE=public-domain
 PROPERTIES=live
 RDEPEND=>=virtual/jre-1.7:* dev-java/java-config >=dev-java/java-config-2.2.0-r3
 SLOT=0
-SRC_URI=https://imagej.nih.gov/ij/images/ImageJ.png plugins? ( https://wsr.imagej.net/distros/cross-platform/ij154.zip )
+SRC_URI=https://imagej.net/media/icons/imagej.png plugins? ( https://wsr.imagej.net/distros/cross-platform/ij154.zip )
 _eclasses_=java-utils-2	b346c3901e71ba37137bae0b25b00221	java-pkg-2	b6d755b4f6afabfd933932be28b46368	multilib	c19072c3cd7ac5cb21de013f7e9832e0	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	java-ant-2	d3f6ffc6629499cbc0d4cd71b9d7e7dc	desktop	021728fdc1b03b36357dbc89489e0f0d	git-r3	fbb2889c81f3a05910c1524db69425c1
-_md5_=8708db9eef6980f67a070e1bb84e88f4
+_md5_=1379b86069844b1bca24d5a5e12cd9c5

@@ -291,7 +291,7 @@ sci-biology/grappa 2.0: Genome Rearrangements Analysis under Parsimony and other
 sci-biology/hexamer 19990330: Predict CDS using 6mers without deriving information from base composition
 sci-biology/hisat2 2.2.1: Align DNA reads to a population of genomes
 sci-biology/idba 1.1.3 9999: De novo De Bruijn graph assembler iteratively using multimple k-mers
-sci-biology/imagej 1.54h-r1 9999: Image Processing and Analysis in Java
+sci-biology/imagej 1.54i 9999: Image Processing and Analysis in Java
 sci-biology/irsabi_bidsdata 1.4: BIDS data files released with the IRSABI publication
 sci-biology/jannovar-bin 0.35: Exome annotation tool (upstream jar binaries)
 sci-biology/jellyfish 1.1.12 2.3.0: k-mer counter within reads for assemblies
