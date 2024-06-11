@@ -160,7 +160,7 @@ dev-python/traits 6.3.2 6.4.1: Enthought Tool Suite: Explicitly typed attributes
 dev-python/transforms3d 0.3.1: Functions for 3D coordinate transformations
 dev-python/typish 1.9.3: Functionality for types
 dev-python/uhi 0.4.0: Universal Histogram Interface
-dev-python/vector 1.1.1 1.3.1 1.4.0: Vector classes and utilities
+dev-python/vector 1.1.1 1.3.1 1.4.1: Vector classes and utilities
 dev-python/visvis 1.14.0: An object oriented approach to visualization of 1D to 4D data
 dev-python/wirerope 0.4.7: A wrapper interface for python callables
 dev-python/wraps 0.2.0: Meaningful and safe wrapping types.
