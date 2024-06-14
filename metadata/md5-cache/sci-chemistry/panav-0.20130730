@@ -10,5 +10,5 @@ LICENSE=all-rights-reserved
 RDEPEND=>=virtual/jre-1.7:* >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://www.wishartlab.com/download/PANAV.zip -> panav-0.20130730.zip
-_eclasses_=java-utils-2	78c5b72c402cd1341461475b24a7c1f4	java-pkg-2	b6d755b4f6afabfd933932be28b46368
+_eclasses_=java-utils-2	09d793abe112f655cd781e4467a6fc10	java-pkg-2	b6d755b4f6afabfd933932be28b46368
 _md5_=00d007f41bc4846fbc7ebead08acf114
