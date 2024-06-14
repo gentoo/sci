@@ -9,5 +9,5 @@ LICENSE=Apache-2.0 MIT
 RDEPEND=>=virtual/jre-1.7:* >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://faculty.washington.edu/browning/conform-gt/conform-gt.24May16.cee.jar
-_eclasses_=java-utils-2	b346c3901e71ba37137bae0b25b00221	java-pkg-2	b6d755b4f6afabfd933932be28b46368
+_eclasses_=java-utils-2	78c5b72c402cd1341461475b24a7c1f4	java-pkg-2	b6d755b4f6afabfd933932be28b46368
 _md5_=42b8b06081bd3f01ff5e049f55e8a6c2
