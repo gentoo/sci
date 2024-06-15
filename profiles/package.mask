@@ -31,8 +31,4 @@
 #--- END OF EXAMPLES ---
 
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-04-24)
-# Dependencies dev-python/future removed
-sci-biology/multiqc
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-04-24)
 # reverse deps
