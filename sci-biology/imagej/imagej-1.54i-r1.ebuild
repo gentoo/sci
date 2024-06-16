@@ -50,7 +50,6 @@ DEPEND="
 "
 
 BDEPEND="
-	dev-java/ant-core
 	app-arch/unzip
 "
 
