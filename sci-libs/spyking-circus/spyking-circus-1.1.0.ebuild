@@ -34,4 +34,4 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 distutils_enable_sphinx docs_sphinx --no-autodoc
-distutils_enable_tests --install pytest
+distutils_enable_tests pytest

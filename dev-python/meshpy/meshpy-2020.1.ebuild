@@ -33,7 +33,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-distutils_enable_tests --install pytest
+distutils_enable_tests pytest
 
 python_prepare_all() {
 	sed 's:delay=10:delay=1:g' -i aksetup_helper.py || die

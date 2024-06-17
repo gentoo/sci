@@ -33,4 +33,4 @@ RDEPEND="
 
 # requires self to be installed
 # distutils_enable_sphinx docs dev-python/sphinx-astropy dev-python/matplotlib
-distutils_enable_tests --install pytest
+distutils_enable_tests pytest
