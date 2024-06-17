@@ -64,11 +64,11 @@ RDEPEND="
 	sci-mathematics/pulp[${PYTHON_USEDEP}]
 "
 
-distutils_enable_sphinx docs \
-	dev-python/sphinxcontrib-napoleon \
-	dev-python/sphinx-argparse \
-	dev-python/sphinx-rtd-theme \
-	dev-python/docutils \
-	dev-python/recommonmark \
-	dev-python/myst-parser
+# distutils_enable_sphinx docs \
+# 	dev-python/sphinxcontrib-napoleon \
+# 	dev-python/sphinx-argparse \
+# 	dev-python/sphinx-rtd-theme \
+# 	dev-python/docutils \
+# 	dev-python/recommonmark \
+# 	dev-python/myst-parser
 distutils_enable_tests pytest

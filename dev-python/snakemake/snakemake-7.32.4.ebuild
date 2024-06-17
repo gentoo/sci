@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
@@ -54,7 +54,7 @@ RDEPEND="
 	dev-python/toposort[${PYTHON_USEDEP}]
 	dev-python/wrapt[${PYTHON_USEDEP}]
 	dev-python/yte[${PYTHON_USEDEP}]
-	sci-mathematics/pulp[${PYTHON_USEDEP}]
+	<sci-mathematics/pulp-2.8[${PYTHON_USEDEP}]
 "
 
 distutils_enable_sphinx docs \
