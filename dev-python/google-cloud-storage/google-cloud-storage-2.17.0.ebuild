@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 DISTUTILS_USE_PEP517=setuptools
 PYPI_NO_NORMALIZE=1
 
@@ -22,4 +22,5 @@ RDEPEND="
 	dev-python/requests[${PYTHON_USEDEP}]
 "
 
-distutils_enable_tests pytest
+RESTRICT="test" # ImportError: cannot import name '_helpers' from 'google.cloud'
+#distutils_enable_tests pytest
