@@ -30,5 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-04-24)
-# reverse deps
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-07-18)
+# Requires java openmpi bindings, no longer packaged.
+sci-biology/BBmap
