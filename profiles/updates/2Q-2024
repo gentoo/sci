@@ -1,1 +1,2 @@
 move sci-biology/pyfaidx dev-python/pyfaidx
+move sci-biology/pybedtools dev-python/pybedtools
