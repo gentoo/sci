@@ -11,8 +11,8 @@ DESCRIPTION="The Hierarchical Data Modeling Framework"
 HOMEPAGE="https://github.com/hdmf-dev/hdmf"
 SRC_URI="$(pypi_sdist_url hdmf)"
 
-SLOT="0"
 LICENSE="BSD"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
