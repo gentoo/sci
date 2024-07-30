@@ -10,8 +10,8 @@ inherit distutils-r1 pypi
 DESCRIPTION="A Python API for working with Neurodata stored in the NWB Format "
 HOMEPAGE="https://github.com/NeurodataWithoutBorders/pynwb"
 
-SLOT="0"
 LICENSE="BSD"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
