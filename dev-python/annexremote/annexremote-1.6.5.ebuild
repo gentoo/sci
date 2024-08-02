@@ -11,6 +11,7 @@ DESCRIPTION="Helper module to easily develop git-annex remotes"
 HOMEPAGE="https://github.com/Lykos153/AnnexRemote"
 SRC_URI="https://github.com/Lykos153/AnnexRemote/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
+S="${WORKDIR}/AnnexRemote-${PV}"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -21,7 +22,5 @@ python_install_all() {
 	dodoc README.md
 	use examples && dodoc -r examples
 }
-
-S="${WORKDIR}/AnnexRemote-${PV}"
 
 distutils_enable_tests pytest
