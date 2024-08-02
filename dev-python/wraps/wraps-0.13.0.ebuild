@@ -21,8 +21,4 @@ RDEPEND="
 	>=dev-python/typing-extensions-4.2.0[${PYTHON_USEDEP}]
 	"
 
-PATCHES=(
-	"${FILESDIR}/${PN}-0.1.0-poetry_groups.patch"
-)
-
 distutils_enable_tests pytest
