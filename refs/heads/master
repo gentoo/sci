@@ -1,17 +1,17 @@
 certificate version 0.1
-pusher Horea Christian <chr@chymera.eu> 1722656108 -0400
-pushee ssh://git.gentoo.org/proj/sci.git
-nonce 1722656108-eba0e3edc40d6ffa7d94934e9bc80e7b3975c627
+pusher A19F636CD4EDBCD1 1724590929 +0200
+pushee git.gentoo.org:proj/sci.git
+nonce 1724590929-897d9871512f3b4b6c028005663eed789081701a
 
-17646d78bb42d7626583a2df97722d36868eb5ff d59ebbf101a5aa302a02f751eef761427679e394 refs/heads/master
+d59ebbf101a5aa302a02f751eef761427679e394 1924ef5dfe229869a0c84f9ea1318ae26d2e2baa refs/heads/master
 -----BEGIN PGP SIGNATURE-----
 
-iQFDBAABCAAtFiEEUkQzaU18xHXELSeGFhwL5iVTM9MFAmatpWwPHGNockBjaHlt
-ZXJhLmV1AAoJEBYcC+YlUzPTKFYIAI5BPzcmp353DPldrndQq4wcBn28m7PFGtCZ
-Jb6ErhmbRNZrBjsg4EsmJAXMmCJYZPmivPD++wpuXrp67zUBp3H7f1gbJLTeCy+m
-VNpe0kANWtBdxDTjYMdBt2ymdSd+3Ko6hsPPk6gm1pf/9ZaQoiXwrNihMUpc4fyN
-SS9Kuk/zQ9Ft3E5bTp1MuqfO+GxYNU929VnzZcUIh7kPEuXJ4fOHWVfsQSXf05kk
-+Lv2YtjYkuLSpU3b8QZux3OK+5SFYrpcxValpKN4W/9+0py3f98H8aRDWer0cUu2
-2wddp5kyHPjG17ldgUhHhfQBB/ofBNX/wnUi0jBVpfhuspxLUpA=
-=0M7y
+iQEzBAABCAAdFiEE3zVfr2ikOmhDg60jouIwQ3BEfo4FAmbLK1EACgkQouIwQ3BE
+fo5WEgf9F6/eY+HBhcYaIWz6k8+2MeBS49LoSXERQhE9IoRBRkod61TywioQ04Xj
+pZpq7h3lqZUITwfBKiDnLU8ijMWTps25cmVURSAGB+eizqe0dBmPG2fty0X41zXx
+ibkTdIRAn7M+cJjUAGF9D04JvvdbQw7AfsiLUjAVpE9p7kaQjUGrmmSdcPwur6pc
+iCCKUGlPHAgLY76q3e/JnFQXBYVbkN2VZib8BlVa/OaI1SaA/Ck0CQo2jzOGD+ld
+Yfsq7iHUZVc7uUnlpM5aLu6Ss0mKTiqVEbgoa2oWwf/4Dsh8lawIAcrvwBfK6c27
+wpIUuHVX1P3vWb+6b8dGO5xE/bDTfg==
+=+rV3
 -----END PGP SIGNATURE-----
