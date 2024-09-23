@@ -13,9 +13,7 @@ HOMEPAGE="https://github.com/zarr-developers/zarr-python"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="test"
-RESTRICT="!test? ( test )"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/asciitree[${PYTHON_USEDEP}]
