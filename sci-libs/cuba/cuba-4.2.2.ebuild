@@ -35,7 +35,7 @@ src_compile() {
 	# make shared lib
 	FILES=$(${AR} xv libcuba.a |sed 's/x - //g' || die)
 	# unquoted FILES since newlines should be replaces by spaces
-	${CC} -shared -Wall $FILES -lm -o libcuba.so
+	${CC} -shared -Wall $FILES -lm -o libcuba.so || die
 }
 
 src_install() {
