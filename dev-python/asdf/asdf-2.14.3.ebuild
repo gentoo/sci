@@ -13,7 +13,7 @@ HOMEPAGE="https://asdf.readthedocs.io/en/latest/"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 # Reported upstream:
 # https://github.com/asdf-format/asdf/issues/1319
 RESTRICT="test"
