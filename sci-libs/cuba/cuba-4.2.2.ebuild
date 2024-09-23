@@ -13,9 +13,9 @@ SRC_URI="http://www.feynarts.de/cuba/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
 LICENSE="LGPL-3"
-
 SLOT="0"
 KEYWORDS="~amd64"
+
 IUSE="doc"
 
 RESTRICT="test" # broken...
