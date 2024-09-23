@@ -14,7 +14,7 @@ HOMEPAGE="https://panel.holoviz.org"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 # "setup.py" imports from Bokeh to rebuild Node.js packages, but we patch that
 # away below. Our patched Panel thus requires Bokeh only at runtime.
