@@ -13,7 +13,7 @@ SRC_URI="$(pypi_sdist_url hdmf)"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/h5py[${PYTHON_USEDEP}]
