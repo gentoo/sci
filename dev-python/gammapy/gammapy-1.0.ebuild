@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/gammapy/gammapy"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 #TODO: Package all these pytest deps:
 # 	pytest-doctestplus>=0.2.0
