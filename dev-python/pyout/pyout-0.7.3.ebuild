@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/pyout/pyout"
 
 SLOT="0"
 LICENSE="MIT"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/jsonschema[${PYTHON_USEDEP}]
