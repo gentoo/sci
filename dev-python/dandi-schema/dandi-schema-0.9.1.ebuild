@@ -14,7 +14,7 @@ SRC_URI="https://github.com/dandi/dandi-schema/archive/refs/tags/${PV}.tar.gz ->
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 # Package has pydantic version restriction (2.4*), which, however, breaks the test suite:
 # https://github.com/dandi/dandi-schema/issues/228
