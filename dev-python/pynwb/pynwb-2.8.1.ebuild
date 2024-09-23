@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/NeurodataWithoutBorders/pynwb"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 # Segfault error on testing
 RESTRICT="test"
 
