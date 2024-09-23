@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/catalystneuro/lazy_ops"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="test"
 # There are no source archive with tests available:
 # https://github.com/catalystneuro/lazy_ops/issues/29
