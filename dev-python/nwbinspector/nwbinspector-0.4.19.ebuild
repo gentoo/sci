@@ -13,11 +13,8 @@ SRC_URI="https://github.com/NeurodataWithoutBorders/nwbinspector/archive/refs/ta
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="test"
-RESTRICT="!test? ( test )"
+KEYWORDS="~amd64"
 
-DEPEND=""
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/jsonschema[${PYTHON_USEDEP}]
@@ -26,6 +23,5 @@ RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/tqdm[${PYTHON_USEDEP}]
 "
-BDEPEND=""
 
 distutils_enable_tests pytest
