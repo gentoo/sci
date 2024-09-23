@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/dandi/zarr_checksum"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/boto3[${PYTHON_USEDEP}]
