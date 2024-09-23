@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="project">
+    <email>sci-physics@gentoo.org</email>
+    <name>Gentoo Physics Project</name>
+  </maintainer>
+  <maintainer type="person">
+    <email>alexander@neuwirth-informatik.de</email>
+    <name>Alexander Puck Neuwirth</name>
+  </maintainer>
+  <longdescription>
+    The Cuba library offers a choice of four independent routines for multidimensional numerical integration: Vegas, Suave, Divonne, and Cuhre.
+  </longdescription>
+</pkgmetadata>
