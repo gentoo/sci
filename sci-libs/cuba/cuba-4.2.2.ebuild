@@ -34,7 +34,7 @@ src_compile() {
 	emake lib -j1
 	# make shared lib
 	FILES=$(${AR} xv libcuba.a |sed 's/x - //g' || die)
-	# unquoted FILES since newlines should be replaces by spaces
+	# unquoted FILES since newlines should be replaced by spaces
 	${CC} -shared -Wall $FILES -lm -o libcuba.so || die
 }
 
