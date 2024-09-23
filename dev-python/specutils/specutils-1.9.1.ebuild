@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/astropy/specutils"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 # Requires access to the internet
 RESTRICT="test"
