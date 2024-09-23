@@ -16,7 +16,7 @@ LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="doc"
+IUSE="doc static-libs"
 
 RESTRICT="test" # broken...
 
@@ -40,7 +40,7 @@ src_install() {
 	#default # broken...
 
 	doheader cuba.h
-	dolib.a libcuba.a
+	use static-libs && dolib.a libcuba.a
 	dolib.so libcuba.so
 	use doc && dodoc cuba.pdf
 }
