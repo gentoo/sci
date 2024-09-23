@@ -10,7 +10,7 @@ inherit distutils-r1 pypi
 DESCRIPTION="Zarr I/O backend for HDMF"
 HOMEPAGE="https://github.com/hdmf-dev/hdmf-zarr"
 #SRC_URI="https://github.com/hdmf-dev/hdmf-zarr/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 LICENSE="BSD"
 SLOT="0"
