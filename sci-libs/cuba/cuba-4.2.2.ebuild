@@ -20,8 +20,6 @@ IUSE="doc"
 
 RESTRICT="test" # broken...
 
-RDEPEND="${DEPEND}"
-
 src_prepare() {
 	default
 	eautoreconf

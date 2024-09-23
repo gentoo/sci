@@ -10,6 +10,6 @@
     <name>Alexander Puck Neuwirth</name>
   </maintainer>
   <longdescription>
-  The Cuba library offers a choice of four independent routines for multidimensional numerical integration: Vegas, Suave, Divonne, and Cuhre.
-</longdescription>
+    The Cuba library offers a choice of four independent routines for multidimensional numerical integration: Vegas, Suave, Divonne, and Cuhre.
+  </longdescription>
 </pkgmetadata>
