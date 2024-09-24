@@ -1,17 +1,17 @@
 certificate version 0.1
-pusher A19F636CD4EDBCD1 1727101680 +0200
-pushee git.gentoo.org:proj/sci.git
-nonce 1727101680-695c8252df0505bfd44d7ed6143e58cbb42a4a97
+pusher ED7C252ACED415EF 1727157123 +0200
+pushee git+ssh://git.gentoo.org/proj/sci.git
+nonce 1727157123-7e4ad528a0d9a3df93b668a9ef4e36fd6c465a59
 
-1f76b2049f8e44cf6daefca16c0f13f97c5ec50c d5b13ba0f1a512f88ec8e1fe8576ca13edb16446 refs/heads/master
+d5b13ba0f1a512f88ec8e1fe8576ca13edb16446 950a343384d914b25695ef4b0c502294e0afcb78 refs/heads/master
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCAAdFiEE3zVfr2ikOmhDg60jouIwQ3BEfo4FAmbxevAACgkQouIwQ3BE
-fo7NCwf+Iw/efnLDwCICif3BMfXMm0ewc81pWsFwzlf0Td0J3PALkJ8snqnw3gxJ
-Oa8ePGiTx5fRIfZmLBO9K3vByMg5ArFMYV7sz8ptP+X+SDpuDsOpKifsN4PTBcMo
-cm3pcpkyGOXWujLmaLVv4Q+7Lq/ZoVJdWG9yhvSHo9Vcui5ZwyQC9xoJOG2S0HiY
-AVeKMhfqpBCmuZv4Vlg55+IeuRJ6lQuvbG6CaKOuhlYSkzzVDjoKWlylfSKYB2Mc
-wP7t+XrXzepVIF4tMDfsZesviDQnpNMSn8F6dol3jN8pA+FMK2sF8Uu/GkWqIP+k
-msPuzuiCm4PPDNsmW4KKB6ZSeGDCaQ==
-=gVNc
+iQEzBAABCAAdFiEEtUwIeVTaNnp4DaiG7XwlKs7UFe8FAmbyU4MACgkQ7XwlKs7U
+Fe9clQgAs8ddxuW7YMfcN26I7m1v3naQ49+BStpGo4q+T7+GuFilmrwF9SJpmlDq
+8fUxcTFKawYCscNAjvG1yI19/yrkm/vJFDOE9M/tWauPYUX9YitF1rUROpiKuXSN
++ZFH6nDz74z0Yu7mEoYxTnxeGhKMc7Kkj3ZhCQlUYzqxIEtUKxUNRezHYfsBxS0+
+o31aX8jZxnHlJ29rIkVtS8Xs7ZipzkKTaZHcOBPY0a2Tm7AUix0q7LEI0H/nexn8
+7occ1mJZqm4f9zm/jPK0kOg06SW0uD7wMebCYPZT+7dM7XiDSA7Bz09VLTW0EqrX
+Vc1Pv2uhqcI/MF0mGvfK+gCZRhbKEw==
+=vPTb
 -----END PGP SIGNATURE-----
