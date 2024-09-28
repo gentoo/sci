@@ -1,9 +1,10 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10..12} )
+CMAKE_IN_SOURCE_BUILD=1
 
 inherit cmake python-single-r1
 
@@ -33,12 +34,11 @@ RDEPEND="dev-libs/boost
 DEPEND="${RDEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-2021.09.4-find-rapidjson.patch"
+	"${FILESDIR}/${PN}-2024.03.4-find-rapidjson.patch"
 )
 
 src_configure() {
 	local mycmakeargs=(
-		-DCATCH_DIR="${EPREFIX}/usr/include/catch2"
 		-DCMAKE_INSTALL_PREFIX:PATH="${EPREFIX}/usr"
 		-DRDK_INSTALL_INTREE=0
 		-DRDK_BUILD_CPP_TESTS="$(usex test)"
@@ -54,5 +54,5 @@ src_configure() {
 }
 
 src_test() {
-	RDBASE="${WORKDIR}/${PN}-Release_2021_09_4_build" cmake_src_test
+	RDBASE="${S}" cmake_src_test
 }
