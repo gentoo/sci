@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	A set of helpers for matplotlib to more easily produce plots typically needed in HEP as well as style them in way that's compatible with current collaboration requirements (ROOT-like plots for CMS, ATLAS, LHCb, ALICE).
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">mplhep</remote-id>
+		<remote-id type="github">scikit-hep/mplhep</remote-id>
+	</upstream>
+</pkgmetadata>
