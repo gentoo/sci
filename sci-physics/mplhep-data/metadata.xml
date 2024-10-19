@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+	Sub-package to hold data (fonts) for the package mplhep.
+	Fonts distributed in this package have open licenses and can be redistributed. 
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">mplhep-data</remote-id>
+		<remote-id type="github">scikit-hep/mplhep_data</remote-id>
+	</upstream>
+</pkgmetadata>
