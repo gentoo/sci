@@ -13,7 +13,7 @@ HOMEPAGE="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64" # because of scrapbook
+KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-python/matplotlib-3.4[${PYTHON_USEDEP}]
