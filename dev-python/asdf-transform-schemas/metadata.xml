@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci-astronomy@gentoo.org</email>
+		<name>Gentoo Astronomy Project</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">asdf-transform-schemas</remote-id>
+		<remote-id type="github">asdf-format/asdf-transform-schemas</remote-id>
+	</upstream>
+</pkgmetadata>
