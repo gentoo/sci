@@ -17,7 +17,7 @@ HOMEPAGE="
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-restrict="test" # needs asdf-astropy
+RESTRICT="test" # needs asdf-astropy
 
 RDEPEND="
 	>=dev-python/asdf-standard-1.1.0[${PYTHON_USEDEP}]
