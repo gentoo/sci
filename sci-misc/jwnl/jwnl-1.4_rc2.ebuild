@@ -13,7 +13,7 @@ SRC_URI="https://downloads.sourceforge.net/jwordnet/${MY_P//_rc/-rc}.zip"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 COMMON_DEP="
 	dev-java/commons-logging:0
