@@ -14,15 +14,14 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-python/numpy-1.13.3[${PYTHON_USEDEP}]
+"
+BDEPEND="
+	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 	test? (
 		dev-python/pytest[${PYTHON_USEDEP}]
 		dev-python/fastjsonschema[${PYTHON_USEDEP}]
 		>=dev-python/boost-histogram-1.0[${PYTHON_USEDEP}]
 	)
-"
-BDEPEND="
-	${RDEPEND}
-	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest
