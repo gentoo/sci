@@ -21,7 +21,6 @@ RDEPEND="
 	>=dev-python/awkward-1.2.0[${PYTHON_USEDEP}]
 	>=dev-python/vector-0.8.1[${PYTHON_USEDEP}]
 "
-DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 	test? (
