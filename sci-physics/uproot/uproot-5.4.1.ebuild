@@ -23,7 +23,6 @@ RDEPEND="
 	dev-python/fsspec[${PYTHON_USEDEP}]
 	dev-python/packaging[${PYTHON_USEDEP}]
 "
-DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 "
