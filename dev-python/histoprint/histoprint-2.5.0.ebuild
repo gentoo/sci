@@ -15,6 +15,8 @@ RDEPEND="
 	>=dev-python/click-7.0.0[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	>=dev-python/uhi-0.2.1[${PYTHON_USEDEP}]
+"
+BDEPEND="
 	test? (
 		>=dev-python/awkward-1[${PYTHON_USEDEP}]
 		>=sci-physics/uproot-4[${PYTHON_USEDEP}]
