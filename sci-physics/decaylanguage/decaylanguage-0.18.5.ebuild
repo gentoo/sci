@@ -22,7 +22,6 @@ RDEPEND="
 	>=dev-python/plumbum-1.7.0[${PYTHON_USEDEP}]
 "
 BDEPEND="
-	${RDEPEND}
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 "
 
