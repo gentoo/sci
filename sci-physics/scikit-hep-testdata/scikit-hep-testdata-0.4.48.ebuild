@@ -8,6 +8,7 @@ DESCRIPTION="A package to provide example files for testing and developing packa
 HOMEPAGE="https://github.com/scikit-hep/scikit-hep-testdata"
 # pypi does not include the data nor tests
 SRC_URI="https://github.com/scikit-hep/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+# Fails without this
 S="${WORKDIR}/${P}"
 # export is needed here!
 export SETUPTOOLS_SCM_PRETEND_VERSION=${PV}
@@ -22,7 +23,6 @@ RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 "
-DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
 "
