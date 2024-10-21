@@ -23,7 +23,6 @@ RDEPEND="
 	>=dev-python/uhi-0.2.0[${PYTHON_USEDEP}]
 "
 BDEPEND="
-	${RDEPEND}
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 	test? (
 		dev-python/boost-histogram[${PYTHON_USEDEP}]
