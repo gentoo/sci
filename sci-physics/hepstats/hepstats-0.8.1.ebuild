@@ -23,6 +23,3 @@ RDEPEND="
 	dev-python/tqdm[${PYTHON_USEDEP}]
 	dev-python/uhi[${PYTHON_USEDEP}]
 "
-BDEPEND="
-	${RDEPEND}
-"
