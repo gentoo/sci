@@ -27,7 +27,6 @@ RDEPEND="
 	' python3_{11..12})
 
 "
-DEPEND="${RDEPEND}"
 BDEPEND="
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 	test? (
