@@ -3,11 +3,12 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{11..12} )
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_EXT=1
-inherit distutils-r1 multiprocessing
+ROCM_SKIP_GLOBALS=1
+inherit cuda distutils-r1 multiprocessing rocm
 
 DESCRIPTION="Datasets, transforms and models to specific to computer vision"
 HOMEPAGE="https://github.com/pytorch/vision"
@@ -17,7 +18,11 @@ S="${WORKDIR}/vision-${PV}"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-RESTRICT="test"
+IUSE="cuda rocm test"
+REQUIRED_USE="?? ( cuda rocm )"
+RESTRICT="!test? ( test )"
+
+distutils_enable_tests pytest
 
 RDEPEND="
 	$(python_gen_cond_dep '
@@ -27,12 +32,11 @@ RDEPEND="
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/scipy[${PYTHON_USEDEP}]
 	')
+	sci-libs/caffe2[cuda?,rocm?]
 	sci-libs/pytorch[${PYTHON_SINGLE_USEDEP}]
 	media-video/ffmpeg:=
 "
 DEPEND="${RDEPEND}"
-
-PATCHES=( "${FILESDIR}/${PN}-0.17.1-ffmpeg-6.patch" )
 
 src_compile()
 {
@@ -41,5 +45,17 @@ src_compile()
 	# Ensure some ext_module sources are compiled before linking
 	export MAKEOPTS="-j1"
 
+	use cuda && export NVCC_FLAGS="$(cuda_gccdir -f | tr -d \")"
+	use rocm && addpredict /dev/kfd
+
 	distutils-r1_src_compile
+}
+
+python_test() {
+	use rocm && check_amdgpu
+
+	# https://projects.gentoo.org/python/guide/test.html#importerrors-for-c-extensions
+	rm -rf torchvision || die
+
+	epytest
 }
