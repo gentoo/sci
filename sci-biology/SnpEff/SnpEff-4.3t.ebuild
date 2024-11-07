@@ -3,14 +3,15 @@
 
 EAPI=7
 
-inherit java-pkg-2 java-ant-2
+inherit java-pkg-2
 
 DESCRIPTION="SnpEff, SnpSift: Annotate SNP changes and predict effect in HGVS-compliant VCF"
 HOMEPAGE="https://pcingola.github.io/SnpEff/"
 SRC_URI="
 	https://downloads.sourceforge.net/project/snpeff/snpEff_v${PV//./_}_core.zip
-	https://pcingola.github.io/SnpEff/index.html -> ${P}.html"
+"
 
+S="${WORKDIR}"
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -21,10 +22,8 @@ RDEPEND="
 	dev-java/antlr:*"
 DEPEND="${RDEPEND}
 	>=virtual/jdk-1.7:*
-	dev-java/ant-core"
+"
 BDEPEND="app-arch/unzip"
-
-S="${WORKDIR}"
 
 src_install(){
 	cd .. || die

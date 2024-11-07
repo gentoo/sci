@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit desktop java-pkg-2 java-ant-2 xdg
+inherit desktop java-pkg-2 xdg
 
 DESCRIPTION="Quality control FASTA/FASTQ sequence files"
 HOMEPAGE="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
@@ -24,7 +24,19 @@ DEPEND="
 "
 BDEPEND="media-gfx/imagemagick"
 
-EANT_BUILD_TARGET="build"
+src_prepare() {
+	sed -i -E 's/<property name="source" value="[0-9.]+" \/>//g' build.xml || die
+	sed -i -E 's/<property name="target" value="[0-9.]+" \/>//g' build.xml || die
+	sed -i 's/source="${source}"//g' build.xml || die
+	sed -i 's/target="${target}"//g' build.xml || die
+	default
+}
+
+src_compile() {
+	eant build \
+		-Dant.build.javac.source="$(java-pkg_get-source)" \
+		-Dant.build.javac.target="$(java-pkg_get-target)"
+}
 
 src_install(){
 	insinto "opt/${PN}"

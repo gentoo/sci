@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit java-pkg-2 java-ant-2 desktop
+inherit java-pkg-2 desktop
 
 MY_PN="ij"
 IJ_PV="154" #plugins now available for 154
@@ -65,6 +65,9 @@ src_prepare() {
 	if ! use debug ; then
 		sed -i 's: debug="on">: debug="off">:' "${S}"/build.xml || die
 	fi
+	sed -i -E 's/source="[0-9.]+"//g' build.xml || die
+	sed -i -E 's/target="[0-9.]+"//g' build.xml || die
+
 	default
 }
 
@@ -72,7 +75,9 @@ src_compile() {
 	local antflags="build"
 	use doc && antflags="${antflags} javadocs"
 
-	ant ${antflags} || die  "ant build failed"
+	eant ${antflags} \
+		-Dant.build.javac.source="$(java-pkg_get-source)" \
+		-Dant.build.javac.target="$(java-pkg_get-target)"
 
 	# Max memory usage depends on available memory and CPU type
 	MEM=$(grep MemTotal /proc/meminfo | cut -d':' -f2 | grep -o [0-9]*)

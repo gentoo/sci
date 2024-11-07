@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-2 java-ant-2
+inherit java-pkg-2
 
 DESCRIPTION="Short read aligner, K-mer-based error-correct and normalize, FASTA/Q tool"
 HOMEPAGE="https://sourceforge.net/projects/bbmap/"
@@ -32,7 +32,7 @@ src_prepare(){
 }
 
 src_compile(){
-	ant dist || die
+	eant dist
 }
 
 src_install(){
