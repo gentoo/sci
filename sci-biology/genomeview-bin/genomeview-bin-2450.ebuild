@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-opt-2 java-ant-2
+inherit java-pkg-opt-2
 
 DESCRIPTION="Genome browser and annotation tool"
 HOMEPAGE="https://genomeview.sourceforge.net"

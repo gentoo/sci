@@ -5,12 +5,13 @@ EAPI=7
 
 MY_PV="${PV//./_}"
 
-inherit java-pkg-2 java-ant-2
+inherit java-pkg-2
 
 DESCRIPTION="Multiple experiment Viewer for genomic data analysis"
 HOMEPAGE="https://sourceforge.net/projects/mev-tm4/"
 SRC_URI="https://downloads.sourceforge.net/project/mev-tm4/mev-tm4/MeV%20${PV}/MeV_${MY_PV}_r2727_linux.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/${PN}_${MY_PV}"
 LICENSE="Artistic-2"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -19,10 +20,7 @@ RDEPEND=">=virtual/jre-1.5:*
 	${DEPEND}"
 DEPEND="${RDEPEND}
 		>=virtual/jdk-1.5:*
-		dev-java/ant-core
 		"
-
-S="${WORKDIR}/${PN}_${MY_PV}"
 
 src_install() {
 	dodoc -r documentation/*

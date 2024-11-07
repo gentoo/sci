@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit java-pkg-2 java-ant-2 perl-module
+inherit java-pkg-2 perl-module
 
 S="${WORKDIR}"/TreeView-1.1.6r4-bin
 
