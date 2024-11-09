@@ -33,10 +33,3 @@
 # Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-07-18)
 # Requires java openmpi bindings, no longer packaged.
 sci-biology/BBmap
-
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2024-10-30)
-# Requires removed dev-java/ant-core
-sci-biology/MeV
-sci-biology/SnpEff
-sci-biology/trimmomatic
-sci-biology/trinityrnaseq
