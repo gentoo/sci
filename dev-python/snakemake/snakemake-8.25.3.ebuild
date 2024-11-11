@@ -16,21 +16,6 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-# cannot import name '_helpers' from 'google.cloud'
-RESTRICT="test"
-
-BDEPEND="
-	dev-python/tomli[${PYTHON_USEDEP}]
-	test? (
-		dev-python/requests-mock[${PYTHON_USEDEP}]
-		dev-python/google-api-python-client[${PYTHON_USEDEP}]
-		dev-python/networkx[${PYTHON_USEDEP}]
-		dev-python/pygments[${PYTHON_USEDEP}]
-		dev-python/pygraphviz[${PYTHON_USEDEP}]
-		net-libs/google-cloud-cpp
-	)
-"
-
 RDEPEND="
 	dev-python/appdirs[${PYTHON_USEDEP}]
 	dev-python/immutables[${PYTHON_USEDEP}]
@@ -50,13 +35,12 @@ RDEPEND="
 	dev-python/reretry[${PYTHON_USEDEP}]
 	>=dev-python/smart-open-4.0[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-common-1.17.0[${PYTHON_USEDEP}]
-	>=dev-python/snakemake-interface-executor-plugins-9.2.0[${PYTHON_USEDEP}]
+	>=dev-python/snakemake-interface-executor-plugins-9.3.2[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-storage-plugins-3.2.3[${PYTHON_USEDEP}]
-	>=dev-python/snakemake-interface-report-plugins-1.0.0[${PYTHON_USEDEP}]
+	>=dev-python/snakemake-interface-report-plugins-1.1.0[${PYTHON_USEDEP}]
 	dev-python/stopit[${PYTHON_USEDEP}]
 	dev-python/tabulate[${PYTHON_USEDEP}]
 	dev-python/throttler[${PYTHON_USEDEP}]
-	>=dev-python/toposort-1.10[${PYTHON_USEDEP}]
 	dev-python/wrapt[${PYTHON_USEDEP}]
 	>=dev-python/yte-1.5.1[${PYTHON_USEDEP}]
 	>=dev-python/dpath-2.1.6[${PYTHON_USEDEP}]
@@ -71,4 +55,17 @@ RDEPEND="
 # 	dev-python/docutils \
 # 	dev-python/recommonmark \
 # 	dev-python/myst-parser
+
+EPYTEST_IGNORE=(
+	# __file__ attribute does not match test name ('python_3_7')
+	tests/test_conda_python_3_7_script/test_script.py
+	# ModuleNotFoundError: No module named 'snakemake_executor_plugin_cluster_generic'
+	tests/test_executor_test_suite.py
+	# ImportError: cannot import name 'snakemake' from 'snakemake.script'
+	tests/test_script_py/scripts/test_explicit_import.py
+)
+EPYTEST_DESELECT=(
+	# No module named 'snakemake_storage_plugin_s3'
+	tests/test_api.py::test_deploy_sources
+)
 distutils_enable_tests pytest
