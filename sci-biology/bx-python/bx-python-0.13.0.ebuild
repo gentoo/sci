@@ -17,6 +17,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
+BDEPEND="test? ( dev-python/python-lzo[${PYTHON_USEDEP}] )"
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="dev-python/cython[${PYTHON_USEDEP}]"
 
@@ -28,11 +29,6 @@ PATCHES=(
 distutils_enable_tests pytest
 
 # https://github.com/bxlab/bx-python/issues/101
-EPYTEST_DESELECT=(
-	lib.linux-x86_64-cpython-312/bx/binned_array_tests.py::test_file_lzo
-	lib.linux-x86_64-cpython-312/bx/binned_array_tests.py::test_binned_array_writer
-)
-
 python_test() {
 	cd "${BUILD_DIR}/build" || die
 	ln -s "${S}/pytest.ini" . || die
