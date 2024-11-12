@@ -15,6 +15,6 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (23 Aug 2022)
+# Nowa Ammerlaan <nowa@gentoo.org> (23 Aug 2022)
 # vtk<9 no longer available in ::gentoo
 sci-libs/gdcm python
