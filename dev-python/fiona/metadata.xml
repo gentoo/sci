@@ -6,11 +6,11 @@
     <name>Gentoo Science Project</name>
   </maintainer>
   <longdescription lang="en">
-  Fiona reads and writes geographic data files and thereby helps Python 
-  programmers integrate geographic information systems with other 
-  computer systems. Fiona contains extension modules that link the 
-  Geospatial Data Abstraction Library (GDAL).
-</longdescription>
+    Fiona reads and writes geographic data files and thereby helps Python
+    programmers integrate geographic information systems with other
+    computer systems. Fiona contains extension modules that link the
+    Geospatial Data Abstraction Library (GDAL).
+  </longdescription>
   <upstream>
     <remote-id type="github">Toblerity/fiona</remote-id>
     <remote-id type="pypi">Fiona</remote-id>

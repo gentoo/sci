@@ -6,10 +6,10 @@
     <name>Gentoo Science Project</name>
   </maintainer>
   <longdescription lang="en">
-  cligj is for Python developers who create command line interfaces for 
-  geospatial data. cligj allows you to quickly build consistent, 
-  well-tested and interoperable CLIs for handling GeoJSON.
-</longdescription>
+    cligj is for Python developers who create command line interfaces for
+    geospatial data. cligj allows you to quickly build consistent,
+    well-tested and interoperable CLIs for handling GeoJSON.
+  </longdescription>
   <upstream>
     <remote-id type="github">mapbox/cligj</remote-id>
     <remote-id type="pypi">cligj</remote-id>
