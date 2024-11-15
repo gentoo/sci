@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	>=dev-python/jinja-2.9[${PYTHON_USEDEP}]
+	>=dev-python/jinja2-2.9[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1.11.3[${PYTHON_USEDEP}]
 	>=dev-python/packaging-16.8[${PYTHON_USEDEP}]
 	>=dev-python/pillow-7.1.0[${PYTHON_USEDEP}]

@@ -29,7 +29,7 @@ BDEPEND="
 "
 
 DEPEND="
-	dev-python/jinja[${PYTHON_USEDEP}]
+	dev-python/jinja2[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/dpctl[${PYTHON_USEDEP}]
 	sci-libs/oneDAL

@@ -20,7 +20,7 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-python/fslpy-3.9[${PYTHON_USEDEP}]
-	>=dev-python/jinja-2[${PYTHON_USEDEP}]
+	>=dev-python/jinja2-2[${PYTHON_USEDEP}]
 	>=dev-python/matplotlib-1.5.1[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1.14[${PYTHON_USEDEP}]
 	>=dev-python/pillow-3.2.0[${PYTHON_USEDEP}]
