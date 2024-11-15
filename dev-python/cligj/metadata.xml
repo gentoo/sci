@@ -11,6 +11,8 @@
     well-tested and interoperable CLIs for handling GeoJSON.
   </longdescription>
   <upstream>
+    <bugs-to>https://github.com/mapbox/cligj/issues</bugs-to>
+    <changelog>https://raw.githubusercontent.com/mapbox/cligj/refs/heads/master/CHANGES.txt</changelog>
     <remote-id type="github">mapbox/cligj</remote-id>
     <remote-id type="pypi">cligj</remote-id>
   </upstream>

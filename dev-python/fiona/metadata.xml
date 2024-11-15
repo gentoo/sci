@@ -12,6 +12,9 @@
     Geospatial Data Abstraction Library (GDAL).
   </longdescription>
   <upstream>
+    <bugs-to>https://github.com/Toblerity/Fiona/issues</bugs-to>
+    <changelog>https://raw.githubusercontent.com/Toblerity/Fiona/refs/heads/main/CHANGES.txt</changelog>
+    <doc>https://fiona.readthedocs.io/</doc>
     <remote-id type="github">Toblerity/fiona</remote-id>
     <remote-id type="pypi">Fiona</remote-id>
   </upstream>
