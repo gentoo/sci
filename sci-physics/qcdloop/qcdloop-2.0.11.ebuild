@@ -16,12 +16,29 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 PATCHES=(
-	"${FILESDIR}"/${P}-cxx.patch
+	"${FILESDIR}"/${P}-quadmathpath.patch # https://github.com/scarrazza/qcdloop/pull/31
 )
+
+src_prepare() {
+	cmake_src_prepare
+
+	# gentoo libdir love
+	sed -i \
+		-e '/DESTINATION/s/lib/lib${LIB_SUFFIX}/g' \
+		CMakeLists.txt || die
+	sed -i \
+		-e '/libdir.*/s/lib/lib${LIB_SUFFIX}/g' \
+		CMakeLists.txt || die
+
+	#sed -i \
+	#	-e '/qcdloop/s/SHARED/STATIC/g' \
+	#	CMakeLists.txt || die
+}
 
 src_configure() {
 	local mycmakeargs=(
-		-DCMAKE_INSTALL_PREFIX="${ESYSROOT}/usr/$(get_libdir)"
+		-DCMAKE_INSTALL_PREFIX="${ESYSROOT}"/usr
+		-DENABLE_FORTRAN_WRAPPER=ON
 	)
 	cmake_src_configure
 }

@@ -1,0 +1,21 @@
+From 2c316f000e83e56419709fe64b7627d4541ef5aa Mon Sep 17 00:00:00 2001
+From: Alexander Puck Neuwirth <APN-Pucky@users.noreply.github.com>
+Date: Fri, 15 Nov 2024 10:19:40 +0100
+Subject: [PATCH] Add one more QUADMATH lookup path
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b8820da..64bd4c3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -75,6 +75,7 @@ find_library(QUADMATH_LIBRARY
+         /usr/local/lib /usr/x86_64-linux-gnu/*
+         /usr/lib/gcc/x86_64-linux-gnu/*
+         /usr/lib/gcc/x86_64-redhat-linux/*
++        /usr/lib/gcc/x86_64-pc-linux-gnu/*
+         "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}"
+ )
+ 
