@@ -16,6 +16,6 @@
     <changelog>https://raw.githubusercontent.com/Toblerity/Fiona/refs/heads/main/CHANGES.txt</changelog>
     <doc>https://fiona.readthedocs.io/</doc>
     <remote-id type="github">Toblerity/fiona</remote-id>
-    <remote-id type="pypi">Fiona</remote-id>
+    <remote-id type="pypi">fiona</remote-id>
   </upstream>
 </pkgmetadata>
