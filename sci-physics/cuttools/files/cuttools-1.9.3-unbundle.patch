@@ -1,0 +1,13 @@
+--- a/makefile	2024-11-20 15:50:21.960336440 +0100
++++ b/makefile	2024-11-20 15:50:51.503676969 +0100
+@@ -51,10 +51,7 @@
+ 
+ $(BLD)/version.h: 
+ 	-mkdir -p $(BLD)
+-	cp  -p ./src/avh/* $(BLD)/ 
+ 	cp  -p ./src/cts/* $(BLD)/ 
+-	cp  -p ./src/mpfun90/* $(BLD)/ 
+-	cp  -p ./src/qcdloop/* $(BLD)/ 
+ 	cp  -p ./src/makefile $(BLD)/ 
+ 
+ tar:
