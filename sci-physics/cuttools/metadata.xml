@@ -17,6 +17,7 @@
   the 2-, 3-, and 4-point tensor coefficient functions.
   </longdescription>
   <use>
-    <flag name="dummy">Add dummy module for OpenLoops</flag>
+    <flag name="dummy">Add dummy module for <pkg>sci-physics/openloops</pkg></flag>
+    <flag name="mpfun90">Use <pkg>sci-libs/mpfun90</pkg></flag>
   </use>
 </pkgmetadata>

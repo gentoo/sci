@@ -14,11 +14,11 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="+dummy"
+IUSE="+dummy mpfun90"
 DEPEND="
 	sci-libs/mpfun90
 	sci-physics/qcdloop
-	sci-physics/oneloop[dpkind,qpkind16,-qpkind,-tlevel]
+	sci-physics/oneloop[dpkind,qpkind16,-qpkind,-tlevel,mpfun90?]
 "
 RDEPEND="${DEPEND}"
 
@@ -35,10 +35,19 @@ src_prepare() {
 	if use dummy ; then
 		sed -i 's/CTS =/CTS = mpnumdummy.o/' src/makefile || die
 	fi
+	if use mpfun90; then
+		sed -i 's/PRECISION=.*$/PRECISION= MP/g' makefile || die
+	else
+		sed -i 's/PRECISION=.*$/PRECISION= QP/g' makefile || die
+	fi
 }
 
 src_compile() {
-	emake -j1 FFLAGS="${FFLAGS} -I${ESYSROOT}/usr/include -fPIC -std=legacy"
+	if use mpfun90; then
+		emake -j1 FFLAGS="${FFLAGS} -I${ESYSROOT}/usr/include -fPIC -std=legacy" mp
+	else
+		emake -j1 FFLAGS="${FFLAGS} -I${ESYSROOT}/usr/include -fPIC -std=legacy" qp
+	fi
 	tc-export AR CXX
 	cd includects || die
 	${AR} -x libcts.a || die
