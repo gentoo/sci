@@ -1,0 +1,14 @@
+--- a/src/avh_olo_boxc.f90	2024-11-21 17:54:03.444134677 +0100
++++ b/src/avh_olo_boxc.f90	2024-11-21 17:55:47.760664651 +0100
+@@ -179,9 +179,9 @@
+      aptmp(3) = areal((pp(5)-pp(3)-pp(4))**2-4*pp(3)*pp(4))
+      aptmp(4) = areal((pp(6)-pp(4)-pp(1))**2-4*pp(4)*pp(1))
+      icase = sort_4(aptmp)
+-     if (all(aptmp.ge.rZRO)) then
++     if ((aptmp(1).ge.rZRO) .and. (aptmp(2).ge.rZRO) .and. (aptmp(3).ge.rZRO) .and. (aptmp(4).ge.rZRO) ) then
+        icase = prmB(icase)
+-     elseif (all(aptmp.le.rZRO)) then
++     elseif ((aptmp(1).le.rZRO) .and. (aptmp(2).le.rZRO) .and.(aptmp(3).le.rZRO) .and.(aptmp(4).le.rZRO) ) then
+        errorcode = errorcode+1
+        if (eunit.ge.0) write(eunit,*) 'ERROR in OneLOop boxc: ' &
+          ,'no positive lambda, returning 0'

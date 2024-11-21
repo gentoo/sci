@@ -27,9 +27,9 @@ REQUIRED_USE="
 "
 
 DEPEND="
-	qpkind? ( sci-libs/qd )
-	qpkind16? ( sci-libs/qd )
-	arprec? ( sci-libs/arprec )
+	qpkind? ( sci-libs/qd[fortran] )
+	qpkind16? ( sci-libs/qd[fortran] )
+	arprec? ( sci-libs/arprec[fortran] )
 	mpfun90? ( sci-libs/mpfun90 )
 "
 RDEPEND="${DEPEND}"
@@ -37,6 +37,10 @@ BDEPEND="
 	${PYTHON_DEPS}
 	app-arch/unzip
 "
+
+PATCHES=(
+	"${FILESDIR}"/${P}-mpfun90.patch
+)
 
 src_configure() {
 	tc-export FC
@@ -92,7 +96,7 @@ src_compile() {
 	${EPYTHON} ./create.py source || die "Failed to compile"
 	# create.py does not use soname, so we do it ourself
 	#./create.py dynamic || die
-	${FC} -O -fPIC -c avh_olo.f90 -o avh_olo.o || die
+	${FC} ${FFLAGS} -O -fPIC -I"${ESYSROOT}"/usr/include -I"${ESYSROOT}"/usr/include/qd -c avh_olo.f90 -o avh_olo.o || die
 	${FC} ${LDFLAGS} -Wl,-soname,libavh_olo.so -shared -o libavh_olo.so *.o || die
 }
 
