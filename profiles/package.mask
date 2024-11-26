@@ -30,6 +30,14 @@
 
 #--- END OF EXAMPLES ---
 
+# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2024-11-26)
+# Depends on removed version of vtk
+sci-biology/ants
+
+# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2024-11-26)
+# Depends on masked sci-biology/ants
+sci-biology/samri
+
 # Nowa Ammerlaan <nowa@gentoo.org> (2024-07-18)
 # Requires java openmpi bindings, no longer packaged.
 sci-biology/BBmap
