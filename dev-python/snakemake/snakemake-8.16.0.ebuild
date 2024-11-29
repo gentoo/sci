@@ -34,7 +34,7 @@ BDEPEND="
 RDEPEND="
 	dev-python/appdirs[${PYTHON_USEDEP}]
 	dev-python/immutables[${PYTHON_USEDEP}]
-	dev-python/ConfigArgParse[${PYTHON_USEDEP}]
+	dev-python/configargparse[${PYTHON_USEDEP}]
 	>=dev-python/connection_pool-0.0.3[${PYTHON_USEDEP}]
 	dev-python/datrie[${PYTHON_USEDEP}]
 	dev-python/docutils[${PYTHON_USEDEP}]

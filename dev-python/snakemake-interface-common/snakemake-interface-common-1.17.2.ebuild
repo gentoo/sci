@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 DEPEND="dev-python/argparse-dataclass[${PYTHON_USEDEP}]
-	dev-python/ConfigArgParse[${PYTHON_USEDEP}]"
+	dev-python/configargparse[${PYTHON_USEDEP}]"
 
 RESTRICT="test" # no tests collected
 #distutils_enable_tests pytest
