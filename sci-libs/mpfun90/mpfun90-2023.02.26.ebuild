@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit toolchain-funcs fortran-2
+inherit fortran-2
 
 DESCRIPTION="High-Precision Software"
 HOMEPAGE="
@@ -14,7 +14,7 @@ MY_PV=$(ver_rs 1- '-')
 SRC_URI="https://github.com/APN-Pucky/mpfun90/archive/refs/tags/${MY_PV}.tar.gz"
 S="${WORKDIR}/mpfun90-${MY_PV}"
 
-LICENSE="BSD"
+LICENSE="DHBBSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
