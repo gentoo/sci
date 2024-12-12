@@ -32,7 +32,7 @@ RDEPEND="${DEPEND}
 	sci-libs/htslib:0/3
 	sys-devel/gcc
 	sys-libs/glibc
-	sys-libs/libcxx[libcxxabi]
+	llvm-runtimes/libcxx[libcxxabi]
 	sys-libs/libunwind:0/8
 	x11-libs/libX11
 	x11-libs/libXau

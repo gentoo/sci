@@ -30,7 +30,7 @@ DEPEND="
 	dev-libs/libfmt
 	dev-libs/openssl
 	dev-libs/spdlog
-	sys-libs/libcxx
+	llvm-runtimes/libcxx
 	sys-libs/pam
 	net-libs/cppzmq
 	net-libs/zeromq
