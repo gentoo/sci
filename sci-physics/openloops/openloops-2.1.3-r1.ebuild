@@ -49,7 +49,7 @@ PATCHES=(
 src_prepare() {
 	default
 	mv openloops.cfg.tmpl openloops.cfg || die
-	sed -i "s|\\\$BASEDIR/scons -Q|scons -Q  -C /opt/${MY_P}/|g" openloops || die
+	sed -i "s|\\\$BASEDIR/scons -Q|scons -Q -C /opt/${MY_P}/|g" openloops || die
 	if use extra ; then
 		sed -i "s|#compile_extra.*|compile_extra = 1|" openloops.cfg || die
 	fi

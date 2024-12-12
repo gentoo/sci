@@ -21,7 +21,7 @@
     <flag name="cuttools">Build with cuttools</flag>
     <flag name="ppllj">Build pp to llj process</flag>
     <flag name="pplljj">Build pp to lljj process</flag>
-    <flag name="pplnj-ckm">Build pp to lnj_ckm process</flag>
-    <flag name="pplnjj-ckm">Build pp to lljj_ckm process</flag>
+    <flag name="pplnj-ckm">Build pp to lnj process with ckm matrix</flag>
+    <flag name="pplnjj-ckm">Build pp to lljj process with ckm matrix</flag>
   </use>
 </pkgmetadata>
