@@ -12,6 +12,6 @@
 	<use>
 		<flag name="cython">Build Cython-based C extensions</flag>
 		<flag name="matplotlib">Add support for dev-python/matplotlib</flag>
-		<flag name="qt5">Add support for dev-python/PyQt5</flag>
+		<flag name="qt5">Add support for dev-python/pyqt5</flag>
 	</use>
 </pkgmetadata>

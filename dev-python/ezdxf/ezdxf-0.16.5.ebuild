@@ -26,7 +26,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}
 	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )
-	qt5? ( dev-python/PyQt5[${PYTHON_USEDEP}] )
+	qt5? ( dev-python/pyqt5[${PYTHON_USEDEP}] )
 "
 
 #FIXME: Enabling tests requires packaging additional packages (e.g., "geomdl").
