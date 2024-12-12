@@ -13,7 +13,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="dev-python/clang-python[${PYTHON_USEDEP}]"
+DEPEND="dev-python/clang[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
 
 distutils_enable_tests pytest
