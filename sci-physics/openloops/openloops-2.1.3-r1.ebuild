@@ -82,7 +82,7 @@ src_compile() {
 		if use ${OLPROC//_/-}; then
 			# move downloaded files to src
 			mkdir -p "${S}/process_src/${OLPROC}" || die
-			mv "${WORKDIR}/${OLPROC}-*/*" "${S}/process_src/${OLPROC}" || die
+			mv "${WORKDIR}/${OLPROC}-"*/* "${S}/process_src/${OLPROC}" || die
 			# compile it
 			escons auto=${OLPROC} generator=0
 		fi
