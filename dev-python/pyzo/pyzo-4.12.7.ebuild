@@ -22,7 +22,7 @@ PROPERTIES="test_network"
 RESTRICT="test"
 
 RDEPEND="
-	dev-python/QtPy[${PYTHON_USEDEP}]
+	dev-python/qtpy[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	dev-python/packaging[${PYTHON_USEDEP}]
