@@ -105,7 +105,7 @@ src_install() {
 	# Also install so.version links
 	cd ../lib || die
 	dolib.so libolcommon.so* libopenloops.so* librambo.so* libtrred.so*
-	# install proccesses
+	# install processes
 	cd ../proclib || die
 	dolib.so *.so
 	# also install the process info files
