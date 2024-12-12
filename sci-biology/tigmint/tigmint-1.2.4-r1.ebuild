@@ -21,7 +21,7 @@ PROPERTIES="test_network"
 
 RDEPEND="
 	dev-python/intervaltree[${PYTHON_USEDEP}]
-	sci-biology/pybedtools[${PYTHON_USEDEP}]
+	dev-python/pybedtools[${PYTHON_USEDEP}]
 	sci-biology/pysam[${PYTHON_USEDEP}]
 	app-arch/pigz
 	app-shells/zsh
