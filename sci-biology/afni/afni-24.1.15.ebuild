@@ -42,7 +42,7 @@ RDEPEND="
 	sci-libs/gsl
 	sci-libs/gts
 	llvm-core/llvm:*
-	sys-libs/libomp
+	llvm-runtimes/openmp
 	virtual/jpeg-compat:62
 	x11-libs/libGLw
 	x11-libs/libXft
