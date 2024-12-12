@@ -14,13 +14,23 @@ DESCRIPTION="Evaluation of tree and one-loop matrix elements for any Standard Mo
 HOMEPAGE="https://openloops.hepforge.org/index.html"
 #SRC_URI="https://openloops.hepforge.org/downloads?f=${MY_P}.tar.gz -> ${MY_P}.tar.gz"
 #S="${WORKDIR}/${MY_P}"
-SRC_URI="https://gitlab.com/openloops/OpenLoops/-/archive/${MY_P}/${MY_PN}-${MY_P}.tar.bz2"
+# since the files are not publicly versioned we mirror them from
+# https://www.physik.uzh.ch/data/openloops/repositories/public/processes/2
+COMMON_URI="https://gitlab.com/openloopsmirror/"
+
+SRC_URI="
+	https://gitlab.com/openloops/OpenLoops/-/archive/${MY_P}/${MY_PN}-${MY_P}.tar.bz2
+	ppllj? ( ${COMMON_URI}/ppllj/-/archive/a3a36918/ppllj-a3a36918.tar.bz2 )
+	pplljj? ( ${COMMON_URI}/pplljj/-/archive/93a6e3f7/pplljj-93a6e3f7.tar.bz2 )
+	pplnj-ckm? ( ${COMMON_URI}/pplnj_ckm/-/archive/4d8743c/pplnj_ckm-4d8743c.tar.bz2 )
+	pplnjj-ckm? ( ${COMMON_URI}/pplnjj_ckm/-/archive/d3d5302/pplnjj_ckm-d3d5302.tar.bz2 )
+"
 S="${WORKDIR}/${MY_PN}-${MY_P}"
 
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+collier +cuttools +extra"
+IUSE="+collier +cuttools +extra ppllj pplljj pplnj-ckm pplnjj-ckm"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -39,7 +49,7 @@ PATCHES=(
 src_prepare() {
 	default
 	mv openloops.cfg.tmpl openloops.cfg || die
-	sed -i "s|scons -Q|scons -Q -C /opt/${MY_P}/|g" openloops || die
+	sed -i "s|\\\$BASEDIR/scons -Q|scons -Q -C /opt/${MY_P}/|g" openloops || die
 	if use extra ; then
 		sed -i "s|#compile_extra.*|compile_extra = 1|" openloops.cfg || die
 	fi
@@ -54,9 +64,7 @@ src_prepare() {
 	cc = $(tc-getCC)
 	cxx = $(tc-getCXX)
 	fortran_compiler = $(tc-getFC)
-	process_src_dir = ${EPREFIX}/opt/${MY_P}/process_src/
-	process_obj_dir = ${EPREFIX}/opt/${MY_P}/process_obj/
-	process_lib_dir = ${EPREFIX}/opt/${MY_P}/proclib/
+
 	release = $PV
 	import_env = @all
 	EOF
@@ -70,6 +78,22 @@ src_prepare() {
 
 src_compile() {
 	escons --cache-disable
+	for OLPROC in ppllj pplljj pplnj_ckm pplnjj_ckm;  do
+		if use ${OLPROC//_/-}; then
+			# move downloaded files to src
+			mkdir -p "${S}/process_src/${OLPROC}" || die
+			mv "${WORKDIR}/${OLPROC}-"*/* "${S}/process_src/${OLPROC}" || die
+			# compile it
+			escons auto=${OLPROC} generator=0
+		fi
+	done
+
+	# insert these later since we are done with compiling in ${S} now
+	cat <<-EOF >> openloops.cfg || die
+	process_src_dir = ${EPREFIX}/opt/${MY_P}/process_src/
+	process_obj_dir = ${EPREFIX}/opt/${MY_P}/process_obj/
+	process_lib_dir = ${EPREFIX}/usr/$(get_libdir)/
+	EOF
 }
 
 src_install() {
@@ -77,9 +101,17 @@ src_install() {
 	dobin openloops
 	cd include || die
 	doheader openloops.h
-	cd ../lib || die
+
 	# Also install so.version links
+	cd ../lib || die
 	dolib.so libolcommon.so* libopenloops.so* librambo.so* libtrred.so*
+	# install processes
+	cd ../proclib || die
+	dolib.so *.so
+	# also install the process info files
+	insinto /usr/$(get_libdir)/
+	doins *.info
+
 	cd ../lib_src/olcommon/mod || die
 	doheader *.mod
 	cd ../../openloops/mod || die
@@ -94,15 +126,11 @@ src_install() {
 	doins openloops.cfg SConstruct
 	doins -r pyol
 
-	# Previous method of allowing everyone everything
-	# maybe better to use a group for that
-	# for now like lhapdf just let root install
-	#fperms -R a=u /opt/${MY_P}
-	#fperms a=u /opt/${MY_P}
-
+	# no need to also install the source code
+	#doins -r process_src
 }
 
 pkg_postinst() {
 	elog "Install processes with openloops libinstall."
-	elog "They are installed in /opt/${MY_P}/proclib."
+	elog "They are installed in ${EPREFIX}/usr/$(get_libdir)/."
 }
