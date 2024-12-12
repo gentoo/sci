@@ -41,7 +41,7 @@ RDEPEND="
 	sci-biology/afni-datasets
 	sci-libs/gsl
 	sci-libs/gts
-	sys-devel/llvm:*
+	llvm-core/llvm:*
 	sys-libs/libomp
 	virtual/jpeg-compat:62
 	x11-libs/libGLw

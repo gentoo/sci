@@ -16,7 +16,7 @@ KEYWORDS=""
 IUSE="static-libs"
 
 DEPEND="
-	sys-devel/llvm:=
+	llvm-core/llvm:=
 	sys-apps/util-linux
 	sci-libs/htslib
 	dev-libs/libpcre"
