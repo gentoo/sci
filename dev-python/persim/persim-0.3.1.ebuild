@@ -21,7 +21,7 @@ RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/plotly[${PYTHON_USEDEP}]
 	dev-python/scipy[${PYTHON_USEDEP}]
-	sci-libs/scikit-learn[${PYTHON_USEDEP}]
+	dev-python/scikit-learn[${PYTHON_USEDEP}]
 "
 BDEPEND="test? ( dev-python/deprecated[${PYTHON_USEDEP}] )"
 

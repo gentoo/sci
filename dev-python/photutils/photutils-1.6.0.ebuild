@@ -36,5 +36,5 @@ distutils_enable_tests pytest
 # 	dev-python/sphinx-astropy \
 # 	dev-python/scipy \
 # 	dev-python/matplotlib \
-# 	sci-libs/scikit-learn \
+# 	dev-python/scikit-learn \
 # 	dev-python/scikit-image \

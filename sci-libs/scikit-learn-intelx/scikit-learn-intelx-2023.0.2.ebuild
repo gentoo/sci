@@ -19,7 +19,7 @@ KEYWORDS="~amd64"
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/daal4py[${PYTHON_USEDEP}]
-	sci-libs/scikit-learn[${PYTHON_USEDEP}]
+	dev-python/scikit-learn[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
 

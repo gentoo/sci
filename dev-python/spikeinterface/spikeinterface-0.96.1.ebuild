@@ -37,7 +37,7 @@ RDEPEND="
 		dev-python/scipy[${PYTHON_USEDEP}]
 		dev-python/xarray[${PYTHON_USEDEP}]
 		dev-python/zarr[${PYTHON_USEDEP}]
-		sci-libs/scikit-learn[${PYTHON_USEDEP}]
+		dev-python/scikit-learn[${PYTHON_USEDEP}]
 	)
 "
 # Also wants:

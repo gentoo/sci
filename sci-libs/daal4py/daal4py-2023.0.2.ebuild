@@ -22,7 +22,7 @@ BDEPEND="
 	dev-build/cmake
 	sys-devel/DPC++
 	test? (
-		sci-libs/scikit-learn[${PYTHON_USEDEP}]
+		dev-python/scikit-learn[${PYTHON_USEDEP}]
 		sci-libs/scikit-learn-intelx[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
 	)
