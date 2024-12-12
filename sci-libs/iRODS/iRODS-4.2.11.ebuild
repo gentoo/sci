@@ -37,7 +37,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	sys-devel/clang
+	llvm-core/clang
 "
 
 src_unpack() {
