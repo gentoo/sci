@@ -105,12 +105,15 @@ src_install() {
 	# Also install so.version links
 	cd ../lib || die
 	dolib.so libolcommon.so* libopenloops.so* librambo.so* libtrred.so*
+
 	# install processes
-	cd ../proclib || die
-	dolib.so *.so
-	# also install the process info files
-	insinto /usr/$(get_libdir)/
-	doins *.info
+	if [ -d "../proclib" ]; then
+		cd ../proclib || die
+		dolib.so *.so
+		# also install the process info files
+		insinto /usr/$(get_libdir)/
+		doins *.info
+	fi
 
 	cd ../lib_src/olcommon/mod || die
 	doheader *.mod
