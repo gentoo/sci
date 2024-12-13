@@ -1,0 +1,36 @@
+From 9512c085f7a453a40ce85ce86233c5c6d32c7aaf Mon Sep 17 00:00:00 2001
+From: Yiyang Wu <xgreenlandforwyy@gmail.com>
+Date: Fri, 8 Nov 2024 20:23:00 +0800
+Subject: [PATCH] Use cmake default install location
+
+Install 64bit dynamic and static libs to lib is not allowed in some
+distributions
+
+Reference: https://cmake.org/cmake/help/latest/command/install.html#signatures
+Signed-off-by: Yiyang Wu <xgreenlandforwyy@gmail.com>
+---
+ CMakeLists.txt | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 183ef62b..b558b67b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -829,13 +829,7 @@ if(APPLE AND USE_OPENMP AND NOT BUILD_STATIC_LIB)
+   )
+ endif()
+ 
+-install(
+-  TARGETS _lightgbm
+-  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+-  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-  ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+-)
+-
++install( TARGETS _lightgbm )
+ if(INSTALL_HEADERS)
+     install(
+       DIRECTORY ${LightGBM_HEADER_DIR}/LightGBM
+-- 
+2.47.0
+
