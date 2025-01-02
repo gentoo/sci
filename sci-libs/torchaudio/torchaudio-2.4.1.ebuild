@@ -24,10 +24,10 @@ REQUIRED_USE="?? ( cuda rocm )"
 DEPEND="
 	ffmpeg? ( media-video/ffmpeg:= )
 	sci-libs/caffe2[cuda?,rocm?,openmp?]
-	sci-libs/pytorch[${PYTHON_SINGLE_USEDEP}]
 "
 RDEPEND="
 	${DEPEND}
+	sci-libs/pytorch[${PYTHON_SINGLE_USEDEP}]
 "
 BDEPEND="
 	test? (
