@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<use>
+		<flag name="rocm">Enable ROCm gpu computing support</flag>
+		<flag name="rnnt">Enable custom RNN-T loss function</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">pytorch/vision</remote-id>
+	</upstream>
+</pkgmetadata>
