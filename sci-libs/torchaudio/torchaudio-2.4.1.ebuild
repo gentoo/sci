@@ -60,6 +60,15 @@ src_compile() {
 	distutils-r1_src_compile
 }
 
+EPYTEST_IGNORE=(
+	# librosa
+	test/torchaudio_unittest/prototype/hifi_gan/hifi_gan_cpu_test.py
+	test/torchaudio_unittest/prototype/hifi_gan/hifi_gan_gpu_test.py
+
+	# infinite test?
+	test/torchaudio_unittest/backend/dispatcher/ffmpeg/load_test.py
+)
+
 python_test() {
 	use rocm && check_amdgpu
 
