@@ -22,7 +22,7 @@ IUSE="cuda rocm ffmpeg openmp +rnnt"
 REQUIRED_USE="?? ( cuda rocm )"
 
 DEPEND="
-	ffmpeg? ( media-video/ffmpeg:= )
+	ffmpeg? ( <media-video/ffmpeg-7:= )
 	sci-libs/caffe2[cuda?,rocm?,openmp?]
 "
 RDEPEND="
