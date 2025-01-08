@@ -19,7 +19,7 @@ S="${WORKDIR}/${MY_PN}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc examples hepmc2 hepmc3 pythia tauola"
+IUSE="+hepmc3 doc examples hepmc2 pythia tauola"
 
 RDEPEND="
 	hepmc2? ( sci-physics/hepmc:2=[-cm(-),gev(+)] )
