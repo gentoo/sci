@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="sourceforge">ngsep</remote-id>
+		<remote-id type="github">NGSEP/NGSEPcore</remote-id>
 	</upstream>
 </pkgmetadata>
