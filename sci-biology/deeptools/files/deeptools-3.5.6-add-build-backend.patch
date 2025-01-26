@@ -1,0 +1,12 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 2072ec1f52..9b28626680 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -2,6 +2,7 @@
+ requires = [
+     "setuptools"
+ ]
++build-backend = "setuptools.build_meta"
+ 
+ [project]
+ name = "deepTools"
