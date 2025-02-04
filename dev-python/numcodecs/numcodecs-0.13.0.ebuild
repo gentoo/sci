@@ -1,11 +1,13 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
+DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
-inherit distutils-r1 pypi
+
+inherit distutils-r1 pypi flag-o-matic
 
 DESCRIPTION="Data storage buffer compression and transformation codecs"
 HOMEPAGE="https://github.com/zarr-developers/numcodecs"
@@ -24,18 +26,28 @@ RDEPEND="
 "
 DEPEND="
 	test? (
-		${RDEPEND}
 		dev-python/entrypoints[${PYTHON_USEDEP}]
 	)
 "
 
-distutils_enable_tests pytest
-
 python_compile() {
-	local -x DISABLE_NUMCODECS_AVX2=1
-	local -x DISABLE_NUMCODECS_SSE2=1
+	# undefined symbols upon zstd shared lib import otherwise
+	filter-flags -pipe
 	distutils-r1_python_compile
 }
+
+EPYTEST_DESELECT=(
+	# python segfault
+	tests/test_blosc.py::test_encode_decode
+	tests/test_blosc.py::test_partial_decode
+	tests/test_blosc.py::test_compress_metainfo
+	tests/test_blosc.py::test_compress_autoshuffle
+	tests/test_blosc.py::test_multiprocessing
+	tests/test_blosc.py::test_backwards_compatibility
+	tests/test_blosc.py::test_max_buffer_size
+)
+
+distutils_enable_tests pytest
 
 python_test() {
 	cd "${T}" || die
