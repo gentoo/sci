@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="Python library for audio and music analysis"
 HOMEPAGE="https://github.com/librosa/librosa"
-EGIT_REPO_URI="$HOMEPAGE"
+EGIT_REPO_URI="${HOMEPAGE}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -39,9 +39,10 @@ BDEPEND="
 
 distutils_enable_tests pytest
 
-src_prepare() {
+python_prepare_all() {
 	sed -i -e 's:--cov[a-z-]*\(=\| \)[a-z-]*::g' setup.cfg || die
-	distutils-r1_src_prepare
+	#sed -i '/googleanalytics/d' docs/conf.py || die
+	distutils-r1_python_prepare_all
 }
 
 python_test() {
