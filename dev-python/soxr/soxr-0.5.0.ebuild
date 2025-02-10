@@ -7,15 +7,7 @@ DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=scikit-build-core
 PYTHON_COMPAT=( pypy3 python3_{10..13} )
 
-DOCS_BUILDER="sphinx"
-DOCS_DEPEND="
-	dev-python/linkify-it-py
-	dev-python/sphinx-rtd-theme
-	dev-python/myst-parser
-"
-DOCS_DIR="docs"
-
-inherit distutils-r1 docs
+inherit distutils-r1
 
 DESCRIPTION="Fast and high quality sample-rate conversion library for Python"
 HOMEPAGE="https://github.com/dofuuz/python-soxr/"
@@ -43,16 +35,17 @@ BDEPEND="
 "
 
 distutils_enable_tests pytest
+distutils_enable_sphinx docs dev-python/linkify-it-py dev-python/myst-parser dev-python/sphinx-rtd-theme
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=${PV}
 
-src_prepare() {
+python_prepare_all() {
 	sed -i 's:sphinx-book-theme:sphinx-rtd-theme:g' pyproject.toml || die
 	sed -i 's:sphinx_book_theme:sphinx_rtd_theme:g' docs/conf.py || die
-	distutils-r1_src_prepare
+	distutils-r1_python_prepare_all
 }
 
-src_configure() {
+python_configure_all() {
 	DISTUTILS_ARGS=(
 		-DUSE_SYSTEM_LIBSOXR=ON
 	)
