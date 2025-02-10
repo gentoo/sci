@@ -6,11 +6,7 @@ EAPI=8
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..13} )
 
-DOCS_BUILDER="sphinx"
-DOCS_DEPEND="dev-python/numpydoc"
-DOCS_DIR="docs"
-
-inherit distutils-r1 docs
+inherit distutils-r1
 
 DESCRIPTION="A python module to manipulate default parameters of a module's functions"
 HOMEPAGE="https://github.com/bmcfee/presets"
@@ -24,8 +20,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 distutils_enable_tests pytest
+distutils_enable_sphinx docs dev-python/numpydoc
 
-src_prepare() {
+python_prepare_all() {
 	sed -i -e 's:--cov[a-z-]*\(=\| \)[^ ]*.::g' setup.cfg || die
-	distutils-r1_src_prepare
+	distutils-r1_python_prepare_all
 }
