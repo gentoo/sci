@@ -18,9 +18,7 @@ SRC_URI="
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cairosvg"
 
 RDEPEND="
-	cairosvg? ( media-gfx/cairosvg )
-	!cairosvg? ( gnome-base/librsvg )
+	|| ( gnome-base/librsvg media-gfx/cairosvg media-gfx/inkscape )
 "
