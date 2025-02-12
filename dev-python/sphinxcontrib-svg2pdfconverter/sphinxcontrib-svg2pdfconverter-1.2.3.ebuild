@@ -20,5 +20,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	|| ( gnome-base/librsvg media-gfx/cairosvg media-gfx/inkscape )
+	|| (
+		gnome-base/librsvg
+		media-gfx/cairosvg
+		media-gfx/inkscape
+	)
 "
