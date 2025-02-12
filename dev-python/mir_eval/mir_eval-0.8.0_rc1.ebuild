@@ -21,13 +21,13 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	dev-python/numpy
-	dev-python/scipy
-	dev-python/decorator
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/scipy[${PYTHON_USEDEP}]
+	dev-python/decorator[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	test? (
-		dev-python/matplotlib
+		dev-python/matplotlib[${PYTHON_USEDEP}]
 	)
 "
 
