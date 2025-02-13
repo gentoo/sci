@@ -3,12 +3,12 @@
 
 EAPI=8
 
-inherit toolchain-funcs fortran-2
+inherit fortran-2
 
 DESCRIPTION="qgraf generates Feynman diagrams for various types of QFT models"
 HOMEPAGE="http://cfif.ist.utl.pt/~paulo/qgraf.html"
 SRC_URI="http://anonymous:anonymous@qgraf.tecnico.ulisboa.pt/v$(ver_cut 1-2)/qgraf-${PV}.tgz"
-S="${WORKDIR}"
+S="${WORKDIR}/${P}.dir"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
@@ -17,7 +17,8 @@ IUSE="doc examples"
 RESTRICT="bindist mirror"
 
 src_compile() {
-	$(tc-getFC) ${P}.f08 -o ${PN} ${FFLAGS} ${LDFLAGS} || die "Failed to compile"
+	sed -i -e 's:gfortran:$(FC) $(FFLAGS) $(LDFLAGS):' Makefile || die
+	emake qgraf
 }
 
 src_install() {
