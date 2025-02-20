@@ -20,15 +20,18 @@ COMMON_URI="https://gitlab.com/openloopsmirror/"
 
 SRC_URI="
 	https://gitlab.com/openloops/OpenLoops/-/archive/${MY_P}/${MY_PN}-${MY_P}.tar.bz2
+	ppajj?      ( ${COMMON_URI}/ppajj/-/archive/93a6e3f7/ppajj-93a6e3f7.tar.bz2         )
+	pphllj-ew?  ( ${COMMON_URI}/pphllj_ew/-/archive/93a6e3f7/pphllj_ew-93a6e3f7.tar.bz2 )
+	ppjj?       ( ${COMMON_URI}/ppjj/-/archive/d3d5302/ppjj-d3d5302.tar.bz2             )
+	ppjjj?      ( ${COMMON_URI}/ppjjj/-/archive/93a6e3f7/ppjjj-93a6e3f7.tar.bz2         )
+	pplla?      ( ${COMMON_URI}/pplla/-/archive/a3a36918/pplla-a3a36918.tar.bz2         )
+	ppllaj?     ( ${COMMON_URI}/ppllaj/-/archive/c77e3a3/ppllaj-c77e3a3.tar.bz2         )
+	ppllajj?    ( ${COMMON_URI}/ppllajj/-/archive/4d8743c/ppllajj-4d8743c.tar.bz2       )
+	pplla-ew?   ( ${COMMON_URI}/pplla_ew/-/archive/0a26af9a/pplla_ew-0a26af9a.tar.bz2   )
 	ppllj?      ( ${COMMON_URI}/ppllj/-/archive/a3a36918/ppllj-a3a36918.tar.bz2         )
 	pplljj?     ( ${COMMON_URI}/pplljj/-/archive/93a6e3f7/pplljj-93a6e3f7.tar.bz2       )
 	pplnj-ckm?  ( ${COMMON_URI}/pplnj_ckm/-/archive/4d8743c/pplnj_ckm-4d8743c.tar.bz2   )
 	pplnjj-ckm? ( ${COMMON_URI}/pplnjj_ckm/-/archive/d3d5302/pplnjj_ckm-d3d5302.tar.bz2 )
-	pplla-ew?   ( ${COMMON_URI}/pplla_ew/-/archive/0a26af9a/pplla_ew-0a26af9a.tar.bz2   )
-	ppjj?       ( ${COMMON_URI}/ppjj/-/archive/d3d5302/ppjj-d3d5302.tar.bz2             )
-	ppjjj?      ( ${COMMON_URI}/ppjjj/-/archive/93a6e3f7/ppjjj-93a6e3f7.tar.bz2         )
-	ppajj?      ( ${COMMON_URI}/ppajj/-/archive/93a6e3f7/ppajj-93a6e3f7.tar.bz2         )
-	pphllj-ew?  ( ${COMMON_URI}/pphllj_ew/-/archive/93a6e3f7/pphllj_ew-93a6e3f7.tar.bz2 )
 
 "
 S="${WORKDIR}/${MY_PN}-${MY_P}"
@@ -36,7 +39,7 @@ S="${WORKDIR}/${MY_PN}-${MY_P}"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+collier +cuttools +extra pplla-ew ppllj pplljj pplnj-ckm pplnjj-ckm ppjj ppjjj ppajj pphllj-ew"
+IUSE="+collier +cuttools +extra pplla-ew ppllj pplljj pplnj-ckm pplnjj-ckm ppjj ppjjj ppajj pphllj-ew pplla ppllaj ppllajj"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -80,7 +83,7 @@ src_prepare() {
 
 src_compile() {
 	escons --cache-disable
-	for OLPROC in pplla_ew ppllj pplljj pplnj_ckm pplnjj_ckm ppjj ppjjj ppajj pphllj_ew;  do
+	for OLPROC in pplla_ew ppllj pplljj pplnj_ckm pplnjj_ckm ppjj ppjjj ppajj pphllj_ew pplla ppllaj ppllajj;  do
 		if use ${OLPROC//_/-}; then
 			# move downloaded files to src
 			mkdir -p "${S}/process_src/${OLPROC}" || die

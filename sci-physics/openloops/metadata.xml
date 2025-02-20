@@ -28,5 +28,8 @@
     <flag name="ppjjj">Build pp to jjj process</flag>
     <flag name="ppajj">Build pp to ajj process</flag>
     <flag name="pphllj-ew">Build pp to hllj process with EW corrections</flag>
+    <flag name="pplla">Build pp to lla process</flag>
+    <flag name="ppllaj">Build pp to llaj process</flag>
+    <flag name="ppllajj">Build pp to llajj process</flag>
   </use>
 </pkgmetadata>
