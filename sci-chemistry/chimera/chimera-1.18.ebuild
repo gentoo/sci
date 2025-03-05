@@ -8,16 +8,15 @@ DESCRIPTION="Next generation molecular visualization program from RBVI"
 HOMEPAGE="https://www.cgl.ucsf.edu/chimera/"
 SRC_URI="${P}-linux_x86_64.bin
 	mirror+https://dev.gentoo.org/~pacho/${PN}/Chimera512.png"
+S="${WORKDIR}"
+LICENSE="chimera"
 
 SLOT="0"
-LICENSE="chimera"
 KEYWORDS="~amd64 ~x86"
 
 RESTRICT="fetch mirror strip"
 QA_PREBUILT="*"
 
-DEPEND=""
-BDEPEND=""
 RDEPEND="
 	dev-lang/tcl
 	dev-lang/tk
@@ -49,8 +48,6 @@ RDEPEND="
 	x11-libs/libGLw
 	virtual/libcrypt:=
 "
-
-S="${WORKDIR}"
 
 pkg_nofetch() {
 	elog "Please visit"
