@@ -29,7 +29,7 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	# CMAKE should look in system install for required libs
-	sed -i 's/NO_DEFAULT_PATH//g' src/CMakeLists.txt
+	sed -e 's/NO_DEFAULT_PATH//g' -i src/CMakeLists.txt || die
 	cmake_src_prepare
 }
 
