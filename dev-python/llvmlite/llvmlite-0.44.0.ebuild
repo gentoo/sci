@@ -37,5 +37,5 @@ python_test() {
 python_install() {
 	distutils-r1_python_install
 	dosym "$(get_llvm_prefix)/$(get_libdir)/libLLVM-${LLVM_SLOT}.so" \
-		"$(python_get_sitedir)/llvmlite/binding/libLLVM-${LLVM_SLOT}.so"
+		"/usr/lib/${EPYTHON}/site-packages/llvmlite/binding/libLLVM-${LLVM_SLOT}.so"
 }
