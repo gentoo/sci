@@ -3,8 +3,10 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_EXT=1
+
 inherit distutils-r1 pypi
 
 DESCRIPTION="A high performance implementation of HDBSCAN clustering."
@@ -13,7 +15,6 @@ HOMEPAGE="https://github.com/scikit-learn-contrib/hdbscan"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
 # Reported upstream:
 # https://github.com/scikit-learn-contrib/hdbscan/issues/501
 RESTRICT="test"
