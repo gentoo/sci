@@ -27,7 +27,6 @@ src_prepare() {
 }
 
 src_configure() {
-	default
 	# Fix that qcdloop and oneloop are already installed
 	sed -i 's/lib_LTLIBRARIES.*/lib_LTLIBRARIES = libsamurai.la/g' Makefile.am || die
 	local myeconfargs=(
@@ -39,7 +38,7 @@ src_configure() {
 		$(use_with looptools looptools "${ESYSROOT}"/usr)
 	)
 
-	econf "${myeconfargs[@]}"
+	CONFIG_SHELL=${ESYSROOT}/bin/bash econf "${myeconfargs[@]}"
 
 	# fix old vs new oneloop parameters
 	sed -i 's/avh_olo_kinds/avh_olo_dp_kinds/g' samurai/madds.f90 || die
