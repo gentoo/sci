@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+
+	<longdescription lang="en">
+	Ninja is a public C++ library which implements the Integrand Reduction via Laurent Expansion method for the computation of one-loop integrals.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">peraro/ninja</remote-id>
+	</upstream>
+	<use>
+		<flag name="static-libs">Build static library</flag>
+		<flag name="gosam">Build gosam interface</flag>
+	</use>
+
+</pkgmetadata>
