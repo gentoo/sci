@@ -34,11 +34,11 @@ src_configure() {
 		--with-avh_olo="${ESYSROOT}"/usr/$(get_libdir)/libavh_olo.so
 		--with-avh_olo_precision=double
 		--with-precision=double
-		$(use_with qcdloop qcdloop "${ESYSROOT}"/usr)
-		$(use_with looptools looptools "${ESYSROOT}"/usr)
+		"$(use_with qcdloop qcdloop "${ESYSROOT}"/usr)"
+		"$(use_with looptools looptools "${ESYSROOT}"/usr)"
 	)
 
-	CONFIG_SHELL=${ESYSROOT}/bin/bash econf "${myeconfargs[@]}"
+	CONFIG_SHELL="${ESYSROOT}"/bin/bash econf "${myeconfargs[@]}"
 
 	# fix old vs new oneloop parameters
 	sed -i 's/avh_olo_kinds/avh_olo_dp_kinds/g' samurai/madds.f90 || die
