@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+
+	<longdescription lang="en">
+	Samurai is a tool for the automated numerical evaluation of one-loop virtual corrections to any scattering amplitudes within the dimensional regularization scheme. It is based on the decomposition of the integrand according to the OPP-approach, extended to accommodate an implementation of the generalised D-dimensional unitarity-cuts technique, and uses a polynomial interpolation exploiting the Discrete Fourier Transform. Samurai can process integrands with any number of external legs, written either as numerator of Feynman diagrams or as product of tree level amplitudes and it can be compiled in double or quadruple precision.
+	</longdescription>
+
+	<use>
+		<flag name="looptools">use looptools</flag>
+		<flag name="qcdloop">use qcdloop</flag>
+	</use>
+</pkgmetadata>
