@@ -31,14 +31,16 @@ src_prepare() {
 }
 
 src_configure() {
-	# Replace #!/bin/sh with #!/bin/bash
-	sed -i -e 's:#!/bin/sh:#!/bin/bash:' configure || die
-	econf \
-		--with-looptools \
-		--with-avholo \
-		$(use_enable static-libs static) \
-		$(use_enable gosam) \
-		#$(use_enable quad quadninja) \ # not working yet
+	local myeconfargs=(
+		FCINCLUDE=-I"${ESYSROOT}/usr/include" # oneloop/avholo fortran mods
+		--with-looptools
+		--with-avholo
+		$(use_enable static-libs static)
+		$(use_enable gosam)
+		#$(use_enable quad quadninja) # not working yet
+	)
+
+	CONFIG_SHELL=${ESYSROOT}/bin/bash econf "${myeconfargs[@]}"
 }
 
 src_compile() {
