@@ -15,7 +15,7 @@
 	</longdescription>
 
 	<use>
-		<flag name="looptools">use looptools</flag>
-		<flag name="qcdloop">use qcdloop</flag>
+		<flag name="looptools">Build with <pkg>sci-physics/looptools</pkg></flag>
+		<flag name="qcdloop">Build with <pkg>sci-physics/qcdloop</pkg></flag>
 	</use>
 </pkgmetadata>
