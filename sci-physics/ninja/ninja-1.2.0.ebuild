@@ -43,8 +43,7 @@ src_configure() {
 
 src_compile() {
 	# single thread force needed since fortan mods depend on each other
-	export MAKEOPTS="$MAKEOPTS -j1"
-	default
+	emake -j1
 }
 
 src_install() {
