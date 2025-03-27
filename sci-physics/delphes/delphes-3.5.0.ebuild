@@ -34,11 +34,7 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	default
-	cmake_src_prepare
 	sed -i "s#DESTINATION cards#DESTINATION share/delphes/cards#g" cards/CMakeLists.txt || die
 	sed -i "s#DESTINATION examples#DESTINATION share/delphes/examples#g" examples/CMakeLists.txt || die
-	sed -i "s#DESTINATION lib#DESTINATION $(get_libdir)#g" CMakeLists.txt || die
-	sed -i "s#DESTINATION lib#DESTINATION $(get_libdir)#g" modules/CMakeLists.txt || die
-	sed -i "s#DESTINATION lib#DESTINATION $(get_libdir)#g" classes/CMakeLists.txt || die
-	sed -i "s#DESTINATION lib#DESTINATION $(get_libdir)#g" display/CMakeLists.txt || die
+	sed -i "s#DESTINATION lib#DESTINATION $(get_libdir)#g" {,modules/,classes/,display/}CMakeLists.txt || die
 }
