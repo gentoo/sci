@@ -12,7 +12,7 @@ HOMEPAGE="
 	http://cp3.irmp.ucl.ac.be/projects/delphes
 "
 
-MY_P=Delphes-${PV}
+MY_P=${PN^}-${PV}
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
