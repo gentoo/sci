@@ -21,6 +21,7 @@ BDEPEND="
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
 	test? (
 		dev-python/pytest-mpl[${PYTHON_USEDEP}]
+		sci-physics/mplhep[${PYTHON_USEDEP}]
 	)
 "
 
