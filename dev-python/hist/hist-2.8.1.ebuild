@@ -19,8 +19,9 @@ RDEPEND="
 "
 BDEPEND="
 	dev-python/hatch-vcs[${PYTHON_USEDEP}]
+	test? (
+		dev-python/pytest-mpl[${PYTHON_USEDEP}]
+	)
 "
 
-RESTRICT="test"
-# needs mplhep and dask_histogram ...
-#distutils_enable_tests pytest
+distutils_enable_tests pytest
