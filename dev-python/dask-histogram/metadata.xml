@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>sci@gentoo.org</email>
+		<name>Gentoo Science Project</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>alexander@neuwirth-informatik.de</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<longdescription lang="en">
+Dask-histogram provides a new collection type for lazily constructing histogram objects. The API provided by boost-histogram is leveraged to calculate histograms on chunked/partitioned data from the core Dask Array and DataFrame collections.
+	</longdescription>
+	<upstream>
+		<remote-id type="pypi">dask-histogram</remote-id>
+		<remote-id type="github">dask-contirb/dask-histogram</remote-id>
+	</upstream>
+</pkgmetadata>
