@@ -31,6 +31,7 @@ BDEPEND="
 	dev-python/hatch-fancy-pypi-readme[${PYTHON_USEDEP}]
 	test? (
 		dev-libs/apache-arrow[zstd]
+		dev-python/numba[${PYTHON_USEDEP}]
 		dev-python/pyarrow[${PYTHON_USEDEP}]
 		dev-python/numexpr[${PYTHON_USEDEP}]
 		dev-python/pandas[${PYTHON_USEDEP}]
