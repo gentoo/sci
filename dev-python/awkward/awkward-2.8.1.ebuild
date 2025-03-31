@@ -43,6 +43,10 @@ EPYTEST_IGNORE=(
 	tests-cuda-kernels/
 	tests/test_3259_to_torch_from_torch.py # fails if just caffe2 but not pytorch is installed
 	tests/test_0119_numexpr_and_broadcast_arrays.py # no idea why it fails, seems to be a numexpr error
+	# see https://github.com/scikit-hep/awkward/issues/3402
+	tests/test_1125_to_arrow_from_arrow.py
+	tests/test_1294_to_and_from_parquet.py
+	tests/test_1440_start_v2_to_parquet.py
 )
 
 distutils_enable_tests pytest
