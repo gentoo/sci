@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}-no-codecov.patch"
+	"${FILESDIR}/${PN}-2025.2.0-no-codecov.patch"
 )
 
 EPYTEST_DESELECT=(
