@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}-no-codecov.patch"
+	"${FILESDIR}/${PN}-2025.2.0-no-codecov.patch"
 )
 
 EPYTEST_DESELECT=(
@@ -43,5 +43,9 @@ EPYTEST_DESELECT=(
 	dask/array/tests/test_reductions.py::test_nanquantile_all_nan
 	# testing deprecated functionality, should be skipped
 	dask/dataframe/tests/test_dataframe.py::test_combine_first_all_nans
+	# Internet
+	dask/bytes/tests/test_http.py::test_read_csv
+	dask/bytes/tests/test_http.py::test_bag
+	dask/bytes/tests/test_http.py::test_parquet
 )
 distutils_enable_tests pytest
