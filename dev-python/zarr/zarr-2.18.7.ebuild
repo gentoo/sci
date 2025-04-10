@@ -18,7 +18,7 @@ KEYWORDS="~amd64"
 RDEPEND="
 	dev-python/asciitree[${PYTHON_USEDEP}]
 	dev-python/fasteners[${PYTHON_USEDEP}]
-	dev-python/numcodecs[${PYTHON_USEDEP}]
+	<dev-python/numcodecs-16[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1.7[${PYTHON_USEDEP}]
 "
 DEPEND="
