@@ -26,6 +26,7 @@ RDEPEND="
 DEPEND="
 	test? (
 		dev-python/entrypoints[${PYTHON_USEDEP}]
+		!<dev-python/zarr-3[${PYTHON_USEDEP}]
 	)
 "
 
