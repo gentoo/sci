@@ -28,6 +28,11 @@ DEPEND="
 		dev-python/entrypoints[${PYTHON_USEDEP}]
 	)
 "
+BDEPEND="
+	test? (
+		>=dev-python/zarr-3[${PYTHON_USEDEP}]
+	)
+"
 
 PATCHES=( "${FILESDIR}/${P}-nocov.patch" )
 
