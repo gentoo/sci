@@ -10,7 +10,8 @@ inherit distutils-r1
 
 DESCRIPTION="Configure a package including defaults, env variable loading, and yaml loading"
 HOMEPAGE=https://donfig.readthedocs.io/en/latest/
-SRC_URI="https://github.com/pytroll/donfig/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/pytroll/donfig/archive/v${PV/_p/.post}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/${PN}-${PV/_p/.post}"
 
 LICENSE="MIT"
 SLOT="0"
