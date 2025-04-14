@@ -1,0 +1,12 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index c413510..600bc41 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -144,7 +144,6 @@ addopts = [
+     "--doctest-modules",
+     "--pyargs",
+     "-ptesting.anndata._pytest",
+-    "--dist=loadgroup",
+ ]
+ filterwarnings = [
+     "ignore::anndata._warnings.OldFormatWarning",
