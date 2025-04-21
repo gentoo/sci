@@ -6,10 +6,10 @@ EAPI=8
 DESCRIPTION="An ultra-fast all-in-one FASTQ preprocessor"
 HOMEPAGE="https://github.com/OpenGene/fastp"
 SRC_URI="https://github.com/OpenGene/fastp/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
-KEYWORDS="~amd64"
 
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64"
 
 DEPEND="app-arch/libdeflate
 	dev-libs/isa-l"
