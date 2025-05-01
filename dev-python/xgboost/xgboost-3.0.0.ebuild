@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_EXT=1
 PYTHON_COMPAT=( python3_{12..13} )
 DISTUTILS_USE_PEP517="standalone"
 inherit distutils-r1 pypi
