@@ -30,6 +30,35 @@
 
 #--- END OF EXAMPLES ---
 
+# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-05-05)
+# No supported implementation in PYTHON_COMPAT.
+dev-libs/lief
+dev-python/affine
+dev-python/av
+dev-python/cymbal
+dev-python/ezdxf
+dev-python/gmsh_interop
+dev-python/logzero
+dev-python/matlabengine
+dev-python/meshpy
+dev-python/multimethod
+dev-python/python-gantt
+dev-python/pyvista
+dev-python/pyvote
+dev-python/rasterio
+dev-python/rasterstats
+dev-python/scooby
+dev-python/snuggs
+dev-python/typish
+sci-biology/arcs
+sci-biology/longstitch
+sci-biology/minimap2
+sci-biology/ncbi-vdb
+sci-biology/ngs
+sci-biology/tigmint
+sci-libs/simpleitk
+sci-libs/spyking-circus
+
 # Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-01-10)
 # Download server is gone since about 2014.
 sci-biology/vague-bin
