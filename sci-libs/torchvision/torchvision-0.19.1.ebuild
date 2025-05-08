@@ -33,7 +33,7 @@ RDEPEND="
 		dev-python/scipy[${PYTHON_USEDEP}]
 	')
 	sci-libs/caffe2[cuda?,rocm?]
-	sci-libs/pytorch[${PYTHON_SINGLE_USEDEP}]
+	sci-ml/pytorch[${PYTHON_SINGLE_USEDEP}]
 	media-video/ffmpeg:=
 "
 DEPEND="${RDEPEND}"
