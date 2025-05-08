@@ -32,7 +32,7 @@ RDEPEND="
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/scipy[${PYTHON_USEDEP}]
 	')
-	sci-libs/caffe2[cuda?,rocm?]
+	sci-ml/caffe2[cuda?,rocm?]
 	sci-ml/pytorch[${PYTHON_SINGLE_USEDEP}]
 	media-video/ffmpeg:=
 "
