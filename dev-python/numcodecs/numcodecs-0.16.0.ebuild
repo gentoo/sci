@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{10..13} )
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
 
@@ -28,13 +28,8 @@ DEPEND="
 		dev-python/entrypoints[${PYTHON_USEDEP}]
 	)
 "
-BDEPEND="
-	test? (
-		>=dev-python/zarr-3[${PYTHON_USEDEP}]
-	)
-"
 
-PATCHES=( "${FILESDIR}/${P}-nocov.patch" )
+PATCHES=( "${FILESDIR}/${PN}-0.15.1-nocov.patch" )
 
 distutils_enable_tests pytest
 
