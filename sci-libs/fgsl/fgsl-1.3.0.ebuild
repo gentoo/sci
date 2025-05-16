@@ -19,7 +19,7 @@ IUSE="static-libs"
 
 RDEPEND=">=sci-libs/gsl-2.4"
 DEPEND="${RDEPEND}"
-BDEPEDN="virtual/pkgconfig"
+BDEPEND="virtual/pkgconfig"
 
 FORTRAN_STANDARD=90
 
