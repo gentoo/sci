@@ -28,5 +28,6 @@
 	</use>
 	<upstream>
 		<remote-id type="launchpad">mg5amcnlo</remote-id>
+		<remote-id type="github">mg5amcnlo/mg5amcnlo</remote-id>
 	</upstream>
 </pkgmetadata>
