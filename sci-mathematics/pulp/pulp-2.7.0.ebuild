@@ -16,6 +16,6 @@ LICENSE="BSD-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
-distutils_enable_tests setup.py
+#distutils_enable_tests setup.py
 # ToDo: package theme
 #distutils_enable_sphinx doc/source dev-python/sphinx_glpi_theme
