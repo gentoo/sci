@@ -3,6 +3,8 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_EXT=1
 #FIXME: Upstream explicitly supports "pypy3", but Gentoo dependencies do not.
 PYTHON_COMPAT=( python3_13 )
 inherit distutils-r1 pypi
