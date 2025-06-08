@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_11 )
 
 inherit distutils-r1
@@ -21,6 +22,7 @@ RDEPEND="
 	dev-python/lxml[${PYTHON_USEDEP}]
 	>=dev-python/matplotlib-3[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1.18[${PYTHON_USEDEP}]
+	<dev-python/numpy-2[${PYTHON_USEDEP}]
 	>=dev-python/pandas-1[${PYTHON_USEDEP}]
 	>=dev-python/requests-2[${PYTHON_USEDEP}]
 	>=dev-python/scipy-1.5[${PYTHON_USEDEP}]
