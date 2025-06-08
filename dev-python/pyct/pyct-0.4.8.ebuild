@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..11} pypy3 )
 # HoloViews imports from "distutils" at runtime.
 DISTUTILS_USE_SETUPTOOLS=rdepend
