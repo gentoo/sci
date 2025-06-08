@@ -3,6 +3,8 @@
 
 EAPI=8
 
+DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_EXT=1
 PYTHON_COMPAT=( python3_13 )
 DISTUTILS_OPTIONAL=1
 inherit distutils-r1
@@ -22,7 +24,10 @@ DEPEND="sys-libs/zlib
 		${PYTHON_DEPS}
 	)"
 RDEPEND="${DEPEND}"
-BDEPEND="python? ( dev-python/cython[${PYTHON_USEDEP}] )"
+BDEPEND="
+	${DISTUTILS_DEPS}
+	python? ( dev-python/cython[${PYTHON_USEDEP}] )
+"
 
 src_prepare(){
 	sed -e 's/-O2 //' -e 's/^CFLAGS=/CFLAGS+=/' -i Makefile || die
