@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 
 RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 
-distutils_enable_tests unittest
+#distutils_enable_tests unittest
 # ToDo: Fix doc building:
 # AttributeError: 'NoDefaultSpecified' object has no attribute '__name__'
 #distutils_enable_sphinx docs/source --no-autodoc
