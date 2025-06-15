@@ -1,6 +1,6 @@
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{11..13} )
 
 inherit fortran-2 python-single-r1 autotools
 
@@ -28,6 +28,7 @@ RDEPEND="
 	>=sci-physics/lhapdf-6.1.6[python(+),${PYTHON_SINGLE_USEDEP}]
 	>=sci-physics/thepeg-2.1.0[lhapdf,fastjet,-hepmc2(-),hepmc3(-),rivet(-)]
 	>=sci-physics/evtgen-02.02.00[pythia]
+	<sci-physics/evtgen-02.02.03[pythia]
 	pythia? ( sci-physics/pythia:8= )
 	${PYTHON_DEPS}
 "
