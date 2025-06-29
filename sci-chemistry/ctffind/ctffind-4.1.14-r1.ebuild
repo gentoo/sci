@@ -1,9 +1,9 @@
-# Copyright 2019-2021 Gentoo Authors
+# Copyright 2019-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-WX_GTK_VER="3.0-gtk3"
+WX_GTK_VER="3.2-gtk3"
 inherit wxwidgets
 
 DESCRIPTION="CTF estimation (ctffind, ctftilt)"
@@ -18,7 +18,7 @@ DEPEND="
 	sci-libs/fftw:3.0
 	media-libs/libjpeg-turbo
 	media-libs/tiff
-	x11-libs/wxGTK:*
+	x11-libs/wxGTK:${WX_GTK_VER}=
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
