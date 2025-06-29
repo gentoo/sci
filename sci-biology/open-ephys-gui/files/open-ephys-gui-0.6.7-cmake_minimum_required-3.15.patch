@@ -1,0 +1,20 @@
+From c95612dea8030859d8def9b25147c9058a1a1435 Mon Sep 17 00:00:00 2001
+From: Paul Zander <negril.nx+gentoo@gmail.com>
+Date: Sun, 29 Jun 2025 11:57:16 +0200
+Subject: [PATCH 1/2] cmake_minimum_required 3.15
+
+Signed-off-by: Paul Zander <negril.nx+gentoo@gmail.com>
+
+diff --git a/JuceLibraryCode/modules/juce_audio_devices/native/oboe/CMakeLists.txt b/JuceLibraryCode/modules/juce_audio_devices/native/oboe/CMakeLists.txt
+index 4763da2..1c12bf7 100644
+--- a/JuceLibraryCode/modules/juce_audio_devices/native/oboe/CMakeLists.txt
++++ b/JuceLibraryCode/modules/juce_audio_devices/native/oboe/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.4.1)
++cmake_minimum_required(VERSION 3.15)
+ 
+ # Set the name of the project and store it in PROJECT_NAME. Also set the following variables:
+ # PROJECT_SOURCE_DIR (usually the root directory where Oboe has been cloned e.g.)
+-- 
+2.50.0
+

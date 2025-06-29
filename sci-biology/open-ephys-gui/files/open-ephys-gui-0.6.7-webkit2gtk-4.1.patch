@@ -1,0 +1,65 @@
+From 17c65fcf11ab4217f2fd37dbb8573e9f4853038c Mon Sep 17 00:00:00 2001
+From: Paul Zander <negril.nx+gentoo@gmail.com>
+Date: Sun, 29 Jun 2025 11:57:29 +0200
+Subject: [PATCH 2/2] webkit2gtk-4.1
+
+Signed-off-by: Paul Zander <negril.nx+gentoo@gmail.com>
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0a1fd0a..069d2e6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -175,7 +175,7 @@ elseif(LINUX)
+ 	endif()
+ 	find_package(CURL REQUIRED)
+ 	find_package(PkgConfig REQUIRED)
+-	pkg_check_modules(WEBKIT2GTK REQUIRED webkit2gtk-4.0)
++	pkg_check_modules(WEBKIT2GTK REQUIRED webkit2gtk-4.1)
+ 	# pkg_check_modules(GTK REQUIRED gtk+-3.0)
+ 
+ 	target_include_directories(open-ephys PRIVATE
+diff --git a/JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.cpp b/JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.cpp
+index 5dc0f13..675d9a6 100644
+--- a/JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.cpp
++++ b/JuceLibraryCode/modules/juce_gui_extra/juce_gui_extra.cpp
+@@ -112,12 +112,12 @@
+ #elif JUCE_LINUX && JUCE_WEB_BROWSER
+  JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wzero-as-null-pointer-constant", "-Wparentheses")
+ 
+- // If you're missing this header, you need to install the webkit2gtk-4.0 package
++ // If you're missing this header, you need to install the webkit2gtk-4.1 package
+  #include <gtk/gtk.h>
+ 
+  JUCE_END_IGNORE_WARNINGS_GCC_LIKE
+ 
+- // If you're missing these headers, you need to install the webkit2gtk-4.0 package
++ // If you're missing these headers, you need to install the webkit2gtk-4.1 package
+  #include <gtk/gtkx.h>
+  #include <glib-unix.h>
+  #include <webkit2/webkit2.h>
+diff --git a/JuceLibraryCode/modules/juce_gui_extra/native/juce_linux_X11_WebBrowserComponent.cpp b/JuceLibraryCode/modules/juce_gui_extra/native/juce_linux_X11_WebBrowserComponent.cpp
+index 7ad40ee..80b504b 100644
+--- a/JuceLibraryCode/modules/juce_gui_extra/native/juce_linux_X11_WebBrowserComponent.cpp
++++ b/JuceLibraryCode/modules/juce_gui_extra/native/juce_linux_X11_WebBrowserComponent.cpp
+@@ -197,7 +197,7 @@ private:
+     }
+ 
+     //==============================================================================
+-    DynamicLibrary gtkLib { "libgtk-3.so" }, webkitLib { "libwebkit2gtk-4.0.so" };
++    DynamicLibrary gtkLib { "libgtk-3.so" }, webkitLib { "libwebkit2gtk-4.1.so" };
+     const bool webKitIsAvailable = loadWebkitSymbols() && loadGtkSymbols();
+ 
+     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WebKitSymbols)
+diff --git a/Resources/Scripts/install_linux_dependencies.sh b/Resources/Scripts/install_linux_dependencies.sh
+index 3944aac..71dcf0a 100755
+--- a/Resources/Scripts/install_linux_dependencies.sh
++++ b/Resources/Scripts/install_linux_dependencies.sh
+@@ -8,4 +8,4 @@
+ apt-get -y install build-essential
+ 
+ # install Juce dependencies
+-apt-get -y install freeglut3-dev libfreetype6-dev libxinerama-dev libxcursor-dev libasound2-dev libxrandr-dev libcurl4-openssl-dev libwebkit2gtk-4.0-dev
++apt-get -y install freeglut3-dev libfreetype6-dev libxinerama-dev libxcursor-dev libasound2-dev libxrandr-dev libcurl4-openssl-dev libwebkit2gtk-4.1-dev
+-- 
+2.50.0
+

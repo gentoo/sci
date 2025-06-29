@@ -53,6 +53,8 @@ RDEPEND="${DEPEND}"
 BUILD_DIR="${S}/Build"
 PATCHES=(
 	"${FILESDIR}/${PN}-cmake-no-build-type-error.patch"
+	"${FILESDIR}/${PN}-0.6.7-cmake_minimum_required-3.15.patch"
+	"${FILESDIR}/${PN}-0.6.7-webkit2gtk-4.1.patch"
 )
 
 QA_PREBUILT="opt/open-ephys-*/shared/*.so"
