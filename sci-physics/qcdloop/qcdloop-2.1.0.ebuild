@@ -8,7 +8,7 @@ CMAKE_MAKEFILE_GENERATOR="emake"
 inherit cmake fortran-2
 
 DESCRIPTION="An object-oriented one-loop scalar Feynman integrals framework"
-HOMEPAGE="https://qcdloop.web.cern.ch/qcdloop/"
+HOMEPAGE="https://qcdloop.web.cern.ch/"
 SRC_URI="https://github.com/scarrazza/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
