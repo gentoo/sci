@@ -29,6 +29,7 @@ SRC_URI="
 	ppllajj?    ( ${COMMON_URI}/ppllajj/-/archive/4d8743c/ppllajj-4d8743c.tar.bz2       )
 	pplla-ew?   ( ${COMMON_URI}/pplla_ew/-/archive/0a26af9a/pplla_ew-0a26af9a.tar.bz2   )
 	ppllj?      ( ${COMMON_URI}/ppllj/-/archive/a3a36918/ppllj-a3a36918.tar.bz2         )
+	ppllj-ew?   ( ${COMMON_URI}/ppllj_ew/-/archive/a3a36918/ppllj_ew-a3a36918.tar.bz2   )
 	pplljj?     ( ${COMMON_URI}/pplljj/-/archive/93a6e3f7/pplljj-93a6e3f7.tar.bz2       )
 	pplnj-ckm?  ( ${COMMON_URI}/pplnj_ckm/-/archive/4d8743c/pplnj_ckm-4d8743c.tar.bz2   )
 	pplnjj-ckm? ( ${COMMON_URI}/pplnjj_ckm/-/archive/d3d5302/pplnjj_ckm-d3d5302.tar.bz2 )
@@ -39,7 +40,7 @@ S="${WORKDIR}/${MY_PN}-${MY_P}"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+collier +cuttools +extra pplla-ew ppllj pplljj pplnj-ckm pplnjj-ckm ppjj ppjjj ppajj pphllj-ew pplla ppllaj ppllajj"
+IUSE="+collier +cuttools +extra pplla-ew ppllj ppllj-ew pplljj pplnj-ckm pplnjj-ckm ppjj ppjjj ppajj pphllj-ew pplla ppllaj ppllajj"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -83,7 +84,7 @@ src_prepare() {
 
 src_compile() {
 	escons --cache-disable
-	for OLPROC in pplla_ew ppllj pplljj pplnj_ckm pplnjj_ckm ppjj ppjjj ppajj pphllj_ew pplla ppllaj ppllajj;  do
+	for OLPROC in pplla_ew ppllj ppllj_ew pplljj pplnj_ckm pplnjj_ckm ppjj ppjjj ppajj pphllj_ew pplla ppllaj ppllajj;  do
 		if use ${OLPROC//_/-}; then
 			# move downloaded files to src
 			mkdir -p "${S}/process_src/${OLPROC}" || die
