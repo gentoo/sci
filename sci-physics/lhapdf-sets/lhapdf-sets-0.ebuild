@@ -22,6 +22,7 @@ IUSE_LHAPDF_SETS="
 	lhapdf_sets_mrst2004qed
 	lhapdf_sets_nnpdf23_nlo_as_0118
 	lhapdf_sets_nnpdf31_nnlo_as_0118
+	lhapdf_sets_nnpdf40_nlo_as_0118
 "
 
 DESCRIPTION="LHAPDF data grids"
@@ -49,6 +50,7 @@ SRC_URI="
 	lhapdf_sets_mrst2004qed?                 ( ${HEPFORGE_URI}/MRST2004qed.tar.gz               )
 	lhapdf_sets_nnpdf23_nlo_as_0118?         ( ${COMMON_URI}/NNPDF23_nlo_as_0118.tar.gz         )
 	lhapdf_sets_nnpdf31_nnlo_as_0118?        ( ${COMMON_URI}/NNPDF31_nnlo_as_0118.tar.gz        )
+	lhapdf_sets_nnpdf40_nlo_as_0118?         ( ${COMMON_URI}/NNPDF40_nlo_as_01180.tar.gz        )
 "
 
 MY_PV=$(ver_cut 1-3)
