@@ -3,14 +3,13 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..12} )
+PYTHON_COMPAT=( python3_{11..13} )
 DISTUTILS_USE_PEP517=setuptools
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Make-like task language"
 HOMEPAGE="https://snakemake.readthedocs.io"
-SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -21,7 +20,6 @@ RDEPEND="
 	dev-python/immutables[${PYTHON_USEDEP}]
 	dev-python/configargparse[${PYTHON_USEDEP}]
 	>=dev-python/connection_pool-0.0.3[${PYTHON_USEDEP}]
-	dev-python/datrie[${PYTHON_USEDEP}]
 	dev-python/docutils[${PYTHON_USEDEP}]
 	dev-python/gitpython[${PYTHON_USEDEP}]
 	dev-python/humanfriendly[${PYTHON_USEDEP}]
@@ -31,13 +29,15 @@ RDEPEND="
 	dev-python/packaging[${PYTHON_USEDEP}]
 	dev-python/psutil[${PYTHON_USEDEP}]
 	dev-python/pyyaml[${PYTHON_USEDEP}]
+	dev-python/referencing[${PYTHON_USEDEP}]
 	>=dev-python/requests-2.8.1[${PYTHON_USEDEP}]
 	dev-python/reretry[${PYTHON_USEDEP}]
 	>=dev-python/smart-open-4.0[${PYTHON_USEDEP}]
-	>=dev-python/snakemake-interface-common-1.17.0[${PYTHON_USEDEP}]
+	>=dev-python/snakemake-interface-common-1.20.1[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-executor-plugins-9.3.2[${PYTHON_USEDEP}]
-	>=dev-python/snakemake-interface-storage-plugins-3.2.3[${PYTHON_USEDEP}]
+	>=dev-python/snakemake-interface-storage-plugins-4.1.0[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-report-plugins-1.1.0[${PYTHON_USEDEP}]
+	>=dev-python/snakemake-interface-logger-plugins-1.1.0[${PYTHON_USEDEP}]
 	dev-python/stopit[${PYTHON_USEDEP}]
 	dev-python/tabulate[${PYTHON_USEDEP}]
 	dev-python/throttler[${PYTHON_USEDEP}]
@@ -97,28 +97,28 @@ python_test() {
 		tests/tests.py::test_resources_submitted_to_cluster
 		tests/tests.py::test_excluded_resources_not_submitted_to_cluster
 		tests/tests.py::test_group_job_resources_with_pipe
+		tests/tests.py::test_nodelocal
+		tests/tests.py::test_access_patterns
+		tests/tests.py::test_resource_quoting_profile
+		tests/tests.py::test_resource_quoting_cli
+		tests/tests.py::test_default_resource_quoting_cli
+		tests/tests.py::test_default_resource_quoting_profile
 		# Missing snakemake-storage-plugin-http
 		tests/tests.py::test_ancient
 		tests/tests.py::test_modules_prefix
+		tests/tests.py::test_keep_local
+		tests/tests.py::test_retrieve
 		# Missing snakemake-storage-plugin-fs
 		tests/tests.py::test_handle_storage_multi_consumers
 		tests/tests.py::test_checkpoint_open
 		# Missing python-polars
 		tests/tests.py::test_params_pickling
-		# requires conda and does not skip: https://github.com/snakemake/snakemake/pull/3298
-		tests/tests.py::test_conda_create_envs_only
-		tests/tests.py::test_get_log_none
-		tests/tests.py::test_get_log_both
-		tests/tests.py::test_get_log_stderr
-		tests/tests.py::test_get_log_stdout
-		tests/tests.py::test_get_log_complex
-		tests/tests.py::test_issue1046
-		tests/tests.py::test_containerize
+		tests/tests.py::test_validate
 		# requires singularity and does not skip
 		tests/tests.py::test_singularity
 		tests/tests.py::test_cwl_singularity
 		tests/tests.py::test_shell_exec
-		# requires 'stress' in $PATH
+		# requires 'stress-ng' in $PATH
 		tests/tests.py::test_benchmark
 		tests/tests.py::test_benchmark_jsonl
 		# requires 'dot' bash module
@@ -133,6 +133,10 @@ python_test() {
 		tests/tests.py::test_strict_mode
 		# creates directory with chmod 000, breaks portage cleanup
 		tests/tests.py::test_github_issue640
+		# missing jupyter
+		tests/tests.py::test_jupyter_notebook
+		tests/tests.py::test_jupyter_notebook_nbconvert
+		tests/tests.py::test_jupyter_notebook_draft
 	)
 
 	epytest -W ignore::ResourceWarning \
