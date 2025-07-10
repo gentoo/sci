@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{11..12} )
+PYTHON_COMPAT=( python3_{11..13} )
 
 inherit pypi distutils-r1
 
@@ -20,4 +20,4 @@ DEPEND="dev-python/argparse-dataclass[${PYTHON_USEDEP}]
 	dev-python/throttler[${PYTHON_USEDEP}]"
 
 RESTRICT="test" # no tests collected
-#distutils_enable_tests pytest
+distutils_enable_tests pytest
