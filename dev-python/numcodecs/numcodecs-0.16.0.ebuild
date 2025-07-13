@@ -29,7 +29,10 @@ DEPEND="
 	)
 "
 
-PATCHES=( "${FILESDIR}/${PN}-0.15.1-nocov.patch" )
+PATCHES=(
+	"${FILESDIR}/${PN}-0.15.1-nocov.patch"
+	"${FILESDIR}/c-blosc-1.21.4-c23.patch"
+)
 
 distutils_enable_tests pytest
 
@@ -48,6 +51,6 @@ python_compile() {
 python_test() {
 	local PY_BUILD_DIR=$(${EPYTHON} -c "import sysconfig; print('lib.' + sysconfig.get_platform() +
 		'-cpython-' + sysconfig.get_python_version().replace('.', ''))") || die
-	cd "${BUILD_DIR}/build/${PY_BUILD_DIR}" || die
+	cd "${BUILD_DIR}/build${#DISTUTILS_WHEELS}/${PY_BUILD_DIR}" || die
 	epytest --pyargs numcodecs
 }
