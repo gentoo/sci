@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>mschu.dev@gmail.com</email>
+		<name>Michael Schubert</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">pynndescent</remote-id>
+		<remote-id type="github">lmcinnes/pynndescent</remote-id>
+	</upstream>
+</pkgmetadata>
