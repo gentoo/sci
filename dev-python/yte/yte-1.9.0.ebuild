@@ -3,8 +3,8 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517=uv-build
+PYTHON_COMPAT=( python3_{11..13} )
 
 inherit distutils-r1
 
@@ -14,7 +14,7 @@ SRC_URI="https://github.com/yte-template-engine/${PN}/archive/v${PV}.tar.gz -> $
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/dpath[${PYTHON_USEDEP}]
@@ -23,7 +23,3 @@ RDEPEND="
 "
 
 distutils_enable_tests pytest
-
-python_test() {
-	epytest tests.py
-}
