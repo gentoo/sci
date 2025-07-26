@@ -54,6 +54,10 @@ BDEPEND="
 	)
 "
 
+PATCHES=(
+	"${FILESDIR}/${P}-assets.patch"
+)
+
 # distutils_enable_sphinx docs \
 #	dev-python/sphinxcontrib-napoleon \
 #	dev-python/sphinx-argparse \
