@@ -3,17 +3,19 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..13} )
+DISTUTILS_USE_PEP517=hatchling
+PYTHON_COMPAT=( python3_{11..13} )
 
 inherit pypi distutils-r1
 
-DESCRIPTION="Declarative CLIs with argparse and dataclasses"
-HOMEPAGE="https://pypi.org/project/argparse-dataclass/"
+DESCRIPTION="Snakemake Logger Plugin Interface"
+HOMEPAGE="https://pypi.org/project/snakemake-interface-logger-plugins/"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+
+DEPEND="dev-python/snakemake-interface-common[${PYTHON_USEDEP}]"
 
 RESTRICT="test" # no tests collected
 #distutils_enable_tests pytest

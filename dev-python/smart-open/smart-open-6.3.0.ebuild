@@ -1,9 +1,9 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
@@ -24,13 +24,13 @@ RDEPEND="
 	dev-python/paramiko[${PYTHON_USEDEP}]
 "
 
-BDEPEND="
-	test? (
-		<dev-python/moto-5[${PYTHON_USEDEP}]
-		dev-python/responses[${PYTHON_USEDEP}]
-		dev-python/pytest-rerunfailures[${PYTHON_USEDEP}]
-	)
-"
+#BDEPEND="
+#	test? (
+#		<dev-python/moto-5[${PYTHON_USEDEP}]
+#		dev-python/responses[${PYTHON_USEDEP}]
+#		dev-python/pytest-rerunfailures[${PYTHON_USEDEP}]
+#	)
+#"
 
 RESTRICT="test" # 329 tests, 1 error: missing azure-storage-blob, azure-common[no ebuild], azure-core
 distutils_enable_tests pytest
