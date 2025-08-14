@@ -1,25 +1,28 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake java-pkg-opt-2
 
 DESCRIPTION="Data format for neutron and x-ray scattering data"
 HOMEPAGE="http://nexusformat.org/"
+
 COMMIT=5b803b3a0014bd9759b3d846da3cd3c1cfafd7d5
 SRC_URI="https://github.com/nexusformat/code/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
 
-S="${WORKDIR}"/code-${COMMIT}
+S="${WORKDIR}/code-${COMMIT}"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="cxx hdf4 +hdf5 java xml"
 
-REQUIRED_USE=" || ( hdf4 hdf5 xml ) "
+REQUIRED_USE="|| ( hdf4 hdf5 xml )"
 
-RDEPEND="
+RESTRICT="test"
+
+DEPEND="
 	dev-libs/libxml2
 	sys-libs/readline
 	sys-libs/libtermcap-compat
@@ -27,7 +30,7 @@ RDEPEND="
 	hdf4? ( sci-libs/hdf )
 	hdf5? ( sci-libs/hdf5[zlib] )
 "
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"
 BDEPEND="
 	app-text/doxygen[dot]
 "
