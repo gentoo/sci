@@ -30,31 +30,31 @@
 
 #--- END OF EXAMPLES ---
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-01-10)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Download server is gone since about 2014.
 sci-biology/vague-bin
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-01-10)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Missing packages org.ejml.simple and org.slf4j.
 sci-misc/stanford-parser
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-01-10)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Upstream binary files removed.
 sci-biology/NGSEPcore-bin
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-01-10)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Needs sci-biology/bam-readcount.
 sci-biology/VarScan
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2025-01-10)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Compilation fails.
 sci-biology/bam-readcount
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2024-11-26)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2024-11-26)
 # Depends on removed version of vtk.
 sci-biology/ants
 
-# Alexander Puck Neuwirth <alexander@neuwirth-informatik.de> (2024-11-26)
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2024-11-26)
 # Depends on masked sci-biology/ants.
 sci-biology/samri
 
