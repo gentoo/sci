@@ -61,3 +61,8 @@ sci-biology/samri
 # Nowa Ammerlaan <nowa@gentoo.org> (2024-07-18)
 # Requires java openmpi bindings, no longer packaged.
 sci-biology/BBmap
+
+# Horea Christian <gentoo@chymera.eu> (2025-09-11)
+# Dependency media-sound/pulseaudio masked and marked for removal.
+# Bug #961795
+sci-misc/praat
