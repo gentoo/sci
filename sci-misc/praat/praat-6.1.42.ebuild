@@ -4,13 +4,14 @@
 EAPI=7
 
 DESCRIPTION="Speech analysis and synthesis"
-SRC_URI="https://github.com/praat/praat/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 HOMEPAGE="http://www.fon.hum.uva.nl/praat/"
+SRC_URI="https://github.com/praat/praat/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/praat-${PV}"
 
-KEYWORDS="~amd64 ~x86"
-IUSE="+pulseaudio static-libs +X"
 LICENSE="GPL-2"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
+IUSE="+pulseaudio static-libs +X"
 
 DEPEND="
 	pulseaudio? ( media-sound/pulseaudio )
@@ -19,8 +20,6 @@ DEPEND="
 	!X? ( x11-libs/pango )"
 
 RDEPEND="${DEPEND}"
-
-S="${WORKDIR}/praat-${PV}"
 
 src_prepare() {
 	if use X; then
