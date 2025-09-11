@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{11..13} )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
@@ -11,9 +11,9 @@ DESCRIPTION="Read/write Python types to/from HDF5 files, including MATLAB v7.3 M
 HOMEPAGE="https://github.com/frejanordsiek/hdf5storage"
 
 SRC_URI="https://github.com/frejanordsiek/hdf5storage/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 
-LICENSE="BSD"
 SLOT="0"
 
 RDEPEND="
