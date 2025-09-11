@@ -66,3 +66,8 @@ sci-biology/BBmap
 # Dependency media-sound/pulseaudio masked and marked for removal.
 # Bug #961795
 sci-misc/praat
+
+# Horea Christian <gentoo@chymera.eu> (2025-09-11)
+# Dependency dev-python/partd masked and marked for removal.
+# Bug #962404
+dev-python/dask
