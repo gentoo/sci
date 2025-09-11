@@ -71,3 +71,6 @@ sci-misc/praat
 # Dependency dev-python/partd masked and marked for removal.
 # Bug #962404
 dev-python/dask
+dev-python/dask-histogram
+dev-python/dask-awkward
+dev-python/anndata
