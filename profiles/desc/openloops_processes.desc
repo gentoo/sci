@@ -1,0 +1,19 @@
+# Copyright 2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+# This file contains descriptions of OPENLOOPS_PROCESSES USE_EXPAND flags.   
+
+eella-ew - Build ee to lla process with EW corrections
+pplla-ew - Build pp to lla process with EW corrections
+ppllj - Build pp to llj process
+ppllj-ew - Build pp to llj process with EW corrections
+pplljj - Build pp to lljj process
+pplnj-ckm - Build pp to lnj process with ckm matrix
+pplnjj-ckm - Build pp to lljj process with ckm matrix
+ppjj - Build pp to jj process
+ppjjj - Build pp to jjj process
+ppajj - Build pp to ajj process
+pphllj-ew - Build pp to hllj process with EW corrections
+pplla - Build pp to lla process
+ppllaj - Build pp to llaj process
+ppllajj - Build pp to llajj process
