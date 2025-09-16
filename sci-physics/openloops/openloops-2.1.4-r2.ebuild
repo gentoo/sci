@@ -70,6 +70,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-fortranpath.patch
+)
+
 src_prepare() {
 	default
 	mv openloops.cfg.tmpl openloops.cfg || die
@@ -83,7 +87,8 @@ src_prepare() {
 	link_libraries = $(usev collier) $(usev cuttools)
 	ccflags = ${CFLAGS}
 	cxxflags = ${CXXFLAGS}
-	f_flags = ${FFLAGS} -I${ESYSROOT}/usr/include/ -I${ESYSROOT}/usr/include/cuttools -lcollier
+	f_path = ${ESYSROOT}/usr/include/
+	f_flags = ${FFLAGS} -I${ESYSROOT}/usr/include/cuttools -lcollier
 	link_flags = ${LDFLAGS} -I${ESYSROOT}/usr/include/ -I${ESYSROOT}/usr/include/cuttools -lcollier
 	cc = $(tc-getCC)
 	cxx = $(tc-getCXX)

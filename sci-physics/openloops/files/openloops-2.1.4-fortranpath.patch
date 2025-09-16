@@ -1,0 +1,69 @@
+diff --git i/SConstruct w/SConstruct
+index 974026e..1bf68b2 100644
+--- i/SConstruct
++++ w/SConstruct
+@@ -387,6 +387,8 @@ env = Environment(tools = ['default', 'textfile'] + [config['fortran_tool']],
+                   FORTRANFLAGS = config['f77_flags'] + config['generic_optimisation'],
+                   F90FLAGS = config['f90_flags'] + config['generic_optimisation'],
+                   LINKFLAGS = config['link_flags'],
++                  FORTRANPATH = config['f77_path'],
++                  F90PATH = config['f90_path'],
+                   LIBPATH = [config['generic_lib_dir']],
+                   DOLLAR = '\\$$',
+                   RPATH = [HashableLiteral('\\$$ORIGIN')],
+diff --git i/pyol/config/default.cfg w/pyol/config/default.cfg
+index ed2a5a5..78917ad 100644
+--- i/pyol/config/default.cfg
++++ w/pyol/config/default.cfg
+@@ -126,6 +126,9 @@ link_flags = %(common_flags)s
+ # common Fortran compiler options, added to f77_flags and f90_flags
+ f_flags = %%(%(fortran_tool)s_f_flags)s %(common_flags)s
+ noautomatic = %%(%(fortran_tool)s_noautomatic)s
++f77_path = 
++f90_path = 
++f_path = 
+ 
+ import_env = PATH LD_LIBRARY_PATH CPATH C_INCLUDE_PATH CPLUS_INCLUDE_PATH INTEL_LICENSE_FILE
+ math_cmd = math
+diff --git i/pyol/tools/OLBaseConfig.py w/pyol/tools/OLBaseConfig.py
+index 4461a9e..6e996a0 100644
+--- i/pyol/tools/OLBaseConfig.py
++++ w/pyol/tools/OLBaseConfig.py
+@@ -184,6 +184,9 @@ def get_config(args=[]):
+     parse_option(config, 'f77_flags', interpolate=True, converter=split_list)
+     parse_option(config, 'f90_flags', interpolate=True, converter=split_list)
+     parse_option(config, 'f_flags', interpolate=True, converter=split_list)
++    parse_option(config, 'f77_path', interpolate=True, converter=split_list)
++    parse_option(config, 'f90_path', interpolate=True, converter=split_list)
++    parse_option(config, 'f_path', interpolate=True, converter=split_list)
+     parse_option(config, 'common_flags', interpolate=True, converter=split_list)
+     parse_option(config, 'link_flags', interpolate=True, converter=str.split)
+     parse_option(config, 'debug_flags_1', converter=split_list)
+@@ -220,6 +223,8 @@ def get_config(args=[]):
+ 
+     config['f77_flags'] = config['f77_flags'] + config['f_flags']
+     config['f90_flags'] = config['f90_flags'] + config['f_flags']
++    config['f77_path'] = config['f77_path'] + config['f_path']
++    config['f90_path'] = config['f90_path'] + config['f_path']
+     config['link_flags'] = config['link_flags'] + config['link_optimisation']
+ 
+     config['compile_libraries'].extend(['olcommon', 'openloops', 'trred'])
+diff --git i/pyol/tools/OLLibrary.py w/pyol/tools/OLLibrary.py
+index 43b6804..2fda89d 100644
+--- i/pyol/tools/OLLibrary.py
++++ w/pyol/tools/OLLibrary.py
+@@ -164,10 +164,10 @@ class OLLibrary:
+             f_path = [f_path]
+         if isinstance(f90_path, strtype):
+             f90_path = [f90_path]
+-        f_path = f_path + [os.path.join(config['lib_src_dir'], dep, 'mod')
+-                           for dep in self.mod_dependencies] + [self.mod_dir]
+-        f90_path = f90_path + [os.path.join(config['lib_src_dir'], dep, 'mod')
+-                               for dep in self.mod_dependencies] + [self.mod_dir]
++        f_path = [os.path.join(config['lib_src_dir'], dep, 'mod')
++                    for dep in self.mod_dependencies] + [self.mod_dir] + f_path 
++        f90_path = [os.path.join(config['lib_src_dir'], dep, 'mod')
++                    for dep in self.mod_dependencies] + [self.mod_dir] + f90_path
+         if self.mod_dir and not os.path.isdir(self.mod_dir):
+             os.makedirs(self.mod_dir)
+ 
