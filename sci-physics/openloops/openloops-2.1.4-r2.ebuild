@@ -107,7 +107,7 @@ src_prepare() {
 
 src_compile() {
 	escons --cache-disable
-	for OLPROC in ${OLPROCS};
+	for OLPROC in ${IUSE_OPENLOOPS_PROCESSES};
 	do
 		if use ${OLPROC}; then
 			MY_OLPROC=${OLPROC//-/_}
