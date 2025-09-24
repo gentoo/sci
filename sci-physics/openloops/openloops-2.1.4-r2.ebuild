@@ -84,7 +84,7 @@ src_prepare() {
 
 	cat <<-EOF >> openloops.cfg || die
 	compile_libraries = rambo trred
-	link_libraries = $(usev collier) $(usev cuttools)
+	link_libraries = $(usev collier) $(usev cuttools) rambo trred
 	ccflags = ${CFLAGS}
 	cxxflags = ${CXXFLAGS}
 	f_path = ${ESYSROOT}/usr/include/
