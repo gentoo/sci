@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python3_{11..13} )
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
-DESCRIPTION="Saves and loads to the cache a transformed versions of a source object."
+DESCRIPTION="Parsing made fun ... using typing."
 HOMEPAGE="https://github.com/hgrecco/flexparser"
 
 LICENSE="BSD"
