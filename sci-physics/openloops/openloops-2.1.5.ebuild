@@ -23,11 +23,12 @@ IUSE_OPENLOOPS_PROCESSES="
 	openloops_processes_ppajj
 	openloops_processes_pphllj-ew
 	openloops_processes_ppjj
+	openloops_processes_ppjj-ew
 	openloops_processes_ppjjj
 	openloops_processes_pplla
+	openloops_processes_pplla-ew
 	openloops_processes_ppllaj
 	openloops_processes_ppllajj
-	openloops_processes_pplla-ew
 	openloops_processes_ppllj
 	openloops_processes_ppllj-ew
 	openloops_processes_pplljj
@@ -40,11 +41,12 @@ SRC_URI="
 	openloops_processes_ppajj?      ( ${COMMON_URI}/ppajj/-/archive/93a6e3f7/ppajj-93a6e3f7.tar.bz2         )
 	openloops_processes_pphllj-ew?  ( ${COMMON_URI}/pphllj_ew/-/archive/93a6e3f7/pphllj_ew-93a6e3f7.tar.bz2 )
 	openloops_processes_ppjj?       ( ${COMMON_URI}/ppjj/-/archive/d3d5302/ppjj-d3d5302.tar.bz2             )
+	openloops_processes_ppjj-ew?    ( ${COMMON_URI}/ppjj_ew/-/archive/d3d5302/ppjj_ew-d3d5302.tar.bz2       )
 	openloops_processes_ppjjj?      ( ${COMMON_URI}/ppjjj/-/archive/93a6e3f7/ppjjj-93a6e3f7.tar.bz2         )
 	openloops_processes_pplla?      ( ${COMMON_URI}/pplla/-/archive/a3a36918/pplla-a3a36918.tar.bz2         )
+	openloops_processes_pplla-ew?   ( ${COMMON_URI}/pplla_ew/-/archive/0a26af9a/pplla_ew-0a26af9a.tar.bz2   )
 	openloops_processes_ppllaj?     ( ${COMMON_URI}/ppllaj/-/archive/c77e3a3/ppllaj-c77e3a3.tar.bz2         )
 	openloops_processes_ppllajj?    ( ${COMMON_URI}/ppllajj/-/archive/4d8743c/ppllajj-4d8743c.tar.bz2       )
-	openloops_processes_pplla-ew?   ( ${COMMON_URI}/pplla_ew/-/archive/0a26af9a/pplla_ew-0a26af9a.tar.bz2   )
 	openloops_processes_ppllj?      ( ${COMMON_URI}/ppllj/-/archive/a4b41a31/ppllj-a4b41a31.tar.bz2         )
 	openloops_processes_ppllj-ew?   ( ${COMMON_URI}/ppllj_ew/-/archive/4d20a80d/ppllj_ew-4d20a80d.tar.bz2   )
 	openloops_processes_pplljj?     ( ${COMMON_URI}/pplljj/-/archive/93a6e3f7/pplljj-93a6e3f7.tar.bz2       )

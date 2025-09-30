@@ -11,6 +11,7 @@ pplljj - Build pp to lljj process
 pplnj-ckm - Build pp to lnj process with ckm matrix
 pplnjj-ckm - Build pp to lljj process with ckm matrix
 ppjj - Build pp to jj process
+ppjj-ew - Build pp to jj process with EW corrections
 ppjjj - Build pp to jjj process
 ppajj - Build pp to ajj process
 pphllj-ew - Build pp to hllj process with EW corrections
