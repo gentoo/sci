@@ -1,0 +1,12 @@
+--- a/Template/NLO/MCatNLO/srcPythia8/Makefile	2025-10-26 13:33:24.567078241 +0100
++++ b/Template/NLO/MCatNLO/srcPythia8/Makefile	2025-10-26 13:33:43.140411913 +0100
+@@ -20,6 +20,9 @@
+ LIBGZIP=-L$(ZLIBLOCATION) -lz
+ endif
+ 
++$(PYTHIA8LOCATION)/$(LIBDIR)/libpythia8.a:
++	@echo "Skipping build of libpythia8.a (no rule needed)"
++
+ %.o: ./PY8Analyzer/%.f
+ 	$(F77) -c $< -fPIC -ffixed-line-length-132 -I$(TOPDIR)/$(INCDIR) -o $@
+ 
