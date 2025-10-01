@@ -11,7 +11,7 @@
 	</maintainer>
 	<longdescription>
 		The program golem95 is a package for the numerical evaluation of integrals and tensor form factors entering the calculation of one-loop amplitudes with up to six external legs, written in Fortran 95.
-  A package for evaluation of scalar and tensor one-loop integrals 
+		A package for evaluation of scalar and tensor one-loop integrals 
 	</longdescription>
 	<use>
 		<flag name="looptools">use looptools</flag>
