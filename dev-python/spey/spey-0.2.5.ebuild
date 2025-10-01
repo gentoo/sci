@@ -26,3 +26,5 @@ RDEPEND="
 	>=dev-python/requests-2.31.0[${PYTHON_USEDEP}]
 "
 BDEPEND="${RDEPEND}"
+
+distutils_enable_tests pytest
