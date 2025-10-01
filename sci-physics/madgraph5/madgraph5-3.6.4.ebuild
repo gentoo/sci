@@ -23,7 +23,7 @@ S="${WORKDIR}/${MY_PF}"
 LICENSE="UoI-NCSA"
 SLOT="3"
 KEYWORDS="~amd64"
-IUSE="+hepmc2 +lhapdf +fastjet pythia collier thepeg madanalysis5 ninja samurai golem95 herwig"
+IUSE="+hepmc2 +lhapdf +fastjet pythia collier thepeg madanalysis5 ninja samurai golem95 herwig yoda rivet"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -46,6 +46,8 @@ RDEPEND="
 	samurai? ( sci-physics/samurai )
 	golem95? ( sci-physics/golem95 )
 	herwig? ( sci-physics/herwig )
+	yoda? ( sci-physics/yoda )
+	rivet? ( sci-physics/rivet )
 "
 DEPEND="${RDEPEND}"
 
@@ -68,6 +70,8 @@ src_configure() {
 	$(usex ninja "ninja = ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex samurai "samurai = ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex golem95 "golem = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex yoda "yoda_path= ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex rivet "rivet_path= ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex madanalysis5 "madanalysis5_path = ${EPREFIX}/opt/MadAnalysis5/" "")
 	auto_update = 0
 	EOF
@@ -79,6 +83,10 @@ src_compile() {
 	echo "exit" > tmpfile || die
 	bin/mg5_aMC ./tmpfile || die
 	rm tmpfile || die
+	cd vendor/CutTools || die
+	emake -j1
+	cd ../IREGI/src || die
+	emake -j1 -f makefile_ML5_lib
 }
 
 src_install() {
