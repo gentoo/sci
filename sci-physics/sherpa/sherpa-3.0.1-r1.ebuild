@@ -56,6 +56,11 @@ DEPEND="
 #	recola? ( sci-physics/recola )
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}/${P}-cstdint.patch"
+	"${FILESDIR}/${P}-return.patch"
+)
+
 pkg_setup() {
 	use ufo && python-single-r1_pkg_setup
 }

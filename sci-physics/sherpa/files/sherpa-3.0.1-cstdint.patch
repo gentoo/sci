@@ -1,0 +1,29 @@
+From 72109dd489ddf6995453aa4af68ec85be8146e42 Mon Sep 17 00:00:00 2001
+From: Daniel Reichelt <danielreichelt@me.com>
+Date: Wed, 21 May 2025 12:30:05 +0100
+Subject: [PATCH] Edit emitterutils.cpp to add missing header
+
+(cherry picked from commit 2bf656441fadb768b7fc40d539e4b9d534d4d9bb)
+
+2bf65644 Edit emitterutils.cpp to add missing header
+
+Co-authored-by: Andrii Verbytskyi <2178089-andriish@users.noreply.gitlab.com>
+---
+ ATOOLS/YAML/emitterutils.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ATOOLS/YAML/emitterutils.cpp b/ATOOLS/YAML/emitterutils.cpp
+index 09583f465c..9b417b5293 100644
+--- a/ATOOLS/YAML/emitterutils.cpp
++++ b/ATOOLS/YAML/emitterutils.cpp
+@@ -10,6 +10,7 @@
+ #include "stringsource.h"
+ #include "yaml-cpp/binary.h"  // IWYU pragma: keep
+ #include "yaml-cpp/null.h"
++#include <cstdint>
+ #include "yaml-cpp/ostream_wrapper.h"
+ 
+ namespace SHERPA_YAML {
+-- 
+GitLab
+

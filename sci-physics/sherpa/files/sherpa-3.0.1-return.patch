@@ -1,0 +1,40 @@
+From 6de0bc2b225b12b5ae4e108fccf94db9c7ed2196 Mon Sep 17 00:00:00 2001
+From: Andrii Verbytskyi <2178089-andriish@users.noreply.gitlab.com>
+Date: Fri, 27 Sep 2024 08:02:34 +0000
+Subject: [PATCH] Update Variations.C to prevent compiler warnings.
+
+---
+ ATOOLS/Phys/Variations.C | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/ATOOLS/Phys/Variations.C b/ATOOLS/Phys/Variations.C
+index 235fae7c25..6849aa693a 100644
+--- a/ATOOLS/Phys/Variations.C
++++ b/ATOOLS/Phys/Variations.C
+@@ -134,6 +134,7 @@ Variations::GetVariationNameAt(Variations::Parameters_Vector::size_type i,
+   case Variations_Type::custom:
+     THROW(fatal_error, "Variations does not manage custom variations.");
+   }
++  return std::string();
+ }
+ 
+ size_t Variations::Size(Variations_Type t) const
+@@ -148,6 +149,7 @@ size_t Variations::Size(Variations_Type t) const
+   case Variations_Type::custom:
+     THROW(fatal_error, "Variations does not manage custom variations.");
+   }
++  return 0;
+ }
+ 
+ void Variations::ReadDefaults()
+@@ -812,6 +814,7 @@ namespace ATOOLS {
+       case Variations_Type::qcut:   return o << "Qcut";
+       case Variations_Type::custom: return o << "Custom";
+     }
++    return o;
+   }
+ 
+   std::ostream& operator<<(std::ostream& s, const Variations& v)
+-- 
+GitLab
+
