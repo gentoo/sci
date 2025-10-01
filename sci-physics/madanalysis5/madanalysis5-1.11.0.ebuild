@@ -52,6 +52,11 @@ src_configure() {
 	sed -i 's|#include "external/ExRootAnalysis|#include "ExRootAnalysis|g' tools/SampleAnalyzer/Interfaces/delphes/*.cpp || die
 }
 
+src_compile() {
+	default
+	echo "1" | ./bin/ma5 --build || die
+}
+
 src_install() {
 	# symlink entrypoint
 	dosym ../../opt/${MY_PF}/bin/ma5 /usr/bin/ma5
