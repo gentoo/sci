@@ -34,7 +34,7 @@ src_configure() {
 	local -x CONFIG_SHELL="${BROOT}/bin/bash"
 	# Fix that qcdloop and oneloop are already installed
 	sed -i 's/lib_LTLIBRARIES.*/lib_LTLIBRARIES = libgolem.la/g' Makefile.am || die
-	econf --with-avh_olo="${ESYSROOT}"/usr/$(get_libdir)/libavh_olo.so --with-avh_olo_precision=double --with-precision=double $(use_with looptools looptools "${ESYSROOT}"/usr) FCFLAGS="${FCFLAGS} -std=legacy -fPIC -I${ESYSROOT}/usr/include"
+	econf --with-avh_olo_precision=double --with-precision=double $(use_with looptools looptools "${ESYSROOT}"/usr) FCFLAGS="${FCFLAGS} -std=legacy -fPIC -I${ESYSROOT}/usr/include"
 }
 
 src_compile() {
