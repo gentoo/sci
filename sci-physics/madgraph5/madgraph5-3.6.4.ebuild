@@ -23,8 +23,7 @@ S="${WORKDIR}/${MY_PF}"
 LICENSE="UoI-NCSA"
 SLOT="3"
 KEYWORDS="~amd64"
-# TODO add pineapple, herwig, syscalc, pjfrym, pineappl
-IUSE="+hepmc2 +lhapdf +fastjet pythia collier thepeg madanalysis5 ninja samurai golem95"
+IUSE="+hepmc2 +lhapdf +fastjet pythia collier thepeg madanalysis5 ninja samurai golem95 herwig"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -46,6 +45,7 @@ RDEPEND="
 	ninja? ( sci-physics/ninja[static-libs] )
 	samurai? ( sci-physics/samurai )
 	golem95? ( sci-physics/golem95 )
+	herwig? ( sci-physics/herwig )
 "
 DEPEND="${RDEPEND}"
 
@@ -64,13 +64,13 @@ src_configure() {
 	$(usex hepmc2 "hepmc_path = ${EPREFIX}/usr" "")
 	$(usex collier "collier = ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex thepeg "thepeg_path = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex herwig "hwpp_path = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex ninja "ninja = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex samurai "samurai = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex golem95 "golem = ${EPREFIX}/usr/$(get_libdir)" "")
+	$(usex madanalysis5 "madanalysis5_path = ${EPREFIX}/opt/MadAnalysis5/" "")
 	auto_update = 0
 	EOF
-
-	use ninja && echo "ninja = ${EPREFIX}/usr/$(get_libdir)" >> input/mg5_configuration.txt
-	use samurai && echo "samurai = ${EPREFIX}/usr/$(get_libdir)" >> input/mg5_configuration.txt
-	use golem95 && echo "golem = ${EPREFIX}/usr/$(get_libdir)" >> input/mg5_configuration.txt
-	use madanalysis5 && echo "madanalysis5_path = ${EPREFIX}/opt/MadAnalysis5/" >> input/mg5_configuration.txt
 }
 
 src_compile() {
