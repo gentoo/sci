@@ -49,7 +49,7 @@ DEPEND="
 	root? ( sci-physics/root )
 	mpi? ( virtual/mpi[cxx,fortran] )
 	ufo? ( ${PYTHON_DEPS} )
-	openloops? ( sci-physics/openloops[ppllj,pplljj] )
+	openloops? ( sci-physics/openloops[ppllj(-),pplljj(-)] )
 "
 #	blackhat? ( sci-physics/blackhat )
 #	gosam? ( sci-physics/gosam )
