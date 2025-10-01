@@ -56,19 +56,9 @@ src_install() {
 	# symlink entrypoint
 	dosym ../../opt/${MY_PF}/bin/ma5 /usr/bin/ma5
 	dosym  ../opt/${MY_PF} /opt/"${MY_PN}"
-	dodir /opt/${MY_PF}
-	insinto /opt/
-	doins -r "${S}"
-	# Fix for missing empty directories, check keepdir install function explanation
-	for f in $(find . -type d -empty); do
-		keepdir /opt/${MY_PF}/$f
-	done
-	cd "${S}"
-	# Copy executable, etc. permissions
-	for f in $(find * ! -type l); do
-		fperms --reference="${S}/$f" /opt/${MY_PF}/$f
-	done
-	fperms -R a=u /opt/${MY_PF}
+	mv "${WORKDIR}/${MY_PF}" "${ED}/opt/" || die
+
+	#fperms -R a=u /opt/${MY_PF}
 }
 
 pkg_postinstall() {
