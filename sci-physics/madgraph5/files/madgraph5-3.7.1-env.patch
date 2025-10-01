@@ -1,0 +1,52 @@
+From 87756ea13b81ee44797fbb5dcf2d4e95610ce34d Mon Sep 17 00:00:00 2001
+From: Alexander Puck Neuwirth <alexander@neuwirth-informatik.de>
+Date: Wed, 27 May 2026 16:13:20 +0200
+Subject: [PATCH] Also look in new env variable MG5_LIBRARY_PATH for libraries.
+
+This avoids polluting commonly used global variables.
+---
+ madgraph/loop/loop_exporters.py | 14 +++++++++-----
+ madgraph/various/misc.py        |  2 +-
+ 2 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/madgraph/loop/loop_exporters.py b/madgraph/loop/loop_exporters.py
+index b701e07f4e..6145c5338c 100755
+--- a/madgraph/loop/loop_exporters.py
++++ b/madgraph/loop/loop_exporters.py
+@@ -177,14 +177,18 @@ def link_CutTools(self, targetPath):
+             # his environmental paths
+             CTlib = misc.which_lib('libcts.a')
+             CTmod = misc.which_lib('mpmodule.mod')
+-            if not CTlib is None and not CTmod is None:
++            if CTlib is None:
++                raise InvalidCmd("Could not find the location of the file"+\
++                    " libcts.a in you environment paths.")
++            elif CTmod is None:
++                raise InvalidCmd("Could not find the location of the file"+\
++                    " mpmodule.mod in you environment paths.")
++            else:
+                 logger.info('MG5_aMC is using CutTools installation found at %s.'%\
+-                                                         os.path.dirname(CTlib)) 
++                                                         os.path.dirname(CTlib))
+                 ln(os.path.join(CTlib),os.path.join(targetPath,'lib'),abspath=True)
+                 ln(os.path.join(CTmod),os.path.join(targetPath,'lib'),abspath=True)
+-            else:
+-                raise InvalidCmd("Could not find the location of the files"+\
+-                    " libcts.a and mp_module.mod in you environment paths.")
++
+     
+     def get_aloha_model(self, model):
+         """ Caches the aloha model created here as an attribute of the loop 
+diff --git a/madgraph/various/misc.py b/madgraph/various/misc.py
+index ae43b330eb..7f934734cb 100755
+--- a/madgraph/various/misc.py
++++ b/madgraph/various/misc.py
+@@ -414,7 +414,7 @@ def is_lib(fpath):
+             return lib
+     else:
+         locations = sum([os.environ[env_path].split(os.pathsep) for env_path in
+-           ["DYLD_LIBRARY_PATH","LD_LIBRARY_PATH","LIBRARY_PATH","PATH"] 
++           ["MG5_LIBRARY_PATH", "DYLD_LIBRARY_PATH","LD_LIBRARY_PATH","LIBRARY_PATH","PATH"] 
+                                                   if env_path in os.environ],[])
+         for path in locations:
+             lib_file = os.path.join(path, lib)
