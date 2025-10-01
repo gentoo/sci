@@ -27,13 +27,13 @@ src_prepare() {
 		# add -looptools to pkgconfig
 		sed -i '/Libs:/s/$/ -looptools/' golem95.pc.in || die
 	fi
+	sed -i 's/lib_LTLIBRARIES.*/lib_LTLIBRARIES = libgolem.la/g' Makefile.am || die
 	eautoreconf
 }
 
 src_configure() {
 	local -x CONFIG_SHELL="${BROOT}/bin/bash"
 	# Fix that qcdloop and oneloop are already installed
-	sed -i 's/lib_LTLIBRARIES.*/lib_LTLIBRARIES = libgolem.la/g' Makefile.am || die
 	econf --with-avh_olo_precision=double --with-precision=double $(use_with looptools looptools "${ESYSROOT}"/usr) FCFLAGS="${FCFLAGS} -std=legacy -fPIC -I${ESYSROOT}/usr/include"
 }
 
