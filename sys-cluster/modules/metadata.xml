@@ -25,5 +25,8 @@
 	</upstream>
 	<use>
 		<flag name="compat">Build Modules version 3 compat support</flag>
+		<flag name="new-features">enable all new features</flag>
+		<flag name="shell-setup">install shell initialization and completion files</flag>
+		<flag name="man-install">install man files in global location</flag>
 	</use>
 </pkgmetadata>
