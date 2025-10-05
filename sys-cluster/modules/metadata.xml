@@ -18,9 +18,10 @@
 		of shells.
 	</longdescription>
 	<upstream>
-		<remote-id type="sourceforge">modules</remote-id>
-		<remote-id type="github">cea-hpc/modules</remote-id>
-		<bugs-to>https://github.com/cea-hpc/modules/issues</bugs-to>
+		<remote-id type="github">envmodules/modules</remote-id>
+		<bugs-to>https://github.com/envmodules/modules/issues</bugs-to>
+		<changelog>https://modules.readthedocs.io/en/stable/NEWS.html</changelog>
+		<doc>https://modules.readthedocs.io</doc>
 	</upstream>
 	<use>
 		<flag name="compat">Build Modules version 3 compat support</flag>
