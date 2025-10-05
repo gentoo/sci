@@ -10,11 +10,12 @@
 		<name>Gentoo Science Project</name>
 	</maintainer>
 	<longdescription lang="en">
-		The environment modules package provides for an easy dynamic
-		modification of a user's environment via modulefiles. which
+		The Environment Modules package provides for an easy dynamic
+		modification of a user's environment via modulefiles. Which
 		typically instruct the module command to alter or set shell
-		environment variables such as PATH, MANPATH, etc. as well as define
-		aliases over a variety of shells.
+		environment variables (such as PATH, MANPATH, etc), aliases,
+		functions as well as command-line completions over a variety
+		of shells.
 	</longdescription>
 	<upstream>
 		<remote-id type="sourceforge">modules</remote-id>
