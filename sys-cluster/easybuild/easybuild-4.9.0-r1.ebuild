@@ -24,7 +24,7 @@ fi
 RDEPEND="
 	dev-libs/openssl
 	dev-tcltk/tclx
-	|| ( >=sys-cluster/lmod-6.5.1 >=sys-cluster/modules-4.6.0-r1 )
+	|| ( >=sys-cluster/lmod-6.5.1 >=sys-cluster/modules-4.6.0-r1[shell-setup(+)] )
 	~sys-cluster/easybuild-framework-${PV}[${PYTHON_USEDEP}]
 	~sys-cluster/easybuild-easyblocks-${PV}[${PYTHON_USEDEP}]
 	~sys-cluster/easybuild-easyconfigs-${PV}[${PYTHON_USEDEP}]
