@@ -3,7 +3,7 @@
 
 # This file contains descriptions of LHAPDF_SETS USE_EXPAND flags.
 
-lhapdf_sets_luxqed_plus_pdf4lhc15_nnlo_100 - LUXqed_plus_PDF4LHC15_nnlo_100 LHAPDF grid
+luxqed_plus_pdf4lhc15_nnlo_100 - lhapdf_sets_luxqed_plus_pdf4lhc15_nnlo_100 LHAPDF grid
 nnpdf31_nnlo_as_0118_luxqed - NNPDF31_nnlo_as_0118_luxqed LHAPDF grid
 pdf4lhc15_nlo_asvar - PDF4LHC15_nlo_asvar LHAPDF grid
 pdf4lhc15_nnlo_100 - PDF4LHC15_nnlo_100 LHAPDF grid
@@ -20,5 +20,6 @@ cteq66 - CTEQ66 LHAPDF grid
 cteq6l1 - CTEQ6L1 LHAPDF grid
 mrst2004qed - MRST2004qed LHAPDF grid
 nnpdf23_nlo_as_0118 - nnpdf23_nlo_as_0118 grid
+nnpdf31_nlo_as_0118 - nnpdf31_nlo_as_0118 grid
 nnpdf31_nnlo_as_0118 - nnpdf31_nnlo_as_0118 grid
 nnpdf40_nlo_as_0118 - nnpdf40_nlo_as_0118 grid
