@@ -6,8 +6,11 @@ EAPI=8
 inherit autotools fortran-2
 
 DESCRIPTION="performs the reduction to a certain set of basis integrals numerically"
-HOMEPAGE="https://golem.hepforge.org/"
-SRC_URI="https://golem.hepforge.org/downloads?f=${P}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="
+	https://golem.hepforge.org/
+	https://github.com/gudrunhe/golem95
+"
+SRC_URI="https://github.com/gudrunhe/golem95/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

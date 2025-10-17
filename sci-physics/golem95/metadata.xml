@@ -16,4 +16,8 @@
 	<use>
 		<flag name="looptools">use looptools</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">gudrunhe/golem95</remote-id>
+	</upstream>
+
 </pkgmetadata>
