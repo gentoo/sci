@@ -10,6 +10,7 @@ MY_PNN="MadGraph5"
 MY_PV=$(ver_rs 1-3 '_')
 MY_PN="MG5_aMC_v"
 MY_PF=${MY_PN}${MY_PV}
+MY_P=${MY_PNN}-${PV}
 
 DESCRIPTION="MadGraph5_aMC@NLO"
 HOMEPAGE="
@@ -17,7 +18,7 @@ HOMEPAGE="
 	https://github.com/mg5amcnlo/mg5amcnlo
 "
 SRC_URI="
-	https://launchpad.net/mg5amcnlo/$(ver_cut 1).0/$(ver_cut 1-2).x/+download/${MY_PN}${PV}.tar.gz -> ${MY_PNN}-${PV}.tar.gz
+	https://launchpad.net/mg5amcnlo/$(ver_cut 1).0/$(ver_cut 1-2).x/+download/${MY_PN}${PV}.tar.gz -> ${MY_P}.tar.gz
 	http://madgraph.phys.ucl.ac.be//Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.3.tar.gz
 "
 S="${WORKDIR}/${MY_PF}"
@@ -25,7 +26,7 @@ S="${WORKDIR}/${MY_PF}"
 LICENSE="UoI-NCSA"
 SLOT="3"
 KEYWORDS="~amd64"
-IUSE="+hepmc2 +lhapdf +fastjet +pythia +collier thepeg madanalysis5 +ninja samurai golem95 herwig yoda rivet"
+IUSE="+hepmc2 +lhapdf +fastjet +pythia collier thepeg madanalysis5 ninja samurai golem95 herwig yoda rivet"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -80,9 +81,9 @@ src_configure() {
 	$(usex collier "collier = ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex thepeg "thepeg_path = ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex herwig "hwpp_path = ${EPREFIX}/usr/$(get_libdir)" "")
-	$(usex ninja "ninja = ${EPREFIX}/usr/$(get_libdir)" "")
-	$(usex samurai "samurai = ${EPREFIX}/usr/$(get_libdir)" "")
-	$(usex golem95 "golem = ${EPREFIX}/usr/$(get_libdir)" "")
+	ninja = $(usex ninja "${EPREFIX}/usr/$(get_libdir)" "''")
+	samurai = $(usex samurai "${EPREFIX}/usr/$(get_libdir)" "''")
+	golem = $(usex golem95 "${EPREFIX}/usr/$(get_libdir)" "''")
 	$(usex yoda "yoda_path= ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex rivet "rivet_path= ${EPREFIX}/usr/$(get_libdir)" "")
 	$(usex madanalysis5 "madanalysis5_path = ${EPREFIX}/opt/MadAnalysis5/" "")
@@ -96,7 +97,9 @@ src_compile() {
 	if use pythia; then
 		tc-export CXX
 		cd HEPTools/MG5aMC_PY8_interface/ || die
-		${CXX} ${CXXFLAGS} MG5aMC_PY8_interface.cc -o MG5aMC_PY8_interface $(pythia8-config --ldflags) -lHepMC  ${LDFLAGS} || die
+		${CXX} \
+			${CXXFLAGS} MG5aMC_PY8_interface.cc -o MG5aMC_PY8_interface \
+			$(pythia8-config --ldflags) -lHepMC  ${LDFLAGS} || die
 		echo "$(pythia8-config --version)" >> PYTHIA8_VERSION_ON_INSTALL || die
 		echo "$PV" >> MG5AMC_VERSION_ON_INSTALL || die
 		cd ../.. || die
@@ -104,7 +107,11 @@ src_compile() {
 	echo "exit" >> tmpfile || die
 	bin/mg5_aMC ./tmpfile || die
 	rm tmpfile || die
-	rm vendor/IREGI/src
+
+	cd vendor/StdHEP || die
+	emake all
+	cd ../.. || die
+
 }
 
 src_install() {
