@@ -112,6 +112,9 @@ src_compile() {
 	emake all
 	cd ../.. || die
 
+#	cd vendor/CutTools || die
+#	emake
+#	cd ../.. || die
 }
 
 src_install() {
@@ -119,7 +122,10 @@ src_install() {
 	dosym ../../opt/${MY_PF}/bin/mg5_aMC /usr/bin/mg5_aMC3
 	dosym  ../opt/${MY_PF} /opt/"${MY_PNN}"
 	mv "${WORKDIR}/${MY_PF}" "${ED}/opt/" || die
+
 	dosym ../../../../../usr/$(get_libdir)/libiregi.a /opt/${MY_PF}/vendor/IREGI/src/libiregi.a
 	dosym ../../../../../../../usr/$(get_libdir)/libqcdloop.a /opt/${MY_PF}/vendor/IREGI/src/qcdloop/ql/libqcdloop.a
+
 	dosym ../../../../../usr/$(get_libdir)/libcts.a /opt/${MY_PF}/vendor/CutTools/includects/libcts.a
+	dosym ../../../../../usr/include/mpmodule.mod /opt/${MY_PF}/vendor/CutTools/includects/mpmodule.mod
 }
