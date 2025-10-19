@@ -1,0 +1,79 @@
+From 60c76dfc07d52252d3e5b75fb12f34d445a36b74 Mon Sep 17 00:00:00 2001
+From: Alexander Puck Neuwirth <alexander@neuwirth-informatik.de>
+Date: Thu, 28 May 2026 10:54:36 +0200
+Subject: [PATCH] add option to compile static library for madgraph
+
+---
+ CMakeLists.txt | 38 ++++++++++++++++++++++++++------------
+ README.md      |  1 +
+ 2 files changed, 27 insertions(+), 12 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 849d137..e73f16a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -99,26 +99,40 @@ endif()
+ # libqcdloop configuration
+ include_directories(src/qcdloop src)
+ FILE(GLOB_RECURSE Headers "src/qcdloop/*.h")
+-add_library(qcdloop SHARED src/box.cc
+-                         src/bubble.cc
+-                         src/cache.cc
+-                         src/qcdloop.cc
+-                         src/tadpole.cc
+-                         src/tools.cc
+-                         src/topology.cc
+-                         src/triangle.cc
+-                         src/types.cc
+-                         src/wrapper.cc
+-                         ${Headers}
++option(ENABLE_STATIC_LIBRARY "Build static libqcdloop.a in addition to the shared library" OFF)
++set(QCDLOOP_SOURCES src/box.cc
++                    src/bubble.cc
++                    src/cache.cc
++                    src/qcdloop.cc
++                    src/tadpole.cc
++                    src/tools.cc
++                    src/topology.cc
++                    src/triangle.cc
++                    src/types.cc
++                    src/wrapper.cc
++                    ${Headers}
+ )
+ 
++add_library(qcdloop SHARED ${QCDLOOP_SOURCES})
++
++set(QCDLOOP_INSTALL_TARGETS qcdloop)
++if(ENABLE_STATIC_LIBRARY)
++  add_library(qcdloop_static STATIC ${QCDLOOP_SOURCES})
++  set_target_properties(qcdloop_static PROPERTIES OUTPUT_NAME qcdloop)
++  target_link_libraries(qcdloop_static ${QUADMATH_LIBRARY})
++  list(APPEND QCDLOOP_INSTALL_TARGETS qcdloop_static)
++endif()
++
+ target_link_libraries(qcdloop ${QUADMATH_LIBRARY})
+ install(FILES ${CMAKE_BINARY_DIR}/src/qcdloop-config
+   DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+   GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+ install(FILES ${PROJECT_SOURCE_DIR}/src/qcdloop.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+ install(DIRECTORY src/qcdloop DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+-install(TARGETS qcdloop DESTINATION ${CMAKE_INSTALL_LIBDIR})
++install(TARGETS ${QCDLOOP_INSTALL_TARGETS}
++  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+ 
+ # enable disable fortran/wrapper (to avoid name conflicts with ql1.x)
+ option(ENABLE_FORTRAN_WRAPPER "Enable fortran wrapper" ON)
+diff --git a/README.md b/README.md
+index 277b1eb..cb51077 100644
+--- a/README.md
++++ b/README.md
+@@ -53,6 +53,7 @@ C++11 and `quadmath` features (e.g. `gcc >= 5`).
+ Other qcdloop cmake options are:
+ - `ENABLE_EXAMPLES`, build examples in C++, default `OFF`.
+ - `ENABLE_FORTRAN_WRAPPER`, include fortran wrapper in the library, default `ON`.
++- `ENABLE_STATIC_LIBRARY`, build `libqcdloop.a` in addition to the shared library, default `OFF`.
+ 
+ The fortran wrapper follows the previous syntax in `qcdloop`, see details in table 2 of https://arxiv.org/pdf/1605.03181.pdf.
+ 
