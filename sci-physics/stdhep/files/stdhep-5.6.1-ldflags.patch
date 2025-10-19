@@ -1,0 +1,39 @@
+commit 7bbc1a4d65c905f2ea2e963ad19a9178c2e78e55
+Author: Alexander Puck Neuwirth <alexander@neuwirth-informatik.de>
+Date:   Thu May 28 12:09:53 2026 +0200
+
+    add LDFLAGS
+
+diff --git a/mcfio/src/GNUmakefile b/mcfio/src/GNUmakefile
+index 14862ba..e96de5d 100644
+--- a/mcfio/src/GNUmakefile
++++ b/mcfio/src/GNUmakefile
+@@ -62,7 +62,7 @@ $(LIBDIR)/libFmcfio$(SFX).a: $(CL_F_OBJS)
+ $(LIBDIR)/libFmcfio$(SFX).$(SHEXT): $(SHCL_F_OBJS)
+ 	@echo Creating shared library $@ ...
+ 	@$(RM) $@
+-	$(CC) -Wl,-soname,$(@F) -shared -o $@ \
++	$(CC) -Wl,-soname,$(@F) $(LDFLAGS) -shared -o $@ \
+ 		$(SHCL_F_OBJS)
+ 
+ $(BINDIR)/ntuBuild$(SFX): $(CL_NTUBLD_OBJS) $(LIBDIR)/libFmcfio$(SFX).a \
+diff --git a/src/stdhep/GNUmakefile b/src/stdhep/GNUmakefile
+index d042178..50c4aa8 100644
+--- a/src/stdhep/GNUmakefile
++++ b/src/stdhep/GNUmakefile
+@@ -50,13 +50,13 @@ $(SLIB)/libstdhepC$(SFX).a:	$(COBJS)
+ $(SLIB)/libstdhep$(SFX).$(SHEXT): $(SHFOBJS) $(SHXDROBJS) $(SHUOBJS)
+ 	@echo Creating shared library $@ ...
+ 	@$(RM) $@
+-	$(CC) -Wl,-soname,$(@F) -shared -o $@ \
++	$(CC) -Wl,-soname,$(@F) $(LDFLAGS) -shared -o $@ \
+ 		$(SHFOBJS) $(SHXDROBJS) $(SHUOBJS)
+ 
+ $(SLIB)/libstdhepC$(SFX).$(SHEXT): $(SHCOBJS)
+ 	@echo Creating shared library $@ ...
+ 	@$(RM) $@
+-	$(CC) -Wl,-soname,$(@F) -shared -o $@ \
++	$(CC) -Wl,-soname,$(@F) $(LDFLAGS) -shared -o $@ \
+ 		$(SHCOBJS)
+ 
+ clean:
