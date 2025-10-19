@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>apn-pucky@gentoo.org</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="gitlab">APN-Pucky/iregi-mirror</remote-id>
+		<remote-id type="launchpad">mg5amcnlo</remote-id>
+		<remote-id type="github">mg5amcnlo/mg5amcnlo</remote-id>
+	</upstream>
+</pkgmetadata>
