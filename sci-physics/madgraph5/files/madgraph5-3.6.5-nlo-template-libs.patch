@@ -1,0 +1,11 @@
+--- a/Template/NLO/SubProcesses/makefile_fks_dir	2025-10-20 00:54:33.934104411 +0200
++++ b/Template/NLO/SubProcesses/makefile_fks_dir	2025-10-20 00:55:13.520769019 +0200
+@@ -17,7 +17,7 @@
+     FJLIBS += $(STDLIB)
+ endif
+ 
+-NLOLIBS=-L$(LIBDIR) $(libmadloop) $(libcuttools) $(libOLP)
++NLOLIBS=-L$(LIBDIR) $(libmadloop) $(libcuttools) $(libOLP) -lqcdloop -loneloop -lmpfun90
+ 
+ # Uncomment the line below to compile with MadLoop without setting the environnement 
+ # variables 'by hand'

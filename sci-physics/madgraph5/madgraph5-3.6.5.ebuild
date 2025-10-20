@@ -36,10 +36,10 @@ RDEPEND="
 	$(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]
 	')
-	lhapdf? ( sci-physics/lhapdf[${PYTHON_SINGLE_USEDEP}] )
+	lhapdf? ( sci-physics/lhapdf[static-libs(-),${PYTHON_SINGLE_USEDEP}] )
 	fastjet? ( sci-physics/fastjet[${PYTHON_SINGLE_USEDEP}] )
 	pythia? (
-	sci-physics/pythia:8=[hepmc2(-),-hepmc3(-),examples]
+		sci-physics/pythia:8=[static-libs,hepmc2(-),-hepmc3(-),examples]
 		sci-physics/hepmc:2=
 	)
 	hepmc2? ( sci-physics/hepmc:2 )
@@ -60,7 +60,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-PATCHES=( "${FILESDIR}"/cuttools.patch )
+PATCHES=(
+	"${FILESDIR}"/${P}-nlo-template-libs.patch
+	"${FILESDIR}"/${P}-pythia-hepmc2.patch
+)
 
 src_unpack() {
 	# Perserve permissions
