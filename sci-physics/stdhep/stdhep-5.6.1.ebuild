@@ -5,7 +5,7 @@ EAPI=8
 
 inherit fortran-2 toolchain-funcs flag-o-matic
 
-DESCRIPTION=""
+DESCRIPTION="StdHEP: Standard HEP"
 HOMEPAGE="
 	https://gitlab.com/APN-Pucky/stdhep-mirror
 	https://inspirehep.net/literature/538266
