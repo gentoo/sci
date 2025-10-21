@@ -63,6 +63,7 @@ DEPEND="${RDEPEND}"
 PATCHES=(
 	"${FILESDIR}"/${P}-nlo-template-libs.patch
 	"${FILESDIR}"/${P}-pythia-hepmc2.patch
+	"${FILESDIR}"/${P}-pythia-make.patch
 )
 
 src_unpack() {

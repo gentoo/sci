@@ -1,0 +1,20 @@
+--- Template/NLO/MCatNLO/srcPythia8/Makefile.orig	2025-10-20 02:38:13.148825000 +0200
++++ Template/NLO/MCatNLO/srcPythia8/Makefile	2025-10-20 02:39:00.008842225 +0200
+@@ -3,6 +3,7 @@
+ -include $(PYTHIA8LOCATION)/config.mk
+ -include ../Source/make_opts
+ 
++
+ F77=$(FC)
+ DEBUG=
+ FF=$(F77) $(DEBUG)
+@@ -20,6 +21,9 @@
+ LIBGZIP=-L$(ZLIBLOCATION) -lz
+ endif
+ 
++$(PYTHIA8LOCATION)/$(LIBDIR)/libpythia8.a:
++	@echo "Skipping build of libpythia8.a (no rule needed)"
++
+ %.o: ./PY8Analyzer/%.f
+ 	$(F77) -c $< -fPIC -ffixed-line-length-132 -I$(TOPDIR)/$(INCDIR) -o $@
+ 
