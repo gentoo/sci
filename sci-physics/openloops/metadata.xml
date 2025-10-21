@@ -19,19 +19,5 @@
     <flag name="collier">Build with collier</flag>
     <flag name="extra">Build libs with extra</flag>
     <flag name="cuttools">Build with cuttools</flag>
-    <flag name="eella-ew">Build ee to lla process with EW corrections</flag>
-    <flag name="pplla-ew">Build pp to lla process with EW corrections</flag>
-    <flag name="ppllj">Build pp to llj process</flag>
-    <flag name="ppllj-ew">Build pp to llj process with EW corrections</flag>
-    <flag name="pplljj">Build pp to lljj process</flag>
-    <flag name="pplnj-ckm">Build pp to lnj process with ckm matrix</flag>
-    <flag name="pplnjj-ckm">Build pp to lljj process with ckm matrix</flag>
-    <flag name="ppjj">Build pp to jj process</flag>
-    <flag name="ppjjj">Build pp to jjj process</flag>
-    <flag name="ppajj">Build pp to ajj process</flag>
-    <flag name="pphllj-ew">Build pp to hllj process with EW corrections</flag>
-    <flag name="pplla">Build pp to lla process</flag>
-    <flag name="ppllaj">Build pp to llaj process</flag>
-    <flag name="ppllajj">Build pp to llajj process</flag>
   </use>
 </pkgmetadata>

@@ -30,6 +30,7 @@ IUSE_OPENLOOPS_PROCESSES="
 	openloops_processes_ppllaj
 	openloops_processes_ppllajj
 	openloops_processes_ppllj
+	openloops_processes_ppllj2
 	openloops_processes_ppllj-ew
 	openloops_processes_pplljj
 	openloops_processes_pplnj-ckm
@@ -48,6 +49,7 @@ SRC_URI="
 	openloops_processes_ppllaj?     ( ${COMMON_URI}/ppllaj/-/archive/c77e3a3/ppllaj-c77e3a3.tar.bz2         )
 	openloops_processes_ppllajj?    ( ${COMMON_URI}/ppllajj/-/archive/4d8743c/ppllajj-4d8743c.tar.bz2       )
 	openloops_processes_ppllj?      ( ${COMMON_URI}/ppllj/-/archive/a4b41a31/ppllj-a4b41a31.tar.bz2         )
+	openloops_processes_ppllj2?     ( ${COMMON_URI}/ppllj2/-/archive/eb52577f/ppllj2-eb52577f.tar.bz2       )
 	openloops_processes_ppllj-ew?   ( ${COMMON_URI}/ppllj_ew/-/archive/4d20a80d/ppllj_ew-4d20a80d.tar.bz2   )
 	openloops_processes_pplljj?     ( ${COMMON_URI}/pplljj/-/archive/93a6e3f7/pplljj-93a6e3f7.tar.bz2       )
 	openloops_processes_pplnj-ckm?  ( ${COMMON_URI}/pplnj_ckm/-/archive/4d8743c/pplnj_ckm-4d8743c.tar.bz2   )

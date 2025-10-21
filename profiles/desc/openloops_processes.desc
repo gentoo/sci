@@ -3,18 +3,19 @@
 
 # This file contains descriptions of OPENLOOPS_PROCESSES USE_EXPAND flags.   
 
-eella-ew - Build ee to lla process with EW corrections
-pplla-ew - Build pp to lla process with EW corrections
-ppllj - Build pp to llj process
-ppllj-ew - Build pp to llj process with EW corrections
-pplljj - Build pp to lljj process
-pplnj-ckm - Build pp to lnj process with ckm matrix
-pplnjj-ckm - Build pp to lljj process with ckm matrix
-ppjj - Build pp to jj process
-ppjj-ew - Build pp to jj process with EW corrections
-ppjjj - Build pp to jjj process
-ppajj - Build pp to ajj process
-pphllj-ew - Build pp to hllj process with EW corrections
-pplla - Build pp to lla process
-ppllaj - Build pp to llaj process
-ppllajj - Build pp to llajj process
+eella-ew - Dilepton (e+e-,m+m-,nn~) plus photon production in e+e- at NLO EW and NLO QED
+pplla-ew - Off-shell Z/A/W boson and on-shell photon production with leptonic decays (l+l-/nn/l+n/l-n) at NLO EW
+ppllj - Off-shell Z/A/W boson production with leptonic decays (l+l-/nn/l+n/l-n/L+L-/L+n/L-n) and zero or one jet
+ppllj2 - Loop-squared off-shell Z/A boson production with leptonic decay (l+l- and nn) plus zero or one jet (nf=5 and nf=6 available)
+ppllj-ew - Production of an off-shell Z/W/Photon with leptonic decays (l+l-/nn/l+n/l-n/L+L-/L+n/L-n) and zero or one jet at NLO EW.
+pplljj - Off-shell Z/A boson plus two jets production with leptonic decays (l+l- and nn)
+pplnj-ckm - Off-shell W+/W- boson production with leptonic decay and zero or one jet with non-diagonal CKM
+pplnjj-ckm - Off-shell W+/W- boson production with leptonic decay with non-diagonal CKM
+ppjj - Production of two jets
+ppjj-ew - Production of two jets at NLO EW including all subleading one-loop orders
+ppjjj - Production of three jets
+ppajj - Photon plus two jets production
+pphllj-ew - Higgs plus off-shell Z/W-boson production with leptonic decays (l+l-/nn/l+n/l-n) and one jet at NLO EW.
+pplla - Off-shell Z/A/W boson and on-shell photon production with leptonic decays (l+l-/nn/l+n/l-n)
+ppllaj - Off-shell Z/A/W boson and on-shell photon production plus jet with leptonic decays (l+l-/nn/l+n/l-n)
+ppllajj - Off-shell Z/A boson and on-shell photon production plus two jets with leptonic decays (l+l- and nn)
