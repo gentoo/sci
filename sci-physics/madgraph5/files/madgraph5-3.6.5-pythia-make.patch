@@ -1,14 +1,6 @@
---- Template/NLO/MCatNLO/srcPythia8/Makefile.orig	2025-10-20 02:38:13.148825000 +0200
-+++ Template/NLO/MCatNLO/srcPythia8/Makefile	2025-10-20 02:39:00.008842225 +0200
-@@ -3,6 +3,7 @@
- -include $(PYTHIA8LOCATION)/config.mk
- -include ../Source/make_opts
- 
-+
- F77=$(FC)
- DEBUG=
- FF=$(F77) $(DEBUG)
-@@ -20,6 +21,9 @@
+--- a/Template/NLO/MCatNLO/srcPythia8/Makefile	2025-10-26 13:33:24.567078241 +0100
++++ b/Template/NLO/MCatNLO/srcPythia8/Makefile	2025-10-26 13:33:43.140411913 +0100
+@@ -20,6 +20,9 @@
  LIBGZIP=-L$(ZLIBLOCATION) -lz
  endif
  
