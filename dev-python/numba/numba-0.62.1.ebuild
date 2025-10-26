@@ -18,8 +18,8 @@ KEYWORDS="~amd64"
 IUSE="debug"
 
 RDEPEND="
-	dev-python/llvmlite[$PYTHON_USEDEP]
-	<dev-python/numpy-2.3[$PYTHON_USEDEP]
+	>=dev-python/llvmlite-0.45[$PYTHON_USEDEP]
+	dev-python/numpy[$PYTHON_USEDEP]
 "
 DEPEND="${RDEPEND}"
 
