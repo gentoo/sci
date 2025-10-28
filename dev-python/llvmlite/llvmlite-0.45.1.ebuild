@@ -6,8 +6,8 @@ EAPI=8
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{10..13} )
-LLVM_COMPAT=( 16 )
-inherit cmake distutils-r1 llvm-r1
+LLVM_COMPAT=( 20 )
+inherit distutils-r1 llvm-r1
 
 DESCRIPTION="Python wrapper around the llvm C++ library"
 HOMEPAGE="https://github.com/numba/llvmlite"
@@ -17,6 +17,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
+BDEPEND="dev-build/cmake"
 RDEPEND="
 	sys-libs/zlib:0=
 	$(llvm_gen_dep 'llvm-core/llvm:${LLVM_SLOT}=')
@@ -26,7 +27,7 @@ DEPEND="${RDEPEND}"
 distutils_enable_tests pytest
 
 python_compile() {
-	LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config" distutils-r1_python_compile
+	LLVMLITE_SHARED=ON LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config" distutils-r1_python_compile
 }
 
 python_test() {
