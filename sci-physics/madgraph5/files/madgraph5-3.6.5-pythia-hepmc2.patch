@@ -1,0 +1,53 @@
+From 95a4e8b3d25b86426121a9d74748f182cfa3068b Mon Sep 17 00:00:00 2001
+From: Alexander Puck Neuwirth <APN-Pucky@users.noreply.github.com>
+Date: Mon, 20 Oct 2025 01:47:20 +0200
+Subject: [PATCH 1/2] fix: hepmc2 extrapaths for system installed pythia
+
+Running on my computer:
+```bash
+$ pythia8-config --hepmc2
+-lHepMC
+```
+results in the `extrapath` append code failing with an `IndexError`.
+---
+ madgraph/interface/amcatnlo_run_interface.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/madgraph/interface/amcatnlo_run_interface.py b/madgraph/interface/amcatnlo_run_interface.py
+index 9b96a87fc..ea8a63a61 100755
+--- a/madgraph/interface/amcatnlo_run_interface.py
++++ b/madgraph/interface/amcatnlo_run_interface.py
+@@ -3922,7 +3922,9 @@ def run_mcatnlo(self, evt_file, options):
+             #this gives all the flags, i.e.
+             #-I/Path/to/HepMC/include -L/Path/to/HepMC/lib -lHepMC
+             # we just need the path to the HepMC libraries
+-            extrapaths.append(hepmc.split()[1].replace('-L', '')) 
++            for token in hepmc.split():
++                if token.startswith('-L'):
++                    extrapaths.append(token.replace('-L', ''))
+ 
+         # check that if FxFx is activated the correct shower plugin is present
+         if shower == 'PYTHIA8' and self.run_card['ickkw'] == 3:
+
+From 72c1833a13db1832db08e9f2d2590cccf1d050be Mon Sep 17 00:00:00 2001
+From: Alexander Puck Neuwirth <APN-Pucky@users.noreply.github.com>
+Date: Mon, 20 Oct 2025 01:49:28 +0200
+Subject: [PATCH 2/2] fix:  ensure only -L at start of path is replaced
+
+---
+ madgraph/interface/amcatnlo_run_interface.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/madgraph/interface/amcatnlo_run_interface.py b/madgraph/interface/amcatnlo_run_interface.py
+index ea8a63a61..8b3f6b8c3 100755
+--- a/madgraph/interface/amcatnlo_run_interface.py
++++ b/madgraph/interface/amcatnlo_run_interface.py
+@@ -3924,7 +3924,7 @@ def run_mcatnlo(self, evt_file, options):
+             # we just need the path to the HepMC libraries
+             for token in hepmc.split():
+                 if token.startswith('-L'):
+-                    extrapaths.append(token.replace('-L', ''))
++                    extrapaths.append(token[2:])
+ 
+         # check that if FxFx is activated the correct shower plugin is present
+         if shower == 'PYTHIA8' and self.run_card['ickkw'] == 3:
