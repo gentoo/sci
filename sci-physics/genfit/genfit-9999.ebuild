@@ -22,7 +22,11 @@ HOMEPAGE="https://github.com/GenFit/GenFit"
 LICENSE="LGPL-3"
 SLOT="0"
 
-IUSE="doc examples"
+IUSE="doc"
+
+PATCHES=(
+	"${FILESDIR}"/"${P}"-FindROOT.patch
+)
 
 RDEPEND="
 	sci-physics/root:=
@@ -33,7 +37,6 @@ DEPEND="${RDEPEND}"
 src_compile() {
 	cmake_src_compile
 	use doc && cmake_src_compile doc
-	use examples && cmake_src_compile tests
 }
 
 src_install() {
@@ -41,12 +44,6 @@ src_install() {
 	if use doc; then
 		docinto html
 		dodoc -r doc/html/.
-	fi
-	if use examples; then
-		docinto examples
-		dodoc -r "${BUILD_DIR}/bin"
-		dodoc test/makeGeom.C
-		dodoc test/README
 	fi
 	echo
 	elog "Note that there is no support in this ebuild for RAVE yet,"

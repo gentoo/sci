@@ -1,0 +1,9 @@
+diff --color -Naur GenFit-c3546c073e732abc942a08430b6ca3cb36f5339e-orig/CMakeLists.txt GenFit-c3546c073e732abc942a08430b6ca3cb36f5339e/CMakeLists.txt
+--- GenFit-c3546c073e732abc942a08430b6ca3cb36f5339e-orig/CMakeLists.txt	2020-12-31 10:13:28.000000000 +0100
++++ GenFit-c3546c073e732abc942a08430b6ca3cb36f5339e/CMakeLists.txt	2025-11-18 21:12:12.234861124 +0100
+@@ -1,4 +1,4 @@
+-CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
++CMAKE_MINIMUM_REQUIRED( VERSION 3.10 )
+ if(POLICY CMP0042)
+    # policies not known to CMake 2.8 ...
+    cmake_policy(SET CMP0042 NEW) # Mac OS -rpath behavior
