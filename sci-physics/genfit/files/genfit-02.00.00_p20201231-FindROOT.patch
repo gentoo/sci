@@ -1,0 +1,16 @@
+diff --color -Naur genfit-orig/cmake/FindROOT.cmake GenFit-c3546c073e732abc942a08430b6ca3cb36f5339e/cmake/FindROOT.cmake
+--- a/cmake/FindROOT.cmake	2020-12-31 10:13:28.000000000 +0100
++++ b/cmake/FindROOT.cmake	2025-11-16 22:55:39.849374160 +0100
+@@ -122,9 +122,9 @@
+         OUTPUT_STRIP_TRAILING_WHITESPACE)
+     IF( _exit_code EQUAL 0 )
+         # Make ROOT-version easier to compare in cmake:
+-        STRING(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\/[0-9][0-9]+.*" "\\1" found_root_major_vers "${ROOT_VERSION}")
+-        STRING(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\/[0-9][0-9]+.*" "\\1" found_root_minor_vers "${ROOT_VERSION}")
+-        STRING(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+).*" "\\1" found_root_patch_vers "${ROOT_VERSION}")
++        STRING(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+[\\.\\/][0-9][0-9]+" "\\1" found_root_major_vers "${ROOT_VERSION}")
++        STRING(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+[\\.\\/][0-9][0-9]+.*" "\\1" found_root_minor_vers "${ROOT_VERSION}")
++        STRING(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+[\\.\\/]([0-9][0-9]+)" "\\1" found_root_patch_vers "${ROOT_VERSION}")
+         MATH(EXPR ROOT_found_version "${found_root_major_vers}*10000 + ${found_root_minor_vers}*100 + ${found_root_patch_vers}")
+     ENDIF()
+ 
