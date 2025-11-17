@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake
 
@@ -11,7 +11,6 @@ SRC_URI="https://kimura.univ-montp2.fr/%7Erousset/GenepopV4.tar.gz -> ${P}.tar.g
 
 LICENSE="CeCILL-2"
 SLOT="0"
-IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}"
