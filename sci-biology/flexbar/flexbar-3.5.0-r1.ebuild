@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 CDEPEND="
 	dev-cpp/tbb
 	>=sci-biology/seqan-2.1.1:0
-	sys-libs/zlib
+	virtual/zlib
 	app-arch/bzip2"
 DEPEND="${CDEPEND}"
 RDEPEND="${CDEPEND}"
