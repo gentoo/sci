@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-17)
+# Installation fails. EAPI outdated.
+sci-chemistry/dl_poly
+
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Download server is gone since about 2014.
 sci-biology/vague-bin
