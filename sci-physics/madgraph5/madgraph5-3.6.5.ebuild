@@ -73,6 +73,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-3.6.5-nlo-template-libs.patch
 	"${FILESDIR}"/${PN}-3.6.5-pythia-hepmc2.patch
 	"${FILESDIR}"/${PN}-3.6.5-pythia-make.patch
+	"${FILESDIR}"/${PN}-3.6.5-pythia-chmod.patch
 )
 
 src_unpack() {
@@ -86,6 +87,9 @@ src_unpack() {
 }
 
 src_configure() {
+	sed -i "s/LIBDIR=lib/LIBDIR=$(get_libdir)/g" Template/NLO/MCatNLO/srcPythia8/Makefile || die
+	sed -i "s/LIBDIR=lib/LIBDIR=$(get_libdir)/g" Template/NLO/MCatNLO/srcPythia8/Makefile_hep || die
+
 	cat <<-EOF >> input/mg5_configuration.txt || die
 	$(usex lhapdf "lhapdf_py3 = ${EPREFIX}/usr/bin/lhapdf-config" "")
 	$(usex fastjet "fastjet = ${EPREFIX}/usr/bin/fastjet-config" "")

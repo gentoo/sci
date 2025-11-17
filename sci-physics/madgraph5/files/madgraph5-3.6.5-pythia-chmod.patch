@@ -1,0 +1,39 @@
+From cee6c73706f1fd69575c969e5b44ec0a62ee002a Mon Sep 17 00:00:00 2001
+From: Alexander Puck Neuwirth <APN-Pucky@users.noreply.github.com>
+Date: Mon, 3 Nov 2025 17:25:20 +0100
+Subject: [PATCH] Fix quotes and permissions in PYTHIA8 script
+
+---
+ .../NLO/MCatNLO/Scripts/MCatNLO_MadFKS_PYTHIA8.Script  | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Template/NLO/MCatNLO/Scripts/MCatNLO_MadFKS_PYTHIA8.Script b/Template/NLO/MCatNLO/Scripts/MCatNLO_MadFKS_PYTHIA8.Script
+index 047d454bd..2d2f499c8 100755
+--- a/Template/NLO/MCatNLO/Scripts/MCatNLO_MadFKS_PYTHIA8.Script
++++ b/Template/NLO/MCatNLO/Scripts/MCatNLO_MadFKS_PYTHIA8.Script
+@@ -228,20 +228,20 @@ export PYTHIA8LOCATION=$PY8PATH
+ 
+ # check the PYTHIA8 version by the position of certain files
+ 
+-if [ ! -d $PYTHIA8LOCATION/xmldoc ]
++if [ ! -d "$PYTHIA8LOCATION/xmldoc" ]
+ then
+-  if [ -f $PYTHIA8LOCATION/share/Pythia8/xmldoc/Version.xml ]
++  if [ -f "$PYTHIA8LOCATION/share/Pythia8/xmldoc/Version.xml" ]
+   then
+     while read line; do
+     if [[ $line == *"Pythia:versionNumber"*"8.2"* ]]; then PY8VER="8.2" ; echo ' USING PYTHIA 8.2xy' ; fi
+     if [[ $line == *"Pythia:versionNumber"*"8.3"* ]]; then PY8VER="8.3" ; echo ' USING PYTHIA 8.3xy' ; fi
+-    done < $PYTHIA8LOCATION/share/Pythia8/xmldoc/Version.xml
++    done < "$PYTHIA8LOCATION/share/Pythia8/xmldoc/Version.xml"
+   else
+     echo "Cannot determine Pythia8 version, stopping run"
+     exit -1
+   fi
+-  chmod +x $PYTHIA8LOCATION/bin/pythia8-config
+-  read HEPMCINCLIB <<< $($PYTHIA8LOCATION/bin/pythia8-config --hepmc2)
++  [ -x "$PYTHIA8LOCATION/bin/pythia8-config" ] || chmod +x "$PYTHIA8LOCATION/bin/pythia8-config"
++  read HEPMCINCLIB <<< $("$PYTHIA8LOCATION/bin/pythia8-config" --hepmc2)
+ else
+   PY8VER="8.1"
+   echo ' USING PYTHIA 8.1xy'
