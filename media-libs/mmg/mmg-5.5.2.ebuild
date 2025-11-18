@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake fortran-2
 CMAKE_BUILD_TYPE=MMG
@@ -18,7 +18,7 @@ IUSE="scotch vtk"
 
 DEPEND="
 	scotch? ( sci-libs/scotch )
-	vtk? ( sci-libs/vtk )
+	vtk? ( sci-libs/vtk:= )
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
