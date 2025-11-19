@@ -33,7 +33,7 @@ DEPEND="
 	sci-libs/fftw
 	sci-libs/nlopt
 	sci-libs/vtk
-	sys-libs/zlib
+	virtual/zlib:=
 	dev-lang/tcl:0=
 	dev-lang/tk:0=
 	>=virtual/lapack-3.8
