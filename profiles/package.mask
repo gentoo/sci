@@ -30,6 +30,9 @@
 
 #--- END OF EXAMPLES ---
 
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# SRC_URI dead and compiles in src_install.
+sci-biology/SPAdes
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
 # megahit-1.2.9.ebuild: line 24: tc-has-openmp: command not found
