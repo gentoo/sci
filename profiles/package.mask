@@ -31,6 +31,10 @@
 #--- END OF EXAMPLES ---
 
 
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# There are no ebuilds to satisfy "sci-biology/ngs".
+sci-biology/sra-tools
+
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-17)
 # Installation fails. EAPI outdated.
 sci-chemistry/dl_poly
