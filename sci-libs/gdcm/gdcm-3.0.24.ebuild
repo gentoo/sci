@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -29,7 +29,7 @@ DEPEND="
 	>=media-libs/charls-2.0.0:0=
 	>=media-libs/openjpeg-2.0.0:2=
 	sys-apps/util-linux:0=
-	sys-libs/zlib:0=
+	virtual/zlib:0=
 	python? ( ${PYTHON_DEPS} )
 	vtk? (
 		sci-libs/vtk[rendering]

@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -16,7 +16,7 @@ fi
 LICENSE="MIT"
 SLOT="0"
 
-DEPEND="sys-libs/zlib"
+DEPEND="virtual/zlib:="
 RDEPEND="${DEPEND}"
 
 src_install(){

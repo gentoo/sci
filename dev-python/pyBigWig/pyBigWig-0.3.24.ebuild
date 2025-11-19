@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 REPEND="
-	sys-libs/zlib:0=
+	virtual/zlib:0=
 	sci-biology/libBigWig
 "
 DEPEND="${RDEPEND}"

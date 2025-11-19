@@ -21,7 +21,7 @@ KEYWORDS="~amd64"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
-	sys-libs/zlib
+	virtual/zlib:=
 	app-arch/bzip2
 	dev-python/regex
 	${PYTHON_DEPS}

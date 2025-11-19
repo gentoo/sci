@@ -15,7 +15,7 @@ KEYWORDS=""
 
 RESTRICT="test"
 
-DEPEND="sys-libs/zlib"
+DEPEND="virtual/zlib:="
 RDEPEND="${DEPEND}"
 
 src_install(){

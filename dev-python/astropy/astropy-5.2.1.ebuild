@@ -31,7 +31,7 @@ RDEPEND="
 	>=dev-python/packaging-19.0[${PYTHON_USEDEP}]
 	sci-astronomy/wcslib:0=
 	>=sci-libs/cfitsio-3.350:0=
-	sys-libs/zlib:0=
+	virtual/zlib:0=
 "
 DEPEND="${RDEPEND}"
 BDEPEND="

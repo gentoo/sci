@@ -1,4 +1,4 @@
-# Copyright 2024 Gentoo Authors
+# Copyright 2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -29,7 +29,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	${PYTHON_DEPS}
-	sys-libs/zlib
+	virtual/zlib:=
 	sys-devel/gcc:*[fortran]
 	$(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]

@@ -12,7 +12,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 DEPEND="
-	sys-libs/zlib
+	virtual/zlib:=
 	dev-libs/boost
 "
 BDEPEND="app-arch/unzip"

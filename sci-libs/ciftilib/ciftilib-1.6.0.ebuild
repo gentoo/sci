@@ -18,7 +18,7 @@ DEPEND="
 	dev-libs/boost
 	qt5? ( dev-qt/qtcore:5 )
 	!qt5? ( dev-cpp/libxmlpp:2.6 )
-	sys-libs/zlib
+	virtual/zlib:=
 	"
 RDEPEND="${DEPEND}"
 

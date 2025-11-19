@@ -22,7 +22,7 @@ IUSE="cpu_flags_x86_sse4_1 cpu_flags_x86_sse2 cpu_flags_x86_avx2"
 
 RDEPEND="
 	app-arch/zstd[static-libs]
-	sys-libs/zlib
+	virtual/zlib:=
 	app-arch/bzip2
 "
 DEPEND="${RDEPEND}"

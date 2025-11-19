@@ -19,7 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	sys-libs/zlib:0=
+	virtual/zlib:0=
 	$(llvm_gen_dep 'llvm-core/llvm:${LLVM_SLOT}=')
 "
 DEPEND="${RDEPEND}"

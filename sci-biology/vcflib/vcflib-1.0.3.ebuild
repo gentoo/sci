@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,7 +16,7 @@ KEYWORDS=""
 IUSE="openmp"
 
 DEPEND="
-	sys-libs/zlib
+	virtual/zlib:=
 	sci-libs/htslib
 	sci-biology/tabixpp
 "

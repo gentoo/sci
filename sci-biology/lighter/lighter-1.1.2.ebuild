@@ -17,7 +17,7 @@ fi
 LICENSE="GPL-2+"
 SLOT="0"
 
-DEPEND="sys-libs/zlib"
+DEPEND="virtual/zlib:="
 RDEPEND="${DEPEND}"
 
 src_install(){
