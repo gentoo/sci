@@ -31,6 +31,11 @@
 #--- END OF EXAMPLES ---
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# CMake Error at CMakeLists.txt:77 (add_library):
+#   No SOURCES given to target: vcflib
+sci-biology/vcflib
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
 # CMake Error get_target_property() called with
 # non-existent target "doc". 
 sci-libs/ciftilib
