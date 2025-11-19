@@ -26,7 +26,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	${PYTHON_DEPS}
-	sys-libs/zlib
+	virtual/zlib:=
 	sys-devel/gcc:*[fortran]
 	$(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]
@@ -37,7 +37,7 @@ RDEPEND="
 	hepmc2? ( sci-physics/hepmc:2 )
 	collier? ( sci-physics/collier[static-libs] )
 	thepeg? (
-	      sci-physics/thepeg[hepmc3(-),fastjet?,lhapdf?]
+		sci-physics/thepeg[hepmc3(-),fastjet?,lhapdf?]
 	)
 "
 #   madanalysis5? ( sci-physics/madanalysis5 )
