@@ -32,6 +32,10 @@
 
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# megahit-1.2.9.ebuild: line 24: tc-has-openmp: command not found
+sci-biology/megahit
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
 # There are no ebuilds to satisfy "sci-biology/ngs".
 sci-biology/sra-tools
 
