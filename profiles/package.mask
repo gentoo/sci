@@ -39,6 +39,7 @@ sci-biology/vcflib
 # CMake Error get_target_property() called with
 # non-existent target "doc". 
 sci-libs/ciftilib
+sci-biology/fsl
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
 # SRC_URI dead and compiles in src_install.
