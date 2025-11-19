@@ -15,9 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+openmp cuda"
 
-DEPEND=""
-RDEPEND="${DEPEND}
-	sys-libs/zlib
+RDEPEND="
+	virtual/zlib:=
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-5 dev-libs/cudnn )"
 # contains bundled copy og idba from https://github.com/loneknightpy/idba
 
