@@ -18,7 +18,7 @@ fi
 LICENSE="MIT" # almost verbatim
 SLOT="0"
 
-DEPEND="sys-libs/zlib"
+DEPEND="virtual/zlib:="
 RDEPEND="${DEPEND}"
 
 src_prepare(){
