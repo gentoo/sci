@@ -19,7 +19,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="python cpu_flags_x86_sse4_1"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-DEPEND="sys-libs/zlib
+DEPEND="
+	virtual/zlib:=
 	python? (
 		${PYTHON_DEPS}
 	)"
