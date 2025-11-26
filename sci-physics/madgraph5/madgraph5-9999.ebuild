@@ -38,7 +38,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="
 	${PYTHON_DEPS}
-	sys-libs/zlib
+	virtual/zlib:=
 	sys-devel/gcc:*[fortran]
 	$(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]
