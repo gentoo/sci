@@ -1,8 +1,8 @@
+# Copyright 2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-# does not escape strings properly, so no python3_12 for now
 PYTHON_COMPAT=( python3_{11..13} )
 inherit fortran-2 python-single-r1
 
