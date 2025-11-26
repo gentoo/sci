@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>apn-pucky@gentoo.org</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription>
+		The program golem95 is a package for the numerical evaluation of integrals and tensor form factors entering the calculation of one-loop amplitudes with up to six external legs, written in Fortran 95.
+		A package for evaluation of scalar and tensor one-loop integrals 
+	</longdescription>
+	<use>
+		<flag name="looptools">use looptools</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">gudrunhe/golem95</remote-id>
+	</upstream>
+</pkgmetadata>
