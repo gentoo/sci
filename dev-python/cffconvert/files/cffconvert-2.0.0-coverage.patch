@@ -1,0 +1,11 @@
+--- a/setup.cfg	2025-12-10 17:21:43.383044929 +0100
++++ b/setup.cfg	2025-12-10 17:21:52.886370995 +0100
+@@ -83,7 +83,7 @@
+ line_length = 120
+ 
+ [tool:pytest]
+-addopts = --no-cov --verbose
++addopts = --verbose
+ 
+ [egg_info]
+ tag_build = 
