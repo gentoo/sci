@@ -11,7 +11,7 @@ SRC_URI="https://github.com/wannier-developers/wannier90/archive/v${PV}.tar.gz -
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux"
+KEYWORDS="~amd64 ~x86"
 
 IUSE="examples perl static-libs"
 

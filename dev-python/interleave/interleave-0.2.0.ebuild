@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/jwodder/interleave"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 
 RDEPEND="
 	dev-python/wheel[${PYTHON_USEDEP}]

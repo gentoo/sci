@@ -13,7 +13,7 @@ SRC_URI="
 
 LICENSE="CC-BY-SA-4.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND=""
 DEPEND=""

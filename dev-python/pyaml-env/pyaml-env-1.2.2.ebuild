@@ -15,7 +15,7 @@ S="${WORKDIR}/pyaml_env-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~amd64-linux"
+KEYWORDS="~amd64"
 
 RDEPEND="dev-python/pyyaml[${PYTHON_USEDEP}]"
 

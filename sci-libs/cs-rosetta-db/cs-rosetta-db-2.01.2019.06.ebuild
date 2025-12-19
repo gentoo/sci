@@ -18,7 +18,7 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 RESTRICT="binchecks mirror strip"
 

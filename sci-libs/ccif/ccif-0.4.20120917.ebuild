@@ -10,7 +10,7 @@ HOMEPAGE="https://www.ccp4.ac.uk/"
 SRC_URI="ftp://ftp.ccp4.ac.uk/opensource/${P}.tar.bz2"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-3"
 
 RDEPEND="virtual/fortran"

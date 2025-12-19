@@ -11,7 +11,7 @@ SRC_URI="http://www.bx.psu.edu/~rsharris/lastz/newer/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}"/lastz-distrib-"${PV}"
 

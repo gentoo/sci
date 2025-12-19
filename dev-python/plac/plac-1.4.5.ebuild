@@ -14,6 +14,6 @@ SRC_URI="https://github.com/ialbert/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.g
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 distutils_enable_tests pytest

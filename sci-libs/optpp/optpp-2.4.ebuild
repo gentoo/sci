@@ -10,7 +10,7 @@ HOMEPAGE="https://software.sandia.gov/opt++/"
 SRC_URI="https://software.sandia.gov/opt++/downloads/${P}.tar.gz"
 
 LICENSE="LGPL-2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="doc mpi static-libs"
 

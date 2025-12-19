@@ -13,7 +13,7 @@ HOMEPAGE="https://homepages.see.leeds.ac.uk/~earawa/FoX//"
 
 LICENSE="BSD ZLIB"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug doc +dom +fast +sax +wcml +wkml +wxml"
 
 SRC_URI="

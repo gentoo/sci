@@ -9,7 +9,7 @@ SRC_URI="http://pound.med.utoronto.ca/${PN}-Nov09.tar.gz"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="dev-lang/perl"
 DEPEND="${RDEPEND}"

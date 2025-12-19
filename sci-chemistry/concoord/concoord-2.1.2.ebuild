@@ -10,7 +10,7 @@ SRC_URI="
 	x86? ( https://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux32.tgz )"
 
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="-* ~amd64 ~x86"
 LICENSE="all-rights-reserved"
 
 QA_PREBUILT="opt/${PN}/bin/*"

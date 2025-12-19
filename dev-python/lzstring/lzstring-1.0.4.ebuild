@@ -13,4 +13,4 @@ HOMEPAGE="https://pypi.org/project/lzstring/"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~amd64-linux"
+KEYWORDS="~amd64"

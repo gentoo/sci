@@ -17,7 +17,7 @@ SRC_URI="https://doku.lrz.de/files/10746505/611614740/11/1738330787047/${P}.tar.
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ~amd64-linux"
+KEYWORDS="~amd64"
 IUSE="static-libs"
 
 RDEPEND=">=sci-libs/gsl-2.7"

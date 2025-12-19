@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/data-apis/array-api-compat"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~amd64-linux"
+KEYWORDS="~amd64"
 
 DEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 

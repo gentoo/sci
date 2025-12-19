@@ -9,7 +9,7 @@ SRC_URI="http://www3.mpibpc.mpg.de/groups/zweckstetter/_software_files/_pales/pa
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 
 QA_PREBUILT="opt/bin/.*"
 

@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/bids-standard/bids-specification"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 IUSE="render"
 # Documented upstream:
 # https://github.com/conda-forge/bidsschematools-feedstock/pull/2

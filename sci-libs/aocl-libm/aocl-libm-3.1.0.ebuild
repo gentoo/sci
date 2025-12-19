@@ -15,7 +15,7 @@ S="${WORKDIR}/amd-libm"
 
 LICENSE="AMD"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~amd64-linux"
+KEYWORDS="-* ~amd64"
 IUSE="aocc examples static-libs test"
 RESTRICT="fetch strip !test? ( test )"
 
