@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{12..13} )
 inherit distutils-r1
 
 DESCRIPTION="A wrapper interface for python callables"
