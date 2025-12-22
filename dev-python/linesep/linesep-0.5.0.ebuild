@@ -4,11 +4,11 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{12..13} )
 inherit distutils-r1 pypi
 
 DESCRIPTION="Handling lines with arbitrary separators"
-HOMEPAGE="https://github.com/jwodder/linesep"
+HOMEPAGE="https://github.com/jwodder/linesep"kat
 
 LICENSE="MIT"
 SLOT="0"
