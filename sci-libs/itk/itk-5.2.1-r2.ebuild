@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -54,7 +54,7 @@ RDEPEND="
 	sci-libs/dcmtk:0=
 	sci-libs/hdf5:0=[cxx]
 	sci-libs/gdcm:0=
-	sys-libs/zlib:0=
+	virtual/zlib:0=
 	media-libs/libjpeg-turbo:0=
 	fftw? ( sci-libs/fftw:3.0= )
 	vtkglue? (

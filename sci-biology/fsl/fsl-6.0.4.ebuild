@@ -23,7 +23,7 @@ DEPEND="
 	media-libs/libpng:0=
 	sci-libs/ciftilib
 	sci-libs/nlopt
-	sys-libs/zlib
+	virtual/zlib:=
 	dev-lang/tcl:0=
 	dev-lang/tk:0=
 	>=virtual/lapack-3.8

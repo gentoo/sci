@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -24,7 +24,7 @@ RDEPEND="
 	dev-libs/libotf
 	dev-libs/openssl:0
 	dev-libs/libpcre
-	sys-libs/zlib
+	virtual/zlib:=
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/ftgl

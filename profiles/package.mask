@@ -30,6 +30,33 @@
 
 #--- END OF EXAMPLES ---
 
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# CMake Error at CMakeLists.txt:77 (add_library):
+#   No SOURCES given to target: vcflib
+sci-biology/vcflib
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# CMake Error get_target_property() called with
+# non-existent target "doc". 
+sci-libs/ciftilib
+sci-biology/fsl
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# SRC_URI dead and compiles in src_install.
+sci-biology/SPAdes
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# megahit-1.2.9.ebuild: line 24: tc-has-openmp: command not found
+sci-biology/megahit
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-19)
+# There are no ebuilds to satisfy "sci-biology/ngs".
+sci-biology/sra-tools
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-11-17)
+# Installation fails. EAPI outdated.
+sci-chemistry/dl_poly
+
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2025-01-10)
 # Download server is gone since about 2014.
 sci-biology/vague-bin
