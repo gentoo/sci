@@ -1,10 +1,10 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 inherit distutils-r1
 
@@ -19,7 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	dev-python/crc32c[${PYTHON_USEDEP}]
+	dev-python/google-crc32c[${PYTHON_USEDEP}]
 	dev-python/donfig[${PYTHON_USEDEP}]
 	>=dev-python/numcodecs-0.14[${PYTHON_USEDEP}]
 	>=dev-python/numpy-1.25[${PYTHON_USEDEP}]
@@ -30,6 +30,8 @@ DEPEND="
 		dev-python/pytest-asyncio[${PYTHON_USEDEP}]
 		dev-python/hypothesis[${PYTHON_USEDEP}]
 		dev-python/msgpack[${PYTHON_USEDEP}]
+		dev-python/numpydoc[${PYTHON_USEDEP}]
+		dev-python/tomlkit[${PYTHON_USEDEP}]
 	)
 "
 
