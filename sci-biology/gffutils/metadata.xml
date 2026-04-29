@@ -7,5 +7,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="github">daler/gffutils</remote-id>
+		<remote-id type="pypi">gffutils</remote-id>
 	</upstream>
 </pkgmetadata>
