@@ -16,7 +16,7 @@ S="${WORKDIR}/zarr-python-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/google-crc32c[${PYTHON_USEDEP}]
@@ -27,7 +27,6 @@ RDEPEND="
 "
 DEPEND="
 	test? (
-		dev-python/pytest-asyncio[${PYTHON_USEDEP}]
 		dev-python/hypothesis[${PYTHON_USEDEP}]
 		dev-python/msgpack[${PYTHON_USEDEP}]
 		dev-python/numpydoc[${PYTHON_USEDEP}]
@@ -35,12 +34,23 @@ DEPEND="
 	)
 "
 
-distutils_enable_tests pytest
-# sphinx ebuilds not compatible with py3.13
-#distutils_enable_sphinx docs dev-python/numpydoc dev-python/sphinx-issues \
-#	dev-python/sphinx-autoapi dev-python/sphinx_copybutton dev-python/sphinx-rtd-theme
+EPYTEST_PLUGINS=( pytest-asyncio )
 
 EPYTEST_DESELECT=(
 	# network access + missing package ebuild
 	tests/test_store/test_core.py::test_make_store_path_fsspec
 )
+
+EPYTEST_IGNORE=(
+	tests/benchmarks
+)
+
+distutils_enable_tests pytest
+# sphinx ebuilds not compatible with py3.13+
+#distutils_enable_sphinx docs dev-python/numpydoc dev-python/sphinx-issues \
+#	dev-python/sphinx-autoapi dev-python/sphinx_copybutton dev-python/sphinx-rtd-theme
+
+python_test() {
+	# needs pytest-benchmark otherwise (+very slow tests)
+	epytest -o addopts=
+}
