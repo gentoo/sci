@@ -23,4 +23,6 @@ EPYTEST_DESELECT=(
 	tests/test_Fasta_bgzip.py
 )
 
+EPYTEST_PLUGINS=()
+
 distutils_enable_tests pytest
