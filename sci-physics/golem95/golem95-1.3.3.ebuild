@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -34,7 +34,13 @@ src_prepare() {
 src_configure() {
 	local -x CONFIG_SHELL="${BROOT}/bin/bash"
 	# Fix that qcdloop and oneloop are already installed
-	econf --with-avh_olo_precision=double --with-precision=double $(use_with looptools looptools "${ESYSROOT}"/usr) FCFLAGS="${FCFLAGS} -std=legacy -fPIC -I${ESYSROOT}/usr/include"
+	local myconf=(
+		--with-avh_olo_precision=double
+		--with-precision=double
+		$(use_with looptools looptools "${ESYSROOT}"/usr)
+		FCFLAGS="${FCFLAGS} -std=legacy -fPIC -I${ESYSROOT}/usr/include"
+	)
+	econf "${myconf[@]}"
 }
 
 src_compile() {
