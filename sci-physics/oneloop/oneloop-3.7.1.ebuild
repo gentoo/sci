@@ -1,27 +1,29 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 # python only needed for create.py to get binaries
 PYTHON_COMPAT=( python3_12 )
-inherit fortran-2 python-any-r1 toolchain-funcs
+inherit fortran-2 python-any-r1 toolchain-funcs flag-o-matic
 
 DESCRIPTION="Library of one-loop scalar functions"
 HOMEPAGE="
 	https://helac-phegas.web.cern.ch/OneLOop.html
 	https://bitbucket.org/hameren/oneloop
 "
-SRC_URI="https://bitbucket.org/hameren/oneloop/get/3762b8bad6ad.zip -> ${P}.zip"
+SRC_URI="https://bitbucket.org/hameren/oneloop/get/v${PV}.zip -> ${P}.zip"
 S="${WORKDIR}/hameren-oneloop-3762b8bad6ad"
 
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+dpkind +qpkind qpkind16 dpkind16 qdcpp ddcpp mpfun90 arprec tlevel cppintf"
+IUSE="+dpkind qpkind +qpkind16 dpkind16 qdcpp ddcpp mpfun90 arprec tlevel cppintf"
 REQUIRED_USE="
 	?? ( dpkind dpkind16 ddcpp )
 	?? ( qpkind qpkind16 qdcpp )
+	?? ( dpkind qpkind )
+	?? ( dpkind16 qpkind16 )
 	?? ( arprec mpfun90 )
 	|| ( dpkind dpkind16 ddcpp qpkind qpkind16 qdcpp )
 "
@@ -92,12 +94,22 @@ src_configure() {
 
 src_compile() {
 	tc-export FC
+	append-fflags -fPIC
 	#emake -f make_cuttools
 	${EPYTHON} ./create.py source || die "Failed to compile"
 	# create.py does not use soname, so we do it ourself
 	#./create.py dynamic || die
-	${FC} ${FFLAGS} -O -fPIC -I"${ESYSROOT}"/usr/include -I"${ESYSROOT}"/usr/include/qd -c avh_olo.f90 -o avh_olo.o || die
-	${FC} ${LDFLAGS} -Wl,-soname,libavh_olo.so -shared -o libavh_olo.so *.o || die
+	${FC} ${FFLAGS} \
+		-I"${ESYSROOT}"/usr/include \
+		-I"${ESYSROOT}"/usr/include/qd \
+		$(usex arprec -I"${ESYSROOT}/usr/$(get_libdir)/arprec" "") \
+		$(usex mpfun90 -I"${ESYSROOT}/usr/include/mpfun90" "") \
+		-c avh_olo.f90 -o avh_olo.o || die
+	${FC} ${FFLAGS} ${LDFLAGS} \
+		-Wl,-soname,libavh_olo.so \
+		$(usex arprec -larprec "") \
+		$(usex mpfun90 -lmpfun90 "") \
+		-shared -o libavh_olo.so *.o || die
 }
 
 src_install() {
