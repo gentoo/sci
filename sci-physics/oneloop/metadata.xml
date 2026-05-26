@@ -15,6 +15,7 @@
 	</longdescription>
 	<upstream>
 		<remote-id type="bitbucket">hameren/oneloop</remote-id>
+		<remote-id type="codeberg">hameren/OneLOop</remote-id>
 	</upstream>
 	<use>
 		<flag name="dpkind">double precision</flag>
