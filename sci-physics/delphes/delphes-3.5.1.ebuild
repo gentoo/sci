@@ -1,10 +1,10 @@
-# Copyright 2025 Gentoo Authors
+# Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="emake"
-inherit cmake
+inherit cmake flag-o-matic
 
 DESCRIPTION="Delphes performs a fast multipurpose detector response simulation."
 HOMEPAGE="
@@ -37,4 +37,9 @@ src_prepare() {
 	sed -i "s#DESTINATION cards#DESTINATION share/delphes/cards#g" cards/CMakeLists.txt || die
 	sed -i "s#DESTINATION examples#DESTINATION share/delphes/examples#g" examples/CMakeLists.txt || die
 	sed -i "s#DESTINATION lib#DESTINATION $(get_libdir)#g" {,modules/,classes/,display/}CMakeLists.txt || die
+}
+
+src_configure() {
+	filter-lto
+	cmake_src_configure
 }
