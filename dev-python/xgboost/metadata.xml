@@ -7,5 +7,6 @@ SYSTEM 'http://www.gentoo.org/dtd/metadata.dtd'>
 	</maintainer>
 	<upstream>
 		<remote-id type="pypi">xgboost</remote-id>
+		<remote-id type="github">dmlc/xgboost</remote-id>
 	</upstream>
 </pkgmetadata>
