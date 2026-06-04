@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-04)
+# Depends on removed dev-python/pyqt5 
+dev-python/ezdxf
+
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-05-28)
 # Broken per https://codeberg.org/hameren/OneLOop/issues/1
 =sci-physics/oneloop-3.7.2
