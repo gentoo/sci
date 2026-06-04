@@ -32,6 +32,10 @@
 
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-04)
+# Compatibility with CMake < 3.5 has been removed from CMake
+dev-cpp/blitz
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-04)
 # Depends on removed dev-python/pyqt5 
 dev-python/ezdxf
 
