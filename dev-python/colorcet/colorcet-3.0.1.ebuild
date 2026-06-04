@@ -6,7 +6,7 @@ EAPI=8
 # Portage incorrectly claims "DISTUTILS_USE_SETUPTOOLS value is probably
 # incorrect" for this package. It isn't. This package imports from neither
 # "distutils", "packaging", "pkg_resources", nor "setuptools" at runtime.
-PYTHON_COMPAT=( python3_{10..11} pypy3 )
+PYTHON_COMPAT=( python3_{10..14} pypy3 )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 pypi
