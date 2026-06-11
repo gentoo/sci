@@ -30,6 +30,9 @@
 
 #--- END OF EXAMPLES ---
 
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-11)
+# dependency dev-python/click-didyoumean removed from ::gentoo 
+dev-vcs/dandi-cli
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-11)
 # Tests fail with >=numpy-2
