@@ -34,6 +34,7 @@
 # AttributeError: module 'configparser' has no attribute 
 # 'SafeConfigParser'
 dev-python/grabbit
+dev-python/tranforms3d
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-12)
 # test fail
