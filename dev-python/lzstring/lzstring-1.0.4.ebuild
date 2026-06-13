@@ -4,12 +4,15 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..14} )
 
 inherit pypi distutils-r1
 
 DESCRIPTION="String encoding/decoding of binary data"
-HOMEPAGE="https://pypi.org/project/lzstring/"
+HOMEPAGE="
+	https://github.com/gkovacs/lz-string-python
+	https://pypi.org/project/lzstring/
+"
 
 LICENSE="BSD"
 SLOT="0"
