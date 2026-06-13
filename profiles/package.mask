@@ -30,6 +30,40 @@
 
 #--- END OF EXAMPLES ---
 
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-13)
+# AttributeError: module 'configparser' has no attribute 
+# 'SafeConfigParser'
+dev-python/grabbit
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-12)
+# test fail
+dev-python/latexify_py
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-12)
+# missing #include <cstdint>
+sci-libs/oneDAL
+sci-libs/scikit-learn-intelx
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-11)
+# dependency dev-python/pockets removed from ::gentoo
+dev-python/sphinxcontrib-napoleon
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-11)
+# dependency dev-python/click-didyoumean removed from ::gentoo 
+dev-vcs/dandi-cli
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-11)
+# Tests fail with >=numpy-2
+dev-python/nptyping
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-04)
+# Compatibility with CMake < 3.5 has been removed from CMake
+dev-cpp/blitz
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-04)
+# Depends on removed dev-python/pyqt5 
+dev-python/ezdxf
+
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-05-28)
 # Broken per https://codeberg.org/hameren/OneLOop/issues/1
 =sci-physics/oneloop-3.7.2
