@@ -35,6 +35,7 @@
 sys-devel/DPC++
 sys-devel/oneDPL
 sci-libs/oneMKL
+dev-libs/oneCCL
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-13)
 # AttributeError: module 'configparser' has no attribute 
