@@ -32,8 +32,12 @@
 
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-15)
-# compilation fails
+# compilation/linking to igraph fails
 dev-python/python-igraph 
+dev-python/holoviews
+dev-python/kmapper
+dev-python/panel
+dev-python/bokeh
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-15)
 # Compilation of DPC++ fails
