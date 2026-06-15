@@ -31,8 +31,10 @@
 #--- END OF EXAMPLES ---
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-15)
-# Compilation fails
+# Compilation of DPC++ fails
 sys-devel/DPC++
+sys-devel/oneDPL
+sci-libs/oneMKL
 
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-13)
 # AttributeError: module 'configparser' has no attribute 
