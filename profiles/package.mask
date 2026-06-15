@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+
+# Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-15)
+# compilation fails
+dev-python/python-igraph 
+
 # Alexander Puck Neuwirth <apn-pucky@gentoo.org> (2026-06-15)
 # Compilation of DPC++ fails
 sys-devel/DPC++
