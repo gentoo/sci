@@ -11,6 +11,9 @@
 	<use>
 		<flag name="cuda">use the cuda backend</flag>
 		<flag name="esimd_emulator">enable ESIMD CPU emulation</flag>
+		<flag name="cpu">use the cpu backend</flag>
 		<flag name="hip">use the HIP backend</flag>
+		<flag name="jit">enable kernel JIT compiler for HIP and CUDA</flag>
+		<flag name="default-lld">use lld as the default linker for dpc++</flag>
 	</use>
 </pkgmetadata>

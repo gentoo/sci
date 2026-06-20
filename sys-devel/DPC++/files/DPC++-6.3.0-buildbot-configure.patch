@@ -1,0 +1,31 @@
+diff --git a/buildbot/configure.py b/buildbot/configure.py
+index 4874c0a44557..35b0a15474fe 100644
+--- a/buildbot/configure.py
++++ b/buildbot/configure.py
+@@ -165,9 +165,6 @@ def do_configure(args, passthrough_args):
+ 
+     cmake_cmd = [
+         "cmake",
+-        "-G",
+-        args.cmake_gen,
+-        "-DCMAKE_BUILD_TYPE={}".format(args.build_type),
+         "-DLLVM_ENABLE_ASSERTIONS={}".format(llvm_enable_assertions),
+         "-DLLVM_TARGETS_TO_BUILD={}".format(llvm_targets_to_build),
+         "-DLLVM_EXTERNAL_PROJECTS={}".format(llvm_external_projects),
+@@ -259,7 +256,6 @@ def do_configure(args, passthrough_args):
+         cmake_cmd.extend(["-DEXTRA_SECURITY_FLAGS={}".format(args.add_security_flags)])
+ 
+     # Add path to root CMakeLists.txt
+-    cmake_cmd.append(llvm_dir)
+ 
+     if args.use_libcxx:
+         cmake_cmd.extend(
+@@ -271,7 +267,7 @@ def do_configure(args, passthrough_args):
+     cmake_cmd += passthrough_args
+ 
+     if args.print_cmake_flags:
+-        print(" ".join(map(shlex.quote, cmake_cmd[1:])))
++        print(" ".join(cmake_cmd[1:]))
+     else:
+         print("[Cmake Command]: {}".format(" ".join(map(shlex.quote, cmake_cmd))))
+ 
