@@ -1,0 +1,13 @@
+diff --git a/sycl/source/CMakeLists.txt b/sycl/source/CMakeLists.txt
+index 24a471eacb0f..604ffc59f2eb 100644
+--- a/sycl/source/CMakeLists.txt
++++ b/sycl/source/CMakeLists.txt
+@@ -143,7 +143,7 @@ function(add_sycl_rt_library LIB_NAME LIB_OBJ_NAME)
+ 
+   if (LLVM_ENABLE_ZSTD)
+     target_compile_definitions(${LIB_OBJ_NAME} PRIVATE SYCL_RT_ZSTD_AVAILABLE)
+-    target_link_libraries(${LIB_NAME} PRIVATE ${zstd_STATIC_LIBRARY})
++    target_link_libraries(${LIB_NAME} PRIVATE ${zstd_LIBRARY})
+     target_include_directories(${LIB_OBJ_NAME} PRIVATE ${zstd_INCLUDE_DIR})
+   endif()
+ 
