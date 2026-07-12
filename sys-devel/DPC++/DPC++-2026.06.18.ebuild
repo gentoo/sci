@@ -69,6 +69,7 @@ BDEPEND="virtual/pkgconfig"
 DEPEND="
 	dev-libs/boost:=
 	>=dev-libs/level-zero-1.29.0:=
+	dev-libs/intel-compute-runtime
 	dev-libs/opencl-icd-loader
 	>=dev-util/opencl-headers-2025.06.13
 	>dev-util/spirv-headers-1.4.350.1-r9999
@@ -119,6 +120,7 @@ src_configure() {
 		-DXPTI_ENABLE_WERROR=OFF
 		-DSYCL_ENABLE_BACKENDS="level_zero;level_zero_v2;opencl;$(usev hip);$(usev cuda)"
 		-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR="${ESYSROOT}/usr"
+		-DCMAKE_DISABLE_FIND_PACKAGE_LLVMGenXIntrinsics=ON
 		-DFETCHCONTENT_SOURCE_DIR_VC-INTRINSICS="${WORKDIR}/vc-intrinsics-${VC_INTR_COMMIT}"
 		-DFETCHCONTENT_SOURCE_DIR_EMHASH="${WORKDIR}/emhash-${EMHASH_COMMIT}"
 		-DFETCHCONTENT_SOURCE_DIR_UNIFIED-MEMORY-FRAMEWORK="${WORKDIR}/unified-memory-framework-${UMF_PV}"
