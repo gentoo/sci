@@ -23,4 +23,3 @@ src_install() {
 	mkdir -p "${D}/usr/$(get_libdir)"
 	emake DEST="${D}/usr/$(get_libdir)" install
 }
-
