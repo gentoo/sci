@@ -1,10 +1,11 @@
 # Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..12} )
 
-inherit fortran-2 optfeature python-single-r1
+inherit fortran-2 optfeature python-single-r1 flag-o-matic autotools
 
 DESCRIPTION="The WHIZARD Event Generator"
 HOMEPAGE="
@@ -50,11 +51,23 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-lhapdf.patch
+)
+
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 }
 
+src_prepare() {
+	default
+	eautoreconf
+}
+
 src_configure() {
+	filter-lto
+	append-flags -fno-strict-aliasing
+
 	CONFIG_SHELL=${BROOT}/bin/bash econf \
 		--disable-default-UFO-dir \
 		$(usex mpi FC=mpifort) \
