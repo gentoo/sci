@@ -20,6 +20,6 @@
 
 	<use>
 		<flag name="root"> Use Root <pkg>sci-physics/root</pkg></flag>
-    </use>
+	</use>
 
 </pkgmetadata>
