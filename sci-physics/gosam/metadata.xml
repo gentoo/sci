@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>apn-pucky@gentoo.org</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription>
+  	GoSam is a general one-loop evaluator for matrix elements.  The program produces Fortran 90 code from a given process description by evaluating Feynman diagrams and translating the associated one-loop diagrams into code suitable for the evaluation with Ninja, Golem95 and/or Samurai.
+	</longdescription>
+
+	<upstream>
+		<remote-id type="github">gudrunhe/gosam</remote-id>
+	</upstream>
+
+</pkgmetadata>
