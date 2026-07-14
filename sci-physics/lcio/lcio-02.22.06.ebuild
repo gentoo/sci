@@ -1,4 +1,4 @@
-# Copyright 2025 Gentoo Authors
+# Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -24,7 +24,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 IUSE="root"
 DEPEND="
-	sci-physics/root:=[${PYTHON_SINGLE_USEDEP}]
+	root? (
+		sci-physics/root:=[${PYTHON_SINGLE_USEDEP}]
+	)
 	${PYTHON_DEPS}
 "
 RDEPEND="${DEPEND}"
