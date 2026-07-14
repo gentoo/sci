@@ -14,7 +14,6 @@ HOMEPAGE="
 	https://gosam.hepforge.org/
 "
 
-
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/gudrunhe/gosam"
@@ -22,7 +21,6 @@ else
 	SRC_URI="https://github.com/gudrunhe/gosam/releases/download/${PV}/gosam-${PV}+c307997.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64"
 fi
-
 
 LICENSE="GPL-3"
 SLOT="0"

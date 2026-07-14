@@ -1,6 +1,8 @@
 # Copyright 2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+
 EAPI=8
+
 PYTHON_COMPAT=( python3_{11..13} )
 DISTUTILS_USE_PEP517=standalone
 DISTUTILS_SINGLE_IMPL=1
@@ -11,7 +13,6 @@ HOMEPAGE="
 	https://github.com/gudrunhe/gosam
 	https://gosam.hepforge.org/
 "
-
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3

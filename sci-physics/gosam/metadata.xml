@@ -10,7 +10,7 @@
 		<name>Gentoo Physics Project</name>
 	</maintainer>
 	<longdescription>
-  	GoSam is a general one-loop evaluator for matrix elements.  The program produces Fortran 90 code from a given process description by evaluating Feynman diagrams and translating the associated one-loop diagrams into code suitable for the evaluation with Ninja, Golem95 and/or Samurai.
+		GoSam is a general one-loop evaluator for matrix elements.  The program produces Fortran 90 code from a given process description by evaluating Feynman diagrams and translating the associated one-loop diagrams into code suitable for the evaluation with Ninja, Golem95 and/or Samurai.
 	</longdescription>
 
 	<upstream>
