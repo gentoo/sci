@@ -11,7 +11,7 @@
 	</maintainer>
 
 	<longdescription lang="en">
-    LCIO ( Linear Collider I/O ) is a persistency framework and event data model for linear collider detector studies.
+		LCIO ( Linear Collider I/O ) is a persistency framework and event data model for linear collider detector studies.
 	</longdescription>
 
 	<upstream>
@@ -19,7 +19,7 @@
 	</upstream>
 
 	<use>
-        <flag name="root"> Use Root <pkg>sci-physics/root</pkg></flag>
+		<flag name="root"> Use Root <pkg>sci-physics/root</pkg></flag>
     </use>
 
 </pkgmetadata>
