@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{11..14} )
-inherit cmake python-any-r1 toolchain-funcs
+inherit cmake python-any-r1 toolchain-funcs flag-o-matic
 DOCS_BUILDER="doxygen"
 DOCS_DIR="build/docs"
 DOCS_CONFIG_NAME="doxygen.cfg"
@@ -88,6 +88,7 @@ PATCHES=(
 
 
 src_configure() {
+	filter-lto
 	# Extracted from buildbot/configure.py
 	local EXTERNAL_PROJECTS="sycl;llvm-spirv;opencl;xpti;xptifw;libdevice;sycl-jit"
 	local offload_targets="level_zero"
