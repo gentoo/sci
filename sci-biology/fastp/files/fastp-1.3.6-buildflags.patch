@@ -1,0 +1,26 @@
+--- a/Makefile	2026-07-08 13:44:45.889262199 +0900
++++ b/Makefile	2026-07-08 13:59:48.198029034 +0900
+@@ -41,19 +41,19 @@
+ ifeq ($(UNAME_S),Linux)
+   ifeq ($(DYNAMIC_LIBS),)
+     # All .a found: fully static binary (default for Linux)
+-    LD_FLAGS := $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_LDFLAGS) -static -Wl,--no-as-needed -pthread $(LIBS) $(LD_FLAGS)
++    LDFLAGS := $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_LDFLAGS) -static -Wl,--no-as-needed -pthread $(LIBS) $(LDFLAGS)
+   else
+     # Some .a missing (e.g. conda): link .a directly + dynamic fallback
+-    LD_FLAGS := $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_LDFLAGS) $(STATIC_LIBS) $(DYNAMIC_LIBS) -lpthread $(LD_FLAGS)
++    LDFLAGS := $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_LDFLAGS) $(STATIC_LIBS) $(DYNAMIC_LIBS) -lpthread $(LDFLAGS)
+   endif
+ else
+   # macOS: .a preferred, fallback to dynamic
+-  LD_FLAGS := $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_LDFLAGS) $(STATIC_LIBS) $(DYNAMIC_LIBS) -lpthread $(LD_FLAGS)
++  LDFLAGS := $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_LDFLAGS) $(STATIC_LIBS) $(DYNAMIC_LIBS) -lpthread $(LDFLAGS)
+ endif
+ 
+ 
+ ${BIN_TARGET}:${OBJ}
+-	$(CXX) $(OBJ) -o $@ $(LD_FLAGS)
++	$(CXX) $(OBJ) -o $@ $(LDFLAGS)
+ 
+ # to force fully static linking (Linux only)
+ STATIC_FLAGS := -static -Wl,--no-as-needed -pthread

@@ -1,0 +1,39 @@
+# Copyright 1999-2026 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+inherit flag-o-matic toolchain-funcs
+
+DESCRIPTION="An ultra-fast all-in-one FASTQ preprocessor"
+HOMEPAGE="https://github.com/OpenGene/fastp"
+SRC_URI="https://github.com/OpenGene/fastp/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64"
+
+DEPEND="
+	app-arch/libdeflate
+	dev-cpp/highway
+	dev-libs/isa-l
+"
+PATCHES=(
+	"${FILESDIR}"/${P}-buildflags.patch
+)
+
+src_configure() {
+	tc-export CC CXX CPP LD AR AS RANLIB
+	filter-flags -O2
+	filter-ldflags -Wl,--as-needed
+}
+
+src_compile() {
+	# workaround to skip forced static build on Linux
+	emake UNAME_S=
+}
+
+src_install() {
+	dodir /usr/bin
+	emake PREFIX="${ED}"/usr install
+}
