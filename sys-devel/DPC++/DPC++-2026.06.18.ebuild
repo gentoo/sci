@@ -47,19 +47,11 @@ CMAKE_USE_DIR="${S}/llvm"
 BUILD_DIR="${S}/build"
 
 LICENSE="Apache-2.0 MIT"
-SLOT="0/6" # Based on libsycl.so
+SLOT="0/9" # Based on libsycl.so
 KEYWORDS="" # this is a nightly build and depends on not yet released latest spriv-headers
 
-ALL_LLVM_TARGETS=( AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430
-	NVPTX PowerPC RISCV Sparc SystemZ WebAssembly X86 XCore )
-ALL_LLVM_TARGETS=( "${ALL_LLVM_TARGETS[@]/#/llvm_targets_}" )
-LLVM_TARGET_USEDEPS=${ALL_LLVM_TARGETS[@]/%/(-)?}
-
-IUSE="cuda hip test ${ALL_LLVM_TARGETS[*]}"
+IUSE="cuda hip test jit debug"
 REQUIRED_USE="
-	?? ( cuda hip )
-	cuda? ( llvm_targets_NVPTX )
-	hip? ( llvm_targets_AMDGPU )
 "
 RESTRICT="!test? ( test )"
 
@@ -83,43 +75,33 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/DPC++-6.3.0-zstd.patch"
+	"${FILESDIR}/DPC++-6.3.0-buildbot-configure.patch"
 )
 
 
 src_configure() {
 	filter-lto
-	# Extracted from buildbot/configure.py
-	local EXTERNAL_PROJECTS="sycl;llvm-spirv;opencl;xpti;xptifw;libdevice;sycl-jit"
-	local offload_targets="level_zero"
-	local mycmakeargs=(
-		-DLLVM_ENABLE_ASSERTIONS=OFF
+	local buildbot_flags=(
+		--print-cmake-flags
+		-s "${S}"
+		-o "${BUILD_DIR}"
+		--no-assertions
+	)
+	use doc && buildbot_flags+=( --docs )
+	use cuda && buildbot_flags+=( --cuda )
+	use hip && buildbot_flags+=( --hip )
+	use jit || buildbot_flags+=( --disable-jit )
+
+	if [[ $(tc-get-cxx-stdlib) == libc++ ]]; then
+		buildbot_flags+=(
+			--use-libcxx
+		)
+	fi
+
+	local mycmakeargs=( $(python3 "${S}/buildbot/configure.py" "${buildbot_flags[@]}") )
+
+	mycmakeargs+=(
 		-DLLVM_APPEND_VC_REV=OFF
-		-DLLVM_TARGETS_TO_BUILD="SPIRV;${LLVM_TARGETS// /;}"
-		-DLLVM_EXTERNAL_PROJECTS="${EXTERNAL_PROJECTS}"
-		-DLLVM_EXTERNAL_SYCL_SOURCE_DIR="${S}/sycl"
-		-DLLVM_EXTERNAL_SYCL_JIT_SOURCE_DIR="${S}/sycl-jit"
-		-DLLVM_EXTERNAL_LLVM_SPIRV_SOURCE_DIR="${S}/llvm-spirv"
-		-DLLVM_EXTERNAL_XPTI_SOURCE_DIR="${S}/xpti"
-		-DXPTI_SOURCE_DIR="${S}/xpti"
-		-DLLVM_EXTERNAL_XPTIFW_SOURCE_DIR="${S}/xptifw"
-		-DLLVM_EXTERNAL_LIBDEVICE_SOURCE_DIR="${S}/libdevice"
-		-DLLVM_ENABLE_PROJECTS="clang;${EXTERNAL_PROJECTS}"
-		-DLLVM_BUILD_TOOLS=ON
-		-DSYCL_ENABLE_EXTENSION_JIT=ON
-		-DSYCL_ENABLE_WERROR=OFF
-		-DSYCL_INCLUDE_TESTS="$(usex test)"
-		-DCLANG_INCLUDE_TESTS="$(usex test)"
-		-DLLVM_INCLUDE_TESTS="$(usex test)"
-		-DLLVM_SPIRV_INCLUDE_TESTS="$(usex test)"
-		-DUR_BUILD_TESTS="$(usex test)"
-		-DLLVM_ENABLE_DOXYGEN="$(usex doc)"
-		-DLLVM_ENABLE_SPHINX="$(usex doc)"
-		-DLLVM_USE_SPLIT_DWARF=OFF
-		-DLLVM_BUILD_DOCS="$(usex doc)"
-		-DSYCL_ENABLE_XPTI_TRACING=ON
-		-DXPTI_ENABLE_WERROR=OFF
-		-DSYCL_ENABLE_BACKENDS="level_zero;level_zero_v2;opencl;$(usev hip);$(usev cuda)"
 		-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR="${ESYSROOT}/usr"
 		-DCMAKE_DISABLE_FIND_PACKAGE_LLVMGenXIntrinsics=ON
 		-DFETCHCONTENT_SOURCE_DIR_VC-INTRINSICS="${WORKDIR}/vc-intrinsics-${VC_INTR_COMMIT}"
@@ -129,63 +111,20 @@ src_configure() {
 		-DDPCPP_VERSION_MAJOR="${PV_YEAR}"
 		-DDPCPP_VERSION_MINOR="${PV_MONTH}"
 		-DDPCPP_VERSION_PATCH="${PV_DAY}"
-		# Needed because we're linking against static llvm
-		-DLIBOMP_USE_STDCPPLIB=ON
-		# Offload currently broken
-		-DUR_BUILD_ADAPTER_OFFLOAD=OFF
-		-DLLVM_ENABLE_RUNTIMES="openmp;compiler-rt"
-		# Will not build spirv64-intel libomptarget library unless the tests are forced on
-		-DLIBOMPTARGET_FORCE_LEVELZERO_TESTS=ON
-
-		# The sycl part of the build system insists on installing during compiling
-		# Install it to some temporary directory
+		-DUR_USE_EXTERNAL_UMF=OFF
 		-DCMAKE_INSTALL_PREFIX="${BUILD_DIR}/install"
 		-DCMAKE_INSTALL_MANDIR="${BUILD_DIR}/install/share/man"
 		-DCMAKE_INSTALL_INFODIR="${BUILD_DIR}/install/share/info"
 		-DCMAKE_INSTALL_DOCDIR="${BUILD_DIR}/install/share/doc/${PF}"
-		-DUR_OFFLOAD_INSTALL_DIR="${BUILD_DIR}/install"
-		-DUR_OFFLOAD_INCLUDE_DIR="${BUILD_DIR}/install/include"
-		# Since its built here, it will try to use prev install's version of UMF
-		-DUR_USE_EXTERNAL_UMF=OFF
-		# we need to compile llvm as a static library because otherwise libsycl.so crashes at runtime
-		# because it dlopen's the intel graphics compiler dynlib which pulls in its own llvm dynlib
-		# If it weren't for that it also might crash because something is pulling in vulkan and mesa's
-		# vulkan implementation also pulls in its slotted llvm dynlib.
-		-DLLVM_BUILD_LLVM_DYLIB=OFF
-		-DBUILD_SHARED_LIBS=OFF
-		-DLLVM_USE_STATIC_ZSTD=OFF
+		-DLLVM_USE_SPLIT_DWARF=OFF
 	)
-	if [[ $(tc-get-cxx-stdlib) == libc++ ]]; then
-		mycmakeargs+=(
-			-DLLVM_ENABLE_LIBCXX=ON
-		)
-	else
-		mycmakeargs+=(
-			-DLLVM_ENABLE_LIBCXX=OFF
-		)
-	fi
-
-	if use hip; then
-		mycmakeargs+=(
-			-DSYCL_BUILD_PI_HIP_PLATFORM=AMD
-			-DLIBCLC_GENERATE_REMANGLED_VARIANTS=ON
-			-DLIBCLC_TARGETS_TO_BUILD=";amdgcn--;amdgcn--amdhsa"
-		)
-		offload_targets+=";amdgpu"
-	fi
-
-	if use cuda; then
-		mycmakeargs+=(
-			-DLIBCLC_GENERATE_REMANGLED_VARIANTS=ON
-			-DLIBCLC_TARGETS_TO_BUILD=";nvptx64--;nvptx64--nvidiacl"
-		)
-		offload_targets+=";cuda"
-	fi
 
 	if use doc; then
 		mycmakeargs+=( -DSPHINX_WARNINGS_AS_ERRORS=OFF )
 	fi
-	mycmakeargs+="-DLIBOMPTARGET_PLUGINS_TO_BUILD=${offload_targets}"
+
+	use debug || append-cppflags -DNDEBUG
+
 	cmake_src_configure
 }
 
@@ -219,6 +158,7 @@ src_install() {
 	# Convienence symlinks
 	dosym -r "${LLVM_INTEL_DIR}/bin/clang" "/usr/bin/icx"
 	dosym -r "${LLVM_INTEL_DIR}/bin/clang++" "/usr/bin/icpx"
+	dosym -r "${LLVM_INTEL_DIR}/bin/clang++" "/usr/bin/dpc++"
 
 	# Copied from llvm ebuild, put env file last so we don't overwrite main llvm/clang
 	newenvd - "60llvm-intel" <<-_EOF_
