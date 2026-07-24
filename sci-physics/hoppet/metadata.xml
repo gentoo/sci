@@ -14,6 +14,9 @@
 	HOPPET is a Fortran 95 package for carrying out DGLAP evolution and other common manipulations of parton distribution functions (PDFs).
 	</longdescription>
 	<upstream>
-		<remote-id type="github">gavinsalam/hoppet</remote-id> 
+		<remote-id type="github">hoppet-code/hoppet</remote-id> 
 	</upstream>
+	<use>
+		<flag name="exact-coef"> Use exact coefficient functions </flag>
+	</use>
 </pkgmetadata>
