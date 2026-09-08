@@ -25,7 +25,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	<dev-python/paramiko-4[${PYTHON_USEDEP}]
+	dev-python/paramiko[${PYTHON_USEDEP}]
 "
 
 distutils_enable_tests pytest
