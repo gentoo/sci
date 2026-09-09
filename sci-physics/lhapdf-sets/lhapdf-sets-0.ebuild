@@ -13,6 +13,7 @@ IUSE_LHAPDF_SETS="
 	lhapdf_sets_ct14lo
 	lhapdf_sets_ct14nlo
 	lhapdf_sets_ct10
+	lhapdf_sets_ct10nlo
 	lhapdf_sets_ct10nnlo
 	lhapdf_sets_mrst2007lomod
 	lhapdf_sets_nnpdf23_nlo_as_0119_qed
@@ -43,6 +44,7 @@ SRC_URI="
 	lhapdf_sets_ct14lo?                         ( ${COMMON_URI}/CT14lo.tar.gz                         )
 	lhapdf_sets_ct14nlo?                        ( ${COMMON_URI}/CT14nlo.tar.gz                        )
 	lhapdf_sets_ct10?                           ( ${COMMON_URI}/CT10.tar.gz                           )
+	lhapdf_sets_ct10nlo?                        ( ${COMMON_URI}/CT10nlo.tar.gz                        )
 	lhapdf_sets_ct10nnlo?                       ( ${COMMON_URI}/CT10nnlo.tar.gz                       )
 	lhapdf_sets_mrst2007lomod?                  ( ${COMMON_URI}/MRST2007lomod.tar.gz                  )
 	lhapdf_sets_nnpdf23_nlo_as_0119_qed?        ( ${COMMON_URI}/NNPDF23_nlo_as_0119_qed.tar.gz        )
