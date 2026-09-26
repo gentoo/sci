@@ -11,6 +11,7 @@ ct14qed_proton - CT14qed_proton LHAPDF grid
 ct14lo - CT14lo LHAPDF grid
 ct14nlo - CT14nlo LHAPDF grid
 ct10 - CT10 LHAPDF grid
+ct10nlo - CT10nlo LHAPDF grid
 ct10nnlo - CT10nnlo LHAPDF grid
 mrst2007lomod - MRST2007lomod LHAPDF grid
 nnpdf23_nlo_as_0119_qed - NNPDF23_nlo_as_0119_qed LHAPDF grid

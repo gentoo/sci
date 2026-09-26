@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>apn-pucky@gentoo.org</email>
+		<name>Alexander Puck Neuwirth</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>sci-physics@gentoo.org</email>
+		<name>Gentoo Physics Project</name>
+	</maintainer>
+	<longdescription lang="en">
+		WHIZARD is a program system designed for the efficient calculation of multi-particle scattering cross sections and simulated event samples.
+
+		WHIZARD can evaluate NLO QCD corrections in the SM for arbitary lepton and hadron colliders. Tree-level matrix elements are generated automatically for arbitrary partonic processes by using the Optimized Matrix Element Generator O'Mega. Matrix elements obtained by alternative methods (e.g., including loop corrections) may be interfaced as well. The program is able to calculate numerically stable signal and background cross sections and generate unweighted event samples with reasonable efficiency for processes with up to eight final-state particles; more particles are possible. For more particles, there is the option to generate processes as decay cascades including complete spin correlations. Different options for QCD parton showers are available.
+
+		Polarization is treated exactly for both the initial and final states. Final-state quark or lepton flavors can be summed over automatically where needed. For hadron collider physics, an interface to the standard LHAPDF is provided. For Linear Collider physics, beamstrahlung (CIRCE) and ISR spectra are included for electrons and photons. The events can be written to file in standard formats, including ASCII, StdHEP, the Les Houches event format (LHEF), HepMC, or LCIO. These event files can then be hadronized.
+
+		WHIZARD supports the Standard Model and a huge number of BSM models. Model extensions or completely different models can be added. WHIZARD fully supports external models from UFO files. There are also legacy interfaces to FeynRules and SARAH. 
+	</longdescription>
+	<use>
+		<flag name="lhapdf"> Use LHAPDF for PDFs <pkg>sci-physics/lhapdf</pkg></flag>
+		<flag name="lcio"> Use LCIO for PDFs <pkg>sci-physics/lcio</pkg></flag>
+		<flag name="hepmc"> Use HepMC for event output <pkg>sci-physics/hepmc</pkg></flag>
+		<flag name="pythia8"> Use Pythia8 for hadronization <pkg>sci-physics/pythia</pkg></flag>
+		<flag name="form"> Use form for loop calculations <pkg>sci-mathematics/form</pkg></flag>
+		<flag name="hoppet"> Use hoppet for resummation <pkg>sci-physics/hoppet</pkg></flag>
+		<flag name="looptools"> Use looptools for loop calculations <pkg>sci-physics/looptools</pkg></flag>
+		<flag name="openloops"> Use openloops for loop calculations <pkg>sci-physics/openloops</pkg></flag>
+		<flag name="ninja"> Use ninja for loop calculations <pkg>sci-physics/ninja</pkg></flag>
+		<flag name="samurai"> Use samurai for loop calculations <pkg>sci-physics/samurai</pkg></flag>
+		<flag name="fastjet"> Use fastjet for jet clustering <pkg>sci-physics/fastjet</pkg></flag>
+		<flag name="qgraf"> Use qgraf for loop calculations <pkg>sci-physics/qgraf</pkg></flag>
+		<flag name="gosam"> Use gosam for loop calculations <pkg>sci-physics/gosam</pkg></flag>
+		<flag name="recola"> Use recola2 for loop calculations <pkg>sci-physics/recola2</pkg></flag>
+		<flag name="omega"> Toggle use of O'Mega matrix element generator </flag>
+	</use>
+</pkgmetadata>
