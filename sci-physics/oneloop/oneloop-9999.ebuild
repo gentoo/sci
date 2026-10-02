@@ -12,12 +12,18 @@ HOMEPAGE="
 	https://helac-phegas.web.cern.ch/OneLOop.html
 	https://bitbucket.org/hameren/oneloop
 "
-SRC_URI="https://bitbucket.org/hameren/oneloop/get/v${PV}.tar.bz2 -> ${P}.tar.bz2"
-S="${WORKDIR}/hameren-oneloop-3762b8bad6ad"
+if [[ ${PV} == 9999 ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://codeberg.org/hameren/OneLOop"
+	EGIT_BRANCH="main"
+else
+	SRC_URI="https://bitbucket.org/hameren/oneloop/get/v${PV}.tar.bz2 -> ${P}.tar.bz2"
+	S="${WORKDIR}/hameren-oneloop-3762b8bad6ad"
+	KEYWORDS="~amd64"
+fi
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE="+dpkind qpkind +qpkind16 dpkind16 qdcpp ddcpp mpfun90 arprec tlevel cppintf"
 REQUIRED_USE="
 	?? ( dpkind dpkind16 ddcpp )

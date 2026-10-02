@@ -4,7 +4,7 @@
 EAPI=8
 
 # python only needed for create.py to get binaries
-PYTHON_COMPAT=( python3_12 )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit fortran-2 python-any-r1 toolchain-funcs flag-o-matic
 
 DESCRIPTION="Library of one-loop scalar functions"
@@ -12,7 +12,7 @@ HOMEPAGE="
 	https://helac-phegas.web.cern.ch/OneLOop.html
 	https://bitbucket.org/hameren/oneloop
 "
-SRC_URI="https://bitbucket.org/hameren/oneloop/get/v${PV}.zip -> ${P}.zip"
+SRC_URI="https://bitbucket.org/hameren/oneloop/get/v${PV}.tar.bz2 -> ${P}.tar.bz2"
 S="${WORKDIR}/hameren-oneloop-3762b8bad6ad"
 
 LICENSE="GPL-3+"
