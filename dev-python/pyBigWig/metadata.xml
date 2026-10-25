@@ -10,6 +10,6 @@
 		<name>Gentoo Biology Project</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">dpryan79/pyBigWig</remote-id>
+		<remote-id type="github">deeptools/pyBigWig</remote-id>
 	</upstream>
 </pkgmetadata>
