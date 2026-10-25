@@ -17,7 +17,14 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-BDEPEND="dev-python/setuptools-scm[${PYTHON_USEDEP}]"
+BDEPEND="
+	dev-python/setuptools-scm[${PYTHON_USEDEP}]
+	test? (
+		dev-python/numpy[${PYTHON_USEDEP}]
+		dev-python/pandas[${PYTHON_USEDEP}]
+		dev-python/pyarrow[${PYTHON_USEDEP}]
+	)
+"
 RDEPEND="
 	dev-python/click[${PYTHON_USEDEP}]
 	dev-python/cloudpickle[${PYTHON_USEDEP}]
@@ -28,28 +35,23 @@ RDEPEND="
 	dev-python/toolz[${PYTHON_USEDEP}]
 	dev-python/importlib-metadata[${PYTHON_USEDEP}]
 "
-DEPEND="${RDEPEND}
-	test? (
-		dev-python/numpy[${PYTHON_USEDEP}]
-		dev-python/pandas[${PYTHON_USEDEP}]
-		dev-python/pyarrow[${PYTHON_USEDEP}]
-		dev-python/pytest-mock[${PYTHON_USEDEP}]
-	)
-"
 
 PATCHES=(
-	"${FILESDIR}/${P}-no-codecov.patch"
+	"${FILESDIR}/${PN}-2026.3.0-no-codecov.patch"
 )
 
 EPYTEST_DESELECT=(
-	# does raise expected warning but is not recognized by test
+	# tests pass, but upstream still marks them as strict xfail (XPASS)
+	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[disk-cov-observed-groupby1-"
+	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[disk-corr-observed-groupby1-"
+	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[tasks-cov-observed-groupby1-"
+	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[tasks-corr-observed-groupby1-"
+	# tests use pytest.raises for warnings; epytest clears warnings-as-errors
 	dask/array/tests/test_reductions.py::test_nanquantile_all_nan
 	dask/array/tests/test_array_core.py::test_zarr_risky_shards_warns
-	# testing deprecated functionality, should be skipped
-	dask/dataframe/tests/test_dataframe.py::test_combine_first_all_nans
-	# Internet
+	# internet access
 	dask/bytes/tests/test_http.py::test_read_csv
-	dask/bytes/tests/test_http.py::test_bag
 	dask/bytes/tests/test_http.py::test_parquet
 )
+EPYTEST_PLUGINS=( pytest-mock pytest-rerunfailures pytest-timeout pytest-xdist )
 distutils_enable_tests pytest
