@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{12..15} )
 inherit distutils-r1 flag-o-matic
 
 DESCRIPTION="NumPy aware dynamic Python compiler using LLVM"
@@ -18,11 +18,13 @@ KEYWORDS="~amd64"
 IUSE="debug"
 
 RDEPEND="
-	>=dev-python/llvmlite-0.45[$PYTHON_USEDEP]
-	dev-python/numpy[$PYTHON_USEDEP]
+	>=dev-python/llvmlite-0.50.0[$PYTHON_USEDEP]
+	<dev-python/llvmlite-0.51[$PYTHON_USEDEP]
+	<dev-python/numpy-2.6[$PYTHON_USEDEP]
 "
 DEPEND="${RDEPEND}"
 
+EPYTEST_PLUGINS=()
 distutils_enable_tests pytest
 
 python_prepare_all() {
