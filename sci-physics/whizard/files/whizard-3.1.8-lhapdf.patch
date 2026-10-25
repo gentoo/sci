@@ -1,0 +1,20 @@
+--- a/m4/lhapdf.m4	2026-07-14 18:52:14.864747463 +0200
++++ b/m4/lhapdf.m4	2026-07-14 18:57:40.366761129 +0200
+@@ -198,7 +198,7 @@
+ save_CXXFLAGS="$CXXFLAGS"
+ save_LIBS="$LIBS"
+ CXXFLAGS="${CXXFLAGS} `${LHAPDF_CONFIG} --cxxflags`"
+-LIBS="${LIBS} `${LHAPDF_CONFIG} --ldflags`"
++LIBS="${LIBS} `${LHAPDF_CONFIG} --libs`"
+ AC_MSG_CHECKING([if LHAPDF is functional])
+ AC_LANG_PUSH([C++])
+ AC_LINK_IFELSE(dnl
+@@ -212,7 +212,7 @@
+ AC_MSG_CHECKING(LHAPDF)
+ if test "${lhapdfok}" = "yes"; then
+    LHAPDF_CXXFLAGS="`${LHAPDF_CONFIG} --cxxflags`"
+-   LDFLAGS_LHAPDF="`${LHAPDF_CONFIG} --ldflags`"
++   LDFLAGS_LHAPDF="`${LHAPDF_CONFIG} --libs`"
+    LHAPDF_LIBS="$LDFLAGS_LHAPDF"
+    AC_SUBST(LHAPDF_LIBS)
+    AC_MSG_RESULT(yes)
