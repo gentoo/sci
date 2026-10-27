@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2022-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -28,9 +28,10 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 BDEPEND="
 	doc? (
-		app-text/doxygen[dot]
+		app-text/doxygen
 		app-text/ghostscript-gpl
 		app-text/texlive
+		media-gfx/graphviz
 	)
 "
 
