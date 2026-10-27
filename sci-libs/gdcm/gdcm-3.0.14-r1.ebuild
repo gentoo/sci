@@ -1,4 +1,4 @@
-# Copyright 2025 Gentoo Authors
+# Copyright 2025-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -42,7 +42,10 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	dev-libs/libxslt
 	app-text/docbook-xsl-ns-stylesheets
-	doc? ( app-text/doxygen[dot] )
+	doc? (
+		app-text/doxygen
+		media-gfx/graphviz
+	)
 	python? (
 		${PYTHON_DEPS}
 		>=dev-lang/swig-3.0.7
