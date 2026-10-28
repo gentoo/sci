@@ -4,18 +4,18 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 inherit pypi distutils-r1
 
-DESCRIPTION="Helper functions for injecting a conda environment into the current python environment"
+DESCRIPTION="Inject conda environments into the current Python environment"
 HOMEPAGE="https://pypi.org/project/conda-inject/"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND="dev-python/pyyaml[${PYTHON_USEDEP}]"
+RDEPEND="dev-python/pyyaml[${PYTHON_USEDEP}]"
 
 RESTRICT="test" # no tests collected
 #distutils_enable_tests pytest
