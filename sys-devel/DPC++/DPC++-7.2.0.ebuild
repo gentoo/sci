@@ -66,7 +66,7 @@ BDEPEND="virtual/pkgconfig"
 
 DEPEND="
 	dev-libs/boost:=
-	>=dev-libs/level-zero-1.29.0:=
+	>=dev-libs/level-zero-1.32.0:=
 	dev-libs/intel-compute-runtime
 	dev-libs/opencl-icd-loader
 	>=dev-util/opencl-headers-2025.06.13
