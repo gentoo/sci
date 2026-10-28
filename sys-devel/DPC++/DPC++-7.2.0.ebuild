@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{11..15} )
 inherit cmake python-any-r1 toolchain-funcs flag-o-matic
 DOCS_BUILDER="doxygen"
 DOCS_DIR="build/docs"
@@ -18,6 +18,7 @@ DOCS_DEPEND="
 	')
 "
 inherit docs
+KEYWORDS="~amd64"
 
 # We cannot unbundle this because it has to be compiled with the clang/llvm
 # that we are building here. Otherwise we run into problems running the compiler.
@@ -27,9 +28,16 @@ VC_INTR_COMMIT="4fc83e12979096db72c129bd432238d5ca397e4d"
 # This one can be unbundled I think
 UMF_PV="1.1.0"
 NIGHTLY_VER="nightly-${PV//./-}"
-PV_YEAR=$(ver_cut 1)
-PV_MONTH=$(ver_cut 2)
-PV_DAY=$(ver_cut 3)
+RELEASE_VER="v${PV}"
+
+if [[ -z "${KEYWORDS}" ]]; then
+	SYCL_COMPILER_VERSION="${PV//./}"
+	MY_VER="${NIGHTLY_VER}"
+else
+	# should be taken from timestamp of tag yyyymmdd
+	SYCL_COMPILER_VERSION="20261014"
+	MY_VER="${RELEASE_VER}"
+fi
 
 # From sycl/cmake/modules/FetchEmhash.cmake
 EMHASH_COMMIT="5e131ba09a5290823fe71099d9c35eb5df5345b6"
@@ -37,26 +45,24 @@ EMHASH_COMMIT="5e131ba09a5290823fe71099d9c35eb5df5345b6"
 DESCRIPTION="oneAPI Data Parallel C++ compiler"
 HOMEPAGE="https://github.com/intel/llvm"
 SRC_URI="
-	https://github.com/intel/llvm/archive/refs/tags/${NIGHTLY_VER}.tar.gz -> ${P}.tar.gz
+	https://github.com/intel/llvm/archive/refs/tags/${MY_VER}.tar.gz -> ${P}.tar.gz
 	https://github.com/intel/vc-intrinsics/archive/${VC_INTR_COMMIT}.tar.gz -> ${P}-vc-intrinsics-${VC_INTR_COMMIT}.tar.gz
 	https://github.com/ktprime/emhash/archive/${EMHASH_COMMIT}.tar.gz -> ${P}-emhash-${EMHASH_COMMIT}.tar.gz
 	https://github.com/oneapi-src/unified-memory-framework/archive/refs/tags/v${UMF_PV}.tar.gz -> ${P}-unified-memory-framework-${UMF_PV}.tar.gz
 "
-S="${WORKDIR}/llvm-${NIGHTLY_VER}"
+S="${WORKDIR}/llvm-${MY_VER#v}"
 CMAKE_USE_DIR="${S}/llvm"
 BUILD_DIR="${S}/build"
 
 LICENSE="Apache-2.0 MIT"
 SLOT="0/9" # Based on libsycl.so
-KEYWORDS="" # this is a nightly build and depends on not yet released latest spriv-headers
 
-IUSE="cuda hip test jit debug"
+IUSE="cuda hip test jit debug +zstd cpu +default-lld"
 REQUIRED_USE="
 "
 RESTRICT="!test? ( test )"
 
 BDEPEND="virtual/pkgconfig"
-
 
 DEPEND="
 	dev-libs/boost:=
@@ -64,13 +70,14 @@ DEPEND="
 	dev-libs/intel-compute-runtime
 	dev-libs/opencl-icd-loader
 	>=dev-util/opencl-headers-2025.06.13
-	>dev-util/spirv-headers-1.4.350.1-r9999
+	>=dev-util/spirv-headers-1.4.357.0
 	dev-util/spirv-tools
 	media-libs/libva
 	dev-build/libtool
 	>=dev-cpp/parallel-hashmap-1.3.12
-	cuda? ( dev-util/nvidia-cuda-toolkit:= )
+	cuda? ( dev-util/nvidia-cuda-toolkit:=[profiler] )
 	hip? ( dev-util/hip:= )
+	zstd? ( app-arch/zstd )
 "
 RDEPEND="${DEPEND}"
 
@@ -78,15 +85,17 @@ PATCHES=(
 	"${FILESDIR}/DPC++-6.3.0-buildbot-configure.patch"
 )
 
-
 src_configure() {
+	cp "${BROOT}/usr/share/gnuconfig/config.guess" llvm/cmake/ || die
 	filter-lto
 	local buildbot_flags=(
 		--print-cmake-flags
 		-s "${S}"
 		-o "${BUILD_DIR}"
 		--no-assertions
+		--llvm-external-projects lld
 	)
+	use cpu && buildbot_flags+=( --native_cpu )
 	use doc && buildbot_flags+=( --docs )
 	use cuda && buildbot_flags+=( --cuda )
 	use hip && buildbot_flags+=( --hip )
@@ -107,20 +116,30 @@ src_configure() {
 		-DFETCHCONTENT_SOURCE_DIR_VC-INTRINSICS="${WORKDIR}/vc-intrinsics-${VC_INTR_COMMIT}"
 		-DFETCHCONTENT_SOURCE_DIR_EMHASH="${WORKDIR}/emhash-${EMHASH_COMMIT}"
 		-DFETCHCONTENT_SOURCE_DIR_UNIFIED-MEMORY-FRAMEWORK="${WORKDIR}/unified-memory-framework-${UMF_PV}"
-		-DSYCL_COMPILER_VERSION="${PV//./}"
-		-DDPCPP_VERSION_MAJOR="${PV_YEAR}"
-		-DDPCPP_VERSION_MINOR="${PV_MONTH}"
-		-DDPCPP_VERSION_PATCH="${PV_DAY}"
 		-DUR_USE_EXTERNAL_UMF=OFF
 		-DCMAKE_INSTALL_PREFIX="${BUILD_DIR}/install"
 		-DCMAKE_INSTALL_MANDIR="${BUILD_DIR}/install/share/man"
 		-DCMAKE_INSTALL_INFODIR="${BUILD_DIR}/install/share/info"
 		-DCMAKE_INSTALL_DOCDIR="${BUILD_DIR}/install/share/doc/${PF}"
 		-DLLVM_USE_SPLIT_DWARF=OFF
+		-DSYCL_COMPILER_VERSION="${SYCL_COMPILER_VERSION}"
 	)
 
-	if use doc; then
-		mycmakeargs+=( -DSPHINX_WARNINGS_AS_ERRORS=OFF )
+	use default-lld && mycmakeargs+=( -DCLANG_DEFAULT_LINKER=lld )
+	use doc && mycmakeargs+=( -DSPHINX_WARNINGS_AS_ERRORS=OFF )
+
+	if use hip; then
+		mycmakeargs+=(
+			-DUR_HIP_ROCM_DIR="$(hipconfig -R)"
+			-DUR_HIP_LIB_DIR="$(hipconfig -R)/$(get_libdir)"
+		)
+	fi
+
+	if use zstd; then
+		mycmakeargs+=(
+			-DLLVM_ENABLE_ZSTD=FORCE_ON
+			-DLLVM_USE_STATIC_ZSTD=OFF
+		)
 	fi
 
 	use debug || append-cppflags -DNDEBUG
@@ -134,10 +153,12 @@ src_compile() {
 	# Build sycl (this also installs some stuff already)
 	cmake_build deploy-sycl-toolchain
 
-	use doc && cmake_build doxygen-sycl
+	use doc && cmake_build docs/all
 
 	# Finish compiling
 	cmake_src_compile
+	# Despite the above, the install step still builds files
+	cmake_build install
 }
 
 src_test() {
@@ -145,8 +166,6 @@ src_test() {
 }
 
 src_install() {
-	# Finish installing in dummy dir before installing in actual image dir
-	cmake_build install
 	einstalldocs
 
 	local LLVM_INTEL_DIR="/usr/lib/llvm/intel"
