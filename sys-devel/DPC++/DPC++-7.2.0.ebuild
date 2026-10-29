@@ -88,6 +88,7 @@ PATCHES=(
 src_configure() {
 	cp "${BROOT}/usr/share/gnuconfig/config.guess" llvm/cmake/ || die
 	filter-lto
+	append-cxxflags -fno-strict-aliasing
 	local buildbot_flags=(
 		--print-cmake-flags
 		-s "${S}"
