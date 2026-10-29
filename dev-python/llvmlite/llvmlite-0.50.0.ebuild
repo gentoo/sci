@@ -5,10 +5,10 @@ EAPI=8
 
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{12..14} )
-LLVM_COMPAT=( 20 )
+PYTHON_COMPAT=( python3_{12..15} )
+LLVM_COMPAT=( 22 )
 
-inherit cmake distutils-r1 llvm-r2
+inherit cmake distutils-r1 llvm-r2 multiprocessing
 
 DESCRIPTION="Python wrapper around the llvm C++ library"
 HOMEPAGE="https://github.com/numba/llvmlite"
@@ -24,20 +24,17 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+EPYTEST_PLUGINS=()
 distutils_enable_tests pytest
 
 python_compile() {
-	LLVMLITE_SHARED=ON LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config" distutils-r1_python_compile
+	LLVMLITE_SHARED=ON \
+		LLVM_DIR="$(get_llvm_prefix)/$(get_libdir)/cmake/llvm" \
+		CMAKE_BUILD_PARALLEL_LEVEL="$(makeopts_jobs)" \
+		distutils-r1_python_compile
 }
 
 python_test() {
 	LD_LIBRARY_PATH="$(get_llvm_prefix)/$(get_libdir)" \
 		"${EPYTHON}" runtests.py -v || die "tests failed for ${EPYTHON}"
-}
-
-python_install() {
-	distutils-r1_python_install
-	# numba compilation fails without this link
-	ln -s "$(get_llvm_prefix)/$(get_libdir)/libLLVM-${LLVM_SLOT}.so" \
-		"${D}/$(python_get_sitedir)/llvmlite/binding/libLLVM-${LLVM_SLOT}.so" || die
 }
