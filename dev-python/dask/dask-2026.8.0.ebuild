@@ -36,22 +36,21 @@ RDEPEND="
 	dev-python/importlib-metadata[${PYTHON_USEDEP}]
 "
 
-PATCHES=(
-	"${FILESDIR}/${PN}-2026.3.0-no-codecov.patch"
-)
-
-EPYTEST_DESELECT=(
-	# tests pass, but upstream still marks them as strict xfail (XPASS)
-	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[disk-cov-observed-groupby1-"
-	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[disk-corr-observed-groupby1-"
-	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[tasks-cov-observed-groupby1-"
-	"dask/dataframe/tests/test_groupby.py::test_groupby_aggregate_categorical_observed[tasks-corr-observed-groupby1-"
-	# tests use pytest.raises for warnings; epytest clears warnings-as-errors
-	dask/array/tests/test_reductions.py::test_nanquantile_all_nan
-	dask/array/tests/test_array_core.py::test_zarr_risky_shards_warns
-	# internet access
-	dask/bytes/tests/test_http.py::test_read_csv
-	dask/bytes/tests/test_http.py::test_parquet
-)
 EPYTEST_PLUGINS=( pytest-mock pytest-rerunfailures pytest-timeout pytest-xdist )
 distutils_enable_tests pytest
+
+python_test() {
+	local EPYTEST_DESELECT=(
+		# tests use pytest.raises for warnings; epytest clears warnings-as-errors
+		dask/array/tests/test_reductions.py::test_nanquantile_all_nan
+		dask/array/tests/test_array_core.py::test_zarr_risky_shards_warns
+		# internet access
+		dask/bytes/tests/test_http.py::test_read_csv
+		dask/bytes/tests/test_http.py::test_parquet
+		# missing files on some systems
+		dask/tests/test_sizeof.py::test_register_backend_entrypoint
+		dask/tests/test_traceback.py::test_compute_shorten_traceback[processes]
+		dask/tests/test_traceback.py::test_persist_shorten_traceback[processes]
+	)
+	epytest -o addopts= -o xfail_strict=false -W default
+}
