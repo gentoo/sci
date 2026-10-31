@@ -11,5 +11,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="github">daler/pybedtools</remote-id>
+		<remote-id type="pypi">pybedtools</remote-id>
 	</upstream>
 </pkgmetadata>

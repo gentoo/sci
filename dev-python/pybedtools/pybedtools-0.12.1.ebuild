@@ -1,34 +1,42 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..14} )
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_EXT=1
-inherit distutils-r1 flag-o-matic
+inherit distutils-r1 flag-o-matic pypi
 
 DESCRIPTION="Use BED and GFF files from python using BEDtools"
 HOMEPAGE="https://daler.github.io/pybedtools"
-SRC_URI="https://github.com/daler/pybedtools/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
+DEPEND="virtual/zlib:="
 RDEPEND="
+	${DEPEND}
 	sci-biology/bedtools
 	sci-biology/pysam[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pandas[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
+"
+BDEPEND="
+	dev-python/cython[${PYTHON_USEDEP}]
+	test? (
+		dev-python/psutil[${PYTHON_USEDEP}]
+		dev-python/pyyaml[${PYTHON_USEDEP}]
+	)
 "
 
 # TODO: fix docs building
 # ModuleNotFoundError: No module named 'pybedtools.cbedtools'
 # even if pybedtools is installed
 #distutils_enable_sphinx docs/source
+EPYTEST_PLUGINS=()
 distutils_enable_tests pytest
 
 python_compile() {
