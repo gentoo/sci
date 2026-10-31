@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..14} )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 pypi
@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	dev-python/appdirs[${PYTHON_USEDEP}]
+	dev-python/platformdirs[${PYTHON_USEDEP}]
 	dev-python/immutables[${PYTHON_USEDEP}]
 	dev-python/configargparse[${PYTHON_USEDEP}]
 	>=dev-python/connection_pool-0.0.3[${PYTHON_USEDEP}]
@@ -36,23 +36,24 @@ RDEPEND="
 	>=dev-python/snakemake-interface-executor-plugins-9.3.2[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-storage-plugins-4.4.1[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-report-plugins-1.2.0[${PYTHON_USEDEP}]
+	<dev-python/snakemake-interface-report-plugins-2[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-logger-plugins-1.1.0[${PYTHON_USEDEP}]
 	>=dev-python/snakemake-interface-scheduler-plugins-2.0.0[${PYTHON_USEDEP}]
-	dev-python/stopit[${PYTHON_USEDEP}]
-	dev-python/sqlmodel[${PYTHON_USEDEP}]
+	>=dev-python/sqlmodel-0.0.37[${PYTHON_USEDEP}]
 	dev-python/tabulate[${PYTHON_USEDEP}]
-	dev-python/tenacity[${PYTHON_USEDEP}]
+	>=dev-python/tenacity-9.1.4[${PYTHON_USEDEP}]
 	dev-python/throttler[${PYTHON_USEDEP}]
 	dev-python/wrapt[${PYTHON_USEDEP}]
 	>=dev-python/yte-1.5.5[${PYTHON_USEDEP}]
 	>=dev-python/dpath-2.1.6[${PYTHON_USEDEP}]
 	>=dev-python/conda-inject-1.3.1[${PYTHON_USEDEP}]
 	>=sci-mathematics/pulp-2.3.1[${PYTHON_USEDEP}]
+	<sci-mathematics/pulp-3.4[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	${RDEPEND}
 	test? (
-		dev-python/pytest-mock[${PYTHON_USEDEP}]
+		dev-python/pandas[${PYTHON_USEDEP}]
 	)
 "
 
@@ -64,25 +65,27 @@ BDEPEND="
 #	dev-python/recommonmark \
 #	dev-python/myst-parser
 
+EPYTEST_PLUGINS=( pytest-mock )
 distutils_enable_tests pytest
 
 python_test() {
 	local EPYTEST_DESELECT=(
+		# retargeting a directory symlink does not trigger the expected rerun
+		tests/tests.py::test_github_issue3687
+		# Downloads a sample CSV from S3.
+		tests/tests.py::test_report_after_run
 		# No module named 'snakemake_storage_plugin_s3'
 		tests/tests.py::test_default_storage
-		tests/tests.py::test_default_storage_local_job
 		tests/tests.py::test_storage
 		tests/tests.py::test_output_file_cache_storage
 		tests/test_api.py::test_deploy_sources
+		tests/test_api.py::test_precommand_auto_deploy_with_default_provider
 		# No module 'snakemake-executor-plugin-cluster-generic'
-		tests/tests.py::test_singularity_cluster
 		tests/tests.py::test_group_jobs
-		tests/tests.py::test_group_jobs_attempts
 		tests/tests.py::test_groups_out_of_jobs
 		tests/tests.py::test_global_resource_limits_limit_scheduling_of_groups
 		tests/tests.py::test_new_resources_can_be_defined_as_local
 		tests/tests.py::test_resources_can_be_overwritten_as_global
-		tests/tests.py::test_group_job_resources_with_pipe_with_too_much_constraint
 		tests/tests.py::test_multicomp_group_jobs
 		tests/tests.py::test_group_job_fail
 		tests/tests.py::test_issue850
@@ -93,11 +96,7 @@ python_test() {
 		tests/tests.py::test_github_issue1158
 		tests/tests.py::test_checkpoint_allowed_rules
 		tests/tests.py::test_groupid_expand_cluster
-		tests/tests.py::test_storage_localrule
-		tests/tests.py::test_storage_cleanup_local
 		tests/tests.py::test_scopes_submitted_to_cluster
-		tests/tests.py::test_resources_submitted_to_cluster
-		tests/tests.py::test_excluded_resources_not_submitted_to_cluster
 		tests/tests.py::test_group_job_resources_with_pipe
 		tests/tests.py::test_nodelocal
 		tests/tests.py::test_access_patterns
@@ -122,32 +121,29 @@ python_test() {
 		# Missing snakemake-storage-plugin-fs
 		tests/tests.py::test_handle_storage_multi_consumers
 		tests/tests.py::test_checkpoint_open
+		tests/tests.py::test_checkpoint_running_job_storage_race
+		tests/tests.py::test_pathvars_storage
+		tests/tests.py::test_delete_temp_fs
 		# Missing python-polars
 		tests/tests.py::test_params_pickling
 		tests/tests.py::test_validate
-		# requires singularity and does not skip
+		# container images require network access when Apptainer is installed
 		tests/tests.py::test_singularity
 		tests/tests.py::test_cwl_singularity
 		tests/tests.py::test_shell_exec
 		# requires 'stress-ng' in $PATH
 		tests/tests.py::test_benchmark
-		tests/tests.py::test_benchmark_jsonl
-		# requires 'dot' bash module
+		# requires graphviz or 'dot' bash module
+		tests/tests.py::test_filegraph
 		tests/tests.py::test_env_modules
 		# requires python-peppy
 		tests/tests.py::test_modules_peppy
 		tests/tests.py::test_peppy
 		tests/tests.py::test_pep_pathlib
-		# specifies CLI call --snakefile in spaced dir without quoting
-		tests/tests.py::test_with_parentheses
 		# missing .bashrc
-		tests/tests.py::test_strict_mode
-		# creates directory with chmod 000, breaks portage cleanup
-		tests/tests.py::test_github_issue640
-		# missing jupyter
+		tests/tests.py::test_tmpdir
+		# requires conda
 		tests/tests.py::test_jupyter_notebook
-		tests/tests.py::test_jupyter_notebook_nbconvert
-		tests/tests.py::test_jupyter_notebook_draft
 	)
 
 	epytest -W ignore::ResourceWarning \
