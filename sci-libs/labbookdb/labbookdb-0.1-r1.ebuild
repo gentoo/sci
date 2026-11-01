@@ -14,16 +14,14 @@ SRC_URI="https://github.com/TheChymera/LabbookDB/archive/${PV}.tar.gz -> ${P}.ta
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
-DEPEND=""
 RDEPEND="
 	dev-python/argh[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pandas[${PYTHON_USEDEP}]
 	dev-python/simplejson[${PYTHON_USEDEP}]
 	dev-python/sqlalchemy[${PYTHON_USEDEP}]
-	"
+"
 
 S="${WORKDIR}/LabbookDB-${PV}"
