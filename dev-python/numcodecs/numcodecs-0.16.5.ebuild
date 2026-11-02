@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{13..14} )
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
 
@@ -25,7 +25,6 @@ RDEPEND="
 "
 DEPEND="
 	test? (
-		dev-python/entrypoints[${PYTHON_USEDEP}]
 		dev-python/pyzstd[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	)
