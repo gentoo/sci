@@ -15,7 +15,7 @@ SRC_URI="https://github.com/BrkRaw/brkraw/archive/refs/tags/${PV}.tar.gz -> ${P}
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="test"
 # Strange test infrastructure involving dynamic download via make:
 # https://github.com/BrkRaw/brkraw/blob/main/.github/workflows/test.yml
