@@ -13,7 +13,7 @@ SRC_URI="https://github.com/mapbox/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
