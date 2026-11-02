@@ -12,7 +12,7 @@ HOMEPAGE="https://gffutils.readthedocs.io/en/latest/"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-python/simplejson[${PYTHON_USEDEP}]
