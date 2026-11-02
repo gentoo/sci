@@ -15,7 +15,7 @@ SRC_URI="https://downloads.sourceforge.net/gdcm/${P}.tar.bz2
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="doc python test vtk"
 # Tests fail https://bugs.gentoo.org/948517
 RESTRICT="test"
