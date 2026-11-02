@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/bids-standard/bids-specification"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="render"
 
 RDEPEND="
@@ -24,7 +24,6 @@ RDEPEND="
 		dev-python/tabulate[${PYTHON_USEDEP}]
 	)
 "
-DEPEND=""
 
 distutils_enable_tests pytest
 
