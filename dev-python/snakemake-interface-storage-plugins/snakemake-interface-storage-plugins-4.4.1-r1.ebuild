@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=poetry
-PYTHON_COMPAT=( python3_{12..13} )
+PYTHON_COMPAT=( python3_{12..15} )
 
 inherit distutils-r1
 
@@ -16,14 +16,16 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND="
+RDEPEND="
 	dev-python/snakemake-interface-common[${PYTHON_USEDEP}]
 	dev-python/wrapt[${PYTHON_USEDEP}]
-	dev-python/reretry[${PYTHON_USEDEP}]
+	dev-python/humanfriendly[${PYTHON_USEDEP}]
+	>=dev-python/tenacity-9.1.4[${PYTHON_USEDEP}]
 	dev-python/throttler[${PYTHON_USEDEP}]
 "
 
 RESTRICT="test" # requires separate ebuild for storage-http plugin
+EPYTEST_PLUGINS=()
 distutils_enable_tests pytest
 
 python_test() {
