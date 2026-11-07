@@ -16,12 +16,13 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND="
+RDEPEND="
 	dev-python/argparse-dataclass[${PYTHON_USEDEP}]
 	dev-python/snakemake-interface-common[${PYTHON_USEDEP}]
 	dev-python/throttler[${PYTHON_USEDEP}]
 "
 
+EPYTEST_PLUGINS=()
 distutils_enable_tests pytest
 
 python_test() {
